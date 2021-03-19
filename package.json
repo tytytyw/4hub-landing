@@ -9,8 +9,6 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
-    "gulp": "^4.0.2",
-    "gulp-rsync": "0.0.9",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
@@ -29,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && gulp deploy"
+    "deploy": "gulp deploy"
   },
   "eslintConfig": {
     "extends": [

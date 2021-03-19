@@ -1,0 +1,127 @@
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 521px
+    height: 378px
+    opacity: 0
+.wrapper
+  display: flex
+  flex-direction: column
+  width: 521px
+  height: 378px
+  box-sizing: border-box
+  color: #a7a4a4
+  font-size: 0.8vw
+  animation: showPopup 0.2s
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 1vw 1.4vw
+    div
+      display: flex
+      min-width: max-content
+      align-items: center
+      height: 100%
+      min-height: 100%
+      img
+        margin: 0 1.2vw 0 0
+      span
+        min-width: max-content
+    .cross
+      position: relative
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+  .main
+    display: flex
+    flex-direction: column
+    border-top: 1px solid grey
+    border-bottom: 1px solid grey
+    padding: 1.5vw 1.6vw
+    .titleName
+      display: flex
+      justify-content: flex-start
+      align-items: flex-start
+      margin: 0 0 1.2vw 0
+      img
+        margin: 0 0.9vw 0 0
+      span
+        margin: 0 1vw 0 0
+        cursor: default
+    .inputDiv
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin: 0 0 2.1vw 0
+      div
+      span:first-child
+        margin: 0 1vw 0 0
+        cursor: default
+      input
+        height: 2vw
+        width: 5vw
+        padding: 0.2vw 1vw 0.2vw 1.5vw
+        font-size: 0.8vw
+        border: 1px solid #a7a4a4
+        border-radius: 3px
+        color: black
+      input::placeholder
+        color: #a7a4a4
+      span:last-child
+        font-size: 0.7vw
+        letter-spacing: 0.3px
+        color: blue
+        cursor: pointer
+    .inputHM
+      display: flex
+      align-items: center
+      padding: 0 0 0 2vw
+      margin: 0 0 2.2vw 0
+      input
+        height: 2vw
+        width: 3vw
+        padding: 0.2vw
+        font-size: 0.8vw
+        border: 1px solid #a7a4a4
+        border-radius: 3px
+        color: black
+        text-align: center
+      input::placeholder
+        text-align: center
+        color: #a7a4a4
+      span
+        margin: 0 0.1vw
+    .notion
+      font-size: 0.8vw
+      letter-spacing: 0.1px
+  .footer
+    display: flex
+    justify-content: center
+    align-items: center
+    padding: 1.1vw 0
+    .approve
+      background: #4086F1
+      color: white
+      font-size: 0.9vw
+      letter-spacing: 0.4px
+      padding: 0.6vw 3.7vw
+      border-radius: 5px
+      box-sizing: border-box
+      cursor: pointer
+    .approve:active
+      background: #2957a0
+      transition: background 0.2s ease
