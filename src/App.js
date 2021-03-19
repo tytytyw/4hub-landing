@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.sass';
 
+import StartPage from './Pages/StartPage'
+
 function App() {
   return (
-    <div className="App">
-      4HUB
-    </div>
+    <>
+      <StartPage />
+    </>
   );
 }
 
