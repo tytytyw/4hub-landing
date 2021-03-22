@@ -1,0 +1,131 @@
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 521px
+    height: 418px
+    opacity: 0
+.wrap
+  display: flex
+  flex-direction: column
+  width: 521px
+  height: 442px
+  box-sizing: border-box
+  color: #a7a4a4
+  font-size: 0.8vw
+  animation: showPopup 0.2s
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 1vw 1.4vw
+    div
+      display: flex
+      min-width: max-content
+      align-items: center
+      height: 100%
+      min-height: 100%
+      img
+        margin: 0 1.3vw 0 0
+      span
+        min-width: max-content
+    .cross
+      position: relative
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+  .main
+    display: flex
+    align-items: center
+    flex-direction: column
+    border-top: 1px solid grey
+    border-bottom: 1px solid grey
+    padding: 1vw 1.6vw
+  .footer
+    display: flex
+    justify-content: center
+    align-items: center
+    padding: 0.7vw 0
+    .approve
+      background: #4086F1
+      color: white
+      font-size: 0.9vw
+      letter-spacing: 0.4px
+      padding: 0.6vw 3.7vw
+      border-radius: 5px
+      box-sizing: border-box
+      cursor: pointer
+    .approve:active
+      background: #2957a0
+      transition: background 0.2s ease
+  .switcher
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin: 0 0 1vw 0
+    color: black
+    font-weight: bold
+    width: 85%
+    .switchReverse
+      transform: rotate(180deg)
+    img
+      cursor: pointer
+  .calendarBox
+    display: flex
+    flex-direction: column
+    align-items: center
+    .daysOfWeekWrap
+      display: flex
+      margin: 0 0 1.2vw 0
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 50px
+        height: 30px
+        border: 1px solid #E3E3E3
+        border-radius: 5px
+        margin: 0 0.5vw 0 0
+        cursor: default
+        font-weight: bold
+    .days
+      display: flex
+      flex-wrap: wrap
+      margin: 0 0 0.5vw 0
+      width: 87.5%
+      div
+        display: flex
+        color: #606060
+        justify-content: center
+        align-items: center
+        border-radius: 5px
+        margin: 0 0.5vw 0.2vw 0
+        width: 50px
+        height: 30px
+        border: 1px solid rgba(0, 0, 0, 0)
+        cursor: pointer
+      div:nth-child(7n)
+        margin: 0 0 0 0
+      div:hover
+        background: #eee
+      .current
+        color: black
+      .today
+        background: #f3f2f2
+        border: 1px solid #E3E3E3
+        border-radius: 5px
+      .chosen
+        background: white
+        border: 1px solid blue

@@ -3,17 +3,21 @@ import React, {useState} from 'react';
 import styles from './UploadFile.module.sass'
 import PopUp from '../../../generalComponents/PopUp';
 import SavePeriodPicker from './SavePeriodPicker';
+import Calendar from "./Calendar";
+import { getDate } from "../../../generalComponents/CalendarHelper";
 
-const UploadFile = () => {
+const UploadFile = ({ setPage }) => {
 
     const [password, setPassword] = useState({text: '', active: false});
-    const [showPeriod, setShowPeriod] = useState(true);
+    const [showPeriod, setShowPeriod] = useState(false);
     const [showCalendar, setShowCalendar] = useState(false);
+    const [dateValue, setDateValue] = useState(Object.values(getDate(0)).join('.'));
+    const [timeValue, setTimeValue] = useState({hours: '', minutes: ''});
 
     return (
         <>
             <form className={styles.sendFile}>
-                <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />
+                <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
                 <div className={styles.uploadWrap}>
                     <input
                         type='file'
@@ -45,12 +49,23 @@ const UploadFile = () => {
                     <input type='email' className={styles.emailField} placeholder='Email получателя' />
                     <input type='email' className={styles.emailField} placeholder='Email отправителя' />
                 </div>
-                <div className={styles.submitButton}>Отправить</div>
+                <div
+                    className={styles.submitButton}
+                >Отправить</div>
             </form>
             {showPeriod && <PopUp set={setShowPeriod}>
-                <SavePeriodPicker set={setShowPeriod} setShowCalendar={setShowCalendar} />
+                <SavePeriodPicker
+                    set={setShowPeriod}
+                    setShowCalendar={setShowCalendar}
+                    dateValue={dateValue}
+                    setDateValue={setDateValue}
+                    setTimeValue={setTimeValue}
+                    timeValue={timeValue}
+                />
             </PopUp>}
-            {showCalendar && <div></div>}
+            {showCalendar && <PopUp set={setShowCalendar} zIndex={102}>
+                <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue}  />
+            </PopUp>}
         </>
     )
 };
