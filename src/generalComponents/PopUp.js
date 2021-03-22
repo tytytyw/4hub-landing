@@ -20,12 +20,12 @@ const PopUp = (props) => {
                     position: 'absolute',
                     top: 0,
                     left: 0,
-                    zIndex: 100
+                    zIndex: `${props.zIndex ? props.zIndex : 100}`
                 }}
                 onClick={() => props.set(false)}
             ></div>
             <div style={{
-                zIndex: `${props.zIndex ? props.zIndex : 101}`,
+                zIndex: `${(props.zIndex ? props.zIndex : 100) + 1}`,
                 width: 'max-content',
                 height: 'max-content',
                 background: 'white',

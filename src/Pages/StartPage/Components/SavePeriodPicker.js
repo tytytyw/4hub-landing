@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 import styles from './SavePeriodPicker.module.sass';
 
-const SavePeriodPicker = ({set, setShowCalendar}) => {
+const SavePeriodPicker = ({set, setShowCalendar, dateValue, setDateValue, timeValue, setTimeValue}) => {
 
-    const [dateValue, setDateValue] = useState('');
     const onDateChange = (e) => {
         let val = e.target.value.trim();
         let length = e.target.value.length;
@@ -25,8 +24,8 @@ const SavePeriodPicker = ({set, setShowCalendar}) => {
         }
     };
 
-    const [hours, setHours] = useState('');
-    const [minutes, setMinutes] = useState('');
+    const [hours, setHours] = useState(timeValue.hours);
+    const [minutes, setMinutes] = useState(timeValue.minutes);
     const onTime = (val, set) => {
         if(/[0-9]/.test(val) || val.length === 0) {
             if(val.length < 3) set(val);
@@ -68,7 +67,10 @@ const SavePeriodPicker = ({set, setShowCalendar}) => {
                 </div>
             </div>
             <div className={styles.footer}>
-                <div className={styles.approve}>Готово</div>
+                <div
+                    className={styles.approve}
+                    onClick={() => {setTimeValue({hours, minutes}); set(false)}}
+                >Готово</div>
             </div>
         </div>
     )

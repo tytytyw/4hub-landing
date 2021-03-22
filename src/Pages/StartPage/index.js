@@ -8,7 +8,7 @@ import UploadFile from './Components/UploadFile';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('sendFile');
+    const [pageOption, setPage] = useState('init');
 
     return (
         <div className={styles.wrapper}>
@@ -23,7 +23,12 @@ const StartPage = () => {
             </header>
             <main className={styles.main}>
                 {pageOption === 'init' && <Intro setPage={setPage} />}
-                {pageOption === 'sendFile' && <UploadFile />}
+                {pageOption === 'sendFile' && <UploadFile setPage={setPage} />}
+                {pageOption === 'develop' && <div className={styles.main}>
+                    <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />
+                    <div style={{fontSize: '5vw', margin: '3vw 0'}}>Cтраница в разработке</div>
+                    <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
+                </div>}
             </main>
         </div>
     )
