@@ -3,11 +3,61 @@
   flex-direction: column
   align-items: center
   justify-content: flex-start
-  margin: 4.3vw 0 0 0
+  margin: 2.3vw 0 0 0
   .hubIcon
     width: 11.5vw
-    margin-bottom: 4.2vw
+    margin-bottom: 3.2vw
     cursor: pointer
+.uploadWrapFile
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  background: white
+  width: 18vw
+  height: 18vw
+  border-radius: 21px
+  position: relative
+  cursor: default
+  margin: 0 0 3.2vw 0
+  .cross
+    position: absolute
+    top: 20px
+    right: 15px
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .fileWrap
+    display: flex
+    justify-content: flex-end
+    width: 38%
+    height: 44%
+    margin: 2.5vw 0 2vw 0
+    position: relative
+  .fileName
+    color: black
+    width: 80%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    text-align: center
+    margin: 0 0 1.5vw 0
+  .fileSize
+    font-size: 0.8vw
+    color: #a7a4a4
+    width: 80%
+    text-align: center
 .uploadWrap
   display: flex
   flex-direction: column
@@ -59,7 +109,8 @@
     cursor: default
     input
       height: 94%
-      width: 75%
+      width: 65%
+      max-width: 65%
       border: none
       outline: none
       color: black
@@ -69,12 +120,20 @@
       color: #a7a4a4
       font-size: 0.9vw
       letter-spacing: 0.1px
+    .eyeIcon
+      width: 10%
+      cursor: pointer
+    .eyeIcon path
+      transition: fill 0.2s ease
+    .eyeIconShow path
+      transition: fill 0.2s ease
+      fill: black
   .choose
     cursor: pointer
   .switcher
     width: 29px
     height: 15px
-    background: #EEEEEE
+    background: white
     border: 1px solid #D1D1D1
     border-radius: 10px
     display: flex
@@ -103,7 +162,7 @@
   .switchActive
     width: 13px
     height: 13px
-    background: #7f7f7f
+    background: #39B31E
     border-radius: 50%
     transform: translateX(115%)
     transition: transform 0.1s ease-in-out

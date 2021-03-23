@@ -1,0 +1,150 @@
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 386px
+    height: 429px
+    opacity: 0
+@keyframes leftPlane
+  0%
+    opacity: 0
+    top: 100%
+    left: 50%
+  100%
+    opacity: 1
+    top: 39px
+    left: 45px
+
+@keyframes rightPlane
+  0%
+    opacity: 0
+    top: 100%
+    right: 50%
+  100%
+    opacity: 1
+    top: 3px
+    right: 47px
+
+@keyframes file
+  0%
+    opacity: 0
+    top: -20%
+  100%
+    opacity: 1
+    top: 0
+.successWrap
+  display: flex
+  flex-direction: column
+  align-items: center
+  align-content: center
+  width: 386px
+  height: 429px
+  position: relative
+  padding: 20px 46px
+  animation: showPopup 0.2s
+  div
+    font-weight: 500
+    font-size: 18px
+    line-height: 21px
+    letter-spacing: -0.0593186px
+    color: #2B353E
+    margin: 0 0 1.5vw 0
+  .cross
+    position: absolute
+    top: 20px
+    right: 15px
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .imageWrap
+    display: flex
+    justify-content: center
+    position: relative
+    .fileWrap
+      display: flex
+      justify-content: flex-end
+      position: absolute
+      top: 0
+      width: 25%
+      height: 54%
+      animation: file 1s ease-in-out
+    .planeLeft
+      position: absolute
+      top: 39px
+      left: 45px
+      animation: leftPlane 1s ease-in-out
+    .planeRight
+      position: absolute
+      top: 3px
+      right: 47px
+      animation: rightPlane 1s ease-in-out
+  .infoText
+    font-weight: 500
+    font-size: 12px
+    line-height: 21px
+    text-align: center
+    color: #4F555B
+    margin-bottom: 25px
+    max-width: 307px
+  .linkWrap
+    display: flex
+    height: 40px
+    .inputWrap
+      border: 1px solid #C7C7C7
+      border-right: none
+      height: 100%
+      input
+        border: none
+        outline: none
+        height: 92%
+        min-height: 92%
+        width: 300px
+        color: #979797
+        font-size: 14px
+        line-height: 16px
+    .imgWrap
+      display: flex
+      justify-content: center
+      align-items: center
+      min-height: 100%
+      padding: 0 10px
+      margin: 0
+      cursor: pointer
+      border: 1px solid #C7C7C7
+      img
+        width: 25px
+    .imgWrap:hover
+      border: 1px solid #97a9fa
+      background: #ebebff
+      transition: background 0.2s ease, border 0.2s ease
+    .imgWrap:active
+      background: white
+  .copyButton
+    background: #39B31E
+    font-size: 0.9vw
+    letter-spacing: 0.4px
+    padding: 0.8vw 3vw
+    border-radius: 5px
+    box-sizing: border-box
+    cursor: pointer
+    color: white
+  .copyButton:hover
+    background: #34a21b
+    transition: background 0.2s ease
+  .copyButton:active
+    background: #335cb6
+    transition: background 0.2s ease
