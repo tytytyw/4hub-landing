@@ -1,0 +1,93 @@
+.main
+  display: flex
+  flex-direction: column
+  align-items: center
+  .hubIcon
+    width: 11.5vw
+    margin: 1.5vw 0 2.8vw 0 //4.5vw 0 3.8vw 0
+    cursor: pointer
+  .downloadWrapFile
+    display: flex
+    justify-content: flex-start
+    flex-direction: column
+    align-items: center
+    background: white
+    width: 18vw
+    height: 18vw
+    border-radius: 21px
+    position: relative
+    cursor: default
+    margin: 0 0 2.2vw 0
+    .cross
+      position: absolute
+      top: 20px
+      right: 15px
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+    .fileWrap
+      display: flex
+      justify-content: flex-end
+      width: 38%
+      height: 44%
+      margin: 2.5vw 0 2vw 0
+      position: relative
+    .fileName
+      color: black
+      width: 80%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      text-align: center
+      margin: 0 0 1.5vw 0
+    .fileSize
+      font-size: 0.8vw
+      color: #a7a4a4
+      width: 80%
+      text-align: center
+  .download
+    cursor: pointer
+    margin: 0 0 1vw 0
+    transition: fill 0.2s ease
+  .download:hover path
+    fill: #aff8b0
+    transition: fill 0.2s ease
+  .download:active path
+    fill: #afccf8
+    transition: fill 0.2s ease
+  h2
+    font-size: 1.4vw
+    letter-spacing: 0.5px
+    margin-bottom: 2vw
+  .passwordWrap
+    position: relative
+    margin: 0 0 2vw 0
+    .password
+      width: 23.5vw
+      height: 2.5vw
+      text-align: center
+      outline: none
+      color: #335cb6
+      font-family: 'SF Pro Medium', sans-serif
+    .password::placeholder
+      text-align: center
+      color: #335cb6
+      font-family: 'SF Pro Medium', sans-serif
+    .eye
+      position: absolute
+      right: 10px
+      top: 1vw
+      cursor: pointer
+  .term
+    font-size: 1vw

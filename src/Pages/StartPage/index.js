@@ -6,20 +6,17 @@ import { ReactComponent as ArrowIcon } from '../../assets/StartPage/arrow-point.
 import Intro from './Components/Intro';
 import UploadFile from './Components/UploadFile';
 import Infopage from './Components/InfoPage';
-import api from '../../api';
+import DownloadFile from './Components/DownloadFile';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('info');
+    const [pageOption, setPage] = useState('downloadFile');
 
-    // useEffect(() => {
-    //     const url = window.location.search;
-    //     if(/action=download&fid/.test(url)) {
-    //         api.get(url)
-    //             .then(res => document.querySelector('.js-focus-visible').innerHTML = res.data)
-    //             .catch(err => console.log(err));
-    //     }
-    // }, []);
+    useEffect(() => {
+        if(/action=download&fid/.test(window.location.search)) {
+            setPage('downloadFile');
+        }
+        }, []);
 
     return (
         <div className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap}`}>
@@ -41,6 +38,7 @@ const StartPage = () => {
                     <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
                 </div>}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
+                {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
             </main>
         </div>
     )

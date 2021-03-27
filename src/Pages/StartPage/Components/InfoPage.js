@@ -25,6 +25,10 @@ const InfoPage = ({setPage}) => {
         })
     }
 
+    const sendQuestion = () => {
+
+    }
+
   return (
       <div className={styles.infoWrap}>
           <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
@@ -56,7 +60,7 @@ const InfoPage = ({setPage}) => {
               />
               <div
                   className={styles.submitButton}
-                  // onClick={sendFile}
+                  onClick={sendQuestion}
               >Отправить</div>
           </form>
       </div>

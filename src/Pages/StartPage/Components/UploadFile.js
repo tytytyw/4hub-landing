@@ -53,7 +53,7 @@ const UploadFile = ({ setPage }) => {
         form.append('pass', password.active ? password.text : '');
         form.append('sender', email.sender);
         form.append('recipient', email.receiver);
-        form.append('deadline', `${dateValue} ${timeValue.hours}:${timeValue.minutes}`);
+        form.append('deadline', `${dateValue} ${timeValue.hours ? timeValue.hours : '00'}:${timeValue.minutes ? timeValue.minutes : '00'}`);
 
         api.post('/ajax/start_add.php', form)
                 .then(res => {

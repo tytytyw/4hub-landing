@@ -4,7 +4,6 @@ import styles from './SendSuccess.module.sass';
 import File from '../../../generalComponents/File';
 
 const SendSuccess = ({data, set}) => {
-    console.log(data);
     const format = data.files.file.name.split('.');
  return(
      <div className={styles.successWrap}>
@@ -31,7 +30,7 @@ const SendSuccess = ({data, set}) => {
              Ваш файл успешно отправлен на указанный email так же вы можете скопировать ссылку
          </span>
          <div className={styles.linkWrap}>
-             <div className={styles.inputWrap}><input type='text' value={`http://fs2.mh.net.ua${data.link}`} /></div>
+             <div className={styles.inputWrap}><input type='text' value={`http://fs2.mh.net.ua${data.link}`} readOnly /></div>
              <div
                  className={styles.imgWrap}
                  onClick={() => navigator.clipboard.writeText(`http://fs2.mh.net.ua${data.link}`)}
