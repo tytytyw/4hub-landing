@@ -9,6 +9,7 @@ import { getDate } from '../../../generalComponents/CalendarHelper';
 import File from '../../../generalComponents/File';
 import api from '../../../api';
 import { ReactComponent as EyeIcon } from '../../../assets/StartPage/eye.svg';
+import { ReactComponent as InvisibleIcon } from '../../../assets/StartPage/invisible.svg';
 
 const UploadFile = ({ setPage }) => {
 
@@ -102,7 +103,8 @@ const UploadFile = ({ setPage }) => {
                             placeholder='Установить пароль'
                             onChange={(e) => setPassword({...password, text: e.target.value})}
                             value={password.text} />
-                            <EyeIcon className={`${styles.eyeIcon} ${visibility === 'text' && styles.eyeIconShow}`} onClick={() => visibility === 'text' ? setVisibility('password') : setVisibility('text')} />
+                            {visibility === 'text' && <EyeIcon className={styles.eyeIcon} onClick={() => setVisibility('password')} />}
+                            {visibility === 'password' && <InvisibleIcon className={styles.invisible} onClick={() => setVisibility('text')} />}
                             </>}
                         <div
                             className={password.active ? styles.switcherActive : styles.switcher}

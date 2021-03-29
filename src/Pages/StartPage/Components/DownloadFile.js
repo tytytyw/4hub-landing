@@ -84,9 +84,9 @@ const DownloadFile = ({ setPage }) => {
                     placeholder='Введите пароль указанный на почте'
                 />
                 {visibility === 'password' && <img
-                     src='./assets/StartPage/eye.svg'
+                     src='./assets/StartPage/invisible.svg'
                      alt='eye'
-                     className={styles.eye}
+                     className={styles.invisible}
                      onClick={() => setVisibility('text')}
                 />}
                 {visibility === 'text' && <img

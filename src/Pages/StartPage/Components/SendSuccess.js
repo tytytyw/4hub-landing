@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styles from './SendSuccess.module.sass';
 import File from '../../../generalComponents/File';
 
 const SendSuccess = ({data, set}) => {
     const format = data.files.file.name.split('.');
+    const ref = useRef(null);
+
+    const copyText = () => {
+        if(navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(`http://fs2.mh.net.ua${data.link}`)
+        } else {
+            ref.current.focus();
+            ref.current.select();
+            document.execCommand('copy');
+        }
+    };
+
  return(
      <div className={styles.successWrap}>
         <div>Файл успешно отправлен</div>
@@ -30,7 +42,7 @@ const SendSuccess = ({data, set}) => {
              Ваш файл успешно отправлен на указанный email так же вы можете скопировать ссылку
          </span>
          <div className={styles.linkWrap}>
-             <div className={styles.inputWrap}><input type='text' value={`http://fs2.mh.net.ua${data.link}`} readOnly /></div>
+             <div className={styles.inputWrap}><input ref={ref} type='text' value={`http://fs2.mh.net.ua${data.link}`} readOnly /></div>
              <div
                  className={styles.imgWrap}
                  onClick={() => navigator.clipboard.writeText(`http://fs2.mh.net.ua${data.link}`)}
@@ -38,7 +50,7 @@ const SendSuccess = ({data, set}) => {
          </div>
          <div
              className={styles.copyButton}
-             onClick={() => navigator.clipboard.writeText(`http://fs2.mh.net.ua${data.link}`)}
+             onClick={() => copyText()}
          >Копировать ссылку</div>
      </div>
  )

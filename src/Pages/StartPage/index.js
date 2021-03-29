@@ -10,7 +10,7 @@ import DownloadFile from './Components/DownloadFile';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('downloadFile');
+    const [pageOption, setPage] = useState('init');
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
