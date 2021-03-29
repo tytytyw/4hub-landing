@@ -43,7 +43,9 @@ const EnterProfile = ({setPage}) => {
                     <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
                     <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
                 </div>
-                <div className={styles.registration}>У Вас нет аккаунта ? <span>Регистрация</span></div>
+                <div className={styles.registration}>У Вас нет аккаунта ?
+                    <span onClick={() => setPage('register')}> Регистрация</span>
+                </div>
             </div>
         </div>
     )

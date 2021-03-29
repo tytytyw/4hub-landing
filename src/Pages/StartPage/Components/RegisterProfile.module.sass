@@ -1,3 +1,14 @@
+@keyframes ticked
+  0%
+    width: 0
+  100%
+    width: 15px
+
+@keyframes unTick
+  0%
+    width: 15px
+  100%
+    width: 0
 @keyframes show
   0%
     opacity: 0
@@ -12,11 +23,12 @@
   animation: show 0.3s linear
   .hubIcon
     width: 11.5vw
-    margin: 3vw 0 5.8vw 0
+    margin: 0 0 3vw 0
+    margin-block-start: 0
     cursor: pointer
-  .enterWrap
-    width: 457px
-    height: 494px
+  .registerWrap
+    width: 458px
+    height: 575px
     background: white
     display: flex
     justify-content: flex-start
@@ -44,12 +56,13 @@
       transform: rotate(90deg)
     .title
       font-size: 1.3vw
-      margin: 2vw 0 2.5vw 0
+      margin: 2vw 0 1.5vw 0
     .inputWrap
       display: flex
       flex-direction: column
       width: 91%
       position: relative
+      margin: 0 0 1vw 0
       .inputName
         font-size: 0.8vw
         letter-spacing: 0.4px
@@ -71,19 +84,40 @@
         top: 2.1vw
         cursor: pointer
         width: 18px
-    .marginWrap
-      margin: 0 0 1.5vw 0
-    .remindPassword
+    .agreementWrap
       display: flex
-      justify-content: flex-end
-      color: #477DE1
+      justify-content: flex-start
+      width: 92%
       font-size: 0.7vw
-      letter-spacing: 0.1px
-      width: 91%
-      margin: 1vw 0 1.3vw 0
-      cursor: pointer
-    .remindPassword:hover
-      color: #518bf3
+      .agreement
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 8%
+        label
+          display: flex
+          justify-content: center
+          align-items: center
+          width: 20px
+          height: 20px
+          border: 1px solid #c4c2c2
+          border-radius: 5px
+          cursor: pointer
+          img
+            width: 0
+            animation: unTick 0.2s ease
+            //animation-direction: reverse
+        input:checked ~ label img
+          width: 15px
+          animation: ticked 0.2s ease
+      .agreementsText
+        width: 91%
+        line-height: 1.2vw
+        span
+          color: #477DE1
+          cursor: pointer
+        span:hover
+          color: #518bf3
     .button
       display: flex
       justify-content: center
@@ -96,11 +130,12 @@
       font-size: 0.8vw
       cursor: pointer
       transition: background 0.2s ease
+      margin: 1.6vw 0 0 0
     .button:hover
       background: #3979db
       transition: background 0.2s ease
     .orSpan
-      margin: 0.6vw 0 0.7vw 0
+      margin: 1vw 0 0.7vw 0
     .socialNetworks
       display: flex
       width: 91%
@@ -144,10 +179,9 @@
         background: #ba1d24
     .registration
       font-size: 0.8vw
-      letter-spacing: 0.2px
+      letter-spacing: 0.3px
       span
         color: #477DE1
         cursor: pointer
       span:hover
         color: #518bf3
-
