@@ -7,10 +7,11 @@ import Intro from './Components/Intro';
 import UploadFile from './Components/UploadFile';
 import Infopage from './Components/InfoPage';
 import DownloadFile from './Components/DownloadFile';
+import EnterProfile from './Components/EnterProfile';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('init');
+    const [pageOption, setPage] = useState('enter');
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
@@ -26,7 +27,7 @@ const StartPage = () => {
                     <span className={styles.lang}>RU</span>
                     <ArrowIcon className={styles.arrowDown} />
                 </div>
-                <div className={styles.listItem}>Вход</div>
+                <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
                 <div className={`${styles.registerButton} ${styles.listItem}`}>Регистрация</div>
             </header>
             <main className={styles.main}>
@@ -39,6 +40,7 @@ const StartPage = () => {
                 </div>}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
+                {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
             </main>
         </div>
     )
