@@ -23,15 +23,15 @@ const SendSuccess = ({data, set}) => {
         <span className={styles.cross} onClick={() => set('')} />
         <div className={styles.imageWrap}>
             <img src='./assets/StartPage/success-file-send.svg'
-                 alt=''
+                 alt='computer'
                  className={styles.computer}
             />
             <img src='./assets/StartPage/paper-plane-left.svg'
-                 alt=''
+                 alt='paper-plane'
                  className={styles.planeLeft}
             />
             <img src='./assets/StartPage/paper-plane-right.svg'
-                 alt=''
+                 alt='paper-plane'
                  className={styles.planeRight}
             />
             <div className={styles.fileWrap}>

@@ -9,10 +9,11 @@ import Infopage from './Components/InfoPage';
 import DownloadFile from './Components/DownloadFile';
 import EnterProfile from './Components/EnterProfile';
 import RegisterProfile from './Components/RegisterProfile';
+import RegistrationSuccess from './Components/RegistrationSuccess';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('register');
+    const [pageOption, setPage] = useState('registerSuccess');
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
@@ -43,6 +44,7 @@ const StartPage = () => {
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {pageOption === 'register' && <RegisterProfile setPage={setPage} />}
+                {pageOption === 'registerSuccess' && <RegistrationSuccess setPage={setPage} />}
             </main>
         </div>
     )
