@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 
 import styles from './SavePeriodPicker.module.sass';
 
-const SavePeriodPicker = ({set, setShowCalendar, dateValue, setDateValue, timeValue, setTimeValue}) => {
+const SavePeriodPicker = ({
+          set, setShowCalendar, dateValue, setDateValue,
+          timeValue, setTimeValue
+}) => {
 
     const onDateChange = (e) => {
         let val = e.target.value.trim();
@@ -26,9 +29,9 @@ const SavePeriodPicker = ({set, setShowCalendar, dateValue, setDateValue, timeVa
 
     const [hours, setHours] = useState(timeValue.hours);
     const [minutes, setMinutes] = useState(timeValue.minutes);
-    const onTime = (val, set) => {
+    const onTime = (val, set, limit) => {
         if(/[0-9]/.test(val) || val.length === 0) {
-            if(val.length < 3) set(val);
+            if(val.length < 3) val < limit ? set(val) : set(val[0]);
         }
     };
 
@@ -58,9 +61,9 @@ const SavePeriodPicker = ({set, setShowCalendar, dateValue, setDateValue, timeVa
                     <span>Укажите время хранения</span>
                 </div>
                 <div className={styles.inputHM}>
-                    <input type='text' placeholder='ЧЧ' value={hours} onChange={(e) => onTime(e.target.value, setHours)} />
+                    <input type='text' placeholder='ЧЧ' value={hours} onChange={(e) => onTime(e.target.value, setHours, 24)} />
                     <span> : </span>
-                    <input type='text' placeholder='ММ' value={minutes} onChange={(e) => onTime(e.target.value, setMinutes)} />
+                    <input type='text' placeholder='ММ' value={minutes} onChange={(e) => onTime(e.target.value, setMinutes, 60)} />
                 </div>
                 <div className={styles.notion}>
                     После завершения срока хранения ссылка автоматитески будет недоступна

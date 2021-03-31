@@ -48,15 +48,28 @@ const UploadFile = ({ setPage }) => {
         return size;
     };
 
-    const sendFile = () => {
-        let form = new FormData();
-        form.append('file', blob);
-        form.append('pass', password.active ? password.text : '');
-        form.append('sender', email.sender);
-        form.append('recipient', email.receiver);
-        form.append('deadline', `${dateValue} ${timeValue.hours ? timeValue.hours : '00'}:${timeValue.minutes ? timeValue.minutes : '00'}`);
+    const renderExpireDate = () => {
+        return dateValue
+        ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '00'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '00'}`
+        : 'Без ограничений';
+    }
 
-        api.post('/ajax/start_add.php', form)
+    const setTime = (time, limit) => {
+        return time < limit
+        ? time < 10 ? `0${time}` : time
+        : time[0];
+    }
+
+    const sendFile = () => {
+        if(blob) {
+            let form = new FormData();
+            form.append('file', blob);
+            form.append('pass', password.active ? password.text : '');
+            form.append('sender', email.sender);
+            form.append('recipient', email.receiver);
+            form.append('deadline', `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '00'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '00'}`);
+
+            api.post('/ajax/start_add.php', form)
                 .then(res => {
                     if(res.status === 200) {
                         setResponse(res.data);
@@ -68,7 +81,8 @@ const UploadFile = ({ setPage }) => {
                     console.log(err);
                     setError(true);
                 })
-            .finally(() => setInitial());
+                .finally(() => setInitial());
+        } else { setError(true) }
     };
 
     return (
@@ -85,46 +99,58 @@ const UploadFile = ({ setPage }) => {
                     <span>Перетащите Файл или Нажмите <span className={styles.download}>Загрузить</span></span>
                 </div>}
                 {blob && <div className={styles.uploadWrapFile}>
-                    <span className={styles.cross} onClick={() => setInitial()} />
+                    <span className={styles.cross} onClick={() => setBlob('')} />
                     <div className={styles.fileWrap}><File format={setFormat().toLowerCase()} /></div>
                     <div className={styles.fileName}>{blob.name}</div>
                     <div className={styles.fileSize}>{setSize()}</div>
                 </div>}
                 <div className={styles.fieldsWrap}>
-                    <div className={`${styles.fields} ${styles.choose}`} onClick={() => setShowPeriod(!showPeriod)}>
-                        <div>Срок хранения</div>
-                        <img src='./assets/StartPage/play-button.svg' alt='Open PopUp' />
+                    <div className={styles.fieldWrapper}>
+                        <span>Срок хранения</span>
+                        <div className={`${styles.fields} ${styles.choose}`} onClick={() => setShowPeriod(!showPeriod)}>
+                            <div>{renderExpireDate()}</div>
+                            <img src='./assets/StartPage/play-button.svg' alt='Open PopUp' />
+                        </div>
                     </div>
-                    <div className={styles.fields}>
-                        {!password.active && <div>Установить пароль</div>}
-                        {password.active && <>
-                            <input
-                            type={visibility}
-                            placeholder='Установить пароль'
-                            onChange={(e) => setPassword({...password, text: e.target.value})}
-                            value={password.text} />
-                            {visibility === 'text' && <EyeIcon className={styles.eyeIcon} onClick={() => setVisibility('password')} />}
-                            {visibility === 'password' && <InvisibleIcon className={styles.invisible} onClick={() => setVisibility('text')} />}
-                            </>}
-                        <div
-                            className={password.active ? styles.switcherActive : styles.switcher}
-                            onClick={() => setPassword({...password, active: !password.active})}
-                        ><div className={password.active ? styles.switchActive : styles.switch} /></div>
+                    <div className={styles.fieldWrapper}>
+                        <span>Установить пароль</span>
+                        <div className={styles.fields}>
+                            {!password.active && <div>Установить пароль</div>}
+                            {password.active && <>
+                                <input
+                                type={visibility}
+                                placeholder='Введите пароль'
+                                onChange={(e) => setPassword({...password, text: e.target.value})}
+                                value={password.text} />
+                                {visibility === 'text' && <EyeIcon className={styles.eyeIcon} onClick={() => setVisibility('password')} />}
+                                {visibility === 'password' && <InvisibleIcon className={styles.invisible} onClick={() => setVisibility('text')} />}
+                                </>}
+                            <div
+                                className={password.active ? styles.switcherActive : styles.switcher}
+                                onClick={() => setPassword({...password, active: !password.active})}
+                            ><div className={password.active ? styles.switchActive : styles.switch} /></div>
+                        </div>
                     </div>
-                    <input
-                        value={email.receiver}
-                        onChange={(e) => setEmail({...email, receiver: e.target.value})}
-                        type='email'
-                        className={styles.emailField}
-                        placeholder='Email получателя'
-                    />
-                    <input
-                        value={email.sender}
-                        onChange={(e) => setEmail({...email, sender: e.target.value})}
-                        type='email'
-                        className={styles.emailField}
-                        placeholder='Email отправителя'
-                    />
+                    <div className={styles.fieldWrapper}>
+                        <span>Email получателя</span>
+                        <input
+                            value={email.receiver}
+                            onChange={(e) => setEmail({...email, receiver: e.target.value})}
+                            type='email'
+                            className={styles.emailField}
+                            placeholder='Email получателя'
+                        />
+                    </div>
+                    <div className={styles.fieldWrapper}>
+                        <span>Email отправителя</span>
+                        <input
+                            value={email.sender}
+                            onChange={(e) => setEmail({...email, sender: e.target.value})}
+                            type='email'
+                            className={styles.emailField}
+                            placeholder='Email отправителя'
+                        />
+                    </div>
                 </div>
                 <div
                     className={styles.submitButton}
