@@ -4,11 +4,6 @@
   100%
     width: 15px
 
-@keyframes unTick
-  0%
-    width: 15px
-  100%
-    width: 0
 @keyframes show
   0%
     opacity: 0
@@ -22,8 +17,10 @@
   color: #777777
   animation: show 0.3s linear
   .hubIcon
+    min-width: 165px
     width: 11.5vw
-    margin: 0 0 3vw 0
+    max-width: 233px
+    margin: 0 0 30px 0
     margin-block-start: 0
     cursor: pointer
   .registerWrap
@@ -55,46 +52,48 @@
       background: #a7a4a4
       transform: rotate(90deg)
     .title
-      font-size: 1.3vw
-      margin: 2vw 0 1.5vw 0
+      font-size: 19px
+      margin: 25px 0px 18px 0
     .inputWrap
       display: flex
       flex-direction: column
       width: 91%
       position: relative
-      margin: 0 0 1vw 0
+      margin: 0 0 12px 0
       .inputName
-        font-size: 0.8vw
+        font-size: 11px
         letter-spacing: 0.4px
-        margin: 0 0 0.7vw 0
+        margin: 0 0 10px 0
       .inputField
         border: 1px solid #bfbfbf
-        height: 2vw
+        height: 29px
         border-radius: 5px
-        background: #eaeaea
-        padding: 0 3vw 0 1vw
+        background: #FAFAFA
+        padding: 0 40px 0 18px
+      .redBorder
+        border: 1px solid red
       .eye
         position: absolute
         right: 12px
-        top: 2.3vw
+        top: 32px
         cursor: pointer
       .invisible
         position: absolute
         right: 15px
-        top: 2.1vw
+        top: 30px
         cursor: pointer
         width: 18px
     .agreementWrap
       display: flex
       justify-content: flex-start
       width: 92%
-      font-size: 0.7vw
+      font-size: 10px
       .agreement
         display: flex
         justify-content: center
         align-items: center
         width: 8%
-        label
+        div
           display: flex
           justify-content: center
           align-items: center
@@ -103,16 +102,12 @@
           border: 1px solid #c4c2c2
           border-radius: 5px
           cursor: pointer
-          img
-            width: 0
-            animation: unTick 0.2s ease
-            //animation-direction: reverse
-        input:checked ~ label img
+        div img
           width: 15px
           animation: ticked 0.2s ease
       .agreementsText
         width: 91%
-        line-height: 1.2vw
+        line-height: 16px
         span
           color: #477DE1
           cursor: pointer
@@ -127,28 +122,28 @@
       width: 127px
       height: 35px
       color: white
-      font-size: 0.8vw
+      font-size: 12px
       cursor: pointer
       transition: background 0.2s ease
-      margin: 1.6vw 0 0 0
+      margin: 23px 0 0 0
     .button:hover
       background: #3979db
       transition: background 0.2s ease
     .orSpan
-      margin: 1vw 0 0.7vw 0
+      margin: 13px 0 10px 0
     .socialNetworks
       display: flex
       width: 91%
       flex-wrap: wrap
-      margin: 0 0 1.8vw 0
+      margin: 0 0 25px 0
       div
         display: flex
         justify-content: center
         align-items: center
         background: black
-        width: 32%
-        height: 2.7vw
-        margin: 0 0.5vw 0.5vw 0
+        width: 134px
+        height: 39px
+        margin: 0 7px 7px 0
         border-radius: 10px
         cursor: pointer
       div:nth-child(3n)
@@ -178,7 +173,7 @@
       .pinterest:hover
         background: #ba1d24
     .registration
-      font-size: 0.8vw
+      font-size: 11px
       letter-spacing: 0.3px
       span
         color: #477DE1

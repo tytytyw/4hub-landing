@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './RegistrationSuccess.module.sass';
 
 const RegistrationSuccess = ({setPage}) => {
+
     return (
         <div className={styles.main}>
             <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
