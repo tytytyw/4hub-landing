@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './RegistrationSuccess.module.sass';
 
-const RegistrationSuccess = ({setPage}) => {
+const RegistrationSuccess = ({setPage, sendRequest}) => {
 
     return (
         <div className={styles.main}>
@@ -34,7 +34,7 @@ const RegistrationSuccess = ({setPage}) => {
             </span>
             <div className={styles.repeat}>
                 Не пришло письмо ?
-                <span> Отправить заново</span>
+                <span onClick={() => sendRequest()}> Отправить заново</span>
             </div>
             </div>
         </div>

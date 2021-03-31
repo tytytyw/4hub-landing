@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import styles from './SendSuccess.module.sass';
 import File from '../../../generalComponents/File';
 
-const SendSuccess = ({data, set}) => {
+const SendSuccess = ({data, set }) => {
     const format = data.files.file.name.split('.');
     const ref = useRef(null);
 

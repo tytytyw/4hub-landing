@@ -41,28 +41,36 @@ const EnterProfile = ({setPage}) => {
                 <span className={styles.cross} onClick={() => setPage('init')} />
                 <span className={styles.title}>Вход</span>
                 <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
-                    <label className={styles.inputName}>Email / Телефон</label>
+                    <label className={styles.inputName} htmlFor='login'>
+                        Email / Телефон
+                        {compare.isLogin && <span> Некорректный ввод данных</span>}
+                    </label>
                     <input
                         className={classnames({
                             [styles.inputField]: true,
                             [styles.redBorder]: compare.isLogin
                         })}
                         type='text'
+                        id='login'
                         value={info.login}
                         onChange={(e) => {
                             setInfo({...info, login: e.target.value});
-                            checkLogin(e.target);
                         }}
+                        onBlur={e => checkLogin(e.target)}
                     />
                 </div>
                 <div className={styles.inputWrap}>
-                    <label className={styles.inputName}>Пароль</label>
+                    <label className={styles.inputName} htmlFor='pass'>
+                        Пароль
+                        {compare.isPass && <span> Некорректный ввод данных</span>}
+                    </label>
                     <input
                         className={classnames({
                             [styles.inputField]: true,
                             [styles.redBorder]: compare.isPass
                         })}
                         type={visibility}
+                        id='pass'
                         value={info.pass}
                         onChange={(e) => {
                             setInfo({...info, pass: e.target.value});

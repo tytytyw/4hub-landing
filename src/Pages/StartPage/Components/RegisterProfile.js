@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import classnames from 'classnames';
 
 import api from '../../../api';
@@ -37,11 +37,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
       if(!compare.isLogin && !compare.isPass && !compare.isCoincidePass && compare.isAgreed) {
             api.post(`/ajax/user_reg.php?name=${info.login}&pass=${info.pass}`)
                 .then(res => {
-                    console.log(res);
                     if(res.data.ok === 1) {
                         setPage('registerSuccess');
-                        setInfo({login: '', pass: '', repeatPass: ''});
-                        setCompare({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false});
                     } else {
                         res.data.error
                         ? setErrorMessage(res.data.error)
@@ -65,7 +62,10 @@ const RegisterProfile = ({setPage, pageOption}) => {
               <span className={styles.cross} onClick={() => setPage('init')} />
               <span className={styles.title}>Регистрация</span>
               <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
-                  <label className={styles.inputName}>Email / Телефон</label>
+                  <label className={styles.inputName}>
+                      Email / Телефон
+                      {compare.isLogin && <span> Некорректный ввод данных</span>}
+                  </label>
                   <input
                       className={classnames({
                           [styles.inputField]: true,
@@ -75,12 +75,15 @@ const RegisterProfile = ({setPage, pageOption}) => {
                       value={info.login}
                       onChange={(e) => {
                           setInfo({...info, login: e.target.value});
-                          checkLogin(e.target);
                       }}
+                      onBlur={e => checkLogin(e.target)}
                   />
               </div>
               <div className={styles.inputWrap}>
-                  <label className={styles.inputName}>Пароль</label>
+                  <label className={styles.inputName}>
+                      Пароль
+                      {compare.isPass && <span> Некорректный ввод данных</span>}
+                  </label>
                   <input
                       className={classnames({
                           [styles.inputField]: true,
@@ -107,7 +110,10 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   />}
               </div>
               <div className={styles.inputWrap}>
-                  <label className={styles.inputName}>Повторите пароль</label>
+                  <label className={styles.inputName}>
+                      Повторите пароль
+                      {compare.isCoincidePass && <span> Некорректный ввод данных</span>}
+                  </label>
                   <input
                       className={classnames({
                           [styles.inputField]: true,
@@ -160,13 +166,14 @@ const RegisterProfile = ({setPage, pageOption}) => {
               </div>
           </div>
       </div>}
+      {pageOption === 'registerSuccess' && <RegistrationSuccess setPage={setPage} sendRequest={sendRequest} />}
       {error && <PopUp set={setError}>
           <div style={{
               width: 'max-content',
-              padding: '20px'
+              padding: '20px',
+              color: 'red'
           }}>{errorMessage}</div>
       </PopUp>}
-      {pageOption === 'registerSuccess' && <RegistrationSuccess setPage={setPage} />}
       </>
   )
 }
