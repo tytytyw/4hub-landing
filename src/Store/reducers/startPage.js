@@ -1,15 +1,15 @@
 import {
-    LOG_CHANGE
+    LOG_DATA
 } from '../types/startPageTypes';
 
 const INITIAL_STATE = {
-    log: false
+    uid: ''
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
     switch(action.type) {
-        case LOG_CHANGE: {
-            return {...state, log: action.type};
+        case LOG_DATA: {
+            return {...state, uid: action.payload};
         }
         default:
             return state;

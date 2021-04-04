@@ -1,0 +1,83 @@
+.asideWrap
+  display: flex
+  flex-direction: column
+  align-items: center
+  height: 100%
+  width: 18%
+  background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 99.24%)
+  font-family: "SF Pro Bold", sans-serif
+  color: white
+  transition: width 0.2s ease
+.collapsed
+  display: flex
+  flex-direction: column
+  align-items: center
+  height: 100%
+  width: 55px
+  background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 99.24%)
+  font-family: "SF Pro Bold", sans-serif
+  color: white
+  transition: width 0.2s ease
+.hubIcon
+  width: 75px
+  margin: 45px 0
+.minIcon
+  width: 25px
+  margin: 30px 0
+.titleWrap
+  display: flex
+  justify-content: space-between
+  width: 100%
+  padding: 0 5%
+  box-sizing: border-box
+  margin: 0 0 6% 0
+  span
+    transition: font-size 0.3s ease
+  .hidden
+    font-size: 0
+    transition: font-size 0.3s ease
+.titleWrapCollapsed
+  justify-content: flex-start
+.collapseButton
+  width: 10px
+  cursor: pointer
+  transition: transform 0.5s ease-in-out
+.collapseButtonInvert
+  transform: rotateY(180deg) translateX(5px)
+  margin: 0 0 5px 21px
+  transition: transform 0.5s ease-in-out
+.menuItemsWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  box-sizing: border-box
+  cursor: pointer
+  .menuItem
+    display: flex
+    align-items: center
+    box-sizing: border-box
+    padding: 17px
+    .icons
+      width: 15px
+      margin: 0 20px 0 0
+    .iconsCollapsed
+      margin: 5px 0 0 0
+    span
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 13px
+      letter-spacing: 1px
+      transition: font-size 0.3s ease
+    .hidden
+      font-size: 0
+      transition: font-size 0.3s ease
+  .menuItem:hover
+    background: #08349c
+  .menuItemChosen
+    background: #08349c
+@media (max-width: 1437px)
+  .menuItemsWrap
+    .menuItem
+      span
+        font-size: 9px
+        letter-spacing: 0
+

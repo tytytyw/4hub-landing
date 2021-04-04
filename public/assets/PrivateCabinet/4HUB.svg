@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="153px" height="46px" viewBox="0 0 153 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1-Стартовая-страница-вар-2-" transform="translate(-638.000000, -144.000000)">
+            <g id="Group" transform="translate(638.000000, 144.000000)">
+                <text id="4Hub" font-family="Futura-Medium, Futura" font-size="30" font-weight="400" letter-spacing="-0.119999997" fill="#FFFFFF">
+                    <tspan x="59" y="38">4</tspan>
+                    <tspan x="77.395625" y="38" font-family="Helvetica" font-weight="normal">Hu</tspan>
+                    <tspan x="115.505234" y="38" font-family="Helvetica" font-weight="normal" letter-spacing="-0.1245691">b</tspan>
+                </text>
+                <rect id="Rectangle" fill="#EED328" x="26.2852323" y="26.2852323" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
+                <rect id="Rectangle" fill="#EED328" x="26.2852323" y="5.63254978" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
+                <rect id="Rectangle" fill="#34C6A2" x="-2.06057393e-13" y="-2.06057393e-13" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
+                <rect id="Rectangle" fill="#EED328" x="5.63254978" y="26.2852323" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

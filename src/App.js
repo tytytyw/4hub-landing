@@ -1,12 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './App.sass';
 
 import StartPage from './Pages/StartPage'
+import PrivateCabinet from './Pages/PrivateCabinet'
 
 function App() {
-  return (
+
+    const uid = useSelector(state => state.initial.uid);
+
+    return (
     <>
-      <StartPage />
+        {!uid && <StartPage />}
+        {uid && <PrivateCabinet />}
     </>
   );
 }

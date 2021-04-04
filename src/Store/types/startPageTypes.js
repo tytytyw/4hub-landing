@@ -1,1 +1,1 @@
-export const LOG_CHANGE = 'LOG_CHANGE';
+export const LOG_DATA = 'LOG_DATA';

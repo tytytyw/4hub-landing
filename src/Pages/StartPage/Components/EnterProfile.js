@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
 import api from '../../../api';
+import { onLog } from '../../../Store/actions/startPageAction';
 import styles from './EnterProfile.module.sass';
 
 const EnterProfile = ({setPage}) => {
 
+    const dispatch = useDispatch();
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: ''});
     const [compare, setCompare] = useState({isLogin: false, isPass: false});
@@ -27,7 +30,7 @@ const EnterProfile = ({setPage}) => {
             api.post(`/ajax/user_login.php?name=${info.login}&pass=${info.pass}`)
                 .then(res => {
                     if(res.data.ok === 1) {
-                        console.log(res.data.uid)
+                        dispatch(onLog(res.data.uid))
                     }
                 })
                 .catch(err => console.log(err));

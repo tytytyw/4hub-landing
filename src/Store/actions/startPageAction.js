@@ -1,12 +1,10 @@
-import api from '../../api';
-
 import {
-    LOG_CHANGE
+    LOG_DATA
 } from '../types/startPageTypes';
 
 export const onLog = (log) => {
     return {
-        type: LOG_CHANGE,
+        type: LOG_DATA,
         payload: log
     };
 };
