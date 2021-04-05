@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>chto-znachit-esli-muzhchina-nikogda-ne-pishet-pervym-no-vsegda-otvechaet-na-vashi-soobshhenija1</title>
+    <defs>
+        <circle id="path-1" cx="17" cy="17" r="17"></circle>
+        <filter x="-20.6%" y="-14.7%" width="141.2%" height="141.2%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.54894135   0 0 0 0 0.54894135   0 0 0 0 0.54894135  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5-Файлообменник-стартовый-экран" transform="translate(-1261.000000, -27.000000)">
+            <g id="chto-znachit-esli-muzhchina-nikogda-ne-pishet-pervym-no-vsegda-otvechaet-na-vashi-soobshhenija1" transform="translate(1265.000000, 29.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="man-user" mask="url(#mask-2)" fill-rule="nonzero">
+                    <g transform="translate(7.083333, 7.083333)" id="Path">
+                        <path d="M10.2708333,13.1640188 C13.253514,13.1640188 15.6716821,10.2171821 15.6716821,6.58204786 C15.6716821,2.94683667 14.877762,0 10.2708333,0 C5.6639047,0 4.86983131,2.94683667 4.86983131,6.58204786 C4.86983131,10.2171821 7.28799938,13.1640188 10.2708333,13.1640188 Z" fill="#4086F1"></path>
+                        <path d="M0.0815108234,23.2139331 C0.0803108234,22.9922936 0.0791108234,23.1514864 0.0815108234,23.2139331 L0.0815108234,23.2139331 Z" fill="#000000"></path>
+                        <path d="M20.4829743,23.3870457 C20.4867743,23.3263679 20.4842743,22.966069 20.4829743,23.3870457 L20.4829743,23.3870457 Z" fill="#000000"></path>
+                        <path d="M20.4600365,22.9481502 C20.3600109,16.6156583 19.5357382,14.8112419 13.2281435,13.6690524 C13.2281435,13.6690524 12.340253,14.8042436 10.2707567,14.8042436 C8.20126042,14.8042436 7.31321657,13.6690524 7.31321657,13.6690524 C1.0744518,14.7987833 0.200051306,16.5764369 0.085079291,22.74243 C0.0756515858,23.2459255 0.0712826493,23.2723807 0.069596393,23.2139331 C0.0699796331,23.3234455 0.0704395211,23.5260126 0.0704395211,23.8792362 C0.0704395211,23.8792362 1.57212733,26.9166667 10.2707567,26.9166667 C18.9692327,26.9166667 20.4710738,23.8792362 20.4710738,23.8792362 C20.4710738,23.6522902 20.4712271,23.4944817 20.4714571,23.3871226 C20.4697708,23.4232679 20.4663983,23.3532076 20.4600365,22.9481502 Z" fill="#4086F1"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

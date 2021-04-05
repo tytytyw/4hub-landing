@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
+import MyFolders from './Components/MyFolders';
 
 const PrivateCabinet = () => {
 
@@ -21,7 +22,7 @@ const PrivateCabinet = () => {
                     minHeight,
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
-                {menuItem === 'Мои папки' && <div></div>}
+                {menuItem === 'Мои папки' && <MyFolders />}
             </div>
         </div>
     )

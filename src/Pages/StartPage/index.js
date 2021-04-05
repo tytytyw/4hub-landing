@@ -12,7 +12,7 @@ import RegisterProfile from './Components/RegisterProfile';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('enter');
+    const [pageOption, setPage] = useState('init');
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
