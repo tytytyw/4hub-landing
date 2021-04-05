@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './WorkBars.module.sass';
-import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg'
-import {ReactComponent as TextAddIcon} from '../../../../../assets/PrivateCabinet/addPropose.svg'
+import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
+import {ReactComponent as TextAddIcon} from '../../../../../assets/PrivateCabinet/addPropose.svg';
 
 const WorkBars = ({children}) => {
     return (
