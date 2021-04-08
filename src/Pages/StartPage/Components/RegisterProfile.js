@@ -3,8 +3,8 @@ import classnames from 'classnames';
 
 import api from '../../../api';
 import styles from './RegisterProfile.module.sass';
-import RegistrationSuccess from "./RegistrationSuccess";
-import PopUp from "../../../generalComponents/PopUp";
+import RegistrationSuccess from './RegistrationSuccess';
+import Error from '../../../generalComponents/Error';
 
 const RegisterProfile = ({setPage, pageOption}) => {
 
@@ -18,8 +18,9 @@ const RegisterProfile = ({setPage, pageOption}) => {
     const setLogin = (val) => {
         let number;
         if(val[0] === '+') {
-            const newVal = val.replace(/\s/g, '');
-            number = `${newVal.substring(0, 3)} ${newVal.substring(3, 6)} ${newVal.substring(6, newVal.length)}`;
+            const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, '');
+            const length = newVal.length;
+            number = `+${newVal.substring(0, 2)}${length > 2 ? ' (' + newVal.substring(2, 5) : newVal.substring(2, 5)}${ length > 5 ? ') ' + newVal.substring(5, 8) : newVal.substring(5, 8)}${ length > 8 ? '-' + newVal.substring(8, 10) : newVal.substring(8, 10)}${length > 10 ? '-' + newVal.substring(10, newVal.length) : newVal.substring(10, newVal.length)}`;
         } else {
             number = val
         }
@@ -27,9 +28,14 @@ const RegisterProfile = ({setPage, pageOption}) => {
     };
 
     const checkLogin = (input) => {
-        input.value.indexOf('@') > -1
-        ? setCompare({...compare, isLogin: false})
-        : setCompare({...compare, isLogin: true});
+        let boolean = false;
+        if(input.value[0] === '+') {
+            const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, '');
+            if(/\D/.test(newVal)) boolean = true;
+        } else {
+            if(input.value.indexOf('@') === -1) boolean = true;
+        }
+        setCompare({...compare, isLogin: boolean});
     };
 
     const checkPass = (input) => {
@@ -48,7 +54,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
     const sendRequest = () => {
       if(!compare.isLogin && !compare.isPass && !compare.isCoincidePass && compare.isAgreed) {
-            api.post(`/ajax/user_reg.php?name=${info.login}&pass=${info.pass}`)
+          const login = info.login.indexOf('@') > -1 ? info.login : info.login.replace(/(\()*(\))*\s*-*/g, '');
+            api.post(`/ajax/user_reg.php?name=${login}&pass=${info.pass}`)
                 .then(res => {
                     if(res.data.ok === 1) {
                         setPage('registerSuccess');
@@ -178,13 +185,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
           </div>
       </div>}
       {pageOption === 'registerSuccess' && <RegistrationSuccess setPage={setPage} sendRequest={sendRequest} />}
-      {error && <PopUp set={setError}>
-          <div style={{
-              width: 'max-content',
-              padding: '20px',
-              color: 'red'
-          }}>{errorMessage}</div>
-      </PopUp>}
+      <Error error={error} set={setError} message={errorMessage} />
       </>
   )
 }
