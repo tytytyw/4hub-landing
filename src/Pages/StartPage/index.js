@@ -13,6 +13,7 @@ import RegisterProfile from './Components/RegisterProfile';
 const StartPage = () => {
 
     const [pageOption, setPage] = useState('init');
+    const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
@@ -21,7 +22,10 @@ const StartPage = () => {
         }, []);
 
     return (
-        <div className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap}`}>
+        <div
+            className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap}`}
+            style={{minHeight}}
+        >
             <header className={styles.header}>
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
                 <div className={`${styles.listItem} ${styles.arrow}`}>

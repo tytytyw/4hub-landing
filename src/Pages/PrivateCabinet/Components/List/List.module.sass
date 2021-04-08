@@ -2,8 +2,9 @@
   display: flex
   flex-direction: column
   height: 100%
-  width: 310px
+  min-width: 310px
   border-right: 1px solid #e5e5e5
+  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
   .header
     display: flex
     justify-content: space-between
@@ -23,5 +24,11 @@
     .playButton
       margin: 0 18px 0 0
       cursor: pointer
+    .playButtonReverse
+      transform: rotateZ(180deg)
   .children
     height: calc(100% - 67px)
+.listWrapCollapsed
+  min-width: 120px
+  width: 120px
+  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out

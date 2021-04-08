@@ -45,6 +45,12 @@ const DownloadFile = ({ setPage }) => {
         return `${days} дней`;
     };
 
+    const showTime = () => {
+        const date = file.deadline.split(' ')[0].split('-').reverse().join('.');
+        const time = file.deadline.split(' ')[1];
+        return time === '00:00:00' ? `${date} 23:59` : `${date} ${time.slice(0, 5)}`;
+    };
+
     useEffect(() => {
         api.post(`/ajax/download_start.php?fid=${FileId}&info`)
             .then(res => {
@@ -96,7 +102,7 @@ const DownloadFile = ({ setPage }) => {
                      onClick={() => setVisibility('password')}
                 />}
             </div>}
-            {file.name !=='No file' && <span className={styles.term}>Срок хранения файла ( {countLeftDays()} до {file.deadline.split(' ')[0].split('-').reverse().join('.')} )</span>}
+            {file.name !=='No file' && <span className={styles.term}>Срок хранения файла ( {countLeftDays()} до {showTime()})</span>}
             </>}
         </form>}
         {error && <PopUp set={setError}>

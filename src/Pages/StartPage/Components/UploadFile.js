@@ -134,9 +134,10 @@ const UploadFile = ({ setPage }) => {
                     <div className={styles.fieldWrapper}>
                         <span>Email получателя</span>
                         <input
+                            type='email'
+                            name='email'
                             value={email.receiver}
                             onChange={(e) => setEmail({...email, receiver: e.target.value})}
-                            type='email'
                             className={styles.emailField}
                             placeholder='Email получателя'
                         />
@@ -144,9 +145,10 @@ const UploadFile = ({ setPage }) => {
                     <div className={styles.fieldWrapper}>
                         <span>Email отправителя</span>
                         <input
+                            type='email'
+                            name='email'
                             value={email.sender}
                             onChange={(e) => setEmail({...email, sender: e.target.value})}
-                            type='email'
                             className={styles.emailField}
                             placeholder='Email отправителя'
                         />

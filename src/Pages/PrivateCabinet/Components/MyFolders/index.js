@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './MyFolders.module.sass';
 import List from '../List';
@@ -8,6 +8,8 @@ import WorkSpace from '../WorkSpace';
 
 const MyFolders = () => {
 
+    const [listCollapsed, setListCollapsed] = useState(false);
+
     const renderFolderList = () => {
         return folders.map(el => {
             return <FolderItem
@@ -15,6 +17,7 @@ const MyFolders = () => {
                 src={el.src}
                 title={el.name}
                 quantity={el.quantity}
+                listCollapsed={listCollapsed}
             />
         })
     };
@@ -22,7 +25,12 @@ const MyFolders = () => {
 
     return (
         <div className={styles.workAreaWrap}>
-            <List title='Папки' src='add-folder.svg'>
+            <List
+                title='Папки'
+                src='add-folder.svg'
+                setListCollapsed={setListCollapsed}
+                listCollapsed={listCollapsed}
+            >
                 <div className={styles.folderListWrap}>
                     {renderFolderList()}
                 </div>

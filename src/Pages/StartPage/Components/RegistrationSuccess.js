@@ -9,7 +9,7 @@ const RegistrationSuccess = ({setPage, sendRequest}) => {
             <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
             <div className={styles.successWrap}>
             <span className={styles.cross} onClick={() => setPage('init')} />
-            <span className={styles.title}>Регистрация прошля успешно</span>
+            <span className={styles.title}>Регистрация прошла успешно</span>
             <div className={styles.imageWrap}>
                 <img src='./assets/StartPage/success-file-send.svg'
                      alt='computer'
@@ -30,7 +30,7 @@ const RegistrationSuccess = ({setPage, sendRequest}) => {
             </div>
             <span className={styles.info}>
                 Для подтверждения Email Вам было отправлено контрольное письмо,
-                перейдя по ссылке Вы сможете завершить <br />процес регистрации
+                перейдя по ссылке Вы сможете завершить <br />процесс регистрации
             </span>
             <div className={styles.repeat}>
                 Не пришло письмо ?

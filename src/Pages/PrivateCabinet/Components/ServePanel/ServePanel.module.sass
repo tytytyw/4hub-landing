@@ -7,6 +7,7 @@
   border-bottom: 1px solid #e5e5e5
   box-sizing: border-box
   padding: 0 20px
+  font-family: "SF Pro Light", sans-serif
   .groupStart
     display: flex
     .viewPanel
@@ -174,3 +175,22 @@
 .iconView:hover path
   fill: white
   transition: fill 0.2s ease-in-out
+@media (max-width: 1366px)
+  .servePanelWrap
+    .groupStart
+      .viewPanel
+        .iconView
+          padding: 5px 10px
+      .filterPanel
+        .chooseButton
+          width: 75px
+    .groupEnd
+      .buttons
+        .createButton
+          width: 90px
+          span
+            margin: 0 10px 0 15px
+        .downloadButton
+          width: 90px
+
+

@@ -7,7 +7,7 @@ import PrivateCabinet from './Pages/PrivateCabinet'
 
 function App() {
 
-    const uid = useSelector(state => state.initial.uid);
+    const uid = useSelector(state => state.user.uid);
 
     return (
     <>

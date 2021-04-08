@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './FolderItem.module.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg'
 
-const FolderItem = ({src, title, quantity}) => {
+const FolderItem = ({src, title, quantity, listCollapsed}) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.titleWrap}>
@@ -12,8 +12,8 @@ const FolderItem = ({src, title, quantity}) => {
                     alt='icon'
                     className={styles.icon}
                 />
-                <span className={styles.title}>{title} </span>
-                <span> ({quantity})</span>
+                {!listCollapsed && <span className={styles.title}>{title} </span>}
+                {!listCollapsed && <span> ({quantity})</span>}
             </div>
             <div className={styles.functionWrap}>
                 <PlayIcon className={styles.playButton} />

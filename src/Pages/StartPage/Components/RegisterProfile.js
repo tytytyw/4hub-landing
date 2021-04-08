@@ -15,6 +15,17 @@ const RegisterProfile = ({setPage, pageOption}) => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Упс.... что-то пошло не так. Попробуй еще раз!')
 
+    const setLogin = (val) => {
+        let number;
+        if(val[0] === '+') {
+            const newVal = val.replace(/\s/g, '');
+            number = `${newVal.substring(0, 3)} ${newVal.substring(3, 6)} ${newVal.substring(6, newVal.length)}`;
+        } else {
+            number = val
+        }
+        setInfo({...info, login: number});
+    };
+
     const checkLogin = (input) => {
         input.value.indexOf('@') > -1
         ? setCompare({...compare, isLogin: false})
@@ -28,9 +39,11 @@ const RegisterProfile = ({setPage, pageOption}) => {
     };
 
     const comparePass = (val) => {
-        return info.pass === val
-            ? setCompare({...compare, isCoincidePass: false})
-            : setCompare({...compare, isCoincidePass: true});
+        const pass = info.pass.split('');
+        const passRepeat = val.split('');
+        let boolean = false
+        passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = true});
+        setCompare({...compare, isCoincidePass: boolean});
     }
 
     const sendRequest = () => {
@@ -73,9 +86,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                       })}
                       type='text'
                       value={info.login}
-                      onChange={(e) => {
-                          setInfo({...info, login: e.target.value});
-                      }}
+                      onChange={e => setLogin(e.target.value)}
                       onBlur={e => checkLogin(e.target)}
                   />
               </div>
@@ -162,7 +173,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
               </div>
               <div className={styles.registration}>У Вас уже есть аккаунт ?
-                  <span onClick={() => setPage('enter')}> Логин</span>
+                  <span onClick={() => setPage('enter')}> Вход</span>
               </div>
           </div>
       </div>}

@@ -3,8 +3,8 @@
   flex-direction: column
   align-items: center
   .hubIcon
-    width: 11.5vw
-    margin: 1.5vw 0 2.8vw 0 //4.5vw 0 3.8vw 0
+    width: 168px
+    margin: 22px 0 41px 0
     cursor: pointer
   .downloadWrapFile
     display: flex
@@ -12,12 +12,12 @@
     flex-direction: column
     align-items: center
     background: white
-    width: 18vw
-    height: 18vw
+    width: 264px
+    height: 264px
     border-radius: 21px
     position: relative
     cursor: default
-    margin: 0 0 2.2vw 0
+    margin: 0 0 32px 0
     .cross
       position: absolute
       top: 20px
@@ -41,7 +41,7 @@
       justify-content: flex-end
       width: 38%
       height: 44%
-      margin: 2.5vw 0 2vw 0
+      margin: 37px 0 29px 0
       position: relative
     .fileName
       color: black
@@ -50,15 +50,15 @@
       white-space: nowrap
       text-overflow: ellipsis
       text-align: center
-      margin: 0 0 1.5vw 0
+      margin: 0 0 22px 0
     .fileSize
-      font-size: 0.8vw
+      font-size: 10px
       color: #a7a4a4
       width: 80%
       text-align: center
   .download
     cursor: pointer
-    margin: 0 0 1vw 0
+    margin: 0 0 15px 0
     transition: fill 0.2s ease
   .download:hover path
     fill: #aff8b0
@@ -67,15 +67,15 @@
     fill: #afccf8
     transition: fill 0.2s ease
   h2
-    font-size: 1.4vw
+    font-size: 22px
     letter-spacing: 0.5px
-    margin-bottom: 2vw
+    margin-bottom: 30px
   .passwordWrap
     position: relative
-    margin: 0 0 2vw 0
+    margin: 0 0 30px 0
     .password
-      width: 23.5vw
-      height: 2.5vw
+      width: 345px
+      height: 37px
       text-align: center
       outline: none
       color: #335cb6
@@ -86,14 +86,37 @@
       font-family: 'SF Pro Medium', sans-serif
     .eye
       position: absolute
-      right: 10px
-      top: 0.8vw
+      right: 13px
+      top: 12px
       cursor: pointer
+      width: 18px
     .invisible
       position: absolute
       right: 13px
-      top: 0.7vw
+      top: 12px
       cursor: pointer
       width: 18px
   .term
-    font-size: 1vw
+    font-size: 14px
+@media (max-width: 1420px)
+  .main
+    .hubIcon
+      width: 138px
+      margin: 0 0 20px 0
+      cursor: pointer
+    .downloadWrapFile
+      width: 224px
+      height: 224px
+      margin: 0 0 10px 0
+      .fileName
+        font-size: 13px
+        margin: 0 0 15px 0
+    .download
+      width: 55px
+      margin: 0
+    h2
+      font-size: 18px
+      margin-bottom: 15px
+      margin-block-start: 0
+    .passwordWrap
+      margin: 0 0 15px 0

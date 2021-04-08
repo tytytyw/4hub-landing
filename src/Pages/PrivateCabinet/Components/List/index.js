@@ -2,17 +2,18 @@ import React from 'react';
 
 import styles from './List.module.sass';
 
-const List = ({title, src, children}) => {
+const List = ({title, src, setListCollapsed, listCollapsed, children}) => {
 
     return (
-        <div className={styles.listWrap}>
+        <div className={`${styles.listWrap} ${listCollapsed && styles.listWrapCollapsed}`}>
             <div className={styles.header}>
-                <span>{title}</span>
+                {!listCollapsed && <span>{title}</span>}
                 <div className={styles.imgWrap}>
                 <img
-                    className={styles.playButton}
+                    className={`${styles.playButton} ${listCollapsed && styles.playButtonReverse}`}
                     src='./assets/PrivateCabinet/play-grey.svg'
                     alt='play'
+                    onClick={() => setListCollapsed(!listCollapsed)}
                 />
                 <img
                     className={styles.icon}

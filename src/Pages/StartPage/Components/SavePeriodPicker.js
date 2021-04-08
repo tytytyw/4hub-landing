@@ -66,7 +66,7 @@ const SavePeriodPicker = ({
                     <input type='text' placeholder='ММ' value={minutes} onChange={(e) => onTime(e.target.value, setMinutes, 60)} />
                 </div>
                 <div className={styles.notion}>
-                    После завершения срока хранения ссылка автоматитески будет недоступна
+                    Срок удаления файла по умолчанию (23:59), после завершения срока хранения ссылка автоматически будет недоступна
                 </div>
             </div>
             <div className={styles.footer}>

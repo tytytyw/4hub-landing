@@ -18,7 +18,7 @@
   animation: show 0.3s linear
   .hubIcon
     min-width: 165px
-    width: 11.5vw
+    width: 166px
     max-width: 233px
     margin: 0 0 30px 0
     margin-block-start: 0
@@ -76,9 +76,10 @@
         border: 1px solid red
       .eye
         position: absolute
-        right: 12px
-        top: 32px
+        right: 15px
+        top: 30px
         cursor: pointer
+        width: 18px
       .invisible
         position: absolute
         right: 15px
@@ -182,3 +183,51 @@
         cursor: pointer
       span:hover
         color: #518bf3
+@media (max-width: 1420px)
+  .main
+    .hubIcon
+      min-width: 145px
+      width: 146px
+      margin: 0 0 15px 0
+    .registerWrap
+      width: 398px
+      height: 435px
+      .title
+        font-size: 15px
+        margin: 15px 0 10px 0
+      .inputWrap
+        margin: 0 0 6px 0
+        .inputName
+          font-size: 10px
+          letter-spacing: 0.4px
+          margin: 0 0 10px 0
+      .agreementWrap
+        width: 94%
+        font-size: 9px
+      .button
+        display: flex
+        justify-content: center
+        align-items: center
+        background: #4086F1
+        border-radius: 5px
+        width: 117px
+        height: 30px
+        color: white
+        font-size: 10px
+        margin: 13px 0 0 0
+      .orSpan
+        font-size: 9px
+        margin: 8px 0 8px 0
+      .socialNetworks
+        margin: 0 0 5px 0
+        div
+          display: flex
+          justify-content: center
+          align-items: center
+          background: black
+          width: 116px
+          height: 32px
+          img
+            width: 17px
+        div:first-child img
+          width: 11px

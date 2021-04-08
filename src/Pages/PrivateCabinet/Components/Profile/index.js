@@ -1,8 +1,11 @@
 import React from 'react';
-
+import { useSelector } from 'react-redux';
 import styles from './Profile.module.sass';
 
 const Profile = () => {
+
+    const user = useSelector(state => state.user.userInfo);
+
     return (
         <div className={styles.profileWrap}>
             <img
@@ -10,7 +13,7 @@ const Profile = () => {
                 src='./assets/PrivateCabinet/profile-noPhoto.svg'
                 alt='pie-chart'
             />
-            <span>Евгений</span>
+            <span>{user?.name ? user.name : 'User'}</span>
             <div className={styles.arrowDown} />
         </div>
     )

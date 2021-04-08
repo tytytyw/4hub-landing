@@ -12,7 +12,7 @@
   animation: show 0.3s linear
   .hubIcon
     min-width: 165px
-    width: 11.5vw
+    width: 166px
     max-width: 233px
     margin: 39px 0 58px 0
     cursor: pointer
@@ -68,9 +68,10 @@
         border: 1px solid red
       .eye
         position: absolute
-        right: 12px
-        top: 34px
+        right: 15px
+        top: 32px
         cursor: pointer
+        width: 18px
       .invisible
         position: absolute
         right: 15px
@@ -82,7 +83,7 @@
     .remindPassword
       display: flex
       justify-content: flex-end
-      color: #477DE1
+      color: #b5b5b5
       font-size: 10px
       letter-spacing: 0.1px
       width: 91%
@@ -156,4 +157,30 @@
         cursor: pointer
       span:hover
         color: #518bf3
-
+@media (max-width: 1420px)
+  .main
+    .hubIcon
+      width: 135px
+      margin: 0 0 18px 0
+    .enterWrap
+      width: 427px
+      height: 400px
+      .title
+        font-size: 16px
+        margin: 15px 0px 13px 0
+    .enterWrap
+      .remindPassword
+        margin: 14px 0 13px 0
+      .socialNetworks
+        margin: 0 0 5px 0
+        div
+          display: flex
+          justify-content: center
+          align-items: center
+          background: black
+          width: 123px
+          height: 32px
+          img
+            width: 17px
+        div:first-child img
+            width: 11px

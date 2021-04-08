@@ -11,7 +11,7 @@ import BottomPanel from '../ButtomPanel';
 
 const WorkSpace = () => {
     return (
-        <div className={styles.workSpaceWrap}>
+        <div className={`${styles.workSpaceWrap} ${styles.workSpaceWrapCollapsed}`}>
             <div className={styles.header}>
                 <SearchField />
                 <div className={styles.infoHeader}>
