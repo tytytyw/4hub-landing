@@ -27,6 +27,7 @@ export const onGetFolders = () => (dispatch, getState) => {
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
             console.log(res);
+            // console.log(res);
             // dispatch({
             //     type: USER_INFO,
             //     payload: res.data

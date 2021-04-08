@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { onGetUserInfo } from '../../Store/actions/startPageAction';
+import { onGetUserInfo, onGetFolders } from '../../Store/actions/startPageAction';
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
 
 const PrivateCabinet = () => {
 
+    const uid = useSelector(state => state.user.uid)
     const dispatch = useDispatch();
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
@@ -15,6 +16,10 @@ const PrivateCabinet = () => {
 
     useEffect(() => {
         dispatch(onGetUserInfo());
+        dispatch(onGetFolders());
+        let date = new Date();
+        date.setHours(date.getHours() + 1);
+        document.cookie = `uid=${uid};expires=${date}`;
     }, []);
 
     return (

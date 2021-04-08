@@ -8,7 +8,6 @@ const StorageSize = () => {
     const [size, ] = useState({full: 100, real: 0})
 
     const width = `${(size.real * 100) / 100}%`;
-    console.log(width);
 
     return (
         <div className={styles.storageWrap}>

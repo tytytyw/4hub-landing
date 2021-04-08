@@ -14,9 +14,15 @@ const EnterProfile = ({setPage}) => {
     const [compare, setCompare] = useState({isLogin: false, isPass: false});
 
     const checkLogin = (input) => {
-        input.value.indexOf('@') > -1
-            ? setCompare({...compare, isLogin: false})
-            : setCompare({...compare, isLogin: true});
+        if(input.value[0] === '+') {
+            /^\d+$/.test(input.value.slice(1))
+                ? setCompare({...compare, isLogin: false})
+                : setCompare({...compare, isLogin: true});
+        } else {
+            input.value.indexOf('@') > -1
+                ? setCompare({...compare, isLogin: false})
+                : setCompare({...compare, isLogin: true});
+        }
     };
 
     const checkPass = (input) => {

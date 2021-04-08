@@ -5,6 +5,7 @@ import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet
 
 const FolderItem = ({src, title, quantity, listCollapsed}) => {
     return (
+        <>
         <div className={styles.wrapper}>
             <div className={styles.titleWrap}>
                 <img
@@ -20,6 +21,10 @@ const FolderItem = ({src, title, quantity, listCollapsed}) => {
                 <div className={styles.menuWrap}><span className={styles.menu} /></div>
             </div>
         </div>
+        <div className={styles.addFolderToFolder}>
+            <img src/>
+        </div>
+        </>
     )
 };
 

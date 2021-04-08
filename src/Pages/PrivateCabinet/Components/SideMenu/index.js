@@ -10,18 +10,18 @@ const SideMenu = ({menuItem, setItem, collapsed, setCollapsed}) => {
           return <div
               className={`
                 ${styles.menuItem} 
-                ${item.name === menuItem && styles.menuItemChosen} 
-                ${collapsed && styles.menuItemCollapsed}
+                ${item.name === menuItem ? styles.menuItemChosen : undefined} 
+                ${collapsed ? styles.menuItemCollapsed : undefined}
               `}
               key={item.name}
               onClick={() => setItem(item.name)}
           >
               <img
-                  className={`${styles.icons} ${collapsed && styles.iconsCollapsed}`}
+                  className={`${styles.icons} ${collapsed ? styles.iconsCollapsed : undefined}`}
                   src={item.src}
                   alt='icon'
               />
-              <span className={collapsed && styles.hidden}>{item.name}</span>
+              <span className={collapsed ? styles.hidden : undefined}>{item.name}</span>
           </div>
       })
     };
@@ -29,10 +29,10 @@ const SideMenu = ({menuItem, setItem, collapsed, setCollapsed}) => {
     return(
         <aside className={collapsed ? styles.collapsed : styles.asideWrap}>
             <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`./assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />
-            <div className={`${styles.titleWrap} ${collapsed && styles.titleWrapCollapsed}`}>
-                <span className={collapsed && styles.hidden}>МЕНЮ</span>
+            <div className={`${styles.titleWrap} ${collapsed ? styles.titleWrapCollapsed : undefined}`}>
+                <span className={collapsed ? styles.hidden : undefined}>МЕНЮ</span>
                 <img
-                    className={`${styles.collapseButton} ${collapsed && styles.collapseButtonInvert}`}
+                    className={`${styles.collapseButton} ${collapsed ? styles.collapseButtonInvert : undefined}`}
                     src='./assets/PrivateCabinet/signs-2.svg'
                     alt='play'
                     onClick={() => setCollapsed(!collapsed)}

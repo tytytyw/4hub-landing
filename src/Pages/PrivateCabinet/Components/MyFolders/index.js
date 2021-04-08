@@ -16,7 +16,7 @@ const MyFolders = () => {
                 key={el.name}
                 src={el.src}
                 title={el.name}
-                quantity={el.quantity}
+                quantity={el.folders.length}
                 listCollapsed={listCollapsed}
             />
         })

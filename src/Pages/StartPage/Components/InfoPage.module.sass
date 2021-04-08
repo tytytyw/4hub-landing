@@ -1,3 +1,45 @@
+@keyframes leftPlane
+  0%
+    opacity: 0
+    top: 100%
+    left: 50%
+  100%
+    opacity: 1
+    top: 32px
+    left: 2px
+
+@keyframes rightPlane
+  0%
+    opacity: 0
+    top: 100%
+    right: 50%
+  100%
+    opacity: 1
+    top: 4px
+    right: 0
+
+@keyframes envelopeRotate
+  0%
+    opacity: 0
+    top: 75px
+    width: 0
+  100%
+    opacity: 1
+    top: 25px
+    width: 110px
+    transform: rotateZ(1440deg)
+
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 521px
+    height: 418px
+    opacity: 0
+
 .infoWrap
   display: flex
   flex-direction: column
@@ -98,3 +140,66 @@
     .submitButton:active
       background: #39B31E
       transition: background 0.2s ease
+.sendSuccess
+  width: 438px
+  height: 390px
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  flex-direction: column
+  position: relative
+  animation: showPopup 0.2s ease-in-out
+  .cross
+    position: absolute
+    top: 16px
+    right: 7px
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .title
+    font-size: 19px
+    letter-spacing: 0.2px
+    margin: 27px 0 18px 0
+  .imageWrap
+    position: relative
+    display: flex
+    justify-content: center
+    margin: 20px 0 40px 0
+    .envelope
+      position: absolute
+      top: 25px
+      width: 110px
+      animation: envelopeRotate 1s ease-in-out
+    .planeLeft
+      position: absolute
+      top: 32px
+      left: 2px
+      animation: leftPlane 1s ease-in-out
+    .planeRight
+      position: absolute
+      top: 4px
+      right: 0
+      animation: rightPlane 1s ease-in-out
+  .closeButton
+    background: #335cb6
+    font-size: 13px
+    letter-spacing: 0.4px
+    padding: 12px 43px
+    border-radius: 5px
+    box-sizing: border-box
+    cursor: pointer
+    color: white
+  .closeButton:active
+    background: #39B31E
+    transition: background 0.2s ease
