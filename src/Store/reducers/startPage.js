@@ -1,10 +1,10 @@
 import {
     LOG_DATA,
     USER_INFO
-} from '../types/startPageTypes';
+} from '../types';
 
 const INITIAL_STATE = {
-    uid: '', //"43e2bbc56f41f48b08d3ebee3a8f4b1f"
+    uid: '',
     userInfo: null
 };
 

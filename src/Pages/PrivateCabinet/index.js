@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import { onGetUserInfo, onGetFolders } from '../../Store/actions/startPageAction';
+import { onGetUserInfo } from '../../Store/actions/startPageAction';
+import { onGetFolders } from '../../Store/actions/PrivateCabinetActions';
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';

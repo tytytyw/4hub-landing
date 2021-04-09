@@ -2,8 +2,7 @@ import api from '../../api';
 import {
     LOG_DATA,
     USER_INFO,
-
-} from '../types/startPageTypes';
+} from '../types';
 
 export const onLog = (log) => {
     return {
@@ -19,19 +18,6 @@ export const onGetUserInfo = () => (dispatch, getState) => {
                 type: USER_INFO,
                 payload: res.data
             })
-        })
-        .catch(err => console.log(err))
-};
-
-export const onGetFolders = () => (dispatch, getState) => {
-    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
-        .then(res => {
-            console.log(res);
-            // console.log(res);
-            // dispatch({
-            //     type: USER_INFO,
-            //     payload: res.data
-            // })
         })
         .catch(err => console.log(err))
 };
