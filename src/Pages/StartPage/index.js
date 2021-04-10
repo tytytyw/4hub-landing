@@ -10,10 +10,11 @@ import DownloadFile from './Components/DownloadFile';
 import EnterProfile from './Components/EnterProfile';
 import RegisterProfile from './Components/RegisterProfile';
 import ForgotPassword from './Components/ForgotPassword';
+import RenewPassword from './Components/RenewPassword';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('init');
+    const [pageOption, setPage] = useState('renewPassword');
     const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
     useEffect(() => {
@@ -49,6 +50,7 @@ const StartPage = () => {
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {(pageOption === 'register' || pageOption === 'registerSuccess') && <RegisterProfile setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}
+                {pageOption === 'renewPassword' && <RenewPassword setPage={setPage} />}
             </main>
         </div>
     )
