@@ -9,6 +9,7 @@ import Infopage from './Components/InfoPage';
 import DownloadFile from './Components/DownloadFile';
 import EnterProfile from './Components/EnterProfile';
 import RegisterProfile from './Components/RegisterProfile';
+import ForgotPassword from './Components/ForgotPassword';
 
 const StartPage = () => {
 
@@ -47,6 +48,7 @@ const StartPage = () => {
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {(pageOption === 'register' || pageOption === 'registerSuccess') && <RegisterProfile setPage={setPage} pageOption={pageOption} />}
+                {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}
             </main>
         </div>
     )

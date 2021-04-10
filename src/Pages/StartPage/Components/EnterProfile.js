@@ -99,7 +99,10 @@ const EnterProfile = ({setPage}) => {
                         onClick={() => setVisibility('password')}
                     />}
                 </div>
-                <div className={styles.remindPassword}>Забыл пароль?</div>
+                <div
+                    className={styles.remindPassword}
+                    onClick={() => setPage('forgotPassword')}
+                >Забыл пароль?</div>
                 <div className={styles.button} onClick={signIn}>Вход</div>
                 <span className={styles.orSpan}>или</span>
                 <div className={styles.socialNetworks}>
