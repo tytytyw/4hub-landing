@@ -26,6 +26,10 @@ const Calendar = ({setShowCalendar, setDateValue}) => {
         }
     };
 
+    const switchYear = (status) => {
+        status === 'increase' ? setDate({...date, year: date.year + 1}) : setDate({...date, year: date.year - 1});
+    }
+
     const renderCal = (obj, classCustom, func, canInteract) => {
         return obj.map(day => {
             const eachDate = {...date, day};
@@ -60,16 +64,21 @@ const Calendar = ({setShowCalendar, setDateValue}) => {
     return(
         <div className={styles.wrap}>
             <div className={styles.header}>
-                <div>
+                <div className={styles.calendarPic}>
                     <img src='./assets/StartPage/Calendar.svg' alt='file' />
                     <span>Календарь</span>
+                </div>
+                <div className={styles.yearPicker}>
+                    <div className={styles.yearDecrease} onClick={() => switchYear()} />
+                    <span>{date.year}</span>
+                    <div className={styles.yearIncrease} onClick={() => switchYear('increase')} />
                 </div>
                 <span className={styles.cross} onClick={() => setShowCalendar(false)}></span>
             </div>
             <div className={styles.main}>
                 <div className={styles.switcher}>
                     <img src='./assets/StartPage/play-3.svg' alt='Previous' onClick={() => switchMonth(32)} />
-                    <div className={styles.month}>{months(date.year)[date.month - 1].name}, {date.year}</div>
+                    <div className={styles.month}>{months(date.year)[date.month - 1].name}</div>
                     <img className={styles.switchReverse} src='./assets/StartPage/play-3.svg' alt='Next' onClick={() => switchMonth(0)} />
                 </div>
                 <div className={styles.calendarBox}>
