@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import styles from './SendSuccess.module.sass';
-import File from '../../../generalComponents/File';
+import File from '../../../generalComponents/Files';
 
 const SendSuccess = ({data, set }) => {
     const format = data.files.file.name.split('.');

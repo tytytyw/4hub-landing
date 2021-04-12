@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>surprised</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,11-Поп-ап-новая-папка" transform="translate(-818.000000, -663.000000)" fill-rule="nonzero">
+            <g id="Новая-папка" transform="translate(456.000000, 104.250000)">
+                <g id="Group-8" transform="translate(58.500000, 559.500000)">
+                    <g id="surprised" transform="translate(303.750000, 0.000000)">
+                        <circle id="Oval" fill="#FFC10E" cx="9.74860127" cy="9.74860127" r="9.74860127"></circle>
+                        <g id="Group" transform="translate(5.224684, 2.674051)" fill="#333333">
+                            <ellipse id="Oval" cx="1.56222152" cy="2.59814873" rx="1.53103797" ry="1.44374051"></ellipse>
+                            <ellipse id="Oval" cx="4.52391772" cy="10.6442437" rx="4.35783861" ry="4.32089557"></ellipse>
+                            <circle id="Oval" cx="7.35010127" cy="2.59814873" r="2.55729747"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

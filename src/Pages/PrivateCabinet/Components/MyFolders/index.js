@@ -5,10 +5,12 @@ import List from '../List';
 import FolderItem from './FolderItem';
 import { folders } from './hardCodedFolders';
 import WorkSpace from '../WorkSpace';
+import CreateFolder from "../CreateFolder";
 
 const MyFolders = () => {
 
     const [listCollapsed, setListCollapsed] = useState(false);
+    const [newFolder, setNewFolder] = useState(false);
 
     const renderFolderList = () => {
         return folders.map(el => {
@@ -22,7 +24,6 @@ const MyFolders = () => {
         })
     };
 
-
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -30,12 +31,17 @@ const MyFolders = () => {
                 src='add-folder.svg'
                 setListCollapsed={setListCollapsed}
                 listCollapsed={listCollapsed}
+                onCreate={setNewFolder}
             >
                 <div className={styles.folderListWrap}>
                     {renderFolderList()}
                 </div>
             </List>
             <WorkSpace />
+            {newFolder && <CreateFolder
+                onCreate={setNewFolder}
+                title='Новая папка'
+            />}
         </div>
     )
 }

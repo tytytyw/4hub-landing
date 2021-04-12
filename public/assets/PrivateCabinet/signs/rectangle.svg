@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="16px" viewBox="0 0 23 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>rectangle</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,11-Поп-ап-новая-папка" transform="translate(-683.000000, -591.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="Новая-папка" transform="translate(456.000000, 104.250000)">
+                <g id="Group-7" transform="translate(57.750000, 483.000000)">
+                    <g id="rectangle" transform="translate(169.500000, 4.500000)">
+                        <path d="M21.2553465,0 L0.452255848,0 C0.202618421,0 0,0.212814844 0,0.475014844 L0,13.7750297 C0,14.0371852 0.202618421,14.25 0.452255848,14.25 L21.2553889,14.25 C21.5050263,14.25 21.7076447,14.0371852 21.7076447,13.7749852 L21.7076447,0.475014844 C21.7076447,0.212814844 21.5049839,0 21.2553465,0 Z M20.803133,13.3000148 L0.904469298,13.3000148 L0.904469298,0.949985156 L20.803133,0.949985156 L20.803133,13.3000148 L20.803133,13.3000148 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

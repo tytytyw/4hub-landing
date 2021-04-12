@@ -11,6 +11,7 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
+    //! Temporary comment before BUILT
     useEffect(() => {
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
         if(!!uid) dispatch(onLog(uid[0].split('=')[1]));

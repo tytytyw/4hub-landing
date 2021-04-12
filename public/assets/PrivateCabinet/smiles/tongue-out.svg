@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tongue-out</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,11-Поп-ап-новая-папка" transform="translate(-852.000000, -663.000000)" fill-rule="nonzero">
+            <g id="Новая-папка" transform="translate(456.000000, 104.250000)">
+                <g id="Group-8" transform="translate(58.500000, 559.500000)">
+                    <g id="tongue-out" transform="translate(337.500000, 0.000000)">
+                        <circle id="Oval" fill="#FFC10E" cx="9.74860127" cy="9.74860127" r="9.74860127"></circle>
+                        <path d="M10.7919335,14.085212 C11.7823196,15.9330222 13.3814019,17.0044114 14.3639715,16.4779525 C15.3465411,15.9510411 15.3402057,14.0259304 14.349943,12.1779968 L10.7919335,14.085212 Z" id="Path" fill="#CA2027"></path>
+                        <g id="Group" transform="translate(4.648734, 4.854430)" fill="#333333">
+                            <circle id="Oval" cx="2.13664873" cy="1.53149051" r="1.53103797"></circle>
+                            <circle id="Oval" cx="7.92605063" cy="1.53149051" r="1.53103797"></circle>
+                            <path d="M9.47231013,6.87251582 C7.03353481,9.35436392 3.10963291,9.33453481 0.69118038,6.83557278 C0.345610759,6.47844304 -0.198085443,7.02320886 0.147031646,7.37972152 C2.85271835,10.17575 7.29044937,10.1910127 10.0164589,7.41666456 C10.364538,7.06262025 9.82067722,6.51814241 9.47231013,6.87251582 L9.47231013,6.87251582 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

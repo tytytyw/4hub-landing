@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import classnames from 'classnames';
 
 import api from '../../../api';
@@ -31,24 +31,31 @@ const ForgotPassword = ({setPage}) => {
         if(input.value[0] === '+') {
             const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, '');
             if(/\D/.test(newVal)) boolean = true;
+            if(newVal.length < 12) boolean = true;
         } else {
             if(input.value.indexOf('@') === -1) boolean = true;
         }
-        setCompare({...compare, isLogin: boolean});
+        setCompare(boolean);
     };
 
     const signIn = () => {
         const mSuccess = 'В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения';
-        setMessage(mSuccess);
-        setSuccess(true);
-        if(login) {
-            api.post(`/ajax/user_login.php?name=${login}`)
-                .then(res => {
-                    if(res.data.ok === 1) {
 
+        if(login && !compare) {
+            api.post(`/ajax/user_pass_remember.php?name=${login}`)
+                .then(res => {
+                    if(res.data.ok === 1 && res.data.send === true) {
+                        setMessage(mSuccess);
+                        setSuccess(true);
+                    } else {
+                        setMessage(res.data.send.toString());
+                        setError(true);
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    setMessage(err.toString());
+                    setError(true);
+                });
         }
     }
 
@@ -65,12 +72,12 @@ const ForgotPassword = ({setPage}) => {
                 <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                     <label className={styles.inputName} htmlFor='login'>
                         Email / Телефон
-                        {compare.isLogin && <span> Некорректный ввод данных</span>}
+                        {compare && <span> Некорректный ввод данных</span>}
                     </label>
                     <input
                         className={classnames({
                             [styles.inputField]: true,
-                            [styles.redBorder]: compare.isLogin
+                            [styles.redBorder]: compare
                         })}
                         type='text'
                         id='login'

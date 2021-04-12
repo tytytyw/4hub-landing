@@ -6,7 +6,7 @@ import SavePeriodPicker from './SavePeriodPicker';
 import Calendar from './Calendar';
 import SendSuccess from './SendSuccess';
 import { getDate } from '../../../generalComponents/CalendarHelper';
-import File from '../../../generalComponents/File';
+import File from '../../../generalComponents/Files';
 import api from '../../../api';
 import { ReactComponent as EyeIcon } from '../../../assets/StartPage/eye.svg';
 import { ReactComponent as InvisibleIcon } from '../../../assets/StartPage/invisible.svg';

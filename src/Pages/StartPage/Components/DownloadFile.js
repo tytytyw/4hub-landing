@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from './DownloadFile.module.sass';
-import File from "../../../generalComponents/File";
+import File from "../../../generalComponents/Files";
 import api from '../../../api';
 import PopUp from "../../../generalComponents/PopUp";
 import { getDate } from '../../../generalComponents/CalendarHelper';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/down-arrow.svg';
+import Error from "../../../generalComponents/Error";
 
 const DownloadFile = ({ setPage }) => {
 
@@ -40,9 +41,9 @@ const DownloadFile = ({ setPage }) => {
         const d2 = new Date(file.deadline);
         const days = (d2 - d1)/86400000;
         const last = days.toString()[days.toString().length - 1];
-        if(last === '1') return `${days} день`;
-        if(last === '2' || last === '3' || last === '4') return `${days} дня`;
-        return `${days} дней`;
+        if(last === '1') return `${days.toFixed()} день`;
+        if(last === '2' || last === '3' || last === '4') return `${days.toFixed()} дня`;
+        return `${days.toFixed()} дней`;
     };
 
     const showTime = () => {
@@ -62,6 +63,7 @@ const DownloadFile = ({ setPage }) => {
                 }
             })
             .catch(err => {console.log(err); setError(true); setFile(emptyFile)});
+        return () => window.history.pushState('', '', "/");
     }, []);
 
     return (
@@ -105,12 +107,7 @@ const DownloadFile = ({ setPage }) => {
             {file.name !=='No file' && <span className={styles.term}>Срок хранения файла ( {countLeftDays()} до {showTime()})</span>}
             </>}
         </form>}
-        {error && <PopUp set={setError}>
-            <div style={{
-                width: 'max-content',
-                padding: '20px'
-            }}>Упс.... Такой файл не найден!</div>
-        </PopUp>}
+        {error && <Error error={error} set={setError} message={'Упс... Такой файл не найден'} />}
         </>
     )
 }

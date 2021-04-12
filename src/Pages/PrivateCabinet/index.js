@@ -18,6 +18,7 @@ const PrivateCabinet = () => {
     useEffect(() => {
         dispatch(onGetUserInfo());
         dispatch(onGetFolders());
+
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;

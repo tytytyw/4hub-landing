@@ -18,8 +18,8 @@ const InfoPage = ({setPage}) => {
                     style={{margin: el.margin}}
                 >
                     <h2>{el.name}</h2>
-                    {el.text.map(txt => {
-                        return <span>{txt}</span>
+                    {el.text.map((txt, i) => {
+                        return <span key={i}>{txt}</span>
                     })}
                 </div>
             </div>

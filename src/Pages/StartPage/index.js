@@ -14,12 +14,15 @@ import RenewPassword from './Components/RenewPassword';
 
 const StartPage = () => {
 
-    const [pageOption, setPage] = useState('renewPassword');
+    const [pageOption, setPage] = useState('init');
     const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
             setPage('downloadFile');
+        }
+        if(/action=pass_remember/.test(window.location.search)) {
+            setPage('renewPassword');
         }
         }, []);
 

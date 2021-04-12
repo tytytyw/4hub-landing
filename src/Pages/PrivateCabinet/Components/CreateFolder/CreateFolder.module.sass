@@ -1,0 +1,333 @@
+@keyframes showPopup1420
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 430px
+    height: 500px
+    opacity: 0
+
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 530px
+    height: 720px
+    opacity: 0
+
+@keyframes showTags
+  0%
+    display: none
+    height: 0
+    opacity: 0
+    bottom: 0
+  100%
+    display: block
+    height: 140px
+    opacity: 1
+    bottom: -137px
+
+.createFolderWrap
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  position: relative
+  width: 530px
+  height: 720px
+  animation: showPopup 0.2s ease-in-out
+  .cross
+    position: absolute
+    top: 20px
+    right: 15px
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .title
+    font-size: 19px
+    font-family: "SF Pro Medium", sans-serif
+    margin: 40px 0 40px 0
+  .folderIconWrap
+    display: flex
+    width: 78%
+    margin: 0 0 28px 0
+    .folderIcon
+      width: 71px
+      height: 62px
+    .grey path
+      fill: #efeeee
+    .grey polygon
+      fill: #efeeee
+    .wheat path
+      fill: #c4aa8f
+    .wheat polygon
+      fill: #FEDCB8
+    .blue path
+      fill: #326bc1
+    .blue polygon
+      fill: #4086F1
+    .green path
+      fill: #27967a
+    .green polygon
+      fill: #34C6A2
+    .orange path
+      fill: #cb8d40
+    .orange polygon
+      fill: #F9AD50
+    .pink path
+      fill: #c15862
+    .pink polygon
+      fill: #F4707D
+    .purple path
+      fill: #792794
+    .purple polygon
+      fill: #A234C6
+    .red path
+      fill: #992928
+    .red polygon
+      fill: #C63534
+    .aqua path
+      fill: #267d8d
+    .aqua polygon
+      fill: #34AFC6
+    .brown path
+      fill: #a0602a
+    .brown polygon
+      fill: #C67734
+    .darkblue path
+      fill: #40289b
+    .darkblue polygon
+      fill: #5134C6
+  .inputFieldsWrap
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    width: 78%
+    .tagPicker
+      display: flex
+      align-items: center
+      width: 101%
+      height: 40px
+      position: relative
+      border: 1px solid grey
+      border-radius: 5px
+      cursor: pointer
+      color: grey
+      font-family: "SF Pro Light", sans-serif
+      font-size: 14px
+      padding: 0 15px
+      box-sizing: border-box
+      .tagList::-webkit-scrollbar
+        width: 0
+      .tagList
+        display: none
+        position: absolute
+        z-index: 2
+        left: -1px
+        bottom: -137px
+        width: 100%
+        height: 140px
+        background: white
+        overflow-x: hidden
+        overflow-y: scroll
+        border: 1px solid grey
+        border-top: none
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+        div
+          display: flex
+          align-items: center
+          position: relative
+          background: white
+          width: 100%
+          height: 35px
+          box-sizing: border-box
+          padding: 0 15px
+          color: black
+        div:before
+          content: ''
+          position: absolute
+          top: 0
+          height: 1px
+          width: 90%
+          background: grey
+        div:hover
+          background: linear-gradient(276deg, rgba(255,255,255,1) 0%, rgb(236, 236, 236) 50%, rgba(255,255,255,1) 100%)
+      .showTagList
+        display: block
+        z-index: 3
+        animation: showTags 0.2s ease-in-out
+  .colorWrap
+    display: flex
+    flex-direction: column
+    width: 78%
+    margin: 0 0 15px 0
+    span
+      font-size: 13px
+      margin: 0 0 8px 0
+    div
+      display: flex
+      justify-content: space-between
+      width: 87%
+      .circleColor
+        position: relative
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        cursor: pointer
+        z-index: 2
+      .circleColor:hover:before
+        content: ''
+        width: 100%
+        height: 100%
+        border-radius: 50%
+        background: rgba(1, 1, 1, 0.2)
+        z-index: 1
+      .circleColorChosen
+        width: 20px
+        height: 20px
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 50%
+        z-index: 2
+  .signsWrap
+    display: flex
+    flex-direction: column
+    width: 78%
+    margin: 0 0 25px 0
+    span
+      font-size: 13px
+      margin: 0 0 8px 0
+    div
+      display: flex
+      justify-content: space-between
+      width: 87%
+      .sign
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        border: 1px solid white
+      .sign:hover
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 5px
+      .signChosen
+        border: 1px solid grey
+        border-radius: 5px
+  .emojiWrap
+    display: flex
+    flex-direction: column
+    width: 78%
+    margin: 0 0 25px 0
+    span
+      font-size: 13px
+      margin: 0 0 8px 0
+    div
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      width: 89%
+      .emoji
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        border: 1px solid white
+        width: 23px
+        margin: 0 8px 10px 0
+      .emoji:hover
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 5px
+      .emojiChosen
+        border: 1px solid grey
+        border-radius: 5px
+  .buttonsWrap
+    display: flex
+    width: 290px
+    justify-content: space-between
+    div
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 140px
+      height: 39px
+      border-radius: 5px
+      cursor: pointer
+      font-size: 14px
+    .cancel
+      background: #e3e3e3
+      border: 1px solid #e9e9e9
+      color: grey
+    .cancel:hover
+      background: #fc7a7a
+      color: white
+    .add
+      background: #477DE1
+      border: 1px solid #477DE1
+      color: white
+    .add:hover
+      background: #3b6dcb
+@media (max-width: 1420px)
+  .createFolderWrap
+    width: 430px
+    height: 500px
+    animation: showPopup1420 0.2s ease-in-out
+    .title
+      font-size: 17px
+      margin: 10px 0 10px 0
+    .folderIconWrap
+      width: 78%
+      margin: 0 0 18px 0
+      .folderIcon
+        width: 51px
+        height: 42px
+    .inputFieldsWrap
+      .tagPicker
+        height: 25px
+        .tagList
+          height: 110px
+          bottom: -108px
+          div
+            display: flex
+            align-items: center
+            position: relative
+            background: white
+            width: 100%
+            height: 25px
+    .signsWrap
+      margin: 0 0 10px 0
+    .emojiWrap
+      margin: 0 0 5px 0
+      div
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        .emoji
+          margin: 0 1px 5px 0
+    .buttonsWrap
+      width: 210px
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100px
+        height: 29px
+        border-radius: 5px
+        cursor: pointer
+        font-size: 11px
+

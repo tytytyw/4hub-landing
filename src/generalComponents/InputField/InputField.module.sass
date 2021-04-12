@@ -1,0 +1,78 @@
+.wrap
+  display: flex
+  align-items: center
+  width: 100%
+  min-height: 25px
+  height: 100%
+  position: relative
+  border: 1px solid grey
+  border-radius: 5px
+  .inputField
+    border: none
+    height: 92%
+    width: 100%
+    border-radius: 5px
+    padding: 0 40px 0 18px
+    outline: none
+    font-family: "SF Pro Light", sans-serif
+  .isPassword
+    width: calc(80% - 30px)
+  .inputField::placeholder
+    color: grey
+    font-family: "SF Pro Light", sans-serif
+  .redBorder
+    border: 1px solid red
+  .eye
+    position: absolute
+    right: calc(7% + 34px)
+    top: calc(48% - 9px)
+    cursor: pointer
+    width: 18px
+  .noSwitcher
+    position: absolute
+    top: calc(48% - 9px)
+    cursor: pointer
+    width: 18px
+    right: 5%
+  .switcher
+    width: 29px
+    height: 15px
+    background: white
+    border: 1px solid #D1D1D1
+    border-radius: 10px
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    transition: background 0.1s ease-in-out
+    cursor: pointer
+    position: absolute
+    right: 15px
+    top: calc(48% - 7.5px)
+  .switcherActive
+    width: 29px
+    height: 15px
+    border: 1px solid #D1D1D1
+    border-radius: 10px
+    display: flex
+    background: white
+    align-items: center
+    justify-content: flex-start
+    transition: background 0.1s ease-in-out
+    cursor: pointer
+    position: absolute
+    right: 15px
+    top: calc(48% - 7.5px)
+  .switch
+    width: 13px
+    height: 13px
+    background: #D1D1D1
+    border-radius: 50%
+    transform: translateX(9%)
+    transition: transform 0.1s ease-in-out
+  .switchActive
+    width: 13px
+    height: 13px
+    background: #39B31E
+    border-radius: 50%
+    transform: translateX(115%)
+    transition: transform 0.1s ease-in-out

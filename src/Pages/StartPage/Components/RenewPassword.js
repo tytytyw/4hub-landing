@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import classnames from 'classnames';
 
 import api from '../../../api';
@@ -7,6 +7,7 @@ import Error from '../../../generalComponents/Error';
 import Success from '../../../generalComponents/Success';
 
 const RenewPassword = ({setPage}) => {
+
     const [visibilityFirst, setVisibilityFirst] = useState('password');
     const [visibilitySecond, setVisibilitySecond] = useState('password');
     const [info, setInfo] = useState({pass: '', repeatPass: ''});
@@ -14,6 +15,13 @@ const RenewPassword = ({setPage}) => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [message, setMessage] = useState('Упс.... что-то пошло не так. Попробуй еще раз!');
+    const [userInfo, setUserInfo] = useState({confirm: '', login: ''});
+
+    useEffect(() => {
+        const confirm = window.location.search.match(/confirm_pass=\d*/)[0].split('=')[1];
+        const login = window.location.search.match(/name=.*/)[0].split('=')[1];
+        setUserInfo({...userInfo, confirm, login});
+    }, []);
 
     const checkPass = (input) => {
         input.value === ''
@@ -30,26 +38,22 @@ const RenewPassword = ({setPage}) => {
     }
 
     const sendRequest = () => {
-        if(!compare.isPass && !compare.isCoincidePass && info.pass && info.repeatPass) {
-            const mSuccess = 'В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения';
-            setMessage(mSuccess);
-            setSuccess(true);
-            api.post(`/ajax/123`)
+        const isFilled = !compare.isPass && !compare.isCoincidePass && info.pass && info.repeatPass && userInfo.confirm && userInfo.login;
+        if(isFilled) {
+            api.post(`/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`)
                 .then(res => {
-                    // if(res.data.ok === 1) {
-                    //     setPage('registerSuccess');
-                    // } else {
-                    //     res.data.error
-                    //         ? setErrorMessage(res.data.error)
-                    //         : setErrorMessage('Упс.... что-то пошло не так. Попробуй еще раз!');
-                    //     setError(true);
-                    // }
+                    if(res.data.ok === 1) {
+                        setMessage('Пароль успешно обновлен');
+                        setSuccess(true);
+                    } else {
+                        setMessage(res.data.toString());
+                        setError(true);
+                    }
                 })
-                // .catch(err => {
-                //     console.log(err);
-                //     setMessage(err);
-                //     setError(true);
-                // });
+                .catch(err => {
+                    setMessage(err.toString());
+                    setError(true);
+                });
         }
     };
 
