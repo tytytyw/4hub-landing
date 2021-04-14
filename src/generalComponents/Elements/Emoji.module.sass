@@ -1,0 +1,36 @@
+.emojiWrap
+  display: flex
+  flex-direction: column
+  width: 78%
+  margin: 0 0 25px 0
+  span
+    font-size: 13px
+    margin: 0 0 8px 0
+  div
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    width: 89%
+    .emoji
+      display: flex
+      align-items: center
+      justify-content: center
+      cursor: pointer
+      border: 1px solid white
+      width: 23px
+      margin: 0 8px 10px 0
+    .emoji:hover
+      background: rgba(1, 1, 1, 0.2)
+      border-radius: 5px
+    .emojiChosen
+      border: 1px solid grey
+      border-radius: 5px
+@media (max-width: 1420px)
+  .emojiWrap
+    margin: 0 0 5px 0
+    div
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      .emoji
+        margin: 0 1px 5px 0

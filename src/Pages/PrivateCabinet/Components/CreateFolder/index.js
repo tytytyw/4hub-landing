@@ -7,12 +7,13 @@ import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import InputField from '../../../../generalComponents/InputField';
-import {tags, colors, signs, smiles} from '../../../../generalComponents/collections';
+import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import { onGetFolders } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
+import Emoji from '../../../../generalComponents/Elements/Emoji';
 
 const CreateFolder = ({onCreate, title, info}) => {
 
@@ -36,34 +37,6 @@ const CreateFolder = ({onCreate, title, info}) => {
                 key={i}
                 onClick={() => setTagOption({show: false, chosen: tag})}
             >{tag}</div>;
-        })
-    };
-
-    /*const renderSigns = () => {
-      return signs.map((el, i) => {
-          return <div
-              key={i}
-              className={classnames({
-                  [styles.sign]: true,
-                  [styles.signChosen]: sign === el
-              })}
-              onClick={() => setSign(el)}
-          ><img src={`./assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
-          </div>
-      })
-    };*/
-
-    const renderEmoji = () => {
-        return smiles.map((el, i) => {
-            return <div
-                key={i}
-                className={classnames({
-                    [styles.emoji]: true,
-                    [styles.emojiChosen]: emoji === el
-                })}
-                onClick={() => setEmoji(el)}
-            ><img src={`./assets/PrivateCabinet/smiles/${el}.svg`} alt='smile' />
-            </div>
         })
     };
 
@@ -143,14 +116,7 @@ const CreateFolder = ({onCreate, title, info}) => {
                 </div>
                 <Colors color={color} setColor={setColor} />
                 <Signs sign={sign} setSign={setSign} />
-                {/*<div className={styles.signsWrap}>
-                    <span>Добавить знак</span>
-                    <div>{renderSigns()}</div>
-                </div>*/}
-                <div className={styles.emojiWrap}>
-                    <span>Добавить эмоджи</span>
-                    <div>{renderEmoji()}</div>
-                </div>
+                <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
                     <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
                     <div className={styles.add} onClick={() => onAddFolder()}>Добавить</div>
