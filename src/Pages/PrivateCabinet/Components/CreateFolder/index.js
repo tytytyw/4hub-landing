@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import classnames from 'classnames';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
 import api from '../../../../api';
@@ -8,8 +8,13 @@ import PopUp from '../../../../generalComponents/PopUp';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors, signs, smiles} from '../../../../generalComponents/collections';
+import Error from '../../../../generalComponents/Error';
+import { onGetFolders } from '../../../../Store/actions/PrivateCabinetActions';
+import Colors from '../../../../generalComponents/Elements/Colors';
+import '../../../../generalComponents/colors.sass';
+import Signs from '../../../../generalComponents/Elements/Signs';
 
-const CreateFolder = ({onCreate, title}) => {
+const CreateFolder = ({onCreate, title, info}) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
@@ -20,6 +25,8 @@ const CreateFolder = ({onCreate, title}) => {
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
+    const [error, setError] = useState(false);
+    const dispatch = useDispatch();
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -32,21 +39,7 @@ const CreateFolder = ({onCreate, title}) => {
         })
     };
 
-    const renderColors = () => {
-      return colors.map((el, i) => {
-          return <div
-              key={i}
-              className={styles.circleColor}
-              style={{
-                  background: color?.dark === el.dark ? el.dark : el.light,
-                  border: `1px solid ${el.dark}`
-              }}
-              onClick={() => setColor(el)}
-          />
-      })
-    };
-
-    const renderSigns = () => {
+    /*const renderSigns = () => {
       return signs.map((el, i) => {
           return <div
               key={i}
@@ -58,7 +51,7 @@ const CreateFolder = ({onCreate, title}) => {
           ><img src={`./assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
           </div>
       })
-    };
+    };*/
 
     const renderEmoji = () => {
         return smiles.map((el, i) => {
@@ -90,18 +83,28 @@ const CreateFolder = ({onCreate, title}) => {
     };
 
     const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${'global/all'}`;
+        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}`;
       api.post(`/ajax/dir_add.php?${params}`)
-          .then(res => console.log(res))
-          .catch(err => console.log(err));
+          .then(res => {if(res.data.ok === 1) {
+              onCreate(false);
+          } else {setError(true)}
+          })
+          .catch(err => {setError(true)})
+          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
     };
 
+    const closeComponent = () => {
+        onCreate(false);
+        setError(false);
+    }
+
     return (
+        <>
         <PopUp set={onCreate}>
             <div className={styles.createFolderWrap}>
                 <span className={styles.cross} onClick={() => onCreate(false)} />
                 <span className={styles.title}>{title}</span>
-                <div className={styles.folderIconWrap}><FolderIcon className={`${styles.folderIcon} ${styles[color.color]}`} /></div>
+                <div className={styles.folderIconWrap}><FolderIcon className={`${styles.folderIcon} ${color.color}`} /></div>
                 <div style={generateInputWrap()}
                      className={styles.inputFieldsWrap}>
                     <InputField
@@ -138,14 +141,12 @@ const CreateFolder = ({onCreate, title}) => {
                         placeholder='Повторите пароль'
                     />}
                 </div>
-                <div className={styles.colorWrap}>
-                    <span>Выберите цвет папки</span>
-                    <div>{renderColors()}</div>
-                </div>
-                <div className={styles.signsWrap}>
+                <Colors color={color} setColor={setColor} />
+                <Signs sign={sign} setSign={setSign} />
+                {/*<div className={styles.signsWrap}>
                     <span>Добавить знак</span>
                     <div>{renderSigns()}</div>
-                </div>
+                </div>*/}
                 <div className={styles.emojiWrap}>
                     <span>Добавить эмоджи</span>
                     <div>{renderEmoji()}</div>
@@ -156,6 +157,8 @@ const CreateFolder = ({onCreate, title}) => {
                 </div>
             </div>
         </PopUp>
+        {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
+        </>
     )
 }
 

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './DownloadFile.module.sass';
 import File from "../../../generalComponents/Files";
 import api from '../../../api';
-import PopUp from "../../../generalComponents/PopUp";
 import { getDate } from '../../../generalComponents/CalendarHelper';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/down-arrow.svg';
 import Error from "../../../generalComponents/Error";

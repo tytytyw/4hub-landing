@@ -68,26 +68,52 @@
     .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
       background: #477DE1
       transition: background 0.2s ease
-.addFolderToFolder
+.innerFolders
   display: flex
-  align-items: center
-  justify-content: space-between
-  box-sizing: border-box
-  padding: 0 15px 0 30px
+  flex-direction: column
   width: 100%
-  height: 50px
-  font-size: 12px
+  min-height: max-content
+  opacity: 1
   border-bottom: 1px solid grey
   transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
-  span
-    margin: 0 0 0 15px
-    animation: showText 0.2s ease-in-out
-  .addFolderName
+  .addFolderToFolder
     display: flex
-  .addFolderIcon
-    width: 18px
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    padding: 0 15px 0 30px
+    width: 100%
+    height: 50px
+    font-size: 12px
+    border-bottom: 1px solid grey
+    cursor: pointer
+    span
+      margin: 0 0 0 15px
+      animation: showText 0.2s ease-in-out
+    .addFolderName
+      display: flex
+    .addFolderIcon
+      width: 18px
+  .addFolderToFolder:hover
+    background: rgba(71, 125, 225, 0.1)
+  .innerFolder:hover
+    background: rgba(71, 125, 225, 0.1)
+  .innerFolder
+    display: flex
+    align-items: center
+    box-sizing: border-box
+    padding: 0 15px 0 60px
+    width: 100%
+    height: 50px
+    font-size: 12px
+    cursor: pointer
+    .innerFolderIcon
+      margin: 0 10px 0 0
 .hidden
+  position: relative
+  z-index: -200
   opacity: 0
   height: 0
-  transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
+  width: 0
+  transition: height 0.2s ease-in-out, width 0.2s ease-in-out, opacity 0.2s ease-in-out
 

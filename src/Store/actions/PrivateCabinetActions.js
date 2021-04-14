@@ -1,15 +1,16 @@
 import api from '../../api';
 import {
     GET_FOLDERS,
+    CHOOSE_FOLDER,
 } from '../types';
 
 export const onGetFolders = () => (dispatch, getState) => {
     const folders = [
-        {name: 'all', nameRu: 'Общая папка'},
-        {name: 'video', nameRu: 'Фильмы'},
-        {name: 'music', nameRu: 'Музыка'},
-        {name: 'images', nameRu: 'Изображения'},
-        {name: 'docs', nameRu: 'Документы'},
+        {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
+        {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
+        {name: 'music', nameRu: 'Музыка', path: 'global/music'},
+        {name: 'images', nameRu: 'Изображения', path: 'global/images'},
+        {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
     ];
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -19,6 +20,7 @@ export const onGetFolders = () => (dispatch, getState) => {
                     return {
                         name: el.name,
                         nameRu: el.nameRu,
+                        path: el.path,
                         folders: res.data.global[el.name].folders,
                         files: res.data.global[el.name].files
                     }
@@ -32,3 +34,10 @@ export const onGetFolders = () => (dispatch, getState) => {
         })
         .catch(err => console.log(err))
 };
+
+export const onChooseFolder = (folders, path) => {
+    return {
+        type: CHOOSE_FOLDER,
+        payload: {folders, path}
+    }
+}

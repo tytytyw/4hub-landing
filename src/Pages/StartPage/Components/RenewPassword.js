@@ -21,6 +21,7 @@ const RenewPassword = ({setPage}) => {
         const confirm = window.location.search.match(/confirm_pass=\d*/)[0].split('=')[1];
         const login = window.location.search.match(/name=.*/)[0].split('=')[1];
         setUserInfo({...userInfo, confirm, login});
+        return () => window.history.pushState('', '', "/");
     }, []);
 
     const checkPass = (input) => {
