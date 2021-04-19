@@ -5,10 +5,9 @@ import classnames from 'classnames';
 
 const InputField = ({
         value, set, model, mistake = false, height = '25px', switcher = false,
-        placeholder = '', onSwitch
+        placeholder = '', onSwitch, visibility, setVisibility, comparePass
 }) => {
 
-    const [visibility, setVisibility] = useState('password');
     const [isPassword, setIsPassword] = useState(true);
 
     const switchOn = () => {
@@ -27,7 +26,10 @@ const InputField = ({
                 type={model === 'password' ? visibility : 'text'}
                 value={value}
                 placeholder={placeholder}
-                onChange={(e) => set(e.target.value)}
+                onChange={(e) => {
+                    if(comparePass) comparePass(e.target.value);
+                    set(e.target.value)}
+                }
             />
             {isPassword && model === 'password' && visibility === 'password' && <img
                 src='./assets/StartPage/invisible.svg'

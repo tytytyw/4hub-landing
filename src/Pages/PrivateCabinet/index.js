@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import { onGetUserInfo } from '../../Store/actions/startPageAction';
@@ -9,7 +9,7 @@ import MyFolders from './Components/MyFolders';
 
 const PrivateCabinet = () => {
 
-    const uid = useSelector(state => state.user.uid)
+    const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
@@ -22,7 +22,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className={styles.mainWrap} style={{minHeight}}>

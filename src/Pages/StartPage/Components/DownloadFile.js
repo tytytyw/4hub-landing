@@ -63,7 +63,7 @@ const DownloadFile = ({ setPage }) => {
             })
             .catch(err => {console.log(err); setError(true); setFile(emptyFile)});
         return () => window.history.pushState('', '', "/");
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>

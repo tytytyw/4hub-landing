@@ -8,8 +8,7 @@ import Success from '../../../generalComponents/Success';
 
 const RenewPassword = ({setPage}) => {
 
-    const [visibilityFirst, setVisibilityFirst] = useState('password');
-    const [visibilitySecond, setVisibilitySecond] = useState('password');
+    const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({pass: '', repeatPass: ''});
     const [compare, setCompare] = useState({isPass: false, isCoincidePass: false});
     const [error, setError] = useState(false);
@@ -22,7 +21,7 @@ const RenewPassword = ({setPage}) => {
         const login = window.location.search.match(/name=.*/)[0].split('=')[1];
         setUserInfo({...userInfo, confirm, login});
         return () => window.history.pushState('', '', "/");
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const checkPass = (input) => {
         input.value === ''
@@ -75,24 +74,24 @@ const RenewPassword = ({setPage}) => {
                                 [styles.inputField]: true,
                                 [styles.redBorder]: compare.isPass
                             })}
-                            type={visibilityFirst}
+                            type={visibility}
                             value={info.pass}
                             onChange={(e) => {
                                 setInfo({...info, pass: e.target.value});
                                 checkPass(e.target);
                             }}
                         />
-                        {visibilityFirst === 'password' && <img
+                        {visibility === 'password' && <img
                             src='./assets/StartPage/invisible.svg'
                             alt='eye'
                             className={styles.invisible}
-                            onClick={() => setVisibilityFirst('text')}
+                            onClick={() => setVisibility('text')}
                         />}
-                        {visibilityFirst === 'text' && <img
+                        {visibility === 'text' && <img
                             src='./assets/StartPage/eye.svg'
                             alt='eye'
                             className={styles.eye}
-                            onClick={() => setVisibilityFirst('password')}
+                            onClick={() => setVisibility('password')}
                         />}
                     </div>
                     <div className={styles.inputWrap}>
@@ -105,24 +104,24 @@ const RenewPassword = ({setPage}) => {
                                 [styles.inputField]: true,
                                 [styles.redBorder]: compare.isCoincidePass
                             })}
-                            type={visibilitySecond}
+                            type={visibility}
                             value={info.repeatPass}
                             onChange={(e) => {
                                 setInfo({...info, repeatPass: e.target.value});
                                 comparePass(e.target.value);
                             }}
                         />
-                        {visibilitySecond === 'password' && <img
+                        {visibility === 'password' && <img
                             src='./assets/StartPage/invisible.svg'
                             alt='eye'
                             className={styles.invisible}
-                            onClick={() => setVisibilitySecond('text')}
+                            onClick={() => setVisibility('text')}
                         />}
-                        {visibilitySecond === 'text' && <img
+                        {visibility === 'text' && <img
                             src='./assets/StartPage/eye.svg'
                             alt='eye'
                             className={styles.eye}
-                            onClick={() => setVisibilitySecond('password')}
+                            onClick={() => setVisibility('password')}
                         />}
                     </div>
                     <div className={styles.button} onClick={() => sendRequest()}>Готово</div>

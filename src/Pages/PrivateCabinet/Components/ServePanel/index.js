@@ -10,7 +10,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-const ServePanel = () => {
+const ServePanel = ({blob, setBlob}) => {
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -28,7 +28,7 @@ const ServePanel = () => {
             <div className={styles.groupEnd}>
                 <div className={styles.buttons}>
                     <div className={styles.createButton}><span>Создать</span><div /></div>
-                    <div className={styles.downloadButton}>Загрузить</div>
+                    <label className={styles.downloadButton} onClick={() => setBlob({...blob, show: true})}>Загрузить</label>
                 </div>
                 <div className={styles.iconButtons}>
                     <div className={styles.iconView}><SafeIcon className={styles.iconSVG} /></div>

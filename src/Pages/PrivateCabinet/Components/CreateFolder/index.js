@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import classnames from 'classnames';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
@@ -15,19 +14,23 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 
-const CreateFolder = ({onCreate, title, info}) => {
+const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
+    const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [tagOption, setTagOption] = useState({show: false, chosen: 'Добавьте #Тег'});
+    const [tagOption, setTagOption] = useState({chosen: '', count: 30});
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
     const [error, setError] = useState(false);
+    const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
+
+    useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -35,7 +38,7 @@ const CreateFolder = ({onCreate, title, info}) => {
         return tags.map((tag, i) => {
             return <div
                 key={i}
-                onClick={() => setTagOption({show: false, chosen: tag})}
+                onClick={() => onChangeTag(tag)}
             >{tag}</div>;
         })
     };
@@ -56,7 +59,7 @@ const CreateFolder = ({onCreate, title, info}) => {
     };
 
     const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}`;
+        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
       api.post(`/ajax/dir_add.php?${params}`)
           .then(res => {if(res.data.ok === 1) {
               onCreate(false);
@@ -69,6 +72,19 @@ const CreateFolder = ({onCreate, title, info}) => {
     const closeComponent = () => {
         onCreate(false);
         setError(false);
+    };
+
+    const onChangeTag = (chosen) => {
+        const count = 30 - chosen.length;
+        if(count >= 0) setTagOption({...tagOption, chosen, count});
+    };
+
+    const comparePass = (val) => {
+        const pass = password.split('');
+        const passRepeat = val.split('');
+        let boolean = true;
+        passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = false});
+        setPasswordCoincide(boolean);
     }
 
     return (
@@ -77,7 +93,24 @@ const CreateFolder = ({onCreate, title, info}) => {
             <div className={styles.createFolderWrap}>
                 <span className={styles.cross} onClick={() => onCreate(false)} />
                 <span className={styles.title}>{title}</span>
-                <div className={styles.folderIconWrap}><FolderIcon className={`${styles.folderIcon} ${color.color}`} /></div>
+                <div className={styles.folderIconWrap}>
+                    <div className={`${styles.folder} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                        <FolderIcon className={`${styles.folderIcon} ${color.color}`} />
+                    </div>
+                    <div className={styles.picPreview}>
+                        <div className={styles.folderName}>{name}</div>
+                        <div className={styles.folderOptions}>
+                            {tagOption.chosen && <div
+                                className={`${styles.minitag} ${styles.redCross}`}
+                                onClick={() => setTagOption({...tagOption, chosen: ''})}
+                            ># {tagOption.chosen}</div>}
+                            <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                            {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                            {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                            {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                        </div>
+                    </div>
+                </div>
                 <div style={generateInputWrap()}
                      className={styles.inputFieldsWrap}>
                     <InputField
@@ -87,12 +120,18 @@ const CreateFolder = ({onCreate, title, info}) => {
                         set={setName}
                         placeholder='Имя папки'
                     />
-                    <div className={styles.tagPicker} onClick={() => {!tagOption.show && setTagOption({...tagOption, show: !tagOption.show})}}>
-                        {tagOption.chosen}
-                        <div className={classnames({
-                            [styles.tagList]: true,
-                            [styles.showTagList]: tagOption.show
-                        })}>
+                    <div className={styles.tagPicker}>
+                        <span>#</span>
+                        <input
+                            className={styles.inputField}
+                            type='text'
+                            placeholder='Добавте #Тег'
+                            value={tagOption.chosen}
+                            onChange={(e) => onChangeTag(e.target.value)}
+                            onFocus={() => {setTagOption({...tagOption, show: true})}}
+                        />
+                        <span>{tagOption.count}/30</span>
+                        <div className={styles.tagList} >
                             {renderTags()}
                         </div>
                     </div>
@@ -104,6 +143,8 @@ const CreateFolder = ({onCreate, title, info}) => {
                         set={setPassword}
                         placeholder='Пароль'
                         onSwitch={onSwitch}
+                        visibility={visibility}
+                        setVisibility={setVisibility}
                     />
                     {showRepeat && <InputField
                         model='password'
@@ -112,6 +153,9 @@ const CreateFolder = ({onCreate, title, info}) => {
                         value={passwordRepeat}
                         set={setPasswordRepeat}
                         placeholder='Повторите пароль'
+                        visibility={visibility}
+                        setVisibility={setVisibility}
+                        comparePass={comparePass}
                     />}
                 </div>
                 <Colors color={color} setColor={setColor} />

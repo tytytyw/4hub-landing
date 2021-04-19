@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './MyFolders.module.sass';
@@ -6,20 +6,22 @@ import List from '../List';
 import FolderItem from './FolderItem';
 import WorkSpace from '../WorkSpace';
 import CreateFolder from "../CreateFolder";
+import CreateFile from "../CreateFile";
 
 const MyFolders = () => {
 
     const global = useSelector(state => state.PrivateCabinet.global)
     const [listCollapsed, setListCollapsed] = useState(false);
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: ''});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
+    const [blob, setBlob] = useState({file: null, show: false});
 
     const renderFolderList = () => {
         if(!global) return null;
-        return global.map(el => {
+        return global.map((el, i) => {
             return <FolderItem
-                key={el.name}
+                key={i + el.name}
                 folder={el}
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
@@ -45,11 +47,20 @@ const MyFolders = () => {
                     {renderFolderList()}
                 </div>
             </List>
-            <WorkSpace />
+            <WorkSpace setBlob={setBlob} blob={blob} />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
                 title='Новая папка'
                 info={newFolderInfo}
+                chosenFolder={chosenFolder}
+                setChosenFolder={setChosenFolder}
+            />}
+            <input type='file' style={{display: 'none'}} id='add-file' onChange={e => setBlob(e.target.files[0])} />
+            {blob.show && <CreateFile
+                title='Добавление файла'
+                info={chosenFolder}
+                blob={blob}
+                setBlob={setBlob}
             />}
         </div>
     )

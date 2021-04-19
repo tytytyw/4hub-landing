@@ -34,7 +34,7 @@ const RegistrationSuccess = ({setPage, sendRequest}) => {
                 </span>
                 <div className={styles.repeat}>
                     Не пришло письмо ?
-                    <span onClick={() => sendRequest()}> Отправить заново</span>
+                    <span onClick={() => sendRequest('&retry=1')}> Отправить заново</span>
                 </div>
             </div>
         </div>

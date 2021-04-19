@@ -9,7 +9,7 @@ import ServePanel from '../ServePanel';
 import WorkBars from '../WorkElements/WorkBars';
 import BottomPanel from '../ButtomPanel';
 
-const WorkSpace = () => {
+const WorkSpace = ({setBlob, blob}) => {
     return (
         <div className={`${styles.workSpaceWrap} ${styles.workSpaceWrapCollapsed}`}>
             <div className={styles.header}>
@@ -20,8 +20,8 @@ const WorkSpace = () => {
                     <Profile />
                 </div>
             </div>
-            <ServePanel />
-            <WorkBars></WorkBars>
+            <ServePanel setBlob={setBlob} blob={blob} />
+            <WorkBars setBlob={setBlob} blob={blob}></WorkBars>
             <BottomPanel />
         </div>
     )

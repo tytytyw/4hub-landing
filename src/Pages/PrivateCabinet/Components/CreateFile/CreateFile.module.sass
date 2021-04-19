@@ -41,6 +41,7 @@
   width: 530px
   height: 720px
   animation: showPopup 0.2s ease-in-out
+  cursor: default
   .cross
     position: absolute
     top: 20px
@@ -71,6 +72,7 @@
     width: 8px
     height: 1px
     background: red
+    z-index: 3
   .redCross:before
     transform: rotate(45deg)
   .redCross:after
@@ -79,42 +81,71 @@
     font-size: 19px
     font-family: "SF Pro Medium", sans-serif
     margin: 40px 0 40px 0
-  .folderIconWrap
+  .fileIconWrap
     display: flex
     width: 78%
     margin: 0 0 28px 0
-    .folder
+    .fileWrap
       position: relative
-      img
-        position: absolute
-        bottom: 0
-        left: 0
-        width: 20px
+      .file
+        width: 62px
+        height: 70px
     .folderIcon
       width: 71px
       height: 62px
+    .openFile
+      display: flex
+      align-items: center
+      color: #b3b3b3
+      font-size: 14px
+      box-sizing: border-box
+      padding: 0 0 0 15px
+      position: relative
+      width: 85%
+      .inputFile
+        opacity: 0
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        cursor: pointer
+      span
+        color: #477DE1
+        text-decoration: underline
+        cursor: pointer
+        padding: 0 0 0 3px
     .picPreview
       display: flex
       flex-direction: column
-      justify-content: space-between
       padding: 0 0 0 20px
       width: 100%
-      .folderName
+      .format
+        font-size: 13px
+        color: grey
+        margin: 0 0 5px 0
+      .name
         display: block
-        font-size: 20px
-        max-width: 280px
-        overflow: hidden
+        color: black
+        font-size: 15px
+        width: 100%
+        max-width: 100%
+        max-height: 20px
         white-space: nowrap
+        overflow: hidden
+        padding: 1px
         text-overflow: ellipsis
-      .folderOptions
+        margin: 0 0 5px 0
+      .fileOptions
         display: flex
         align-items: center
+        width: 100%
       .minitag
         display: block
         color: #477DE1
         font-family: "SF Pro Medium", sans-serif
         font-size: 16px
-        min-width: 20%
+        min-width: 10%
         max-width: 40%
         height: max-content
         overflow: hidden
@@ -128,8 +159,8 @@
           width: 25px
           margin: 0 10px 0 0
       .circle
-        width: 20px
-        height: 20px
+        width: 25px
+        height: 25px
         border-radius: 50%
         margin: 0 10px 0 0
       .lock
@@ -249,6 +280,31 @@
       .folderIcon
         width: 51px
         height: 42px
+    .fileIconWrap
+      margin: 0 0 10px 0
+      .fileWrap
+        .file
+          width: 42px
+          height: 50px
+      .openFile
+        font-size: 12px
+      .picPreview
+        .format
+          font-size: 11px
+          margin: 0 0 2px 0
+        .name
+          font-size: 12px
+          margin: 0 0 2px 0
+        .minitag
+          font-size: 11px
+        div
+          img
+            width: 15px
+        .circle
+          width: 15px
+          height: 15px
+        .lock
+          width: 12px
     .inputFieldsWrap
       .tagPicker
         height: 25px

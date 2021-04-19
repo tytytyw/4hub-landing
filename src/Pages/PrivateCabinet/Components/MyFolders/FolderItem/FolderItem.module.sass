@@ -9,6 +9,8 @@
 .wrapper:hover
   background: rgba(64, 134, 241, 0.1)
   transition: background 0.5s ease-in-out
+.wrapperChosen
+  background: rgba(64, 134, 241, 0.1)
 .wrapper
   display: flex
   justify-content: space-between
@@ -27,6 +29,7 @@
       animation: showText 0.2s ease-in-out
     .title
       margin: 0 10px 0 0
+      //font-family: "SF Pro Medium", sans-serif
   .functionWrap
     display: flex
     align-items: center
@@ -41,33 +44,33 @@
       transition: fill 0.2s ease
     .revert
       transform: rotateZ(90deg)
-    .menuWrap
-      display: flex
-      width: 20px
-      height: 20px
-      justify-content: center
-      align-items: center
-      cursor: pointer
-      .menu
-        position: relative
-        width: 3px
-        height: 3px
-        background: #c1c0c0
-        transition: background 0.2s ease
-      .menu::before, .menu::after
-        content: ''
-        position: absolute
-        width: 3px
-        height: 3px
-        background: #c1c0c0
-        transition: background 0.2s ease
-      .menu::before
-        transform: translateY(8px)
-      .menu::after
-        transform: translateY(-8px)
-    .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
-      background: #477DE1
-      transition: background 0.2s ease
+.menuWrap
+  display: flex
+  width: 20px
+  height: 20px
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  .menu
+    position: relative
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before, .menu::after
+    content: ''
+    position: absolute
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before
+    transform: translateY(8px)
+  .menu::after
+    transform: translateY(-8px)
+.menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
+  background: #477DE1
+  transition: background 0.2s ease
 .innerFolders
   display: flex
   flex-direction: column
@@ -96,19 +99,72 @@
       width: 18px
   .addFolderToFolder:hover
     background: rgba(71, 125, 225, 0.1)
-  .innerFolder:hover
+  .innerFolderWrap:hover
     background: rgba(71, 125, 225, 0.1)
-  .innerFolder
+  .innerFolderWrap
     display: flex
-    align-items: center
-    box-sizing: border-box
-    padding: 0 15px 0 60px
+    flex-direction: column
     width: 100%
-    height: 50px
-    font-size: 12px
-    cursor: pointer
-    .innerFolderIcon
-      margin: 0 10px 0 0
+    .innerFolder
+      display: flex
+      align-items: center
+      justify-content: space-between
+      box-sizing: border-box
+      padding: 0 15px 0 50px
+      width: 100%
+      height: 50px
+      font-size: 12px
+      cursor: pointer
+      .innerFolderName
+        display: flex
+        align-items: center
+        position: relative
+        height: 100%
+        .innerFolderIcon
+          margin: 0 10px 0 0
+        .lock
+          position: absolute
+          top: 23px
+          left: -9px
+          width: 15px
+        .nameWrap
+          display: flex
+          flex-direction: column
+          justify-content: center
+          .Name
+            display: flex
+            font-size: 13px
+            margin: 0 0 3px 0
+            .name
+              display: block
+              width: max-content
+              max-width: 105px
+              //font-family: "SF Pro Medium", sans-serif
+              overflow: hidden
+              white-space: nowrap
+              text-overflow: ellipsis
+              animation: showText 0.2s ease-in-out
+            span
+              max-width: 15px
+              animation: showText 0.2s ease-in-out
+          .tag
+            display: block
+            font-size: 10px
+            box-sizing: border-box
+            padding: 1px 5px
+            background: grey
+            border-radius: 10px
+            width: max-content
+            max-width: 100px
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            animation: showText 0.2s ease-in-out
+      .innerFolderMedia
+        display: flex
+        img
+          margin: 0 5px 0 0
+          width: 20px
 .hidden
   position: relative
   z-index: -200

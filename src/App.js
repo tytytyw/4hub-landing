@@ -15,7 +15,7 @@ function App() {
     useEffect(() => {
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
         if(!!uid) dispatch(onLog(uid[0].split('=')[1]));
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
     <>
