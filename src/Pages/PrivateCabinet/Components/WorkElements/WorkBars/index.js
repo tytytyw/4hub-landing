@@ -4,6 +4,7 @@ import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
 const WorkBars = ({children, setBlob, blob}) => {
+
     return (
         <div className={styles.workBarsWrap}>
             <div className={styles.addFile}>

@@ -21,7 +21,7 @@ const Colors = ({ color, setColor }) => {
 
     return (
         <div className={styles.colorWrap}>
-            <span>Выберите цвет папки</span>
+            <span>Выберите цвет</span>
             <div>{renderColors()}</div>
         </div>
     )

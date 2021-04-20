@@ -163,7 +163,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
                             height={width >= 1440 ? '40px' : '25px'}
                             value={name}
                             set={setName}
-                            placeholder='Имя папки'
+                            placeholder='Имя файла'
                         />
                         <div className={styles.tagPicker}>
                             <span>#</span>

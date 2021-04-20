@@ -2,9 +2,10 @@ import api from '../../api';
 import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
+    CHOOSE_FILES,
 } from '../types';
 
-export const onGetFolders = () => (dispatch, getState) => {
+export const onGetFolders = () => async (dispatch, getState) => {
     const folders = [
         {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
         {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
@@ -40,4 +41,13 @@ export const onChooseFolder = (folders, path) => {
         type: CHOOSE_FOLDER,
         payload: {folders, path}
     }
+}
+
+export const onChooseFiles = (path) => async (dispatch, getState) => {
+    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}`);
+
+    dispatch({
+        type: CHOOSE_FILES,
+        payload: {files: files.data, path}
+    })
 }

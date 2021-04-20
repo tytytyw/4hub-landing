@@ -5,7 +5,7 @@ import styles from './FolderItem.module.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import { onChooseFolder } from '../../../../../Store/actions/PrivateCabinetActions';
+import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -24,6 +24,7 @@ const FolderItem = ({
             setChosenFolder({...chosenFolder, path: folder.path, open: false});
         }
         dispatch(onChooseFolder(folder.folders, folder.path));
+        dispatch(onChooseFiles(folder.path));
     };
 
     const renderInnerFolders = () => {
