@@ -71,7 +71,13 @@ const MyFolders = () => {
                     {renderOtherFolderList()}
                 </div>
             </List>
-            <WorkSpace setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress} />
+            <WorkSpace
+                setBlob={setBlob}
+                blob={blob}
+                fileLoading={fileLoading}
+                progress={progress}
+                chosenFolder={chosenFolder}
+            />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
                 title='Новая папка'

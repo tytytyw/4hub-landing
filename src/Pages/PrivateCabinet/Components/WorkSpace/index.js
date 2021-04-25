@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './WorkSpace.module.sass';
@@ -11,11 +11,13 @@ import WorkBars from '../WorkElements/WorkBars';
 import BottomPanel from '../ButtomPanel';
 import FileBar from '../WorkElements/FileBar';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder}) => {
 
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+
+    useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
 
     const renderFileBar = () => {
         if(!fileList?.files) return null;
