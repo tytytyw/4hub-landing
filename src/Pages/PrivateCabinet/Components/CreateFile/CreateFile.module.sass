@@ -176,10 +176,10 @@
       width: 101%
       height: 40px
       position: relative
-      border: 1px solid grey
+      border: 1px solid #bab8b8
       border-radius: 5px
       cursor: default
-      color: grey
+      color: #bab8b8
       font-family: "SF Pro Light", sans-serif
       font-size: 14px
       padding: 0 15px
@@ -191,12 +191,12 @@
         outline: none
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: black
+        color: #bab8b8
         border: none
       .inputField::placeholder
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
-        color: grey
+        color: #bab8b8
       .tagList::-webkit-scrollbar
         width: 0
       .tagList
@@ -210,7 +210,7 @@
         background: white
         overflow-x: hidden
         overflow-y: scroll
-        border: 1px solid grey
+        border: 1px solid #bab8b8
         border-top: none
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
@@ -224,7 +224,7 @@
           height: 35px
           box-sizing: border-box
           padding: 0 15px
-          color: black
+          color: #bab8b8
         div:before
           content: ''
           position: absolute
@@ -260,6 +260,11 @@
     .cancel:hover
       background: #fc7a7a
       color: white
+    .buttonDisabled
+      background: #e3e3e3
+      border: 1px solid #e9e9e9
+      color: grey
+      cursor: default
     .add
       background: #477DE1
       border: 1px solid #477DE1
@@ -272,7 +277,7 @@
     height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
-      font-size: 17px
+      font-size: 15px
       margin: 10px 0 10px 0
     .folderIconWrap
       width: 78%
@@ -284,7 +289,7 @@
       margin: 0 0 10px 0
       .fileWrap
         .file
-          width: 42px
+          width: 44px
           height: 50px
       .openFile
         font-size: 12px
@@ -307,7 +312,10 @@
           width: 12px
     .inputFieldsWrap
       .tagPicker
-        height: 25px
+        height: 30px
+        font-size: 12px
+        .inputField
+          font-size: 12px
         .tagList
           height: 110px
           bottom: -108px
@@ -317,7 +325,7 @@
             position: relative
             background: white
             width: 100%
-            height: 25px
+            height: 30px
     .buttonsWrap
       width: 210px
       div
