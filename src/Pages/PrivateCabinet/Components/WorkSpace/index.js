@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './WorkSpace.module.sass';
@@ -11,14 +11,16 @@ import WorkBars from '../WorkElements/WorkBars';
 import BottomPanel from '../ButtomPanel';
 import FileBar from '../WorkElements/FileBar';
 
-const WorkSpace = ({setBlob, blob}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress}) => {
 
+    const [workElementsView, setWorkElementsView] = useState('bars');
+    const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
 
     const renderFileBar = () => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-            return <FileBar key={i} file={file} />
+            return <FileBar key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
         })
     };
 
@@ -32,11 +34,16 @@ const WorkSpace = ({setBlob, blob}) => {
                     <Profile />
                 </div>
             </div>
-            <ServePanel setBlob={setBlob} blob={blob} />
-            <WorkBars setBlob={setBlob} blob={blob}>{renderFileBar()}</WorkBars>
+            <ServePanel
+                setBlob={setBlob}
+                blob={blob}
+                setView={setWorkElementsView}
+                view={workElementsView}
+            />
+            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFileBar()}</WorkBars> : null}
             <BottomPanel />
         </div>
     )
-};
+}
 
 export default WorkSpace;

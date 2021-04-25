@@ -13,9 +13,11 @@ const MyFolders = () => {
     const global = useSelector(state => state.PrivateCabinet.global)
     const [listCollapsed, setListCollapsed] = useState(false);
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [blob, setBlob] = useState({file: null, show: false});
+    const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
+    const [progress, setProgress] = useState(0);
 
     const renderFolderList = () => {
         if(!global) return null;
@@ -47,7 +49,7 @@ const MyFolders = () => {
                     {renderFolderList()}
                 </div>
             </List>
-            <WorkSpace setBlob={setBlob} blob={blob} />
+            <WorkSpace setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress} />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
                 title='Новая папка'
@@ -61,6 +63,10 @@ const MyFolders = () => {
                 info={chosenFolder}
                 blob={blob}
                 setBlob={setBlob}
+                setFileLoading={setFileLoading}
+                fileLoading={fileLoading}
+                setProgress={setProgress}
+                progress={progress}
             />}
         </div>
     )

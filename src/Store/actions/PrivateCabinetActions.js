@@ -31,7 +31,7 @@ export const onGetFolders = () => async (dispatch, getState) => {
             dispatch({
                 type: GET_FOLDERS,
                 payload: f
-            })
+            });
         })
         .catch(err => console.log(err))
 };

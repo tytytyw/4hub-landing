@@ -10,15 +10,15 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-const ServePanel = ({blob, setBlob}) => {
+const ServePanel = ({blob, setBlob, view, setView}) => {
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
                 <div className={styles.viewPanel}>
-                    <div className={styles.iconView}><BarsIcon /></div>
-                    <div className={styles.iconView}><LinesIcon /></div>
-                    <div className={styles.iconView}><PreviewIcon /></div>
-                    <div className={styles.iconView}><VerticalLinesIcon /></div>
+                    <div className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('bars')}><BarsIcon /></div>
+                    <div className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('lines')}><LinesIcon /></div>
+                    <div className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('preview')}><PreviewIcon /></div>
+                    <div className={`${view === 'vertical' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('vertical')}><VerticalLinesIcon /></div>
                 </div>
                 <div className={styles.filterPanel}>
                     <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>

@@ -7,17 +7,17 @@ import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../Store/actions/PrivateCabinetActions';
+import { onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CreateFile = ({title, info, blob, setBlob}) => {
+const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, setProgress, progress }) => {
 
     const uid = useSelector(state => state.user.uid);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(blob.file ? blob.file.name.slice(0, blob.file.name.lastIndexOf('.')) : '');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -29,6 +29,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
+    const [display, setDisplay] = useState('block')
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -50,7 +51,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
             }
         } else {
             return {
-                height: `${showRepeat ? '140px' : '140px'}`,
+                height: `${showRepeat ? '150px' : '110px'}`,
                 marginBottom: `${showRepeat ? '10px' : '35px'}`
             }
         }
@@ -60,29 +61,29 @@ const CreateFile = ({title, info, blob, setBlob}) => {
         let data = new FormData();
         data.append('uid', uid);
         data.append('myfile', blob.file);
-        data.append('dir', info.path ? info.path : 'global/all');
-        data.append('tag', blob.file);
+        data.append('fileName', `${name}`);
+        data.append('dir', info.subPath ? info.subPath : info.path ? info.path : 'global/all');
+        data.append('tag', tagOption.chosen);
         data.append('pass', passwordCoincide ? password : '');
         data.append('color', color.color);
         data.append('symbol', sign);
         data.append('emoji', emoji);
-        // const params = {
-        //     uid,
-        //     myfile: blob.file,
-        //     dir: info.path ? info.path : 'global/all',
-        //     tag: tagOption.chosen,
-        //     pass: passwordCoincide ? password : '',
-        //     color: color.color,
-        //     symbol: sign,
-        //     emoji: emoji
-        // };
-        api.post(`/ajax/file_add.php`, data)
+        setDisplay('none');
+        setFileLoading({...fileLoading, isLoading: true, file: {ext: blob.file.name.slice(blob.file.name.lastIndexOf('.') + 1), color: color.color}})
+
+        api.post(`/ajax/file_add.php`,
+            data,
+            {onUploadProgress: e => setProgress((e.loaded * 100) / e.total)})
             .then(res => {if(res.data.ok === 1) {
                 setBlob({...blob, file: null, show: false});
             } else {setError(true)}
             })
             .catch(err => {setError(true)})
-            // .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+            .finally(() => {
+                setDisplay('block');
+                setFileLoading({...fileLoading, isLoading: false, percentage: 0, file: {ext: '', color: ''}});
+                dispatch(onChooseFiles(info.subPath ? info.subPath : info.path));
+            });
     };
 
     const closeComponent = () => {
@@ -128,7 +129,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
     };
 
     return (
-        <>
+        <div style={{display: `${display}`}}>
             <PopUp set={onCloseTab}>
                 <div className={styles.createFolderWrap}>
                     <span className={styles.cross} onClick={() => setBlob({...blob, file: null, show: false})} />
@@ -157,10 +158,11 @@ const CreateFile = ({title, info, blob, setBlob}) => {
                         </div>}
                     </div>
                     <div style={generateInputWrap()}
-                         className={styles.inputFieldsWrap}>
+                         className={styles.inputFieldsWrap}
+                    >
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '25px'}
+                            height={width >= 1440 ? '40px' : '30px'}
                             value={name}
                             set={setName}
                             placeholder='Имя файла'
@@ -183,7 +185,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '25px'}
+                            height={width >= 1440 ? '40px' : '30px'}
                             value={password}
                             set={setPassword}
                             placeholder='Пароль'
@@ -194,7 +196,7 @@ const CreateFile = ({title, info, blob, setBlob}) => {
                         {showRepeat && <InputField
                             model='password'
                             switcher={false}
-                            height={width >= 1440 ? '40px' : '25px'}
+                            height={width >= 1440 ? '40px' : '30px'}
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'
@@ -208,12 +210,12 @@ const CreateFile = ({title, info, blob, setBlob}) => {
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
-                        <div className={styles.add} onClick={() => onAddFile()}>Добавить</div>
+                        <div className={`${blob.file ? styles.add : styles.buttonDisabled}`} onClick={() => {if(blob.file) onAddFile()}}>Добавить</div>
                     </div>
                 </div>
             </PopUp>
             {error && <Error error={error} set={closeComponent} message='Файл не добавлен' />}
-        </>
+        </div>
     )
 }
 
