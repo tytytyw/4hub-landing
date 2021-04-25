@@ -1,0 +1,120 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    width: 95%;
+    margin: 0 auto 6.8%;
+    justify-content: space-between;
+    font-size: 13.5px;
+    line-height: 16px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav__item {
+    margin-right: 30px;
+    cursor: pointer;
+    transition: color .2s ease;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    -ms-transition: color .2s ease;
+    -o-transition: color .2s ease;
+}
+
+.nav__item:hover {
+    color: #000;
+}
+
+.nav__item:active {
+    opacity: .7;
+    transition: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+}
+
+.registration_btn:hover {
+    transition: background-color .3s ease;
+    -webkit-transition: background-color .3s ease;
+    -moz-transition: background-color .3s ease;
+    -ms-transition: background-color .3s ease;
+    -o-transition: background-color .3s ease;
+}
+
+.registration_btn:hover {
+    color: #000;
+    background-color: #fff;
+}
+
+.logo_title {
+    font-size: 1px;
+    line-height: 1px;
+    color: #3B3EE7;
+}
+
+.select {
+    text-transform: uppercase;
+    appearance: none;
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    cursor: pointer;
+
+}
+
+.select_wrap {
+    position: relative;
+    width: 40px;
+}
+
+.select_arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+
+}
+
+.select_wrap:hover .select_arrow .svg_path,
+.info:hover .info_svg .svg_path {
+    fill: #000;
+}
+
+.select_arrow .svg_path {
+    transition: fill .2s ease;
+    -webkit-transition: fill .2s ease;
+    -moz-transition: fill .2s ease;
+    -ms-transition: fill .2s ease;
+    -o-transition: fill .2s ease;
+}
+
+.lang_option {
+    color: black;
+    text-transform: lowercase;
+}
+
+.registration_btn {
+    transition: background-color .2s ease;
+    padding: 12px 21px;
+    background: #3B3EE7;
+    border: 0.75px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-transition: background-color .2s ease;
+    -moz-transition: background-color .2s ease;
+    -ms-transition: background-color .2s ease;
+    -o-transition: background-color .2s ease;
+}
