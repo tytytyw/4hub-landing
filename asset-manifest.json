@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/4hub-landing/static/css/main.0427fa2c.chunk.css",
+    "main.js": "/4hub-landing/static/js/main.72b80f4f.chunk.js",
+    "main.js.map": "/4hub-landing/static/js/main.72b80f4f.chunk.js.map",
+    "runtime-main.js": "/4hub-landing/static/js/runtime-main.4f0752c8.js",
+    "runtime-main.js.map": "/4hub-landing/static/js/runtime-main.4f0752c8.js.map",
+    "static/js/2.f67229e9.chunk.js": "/4hub-landing/static/js/2.f67229e9.chunk.js",
+    "static/js/2.f67229e9.chunk.js.map": "/4hub-landing/static/js/2.f67229e9.chunk.js.map",
+    "index.html": "/4hub-landing/index.html",
+    "static/css/main.0427fa2c.chunk.css.map": "/4hub-landing/static/css/main.0427fa2c.chunk.css.map",
+    "static/js/2.f67229e9.chunk.js.LICENSE.txt": "/4hub-landing/static/js/2.f67229e9.chunk.js.LICENSE.txt",
+    "static/media/logo.ffe4ab0f.svg": "/4hub-landing/static/media/logo.ffe4ab0f.svg",
+    "static/media/slider_item_1.74bc09b5.png": "/4hub-landing/static/media/slider_item_1.74bc09b5.png",
+    "static/media/slider_item_2.0c2e7132.png": "/4hub-landing/static/media/slider_item_2.0c2e7132.png",
+    "static/media/slider_item_3.1347a1fc.png": "/4hub-landing/static/media/slider_item_3.1347a1fc.png",
+    "static/media/slider_item_4.ae605d03.png": "/4hub-landing/static/media/slider_item_4.ae605d03.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4f0752c8.js",
+    "static/js/2.f67229e9.chunk.js",
+    "static/css/main.0427fa2c.chunk.css",
+    "static/js/main.72b80f4f.chunk.js"
+  ]
+}
