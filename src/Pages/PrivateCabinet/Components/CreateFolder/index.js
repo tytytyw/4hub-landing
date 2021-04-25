@@ -65,7 +65,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
               onCreate(false);
           } else {setError(true)}
           })
-          .catch(err => {setError(true)})
+          .catch(() => {setError(true)})
           .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
     };
 

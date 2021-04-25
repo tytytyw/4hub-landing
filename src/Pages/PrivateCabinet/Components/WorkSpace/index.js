@@ -39,6 +39,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress}) => {
                 blob={blob}
                 setView={setWorkElementsView}
                 view={workElementsView}
+                chosenFile={chosenFile}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFileBar()}</WorkBars> : null}
             <BottomPanel />

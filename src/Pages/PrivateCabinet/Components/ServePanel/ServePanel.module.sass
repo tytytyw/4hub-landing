@@ -145,6 +145,21 @@
         transition: background 0.2s ease-in-out
     .iconButtons
       display: flex
+      .iconDisabled
+        display: flex
+        align-items: center
+        justify-content: space-around
+        position: relative
+        border-radius: 3px
+        width: 40px
+        height: 27px
+        overflow: hidden
+        cursor: default
+        transition: background 0.2s ease-in-out
+        box-shadow: 0 2px 4px #dedede
+        margin: 0 13px 0 0
+      .iconView:hover .iconShare path
+        fill: #ffffff
       .iconView
         display: flex
         align-items: center
@@ -160,10 +175,12 @@
         margin: 0 13px 0 0
         .iconSVG
           margin: 1px 0 0 4px
+        .iconShare path
+          fill: #4086F1
         .iconTrash
           margin: 1px 0 0 4px
         .iconTrash path
-          fill: #e90202
+          fill: #EB4545
 .iconView:hover
   background: #4086F1
   transition: background 0.2s ease-in-out
