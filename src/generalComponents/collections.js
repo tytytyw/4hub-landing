@@ -1,4 +1,4 @@
-export const tags = ['Фото', 'Видео', 'Музыка', 'Другое'];
+export const tags = ['Фото', 'Видео', 'Музыка', 'Документы','Другое'];
 
 export const colors = [
     {dark: '#efeeee', light: '#efeeee', color: 'grey'},
