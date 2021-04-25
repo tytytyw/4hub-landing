@@ -7,10 +7,12 @@ import FolderItem from './FolderItem';
 import WorkSpace from '../WorkSpace';
 import CreateFolder from "../CreateFolder";
 import CreateFile from "../CreateFile";
+import CustomFolderItem from "./CustomFolderItem";
 
 const MyFolders = () => {
 
-    const global = useSelector(state => state.PrivateCabinet.global)
+    const global = useSelector(state => state.PrivateCabinet.global);
+    const other = useSelector(state => state.PrivateCabinet.other?.folders);
     const [listCollapsed, setListCollapsed] = useState(false);
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
@@ -19,7 +21,7 @@ const MyFolders = () => {
     const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
     const [progress, setProgress] = useState(0);
 
-    const renderFolderList = () => {
+    const renderStandardFolderList = () => {
         if(!global) return null;
         return global.map((el, i) => {
             return <FolderItem
@@ -36,6 +38,25 @@ const MyFolders = () => {
         })
     };
 
+    const renderOtherFolderList = () => {
+        if(!other) return null;
+        return other.map((f, i) => {
+            return <CustomFolderItem
+                key={i + f.name}
+                f={f}
+                listCollapsed={listCollapsed}
+                setNewFolderInfo={setNewFolderInfo}
+                newFolderInfo={newFolderInfo}
+                setNewFolder={setNewFolder}
+                setChosenFolder={setChosenFolder}
+                chosenFolder={chosenFolder}
+                chosen={chosenFolder.path === f.path}
+                padding={'0px 10px 0px 26px'}
+                subFolder={false}
+            />
+        })
+    };
+
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -43,10 +64,11 @@ const MyFolders = () => {
                 src='add-folder.svg'
                 setListCollapsed={setListCollapsed}
                 listCollapsed={listCollapsed}
-                onCreate={setNewFolder}
+                onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
             >
                 <div className={styles.folderListWrap}>
-                    {renderFolderList()}
+                    {renderStandardFolderList()}
+                    {renderOtherFolderList()}
                 </div>
             </List>
             <WorkSpace setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress} />

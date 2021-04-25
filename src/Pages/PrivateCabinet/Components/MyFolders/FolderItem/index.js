@@ -7,6 +7,7 @@ import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
+import CustomFolderItem from "../CustomFolderItem";
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -31,30 +32,16 @@ const FolderItem = ({
     const renderInnerFolders = () => {
         if((!folderList || chosenFolder.path !== folder.path) && !chosenFolder.open) return null;
         return folderList.folders.map((f, i) => {
-            return <div
-                className={`${styles.innerFolderWrap} ${f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
+            return <CustomFolderItem
                 key={i}
-                onClick={() => {
-                    setChosenFolder({...chosenFolder, subPath: f.path});
-                    dispatch(onChooseFiles(f.path));
-                }}
-            >
-                <div key={i} className={styles.innerFolder}>
-                    <div className={styles.innerFolderName}>
-                        <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
-                        {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
-                        {!listCollapsed && <div className={styles.nameWrap}>
-                            <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(0)</span></div>
-                            {f.tags && <span className={styles.tag}>#{f.tags}</span>}
-                        </div>}
-                    </div>
-                    <div className={styles.innerFolderMedia}>
-                        {!listCollapsed && f.emo && <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
-                        {!listCollapsed && f.fig && <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
-                        <div className={styles.menuWrap}><span className={styles.menu} /></div>
-                    </div>
-                </div>
-            </div>
+                f={f}
+                setChosenFolder={setChosenFolder}
+                chosenFolder={chosenFolder}
+                listCollapsed={listCollapsed}
+                padding={'0 15px 0 50px'}
+                chosen={f.path === chosenFolder.subPath}
+                subFolder={true}
+            />
         })
     };
 
