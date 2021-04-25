@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './FolderItem.module.sass';
+import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
@@ -19,9 +20,9 @@ const FolderItem = ({
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open}) : setChosenFolder({...chosenFolder, path: folder.path, open: true});
+            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: ''}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: ''});
         } else {
-            setChosenFolder({...chosenFolder, path: folder.path, open: false});
+            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: ''});
         }
         dispatch(onChooseFolder(folder.folders, folder.path));
         dispatch(onChooseFiles(folder.path));
@@ -30,19 +31,26 @@ const FolderItem = ({
     const renderInnerFolders = () => {
         if((!folderList || chosenFolder.path !== folder.path) && !chosenFolder.open) return null;
         return folderList.folders.map((f, i) => {
-            return <div className={styles.innerFolderWrap} key={i}>
+            return <div
+                className={`${styles.innerFolderWrap} ${f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
+                key={i}
+                onClick={() => {
+                    setChosenFolder({...chosenFolder, subPath: f.path});
+                    dispatch(onChooseFiles(f.path));
+                }}
+            >
                 <div key={i} className={styles.innerFolder}>
                     <div className={styles.innerFolderName}>
-                        <FolderIcon className={styles.innerFolderIcon} />
-                        <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />
+                        <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
+                        {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                         {!listCollapsed && <div className={styles.nameWrap}>
-                            <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(9999)</span></div>
-                            <span className={styles.tag}>#Фото</span>
+                            <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(0)</span></div>
+                            {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                         </div>}
                     </div>
                     <div className={styles.innerFolderMedia}>
-                        {!listCollapsed && <img src={`./assets/PrivateCabinet/smiles/${'cool'}.svg`} alt='emoji' />}
-                        {!listCollapsed && <img src={`./assets/PrivateCabinet/signs/${'like'}.svg`} alt='emoji' />}
+                        {!listCollapsed && f.emo && <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
+                        {!listCollapsed && f.fig && <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
                         <div className={styles.menuWrap}><span className={styles.menu} /></div>
                     </div>
                 </div>

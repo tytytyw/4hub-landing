@@ -52,7 +52,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
           }
       } else {
           return {
-              height: `${showRepeat ? '140px' : '140px'}`,
+              height: `${showRepeat ? '150px' : '110px'}`,
               marginBottom: `${showRepeat ? '10px' : '35px'}`
           }
       }
@@ -112,10 +112,11 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                     </div>
                 </div>
                 <div style={generateInputWrap()}
-                     className={styles.inputFieldsWrap}>
+                     className={styles.inputFieldsWrap}
+                >
                     <InputField
                         model='text'
-                        height={width >= 1440 ? '40px' : '25px'}
+                        height={width >= 1440 ? '40px' : '30px'}
                         value={name}
                         set={setName}
                         placeholder='Имя папки'
@@ -138,7 +139,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                     <InputField
                         model='password'
                         switcher={true}
-                        height={width >= 1440 ? '40px' : '25px'}
+                        height={width >= 1440 ? '40px' : '30px'}
                         value={password}
                         set={setPassword}
                         placeholder='Пароль'
@@ -149,7 +150,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                     {showRepeat && <InputField
                         model='password'
                         switcher={false}
-                        height={width >= 1440 ? '40px' : '25px'}
+                        height={width >= 1440 ? '40px' : '30px'}
                         value={passwordRepeat}
                         set={setPasswordRepeat}
                         placeholder='Повторите пароль'
