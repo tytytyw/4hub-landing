@@ -5,9 +5,10 @@ import styles from './MyFolders.module.sass';
 import List from '../List';
 import FolderItem from './FolderItem';
 import WorkSpace from '../WorkSpace';
-import CreateFolder from "../CreateFolder";
-import CreateFile from "../CreateFile";
-import CustomFolderItem from "./CustomFolderItem";
+import CreateFolder from '../CreateFolder';
+import CreateFile from '../CreateFile';
+import CustomFolderItem from './CustomFolderItem';
+import CreateSafePassword from '../CreateSafePassword';
 
 const MyFolders = () => {
 
@@ -20,6 +21,7 @@ const MyFolders = () => {
     const [blob, setBlob] = useState({file: null, show: false});
     const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
     const [progress, setProgress] = useState(0);
+    const [safePassword, setSafePassword] = useState({open: false})
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -57,6 +59,8 @@ const MyFolders = () => {
         })
     };
 
+    const onCloseSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -77,6 +81,7 @@ const MyFolders = () => {
                 fileLoading={fileLoading}
                 progress={progress}
                 chosenFolder={chosenFolder}
+                setSafePassword={setSafePassword}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -95,6 +100,13 @@ const MyFolders = () => {
                 fileLoading={fileLoading}
                 setProgress={setProgress}
                 progress={progress}
+            />}
+            {safePassword.open && <CreateSafePassword
+                onToggle={onCloseSafePassword}
+                title='Создайте пароль для Сейфа с паролями'
+                info={newFolderInfo}
+                chosenFolder={chosenFolder}
+                setChosenFolder={setChosenFolder}
             />}
         </div>
     )

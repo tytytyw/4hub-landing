@@ -1,0 +1,40 @@
+.upload
+
+  .input
+    display: none
+
+  .photoBg
+    cursor: pointer
+    position: relative
+    width: 150px
+    height: 150px
+
+    .photo
+      position: absolute
+      top: calc(50% - 60px / 2)
+      right: calc(50% - 69px / 2)
+
+    .uploaded
+      display: none
+
+    .avatar
+      padding-top: 30px
+      width: 100%
+      height: calc(100% - 30px)
+      border-radius: 50%
+      background: #D8D8D8
+
+      transition: background 0.2s ease
+
+    .profileImg.avatar
+      object-fit: cover
+      padding-top: 0
+      height: 150px
+
+    &:hover
+      .avatar
+        background: rgba(151, 151, 151, 0.7)
+        transition: background 0.2s ease
+
+      .uploaded
+        display: block
