@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./Main.module.sass";
 import Tariff from "../Tariff/Tariff";
-import mainPic_1 from "../img/slider_item_1.png";
-import mainPic_2 from "../img/slider_item_2.png";
-import mainPic_3 from "../img/slider_item_3.png";
-import mainPic_4 from "../img/slider_item_4.png";
 import classNames from "classnames";
 
 function Main() {
@@ -114,25 +110,25 @@ function Main() {
 						<img
 							id="slide-picture_1"
 							className={styles.presentation__image}
-							src={mainPic_1}
+							src='./assets/StartPage/slider_item_1.png'
 							alt="добавление файла"
 						/>
 						<img
 							id="slide-picture_2"
 							className={styles.presentation__image}
-							src={mainPic_2}
+							src='./assets/StartPage/slider_item_2.png'
 							alt="совместный проект"
 						/>
 						<img
 							id="slide-picture_3"
 							className={styles.presentation__image}
-							src={mainPic_3}
+							src='./assets/StartPage/slider_item_3.png'
 							alt="безопасность"
 						/>
 						<img
 							id="slide-picture_4"
 							className={styles.presentation__image}
-							src={mainPic_4}
+							src='./assets/StartPage/slider_item_4.png'
 							alt="синхронизация"
 						/>
 					</div>
