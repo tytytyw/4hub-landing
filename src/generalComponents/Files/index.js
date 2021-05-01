@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import styles from './Files.module.sass';
 
@@ -10,6 +10,14 @@ const File = ({format, color}) => {
 
     const isFormat = () => formats.indexOf(format);
 
+    const [formatSize, setFormatSize] = useState(0);
+    const formatRef = useCallback(node => {
+        if(node !== null) {
+            setFormatSize(node.getBoundingClientRect().width);
+        }
+    }, []);
+    const fontSize = formatSize > 40 ? '12px' : '7px';
+
     return (
         <div className={styles.file}>
             <div
@@ -18,8 +26,9 @@ const File = ({format, color}) => {
             />
             <div className={styles.shadow} />
             <div
+                ref={formatRef}
                 className={`${styles.label} ${isFormat() > -1 ? styles[`${format}Big`] : styles.othersBig}`}
-                style={{background: `${color ? color : ''}`}}
+                style={{background: `${color ? color : ''}`, fontSize}}
             >{format ? format.toUpperCase() : <img src='./assets/PrivateCabinet/down-arrow-2.svg' alt='img' />}</div>
         </div>
     )

@@ -1,0 +1,81 @@
+.workLinesPreviewWrap
+  display: flex
+  width: 100%
+  height: calc(100% - 90px - 55px)
+  max-height: max-content
+  overflow: hidden
+  box-sizing: border-box
+  padding: 10px 0
+  .fileListWrap::-webkit-scrollbar-track
+    background: #0A3AAB
+  .fileListWrap::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  .fileListWrap::-webkit-scrollbar
+    width: 3px
+    background-color: #FFFFFF
+  .fileListWrap::-webkit-scrollbar-thumb
+    background-color: #4086F1
+  .fileListWrap
+    display: flex
+    align-items: center
+    flex-direction: column
+    width: 33%
+    overflow-x: hidden
+    overflow-y: scroll
+    height: 100%
+    border-right: 1px solid lightgrey
+  .previewFileWrap
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 67%
+    height: 100%
+    .preview
+      margin: 0 0 20px 0
+    .fileName
+      font-size: 14px
+      font-family: "SF Pro Medium", sans-serif
+      max-width: 85%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      margin: 0 0 10px 0
+    .infoFileItem
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      width: 100%
+      margin: 0 0 10px 0
+      .itemName
+        display: flex
+        justify-content: flex-end
+        width: 45%
+        margin: 0 20px 0 0
+      .optionItem:hover
+        color: #4086F1
+      .optionItem
+        cursor: pointer
+        color: lightgrey
+      .tagName
+        max-width: 40%
+        font-size: 14px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        background: #4086F1
+        border-radius: 10px
+        padding: 1px 10px
+        cursor: default
+      .colorCircle
+        width: 20px
+        height: 20px
+        border-radius: 50%
+      .description
+        font-size: 14px
+        max-width: 40%
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+

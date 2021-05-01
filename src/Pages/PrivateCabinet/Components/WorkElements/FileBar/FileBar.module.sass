@@ -14,8 +14,10 @@
   flex-direction: column
   align-items: center
   width: 175px
+  min-width: 175px
   height: 185px
-  box-shadow: 1px 1px 2px #c4c2c2, -1px 0 2px #c4c2c2
+  min-height: 185px
+  box-shadow: 0 2px 5px #dedede
   position: relative
   z-index: 3
   cursor: default
@@ -25,7 +27,7 @@
     position: absolute
     right: -10px
     top: 0
-    box-shadow: 0 -1px 0 #c4c2c2
+    box-shadow: 0 2px 5px #dedede
     z-index: 2
     span
       width: 3px
@@ -46,9 +48,9 @@
     span:after
       transform: translateY(-7px)
   .menu:hover
-    background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .3) 50%)
+    background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
   .menu:hover:after
-    background: rgba(64, 134, 241, .3)
+    background: rgba(64, 134, 241, .1)
   .menu:after
     content: ''
     width: 10px
@@ -58,7 +60,7 @@
     top: 5px
     transform: skewY(-45deg)
     cursor: pointer
-    box-shadow: 1px 1px 0 #c4c2c2
+    box-shadow: 0 2px 5px #dedede
     z-index: 1
   .symbols
     display: flex

@@ -19,7 +19,7 @@ const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
             {!isLoading ? <div className={styles.fname}>{file.name}</div> : null}
             {!isLoading ? <div className={styles.fileInfo}>
                 <div>{file.size_now}</div>
-                <div>{file.ctime.split(' ')[0]}</div>
+                <div>{file.mtime.split(' ')[0]}</div>
             </div> : null}
             {isLoading ? <div className={styles.loadingWrap}>
                 <div className={styles.numberPercentage}>{progress.toFixed()} %</div>

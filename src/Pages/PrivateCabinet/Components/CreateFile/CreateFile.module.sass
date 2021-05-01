@@ -32,6 +32,12 @@
     opacity: 1
     bottom: -137px
 
+@keyframes ticked
+  0%
+    width: 0
+  100%
+    width: 15px
+
 .createFolderWrap
   display: flex
   flex-direction: column
@@ -80,7 +86,7 @@
   .title
     font-size: 19px
     font-family: "SF Pro Medium", sans-serif
-    margin: 40px 0 40px 0
+    margin: 40px 0 25px 0
   .fileIconWrap
     display: flex
     width: 78%
@@ -136,6 +142,7 @@
         padding: 1px
         text-overflow: ellipsis
         margin: 0 0 5px 0
+        font-family: "SF Pro Medium", sans-serif
       .fileOptions
         display: flex
         align-items: center
@@ -240,6 +247,35 @@
         display: block
         z-index: 3
         animation: showTags 0.2s ease-in-out
+  .safeWrap
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    width: 430px
+    font-size: 10px
+    margin: 5px 0
+    .safe
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 8%
+      margin: 0 10px 0 0
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 20px
+        height: 20px
+        border: 1px solid #c4c2c2
+        border-radius: 5px
+        cursor: pointer
+      div img
+        width: 15px
+        animation: ticked 0.2s ease
+    .safeText
+      width: 91%
+      font-size: 13px
+      line-height: 16px
   .buttonsWrap
     display: flex
     width: 290px

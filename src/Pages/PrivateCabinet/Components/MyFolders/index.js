@@ -59,7 +59,7 @@ const MyFolders = () => {
         })
     };
 
-    const onCloseSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+    const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
     return (
         <div className={styles.workAreaWrap}>
@@ -82,6 +82,7 @@ const MyFolders = () => {
                 progress={progress}
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
+                listCollapsed={listCollapsed}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -100,13 +101,11 @@ const MyFolders = () => {
                 fileLoading={fileLoading}
                 setProgress={setProgress}
                 progress={progress}
+                onToggleSafePassword={onSafePassword}
             />}
             {safePassword.open && <CreateSafePassword
-                onToggle={onCloseSafePassword}
+                onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
-                info={newFolderInfo}
-                chosenFolder={chosenFolder}
-                setChosenFolder={setChosenFolder}
             />}
         </div>
     )
