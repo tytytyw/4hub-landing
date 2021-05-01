@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Tariff.module.sass";
+import styles from "./Tariff.module.css";
 import classNames from "classnames";
 
 function Tariff({ name, cost, currentPlan, promo, discont }) {

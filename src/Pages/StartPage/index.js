@@ -11,7 +11,6 @@ import EnterProfile from './Components/EnterProfile';
 import RegisterProfile from './Components/RegisterProfile';
 import ForgotPassword from './Components/ForgotPassword';
 import RenewPassword from './Components/RenewPassword';
-import Landing from './Components/Landing/Landing'
 
 const StartPage = () => {
 
@@ -49,7 +48,6 @@ const StartPage = () => {
                     <div style={{fontSize: '5vw', margin: '3vw 0'}}>Cтраница в разработке</div>
                     <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
                 </div>}
-                {pageOption === 'landing' && <Landing />}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
