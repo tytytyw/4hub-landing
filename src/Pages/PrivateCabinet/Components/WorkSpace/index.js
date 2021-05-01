@@ -11,7 +11,7 @@ import WorkBars from '../WorkElements/WorkBars';
 import BottomPanel from '../ButtomPanel';
 import FileBar from '../WorkElements/FileBar';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, setSafePassword}) => {
 
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
@@ -42,6 +42,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder}) => {
                 setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
+                setSafePassword={setSafePassword}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFileBar()}</WorkBars> : null}
             <BottomPanel />
