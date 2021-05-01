@@ -11,6 +11,7 @@ import UserForm from './UserForm/UserForm'
 import BottomPanel from '../ButtomPanel'
 import classnames from 'classnames'
 import Support from './Support/Support'
+import TariffPlan from "./TariffPlan/TariffPlan";
 
 const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
     <button
@@ -57,17 +58,30 @@ const MyProfile = (props) => {
                             active={pageOption === 'support'}
                             onClick={() => setPageOption('support')}
                         />
-                        <MyButton text='Тарифный план'/>
-                        <MyButton text='Контакты'/>
-                        <MyButton text='Подключенные прораммы'/>
+                        <MyButton
+                            text='Тарифный план'
+                            active={pageOption === 'tariff_plan'}
+                            onClick={() => setPageOption('tariff_plan')}
+                        />
+                        <MyButton
+                            text='Контакты'
+                        />
+                        <MyButton
+                            text='Подключенные прораммы'
+                        />
                         <div className={styles.buttonsRight}>
-                            <MyButton text='Расказать друзьям' icon={uploadIcon} alt='Upload'/>
+                            <MyButton
+                                text='Расказать друзьям'
+                                icon={uploadIcon}
+                                alt='Upload'
+                            />
                         </div>
                     </div>
                 </div>
 
                 {pageOption === 'personal_data' && <UserForm/>}
                 {pageOption === 'support' && <Support/>}
+                {pageOption === 'tariff_plan' && <TariffPlan/>}
 
             </div>
 

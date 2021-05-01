@@ -1,0 +1,133 @@
+.card
+  box-sizing: border-box
+  width: 242px
+  height: 566px
+  box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  padding: 24px
+  position: relative
+
+  .topBlock
+    position: absolute
+    top: 0
+    left: 0
+    width: 242px
+    height: 10px
+    background: #4086F1
+    box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
+
+  .dayOffer
+    position: absolute
+    top: -60px
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 242px
+    height: 70px
+
+    font-size: 13px
+    line-height: 18px
+    color: #FFFFFF
+    background: #4086F1
+    box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
+
+  .header
+    padding-top: 40px
+
+    &:after
+      content: ''
+      display: block
+      width: 50px
+      height: 2px
+      background: #979797
+      margin-top: 24px
+
+    .tariff
+      font-weight: 500
+      font-size: 18px
+      margin: 0
+
+
+    .priceBlock
+      display: flex
+      align-items: flex-start
+      margin: 20px 0
+
+      .price, .oldPrice
+        font-weight: 600
+        font-size: 36px
+        margin: 0
+
+      .oldPrice
+        margin-right: 28px
+        color: #E03030
+        text-decoration: line-through
+
+    .desc
+      font-size: 15px
+      color: #595959
+      margin: 0
+
+  .content
+    margin-top: 18px
+
+    .optionList
+      list-style: none
+      margin: 0
+      padding: 0
+
+      .optionItem
+        display: flex
+        justify-content: space-between
+        align-items: flex-start
+        margin-bottom: 32px
+
+        .icon
+          width: 30px
+          text-align: center
+
+        p
+          margin: 0 0 0 18px
+          font-size: 14px
+          font-weight: 400
+          letter-spacing: -0,06
+          font-family: inherit
+          line-height: 21px
+          padding: 0
+
+
+  .actionBlock
+    text-align: center
+
+  .actionBtn
+    border-radius: 3px
+    background: #ffffff
+    font-size: 13px
+    line-height: 18px
+    color: #000
+    box-shadow: 0 2px 4px #DFDFDF
+
+  .buyBtn
+    color: #4086F1
+    border: 1px solid #4086F1
+    box-shadow: none
+    transition: all 0.2s
+
+    &:hover
+      background: #4086F1
+      color: #FFFFFF
+      transition: all 0.2s
+
+
+
+
+
+
+
+
+
+
+

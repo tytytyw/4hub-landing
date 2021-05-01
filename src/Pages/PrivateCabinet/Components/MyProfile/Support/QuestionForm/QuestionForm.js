@@ -3,10 +3,9 @@ import React, {useState} from 'react'
 import styles from './QuestionForm.module.sass'
 import Input from '../../Input/Input'
 import Form from '../../Form/Form'
-
-import classnames from 'classnames'
 import Textarea from '../../Textarea/Textarea'
 import {useInput} from '../../Input/validation'
+import Button from '../../Button/Button'
 
 const QuestionForm = () => {
 
@@ -77,13 +76,12 @@ const QuestionForm = () => {
                     </div>
 
                     <div className={styles.submitBlock}>
-                        <button
+                        <Button
                             type='submit'
                             disabled={!formIsValid()}
-                            className={styles.submitBtn}
                         >
                             Отправить
-                        </button>
+                        </Button>
                     </div>
 
                 </div>
