@@ -20,10 +20,10 @@ const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
             [styles.active]: active
         })}
     >
-        {text}
-        {icon ? <span className={styles.buttonIcon}>
-                    <img src={icon} alt={alt}/>
-                </span> : null}
+        {text} {icon ?
+        <span className={styles.buttonIcon}>
+            <img src={icon} alt={alt}/>
+        </span> : null}
     </button>
 )
 

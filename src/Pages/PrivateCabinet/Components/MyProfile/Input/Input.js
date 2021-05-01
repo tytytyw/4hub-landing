@@ -5,9 +5,10 @@ import classnames from 'classnames'
 
 const Input = (
     {
-        type, label, value,
+        type, label, value, name,
         isMistake = false, readonly = false,
         onChange = () => {},
+        onKeyup = () => {},
         onBlur = () => {}
     }
 ) => {
@@ -46,9 +47,10 @@ const Input = (
                 id={htmlFor}
                 type={getType()}
                 value={value}
+                name={name}
                 onChange={onChange}
                 onBlur={onBlur}
-                onKeyUp={onBlur}
+                onKeyUp={onKeyup}
                 readOnly={readonly}
             />
 

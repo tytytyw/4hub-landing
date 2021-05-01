@@ -1,30 +1,51 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './UserForm.module.sass'
 import Input from '../Input/Input.js'
 import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useSelector} from 'react-redux'
+import Form from '../Form/Form'
+import {useInput} from '../Input/validation'
 
 const UserForm = props => {
 
     const user = useSelector(state => state.user.userInfo)
     const [userInfo, setUserInfo] = useState(user ?? {})
-    const [errors, setErrors] = useState({})
 
     const [passActive, setPassActive] = useState(false)
     const [phoneActive, setPhoneActive] = useState(false)
 
-    const checkRequired = (value, name) => {
-        setErrors({...errors, [name]: value === ''})
+    const name = useInput(userInfo?.name, {required: true})
+    const fname = useInput(userInfo?.fname, {required: true})
+    const password = useInput(userInfo?.password, {required: true})
+    const email = useInput(userInfo?.email, {email: true})
+    const tel = useInput(userInfo?.tel)
+
+    const formIsValid = () => {
+        return !name.isEmpty && !fname.isEmpty && !password.isEmpty && email.isEmail
     }
 
-    const checkEmail = (value, name) => {
-        setErrors({...errors, [name]: !validateEmail(value) || value === ''})
-    }
+    const onSubmit = event => event.preventDefault()
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
+    useEffect(() => {
+
+        if (formIsValid()) {
+            console.log('Success', userInfo)
+        } else {
+            console.log('Error')
+        }
+
+    }, [userInfo])
+
+    const isCorrectValue = (input, oldValue, type) => {
+
+        switch (type) {
+            case 'email':
+                return input.isEmail && oldValue !== input.value
+            default:
+                return !input.isEmpty && oldValue !== input.value
+        }
+
     }
 
     return (
@@ -32,99 +53,118 @@ const UserForm = props => {
 
             <ProfileUpload/>
 
-            <div className={styles.fields}>
+            <Form noValidate onSubmit={onSubmit}>
+                <div className={styles.fields}>
 
-                <div className={styles.row}>
-                    <div className={`${styles.field} ${styles.flex50}`}>
-                        <Input
-                            label='Имя'
-                            value={userInfo?.name}
-                            onChange={(event) => {
-                                setUserInfo({...userInfo, name: event.target.value})
-                            }}
-                            name='name'
-                            isMistake={errors?.name}
-                            onBlur={(event) => checkRequired(event.target.value, 'name')}
-                        />
-                    </div>
-                    <div className={`${styles.field} ${styles.flex50}`}>
-                        <Input
-                            label='Фамилия'
-                            value={userInfo?.fname}
-                            onChange={(event) => {
-                                setUserInfo({...userInfo, fname: event.target.value})
-                            }}
-                            name='fname'
-                            isMistake={errors?.fname}
-                            onBlur={(event) => checkRequired(event.target.value, 'fname')}
-                        />
-                    </div>
-                </div>
-
-                <div className={styles.row}>
-                    <div className={`${styles.field} ${styles.flex100}`}>
-                        <Input
-                            type='email'
-                            label='Email'
-                            value={userInfo?.email}
-                            onChange={(event) => {
-                                setUserInfo({...userInfo, email: event.target.value})
-                            }}
-                            name='email'
-                            isMistake={errors?.email}
-                            onBlur={(event) => checkEmail(event.target.value, 'email')}
-                        />
-                    </div>
-                </div>
-
-                <div className={styles.row}>
-                    <div className={`${styles.field} ${styles.flex100}`}>
-                        <Input
-                            type='password'
-                            label='Пароль'
-                            value={userInfo?.password}
-                            onChange={(event) => {
-                                setUserInfo({...userInfo, password: event.target.value})
-                            }}
-                            readonly={!passActive}
-                            name='password'
-                            onBlur={(event) => checkRequired(event.target.value, 'password')}
-                        />
-                        <div className={styles.action}>
-                            <button
-                                onClick={() => setPassActive(true)}
-                                className={styles.button}
-                            >
-                                Сменить пароль
-                            </button>
+                    <div className={styles.row}>
+                        <div className={`${styles.field} ${styles.flex50}`}>
+                            <Input
+                                label='Имя'
+                                name='name'
+                                value={name.value}
+                                isMistake={name.isEmpty && name.dirty}
+                                onChange={event => name.onChange(event)}
+                                onBlur={event => {
+                                    name.onBlur(event)
+                                    if (isCorrectValue(name, userInfo.name)) {
+                                        setUserInfo({...userInfo, name: name.value})
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className={`${styles.field} ${styles.flex50}`}>
+                            <Input
+                                label='Фамилия'
+                                name='fname'
+                                value={fname.value}
+                                isMistake={fname.isEmpty && fname.dirty}
+                                onChange={event => fname.onChange(event)}
+                                onBlur={event => {
+                                    fname.onBlur(event)
+                                    if (isCorrectValue(fname, userInfo.fname)) {
+                                        setUserInfo({...userInfo, fname: fname.value})
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
-                </div>
 
-                <div className={styles.row}>
-                    <div className={`${styles.field} ${styles.flex100}`}>
-                        <Input
-                            type='text'
-                            label='Телефон'
-                            value={userInfo?.phone}
-                            onChange={(event) => {
-                                setUserInfo({...userInfo, phone: event.target.value})
-                            }}
-                            readonly={!phoneActive}
-                            name='phone'
-                        />
-                        <div className={styles.action}>
-                            <button
-                                onClick={() => setPhoneActive(true)}
-                                className={styles.button}
-                            >
-                                Сменить телефон
-                            </button>
+                    <div className={styles.row}>
+                        <div className={`${styles.field} ${styles.flex100}`}>
+                            <Input
+                                type='email'
+                                label='Email'
+                                name='email'
+                                value={email.value}
+                                isMistake={!email.isEmail && email.dirty}
+                                onChange={event => email.onChange(event)}
+                                onBlur={event => {
+                                    email.onBlur(event)
+                                    if (isCorrectValue(email, userInfo.email, 'email')) {
+                                        setUserInfo({...userInfo, email: email.value})
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
-                </div>
 
-            </div>
+                    <div className={styles.row}>
+                        <div className={`${styles.field} ${styles.flex100}`}>
+                            <Input
+                                type='password'
+                                label='Пароль'
+                                name='password'
+                                readonly={!passActive}
+                                value={password.value}
+                                isMistake={password.isEmpty && password.dirty && passActive}
+                                onChange={event => password.onChange(event)}
+                                onBlur={event => {
+                                    password.onBlur(event)
+                                    if (isCorrectValue(password, userInfo.password)) {
+                                        setUserInfo({...userInfo, password: password.value})
+                                    }
+                                }}
+                            />
+                            <div className={styles.action}>
+                                <button
+                                    onClick={() => setPassActive(true)}
+                                    className={styles.button}
+                                >
+                                    Сменить пароль
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.row}>
+                        <div className={`${styles.field} ${styles.flex100}`}>
+                            <Input
+                                type='text'
+                                label='Телефон'
+                                name='tel'
+                                readonly={!phoneActive}
+                                value={tel.value}
+                                onChange={event => tel.onChange(event)}
+                                onBlur={event => {
+                                    tel.onBlur(event)
+                                    if (isCorrectValue(tel, userInfo.tel)) {
+                                        setUserInfo({...userInfo, tel: tel.value})
+                                    }
+                                }}
+                            />
+                            <div className={styles.action}>
+                                <button
+                                    onClick={() => setPhoneActive(true)}
+                                    className={styles.button}
+                                >
+                                    Сменить телефон
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </Form>
 
         </div>
     )

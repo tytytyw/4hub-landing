@@ -15,6 +15,9 @@ const ProfileUpload = () => {
             const reader = new FileReader()
             reader.onloadend = () => {
                 setPreview(reader.result)
+
+
+
             }
             reader.readAsDataURL(image)
         } else {
