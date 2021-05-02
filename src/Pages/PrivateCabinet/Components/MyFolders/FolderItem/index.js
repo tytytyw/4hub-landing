@@ -7,7 +7,7 @@ import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
-import CustomFolderItem from "../CustomFolderItem";
+import CustomFolderItem from '../CustomFolderItem';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
