@@ -70,7 +70,11 @@ const FolderItem = ({
                 <div className={styles.menuWrap}><span className={styles.menu} /></div>
             </div>
         </div>
-        <div style={{height: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`}} className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
+        <div style={{
+                height: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`,
+                minHeight: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`
+            }}
+             className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
             <div
                 className={styles.addFolderToFolder}
                 onClick={() => {
