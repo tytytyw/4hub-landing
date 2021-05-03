@@ -14,67 +14,100 @@ function Main() {
 		const SliderItemPic3 = document.querySelector("#slide-picture_3");
 		const SliderItemPic4 = document.querySelector("#slide-picture_4");
 		const sliderTop = document.querySelector(`.${styles.presentation}`);
-    //проверяем до какой картинки доскролил пользователь
-		window.scrollY +100 > SliderItemPic1.offsetTop &&
-		window.scrollY - sliderTop.offsetTop<
-			SliderItemPic1.offsetTop + SliderItemPic1.offsetHeight
-			? SliderItemText1.classList.add(styles.text_item_active)
-			: SliderItemText1.classList.remove(styles.text_item_active);
+		const textWrap = document.querySelector(`.${styles.text_wrap}`);
 
-		window.scrollY +100 > SliderItemPic2.offsetTop &&
-		window.scrollY - sliderTop.offsetTop <
-			SliderItemPic2.offsetTop + SliderItemPic2.offsetHeight
-			? SliderItemText2.classList.add(styles.text_item_active)
-			: SliderItemText2.classList.remove(styles.text_item_active);
+		const frameFirst = () => {
+			SliderItemText1.classList.add(styles.text_item_active);
+			SliderItemText2.classList.remove(styles.text_item_active);
 
-		window.scrollY +100 > SliderItemPic3.offsetTop &&
-		window.scrollY - sliderTop.offsetTop <
-			SliderItemPic3.offsetTop + SliderItemPic3.offsetHeight
-			? SliderItemText3.classList.add(styles.text_item_active)
-			: SliderItemText3.classList.remove(styles.text_item_active);
+			SliderItemPic1.classList.add(styles.image_wrap_active);
+			SliderItemPic2.classList.remove(styles.image_wrap_active);
+		};
+		const frameSecond = () => {
+			SliderItemText2.classList.add(styles.text_item_active);
+			SliderItemText1.classList.remove(styles.text_item_active);
+			SliderItemText3.classList.remove(styles.text_item_active);
+			textWrap.scrollTo(0, 0);
 
-		window.scrollY +100 > SliderItemPic4.offsetTop &&
+			SliderItemPic2.classList.add(styles.image_wrap_active);
+			SliderItemPic1.classList.remove(styles.image_wrap_active);
+			SliderItemPic3.classList.remove(styles.image_wrap_active);
+		};
+		const frameThird = () => {
+			SliderItemText3.classList.add(styles.text_item_active);
+			SliderItemText2.classList.remove(styles.text_item_active);
+			SliderItemText4.classList.remove(styles.text_item_active);
+			textWrap.scrollTo(0, textWrap.scrollHeight);
+			SliderItemPic3.classList.add(styles.image_wrap_active);
+			SliderItemPic2.classList.remove(styles.image_wrap_active);
+			SliderItemPic4.classList.remove(styles.image_wrap_active);
+		};
+		const frameFourth = () => {
+			SliderItemText4.classList.add(styles.text_item_active);
+			SliderItemText3.classList.remove(styles.text_item_active);
+			SliderItemPic4.classList.add(styles.image_wrap_active);
+			SliderItemPic3.classList.remove(styles.image_wrap_active);
+		};
+
+		//проверяем до какой картинки доскролил пользователь
+		window.scrollY > SliderItemPic1.offsetTop &&
 		window.scrollY - sliderTop.offsetTop <
-			SliderItemPic4.offsetTop + SliderItemPic4.offsetHeight
-			? SliderItemText4.classList.add(styles.text_item_active)
+			SliderItemPic1.offsetTop + SliderItemPic1.offsetHeight - 200
+			? frameFirst()
+			: window.scrollY > SliderItemPic2.offsetTop - 200 &&
+			  window.scrollY - sliderTop.offsetTop <
+					SliderItemPic2.offsetTop + SliderItemPic2.offsetHeight - 200
+			? frameSecond()
+			: window.scrollY > SliderItemPic3.offsetTop - 200 &&
+			  window.scrollY - sliderTop.offsetTop <
+					SliderItemPic3.offsetTop + SliderItemPic3.offsetHeight
+			? frameThird()
+			: window.scrollY > SliderItemPic4.offsetTop - 200 &&
+			  window.scrollY - sliderTop.offsetTop <
+					SliderItemPic4.offsetTop + SliderItemPic4.offsetHeight
+			? frameFourth()
 			: SliderItemText4.classList.remove(styles.text_item_active);
 	};
 
 	useEffect(() => {
 		window.addEventListener("scroll", scrollHandler);
+		document
+			.querySelector("#slide-text_1")
+			.classList.add(styles.text_item_active);
+		document
+			.querySelector("#slide-picture_1")
+			.classList.add(styles.image_wrap_active);
 		return () => window.removeEventListener("scroll", scrollHandler);
 	}, []);
 	return (
 		<div>
-			<main>
-				<h2 className={styles.title}>Remote Workspace</h2>
+			<main className={styles.main}>
+				<h2 className={styles.title}>Умное рабочее пространство</h2>
 				<div className={styles.presentation}>
 					<div className={styles.text_wrap}>
-						<div
-							id="slide-text_1"
-							className={classNames(styles.text_item, styles.text_item_active)}
-						>
+						<div id="slide-text_1" className={classNames(styles.text_item)}>
 							<h4 className={styles.presentation__title}>Название заголовка</h4>
 							<p className={styles.presentation__text}>
-								Это текст-"рыба", часто используемый в печати и
-								вэб&#8209;дизайне. Lorem Ipsum является стандартной "рыбой" для
-								текстов на латинице с начала XVI века.
+								Cистематизация данных в одном пространстве
 							</p>
 							<p className={styles.presentation__text}>
-								В то время некий безымянный печатник создал большую коллекцию
-								размеров и форм шрифтов
+								Предоставление доступа к загруженным файлам
+							</p>
+							<p className={styles.presentation__text}>
+								Разграничение прав доступа к файлам
 							</p>
 						</div>
 						<div id="slide-text_2" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>Совместный проект</h4>
 							<p className={styles.presentation__text}>
-								Это текст-"рыба", часто используемый в печати и
-								вэб&#8209;дизайне. Lorem Ipsum является стандартной "рыбой" для
-								текстов на латинице с начала XVI века.
+								Возможность организации конференций
 							</p>
 							<p className={styles.presentation__text}>
-								В то время некий безымянный печатник создал большую коллекцию
-								размеров и форм шрифтов
+								Синхронизация совместной работы над проектами с использованием
+								встроенных инструментов
+							</p>
+							<p className={styles.presentation__text}>
+								Приватная работа с документами
 							</p>
 						</div>
 						<div id="slide-text_3" className={styles.text_item}>
@@ -82,57 +115,162 @@ function Main() {
 								Безопастность (Сейф)
 							</h4>
 							<p className={styles.presentation__text}>
-								Это текст-"рыба", часто используемый в печати и
-								вэб&#8209;дизайне. Lorem Ipsum является стандартной "рыбой" для
-								текстов на латинице с начала XVI века.
+								Надежная защита личных и корпоративных данных
 							</p>
-							<p className={styles.presentation__text}>
-								В то время некий безымянный печатник создал большую коллекцию
-								размеров и форм шрифтов
-							</p>
+							<p className={styles.presentation__text}>Шифрование файлов</p>
 						</div>
 						<div id="slide-text_4" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
 								Синхранизация с Программами
 							</h4>
 							<p className={styles.presentation__text}>
-								Это текст-"рыба", часто используемый в печати и
-								вэб&#8209;дизайне. Lorem Ipsum является стандартной "рыбой" для
-								текстов на латинице с начала XVI века.
+								Синхронизация со сторонними сервисами
 							</p>
 							<p className={styles.presentation__text}>
-								В то время некий безымянный печатник создал большую коллекцию
-								размеров и форм шрифтов
+								Встроенный магазин программного обеспечения
 							</p>
 						</div>
 					</div>
 					<div className={styles.presentation__images}>
-						<img
-							id="slide-picture_1"
-							className={styles.presentation__image}
-							src='./assets/StartPage/slider_item_1.png'
-							alt="добавление файла"
-						/>
-						<img
-							id="slide-picture_2"
-							className={styles.presentation__image}
-							src='./assets/StartPage/slider_item_2.png'
-							alt="совместный проект"
-						/>
-						<img
-							id="slide-picture_3"
-							className={styles.presentation__image}
-							src='./assets/StartPage/slider_item_3.png'
-							alt="безопасность"
-						/>
-						<img
-							id="slide-picture_4"
-							className={styles.presentation__image}
-							src='./assets/StartPage/slider_item_4.png'
-							alt="синхронизация"
-						/>
+						<div id="slide-picture_1" className={classNames(styles.image_wrap)}>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_1_1
+								)}
+								src="./assets/StartPage/slider_item_1_1.png"
+								alt="добавление файла"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_1_2
+								)}
+								src="./assets/StartPage/slider_item_1_2.png"
+								alt="добавление файла"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_1_3
+								)}
+								src="./assets/StartPage/slider_item_1_3.png"
+								alt="добавление файла"
+							/>
+						</div>
+						<div id="slide-picture_2" className={styles.image_wrap}>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_2_1
+								)}
+								src="./assets/StartPage/slider_item_2_1.png"
+								alt="совместный проект"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_2_2
+								)}
+								src="./assets/StartPage/slider_item_2_2.png"
+								alt="совместный проект"
+							/>
+						</div>
+						<div id="slide-picture_3" className={styles.image_wrap}>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_3_1
+								)}
+								src="./assets/StartPage/slider_item_3_1.png"
+								alt="добавление файла"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_3_2
+								)}
+								src="./assets/StartPage/slider_item_3_2.png"
+								alt="добавление файла"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_3_3
+								)}
+								src="./assets/StartPage/slider_item_3_3.png"
+								alt="добавление файла"
+							/>
+						</div>
+						<div id="slide-picture_4" className={styles.image_wrap}>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4
+								)}
+								src="./assets/StartPage/slider_item_4.png"
+								alt="синхронизация"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_youtube
+								)}
+								src="./assets/StartPage/youtube.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_telegram
+								)}
+								src="./assets/StartPage/telegram.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_google_calendar
+								)}
+								src="./assets/StartPage/google_calendar.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_google_drive
+								)}
+								src="./assets/StartPage/google_drive.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_slack
+								)}
+								src="./assets/StartPage/slack.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_viber
+								)}
+								src="./assets/StartPage/viber.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_whatsapp
+								)}
+								src="./assets/StartPage/whatsapp.svg"
+							/>
+							<img
+								className={classNames(
+									styles.presentation__image,
+									styles.image_4_skype
+								)}
+								src="./assets/StartPage/skype.svg"
+							/>
+						</div>
 					</div>
 				</div>
+				{/* </Scrollbars> */}
 			</main>
 			<section className={styles.storage}>
 				<h2 className={styles.storage_title}>Хранилище</h2>

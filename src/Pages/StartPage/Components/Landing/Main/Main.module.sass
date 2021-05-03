@@ -1,18 +1,17 @@
+.main 
+    max-width: 1500px
+    margin: 0 auto
 .storage 
     padding-top: 30px
     padding-bottom: 77px
     color: #000
     background-color: #fff
     text-align: center
-
-
 .presentation 
     display: flex
     align-items: flex-start
     margin-bottom: 7%
     position: relative
-
-
 .text_item 
     position: relative
     opacity: .5
@@ -21,8 +20,6 @@
     -moz-transition: opacity .3s ease
     -ms-transition: opacity .3s ease
     -o-transition: opacity .3s ease
-
-
 .text_item::before 
     content: ""
     left: -30px
@@ -37,88 +34,141 @@
     -moz-transition: height .3s ease
     -ms-transition: height .3s ease
     -o-transition: height .3s ease
-
-
 .text_item_active::before 
     height: 100%
     bottom: auto
     top: 0
-
-
 .text_item_active 
     opacity: 1
-
-
 .title 
     color: #EED328
     padding-left: 7%
     font-size: 3.75rem
     margin: 0
     font-weight: 600
-
-
 .text_wrap 
     position: sticky
     top: 0
     width: 33%
     padding-left: 7%
-    margin-right: 7.6%
     margin-top: 4%
-
-
+    max-height: 45rem
+    overflow: hidden
 .presentation__images 
-    width: 50%
-
-
-.presentation__image 
+    width: 65%
+.image_wrap
+    height: 670px
+    position: relative
+    overflow: hidden
     margin-bottom: 22%
-    object-fit: contain
-    width: 100%
-
-
+.presentation__image
+    position: absolute
+    transition: transform 1s ease
+    overflow: hidden
+.image_wrap_active
+    .presentation__image
+        transform: translate(0%, -50%)
+.image_1_1
+    top: 36%
+    right: 363px
+    z-index: 1
+    transform: translate(-15%, -35%)
+.image_1_2
+    top: 70%
+    right: 40px
+    transform: translate(163%, 55%)
+.image_1_3
+    top: 24%
+    right: 166px
+    transform: translate(163%, 55%)
+.image_2_1
+    top: 50%
+    right: 650px
+    transform: translate(133%, 266%)
+.image_2_2
+    top: 50%
+    right: 40px
+    transform: translate(125%, 133%)
+.image_3_1
+    top: 45%
+    right: 486px
+    transform: translate(0, 0);
+.image_3_2
+    top: 70%
+    right: 70px
+    transform: translate(-60%, 67%);
+.image_3_3
+    top: 61%
+    right: 40px
+    transform: translate(125%, 133%)
+.image_wrap 
+    .image_4 
+        top: 22%
+        right: 39px
+        transform: translate(0,0)
+        z-index: 2
+.image_4_youtube
+    top: 17%
+    right: 511px
+    transform: translate(400%, 290%)   
+.image_4_telegram
+    top: 78%
+    right: 481px
+    z-index: 3
+    transform: translate(1200%, 750%)
+.image_4_google_calendar
+    top: 13%;
+    right: 637px
+    transform: translate(100%, 210%)
+.image_4_google_drive
+    top: 93%
+    right: 400px
+    transform: translate(320%, 670%)
+.image_4_slack
+    top: 90%
+    right: 540px
+    transform: translate(320%, 670%)
+.image_4_viber
+    top: 73%
+    right: 653px
+    transform: translate(215%, 580%)
+.image_4_whatsapp
+    top: 51%;
+    right: 622px
+    z-index: 1
+    transform: translate(150%, 210%)
+.image_4_skype
+    top: 30%
+    right: 677px
+    transform: translate(290%, 250%)
 .presentation__title 
     font-size: 2.2rem
     font-weight: 500
-
-
 .presentation__text 
     font-weight: normal
     margin-bottom: 1.5rem
-
-
 .storage_title 
     font-size: 40px
     margin: 1em 0
     font-weight: 600
-
-
 .storage_subtitile 
     font-weight: 500
     width: 28%
     margin: 0 auto 62px auto
- 
-
 .tariffs_list 
     display: flex
     width: 80%
+    max-width: 1366px
     margin: 0 auto
     justify-content: space-between
     align-items: flex-end
-
-
 @media (max-width: 1300px) 
     .tariffs_list 
         width: 85%
-    
-
-
 @media (max-width: 1200px) 
     .tariffs_list 
         width: 90%
-    
-
-
 @media (max-width: 1100px) 
     .tariffs_list 
         width: 98%
-    
+

@@ -1,12 +1,11 @@
-import './Landing.css';
-// import Header from './Header/Header'
+import styles from './Landing.module.sass'
+
 import Main from './Main/Main.jsx'
 import Footer from './Footer/Footer'
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header /> */}
+    <div className={styles.Landing}>
       <Main />
       <Footer />
     </div>
