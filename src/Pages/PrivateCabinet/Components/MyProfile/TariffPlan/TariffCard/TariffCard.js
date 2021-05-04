@@ -4,12 +4,10 @@ import styles from './TariffCard.module.sass'
 import Button from '../../Button/Button'
 import classnames from 'classnames'
 
-
-const TariffCard = ({ item, key }) => {
-
+const TariffCard = ({ item }) => {
 
     return (
-        <div className={styles.card} key={key}>
+        <div className={styles.card}>
 
             <div className={classnames({
                 [styles.topBlock]: true,

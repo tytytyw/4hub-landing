@@ -5,7 +5,7 @@ import classnames from 'classnames'
 
 const Input = (
     {
-        type, label, value, name,
+        type, label, value, name, placeholder,
         isMistake = false, readonly = false,
         onChange = () => {},
         onKeyup = () => {},
@@ -52,6 +52,7 @@ const Input = (
                 onBlur={onBlur}
                 onKeyUp={onKeyup}
                 readOnly={readonly}
+                placeholder={placeholder}
             />
 
             {type === 'password' && <img

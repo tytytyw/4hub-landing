@@ -79,8 +79,6 @@ const data = [
 
 const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
 
-
-
     return (
         <div className={styles.wrapper}>
 
@@ -105,9 +103,9 @@ const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
             </div>
 
             <div className={styles.cards}>
-                {data.map((item, index) => (
-                    <TariffCard item={item} key={index}/>
-                ))}
+                {data.map((item, index) => {
+                    return <TariffCard item={item} key={index}/>
+                })}
             </div>
 
         </div>

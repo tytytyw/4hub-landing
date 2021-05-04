@@ -36,8 +36,9 @@ const Textarea = (
                 onBlur={onBlur}
                 onKeyUp={onBlur}
                 readOnly={readonly}
+                value={value}
             >
-                {value}
+
             </textarea>
 
         </div>
