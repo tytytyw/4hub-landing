@@ -6,6 +6,7 @@ import { onGetFolders, onChooseFiles } from '../../Store/actions/PrivateCabinetA
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
+import MyFiles from './Components/MyFiles';
 import MyProfile from './Components/MyProfile';
 
 const PrivateCabinet = () => {
@@ -38,8 +39,9 @@ const PrivateCabinet = () => {
                     minHeight,
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
-                {menuItem === 'Мои папки' && <MyFolders setItem={setItem} />}
                 {menuItem === 'Личные данные' && <MyProfile />}
+                {menuItem === 'Мои папки' && <MyFolders />}
+                {menuItem === 'Мои файлы' && <MyFiles />}
             </div>
         </div>
     )

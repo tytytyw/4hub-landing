@@ -20,7 +20,7 @@ const Intro = ({setPage}) => {
                         его на 3 строкиможно больше можно меньше  сейчас делаю его
                         на 3 строкиможно больше можно меньше
                     </span>
-                    <div onClick={() => setPage('develop')}>Перейти</div>
+                    <div onClick={() => setPage('landing')}>Перейти</div>
                 </div>
                 <div className={styles.siteOption}>
                     <h3>Для бизнеса</h3>
