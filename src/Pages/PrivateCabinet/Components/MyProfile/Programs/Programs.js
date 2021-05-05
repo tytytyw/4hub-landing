@@ -35,7 +35,64 @@ const Programs = () => {
 
             <div className={styles.mainContent}>
 
-                
+                <div className={styles.programs}>
+
+                    <ul className={styles.programList}>
+                        <li className={styles.programItem}>
+                            <div className={styles.programImage}>
+                                <img
+                                    src="./assets/PrivateCabinet/sketch.svg"
+                                    alt="Sketch"
+                                />
+                                <p>Sketch</p>
+                            </div>
+                            <div className={styles.programText}>
+                                <p>Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и</p>
+                                <p>Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной</p>
+                            </div>
+                        </li>
+                        <li className={styles.programItem}>
+                            <div className={styles.programImage}>
+                                <img
+                                    src="./assets/PrivateCabinet/icZeplin.svg"
+                                    alt="Sketch"
+                                />
+                                <p>Zeplin</p>
+                            </div>
+                            <div className={styles.programText}>
+                                <p>Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и</p>
+                                <p>Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной</p>
+                            </div>
+                        </li>
+                        <li className={styles.programItem}>
+                            <div className={styles.programImage}>
+                                <img
+                                    src="./assets/PrivateCabinet/adobe-2.svg"
+                                    alt="Sketch"
+                                />
+                                <p>Sketch</p>
+                            </div>
+                            <div className={styles.programText}>
+                                <p>Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и</p>
+                                <p>Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной</p>
+                            </div>
+                        </li>
+                        <li className={styles.programItem}>
+                            <div className={styles.programImage}>
+                                <img
+                                    src="./assets/PrivateCabinet/adobe.svg"
+                                    alt="Sketch"
+                                />
+                                <p>Photoshop</p>
+                            </div>
+                            <div className={styles.programText}>
+                                <p>Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и</p>
+                                <p>Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Это текст-"рыба", часто используемый в и вэб-дизайне. Lorem Ipsum является стандартной часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
 
             </div>
 

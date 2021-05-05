@@ -6,10 +6,13 @@ import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useSelector} from 'react-redux'
 import Form from '../Form/Form'
 import {useInput} from '../Input/validation'
+import api from '../../../../../api';
 
 const UserForm = props => {
 
     const user = useSelector(state => state.user.userInfo)
+    const uid = useSelector(state => state.user.uid)
+
     const [userInfo, setUserInfo] = useState(user ?? {})
 
     const [passActive, setPassActive] = useState(false)
@@ -30,7 +33,9 @@ const UserForm = props => {
     useEffect(() => {
 
         if (formIsValid()) {
-            console.log('Success', userInfo)
+            api.post(`/ajax/user_edit.php?token=${uid}`, userInfo)
+                .then(res => {})
+                .catch(err => console.log(err));
         } else {
             console.log('Error')
         }
