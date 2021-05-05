@@ -10,6 +10,7 @@ import ServePanel from '../ServePanel';
 import WorkBars from '../WorkElements/WorkBars';
 import BottomPanel from '../ButtomPanel';
 import FileBar from '../WorkElements/FileBar';
+import FileBarLines from '../WorkElements/FileBarLines';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, setSafePassword}) => {
 
@@ -23,6 +24,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, setSafeP
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
             return <FileBar key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
+        })
+    };
+
+    const renderLinesFileBar = () => {
+        if(!fileList?.files) return null;
+        return fileList.files.map((file, i) => {
+            return <FileBarLines key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
         })
     };
 
@@ -45,6 +53,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, setSafeP
                 setSafePassword={setSafePassword}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFileBar()}</WorkBars> : null}
+            {workElementsView === 'lines' ? <div className={styles.file_list}>{renderLinesFileBar()}</div> : null}
+
             <BottomPanel />
         </div>
     )

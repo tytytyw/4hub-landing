@@ -15,18 +15,11 @@ const MyFiles = () => {
             return <FileItem key={i} file={file} chosen={chosenFile?.fid === file?.fid}  listCollapsed={listCollapsed}/>
         })
     };
-
-    // const global = useSelector(state => state.PrivateCabinet.global);
-    // const other = useSelector(state => state.PrivateCabinet.other?.folders);
     const [listCollapsed, setListCollapsed] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
-    const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [blob, setBlob] = useState({file: null, show: false});
     const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
     const [progress, setProgress] = useState(0);
-    const [safePassword, setSafePassword] = useState({open: false})
-    const [workElementsView, setWorkElementsView] = useState('bars');
-
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -34,7 +27,7 @@ const MyFiles = () => {
                 src='add-file.svg'
                 setListCollapsed={setListCollapsed}
                 listCollapsed={listCollapsed}
-                // onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
+                onCreate={()=>null}
             >
                 <div className={styles.folderListWrap}>
                     {renderFileBar()}
@@ -46,7 +39,6 @@ const MyFiles = () => {
                 fileLoading={fileLoading}
                 progress={progress}
                 chosenFolder={chosenFolder}
-                setSafePassword={setSafePassword}
             />
         </div>
     )

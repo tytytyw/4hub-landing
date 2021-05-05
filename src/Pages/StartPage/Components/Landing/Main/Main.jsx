@@ -82,11 +82,11 @@ function Main() {
 	return (
 		<div>
 			<main className={styles.main}>
-				<h2 className={styles.title}>Умное рабочее пространство</h2>
+				<h2 className={styles.title}>Remote Workspace</h2>
 				<div className={styles.presentation}>
 					<div className={styles.text_wrap}>
 						<div id="slide-text_1" className={classNames(styles.text_item)}>
-							<h4 className={styles.presentation__title}>Название заголовка</h4>
+							<h4 className={styles.presentation__title}>Файлообменник</h4>
 							<p className={styles.presentation__text}>
 								Cистематизация данных в одном пространстве
 							</p>
@@ -98,7 +98,7 @@ function Main() {
 							</p>
 						</div>
 						<div id="slide-text_2" className={styles.text_item}>
-							<h4 className={styles.presentation__title}>Совместный проект</h4>
+							<h4 className={styles.presentation__title}>Оптимизация командной работы</h4>
 							<p className={styles.presentation__text}>
 								Возможность организации конференций
 							</p>
@@ -112,7 +112,7 @@ function Main() {
 						</div>
 						<div id="slide-text_3" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
-								Безопастность (Сейф)
+								Конфиденциальность и безопасность
 							</h4>
 							<p className={styles.presentation__text}>
 								Надежная защита личных и корпоративных данных
@@ -121,7 +121,7 @@ function Main() {
 						</div>
 						<div id="slide-text_4" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
-								Синхранизация с Программами
+								Интеграция необходимых сервисов
 							</h4>
 							<p className={styles.presentation__text}>
 								Синхронизация со сторонними сервисами
