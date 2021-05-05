@@ -7,7 +7,7 @@ import WorkSpace from '../WorkSpace';
 
 const MyFiles = () => {
 
-    const [chosenFile, setChosenFile] = useState(null);
+    const [chosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const renderFileBar = () => {
         if(!fileList?.files) return null;
@@ -16,10 +16,10 @@ const MyFiles = () => {
         })
     };
     const [listCollapsed, setListCollapsed] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
+    const [chosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [blob, setBlob] = useState({file: null, show: false});
-    const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
-    const [progress, setProgress] = useState(0);
+    const [fileLoading] = useState({isLoading: false, percentage: 95, file: null});
+    const [progress] = useState(0);
     return (
         <div className={styles.workAreaWrap}>
             <List

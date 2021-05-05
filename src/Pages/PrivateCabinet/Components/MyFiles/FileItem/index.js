@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import File from "../../../../../generalComponents/Files";
 import styles from "./FileItem.module.sass";
 import "../../../../../generalComponents/colors.sass";

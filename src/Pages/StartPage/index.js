@@ -29,10 +29,14 @@ const StartPage = () => {
 
     return (
         <div
-            className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap}`}
+            className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap} ${pageOption === 'landing' && styles.longWrap}`}
             style={{minHeight}}
         >
             <header className={styles.header}>
+                {pageOption === 'landing' &&
+                <a className={styles.logo} href="./">
+                    <img className={styles.logo_img} src='../../assets/StartPage/logo.svg' alt='4hub logo'></img>
+                </a>}
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
                 <div className={`${styles.listItem} ${styles.arrow}`}>
                     <span className={styles.lang}>RU</span>
