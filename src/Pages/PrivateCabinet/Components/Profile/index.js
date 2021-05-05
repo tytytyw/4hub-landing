@@ -6,7 +6,7 @@ import {contextMenuProfile} from '../../../../generalComponents/collections';
 import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 
-const Profile = () => {
+const Profile = ({setItem}) => {
 
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
@@ -18,7 +18,10 @@ const Profile = () => {
         window.location.reload();
     };
 
+    const openProfile = () => setItem('Личные данные');
+
     const additionalCallBacks = [exit];
+    const mainCallBacks = [openProfile, '', '']
 
     const renderMenuItems = (target, arr) => {
         return target.map((item, i) => {
@@ -49,7 +52,7 @@ const Profile = () => {
             <div className={styles.arrowDown} />
         </div>
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={profileRef}>
-            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuProfile.main)}</div>
+            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuProfile.main, mainCallBacks)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuProfile.additional, additionalCallBacks)}</div>
         </ContextMenu> : null}
         </>

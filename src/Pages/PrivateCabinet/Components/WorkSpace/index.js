@@ -16,7 +16,7 @@ import WorkBarsPreview from '../WorkElements/WorkBarsPreview';
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview';
 import FileLineShort from '../WorkElements/FileLineShort';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
@@ -39,7 +39,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                 <div className={styles.infoHeader}>
                     <StorageSize />
                     <Notifications />
-                    <Profile />
+                    <Profile setItem={setItem} />
                 </div>
             </div>
             <ServePanel

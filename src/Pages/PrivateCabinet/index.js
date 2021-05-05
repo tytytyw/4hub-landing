@@ -38,8 +38,8 @@ const PrivateCabinet = () => {
                     minHeight,
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
-                {menuItem === 'Мои папки' && <MyFolders />}
-                {menuItem === 'Мой профиль' && <MyProfile />}
+                {menuItem === 'Мои папки' && <MyFolders setItem={setItem} />}
+                {menuItem === 'Личные данные' && <MyProfile />}
             </div>
         </div>
     )

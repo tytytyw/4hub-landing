@@ -10,7 +10,7 @@ import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 
-const MyFolders = () => {
+const MyFolders = ({setItem}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -83,6 +83,7 @@ const MyFolders = () => {
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
+                setItem={setItem}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
