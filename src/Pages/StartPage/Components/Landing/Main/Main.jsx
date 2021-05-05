@@ -217,6 +217,7 @@ function Main() {
 									styles.image_4_youtube
 								)}
 								src="./assets/StartPage/youtube.svg"
+								alt="youtube"
 							/>
 							<img
 								className={classNames(
@@ -224,6 +225,7 @@ function Main() {
 									styles.image_4_telegram
 								)}
 								src="./assets/StartPage/telegram.svg"
+								alt="telegram"
 							/>
 							<img
 								className={classNames(
@@ -231,6 +233,7 @@ function Main() {
 									styles.image_4_google_calendar
 								)}
 								src="./assets/StartPage/google_calendar.svg"
+								alt="google calendar"
 							/>
 							<img
 								className={classNames(
@@ -238,13 +241,15 @@ function Main() {
 									styles.image_4_google_drive
 								)}
 								src="./assets/StartPage/google_drive.svg"
+								alt="google drive"
 							/>
 							<img
 								className={classNames(
 									styles.presentation__image,
-									styles.image_4_slack
+									styles.image_4_figma
 								)}
-								src="./assets/StartPage/slack.svg"
+								src="./assets/StartPage/figma.svg"
+								alt="figma"
 							/>
 							<img
 								className={classNames(
@@ -252,6 +257,7 @@ function Main() {
 									styles.image_4_viber
 								)}
 								src="./assets/StartPage/viber.svg"
+								alt="viber"
 							/>
 							<img
 								className={classNames(
@@ -259,6 +265,7 @@ function Main() {
 									styles.image_4_whatsapp
 								)}
 								src="./assets/StartPage/whatsapp.svg"
+								alt="whatsapp"
 							/>
 							<img
 								className={classNames(
@@ -266,6 +273,7 @@ function Main() {
 									styles.image_4_skype
 								)}
 								src="./assets/StartPage/skype.svg"
+								alt="skype"
 							/>
 						</div>
 					</div>
