@@ -246,7 +246,7 @@ const Contacts = () => {
 
     const [search, setSearch] = useState('')
     const [contactItem, setContactItem] = useState(contactList[0])
-    const [menuItem, setMenuItem] = useState({})
+    const [menuItem, setMenuItem] = useState('')
 
     const onSearch = value => setSearch(value)
     const onMenuClick = item => setMenuItem(item)
