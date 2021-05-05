@@ -13,6 +13,8 @@ import classnames from 'classnames'
 import Support from './Support/Support'
 import TariffPlan from './TariffPlan/TariffPlan'
 import Contacts from './Contacts/Contacts'
+import Programs from './Programs/Programs'
+import TellFriends from './TellFriends/TellFriends'
 
 const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
     <button
@@ -71,12 +73,16 @@ const MyProfile = (props) => {
                         />
                         <MyButton
                             text='Подключенные прораммы'
+                            active={pageOption === 'programs'}
+                            onClick={() => setPageOption('programs')}
                         />
                         <div className={styles.buttonsRight}>
                             <MyButton
                                 text='Расказать друзьям'
                                 icon={uploadIcon}
                                 alt='Upload'
+                                active={pageOption === 'tell_friends'}
+                                onClick={() => setPageOption('tell_friends')}
                             />
                         </div>
                     </div>
@@ -86,6 +92,8 @@ const MyProfile = (props) => {
                 {pageOption === 'support' && <Support/>}
                 {pageOption === 'tariff_plan' && <TariffPlan/>}
                 {pageOption === 'contacts' && <Contacts/>}
+                {pageOption === 'programs' && <Programs/>}
+                {pageOption === 'tell_friends' && <TellFriends/>}
 
             </div>
 

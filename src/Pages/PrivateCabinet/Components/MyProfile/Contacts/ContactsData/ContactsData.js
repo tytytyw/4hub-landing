@@ -111,7 +111,7 @@ const ContactsData = ({ contact }) => {
                             <div className={styles.value}>
                                 <ul className={styles.socialsList}>
                                     {contact?.socials.map((item, index) => (
-                                        <li className={styles.socialsItem} key={index}>
+                                        <li key={index}>
                                             <a href={item.link} className={styles.socialsLink}>
                                                 <img src={icons[item.type]} alt={item.type}/>
                                             </a>
@@ -131,7 +131,7 @@ const ContactsData = ({ contact }) => {
                             <div className={styles.value}>
                                 <ul className={styles.socialsList}>
                                     {contact?.messengers.map((item, index) => (
-                                        <li className={styles.socialsItem} key={index}>
+                                        <li key={index}>
                                             <a href={item.link} className={styles.socialsLink}>
                                                 <img src={icons[item.type]} alt={item.type}/>
                                             </a>
