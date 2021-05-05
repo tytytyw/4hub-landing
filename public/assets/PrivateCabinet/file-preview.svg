@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="280px" height="280px" viewBox="0 0 280 280" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Group 27</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="266" height="266" rx="8"></rect>
+        <filter x="-4.5%" y="-3.4%" width="109.0%" height="109.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.872452446   0 0 0 0 0.872452446   0 0 0 0 0.872452446  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-27" transform="translate(7.000000, 4.000000)">
+            <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="file-4" transform="translate(103.000000, 94.000000)" fill="#D5D5D5" fill-rule="nonzero">
+                <path d="M36.9950959,77 L55.283103,77 C57.8867588,77 60,74.8511244 60,72.2035436 L60,9.82902712 L60,4.79663777 C60,2.14896626 57.8867588,0 55.283103,0 L29.9955417,0 L25.0869371,0 L25.0869371,1.58678943 C25.1046812,1.75000206 25.113687,1.92228206 25.113687,2.09456205 L25.113687,12.5492376 L25.113687,18.7077941 C25.113687,22.4344824 22.1355328,25.4629834 18.470798,25.4629834 L12.3316986,25.4629834 L2.05082479,25.4629834 C1.91707535,25.4629834 1.77440927,25.453916 1.64065983,25.4448486 L0,25.4448486 L0,72.2035436 C0,74.8511244 2.11324119,77 4.71689701,77 L9.88854213,77 L29.9955417,77 L36.9950959,77 Z" id="Shape"></path>
+                <path d="M2.00670131,19 L15.0142501,19 C15.023227,19 15.0411808,19 15.0501577,19 C17.222571,18.9820501 18.9820462,17.222957 19,15.0510156 C19,15.0420406 19,15.0240907 19,15.0151157 L19,2.0014171 C19,0.798771847 18.0125394,0 16.989261,0 C16.4955307,0 16.0018004,0.179499291 15.5888624,0.592347662 L0.588348854,15.5895135 C-0.668419142,16.8460085 0.22029537,19 2.00670131,19 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -10,7 +10,7 @@ import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 
-const MyFolders = () => {
+const MyFolders = ({setItem}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -59,7 +59,7 @@ const MyFolders = () => {
         })
     };
 
-    const onCloseSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+    const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
     return (
         <div className={styles.workAreaWrap}>
@@ -82,6 +82,8 @@ const MyFolders = () => {
                 progress={progress}
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
+                listCollapsed={listCollapsed}
+                setItem={setItem}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -100,13 +102,11 @@ const MyFolders = () => {
                 fileLoading={fileLoading}
                 setProgress={setProgress}
                 progress={progress}
+                onToggleSafePassword={onSafePassword}
             />}
             {safePassword.open && <CreateSafePassword
-                onToggle={onCloseSafePassword}
+                onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
-                info={newFolderInfo}
-                chosenFolder={chosenFolder}
-                setChosenFolder={setChosenFolder}
             />}
         </div>
     )

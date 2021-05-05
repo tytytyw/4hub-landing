@@ -7,7 +7,7 @@ import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
-import CustomFolderItem from "../CustomFolderItem";
+import CustomFolderItem from '../CustomFolderItem';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -70,7 +70,11 @@ const FolderItem = ({
                 <div className={styles.menuWrap}><span className={styles.menu} /></div>
             </div>
         </div>
-        <div style={{height: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`}} className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
+        <div style={{
+                height: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`,
+                minHeight: `${chosen && chosenFolder.open ? (folder.folders.length * 50 + 50) : 0}px`
+            }}
+             className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
             <div
                 className={styles.addFolderToFolder}
                 onClick={() => {

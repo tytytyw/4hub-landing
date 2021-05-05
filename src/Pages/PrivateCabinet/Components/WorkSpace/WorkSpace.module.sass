@@ -1,5 +1,7 @@
 .workSpaceWrap
   width: calc(100% - 310px)
+  max-width: calc(100% - 310px)
+  overflow: hidden
   height: 100%
   transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
   .header
@@ -18,8 +20,9 @@
       width: 400px
       max-width: 400px
 .workSpaceWrapCollapsed
-  width: calc(100% - 120px)
-  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
+  min-width: calc(100% - 121px)
+  width: calc(100% - 121px)
+  transition: width 0.3s ease-in-out, min-width 1s ease-in-out
 @media (max-width: 1420px)
   .workSpaceWrap
     .header

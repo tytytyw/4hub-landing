@@ -20,3 +20,31 @@ export const smiles = [
     'angry', 'angry-2', 'bored', 'confused', 'cool', 'favorite', 'grinning', 'happy', 'happy-2', 'in-love', 'kissing', 'nerd',
     'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', 'tongue-out', 'unhappy'
 ];
+
+export const contextMenuFile = {
+    main: [
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Расшарить', img: 'shareFile'},
+        {name: 'Открыть в приложении', img: 'addOn'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
+        {name: 'Настроить файл', img: 'settings-work-tool'},
+        {name: 'Переименовать', img: 'edit'},
+        {name: 'Архивировать', img: 'archive'},
+        {name: 'Сжать в Zip', img: 'zip'},
+        {name: 'Свойства', img: 'info'},
+        {name: 'Загрузить', img: 'download-blue'},
+        {name: 'Печать', img: 'print-2'},
+        ],
+    additional: [{name: 'Удалить файл', img: 'garbage'}]
+}
+
+export const contextMenuProfile = {
+    main: [
+        {name: 'Личные данные', img: 'profile-icon'},
+        {name: 'Служба поддержки', img: 'question-icon'},
+        {name: 'Настройки', img: 'settings-icon'},
+    ],
+    additional: [
+        {name: 'Выход', img: 'sign-out-icon'},
+    ]
+}

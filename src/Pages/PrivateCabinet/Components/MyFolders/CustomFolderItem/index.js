@@ -67,8 +67,13 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 </div>
             </div>
         </div>
-        {!subFolder && <div style={{height: `${chosen && chosenFolder.open ? (f.folders.length * 50 + 50) : 0}px`}} className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
-            <div
+        {!subFolder && <div
+            style={{
+                height: `${chosen && chosenFolder.open ? (f.folders.length * 50 + 50) : 0}px`,
+                minHeight: `${chosen && chosenFolder.open ? (f.folders.length * 50 + 50) : 0}px`
+            }}
+            className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}
+        ><div
                 className={styles.addFolderToFolder}
                 onClick={() => {
                     setNewFolderInfo({...newFolderInfo, path: f.path});
