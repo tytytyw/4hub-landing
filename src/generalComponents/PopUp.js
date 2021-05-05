@@ -32,7 +32,6 @@ const PopUp = (props) => {
                 background: 'white',
                 borderRadius: '7px',
                 color: 'black',
-
             }}>
                 {props.children}
             </div>

@@ -1,0 +1,128 @@
+.contactsData
+
+  .header
+    padding: 20px
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    border-bottom: 1px solid #DFDFDF
+
+    .profileData
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+      .profileImg
+        width: 80px
+        height: 80px
+        border-radius: 50%
+        object-fit: cover
+        margin-right: 20px
+
+      .profileName
+        width: 200px
+        display: block
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        font-size: 15px
+        line-height: 20px
+        color: #49494B
+
+    .iconButtons
+      display: flex
+      justify-content: flex-end
+      align-items: center
+
+      .iconView
+        display: flex
+        align-items: center
+        justify-content: space-around
+        position: relative
+        border-radius: 3px
+        width: 40px
+        height: 27px
+        overflow: hidden
+        cursor: pointer
+        transition: background 0.2s ease-in-out
+        box-shadow: 0 2px 4px #dedede
+        margin: 0 13px 0 0
+        .iconSVG
+          margin: 1px 0 0 4px
+        .iconShare path
+          fill: #4086F1
+        .iconTrash
+          margin: 1px 0 0 4px
+        .iconTrash path
+          fill: #EB4545
+
+
+  .actionHeader
+    display: flex
+    justify-content: center
+    align-items: center
+    padding: 10px 0
+    border-bottom: 1px solid #DFDFDF
+
+    .actionBtn
+      cursor: pointer
+      width: 36px
+      height: 36px
+      border-radius: 50%
+      background: rgba(64, 134, 241, 0.1)
+      border: none
+      margin: 0 10px
+      transition: background-color 0.2s
+
+      &:hover
+        background: rgba(64, 134, 241, 1)
+        transition: background-color 0.2s
+        .actionBtnSvg path
+          fill: #FFFFFF
+          transition: fill 0.2s
+
+      .actionBtnSvg path
+        fill: #969DA8
+        transition: fill 0.2s
+
+
+  .actionData
+    padding: 20px
+
+  .actionInfo
+    padding: 20px
+    display: flex
+    flex-direction: column
+
+    .infoItem
+      display: flex
+      align-items: center
+      margin-bottom: 13px
+
+    .info
+      font-size: 11px
+      line-height: 15px
+      color: #969DA8
+      margin-right: 10px
+
+    .links
+      width: 110px
+
+    .value
+      font-size: 11px
+      line-height: 15px
+      color: #000
+      margin-right: 10px
+
+    .socialsList
+      display: flex
+      align-items: center
+      padding: 0
+      margin: 0
+      list-style: none
+
+      .socialsLink
+        display: block
+        margin-right: 10px
+
+
