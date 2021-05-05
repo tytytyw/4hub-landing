@@ -11,8 +11,8 @@ const MyFiles = () => {
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const renderFileBar = () => {
         if(!fileList?.files) return null;
-        return fileList.files.map((file, i) => {console.log(file,i)
-            return <FileItem key={i} file={file} chosen={chosenFile?.fid === file?.fid} />
+        return fileList.files.map((file, i) => {
+            return <FileItem key={i} file={file} chosen={chosenFile?.fid === file?.fid}  listCollapsed={listCollapsed}/>
         })
     };
 
