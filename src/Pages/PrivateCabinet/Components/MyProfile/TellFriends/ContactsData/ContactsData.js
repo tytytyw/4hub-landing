@@ -5,10 +5,9 @@ import styles from './ContactsData.module.sass'
 import {ReactComponent as PhoneIcon} from '../../../../../../assets/PrivateCabinet/phone-3.svg'
 import {ReactComponent as InstagramIcon} from '../../../../../../assets/PrivateCabinet/instagram.svg'
 import {ReactComponent as MailIcon} from '../../../../../../assets/PrivateCabinet/mail-3.svg'
-import classnames from 'classnames'
-import PopUp from '../../../../../../generalComponents/PopUp'
-import SendFriend from "../SendFriend/SendFriend";
+import SendFriend from '../SendFriend/SendFriend'
 
+/*
 const icons = {
     facebook: './assets/PrivateCabinet/socials/facebook.svg',
     whatsapp: './assets/PrivateCabinet/socials/whatsapp.svg',
@@ -19,8 +18,9 @@ const icons = {
     telegram: './assets/PrivateCabinet/socials/telegram.svg',
     brain: './assets/PrivateCabinet/socials/brain.svg',
 }
+*/
 
-const ContactsData = ({ contact, contactList }) => {
+const ContactsData = ({contact, contactList}) => {
 
     const [popup, setPopup] = useState(false)
 

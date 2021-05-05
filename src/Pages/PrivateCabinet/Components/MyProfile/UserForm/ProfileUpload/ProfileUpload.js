@@ -15,9 +15,6 @@ const ProfileUpload = () => {
             const reader = new FileReader()
             reader.onloadend = () => {
                 setPreview(reader.result)
-
-
-
             }
             reader.readAsDataURL(image)
         } else {
@@ -36,7 +33,7 @@ const ProfileUpload = () => {
                 className={styles.input}
                 id={inputId}
                 type="file"
-                accept='image/*'
+                /*accept='image/!*'*/
                 onChange={(event) => {
                     const file = event.target.files[0] ?? null
                     if (file && file.type.substr(0, 5) === 'image') {
@@ -63,7 +60,7 @@ const ProfileUpload = () => {
                             [styles.uploaded]: !!preview
                         })}
                         src={cameraImg}
-                        alt="Photo"
+                        alt="Camera"
                     />
                 </div>
             </label>

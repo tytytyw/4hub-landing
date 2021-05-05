@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 
 export const useInput = (initialValue, validations) => {
 
+    if (!initialValue) initialValue = ''
+
     const [value, setValue] = useState(initialValue)
     const [dirty, setDirty] = useState(false)
 
@@ -30,7 +32,7 @@ const useValidation = (value, validations) => {
     const [isEmail, setEmail] = useState(false)
 
     const validateEmail = email => {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
@@ -42,11 +44,14 @@ const useValidation = (value, validations) => {
                 case 'email':
                     (validateEmail(value) && !isEmptyValue(value)) ? setEmail(true) : setEmail(false)
                     break;
+                default:
+                    break;
             }
         }
 
         isEmptyValue(value) ? setEmpty(true) :  setEmpty(false)
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 
 

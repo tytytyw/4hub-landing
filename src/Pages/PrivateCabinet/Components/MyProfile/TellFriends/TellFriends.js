@@ -253,6 +253,8 @@ const TellFriends = () => {
     const [contactItem, setContactItem] = useState(contactList[0])
     const [menuItem, setMenuItem] = useState('')
 
+    console.log(menuItem)
+
     const onSearch = value => setSearch(value)
     const onMenuClick = item => setMenuItem(item)
     const onContactClick = item => setContactItem(item)

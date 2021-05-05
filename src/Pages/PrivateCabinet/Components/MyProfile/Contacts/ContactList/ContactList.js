@@ -47,6 +47,7 @@ const ContactList = ({data = [], onItemClick, onSearch, search, selectedItem}) =
 
         setContactList(getGrouppedArray(filterArray))
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
     return (

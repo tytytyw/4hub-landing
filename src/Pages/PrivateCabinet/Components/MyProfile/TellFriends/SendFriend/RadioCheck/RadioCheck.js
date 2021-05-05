@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import styles from './RadioCheck.module.sass'
 import classnames from 'classnames'
 
 const RadioCheck = ({ item, name, ...props }) => {
 
-    const [active, setActive] = useState(false)
+    //const [active, setActive] = useState(false)
 
     const htmlFor = `radioCheck-${Math.random()}`
 
@@ -20,7 +20,7 @@ const RadioCheck = ({ item, name, ...props }) => {
             <label
                 className={classnames({
                     [styles.radioItem]: true,
-                    [styles.activeItem]: active,
+                    //[styles.activeItem]: active,
                 })}
                 htmlFor={htmlFor}
             >

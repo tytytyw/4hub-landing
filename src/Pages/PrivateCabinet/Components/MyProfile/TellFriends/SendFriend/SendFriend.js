@@ -4,10 +4,9 @@ import styles from './SendFriend.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 
 import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabinet/sms.svg'
-import ContactSearch from "../../Contacts/ContactList/ContactSearch/ContactSearch";
-import RadioCheck from "./RadioCheck/RadioCheck";
-import classnames from "classnames";
-import Button from "../../Button/Button";
+import ContactSearch from '../../Contacts/ContactList/ContactSearch/ContactSearch'
+import RadioCheck from './RadioCheck/RadioCheck'
+import Button from '../../Button/Button'
 
 /*const icons = {
     facebook: './assets/PrivateCabinet/socials/facebook.svg',
@@ -43,6 +42,7 @@ const SendFriend = ({ data, ...props }) => {
 
         setContactList(filterArray)
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
     const onSearch = value => setSearch(value)

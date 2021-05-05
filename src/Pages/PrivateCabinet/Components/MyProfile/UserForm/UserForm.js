@@ -40,6 +40,7 @@ const UserForm = props => {
             console.log('Error')
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo])
 
     const isCorrectValue = (input, oldValue, type) => {
