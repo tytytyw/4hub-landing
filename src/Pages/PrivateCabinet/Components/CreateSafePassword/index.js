@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 
 import styles from './CreateSafePassword.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
@@ -9,15 +9,13 @@ import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 
-const CreateSafePassword = ({onToggle, title, setChosenFolder, chosenFolder}) => {
+const CreateSafePassword = ({onToggle, title}) => {
 
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
     const [color, setColor] = useState(colors[0]);
     const [error, setError] = useState(false);
-
-    useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -102,6 +100,7 @@ const CreateSafePassword = ({onToggle, title, setChosenFolder, chosenFolder}) =>
                         value={phoneNumber}
                         set={setPhoneNumber}
                         placeholder='Введите Ваш номер телефона'
+                        phone={true}
                     />
                 </div>
                 <span className={styles.description}>На указанный телефон будет приходить код пароль для входа в сейф</span>

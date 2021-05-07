@@ -14,7 +14,7 @@ import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, setProgress, progress }) => {
+const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, setProgress, onToggleSafePassword }) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(blob.file ? blob.file.name.slice(0, blob.file.name.lastIndexOf('.')) : '');
@@ -29,7 +29,8 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
-    const [display, setDisplay] = useState('block')
+    const [display, setDisplay] = useState('block');
+    const [isSafe, setIsSafe] = useState(false)
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -203,7 +204,19 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
                             visibility={visibility}
                             setVisibility={setVisibility}
                             comparePass={comparePass}
+                            mistake={!passwordCoincide}
                         />}
+                    </div>
+                    <div className={styles.safeWrap}>
+                        <div className={styles.safe}>
+                            <div
+                                onClick={() => {
+                                    setIsSafe(!isSafe);
+                                    onToggleSafePassword(!isSafe);
+                                }}
+                            >{isSafe && <img src='./assets/PrivateCabinet/tick-green.svg' alt='tick' />}</div>
+                        </div>
+                        <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />

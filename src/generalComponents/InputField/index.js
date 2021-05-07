@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const InputField = ({
         value, set, model, mistake = false, height = '25px', switcher = false,
-        placeholder = '', onSwitch, visibility, setVisibility, comparePass
+        placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone
 }) => {
 
     const [isPassword, setIsPassword] = useState(true);
@@ -16,19 +16,27 @@ const InputField = ({
     };
 
     return (
-        <div style={{height}} className={styles.wrap}>
+        <div style={{height}} className={classnames({
+            [styles.wrap]: true,
+            [styles.redBorder]: mistake
+        })}>
             <input
                 className={classnames({
                     [styles.inputField]: true,
                     [styles.isPassword]: model === 'password',
-                    [styles.redBorder]: mistake
                 })}
                 type={model === 'password' ? visibility : 'text'}
                 value={value}
                 placeholder={placeholder}
                 onChange={(e) => {
+                    let newVal = e.target.value;
                     if(comparePass) comparePass(e.target.value);
-                    set(e.target.value)}
+                    if(e.target.value[0] === '+' && phone) {
+                        const number = newVal.replace(/(\+)*(\()*(\))*\s*(-)*/g, '');
+                        const length = number.length;
+                        newVal = `+${number.substring(0, 2)}${length > 2 ? ' (' + number.substring(2, 5) : number.substring(2, 5)}${ length > 5 ? ') ' + number.substring(5, 8) : number.substring(5, 8)}${ length > 8 ? '-' + number.substring(8, 10) : number.substring(8, 10)}${length > 10 ? '-' + number.substring(10, number.length) : number.substring(10, number.length)}`;
+                    }
+                    set(newVal)}
                 }
             />
             {isPassword && model === 'password' && visibility === 'password' && <img

@@ -1,6 +1,6 @@
-.main 
+/*.main 
     max-width: 1500px
-    margin: 0 auto
+    margin: 0 auto */
 .storage 
     padding-top: 30px
     padding-bottom: 77px
@@ -8,18 +8,20 @@
     background-color: #fff
     text-align: center
 .presentation 
-    display: flex
-    align-items: flex-start
-    margin-bottom: 7%
-    position: relative
+    height: 100%
+    overflow: hidden
+    transition: height .3s ease, opacity ease .5s
 .text_item 
     position: relative
+    align-self: flex-start
+    margin-left: 7%
+    margin-top: 8%
     opacity: .5
-    transition: opacity .3s ease
-    -webkit-transition: opacity .3s ease
-    -moz-transition: opacity .3s ease
-    -ms-transition: opacity .3s ease
-    -o-transition: opacity .3s ease
+    transition: opacity .5s ease .2s 
+    -webkit-transition: opacity .5s ease .2s
+    -moz-transition: opacity .5s ease .2s
+    -ms-transition: opacity .5s ease .2s
+    -o-transition: opacity .5s ease .2s
 .text_item::before 
     content: ""
     left: -30px
@@ -29,23 +31,17 @@
     background-color: #fff
     position: absolute
     border-radius: 1px
-    transition: height .3s ease
-    -webkit-transition: height .3s ease
-    -moz-transition: height .3s ease
-    -ms-transition: height .3s ease
-    -o-transition: height .3s ease
+    transition: height .7s ease
+    -webkit-transition: height .7s ease
+    -moz-transition: height .7s ease
+    -ms-transition: height .7s ease
+    -o-transition: height .7s ease
 .text_item_active::before 
     height: 100%
     bottom: auto
     top: 0
 .text_item_active 
     opacity: 1
-.title 
-    color: #EED328
-    padding-left: 7%
-    font-size: 3.75rem
-    margin: 0
-    font-weight: 600
 .text_wrap 
     position: sticky
     top: 0
@@ -57,10 +53,10 @@
 .presentation__images 
     width: 65%
 .image_wrap
+    width: 60%
     height: 670px
     position: relative
     overflow: hidden
-    margin-bottom: 22%
 .presentation__image
     position: absolute
     transition: transform 1s ease
@@ -144,9 +140,12 @@
 .presentation__title 
     font-size: 2.2rem
     font-weight: 500
+    margin-top: 0
 .presentation__text 
     font-weight: normal
     margin-bottom: 1.5rem
+.presentation__text:last-child
+    margin-bottom: 0
 .storage_title 
     font-size: 40px
     margin: 1em 0
@@ -172,3 +171,13 @@
     .tariffs_list 
         width: 98%
 
+.slide
+    display: flex
+    justify-content: space-between
+    height: 100%
+.presentation_wrap 
+    height: 100%
+    transition: transform ease 1s
+.noDisplay
+    height: 60vh !important
+    opacity: 0
