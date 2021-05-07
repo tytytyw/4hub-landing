@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react'
 
 export const useInput = (initialValue, validations) => {
 
@@ -13,7 +13,7 @@ export const useInput = (initialValue, validations) => {
         setValue(event.target.value)
     }
 
-    const onBlur = (event) => {
+    const onBlur = event => {
         setDirty(true)
     }
 
@@ -39,6 +39,7 @@ const useValidation = (value, validations) => {
     const isEmptyValue = value => !value || value === '';
 
     useEffect(() => {
+
         for (const validation in validations) {
             switch (validation) {
                 case 'email':

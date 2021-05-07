@@ -35,7 +35,7 @@ const UserForm = props => {
         if (formIsValid()) {
             api.post(`/ajax/user_edit.php?token=${uid}`, userInfo)
                 .then(res => {})
-                .catch(err => console.log(err));
+                .catch(err => console.log(err))
         } else {
             console.log('Error')
         }
