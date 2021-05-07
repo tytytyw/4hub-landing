@@ -57,6 +57,11 @@ const RenewPassword = ({setPage}) => {
         }
     };
 
+    const backToEnterProfile = (boolean) => {
+        setSuccess(boolean);
+        setPage('enter');
+    }
+
     return (
         <>
             <div className={styles.main}>
@@ -66,7 +71,7 @@ const RenewPassword = ({setPage}) => {
                     <span className={styles.title}>Обновите пароль</span>
                     <div className={styles.inputWrap}>
                         <label className={styles.inputName}>
-                            Пароль
+                            Новый пароль
                             {compare.isPass && <span> Некорректный ввод данных</span>}
                         </label>
                         <input
@@ -134,7 +139,7 @@ const RenewPassword = ({setPage}) => {
             />}
             {success && <Success
                 success={success}
-                set={setSuccess}
+                set={backToEnterProfile}
                 message={message}
                 title='Ваш пароль обновлён'
             />}

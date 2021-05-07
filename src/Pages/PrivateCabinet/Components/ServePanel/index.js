@@ -10,7 +10,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-const ServePanel = ({blob, setBlob, view, setView, chosenFile, setSafePassword}) => {
+const ServePanel = ({blob, setBlob, view, setView, chosenFile}) => {
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -18,7 +18,7 @@ const ServePanel = ({blob, setBlob, view, setView, chosenFile, setSafePassword})
                     <div className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('bars')}><BarsIcon /></div>
                     <div className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('lines')}><LinesIcon /></div>
                     <div className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('preview')}><PreviewIcon /></div>
-                    <div className={`${view === 'vertical' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('vertical')}><VerticalLinesIcon /></div>
+                    <div className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('workLinesPreview')}><VerticalLinesIcon /></div>
                 </div>
                 <div className={styles.filterPanel}>
                     <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
@@ -31,7 +31,7 @@ const ServePanel = ({blob, setBlob, view, setView, chosenFile, setSafePassword})
                     <label className={styles.downloadButton} onClick={() => setBlob({...blob, show: true})}>Загрузить</label>
                 </div>
                 <div className={styles.iconButtons}>
-                    <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`} onClick={() => {if(chosenFile) setSafePassword({open: true})}}><SafeIcon className={styles.iconSafe} /></div>
+                    <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><SafeIcon className={styles.iconSafe} /></div>
                     <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><ShareIcon className={styles.iconShare} /></div>
                     <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
