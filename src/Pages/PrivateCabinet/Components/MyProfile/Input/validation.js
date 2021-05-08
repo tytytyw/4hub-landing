@@ -9,20 +9,19 @@ export const useInput = (initialValue, validations) => {
 
     const valid = useValidation(value, validations)
 
-    const onChange = event => {
-        setValue(event.target.value)
-    }
-
-    const onBlur = event => {
-        setDirty(true)
-    }
+    const onChange = event => setValue(event.target.value)
+    const onBlur = () => setDirty(true)
 
     return {
         value,
         onChange,
         onBlur,
         dirty,
-        ...valid
+        ...valid,
+        reset() {
+            setValue(initialValue)
+            setDirty(false)
+        }
     }
 }
 

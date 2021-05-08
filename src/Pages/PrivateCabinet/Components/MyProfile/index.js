@@ -14,8 +14,7 @@ import Support from './Support/Support'
 import TariffPlan from './TariffPlan/TariffPlan'
 import Contacts from './Contacts/Contacts'
 import Programs from './Programs/Programs'
-import TellFriends from './TellFriends/TellFriends'
-import SendFriend from "./TellFriends/SendFriend/SendFriend";
+import SendFriend from './TellFriends/SendFriend/SendFriend'
 
 const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
     <button

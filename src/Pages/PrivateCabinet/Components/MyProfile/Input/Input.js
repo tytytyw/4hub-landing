@@ -6,7 +6,7 @@ import classnames from 'classnames'
 const Input = (
     {
         type, label, value, name, placeholder,
-        isMistake = false, readonly = false,
+        isMistake = false, disabled = false,
         onChange = () => {},
         onKeyup = () => {},
         onBlur = () => {}
@@ -42,7 +42,7 @@ const Input = (
             <input
                 className={classnames({
                     [styles.input]: true,
-                    [styles.redBorder]: isMistake
+                    [styles.redBorder]: isMistake && !disabled
                 })}
                 id={htmlFor}
                 type={getType()}
@@ -51,7 +51,7 @@ const Input = (
                 onChange={onChange}
                 onBlur={onBlur}
                 onKeyUp={onKeyup}
-                readOnly={readonly}
+                disabled={disabled}
                 placeholder={placeholder}
             />
 
@@ -59,7 +59,7 @@ const Input = (
                 src={getEyeImg()}
                 alt='eye'
                 className={styles.eye}
-                onClick={() => setToText(!toText)}
+                onClick={() => !disabled && setToText(!toText)}
             />}
 
         </div>
