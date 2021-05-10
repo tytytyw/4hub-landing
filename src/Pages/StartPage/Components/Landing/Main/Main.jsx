@@ -19,10 +19,10 @@ function Main() {
 
 	const scrollHandler = (e) => {
 		if (!isScrolling) {
-			if (e.deltaY > 0) {
+			if (e.deltaY > 0 && window.pageYOffset === 0) {
 				setCount((count) => count + 1);
 			}
-			if (e.deltaY < 0) {
+			if (e.deltaY < 0 && window.pageYOffset < 200) {
 				setCount((count) => count - 1);
 				if (document.body.style.overflow === "visible") {
 					document.body.style.overflow = "hidden";
@@ -90,8 +90,7 @@ function Main() {
 
 	useEffect(() => {
 		setCount(0);
-		document
-			.querySelector(`.${styles.presentation}`)
+		window
 			.addEventListener("mousewheel", scrollHandler, { passive: true });
 		document.body.style.overflow = "hidden";
 		return () => window.removeEventListener("mousewheel", scrollHandler);
@@ -100,6 +99,7 @@ function Main() {
 	const sliderWrapStyles = {};
 	if (sliderWrap)
 		sliderWrapStyles.height = window.innerHeight - sliderWrap.offsetTop;
+
 	return (
 		<div>
 			<div
