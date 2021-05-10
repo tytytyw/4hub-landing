@@ -41,7 +41,7 @@ export const onChooseFolder = (folders, path) => {
         type: CHOOSE_FOLDER,
         payload: {folders, path}
     }
-}
+};
 
 export const onChooseFiles = (path) => async (dispatch, getState) => {
     const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}`);
@@ -50,4 +50,4 @@ export const onChooseFiles = (path) => async (dispatch, getState) => {
         type: CHOOSE_FILES,
         payload: {files: files.data, path}
     })
-}
+};
