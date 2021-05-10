@@ -3,6 +3,7 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    FILE_DELETE,
 } from '../types';
 
 export const onGetFolders = () => async (dispatch, getState) => {
@@ -51,3 +52,10 @@ export const onChooseFiles = (path) => async (dispatch, getState) => {
         payload: {files: files.data, path}
     })
 };
+
+export const onDeleteFile = (file) => {
+    return {
+        type: FILE_DELETE,
+        payload: file
+    }
+}

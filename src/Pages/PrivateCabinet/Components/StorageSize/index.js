@@ -14,7 +14,7 @@ const StorageSize = () => {
         return size;
     };
 
-    const width = `${(user.used * 100) / user.total}%`;
+    const width = user ? `${(user.used * 100) / user.total}%` : '0%';
 
     return (
         <div className={styles.storageWrap}>
@@ -24,7 +24,7 @@ const StorageSize = () => {
             />
             <div className={styles.storageInfo}>
                 <div className={styles.fullSize}><span className={styles.realSize} style={{width}} /></div>
-                <span className={styles.info}>{setSize(user.used)} из {setSize(user.total)}</span>
+                <span className={styles.info}>{user ? setSize(user.used) : '0 GB'} из {user ? setSize(user.total) : '0 GB'}</span>
             </div>
         </div>
     )

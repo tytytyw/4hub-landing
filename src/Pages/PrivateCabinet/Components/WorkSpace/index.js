@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './WorkSpace.module.sass';
 import SearchField from '../SearchField';
@@ -18,20 +18,28 @@ import FileLineShort from '../WorkElements/FileLineShort';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
+import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
+    const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
-    const renderMenuItems = (target) => {
+    const callbackArrMain = ['', '', '', '', '', '', '', '', '', '', '', ''];
+    const callbackArrAdditional = [
+        () => {fileDelete(chosenFile, dispatch, onDeleteFile)}
+    ];
+    const renderMenuItems = (target, callbacks) => {
         return target.map((item, i) => {
             return <ContextMenuItem
                 key={i}
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
+                callback={() => callbacks[i](chosenFile)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -71,8 +79,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
             <BottomPanel />
         </div>
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main)}</div>
-            <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional)}</div>
+            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
+            <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, callbackArrAdditional)}</div>
         </ContextMenu> : null}
     </>)
 }
