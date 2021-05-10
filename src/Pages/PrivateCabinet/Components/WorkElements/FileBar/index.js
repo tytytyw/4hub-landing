@@ -1,25 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
-import ContextMenu from '../../../../../generalComponents/ContextMenu';
-import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
-import {contextMenuFile} from '../../../../../generalComponents/collections';
 
-const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
-
-    const [mouseParams, setMouseParams] = useState(null);
-    const renderMenuItems = (target) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-        })
-    }
+const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMouseParams}) => {
 
     return (
         <>
@@ -47,10 +31,6 @@ const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
                 <div className={styles.statusBar}><div style={{width: `${progress}%`}} className={styles.innerStatusBar} /></div>
             </div> : null}
         </div>
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main)}</div>
-                <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional)}</div>
-            </ContextMenu> : null}
         </>
     )
 }

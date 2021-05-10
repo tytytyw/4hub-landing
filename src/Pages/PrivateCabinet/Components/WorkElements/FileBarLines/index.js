@@ -36,7 +36,7 @@ const FileBar = ({ file, isLoading, progress, chosen, setChosenFile }) => {
 										<img
 											src="./assets/PrivateCabinet/locked.svg"
 											alt="lock"
-										></img>
+										/>
 									) : null}
 								</div>
 								<div>

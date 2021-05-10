@@ -15,12 +15,27 @@ import FileLine from '../WorkElements/FileLine';
 import WorkBarsPreview from '../WorkElements/WorkBarsPreview';
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview';
 import FileLineShort from '../WorkElements/FileLineShort';
+import ContextMenu from '../../../../generalComponents/ContextMenu';
+import {contextMenuFile} from '../../../../generalComponents/collections';
+import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const [mouseParams, setMouseParams] = useState(null);
+    const renderMenuItems = (target) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+            />
+        })
+    }
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
 
@@ -28,11 +43,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
+            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} />
         });
     };
 
-    return (
+    return (<>
         <div className={`${styles.workSpaceWrap} ${listCollapsed ? styles.workSpaceWrapCollapsed : undefined}`}>
             <div className={styles.header}>
                 <SearchField />
@@ -55,7 +70,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             <BottomPanel />
         </div>
-    )
+        {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main)}</div>
+            <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional)}</div>
+        </ContextMenu> : null}
+    </>)
 }
 
 export default WorkSpace;
