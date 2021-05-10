@@ -27,6 +27,7 @@ function Main() {
 				if (document.body.style.overflow === "visible") {
 					document.body.style.overflow = "hidden";
 					setCount(3);
+					window.scroll(0,0)
 				}
 			}
 			isScrolling = true;
