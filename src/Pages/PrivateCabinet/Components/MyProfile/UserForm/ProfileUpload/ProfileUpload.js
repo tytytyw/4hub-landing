@@ -1,30 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import cameraImg from '../../../../../../assets/PrivateCabinet/camera.svg'
 import styles from './ProfileUpload.module.sass'
-import avatarImg from '../../../../../../assets/PrivateCabinet/avatar.svg'
+import avatarImg from '../../../../../../assets/PrivateCabinet/avatar2.svg'
 import classnames from 'classnames'
 
-const ProfileUpload = () => {
+const ProfileUpload = ({ disabled, onChange = () => {}, preview }) => {
 
     const inputId = `userPhoto-${Math.random()}`
-    const [image, setImage] = useState()
-    const [preview, setPreview] = useState()
 
-    useEffect(() => {
-        if (image) {
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setPreview(reader.result)
-            }
-            reader.readAsDataURL(image)
-        } else {
-            setPreview(null)
-        }
-    }, [image])
-
-    const getImage = () => {
-        return preview ?? avatarImg
-    }
+    const getImage = () => preview ?? avatarImg
 
     return (
         <div className={styles.upload}>
@@ -33,15 +17,9 @@ const ProfileUpload = () => {
                 className={styles.input}
                 id={inputId}
                 type="file"
-                /*accept='image/!*'*/
-                onChange={(event) => {
-                    const file = event.target.files[0] ?? null
-                    if (file && file.type.substr(0, 5) === 'image') {
-                        setImage(file)
-                    } else {
-                        setImage(null)
-                    }
-                }}
+                disabled={disabled}
+                accept='image/*'
+                onChange={onChange}
             />
 
             <label htmlFor={inputId}>
