@@ -91,9 +91,9 @@ function Main() {
 	useEffect(() => {
 		setCount(0);
 		window
-			.addEventListener("mousewheel", scrollHandler, { passive: true });
+			.addEventListener("wheel", scrollHandler, { passive: true });
 		document.body.style.overflow = "hidden";
-		return () => window.removeEventListener("mousewheel", scrollHandler);
+		return () => window.removeEventListener("wheel", scrollHandler);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const sliderWrapStyles = {};
