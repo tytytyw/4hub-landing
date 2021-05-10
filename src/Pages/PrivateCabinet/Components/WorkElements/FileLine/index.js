@@ -8,7 +8,7 @@ import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabin
 import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 
-const FileLine = ({file, setChosenFile, chosen, setMouseParams}) => {
+const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction}) => {
 
     return (<div
         onClick={() => setChosenFile(file)}
@@ -30,7 +30,7 @@ const FileLine = ({file, setChosenFile, chosen, setMouseParams}) => {
             <div className={styles.iconView}><DownLoadIcon /></div>
             <div className={styles.iconView}><PrintIcon /></div>
             <div className={`${styles.iconView} ${styles.iconSettings}`}><SettingsIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconTrash}`}><DeleteIcon /></div>
+            <div className={`${styles.iconView} ${styles.iconTrash}`} onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})} ><DeleteIcon /></div>
             <div className={`${styles.iconView} ${styles.iconShare}`}><ShareIcon /></div>
             <div
                 className={styles.menuWrap}

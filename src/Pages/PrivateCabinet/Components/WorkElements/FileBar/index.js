@@ -7,7 +7,7 @@ const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMousePara
 
     return (
         <>
-        <div className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => setChosenFile(file)}>
+        <div className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => !isLoading ? setChosenFile(file) : undefined}>
             <div
                 className={styles.menu}
                 onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
