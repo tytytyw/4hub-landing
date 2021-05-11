@@ -3,7 +3,7 @@ import styles from "./Main.module.sass";
 import Tariff from "../Tariff/Tariff";
 import classNames from "classnames";
 
-function Main() {
+function Main({scrollTop}) {
 	const [count, setCount] = useState(null);
 	let isScrolling = false;
 	const SliderItemPic1 = document.querySelector("#slide-picture_1");
@@ -18,16 +18,18 @@ function Main() {
 	SliderItemText1 && SliderItemText1.classList.add(styles.text_item_active);
 
 	const scrollHandler = (e) => {
+
 		if (!isScrolling) {
 			if (e.deltaY > 0 && window.pageYOffset === 0) {
 				setCount((count) => count + 1);
 			}
-			if (e.deltaY < 0 && window.pageYOffset < 200) {
+			if (e.deltaY < 0 && window.pageYOffset < 201) {
+				scrollTop()
 				setCount((count) => count - 1);
+
 				if (document.body.style.overflow === "visible") {
 					document.body.style.overflow = "hidden";
 					setCount(3);
-					window.scroll(0,0)
 				}
 			}
 			isScrolling = true;
@@ -92,9 +94,9 @@ function Main() {
 	useEffect(() => {
 		setCount(0);
 		window
-			.addEventListener("wheel", scrollHandler, { passive: true });
+			.addEventListener("wheel", scrollHandler);
 		document.body.style.overflow = "hidden";
-		return () => window.removeEventListener("wheel", scrollHandler);
+		return () => window.removeEventListener("wheel", scrollHandler)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	const sliderWrapStyles = {};
