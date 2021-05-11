@@ -11,19 +11,15 @@ import Button from '../Button/Button'
 import PopUp from '../../../../../generalComponents/PopUp'
 import {USER_INFO} from '../../../../../Store/types'
 
-const UserForm = () => {
+const UserForm2 = () => {
 
     const user = useSelector(state => state.user.userInfo)
     const uid = useSelector(state => state.user.uid)
     const dispatch = useDispatch()
 
     const [userInfo, setUserInfo] = useState(user)
-    const [errors, setErrors] = useState({})
-    const [submitErrors, setSubmitErrors] = useState({})
-    const [blur, setBlur] = useState({})
-
     const [editForm, setEditForm] = useState(false)
-    const [showPass, setShowPass] = useState(false)
+    const [passCheck, setPassCheck] = useState(false)
     const [success, setSuccess] = useState(false)
 
     const [image, setImage] = useState()
@@ -50,86 +46,35 @@ const UserForm = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
+    const name = useInput(user?.name, {required: true})
+    const sname = useInput(user?.sname, {required: true})
+    const pass = useInput(user?.pass, {required: true})
+    const password_r = useInput('', {required: true})
+    const email = useInput(user?.email, {email: true})
+    const tel = useInput(user?.tel)
+
     const formIsValid = () => {
-
-        let dataErrors = {}
-        let isValid = true
-        for (let name in requiredInputs) {
-            const value = userInfo[name]
-            if (!isCorrectData(value, name)) {
-                dataErrors = {...dataErrors, [name]: true}
-                isValid = false
-            } else {
-                dataErrors = {...dataErrors, [name]: false}
-            }
-        }
-
-        setSubmitErrors(dataErrors)
-
-        return isValid
+        return !name.isEmpty &&
+            !sname.isEmpty &&
+            !pass.isEmpty &&
+            email.isEmail &&
+            passCheck
     }
 
     const resetForm = () => {
         setEditForm(false)
-        setImage(null)
         setUserInfo(user)
-        setBlur({})
-        setErrors({})
-        setSubmitErrors({})
-    }
-
-    const validateEmail = email => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
-
-    const requiredInputs = {
-        name: true,
-        sname: true,
-        email: true,
-        pass: true,
-        password_r: true,
-    }
-
-    const isCorrectData = (value, name) => {
-
-        switch (true) {
-            case name === 'email':
-                return validateEmail(value) && !!value
-            case name === 'password_r':
-                return value === userInfo?.pass && !!value
-            case requiredInputs[name]:
-                return !!value
-            default:
-                return true
-        }
-
-    }
-
-    const onChangeHandler = event => {
-
-        const {value, name} = event.target
-
-        if (!isCorrectData(value, name)) {
-            setErrors({...errors, [name]: true})
-        } else {
-            setErrors({...errors, [name]: false})
-            setSubmitErrors({...errors, [name]: false})
-        }
-
-        setUserInfo({...userInfo, [name]: value})
-
-    }
-
-    const onBlurHandler = event => {
-        const {name} = event.target
-        setBlur({...blur, [name]: true})
+        setImage(null)
+        name.reset()
+        sname.reset()
+        pass.reset()
+        password_r.reset()
+        email.reset()
+        tel.reset()
     }
 
     const onSubmit = event => {
-
         event.preventDefault()
-
         if (formIsValid()) {
             api.get(`/ajax/user_edit.php`, {
                 params: {
@@ -145,6 +90,8 @@ const UserForm = () => {
                     })
                 })
                 .catch(err => console.log(err))
+        } else {
+            console.log('Error')
         }
     }
 
@@ -167,22 +114,28 @@ const UserForm = () => {
                             <Input
                                 label='Имя'
                                 name='name'
+                                value={name.value}
                                 disabled={!editForm}
-                                isMistake={(errors?.name && blur?.name) || submitErrors?.name}
-                                value={userInfo?.name}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
+                                isMistake={name.isEmpty && name.dirty}
+                                onChange={event => name.onChange(event)}
+                                onBlur={event => {
+                                    name.onBlur(event)
+                                    setUserInfo({...userInfo, name: name.value})
+                                }}
                             />
                         </div>
                         <div className={`${styles.field} ${styles.flex50}`}>
                             <Input
                                 label='Фамилия'
                                 name='sname'
+                                value={sname.value}
                                 disabled={!editForm}
-                                isMistake={(errors?.sname && blur?.sname) || submitErrors?.sname}
-                                value={userInfo?.sname}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
+                                isMistake={sname.isEmpty && sname.dirty}
+                                onChange={event => sname.onChange(event)}
+                                onBlur={event => {
+                                    sname.onBlur(event)
+                                    setUserInfo({...userInfo, sname: sname.value})
+                                }}
                             />
                         </div>
                     </div>
@@ -194,10 +147,13 @@ const UserForm = () => {
                                 label='Email'
                                 name='email'
                                 disabled={!editForm}
-                                isMistake={(errors?.email && blur?.email) || submitErrors?.email}
-                                value={userInfo?.email}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
+                                value={email.value}
+                                isMistake={!email.isEmail && email.dirty}
+                                onChange={event => email.onChange(event)}
+                                onBlur={event => {
+                                    email.onBlur(event)
+                                    setUserInfo({...userInfo, email: email.value})
+                                }}
                             />
                         </div>
                     </div>
@@ -209,12 +165,13 @@ const UserForm = () => {
                                 label='Пароль'
                                 name='pass'
                                 disabled={!editForm}
-                                isMistake={(errors?.pass && blur?.pass) || submitErrors?.pass}
-                                value={userInfo?.pass ?? ''}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
-                                showPass={showPass}
-                                setShowPass={setShowPass}
+                                value={pass.value}
+                                isMistake={pass.isEmpty && pass.dirty}
+                                onChange={event => pass.onChange(event)}
+                                onBlur={event => {
+                                    pass.onBlur(event)
+                                    setUserInfo({...userInfo, pass: pass.value})
+                                }}
                             />
                         </div>
                     </div>
@@ -226,12 +183,17 @@ const UserForm = () => {
                                 label='Повторите Пароль'
                                 name='password_r'
                                 disabled={!editForm}
-                                isMistake={(errors?.password_r && blur?.password_r) || submitErrors?.password_r}
-                                value={userInfo?.password_r ?? ''}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
-                                showPass={showPass}
-                                setShowPass={setShowPass}
+                                value={password_r.value}
+                                isMistake={(!passCheck || password_r.isEmpty) && password_r.dirty}
+                                onChange={event => password_r.onChange(event)}
+                                onBlur={event => {
+                                    password_r.onBlur(event)
+                                    if (password_r.value === pass.value) {
+                                        setPassCheck(true)
+                                    } else {
+                                        setPassCheck(false)
+                                    }
+                                }}
                             />
                         </div>
                     </div>}
@@ -239,12 +201,16 @@ const UserForm = () => {
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
+                                type='text'
                                 label='Телефон'
                                 name='tel'
                                 disabled={!editForm}
-                                value={userInfo?.tel}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
+                                value={tel.value}
+                                onChange={event => tel.onChange(event)}
+                                onBlur={event => {
+                                    tel.onBlur(event)
+                                    setUserInfo({...userInfo, tel: tel.value})
+                                }}
                             />
                         </div>
                     </div>
@@ -298,4 +264,4 @@ const UserForm = () => {
     )
 }
 
-export default UserForm
+export default UserForm2

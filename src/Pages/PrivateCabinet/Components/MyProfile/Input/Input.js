@@ -6,28 +6,27 @@ import classnames from 'classnames'
 const Input = (
     {
         type, label, value, name, placeholder,
-        isMistake = false, disabled = false,
+        isMistake = false, disabled = false, showPass = false,
         onChange = () => {},
         onKeyup = () => {},
-        onBlur = () => {}
+        onBlur = () => {},
+        setShowPass = () => {},
     }
 ) => {
 
     const inputType = type || 'text'
     const htmlFor = `${inputType}-${Math.random()}`
 
-    const [toText, setToText] = useState(false)
-
     const getType = () => {
         switch (type) {
             case 'password':
-                return toText ? 'text' : 'password'
+                return showPass ? 'text' : 'password'
             default:
                 return 'text'
         }
     }
 
-    const getEyeImg = () => toText ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
+    const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
 
     return (
         <div className={styles.inputWrap}>
@@ -59,7 +58,7 @@ const Input = (
                 src={getEyeImg()}
                 alt='eye'
                 className={styles.eye}
-                onClick={() => !disabled && setToText(!toText)}
+                onClick={() => !disabled && setShowPass(!showPass)}
             />}
 
         </div>
