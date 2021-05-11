@@ -6,17 +6,22 @@
 
   .input
     box-sizing: border-box
-    height: 47px
+    height: 40px
     min-width: 237px
     width: 100%
     padding: 0 15px
     border-radius: 7.5px
-    border: solid 1px #E3E3E3
-    background: #FAFAFA
+    border: 1px solid #E3E3E3
+    background: #FFFFFF
     color: #2B353E
-    font-size: 15px
-    line-height: 20px
-    font-weight: 500
+    font-family: "SF Pro Light"
+    font-size: 14px
+    line-height: 19px
+
+    &:disabled
+      background: #EBF2FD
+      border: none
+
     &::placeholder
       font-size: 11px
       font-family: inherit
@@ -24,20 +29,20 @@
       color: #848484
 
     &:focus
+      border: 1px solid #4086F1
       outline: none
 
   .label
     color: #949494
-    font-size: 15px
-    font-family: "SF Pro Light"
-    line-height: 20px
+    font-size: 14px
+    line-height: 19px
     letter-spacing: -0.08px
     margin-bottom: 5px
 
   .eye
     cursor: pointer
     position: absolute
-    top: calc(47px / 2 + 18px)
+    top: calc(40px / 2 + 18px)
     right: 10px
     width: 18px
     height: 16px

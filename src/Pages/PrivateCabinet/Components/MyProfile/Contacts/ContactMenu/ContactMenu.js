@@ -2,14 +2,14 @@ import React from 'react'
 
 import styles from './ContactMenu.module.sass'
 
-const ContactMenu = ({ data, onItemClick = () => {} }) => {
+const ContactMenu = ({ data }) => {
 
     return (
         <ul className={styles.menuList}>
 
             {data.map((item, index) => (
                 <li
-                    onClick={() => onItemClick(item)}
+                    onClick={() => item.onClick && item.onClick(item)}
                     className={styles.menuItem}
                     key={index}
                 >

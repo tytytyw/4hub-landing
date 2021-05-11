@@ -5,29 +5,7 @@ import styles from './Contacts.module.sass'
 import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
-
-const menuData = [
-    {
-        id: 'new_contact',
-        icon: './assets/PrivateCabinet/plus-3.svg',
-        label: 'Добавить контакт'
-    },
-    {
-        id: 'favorites',
-        icon: './assets/PrivateCabinet/star-2.svg',
-        label: 'Избранное'
-    },
-    {
-        id: 'favorites',
-        icon: './assets/PrivateCabinet/contact-book.svg',
-        label: 'Все контакты'
-    },
-    {
-        id: 'favorites',
-        icon: './assets/PrivateCabinet/phone-call-2.svg',
-        label: 'Контакты 4 Hub'
-    },
-]
+import AddContact from './AddContact/AddContact'
 
 const contactList = [
     {
@@ -246,11 +224,38 @@ const Contacts = () => {
 
     const [search, setSearch] = useState('')
     const [contactItem, setContactItem] = useState(contactList[0])
-    const [menuItem, setMenuItem] = useState('')
-    console.log(menuItem)
+    const [contactPopup, setContactPopup] = useState(false)
+    /*const [menuItem, setMenuItem] = useState('')
+    console.log(menuItem)*/
+
+    const menuData = [
+        {
+            id: 'new_contact',
+            icon: './assets/PrivateCabinet/plus-3.svg',
+            label: 'Добавить контакт',
+            onClick: item => {
+                setContactPopup(true)
+            }
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/star-2.svg',
+            label: 'Избранное'
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/contact-book.svg',
+            label: 'Все контакты'
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/phone-call-2.svg',
+            label: 'Контакты 4 Hub'
+        },
+    ]
 
     const onSearch = value => setSearch(value)
-    const onMenuClick = item => setMenuItem(item)
+    //const onMenuClick = item => setMenuItem(item)
     const onContactClick = item => setContactItem(item)
 
     return (
@@ -258,7 +263,7 @@ const Contacts = () => {
 
             <div className={styles.contactMenu}>
                 <ContactMenu
-                    onItemClick={onMenuClick}
+                    //onItemClick={onMenuClick}
                     data={menuData}
                 />
             </div>
@@ -278,6 +283,10 @@ const Contacts = () => {
                     contact={contactItem}
                 />
             </div>
+
+            {contactPopup && <AddContact
+                set={setContactPopup}
+            />}
 
         </div>
     )
