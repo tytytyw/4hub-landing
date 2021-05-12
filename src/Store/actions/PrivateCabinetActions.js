@@ -3,6 +3,7 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    FILE_DELETE,
 } from '../types';
 
 export const onGetFolders = () => async (dispatch, getState) => {
@@ -41,7 +42,7 @@ export const onChooseFolder = (folders, path) => {
         type: CHOOSE_FOLDER,
         payload: {folders, path}
     }
-}
+};
 
 export const onChooseFiles = (path) => async (dispatch, getState) => {
     const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}`);
@@ -50,4 +51,11 @@ export const onChooseFiles = (path) => async (dispatch, getState) => {
         type: CHOOSE_FILES,
         payload: {files: files.data, path}
     })
+};
+
+export const onDeleteFile = (file) => {
+    return {
+        type: FILE_DELETE,
+        payload: file
+    }
 }

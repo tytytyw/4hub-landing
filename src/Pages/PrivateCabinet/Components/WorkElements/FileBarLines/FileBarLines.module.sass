@@ -1,0 +1,179 @@
+.fileBar:hover
+  background: rgba(64, 134, 241, .1)
+  box-shadow: none
+
+.fileBar
+  margin: 2.5% 2.5% 0
+  box-shadow: 0px 2px 10px #DEDEDE;
+  border-radius: 2.25px
+
+.fileBarChosen
+  cursor: default
+  background: rgba(64, 134, 241, .1)
+
+.file
+  width: 40px
+
+.file_wrap .file_icon
+  width: 35px
+  height: 40px
+  position: relative
+  flex: 0 0 35px
+  div div {font-size: 6px}
+
+  
+.name  
+  font-size: .85rem
+  margin: 0
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  animation: showText 0.2s ease-in-out
+
+
+.descr 
+  display: flex
+  animation: showText 0.2s ease-in-out
+  .descr_wrap
+    min-width: 30%
+    display: flex
+    justify-content: space-between
+    margin-right: 3rem
+
+
+.file_wrap
+  display: flex
+  font-size: .85rem
+  justify-content: space-between
+  align-items: center
+  padding:  .5rem .25rem .5rem .75rem
+  
+.file_wrap:hover
+  background: rgba(64, 134, 241, 0.1)
+
+.file_info
+  padding: 0 1.4em
+  width: 50%
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+
+.file_date, .file_size
+  font-size: .7em
+  align-self: flex-end
+  white-space: nowrap
+
+.symbols
+  display: flex
+  align-items: center
+  div
+  img
+    height: 14px
+    margin-right: .4rem
+
+
+.file_menu
+  position: relative
+  display: flex
+  width: 20px
+  align-self: stretch
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  min-height: 20px
+
+
+.file_menu:hover .dots
+  background: #4086F1
+
+.dots,.dots::before,.dots::after
+  content: ''
+  position: absolute
+  width: 3px
+  height: 3px
+  border-radius: .75px
+  background: inherit
+
+.dots
+  position: relative
+  background: #B9B9B9
+.dots::before
+  transform: translateY(-7px)
+
+.dots::after
+  transform: translateY(7px)
+  background: inherit
+
+.wrap_left
+  display: flex
+  align-items: center
+  flex-grow: 1
+
+.fEmtyTag
+  height: 19px
+.ftag
+  display: block
+  vertical-align: center
+  background: #34C6A2
+  border-radius: 10px
+  font-size: 10px
+  color: white
+  padding: 1px 10px
+  height: 13px
+  max-width: 4rem
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+  margin: 0 0 5px 0
+
+.buttons
+  display: flex
+
+.iconView
+  display: flex
+  align-items: center
+  justify-content: space-around
+  position: relative
+  border-radius: 3px
+  width: 40px
+  height: 27px
+  overflow: hidden
+  cursor: pointer
+  transition: background 0.2s ease-in-out
+  margin: 0 13px 0 0
+  .iconSVG
+    margin: 1px 0 0 4px
+  div
+    width: 5px
+    height: 5px
+    border-bottom: 1px solid #e5e5e5
+    border-right: 1px solid #e5e5e5
+    transform: rotateZ(45deg)
+.iconView:hover div
+  border-bottom: 1px solid white
+  border-right: 1px solid white
+.iconView:hover
+  background: #4086F1
+  transition: background 0.2s ease-in-out
+.iconView rect
+  fill: #ababab
+  transition: fill 0.2s ease-in-out
+.iconView path
+  transition: fill 0.2s ease-in-out
+.iconView:hover rect
+  fill: white
+  transition: fill 0.2s ease-in-out
+.iconView:hover path
+  fill: white
+  transition: fill 0.2s ease-in-out
+.iconView:hover .SettingsIco path:last-child
+  fill: #B1B1B1
+.iconView:hover .UploadIcon path
+  stroke: #fff
+.DeleteIcon path
+  fill: #EB4545
+.ShareIcon path
+  fill: #4086F1
+

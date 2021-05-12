@@ -10,7 +10,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-const ServePanel = ({blob, setBlob, view, setView, chosenFile}) => {
+const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction}) => {
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -33,7 +33,12 @@ const ServePanel = ({blob, setBlob, view, setView, chosenFile}) => {
                 <div className={styles.iconButtons}>
                     <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><SafeIcon className={styles.iconSafe} /></div>
                     <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><ShareIcon className={styles.iconShare} /></div>
-                    <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><DeleteIcon className={styles.iconTrash} /></div>
+                    <div
+                        className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
+                        onClick={() => {
+                            if(chosenFile) setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`});
+                        }}
+                    ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
         </div>

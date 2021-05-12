@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './WorkSpace.module.sass';
 import SearchField from '../SearchField';
@@ -15,12 +15,42 @@ import FileLine from '../WorkElements/FileLine';
 import WorkBarsPreview from '../WorkElements/WorkBarsPreview';
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview';
 import FileLineShort from '../WorkElements/FileLineShort';
+import ContextMenu from '../../../../generalComponents/ContextMenu';
+import {contextMenuFile} from '../../../../generalComponents/collections';
+import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
+import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
+import ActionApproval from '../../../../generalComponents/ActionApproval';
+import File from '../../../../generalComponents/Files';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
+    const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const [mouseParams, setMouseParams] = useState(null);
+    const [action, setAction] = useState({type: '', name: '', text: ''});
+    const nullifyAction = () => setAction({type: '', name: '', text: ''});
+
+    const callbackArrMain = ['', '', '', '', '', '', '', '', '', '', '', ''];
+    const additionalMenuItems = [
+        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+    ];
+    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
+
+    const renderMenuItems = (target, type) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                callback={() => setAction(type[i])}
+                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+            />
+        })
+    }
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
 
@@ -28,11 +58,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
+            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} setAction={setAction} />
         });
     };
 
-    return (
+    return (<>
         <div className={`${styles.workSpaceWrap} ${listCollapsed ? styles.workSpaceWrapCollapsed : undefined}`}>
             <div className={styles.header}>
                 <SearchField />
@@ -48,6 +78,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                 setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
+                setAction={setAction}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
@@ -55,7 +86,14 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             <BottomPanel />
         </div>
-    )
+        {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+            <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
+            <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
+        </ContextMenu> : null}
+        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}>
+            <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
+        </ActionApproval> : null}
+    </>)
 }
 
 export default WorkSpace;
