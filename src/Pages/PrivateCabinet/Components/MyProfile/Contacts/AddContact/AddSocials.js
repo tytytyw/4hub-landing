@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './AddContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
@@ -7,7 +7,16 @@ import Button from '../../Button/Button'
 
 const AddSocials = ({ data, values, setValues, set }) => {
 
-    const [socialValues, setSocialValues] = useState([...values])
+    const [socialValues, setSocialValues] = useState([])
+
+    useEffect(() => {
+        const newData = []
+        values.forEach(({type, link}) => {
+            newData.push({type, link})
+        })
+        setSocialValues(newData)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const onChange = (event, item) => {
 
@@ -70,6 +79,7 @@ const AddSocials = ({ data, values, setValues, set }) => {
                                     <input
                                         value={getValue(item)}
                                         onChange={event => onChange(event, item)}
+                                        name={item.type}
                                         className={styles.input}
                                     />
                                 </div>

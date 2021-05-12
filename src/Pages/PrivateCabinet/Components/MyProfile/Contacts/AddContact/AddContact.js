@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './AddContact.module.sass'
 
@@ -11,18 +11,8 @@ import classnames from 'classnames'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
-const socialsIcons = {
-    facebook: './assets/PrivateCabinet/socials/facebook.svg',
-    whatsapp: './assets/PrivateCabinet/socials/whatsapp.svg',
-    twitter: './assets/PrivateCabinet/socials/twitter.svg',
-    skype: './assets/PrivateCabinet/socials/skype-2.svg',
-    viber: './assets/PrivateCabinet/socials/viber.svg',
-    linkedin: './assets/PrivateCabinet/socials/linkedin.svg',
-    telegram: './assets/PrivateCabinet/socials/telegram.svg',
-    brain: './assets/PrivateCabinet/socials/brain.svg',
-    instagram: './assets/PrivateCabinet/socials/instagram.svg',
-    vk: './assets/PrivateCabinet/socials/vk.svg',
-}
+import {socialsIcons} from '../consts'
+import TelInput from "../../TelInput/Telinput";
 
 const socialsData = [
     {
@@ -77,7 +67,7 @@ const socialsData = [
         ]
     },*/
 
-const AddContact = ({ set }) => {
+const AddContact = ({ set, contacts, setContacts }) => {
 
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])
@@ -111,23 +101,46 @@ const AddContact = ({ set }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-/*
+    const formRef = useRef()
+
     const onSubmit = event => {
         event.preventDefault()
+
+        const formData = new FormData(formRef.current)
+
+        socials.forEach(({type, link}) => formData.append(`socials[${type}]`, link))
+
+        const formValues = {};
+        for (let [name, value] of formData.entries()) {
+            formValues[name] = value
+        }
+
+        setContacts([...contacts, {
+            id: Math.random(),
+            image: preview ?? './assets/PrivateCabinet/avatars/a4.png',
+            name: `${formValues?.name} ${formValues?.sname}`,
+            company: formValues?.company,
+            email: mails,
+            tel: numbers,
+            date_birth: formValues?.date_birth,
+            notes: formValues?.notes,
+            socials: socials,
+            messengers: []
+        }])
+
+        set(false)
     }
-*/
 
     return (
         <PopUp set={set}>
-            <div className={styles.wrapper}>
-
+            <form ref={formRef} noValidate onSubmit={onSubmit} className={styles.wrapper}>
                 <div className={styles.top}>
-                    <span
-                        className={styles.close}
-                        onClick={() => set(false)}
-                    >
-                        <span className={styles.times}/>
-                    </span>
+                        <span
+                            className={styles.close}
+                            onClick={() => set(false)}
+                        >
+                            <span className={styles.times}/>
+                        </span>
                 </div>
 
                 <div className={styles.content}>
@@ -136,6 +149,7 @@ const AddContact = ({ set }) => {
                         <p className={styles.title}>Добавить контакт</p>
                         <div className={styles.uploadBlock}>
                             <ProfileUpload
+                                name='profileImg'
                                 preview={preview}
                                 onChange={uploadImage}
                             />
@@ -148,6 +162,7 @@ const AddContact = ({ set }) => {
                             <div className={styles.formBlock}>
                                 <span className={styles.info}>Имя:</span>
                                 <input
+                                    name='name'
                                     className={styles.input}
                                 />
                             </div>
@@ -157,6 +172,7 @@ const AddContact = ({ set }) => {
                             <div className={styles.formBlock}>
                                 <span className={styles.info}>Фамилия:</span>
                                 <input
+                                    name='sname'
                                     className={styles.input}
                                 />
                             </div>
@@ -166,6 +182,7 @@ const AddContact = ({ set }) => {
                             <div className={styles.formBlock}>
                                 <span className={styles.info}>Компания:</span>
                                 <input
+                                    name='company'
                                     className={styles.input}
                                 />
                             </div>
@@ -182,12 +199,23 @@ const AddContact = ({ set }) => {
                                     className={styles.minusBtn}
                                 />
                                     <span className={styles.info}>Введите номер телефона:</span>
-                                    <input
+                                    {/*<input
+                                        name='number[]'
                                         type="number"
                                         onChange={event => {
                                             numbers[index] = event.target.value
                                             setNumbers([...numbers])
                                         }}
+                                        className={styles.input}
+                                        value={number}
+                                    />*/}
+                                    <TelInput
+                                        name='number[]'
+                                        onChange={event => {
+                                            numbers[index] = event.target.value
+                                            setNumbers([...numbers])
+                                        }}
+                                        custom={true}
                                         className={styles.input}
                                         value={number}
                                     />
@@ -221,6 +249,7 @@ const AddContact = ({ set }) => {
                                 />
                                     <span className={styles.info}>Введите @mail:</span>
                                     <input
+                                        name='email[]'
                                         type="email"
                                         onChange={event => {
                                             mails[index] = event.target.value
@@ -252,7 +281,7 @@ const AddContact = ({ set }) => {
                                 <span className={styles.info}>Добавить день рождения:</span>
                                 <input
                                     name='date_birth'
-                                    onChange={() => {}}
+                                    onChange={event => setDateValue(event.target.value)}
                                     value={dateValue}
                                     className={styles.input}
                                 />
@@ -307,17 +336,18 @@ const AddContact = ({ set }) => {
                         Сохранить
                     </Button>
                 </div>
+            </form>
 
-            </div>
-
-            {socPopup && <AddSocials
+            {socPopup &&
+            <AddSocials
                 values={socials}
                 setValues={setSocials}
                 data={socialsData}
                 set={setSocPopup}
             />}
 
-            {showCalendar && <PopUp set={setShowCalendar} zIndex={102}>
+            {showCalendar &&
+            <PopUp set={setShowCalendar} zIndex={102}>
                 <Calendar
                     setShowCalendar={setShowCalendar}
                     setDateValue={setDateValue}

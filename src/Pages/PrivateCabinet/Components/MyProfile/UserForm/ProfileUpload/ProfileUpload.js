@@ -4,7 +4,7 @@ import styles from './ProfileUpload.module.sass'
 import avatarImg from '../../../../../../assets/PrivateCabinet/avatar2.svg'
 import classnames from 'classnames'
 
-const ProfileUpload = ({ disabled, onChange = () => {}, preview }) => {
+const ProfileUpload = ({ name = 'file', disabled, onChange = () => {}, preview }) => {
 
     const inputId = `userPhoto-${Math.random()}`
 
@@ -17,6 +17,7 @@ const ProfileUpload = ({ disabled, onChange = () => {}, preview }) => {
                 className={styles.input}
                 id={inputId}
                 type="file"
+                name={name}
                 disabled={disabled}
                 accept='image/*'
                 onChange={onChange}

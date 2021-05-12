@@ -5,11 +5,11 @@ import Input from '../Input/Input.js'
 import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useDispatch, useSelector} from 'react-redux'
 import Form from '../Form/Form'
-import {useInput} from '../Input/validation'
 import api from '../../../../../api'
 import Button from '../Button/Button'
 import PopUp from '../../../../../generalComponents/PopUp'
 import {USER_INFO} from '../../../../../Store/types'
+import TelInput from "../TelInput/Telinput";
 
 const UserForm = () => {
 
@@ -132,19 +132,14 @@ const UserForm = () => {
 
         if (formIsValid()) {
             api.get(`/ajax/user_edit.php`, {
-                params: {
-                    uid,
-                    ...userInfo
-                }
-            })
-                .then(res => {
-                    setSuccess(true)
-                    dispatch({
-                        type: USER_INFO,
-                        payload: userInfo
-                    })
+                params: { uid, ...userInfo }
+            }).then(res => {
+                setSuccess(true)
+                dispatch({
+                    type: USER_INFO,
+                    payload: userInfo
                 })
-                .catch(err => console.log(err))
+            }).catch(err => console.log(err))
         }
     }
 
@@ -238,7 +233,7 @@ const UserForm = () => {
 
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
-                            <Input
+                            <TelInput
                                 label='Телефон'
                                 name='tel'
                                 disabled={!editForm}
