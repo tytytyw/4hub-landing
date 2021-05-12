@@ -7,12 +7,16 @@ const TelInput = ({...props}) => {
         const inp = event.target
         if(!/^\+\d*$/.test(inp.value))
             // То вставляем знак плюса как значение
-            inp.value = '+';
+            inp.value = '+'
     }
 
     const onKeyPress = event => {
+
+        const inp = event.target
+        inp.value.replace(/^(\d{3})(\d{3})(\d)+$/, "($1)$2-$3")
+
         if(!/\d/.test(event.key))
-            event.preventDefault();
+            event.preventDefault()
     }
 
     return (

@@ -48,26 +48,6 @@ const socialsData = [
     },
 ]
 
-/*
-* {
-        id: 12,
-        image: './assets/PrivateCabinet/avatars/a4.png',
-        name: 'Вангуш Ирина Николаевна',
-        email: 'Николаевна@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },*/
-
 const AddContact = ({ set, contacts, setContacts }) => {
 
     const [numbers, setNumbers] = useState([])
@@ -200,16 +180,6 @@ const AddContact = ({ set, contacts, setContacts }) => {
                                     className={styles.minusBtn}
                                 />
                                     <span className={styles.info}>Введите номер телефона:</span>
-                                    {/*<input
-                                        name='number[]'
-                                        type="number"
-                                        onChange={event => {
-                                            numbers[index] = event.target.value
-                                            setNumbers([...numbers])
-                                        }}
-                                        className={styles.input}
-                                        value={number}
-                                    />*/}
                                     <TelInput
                                         name='number[]'
                                         onChange={event => {
@@ -241,13 +211,13 @@ const AddContact = ({ set, contacts, setContacts }) => {
                         <div className={styles.formItem}>
                             {mails.map((mail, index) => (
                                 <div className={styles.formBlock} key={index}>
-                                <span
-                                    onClick={() => {
-                                        mails.splice(index, 1)
-                                        setMails([...mails])
-                                    }}
-                                    className={styles.minusBtn}
-                                />
+                                    <span
+                                        onClick={() => {
+                                            mails.splice(index, 1)
+                                            setMails([...mails])
+                                        }}
+                                        className={styles.minusBtn}
+                                    />
                                     <span className={styles.info}>Введите @mail:</span>
                                     <input
                                         name='email[]'
