@@ -13,6 +13,7 @@ import Button from '../../Button/Button'
 
 import {socialsIcons} from '../consts'
 import TelInput from "../../TelInput/Telinput";
+import Input from "../../Input/Input";
 
 const socialsData = [
     {
@@ -317,6 +318,11 @@ const AddContact = ({ set, contacts, setContacts }) => {
                                 </div>
                             </div>
                         </div>
+
+                        <Input
+                            name='notes'
+                            placeholder='Заметки'
+                        />
 
                     </div>
 
