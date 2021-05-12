@@ -30,7 +30,6 @@ const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
         </span> : null}
     </button>
 )
-
 const contactList = [
     {
         id: 1,
@@ -249,6 +248,8 @@ const MyProfile = () => {
     const [pageOption, setPageOption] = useState('personal_data')
     const [popup, setPopup] = useState(false)
 
+    const [contacts, setContacts] = useState(contactList)
+
     return (
         <div className={styles.wrapper}>
 
@@ -305,12 +306,17 @@ const MyProfile = () => {
                 {pageOption === 'personal_data' && <UserForm/>}
                 {pageOption === 'support' && <Support/>}
                 {pageOption === 'tariff_plan' && <TariffPlan/>}
-                {pageOption === 'contacts' && <Contacts/>}
+                {pageOption === 'contacts' && <Contacts contacts={contacts} setContacts={setContacts}/>}
                 {pageOption === 'programs' && <Programs/>}
 
             </div>
 
-            {popup && <SendFriend data={contactList} set={setPopup}/>}
+            {popup &&
+            <SendFriend
+                setContacts={setContacts}
+                data={contacts}
+                set={setPopup}
+            />}
 
             <BottomPanel/>
 
