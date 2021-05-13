@@ -15,8 +15,6 @@ import FileLine from '../WorkElements/FileLine';
 import WorkBarsPreview from '../WorkElements/WorkBarsPreview';
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview';
 import FileLineShort from '../WorkElements/FileLineShort';
-<<<<<<< HEAD
-=======
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
@@ -24,7 +22,6 @@ import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
 import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
@@ -42,8 +39,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     ];
     const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
 
-<<<<<<< HEAD
-=======
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
             return <ContextMenuItem
@@ -59,24 +54,15 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
 
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
     // Types of Files view
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-<<<<<<< HEAD
-            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} />
-        });
-    };
-
-    return (
-=======
             return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} setAction={setAction} />
         });
     };
 
     return (<>
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
         <div className={`${styles.workSpaceWrap} ${listCollapsed ? styles.workSpaceWrapCollapsed : undefined}`}>
             <div className={styles.header}>
                 <SearchField />
@@ -92,10 +78,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                 setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
-<<<<<<< HEAD
-=======
                 setAction={setAction}
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}

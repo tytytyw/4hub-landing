@@ -58,11 +58,7 @@ const SendFriend = ({ data, ...props }) => {
                             src='./assets/PrivateCabinet/profile-noPhoto.svg'
                             alt='pie-chart'
                         />
-<<<<<<< HEAD
-                        <span> Рассказать друзьям о 4 HUB</span>
-=======
                         <span>Рассказать друзьям о 4 HUB</span>
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
                     </div>
                     <span
                         className={styles.close}

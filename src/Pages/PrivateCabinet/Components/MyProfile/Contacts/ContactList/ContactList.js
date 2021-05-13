@@ -38,13 +38,10 @@ const ContactList = ({data = [], onItemClick, onSearch, search, selectedItem}) =
     const [contactList, setContactList] = useState(getGrouppedArray(data))
 
     useEffect(() => {
-<<<<<<< HEAD
-=======
         setContactList(getGrouppedArray(data))
     }, [data])
 
     useEffect(() => {
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
 
         const filterArray = data.filter(item => {
             const name = item.name.toLowerCase()

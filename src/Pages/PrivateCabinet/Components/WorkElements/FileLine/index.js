@@ -8,12 +8,8 @@ import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabin
 import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 
-<<<<<<< HEAD
-const FileLine = ({file, setChosenFile, chosen}) => {
-=======
 const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction}) => {
 
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
     return (<div
         onClick={() => setChosenFile(file)}
         className={`${chosen ? styles.fileLineWrapChosen : styles.fileLineWrap}`}>
@@ -34,18 +30,12 @@ const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction}) => {
             <div className={styles.iconView}><DownLoadIcon /></div>
             <div className={styles.iconView}><PrintIcon /></div>
             <div className={`${styles.iconView} ${styles.iconSettings}`}><SettingsIcon /></div>
-<<<<<<< HEAD
-            <div className={`${styles.iconView} ${styles.iconTrash}`}><DeleteIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconShare}`}><ShareIcon /></div>
-            <div className={styles.menuWrap}><span className={styles.menu} /></div>
-=======
             <div className={`${styles.iconView} ${styles.iconTrash}`} onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})} ><DeleteIcon /></div>
             <div className={`${styles.iconView} ${styles.iconShare}`}><ShareIcon /></div>
             <div
                 className={styles.menuWrap}
                 onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
             ><span className={styles.menu} /></div>
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
         </div>
     </div>)
 }

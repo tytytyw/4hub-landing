@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import React, {useState, useEffect}  from 'react';
-
-import styles from './WorkLinesPreview.module.sass';
-import {colors} from '../../../../../generalComponents/collections'
-=======
 import React, {useState, useEffect, useRef} from 'react';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from "../../../../../generalComponents/Files";
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
 
 const WorkLinesPreview = ({file, children}) => {
 
@@ -21,8 +14,6 @@ const WorkLinesPreview = ({file, children}) => {
         setColor(newColor[0]);
     }, [file]);
 
-<<<<<<< HEAD
-=======
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
 
@@ -57,18 +48,13 @@ const WorkLinesPreview = ({file, children}) => {
         }
     }
 
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
     return (<div className={styles.workLinesPreviewWrap}>
         <div className={styles.fileListWrap}>{children}</div>
         <div className={styles.previewFileWrap}>
             {f ? <>
-<<<<<<< HEAD
-            <img className={styles.preview} src='./assets/PrivateCabinet/file-preview.svg' alt='file' />
-=======
             <div className={styles.preview}>
                 {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
             </div>
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
             <span className={styles.fileName}>{f.name}</span>
             <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>Теги</span>

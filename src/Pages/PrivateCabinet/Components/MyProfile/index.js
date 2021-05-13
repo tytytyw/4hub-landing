@@ -30,12 +30,6 @@ const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
         </span> : null}
     </button>
 )
-<<<<<<< HEAD
-
-const MyProfile = (props) => {
-
-    const [pageOption, setPageOption] = useState('personal_data')
-=======
 const contactList = [
     {
         id: 1,
@@ -255,7 +249,6 @@ const MyProfile = () => {
     const [popup, setPopup] = useState(false)
 
     const [contacts, setContacts] = useState(contactList)
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
 
     return (
         <div className={styles.wrapper}>
@@ -300,19 +293,11 @@ const MyProfile = () => {
                         />
                         <div className={styles.buttonsRight}>
                             <MyButton
-<<<<<<< HEAD
-                                text='Расказать друзьям'
-                                icon={uploadIcon}
-                                alt='Upload'
-                                active={pageOption === 'tell_friends'}
-                                onClick={() => setPageOption('tell_friends')}
-=======
                                 text='Рассказать друзьям'
                                 icon={uploadIcon}
                                 alt='Upload'
                                 active={popup}
                                 onClick={() => setPopup(true)}
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
                             />
                         </div>
                     </div>
@@ -321,14 +306,6 @@ const MyProfile = () => {
                 {pageOption === 'personal_data' && <UserForm/>}
                 {pageOption === 'support' && <Support/>}
                 {pageOption === 'tariff_plan' && <TariffPlan/>}
-<<<<<<< HEAD
-                {pageOption === 'contacts' && <Contacts/>}
-                {pageOption === 'programs' && <Programs/>}
-                {pageOption === 'tell_friends' && <TellFriends/>}
-
-            </div>
-
-=======
                 {pageOption === 'contacts' && <Contacts contacts={contacts} setContacts={setContacts}/>}
                 {pageOption === 'programs' && <Programs/>}
 
@@ -341,7 +318,6 @@ const MyProfile = () => {
                 set={setPopup}
             />}
 
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
             <BottomPanel/>
 
         </div>

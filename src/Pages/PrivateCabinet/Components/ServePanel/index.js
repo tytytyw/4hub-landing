@@ -10,11 +10,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-<<<<<<< HEAD
-const ServePanel = ({blob, setBlob, view, setView, chosenFile}) => {
-=======
 const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction}) => {
->>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
