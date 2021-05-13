@@ -6,6 +6,7 @@ import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 
+<<<<<<< HEAD
 const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
 
     const [mouseParams, setMouseParams] = useState(null);
@@ -24,6 +25,13 @@ const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
     return (
         <>
         <div className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => setChosenFile(file)}>
+=======
+const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMouseParams}) => {
+
+    return (
+        <>
+        <div className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => !isLoading ? setChosenFile(file) : undefined}>
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
             <div
                 className={styles.menu}
                 onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
@@ -47,10 +55,13 @@ const FileBar = ({file, isLoading, progress, chosen, setChosenFile}) => {
                 <div className={styles.statusBar}><div style={{width: `${progress}%`}} className={styles.innerStatusBar} /></div>
             </div> : null}
         </div>
+<<<<<<< HEAD
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main)}</div>
                 <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional)}</div>
             </ContextMenu> : null}
+=======
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
         </>
     )
 }

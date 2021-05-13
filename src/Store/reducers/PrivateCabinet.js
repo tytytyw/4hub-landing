@@ -2,6 +2,7 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    FILE_DELETE,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -21,6 +22,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CHOOSE_FILES: {
             return {...state, fileList: action.payload};
+        }
+        case FILE_DELETE: {
+            const files = state.fileList.files.filter(el => el.fid !== action.payload.fid)
+            return {...state, fileList: {...state.fileList, files}};
         }
         default:
             return state;

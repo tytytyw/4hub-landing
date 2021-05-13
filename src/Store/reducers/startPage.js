@@ -5,7 +5,7 @@ import {
 
 const INITIAL_STATE = {
     uid: '',
-    userInfo: null
+    userInfo: null,
 };
 
 export default function startPage(state = INITIAL_STATE, action) {

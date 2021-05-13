@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useEffect, useState} from 'react'
 import cameraImg from '../../../../../../assets/PrivateCabinet/camera.svg'
 import styles from './ProfileUpload.module.sass'
@@ -25,6 +26,19 @@ const ProfileUpload = () => {
     const getImage = () => {
         return preview ?? avatarImg
     }
+=======
+import React from 'react'
+import cameraImg from '../../../../../../assets/PrivateCabinet/camera.svg'
+import styles from './ProfileUpload.module.sass'
+import avatarImg from '../../../../../../assets/PrivateCabinet/avatar2.svg'
+import classnames from 'classnames'
+
+const ProfileUpload = ({ name = 'file', disabled, onChange = () => {}, preview }) => {
+
+    const inputId = `userPhoto-${Math.random()}`
+
+    const getImage = () => preview ?? avatarImg
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
 
     return (
         <div className={styles.upload}>
@@ -33,6 +47,7 @@ const ProfileUpload = () => {
                 className={styles.input}
                 id={inputId}
                 type="file"
+<<<<<<< HEAD
                 /*accept='image/!*'*/
                 onChange={(event) => {
                     const file = event.target.files[0] ?? null
@@ -42,6 +57,12 @@ const ProfileUpload = () => {
                         setImage(null)
                     }
                 }}
+=======
+                name={name}
+                disabled={disabled}
+                accept='image/*'
+                onChange={onChange}
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
             />
 
             <label htmlFor={inputId}>

@@ -5,6 +5,7 @@ import styles from './Contacts.module.sass'
 import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
+<<<<<<< HEAD
 
 const menuData = [
     {
@@ -251,6 +252,45 @@ const Contacts = () => {
 
     const onSearch = value => setSearch(value)
     const onMenuClick = item => setMenuItem(item)
+=======
+import AddContact from './AddContact/AddContact'
+
+const Contacts = ({ contacts, setContacts }) => {
+
+    const [search, setSearch] = useState('')
+
+    const [contactItem, setContactItem] = useState(contacts[0])
+    const [contactPopup, setContactPopup] = useState(false)
+    /*const [menuItem, setMenuItem] = useState('')
+    console.log(menuItem)*/
+
+    const menuData = [
+        {
+            id: 'new_contact',
+            icon: './assets/PrivateCabinet/plus-3.svg',
+            label: 'Добавить контакт',
+            onClick: () =>  setContactPopup(true)
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/star-2.svg',
+            label: 'Избранное'
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/contact-book.svg',
+            label: 'Все контакты'
+        },
+        {
+            id: 'favorites',
+            icon: './assets/PrivateCabinet/phone-call-2.svg',
+            label: 'Контакты 4 Hub'
+        },
+    ]
+
+    const onSearch = value => setSearch(value)
+    //const onMenuClick = item => setMenuItem(item)
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
     const onContactClick = item => setContactItem(item)
 
     return (
@@ -258,14 +298,22 @@ const Contacts = () => {
 
             <div className={styles.contactMenu}>
                 <ContactMenu
+<<<<<<< HEAD
                     onItemClick={onMenuClick}
+=======
+                    //onItemClick={onMenuClick}
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
                     data={menuData}
                 />
             </div>
 
             <div className={styles.contactList}>
                 <ContactList
+<<<<<<< HEAD
                     data={contactList}
+=======
+                    data={contacts}
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
                     search={search}
                     selectedItem={contactItem}
                     onSearch={onSearch}
@@ -279,6 +327,15 @@ const Contacts = () => {
                 />
             </div>
 
+<<<<<<< HEAD
+=======
+            {contactPopup && <AddContact
+                contacts={contacts}
+                setContacts={setContacts}
+                set={setContactPopup}
+            />}
+
+>>>>>>> e2bca16da87ec29e6978e52809d9e1f1494eed87
         </div>
     )
 }

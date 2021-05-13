@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef, setItem}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
 
     const closeContext = () => setParams(null);
     const screenWidth = window.innerWidth;
