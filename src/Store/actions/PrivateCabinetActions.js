@@ -4,6 +4,7 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     FILE_DELETE,
+    CONTACT_LIST, ADD_CONTACT
 } from '../types';
 
 export const onGetFolders = () => async (dispatch, getState) => {
@@ -59,3 +60,79 @@ export const onDeleteFile = (file) => {
         payload: file
     }
 }
+
+export const onGetContacts = () => async (dispatch, getState) => {
+    /*const uid = getState().user.uid
+    api.get(`/ajax/get_contacts.php?uid=${uid}`)
+        .then(response => {
+            dispatch({
+                type: CONTACT_LIST,
+                payload: response.data
+            });
+        })
+        .catch(error => console.log(error))*/
+    dispatch({
+        type: CONTACT_LIST,
+        payload: [
+            {
+                id: 1,
+                image: './assets/PrivateCabinet/avatars/a1.png',
+                name: 'Аедельская Алина Квиталина',
+                email: ['Квиталина@gmail.com', 'Квиталина222@gmail.com'],
+                tel: ['+34234454232'],
+                socials: [
+                    {type: 'twitter', link: '#'},
+                    {type: 'linkedin', link: '#'},
+                    {type: 'facebook', link: '#'},
+                ],
+                messengers: [
+                    {type: 'telegram', link: '#'},
+                    {type: 'viber', link: '#'},
+                    {type: 'whatsapp', link: '#'},
+                    {type: 'skype', link: '#'},
+                ]
+            },
+            {
+                id: 2,
+                image: './assets/PrivateCabinet/avatars/a1.png',
+                name: 'Бедельская Алина Квиталина',
+                email: ['Квиталина@gmail.com', 'Квиталина222@gmail.com'],
+                tel: ['+33333333333333'],
+                socials: [
+                    {type: 'twitter', link: '#'},
+                    {type: 'linkedin', link: '#'},
+                    {type: 'facebook', link: '#'},
+                ],
+                messengers: [
+                    {type: 'telegram', link: '#'},
+                    {type: 'viber', link: '#'},
+                    {type: 'whatsapp', link: '#'},
+                    {type: 'skype', link: '#'},
+                ]
+            },
+            {
+                id: 3,
+                image: './assets/PrivateCabinet/avatars/a1.png',
+                name: 'Ведельская Алина Квиталина',
+                email: ['Квиталина11@gmail.com', 'Квиталина22@gmail.com'],
+                tel: ['+34234454232', '+89878767675'],
+                socials: [
+                    {type: 'twitter', link: '#'},
+                    {type: 'linkedin', link: '#'},
+                    {type: 'facebook', link: '#'},
+                ],
+                messengers: [
+                    {type: 'telegram', link: '#'},
+                    {type: 'viber', link: '#'},
+                    {type: 'whatsapp', link: '#'},
+                    {type: 'skype', link: '#'},
+                ]
+            },
+        ]
+    })
+}
+
+export const onAddContact = contact => ({
+    type: ADD_CONTACT,
+    payload: contact
+})

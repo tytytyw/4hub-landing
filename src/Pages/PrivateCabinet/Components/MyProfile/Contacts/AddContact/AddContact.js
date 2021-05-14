@@ -1,20 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch} from 'react-redux'
+import classnames from 'classnames'
 
 import styles from './AddContact.module.sass'
+import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
+import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
 
 import AddSocials from './AddSocials'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
-import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
-import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
-import classnames from 'classnames'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
 import {emptyProfileImage, socialsIcons, socialsData} from '../consts'
 import Input from '../../Input/Input'
+import {onAddContact} from "../../../../../../Store/actions/PrivateCabinetActions";
 
-const AddContact = ({set, contacts, setContacts}) => {
+const AddContact = ({set, contacts}) => {
+
+    const dispatch = useDispatch()
 
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])
@@ -64,8 +68,8 @@ const AddContact = ({set, contacts, setContacts}) => {
             formValues[name] = value
         }
 
-        setContacts([...contacts, {
-            id: Math.random(),
+        dispatch(onAddContact({
+            id: contacts.length + 2,
             image: preview ?? emptyProfileImage,
             name: `${formValues?.name} ${formValues?.sname}`,
             company: formValues?.company,
@@ -75,7 +79,7 @@ const AddContact = ({set, contacts, setContacts}) => {
             notes: formValues?.notes,
             socials: socials,
             messengers: []
-        }])
+        }))
 
         set(false)
     }
@@ -89,12 +93,12 @@ const AddContact = ({set, contacts, setContacts}) => {
                 className={styles.wrapper}
             >
                 <div className={styles.top}>
-                        <span
-                            className={styles.close}
-                            onClick={() => set(false)}
-                        >
-                            <span className={styles.times}/>
-                        </span>
+                    <span
+                        className={styles.close}
+                        onClick={() => set(false)}
+                    >
+                        <span className={styles.times}/>
+                    </span>
                 </div>
 
                 <div className={styles.content}>

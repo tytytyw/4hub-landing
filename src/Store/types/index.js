@@ -6,3 +6,6 @@ export const GET_FOLDERS = 'GET_FOLDERS';
 export const CHOOSE_FOLDER = 'CHOOSE_FOLDER';
 export const CHOOSE_FILES = 'CHOOSE_FILES';
 export const FILE_DELETE = 'FILE_DELETE';
+
+export const CONTACT_LIST = 'CONTACT_LIST';
+export const ADD_CONTACT = 'ADD_CONTACT';

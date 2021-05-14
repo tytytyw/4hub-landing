@@ -12,13 +12,6 @@
       justify-content: space-between
       align-items: center
 
-      .profileImg
-        width: 80px
-        height: 80px
-        border-radius: 50%
-        object-fit: cover
-        margin-right: 20px
-
       .profileName
         width: 200px
         display: block
@@ -33,6 +26,11 @@
       display: flex
       justify-content: flex-end
       align-items: center
+
+      .filledIcon
+        background: #4086F1
+        .iconStar path
+          fill: #FFFFFF
 
       .iconView
         display: flex
@@ -96,7 +94,7 @@
 
     .infoItem
       display: flex
-      align-items: center
+      align-items: flex-start
       margin-bottom: 13px
 
     .info
@@ -114,6 +112,11 @@
       color: #000
       margin-right: 10px
 
+      .valueList
+        margin: 0
+        li
+          margin-bottom: 5px
+
     .socialsList
       display: flex
       align-items: center
@@ -126,3 +129,9 @@
         margin-right: 10px
 
 
+.profileImg
+  width: 80px
+  height: 80px
+  border-radius: 50%
+  object-fit: cover
+  margin-right: 20px
