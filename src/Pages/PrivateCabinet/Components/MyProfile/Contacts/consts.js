@@ -10,3 +10,38 @@ export const socialsIcons = {
     instagram: './assets/PrivateCabinet/socials/instagram.svg',
     vk: './assets/PrivateCabinet/socials/vk.svg',
 }
+
+export const socialsData = [
+    {
+        label: 'Twitter',
+        type: 'twitter',
+        icon: './assets/PrivateCabinet/socials/twitter.svg'
+    },
+    {
+        label: 'Linkedin',
+        type: 'linkedin',
+        icon: './assets/PrivateCabinet/socials/linkedin.svg',
+    },
+    {
+        label: 'Facebook',
+        type: 'facebook',
+        icon: './assets/PrivateCabinet/socials/facebook.svg',
+    },
+    {
+        label: 'Skype',
+        type: 'skype',
+        icon: './assets/PrivateCabinet/socials/skype-2.svg',
+    },
+    {
+        label: 'Instagram',
+        type: 'instagram',
+        icon: './assets/PrivateCabinet/socials/instagram.svg',
+    },
+    {
+        label: 'VK',
+        type: 'vk',
+        icon: './assets/PrivateCabinet/socials/vk.svg',
+    },
+]
+
+export const emptyProfileImage = './assets/PrivateCabinet/profile-noPhoto.svg'

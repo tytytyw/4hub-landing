@@ -5,18 +5,15 @@ import classnames from 'classnames'
 
 const Input = (
     {
-        type, label, value, name, placeholder, maxLength, className, custom = false,
-        isMistake = false, disabled = false, showPass = false,
-        onChange = () => {},
-        onFocus = () => {},
-        onKeyPress = () => {},
-        onKeyup = () => {},
-        onBlur = () => {},
+        type, disabled, className, custom = false,
+        isMistake = false, showPass = false, phone,
         setShowPass = () => {},
+        onChange = () => {},
+        ...props
     }
 ) => {
 
-    const inputType = type || 'text'
+    const inputType = type ?? 'text'
     const htmlFor = `${inputType}-${Math.random()}`
 
     const getType = () => {
@@ -24,70 +21,70 @@ const Input = (
             case 'password':
                 return showPass ? 'text' : 'password'
             default:
-                return 'text'
+                return type
         }
     }
 
     const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
 
-    const MyInput = <input
-        className={classnames({
-            [styles.input]: !custom,
-            [className]: !!className,
-            [styles.redBorder]: isMistake && !disabled
-        })}
-        id={htmlFor}
-        maxLength={maxLength}
-        type={getType()}
-        value={value}
-        name={name}
-        onChange={onChange}
-        onFocus={onFocus}
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-        onKeyUp={onKeyup}
-        disabled={disabled}
-        placeholder={placeholder}
-    />
+    const maskPhoneNumber = (number) => {
+        const tempValue = number.replace(/\D/gim, '')
 
-    return custom ? <input
-        className={classnames({
-            [styles.input]: !custom,
-            [className]: !!className,
-            [styles.redBorder]: isMistake && !disabled
-        })}
-        id={htmlFor}
-        maxLength={maxLength}
-        type={getType()}
-        value={value}
-        name={name}
-        onChange={onChange}
-        onFocus={onFocus}
-        onKeyPress={onKeyPress}
-        onBlur={onBlur}
-        onKeyUp={onKeyup}
-        disabled={disabled}
-        placeholder={placeholder}
-    /> : (
-        <div className={styles.inputWrap}>
+        return tempValue.replace(
+            ...({
+                2: [/(\d{2})/g,'+$1'],
+                3: [/(\d{2})/g,'+$1('],
+                4: [/(\d{2})(\d{0,3})/g, '+$1($2'],
+                5: [/(\d{2})(\d{3})/g, '+$1($2'],
+                6: [/(\d{2})(\d{3})(\d{0,3})/g, '+$1($2) $3'],
+                7: [/(\d{2})(\d{3})(\d{1,3})/g, '+$1($2) $3'],
+                8: [/(\d{2})(\d{3})(\d{3})/g, '+$1($2) $3'],
+                9: [/(\d{2})(\d{3})(\d{3})(\d{0,2})/g, '+$1($2) $3 $4'],
+                10: [/(\d{2})(\d{3})(\d{3})(\d{2})/g, '+$1($2) $3 $4'],
+                11: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{0,2})/g, '+$1($2) $3 $4 $5'],
+                12: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/g, '+$1($2) $3 $4 $5'],
+            }[tempValue.length] || [])
+        )
+    }
 
-            <label
-                className={styles.label}
-                htmlFor={htmlFor}
-            >
-                {label}
-            </label>
+    const onChangeHandler = event => {
+        let {value} = event.target
+        if (phone) {
+            event.target.value = maskPhoneNumber(value)
+        }
+        onChange(event)
+    }
 
-            {MyInput}
+    return (
+        <>
+            {props.label &&
+            <label className={styles.label} htmlFor={htmlFor}>
+                {props.label}
+            </label>}
 
-            {type === 'password' && <img
-                src={getEyeImg()}
-                alt='eye'
-                className={styles.eye}
-                onClick={() => !disabled && setShowPass(!showPass)}
-            />}
+            <div className={styles.inputWrap}>
+                <input
+                    className={classnames({
+                        [styles.input]: !custom,
+                        [className]: !!className,
+                        [styles.redBorder]: isMistake && !disabled
+                    })}
+                    id={htmlFor}
+                    type={getType()}
+                    disabled={disabled}
+                    maxLength={phone ? 18 : props.maxLength}
 
-        </div>
+                    onChange={onChangeHandler}
+                    {...props}
+                />
+                {type === 'password' && <img
+                    src={getEyeImg()}
+                    alt='eye'
+                    className={styles.eye}
+                    onClick={() => !disabled && setShowPass(!showPass)}
+                />}
+            </div>
+        </>
     )
 }
 

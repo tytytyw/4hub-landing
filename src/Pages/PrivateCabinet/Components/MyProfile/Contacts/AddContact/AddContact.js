@@ -11,44 +11,10 @@ import classnames from 'classnames'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
-import {socialsIcons} from '../consts'
-import TelInput from "../../TelInput/Telinput";
-import Input from "../../Input/Input";
+import {emptyProfileImage, socialsIcons, socialsData} from '../consts'
+import Input from '../../Input/Input'
 
-const socialsData = [
-    {
-        label: 'Twitter',
-        type: 'twitter',
-        icon: './assets/PrivateCabinet/socials/twitter.svg'
-    },
-    {
-        label: 'Linkedin',
-        type: 'linkedin',
-        icon: './assets/PrivateCabinet/socials/linkedin.svg',
-    },
-    {
-        label: 'Facebook',
-        type: 'facebook',
-        icon: './assets/PrivateCabinet/socials/facebook.svg',
-    },
-    {
-        label: 'Skype',
-        type: 'skype',
-        icon: './assets/PrivateCabinet/socials/skype-2.svg',
-    },
-    {
-        label: 'Instagram',
-        type: 'instagram',
-        icon: './assets/PrivateCabinet/socials/instagram.svg',
-    },
-    {
-        label: 'VK',
-        type: 'vk',
-        icon: './assets/PrivateCabinet/socials/vk.svg',
-    },
-]
-
-const AddContact = ({ set, contacts, setContacts }) => {
+const AddContact = ({set, contacts, setContacts}) => {
 
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])
@@ -61,6 +27,9 @@ const AddContact = ({ set, contacts, setContacts }) => {
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
+
+    const formRef = useRef()
+
 
     const uploadImage = event => {
         const file = event.target.files[0] ?? null
@@ -82,9 +51,8 @@ const AddContact = ({ set, contacts, setContacts }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-    const formRef = useRef()
-
     const onSubmit = event => {
+
         event.preventDefault()
 
         const formData = new FormData(formRef.current)
@@ -98,7 +66,7 @@ const AddContact = ({ set, contacts, setContacts }) => {
 
         setContacts([...contacts, {
             id: Math.random(),
-            image: preview ?? './assets/PrivateCabinet/avatars/a4.png',
+            image: preview ?? emptyProfileImage,
             name: `${formValues?.name} ${formValues?.sname}`,
             company: formValues?.company,
             email: mails,
@@ -114,7 +82,12 @@ const AddContact = ({ set, contacts, setContacts }) => {
 
     return (
         <PopUp set={set}>
-            <form ref={formRef} noValidate onSubmit={onSubmit} className={styles.wrapper}>
+            <form
+                ref={formRef}
+                noValidate
+                onSubmit={onSubmit}
+                className={styles.wrapper}
+            >
                 <div className={styles.top}>
                         <span
                             className={styles.close}
@@ -172,15 +145,16 @@ const AddContact = ({ set, contacts, setContacts }) => {
                         <div className={styles.formItem}>
                             {numbers.map((number, index) => (
                                 <div className={styles.formBlock} key={index}>
-                                <span
-                                    onClick={() => {
-                                        numbers.splice(index, 1)
-                                        setNumbers([...numbers])
-                                    }}
-                                    className={styles.minusBtn}
-                                />
+                                    <span
+                                        onClick={() => {
+                                            numbers.splice(index, 1)
+                                            setNumbers([...numbers])
+                                        }}
+                                        className={styles.minusBtn}
+                                    />
                                     <span className={styles.info}>Введите номер телефона:</span>
-                                    <TelInput
+                                    <Input
+                                        phone={true}
                                         name='number[]'
                                         onChange={event => {
                                             numbers[index] = event.target.value

@@ -1,51 +1,49 @@
 .inputWrap
-  display: flex
-  flex-direction: column
-  align-items: flex-start
   position: relative
+  width: 100%
 
-  .input
-    box-sizing: border-box
-    height: 40px
-    min-width: 237px
-    width: 100%
-    padding: 0 15px
-    border-radius: 7.5px
-    border: 1px solid #E3E3E3
-    background: #FFFFFF
-    color: #2B353E
-    font-family: "SF Pro Light"
-    font-size: 14px
-    line-height: 19px
+.input
+  box-sizing: border-box
+  height: 40px
+  min-width: 237px
+  width: 100%
+  padding: 0 15px
+  border-radius: 7.5px
+  border: 1px solid #E3E3E3
+  background: #FFFFFF
+  color: #2B353E
+  font-family: "SF Pro Light"
+  font-size: 14px
+  line-height: 19px
 
-    &:disabled
-      background: #EBF2FD
-      border: none
+  &:disabled
+    background: #EBF2FD
+    border: none
 
-    &::placeholder
-      font-size: 11px
-      font-family: inherit
-      line-height: 15px
-      color: #848484
+  &::placeholder
+    font-size: 11px
+    font-family: inherit
+    line-height: 15px
+    color: #848484
 
-    &:focus
-      border: 1px solid #4086F1
-      outline: none
+  &:focus
+    border: 1px solid #4086F1
+    outline: none
 
-  .label
-    color: #949494
-    font-size: 14px
-    line-height: 19px
-    letter-spacing: -0.08px
-    margin-bottom: 5px
+.label
+  color: #949494
+  font-size: 14px
+  line-height: 19px
+  letter-spacing: -0.08px
+  margin-bottom: 5px
 
-  .eye
-    cursor: pointer
-    position: absolute
-    top: calc(40px / 2 + 18px)
-    right: 10px
-    width: 18px
-    height: 16px
+.eye
+  cursor: pointer
+  position: absolute
+  top: calc(50% - 16px / 2)
+  right: 10px
+  width: 18px
+  height: 16px
 
-  .redBorder
-    border: 1px solid red
+.redBorder
+  border: 1px solid red
