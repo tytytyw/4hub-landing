@@ -16,10 +16,12 @@ function Main({scrollTop}) {
 	const SliderItemText4 = document.querySelector("#slide-text_4");
 	const sliderWrap = document.querySelector(`.${styles.presentation}`);
 	SliderItemText1 && SliderItemText1.classList.add(styles.text_item_active);
-
+	let layerYOld = null
+	let deltaYOld = null
 	const scrollHandler = (e) => {
+		let scrollingTtimeOut = 700
+		if (!isScrolling && (Math.abs(e.deltaY) < 100 ? e.layerY !== layerYOld || document.body.style.overflow === "visible" || deltaYOld !== Math.sign(e.deltaY): true)) {
 
-		if (!isScrolling) {
 			if (e.deltaY > 0 && window.pageYOffset === 0) {
 				setCount((count) => count + 1);
 			}
@@ -28,20 +30,26 @@ function Main({scrollTop}) {
 				setCount((count) => count - 1);
 
 				if (document.body.style.overflow === "visible") {
+					scrollingTtimeOut+=800
 					document.body.style.overflow = "hidden";
+					document.body.style.top = 0
 					setCount(3);
+					setTimeout(()=> layerYOld = null, 100)
 				}
 			}
 			isScrolling = true;
-			setTimeout(() => (isScrolling = false), 700);
+			setTimeout(() => isScrolling = false, scrollingTtimeOut);
+			layerYOld = e.layerY
+			deltaYOld = Math.sign(e.deltaY)
 		}
+		
 	};
-
 	useEffect(() => {
 		if (count > 3) {
 			setCount(4);
-			sliderWrapStyles.height = 0;
-			document.body.style.overflow = "visible";
+			setTimeout(() => document.body.style.overflow = "visible", 1000)
+			document.body.style.position = 'absolute'
+			document.body.style.top = `-${sliderWrap.offsetHeight + sliderWrap.offsetTop}px`
 		}
 
 		if (count < 0) {
@@ -95,6 +103,7 @@ function Main({scrollTop}) {
 		setCount(0);
 		window
 			.addEventListener("wheel", scrollHandler);
+			
 		document.body.style.overflow = "hidden";
 		return () => window.removeEventListener("wheel", scrollHandler)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,7 +117,6 @@ function Main({scrollTop}) {
 			<div
 				className={classNames({
 					[styles.presentation]: true,
-					[styles.noDisplay]: count === 4,
 				})}
 				style={{ height: sliderWrapStyles.height }}
 			>

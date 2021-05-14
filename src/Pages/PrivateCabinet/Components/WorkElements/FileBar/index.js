@@ -1,9 +1,13 @@
+// eslint-disable-next-line
 import React, {useState} from 'react';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
+// eslint-disable-next-line
 import ContextMenu from '../../../../../generalComponents/ContextMenu';
+// eslint-disable-next-line
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
+// eslint-disable-next-line
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 
 const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMouseParams}) => {
