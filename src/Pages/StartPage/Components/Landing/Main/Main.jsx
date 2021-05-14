@@ -25,6 +25,7 @@ function Main({scrollTop}) {
 			if (e.deltaY > 0 && window.pageYOffset === 0) {
 				setCount((count) => count + 1);
 			}
+			
 			if (e.deltaY < 0 && window.pageYOffset < 201) {
 				scrollTop()
 				setCount((count) => count - 1);
