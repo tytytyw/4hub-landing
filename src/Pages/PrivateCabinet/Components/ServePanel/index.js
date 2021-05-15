@@ -11,6 +11,7 @@ import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/s
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
 const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction}) => {
+
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>

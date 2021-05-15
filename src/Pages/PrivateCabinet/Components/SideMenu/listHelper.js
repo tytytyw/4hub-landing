@@ -8,6 +8,10 @@ export const menu = [
         src: './assets/PrivateCabinet/file.svg'
     },
     {
+        name: 'Мой профиль',
+        src: './assets/PrivateCabinet/profile-noPhoto.svg'
+    },
+    {
         name: 'Программы',
         src: './assets/PrivateCabinet/programs.svg'
     },

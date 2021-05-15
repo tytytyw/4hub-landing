@@ -1,25 +1,28 @@
-.main 
+/*.main 
     max-width: 1500px
-    margin: 0 auto
+    margin: 0 auto */
 .storage 
     padding-top: 30px
-    padding-bottom: 77px
+    padding-bottom: 3.7em
     color: #000
     background-color: #fff
     text-align: center
 .presentation 
-    display: flex
-    align-items: flex-start
-    margin-bottom: 7%
-    position: relative
+    height: 100%
+    overflow: hidden
+    transition: height .3s ease, opacity ease .5s
 .text_item 
+    width: 40%
     position: relative
+    align-self: flex-start
+    margin-left: 7%
+    margin-top: 6.9%
     opacity: .5
-    transition: opacity .3s ease
-    -webkit-transition: opacity .3s ease
-    -moz-transition: opacity .3s ease
-    -ms-transition: opacity .3s ease
-    -o-transition: opacity .3s ease
+    transition: opacity .5s ease .2s 
+    -webkit-transition: opacity .5s ease .2s
+    -moz-transition: opacity .5s ease .2s
+    -ms-transition: opacity .5s ease .2s
+    -o-transition: opacity .5s ease .2s
 .text_item::before 
     content: ""
     left: -30px
@@ -29,23 +32,17 @@
     background-color: #fff
     position: absolute
     border-radius: 1px
-    transition: height .3s ease
-    -webkit-transition: height .3s ease
-    -moz-transition: height .3s ease
-    -ms-transition: height .3s ease
-    -o-transition: height .3s ease
+    transition: height .7s ease
+    -webkit-transition: height .7s ease
+    -moz-transition: height .7s ease
+    -ms-transition: height .7s ease
+    -o-transition: height .7s ease
 .text_item_active::before 
     height: 100%
     bottom: auto
     top: 0
 .text_item_active 
     opacity: 1
-.title 
-    color: #EED328
-    padding-left: 7%
-    font-size: 3.75rem
-    margin: 0
-    font-weight: 600
 .text_wrap 
     position: sticky
     top: 0
@@ -57,10 +54,10 @@
 .presentation__images 
     width: 65%
 .image_wrap
+    width: 60%
     height: 670px
     position: relative
     overflow: hidden
-    margin-bottom: 22%
 .presentation__image
     position: absolute
     transition: transform 1s ease
@@ -69,37 +66,37 @@
     .presentation__image
         transform: translate(0%, -50%)
 .image_1_1
-    top: 36%
-    right: 363px
+    top: 35%
+    right: 370px
     z-index: 1
     transform: translate(-15%, -35%)
 .image_1_2
-    top: 70%
-    right: 40px
+    top: 69%
+    right: 45px
     transform: translate(163%, 55%)
 .image_1_3
-    top: 24%
-    right: 166px
+    top: 23%
+    right: 165px
     transform: translate(163%, 55%)
 .image_2_1
     top: 50%
-    right: 650px
+    right: 685px
     transform: translate(133%, 266%)
 .image_2_2
     top: 50%
-    right: 40px
+    right: 58px
     transform: translate(125%, 133%)
 .image_3_1
     top: 45%
-    right: 486px
-    transform: translate(0, 0);
+    right: 500px
+    transform: translate(0, 0)
 .image_3_2
-    top: 70%
-    right: 70px
-    transform: translate(-60%, 67%);
+    top: 60%
+    right: 58px
+    transform: translate(-60%, 67%)
 .image_3_3
-    top: 61%
-    right: 40px
+    top: 51%
+    right: 24px
     transform: translate(125%, 133%)
 .image_wrap 
     .image_4 
@@ -117,7 +114,7 @@
     z-index: 3
     transform: translate(1200%, 750%)
 .image_4_google_calendar
-    top: 13%;
+    top: 13%
     right: 637px
     transform: translate(100%, 210%)
 .image_4_google_drive
@@ -133,7 +130,7 @@
     right: 653px
     transform: translate(215%, 580%)
 .image_4_whatsapp
-    top: 51%;
+    top: 51%
     right: 622px
     z-index: 1
     transform: translate(150%, 210%)
@@ -143,25 +140,39 @@
     transform: translate(290%, 250%)
 .presentation__title 
     font-size: 2.2rem
-    font-weight: 500
+    font-family: "SF Pro Medium"
+    margin-top: 0
 .presentation__text 
-    font-weight: normal
+    font-family: "SF Pro Light"
     margin-bottom: 1.5rem
+.presentation__text:last-child
+    margin-bottom: 0
 .storage_title 
     font-size: 40px
-    margin: 1em 0
-    font-weight: 600
+    margin: .66em 0
+    font-family: "SF Pro Medium"
 .storage_subtitile 
-    font-weight: 500
+    font-family: "SF Pro Medium"
     width: 28%
     margin: 0 auto 62px auto
+    line-height: 1.5em
 .tariffs_list 
     display: flex
     width: 80%
-    max-width: 1366px
+    max-width: 1100px
     margin: 0 auto
     justify-content: space-between
     align-items: flex-end
+.slide
+    display: flex
+    justify-content: space-between
+    height: 100%
+.presentation_wrap 
+    height: 100%
+    transition: transform ease 1s
+.noDisplay
+    height: 60vh !important
+    opacity: 0
 @media (max-width: 1300px) 
     .tariffs_list 
         width: 85%
@@ -171,4 +182,70 @@
 @media (max-width: 1100px) 
     .tariffs_list 
         width: 98%
-
+@media (max-height: 1079px)
+    .image_1_1
+        top: 31%
+        right: 320px
+        z-index: 1
+        transform: translate(-15%, -35%)
+        max-width: 320px;
+    .image_1_2
+        top: 60%
+        right: 45px
+        transform: translate(163%, 55%)
+        max-width: 500px
+    .image_1_3
+        top: 21%
+        right: 130px
+        transform: translate(163%, 55%)
+        max-width: 180px
+    .image_2_1
+        top: 43%
+    .image_2_2
+        top: 43%
+    .image_3_1
+        top: 37%
+        transform: translate(0, -100px)
+    .image_3_2
+        top: 52%
+        transform: translate(-60%, 200%)
+    .image_3_3
+        top: 43%
+    .image_wrap 
+        .image_4
+            top: 14%
+            max-width: 560px
+    .image_4_youtube
+        top: 9%
+        right: 470px
+        transform: translate(400%, 290%)   
+    .image_4_telegram
+        top: 66%
+        right: 452px
+        z-index: 3
+        transform: translate(1200%, 750%)
+    .image_4_google_calendar
+        top: 6%
+        right: 592px
+        transform: translate(100%, 210%)
+    .image_4_google_drive
+        top: 80%
+        right: 380px
+        transform: translate(320%, 670%)
+    .image_4_figma
+        top: 77%
+        right: 505px
+        transform: translate(320%, 670%)
+    .image_4_viber
+        top: 66%
+        right: 616px
+        transform: translate(215%, 580%)
+    .image_4_whatsapp
+        top: 42%
+        right: 582px
+        z-index: 1
+        transform: translate(150%, 210%)
+    .image_4_skype
+        top: 23%
+        right: 650px
+        transform: translate(290%, 250%)
