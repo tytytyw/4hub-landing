@@ -20,7 +20,7 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={f.preview} alt='filePrieview' />
+                return <img src={f.preview} alt='filePrieview' className={hideFileList ? styles.big_pic : ''}/>
             }
             case 'video': {
                 return <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
@@ -77,7 +77,7 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Эмоджи</span>
                     {f?.emo
-                        ? <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign' />
+                        ? <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign'/>
                         : <span className={styles.optionItem}>Добавить эмоджи</span>}
                 </div>
                 <div className={styles.infoFileItem}>

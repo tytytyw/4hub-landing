@@ -10,7 +10,7 @@ import WorkBars from '../../WorkElements/WorkBars';
 import BottomPanel from '../../ButtomPanel';
 import FileBar from '../../WorkElements/FileBar';
 import WorkLines from '../../WorkElements/WorkLines';
-import FileLine from '../../WorkElements/FileLineShort';
+import FileLine from '../../WorkElements/FileLine';
 import WorkBarsPreview from '../../WorkElements/WorkBarsPreview';
 import WorkLinesPreview from '../../WorkElements/WorkLinesPreview';
 import ContextMenu from '../../../../../generalComponents/ContextMenu';

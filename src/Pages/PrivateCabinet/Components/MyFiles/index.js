@@ -9,6 +9,7 @@ import CreateFile from "../CreateFile";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 import { onDeleteFile } from "../../../../Store/actions/PrivateCabinetActions";
+import CreateSafePassword from '../CreateSafePassword';
 
 const MyFiles = () => {
 	const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const MyFiles = () => {
 			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
 		},
 	];
+	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
 		if (!fileList?.files) return null;
 		return fileList.files.map((file, i) => {
@@ -68,9 +70,7 @@ const MyFiles = () => {
 		nullifyAction();
 		setChosenFile(null);
 	};
-
-	useEffect(() => dispatch(onChooseFiles("global/all")), [dispatch]);
-
+	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 	const renderMenuItems = (target, type) => {
 		return target.map((item, i) => {
 			return (
@@ -85,6 +85,9 @@ const MyFiles = () => {
 			);
 		});
 	};
+
+	useEffect(() => dispatch(onChooseFiles("global/all")), [dispatch]);
+
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -131,6 +134,10 @@ const MyFiles = () => {
 					progress={progress}
 				/>
 			)}
+			{safePassword.open && <CreateSafePassword
+                onToggle={onSafePassword}
+                title='Создайте пароль для Сейфа с паролями'
+            />}
 		</div>
 	);
 };
