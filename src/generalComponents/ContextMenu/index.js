@@ -37,26 +37,26 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
 
     return(
         <>
-        <div
-        className={styles.contextMenuWrap}
-        ref={contextMenuRef}
-        style={{
-            top: element ? `${element.bottom}px` : top.menu,
-            left: element ? `${element.left + (element.width/2) - params.width/2}px` :setMenuHorizontal()
-        }}
-    >
-        <div className={styles.wrap}>
-            {!element && tooltip ? <span style={{
-                top: top.tooltip,
-                right: params.width + params.x >= screenWidth ? '20px' : `${params.width - 40}px`,
-                borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
-                borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
-            }}/> : null}
-            {children}
-        </div>
-    </div>
-    <div className={styles.background}></div>
-    </>)
+            <div
+                className={styles.contextMenuWrap}
+                ref={contextMenuRef}
+                style={{
+                    top: element ? `${element.bottom}px` : top.menu,
+                    left: element ? `${element.left + (element.width/2) - params.width/2}px` :setMenuHorizontal()
+                }}
+            >
+                <div className={styles.wrap}>
+                    {!element && tooltip ? <span style={{
+                        top: top.tooltip,
+                        right: params.width + params.x >= screenWidth ? '20px' : `${params.width - 40}px`,
+                        borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
+                        borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
+                    }}/> : null}
+                    {children}
+                </div>
+            </div>
+            <div className={styles.background}></div>
+        </>)
 }
 
 export default ContextMenu;

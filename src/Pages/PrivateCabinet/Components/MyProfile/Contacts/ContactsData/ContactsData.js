@@ -101,43 +101,43 @@ const ContactsData = ({ contact }) => {
                     </div>
 
                     {contact?.socials &&
-                        <div className={styles.infoItem}>
+                    <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Профиль соц. сетей:</span>
-                            <div className={styles.value}>
-                                <ul className={styles.socialsList}>
-                                    {contact?.socials.map((item, index) => (
-                                        <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img src={socialsIcons[item.type]} alt={item.type}/>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className={styles.value}>
+                            <ul className={styles.socialsList}>
+                                {contact?.socials.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.link} className={styles.socialsLink}>
+                                            <img src={socialsIcons[item.type]} alt={item.type}/>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+                    </div>
                     }
 
                     {contact?.messengers &&
-                        <div className={styles.infoItem}>
+                    <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Мессенджеры:</span>
-                            <div className={styles.value}>
-                                <ul className={styles.socialsList}>
-                                    {contact?.messengers.map((item, index) => (
-                                        <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img src={socialsIcons[item.type]} alt={item.type}/>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className={styles.value}>
+                            <ul className={styles.socialsList}>
+                                {contact?.messengers.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.link} className={styles.socialsLink}>
+                                            <img src={socialsIcons[item.type]} alt={item.type}/>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+                    </div>
                     }
 
                 </div>
