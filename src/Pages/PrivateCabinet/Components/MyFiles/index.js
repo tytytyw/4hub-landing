@@ -5,6 +5,7 @@ import List from '../List';
 import FileItem from './FileItem/index';
 import WorkSpace from './WorkSpace/index';
 import { onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
+import CreateFile from '../CreateFile';
 
 const MyFiles = () => {
     const dispatch = useDispatch();
@@ -20,9 +21,11 @@ const MyFiles = () => {
     const [listCollapsed, setListCollapsed] = useState(false);
     const [chosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [blob, setBlob] = useState({file: null, show: false});
-    const [fileLoading] = useState({isLoading: false, percentage: 95, file: null});
-    const [progress] = useState(0);
+    const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
+    const [progress, setProgress] = useState(0);
     useEffect(() => dispatch(onChooseFiles('global/all')), [dispatch]);
+
+
 
     return (
         <div className={styles.workAreaWrap}>
@@ -31,7 +34,7 @@ const MyFiles = () => {
                 src='add-file.svg'
                 setListCollapsed={setListCollapsed}
                 listCollapsed={listCollapsed}
-                onCreate={()=>null}
+                onCreate={() => setBlob({...blob, show: true})}
             >
                 <div className={styles.folderListWrap}>
                     {renderFileBar()}
@@ -46,6 +49,16 @@ const MyFiles = () => {
                 workElementsView={workElementsView}
                 setWorkElementsView={setWorkElementsView}
             />
+            {blob.show && <CreateFile
+                title='Добавление файла'
+                info={chosenFolder}
+                blob={blob}
+                setBlob={setBlob}
+                setFileLoading={setFileLoading}
+                fileLoading={fileLoading}
+                setProgress={setProgress}
+                progress={progress}
+            />}
         </div>
     )
 }
