@@ -10,8 +10,9 @@ import WorkBars from '../../WorkElements/WorkBars';
 import BottomPanel from '../../ButtomPanel';
 import FileBar from '../../WorkElements/FileBar';
 import WorkLines from '../../WorkElements/WorkLines';
-import FileLine from '../../WorkElements/FileLine';
+import FileLine from '../../WorkElements/FileLineShort';
 import WorkBarsPreview from '../../WorkElements/WorkBarsPreview';
+import WorkLinesPreview from '../../WorkElements/WorkLinesPreview';
 import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
@@ -50,6 +51,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
+            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile} hideFileList={true}></WorkLinesPreview> : null}
             <BottomPanel />
         </div>
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>

@@ -4,7 +4,7 @@ import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from "../../../../../generalComponents/Files";
 
-const WorkLinesPreview = ({file, children}) => {
+const WorkLinesPreview = ({file, children, hideFileList}) => {
 
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
@@ -49,7 +49,7 @@ const WorkLinesPreview = ({file, children}) => {
     }
 
     return (<div className={styles.workLinesPreviewWrap}>
-        <div className={styles.fileListWrap}>{children}</div>
+        {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
         <div className={styles.previewFileWrap}>
             {f ? <>
                 <div className={styles.preview}>
