@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './MyProfile.module.sass'
 import uploadIcon from '../../../../assets/PrivateCabinet/upload.svg'
@@ -15,6 +15,8 @@ import TariffPlan from './TariffPlan/TariffPlan'
 import Contacts from './Contacts/Contacts'
 import Programs from './Programs/Programs'
 import SendFriend from './TellFriends/SendFriend/SendFriend'
+import {onGetContacts} from "../../../../Store/actions/PrivateCabinetActions";
+import {useDispatch} from "react-redux"
 
 const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
     <button
@@ -30,225 +32,17 @@ const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
         </span> : null}
     </button>
 )
-const contactList = [
-    {
-        id: 1,
-        image: './assets/PrivateCabinet/avatars/a1.png',
-        name: 'Аедельская Алина Квиталина',
-        email: 'Квиталина@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 2,
-        image: './assets/PrivateCabinet/avatars/a2.png',
-        name: 'Аангуш Ирина Николаевна',
-        email: 'Квиталина@gmail.com',
-        tel: '+355654565555',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-            {type: 'brain', link: '#'},
-        ]
-    },
-    {
-        id: 3,
-        image: './assets/PrivateCabinet/avatars/a3.png',
-        name: 'Аангуш Ирина Николаевна',
-        email: 'Аангуш@gmail.com',
-        tel: '+33333333333333',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 4,
-        image: './assets/PrivateCabinet/avatars/a4.png',
-        name: 'Аангуш Ирина Николаевна',
-        email: 'Николаевна@gmail.com',
-        tel: '+3456777777',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 5,
-        image: './assets/PrivateCabinet/avatars/a1.png',
-        name: 'Бедельская Алина Квиталина',
-        email: 'Квиталина@gmail.com',
-        tel: '+33333333333333',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 6,
-        image: './assets/PrivateCabinet/avatars/a2.png',
-        name: 'Бангуш Ирина Николаевна',
-        email: 'Квиталина@gmail.com',
-        tel: '+35555555555555555',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-            {type: 'brain', link: '#'},
-        ]
-    },
-    {
-        id: 7,
-        image: './assets/PrivateCabinet/avatars/a3.png',
-        name: 'Бангуш Ирина Николаевна',
-        email: 'Бангуш@gmail.com',
-        tel: '+3666666666',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 8,
-        image: './assets/PrivateCabinet/avatars/a4.png',
-        name: 'Бангуш Ирина Николаевна',
-        email: 'Николаевна@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 9,
-        image: './assets/PrivateCabinet/avatars/a1.png',
-        name: 'Ведельская Алина Квиталина',
-        email: 'Квиталина@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 10,
-        image: './assets/PrivateCabinet/avatars/a2.png',
-        name: 'Вангуш Ирина Николаевна',
-        email: 'Квиталина@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-            {type: 'brain', link: '#'},
-        ]
-    },
-    {
-        id: 11,
-        image: './assets/PrivateCabinet/avatars/a3.png',
-        name: 'Вангуш Ирина Николаевна',
-        email: 'Вангуш@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-    {
-        id: 12,
-        image: './assets/PrivateCabinet/avatars/a4.png',
-        name: 'Вангуш Ирина Николаевна',
-        email: 'Николаевна@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },
-]
 
 const MyProfile = () => {
 
     const [pageOption, setPageOption] = useState('personal_data')
     const [popup, setPopup] = useState(false)
 
-    const [contacts, setContacts] = useState(contactList)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(onGetContacts())
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className={styles.wrapper}>
@@ -306,15 +100,13 @@ const MyProfile = () => {
                 {pageOption === 'personal_data' && <UserForm/>}
                 {pageOption === 'support' && <Support/>}
                 {pageOption === 'tariff_plan' && <TariffPlan/>}
-                {pageOption === 'contacts' && <Contacts contacts={contacts} setContacts={setContacts}/>}
+                {pageOption === 'contacts' && <Contacts/>}
                 {pageOption === 'programs' && <Programs/>}
 
             </div>
 
             {popup &&
             <SendFriend
-                setContacts={setContacts}
-                data={contacts}
                 set={setPopup}
             />}
 
