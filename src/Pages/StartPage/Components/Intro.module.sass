@@ -3,52 +3,57 @@
   flex-direction: column
   align-items: center
   justify-content: flex-start
-  margin: 5.3vw 0 0 0
+  margin: 32px 0 0 0
   .hubIcon
-    width: 11.5vw
-    margin-bottom: 3.5vw
+    width: 150px
+    max-width: 170px
+    margin-bottom: 35px
   .title
-    font-size: 2.2vw
-    margin: 0 0 2.1vw 0
+    font-size: 32px
+    margin: 0 0 30px 0
+    font-family: "SF Pro Light", sans-serif
   .description
     text-align: center
-    font-size: 1vw
-    width: 20.5vw
-    line-height: 1.5vw
-    margin: 0 0 3.4vw 0
+    font-size: 14px
+    width: 295px
+    max-width: 300px
+    line-height: 22px
+    margin: 0 0 50px 0
   .siteOptionWrapper
     display: flex
     color: black
-    margin: 0 0 3.5vw 0
+    margin: 0 0 50px 0
     .siteOption
       display: flex
       flex-direction: column
       align-items: center
-      width: 19.3vw
-      height: 18.9vw
+      width: 277px
+      max-width: 300px
+      height: 272px
+      max-height: 298px
       min-height: max-content
       background: white
-      margin: 0 1vw 0 1vw
+      margin: 0 12px 0 12px
       border-radius: 5px
       h3
         font-size: 0.9vw
         letter-spacing: 0.5px
-        margin: 1.9vw 0
+        margin: 30px 0
       span
-        font-size: 0.75vw
-        line-height: 1.3vw
+        font-size: 10px
+        line-height: 18px
         text-align: center
-        width: 15vw
-        margin: 0 0 2.8vw 0
+        width: 80%
+        margin: 0 0 41px 0
       div
-        color: black
+        color: white
         font-size: 0.9vw
         background: #4086F1
-        padding: 0.9vw 6vw
+        padding: 11px 80px
         border-radius: 5px
         cursor: pointer
       div:hover
-        color: white
+        color: black
         transition: color 0.2s ease-in
   .download:hover
     background: rgb(203, 219, 241)
@@ -58,12 +63,59 @@
     justify-content: center
     align-items: center
     color: black
-    padding: 0.8vw 4.2vw
+    padding: 10px 62px
     border-radius: 5px
     background: white
     cursor: pointer
     .downloadIcon
-      margin: 0 0.9vw 0 0.5vw
+      margin: 0 12px 0 6px
     span
-      font-size: 0.9vw
+      font-size: 13px
+      letter-spacing: 0.6px
+@media (max-width: 1400px)
+  .main
+    margin: 0
+    .hubIcon
+      width: 10vw
+      margin-bottom: 2vw
+    .title
+      font-size: 1.8vw
+    .description
+      text-align: center
+      font-size: 12px
+      width: 250px
+      line-height: 20px
+      margin: 0 0 25px 0
+    .siteOptionWrapper
+      margin: 0 0 30px 0
+      .siteOption
+        width: 230px
+        height: 200px
+        min-height: max-content
+        background: white
+        margin: 0 1vw 0 1vw
+        border-radius: 5px
+        h3
+          font-size: 10px
+          letter-spacing: 0.5px
+          margin: 19px 0
+        span
+          font-size: 9px
+          line-height: 14px
+          text-align: center
+          width: 88%
+          margin: 0 0 25px 0
+        div
+          color: white
+          font-size: 12px
+          background: #4086F1
+          padding: 10px 65px
+          border-radius: 5px
+          cursor: pointer
+  .download
+    padding: 10px 60px
+    .downloadIcon
+      margin: 0 10px 0 6px
+    span
+      font-size: 11px
       letter-spacing: 0.6px

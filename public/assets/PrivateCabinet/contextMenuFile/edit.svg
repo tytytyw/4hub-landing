@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>edit</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="7.1-Мои-файлы-(вид-блоки)" transform="translate(-691.000000, -448.000000)" fill="#4086F1" fill-rule="nonzero">
+            <g id="Group-18" transform="translate(675.000000, 279.000000)">
+                <g id="edit" transform="translate(16.500000, 169.500000)">
+                    <polygon id="Path" points="1.44889589 10.7285577 10.1973335 1.94475083 13.0187684 4.77751682 4.27033076 13.5613237"></polygon>
+                    <polygon id="Path" points="0.0214440687 14.9945082 3.13941633 14.1274069 0.885076957 11.864014"></polygon>
+                    <path d="M13.7988466,0.455874409 C13.2134954,-0.130417694 12.2658397,-0.130417694 11.6804884,0.455874409 L11.0450512,1.09386361 L13.8664862,3.9266296 L14.5019234,3.2886404 C15.0861043,2.70093841 15.0861043,1.74947678 14.5019234,1.16177478 L13.7988466,0.455874409 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

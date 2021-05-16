@@ -1,0 +1,65 @@
+.accordion
+  display: flex
+  flex-direction: column
+  padding: 0 20px
+  list-style: none
+  max-width: 800px
+  margin: 0 auto
+
+  .item
+    padding: 20px 0
+    border-bottom: 1px solid #DFDFDF
+    &:nth-child(1)
+      border-top: 1px solid #DFDFDF
+
+  .content
+    height: 0
+    overflow: hidden
+  .toggled
+    height: auto
+
+  .answer
+    padding-top: 20px
+
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    position: relative
+
+    .question
+      margin: 0
+      font-size: 15px
+      font-family: 'SF Pro Light'
+      font-weight: 500
+      line-height: 20px
+      color: #2B353E
+
+    .openBtn
+      cursor: pointer
+      width: 18px
+      height: 18px
+      position: relative
+      &:after
+        content: ''
+        display: block
+        width: 18px
+        height: 2px
+        transform: translateY(-9px)
+        background: #1991EB
+      &:before
+        content: ''
+        display: block
+        transform: translateX(8px)
+        width: 2px
+        height: 18px
+        background: transparent
+
+    .plusBtn
+      &:before
+        content: ''
+        display: block
+        transform: translateX(8px)
+        width: 2px
+        height: 18px
+        background: #1991EB

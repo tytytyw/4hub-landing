@@ -1,0 +1,30 @@
+.buttomPanelWrap:hover
+  transform: translateY(0)
+  transition: transform 0.2s ease-in-out
+.buttomPanelWrap
+  transform: translateY(35px)
+  transition: transform 0.2s ease-in-out
+  width: 800px
+  height: 53px
+  position: fixed
+  z-index: 10
+  bottom: 0
+  left: calc(50% - 280px)
+  border-top-left-radius: 5px
+  border-top-right-radius: 5px
+  display: flex
+  flex-direction: column
+  align-items: center
+  background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 99.24%)
+  .curtain
+    width: 35px
+    height: 3px
+    border-radius: 10px
+    background: #e0e0e0
+    margin: 3px 0 14px 0
+  .icons
+    display: flex
+    width: 93%
+    justify-content: space-around
+    img
+      cursor: pointer

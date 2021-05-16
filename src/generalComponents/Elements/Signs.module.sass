@@ -1,0 +1,42 @@
+.signsWrap
+  display: flex
+  flex-direction: column
+  width: 78%
+  margin: 0 0 25px 0
+  span
+    font-size: 13px
+    margin: 0 0 8px 0
+  div
+    display: flex
+    justify-content: space-between
+    width: 87%
+    .sign
+      display: flex
+      align-items: center
+      justify-content: center
+      cursor: pointer
+      border: 1px solid white
+      position: relative
+    .sign:hover:before
+      content: ''
+      position: absolute
+      width: 22px
+      height: 22px
+      background: rgba(1, 1, 1, 0.2)
+      border-radius: 5px
+    .signChosen
+      position: relative
+    .signChosen:before
+      content: ''
+      position: absolute
+      width: 22px
+      height: 22px
+      border: 1px solid grey
+      border-radius: 5px
+@media (max-width: 1420px)
+  .signsWrap
+    margin: 0 0 15px 0
+    div
+      .sign
+        width: 10px
+        height: 10px

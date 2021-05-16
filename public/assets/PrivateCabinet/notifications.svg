@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="22px" viewBox="0 0 19 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5-Файлообменник-стартовый-экран" transform="translate(-1208.000000, -35.000000)" fill="#CFCFCF" fill-rule="nonzero">
+            <g id="notifications-button" transform="translate(1208.250000, 35.250000)">
+                <path d="M9,21 C10.1633641,21 11.1152074,20.055 11.1152074,18.9 L6.88479263,18.9 C6.88479263,20.055 7.83663594,21 9,21 Z M15.874424,14.7 L15.874424,8.925 C15.874424,5.67 13.6534562,3.045 10.5864055,2.31 L10.5864055,1.575 C10.5864055,0.735 9.84608295,0 9,0 C8.15391705,0 7.41359447,0.735 7.41359447,1.575 L7.41359447,2.31 C4.34654378,3.045 2.12557604,5.67 2.12557604,8.925 L2.12557604,14.7 L0.0103686636,16.8 L0.0103686636,17.85 L17.9896313,17.85 L17.9896313,16.8 L15.874424,14.7 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

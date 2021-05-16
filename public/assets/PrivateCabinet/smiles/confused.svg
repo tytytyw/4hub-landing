@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>confused</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,11-Поп-ап-новая-папка" transform="translate(-582.000000, -663.000000)" fill-rule="nonzero">
+            <g id="Новая-папка" transform="translate(456.000000, 104.250000)">
+                <g id="Group-8" transform="translate(58.500000, 559.500000)">
+                    <g id="confused" transform="translate(67.500000, 0.000000)">
+                        <circle id="Oval" fill="#FFC10E" cx="9.74860127" cy="9.74860127" r="9.74860127"></circle>
+                        <g id="Group" transform="translate(3.949367, 4.854430)" fill="#333333">
+                            <circle id="Oval" cx="2.83601582" cy="1.53165506" r="1.53103797"></circle>
+                            <circle id="Oval" cx="8.62541772" cy="1.53165506" r="1.53103797"></circle>
+                            <path d="M0.381689873,8.58086392 C3.9355443,8.58086392 7.48956329,8.58086392 11.0434177,8.58086392 C11.5398449,8.58086392 11.5398449,7.81118987 11.0434177,7.81118987 C7.48956329,7.81118987 3.9355443,7.81118987 0.381689873,7.81118987 C-0.114737342,7.81118987 -0.114737342,8.58086392 0.381689873,8.58086392 L0.381689873,8.58086392 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>smiling</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,11-Поп-ап-новая-папка" transform="translate(-548.000000, -663.000000)" fill-rule="nonzero">
+            <g id="Новая-папка" transform="translate(456.000000, 104.250000)">
+                <g id="Group-8" transform="translate(58.500000, 559.500000)">
+                    <g id="smiling" transform="translate(33.750000, 0.000000)">
+                        <circle id="Oval" fill="#FFC10E" cx="9.74864241" cy="9.74864241" r="9.74864241"></circle>
+                        <g id="Group" transform="translate(4.648734, 4.854430)" fill="#333333">
+                            <circle id="Oval" cx="2.13668987" cy="1.5316962" r="1.53103797"></circle>
+                            <circle id="Oval" cx="7.92617405" cy="1.5316962" r="1.53103797"></circle>
+                            <path d="M9.4725981,8.18103165 C7.03382278,10.6629209 3.10987975,10.6433797 0.691427215,8.14408861 C0.345857595,7.7867943 -0.197838608,8.33172468 0.147278481,8.68823734 C2.85296519,11.4844715 7.2909019,11.499693 10.016788,8.72518038 C10.3647848,8.37097152 9.82080063,7.82653481 9.4725981,8.18103165 L9.4725981,8.18103165 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,177 @@
+@keyframes show
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+.main
+  display: flex
+  flex-direction: column
+  align-items: center
+  color: #777777
+  animation: show 0.3s linear
+  .hubIcon
+    min-width: 165px
+    width: 166px
+    max-width: 233px
+    margin: 39px 0 55px 0
+    cursor: pointer
+  .enterWrap
+    width: 392px
+    height: 404px
+    background: white
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-direction: column
+    border-radius: 5px
+    position: relative
+    .cross
+      position: absolute
+      top: 16px
+      right: 7px
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+    .title
+      font-size: 19px
+      margin: 25px 0px 18px 0
+    .inputWrap
+      display: flex
+      flex-direction: column
+      width: 91%
+      position: relative
+      .inputName
+        font-size: 11px
+        letter-spacing: 0.4px
+        margin: 0 0 12px 0
+        span
+          color: red
+      .inputField
+        border: 1px solid #bfbfbf
+        height: 29px
+        border-radius: 5px
+        background: #FAFAFA
+        padding: 0 40px 0 18px
+      .redBorder
+        border: 1px solid red
+      .eye
+        position: absolute
+        right: 5px
+        top: 32px
+        cursor: pointer
+        width: 18px
+      .invisible
+        position: absolute
+        right: 5px
+        top: 32px
+        cursor: pointer
+        width: 18px
+    .marginWrap
+      margin: 0 0 15px 0
+    .remindPassword
+      display: flex
+      justify-content: flex-end
+      color: #b5b5b5
+      font-size: 10px
+      letter-spacing: 0.1px
+      width: 91%
+      margin: 10px 0 19px 0
+      cursor: pointer
+    .remindPassword:hover
+      color: #518bf3
+    .button
+      display: flex
+      justify-content: center
+      align-items: center
+      background: #4086F1
+      border-radius: 5px
+      width: 127px
+      height: 35px
+      color: white
+      font-size: 12px
+      cursor: pointer
+      transition: background 0.2s ease
+    .button:hover
+      background: #3979db
+      transition: background 0.2s ease
+    .orSpan
+      margin: 9px 0 10px 0
+    .socialNetworks
+      display: flex
+      width: 64%
+      flex-wrap: wrap
+      margin: 0 0 15px 0
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        background: black
+        width: 35px
+        height: 35px
+        margin: 0 8px 7px 0
+        border-radius: 50%
+        cursor: pointer
+      div:last-child
+        margin-right: 0
+      .facebook
+        background: #3B5998
+      .facebook:hover
+        background: #36538f
+      .twitter
+        background: #76A9EA
+      .twitter:hover
+        background: #6b9ad6
+      .google
+        background: #DC4E41
+      .google:hover
+        background: #c8463b
+      .linkedIn
+        background: #007AB9
+      .linkedIn:hover
+        background: #0073ac
+      .vk
+        background: #4D76A1
+      .vk:hover
+        background: #43688f
+      .pinterest
+        background: #C92027
+      .pinterest:hover
+        background: #ba1d24
+    .registration
+      font-size: 11px
+      letter-spacing: 0.2px
+      span
+        color: #477DE1
+        cursor: pointer
+      span:hover
+        color: #518bf3
+@media (max-width: 1420px)
+  .main
+    .hubIcon
+      width: 135px
+      margin: 0 0 18px 0
+    .enterWrap
+      width: 392px
+      height: 404px
+      .title
+        font-size: 16px
+        margin: 15px 0 13px 0
+    .enterWrap
+      .remindPassword
+        margin: 14px 0 13px 0
+      .socialNetworks
+        margin: 0 0 5px 0
+        div:first-child img
+            width: 11px

@@ -2,7 +2,7 @@
   "name": "4hab-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://fs.mh.net.ua/",
+  "proxy": "http://fs2.mh.net.ua/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -13,6 +13,7 @@
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.1",
     "react-moment": "^1.1.1",
     "react-redux": "^7.2.2",
@@ -45,6 +46,24 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6"
+  },
+  "jest": {
+    "verbose": true,
+    "clearMocks": false,
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)?$",
+    "setupFilesAfterEnv": [
+      "<rootDir>/SetupTests.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(node_modules|.vscode)/"
+    ],
+    "collectCoverageFrom": [
+      "src/components/**/*.{js|jsx}"
     ]
   }
 }

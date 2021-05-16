@@ -3,23 +3,73 @@
   flex-direction: column
   align-items: center
   justify-content: flex-start
-  margin: 4.3vw 0 0 0
+  margin: 32px 0 0 0
   .hubIcon
-    width: 11.5vw
-    margin-bottom: 4.2vw
+    width: 157px
+    margin-bottom: 42px
     cursor: pointer
+.uploadWrapFile
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  background: white
+  width: 240px
+  height: 240px
+  border-radius: 21px
+  position: relative
+  cursor: default
+  margin: 0 0 35px 0
+  .cross
+    position: absolute
+    top: 20px
+    right: 15px
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .fileWrap
+    display: flex
+    justify-content: flex-end
+    width: 38%
+    height: 44%
+    margin: 33px 0 30px 0
+    position: relative
+  .fileName
+    color: black
+    width: 80%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    text-align: center
+    margin: 0 0 23px 0
+  .fileSize
+    font-size: 11px
+    color: #a7a4a4
+    width: 80%
+    text-align: center
 .uploadWrap
   display: flex
   flex-direction: column
   justify-content: flex-start
   align-items: center
   border: 2px dashed white
-  width: 18vw
-  height: 18vw
+  width: 240px
+  height: 240px
   border-radius: 21px
   position: relative
   cursor: pointer
-  margin: 0 0 5.2vw 0
+  margin: 0 0 50px 0
   .inputFile
     width: 100%
     height: 100%
@@ -29,94 +79,120 @@
     opacity: 0
     cursor: pointer
   img
-    margin: 4.8vw 0 1.8vw 0
+    margin: 60px 0 30px 0
   span
     text-align: center
     width: 85%
-    font-size: 1vw
-    line-height: 1.4vw
+    font-size: 13px
+    line-height: 20px
+    font-family: "SF Pro Light", sans-serif
     span
       text-decoration: underline
       font-weight: bold
-      font-size: 1.1vw
+      font-size: 14px
 .fieldsWrap
   display: flex
   color: #a7a4a4
-  width: 33.8vw
+  width: 486px
   flex-wrap: wrap
-  margin: 0 0 2.2vw 0
-  .fields
+  margin: 0 0 33px 0
+  .fieldWrapper:nth-child(2n)
+    margin-right: 0
+  .fieldWrapper
     display: flex
-    align-items: center
-    justify-content: space-between
-    padding: 0 1vw
-    width: 41.1%
-    height: 2.9vw
-    font-size: 0.9vw
-    background: white
-    border-radius: 5px
-    margin: 0 0.5vw 1vw 0.5vw
-    cursor: default
-    input
-      height: 94%
-      width: 75%
+    flex-direction: column
+    align-items: flex-start
+    width: 47%
+    margin: 0 8px 8px 8px
+    span
+      color: white
+      font-size: 14px
+      margin: 0 0 8px 0
+    .fields
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 0 12px
+      width: 100%
+      height: 42px
+      font-size: 13px
+      background: white
+      border-radius: 5px
+      cursor: default
+      box-sizing: border-box
+      input
+        height: 70%
+        width: 65%
+        max-width: 65%
+        border: none
+        outline: none
+        color: black
+        letter-spacing: 0.1px
+      input::placeholder
+        font-family: 'SF Pro Medium', sans-serif
+        color: #a7a4a4
+        font-size: 13px
+        letter-spacing: 0.1px
+      .eyeIcon
+        width: 8%
+        cursor: pointer
+      .invisible
+        width: 8%
+        cursor: pointer
+      .eyeIcon path
+        transition: fill 0.2s ease
+      .eyeIconShow path
+        transition: fill 0.2s ease
+        fill: black
+    .choose
+      cursor: pointer
+    .switcher
+      width: 29px
+      height: 15px
+      background: white
+      border: 1px solid #D1D1D1
+      border-radius: 10px
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      transition: background 0.1s ease-in-out
+      cursor: pointer
+    .switcherActive
+      width: 29px
+      height: 15px
+      border: 1px solid #D1D1D1
+      border-radius: 10px
+      display: flex
+      background: white
+      align-items: center
+      justify-content: flex-start
+      transition: background 0.1s ease-in-out
+      cursor: pointer
+    .switch
+      width: 13px
+      height: 13px
+      background: #D1D1D1
+      border-radius: 50%
+      transform: translateX(9%)
+      transition: transform 0.1s ease-in-out
+    .switchActive
+      width: 13px
+      height: 13px
+      background: #39B31E
+      border-radius: 50%
+      transform: translateX(115%)
+      transition: transform 0.1s ease-in-out
+    .emailField
+      width: 100%
+      height: 42px
+      font-size: 13px
+      background: white
       border: none
+      border-radius: 5px
+      padding: 0 14px
+      margin: 0 8px 13px 0
       outline: none
-      color: black
-      letter-spacing: 0.1px
-    input::placeholder
-      font-family: 'SF Pro Medium', sans-serif
-      color: #a7a4a4
-      font-size: 0.9vw
-      letter-spacing: 0.1px
-  .choose
-    cursor: pointer
-  .switcher
-    width: 29px
-    height: 15px
-    background: #EEEEEE
-    border: 1px solid #D1D1D1
-    border-radius: 10px
-    display: flex
-    align-items: center
-    justify-content: flex-start
-    transition: background 0.1s ease-in-out
-    cursor: pointer
-  .switcherActive
-    width: 29px
-    height: 15px
-    border: 1px solid #D1D1D1
-    border-radius: 10px
-    display: flex
-    background: white
-    align-items: center
-    justify-content: flex-start
-    transition: background 0.1s ease-in-out
-    cursor: pointer
-  .switch
-    width: 13px
-    height: 13px
-    background: #D1D1D1
-    border-radius: 50%
-    transform: translateX(9%)
-    transition: transform 0.1s ease-in-out
-  .switchActive
-    width: 13px
-    height: 13px
-    background: #7f7f7f
-    border-radius: 50%
-    transform: translateX(115%)
-    transition: transform 0.1s ease-in-out
-  .emailField
-    width: 41.1%
-    height: 2.9vw
-    font-size: 0.9vw
-    background: white
-    border: none
-    border-radius: 5px
-    padding: 0 1vw
-    margin: 0 0.5vw 1vw 0.5vw
-    outline: none
+      box-sizing: border-box
 .emailField::-webkit-input-placeholder
   font-family: 'SF Pro Medium', sans-serif
   color: #a7a4a4
@@ -135,12 +211,48 @@
   letter-spacing: 0.1px
 .submitButton
   background: #39B31E
-  font-size: 0.9vw
+  font-size: 13px
   letter-spacing: 0.4px
-  padding: 0.8vw 3vw
+  padding: 12px 43px
   border-radius: 5px
   box-sizing: border-box
   cursor: pointer
 .submitButton:active
   background: #335cb6
   transition: background 0.2s ease
+@media (max-width: 1420px)
+  .sendFile
+    margin: 0 0 0 0
+    .hubIcon
+      width: 137px
+      margin-bottom: 20px
+  .uploadWrapFile
+    width: 210px
+    height: 210px
+    margin: 0 0 20px 0
+    .fileWrap
+      margin: 33px 0 20px 0
+    .fileName
+      font-size: 13px
+      margin: 0 0 13px 0
+  .uploadWrap
+    width: 210px
+    height: 210px
+    margin: 0 0 20px 0
+    img
+      width: 65px
+      margin: 50px 0 20px 0
+    span
+      text-align: center
+      width: 85%
+      font-size: 13px
+      line-height: 20px
+  .fieldsWrap
+    margin: 0
+    .fieldWrapper
+      span
+        font-size: 12px
+      .fields
+        height: 35px
+      .emailField
+        height: 35px

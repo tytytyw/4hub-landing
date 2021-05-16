@@ -1,0 +1,137 @@
+@keyframes show
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+@keyframes leftPlane
+  0%
+    opacity: 0
+    top: 100%
+    left: 50%
+  100%
+    opacity: 1
+    top: 32px
+    left: 2px
+
+@keyframes rightPlane
+  0%
+    opacity: 0
+    top: 100%
+    right: 50%
+  100%
+    opacity: 1
+    top: 4px
+    right: 0
+
+@keyframes envelopeRotate
+  0%
+    opacity: 0
+    top: 75px
+    width: 0
+  100%
+    opacity: 1
+    top: 25px
+    width: 110px
+    transform: rotateZ(1440deg)
+
+.main
+  display: flex
+  flex-direction: column
+  align-items: center
+  color: #777777
+  animation: show 0.3s linear
+  .hubIcon
+    min-width: 165px
+    width: 166px
+    max-width: 233px
+    margin: 30px 0 60px 0
+    cursor: pointer
+  .successWrap
+    width: 458px
+    height: 485px
+    background: white
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-direction: column
+    border-radius: 5px
+    position: relative
+    .cross
+      position: absolute
+      top: 16px
+      right: 7px
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 16px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+    .title
+      font-size: 19px
+      letter-spacing: 0.2px
+      margin: 27px 0 18px 0
+    .imageWrap
+      position: relative
+      display: flex
+      justify-content: center
+      margin: 20px 0 30px 0
+      .envelope
+        position: absolute
+        top: 25px
+        width: 110px
+        animation: envelopeRotate 1s ease-in-out
+      .planeLeft
+        position: absolute
+        top: 32px
+        left: 2px
+        animation: leftPlane 1s ease-in-out
+      .planeRight
+        position: absolute
+        top: 4px
+        right: 0
+        animation: rightPlane 1s ease-in-out
+    .info
+      font-size: 11px
+      line-height: 22px
+      letter-spacing: 0.4px
+      text-align: center
+      width: 83%
+      margin: 0 0 47px 0
+    .repeat
+      font-size: 11px
+      letter-spacing: 0.2px
+      span
+        color: #477DE1
+        cursor: pointer
+      span:hover
+        color: #518bf3
+@media (max-width: 1420px)
+  .main
+    .hubIcon
+      min-width: 146px
+      width: 146px
+      margin: 5px 0 20px 0
+      cursor: pointer
+    .successWrap
+      width: 398px
+      height: 415px
+      .title
+        font-size: 16px
+        margin: 17px 0 10px 0
+      .imageWrap
+        margin: 10px 0 25px 0
+      .info
+        font-size: 11px
+        line-height: 16px
+        letter-spacing: 0.3px
+        width: 92%
+        margin: 0 0 37px 0

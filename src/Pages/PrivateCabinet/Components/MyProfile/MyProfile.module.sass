@@ -1,0 +1,95 @@
+.wrapper
+  height: 100%
+
+.content
+  height: 100%
+  overflow-x: hidden
+  overflow-y: scroll
+  max-height: calc(100% - 90px)
+
+.content::-webkit-scrollbar-track
+  background: #0A3AAB
+.content::-webkit-scrollbar-track
+  -webkit-box-shadow: none
+  background-color: #F5F5F5
+.content::-webkit-scrollbar
+  width: 12px
+  background-color: #FFFFFF
+.content::-webkit-scrollbar-thumb
+  background-color: #4086F1
+
+.buttons
+  padding: 16px 20px
+  border-bottom: 1px solid #DFDFDF
+  background: #FAFAFA
+  .buttonsList
+    display: flex
+    justify-content: flex-start
+    align-items: center
+  .buttonsRight
+    margin-left: auto
+
+  .button
+    display: block
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    
+    cursor: pointer
+    width: 171px
+    height: 34px
+    border: none
+    background: #ffffff
+    border-radius: 3px
+    padding: 0 10px
+    font-family: inherit
+    margin: 0 5px
+    color: black
+    font-size: 12px
+    box-shadow: 0 2px 4px #dedede
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+  .button:hover
+    background: #4086F1
+    color: white
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+
+  .active
+    background: #4086F1
+    color: white
+
+  .button:hover
+    background: #4086F1
+    color: #fff
+    .buttonIcon svg
+      stroke: #fff
+      fill: #fff
+
+  .buttonIcon
+    margin-left: 10px
+
+  .buttonIcon svg
+    transition: all 0.2s
+    stroke: #4086F1
+
+.header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  height: 90px
+  border-bottom: 1px solid #e5e5e5
+  box-sizing: border-box
+  padding: 0 39px 0 17px
+  .infoHeader
+    display: flex
+    justify-content: space-between
+    align-items: center
+    min-width: 340px
+    width: 400px
+    max-width: 400px
+
+@media (max-width: 1420px)
+  .workSpaceWrap
+    .header
+      .infoHeader
+        min-width: 340px
+        width: 340px

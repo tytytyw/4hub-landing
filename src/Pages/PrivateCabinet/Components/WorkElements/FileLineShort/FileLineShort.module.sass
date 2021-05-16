@@ -1,0 +1,65 @@
+.fileLineShortWrap:hover
+  background: rgba(64, 134, 241, .1)
+.fileLineShortWrap:hover .fileWrap:after
+  content: ''
+  width: 5px
+  height: 5px
+  top: 0
+  right: 0
+  position: absolute
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.fileChosen
+  background: rgba(64, 134, 241, .1)
+.fileLineShortWrap
+  display: flex
+  justify-content: space-between
+  width: 100%
+  height: 56px
+  min-height: 56px
+  align-items: center
+  cursor: default
+  .infoWrap
+    display: flex
+    align-items: center
+    .fileWrap
+      position: relative
+      height: 25px
+      min-height: 25px
+      width: 22px
+      min-width: 22px
+      margin: 0 15px 0 15px
+    .fileName
+      font-size: 12px
+      width: 80%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      font-family: "SF Pro Light", sans-serif
+  .menuWrap
+    display: flex
+    width: 20px
+    height: 20px
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    margin: 0 10px 0 0
+    .menu
+      position: relative
+      width: 3px
+      height: 3px
+      background: #c1c0c0
+      transition: background 0.2s ease
+    .menu::before, .menu::after
+      content: ''
+      position: absolute
+      width: 3px
+      height: 3px
+      background: #c1c0c0
+      transition: background 0.2s ease
+    .menu::before
+      transform: translateY(8px)
+    .menu::after
+      transform: translateY(-8px)
+  .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
+    background: #477DE1
+    transition: background 0.2s ease

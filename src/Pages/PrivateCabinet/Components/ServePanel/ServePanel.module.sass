@@ -1,0 +1,221 @@
+.servePanelWrap
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 100%
+  height: 55px
+  border-bottom: 1px solid #e5e5e5
+  box-sizing: border-box
+  padding: 0 20px
+  font-family: "SF Pro Light", sans-serif
+  .groupStart
+    display: flex
+    .viewPanel
+      display: flex
+      box-shadow: 0 2px 4px #dedede
+      border-radius: 3px
+      overflow: hidden
+      margin: 0 19px 0 0
+      .iconViewChosen
+        background: #4086F1
+        padding: 5px 14px
+        cursor: pointer
+      .iconView
+        position: relative
+        padding: 5px 14px
+        cursor: pointer
+        transition: background 0.2s ease-in-out
+      .iconView:after
+        content: ''
+        position: absolute
+        right: 0
+        width: 1px
+        height: 65%
+        background: #e5e5e5
+      .iconView:hover:after
+        content: ''
+        position: absolute
+        right: 0
+        width: 0
+        height: 0
+        background: none
+      .iconView:last-child:after
+        content: ''
+        position: absolute
+        right: 0
+        width: 0
+        height: 0
+        background: none
+    .filterPanel
+      display: flex
+      .iconView
+        display: flex
+        align-items: center
+        justify-content: space-around
+        position: relative
+        border-radius: 3px
+        width: 40px
+        height: 27px
+        overflow: hidden
+        cursor: pointer
+        transition: background 0.2s ease-in-out
+        box-shadow: 0 2px 4px #dedede
+        margin: 0 13px 0 0
+        .iconSVG
+          margin: 1px 0 0 4px
+        div
+          width: 5px
+          height: 5px
+          border-bottom: 1px solid #e5e5e5
+          border-right: 1px solid #e5e5e5
+          transform: rotateZ(45deg)
+      .iconView:hover div
+        border-bottom: 1px solid white
+        border-right: 1px solid white
+      .chooseButton
+        display: flex
+        justify-content: center
+        align-items: center
+        box-shadow: 0 2px 4px #dedede
+        border-radius: 3px
+        width: 100px
+        height: 26px
+        color: black
+        font-size: 12px
+        cursor: pointer
+        overflow: hidden
+        box-shadow: 0 2px 4px #dedede
+        transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+      .chooseButton:hover
+        background: #4086F1
+        color: white
+        transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+  .groupEnd
+    display: flex
+    .buttons
+      display: flex
+      margin: 0 30px 0 0
+      .createButton
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        box-shadow: 0 2px 4px #dedede
+        border-radius: 3px
+        width: 110px
+        height: 26px
+        color: black
+        font-size: 12px
+        cursor: pointer
+        overflow: hidden
+        box-shadow: 0 2px 4px #dedede
+        transition: background 0.2s ease-in-out
+        margin: 0 10px 0 0
+        span
+          margin: 0 10px 0 30px
+        div
+          width: 5px
+          height: 5px
+          border-bottom: 1px solid #888888
+          border-right: 1px solid #888888
+          transform: rotateZ(45deg)
+      .createButton:hover
+        color: white
+        background: #4086F1
+        transition: background 0.2s ease-in-out
+      .createButton:hover div
+        border-bottom: 1px solid white
+        border-right: 1px solid white
+      .downloadButton
+        display: flex
+        justify-content: center
+        align-items: center
+        box-shadow: 0 2px 4px #dedede
+        border-radius: 3px
+        width: 110px
+        height: 26px
+        background: #4086F1
+        color: white
+        font-size: 12px
+        cursor: pointer
+        overflow: hidden
+        box-shadow: 0 2px 4px #dedede
+        transition: background 0.2s ease-in-out
+      .downloadButton:hover
+        background: #336dc4
+        transition: background 0.2s ease-in-out
+    .iconButtons
+      display: flex
+      .iconDisabled
+        display: flex
+        align-items: center
+        justify-content: space-around
+        position: relative
+        border-radius: 3px
+        width: 40px
+        height: 27px
+        overflow: hidden
+        cursor: default
+        transition: background 0.2s ease-in-out
+        box-shadow: 0 2px 4px #dedede
+        margin: 0 13px 0 0
+      .iconView:hover .iconShare path
+        fill: #ffffff
+      .iconView
+        display: flex
+        align-items: center
+        justify-content: space-around
+        position: relative
+        border-radius: 3px
+        width: 40px
+        height: 27px
+        overflow: hidden
+        cursor: pointer
+        transition: background 0.2s ease-in-out
+        box-shadow: 0 2px 4px #dedede
+        margin: 0 13px 0 0
+        .iconSVG
+          margin: 1px 0 0 4px
+        .iconShare path
+          fill: #4086F1
+        .iconTrash
+          margin: 1px 0 0 4px
+        .iconTrash path
+          fill: rgb(215, 36, 25)
+.iconView:hover
+  background: #4086F1
+  transition: background 0.2s ease-in-out
+.iconView rect
+  fill: #ababab
+  transition: fill 0.2s ease-in-out
+.iconView path
+  fill: #ababab
+  transition: fill 0.2s ease-in-out
+.iconView:hover rect
+  fill: white
+  transition: fill 0.2s ease-in-out
+.iconView:hover path
+  fill: white
+  transition: fill 0.2s ease-in-out
+.iconViewChosen rect
+  fill: white
+.iconViewChosen path
+  fill: white
+@media (max-width: 1366px)
+  .servePanelWrap
+    .groupStart
+      .viewPanel
+        .iconView
+          padding: 5px 10px
+      .filterPanel
+        .chooseButton
+          width: 75px
+    .groupEnd
+      .buttons
+        .createButton
+          width: 90px
+          span
+            margin: 0 10px 0 15px
+        .downloadButton
+          width: 90px
+
+
