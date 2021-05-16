@@ -106,7 +106,7 @@ const MyFolders = ({setItem}) => {
             />}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
-                title='Создайте пароль для Сейфа с паролями'
+                title='Создайте пароль для сейфа'
             />}
         </div>
     )
