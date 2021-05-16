@@ -1,0 +1,70 @@
+.sendSuccess
+  width: 438px
+  height: 390px
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  flex-direction: column
+  position: relative
+  animation: showPopup 0.2s ease-in-out
+  .cross
+    position: absolute
+    top: 16px
+    right: 7px
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .title
+    font-size: 19px
+    letter-spacing: 0.2px
+    margin: 27px 0 18px 0
+  .text
+    font-size: 12px
+    line-height: 21px
+    color: #4F555B
+    width: 300px
+    margin: 0 auto 53px auto
+    text-align: center
+  .imageWrap
+    position: relative
+    display: flex
+    justify-content: center
+    margin: 20px 0 40px 0
+    .envelope
+      position: absolute
+      top: 25px
+      width: 110px
+      animation: envelopeRotate 1s ease-in-out
+    .planeLeft
+      position: absolute
+      top: 32px
+      left: 2px
+      animation: leftPlane 1s ease-in-out
+    .planeRight
+      position: absolute
+      top: 4px
+      right: 0
+      animation: rightPlane 1s ease-in-out
+  .closeButton
+    background: #4086F1
+    font-size: 13px
+    letter-spacing: 0.4px
+    padding: 12px 43px
+    border-radius: 5px
+    box-sizing: border-box
+    cursor: pointer
+    color: white
+  .closeButton:active
+    background: #39B31E
+    transition: background 0.2s ease

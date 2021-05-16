@@ -6,15 +6,16 @@ import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
 import AddContact from './AddContact/AddContact'
+import {useSelector} from "react-redux";
 
-const Contacts = ({ contacts, setContacts }) => {
+const Contacts = ({ ...props }) => {
 
     const [search, setSearch] = useState('')
 
-    const [contactItem, setContactItem] = useState(contacts[0])
+    const contacts = useSelector(state => state.PrivateCabinet.contactList)
+
+    const [selectedContact, setSelectedContact] = useState(contacts?.[0])
     const [contactPopup, setContactPopup] = useState(false)
-    /*const [menuItem, setMenuItem] = useState('')
-    console.log(menuItem)*/
 
     const menuData = [
         {
@@ -41,15 +42,13 @@ const Contacts = ({ contacts, setContacts }) => {
     ]
 
     const onSearch = value => setSearch(value)
-    //const onMenuClick = item => setMenuItem(item)
-    const onContactClick = item => setContactItem(item)
+    const onContactClick = item => setSelectedContact(item)
 
     return (
         <div className={styles.contacts}>
 
             <div className={styles.contactMenu}>
                 <ContactMenu
-                    //onItemClick={onMenuClick}
                     data={menuData}
                 />
             </div>
@@ -58,7 +57,7 @@ const Contacts = ({ contacts, setContacts }) => {
                 <ContactList
                     data={contacts}
                     search={search}
-                    selectedItem={contactItem}
+                    selectedItem={selectedContact}
                     onSearch={onSearch}
                     onItemClick={onContactClick}
                 />
@@ -66,13 +65,12 @@ const Contacts = ({ contacts, setContacts }) => {
 
             <div className={styles.contactData}>
                 <ContactsData
-                    contact={contactItem}
+                    selectedItem={selectedContact}
                 />
             </div>
 
             {contactPopup && <AddContact
                 contacts={contacts}
-                setContacts={setContacts}
                 set={setContactPopup}
             />}
 

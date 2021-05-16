@@ -1,74 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch} from 'react-redux'
+import classnames from 'classnames'
 
 import styles from './AddContact.module.sass'
+import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
+import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
 
 import AddSocials from './AddSocials'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
-import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
-import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
-import classnames from 'classnames'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
-import {socialsIcons} from '../consts'
-import TelInput from "../../TelInput/Telinput";
-import Input from "../../Input/Input";
+import {emptyProfileImage, socialsIcons, socialsData} from '../consts'
+import Input from '../../Input/Input'
+import {onAddContact} from "../../../../../../Store/actions/PrivateCabinetActions";
 
-const socialsData = [
-    {
-        label: 'Twitter',
-        type: 'twitter',
-        icon: './assets/PrivateCabinet/socials/twitter.svg'
-    },
-    {
-        label: 'Linkedin',
-        type: 'linkedin',
-        icon: './assets/PrivateCabinet/socials/linkedin.svg',
-    },
-    {
-        label: 'Facebook',
-        type: 'facebook',
-        icon: './assets/PrivateCabinet/socials/facebook.svg',
-    },
-    {
-        label: 'Skype',
-        type: 'skype',
-        icon: './assets/PrivateCabinet/socials/skype-2.svg',
-    },
-    {
-        label: 'Instagram',
-        type: 'instagram',
-        icon: './assets/PrivateCabinet/socials/instagram.svg',
-    },
-    {
-        label: 'VK',
-        type: 'vk',
-        icon: './assets/PrivateCabinet/socials/vk.svg',
-    },
-]
+const AddContact = ({set, contacts}) => {
 
-/*
-* {
-        id: 12,
-        image: './assets/PrivateCabinet/avatars/a4.png',
-        name: 'Вангуш Ирина Николаевна',
-        email: 'Николаевна@gmail.com',
-        tel: '+34234454232',
-        socials: [
-            {type: 'twitter', link: '#'},
-            {type: 'linkedin', link: '#'},
-            {type: 'facebook', link: '#'},
-        ],
-        messengers: [
-            {type: 'telegram', link: '#'},
-            {type: 'viber', link: '#'},
-            {type: 'whatsapp', link: '#'},
-            {type: 'skype', link: '#'},
-        ]
-    },*/
-
-const AddContact = ({ set, contacts, setContacts }) => {
+    const dispatch = useDispatch()
 
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])
@@ -81,6 +31,9 @@ const AddContact = ({ set, contacts, setContacts }) => {
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
+
+    const formRef = useRef()
+
 
     const uploadImage = event => {
         const file = event.target.files[0] ?? null
@@ -102,9 +55,8 @@ const AddContact = ({ set, contacts, setContacts }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-    const formRef = useRef()
-
     const onSubmit = event => {
+
         event.preventDefault()
 
         const formData = new FormData(formRef.current)
@@ -116,9 +68,9 @@ const AddContact = ({ set, contacts, setContacts }) => {
             formValues[name] = value
         }
 
-        setContacts([...contacts, {
-            id: Math.random(),
-            image: preview ?? './assets/PrivateCabinet/avatars/a4.png',
+        dispatch(onAddContact({
+            id: contacts.length + 2,
+            image: preview ?? emptyProfileImage,
             name: `${formValues?.name} ${formValues?.sname}`,
             company: formValues?.company,
             email: mails,
@@ -127,21 +79,26 @@ const AddContact = ({ set, contacts, setContacts }) => {
             notes: formValues?.notes,
             socials: socials,
             messengers: []
-        }])
+        }))
 
         set(false)
     }
 
     return (
         <PopUp set={set}>
-            <form ref={formRef} noValidate onSubmit={onSubmit} className={styles.wrapper}>
+            <form
+                ref={formRef}
+                noValidate
+                onSubmit={onSubmit}
+                className={styles.wrapper}
+            >
                 <div className={styles.top}>
-                        <span
-                            className={styles.close}
-                            onClick={() => set(false)}
-                        >
-                            <span className={styles.times}/>
-                        </span>
+                    <span
+                        className={styles.close}
+                        onClick={() => set(false)}
+                    >
+                        <span className={styles.times}/>
+                    </span>
                 </div>
 
                 <div className={styles.content}>
@@ -192,25 +149,16 @@ const AddContact = ({ set, contacts, setContacts }) => {
                         <div className={styles.formItem}>
                             {numbers.map((number, index) => (
                                 <div className={styles.formBlock} key={index}>
-                                <span
-                                    onClick={() => {
-                                        numbers.splice(index, 1)
-                                        setNumbers([...numbers])
-                                    }}
-                                    className={styles.minusBtn}
-                                />
-                                    <span className={styles.info}>Введите номер телефона:</span>
-                                    {/*<input
-                                        name='number[]'
-                                        type="number"
-                                        onChange={event => {
-                                            numbers[index] = event.target.value
+                                    <span
+                                        onClick={() => {
+                                            numbers.splice(index, 1)
                                             setNumbers([...numbers])
                                         }}
-                                        className={styles.input}
-                                        value={number}
-                                    />*/}
-                                    <TelInput
+                                        className={styles.minusBtn}
+                                    />
+                                    <span className={styles.info}>Введите номер телефона:</span>
+                                    <Input
+                                        phone={true}
                                         name='number[]'
                                         onChange={event => {
                                             numbers[index] = event.target.value
@@ -241,13 +189,13 @@ const AddContact = ({ set, contacts, setContacts }) => {
                         <div className={styles.formItem}>
                             {mails.map((mail, index) => (
                                 <div className={styles.formBlock} key={index}>
-                                <span
-                                    onClick={() => {
-                                        mails.splice(index, 1)
-                                        setMails([...mails])
-                                    }}
-                                    className={styles.minusBtn}
-                                />
+                                    <span
+                                        onClick={() => {
+                                            mails.splice(index, 1)
+                                            setMails([...mails])
+                                        }}
+                                        className={styles.minusBtn}
+                                    />
                                     <span className={styles.info}>Введите @mail:</span>
                                     <input
                                         name='email[]'

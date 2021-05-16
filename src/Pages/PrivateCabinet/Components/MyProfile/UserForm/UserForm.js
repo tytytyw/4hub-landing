@@ -7,9 +7,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import Form from '../Form/Form'
 import api from '../../../../../api'
 import Button from '../Button/Button'
-import PopUp from '../../../../../generalComponents/PopUp'
 import {USER_INFO} from '../../../../../Store/types'
-import TelInput from "../TelInput/Telinput";
+import AlertPopup from '../AlertPopup/AlertPopup'
 
 const UserForm = () => {
 
@@ -108,13 +107,13 @@ const UserForm = () => {
 
     const onChangeHandler = event => {
 
-        const {value, name} = event.target
+        let {value, name} = event.target
 
         if (!isCorrectData(value, name)) {
             setErrors({...errors, [name]: true})
         } else {
             setErrors({...errors, [name]: false})
-            setSubmitErrors({...errors, [name]: false})
+            setSubmitErrors({...submitErrors, [name]: false})
         }
 
         setUserInfo({...userInfo, [name]: value})
@@ -216,6 +215,7 @@ const UserForm = () => {
 
                     {editForm && <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
+
                             <Input
                                 type='password'
                                 label='Повторите Пароль'
@@ -233,11 +233,12 @@ const UserForm = () => {
 
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
-                            <TelInput
+                            <Input
                                 label='Телефон'
                                 name='tel'
                                 disabled={!editForm}
                                 value={userInfo?.tel}
+                                phone={true}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
@@ -270,24 +271,11 @@ const UserForm = () => {
                 </div>
             </Form>
 
-            {success && <PopUp set={setSuccess}>
-                <div className={styles.sendSuccess}>
-                    <span className={styles.cross} onClick={() => setSuccess(false)} />
-                    <span className={styles.title}>Данные успешно обновлены</span>
-                    <div className={styles.imageWrap}>
-                        <img src='./assets/StartPage/success-password-edit.svg'
-                             alt='computer'
-                             className={styles.computer}
-                        />
-                    </div>
-                    <p className={styles.text}>В целях безопасности, на Email Вашей учетной записи
-                        отправлено подтверждение этого изменения</p>
-                    <div
-                        className={styles.closeButton}
-                        onClick={() => setSuccess(false)}
-                    >Продолжить</div>
-                </div>
-            </PopUp>}
+            {success && <AlertPopup
+                title='Данные успешно обновлены'
+                text='В целях безопасности, на Email Вашей учетной записи
+                        отправлено подтверждение этого изменения'
+            />}
 
         </div>
     )

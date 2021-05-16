@@ -106,12 +106,12 @@ const EnterProfile = ({setPage}) => {
                 <div className={styles.button} onClick={signIn}>Вход</div>
                 <span className={styles.orSpan}>или</span>
                 <div className={styles.socialNetworks}>
+                    <div className={styles.linkedIn}><img src='./assets/StartPage/linkedIn.svg' alt='lIn' /></div>
                     <div className={styles.facebook}><img src='./assets/StartPage/fb.svg' alt='fb' /></div>
                     <div className={styles.twitter}><img src='./assets/StartPage/twitter.svg' alt='twit' /></div>
                     <div className={styles.google}><img src='./assets/StartPage/google.svg' alt='goog' /></div>
-                    <div className={styles.linkedIn}><img src='./assets/StartPage/linkedIn.svg' alt='lIn' /></div>
-                    <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
                     <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
+                    <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
                 </div>
                 <div className={styles.registration}>У Вас нет аккаунта ?
                     <span onClick={() => setPage('register')}> Регистрация</span>

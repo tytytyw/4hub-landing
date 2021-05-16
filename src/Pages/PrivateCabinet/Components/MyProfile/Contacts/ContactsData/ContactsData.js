@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import styles from './ContactsData.module.sass'
 import {ReactComponent as StarIcon} from '../../../../../../assets/PrivateCabinet/star-2.svg'
@@ -12,16 +12,18 @@ import {ReactComponent as MailIcon} from '../../../../../../assets/PrivateCabine
 import Input from '../../Input/Input'
 import classnames from 'classnames'
 import {socialsIcons} from '../consts'
+import ActionApproval from '../../../../../../generalComponents/ActionApproval'
 
-const ContactsData = ({ contact }) => {
+const ContactsData = ({ selectedItem }) => {
 
-    const getMultiValue = value => {
-        if (Array.isArray(value)) {
-            return value.join(', ')
-        } else {
-            return value
-        }
+    const [favourite, setFavorite] = useState(selectedItem?.favourite)
+    const [delConfirm, setDelConfirm] = useState(false)
+
+    const onDeleteConfirm = () => {
+        //Todo: request to server for delete contact
     }
+
+
 
     return (
         <div className={styles.contactsData}>
@@ -32,24 +34,51 @@ const ContactsData = ({ contact }) => {
                 >
                     <img
                         className={styles.profileImg}
-                        src={contact?.image}
-                        alt={contact?.name}
+                        src={selectedItem?.image}
+                        alt={selectedItem?.name}
                     />
                     <p className={styles.profileName}>
-                        {contact?.name}
+                        {selectedItem?.name}
                     </p>
                 </div>
                 <div>
                     <div className={styles.iconButtons}>
-                        <div className={styles.iconView}>
-                            <StarIcon className={styles.iconSafe} />
+                        <div
+                            onClick={() => setFavorite(!favourite)}
+                            className={classnames({
+                                [styles.iconView]: true,
+                                [styles.filledIcon]: favourite
+                            })}
+                        >
+                            <StarIcon
+                                className={classnames({
+                                    [styles.iconStar]: true
+                                })}
+                            />
                         </div>
                         <div className={styles.iconView}>
                             <ShareIcon className={styles.iconShare} />
                         </div>
-                        <div className={styles.iconView}>
-                            <DeleteIcon className={styles.iconTrash} />
+                        <div
+                            onClick={() => setDelConfirm(true)}
+                            className={styles.iconView}
+                        >
+                            <DeleteIcon className={styles.iconTrash}/>
                         </div>
+
+                        {delConfirm &&
+                        <ActionApproval
+                            name='Удаление контакта'
+                            text={`Вы действительно хотите удалить контакт ${selectedItem?.name}?`}
+                            set={() => setDelConfirm(false)}
+                            callback={onDeleteConfirm}
+                        >
+                            <img
+                                 className={styles.profileImg}
+                                 src={selectedItem?.image}
+                                 alt='Contact'
+                            />
+                        </ActionApproval>}
                     </div>
                 </div>
             </div>
@@ -84,60 +113,74 @@ const ContactsData = ({ contact }) => {
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Телефон:</span>
                         <div className={styles.value}>
-                            <span>{getMultiValue(contact?.tel)}</span>
+                            <span>
+                                {selectedItem?.tel &&
+                                <ul className={styles.valueList}>
+                                    {selectedItem?.tel.map((tel, index) => (
+                                        <li key={index}>{tel}</li>
+                                    ))}
+                                </ul>}
+                            </span>
                         </div>
                     </div>
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Email:</span>
                         <div className={styles.value}>
-                            <span>{getMultiValue(contact?.email)}</span>
+                            <span>
+                                {selectedItem?.email &&
+                                <ul className={styles.valueList}>
+                                    {selectedItem?.email.map((mail, index) => (
+                                        <li key={index}>{mail}</li>
+                                    ))}
+                                </ul>}
+                            </span>
                         </div>
                     </div>
                     <div className={styles.infoItem}>
                         <span className={styles.info}>День рождения:</span>
                         <div className={styles.value}>
-                            <span>{contact?.date_birth}</span>
+                            <span>{selectedItem?.date_birth}</span>
                         </div>
                     </div>
 
-                    {contact?.socials &&
-                    <div className={styles.infoItem}>
+                    {selectedItem?.socials &&
+                        <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Профиль соц. сетей:</span>
-                        <div className={styles.value}>
-                            <ul className={styles.socialsList}>
-                                {contact?.socials.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.link} className={styles.socialsLink}>
-                                            <img src={socialsIcons[item.type]} alt={item.type}/>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className={styles.value}>
+                                <ul className={styles.socialsList}>
+                                    {selectedItem?.socials.map((item, index) => (
+                                        <li key={index}>
+                                            <a href={item.link} className={styles.socialsLink}>
+                                                <img src={socialsIcons[item.type]} alt={item.type}/>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     }
 
-                    {contact?.messengers &&
-                    <div className={styles.infoItem}>
+                    {selectedItem?.messengers &&
+                        <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Мессенджеры:</span>
-                        <div className={styles.value}>
-                            <ul className={styles.socialsList}>
-                                {contact?.messengers.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.link} className={styles.socialsLink}>
-                                            <img src={socialsIcons[item.type]} alt={item.type}/>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className={styles.value}>
+                                <ul className={styles.socialsList}>
+                                    {selectedItem?.messengers.map((item, index) => (
+                                        <li key={index}>
+                                            <a href={item.link} className={styles.socialsLink}>
+                                                <img src={socialsIcons[item.type]} alt={item.type}/>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
-                    </div>
                     }
 
                 </div>
