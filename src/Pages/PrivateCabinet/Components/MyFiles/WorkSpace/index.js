@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styles from './WorkSpace.module.sass';
 import SearchField from '../../SearchField';
 import StorageSize from '../../StorageSize';
@@ -14,41 +14,12 @@ import FileLine from '../../WorkElements/FileLine';
 import WorkBarsPreview from '../../WorkElements/WorkBarsPreview';
 import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
-import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
-import {fileDelete} from '../../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile} from '../../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem, workElementsView, setWorkElementsView}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView, setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction, callbackArrMain, additionalMenuItems, deleteFile}) => {
 
-    const dispatch = useDispatch();
-    const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
-    const nullifyAction = () => setAction({type: '', name: '', text: ''});
-
-    const callbackArrMain = ['', '', '', '', '', '', '', '', '', '', '', ''];
-    const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
-    ];
-    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
-
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-        })
-    }
-
-    useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
 
     // Types of Files view
     const renderFiles = (Type) => {
