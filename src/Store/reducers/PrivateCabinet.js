@@ -3,7 +3,7 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     FILE_DELETE,
-    CONTACT_LIST, ADD_CONTACT,
+    CONTACT_LIST
 } from '../types';
 
 const INITIAL_STATE = {
@@ -31,8 +31,6 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CONTACT_LIST:
             return {...state, contactList: action.payload}
-        case ADD_CONTACT:
-            return {...state, contactList: [...state.contactList, action.payload]}
         default:
             return state;
     }

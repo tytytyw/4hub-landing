@@ -99,9 +99,8 @@ const ContactsData = ({contact, contactList}) => {
 
             </div>
 
-            {popup && <SendFriend data={contactList} set={setPopup}>
-
-            </SendFriend>}
+            {sendPopup &&
+            <SendFriend set={setSendPopup}/>}
         </>
     )
 }

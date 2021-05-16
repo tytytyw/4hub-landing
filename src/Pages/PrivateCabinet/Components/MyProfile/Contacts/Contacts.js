@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './Contacts.module.sass'
 
 import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
-import AddContact from './AddContact/AddContact'
+import FormContact from './FormContact/FormContact'
 import {useSelector} from "react-redux";
 
 const Contacts = ({ ...props }) => {
@@ -16,6 +16,10 @@ const Contacts = ({ ...props }) => {
 
     const [selectedContact, setSelectedContact] = useState(contacts?.[0])
     const [contactPopup, setContactPopup] = useState(false)
+
+    useEffect(() => {
+        setSelectedContact(contacts?.[0])
+    }, [contacts])
 
     const menuData = [
         {
@@ -65,11 +69,13 @@ const Contacts = ({ ...props }) => {
 
             <div className={styles.contactData}>
                 <ContactsData
+                    contacts={contacts}
                     selectedItem={selectedContact}
+                    setSelectedItem={setSelectedContact}
                 />
             </div>
 
-            {contactPopup && <AddContact
+            {contactPopup && <FormContact
                 contacts={contacts}
                 set={setContactPopup}
             />}

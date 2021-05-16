@@ -106,9 +106,9 @@ const MyProfile = () => {
             </div>
 
             {popup &&
-            <SendFriend
-                set={setPopup}
-            />}
+                <SendFriend
+                    set={setPopup}
+                />}
 
             <BottomPanel/>
 

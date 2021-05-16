@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './RadioCheck.module.sass'
 import classnames from 'classnames'
+import {emptyProfileImage} from "../../../Contacts/consts";
 
 const RadioCheck = ({ item, name, ...props }) => {
 
@@ -25,7 +26,7 @@ const RadioCheck = ({ item, name, ...props }) => {
                 htmlFor={htmlFor}
             >
                 <span className={styles.icon}>
-                    <img src={item.image} alt={item.id}/>
+                    <img src={item.image || emptyProfileImage} alt={item.id}/>
                 </span>
                 <p>{item.name}</p>
             </label>
