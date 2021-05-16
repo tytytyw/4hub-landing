@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import { onGetUserInfo } from '../../Store/actions/startPageAction';
-import { onGetFolders, onChooseFiles } from '../../Store/actions/PrivateCabinetActions';
+import { onGetFolders, onChooseFiles, onAddRecentFiles } from '../../Store/actions/PrivateCabinetActions';
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
@@ -20,6 +20,7 @@ const PrivateCabinet = () => {
         dispatch(onGetUserInfo());
         dispatch(onGetFolders());
         dispatch(onChooseFiles('global/all'));
+        dispatch(onAddRecentFiles());
 
         let date = new Date();
         date.setHours(date.getHours() + 1);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import styles from './ContactsData.module.sass'
 import {ReactComponent as StarIcon} from '../../../../../../assets/PrivateCabinet/star-2.svg'

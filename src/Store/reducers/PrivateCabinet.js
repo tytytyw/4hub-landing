@@ -3,7 +3,10 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     FILE_DELETE,
-    CONTACT_LIST, ADD_CONTACT,
+    CONTACT_LIST,
+    ADD_CONTACT,
+    ADD_RECENT_FOLDERS,
+    ADD_RECENT_FILES,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -11,7 +14,9 @@ const INITIAL_STATE = {
     other: null,
     folderList: null,
     fileList: null,
-    contactList: null
+    contactList: null,
+    recentFolders: null,
+    recentFiles: null,
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -33,6 +38,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, contactList: action.payload}
         case ADD_CONTACT:
             return {...state, contactList: [...state.contactList, action.payload]}
+        case ADD_RECENT_FOLDERS:
+            return {...state, recentFolders: action.payload}
+        case ADD_RECENT_FILES:
+            return {...state, recentFiles: action.payload}
         default:
             return state;
     }
