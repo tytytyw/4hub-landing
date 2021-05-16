@@ -7,6 +7,7 @@ import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
 import MyProfile from './Components/MyProfile';
+import MyFiles from './Components/MyFiles'
 
 const PrivateCabinet = () => {
 
@@ -40,10 +41,7 @@ const PrivateCabinet = () => {
                 }}>
                 {menuItem === 'Личные данные' && <MyProfile />}
                 {menuItem === 'Мои папки' && <MyFolders setItem={setItem} />}
-<<<<<<< HEAD
                 {menuItem === 'Мои файлы' && <MyFiles />}
-=======
->>>>>>> 31239217b513967166e64fcbabf3f2d9996edb72
             </div>
         </div>
     )
