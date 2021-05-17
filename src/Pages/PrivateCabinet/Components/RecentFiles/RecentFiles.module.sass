@@ -1,0 +1,36 @@
+.wrap
+  display: flex
+  width: 100%
+  height: max-content
+  margin: 10px 0 10px 0
+  justify-content: center
+.recentFilesWrap
+  display: flex
+  align-items: center
+  height: 58px
+  min-height: 58px
+  width: 95%
+  min-width: 95%
+  box-shadow: 0 1px 3px #DEDEDE
+  overflow-y: hidden
+  overflow-x: scroll
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    height: 3px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+  .fileWrap
+    display: flex
+    margin: 0 10px 0 0
+    .innerFileWrap
+      position: relative
+      width: 27px
+      height: 30px
+      display: flex
+    .innerFileInfo
+      display: flex

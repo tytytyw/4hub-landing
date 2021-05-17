@@ -22,6 +22,7 @@ import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
 import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
+import RecentFiles from '../RecentFiles';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
@@ -72,6 +73,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                     <Profile setItem={setItem} />
                 </div>
             </div>
+            <RecentFiles />
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}
