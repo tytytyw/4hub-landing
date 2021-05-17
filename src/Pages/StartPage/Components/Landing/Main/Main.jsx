@@ -1,91 +1,132 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Main.module.sass";
 import Tariff from "../Tariff/Tariff";
 import classNames from "classnames";
 
-function Main() {
+function Main({scrollTop}) {
+	const [count, setCount] = useState(null);
+	let isScrolling = false;
+	const SliderItemPic1 = document.querySelector("#slide-picture_1");
+	const SliderItemPic2 = document.querySelector("#slide-picture_2");
+	const SliderItemPic3 = document.querySelector("#slide-picture_3");
+	const SliderItemPic4 = document.querySelector("#slide-picture_4");
+	const SliderItemText1 = document.querySelector("#slide-text_1");
+	const SliderItemText2 = document.querySelector("#slide-text_2");
+	const SliderItemText3 = document.querySelector("#slide-text_3");
+	const SliderItemText4 = document.querySelector("#slide-text_4");
+	const sliderWrap = document.querySelector(`.${styles.presentation}`);
+	SliderItemText1 && SliderItemText1.classList.add(styles.text_item_active);
+	let layerYOld = null
+	let deltaYOld = null
 	const scrollHandler = (e) => {
-		const SliderItemText1 = document.querySelector("#slide-text_1");
-		const SliderItemText2 = document.querySelector("#slide-text_2");
-		const SliderItemText3 = document.querySelector("#slide-text_3");
-		const SliderItemText4 = document.querySelector("#slide-text_4");
-		const SliderItemPic1 = document.querySelector("#slide-picture_1");
-		const SliderItemPic2 = document.querySelector("#slide-picture_2");
-		const SliderItemPic3 = document.querySelector("#slide-picture_3");
-		const SliderItemPic4 = document.querySelector("#slide-picture_4");
-		const sliderTop = document.querySelector(`.${styles.presentation}`);
-		const textWrap = document.querySelector(`.${styles.text_wrap}`);
+		let scrollingTtimeOut = 700
+		if (!isScrolling && (Math.abs(e.deltaY) < 100 ? e.layerY !== layerYOld || document.body.style.overflow === "visible" || deltaYOld !== Math.sign(e.deltaY): true)) {
 
-		const frameFirst = () => {
-			SliderItemText1.classList.add(styles.text_item_active);
-			SliderItemText2.classList.remove(styles.text_item_active);
+			if (e.deltaY > 0 && window.pageYOffset === 0) {
+				setCount((count) => count + 1);
+			}
+			
+			if (e.deltaY < 0 && window.pageYOffset < 201) {
+				scrollTop()
+				setCount((count) => count - 1);
 
-			SliderItemPic1.classList.add(styles.image_wrap_active);
-			SliderItemPic2.classList.remove(styles.image_wrap_active);
-		};
-		const frameSecond = () => {
-			SliderItemText2.classList.add(styles.text_item_active);
-			SliderItemText1.classList.remove(styles.text_item_active);
-			SliderItemText3.classList.remove(styles.text_item_active);
-			textWrap.scrollTo(0, 0);
-
-			SliderItemPic2.classList.add(styles.image_wrap_active);
-			SliderItemPic1.classList.remove(styles.image_wrap_active);
-			SliderItemPic3.classList.remove(styles.image_wrap_active);
-		};
-		const frameThird = () => {
-			SliderItemText3.classList.add(styles.text_item_active);
-			SliderItemText2.classList.remove(styles.text_item_active);
-			SliderItemText4.classList.remove(styles.text_item_active);
-			textWrap.scrollTo(0, textWrap.scrollHeight);
-			SliderItemPic3.classList.add(styles.image_wrap_active);
-			SliderItemPic2.classList.remove(styles.image_wrap_active);
-			SliderItemPic4.classList.remove(styles.image_wrap_active);
-		};
-		const frameFourth = () => {
-			SliderItemText4.classList.add(styles.text_item_active);
-			SliderItemText3.classList.remove(styles.text_item_active);
-			SliderItemPic4.classList.add(styles.image_wrap_active);
-			SliderItemPic3.classList.remove(styles.image_wrap_active);
-		};
-
-		//проверяем до какой картинки доскролил пользователь
-		window.scrollY > SliderItemPic1.offsetTop &&
-		window.scrollY - sliderTop.offsetTop <
-			SliderItemPic1.offsetTop + SliderItemPic1.offsetHeight - 200
-			? frameFirst()
-			: window.scrollY > SliderItemPic2.offsetTop - 200 &&
-			  window.scrollY - sliderTop.offsetTop <
-					SliderItemPic2.offsetTop + SliderItemPic2.offsetHeight - 200
-			? frameSecond()
-			: window.scrollY > SliderItemPic3.offsetTop - 200 &&
-			  window.scrollY - sliderTop.offsetTop <
-					SliderItemPic3.offsetTop + SliderItemPic3.offsetHeight
-			? frameThird()
-			: window.scrollY > SliderItemPic4.offsetTop - 200 &&
-			  window.scrollY - sliderTop.offsetTop <
-					SliderItemPic4.offsetTop + SliderItemPic4.offsetHeight
-			? frameFourth()
-			: SliderItemText4.classList.remove(styles.text_item_active);
+				if (document.body.style.overflow === "visible") {
+					scrollingTtimeOut+=800
+					document.body.style.overflow = "hidden";
+					document.body.style.top = 0
+					setCount(3);
+					setTimeout(()=> layerYOld = null, 100)
+				}
+			}
+			isScrolling = true;
+			setTimeout(() => isScrolling = false, scrollingTtimeOut);
+			layerYOld = e.layerY
+			deltaYOld = Math.sign(e.deltaY)
+		}
+		
 	};
+	useEffect(() => {
+		if (count > 3) {
+			setCount(4);
+			setTimeout(() => document.body.style.overflow = "visible", 1000)
+			document.body.style.position = 'absolute'
+			document.body.style.top = `-${sliderWrap.offsetHeight + sliderWrap.offsetTop}px`
+		}
+
+		if (count < 0) {
+			setCount(0);
+		}
+
+		if (SliderItemPic2)
+			switch (count) {
+				case 0:
+					SliderItemText1.classList.add(styles.text_item_active);
+					SliderItemText2.classList.remove(styles.text_item_active);
+					SliderItemPic1.classList.add(styles.image_wrap_active);
+					SliderItemPic2.classList.remove(styles.image_wrap_active);
+					break;
+				case 1:
+					SliderItemPic2.classList.add(styles.image_wrap_active);
+					SliderItemPic1.classList.remove(styles.image_wrap_active);
+					SliderItemPic3.classList.remove(styles.image_wrap_active);
+					SliderItemText2.classList.add(styles.text_item_active);
+					SliderItemText1.classList.remove(styles.text_item_active);
+					SliderItemText3.classList.remove(styles.text_item_active);
+					break;
+				case 2:
+					SliderItemPic3.classList.add(styles.image_wrap_active);
+					SliderItemPic2.classList.remove(styles.image_wrap_active);
+					SliderItemPic4.classList.remove(styles.image_wrap_active);
+					SliderItemText3.classList.add(styles.text_item_active);
+					SliderItemText2.classList.remove(styles.text_item_active);
+					SliderItemText4.classList.remove(styles.text_item_active);
+					break;
+				case 3:
+					SliderItemPic4.classList.add(styles.image_wrap_active);
+					SliderItemPic3.classList.remove(styles.image_wrap_active);
+					SliderItemText4.classList.add(styles.text_item_active);
+					SliderItemText3.classList.remove(styles.text_item_active);
+					break;
+				case 4:
+					SliderItemText4.classList.remove(styles.text_item_active);
+					SliderItemPic4.classList.remove(styles.image_wrap_active);
+					break;
+				default:
+					break;
+			}
+		document.querySelector(
+			`.${styles.presentation_wrap}`
+		).style.transform = `translateY(${count * -100}%)`;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [count]);
 
 	useEffect(() => {
-		window.addEventListener("scroll", scrollHandler);
-		document
-			.querySelector("#slide-text_1")
-			.classList.add(styles.text_item_active);
-		document
-			.querySelector("#slide-picture_1")
-			.classList.add(styles.image_wrap_active);
-		return () => window.removeEventListener("scroll", scrollHandler);
+		setCount(0);
+		window
+			.addEventListener("wheel", scrollHandler);
+			
+		document.body.style.overflow = "hidden";
+		return () => window.removeEventListener("wheel", scrollHandler)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+	const sliderWrapStyles = {};
+	if (sliderWrap)
+		sliderWrapStyles.height = window.innerHeight - sliderWrap.offsetTop;
+
 	return (
 		<div>
-			<main className={styles.main}>
-				<h2 className={styles.title}>Remote Workspace</h2>
-				<div className={styles.presentation}>
-					<div className={styles.text_wrap}>
-						<div id="slide-text_1" className={classNames(styles.text_item)}>
+			<div
+				className={classNames({
+					[styles.presentation]: true,
+				})}
+				style={{ height: sliderWrapStyles.height }}
+			>
+				<div className={styles.presentation_wrap}>
+					<section className={styles.slide}>
+						<div
+							id="slide-text_1"
+							className={classNames(styles.text_item, styles.text_item_active)}
+						>
 							<h4 className={styles.presentation__title}>Файлообменник</h4>
 							<p className={styles.presentation__text}>
 								Cистематизация данных в одном пространстве
@@ -97,41 +138,7 @@ function Main() {
 								Разграничение прав доступа к файлам
 							</p>
 						</div>
-						<div id="slide-text_2" className={styles.text_item}>
-							<h4 className={styles.presentation__title}>Оптимизация командной работы</h4>
-							<p className={styles.presentation__text}>
-								Возможность организации конференций
-							</p>
-							<p className={styles.presentation__text}>
-								Синхронизация совместной работы над проектами с использованием
-								встроенных инструментов
-							</p>
-							<p className={styles.presentation__text}>
-								Приватная работа с документами
-							</p>
-						</div>
-						<div id="slide-text_3" className={styles.text_item}>
-							<h4 className={styles.presentation__title}>
-								Конфиденциальность и безопасность
-							</h4>
-							<p className={styles.presentation__text}>
-								Надежная защита личных и корпоративных данных
-							</p>
-							<p className={styles.presentation__text}>Шифрование файлов</p>
-						</div>
-						<div id="slide-text_4" className={styles.text_item}>
-							<h4 className={styles.presentation__title}>
-								Интеграция необходимых сервисов
-							</h4>
-							<p className={styles.presentation__text}>
-								Синхронизация со сторонними сервисами
-							</p>
-							<p className={styles.presentation__text}>
-								Встроенный магазин программного обеспечения
-							</p>
-						</div>
-					</div>
-					<div className={styles.presentation__images}>
+
 						<div id="slide-picture_1" className={classNames(styles.image_wrap)}>
 							<img
 								className={classNames(
@@ -158,6 +165,24 @@ function Main() {
 								alt="добавление файла"
 							/>
 						</div>
+					</section>
+					<section className={styles.slide}>
+						<div id="slide-text_2" className={styles.text_item}>
+							<h4 className={styles.presentation__title}>
+								Оптимизация командной работы
+							</h4>
+							<p className={styles.presentation__text}>
+								Возможность организации конференций
+							</p>
+							<p className={styles.presentation__text}>
+								Синхронизация совместной работы над проектами с использованием
+								встроенных инструментов
+							</p>
+							<p className={styles.presentation__text}>
+								Приватная работа с документами
+							</p>
+						</div>
+
 						<div id="slide-picture_2" className={styles.image_wrap}>
 							<img
 								className={classNames(
@@ -176,6 +201,18 @@ function Main() {
 								alt="совместный проект"
 							/>
 						</div>
+					</section>
+					<section className={styles.slide}>
+						<div id="slide-text_3" className={styles.text_item}>
+							<h4 className={styles.presentation__title}>
+								Конфиденциальность и безопасность
+							</h4>
+							<p className={styles.presentation__text}>
+								Надежная защита личных и корпоративных данных
+							</p>
+							<p className={styles.presentation__text}>Шифрование файлов</p>
+						</div>
+
 						<div id="slide-picture_3" className={styles.image_wrap}>
 							<img
 								className={classNames(
@@ -202,6 +239,20 @@ function Main() {
 								alt="добавление файла"
 							/>
 						</div>
+					</section>
+					<section className={styles.slide}>
+						<div id="slide-text_4" className={styles.text_item}>
+							<h4 className={styles.presentation__title}>
+								Интеграция необходимых сервисов
+							</h4>
+							<p className={styles.presentation__text}>
+								Синхронизация со сторонними сервисами
+							</p>
+							<p className={styles.presentation__text}>
+								Встроенный магазин программного обеспечения
+							</p>
+						</div>
+
 						<div id="slide-picture_4" className={styles.image_wrap}>
 							<img
 								className={classNames(
@@ -276,10 +327,9 @@ function Main() {
 								alt="skype"
 							/>
 						</div>
-					</div>
+					</section>
 				</div>
-				{/* </Scrollbars> */}
-			</main>
+			</div>
 			<section className={styles.storage}>
 				<h2 className={styles.storage_title}>Хранилище</h2>
 				<p className={styles.storage_subtitile}>

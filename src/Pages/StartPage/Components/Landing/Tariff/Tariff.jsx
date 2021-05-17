@@ -34,13 +34,13 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
 				</p>
 				<ul className={styles.tariff_descrp}>
 					<li className={styles.tariff_descrp_item}>
-						<FolderIcon className={styles.tariff_descrp_ico} />
+						<PieChartIcon className={styles.tariff_descrp_ico} />
 						<p className={styles.tariff_descrp_text}>
 							2 000 ГБ места для безопасного хранения файлов
 						</p>
 					</li>
 					<li className={styles.tariff_descrp_item}>
-						<PieChartIcon className={styles.tariff_descrp_ico} />
+						<FolderIcon className={styles.tariff_descrp_ico} />
 						<p className={styles.tariff_descrp_text}>
 							Простые инструменты для храннения и предоставления доступа и
 							совместной работы

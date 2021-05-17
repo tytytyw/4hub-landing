@@ -8,6 +8,8 @@ import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
+import Signs from "../../../../generalComponents/Elements/Signs";
+import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const CreateSafePassword = ({onToggle, title}) => {
 
@@ -15,6 +17,8 @@ const CreateSafePassword = ({onToggle, title}) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
     const [color, setColor] = useState(colors[0]);
+    const [sign, setSign] = useState('');
+    const [emoji, setEmoji] = useState('');
     const [error, setError] = useState(false);
 
     const renderTags = () => {
@@ -31,7 +35,7 @@ const CreateSafePassword = ({onToggle, title}) => {
         if(width >= 1440) {
             return {
               height: '160px',
-              marginBottom: '35px'
+              marginBottom: '15px'
           }
       } else {
           return {
@@ -103,10 +107,10 @@ const CreateSafePassword = ({onToggle, title}) => {
                         phone={true}
                     />
                 </div>
-                <span className={styles.description}>На указанный телефон будет приходить код пароль для входа в сейф</span>
+                <span className={styles.description}>Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу</span>
                 <Colors color={color} setColor={setColor} />
-                <span className={styles.additionalInfo}>Текст разьясняющий как работает сейф! далее идет рыбный текст В то время некий безымянный</span>
-                <span className={styles.additionalInfo}>печатник создал большую коллекцию размеров и форм</span>
+                <Signs sign={sign} setSign={setSign} />
+                <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
                     <div className={styles.cancel} onClick={() => onToggle(false)}>Отмена</div>
                     <div className={styles.add}>Сохранить</div>

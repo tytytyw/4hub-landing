@@ -38,7 +38,6 @@ const useValidation = (value, validations) => {
     const isEmptyValue = value => !value || value === '';
 
     useEffect(() => {
-
         for (const validation in validations) {
             switch (validation) {
                 case 'email':
