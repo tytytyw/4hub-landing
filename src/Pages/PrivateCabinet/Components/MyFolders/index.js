@@ -9,11 +9,13 @@ import CreateFolder from '../CreateFolder';
 import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
+import RecentFolders from './RecentFolders';
 
 const MyFolders = ({setItem}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
+    const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
     const [listCollapsed, setListCollapsed] = useState(false);
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
@@ -73,6 +75,13 @@ const MyFolders = ({setItem}) => {
                 <div className={styles.folderListWrap}>
                     {renderStandardFolderList()}
                     {renderOtherFolderList()}
+                    {recentFolders?.length > 0 && <RecentFolders
+                        listCollapsed={listCollapsed}
+                        setListCollapsed={setListCollapsed}
+                        chosen={chosenFolder.path === 'recent'}
+                        chosenFolder={chosenFolder}
+                        setChosenFolder={setChosenFolder}
+                    />}
                 </div>
             </List>
             <WorkSpace

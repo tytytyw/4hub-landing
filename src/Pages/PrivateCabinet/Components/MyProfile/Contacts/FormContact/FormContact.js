@@ -68,12 +68,12 @@ const FormContact = ({set, type, selectedItem}) => {
         //'sname'
     ]
 
-    const resetForm = () => {
-        setFields({})
-        setBlur({})
-        setErrors({})
-        setSubmitErrors({})
-    }
+    // const resetForm = () => {
+    //     setFields({})
+    //     setBlur({})
+    //     setErrors({})
+    //     setSubmitErrors({})
+    // }
 
     const onBlurHandler = event => {
         const {name} = event.target

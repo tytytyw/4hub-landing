@@ -28,7 +28,7 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
-    const [favourite, setFavorite] = useState(!!selectedItem?.is_fav)
+    const [favourite, setFavorite] = useState(selectedItem?.is_fav !== 0)
     const [delConfirm, setDelConfirm] = useState(false)
 
     const [contactPopup, setContactPopup] = useState(false)
