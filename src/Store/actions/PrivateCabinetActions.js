@@ -149,11 +149,6 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 }
 
-export const onAddContact = contact => ({
-    type: ADD_CONTACT,
-    payload: contact
-})
-
 export const onAddRecentFolders = () => async (dispatch) => {
     const mock = [{
         color: "green",
