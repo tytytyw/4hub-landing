@@ -54,7 +54,7 @@ const AddSocials = ({ values, setValues, set }) => {
 
     const getValue = item => {
         const valueItem = socialValues.find(socItem => socItem.type === item.type)
-        return valueItem && valueItem.link
+        return valueItem?.link ? valueItem.link : ''
     }
 
     return (

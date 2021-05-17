@@ -104,7 +104,7 @@ const SendFriend = ({ set, ...props }) => {
                     </span>
                 </div>
 
-                <div className={styles.block}>
+                {/*<div className={styles.block}>
                     <span className={classNames({
                         [styles.info]: true,
                         [styles.errorInfo]: isMistake('email')
@@ -126,7 +126,7 @@ const SendFriend = ({ set, ...props }) => {
                         className={styles.input}
                         placeholder='Введите Ваш номер телефона'
                     />
-                </div>
+                </div>*/}
 
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>

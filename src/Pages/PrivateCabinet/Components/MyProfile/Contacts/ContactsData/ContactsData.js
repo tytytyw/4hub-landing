@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import classnames from 'classnames'
+import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './ContactsData.module.sass'
 import {ReactComponent as StarIcon} from '../../../../../../assets/PrivateCabinet/star-2.svg'
@@ -11,22 +13,22 @@ import {ReactComponent as SpeechIcon} from '../../../../../../assets/PrivateCabi
 import {ReactComponent as PhoneIcon} from '../../../../../../assets/PrivateCabinet/phone-3.svg'
 import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/video-camera.svg'
 import {ReactComponent as MailIcon} from '../../../../../../assets/PrivateCabinet/mail-3.svg'
-import Input from '../../Input/Input'
-import classnames from 'classnames'
 import {emptyProfileImage, socialsIcons} from '../consts'
-import ActionApproval from '../../../../../../generalComponents/ActionApproval'
-import api from '../../../../../../api'
-import {useDispatch, useSelector} from "react-redux";
-import {onGetContacts} from "../../../../../../Store/actions/PrivateCabinetActions";
-import FormContact from "../FormContact/FormContact";
-import SendFriend from "../../TellFriends/SendFriend/SendFriend";
 
-const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
+import api from '../../../../../../api'
+
+import Input from '../../Input/Input'
+import ActionApproval from '../../../../../../generalComponents/ActionApproval'
+import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
+import FormContact from '../FormContact/FormContact'
+import SendFriend from '../../TellFriends/SendFriend/SendFriend'
+
+const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
-    const [favourite, setFavorite] = useState(selectedItem?.is_fav != 0)
+    const [favourite, setFavorite] = useState(!!selectedItem?.is_fav)
     const [delConfirm, setDelConfirm] = useState(false)
 
     const [contactPopup, setContactPopup] = useState(false)
@@ -35,9 +37,9 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
     const selectOtherContact = () => {
 
         const newContacts = []
-        contacts.forEach(contact => {
-            if (contact.id !== selectedItem.id) {
-                newContacts.push(contact)
+        contacts.forEach(contactItem => {
+            if (contactItem.id !== selectedItem.id) {
+                newContacts.push(contactItem)
             }
         })
 
@@ -60,8 +62,8 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
                 id: selectedItem?.id
             }
         }).then(() => {
-            selectOtherContact()
             dispatch(onGetContacts())
+            selectOtherContact()
             setDelConfirm(false)
         })
         .catch(error => {
@@ -246,10 +248,10 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
             </div>
 
             {contactPopup && <FormContact
-                type='edit'
-                contactItem={selectedItem}
                 contacts={contacts}
                 set={setContactPopup}
+                type='edit'
+                selectedItem={selectedItem}
             />}
 
             {sendPopup && <SendFriend set={setSendPopup}/>}

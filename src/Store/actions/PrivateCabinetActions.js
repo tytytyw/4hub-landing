@@ -84,8 +84,8 @@ export const onGetContacts = () => async (dispatch, getState) => {
             })
 
         }).catch(error => {
-        console.log(error)
-    })
+            console.log(error)
+        })
 
     /*dispatch({
         type: CONTACT_LIST,

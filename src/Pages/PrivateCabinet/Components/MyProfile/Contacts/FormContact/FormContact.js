@@ -18,7 +18,7 @@ import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActio
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 
-const FormContact = ({set, type, contactItem = {}}) => {
+const FormContact = ({set, type, selectedItem}) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
@@ -27,17 +27,19 @@ const FormContact = ({set, type, contactItem = {}}) => {
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
 
-    const [fields, setFields] = useState(contactItem)
+    const [fields, setFields] = useState({...selectedItem})
 
-    const [numbers, setNumbers] = useState(contactItem?.tel || [])
-    const [mails, setMails] = useState(contactItem?.email || [])
-    const [socials, setSocials] = useState(contactItem?.soc || [])
+    const [numbers, setNumbers] = useState(selectedItem?.tel || [])
+    const [mails, setMails] = useState(selectedItem?.email || [])
+    const [socials, setSocials] = useState(selectedItem?.soc || [])
 
     const [socPopup, setSocPopup] = useState(false)
     const [showCalendar, setShowCalendar] = useState(false)
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
+
+    console.log(fields)
 
     const formRef = useRef()
 
@@ -101,15 +103,16 @@ const FormContact = ({set, type, contactItem = {}}) => {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
-            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${contactItem?.id}`, {
+            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
                 ...fields,
                 name: `${fields?.name} ${fields?.sname || ''}`,
                 tel: numbers,
                 email: mails,
                 soc: socials,
                 file: image
-            }).then(() => {
+            }).then(async () => {
                 dispatch(onGetContacts())
+                resetForm()
                 set(false)
             }).catch(err => {
                 console.log(err)

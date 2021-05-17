@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './Contacts.module.sass'
 
@@ -6,7 +6,7 @@ import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
 import FormContact from './FormContact/FormContact'
-import {useSelector} from "react-redux";
+import {useSelector} from 'react-redux'
 
 const Contacts = ({ ...props }) => {
 
@@ -17,6 +17,11 @@ const Contacts = ({ ...props }) => {
     const [selectedContact, setSelectedContact] = useState(contacts?.[0])
     const [contactPopup, setContactPopup] = useState(false)
 
+    useEffect(() => {
+        const newSelectedContact = contacts.find(contact => contact?.id === selectedContact?.id)
+        setSelectedContact(newSelectedContact)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contacts])
     const menuData = [
         {
             id: 'new_contact',
@@ -42,7 +47,6 @@ const Contacts = ({ ...props }) => {
     ]
 
     const onSearch = value => setSearch(value)
-    const onContactClick = item => setSelectedContact(item)
 
     return (
         <div className={styles.contacts}>
@@ -57,9 +61,9 @@ const Contacts = ({ ...props }) => {
                 <ContactList
                     data={contacts}
                     search={search}
-                    selectedItem={selectedContact}
                     onSearch={onSearch}
-                    onItemClick={onContactClick}
+                    selectedItem={selectedContact}
+                    setSelectedItem={setSelectedContact}
                 />
             </div>
 
