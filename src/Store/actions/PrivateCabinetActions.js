@@ -1,14 +1,15 @@
-import api from '../../api';
+import api from '../../api'
+
 import {
-    GET_FOLDERS,
-    CHOOSE_FOLDER,
-    CHOOSE_FILES,
-    FILE_DELETE,
-    CONTACT_LIST,
-    ADD_CONTACT,
     ADD_RECENT_FILES,
-    ADD_RECENT_FOLDERS
+    ADD_RECENT_FOLDERS,
+    CHOOSE_FILES,
+    CHOOSE_FOLDER,
+    CONTACT_LIST,
+    FILE_DELETE,
+    GET_FOLDERS
 } from '../types';
+
 
 export const onGetFolders = () => async (dispatch, getState) => {
     const folders = [
@@ -21,7 +22,7 @@ export const onGetFolders = () => async (dispatch, getState) => {
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
             const f = {};
-            if(res.data?.global) {
+            if (res.data?.global) {
                 f.global = folders.map(el => {
                     return {
                         name: el.name,
@@ -32,7 +33,7 @@ export const onGetFolders = () => async (dispatch, getState) => {
                     }
                 });
             }
-            if(res.data?.other) f.other = res.data.other
+            if (res.data?.other) f.other = res.data.other
             dispatch({
                 type: GET_FOLDERS,
                 payload: f
@@ -65,16 +66,28 @@ export const onDeleteFile = (file) => {
 }
 
 export const onGetContacts = () => async (dispatch, getState) => {
-    /*const uid = getState().user.uid
-    api.get(`/ajax/get_contacts.php?uid=${uid}`)
+
+    const uid = getState().user.uid
+
+    api.get(`/ajax/contacts_list.php?uid=${uid}`)
         .then(response => {
+            const data = response.data?.data
+
+            const newData = []
+            for (const key in data) {
+                newData.push(data[key])
+            }
+
             dispatch({
                 type: CONTACT_LIST,
-                payload: response.data
-            });
-        })
-        .catch(error => console.log(error))*/
-    dispatch({
+                payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
+            })
+
+        }).catch(error => {
+        console.log(error)
+    })
+
+    /*dispatch({
         type: CONTACT_LIST,
         payload: [
             {
@@ -132,13 +145,9 @@ export const onGetContacts = () => async (dispatch, getState) => {
                 ]
             },
         ]
-    })
-}
+    })*/
 
-export const onAddContact = contact => ({
-    type: ADD_CONTACT,
-    payload: contact
-})
+}
 
 export const onAddRecentFolders = () => async (dispatch) => {
     const mock = [{
@@ -195,4 +204,5 @@ export const onAddRecentFiles = () => async (dispatch) => {
             })
         })
         .catch(err => console.log(err));
+
 }

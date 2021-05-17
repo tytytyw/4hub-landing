@@ -5,7 +5,7 @@ import styles from './Contacts.module.sass'
 import ContactMenu from './ContactMenu/ContactMenu'
 import ContactList from './ContactList/ContactList'
 import ContactsData from './ContactsData/ContactsData'
-import AddContact from './AddContact/AddContact'
+import FormContact from './FormContact/FormContact'
 import {useSelector} from "react-redux";
 
 const Contacts = ({ ...props }) => {
@@ -65,11 +65,13 @@ const Contacts = ({ ...props }) => {
 
             <div className={styles.contactData}>
                 <ContactsData
+                    contacts={contacts}
                     selectedItem={selectedContact}
+                    setSelectedItem={setSelectedContact}
                 />
             </div>
 
-            {contactPopup && <AddContact
+            {contactPopup && <FormContact
                 contacts={contacts}
                 set={setContactPopup}
             />}

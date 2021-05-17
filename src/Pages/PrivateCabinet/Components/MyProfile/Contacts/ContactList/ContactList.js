@@ -8,7 +8,9 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
 
     const [contactList, setContactList] = useState([])
 
-    useEffect(() => setContactList(data), [data])
+    useEffect(() => {
+        setContactList(data)
+    }, [data])
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -57,13 +59,11 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
 
 const getGrouppedArray = initialArray => {
 
-    initialArray.sort((a, b) => a.name.localeCompare(b.name))
-
     const groupedArray = []
     let contactsItem = []
     initialArray.forEach(item => {
 
-        let firstLetter = item.name.charAt(0)
+        let firstLetter = item.name?.charAt(0)
         let findByGroup = groupedArray.find(item => item.group === firstLetter)
 
         if (!findByGroup) {

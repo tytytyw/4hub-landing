@@ -41,6 +41,7 @@ const MyProfile = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log('asdds')
         dispatch(onGetContacts())
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -106,9 +107,9 @@ const MyProfile = () => {
             </div>
 
             {popup &&
-            <SendFriend
-                set={setPopup}
-            />}
+                <SendFriend
+                    set={setPopup}
+                />}
 
             <BottomPanel/>
 

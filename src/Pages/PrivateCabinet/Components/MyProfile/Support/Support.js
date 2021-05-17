@@ -8,39 +8,19 @@ import Input from '../Input/Input'
 import Textarea from '../Textarea/Textarea'
 import api from '../../../../../api'
 import AlertPopup from '../AlertPopup/AlertPopup'
+import {formIsValid, isCorrectData} from '../Input/validation'
+import {useSelector} from "react-redux";
 
 const Support = () => {
 
-    const [errors, setErrors] = useState([])
-    const [submitErrors, setSubmitErrors] = useState([])
+    const uid = useSelector(state => state.user.uid)
 
-    const [fields, setFields] = useState([])
-    const [blur, setBlur] = useState([])
+    const [errors, setErrors] = useState({})
+    const [submitErrors, setSubmitErrors] = useState({})
+
+    const [fields, setFields] = useState({})
+    const [blur, setBlur] = useState({})
     const [success, setSuccess] = useState(false)
-
-    const requiredInputs = {
-        email: true,
-        message: true
-    }
-
-    const formIsValid = () => {
-
-        let dataErrors = {}
-        let isValid = true
-        for (let name in requiredInputs) {
-            const value = fields[name]
-            if (!isCorrectData(value, name)) {
-                dataErrors = {...dataErrors, [name]: true}
-                isValid = false
-            } else {
-                dataErrors = {...dataErrors, [name]: false}
-            }
-        }
-
-        setSubmitErrors(dataErrors)
-
-        return isValid
-    }
 
     const resetForm = () => {
         setFields({})
@@ -49,29 +29,16 @@ const Support = () => {
         setSubmitErrors({})
     }
 
-    const validateEmail = email => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
-
-    const isCorrectData = (value, name) => {
-
-        switch (true) {
-            case name === 'email':
-                return validateEmail(value) && !!value
-            case requiredInputs[name]:
-                return !!value
-            default:
-                return true
-        }
-
+    const onBlurHandler = event => {
+        const {name} = event.target
+        setBlur({...blur, [name]: true})
     }
 
     const onChangeHandler = event => {
 
         let {value, name} = event.target
 
-        if (!isCorrectData(value, name)) {
+        if (!isCorrectData(value, name, fields,['text'])) {
             setErrors({...errors, [name]: true})
         } else {
             setErrors({...errors, [name]: false})
@@ -82,25 +49,25 @@ const Support = () => {
 
     }
 
-    const onBlurHandler = event => {
-        const {name} = event.target
-        setBlur({...blur, [name]: true})
-    }
-
     const onSubmit = (event) => {
 
         event.preventDefault()
 
-        if (formIsValid()) {
-            api.get(`/ajax/user_send.php`, {
-                params: { ...fields }
-            }).then(() => {
-                setSuccess(true)
-                resetForm()
-            }).catch(err => console.log(err))
-        } else {
-            console.log('Error')
+        if (formIsValid(fields, setSubmitErrors, ['text'])) {
+            api.get(`/ajax/admin_send.php`, {
+                params: {
+                    uid,
+                    ...fields
+                }
+            })
+                .then(() => {
+                    setSuccess(true)
+                    resetForm()
+                }).catch(err => {
+                    console.log(err)
+                })
         }
+
     }
 
     const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
@@ -118,17 +85,17 @@ const Support = () => {
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
-                        <div className={`${styles.field} ${styles.flex50}`}>
+                        <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
                                 label='Введите тему'
-                                name='theme'
-                                isMistake={isMistake('theme')}
-                                value={fields?.theme}
+                                name='subj'
+                                isMistake={isMistake('subj')}
+                                value={fields?.subj || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
                         </div>
-                        <div className={`${styles.field} ${styles.flex50}`}>
+                        {/*<div className={`${styles.field} ${styles.flex50}`}>
                             <Input
                                 type='email'
                                 name='email'
@@ -138,16 +105,16 @@ const Support = () => {
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
-                        </div>
+                        </div>*/}
                     </div>
 
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Textarea
                                 label='Задайте вопрос'
-                                name='message'
-                                isMistake={isMistake('message')}
-                                value={fields?.message}
+                                name='text'
+                                isMistake={isMistake('text')}
+                                value={fields?.text || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
@@ -166,6 +133,7 @@ const Support = () => {
             </form>
 
             {success && <AlertPopup
+                set={setSuccess}
                 title='Данные успешно обновлены'
                 text='В целях безопасности, на Email Вашей учетной записи
                         отправлено подтверждение этого изменения'

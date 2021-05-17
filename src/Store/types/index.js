@@ -10,4 +10,3 @@ export const ADD_RECENT_FILES = 'ADD_RECENT_FILES';
 export const ADD_RECENT_FOLDERS = 'ADD_RECENT_FOLDERS';
 
 export const CONTACT_LIST = 'CONTACT_LIST';
-export const ADD_CONTACT = 'ADD_CONTACT';
