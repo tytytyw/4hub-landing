@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './UserForm.module.sass'
 import Input from '../Input/Input.js'
 import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useDispatch, useSelector} from 'react-redux'
-import Form from '../Form/Form'
 import api from '../../../../../api'
 import Button from '../Button/Button'
 import {USER_INFO} from '../../../../../Store/types'
@@ -29,6 +28,8 @@ const UserForm = () => {
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
 
+    const formRef = useRef()
+
     const uploadImage = event => {
         const file = event.target.files[0] ?? null
         if (file && file.type.substr(0, 5) === 'image') {
@@ -39,13 +40,14 @@ const UserForm = () => {
     }
 
     useEffect(() => {
+        const profileImage = fields?.icon?.[0] || null
         if (image) {
             setFields({...fields, image})
             const reader = new FileReader()
             reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
         } else {
-            setPreview(null)
+            setPreview(profileImage)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
@@ -92,19 +94,24 @@ const UserForm = () => {
         event.preventDefault()
 
         if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
-            api.get(`/ajax/user_edit.php`, {
-                params: {
-                    uid,
-                    ...fields,
-                    file: image
-                }
-            }).then(() => {
-                setSuccess(true)
-                dispatch({
-                    type: USER_INFO,
-                    payload: fields
+
+            const formData = new FormData(formRef.current)
+            formData.append('file', image)
+
+            api.post(`/ajax/user_edit.php?uid=${uid}`, formData)
+                .then(() => {
+                    setSuccess(true)
+                    setEditForm(false)
+                    dispatch({
+                        type: USER_INFO,
+                        payload: {
+                            ...fields,
+                            icon: [preview]
+                        }
+                    })
+                }).catch(err => {
+                    console.log(err)
                 })
-            }).catch(err => console.log(err))
         }
     }
 
@@ -121,7 +128,7 @@ const UserForm = () => {
                 />
             </div>
 
-            <Form noValidate onSubmit={onSubmit}>
+            <form ref={formRef} noValidate onSubmit={onSubmit}>
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
@@ -237,7 +244,7 @@ const UserForm = () => {
                     </div>
 
                 </div>
-            </Form>
+            </form>
 
             {success && <AlertPopup
                 set={setSuccess}

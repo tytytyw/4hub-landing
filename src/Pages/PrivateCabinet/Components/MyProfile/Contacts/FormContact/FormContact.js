@@ -39,6 +39,7 @@ const FormContact = ({set, type, selectedItem}) => {
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
 
+    console.log(numbers)
     console.log(fields)
 
     const formRef = useRef()
@@ -68,12 +69,12 @@ const FormContact = ({set, type, selectedItem}) => {
         //'sname'
     ]
 
-    // const resetForm = () => {
-    //     setFields({})
-    //     setBlur({})
-    //     setErrors({})
-    //     setSubmitErrors({})
-    // }
+    const resetForm = () => {
+        setFields({})
+        setBlur({})
+        setErrors({})
+        setSubmitErrors({})
+    }
 
     const onBlurHandler = event => {
         const {name} = event.target
@@ -103,20 +104,36 @@ const FormContact = ({set, type, selectedItem}) => {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
-            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
+            const formData = new FormData(formRef.current)
+            formData.append('file', image)
+            /*formData.append('tel', JSON.stringify(numbers))
+            formData.append('email', JSON.stringify(mails))
+            formData.append('soc', JSON.stringify(socials))*/
+
+            /*const sendData = {
+                formData,
                 ...fields,
                 name: `${fields?.name} ${fields?.sname || ''}`,
                 tel: numbers,
                 email: mails,
-                soc: socials,
-                file: image
-            }).then(async () => {
-                dispatch(onGetContacts())
-                resetForm()
-                set(false)
-            }).catch(err => {
-                console.log(err)
+                soc: socials
+            }*/
+
+            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
+                formData,
+                ...fields,
+                name: `${fields?.name} ${fields?.sname || ''}`,
+                tel: numbers,
+                email: mails,
+                soc: socials
             })
+                .then(async () => {
+                    dispatch(onGetContacts())
+                    resetForm()
+                    set(false)
+                }).catch(err => {
+                    console.log(err)
+                })
         }
 
     }
@@ -147,7 +164,9 @@ const FormContact = ({set, type, selectedItem}) => {
                 <div className={styles.content}>
 
                     <div className={styles.header}>
-                        <p className={styles.title}>Добавить контакт</p>
+                        <p className={styles.title}>
+                            {type === 'edit' ? 'Редактировать контакт' : 'Добавить контакт'}
+                        </p>
                         <div className={styles.uploadBlock}>
                             <ProfileUpload
                                 name='profileImg'
@@ -223,12 +242,11 @@ const FormContact = ({set, type, selectedItem}) => {
                                     <span className={styles.info}>Введите номер телефона:</span>
                                     <Input
                                         phone={true}
-                                        name={`number-${index}`}
+                                        //name={`number-${index}`}
                                         onChange={event => {
                                             numbers[index] = event.target.value
                                             setNumbers([...numbers])
                                         }}
-                                        custom={true}
                                         className={styles.input}
                                         value={number}
                                     />
@@ -262,7 +280,7 @@ const FormContact = ({set, type, selectedItem}) => {
                                     />
                                     <span className={styles.info}>Введите @mail:</span>
                                     <Input
-                                        name={`email-${index}`}
+                                        //name={`email-${index}`}
                                         type="email"
                                         onChange={event => {
                                             mails[index] = event.target.value
@@ -333,6 +351,7 @@ const FormContact = ({set, type, selectedItem}) => {
 
                         <Input
                             name='prim'
+                            className={styles.inputStyle}
                             placeholder='Заметки'
                             value={fields?.prim || ''}
                             onChange={onChangeHandler}

@@ -41,7 +41,6 @@ const MyProfile = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('asdds')
         dispatch(onGetContacts())
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

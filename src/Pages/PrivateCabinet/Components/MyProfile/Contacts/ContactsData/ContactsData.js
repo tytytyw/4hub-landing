@@ -23,12 +23,12 @@ import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActio
 import FormContact from '../FormContact/FormContact'
 import SendFriend from '../../TellFriends/SendFriend/SendFriend'
 
-const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
+const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
-    const [favourite, setFavorite] = useState(selectedItem?.is_fav !== 0)
+    const [favourite, setFavorite] = useState(selectedItem?.is_fav !== "0")
     const [delConfirm, setDelConfirm] = useState(false)
 
     const [contactPopup, setContactPopup] = useState(false)
@@ -66,9 +66,9 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
             selectOtherContact()
             setDelConfirm(false)
         })
-        .catch(error => {
-            console.log(error)
-        })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     const profileImage = selectedItem?.image || emptyProfileImage
@@ -96,28 +96,20 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
                             className={styles.iconView}
                         >
                             {!favourite ?
-                                <StarIcon
-                                    className={classnames({
-                                        [styles.iconStar]: true
-                                    })}
-                                /> :
-                                <StarFillIcon
-                                    className={classnames({
-                                        [styles.iconStar]: true
-                                    })}
-                                />}
+                                <StarIcon className={styles.iconStar}/> :
+                                <StarFillIcon className={styles.iconStar}/>}
                         </div>
                         <div
                             onClick={() => setSendPopup(true)}
                             className={styles.iconView}
                         >
-                            <ShareIcon className={styles.iconShare} />
+                            <ShareIcon className={styles.iconShare}/>
                         </div>
                         <div
                             onClick={() => setContactPopup(true)}
                             className={styles.iconView}
                         >
-                            <EditIcon className={styles.iconShare} />
+                            <EditIcon className={styles.iconShare}/>
                         </div>
                         <div
                             onClick={() => setDelConfirm(true)}
@@ -134,9 +126,9 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
                             callback={onDeleteConfirm}
                         >
                             <img
-                                 className={styles.profileImg}
-                                 src={profileImage}
-                                 alt='Contact'
+                                className={styles.profileImg}
+                                src={profileImage}
+                                alt='Contact'
                             />
                         </ActionApproval>}
                     </div>
@@ -204,43 +196,43 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
                     </div>
 
                     {selectedItem?.soc?.length > 0 &&
-                        <div className={styles.infoItem}>
+                    <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Профиль соц. сетей:</span>
-                            <div className={styles.value}>
-                                <ul className={styles.socialsList}>
-                                    {selectedItem?.soc.map((item, index) => (
-                                        <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img src={socialsIcons[item.type]} alt={item.type}/>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className={styles.value}>
+                            <ul className={styles.socialsList}>
+                                {selectedItem?.soc.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.link} className={styles.socialsLink}>
+                                            <img src={socialsIcons[item.type]} alt={item.type}/>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+                    </div>
                     }
 
                     {selectedItem?.messengers &&
-                        <div className={styles.infoItem}>
+                    <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
                             })}>Мессенджеры:</span>
-                            <div className={styles.value}>
-                                <ul className={styles.socialsList}>
-                                    {selectedItem?.messengers.map((item, index) => (
-                                        <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img src={socialsIcons[item.type]} alt={item.type}/>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                        <div className={styles.value}>
+                            <ul className={styles.socialsList}>
+                                {selectedItem?.messengers.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item.link} className={styles.socialsLink}>
+                                            <img src={socialsIcons[item.type]} alt={item.type}/>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+                    </div>
                     }
 
                 </div>
@@ -254,7 +246,10 @@ const ContactsData = ({ contacts = [], selectedItem, setSelectedItem }) => {
                 selectedItem={selectedItem}
             />}
 
-            {sendPopup && <SendFriend set={setSendPopup}/>}
+            {sendPopup && <SendFriend
+                contact={selectedItem}
+                set={setSendPopup}
+            />}
 
         </div>
     )

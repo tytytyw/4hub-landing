@@ -14,7 +14,7 @@ import {socialsData} from '../../Contacts/consts'
 import classNames from "classnames";
 import api from "../../../../../../api";
 
-const SendFriend = ({ set, ...props }) => {
+const SendFriend = ({ set, contact, ...props }) => {
 
     const contacts = useSelector(state => state.PrivateCabinet.contactList)
     const uid = useSelector(state => state.user.uid)
@@ -81,7 +81,7 @@ const SendFriend = ({ set, ...props }) => {
 
     }
 
-    const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
+    //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
 
     return (
         <PopUp set={set}>
@@ -94,7 +94,10 @@ const SendFriend = ({ set, ...props }) => {
                             src='./assets/PrivateCabinet/profile-noPhoto.svg'
                             alt='pie-chart'
                         />
-                        <span>Рассказать друзьям о 4 HUB</span>
+                        <span>
+                            Поделиться контактом
+                            &nbsp;<b>{`${contact?.name} ${contact?.sname || ''}`}</b>
+                        </span>
                     </div>
                     <span
                         className={styles.close}

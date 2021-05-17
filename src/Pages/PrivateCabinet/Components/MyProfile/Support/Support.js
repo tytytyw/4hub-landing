@@ -59,13 +59,12 @@ const Support = () => {
                     uid,
                     ...fields
                 }
+            }).then(() => {
+                setSuccess(true)
+                resetForm()
+            }).catch(err => {
+                console.log(err)
             })
-                .then(() => {
-                    setSuccess(true)
-                    resetForm()
-                }).catch(err => {
-                    console.log(err)
-                })
         }
 
     }
@@ -134,9 +133,8 @@ const Support = () => {
 
             {success && <AlertPopup
                 set={setSuccess}
-                title='Данные успешно обновлены'
-                text='В целях безопасности, на Email Вашей учетной записи
-                        отправлено подтверждение этого изменения'
+                title='Запрос успешно отправлен'
+                text='Благодарим за обратную связь!'
             />}
 
         </div>

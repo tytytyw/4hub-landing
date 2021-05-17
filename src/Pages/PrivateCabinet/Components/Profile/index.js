@@ -45,7 +45,7 @@ const Profile = ({setItem}) => {
         >
             <img
                 className={styles.profileImg}
-                src='./assets/PrivateCabinet/profile-noPhoto.svg'
+                src={user?.icon?.[0] || './assets/PrivateCabinet/profile-noPhoto.svg'}
                 alt='pie-chart'
             />
             <span>{user?.name ? user.name : 'User'}</span>

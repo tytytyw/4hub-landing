@@ -65,7 +65,7 @@ const Input = (
             <div className={styles.inputWrap}>
                 <input
                     className={classnames({
-                        [styles.input]: !custom,
+                        [styles.input]: true,
                         [className]: !!className,
                         [styles.redBorder]: isMistake && !disabled
                     })}
