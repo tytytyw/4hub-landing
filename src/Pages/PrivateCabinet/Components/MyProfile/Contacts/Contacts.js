@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import styles from './Contacts.module.sass'
 
@@ -16,10 +16,6 @@ const Contacts = ({ ...props }) => {
 
     const [selectedContact, setSelectedContact] = useState(contacts?.[0])
     const [contactPopup, setContactPopup] = useState(false)
-
-    useEffect(() => {
-        setSelectedContact(contacts?.[0])
-    }, [contacts])
 
     const menuData = [
         {

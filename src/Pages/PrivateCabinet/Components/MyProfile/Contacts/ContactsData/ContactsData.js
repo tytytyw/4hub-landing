@@ -59,15 +59,14 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
                 uid,
                 id: selectedItem?.id
             }
+        }).then(() => {
+            selectOtherContact()
+            dispatch(onGetContacts())
+            setDelConfirm(false)
         })
-            .then(() => {
-                selectOtherContact()
-                dispatch(onGetContacts())
-                setDelConfirm(false)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     const profileImage = selectedItem?.image || emptyProfileImage
@@ -94,7 +93,7 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
                             onClick={addToFavourite}
                             className={styles.iconView}
                         >
-                            {favourite ?
+                            {!favourite ?
                                 <StarIcon
                                     className={classnames({
                                         [styles.iconStar]: true
@@ -253,8 +252,7 @@ const ContactsData = ({ selectedItem, setSelectedItem, contacts }) => {
                 set={setContactPopup}
             />}
 
-            {sendPopup &&
-            <SendFriend set={setSendPopup}/>}
+            {sendPopup && <SendFriend set={setSendPopup}/>}
 
         </div>
     )
