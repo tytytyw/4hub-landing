@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import cameraImg from '../../../../../../assets/PrivateCabinet/camera.svg'
 import styles from './ProfileUpload.module.sass'
 import avatarImg from '../../../../../../assets/PrivateCabinet/avatar2.svg'
