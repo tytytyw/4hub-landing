@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "/ajax/",
+      "source": "https://4-hub-project.vercel.app/",
       "destination": "https://fs2.mh.net.ua/"
     }
   ]
