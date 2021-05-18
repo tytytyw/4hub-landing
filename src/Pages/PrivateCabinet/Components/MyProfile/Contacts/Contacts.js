@@ -22,6 +22,7 @@ const Contacts = ({ ...props }) => {
         setSelectedContact(newSelectedContact)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contacts])
+
     const menuData = [
         {
             id: 'new_contact',
