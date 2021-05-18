@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
 
 const WorkBarsPreview = ({children, file}) => {
 
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [f, setF] = useState(file);
     useEffect(() => {setF(file); setPlay(false)}, [file]);
 
@@ -39,7 +41,7 @@ const WorkBarsPreview = ({children, file}) => {
         }
     }
 
-    return (<div className={styles.workBarsPreviewWrap}>
+    return (<div className={styles.workBarsPreviewWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
         <div className={styles.preview}>
             {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
         </div>

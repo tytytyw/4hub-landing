@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
@@ -6,6 +7,7 @@ import FileBar from '../FileBar';
 
 const WorkBars = ({children, setBlob, blob, fileLoading, progress}) => {
 
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
     const formRef = useRef(null);
     useEffect(() => {
         if(blob.file === null) formRef.current.reset();
@@ -15,7 +17,8 @@ const WorkBars = ({children, setBlob, blob, fileLoading, progress}) => {
     };
 
     return (
-        <div className={styles.workBarsWrap}>
+
+        <div className={styles.workBarsWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
             <div className={styles.addFile}>
                 <form className={styles.form} ref={formRef}><input type='file' onChange={onHandleChange} /></form>
                 <AddIcon className={styles.addIcon} />
