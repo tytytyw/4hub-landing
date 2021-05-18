@@ -10,8 +10,8 @@ const RecentFiles = () => {
 
     const renderRecentFiles = () => {
         if(!recentFiles) return null;
-      return  recentFiles.map(file => {
-          return <div className={styles.fileWrap}>
+      return  recentFiles.map((file, i) => {
+          return <div className={styles.fileWrap} key={i}>
               <div className={styles.innerFileWrap}>
                   <File color={file.color} format={file.ext}/>
                   {/*{file.is_pass && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}*/}
