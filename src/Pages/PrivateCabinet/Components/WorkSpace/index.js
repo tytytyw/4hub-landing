@@ -65,7 +65,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     };
 
     return (<>
-        <div className={`${styles.workSpaceWrap} ${listCollapsed ? styles.workSpaceWrapCollapsed : undefined}`}>
+        <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
                 <SearchField />
                 <div className={styles.infoHeader}>

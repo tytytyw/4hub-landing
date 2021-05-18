@@ -16,7 +16,7 @@ const MyFolders = ({setItem}) => {
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
     const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
-    const [listCollapsed, setListCollapsed] = useState(false);
+    const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
