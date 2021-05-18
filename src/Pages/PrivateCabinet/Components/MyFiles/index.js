@@ -121,6 +121,8 @@ const MyFiles = () => {
 				callbackArrMain={callbackArrMain}
 				additionalMenuItems={additionalMenuItems}
 				deleteFile={deleteFile}
+				
+				setSafePassword={setSafePassword}
 			/>
 			{blob.show && (
 				<CreateFile
@@ -132,6 +134,7 @@ const MyFiles = () => {
 					fileLoading={fileLoading}
 					setProgress={setProgress}
 					progress={progress}
+					onToggleSafePassword={onSafePassword}
 				/>
 			)}
 			{safePassword.open && <CreateSafePassword
