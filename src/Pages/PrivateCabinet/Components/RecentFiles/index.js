@@ -14,7 +14,7 @@ const RecentFiles = () => {
           return <div className={styles.fileWrap} key={i}>
               <div className={styles.innerFileWrap}>
                   <File color={file.color} format={file.ext}/>
-                  {/*{file.is_pass && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}*/}
+                  {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
               </div>
               <div className={styles.descriptionWrap}>
                   <div className={styles.fileName}>{file.name.slice(0, file.name.lastIndexOf('.'))}</div>

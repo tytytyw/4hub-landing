@@ -327,7 +327,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
             file: "2042f4f9b62329de09eb2e3f0baba547",
             fname: "1a46a75a1bcdebf.jpg",
             gdir: "global/all",
-            is_pass: 0,
+            is_pass: 1,
             is_preview: 1,
             mime_type: "image/jpeg",
             mtime: "16.05.2021 17:07",
