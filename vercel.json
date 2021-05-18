@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "/ajax/(*)",
+      "source": "/ajax/",
       "destination": "https://fs2.mh.net.ua/"
     }
   ]
