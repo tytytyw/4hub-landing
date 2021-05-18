@@ -39,9 +39,6 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                     </div>
                 </>
             }
-            // case 'application': {
-            //     return <iframe src={`https://fs2.mh.net.ua${f.preview}`} title={f.name} frameBorder="0" scrolling="no"  />
-            // }
             default: {
                 return <div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div>
             }
