@@ -120,7 +120,6 @@ const FormContact = ({set, type, selectedItem}) => {
             }*/
 
             api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
-                formData,
                 ...fields,
                 name: `${fields?.name} ${fields?.sname || ''}`,
                 tel: numbers,

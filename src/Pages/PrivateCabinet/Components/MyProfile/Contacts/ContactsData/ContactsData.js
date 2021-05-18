@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import classnames from 'classnames'
 import {useDispatch, useSelector} from 'react-redux'
 
@@ -28,8 +28,20 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
-    const [favourite, setFavorite] = useState(selectedItem?.is_fav !== "0")
+    const getFavourites = contacts => {
+        const favouritesData = []
+        contacts.forEach(contact => {
+            if (contact?.is_fav === "1") {
+                favouritesData.push(contact?.id)
+            }
+        })
+        return favouritesData
+    }
+
+    const [favourites, setFavorites] = useState(getFavourites(contacts))
     const [delConfirm, setDelConfirm] = useState(false)
+
+    useEffect(() => setFavorites(getFavourites(contacts)), [contacts])
 
     const [contactPopup, setContactPopup] = useState(false)
     const [sendPopup, setSendPopup] = useState(false)
@@ -47,12 +59,15 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
     }
 
     const addToFavourite = () => {
-        api.post(`/ajax/contacts_edit.php?uid=${uid}&id=${selectedItem?.id}`, {
-            ...selectedItem,
-            is_fav: !favourite
-        }).then(() => {
-            setFavorite(!favourite)
-        })
+
+        const isFav = favourites.includes(selectedItem?.id) ? "0" : "1"
+
+        api.post(`/ajax/contacts_fav.php?uid=${uid}&id=${selectedItem?.id}&is_fav=${isFav}`)
+            .then(() => {
+                dispatch(onGetContacts())
+            }).catch(error => {
+                console.log(error)
+            })
     }
 
     const onDeleteConfirm = () => {
@@ -95,7 +110,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                             onClick={addToFavourite}
                             className={styles.iconView}
                         >
-                            {!favourite ?
+                            {!favourites.includes(selectedItem?.id) ?
                                 <StarIcon className={styles.iconStar}/> :
                                 <StarFillIcon className={styles.iconStar}/>}
                         </div>
