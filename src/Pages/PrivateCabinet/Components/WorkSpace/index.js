@@ -30,6 +30,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -73,7 +74,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                     <Profile setItem={setItem} />
                 </div>
             </div>
-            <RecentFiles />
+            {recentFiles?.length > 0 && <RecentFiles />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}

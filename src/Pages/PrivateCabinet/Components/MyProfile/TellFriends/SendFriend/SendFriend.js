@@ -8,10 +8,10 @@ import ContactSearch from '../../Contacts/ContactList/ContactSearch/ContactSearc
 import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../../Button/Button'
 import {useSelector} from "react-redux";
-import Input from "../../Input/Input";
+// import Input from "../../Input/Input";
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import {socialsData} from '../../Contacts/consts'
-import classNames from "classnames";
+// import classNames from "classnames";
 import api from "../../../../../../api";
 
 const SendFriend = ({ set, contact, ...props }) => {
@@ -61,6 +61,8 @@ const SendFriend = ({ set, contact, ...props }) => {
         setFields({...fields, [name]: value})
 
     }
+    // !Temporary - NEED TO DELETE
+    if(null) {onBlurHandler();onChangeHandler();}
 
     const onSubmit = event => {
 
