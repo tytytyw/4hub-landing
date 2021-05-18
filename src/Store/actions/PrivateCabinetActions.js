@@ -150,7 +150,8 @@ export const onGetContacts = () => async (dispatch, getState) => {
 }
 
 export const onAddRecentFolders = () => async (dispatch) => {
-    const mock = [{
+    const mock = [
+        {
         color: "green",
         deadline: 0,
         emo: "cool",
@@ -161,7 +162,19 @@ export const onAddRecentFolders = () => async (dispatch) => {
         name: "TempFolder",
         path: "global/all/TempFolder",
         tags: "Другое",
-    }];
+        },
+        {
+            name:"123",
+            path:"other/TestFolder/123",
+            tags:"Документы",
+            is_pass:0,
+            is_lock:0,
+            deadline:0,
+            color:"green",
+            fig:"star",
+            emo:"cool",
+        }
+    ];
     dispatch({
         type: ADD_RECENT_FOLDERS,
         payload: mock
@@ -177,7 +190,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
         deny_edit: "0",
         edit_url: "",
         edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
-        emo: "grinning",
+        emo: "",
         ext: "JPG",
         fid: "0088280c930a26d39d4f972d80089f74",
         fig: "star",
@@ -284,7 +297,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
             emo: "grinning",
             ext: "JPG",
             fid: "0088280c930a26d39d4f972d80089f74",
-            fig: "star",
+            fig: "",
             file: "2042f4f9b62329de09eb2e3f0baba547",
             fname: "1a46a75a1bcdebf.jpg",
             gdir: "global/all",
@@ -307,7 +320,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
             deny_edit: "0",
             edit_url: "",
             edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
-            emo: "grinning",
+            emo: "",
             ext: "JPG",
             fid: "0088280c930a26d39d4f972d80089f74",
             fig: "star",
@@ -322,7 +335,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
             preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
             size: 370267,
             size_now: "361.6 KB",
-            tag: 'Видео',
+            tag: 'Видеоfytfftfyfyt',
             tag2: "ZZZZZZZZZZZZ",
         }
         ];
