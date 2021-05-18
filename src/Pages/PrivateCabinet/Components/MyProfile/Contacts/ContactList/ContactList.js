@@ -4,9 +4,9 @@ import styles from './ContacList.module.sass'
 import ContactSearch from './ContactSearch/ContactSearch'
 import SearchList from './SearchList/SearchList'
 
-const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem }) => {
+const ContactList = ({data = [], onSearch, search, selectedItem, setSelectedItem}) => {
 
-    const [contactList, setContactList] = useState([])
+    const [contactList, setContactList] = useState(data)
 
     useEffect(() => setContactList(data), [data])
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,13 +36,13 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
             <div className={styles.contactListWrap}>
 
                 <ul className={styles.contactList}>
-                    {getGrouppedArray(contactList).map((item, index) => (
+                    {getGrouppedArray(contactList).map((contact, index) => (
                         <li key={index}>
-                            <p className={styles.group}>{item.group}</p>
+                            <p className={styles.group}>{contact.group}</p>
                             <SearchList
-                                data={item.contacts}
-                                onItemClick={onItemClick}
+                                data={contact.contacts}
                                 selectedItem={selectedItem}
+                                setSelectedItem={setSelectedItem}
                             />
                         </li>
                     ))}
@@ -57,13 +57,11 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
 
 const getGrouppedArray = initialArray => {
 
-    initialArray.sort((a, b) => a.name.localeCompare(b.name))
-
     const groupedArray = []
     let contactsItem = []
     initialArray.forEach(item => {
 
-        let firstLetter = item.name.charAt(0)
+        let firstLetter = item.name?.charAt(0)
         let findByGroup = groupedArray.find(item => item.group === firstLetter)
 
         if (!findByGroup) {

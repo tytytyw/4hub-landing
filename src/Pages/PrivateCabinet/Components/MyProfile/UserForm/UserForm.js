@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './UserForm.module.sass'
 import Input from '../Input/Input.js'
 import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useDispatch, useSelector} from 'react-redux'
-import Form from '../Form/Form'
 import api from '../../../../../api'
 import Button from '../Button/Button'
 import {USER_INFO} from '../../../../../Store/types'
 import AlertPopup from '../AlertPopup/AlertPopup'
+import {formIsValid, isCorrectData} from '../Input/validation'
 
 const UserForm = () => {
 
@@ -16,7 +16,7 @@ const UserForm = () => {
     const uid = useSelector(state => state.user.uid)
     const dispatch = useDispatch()
 
-    const [userInfo, setUserInfo] = useState(user)
+    const [fields, setFields] = useState(user)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [blur, setBlur] = useState({})
@@ -28,6 +28,8 @@ const UserForm = () => {
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
 
+    const formRef = useRef()
+
     const uploadImage = event => {
         const file = event.target.files[0] ?? null
         if (file && file.type.substr(0, 5) === 'image') {
@@ -38,85 +40,47 @@ const UserForm = () => {
     }
 
     useEffect(() => {
+        const profileImage = fields?.icon?.[0] || null
         if (image) {
-            setUserInfo({...userInfo, image})
+            setFields({...fields, image})
             const reader = new FileReader()
             reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
         } else {
-            setPreview(null)
+            setPreview(profileImage)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-    const formIsValid = () => {
-
-        let dataErrors = {}
-        let isValid = true
-        for (let name in requiredInputs) {
-            const value = userInfo[name]
-            if (!isCorrectData(value, name)) {
-                dataErrors = {...dataErrors, [name]: true}
-                isValid = false
-            } else {
-                dataErrors = {...dataErrors, [name]: false}
-            }
-        }
-
-        setSubmitErrors(dataErrors)
-
-        return isValid
-    }
+    const requiredInputs = [
+        'name',
+        'sname',
+        'email',
+        'pass',
+        'password_r',
+    ]
 
     const resetForm = () => {
         setEditForm(false)
         setImage(null)
-        setUserInfo(user)
+        setFields(user)
         setBlur({})
         setErrors({})
         setSubmitErrors({})
-    }
-
-    const validateEmail = email => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
-
-    const requiredInputs = {
-        name: true,
-        sname: true,
-        email: true,
-        pass: true,
-        password_r: true,
-    }
-
-    const isCorrectData = (value, name) => {
-
-        switch (true) {
-            case name === 'email':
-                return validateEmail(value) && !!value
-            case name === 'password_r':
-                return value === userInfo?.pass && !!value
-            case requiredInputs[name]:
-                return !!value
-            default:
-                return true
-        }
-
     }
 
     const onChangeHandler = event => {
 
         let {value, name} = event.target
 
-        if (!isCorrectData(value, name)) {
+        if (!isCorrectData(value, name, fields, requiredInputs)) {
             setErrors({...errors, [name]: true})
         } else {
             setErrors({...errors, [name]: false})
             setSubmitErrors({...submitErrors, [name]: false})
         }
 
-        setUserInfo({...userInfo, [name]: value})
+        setFields({...fields, [name]: value})
 
     }
 
@@ -129,18 +93,29 @@ const UserForm = () => {
 
         event.preventDefault()
 
-        if (formIsValid()) {
-            api.get(`/ajax/user_edit.php`, {
-                params: { uid, ...userInfo }
-            }).then(res => {
-                setSuccess(true)
-                dispatch({
-                    type: USER_INFO,
-                    payload: userInfo
+        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
+
+            const formData = new FormData(formRef.current)
+            formData.append('file', image)
+
+            api.post(`/ajax/user_edit.php?uid=${uid}`, formData)
+                .then(() => {
+                    setSuccess(true)
+                    setEditForm(false)
+                    dispatch({
+                        type: USER_INFO,
+                        payload: {
+                            ...fields,
+                            icon: [preview]
+                        }
+                    })
+                }).catch(err => {
+                    console.log(err)
                 })
-            }).catch(err => console.log(err))
         }
     }
+
+    const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
 
     return (
         <div className={styles.formWrap}>
@@ -153,7 +128,7 @@ const UserForm = () => {
                 />
             </div>
 
-            <Form noValidate onSubmit={onSubmit}>
+            <form ref={formRef} noValidate onSubmit={onSubmit}>
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
@@ -162,8 +137,8 @@ const UserForm = () => {
                                 label='Имя'
                                 name='name'
                                 disabled={!editForm}
-                                isMistake={(errors?.name && blur?.name) || submitErrors?.name}
-                                value={userInfo?.name}
+                                isMistake={isMistake('name')}
+                                value={fields?.name || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
@@ -173,8 +148,8 @@ const UserForm = () => {
                                 label='Фамилия'
                                 name='sname'
                                 disabled={!editForm}
-                                isMistake={(errors?.sname && blur?.sname) || submitErrors?.sname}
-                                value={userInfo?.sname}
+                                isMistake={isMistake('sname')}
+                                value={fields?.sname || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
@@ -188,8 +163,8 @@ const UserForm = () => {
                                 label='Email'
                                 name='email'
                                 disabled={!editForm}
-                                isMistake={(errors?.email && blur?.email) || submitErrors?.email}
-                                value={userInfo?.email}
+                                isMistake={isMistake('email')}
+                                value={fields?.email || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                             />
@@ -203,8 +178,8 @@ const UserForm = () => {
                                 label='Пароль'
                                 name='pass'
                                 disabled={!editForm}
-                                isMistake={(errors?.pass && blur?.pass) || submitErrors?.pass}
-                                value={userInfo?.pass ?? ''}
+                                isMistake={isMistake('pass')}
+                                value={fields?.pass || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                                 showPass={showPass}
@@ -221,8 +196,8 @@ const UserForm = () => {
                                 label='Повторите Пароль'
                                 name='password_r'
                                 disabled={!editForm}
-                                isMistake={(errors?.password_r && blur?.password_r) || submitErrors?.password_r}
-                                value={userInfo?.password_r ?? ''}
+                                isMistake={isMistake('password_r')}
+                                value={fields?.password_r || ''}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
                                 showPass={showPass}
@@ -237,7 +212,7 @@ const UserForm = () => {
                                 label='Телефон'
                                 name='tel'
                                 disabled={!editForm}
-                                value={userInfo?.tel}
+                                value={fields?.tel}
                                 phone={true}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}
@@ -269,9 +244,10 @@ const UserForm = () => {
                     </div>
 
                 </div>
-            </Form>
+            </form>
 
             {success && <AlertPopup
+                set={setSuccess}
                 title='Данные успешно обновлены'
                 text='В целях безопасности, на Email Вашей учетной записи
                         отправлено подтверждение этого изменения'

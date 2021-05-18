@@ -22,6 +22,7 @@ import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
 import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
+import RecentFiles from '../RecentFiles';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
 
@@ -29,6 +30,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
     const [workElementsView, setWorkElementsView] = useState('bars');
     const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -72,6 +74,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
                     <Profile setItem={setItem} />
                 </div>
             </div>
+            {recentFiles?.length > 0 && <RecentFiles />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}

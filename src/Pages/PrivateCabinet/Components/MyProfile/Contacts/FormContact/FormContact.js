@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import classnames from 'classnames'
 
-import styles from './AddContact.module.sass'
+import styles from './FormContact.module.sass'
 import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
 import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
 
@@ -12,28 +12,37 @@ import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
-import {emptyProfileImage, socialsIcons, socialsData} from '../consts'
+import {socialsIcons} from '../consts'
 import Input from '../../Input/Input'
-import {onAddContact} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
+import {formIsValid, isCorrectData} from '../../Input/validation'
+import api from '../../../../../../api'
 
-const AddContact = ({set, contacts}) => {
+const FormContact = ({set, type, selectedItem}) => {
 
     const dispatch = useDispatch()
+    const uid = useSelector(state => state.user.uid)
 
-    const [numbers, setNumbers] = useState([])
-    const [mails, setMails] = useState([])
+    const [blur, setBlur] = useState({})
+    const [errors, setErrors] = useState({})
+    const [submitErrors, setSubmitErrors] = useState({})
+
+    const [fields, setFields] = useState({...selectedItem})
+
+    const [numbers, setNumbers] = useState(selectedItem?.tel || [])
+    const [mails, setMails] = useState(selectedItem?.email || [])
+    const [socials, setSocials] = useState(selectedItem?.soc || [])
 
     const [socPopup, setSocPopup] = useState(false)
     const [showCalendar, setShowCalendar] = useState(false)
-    const [dateValue, setDateValue] = useState('')
-
-    const [socials, setSocials] = useState([])
 
     const [image, setImage] = useState()
     const [preview, setPreview] = useState()
 
-    const formRef = useRef()
+    console.log(numbers)
+    console.log(fields)
 
+    const formRef = useRef()
 
     const uploadImage = event => {
         const file = event.target.files[0] ?? null
@@ -55,33 +64,84 @@ const AddContact = ({set, contacts}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-    const onSubmit = event => {
+    const requiredInputs = [
+        'name',
+        //'sname'
+    ]
+
+    const resetForm = () => {
+        setFields({})
+        setBlur({})
+        setErrors({})
+        setSubmitErrors({})
+    }
+
+    const onBlurHandler = event => {
+        const {name} = event.target
+        setBlur({...blur, [name]: true})
+    }
+
+    const onChangeHandler = event => {
+
+        let {value, name} = event.target
+
+        if (!isCorrectData(value, name, fields, requiredInputs)) {
+            setErrors({...errors, [name]: true})
+        } else {
+            setErrors({...errors, [name]: false})
+            setSubmitErrors({...submitErrors, [name]: false})
+        }
+
+        setFields({...fields, [name]: value})
+
+    }
+
+    const onSubmit = (event) => {
 
         event.preventDefault()
 
-        const formData = new FormData(formRef.current)
+        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
 
-        socials.forEach(({type, link}) => formData.append(`socials[${type}]`, link))
+            let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
-        const formValues = {};
-        for (let [name, value] of formData.entries()) {
-            formValues[name] = value
+            const formData = new FormData(formRef.current)
+            formData.append('file', image)
+            /*formData.append('tel', JSON.stringify(numbers))
+            formData.append('email', JSON.stringify(mails))
+            formData.append('soc', JSON.stringify(socials))*/
+
+            /*const sendData = {
+                formData,
+                ...fields,
+                name: `${fields?.name} ${fields?.sname || ''}`,
+                tel: numbers,
+                email: mails,
+                soc: socials
+            }*/
+
+            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
+                formData,
+                ...fields,
+                name: `${fields?.name} ${fields?.sname || ''}`,
+                tel: numbers,
+                email: mails,
+                soc: socials
+            })
+                .then(async () => {
+                    dispatch(onGetContacts())
+                    resetForm()
+                    set(false)
+                }).catch(err => {
+                    console.log(err)
+                })
         }
 
-        dispatch(onAddContact({
-            id: contacts.length + 2,
-            image: preview ?? emptyProfileImage,
-            name: `${formValues?.name} ${formValues?.sname}`,
-            company: formValues?.company,
-            email: mails,
-            tel: numbers,
-            date_birth: formValues?.date_birth,
-            notes: formValues?.notes,
-            socials: socials,
-            messengers: []
-        }))
+    }
 
-        set(false)
+    const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
+
+    const setDateValue = dateValue => {
+        setFields({...fields, bdate: dateValue})
     }
 
     return (
@@ -104,7 +164,9 @@ const AddContact = ({set, contacts}) => {
                 <div className={styles.content}>
 
                     <div className={styles.header}>
-                        <p className={styles.title}>Добавить контакт</p>
+                        <p className={styles.title}>
+                            {type === 'edit' ? 'Редактировать контакт' : 'Добавить контакт'}
+                        </p>
                         <div className={styles.uploadBlock}>
                             <ProfileUpload
                                 name='profileImg'
@@ -118,20 +180,38 @@ const AddContact = ({set, contacts}) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Имя:</span>
-                                <input
+                                <span
+                                    className={classnames({
+                                        [styles.info]: true,
+                                        [styles.errorInfo]: isMistake('name')
+                                    })}
+                                >Имя:</span>
+                                <Input
                                     name='name'
                                     className={styles.input}
+                                    isMistake={isMistake('name')}
+                                    value={fields?.name || ''}
+                                    onChange={onChangeHandler}
+                                    onBlur={onBlurHandler}
                                 />
                             </div>
                         </div>
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Фамилия:</span>
-                                <input
+                                <span
+                                    className={classnames({
+                                        [styles.info]: true,
+                                        [styles.errorInfo]: isMistake('sname')
+                                    })}
+                                >Фамилия:</span>
+                                <Input
                                     name='sname'
                                     className={styles.input}
+                                    isMistake={isMistake('sname')}
+                                    value={fields?.sname || ''}
+                                    onChange={onChangeHandler}
+                                    onBlur={onBlurHandler}
                                 />
                             </div>
                         </div>
@@ -139,9 +219,12 @@ const AddContact = ({set, contacts}) => {
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
                                 <span className={styles.info}>Компания:</span>
-                                <input
+                                <Input
                                     name='company'
                                     className={styles.input}
+                                    value={fields?.company || ''}
+                                    onChange={onChangeHandler}
+                                    onBlur={onBlurHandler}
                                 />
                             </div>
                         </div>
@@ -159,12 +242,11 @@ const AddContact = ({set, contacts}) => {
                                     <span className={styles.info}>Введите номер телефона:</span>
                                     <Input
                                         phone={true}
-                                        name='number[]'
+                                        //name={`number-${index}`}
                                         onChange={event => {
                                             numbers[index] = event.target.value
                                             setNumbers([...numbers])
                                         }}
-                                        custom={true}
                                         className={styles.input}
                                         value={number}
                                     />
@@ -197,8 +279,8 @@ const AddContact = ({set, contacts}) => {
                                         className={styles.minusBtn}
                                     />
                                     <span className={styles.info}>Введите @mail:</span>
-                                    <input
-                                        name='email[]'
+                                    <Input
+                                        //name={`email-${index}`}
                                         type="email"
                                         onChange={event => {
                                             mails[index] = event.target.value
@@ -228,10 +310,10 @@ const AddContact = ({set, contacts}) => {
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
                                 <span className={styles.info}>Добавить день рождения:</span>
-                                <input
-                                    name='date_birth'
-                                    onChange={event => setDateValue(event.target.value)}
-                                    value={dateValue}
+                                <Input
+                                    name='bdate'
+                                    onChange={onChangeHandler}
+                                    value={fields?.bdate || ''}
                                     className={styles.input}
                                 />
                                 <div
@@ -268,8 +350,12 @@ const AddContact = ({set, contacts}) => {
                         </div>
 
                         <Input
-                            name='notes'
+                            name='prim'
+                            className={styles.inputStyle}
                             placeholder='Заметки'
+                            value={fields?.prim || ''}
+                            onChange={onChangeHandler}
+                            onBlur={onBlurHandler}
                         />
 
                     </div>
@@ -290,13 +376,13 @@ const AddContact = ({set, contacts}) => {
                         Сохранить
                     </Button>
                 </div>
+
             </form>
 
             {socPopup &&
             <AddSocials
                 values={socials}
                 setValues={setSocials}
-                data={socialsData}
                 set={setSocPopup}
             />}
 
@@ -312,4 +398,4 @@ const AddContact = ({set, contacts}) => {
     )
 }
 
-export default AddContact
+export default FormContact

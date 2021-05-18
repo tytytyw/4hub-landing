@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
-import styles from './AddContact.module.sass'
+import styles from './FormContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 /*import classnames from 'classnames'*/
 import Button from '../../Button/Button'
+import {socialsData as data} from '../consts'
 
-const AddSocials = ({ data, values, setValues, set }) => {
+const AddSocials = ({ values, setValues, set }) => {
 
     const [socialValues, setSocialValues] = useState([])
 
@@ -20,8 +21,12 @@ const AddSocials = ({ data, values, setValues, set }) => {
 
     const onChange = (event, item) => {
 
+        // получение ссылки от соц. сети
         const link = event.target.value
+        // проверка на наличие соц. сети в общем массиве
         const socItem = socialValues.find(social => social.type === item.type)
+
+        //если соц. сеть не имеется в общем массиве, добавляется иначе меняется только ссылка на нее
         if (!socItem) {
             socialValues.push({
                 type: item.type,
@@ -31,7 +36,14 @@ const AddSocials = ({ data, values, setValues, set }) => {
             socItem.link = link
         }
 
-        setSocialValues([...socialValues])
+        // общий список соц. сетей проверяется на наличие ссылок, если нет ссылки удаляем из массива
+        const newSocials = []
+        socialValues.forEach(({type, link}) => {
+            !!link && newSocials.push({ type, link })
+        })
+
+        // меняем состояние общего массива соц. сетей
+        setSocialValues(newSocials)
     }
 
     const onSubmit = event => {
@@ -42,7 +54,7 @@ const AddSocials = ({ data, values, setValues, set }) => {
 
     const getValue = item => {
         const valueItem = socialValues.find(socItem => socItem.type === item.type)
-        return valueItem && valueItem.link
+        return valueItem?.link ? valueItem.link : ''
     }
 
     return (

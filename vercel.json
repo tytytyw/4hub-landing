@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/ajax/",
+      "destination": "https://fs2.mh.net.ua/ajax/"
+    }
+  ]
+}

@@ -1,14 +1,15 @@
-import api from '../../api';
+import api from '../../api'
+
 import {
-    GET_FOLDERS,
-    CHOOSE_FOLDER,
-    CHOOSE_FILES,
-    FILE_DELETE,
-    CONTACT_LIST,
-    ADD_CONTACT,
     ADD_RECENT_FILES,
-    ADD_RECENT_FOLDERS
+    ADD_RECENT_FOLDERS,
+    CHOOSE_FILES,
+    CHOOSE_FOLDER,
+    CONTACT_LIST,
+    FILE_DELETE,
+    GET_FOLDERS
 } from '../types';
+
 
 export const onGetFolders = () => async (dispatch, getState) => {
     const folders = [
@@ -21,7 +22,7 @@ export const onGetFolders = () => async (dispatch, getState) => {
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
             const f = {};
-            if(res.data?.global) {
+            if (res.data?.global) {
                 f.global = folders.map(el => {
                     return {
                         name: el.name,
@@ -32,7 +33,7 @@ export const onGetFolders = () => async (dispatch, getState) => {
                     }
                 });
             }
-            if(res.data?.other) f.other = res.data.other
+            if (res.data?.other) f.other = res.data.other
             dispatch({
                 type: GET_FOLDERS,
                 payload: f
@@ -65,16 +66,28 @@ export const onDeleteFile = (file) => {
 }
 
 export const onGetContacts = () => async (dispatch, getState) => {
-    /*const uid = getState().user.uid
-    api.get(`/ajax/get_contacts.php?uid=${uid}`)
+
+    const uid = getState().user.uid
+
+    api.get(`/ajax/contacts_list.php?uid=${uid}`)
         .then(response => {
+            const data = response.data?.data
+
+            const newData = []
+            for (const key in data) {
+                newData.push(data[key])
+            }
+
             dispatch({
                 type: CONTACT_LIST,
-                payload: response.data
-            });
+                payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
+            })
+
+        }).catch(error => {
+            console.log(error)
         })
-        .catch(error => console.log(error))*/
-    dispatch({
+
+    /*dispatch({
         type: CONTACT_LIST,
         payload: [
             {
@@ -132,16 +145,13 @@ export const onGetContacts = () => async (dispatch, getState) => {
                 ]
             },
         ]
-    })
+    })*/
+
 }
 
-export const onAddContact = contact => ({
-    type: ADD_CONTACT,
-    payload: contact
-})
-
 export const onAddRecentFolders = () => async (dispatch) => {
-    const mock = [{
+    const mock = [
+        {
         color: "green",
         deadline: 0,
         emo: "cool",
@@ -152,7 +162,19 @@ export const onAddRecentFolders = () => async (dispatch) => {
         name: "TempFolder",
         path: "global/all/TempFolder",
         tags: "Другое",
-    }];
+        },
+        {
+            name:"123",
+            path:"other/TestFolder/123",
+            tags:"Документы",
+            is_pass:0,
+            is_lock:0,
+            deadline:0,
+            color:"green",
+            fig:"star",
+            emo:"cool",
+        }
+    ];
     dispatch({
         type: ADD_RECENT_FOLDERS,
         payload: mock
@@ -168,7 +190,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
         deny_edit: "0",
         edit_url: "",
         edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
-        emo: "grinning",
+        emo: "",
         ext: "JPG",
         fid: "0088280c930a26d39d4f972d80089f74",
         fig: "star",
@@ -185,7 +207,138 @@ export const onAddRecentFiles = () => async (dispatch) => {
         size_now: "361.6 KB",
         tag: null,
         tag2: "ZZZZZZZZZZZZ",
-    }];
+    },
+        {
+            color: "rgb(52, 198, 162)",
+            ctime: "01.01.1970 00:00",
+            date: 1621195644,
+            deadline: 2208988800,
+            deny_edit: "0",
+            edit_url: "",
+            edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
+            emo: "grinning",
+            ext: "JPG",
+            fid: "0088280c930a26d39d4f972d80089f74",
+            fig: "star",
+            file: "2042f4f9b62329de09eb2e3f0baba547",
+            fname: "1a46a75a1bcdebf.jpg",
+            gdir: "global/all",
+            is_pass: 0,
+            is_preview: 1,
+            mime_type: "image/jpeg",
+            mtime: "16.05.2021 17:07",
+            name: "1a46a75a1bcdebf.jpg",
+            preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
+            size: 370267,
+            size_now: "361.6 KB",
+            tag: null,
+            tag2: "ZZZZZZZZZZZZ",
+        },
+        {
+            color: "rgb(52, 198, 162)",
+            ctime: "01.01.1970 00:00",
+            date: 1621195644,
+            deadline: 2208988800,
+            deny_edit: "0",
+            edit_url: "",
+            edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
+            emo: "grinning",
+            ext: "JPG",
+            fid: "0088280c930a26d39d4f972d80089f74",
+            fig: "star",
+            file: "2042f4f9b62329de09eb2e3f0baba547",
+            fname: "1a46a75a1bcdebf.jpg",
+            gdir: "global/all",
+            is_pass: 0,
+            is_preview: 1,
+            mime_type: "image/jpeg",
+            mtime: "16.05.2021 17:07",
+            name: "1a46a75a1bcdebf.jpg",
+            preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
+            size: 370267,
+            size_now: "361.6 KB",
+            tag: null,
+            tag2: "ZZZZZZZZZZZZ",
+        },
+        {
+            color: "rgb(52, 198, 162)",
+            ctime: "01.01.1970 00:00",
+            date: 1621195644,
+            deadline: 2208988800,
+            deny_edit: "0",
+            edit_url: "",
+            edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
+            emo: "grinning",
+            ext: "JPG",
+            fid: "0088280c930a26d39d4f972d80089f74",
+            fig: "star",
+            file: "2042f4f9b62329de09eb2e3f0baba547",
+            fname: "1a46a75a1bcdebf.jpg",
+            gdir: "global/all",
+            is_pass: 0,
+            is_preview: 1,
+            mime_type: "image/jpeg",
+            mtime: "16.05.2021 17:07",
+            name: "1a46a75a1bcdebf.jpg",
+            preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
+            size: 370267,
+            size_now: "361.6 KB",
+            tag: 'Видео',
+            tag2: "ZZZZZZZZZZZZ",
+        },
+        {
+            color: "rgb(52, 198, 162)",
+            ctime: "01.01.1970 00:00",
+            date: 1621195644,
+            deadline: 2208988800,
+            deny_edit: "0",
+            edit_url: "",
+            edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
+            emo: "grinning",
+            ext: "JPG",
+            fid: "0088280c930a26d39d4f972d80089f74",
+            fig: "",
+            file: "2042f4f9b62329de09eb2e3f0baba547",
+            fname: "1a46a75a1bcdebf.jpg",
+            gdir: "global/all",
+            is_pass: 0,
+            is_preview: 1,
+            mime_type: "image/jpeg",
+            mtime: "16.05.2021 17:07",
+            name: "1a46a75a1bcdebf.jpg",
+            preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
+            size: 370267,
+            size_now: "361.6 KB",
+            tag: 'Видео',
+            tag2: "ZZZZZZZZZZZZ",
+        },
+        {
+            color: "rgb(52, 198, 162)",
+            ctime: "01.01.1970 00:00",
+            date: 1621195644,
+            deadline: 2208988800,
+            deny_edit: "0",
+            edit_url: "",
+            edit_url2: "http://fs.mh.net.ua/oo.php?fid=0088280c930a26d39d4f972d80089f74&access_token=",
+            emo: "",
+            ext: "JPG",
+            fid: "0088280c930a26d39d4f972d80089f74",
+            fig: "star",
+            file: "2042f4f9b62329de09eb2e3f0baba547",
+            fname: "1a46a75a1bcdebf.jpg",
+            gdir: "global/all",
+            is_pass: 0,
+            is_preview: 1,
+            mime_type: "image/jpeg",
+            mtime: "16.05.2021 17:07",
+            name: "1a46a75a1bcdebf.jpg",
+            preview: "/upload/fd9223259c24a66f397f9f44f628b87b/global/all/2042f4f9b62329de09eb2e3f0baba547",
+            size: 370267,
+            size_now: "361.6 KB",
+            tag: 'Видеоfytfftfyfyt',
+            tag2: "ZZZZZZZZZZZZ",
+        }
+        ];
 
     api.post(`/ajax/history_files.php?`)
         .then(res => {
@@ -195,4 +348,5 @@ export const onAddRecentFiles = () => async (dispatch) => {
             })
         })
         .catch(err => console.log(err));
+
 }

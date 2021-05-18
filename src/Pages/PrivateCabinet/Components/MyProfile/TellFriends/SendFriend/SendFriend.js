@@ -7,34 +7,29 @@ import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabine
 import ContactSearch from '../../Contacts/ContactList/ContactSearch/ContactSearch'
 import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../../Button/Button'
+import {useSelector} from "react-redux";
+// import Input from "../../Input/Input";
+import {formIsValid, isCorrectData} from '../../Input/validation'
+import {socialsData} from '../../Contacts/consts'
+// import classNames from "classnames";
+import api from "../../../../../../api";
 
-/*const icons = {
-    facebook: './assets/PrivateCabinet/socials/facebook.svg',
-    whatsapp: './assets/PrivateCabinet/socials/whatsapp.svg',
-    twitter: './assets/PrivateCabinet/socials/twitter.svg',
-    skype: './assets/PrivateCabinet/socials/skype-2.svg',
-    viber: './assets/PrivateCabinet/socials/viber.svg',
-    linkedin: './assets/PrivateCabinet/socials/linkedin.svg',
-    telegram: './assets/PrivateCabinet/socials/telegram.svg',
-    brain: './assets/PrivateCabinet/socials/brain.svg',
-}*/
+const SendFriend = ({ set, contact, ...props }) => {
 
-const socials = [
-    {label: 'Viber', icon: './assets/PrivateCabinet/socials/viber.svg'},
-    {label: 'WhatsApp', icon: './assets/PrivateCabinet/socials/whatsapp.svg'},
-    {label: 'Telegram', icon: './assets/PrivateCabinet/socials/telegram.svg'},
-    {label: 'Skype', icon: './assets/PrivateCabinet/socials/skype-2.svg'},
-    {label: 'Slack', icon: './assets/PrivateCabinet/socials/brain.svg'},
-]
-
-const SendFriend = ({ data, ...props }) => {
+    const contacts = useSelector(state => state.PrivateCabinet.contactList)
+    const uid = useSelector(state => state.user.uid)
 
     const [search, setSearch] = useState('')
-    const [contactList, setContactList] = useState(data)
+    const [contactList, setContactList] = useState(contacts)
+
+    const [errors, setErrors] = useState({})
+    const [submitErrors, setSubmitErrors] = useState({})
+    const [fields, setFields] = useState({})
+    const [blur, setBlur] = useState({})
 
     useEffect(() => {
 
-        const filterArray = data.filter(item => {
+        const filterArray = contacts.filter(item => {
             const name = item.name.toLowerCase()
             const searchValue = search.toLowerCase()
             return name.includes(searchValue)
@@ -47,9 +42,52 @@ const SendFriend = ({ data, ...props }) => {
 
     const onSearch = value => setSearch(value)
 
+    const onBlurHandler = event => {
+        const {name} = event.target
+        setBlur({...blur, [name]: true})
+    }
+
+    const onChangeHandler = event => {
+
+        let {value, name} = event.target
+
+        if (!isCorrectData(value, name, fields,['email'])) {
+            setErrors({...errors, [name]: true})
+        } else {
+            setErrors({...errors, [name]: false})
+            setSubmitErrors({...submitErrors, [name]: false})
+        }
+
+        setFields({...fields, [name]: value})
+
+    }
+    // !Temporary - NEED TO DELETE
+    if(null) {onBlurHandler();onChangeHandler();}
+
+    const onSubmit = event => {
+
+        event.preventDefault()
+
+        if (formIsValid(fields, setSubmitErrors, ['email'])) {
+            api.get(`/ajax/contacts_send.php`, {
+                params: {
+                    uid,
+                    email: fields?.email
+                }
+            }).then(() => {
+                set(false)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+    }
+
+    //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
+
     return (
-        <PopUp set={props.set}>
-            <div className={styles.wrapper}>
+        <PopUp set={set}>
+            <form noValidate onSubmit={onSubmit} className={styles.wrapper}>
 
                 <div className={styles.header}>
                     <div className={styles.profileWrap}>
@@ -58,21 +96,32 @@ const SendFriend = ({ data, ...props }) => {
                             src='./assets/PrivateCabinet/profile-noPhoto.svg'
                             alt='pie-chart'
                         />
-                        <span>Рассказать друзьям о 4 HUB</span>
+                        <span>
+                            Поделиться контактом
+                            &nbsp;<b>{`${contact?.name} ${contact?.sname || ''}`}</b>
+                        </span>
                     </div>
                     <span
                         className={styles.close}
-                        onClick={() => props.set(false)}
+                        onClick={() => set(false)}
                     >
                         <span className={styles.times}/>
                     </span>
                 </div>
 
-                <div className={styles.block}>
-                    <span className={styles.info}>Email:</span>
-                    <input
+                {/*<div className={styles.block}>
+                    <span className={classNames({
+                        [styles.info]: true,
+                        [styles.errorInfo]: isMistake('email')
+                    })}>Email:</span>
+                    <Input
                         className={styles.input}
+                        name='email'
                         placeholder='Электронная почта'
+                        isMistake={isMistake('email')}
+                        value={fields?.email || ''}
+                        onChange={onChangeHandler}
+                        onBlur={onBlurHandler}
                     />
                 </div>
 
@@ -82,7 +131,7 @@ const SendFriend = ({ data, ...props }) => {
                         className={styles.input}
                         placeholder='Введите Ваш номер телефона'
                     />
-                </div>
+                </div>*/}
 
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>
@@ -90,7 +139,7 @@ const SendFriend = ({ data, ...props }) => {
                         <span className={styles.info}>Поделиться с помощью:</span>
                     </div>
                     <div className={styles.socials}>
-                        {socials.map((item, index) => (
+                        {socialsData.map((item, index) => (
                             <li className={styles.socialsItem} key={index}>
                                 <img
                                     className={styles.socialIcon}
@@ -132,13 +181,14 @@ const SendFriend = ({ data, ...props }) => {
 
                 <div className={styles.actionBlock}>
                     <Button
+                        type='submit'
                         className={styles.actionBtn}
                     >
                         Отправить
                     </Button>
                 </div>
 
-            </div>
+            </form>
         </PopUp>
     )
 }

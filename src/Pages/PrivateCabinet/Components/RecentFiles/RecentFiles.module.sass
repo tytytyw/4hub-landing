@@ -1,0 +1,83 @@
+.wrap
+  display: flex
+  width: 100%
+  height: max-content
+  margin: 10px 0 10px 0
+  justify-content: center
+.recentFilesWrap
+  display: flex
+  align-items: center
+  height: 58px
+  min-height: 58px
+  width: 95%
+  min-width: 95%
+  box-shadow: 0 1px 3px #DEDEDE
+  overflow-y: hidden
+  overflow-x: scroll
+  padding: 0 10px
+  box-sizing: border-box
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    height: 3px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+  .fileWrap
+    display: flex
+    align-items: center
+    margin: 0 10px 0 10px
+    width: 160px
+    cursor: default
+    .innerFileWrap
+      position: relative
+      width: 27px
+      min-width: 27px
+      height: 30px
+      display: flex
+      margin: 0 10px 0 0
+    .descriptionWrap
+      display: flex
+      flex-direction: column
+      .fileName
+        display: block
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        color: #606060
+        width: 123px
+        font-family: "SF Pro Regular", sans-serif
+        font-size: 12px
+      .innerFileInfo
+        display: flex
+        align-items: center
+        justify-content: space-between
+        .fileSize
+          font-family: "SF Pro Regular", sans-serif
+          font-size: 10px
+          color: #8B8B8B
+          white-space: nowrap
+        .descriptionGroup
+          display: flex
+          .fileTag
+            display: block
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            max-width: 30px
+            font-family: "SF Pro Regular", sans-serif
+            font-size: 8px
+            color: #FFFFFF
+            background: rgb(0, 203, 165)
+            padding: 0 5px
+            border-radius: 5px
+            margin: 0 5px 0 0
+          img
+            width: 10px
+            margin: 0 5px 0 0
+
+
+
