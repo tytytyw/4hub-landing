@@ -5,7 +5,8 @@ import {
     FILE_DELETE,
     CONTACT_LIST,
     ADD_RECENT_FOLDERS,
-    ADD_RECENT_FILES
+    ADD_RECENT_FILES,
+    CHOOSE_RECENT_FILES
 } from '../types';
 
 const INITIAL_STATE = {
@@ -16,6 +17,7 @@ const INITIAL_STATE = {
     contactList: null,
     recentFolders: null,
     recentFiles: null,
+    chosenRecentFile: null,
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -39,6 +41,8 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, recentFolders: action.payload}
         case ADD_RECENT_FILES:
             return {...state, recentFiles: action.payload}
+        case CHOOSE_RECENT_FILES:
+            return {...state, chosenRecentFile: action.payload}
         default:
             return state;
     }

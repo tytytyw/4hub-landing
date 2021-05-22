@@ -27,12 +27,25 @@
     background-color: #FFFFFF
   &::-webkit-scrollbar-thumb
     background-color: #4086F1
+  .fileWrap:hover
+    background: rgba(64, 134, 241, 0.1)
+  .fileWrap:hover .innerFileWrap:after
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 7px
+    height: 7px
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
   .fileWrap
     display: flex
     align-items: center
     margin: 0 10px 0 10px
     width: 160px
     cursor: default
+    padding: 10px 5px
+    box-sizing: border-box
+    min-width: max-content
     .innerFileWrap
       position: relative
       width: 27px

@@ -7,7 +7,8 @@ import {
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
-    GET_FOLDERS
+    GET_FOLDERS,
+    CHOOSE_RECENT_FILES
 } from '../types';
 
 
@@ -150,6 +151,7 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 }
 
+// TODO - Need to change mock on recent folders from server
 export const onAddRecentFolders = () => async (dispatch, getState) => {
     const mock = [
         {
@@ -186,6 +188,7 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
     })
 }
 
+// TODO - Need to change mock on recent files from server
 export const onAddRecentFiles = () => async (dispatch, getState) => {
     const mock = [{
         color: "rgb(52, 198, 162)",
@@ -353,5 +356,11 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
             })
         })
         .catch(err => console.log(err));
+}
 
+export const onChooseRecentFile = (file) => {
+    return{
+        type: CHOOSE_RECENT_FILES,
+        payload: file
+    }
 }
