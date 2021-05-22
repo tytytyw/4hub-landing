@@ -150,7 +150,7 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 }
 
-export const onAddRecentFolders = () => async (dispatch) => {
+export const onAddRecentFolders = () => async (dispatch, getState) => {
     const mock = [
         {
         color: "green",
@@ -176,13 +176,17 @@ export const onAddRecentFolders = () => async (dispatch) => {
             emo:"cool",
         }
     ];
+
+    api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
+        // .then(res => console.log(res))
+        .catch(err => console.log(err))
     dispatch({
         type: ADD_RECENT_FOLDERS,
         payload: mock
     })
 }
 
-export const onAddRecentFiles = () => async (dispatch) => {
+export const onAddRecentFiles = () => async (dispatch, getState) => {
     const mock = [{
         color: "rgb(52, 198, 162)",
         ctime: "01.01.1970 00:00",
@@ -341,7 +345,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
         }
         ];
 
-    api.post(`/ajax/history_files.php?`)
+    api.post(`/ajax/history_files.php?uid=${getState().user.uid}`)
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,
