@@ -19,7 +19,8 @@ export const onGetFolders = () => async (dispatch, getState) => {
         {name: 'images', nameRu: 'Изображения', path: 'global/images'},
         {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
     ];
-    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
+    // TODO - Need to modify page && item per page state
+    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`)
         .then(res => {
             const f = {};
             if (res.data?.global) {
@@ -50,7 +51,7 @@ export const onChooseFolder = (folders, path) => {
 };
 
 export const onChooseFiles = (path) => async (dispatch, getState) => {
-    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}`);
+    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}&page=${1}&items_per_page=${20}`);
 
     dispatch({
         type: CHOOSE_FILES,

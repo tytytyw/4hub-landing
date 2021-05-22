@@ -10,8 +10,9 @@ import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
+import PreviewFile from '../PreviewFile';
 
-const MyFolders = ({setItem}) => {
+const MyFolders = ({setItem, filePreview, setFilePreview}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -23,7 +24,8 @@ const MyFolders = ({setItem}) => {
     const [blob, setBlob] = useState({file: null, show: false});
     const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
     const [progress, setProgress] = useState(0);
-    const [safePassword, setSafePassword] = useState({open: false})
+    const [safePassword, setSafePassword] = useState({open: false});
+    const [chosenFile, setChosenFile] = useState(null);
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -93,6 +95,9 @@ const MyFolders = ({setItem}) => {
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
                 setItem={setItem}
+                setFilePreview={setFilePreview}
+                chosenFile={chosenFile}
+                setChosenFile={setChosenFile}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -117,6 +122,7 @@ const MyFolders = ({setItem}) => {
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
+            {filePreview && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
         </div>
     )
 }

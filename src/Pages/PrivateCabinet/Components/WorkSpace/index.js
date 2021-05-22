@@ -24,11 +24,11 @@ import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listCollapsed, setItem}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
+                    chosenFolder, listCollapsed, setItem, setFilePreview}) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
-    const [chosenFile, setChosenFile] = useState(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
@@ -54,13 +54,21 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFolder, listColl
         })
     }
 
-    useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]);
+    useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Types of Files view
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} setAction={setAction} />
+            return <Type
+                key={i}
+                file={file}
+                setChosenFile={setChosenFile}
+                chosen={chosenFile?.fid === file?.fid}
+                setMouseParams={setMouseParams}
+                setAction={setAction}
+                setFilePreview={setFilePreview}
+            />
         });
     };
 
