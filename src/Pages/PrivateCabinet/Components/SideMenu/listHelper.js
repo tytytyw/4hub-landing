@@ -7,10 +7,10 @@ export const menu = [
         name: 'Мои файлы',
         src: './assets/PrivateCabinet/file.svg'
     },
-    {
-        name: 'Мой профиль',
-        src: './assets/PrivateCabinet/profile-noPhoto.svg'
-    },
+    // {
+    //     name: 'Мой профиль',
+    //     src: './assets/PrivateCabinet/profile-noPhoto.svg'
+    // },
     {
         name: 'Программы',
         src: './assets/PrivateCabinet/programs.svg'

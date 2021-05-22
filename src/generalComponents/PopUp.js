@@ -28,8 +28,10 @@ const PopUp = (props) => {
             <div style={{
                 zIndex: `${(props.zIndex ? props.zIndex : 100) + 1}`,
                 width: 'max-content',
+                maxWidth: 'max-content',
                 height: 'max-content',
-                background: 'white',
+                maxHeight: 'max-content',
+                background: props?.background ? props.background : 'white',
                 borderRadius: '7px',
                 color: 'black',
             }}>

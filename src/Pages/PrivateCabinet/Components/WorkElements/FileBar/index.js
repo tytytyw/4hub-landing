@@ -3,11 +3,15 @@ import React from 'react';
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 
-const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMouseParams}) => {
+const FileBar = ({file, isLoading, progress, chosen, setChosenFile, setMouseParams, setFilePreview}) => {
 
     return (
         <>
-            <div className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => !isLoading ? setChosenFile(file) : undefined}>
+            <div
+                className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => !isLoading ?
+                setChosenFile(file) : undefined}
+                onDoubleClick={() => setFilePreview(true)}
+            >
                 <div
                     className={styles.menu}
                     onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}

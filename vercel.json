@@ -1,8 +1,8 @@
 {
-  "redirects": [
+  "rewrites": [
     {
-      "source": "https://4-hub-project.vercel.app/",
-      "destination": "https://fs2.mh.net.ua/"
+      "source": "/ajax/user_login.php",
+      "destination": "https://fs2.mh.net.ua/ajax/user_login.php"
     }
   ]
 }

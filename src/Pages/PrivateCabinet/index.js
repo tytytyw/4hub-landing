@@ -16,6 +16,7 @@ const PrivateCabinet = () => {
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
+    const [filePreview, setFilePreview] = useState(false);
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -42,7 +43,7 @@ const PrivateCabinet = () => {
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
                 {menuItem === 'Личные данные' && <MyProfile />}
-                {menuItem === 'Мои папки' && <MyFolders setItem={setItem} />}
+                {menuItem === 'Мои папки' && <MyFolders setItem={setItem} filePreview={filePreview} setFilePreview={setFilePreview} />}
                 {menuItem === 'Мои файлы' && <MyFiles />}
             </div>
         </div>

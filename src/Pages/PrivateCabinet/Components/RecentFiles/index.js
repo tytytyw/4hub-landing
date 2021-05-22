@@ -1,17 +1,23 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
+import {onChooseRecentFile} from '../../../../Store/actions/PrivateCabinetActions';
 import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 
 const RecentFiles = () => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const dispatch = useDispatch();
 
     const renderRecentFiles = () => {
         if(!recentFiles) return null;
       return  recentFiles.map((file, i) => {
-          return <div className={styles.fileWrap} key={i}>
+          return <div
+              className={styles.fileWrap}
+              key={i}
+              onClick={() => dispatch(onChooseRecentFile(file))}
+          >
               <div className={styles.innerFileWrap}>
                   <File color={file.color} format={file.ext}/>
                   {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}

@@ -9,15 +9,15 @@
 .workBarsWrap::-webkit-scrollbar-thumb
   background-color: #4086F1
 .workBarsWrap
-  display: flex
-  flex-wrap: wrap
-  align-content: flex-start
+  display: grid
+  grid-template-columns: repeat(auto-fill, 205px)
+  grid-auto-rows: 205px
+  justify-content: center
   width: 100%
-  height: calc(100% - 90px - 55px)
   overflow-x: hidden
   overflow-y: scroll
   box-sizing: border-box
-  padding: 10px 15px 25px 15px
+  padding: 10px 0 25px 20px
   .addFile:hover
     border: 1px dashed #477DE1
   .addFile
@@ -64,6 +64,9 @@
     margin: 30px 0 0 30px
     width: 375px
     height: 142px
+  .fileBars
+    display: flex
+    border: 1px solid green
 @media (max-width: 1420px)
   .workBarsWrap
     column-gap: 19px

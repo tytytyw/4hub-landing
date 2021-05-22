@@ -7,7 +7,8 @@ import {
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
-    GET_FOLDERS
+    GET_FOLDERS,
+    CHOOSE_RECENT_FILES
 } from '../types';
 
 
@@ -19,7 +20,8 @@ export const onGetFolders = () => async (dispatch, getState) => {
         {name: 'images', nameRu: 'Изображения', path: 'global/images'},
         {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
     ];
-    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
+    // TODO - Need to modify page && item per page state
+    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`)
         .then(res => {
             const f = {};
             if (res.data?.global) {
@@ -50,7 +52,7 @@ export const onChooseFolder = (folders, path) => {
 };
 
 export const onChooseFiles = (path) => async (dispatch, getState) => {
-    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}`);
+    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}&page=${1}&items_per_page=${20}`);
 
     dispatch({
         type: CHOOSE_FILES,
@@ -149,7 +151,8 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 }
 
-export const onAddRecentFolders = () => async (dispatch) => {
+// TODO - Need to change mock on recent folders from server
+export const onAddRecentFolders = () => async (dispatch, getState) => {
     const mock = [
         {
         color: "green",
@@ -175,13 +178,18 @@ export const onAddRecentFolders = () => async (dispatch) => {
             emo:"cool",
         }
     ];
+
+    api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
+        // .then(res => console.log(res))
+        .catch(err => console.log(err))
     dispatch({
         type: ADD_RECENT_FOLDERS,
         payload: mock
     })
 }
 
-export const onAddRecentFiles = () => async (dispatch) => {
+// TODO - Need to change mock on recent files from server
+export const onAddRecentFiles = () => async (dispatch, getState) => {
     const mock = [{
         color: "rgb(52, 198, 162)",
         ctime: "01.01.1970 00:00",
@@ -340,7 +348,7 @@ export const onAddRecentFiles = () => async (dispatch) => {
         }
         ];
 
-    api.post(`/ajax/history_files.php?`)
+    api.post(`/ajax/history_files.php?uid=${getState().user.uid}`)
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,
@@ -348,5 +356,11 @@ export const onAddRecentFiles = () => async (dispatch) => {
             })
         })
         .catch(err => console.log(err));
+}
 
+export const onChooseRecentFile = (file) => {
+    return{
+        type: CHOOSE_RECENT_FILES,
+        payload: file
+    }
 }
