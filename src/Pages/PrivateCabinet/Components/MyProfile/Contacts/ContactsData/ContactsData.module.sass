@@ -45,6 +45,10 @@
         transition: background 0.2s ease-in-out
         box-shadow: 0 2px 4px #dedede
         margin: 0 13px 0 0
+
+        svg path
+          transition: all 0.2s ease-in-out
+
         .iconSVG
           margin: 1px 0 0 4px
         .iconShare path
@@ -53,6 +57,11 @@
           margin: 1px 0 0 4px
         .iconTrash path
           fill: #EB4545
+
+        &:hover
+          background: #4086F1
+          svg path
+            fill: #ffffff
 
 
   .actionHeader

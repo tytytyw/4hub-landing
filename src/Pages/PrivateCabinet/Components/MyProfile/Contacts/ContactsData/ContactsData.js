@@ -13,7 +13,7 @@ import {ReactComponent as SpeechIcon} from '../../../../../../assets/PrivateCabi
 import {ReactComponent as PhoneIcon} from '../../../../../../assets/PrivateCabinet/phone-3.svg'
 import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/video-camera.svg'
 import {ReactComponent as MailIcon} from '../../../../../../assets/PrivateCabinet/mail-3.svg'
-import {emptyProfileImage, socialsIcons} from '../consts'
+import {emptyProfileImage, getContactName, socialsIcons} from '../consts'
 
 import api from '../../../../../../api'
 
@@ -21,9 +21,11 @@ import Input from '../../Input/Input'
 import ActionApproval from '../../../../../../generalComponents/ActionApproval'
 import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
 import FormContact from '../FormContact/FormContact'
-import SendFriend from '../../TellFriends/SendFriend/SendFriend'
+import SendFriend from '../../TellFriends/SendFriend'
 
-const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
+const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
+
+    console.log(selectedItem)
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
@@ -31,17 +33,17 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
     const getFavourites = contacts => {
         const favouritesData = []
         contacts.forEach(contact => {
-            if (contact?.is_fav === "1") {
+            if (contact?.is_fav === '1') {
                 favouritesData.push(contact?.id)
             }
         })
         return favouritesData
     }
 
-    const [favourites, setFavorites] = useState(getFavourites(contacts))
+    const [favourites, setFavorites] = useState(getFavourites(data))
     const [delConfirm, setDelConfirm] = useState(false)
 
-    useEffect(() => setFavorites(getFavourites(contacts)), [contacts])
+    useEffect(() => setFavorites(getFavourites(data)), [data])
 
     const [contactPopup, setContactPopup] = useState(false)
     const [sendPopup, setSendPopup] = useState(false)
@@ -49,7 +51,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
     const selectOtherContact = () => {
 
         const newContacts = []
-        contacts.forEach(contactItem => {
+        data.forEach(contactItem => {
             if (contactItem.id !== selectedItem.id) {
                 newContacts.push(contactItem)
             }
@@ -60,14 +62,19 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
 
     const addToFavourite = () => {
 
-        const isFav = favourites.includes(selectedItem?.id) ? "0" : "1"
+        const isFav = favourites.includes(selectedItem?.id) ? '0' : '1'
 
-        api.post(`/ajax/contacts_fav.php?uid=${uid}&id=${selectedItem?.id}&is_fav=${isFav}`)
-            .then(() => {
-                dispatch(onGetContacts())
-            }).catch(error => {
-                console.log(error)
-            })
+        api.get(`/ajax/contacts_fav.php`, {
+            params: {
+                uid,
+                id: selectedItem?.id,
+                is_fav: isFav
+            }
+        }).then(() => {
+            dispatch(onGetContacts())
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const onDeleteConfirm = () => {
@@ -80,10 +87,9 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
             dispatch(onGetContacts())
             selectOtherContact()
             setDelConfirm(false)
+        }).catch(error => {
+            console.log(error)
         })
-            .catch(error => {
-                console.log(error)
-            })
     }
 
     const profileImage = selectedItem?.image || emptyProfileImage
@@ -101,11 +107,12 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                         alt={selectedItem?.name}
                     />
                     <p className={styles.profileName}>
-                        {selectedItem?.name}
+                        {getContactName(selectedItem)}
                     </p>
                 </div>
                 <div>
                     <div className={styles.iconButtons}>
+
                         <div
                             onClick={addToFavourite}
                             className={styles.iconView}
@@ -114,18 +121,21 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                                 <StarIcon className={styles.iconStar}/> :
                                 <StarFillIcon className={styles.iconStar}/>}
                         </div>
+
                         <div
                             onClick={() => setSendPopup(true)}
                             className={styles.iconView}
                         >
                             <ShareIcon className={styles.iconShare}/>
                         </div>
+
                         <div
                             onClick={() => setContactPopup(true)}
                             className={styles.iconView}
                         >
                             <EditIcon className={styles.iconShare}/>
                         </div>
+
                         <div
                             onClick={() => setDelConfirm(true)}
                             className={styles.iconView}
@@ -136,7 +146,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                         {delConfirm &&
                         <ActionApproval
                             name='Удаление контакта'
-                            text={`Вы действительно хотите удалить контакт ${selectedItem?.name}?`}
+                            text={`Вы действительно хотите удалить контакт ${getContactName(selectedItem)}?`}
                             set={() => setDelConfirm(false)}
                             callback={onDeleteConfirm}
                         >
@@ -177,6 +187,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                 </div>
 
                 <div className={styles.actionInfo}>
+
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Телефон:</span>
                         <div className={styles.value}>
@@ -190,6 +201,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                             </span>
                         </div>
                     </div>
+
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Email:</span>
                         <div className={styles.value}>
@@ -203,6 +215,7 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                             </span>
                         </div>
                     </div>
+
                     <div className={styles.infoItem}>
                         <span className={styles.info}>День рождения:</span>
                         <div className={styles.value}>
@@ -227,43 +240,21 @@ const ContactsData = ({contacts = [], selectedItem, setSelectedItem}) => {
                                 ))}
                             </ul>
                         </div>
-                    </div>
-                    }
-
-                    {selectedItem?.messengers &&
-                    <div className={styles.infoItem}>
-                            <span className={classnames({
-                                [styles.info]: true,
-                                [styles.links]: true,
-                            })}>Мессенджеры:</span>
-                        <div className={styles.value}>
-                            <ul className={styles.socialsList}>
-                                {selectedItem?.messengers.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.link} className={styles.socialsLink}>
-                                            <img src={socialsIcons[item.type]} alt={item.type}/>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                    }
+                    </div>}
 
                 </div>
 
             </div>
 
             {contactPopup && <FormContact
-                contacts={contacts}
-                set={setContactPopup}
                 type='edit'
+                set={setContactPopup}
                 selectedItem={selectedItem}
             />}
 
             {sendPopup && <SendFriend
-                contact={selectedItem}
                 set={setSendPopup}
+                selectedItem={selectedItem}
             />}
 
         </div>

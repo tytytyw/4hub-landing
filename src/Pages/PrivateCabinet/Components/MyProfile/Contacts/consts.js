@@ -45,3 +45,7 @@ export const socialsData = [
 ]
 
 export const emptyProfileImage = './assets/PrivateCabinet/profile-noPhoto.svg'
+
+export const getContactName = (contact) => {
+    return `${contact?.name || ''} ${contact?.sname || ''}`
+}

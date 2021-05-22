@@ -1,84 +1,62 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
+import {useSelector} from 'react-redux'
 
 import styles from './Contacts.module.sass'
 
 import ContactMenu from './ContactMenu/ContactMenu'
-import ContactList from './ContactList/ContactList'
-import ContactsData from './ContactsData/ContactsData'
 import FormContact from './FormContact/FormContact'
-import {useSelector} from 'react-redux'
+import ContactsAll from './ContactsAll'
+import ContactsFav from './ContactsFav'
 
-const Contacts = ({ ...props }) => {
-
-    const [search, setSearch] = useState('')
+const Contacts = () => {
 
     const contacts = useSelector(state => state.PrivateCabinet.contactList)
 
-    const [selectedContact, setSelectedContact] = useState(contacts?.[0])
+    const [pageOption, setPageOption] = useState('ContactsAll')
     const [contactPopup, setContactPopup] = useState(false)
-
-    useEffect(() => {
-        const newSelectedContact = contacts.find(contact => contact?.id === selectedContact?.id)
-        setSelectedContact(newSelectedContact)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [contacts])
 
     const menuData = [
         {
-            id: 'new_contact',
+            id: 'NewContact',
             icon: './assets/PrivateCabinet/plus-3.svg',
             label: 'Добавить контакт',
-            onClick: () =>  setContactPopup(true)
+            onClick: () => setContactPopup(true)
         },
         {
-            id: 'favorites',
+            id: 'ContactsFav',
             icon: './assets/PrivateCabinet/star-2.svg',
-            label: 'Избранное'
+            label: 'Избранное',
+            onClick: () => setPageOption('ContactsFav')
         },
         {
-            id: 'favorites',
+            id: 'ContactsAll',
             icon: './assets/PrivateCabinet/contact-book.svg',
-            label: 'Все контакты'
+            label: 'Все контакты',
+            onClick: () => setPageOption('ContactsAll')
         },
         {
-            id: 'favorites',
+            id: '4HubContacts',
             icon: './assets/PrivateCabinet/phone-call-2.svg',
             label: 'Контакты 4 Hub'
         },
     ]
-
-    const onSearch = value => setSearch(value)
 
     return (
         <div className={styles.contacts}>
 
             <div className={styles.contactMenu}>
                 <ContactMenu
+                    pageOption={pageOption}
                     data={menuData}
                 />
             </div>
 
-            <div className={styles.contactList}>
-                <ContactList
-                    data={contacts}
-                    search={search}
-                    onSearch={onSearch}
-                    selectedItem={selectedContact}
-                    setSelectedItem={setSelectedContact}
-                />
-            </div>
-
-            <div className={styles.contactData}>
-                <ContactsData
-                    contacts={contacts}
-                    selectedItem={selectedContact}
-                    setSelectedItem={setSelectedContact}
-                />
-            </div>
+            {pageOption === 'ContactsAll' && <ContactsAll data={contacts}/>}
+            {pageOption === 'ContactsFav' && <ContactsFav data={contacts}/>}
 
             {contactPopup && <FormContact
-                contacts={contacts}
                 set={setContactPopup}
+                setPageOption={setPageOption}
             />}
 
         </div>

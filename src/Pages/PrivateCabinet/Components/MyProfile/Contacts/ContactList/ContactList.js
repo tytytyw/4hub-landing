@@ -3,9 +3,11 @@ import React, {useEffect, useState} from 'react'
 import styles from './ContacList.module.sass'
 import ContactSearch from './ContactSearch/ContactSearch'
 import SearchList from './SearchList/SearchList'
+import {getContactName} from '../consts'
 
-const ContactList = ({data = [], onSearch, search, selectedItem, setSelectedItem}) => {
+const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
 
+    const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(data)
 
     useEffect(() => setContactList(data), [data])
@@ -14,7 +16,7 @@ const ContactList = ({data = [], onSearch, search, selectedItem, setSelectedItem
     useEffect(() => {
 
         const searchResult = data.filter(item => {
-            const name = item.name.toLowerCase()
+            const name = getContactName(item).toLowerCase()
             const searchValue = search.toLowerCase()
             return name.includes(searchValue)
         })
@@ -29,7 +31,7 @@ const ContactList = ({data = [], onSearch, search, selectedItem, setSelectedItem
 
             <div className={styles.search}>
                 <ContactSearch
-                    onChangeHandler={onSearch}
+                    onChangeHandler={value => setSearch(value)}
                 />
             </div>
 

@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
 
 import styles from './SendFriend.module.sass'
-import PopUp from '../../../../../../generalComponents/PopUp'
+import PopUp from '../../../../../generalComponents/PopUp'
 
-import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabinet/sms.svg'
-import ContactSearch from '../../Contacts/ContactList/ContactSearch/ContactSearch'
+import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
+import ContactSearch from '../Contacts/ContactList/ContactSearch/ContactSearch'
 import RadioCheck from './RadioCheck/RadioCheck'
-import Button from '../../Button/Button'
-import {useSelector} from "react-redux";
-// import Input from "../../Input/Input";
-import {formIsValid, isCorrectData} from '../../Input/validation'
-import {socialsData} from '../../Contacts/consts'
-// import classNames from "classnames";
-import api from "../../../../../../api";
+import Button from '../Button/Button'
+import {useSelector} from 'react-redux'
+import {isCorrectData} from '../Input/validation'
+import {getContactName, socialsData} from '../Contacts/consts'
+import api from '../../../../../api'
+import classNames from 'classnames'
+import Input from "../Input/Input";
 
-const SendFriend = ({ set, contact, ...props }) => {
+const TellFriend = ({ set, contact }) => {
 
     const contacts = useSelector(state => state.PrivateCabinet.contactList)
     const uid = useSelector(state => state.user.uid)
@@ -30,7 +30,7 @@ const SendFriend = ({ set, contact, ...props }) => {
     useEffect(() => {
 
         const filterArray = contacts.filter(item => {
-            const name = item.name.toLowerCase()
+            const name = getContactName(item).toLowerCase()
             const searchValue = search.toLowerCase()
             return name.includes(searchValue)
         })
@@ -61,29 +61,26 @@ const SendFriend = ({ set, contact, ...props }) => {
         setFields({...fields, [name]: value})
 
     }
-    // !Temporary - NEED TO DELETE
-    if(null) {onBlurHandler();onChangeHandler();}
 
     const onSubmit = event => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, ['email'])) {
-            api.get(`/ajax/contacts_send.php`, {
-                params: {
-                    uid,
-                    email: fields?.email
-                }
-            }).then(() => {
-                set(false)
-            }).catch(err => {
-                console.log(err)
-            })
-        }
+        api.get(`/ajax/contacts_send.php`, {
+            params: {
+                uid,
+                id: contact?.id,
+                email: contact?.email
+            }
+        }).then(() => {
+            set(false)
+        }).catch(err => {
+            console.log(err)
+        })
 
     }
 
-    //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
+    const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
 
     return (
         <PopUp set={set}>
@@ -96,10 +93,7 @@ const SendFriend = ({ set, contact, ...props }) => {
                             src='./assets/PrivateCabinet/profile-noPhoto.svg'
                             alt='pie-chart'
                         />
-                        <span>
-                            Поделиться контактом
-                            &nbsp;<b>{`${contact?.name} ${contact?.sname || ''}`}</b>
-                        </span>
+                        <span>Рассказать друзьям</span>
                     </div>
                     <span
                         className={styles.close}
@@ -109,7 +103,7 @@ const SendFriend = ({ set, contact, ...props }) => {
                     </span>
                 </div>
 
-                {/*<div className={styles.block}>
+                <div className={styles.block}>
                     <span className={classNames({
                         [styles.info]: true,
                         [styles.errorInfo]: isMistake('email')
@@ -127,11 +121,16 @@ const SendFriend = ({ set, contact, ...props }) => {
 
                 <div className={styles.block}>
                     <span className={styles.info}>Телефон:</span>
-                    <input
+                    <Input
                         className={styles.input}
+                        name='email'
                         placeholder='Введите Ваш номер телефона'
+                        isMistake={isMistake('email')}
+                        value={fields?.email || ''}
+                        onChange={onChangeHandler}
+                        onBlur={onBlurHandler}
                     />
-                </div>*/}
+                </div>
 
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>
@@ -194,4 +193,4 @@ const SendFriend = ({ set, contact, ...props }) => {
 }
 
 
-export default SendFriend
+export default TellFriend

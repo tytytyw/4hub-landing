@@ -18,7 +18,7 @@ import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActio
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 
-const FormContact = ({set, type, selectedItem}) => {
+const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
@@ -36,11 +36,8 @@ const FormContact = ({set, type, selectedItem}) => {
     const [socPopup, setSocPopup] = useState(false)
     const [showCalendar, setShowCalendar] = useState(false)
 
-    const [image, setImage] = useState()
-    const [preview, setPreview] = useState()
-
-    console.log(numbers)
-    console.log(fields)
+    const [image, setImage] = useState(null)
+    const [preview, setPreview] = useState(null)
 
     const formRef = useRef()
 
@@ -104,35 +101,34 @@ const FormContact = ({set, type, selectedItem}) => {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
-            const formData = new FormData(formRef.current)
+            const formData = new FormData()
             formData.append('file', image)
-            /*formData.append('tel', JSON.stringify(numbers))
+            formData.append('name', fields?.name)
+            formData.append('sname', fields?.sname)
+            formData.append('prim', fields?.prim)
+            formData.append('company', fields?.company)
+            formData.append('tel', JSON.stringify(numbers))
             formData.append('email', JSON.stringify(mails))
-            formData.append('soc', JSON.stringify(socials))*/
+            formData.append('soc', JSON.stringify(socials))
 
-            /*const sendData = {
-                formData,
+            const payload = {
                 ...fields,
-                name: `${fields?.name} ${fields?.sname || ''}`,
-                tel: numbers,
-                email: mails,
-                soc: socials
-            }*/
+                name: fields?.name,
+                sname: fields?.sname,
+                tel: numbers.filter(item => item.trim() !== ''),
+                email: mails.filter(item => item.trim() !== ''),
+                soc: socials.filter(item => !!item)
+            }
 
-            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
-                ...fields,
-                name: `${fields?.name} ${fields?.sname || ''}`,
-                tel: numbers,
-                email: mails,
-                soc: socials
-            })
+            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, formData)
                 .then(async () => {
                     dispatch(onGetContacts())
                     resetForm()
                     set(false)
+                    type !== 'edit' && setPageOption('ContactsAll')
                 }).catch(err => {
-                    console.log(err)
-                })
+                console.log(err)
+            })
         }
 
     }
@@ -388,6 +384,7 @@ const FormContact = ({set, type, selectedItem}) => {
             {showCalendar &&
             <PopUp set={setShowCalendar} zIndex={102}>
                 <Calendar
+                    datePicker={true}
                     setShowCalendar={setShowCalendar}
                     setDateValue={setDateValue}
                 />

@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './SearchList.module.sass'
 import classnames from 'classnames'
-import {emptyProfileImage} from "../../consts";
+import {emptyProfileImage, getContactName} from "../../consts";
 
 const SearchList = ({ data, selectedItem, setSelectedItem }) => {
     return (
@@ -20,7 +20,7 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
                     <span className={styles.icon}>
                         <img src={item.image || emptyProfileImage} alt={item.id}/>
                     </span>
-                    <p>{item.name}</p>
+                    <p>{getContactName(item)}</p>
                 </li>
             ))}
 

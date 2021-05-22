@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react'
+import {useDispatch} from 'react-redux'
+
+import {onGetContacts} from '../../../../Store/actions/PrivateCabinetActions'
 
 import styles from './MyProfile.module.sass'
-import uploadIcon from '../../../../assets/PrivateCabinet/upload.svg'
+import {ReactComponent as UploadIcon} from '../../../../assets/PrivateCabinet/upload.svg'
 
 import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
@@ -14,11 +17,9 @@ import Support from './Support/Support'
 import TariffPlan from './TariffPlan/TariffPlan'
 import Contacts from './Contacts/Contacts'
 import Programs from './Programs/Programs'
-import SendFriend from './TellFriends/SendFriend/SendFriend'
-import {onGetContacts} from "../../../../Store/actions/PrivateCabinetActions";
-import {useDispatch} from "react-redux"
+import TellFriend from './TellFriends/TellFriend'
 
-const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
+const MyButton = ({ onClick = () => {}, active = false, ...props }) => (
     <button
         onClick={onClick}
         className={classnames({
@@ -26,9 +27,9 @@ const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
             [styles.active]: active
         })}
     >
-        {text} {icon ?
+        {props.text} {props.icon ?
         <span className={styles.buttonIcon}>
-            <img src={icon} alt={alt}/>
+            {props.icon}
         </span> : null}
     </button>
 )
@@ -88,7 +89,7 @@ const MyProfile = () => {
                         <div className={styles.buttonsRight}>
                             <MyButton
                                 text='Рассказать друзьям'
-                                icon={uploadIcon}
+                                icon={<UploadIcon/>}
                                 alt='Upload'
                                 active={popup}
                                 onClick={() => setPopup(true)}
@@ -106,7 +107,7 @@ const MyProfile = () => {
             </div>
 
             {popup &&
-                <SendFriend
+                <TellFriend
                     set={setPopup}
                 />}
 

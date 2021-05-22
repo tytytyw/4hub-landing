@@ -1,8 +1,12 @@
 import React from 'react'
 
 import styles from './ContactMenu.module.sass'
+import classNames from "classnames";
 
-const ContactMenu = ({ data }) => {
+const ContactMenu = ({ data, pageOption }) => {
+
+
+    console.log(pageOption)
 
     return (
         <ul className={styles.menuList}>
@@ -10,7 +14,10 @@ const ContactMenu = ({ data }) => {
             {data.map((item, index) => (
                 <li
                     onClick={() => item.onClick && item.onClick(item)}
-                    className={styles.menuItem}
+                    className={classNames({
+                        [styles.menuItem]: true,
+                        [styles.menuItemActive]: pageOption === item.id
+                    })}
                     key={index}
                 >
                     <span className={styles.icon}>
