@@ -10,8 +10,9 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 import { onDeleteFile } from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
+import PreviewFile from '../PreviewFile';
 
-const MyFiles = () => {
+const MyFiles = ({filePreview, setFilePreview}) => {
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
@@ -121,7 +122,8 @@ const MyFiles = () => {
 				callbackArrMain={callbackArrMain}
 				additionalMenuItems={additionalMenuItems}
 				deleteFile={deleteFile}
-				
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
 				setSafePassword={setSafePassword}
 			/>
 			{blob.show && (
@@ -141,7 +143,9 @@ const MyFiles = () => {
                 onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
             />}
+			{filePreview && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
 		</div>
+		
 	);
 };
 

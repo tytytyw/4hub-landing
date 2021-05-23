@@ -44,7 +44,7 @@ const PrivateCabinet = () => {
                 }}>
                 {menuItem === 'Личные данные' && <MyProfile />}
                 {menuItem === 'Мои папки' && <MyFolders setItem={setItem} filePreview={filePreview} setFilePreview={setFilePreview} />}
-                {menuItem === 'Мои файлы' && <MyFiles />}
+                {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
         </div>
     )
