@@ -16,7 +16,7 @@ const PrivateCabinet = () => {
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
-    const [filePreview, setFilePreview] = useState(false);
+    const [filePreview, setFilePreview] = useState({view: false, file: null});
 
     useEffect(() => {
         dispatch(onGetUserInfo());

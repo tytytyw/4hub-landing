@@ -4,7 +4,9 @@ import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 
-const PreviewFile = ({setFilePreview, file}) => {
+const PreviewFile = ({setFilePreview, file, filePreview}) => {
+
+    const set = () => setFilePreview({...filePreview, view: false, file: null});
 
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
@@ -36,8 +38,8 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
 
     return (
-        <PopUp set={setFilePreview} background={'none'}>
-            <div className={styles.preview} onClick={() => setFilePreview(false)}>
+        <PopUp set={set} background={'none'}>
+            <div className={styles.preview} onClick={() => set()}>
                 {file ? file.is_preview === 1 ? renderFilePreview() : <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div> : null}
             </div>
         </PopUp>
