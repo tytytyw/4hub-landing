@@ -4,9 +4,9 @@ import styles from './FormContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 /*import classnames from 'classnames'*/
 import Button from '../../Button/Button'
-import {socialsData as data} from '../consts'
+import {socialsData, messengersData} from '../consts'
 
-const AddSocials = ({ values, setValues, set }) => {
+const AddSocials = ({ values, setValues, set, ...props }) => {
 
     const [socialValues, setSocialValues] = useState([])
 
@@ -57,6 +57,8 @@ const AddSocials = ({ values, setValues, set }) => {
         return valueItem?.link ? valueItem.link : ''
     }
 
+    const data = props.type === 'soc' ? socialsData : messengersData
+
     return (
         <PopUp set={set} zIndex={102}>
 
@@ -74,7 +76,9 @@ const AddSocials = ({ values, setValues, set }) => {
                 <div className={styles.content}>
 
                     <div className={styles.header}>
-                        <p className={styles.title}>Укажите никнейм к соц.сетям</p>
+                        <p className={styles.title}>
+                            {props.type === 'soc' ? 'Укажите никнейм к соц.сетям' : 'Укажите мессенджеры'}
+                        </p>
                     </div>
 
                     <div className={styles.formContent}>

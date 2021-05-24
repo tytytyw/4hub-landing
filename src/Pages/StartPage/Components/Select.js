@@ -19,7 +19,10 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                 className={styles.select}
             >
                 <span className={styles.selectInput}>{value}</span>
-                <span className={styles.arrow}/>
+                <span className={classNames({
+                    [styles.arrow]: true,
+                    [styles.active]: !!open
+                })}/>
             </div>
 
             <div className={classNames({

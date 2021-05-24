@@ -1,10 +1,10 @@
 .wrapper
   width: 500px
-  height: 691px
+  height: 705px
 
 .wrapper2
   width: 500px
-  height: 570px
+  height: 585px
 
 
 .header
@@ -46,13 +46,36 @@
   .socials
     display: flex
     align-items: center
-    padding: 0
     list-style: none
+    overflow-x: auto
+    overflow-y: hidden
+    padding: 0
+
+    //&::-webkit-scrollbar-track
+    //  background: #0A3AAB
+    //&::-webkit-scrollbar-track
+    //  -webkit-box-shadow: none
+    //  background-color: #F5F5F5
+    //&::-webkit-scrollbar
+    //  height: 5px
+    //  background-color: #FFFFFF
+    //&::-webkit-scrollbar-thumb
+    //  background-color: #4086F1
+
+    .socialsItem.active
+      background: #EBF2FD
+      border-radius: 5px
 
     .socialsItem
       cursor: pointer
       text-align: center
-      margin-right: 30px
+      display: block
+      width: 75px
+      padding: 10px 0
+      box-sizing: border-box
+
+      &:hover
+        background: #EBF2FD
 
       p
         margin: 0
@@ -70,11 +93,14 @@
   height: 290px
   border-bottom: 1px solid #DFDFDF
 
+  .contactsTop
+    padding: 0 20px
+
   .contactsWrap
     box-sizing: border-box
     max-height: 100%
     overflow: auto
-    padding: 20px
+    padding: 20px 0
 
     &::-webkit-scrollbar-track
       background: #0A3AAB
@@ -92,7 +118,7 @@
 
   .contactsList
     padding: 0
-    margin: 0
+    margin: 20px 0
 
 
 .actionBlock

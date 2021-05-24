@@ -13,7 +13,7 @@ import {ReactComponent as SpeechIcon} from '../../../../../../assets/PrivateCabi
 import {ReactComponent as PhoneIcon} from '../../../../../../assets/PrivateCabinet/phone-3.svg'
 import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/video-camera.svg'
 import {ReactComponent as MailIcon} from '../../../../../../assets/PrivateCabinet/mail-3.svg'
-import {emptyProfileImage, getContactName, socialsIcons} from '../consts'
+import {emptyProfileImage, getContactName, messengersIcons, socialsIcons} from '../consts'
 
 import api from '../../../../../../api'
 
@@ -92,7 +92,11 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
         })
     }
 
-    const profileImage = selectedItem?.image || emptyProfileImage
+    const profileImage = selectedItem?.icon?.[0] || emptyProfileImage
+
+    const getDate = date => {
+        return date ? (new Date(date)).toLocaleDateString() : 'Не задан'
+    }
 
     return (
         <div className={styles.contactsData}>
@@ -106,9 +110,14 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                         src={profileImage}
                         alt={selectedItem?.name}
                     />
-                    <p className={styles.profileName}>
-                        {getContactName(selectedItem)}
-                    </p>
+                    <div>
+                        <p className={styles.profileName}>
+                            {getContactName(selectedItem)}
+                        </p>
+                        <span className={styles.date}>
+                            Дата добавления: {getDate(selectedItem?.ut)}
+                        </span>
+                    </div>
                 </div>
                 <div>
                     <div className={styles.iconButtons}>
@@ -182,12 +191,14 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
             <div className={styles.actionData}>
 
+                {selectedItem?.prim &&
                 <div className={styles.notes}>
-                    <Input placeholder='Добавить заметку'/>
-                </div>
+                    <p>{selectedItem?.prim}</p>
+                </div>}
 
                 <div className={styles.actionInfo}>
 
+                    {selectedItem?.tel?.length > 0 &&
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Телефон:</span>
                         <div className={styles.value}>
@@ -200,8 +211,9 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                                 </ul>}
                             </span>
                         </div>
-                    </div>
+                    </div>}
 
+                    {selectedItem?.email?.length > 0 &&
                     <div className={styles.infoItem}>
                         <span className={styles.info}>Email:</span>
                         <div className={styles.value}>
@@ -214,14 +226,23 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                                 </ul>}
                             </span>
                         </div>
-                    </div>
+                    </div>}
 
+                    {selectedItem?.bdate &&
                     <div className={styles.infoItem}>
                         <span className={styles.info}>День рождения:</span>
                         <div className={styles.value}>
                             <span>{selectedItem?.bdate}</span>
                         </div>
-                    </div>
+                    </div>}
+
+                    {selectedItem?.company &&
+                    <div className={styles.infoItem}>
+                        <span className={styles.info}>Компания:</span>
+                        <div className={styles.value}>
+                            <span>{selectedItem?.company}</span>
+                        </div>
+                    </div>}
 
                     {selectedItem?.soc?.length > 0 &&
                     <div className={styles.infoItem}>
@@ -233,8 +254,27 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                             <ul className={styles.socialsList}>
                                 {selectedItem?.soc.map((item, index) => (
                                     <li key={index}>
-                                        <a href={item.link} className={styles.socialsLink}>
-                                            <img src={socialsIcons[item.type]} alt={item.type}/>
+                                        <a href={item?.link} className={styles.socialsLink}>
+                                            <img src={socialsIcons[item?.type]} alt={item?.type}/>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>}
+
+                    {selectedItem?.mess?.length > 0 &&
+                    <div className={styles.infoItem}>
+                            <span className={classnames({
+                                [styles.info]: true,
+                                [styles.links]: true,
+                            })}>Мессенджеры:</span>
+                        <div className={styles.value}>
+                            <ul className={styles.socialsList}>
+                                {selectedItem?.mess.map((item, index) => (
+                                    <li key={index}>
+                                        <a href={item?.link} className={styles.socialsLink}>
+                                            <img src={messengersIcons[item?.type]} alt={item?.type}/>
                                         </a>
                                     </li>
                                 ))}

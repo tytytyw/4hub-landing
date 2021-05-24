@@ -9,7 +9,7 @@ import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../Button/Button'
 import {useSelector} from 'react-redux'
 import {isCorrectData} from '../Input/validation'
-import {getContactName, socialsData} from '../Contacts/consts'
+import {getContactName, messengersData, socialsData} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
 import Input from "../Input/Input";
@@ -21,6 +21,9 @@ const TellFriend = ({ set, contact }) => {
 
     const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(contacts)
+
+    const [active, setActive] = useState(false)
+    const [selectedSoc, setSelectedSoc] = useState(null)
 
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
@@ -138,8 +141,29 @@ const TellFriend = ({ set, contact }) => {
                         <span className={styles.info}>Поделиться с помощью:</span>
                     </div>
                     <div className={styles.socials}>
-                        {socialsData.map((item, index) => (
-                            <li className={styles.socialsItem} key={index}>
+                        <li
+                            onClick={() => setSelectedSoc('email')}
+                            className={classNames({
+                                [styles.socialsItem]: true,
+                                [styles.active]: selectedSoc === 'email'
+                            })}
+                        >
+                            <img
+                                className={styles.socialIcon}
+                                src='./assets/PrivateCabinet/email.svg'
+                                alt='Email'
+                            />
+                            <p>Email</p>
+                        </li>
+                        {messengersData.map((item, index) => (
+                            <li
+                                onClick={() => setSelectedSoc(item?.type)}
+                                className={classNames({
+                                    [styles.socialsItem]: true,
+                                    [styles.active]: selectedSoc === item?.type
+                                })}
+                                key={index}
+                            >
                                 <img
                                     className={styles.socialIcon}
                                     src={item.icon}
@@ -148,6 +172,14 @@ const TellFriend = ({ set, contact }) => {
                                 <p>{item.label}</p>
                             </li>
                         ))}
+                        <li className={styles.socialsItem}>
+                            <img
+                                className={styles.socialIcon}
+                                src='./assets/PrivateCabinet/more.svg'
+                                alt='Email'
+                            />
+                            <p>Ещё</p>
+                        </li>
                     </div>
                 </div>
 
@@ -155,13 +187,15 @@ const TellFriend = ({ set, contact }) => {
 
                     <div className={styles.contactsWrap}>
 
-                        <div className={styles.blockTitle}>
-                            <span className={styles.info}>Контакты</span>
-                        </div>
-                        <div className={styles.search}>
-                            <ContactSearch
-                                onChangeHandler={onSearch}
-                            />
+                        <div className={styles.contactsTop}>
+                            <div className={styles.blockTitle}>
+                                <span className={styles.info}>Контакты</span>
+                            </div>
+                            <div className={styles.search}>
+                                <ContactSearch
+                                    onChangeHandler={onSearch}
+                                />
+                            </div>
                         </div>
 
                         <ul className={styles.contactsList}>
@@ -170,6 +204,8 @@ const TellFriend = ({ set, contact }) => {
                                     item={item}
                                     name='user_id'
                                     key={index}
+                                    active={active}
+                                    onClick={() => setActive(item?.id)}
                                 />
                             ))}
                         </ul>
