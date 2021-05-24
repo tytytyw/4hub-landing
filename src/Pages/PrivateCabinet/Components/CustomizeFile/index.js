@@ -27,7 +27,6 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
-    const [display, setDisplay] = useState('block');
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -93,7 +92,7 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
     };
 
     return (
-        <div style={{display: `${display}`}}>
+        <div style={{display: `block`}}>
             <PopUp set={close}>
                 <div
                     className={styles.createFolderWrap}
