@@ -115,13 +115,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
         {action.type === 'customize' ? <CustomizeFile
             title={action.name}
             info={chosenFolder}
-            blob={blob}
-            setBlob={setBlob}
+            file={chosenFile}
+            // setBlob={setBlob}
             close={nullifyAction}
             // setFileLoading={setFileLoading}
             // fileLoading={fileLoading}
             // setProgress={setProgress}
-            progress={progress}
+            // progress={progress}
             // onToggleSafePassword={onSafePassword}
         /> : null}
     </>)

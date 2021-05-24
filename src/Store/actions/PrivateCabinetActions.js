@@ -8,7 +8,8 @@ import {
     CONTACT_LIST,
     FILE_DELETE,
     GET_FOLDERS,
-    CHOOSE_RECENT_FILES
+    CHOOSE_RECENT_FILES,
+    CUSTOMIZE_FILE,
 } from '../types';
 
 const folders = [
@@ -334,7 +335,7 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,
-                payload: mock
+                payload: mock //res.data
             })
         })
         .catch(err => console.log(err));
@@ -343,6 +344,13 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
 export const onChooseRecentFile = (file) => {
     return{
         type: CHOOSE_RECENT_FILES,
+        payload: file
+    }
+}
+
+export const onCustomizeFile = (file) => {
+    return{
+        type: CUSTOMIZE_FILE,
         payload: file
     }
 }

@@ -7,32 +7,27 @@ import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
+import { onCustomizeFile, onAddRecentFiles } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CustomizeFile = ({title, close, info, blob, setBlob, fileLoading, setFileLoading, setProgress, onToggleSafePassword }) => {
+const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, setProgress, onToggleSafePassword }) => {
 
-    // const uid = useSelector(state => state.user.uid);
-    const [name, setName] = useState(blob.file ? blob.file.name.slice(0, blob.file.name.lastIndexOf('.')) : '');
+    const uid = useSelector(state => state.user.uid);
+    const [name, setName] = useState(file ? file.name.slice(0, file.name.lastIndexOf('.')) : '');
     const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
-    const [passwordCoincide, setPasswordCoincide] = useState(false);
-    const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState(colors[0]);
-    const [tagOption, setTagOption] = useState({chosen: '', count: 30});
-    const [sign, setSign] = useState('');
-    const [emoji, setEmoji] = useState('');
+    const [isPassword, setIsPassword] = useState(true);
+    const [color, setColor] = useState(colors.find(c => c.color === file.color));
+    const [tagOption, setTagOption] = useState({chosen: file.tag, count: 30});
+    const [sign, setSign] = useState(file.fig);
+    const [emoji, setEmoji] = useState(file.emo);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const [display, setDisplay] = useState('block');
-    const [isSafe, setIsSafe] = useState(false)
-
-    const onSwitch = (boolean) => setShowRepeat(boolean);
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -44,47 +39,39 @@ const CustomizeFile = ({title, close, info, blob, setBlob, fileLoading, setFileL
     };
 
     const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-                height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
-            }
-        } else {
-            return {
-                height: `${showRepeat ? '150px' : '110px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
-            }
-        }
-    };
 
     const onAddFile = () => {
-        // let data = new FormData();
-        // data.append('uid', uid);
-        // data.append('myfile', blob.file);
-        // data.append('fileName', `${name}`);
-        // data.append('dir', info.subPath ? info.subPath : info.path ? info.path : 'global/all');
-        // data.append('tag', tagOption.chosen);
-        // data.append('pass', passwordCoincide ? password : '');
-        // data.append('color', color.color);
-        // data.append('symbol', sign);
-        // data.append('emoji', emoji);
-        // setDisplay('none');
-        // setFileLoading({...fileLoading, isLoading: true, file: {ext: blob.file.name.slice(blob.file.name.lastIndexOf('.') + 1), color: color.color}})
+        if(file.is_pass && !password) return setIsPassword(false);
+        const fName = name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `&fileName=${name}`;
+        const tag = tagOption.chosen === file.tag ? '' : `&tag=${tagOption.chosen}`;
+        const pass = file.is_pass ? `&pass=${password}` : '';
+        const col = color?.color === file.color ? '' : `&color=${color.color}`;
+        const symbol = sign === file.fig ? '' : `&symbol=${sign}`;
+        const emo = emoji === file.emo ? '' : `&emoji=${emoji}`;
 
-        // api.post(`/ajax/file_add.php`,
-        //     data,
-        //     {onUploadProgress: e => setProgress((e.loaded * 100) / e.total)})
-        //     .then(res => {if(res.data.ok === 1) {
-        //         setBlob({...blob, file: null, show: false});
-        //     } else {setError(true)}
-        //     })
-        //     .catch(err => {setError(true)})
-        //     .finally(() => {
-        //         setDisplay('block');
-        //         setFileLoading({...fileLoading, isLoading: false, percentage: 0, file: {ext: '', color: ''}});
-        //         dispatch(onChooseFiles(info.subPath ? info.subPath : info.path));
-        //     });
+        const url = `/ajax/file_edit.php?uid=${uid}&fid=${file.fid}${fName}${tag}${pass}${col}${symbol}${emo}`;
+
+        if(!fName && !tag && !col && !symbol && !emo) return close();
+
+        const newFile = {
+            ...file,
+            name: fName ? name + file?.name.slice(0, file.name.lastIndexOf('.'))[1] : file.name,
+            tag: tag ? tagOption.chosen : file.tag,
+            color: col ? color?.color : file.color,
+            emo: emo ? emoji : file.emo,
+            fig: symbol ? sign : file.fig,
+            is_pass: isPassword ? 1 : 0
+        }
+        api.post(url)
+            .then(res => {if(res.data.ok === 1) {
+                dispatch(onCustomizeFile(newFile));
+                dispatch(onAddRecentFiles());
+            } else {setError(true)}
+            })
+            .catch(err => {setError(true)})
+            .finally(() => {
+                close();
+            });
     };
 
     const closeComponent = () => {
@@ -97,14 +84,6 @@ const CustomizeFile = ({title, close, info, blob, setBlob, fileLoading, setFileL
         if(count >= 0) setTagOption({...tagOption, chosen, count});
     };
 
-    const comparePass = (val) => {
-        const pass = password.split('');
-        const passRepeat = val.split('');
-        let boolean = true;
-        passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = false});
-        setPasswordCoincide(boolean);
-    };
-
     const getName = (val) => {
         const i = val.lastIndexOf('.');
         return {
@@ -113,52 +92,37 @@ const CustomizeFile = ({title, close, info, blob, setBlob, fileLoading, setFileL
         }
     };
 
-    const setSize = () => {
-        let size = blob.file.size;
-        if(size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
-        if(size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
-        if(size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;
-        return size;
-    };
-
-    const onFile = e => {
-        const file = e.target.files[0];
-        setBlob({...blob, file});
-        setName(getName(file.name).name);
-    };
-
     return (
         <div style={{display: `${display}`}}>
             <PopUp set={close}>
-                <div className={styles.createFolderWrap}>
-                    <span className={styles.cross} onClick={() => setBlob({...blob, file: null, show: false})} />
+                <div
+                    className={styles.createFolderWrap}
+                    style={{
+                        height: file.is_pass ? '720px' : '650px',
+                    }}
+                >
+                    <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
-                            <div className={styles.file}><File color={color.light} format={blob.file ? getName(blob.file.name).format : ''} /></div>
+                        <div className={`${styles.fileWrap} ${color?.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                            <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
                         </div>
-                        {!blob.file && <div className={styles.openFile}>
-                            <input type='file' className={styles.inputFile} onChange={e => onFile(e)} />
-                            Перетащите файл или нажмите<span> Загрузить</span>
-                        </div>}
-                        {blob.file && <div className={styles.picPreview}>
-                            <div className={styles.format}>{getName(blob.file.name).format} {setSize()}</div>
-                            <div className={styles.name}>{getName(blob.file.name).name}</div>
+                        <div className={styles.picPreview}>
+                            <div className={styles.format}>{getName(file.name).format} {file.size_now}</div>
+                            <div className={styles.name}>{getName(file.name).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
                                     className={`${styles.minitag} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
                                 >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
                                 {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                                 {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                             </div>
-                        </div>}
+                        </div>
                     </div>
-                    <div style={generateInputWrap()}
-                         className={styles.inputFieldsWrap}
-                    >
+                    <div className={`${styles.inputFieldsWrap} ${file.is_pass ? '' : `${styles.noPassword}`}`}>
                         <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
@@ -181,51 +145,28 @@ const CustomizeFile = ({title, close, info, blob, setBlob, fileLoading, setFileL
                                 {renderTags()}
                             </div>
                         </div>
-                        <InputField
-                            model='password'
-                            switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={password}
-                            set={setPassword}
-                            placeholder='Пароль'
-                            onSwitch={onSwitch}
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                        />
-                        {showRepeat && <InputField
+                        {file.is_pass ? <InputField
                             model='password'
                             switcher={false}
                             height={width >= 1440 ? '40px' : '30px'}
-                            value={passwordRepeat}
-                            set={setPasswordRepeat}
-                            placeholder='Повторите пароль'
+                            value={password}
+                            set={setPassword}
+                            placeholder='Введите пароль'
                             visibility={visibility}
                             setVisibility={setVisibility}
-                            comparePass={comparePass}
-                            mistake={!passwordCoincide}
-                        />}
-                    </div>
-                    <div className={styles.safeWrap}>
-                        <div className={styles.safe}>
-                            <div
-                                onClick={() => {
-                                    setIsSafe(!isSafe);
-                                    onToggleSafePassword(!isSafe);
-                                }}
-                            >{isSafe && <img src='./assets/PrivateCabinet/tick-green.svg' alt='tick' />}</div>
-                        </div>
-                        <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
+                            mistake={!isPassword}
+                        /> : null}
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
-                        <div className={`${blob.file ? styles.add : styles.buttonDisabled}`} onClick={() => {if(blob.file) onAddFile()}}>Добавить</div>
+                        <div className={styles.cancel} onClick={() => close()}>Отмена</div>
+                        <div className={`${file ? styles.add : styles.buttonDisabled}`} onClick={() => {if(file) onAddFile()}}>Сохранить</div>
                     </div>
                 </div>
             </PopUp>
-            {error && <Error error={error} set={closeComponent} message='Файл не добавлен' />}
+            {error && <Error error={error} set={closeComponent} message='Файл не изменен' />}
         </div>
     )
 }
