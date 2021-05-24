@@ -335,7 +335,7 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,
-                payload: mock //res.data
+                payload: res.data
             })
         })
         .catch(err => console.log(err));

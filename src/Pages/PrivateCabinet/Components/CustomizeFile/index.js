@@ -19,7 +19,9 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(file ? file.name.slice(0, file.name.lastIndexOf('.')) : '');
     const [password, setPassword] = useState('');
-    const [isPassword, setIsPassword] = useState(true);
+    const [passwordRepeat, setPasswordRepeat] = useState('');
+    const [passwordCoincide, setPasswordCoincide] = useState(false);
+    const [showRepeat, setShowRepeat] = useState(true);
     const [color, setColor] = useState(colors.find(c => c.color === file.color));
     const [tagOption, setTagOption] = useState({chosen: file.tag, count: 30});
     const [sign, setSign] = useState(file.fig);
@@ -27,6 +29,16 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
+
+    const onSwitch = (boolean) => setShowRepeat(boolean);
+
+    const comparePass = (val) => {
+        const pass = password.split('');
+        const passRepeat = val.split('');
+        let boolean = true;
+        passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = false});
+        setPasswordCoincide(boolean);
+    };
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -39,18 +51,32 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
 
     const width = window.innerWidth;
 
+    const generateInputWrap = () => {
+        if(width >= 1440) {
+            return {
+                height: `${showRepeat ? '190px' : '140px'}`,
+                marginBottom: `${showRepeat ? '10px' : '35px'}`
+            }
+        } else {
+            return {
+                height: `${showRepeat ? '150px' : '110px'}`,
+                marginBottom: `${showRepeat ? '10px' : '35px'}`
+            }
+        }
+    };
+
     const onAddFile = () => {
-        if(file.is_pass && !password) return setIsPassword(false);
+        if(password !== passwordRepeat) return setPasswordCoincide(false);
         const fName = name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `&fileName=${name}`;
         const tag = tagOption.chosen === file.tag ? '' : `&tag=${tagOption.chosen}`;
-        const pass = file.is_pass ? `&pass=${password}` : '';
+        const pass = password === passwordRepeat ? `&pass=${password}` : '';
         const col = color?.color === file.color ? '' : `&color=${color.color}`;
         const symbol = sign === file.fig ? '' : `&symbol=${sign}`;
         const emo = emoji === file.emo ? '' : `&emoji=${emoji}`;
 
         const url = `/ajax/file_edit.php?uid=${uid}&fid=${file.fid}${fName}${tag}${pass}${col}${symbol}${emo}`;
 
-        if(!fName && !tag && !col && !symbol && !emo) return close();
+        if(!fName && !tag && !col && !symbol && !emo && !pass) return close();
 
         const newFile = {
             ...file,
@@ -59,7 +85,7 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
             color: col ? color?.color : file.color,
             emo: emo ? emoji : file.emo,
             fig: symbol ? sign : file.fig,
-            is_pass: isPassword ? 1 : 0
+            is_pass: password && passwordRepeat ? 1 : 0
         }
         api.post(url)
             .then(res => {if(res.data.ok === 1) {
@@ -94,12 +120,7 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
     return (
         <div style={{display: `block`}}>
             <PopUp set={close}>
-                <div
-                    className={styles.createFolderWrap}
-                    style={{
-                        height: file.is_pass ? '720px' : '650px',
-                    }}
-                >
+                <div className={styles.createFolderWrap}>
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
@@ -121,7 +142,9 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
                             </div>
                         </div>
                     </div>
-                    <div className={`${styles.inputFieldsWrap} ${file.is_pass ? '' : `${styles.noPassword}`}`}>
+                    <div style={generateInputWrap()}
+                         className={`${styles.inputFieldsWrap}`}
+                    >
                         <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
@@ -144,17 +167,29 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
                                 {renderTags()}
                             </div>
                         </div>
-                        {file.is_pass ? <InputField
+                        <InputField
                             model='password'
-                            switcher={false}
+                            switcher={true}
                             height={width >= 1440 ? '40px' : '30px'}
                             value={password}
                             set={setPassword}
-                            placeholder='Введите пароль'
+                            placeholder='Пароль'
+                            onSwitch={onSwitch}
                             visibility={visibility}
                             setVisibility={setVisibility}
-                            mistake={!isPassword}
-                        /> : null}
+                        />
+                        {showRepeat && <InputField
+                            model='password'
+                            switcher={false}
+                            height={width >= 1440 ? '40px' : '30px'}
+                            value={passwordRepeat}
+                            set={setPasswordRepeat}
+                            placeholder='Повторите пароль'
+                            visibility={visibility}
+                            setVisibility={setVisibility}
+                            comparePass={comparePass}
+                            mistake={!passwordCoincide}
+                        />}
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
