@@ -18,13 +18,10 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
               className={`${styles.fileWrap} ${chosenRecentFile?.fid === file?.fid ? styles.chosen : ''}`}
               key={i}
               onClick={() => dispatch(onChooseRecentFile(file))}
-              onDoubleClick={() => {
-                  console.log('123');
-                  setFilePreview({...filePreview, view: true, file})
-              }}
+              onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
           >
               <div className={styles.innerFileWrap}>
-                  <File color={file.color} format={file.ext}/>
+                  <File color={file.id_color} format={file.ext}/>
                   {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
               </div>
               <div className={styles.descriptionWrap}>
@@ -33,8 +30,8 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
                       <div className={styles.fileSize}>{file.size_now}</div>
                       <div className={styles.descriptionGroup}>
                           {file.tag ? <div className={styles.fileTag}>#{file.tag}</div> : null}
-                          {file.fig && <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='sign' />}
-                          {file.emo && <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' />}
+                          {file.id_fig && <img src={`./assets/PrivateCabinet/signs/${file.id_fig}.svg`} alt='sign' />}
+                          {file.id_emo && <img src={`./assets/PrivateCabinet/smiles/${file.id_emo}.svg`} alt='emoji' />}
                       </div>
                   </div>
               </div>
