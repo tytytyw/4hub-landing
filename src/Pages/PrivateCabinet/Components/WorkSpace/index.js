@@ -25,7 +25,7 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
-                    chosenFolder, listCollapsed, setItem, setFilePreview}) => {
+                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview}) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
@@ -68,6 +68,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 setFilePreview={setFilePreview}
+                filePreview={filePreview}
             />
         });
     };
@@ -82,7 +83,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                     <Profile setItem={setItem} />
                 </div>
             </div>
-            {recentFiles?.length > 0 && <RecentFiles />}
+            {recentFiles?.length > 0 && <RecentFiles
+                setFilePreview={setFilePreview}
+                filePreview={filePreview}
+            />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}

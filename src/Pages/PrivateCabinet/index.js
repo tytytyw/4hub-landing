@@ -16,7 +16,7 @@ const PrivateCabinet = () => {
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
-    const [filePreview, setFilePreview] = useState(false);
+    const [filePreview, setFilePreview] = useState({view: false, file: null});
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -44,7 +44,7 @@ const PrivateCabinet = () => {
                 }}>
                 {menuItem === 'Личные данные' && <MyProfile />}
                 {menuItem === 'Мои папки' && <MyFolders setItem={setItem} filePreview={filePreview} setFilePreview={setFilePreview} />}
-                {menuItem === 'Мои файлы' && <MyFiles />}
+                {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
         </div>
     )

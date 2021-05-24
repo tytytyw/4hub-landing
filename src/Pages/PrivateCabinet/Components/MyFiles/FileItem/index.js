@@ -15,9 +15,15 @@ const FileItem = ({
 	setChosenFile,
 	callbackArrMain,
 	additionalMenuItems,
+	setFilePreview,
+	filePreview
 }) => {
 	return (
-		<div className={styles.file_wrap} onClick={() => setChosenFile(file)}>
+		<div
+			className={styles.file_wrap}
+			onClick={() => setChosenFile(file)}
+			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
+		>
 			<div className={styles.file_icon}>
 				<File color={file.color} format={file.ext} />
 			</div>

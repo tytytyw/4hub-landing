@@ -17,16 +17,19 @@ import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
+import RecentFiles from '../../RecentFiles';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView, setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction, callbackArrMain, additionalMenuItems, deleteFile}) => {
+const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView, setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction, callbackArrMain, additionalMenuItems, deleteFile, setFilePreview}) => {
 
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+
 
     // Types of Files view
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
         return fileList.files.map((file, i) => {
-            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} setAction={setAction} />
+            return <Type key={i} file={file} setChosenFile={setChosenFile} chosen={chosenFile?.fid === file?.fid} setMouseParams={setMouseParams} setAction={setAction} setFilePreview={setFilePreview}/>
         });
     };
 
@@ -40,6 +43,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                     <Profile setItem={setItem} />
                 </div>
             </div>
+            {recentFiles?.length > 0 && <RecentFiles />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}
