@@ -11,15 +11,15 @@ import {
     CHOOSE_RECENT_FILES
 } from '../types';
 
+const folders = [
+    {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
+    {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
+    {name: 'music', nameRu: 'Музыка', path: 'global/music'},
+    {name: 'images', nameRu: 'Изображения', path: 'global/images'},
+    {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
+];
 
 export const onGetFolders = () => async (dispatch, getState) => {
-    const folders = [
-        {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
-        {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
-        {name: 'music', nameRu: 'Музыка', path: 'global/music'},
-        {name: 'images', nameRu: 'Изображения', path: 'global/images'},
-        {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
-    ];
     // TODO - Need to modify page && item per page state
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`)
         .then(res => {
@@ -151,41 +151,23 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 }
 
-// TODO - Need to change mock on recent folders from server
 export const onAddRecentFolders = () => async (dispatch, getState) => {
-    const mock = [
-        {
-        color: "green",
-        deadline: 0,
-        emo: "cool",
-        fig: null,
-        folders: [],
-        is_lock: 0,
-        is_pass: 0,
-        name: "TempFolder",
-        path: "global/all/TempFolder",
-        tags: "Другое",
-        },
-        {
-            name:"123",
-            path:"other/TestFolder/123",
-            tags:"Документы",
-            is_pass:0,
-            is_lock:0,
-            deadline:0,
-            color:"green",
-            fig:"star",
-            emo:"cool",
-        }
-    ];
 
     api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
-        // .then(res => console.log(res))
+        .then(res => {
+            const newFolders = res.data.map(folder => {
+                if(folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
+                    const newFolder = folder;
+                    folders.forEach(f => f.path === folder.path ? newFolder.name = f.nameRu : undefined);
+                    return newFolder
+                } else {return folder}
+            });
+            dispatch({
+                type: ADD_RECENT_FOLDERS,
+                payload: newFolders
+            })
+        })
         .catch(err => console.log(err))
-    dispatch({
-        type: ADD_RECENT_FOLDERS,
-        payload: mock
-    })
 }
 
 // TODO - Need to change mock on recent files from server
