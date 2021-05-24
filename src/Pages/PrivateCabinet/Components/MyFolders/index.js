@@ -108,6 +108,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                         chosen={chosenFolder.path === 'recent'}
                         chosenFolder={chosenFolder}
                         setChosenFolder={setChosenFolder}
+                        setMouseParams={setMouseParams}
                     />}
                 </div>
             </List>
