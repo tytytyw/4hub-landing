@@ -132,6 +132,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
         setFields({...fields, bdate: dateValue})
     }
 
+    if (type === 'edit' && !selectedItem?.id) return null
+
     return (
         <PopUp set={set}>
             <form

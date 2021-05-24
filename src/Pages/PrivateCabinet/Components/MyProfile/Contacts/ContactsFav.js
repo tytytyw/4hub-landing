@@ -12,8 +12,15 @@ const ContactsFav = ({data = []}) => {
     useEffect(() => setContacts(getFavourites(data)), [data])
 
     useEffect(() => {
-        const newSelectedContact = data.find(contact => contact?.id === selectedContact?.id)
-        newSelectedContact && setSelectedContact(newSelectedContact)
+
+        if (contacts?.length < 1) {
+
+        }
+
+        const newSelectedContact = contacts.find(contact => contact?.id === selectedContact?.id)
+        newSelectedContact ?
+            setSelectedContact(newSelectedContact) :
+            setSelectedContact(contacts?.[0])
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contacts])
 
