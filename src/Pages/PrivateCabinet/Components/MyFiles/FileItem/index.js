@@ -4,6 +4,7 @@ import styles from "./FileItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import { contextMenuFile } from "../../../../../generalComponents/collections";
+import classNames from "classnames";
 
 const FileItem = ({
 	file,
@@ -11,16 +12,16 @@ const FileItem = ({
 	renderMenuItems,
 	mouseParams,
 	setMouseParams,
-	chosenFile,
 	setChosenFile,
 	callbackArrMain,
 	additionalMenuItems,
 	setFilePreview,
-	filePreview
+	filePreview,
+	chosen
 }) => {
 	return (
 		<div
-			className={styles.file_wrap}
+			className={classNames({[styles.file_wrap]: true, [styles.chosen]:chosen})}
 			onClick={() => setChosenFile(file)}
 			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
 		>

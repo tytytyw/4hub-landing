@@ -101,6 +101,8 @@ const MyFiles = ({filePreview, setFilePreview}) => {
 					setListCollapsed={setListCollapsed}
 					listCollapsed={listCollapsed}
 					onCreate={() => setBlob({ ...blob, show: true })}
+					chosenFile={chosenFile}
+					setChosenFile={setChosenFile}
 				>
 					<div className={styles.folderListWrap}>{renderFileBar()}</div>
 				</List>
