@@ -62,6 +62,8 @@ const MyFiles = ({filePreview, setFilePreview}) => {
 					callbackArrMain={callbackArrMain}
 					additionalMenuItems={additionalMenuItems}
 					deleteFile={deleteFile}
+					setFilePreview={setFilePreview}
+					filePreview={filePreview}
 				/>
 			);
 		});
@@ -143,7 +145,7 @@ const MyFiles = ({filePreview, setFilePreview}) => {
                 onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
             />}
-			{filePreview && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
+			{filePreview?.view && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
 		</div>
 		
 	);

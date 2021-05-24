@@ -68,6 +68,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 setFilePreview={setFilePreview}
+                filePreview={filePreview}
             />
         });
     };

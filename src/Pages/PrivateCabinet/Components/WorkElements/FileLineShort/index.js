@@ -3,12 +3,12 @@ import React from 'react';
 import styles from './FileLineShort.module.sass';
 import File from '../../../../../generalComponents/Files';
 
-const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview}) => {
+const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview}) => {
 
     return (<div
         className={`${styles.fileLineShortWrap} ${chosen ? styles.fileChosen : null}`}
         onClick={() => setChosenFile(file)}
-        onDoubleClick={() => setFilePreview(true)}
+        onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
     >
         <div className={styles.infoWrap}>
             <div className={styles.fileWrap}><File format={file.ext} color={file.color} /></div>

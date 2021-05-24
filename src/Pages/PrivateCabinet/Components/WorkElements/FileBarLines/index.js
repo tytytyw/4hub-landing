@@ -10,12 +10,12 @@ import { ReactComponent as SettingsIcon } from "../../../../../assets/PrivateCab
 import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabinet/share.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
 
-const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePreview }) => {
+const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePreview, filePreview }) => {
 	return (
 		<div
 			className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}
 			onClick={() => setChosenFile(file)}
-			onDoubleClick={() => setFilePreview(true)}
+			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
 		>
 			<div className={styles.file_wrap}>
 				<div className={styles.wrap_left}>
