@@ -8,7 +8,7 @@ import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/p
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo}) => {
+                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
     const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 padding={'0 15px 0 50px'}
                 chosen={folder.path === chosenFolder.subPath}
                 subFolder={true}
+                setMouseParams={setMouseParams}
             />
         })
     };
@@ -63,7 +64,10 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     {!subFolder ?<PlayIcon
                         className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`}
                     /> : null}
-                    <div className={styles.menuWrap}><span className={styles.menu} /></div>
+                    <div
+                        className={styles.menuWrap}
+                        onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                    ><span className={styles.menu} /></div>
                 </div>
             </div>
         </div>

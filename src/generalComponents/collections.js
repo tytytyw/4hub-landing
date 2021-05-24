@@ -36,7 +36,7 @@ export const contextMenuFile = {
         {name: 'Печать', img: 'print-2'},
         ],
     additional: [{name: 'Удалить файл', img: 'garbage'}]
-}
+};
 
 export const contextMenuProfile = {
     main: [
@@ -47,4 +47,25 @@ export const contextMenuProfile = {
     additional: [
         {name: 'Выход', img: 'sign-out-icon'},
     ]
+};
+
+export const contextMenuFolder = {
+    main: [
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Настроить доступ', img: 'shareFile'},
+        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Добавить папку', img: 'settings-work-tool'},
+        {name: 'Свойства', img: 'info'},
+    ],
+    additional: []
+};
+
+export const contextMenuSubFolder = {
+    main: [
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Настроить доступ', img: 'shareFile'},
+        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Свойства', img: 'info'},
+    ],
+    additional: []
 }

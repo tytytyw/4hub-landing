@@ -11,7 +11,7 @@ import CustomFolderItem from '../CustomFolderItem';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
-        setNewFolder, chosenFolder, setChosenFolder, chosen
+        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
@@ -41,6 +41,7 @@ const FolderItem = ({
                 padding={'0 15px 0 50px'}
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
+                setMouseParams={setMouseParams}
             />
         })
     };
@@ -67,7 +68,10 @@ const FolderItem = ({
                 <PlayIcon
                     className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`}
                 />
-                <div className={styles.menuWrap}><span className={styles.menu} /></div>
+                <div
+                    className={styles.menuWrap}
+                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                ><span className={styles.menu} /></div>
             </div>
         </div>
         <div style={{
