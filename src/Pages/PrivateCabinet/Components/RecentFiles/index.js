@@ -5,18 +5,23 @@ import {onChooseRecentFile} from '../../../../Store/actions/PrivateCabinetAction
 import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 
-const RecentFiles = () => {
+const RecentFiles = ({setFilePreview, filePreview}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const chosenRecentFile = useSelector(state => state.PrivateCabinet.chosenRecentFile);
     const dispatch = useDispatch();
 
     const renderRecentFiles = () => {
         if(!recentFiles) return null;
       return  recentFiles.map((file, i) => {
           return <div
-              className={styles.fileWrap}
+              className={`${styles.fileWrap} ${chosenRecentFile?.fid === file?.fid ? styles.chosen : ''}`}
               key={i}
               onClick={() => dispatch(onChooseRecentFile(file))}
+              onDoubleClick={() => {
+                  console.log('123');
+                  setFilePreview({...filePreview, view: true, file})
+              }}
           >
               <div className={styles.innerFileWrap}>
                   <File color={file.color} format={file.ext}/>

@@ -95,6 +95,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
                 setItem={setItem}
+                filePreview={filePreview}
                 setFilePreview={setFilePreview}
                 chosenFile={chosenFile}
                 setChosenFile={setChosenFile}
@@ -122,7 +123,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-            {filePreview && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
         </div>
     )
 }
