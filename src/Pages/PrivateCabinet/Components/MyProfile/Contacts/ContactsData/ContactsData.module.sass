@@ -13,6 +13,7 @@
       align-items: center
 
       .profileName
+        margin: 0
         width: 200px
         display: block
         overflow: hidden
@@ -21,6 +22,11 @@
         font-size: 15px
         line-height: 20px
         color: #49494B
+
+      .date
+        font-size: 12px
+        line-height: 13px
+        color: #969DA8
 
     .iconButtons
       display: flex
@@ -45,6 +51,10 @@
         transition: background 0.2s ease-in-out
         box-shadow: 0 2px 4px #dedede
         margin: 0 13px 0 0
+
+        svg path
+          transition: all 0.2s ease-in-out
+
         .iconSVG
           margin: 1px 0 0 4px
         .iconShare path
@@ -53,6 +63,11 @@
           margin: 1px 0 0 4px
         .iconTrash path
           fill: #EB4545
+
+        &:hover
+          background: #4086F1
+          svg path
+            fill: #ffffff
 
 
   .actionHeader
@@ -86,6 +101,17 @@
 
   .actionData
     padding: 20px
+
+    .notes
+      background: #E4EFFF
+      border-radius: 7.5px
+      padding: 14px 18px
+
+      p
+        margin: 0
+        padding: 0
+        font-size: 11px
+        line-height: 16px
 
   .actionInfo
     padding: 20px

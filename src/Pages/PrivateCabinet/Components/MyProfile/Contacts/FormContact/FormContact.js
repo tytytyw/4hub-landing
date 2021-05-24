@@ -12,17 +12,18 @@ import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
 import Calendar from '../../../../../StartPage/Components/Calendar'
 import Button from '../../Button/Button'
 
-import {socialsIcons} from '../consts'
+import {messengersIcons, socialsIcons} from '../consts'
 import Input from '../../Input/Input'
 import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 
-const FormContact = ({set, type, selectedItem}) => {
+const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
+    const [formChanged, setFormChanged] = useState(false)
     const [blur, setBlur] = useState({})
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
@@ -32,15 +33,14 @@ const FormContact = ({set, type, selectedItem}) => {
     const [numbers, setNumbers] = useState(selectedItem?.tel || [])
     const [mails, setMails] = useState(selectedItem?.email || [])
     const [socials, setSocials] = useState(selectedItem?.soc || [])
+    const [messengers, setMessengers] = useState(selectedItem?.mes || [])
 
     const [socPopup, setSocPopup] = useState(false)
+    const [messPopup, setMessPopup] = useState(false)
     const [showCalendar, setShowCalendar] = useState(false)
 
-    const [image, setImage] = useState()
-    const [preview, setPreview] = useState()
-
-    console.log(numbers)
-    console.log(fields)
+    const [image, setImage] = useState(null)
+    const [preview, setPreview] = useState(null)
 
     const formRef = useRef()
 
@@ -54,12 +54,13 @@ const FormContact = ({set, type, selectedItem}) => {
     }
 
     useEffect(() => {
+        const profileImage = fields?.icon?.[0] || null
         if (image) {
             const reader = new FileReader()
             reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
         } else {
-            setPreview(null)
+            setPreview(profileImage)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
@@ -100,36 +101,24 @@ const FormContact = ({set, type, selectedItem}) => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
+        if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
             const formData = new FormData(formRef.current)
             formData.append('file', image)
-            /*formData.append('tel', JSON.stringify(numbers))
+            formData.append('tel', JSON.stringify(numbers))
             formData.append('email', JSON.stringify(mails))
-            formData.append('soc', JSON.stringify(socials))*/
+            formData.append('soc', JSON.stringify(socials))
+            formData.append('mes', JSON.stringify(messengers))
 
-            /*const sendData = {
-                formData,
-                ...fields,
-                name: `${fields?.name} ${fields?.sname || ''}`,
-                tel: numbers,
-                email: mails,
-                soc: socials
-            }*/
-
-            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, {
-                ...fields,
-                name: `${fields?.name} ${fields?.sname || ''}`,
-                tel: numbers,
-                email: mails,
-                soc: socials
-            })
+            api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, formData)
                 .then(async () => {
                     dispatch(onGetContacts())
                     resetForm()
                     set(false)
+                    setFormChanged(false)
+                    type !== 'edit' && setPageOption('ContactsAll')
                 }).catch(err => {
                     console.log(err)
                 })
@@ -143,12 +132,15 @@ const FormContact = ({set, type, selectedItem}) => {
         setFields({...fields, bdate: dateValue})
     }
 
+    if (type === 'edit' && !selectedItem?.id) return null
+
     return (
         <PopUp set={set}>
             <form
                 ref={formRef}
                 noValidate
                 onSubmit={onSubmit}
+                onChange={() => setFormChanged(true)}
                 className={styles.wrapper}
             >
                 <div className={styles.top}>
@@ -330,17 +322,39 @@ const FormContact = ({set, type, selectedItem}) => {
                                 <ul className={styles.socialsList}>
                                     {socials.map((item, index) => !!item.link && (
                                         <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img
-                                                    src={socialsIcons[item.type]}
-                                                    alt={item.type}
-                                                />
-                                            </a>
+                                            <img
+                                                src={socialsIcons[item.type]}
+                                                alt={item.type}
+                                                className={styles.socialsImg}
+                                            />
                                         </li>
                                     ))}
                                 </ul>
                                 <div
                                     onClick={() => setSocPopup(true)}
+                                    className={styles.icon}
+                                >
+                                    <img src={arrowImage} alt='Arrow'/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.formItem}>
+                            <div className={styles.formBlock}>
+                                <span className={styles.info}>Добавить мессенджеры:</span>
+                                <ul className={styles.socialsList}>
+                                    {messengers.map((item, index) => !!item.link && (
+                                        <li key={index}>
+                                            <img
+                                                src={messengersIcons[item.type]}
+                                                alt={item.type}
+                                                className={styles.socialsImg}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div
+                                    onClick={() => setMessPopup(true)}
                                     className={styles.icon}
                                 >
                                     <img src={arrowImage} alt='Arrow'/>
@@ -380,14 +394,23 @@ const FormContact = ({set, type, selectedItem}) => {
 
             {socPopup &&
             <AddSocials
+                type='soc'
                 values={socials}
                 setValues={setSocials}
                 set={setSocPopup}
             />}
 
+            {messPopup &&
+            <AddSocials
+                values={messengers}
+                setValues={setMessengers}
+                set={setMessPopup}
+            />}
+
             {showCalendar &&
             <PopUp set={setShowCalendar} zIndex={102}>
                 <Calendar
+                    datePicker={true}
                     setShowCalendar={setShowCalendar}
                     setDateValue={setDateValue}
                 />

@@ -4,9 +4,10 @@ import styles from './FormContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 /*import classnames from 'classnames'*/
 import Button from '../../Button/Button'
-import {socialsData as data} from '../consts'
+import {messengersData, socialsData} from '../consts'
+import Input from "../../Input/Input";
 
-const AddSocials = ({ values, setValues, set }) => {
+const AddSocials = ({values, setValues, set, ...props}) => {
 
     const [socialValues, setSocialValues] = useState([])
 
@@ -39,7 +40,7 @@ const AddSocials = ({ values, setValues, set }) => {
         // общий список соц. сетей проверяется на наличие ссылок, если нет ссылки удаляем из массива
         const newSocials = []
         socialValues.forEach(({type, link}) => {
-            !!link && newSocials.push({ type, link })
+            !!link && newSocials.push({type, link})
         })
 
         // меняем состояние общего массива соц. сетей
@@ -56,6 +57,8 @@ const AddSocials = ({ values, setValues, set }) => {
         const valueItem = socialValues.find(socItem => socItem.type === item.type)
         return valueItem?.link ? valueItem.link : ''
     }
+
+    const data = props.type === 'soc' ? socialsData : messengersData
 
     return (
         <PopUp set={set} zIndex={102}>
@@ -74,7 +77,9 @@ const AddSocials = ({ values, setValues, set }) => {
                 <div className={styles.content}>
 
                     <div className={styles.header}>
-                        <p className={styles.title}>Укажите никнейм к соц.сетям</p>
+                        <p className={styles.title}>
+                            {props.type === 'soc' ? 'Укажите никнейм к соц.сетям' : 'Укажите мессенджеры'}
+                        </p>
                     </div>
 
                     <div className={styles.formContent}>
@@ -88,12 +93,20 @@ const AddSocials = ({ values, setValues, set }) => {
                                         <span className={styles.info}>{item.label}:</span>
                                     </div>
 
-                                    <input
-                                        value={getValue(item)}
-                                        onChange={event => onChange(event, item)}
-                                        name={item.type}
-                                        className={styles.input}
-                                    />
+                                    {props.type ?
+                                        <input
+                                            value={getValue(item)}
+                                            onChange={event => onChange(event, item)}
+                                            name={item?.type}
+                                            className={styles.input}
+                                        /> :
+                                        <Input
+                                            phone={true}
+                                            name={item?.type}
+                                            value={getValue(item)}
+                                            onChange={event => onChange(event, item)}
+                                            className={styles.input}
+                                        />}
                                 </div>
                             </div>
                         ))}

@@ -6,9 +6,9 @@ import ProfileUpload from './ProfileUpload/ProfileUpload'
 import {useDispatch, useSelector} from 'react-redux'
 import api from '../../../../../api'
 import Button from '../Button/Button'
-import {USER_INFO} from '../../../../../Store/types'
 import AlertPopup from '../AlertPopup/AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
+import {onGetContacts} from "../../../../../Store/actions/PrivateCabinetActions";
 
 const UserForm = () => {
 
@@ -17,6 +17,8 @@ const UserForm = () => {
     const dispatch = useDispatch()
 
     const [fields, setFields] = useState(user)
+
+    const [formChanged, setFormChanged] = useState(false)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [blur, setBlur] = useState({})
@@ -25,7 +27,7 @@ const UserForm = () => {
     const [showPass, setShowPass] = useState(false)
     const [success, setSuccess] = useState(false)
 
-    const [image, setImage] = useState()
+    const [image, setImage] = useState(new Blob())
     const [preview, setPreview] = useState()
 
     const formRef = useRef()
@@ -40,15 +42,19 @@ const UserForm = () => {
     }
 
     useEffect(() => {
-        const profileImage = fields?.icon?.[0] || null
+
+        let filePreview = fields?.icon?.[0] || null
         if (image) {
             setFields({...fields, image})
             const reader = new FileReader()
-            reader.onloadend = () => setPreview(reader.result)
+            reader.onloadend = () => {
+                filePreview = reader.result
+            }
             reader.readAsDataURL(image)
-        } else {
-            setPreview(profileImage)
         }
+
+        setPreview(filePreview)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
@@ -62,6 +68,7 @@ const UserForm = () => {
 
     const resetForm = () => {
         setEditForm(false)
+        setFormChanged(false)
         setImage(null)
         setFields(user)
         setBlur({})
@@ -93,7 +100,7 @@ const UserForm = () => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
+        if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
 
             const formData = new FormData(formRef.current)
             formData.append('file', image)
@@ -102,16 +109,11 @@ const UserForm = () => {
                 .then(() => {
                     setSuccess(true)
                     setEditForm(false)
-                    dispatch({
-                        type: USER_INFO,
-                        payload: {
-                            ...fields,
-                            icon: [preview]
-                        }
-                    })
+                    setFormChanged(false)
+                    dispatch(onGetContacts())
                 }).catch(err => {
-                    console.log(err)
-                })
+                console.log(err)
+            })
         }
     }
 
@@ -128,7 +130,12 @@ const UserForm = () => {
                 />
             </div>
 
-            <form ref={formRef} noValidate onSubmit={onSubmit}>
+            <form
+                ref={formRef}
+                noValidate
+                onSubmit={onSubmit}
+                onChange={() => setFormChanged(true)}
+            >
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
