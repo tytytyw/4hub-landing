@@ -10,7 +10,10 @@ const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
     const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(data)
 
-    useEffect(() => setContactList(data), [data])
+    useEffect(() => {
+        setContactList(data)
+        setSearch('')
+    }, [data])
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
@@ -31,6 +34,7 @@ const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
 
             <div className={styles.search}>
                 <ContactSearch
+                    value={search}
                     onChangeHandler={value => setSearch(value)}
                 />
             </div>

@@ -2,12 +2,13 @@ import React from 'react'
 
 import styles from './ContacSearch.module.sass'
 
-const ContactSearch = ({onChangeHandler = () => {}}) => {
+const ContactSearch = ({value, onChangeHandler = () => {}}) => {
 
     return (
         <div className={styles.searchWrap}>
             <input
                 type="search"
+                value={value}
                 onChange={event => onChangeHandler(event.target.value)}
                 className={styles.input}
                 placeholder='Введите имя'

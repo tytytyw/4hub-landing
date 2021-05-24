@@ -17,6 +17,8 @@ const UserForm = () => {
     const dispatch = useDispatch()
 
     const [fields, setFields] = useState(user)
+
+    const [formChanged, setFormChanged] = useState(false)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [blur, setBlur] = useState({})
@@ -93,7 +95,7 @@ const UserForm = () => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
+        if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
 
             const formData = new FormData(formRef.current)
             formData.append('file', image)
@@ -102,6 +104,7 @@ const UserForm = () => {
                 .then(() => {
                     setSuccess(true)
                     setEditForm(false)
+                    setFormChanged(false)
                     dispatch({
                         type: USER_INFO,
                         payload: {
@@ -128,7 +131,12 @@ const UserForm = () => {
                 />
             </div>
 
-            <form ref={formRef} noValidate onSubmit={onSubmit}>
+            <form
+                ref={formRef}
+                noValidate
+                onSubmit={onSubmit}
+                onChange={() => setFormChanged(true)}
+            >
                 <div className={styles.fields}>
 
                     <div className={styles.row}>

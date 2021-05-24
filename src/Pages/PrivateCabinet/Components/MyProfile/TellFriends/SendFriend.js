@@ -91,7 +91,7 @@ const SendFriend = ({set, selectedItem}) => {
                         <li
                             onClick={() => {
                                 setSelectedSoc('email')
-                                setTo(selectedItem?.email?.[0])
+                                setTo(selectedContact?.email?.[0])
                             }}
                             className={classNames({
                                 [styles.socialsItem]: true,

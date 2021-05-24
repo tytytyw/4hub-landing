@@ -18,14 +18,12 @@ import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActio
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 
-const FormContact = ({
-                         set, type, selectedItem, setPageOption = () => {
-    }
-                     }) => {
+const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
+    const [formChanged, setFormChanged] = useState(false)
     const [blur, setBlur] = useState({})
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
@@ -103,7 +101,7 @@ const FormContact = ({
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
+        if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
@@ -114,24 +112,16 @@ const FormContact = ({
             formData.append('soc', JSON.stringify(socials))
             formData.append('mes', JSON.stringify(messengers))
 
-            /*const payload = {
-                ...fields,
-                name: fields?.name,
-                sname: fields?.sname,
-                tel: numbers.filter(item => item.trim() !== ''),
-                email: mails.filter(item => item.trim() !== ''),
-                soc: socials.filter(item => !!item)
-            }*/
-
             api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, formData)
                 .then(async () => {
                     dispatch(onGetContacts())
                     resetForm()
                     set(false)
+                    setFormChanged(false)
                     type !== 'edit' && setPageOption('ContactsAll')
                 }).catch(err => {
-                console.log(err)
-            })
+                    console.log(err)
+                })
         }
 
     }
@@ -148,6 +138,7 @@ const FormContact = ({
                 ref={formRef}
                 noValidate
                 onSubmit={onSubmit}
+                onChange={() => setFormChanged(true)}
                 className={styles.wrapper}
             >
                 <div className={styles.top}>

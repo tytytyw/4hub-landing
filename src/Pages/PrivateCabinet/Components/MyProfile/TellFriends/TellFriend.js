@@ -22,7 +22,7 @@ const TellFriend = ({ set, contact }) => {
     const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(contacts)
 
-    const [active, setActive] = useState(false)
+    const [selectedContact, setSelectedContact] = useState(null)
     const [selectedSoc, setSelectedSoc] = useState(null)
 
     const [errors, setErrors] = useState({})
@@ -42,8 +42,6 @@ const TellFriend = ({ set, contact }) => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
-
-    const onSearch = value => setSearch(value)
 
     const onBlurHandler = event => {
         const {name} = event.target
@@ -87,7 +85,11 @@ const TellFriend = ({ set, contact }) => {
 
     return (
         <PopUp set={set}>
-            <form noValidate onSubmit={onSubmit} className={styles.wrapper}>
+            <form
+                noValidate
+                onSubmit={onSubmit}
+                className={styles.wrapper}
+            >
 
                 <div className={styles.header}>
                     <div className={styles.profileWrap}>
@@ -193,7 +195,7 @@ const TellFriend = ({ set, contact }) => {
                             </div>
                             <div className={styles.search}>
                                 <ContactSearch
-                                    onChangeHandler={onSearch}
+                                    onChangeHandler={value => setSearch(value)}
                                 />
                             </div>
                         </div>
@@ -204,8 +206,8 @@ const TellFriend = ({ set, contact }) => {
                                     item={item}
                                     name='user_id'
                                     key={index}
-                                    active={active}
-                                    onChange={() => setActive(item?.id)}
+                                    selected={selectedContact}
+                                    onChange={() => setSelectedContact(item)}
                                 />
                             ))}
                         </ul>
