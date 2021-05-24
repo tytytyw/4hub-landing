@@ -8,7 +8,7 @@ import ContactSearch from '../Contacts/ContactList/ContactSearch/ContactSearch'
 import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../Button/Button'
 import {useSelector} from 'react-redux'
-import {emptyProfileImage, getContactName, messengersData} from '../Contacts/consts'
+import {emptyProfileImage, getContactName, messengersIcons, titlesSoc} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
 
@@ -22,7 +22,7 @@ const SendFriend = ({set, selectedItem}) => {
     const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(contacts)
 
-    const [active, setActive] = useState(false)
+    const [selectedContact, setSelectedContact] = useState(null)
 
     useEffect(() => {
 
@@ -37,7 +37,7 @@ const SendFriend = ({set, selectedItem}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
-    const onSearch = value => setSearch(value)
+    console.log(to)
 
     const onSubmit = event => {
 
@@ -48,7 +48,7 @@ const SendFriend = ({set, selectedItem}) => {
                 uid,
                 id: selectedItem?.id,
                 to,
-                type: selectedSoc,
+                type: selectedSoc === 'email' ? 'email' : 'sms',
             }
         }).then(() => {
             set(false)
@@ -105,11 +105,11 @@ const SendFriend = ({set, selectedItem}) => {
                             />
                             <p>Email</p>
                         </li>
-                        {messengersData.map((item, index) => (
+                        {selectedContact?.mes.map((item, index) => (
                             <li
                                 onClick={() => {
                                     setSelectedSoc(item?.type)
-                                    const messItem = selectedItem?.mess?.find(mess => mess?.type === item?.type)
+                                    const messItem = selectedContact?.mes?.find(mess => mess?.type === item?.type)
                                     setTo(messItem?.link)
                                 }}
                                 className={classNames({
@@ -120,10 +120,10 @@ const SendFriend = ({set, selectedItem}) => {
                             >
                                 <img
                                     className={styles.socialIcon}
-                                    src={item.icon}
-                                    alt={item.label}
+                                    src={messengersIcons[item?.type]}
+                                    alt={titlesSoc[item?.type]}
                                 />
-                                <p>{item.label}</p>
+                                <p>{titlesSoc[item?.type]}</p>
                             </li>
                         ))}
                         <li className={styles.socialsItem}>
@@ -147,7 +147,7 @@ const SendFriend = ({set, selectedItem}) => {
                             </div>
                             <div className={styles.search}>
                                 <ContactSearch
-                                    onChangeHandler={onSearch}
+                                    onChangeHandler={value => setSearch(value)}
                                 />
                             </div>
                         </div>
@@ -163,8 +163,8 @@ const SendFriend = ({set, selectedItem}) => {
                                         item={item}
                                         name='user_id'
                                         key={index}
-                                        active={active}
-                                        onClick={() => setActive(item?.id)}
+                                        selected={selectedContact}
+                                        onChange={() => setSelectedContact(item)}
                                     />
                                 )
                             })}

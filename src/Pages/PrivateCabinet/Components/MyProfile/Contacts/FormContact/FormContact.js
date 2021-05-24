@@ -18,7 +18,10 @@ import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActio
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 
-const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
+const FormContact = ({
+                         set, type, selectedItem, setPageOption = () => {
+    }
+                     }) => {
 
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
@@ -32,7 +35,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
     const [numbers, setNumbers] = useState(selectedItem?.tel || [])
     const [mails, setMails] = useState(selectedItem?.email || [])
     const [socials, setSocials] = useState(selectedItem?.soc || [])
-    const [messengers, setMessengers] = useState(selectedItem?.mess || [])
+    const [messengers, setMessengers] = useState(selectedItem?.mes || [])
 
     const [socPopup, setSocPopup] = useState(false)
     const [messPopup, setMessPopup] = useState(false)
@@ -109,6 +112,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
             formData.append('tel', JSON.stringify(numbers))
             formData.append('email', JSON.stringify(mails))
             formData.append('soc', JSON.stringify(socials))
+            formData.append('mes', JSON.stringify(messengers))
 
             /*const payload = {
                 ...fields,
@@ -325,12 +329,11 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
                                 <ul className={styles.socialsList}>
                                     {socials.map((item, index) => !!item.link && (
                                         <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img
-                                                    src={socialsIcons[item.type]}
-                                                    alt={item.type}
-                                                />
-                                            </a>
+                                            <img
+                                                src={socialsIcons[item.type]}
+                                                alt={item.type}
+                                                className={styles.socialsImg}
+                                            />
                                         </li>
                                     ))}
                                 </ul>
@@ -349,12 +352,11 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {}}) => {
                                 <ul className={styles.socialsList}>
                                     {messengers.map((item, index) => !!item.link && (
                                         <li key={index}>
-                                            <a href={item.link} className={styles.socialsLink}>
-                                                <img
-                                                    src={messengersIcons[item.type]}
-                                                    alt={item.type}
-                                                />
-                                            </a>
+                                            <img
+                                                src={messengersIcons[item.type]}
+                                                alt={item.type}
+                                                className={styles.socialsImg}
+                                            />
                                         </li>
                                     ))}
                                 </ul>

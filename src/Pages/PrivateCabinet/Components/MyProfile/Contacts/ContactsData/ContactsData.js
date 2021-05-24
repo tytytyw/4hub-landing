@@ -25,8 +25,6 @@ import SendFriend from '../../TellFriends/SendFriend'
 
 const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
-    console.log(selectedItem)
-
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
@@ -263,7 +261,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                         </div>
                     </div>}
 
-                    {selectedItem?.mess?.length > 0 &&
+                    {selectedItem?.mes?.length > 0 &&
                     <div className={styles.infoItem}>
                             <span className={classnames({
                                 [styles.info]: true,
@@ -271,7 +269,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                             })}>Мессенджеры:</span>
                         <div className={styles.value}>
                             <ul className={styles.socialsList}>
-                                {selectedItem?.mess.map((item, index) => (
+                                {selectedItem?.mes.map((item, index) => (
                                     <li key={index}>
                                         <a href={item?.link} className={styles.socialsLink}>
                                             <img src={messengersIcons[item?.type]} alt={item?.type}/>

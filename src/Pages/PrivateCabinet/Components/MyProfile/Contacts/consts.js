@@ -49,6 +49,13 @@ export const socialsData = [
     },
 ]
 
+export const titlesSoc = {
+    telegram: 'Telegram',
+    viber: 'Viber',
+    whatsapp: 'WhatsApp',
+    skype: 'Skype'
+}
+
 export const messengersData = [
     {
         label: 'Viber',

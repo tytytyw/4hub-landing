@@ -205,7 +205,7 @@ const TellFriend = ({ set, contact }) => {
                                     name='user_id'
                                     key={index}
                                     active={active}
-                                    onClick={() => setActive(item?.id)}
+                                    onChange={() => setActive(item?.id)}
                                 />
                             ))}
                         </ul>

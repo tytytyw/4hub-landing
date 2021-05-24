@@ -4,9 +4,10 @@ import styles from './FormContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 /*import classnames from 'classnames'*/
 import Button from '../../Button/Button'
-import {socialsData, messengersData} from '../consts'
+import {messengersData, socialsData} from '../consts'
+import Input from "../../Input/Input";
 
-const AddSocials = ({ values, setValues, set, ...props }) => {
+const AddSocials = ({values, setValues, set, ...props}) => {
 
     const [socialValues, setSocialValues] = useState([])
 
@@ -39,7 +40,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
         // общий список соц. сетей проверяется на наличие ссылок, если нет ссылки удаляем из массива
         const newSocials = []
         socialValues.forEach(({type, link}) => {
-            !!link && newSocials.push({ type, link })
+            !!link && newSocials.push({type, link})
         })
 
         // меняем состояние общего массива соц. сетей
@@ -92,12 +93,20 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
                                         <span className={styles.info}>{item.label}:</span>
                                     </div>
 
-                                    <input
-                                        value={getValue(item)}
-                                        onChange={event => onChange(event, item)}
-                                        name={item.type}
-                                        className={styles.input}
-                                    />
+                                    {props.type ?
+                                        <input
+                                            value={getValue(item)}
+                                            onChange={event => onChange(event, item)}
+                                            name={item?.type}
+                                            className={styles.input}
+                                        /> :
+                                        <Input
+                                            phone={true}
+                                            name={item?.type}
+                                            value={getValue(item)}
+                                            onChange={event => onChange(event, item)}
+                                            className={styles.input}
+                                        />}
                                 </div>
                             </div>
                         ))}
