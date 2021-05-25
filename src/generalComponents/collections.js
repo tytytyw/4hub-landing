@@ -40,7 +40,7 @@ export const contextMenuFile = {
 
 export const contextMenuProfile = {
     main: [
-        {name: 'Личные данные', img: 'profile-icon'},
+        {name: 'Мой профиль', img: 'profile-icon'},
         {name: 'Служба поддержки', img: 'question-icon'},
         {name: 'Настройки', img: 'settings-icon'},
     ],
