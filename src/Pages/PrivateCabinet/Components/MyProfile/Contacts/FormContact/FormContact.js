@@ -65,11 +65,6 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-    const requiredInputs = [
-        'name',
-        //'sname'
-    ]
-
     const resetForm = () => {
         setFields({})
         setBlur({})
@@ -86,7 +81,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
         let {value, name} = event.target
 
-        if (!isCorrectData(value, name, fields, requiredInputs)) {
+        if (!isCorrectData(value, name, fields, ['name'])) {
             setErrors({...errors, [name]: true})
         } else {
             setErrors({...errors, [name]: false})
@@ -101,7 +96,9 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
         event.preventDefault()
 
-        if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
+        if (formIsValid(fields, setSubmitErrors, ['name'])) {
+
+            console.log(formChanged)
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
@@ -140,7 +137,9 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                 ref={formRef}
                 noValidate
                 onSubmit={onSubmit}
-                onChange={() => setFormChanged(true)}
+                onChange={() => {
+                    setFormChanged(true)
+                }}
                 className={styles.wrapper}
             >
                 <div className={styles.top}>

@@ -9,10 +9,10 @@ import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../Button/Button'
 import {useSelector} from 'react-redux'
 import {isCorrectData} from '../Input/validation'
-import {getContactName, messengersData, socialsData} from '../Contacts/consts'
+import {getContactName, messengersData} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
-import Input from "../Input/Input";
+import Input from '../Input/Input'
 
 const TellFriend = ({ set, contact }) => {
 

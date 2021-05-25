@@ -37,24 +37,24 @@ const SendFriend = ({set, selectedItem}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
-    console.log(to)
-
     const onSubmit = event => {
 
         event.preventDefault()
 
-        api.get(`/ajax/contacts_send.php`, {
-            params: {
-                uid,
-                id: selectedItem?.id,
-                to,
-                type: selectedSoc === 'email' ? 'email' : 'sms',
-            }
-        }).then(() => {
-            set(false)
-        }).catch(err => {
-            console.log(err)
-        })
+        if (selectedSoc && selectedContact) {
+            api.get(`/ajax/contacts_send.php`, {
+                params: {
+                    uid,
+                    id: selectedItem?.id,
+                    to,
+                    type: selectedSoc === 'email' ? 'email' : 'sms',
+                }
+            }).then(() => {
+                set(false)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
 
     }
 

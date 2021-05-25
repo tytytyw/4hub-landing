@@ -5,9 +5,6 @@ import classNames from "classnames";
 
 const ContactMenu = ({ data, pageOption }) => {
 
-
-    console.log(pageOption)
-
     return (
         <ul className={styles.menuList}>
 

@@ -15,6 +15,7 @@ const Support = () => {
 
     const uid = useSelector(state => state.user.uid)
 
+    const [formChanged, setFormChanged] = useState(false)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
 
@@ -23,6 +24,7 @@ const Support = () => {
     const [success, setSuccess] = useState(false)
 
     const resetForm = () => {
+        setFormChanged(false)
         setFields({})
         setBlur({})
         setErrors({})
@@ -53,7 +55,7 @@ const Support = () => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, ['text'])) {
+        if (formChanged && formIsValid(fields, setSubmitErrors, ['text'])) {
             api.get(`/ajax/admin_send.php`, {
                 params: {
                     uid,
@@ -80,7 +82,12 @@ const Support = () => {
             <h2 className={styles.title}>Остались вопросы?</h2>
             {/*<QuestionForm/>*/}
 
-            <form noValidate onSubmit={onSubmit} className={styles.wrapper}>
+            <form
+                noValidate
+                onSubmit={onSubmit}
+                onChange={() => setFormChanged(true)}
+                className={styles.wrapper}
+            >
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
