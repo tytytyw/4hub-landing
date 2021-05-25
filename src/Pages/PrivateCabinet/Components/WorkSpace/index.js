@@ -25,7 +25,8 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
-                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview}) => {
+                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview
+                  }) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');

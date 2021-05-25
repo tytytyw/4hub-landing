@@ -11,6 +11,9 @@ import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
 import PreviewFile from '../PreviewFile';
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
 const MyFolders = ({setItem, filePreview, setFilePreview}) => {
 
@@ -26,6 +29,9 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
     const [progress, setProgress] = useState(0);
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
+    const [mouseParams, setMouseParams] = useState(null);
+    // const [action, setAction] = useState({type: '', name: '', text: ''});
+    // const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -40,6 +46,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === el.path}
+                setMouseParams={setMouseParams}
             />
         })
     };
@@ -59,11 +66,29 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 chosen={chosenFolder.path === f.path}
                 padding={'0px 10px 0px 26px'}
                 subFolder={false}
+                setMouseParams={setMouseParams}
             />
         })
     };
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+
+    const renderMenuItems = (target, type) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                // callback={() => setAction(type[i])}
+                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+            />
+        })
+    };
+
+    const callbackArrMain = [
+        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+    ];
 
     return (
         <div className={styles.workAreaWrap}>
@@ -124,6 +149,9 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 title='Создайте пароль для сейфа'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : contextMenuFolder.main, callbackArrMain)}</div>
+            </ContextMenu> : null}
         </div>
     )
 }
