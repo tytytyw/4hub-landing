@@ -15,7 +15,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
-const MyFolders = ({setItem, filePreview, setFilePreview}) => {
+const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -108,6 +108,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                         chosen={chosenFolder.path === 'recent'}
                         chosenFolder={chosenFolder}
                         setChosenFolder={setChosenFolder}
+                        setMouseParams={setMouseParams}
                     />}
                 </div>
             </List>
@@ -124,6 +125,7 @@ const MyFolders = ({setItem, filePreview, setFilePreview}) => {
                 setFilePreview={setFilePreview}
                 chosenFile={chosenFile}
                 setChosenFile={setChosenFile}
+                fileSelect={fileSelect}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

@@ -6,7 +6,7 @@ import styles from './RecentFolders.module.sass';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import CustomFolderItem from "../CustomFolderItem";
 
-const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen}) => {
+const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams}) => {
 
     const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
     const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen}) =
               padding={'0 15px 0 50px'}
               chosen={folder.path === chosenFolder.subPath}
               subFolder={true}
+              setMouseParams={setMouseParams}
           />
       })
     };

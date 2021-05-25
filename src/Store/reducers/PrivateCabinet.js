@@ -6,7 +6,8 @@ import {
     CONTACT_LIST,
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
-    CHOOSE_RECENT_FILES
+    CHOOSE_RECENT_FILES,
+    CUSTOMIZE_FILE
 } from '../types';
 
 const INITIAL_STATE = {
@@ -43,6 +44,13 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, recentFiles: action.payload}
         case CHOOSE_RECENT_FILES:
             return {...state, chosenRecentFile: action.payload}
+        case CUSTOMIZE_FILE: {
+            const files = state.fileList.files.map(file => {
+                if(file.fid !== action.payload.fid) return file;
+                return action.payload;
+            });
+            return {...state, fileList: {...state.fileList, files}}
+        }
         default:
             return state;
     }

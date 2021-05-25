@@ -23,9 +23,11 @@ import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
+import CustomizeFile from "../CustomizeFile";
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
-                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview
+                   chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
+                   fileSelect
                   }) => {
 
     const dispatch = useDispatch();
@@ -36,7 +38,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
-    const callbackArrMain = ['', '', '', '', '', '', '', '', '', '', '', ''];
+    const callbackArrMain = ['', '', '', '',
+        {type: 'customize', name: 'Редактирование файла', text: ``},
+        '', '', '', '', '', '', ''];
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
     ];
@@ -95,6 +99,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
+                fileSelect={fileSelect}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
@@ -109,6 +114,18 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
         {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
+        {action.type === 'customize' ? <CustomizeFile
+            title={action.name}
+            info={chosenFolder}
+            file={chosenFile}
+            // setBlob={setBlob}
+            close={nullifyAction}
+            // setFileLoading={setFileLoading}
+            // fileLoading={fileLoading}
+            // setProgress={setProgress}
+            // progress={progress}
+            // onToggleSafePassword={onSafePassword}
+        /> : null}
     </>)
 }
 
