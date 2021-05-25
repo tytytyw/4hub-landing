@@ -77,9 +77,13 @@ const AddSocials = ({values, setValues, set, ...props}) => {
                 <div className={styles.content}>
 
                     <div className={styles.header}>
-                        <p className={styles.title}>
-                            {props.type === 'soc' ? 'Укажите никнейм к соц.сетям' : 'Укажите мессенджеры'}
-                        </p>
+                        {props.type === 'soc' ?
+                            <p className={styles.title}>
+                                Укажите никнейм к соц.сетям
+                            </p> :
+                            <p className={styles.title}>
+                                Укажите Ваш контактный номер<br/> для мессенджеров
+                            </p>}
                     </div>
 
                     <div className={styles.formContent}>

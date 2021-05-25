@@ -12,7 +12,7 @@ import {isCorrectData} from '../Input/validation'
 import {getContactName, messengersData} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
-import Input from "../Input/Input";
+import Input from '../Input/Input'
 
 const TellFriend = ({ set, contact }) => {
 

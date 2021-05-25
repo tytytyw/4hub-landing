@@ -108,12 +108,11 @@ const UserForm = () => {
             api.post(`/ajax/user_edit.php?uid=${uid}`, formData)
                 .then(() => {
                     setSuccess(true)
-                    setEditForm(false)
-                    setFormChanged(false)
                     dispatch(onGetContacts())
+                    resetForm()
                 }).catch(err => {
-                console.log(err)
-            })
+                    console.log(err)
+                })
         }
     }
 
