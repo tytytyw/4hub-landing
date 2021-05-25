@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import { onGetUserInfo } from '../../Store/actions/startPageAction';
@@ -30,6 +30,19 @@ const PrivateCabinet = () => {
         document.cookie = `uid=${uid};expires=${date}`;
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const inputRef = useRef();
+    const [awaitingFiles, setAwaitingFiles] = useState([]);
+    // const [inputs, setInputs] = useState([]);
+    // const [length, setLength] = useState(0);
+    // const [loading, setLoading] = useState({});
+    // const [loaded, setLoaded] = useState([]);
+    const onInputFiles = (e) => {
+        // const files = [...awaitingFiles].concat(...e.target.files);
+        setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
+    };
+
+    const fileSelect = () => inputRef.current.click();
+
     return (
         <div className={styles.mainWrap} style={{minHeight}}>
             <SideMenu
@@ -43,9 +56,29 @@ const PrivateCabinet = () => {
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
                 {menuItem === 'Личные данные' && <MyProfile />}
-                {menuItem === 'Мои папки' && <MyFolders setItem={setItem} filePreview={filePreview} setFilePreview={setFilePreview} />}
+                {menuItem === 'Мои папки' && <MyFolders
+                    setItem={setItem}
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    fileSelect={fileSelect}
+                />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
+            <div style={{
+                    position: 'absolute',
+                    background: 'red',
+                    top: 0,
+                    left: 0,
+                    cursor: 'pointer'
+                }}
+                onClick={() => fileSelect()}
+            >
+                PRESS ME
+            </div>
+            <div style={{display: 'none'}}>
+                <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
+            </div>
+
         </div>
     )
 }
