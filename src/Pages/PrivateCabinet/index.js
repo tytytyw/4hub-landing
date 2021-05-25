@@ -7,7 +7,8 @@ import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
 import MyProfile from './Components/MyProfile';
-import MyFiles from './Components/MyFiles'
+import MyFiles from './Components/MyFiles';
+import FileLoader from './Components/FileLoader';
 
 const PrivateCabinet = () => {
 
@@ -64,17 +65,7 @@ const PrivateCabinet = () => {
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            <div style={{
-                    position: 'absolute',
-                    background: 'red',
-                    top: 0,
-                    left: 0,
-                    cursor: 'pointer'
-                }}
-                onClick={() => fileSelect()}
-            >
-                PRESS ME
-            </div>
+            {awaitingFiles.length > 0 ? <FileLoader /> : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
