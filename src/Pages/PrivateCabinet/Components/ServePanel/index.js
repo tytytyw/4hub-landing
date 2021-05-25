@@ -10,7 +10,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 
-const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction}) => {
+const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction, fileSelect}) => {
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -28,7 +28,7 @@ const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction}) => {
             <div className={styles.groupEnd}>
                 <div className={styles.buttons}>
                     <div className={styles.createButton}><span>Создать</span><div /></div>
-                    <label className={styles.downloadButton} onClick={() => setBlob({...blob, show: true})}>Загрузить</label>
+                    <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
                 </div>
                 <div className={styles.iconButtons}>
                     <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><SafeIcon className={styles.iconSafe} /></div>

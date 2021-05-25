@@ -26,7 +26,8 @@ import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 
 const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
-                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview
+                   chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
+                   fileSelect
                   }) => {
 
     const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
+                fileSelect={fileSelect}
             />
             {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
