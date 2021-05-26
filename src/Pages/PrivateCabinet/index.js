@@ -33,10 +33,8 @@ const PrivateCabinet = () => {
 
     const inputRef = useRef();
     const [awaitingFiles, setAwaitingFiles] = useState([]);
-    // const [inputs, setInputs] = useState([]);
-    // const [length, setLength] = useState(0);
-    // const [loadingFile, setLoadingFile] = useState(null);
-    // const [loaded, setLoaded] = useState([]);
+    const [loadingFile, setLoadingFile] = useState([]);
+    const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
         setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
         inputRef.current.value = '';
@@ -65,9 +63,13 @@ const PrivateCabinet = () => {
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            {awaitingFiles.length > 0 ? <FileLoader
+            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 ? <FileLoader
                 awaitingFiles={awaitingFiles}
                 setAwaitingFiles={setAwaitingFiles}
+                loadingFile={loadingFile}
+                setLoadingFile={setLoadingFile}
+                loaded={loaded}
+                setLoaded={setLoaded}
             /> : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
