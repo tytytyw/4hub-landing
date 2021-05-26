@@ -1,0 +1,61 @@
+.loadItemWrap
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 99%
+  min-height: 50px
+  height: 50px
+  border-top: 1px solid #e0dede
+  box-sizing: border-box
+  padding: 0 5px 0 30px
+  cursor: default
+  .nameWrap
+    height: 100%
+    min-height: 100%
+    width: 85%
+    max-width: 85%
+    display: flex
+    align-items: center
+    .fileWrap
+      position: relative
+      width: 27px
+      min-width: 27px
+      height: 30px
+      display: flex
+      margin: 0 10px 0 0
+    .name
+      font-size: 12px
+      color: #a7a4a4
+      display: block
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+.optionsItemWrap
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 15%
+  min-width: 15%
+  height: 50px
+  .checkIcon
+    width: 30px
+  .crossIcon
+    width: 30px
+    cursor: pointer
+  .crossIcon path:first-child
+    fill: rgb(193, 193, 193)
+  .crossIcon:hover path:first-child
+    fill: #f44336
+
+
+.load
+  fill: none
+  stroke: rgb(209, 209, 209)
+  stroke-width: 8
+  transform-origin: 50px 50px
+.loaded
+  fill: none
+  stroke-width: 8
+  stroke: #1cadeb
+  transform: rotate(-90deg)
+  transform-origin: 50px 50px

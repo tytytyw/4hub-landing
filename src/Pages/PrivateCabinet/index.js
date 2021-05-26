@@ -35,8 +35,9 @@ const PrivateCabinet = () => {
     const [awaitingFiles, setAwaitingFiles] = useState([]);
     // const [inputs, setInputs] = useState([]);
     // const [length, setLength] = useState(0);
-    // const [loading, setLoading] = useState({});
+    const [loadingFile, setLoadingFile] = useState(null);
     // const [loaded, setLoaded] = useState([]);
+    // TODO - Need to clear e.target.files after files chosen
     const onInputFiles = (e) => {
         // const files = [...awaitingFiles].concat(...e.target.files);
         setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
@@ -65,7 +66,10 @@ const PrivateCabinet = () => {
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            {awaitingFiles.length > 0 ? <FileLoader /> : null}
+            {awaitingFiles.length > 0 ? <FileLoader
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+            /> : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>

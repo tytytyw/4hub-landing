@@ -1,7 +1,94 @@
 .loaderWrap
-  width: 20px
-  height: 20px
-  border: 1px solid red
+  width: 370px
+  height: 280px
   position: fixed
   bottom: 30px
   right: 30px
+  z-index: 3
+  box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
+  overflow: hidden
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    box-sizing: border-box
+    padding: 0 25px
+    width: 100%
+    height: 50px
+    background: rgb(234, 240, 254)
+  .optionsWrap
+    display: flex
+    width: 20%
+    justify-content: space-between
+    align-items: center
+    .arrowDown
+      transform: rotateZ(45deg) translateY(-5px)
+      border-bottom: 1px solid grey
+      border-right: 1px solid grey
+      width: 9px
+      height: 9px
+      cursor: pointer
+    .arrowUp
+      transform: rotateZ(-45deg) translateY(5px)
+      border-top: 1px solid grey
+      border-right: 1px solid grey
+      width: 9px
+      height: 9px
+      cursor: pointer
+    .cross
+      position: relative
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+  .main
+    width: 100%
+    height: 230px
+    background: #FFFFFF
+    .timeLeft
+      display: flex
+      justify-content: space-between
+      align-items: center
+      width: 100%
+      height: 30px
+      font-size: 12px
+      padding: 0 15px
+      box-sizing: border-box
+      color: #a7a4a4
+      .cancel
+        color: rgb(83, 143, 250)
+        cursor: pointer
+      .cancel:hover
+        color: rgb(69, 131, 243)
+    .scrollFileLoaderWrap
+      overflow-x: hidden
+      overflow-y: scroll
+      display: flex
+      flex-direction: column
+      align-items: center
+      width: 100%
+      height: 200px
+      &::-webkit-scrollbar-track
+        background: #0A3AAB
+      &::-webkit-scrollbar-track
+        -webkit-box-shadow: none
+        background-color: #F5F5F5
+      &::-webkit-scrollbar
+        width: 4px
+        background-color: #FFFFFF
+      &::-webkit-scrollbar-thumb
+        background-color: #4086F1
+  .mainHidden
+    display: none
+.loaderCollapsed
+  height: 50px
