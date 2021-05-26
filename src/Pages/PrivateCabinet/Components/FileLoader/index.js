@@ -81,7 +81,8 @@ const FileLoader = ({awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFil
         <div className={`${styles.loaderWrap} ${collapsed ? styles.loaderCollapsed : ''}`}>
             <div className={styles.header}>
                 <span className={styles.loadBar} style={{width: `${processing}%`}} />
-                <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span>
+                {loadingFile.length > 0 && awaitingFiles.length > 0 ? <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span> : null}
+                {loadingFile.length === 0 && awaitingFiles.length === 0 ? <span>Загрузка завершена</span> : null}
                 <div className={styles.optionsWrap}>
                     <div className={`${collapsed ? styles.arrowUp : styles.arrowDown}`} onClick={() => setCollapsed(!collapsed)} />
                     <span className={styles.cross} />
