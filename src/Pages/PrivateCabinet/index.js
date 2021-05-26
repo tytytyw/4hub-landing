@@ -37,10 +37,9 @@ const PrivateCabinet = () => {
     // const [length, setLength] = useState(0);
     // const [loadingFile, setLoadingFile] = useState(null);
     // const [loaded, setLoaded] = useState([]);
-    // TODO - Need to clear e.target.files after files chosen
     const onInputFiles = (e) => {
-        // const files = [...awaitingFiles].concat(...e.target.files);
         setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
+        inputRef.current.value = '';
     };
 
     const fileSelect = () => inputRef.current.click();
