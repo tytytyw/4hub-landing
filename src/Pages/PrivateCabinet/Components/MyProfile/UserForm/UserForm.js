@@ -8,8 +8,7 @@ import api from '../../../../../api'
 import Button from '../Button/Button'
 import AlertPopup from '../AlertPopup/AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
-import {onGetContacts} from "../../../../../Store/actions/PrivateCabinetActions";
-import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
+import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
 
 const UserForm = () => {
 
