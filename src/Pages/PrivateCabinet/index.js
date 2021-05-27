@@ -31,15 +31,14 @@ const PrivateCabinet = () => {
         document.cookie = `uid=${uid};expires=${date}`;
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    //Loading multiple files info
     const inputRef = useRef();
     const [awaitingFiles, setAwaitingFiles] = useState([]);
-    // const [inputs, setInputs] = useState([]);
-    // const [length, setLength] = useState(0);
-    // const [loading, setLoading] = useState({});
-    // const [loaded, setLoaded] = useState([]);
+    const [loadingFile, setLoadingFile] = useState([]);
+    const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        // const files = [...awaitingFiles].concat(...e.target.files);
         setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
+        inputRef.current.value = '';
     };
 
     const fileSelect = () => inputRef.current.click();
@@ -65,7 +64,16 @@ const PrivateCabinet = () => {
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            {awaitingFiles.length > 0 ? <FileLoader /> : null}
+            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0
+                ? <FileLoader
+                    awaitingFiles={awaitingFiles}
+                    setAwaitingFiles={setAwaitingFiles}
+                    loadingFile={loadingFile}
+                    setLoadingFile={setLoadingFile}
+                    loaded={loaded}
+                    setLoaded={setLoaded}
+                />
+            : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>

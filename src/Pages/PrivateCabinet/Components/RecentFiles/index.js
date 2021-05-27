@@ -21,7 +21,7 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
               onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
           >
               <div className={styles.innerFileWrap}>
-                  <File color={file.id_color} format={file.ext}/>
+                  <File color={file.id_color} format={file.ext} />
                   {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
               </div>
               <div className={styles.descriptionWrap}>

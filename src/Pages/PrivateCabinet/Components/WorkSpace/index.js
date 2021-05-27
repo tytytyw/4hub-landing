@@ -111,7 +111,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
         </ContextMenu> : null}
-        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}>
+        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
         {action.type === 'customize' ? <CustomizeFile
