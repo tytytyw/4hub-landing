@@ -152,6 +152,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                         {delConfirm &&
                         <ActionApproval
                             name='Удаление контакта'
+                            approve='Удалить'
                             text={`Вы действительно хотите удалить контакт ${getContactName(selectedItem)}?`}
                             set={() => setDelConfirm(false)}
                             callback={onDeleteConfirm}
