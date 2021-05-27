@@ -19,7 +19,11 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView, setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction, callbackArrMain, additionalMenuItems, deleteFile, setFilePreview}) => {
+const WorkSpace = ({
+               setBlob, blob, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView,
+               setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction,
+               callbackArrMain, additionalMenuItems, deleteFile, setFilePreview, fileSelect,
+}) => {
 
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
@@ -51,9 +55,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
+                fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
-            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
+            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob}>{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'lines' ? <WorkLines>{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile} hideFileList={true}></WorkLinesPreview> : null}
             <BottomPanel />

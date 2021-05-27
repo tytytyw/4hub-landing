@@ -12,7 +12,10 @@ import { onDeleteFile } from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 
-const MyFiles = ({filePreview, setFilePreview}) => {
+const MyFiles = ({
+			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization
+}) => {
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
@@ -24,12 +27,6 @@ const MyFiles = ({filePreview, setFilePreview}) => {
 		subPath: "",
 	});
 	const [blob, setBlob] = useState({ file: null, show: false });
-	const [fileLoading, setFileLoading] = useState({
-		isLoading: false,
-		percentage: 95,
-		file: null,
-	});
-	const [progress, setProgress] = useState(0);
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -108,10 +105,6 @@ const MyFiles = ({filePreview, setFilePreview}) => {
 				</List>
 			)}
 			<WorkSpace
-				setBlob={setBlob}
-				blob={blob}
-				fileLoading={fileLoading}
-				progress={progress}
 				chosenFolder={chosenFolder}
 				workElementsView={workElementsView}
 				setWorkElementsView={setWorkElementsView}
@@ -129,18 +122,21 @@ const MyFiles = ({filePreview, setFilePreview}) => {
 				filePreview={filePreview}
 				setFilePreview={setFilePreview}
 				setSafePassword={setSafePassword}
+				fileSelect={fileSelect}
 			/>
-			{blob.show && (
+			{fileAddCustomization.show && (
 				<CreateFile
 					title="Добавление файла"
 					info={chosenFolder}
-					blob={blob}
-					setBlob={setBlob}
-					setFileLoading={setFileLoading}
-					fileLoading={fileLoading}
-					setProgress={setProgress}
-					progress={progress}
+					blob={fileAddCustomization.file}
+					setBlob={setFileAddCustomization}
 					onToggleSafePassword={onSafePassword}
+					awaitingFiles={awaitingFiles}
+					setAwaitingFiles={setAwaitingFiles}
+					loaded={loaded}
+					setLoaded={setLoaded}
+					loadingFile={loadingFile}
+					fileErrors={fileErrors}
 				/>
 			)}
 			{safePassword.open && <CreateSafePassword

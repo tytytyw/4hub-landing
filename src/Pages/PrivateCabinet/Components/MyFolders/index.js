@@ -113,8 +113,6 @@ const MyFolders = ({
                 </div>
             </List>
             <WorkSpace
-                setBlob={() => {/*Need to modify*/}}
-                blob={{/*Need to modify*/}}
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
