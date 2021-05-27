@@ -19,6 +19,7 @@ const PrivateCabinet = () => {
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
+    const [fileErrors, setFileErrors] = useState([]);
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -73,7 +74,7 @@ const PrivateCabinet = () => {
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0
+            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
                 ? <FileLoader
                     awaitingFiles={awaitingFiles}
                     setAwaitingFiles={setAwaitingFiles}
@@ -83,6 +84,8 @@ const PrivateCabinet = () => {
                     setLoaded={setLoaded}
                     setFileAddCustomization={setFileAddCustomization}
                     fileAddCustomization={fileAddCustomization}
+                    fileErrors={fileErrors}
+                    setFileErrors={setFileErrors}
                 />
             : null}
             <div style={{display: 'none'}}>

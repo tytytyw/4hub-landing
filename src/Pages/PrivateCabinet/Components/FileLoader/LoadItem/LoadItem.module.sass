@@ -99,3 +99,31 @@
   transform: rotate(-90deg)
   transform-origin: 50px 50px
   transition: stroke-dashoffset 0.1s ease-in-out
+.error
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 15%
+  min-width: 15%
+  height: 50px
+  cursor: pointer
+  .mark
+    display: block
+    min-width: 30px
+    width: 30px
+    min-height: 30px
+    height: 30px
+  .mark path
+    fill: #f44336
+  .reload
+    display: none
+    min-width: 30px
+    width: 30px
+    min-height: 30px
+    height: 30px
+  .reload path
+    fill: #1cadeb
+.error:hover .mark
+  display: none
+.error:hover .reload
+  display: block

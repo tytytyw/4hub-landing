@@ -10,7 +10,7 @@ import {onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-        setFileAddCustomization, fileAddCustomization,
+        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors,
 }) => {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -117,9 +117,9 @@ const FileLoader = ({
     };
 
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
-    useEffect(() => {if(loadingFile.length === 0 && awaitingFiles.length !== 0 && loaded.length !== 0) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {if(loadingFile.length === 0 && awaitingFiles.length !== 0) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const renderList = (list, loaded, processing, set) => {
+    const renderList = (list, loaded, processing, set, error) => {
       return list.map((item, i) => {
            return <LoadItem
                 key={i}
@@ -135,6 +135,12 @@ const FileLoader = ({
                 startLoading={startLoading}
                 setProcessing={setProcessing}
                 setFileAddCustomization={setFileAddCustomization}
+                error={error}
+                fileErrors={fileErrors}
+                setFileErrors={setFileErrors}
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+                loadingFile={loadingFile}
             />
       });
     };
@@ -161,12 +167,22 @@ const FileLoader = ({
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
                 <div className={styles.timeLeft}>
                     <span className={styles.time}>Осталось 20 мин</span>
-                    <span className={styles.cancel}>Отмена</span>
+                    <span
+                        className={styles.cancel}
+                        onClick={() => {
+                            setFileErrors([...fileErrors, ...loadingFile, ...awaitingFiles]);
+                            setLoadingFile([]);
+                            setAwaitingFiles([]);
+                            setProcessing(0)
+                            if(options.cancelLoading) options.cancelLoading();
+                        }}
+                    >Отмена</span>
                 </div>
                 <div className={styles.scrollFileLoaderWrap}>
-                    {loaded.length > 0 ? renderList(loaded, true, 0, setLoaded) : null}
-                    {loadingFile.length > 0 ? renderList(loadingFile, false, processing, setLoadingFile) : null}
-                    {awaitingFiles.length > 0 ? renderList(awaitingFiles, false, 0, setAwaitingFiles) : null}
+                    {loaded.length > 0 ? renderList(loaded, true, 0, setLoaded, false) : null}
+                    {loadingFile.length > 0 ? renderList(loadingFile, false, processing, setLoadingFile, false) : null}
+                    {awaitingFiles.length > 0 ? renderList(awaitingFiles, false, 0, setAwaitingFiles, false) : null}
+                    {fileErrors.length > 0 ? renderList(fileErrors, false, 0, setFileErrors, true) : null}
                 </div>
             </div>
         </div>

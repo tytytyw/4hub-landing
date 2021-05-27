@@ -5,8 +5,14 @@ import File from '../../../../../generalComponents/Files';
 import {ReactComponent as CheckIcon} from '../../../../../assets/PrivateCabinet/check.svg';
 import {ReactComponent as CrossIcon} from '../../../../../assets/PrivateCabinet/remove.svg';
 import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabinet/settings.svg';
+import {ReactComponent as ErrorIcon} from '../../../../../assets/PrivateCabinet/exclamation.svg';
+import {ReactComponent as ReloadIcon} from '../../../../../assets/PrivateCabinet/reload.svg';
 
-const LoadItem = ({list, index, set, loaded, processing, name, ext, color, options, startLoading, setProcessing, setFileAddCustomization}) => {
+const LoadItem = ({
+              list, index, set, loaded, processing, name, ext, color, options, startLoading,
+              setProcessing, setFileAddCustomization, error, fileErrors, setFileErrors,
+              awaitingFiles, setAwaitingFiles, loadingFile
+}) => {
 
     const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
     const circleRef = useRef();
@@ -41,18 +47,19 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color, optio
                 }} /> : null}
         </div>
         <div className={styles.optionsItemWrap}>
-            {loaded ? <span className={styles.loadedItemWrap}>
+            {loaded && !error ? <span className={styles.loadedItemWrap}>
                 <CheckIcon className={styles.checkIcon} />
                 <CrossIcon className={styles.cross} onClick={deleteItem} />
             </span> : null}
-            {!loaded && !processing ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
-            {processing ? <div className={styles.progress}>
+            {!loaded && !processing && !error ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
+            {processing && !error ? <div className={styles.progress}>
                 <svg viewBox="0 0 100 100" width="30px" className={styles.progressBar}>
                   <circle className={styles.load} cx="50" cy="50" r="45"/>
                   <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
                 </svg>
                 <span className={styles.crossUpload}>
                     <CrossIcon className={styles.cross} onClick={() => {
+                        setFileErrors([...fileErrors, list[index]]);
                         deleteItem();
                         if(options.cancelLoading) {
                             options.cancelLoading();
@@ -62,6 +69,15 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color, optio
                     }} />
                 </span>
             </div>: null}
+            {error ? <div className={styles.error}>
+                <ErrorIcon className={styles.mark} />
+                <ReloadIcon className={styles.reload}
+                            onClick={() => {
+                                setAwaitingFiles([...awaitingFiles, list[index]]);
+                                deleteItem();
+                            }}
+                />
+            </div> : null}
         </div>
     </div>)
 };

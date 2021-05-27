@@ -13,10 +13,8 @@ const WorkBars = ({children, setBlob, blob, fileSelect}) => {
         <div
             className={styles.workBarsWrap}
             style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}
-            onClick={fileSelect}
         >
-            <div className={styles.addFile}>
-                {/*<form className={styles.form} ref={formRef}><input type='file' onChange={onHandleChange} /></form>*/}
+            <div className={styles.addFile} onClick={fileSelect}>
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>

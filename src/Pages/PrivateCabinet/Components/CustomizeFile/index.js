@@ -67,24 +67,16 @@ const CustomizeFile = ({title, close, file }) => {
 
     const onAddFile = () => {
         if(password !== passwordRepeat) return setPasswordCoincide(false);
-        // const fName = name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `&fileName=${name}`;
-        // const tag = tagOption.chosen === file.tag ? '' : `&tag=${tagOption.chosen}`;
-        // const pass = password === passwordRepeat ? `&pass=${password}` : '';
-        // const col = color?.color === file.color ? '' : `&color=${color.color}`;
-        // const symbol = sign === file.fig ? '' : `&symbol=${sign}`;
-        // const emo = emoji === file.emo ? '' : `&emoji=${emoji}`;
-        //
-        // const url = `/ajax/file_edit.php?uid=${uid}&fid=${file.fid}${fName}${tag}${pass}${col}${symbol}${emo}`;
 
         const data = {
             uid,
             fids: [file.fid],
-            fName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `&fileName=${name}`,
-            tag: tagOption.chosen === file.tag ? '' : `&tag=${tagOption.chosen}`,
-            pass: password === passwordRepeat ? `&pass=${password}` : '',
-            color: color?.color === file.color ? '' : `&color=${color.color}`,
-            symbol: sign === file.fig ? '' : `&symbol=${sign}`,
-            emoji: emoji === file.emo ? '' : `&emoji=${emoji}`,
+            fName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `${name}`,
+            tag: tagOption.chosen === file.tag ? '' : `${tagOption.chosen}`,
+            pass: password === passwordRepeat ? `${password}` : '',
+            color: color?.color === file.color ? '' : `${color.color}`,
+            symbol: sign === file.fig ? '' : `${sign}`,
+            emoji: emoji === file.emo ? '' : `${emoji}`,
         };
 
         if(!data.fName && !data.tag && !data.color && !data.symbol && !data.emoji && !data.pass) return close();
