@@ -14,7 +14,7 @@ import PreviewFile from '../PreviewFile';
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
-			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile
 }) => {
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
@@ -137,6 +137,7 @@ const MyFiles = ({
 					setLoaded={setLoaded}
 					loadingFile={loadingFile}
 					fileErrors={fileErrors}
+					setLoadingFile={setLoadingFile}
 				/>
 			)}
 			{safePassword.open && <CreateSafePassword

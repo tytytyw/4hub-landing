@@ -11,7 +11,7 @@ import {ReactComponent as ReloadIcon} from '../../../../../assets/PrivateCabinet
 const LoadItem = ({
               list, index, set, loaded, processing, name, ext, color, options, startLoading,
               setProcessing, setFileAddCustomization, error, fileErrors, setFileErrors,
-              awaitingFiles, setAwaitingFiles, loadingFile
+              awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile,
 }) => {
 
     const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
@@ -73,7 +73,9 @@ const LoadItem = ({
                 <ErrorIcon className={styles.mark} />
                 <ReloadIcon className={styles.reload}
                             onClick={() => {
-                                setAwaitingFiles([...awaitingFiles, list[index]]);
+                                if(loadingFile.length > 0) {
+                                    setAwaitingFiles([...awaitingFiles, list[index]]);
+                                } else {setLoadingFile([list[index]])}
                                 deleteItem();
                             }}
                 />

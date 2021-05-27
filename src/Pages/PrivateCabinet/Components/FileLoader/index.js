@@ -119,7 +119,7 @@ const FileLoader = ({
     };
 
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
-    useEffect(() => {if(loadingFile.length === 0 && awaitingFiles.length !== 0) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {if(loadingFile.length === 0 && !fileAddCustomization.show) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const renderList = (list, loaded, processing, set, error) => {
       return list.map((item, i) => {
@@ -143,6 +143,7 @@ const FileLoader = ({
                 awaitingFiles={awaitingFiles}
                 setAwaitingFiles={setAwaitingFiles}
                 loadingFile={loadingFile}
+                setLoadingFile={setLoadingFile}
             />
       });
     };

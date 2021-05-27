@@ -72,6 +72,7 @@ const PrivateCabinet = () => {
                     setLoaded={setLoaded}
                     loadingFile={loadingFile}
                     fileErrors={fileErrors}
+                    setLoadingFile={setLoadingFile}
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles
                     filePreview={filePreview}
@@ -85,6 +86,7 @@ const PrivateCabinet = () => {
                     fileSelect={fileSelect}
                     fileAddCustomization={fileAddCustomization}
                     setFileAddCustomization={setFileAddCustomization}
+                    setLoadingFile={setLoadingFile}
                 />}
             </div>
             {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
