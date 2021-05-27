@@ -67,7 +67,9 @@ const PrivateCabinet = () => {
                     setFileAddCustomization={setFileAddCustomization}
                     setAwaitingFiles={setAwaitingFiles}
                     awaitingFiles={awaitingFiles}
-                    setLoadingFile={setLoadingFile}
+                    loaded={loaded}
+                    setLoaded={setLoaded}
+                    loadingFile={loadingFile}
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>

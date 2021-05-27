@@ -17,7 +17,7 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 
 const MyFolders = ({
                        setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
-                       setAwaitingFiles, awaitingFiles, setLoadingFile
+                       setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile,
 }) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
@@ -140,7 +140,9 @@ const MyFolders = ({
                 onToggleSafePassword={onSafePassword}
                 awaitingFiles={awaitingFiles}
                 setAwaitingFiles={setAwaitingFiles}
-                setLoadingFile={setLoadingFile}
+                loaded={loaded}
+                setLoaded={setLoaded}
+                loadingFile={loadingFile}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}

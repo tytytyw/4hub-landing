@@ -7,14 +7,14 @@ import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-// import { onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
+import {onAddRecentFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
-const CreateFile = ({title, info, blob, setBlob, onToggleSafePassword, setAwaitingFiles, awaitingFiles, setLoadingFile }) => {
+const CreateFile = ({title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles, awaitingFiles, loadingFile }) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(blob?.options?.name ? blob.options.name.slice(0, blob.options.name.lastIndexOf('.')) : blob.file.name.slice(0, blob.file.name.lastIndexOf('.')));
@@ -22,10 +22,10 @@ const CreateFile = ({title, info, blob, setBlob, onToggleSafePassword, setAwaiti
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState(colors[0]);
-    const [tagOption, setTagOption] = useState({chosen: '', count: 30});
-    const [sign, setSign] = useState('');
-    const [emoji, setEmoji] = useState('');
+    const [color, setColor] = useState(blob?.options?.color ? colors.find(c => c.color === blob.options.color) : colors[0]);
+    const [tagOption, setTagOption] = useState({chosen: blob?.options?.tag ? blob.options.tag : '', count: 30});
+    const [sign, setSign] = useState(blob?.options?.symbol ? blob.options.symbol : '');
+    const [emoji, setEmoji] = useState(blob?.options?.emoji ? blob.options.emoji : '');
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
@@ -66,39 +66,45 @@ const CreateFile = ({title, info, blob, setBlob, onToggleSafePassword, setAwaiti
             symbol: sign,
             emoji: emoji
         };
-        console.log(options);
-        // let data = new FormData();
-        // data.append('uid', uid);
-        // data.append('myfile', blob.file);
-        // data.append('fileName', `${name}`);
-        // data.append('dir', info.subPath ? info.subPath : info.path ? info.path : 'global/all');
-        // data.append('tag', tagOption.chosen);
-        // data.append('pass', passwordCoincide ? password : '');
-        // data.append('color', color.color);
-        // data.append('symbol', sign);
-        // data.append('emoji', emoji);
-        if(blob.file.fid) {
 
+        if(blob.file.fid) {
+            if(password !== passwordRepeat) return setPasswordCoincide(false);
+
+            const data = {
+                uid,
+                fids: [blob.file.fid],
+                fName: options.name,
+                tag: options.tag,
+                pass: options.password,
+                color: options.color,
+                symbol: options.symbol,
+                emoji: options.emoji,
+            };
+
+            const newFile = {
+                ...blob.file,
+                name: options.name,
+                tag: options.tag,
+                color: options.color,
+                emo: options.emoji,
+                fig: options.symbol,
+                is_pass: options.password ? 1 : 0,
+                ext: options.name.slice(options.name.lastIndexOf('.')),
+            };
+            api.post('/ajax/file_edit.php', data)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onCustomizeFile(newFile));
+                    dispatch(onAddRecentFiles());
+                    let files = loaded.map(el => el.file.fid === newFile.fid ? {file: newFile, options} : el)
+                    setLoaded(files);
+                } else {setError(true)}
+                })
+                .catch(err => {setError(true)})
+                .finally(() => closeComponent());
         } else {
             setAwaitingFiles([...awaitingFiles, {...blob, options}]);
+            if(loadingFile.length > 0 || loaded.length > 0) closeComponent();
         }
-
-        // setDisplay('none');
-        // setFileLoading({...fileLoading, isLoading: true, file: {ext: blob.file.name.slice(blob.file.name.lastIndexOf('.') + 1), color: color.color}})
-        //
-        // api.post(`/ajax/file_add.php`,
-        //     data,
-        //     {onUploadProgress: e => setProgress((e.loaded * 100) / e.total)})
-        //     .then(res => {if(res.data.ok === 1) {
-        //         setBlob({...blob, file: null, show: false});
-        //     } else {setError(true)}
-        //     })
-        //     .catch(err => {setError(true)})
-        //     .finally(() => {
-        //         setDisplay('block');
-        //         setFileLoading({...fileLoading, isLoading: false, percentage: 0, file: {ext: '', color: ''}});
-        //         dispatch(onChooseFiles(info.subPath ? info.subPath : info.path));
-        //     });
     };
 
     const closeComponent = () => {
@@ -130,7 +136,7 @@ const CreateFile = ({title, info, blob, setBlob, onToggleSafePassword, setAwaiti
     };
 
     const setSize = () => {
-        let size = blob.file.size;
+        let size = blob.file?.size;
         if(size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
         if(size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
         if(size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;

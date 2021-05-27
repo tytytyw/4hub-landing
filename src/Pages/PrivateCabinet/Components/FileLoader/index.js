@@ -90,12 +90,13 @@ const FileLoader = ({
                 file: {
                     name: file?.options?.name ? file.options.name : file.file.name,
                     fid: res.data.fid,
-                    size_now: setSize(file.size),
-                    size: file.size,
+                    size_now: setSize(file.file.size),
+                    size: file.file.size,
                     mtime: `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`,
                     gdir: path ? path : 'global/all',
+                    loaded: true
                 },
-                options: {}
+                options: {...file.options}
             };
             const loadedFiles = [...loaded];
             loadedFiles.push(f);
@@ -116,6 +117,7 @@ const FileLoader = ({
     };
 
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {if(loadingFile.length === 0 && awaitingFiles.length !== 0 && loaded.length !== 0) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const renderList = (list, loaded, processing, set) => {
       return list.map((item, i) => {
@@ -132,6 +134,7 @@ const FileLoader = ({
                 options={options}
                 startLoading={startLoading}
                 setProcessing={setProcessing}
+                setFileAddCustomization={setFileAddCustomization}
             />
       });
     };
