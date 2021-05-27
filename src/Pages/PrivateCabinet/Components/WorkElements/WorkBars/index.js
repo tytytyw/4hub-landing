@@ -3,9 +3,8 @@ import {useSelector} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import FileBar from '../FileBar';
 
-const WorkBars = ({children, setBlob, blob, fileLoading, progress}) => {
+const WorkBars = ({children, setBlob, blob}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
     const formRef = useRef(null);
@@ -25,7 +24,6 @@ const WorkBars = ({children, setBlob, blob, fileLoading, progress}) => {
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>
             {!children && <img src='./assets/PrivateCabinet/addPropose.png' alt='addFile' className={styles.textAddIcon} />}
-            {fileLoading.isLoading ? <FileBar file={fileLoading.file} isLoading={fileLoading.isLoading} progress={progress} /> : null}
             {children}
         </div>
     )
