@@ -7,6 +7,7 @@ import styles from './FileLoader.module.sass';
 import LoadItem from './LoadItem';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import {onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {ReactComponent as ErrorIcon} from "../../../../assets/PrivateCabinet/exclamation.svg";
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -30,6 +31,7 @@ const FileLoader = ({
         setAwaitingFiles([]);
         setLoadingFile([]);
         setLoaded([]);
+        setFileErrors([])
         setCloseApprove(true);
     };
     const offCloseApprove = () => setCloseApprove(true);
@@ -186,7 +188,9 @@ const FileLoader = ({
                 </div>
             </div>
         </div>
-        {!closeApprove ? <ActionApproval name={'Закрыть загрузки'} text={'Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены'} set={offCloseApprove} callback={clearLoadFiles} approve={'Закрыть'}/> : null}
+            {!closeApprove ? <ActionApproval name={'Закрыть загрузки'} text={'Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены'} set={offCloseApprove} callback={clearLoadFiles} approve={'Закрыть'}>
+                <ErrorIcon className={styles.mark} />
+            </ActionApproval> : null}
         </>
     )
 };

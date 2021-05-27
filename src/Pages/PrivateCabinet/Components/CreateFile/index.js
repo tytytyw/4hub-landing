@@ -14,7 +14,10 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 import {onAddRecentFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
-const CreateFile = ({title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles, awaitingFiles, loadingFile }) => {
+const CreateFile = ({
+                title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
+                awaitingFiles, loadingFile, fileErrors
+}) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(blob?.options?.name ? blob.options.name.slice(0, blob.options.name.lastIndexOf('.')) : blob.file.name.slice(0, blob.file.name.lastIndexOf('.')));
@@ -103,7 +106,7 @@ const CreateFile = ({title, loaded, setLoaded, blob, setBlob, onToggleSafePasswo
                 .finally(() => closeComponent());
         } else {
             setAwaitingFiles([...awaitingFiles, {...blob, options}]);
-            if(loadingFile.length > 0 || loaded.length > 0) closeComponent();
+            if(loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0) closeComponent();
         }
     };
 

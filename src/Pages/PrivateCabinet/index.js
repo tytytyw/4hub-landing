@@ -71,6 +71,7 @@ const PrivateCabinet = () => {
                     loaded={loaded}
                     setLoaded={setLoaded}
                     loadingFile={loadingFile}
+                    fileErrors={fileErrors}
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
