@@ -18,6 +18,7 @@ const PrivateCabinet = () => {
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
+    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -37,7 +38,8 @@ const PrivateCabinet = () => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
+        const files = [...e.target.files].map(file => {return {file, options: {}}});
+        setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
 
@@ -61,6 +63,11 @@ const PrivateCabinet = () => {
                     filePreview={filePreview}
                     setFilePreview={setFilePreview}
                     fileSelect={fileSelect}
+                    fileAddCustomization={fileAddCustomization}
+                    setFileAddCustomization={setFileAddCustomization}
+                    setAwaitingFiles={setAwaitingFiles}
+                    awaitingFiles={awaitingFiles}
+                    setLoadingFile={setLoadingFile}
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
@@ -72,6 +79,8 @@ const PrivateCabinet = () => {
                     setLoadingFile={setLoadingFile}
                     loaded={loaded}
                     setLoaded={setLoaded}
+                    setFileAddCustomization={setFileAddCustomization}
+                    fileAddCustomization={fileAddCustomization}
                 />
             : null}
             <div style={{display: 'none'}}>

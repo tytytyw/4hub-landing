@@ -5,7 +5,7 @@ import File from "../../../../../generalComponents/Files";
 import {ReactComponent as CheckIcon} from "../../../../../assets/PrivateCabinet/check.svg";
 import {ReactComponent as CrossIcon} from "../../../../../assets/PrivateCabinet/remove.svg";
 
-const LoadItem = ({list, index, set, loaded, processing, name, ext, color, options, startLoading}) => {
+const LoadItem = ({list, index, set, loaded, processing, name, ext, color, options, startLoading, setProcessing}) => {
 
     const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
     const circleRef = useRef();
@@ -24,7 +24,7 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color, optio
         const items = [...list];
         items.splice(index, 1);
         set(items);
-    }
+    };
 
     return (<div className={styles.loadItemWrap}>
         <div className={styles.nameWrap}>
@@ -45,8 +45,11 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color, optio
                 <span className={styles.crossUpload}>
                     <CrossIcon className={styles.cross} onClick={() => {
                         deleteItem();
-                        if(options.cancelLoading) options.cancelLoading();
-                        startLoading(true);
+                        if(options.cancelLoading) {
+                            options.cancelLoading();
+                            setProcessing(0);
+                            startLoading(true);
+                        }
                     }} />
                 </span>
             </div>: null}

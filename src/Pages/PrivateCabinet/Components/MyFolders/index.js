@@ -15,7 +15,10 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
-const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect, fileAddCustomiztion, setFileAddCustomiztion}) => {
+const MyFolders = ({
+                       setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
+                       setAwaitingFiles, awaitingFiles, setLoadingFile
+}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -24,8 +27,6 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect, fileAddCus
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
-    // const [progress, setProgress] = useState(0);
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
@@ -114,8 +115,6 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect, fileAddCus
             <WorkSpace
                 setBlob={() => {/*Need to modify*/}}
                 blob={{/*Need to modify*/}}
-                fileLoading={fileLoading}
-                // progress={progress}
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
@@ -133,14 +132,15 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect, fileAddCus
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
             />}
-            {fileAddCustomiztion.show ? <CreateFile
+            {fileAddCustomization.show ? <CreateFile
                 title='Добавление файла'
                 info={chosenFolder}
-                blob={fileAddCustomiztion.file}
-                setBlob={setFileAddCustomiztion}
-                setFileLoading={setFileLoading}
-                fileLoading={fileLoading}
+                blob={fileAddCustomization.file}
+                setBlob={setFileAddCustomization}
                 onToggleSafePassword={onSafePassword}
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+                setLoadingFile={setLoadingFile}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
