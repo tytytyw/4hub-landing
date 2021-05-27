@@ -8,7 +8,7 @@ import api from '../../../../../api'
 import Button from '../Button/Button'
 import AlertPopup from '../AlertPopup/AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
-import {onGetContacts} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
 
 const UserForm = () => {
 
@@ -18,7 +18,7 @@ const UserForm = () => {
 
     const [fields, setFields] = useState(user)
 
-    const [formChanged, setFormChanged] = useState(false)
+    const [formChanged, setFormChanged] = useState(true)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [blur, setBlur] = useState({})
@@ -27,9 +27,10 @@ const UserForm = () => {
     const [showPass, setShowPass] = useState(false)
     const [success, setSuccess] = useState(false)
 
-    const [image, setImage] = useState(new Blob())
+    const [image, setImage] = useState(null)
     const [preview, setPreview] = useState()
 
+    const fileInputRef = useRef()
     const formRef = useRef()
 
     const uploadImage = event => {
@@ -43,17 +44,15 @@ const UserForm = () => {
 
     useEffect(() => {
 
-        let filePreview = fields?.icon?.[0] || null
+        const profileImage = fields?.icon?.[0]
         if (image) {
-            setFields({...fields, image})
             const reader = new FileReader()
-            reader.onloadend = () => {
-                filePreview = reader.result
-            }
+            reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
+        } else {
+            fileInputRef.current.value  = null
+            setPreview(profileImage)
         }
-
-        setPreview(filePreview)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
@@ -66,10 +65,12 @@ const UserForm = () => {
         'password_r',
     ]
 
-    const resetForm = () => {
+    const resetForm = (saved = false) => {
+
+        !saved && setImage(null)
+
         setEditForm(false)
         setFormChanged(false)
-        setImage(null)
         setFields(user)
         setBlur({})
         setErrors({})
@@ -108,8 +109,8 @@ const UserForm = () => {
             api.post(`/ajax/user_edit.php?uid=${uid}`, formData)
                 .then(() => {
                     setSuccess(true)
-                    dispatch(onGetContacts())
-                    resetForm()
+                    dispatch(onGetUserInfo())
+                    resetForm(true)
                 }).catch(err => {
                     console.log(err)
                 })
@@ -123,6 +124,7 @@ const UserForm = () => {
 
             <div className={styles.uploadBlock}>
                 <ProfileUpload
+                    inputRef={fileInputRef}
                     preview={preview}
                     onChange={uploadImage}
                     disabled={!editForm}

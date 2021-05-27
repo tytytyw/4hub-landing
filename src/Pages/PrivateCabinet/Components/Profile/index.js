@@ -36,6 +36,8 @@ const Profile = ({setItem}) => {
         })
     }
 
+    console.log(user?.icon)
+
     return (
         <>
         <div
