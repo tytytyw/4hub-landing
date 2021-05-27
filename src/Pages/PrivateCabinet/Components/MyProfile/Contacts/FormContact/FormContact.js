@@ -23,7 +23,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
-    const [formChanged, setFormChanged] = useState(false)
+    const [formChanged, setFormChanged] = useState(true)
     const [blur, setBlur] = useState({})
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
@@ -54,7 +54,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     }
 
     useEffect(() => {
-        const profileImage = fields?.icon?.[0] || null
+
+        const profileImage = fields?.icon?.[0]
         if (image) {
             const reader = new FileReader()
             reader.onloadend = () => setPreview(reader.result)
@@ -67,6 +68,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
     const resetForm = () => {
         setFields({})
+        setFormChanged(false)
         setBlur({})
         setErrors({})
         setSubmitErrors({})
@@ -92,29 +94,36 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
     }
 
+    const filterArray = array => {
+        const result = []
+        array.forEach(item => {
+            if (!!item) {
+                result.push(item)
+            }
+        })
+        return result
+    }
+
     const onSubmit = (event) => {
 
         event.preventDefault()
 
-        if (formIsValid(fields, setSubmitErrors, ['name'])) {
-
-            console.log(formChanged)
+        if (formChanged && formIsValid(fields, setSubmitErrors, ['name'])) {
 
             let apiUrl = type === 'edit' ? 'contacts_edit.php' : 'contacts_add.php'
 
             const formData = new FormData(formRef.current)
             formData.append('file', image)
-            formData.append('tel', JSON.stringify(numbers))
-            formData.append('email', JSON.stringify(mails))
-            formData.append('soc', JSON.stringify(socials))
-            formData.append('mes', JSON.stringify(messengers))
+            formData.append('tel', JSON.stringify(filterArray(numbers)))
+            formData.append('email', JSON.stringify(filterArray(mails)))
+            formData.append('soc', JSON.stringify(filterArray(socials)))
+            formData.append('mes', JSON.stringify(filterArray(messengers)))
 
             api.post(`/ajax/${apiUrl}?uid=${uid}&id=${selectedItem?.id}`, formData)
                 .then(async () => {
                     dispatch(onGetContacts())
                     resetForm()
                     set(false)
-                    setFormChanged(false)
                     type !== 'edit' && setPageOption('ContactsAll')
                 }).catch(err => {
                     console.log(err)
@@ -137,9 +146,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                 ref={formRef}
                 noValidate
                 onSubmit={onSubmit}
-                onChange={() => {
-                    setFormChanged(true)
-                }}
+                onChange={() => setFormChanged(true)}
                 className={styles.wrapper}
             >
                 <div className={styles.top}>
