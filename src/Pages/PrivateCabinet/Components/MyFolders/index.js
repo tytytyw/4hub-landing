@@ -15,7 +15,10 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
-const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect}) => {
+const MyFolders = ({
+                       setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
+                       setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors
+}) => {
 
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
@@ -24,9 +27,6 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect}) => {
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const [blob, setBlob] = useState({file: null, show: false});
-    const [fileLoading, setFileLoading] = useState({isLoading: false, percentage: 95, file: null});
-    const [progress, setProgress] = useState(0);
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
@@ -113,10 +113,8 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect}) => {
                 </div>
             </List>
             <WorkSpace
-                setBlob={setBlob}
-                blob={blob}
-                fileLoading={fileLoading}
-                progress={progress}
+                setBlob={() => {/*Need to modify*/}}
+                blob={{/*Need to modify*/}}
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
@@ -134,18 +132,19 @@ const MyFolders = ({setItem, filePreview, setFilePreview, fileSelect}) => {
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
             />}
-            <input type='file' style={{display: 'none'}} id='add-file' onChange={e => setBlob(e.target.files[0])} />
-            {blob.show && <CreateFile
+            {fileAddCustomization.show ? <CreateFile
                 title='Добавление файла'
                 info={chosenFolder}
-                blob={blob}
-                setBlob={setBlob}
-                setFileLoading={setFileLoading}
-                fileLoading={fileLoading}
-                setProgress={setProgress}
-                progress={progress}
+                blob={fileAddCustomization.file}
+                setBlob={setFileAddCustomization}
                 onToggleSafePassword={onSafePassword}
-            />}
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+                loaded={loaded}
+                setLoaded={setLoaded}
+                loadingFile={loadingFile}
+                fileErrors={fileErrors}
+            /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'

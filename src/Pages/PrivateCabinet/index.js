@@ -18,6 +18,8 @@ const PrivateCabinet = () => {
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
+    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
+    const [fileErrors, setFileErrors] = useState([]);
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -37,7 +39,8 @@ const PrivateCabinet = () => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        setAwaitingFiles([...awaitingFiles].concat(...e.target.files));
+        const files = [...e.target.files].map(file => {return {file, options: {}}});
+        setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
 
@@ -61,10 +64,18 @@ const PrivateCabinet = () => {
                     filePreview={filePreview}
                     setFilePreview={setFilePreview}
                     fileSelect={fileSelect}
+                    fileAddCustomization={fileAddCustomization}
+                    setFileAddCustomization={setFileAddCustomization}
+                    setAwaitingFiles={setAwaitingFiles}
+                    awaitingFiles={awaitingFiles}
+                    loaded={loaded}
+                    setLoaded={setLoaded}
+                    loadingFile={loadingFile}
+                    fileErrors={fileErrors}
                 />}
                 {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
             </div>
-            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0
+            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
                 ? <FileLoader
                     awaitingFiles={awaitingFiles}
                     setAwaitingFiles={setAwaitingFiles}
@@ -72,6 +83,10 @@ const PrivateCabinet = () => {
                     setLoadingFile={setLoadingFile}
                     loaded={loaded}
                     setLoaded={setLoaded}
+                    setFileAddCustomization={setFileAddCustomization}
+                    fileAddCustomization={fileAddCustomization}
+                    fileErrors={fileErrors}
+                    setFileErrors={setFileErrors}
                 />
             : null}
             <div style={{display: 'none'}}>

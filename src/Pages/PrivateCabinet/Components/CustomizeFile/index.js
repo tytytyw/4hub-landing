@@ -14,7 +14,7 @@ import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, setProgress, onToggleSafePassword }) => {
+const CustomizeFile = ({title, close, file }) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(file ? file.name.slice(0, file.name.lastIndexOf('.')) : '');
@@ -67,27 +67,30 @@ const CustomizeFile = ({title, close, info, file, fileLoading, setFileLoading, s
 
     const onAddFile = () => {
         if(password !== passwordRepeat) return setPasswordCoincide(false);
-        const fName = name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `&fileName=${name}`;
-        const tag = tagOption.chosen === file.tag ? '' : `&tag=${tagOption.chosen}`;
-        const pass = password === passwordRepeat ? `&pass=${password}` : '';
-        const col = color?.color === file.color ? '' : `&color=${color.color}`;
-        const symbol = sign === file.fig ? '' : `&symbol=${sign}`;
-        const emo = emoji === file.emo ? '' : `&emoji=${emoji}`;
 
-        const url = `/ajax/file_edit.php?uid=${uid}&fid=${file.fid}${fName}${tag}${pass}${col}${symbol}${emo}`;
+        const data = {
+            uid,
+            fids: [file.fid],
+            fName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `${name}`,
+            tag: tagOption.chosen === file.tag ? '' : `${tagOption.chosen}`,
+            pass: password === passwordRepeat ? `${password}` : '',
+            color: color?.color === file.color ? '' : `${color.color}`,
+            symbol: sign === file.fig ? '' : `${sign}`,
+            emoji: emoji === file.emo ? '' : `${emoji}`,
+        };
 
-        if(!fName && !tag && !col && !symbol && !emo && !pass) return close();
+        if(!data.fName && !data.tag && !data.color && !data.symbol && !data.emoji && !data.pass) return close();
 
         const newFile = {
             ...file,
-            name: fName ? name + file?.name.slice(0, file.name.lastIndexOf('.'))[1] : file.name,
-            tag: tag ? tagOption.chosen : file.tag,
-            color: col ? color?.color : file.color,
-            emo: emo ? emoji : file.emo,
-            fig: symbol ? sign : file.fig,
+            name: data.fName ? name + file?.name.slice(0, file.name.lastIndexOf('.'))[1] : file.name,
+            tag: data.tag ? tagOption.chosen : file.tag,
+            color: data.color ? color?.color : file.color,
+            emo: data.emoji ? emoji : file.emo,
+            fig: data.symbol ? sign : file.fig,
             is_pass: password && passwordRepeat ? 1 : 0
         }
-        api.post(url)
+        api.post('/ajax/file_edit.php', data)
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onCustomizeFile(newFile));
                 dispatch(onAddRecentFiles());

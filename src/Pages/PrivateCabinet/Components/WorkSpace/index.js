@@ -25,7 +25,7 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile,
+const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
                    fileSelect
                   }) => {
@@ -101,8 +101,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 setAction={setAction}
                 fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
-            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
+            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} fileSelect={fileSelect}>{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             <BottomPanel />
@@ -118,13 +118,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
             title={action.name}
             info={chosenFolder}
             file={chosenFile}
-            // setBlob={setBlob}
             close={nullifyAction}
-            // setFileLoading={setFileLoading}
-            // fileLoading={fileLoading}
-            // setProgress={setProgress}
-            // progress={progress}
-            // onToggleSafePassword={onSafePassword}
         /> : null}
     </>)
 }
