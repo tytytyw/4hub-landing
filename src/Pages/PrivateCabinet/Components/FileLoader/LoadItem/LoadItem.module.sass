@@ -37,6 +37,7 @@
   width: 15%
   min-width: 15%
   height: 50px
+  cursor: pointer
   .checkIcon
     width: 30px
   .crossIcon
@@ -46,7 +47,33 @@
     fill: rgb(193, 193, 193)
   .crossIcon:hover path:first-child
     fill: #f44336
-
+.optionsItemWrap .progress .progressBar
+  display: block
+.optionsItemWrap .progress .crossUpload
+  display: none
+.optionsItemWrap:hover .progress .progressBar
+  display: none
+.optionsItemWrap:hover .progress .crossUpload
+  display: block
+  width: 30px
+  height: 30px
+.optionsItemWrap .loadedItemWrap .checkIcon
+  display: block
+.optionsItemWrap .loadedItemWrap .cross
+  display: none
+.optionsItemWrap:hover .loadedItemWrap .checkIcon
+  display: none
+.optionsItemWrap:hover .loadedItemWrap .cross
+  display: block
+  width: 30px
+  height: 30px
+.cross
+  min-width: 30px
+  width: 30px
+  min-height: 30px
+  height: 30px
+.cross path:first-child
+  fill: #f44336
 
 .load
   fill: none

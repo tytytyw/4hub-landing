@@ -5,9 +5,9 @@ import File from "../../../../../generalComponents/Files";
 import {ReactComponent as CheckIcon} from "../../../../../assets/PrivateCabinet/check.svg";
 import {ReactComponent as CrossIcon} from "../../../../../assets/PrivateCabinet/remove.svg";
 
-const LoadItem = ({list, index, set, loaded, processing, name, ext, color}) => {
+const LoadItem = ({list, index, set, loaded, processing, name, ext, color, options, startLoading}) => {
 
-    const [data, setData] = useState({strokeDasharray: `0 0`, strokeDashoffset: `${2 * Math.PI * 45}`})
+    const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
     const circleRef = useRef();
     const onProgress = (processing) => {
         const radius = circleRef?.current?.r?.baseVal?.value;
@@ -23,7 +23,6 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color}) => {
     const deleteItem = () => {
         const items = [...list];
         items.splice(index, 1);
-        console.log(items);
         set(items);
     }
 
@@ -33,14 +32,24 @@ const LoadItem = ({list, index, set, loaded, processing, name, ext, color}) => {
             <span className={styles.name}>{name}</span>
         </div>
         <div className={styles.optionsItemWrap}>
-            {loaded ? <CheckIcon className={styles.checkIcon} /> : null}
+            {loaded ? <span className={styles.loadedItemWrap}>
+                <CheckIcon className={styles.checkIcon} />
+                <CrossIcon className={styles.cross} onClick={deleteItem} />
+            </span> : null}
             {!loaded && !processing ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
-            {processing ? <span className={styles.progress}>
-                <svg viewBox="0 0 100 100" width="30px">
+            {processing ? <div className={styles.progress}>
+                <svg viewBox="0 0 100 100" width="30px" className={styles.progressBar}>
                   <circle className={styles.load} cx="50" cy="50" r="45"/>
                   <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
                 </svg>
-            </span>: null}
+                <span className={styles.crossUpload}>
+                    <CrossIcon className={styles.cross} onClick={() => {
+                        deleteItem();
+                        if(options.cancelLoading) options.cancelLoading();
+                        startLoading(true);
+                    }} />
+                </span>
+            </div>: null}
         </div>
     </div>)
 };
