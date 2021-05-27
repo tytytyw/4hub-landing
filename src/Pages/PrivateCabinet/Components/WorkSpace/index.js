@@ -101,7 +101,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} >{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} fileSelect={fileSelect}>{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}

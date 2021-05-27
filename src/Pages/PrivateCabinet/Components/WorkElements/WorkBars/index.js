@@ -1,25 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
-const WorkBars = ({children, setBlob, blob}) => {
+const WorkBars = ({children, setBlob, blob, fileSelect}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
-    const formRef = useRef(null);
-    useEffect(() => {
-        if(blob.file === null) formRef.current.reset();
-    }, [blob]);
-    const onHandleChange = (e) => {
-        setBlob({...blob, file: e.target.files[0], show: true});
-    };
 
     return (
 
-        <div className={styles.workBarsWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
+        <div
+            className={styles.workBarsWrap}
+            style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}
+            onClick={fileSelect}
+        >
             <div className={styles.addFile}>
-                <form className={styles.form} ref={formRef}><input type='file' onChange={onHandleChange} /></form>
+                {/*<form className={styles.form} ref={formRef}><input type='file' onChange={onHandleChange} /></form>*/}
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>
