@@ -18,11 +18,12 @@ import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
+import PreviewFile from '../../PreviewFile';
 
 const WorkSpace = ({
                setBlob, blob, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView,
                setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction,
-               callbackArrMain, additionalMenuItems, deleteFile, setFilePreview, fileSelect,
+               callbackArrMain, additionalMenuItems, deleteFile, setFilePreview, filePreview, fileSelect,
 }) => {
 
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -47,7 +48,9 @@ const WorkSpace = ({
                     <Profile setItem={setItem} />
                 </div>
             </div>
-            {recentFiles?.length > 0 && <RecentFiles />}
+            {recentFiles?.length > 0 && <RecentFiles
+                setFilePreview={setFilePreview}
+                filePreview={filePreview} />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}
@@ -63,11 +66,12 @@ const WorkSpace = ({
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile} hideFileList={true}></WorkLinesPreview> : null}
             <BottomPanel />
         </div>
+        {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
         </ContextMenu> : null}
-        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}>
+        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
     </>)
