@@ -19,6 +19,7 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
 import PreviewFile from '../../PreviewFile';
+import CustomizeFile from "../../CustomizeFile";
 
 const WorkSpace = ({
                setBlob, blob, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView,
@@ -74,6 +75,12 @@ const WorkSpace = ({
         {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
+        {action.type === 'customize' ? <CustomizeFile
+            title={action.name}
+            // info={chosenFolder}
+            file={chosenFile}
+            close={nullifyAction}
+        /> : null}
     </>)
 }
 

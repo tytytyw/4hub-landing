@@ -30,7 +30,9 @@ const MyFiles = ({
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-	const callbackArrMain = ["", "", "", "", "", "", "", "", "", "", "", ""];
+    const callbackArrMain = ['', '', '', '',
+        {type: 'customize', name: 'Редактирование файла', text: ``},
+        '', '', '', '', '', '', ''];
 	const additionalMenuItems = [
 		{
 			type: "delete",
