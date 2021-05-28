@@ -38,11 +38,20 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
-    const callbackArrMain = ['', '', '', '',
+    const callbackArrMain = [
+        {type: 'resend', name: '', text: ``},
+        {type: 'share', name: '', text: ``},
+        {type: 'openInApp', name: '', text: ``},
+        {type: 'copyLink', name: '', text: ``},
         {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
+        {type: 'archive', name: '', text: ``},
+        {type: 'intoZip', name: '', text: ``},
+        {type: 'info', name: '', text: ``},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
+        {type: 'print', name: '', text: ``},
+        ];
     const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
     const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
 
@@ -53,7 +62,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                callback={() => setAction(type[i])}
+                callback={() => type[i]?.callback(type, i)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -77,7 +86,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             />
         });
     };
-
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -120,6 +128,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             file={chosenFile}
             close={nullifyAction}
         /> : null}
+        <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
+            <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
+        </form>
     </>)
 }
 
