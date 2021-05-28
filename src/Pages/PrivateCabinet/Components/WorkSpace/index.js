@@ -19,7 +19,7 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
@@ -39,21 +39,21 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``},
-        {type: 'share', name: '', text: ``},
-        {type: 'openInApp', name: '', text: ``},
-        {type: 'copyLink', name: '', text: ``},
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        {type: 'archive', name: '', text: ``},
-        {type: 'intoZip', name: '', text: ``},
-        {type: 'info', name: '', text: ``},
+        {type: 'resend', name: '', text: ``, callback: ''},
+        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'openInApp', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'intoZip', name: '', text: ``, callback: ''},
+        {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: '', text: ``},
+        {type: 'print', name: '', text: ``, callback: ''},
         ];
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
-    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
+    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
