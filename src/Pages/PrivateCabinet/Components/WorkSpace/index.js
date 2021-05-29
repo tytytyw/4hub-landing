@@ -19,7 +19,7 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
@@ -38,13 +38,23 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
-    const callbackArrMain = ['', '', '', '',
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
+    const callbackArrMain = [
+        {type: 'resend', name: '', text: ``, callback: ''},
+        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'openInApp', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: ''},
+        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'intoZip', name: '', text: ``, callback: ''},
+        {type: 'info', name: '', text: ``, callback: ''},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
+        {type: 'print', name: '', text: ``, callback: ''},
+        ];
     const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
-    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
+    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -53,7 +63,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                callback={() => setAction(type[i])}
+                callback={() => type[i]?.callback(type, i)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -77,7 +87,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             />
         });
     };
-
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -120,6 +129,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             file={chosenFile}
             close={nullifyAction}
         /> : null}
+        <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
+            <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
+        </form>
     </>)
 }
 

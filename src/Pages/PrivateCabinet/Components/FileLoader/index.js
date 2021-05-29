@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import api from '../../../../api';
@@ -117,9 +117,13 @@ const FileLoader = ({
         }else {console.log(res)}
         dispatch(onChooseFiles(path));
     };
-
+    let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
-    useEffect(() => {if(loadingFile.length === 0 && !fileAddCustomization.show) startLoading()}, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        if(loadingFile.length === 0 && !fileAddCustomization.show && firstRenderFixer.current !== 0) {
+            startLoading()
+        } else (firstRenderFixer.current = 1)
+        }, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const renderList = (list, loaded, processing, set, error) => {
       return list.map((item, i) => {
