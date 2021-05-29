@@ -81,7 +81,7 @@ function ShareFile({file, close}) {
                     </div>
                     <div className={styles.input_wrap}>
                         <p className={styles.input_title}>Пароль</p>
-                        <input placeholder='Вы можете установить пароль на данный файл' type='password'></input>
+                        <input id={'input_pass'} placeholder='Вы можете установить пароль на данный файл' type='password'></input>
                     </div>
                     <input className={styles.input_submit} value='Установить' type='submit' />
                 </div>
