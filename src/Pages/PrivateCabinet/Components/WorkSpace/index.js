@@ -27,7 +27,7 @@ import CustomizeFile from "../CustomizeFile";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
-                   fileSelect
+                   fileSelect, action, setAction
                   }) => {
 
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
+    const [filePick, setFilePick] = useState({show: false, files: []});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     const callbackArrMain = [
@@ -44,7 +44,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: ''},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: ''},
+        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: () => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
         {type: 'intoZip', name: '', text: ``, callback: ''},
         {type: 'info', name: '', text: ``, callback: ''},
@@ -70,6 +70,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     }
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
+    // Change state to default after changing menu params
+    useEffect(() => {
+        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: []});
+    }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Types of Files view
     const renderFiles = (Type) => {
@@ -84,6 +88,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                filePick={filePick}
+                setFilePick={setFilePick}
             />
         });
     };

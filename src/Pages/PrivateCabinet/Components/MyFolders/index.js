@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './MyFolders.module.sass';
@@ -23,6 +23,7 @@ const MyFolders = ({
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
     const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
+    const path = useSelector(state => state.PrivateCabinet.folderList?.path);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
@@ -30,8 +31,11 @@ const MyFolders = ({
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
-    // const [action, setAction] = useState({type: '', name: '', text: ''});
-    // const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const [action, setAction] = useState({type: '', name: '', text: ''});
+    const nullifyAction = () => setAction({type: '', name: '', text: ''});
+
+    //Clear action on change folder
+    useEffect(() => {nullifyAction()}, [path]);
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -122,6 +126,8 @@ const MyFolders = ({
                 chosenFile={chosenFile}
                 setChosenFile={setChosenFile}
                 fileSelect={fileSelect}
+                action={action}
+                setAction={setAction}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

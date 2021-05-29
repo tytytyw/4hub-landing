@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 
-const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview}) => {
+const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
+
+    const [picked, setPicked] = useState(false);
+    const onPickFile = (e) => {
+        e.stopPropagation();
+        setPicked(!picked);
+        setFilePick({...filePick, files: [...filePick.files, file.fid]})
+    }
 
     return (
         <>
@@ -30,6 +37,11 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
                     <div>{file.size_now}</div>
                     <div>{file.mtime.split(' ')[0]}</div>
                 </div>
+                {filePick?.show ? <div
+                    className={`${styles.filePickBox} ${picked ? styles.filePickBoxPicked : ''}`}
+                    onClick={onPickFile}
+                    onDoubleClick={e => e.stopPropagation()}
+                /> : null}
             </div>
         </>
     )
