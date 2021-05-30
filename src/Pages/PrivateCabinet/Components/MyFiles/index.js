@@ -101,7 +101,7 @@ const MyFiles = ({
 					src="add-file.svg"
 					setListCollapsed={setListCollapsed}
 					listCollapsed={listCollapsed}
-					onCreate={() => setBlob({ ...blob, show: true })}
+					onCreate={() => fileSelect()}
 					chosenFile={chosenFile}
 					setChosenFile={setChosenFile}
 				>
