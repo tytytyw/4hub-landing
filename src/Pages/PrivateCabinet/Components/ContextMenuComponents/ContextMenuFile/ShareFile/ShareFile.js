@@ -1,26 +1,40 @@
 import React, {useState} from 'react';
 import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
-// import { useSelector, useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import styles from './ShareFile.module.sass';
-// import api from '../../../../api';
+import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
-// import ContactList from '../../../MyProfile/Contacts/ContactList/ContactList';
-// import {tags, colors} from '../../../../generalComponents/collections';
-// import Error from '../../../../generalComponents/Error';
-// import { onCustomizeFile, onAddRecentFiles } from '../../../../Store/actions/PrivateCabinetActions';
-// import Colors from '../../../../generalComponents/Elements/Colors';
-// import '../../../../generalComponents/colors.sass';
-// import Signs from '../../../../generalComponents/Elements/Signs';
-// import File from '../../../../generalComponents/Files';
-
+import Error from '../../../../../../generalComponents/Error';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
 function ShareFile({file, close}) {
+    const [error, setError] = useState(false);
+    const uid = useSelector(state => state.user.uid);
+    const data = {
+        uid,
+        fid: file.fid,
+        dir: file.gdir,
+        user_to: null,
+        // TODO: неоткуда брать значение возможности редактирования}
+        is_write: 0
+    }
+
+    const onShareFile = () => {
+        api.post('/ajax/file_share.php', data)
+            .then(res => {if(res.data.ok === 1) {
+                console.log('ok')
+            } else {
+                setError(res.data.error)
+                console.log(res)
+            }
+            })
+            .catch(err => {setError(err)})
+    }
+
     return (
         <PopUp set={close}>
             <div className={styles.ShareFile_wrap}>
@@ -64,8 +78,7 @@ function ShareFile({file, close}) {
                         Кому:
                     </p>
                     <div className={styles.recipient_mail}>
-                        {/*TODO: вынести инпут в отдельный компонент?*/}
-                        <input placeholder='Эл.адрес или имя' type='text'></input>
+                        <input onChange={(e)=> data.user_to = e.target.value} placeholder='Эл.адрес или имя' type='text'></input>
                     </div>
                     <div className={styles.recipient_messenger}>
                         <input value='Отправить через мессенджер' type='button'></input>
@@ -75,7 +88,6 @@ function ShareFile({file, close}) {
                     <textarea placeholder='Добавить комментарий к Файлу' type='text'></textarea >
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
-                    {/* <Locked /> */}
                     <div className={styles.ico_wrap}>
                         <Password className={styles.row_ico} />
                     </div>
@@ -86,7 +98,6 @@ function ShareFile({file, close}) {
                     <input className={styles.input_submit} value='Установить' type='submit' />
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
-                    {/* <Locked /> */}
                     <div className={styles.ico_wrap}>
                         <Calendar className={styles.row_ico} />
                     </div>
@@ -119,7 +130,13 @@ function ShareFile({file, close}) {
                         <input className={styles.input_submit} value='Скопировать ссылку' type='submit' />
                     </div>
                 </div>
+                {/* TODO: в макете нет кнопки отправки*/}
+                <div className={styles.buttonsWrap}>
+                        <div className={styles.cancel} onClick={() => close()}>Отмена</div>
+                        <div className={styles.add} onClick={()=> {if (data.user_to)onShareFile()}}>Отправить</div>
+                </div>
             </div>
+            {error && <Error error={error} set={close} message={error} />}
         </PopUp>
     )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -20,6 +20,7 @@ import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
+import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 
 const WorkSpace = ({
 	setBlob,
@@ -42,10 +43,11 @@ const WorkSpace = ({
 	setFilePreview,
 	filePreview,
 	fileSelect,
-    fileLoading
+	fileLoading,
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
+	const [filePick] = useState({ show: false, files: [] });
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -98,16 +100,17 @@ const WorkSpace = ({
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
-						setBlob={setBlob}
-						blob={blob}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
+						filePick={filePick}
 					>
 						{renderFiles(FileBar)}
 					</WorkBars>
 				) : null}
 				{workElementsView === "lines" ? (
-					<WorkLines>{renderFiles(FileLine)}</WorkLines>
+					<WorkLines fileLoading={fileLoading}>
+						{renderFiles(FileLine)}
+					</WorkLines>
 				) : null}
 				{workElementsView === "preview" ? (
 					<WorkBarsPreview file={chosenFile}>
@@ -119,6 +122,14 @@ const WorkSpace = ({
 						file={chosenFile}
 						hideFileList={true}
 					></WorkLinesPreview>
+				) : null}
+
+				{filePick.show ? (
+					<OptionButtomLine
+						filePick={filePick}
+						actionName={"Редактировать"}
+						setAction={setAction}
+					/>
 				) : null}
 				<BottomPanel />
 			</div>
