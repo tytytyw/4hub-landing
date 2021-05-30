@@ -53,17 +53,17 @@ const MyFolders = ({
 
     const renderOtherFolderList = () => {
         if(!other) return null;
-        return other.map((f, i) => {
+        return other.map((folder, i) => {
             return <CustomFolderItem
-                key={i + f.name}
-                f={f}
+                key={i + folder.name}
+                f={folder}
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
                 setNewFolder={setNewFolder}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
-                chosen={chosenFolder.path === f.path}
+                chosen={chosenFolder.path === folder.path}
                 padding={'0px 10px 0px 26px'}
                 subFolder={false}
                 setMouseParams={setMouseParams}

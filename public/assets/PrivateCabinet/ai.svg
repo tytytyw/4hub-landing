@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="65px" height="65px" viewBox="0 0 65 65" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="ai">
+    <path d="M65 65L0 65L0 0L65 0L65 65Z" id="Path" fill="#FEC478" stroke="none" />
+    <path d="M32.5 65L0 65L0 0L32.5 0L32.5 65Z" transform="translate(32.5 0)" id="Path" fill="#FEA832" stroke="none" />
+    <path d="M57.3828 57.3828L0 57.3828L0 0L57.3828 0L57.3828 57.3828Z" transform="translate(3.8085938 3.8085938)" id="Path" fill="#994C0F" stroke="none" />
+    <path d="M28.6914 57.3828L0 57.3828L0 0L28.6914 0L28.6914 57.3828Z" transform="translate(32.5 3.8085938)" id="Path" fill="#713708" stroke="none" />
+    <path d="M8.25703 0L11.9742 0L20.2008 21.6328L15.8742 21.6328L13.8633 16.2398L6.30703 16.2398L4.32656 21.6328L0 21.6328L8.25703 0ZM13.1016 13.2844L10.1156 4.78359L7.00781 13.2844L13.1016 13.2844Z" transform="translate(18.085997 23.054688)" id="Shape" fill="#FEC478" stroke="none" />
+    <g id="Group" transform="translate(32.5 22.34375)">
+      <path d="M0 4.05234L0 0L4.08269 0L4.08269 4.05234L0 4.05234L0 4.05234ZM0 22.2422L0 6.27656L4.08269 6.27656L4.08269 22.2422L0 22.2422Z" transform="translate(7.7672462 0.1015625)" id="Shape" fill="#FEA832" stroke="none" />
+      <path d="M0 0L0 11.3011L1.46021 15.217L5.78678 15.217L0 0Z" transform="translate(0 7.1267676)" id="Path" fill="#FEA832" stroke="none" />
+    </g>
+  </g>
+</svg>
