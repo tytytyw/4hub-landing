@@ -24,6 +24,7 @@ import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
+import OptionButtomLine from "../WorkElements/OptionButtomLine";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -116,10 +117,25 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} fileSelect={fileSelect}>{renderFiles(FileBar)}</WorkBars> : null}
-            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
-            {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
+            {workElementsView === 'bars' ? <WorkBars
+                fileLoading={fileLoading}
+                fileSelect={fileSelect}
+                filePick={filePick}
+            >{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'lines' ? <WorkLines
+                fileLoading={fileLoading}
+            >{renderFiles(FileLine)}</WorkLines> : null}
+            {workElementsView === 'preview' ? <WorkBarsPreview
+                file={chosenFile}
+            >{renderFiles(FileBar)}</WorkBarsPreview> : null}
+            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
+                file={chosenFile}
+            >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
+            {filePick.show ? <OptionButtomLine
+                filePick={filePick}
+                actionName={'Редактировать'}
+                setAction={setAction}
+            /> : null}
             <BottomPanel />
         </div>
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>

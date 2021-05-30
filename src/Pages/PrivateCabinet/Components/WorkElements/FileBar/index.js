@@ -9,7 +9,12 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
     const onPickFile = (e) => {
         e.stopPropagation();
         setPicked(!picked);
-        setFilePick({...filePick, files: [...filePick.files, file.fid]})
+        if(!picked === true) {
+            setFilePick({...filePick, files: [...filePick.files, file.fid]});
+        } else {
+            const files = filePick.files.filter(el => el !== file.fid);
+            setFilePick({...filePick, files});
+        }
     }
 
     return (
