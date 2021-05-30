@@ -6,6 +6,7 @@ import styles from './ShareFile.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
+import StoragePeriod from '../StoragePeriod/StoragePeriod';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
@@ -13,6 +14,7 @@ import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/e
 
 function ShareFile({file, close}) {
     const [error, setError] = useState(false);
+    const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
     const uid = useSelector(state => state.user.uid);
     const data = {
         uid,
@@ -37,7 +39,7 @@ function ShareFile({file, close}) {
 
     return (
         <PopUp set={close}>
-            <div className={styles.ShareFile_wrap}>
+            {!displayStotagePeriod && <div className={styles.ShareFile_wrap}>
                 <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <File color={file.id_color} format={file.ext} />
@@ -105,7 +107,7 @@ function ShareFile({file, close}) {
                         <p className={styles.input_title}>Срок хранения файла/папки</p>
                         <input value='Установите срок хранения файла (после завершения файл будет удален)' type='button'></input>
                     </div>
-                    <input className={styles.input_submit} value='Установить' type='submit' />
+                    <input onClick={() => setDisplayStotagePeriod(true)} className={styles.input_submit} value='Установить' type='submit' />
                 </div>
                 <div className={styles.share_link}>
                     <h5 className={styles.share_link_title}>Поделиться вместо этого ссылкой </h5>
@@ -135,8 +137,9 @@ function ShareFile({file, close}) {
                         <div className={styles.cancel} onClick={() => close()}>Отмена</div>
                         <div className={styles.add} onClick={()=> {if (data.user_to)onShareFile()}}>Отправить</div>
                 </div>
-            </div>
+            </div>}
             {error && <Error error={error} set={close} message={error} />}
+            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod}/>}
         </PopUp>
     )
 }
