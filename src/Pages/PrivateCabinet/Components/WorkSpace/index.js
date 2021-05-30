@@ -19,15 +19,16 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile} from '../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
+import OptionButtomLine from "../WorkElements/OptionButtomLine";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
-                   fileSelect
+                   fileSelect, action, setAction
                   }) => {
 
     const dispatch = useDispatch();
@@ -35,16 +36,26 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
+    const [filePick, setFilePick] = useState({show: false, files: []});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
-    const callbackArrMain = ['', '', '', '',
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
+    const callbackArrMain = [
+        {type: 'resend', name: '', text: ``, callback: ''},
+        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'openInApp', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: () => setFilePick({...filePick, show: true})},
+        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'intoZip', name: '', text: ``, callback: ''},
+        {type: 'info', name: '', text: ``, callback: ''},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
+        {type: 'print', name: '', text: ``, callback: ''},
+        ];
     const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
-    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null)};
+    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -53,13 +64,17 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                callback={() => setAction(type[i])}
+                callback={() => type[i]?.callback(type, i)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
+    // Change state to default after changing menu params
+    useEffect(() => {
+        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: []});
+    }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Types of Files view
     const renderFiles = (Type) => {
@@ -74,10 +89,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                filePick={filePick}
+                setFilePick={setFilePick}
             />
         });
     };
-
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -101,10 +117,25 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} fileSelect={fileSelect}>{renderFiles(FileBar)}</WorkBars> : null}
-            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
-            {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
+            {workElementsView === 'bars' ? <WorkBars
+                fileLoading={fileLoading}
+                fileSelect={fileSelect}
+                filePick={filePick}
+            >{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'lines' ? <WorkLines
+                fileLoading={fileLoading}
+            >{renderFiles(FileLine)}</WorkLines> : null}
+            {workElementsView === 'preview' ? <WorkBarsPreview
+                file={chosenFile}
+            >{renderFiles(FileBar)}</WorkBarsPreview> : null}
+            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
+                file={chosenFile}
+            >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
+            {filePick.show ? <OptionButtomLine
+                filePick={filePick}
+                actionName={'Редактировать'}
+                setAction={setAction}
+            /> : null}
             <BottomPanel />
         </div>
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
@@ -120,6 +151,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             file={chosenFile}
             close={nullifyAction}
         /> : null}
+        <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
+            <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
+        </form>
     </>)
 }
 

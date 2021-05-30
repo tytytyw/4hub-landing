@@ -18,8 +18,14 @@ import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
+import PreviewFile from '../../PreviewFile';
+import CustomizeFile from "../../CustomizeFile";
 
-const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView, setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction, callbackArrMain, additionalMenuItems, deleteFile, setFilePreview}) => {
+const WorkSpace = ({
+               setBlob, blob, chosenFile, setChosenFile, listCollapsed, setItem, workElementsView,
+               setWorkElementsView, renderMenuItems, mouseParams, setMouseParams, action, setAction, nullifyAction,
+               callbackArrMain, additionalMenuItems, deleteFile, setFilePreview, filePreview, fileSelect,
+}) => {
 
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
@@ -43,7 +49,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                     <Profile setItem={setItem} />
                 </div>
             </div>
-            {recentFiles?.length > 0 && <RecentFiles />}
+            {recentFiles?.length > 0 && <RecentFiles
+                setFilePreview={setFilePreview}
+                filePreview={filePreview} />}
             <ServePanel
                 setBlob={setBlob}
                 blob={blob}
@@ -51,20 +59,28 @@ const WorkSpace = ({setBlob, blob, fileLoading, progress, chosenFile, setChosenF
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
+                fileSelect={fileSelect}
             />
-            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob} fileLoading={fileLoading} progress={progress}>{renderFiles(FileBar)}</WorkBars> : null}
-            {workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading} progress={progress}>{renderFiles(FileLine)}</WorkLines> : null}
+            {workElementsView === 'bars' ? <WorkBars setBlob={setBlob} blob={blob}>{renderFiles(FileBar)}</WorkBars> : null}
+            {workElementsView === 'lines' ? <WorkLines>{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview file={chosenFile}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenFile} hideFileList={true}></WorkLinesPreview> : null}
             <BottomPanel />
         </div>
+        {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
         </ContextMenu> : null}
-        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}>
+        {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
+        {action.type === 'customize' ? <CustomizeFile
+            title={action.name}
+            // info={chosenFolder}
+            file={chosenFile}
+            close={nullifyAction}
+        /> : null}
     </>)
 }
 

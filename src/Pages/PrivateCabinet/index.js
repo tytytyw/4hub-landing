@@ -73,8 +73,23 @@ const PrivateCabinet = () => {
                     setLoaded={setLoaded}
                     loadingFile={loadingFile}
                     fileErrors={fileErrors}
+                    setLoadingFile={setLoadingFile}
                 />}
-                {menuItem === 'Мои файлы' && <MyFiles filePreview={filePreview} setFilePreview={setFilePreview} />}
+                {menuItem === 'Мои файлы' && <MyFiles
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    awaitingFiles={awaitingFiles}
+                    setAwaitingFiles={setAwaitingFiles}
+                    loaded={loaded}
+                    setLoaded={setLoaded}
+                    loadingFile={loadingFile}
+                    fileErrors={fileErrors}
+                    fileSelect={fileSelect}
+                    fileAddCustomization={fileAddCustomization}
+                    setFileAddCustomization={setFileAddCustomization}
+                    setLoadingFile={setLoadingFile}
+                />}
+
                 {menuItem === 'Программы' && <Programs
                     setItem={setItem}
                     filePreview={filePreview}

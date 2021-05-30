@@ -16,7 +16,7 @@ import {onAddRecentFiles, onCustomizeFile} from "../../../../Store/actions/Priva
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile,
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -105,7 +105,10 @@ const CreateFile = ({
                 .catch(err => {setError(true)})
                 .finally(() => closeComponent());
         } else {
-            setAwaitingFiles([...awaitingFiles, {...blob, options}]);
+            if(loadingFile.length > 0) {
+                setAwaitingFiles([...awaitingFiles, {...blob, options}]);
+            } else {setLoadingFile([{...blob, options}])}
+            // setAwaitingFiles([...awaitingFiles, {...blob, options}]);
             if(loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0) closeComponent();
         }
     };

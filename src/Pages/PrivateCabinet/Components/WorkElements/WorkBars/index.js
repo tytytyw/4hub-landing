@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
-const WorkBars = ({children, setBlob, blob, fileSelect}) => {
+const WorkBars = ({children, fileSelect, filePick}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
 
@@ -12,7 +12,14 @@ const WorkBars = ({children, setBlob, blob, fileSelect}) => {
 
         <div
             className={styles.workBarsWrap}
-            style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}
+            style={{height: `${recentFiles?.length > 0 
+                    ? filePick.show 
+                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
+                        : 'calc(100% - 90px - 55px - 78px)'
+                    : filePick.show 
+                        ? 'calc(100% - 90px - 55px - 80px)'
+                        : 'calc(100% - 90px - 55px)'
+            }`}}
         >
             <div className={styles.addFile} onClick={fileSelect}>
                 <AddIcon className={styles.addIcon} />
