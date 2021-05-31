@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
@@ -16,6 +16,8 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
             setFilePick({...filePick, files});
         }
     }
+
+    useEffect(() =>{if(filePick.show === false) setPicked(false)}, [filePick.show])
 
     return (
         <>

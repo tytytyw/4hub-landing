@@ -26,13 +26,23 @@ const MyFiles = ({
 		open: false,
 		subPath: "",
 	});
-	const [blob, setBlob] = useState({ file: null, show: false });
+	const [filePick, setFilePick] = useState({show: false, files: []});
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-    const callbackArrMain = ['', '', '', '',
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
+    const callbackArrMain = [
+        {type: 'resend', name: '', text: ``, callback: ''},
+        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'openInApp', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: () => setFilePick({...filePick, show: true})},
+        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'intoZip', name: '', text: ``, callback: ''},
+        {type: 'info', name: '', text: ``, callback: ''},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
+        {type: 'print', name: '', text: ``, callback: ''},
+        ];
 	const additionalMenuItems = [
 		{
 			type: "delete",
@@ -81,7 +91,7 @@ const MyFiles = ({
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					callback={() => setAction(type[i])}
+					callback={() => type[i]?.callback(type, i)}
 					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
@@ -99,7 +109,7 @@ const MyFiles = ({
 					src="add-file.svg"
 					setListCollapsed={setListCollapsed}
 					listCollapsed={listCollapsed}
-					onCreate={() => setBlob({ ...blob, show: true })}
+					onCreate={() => fileSelect()}
 					chosenFile={chosenFile}
 					setChosenFile={setChosenFile}
 				>

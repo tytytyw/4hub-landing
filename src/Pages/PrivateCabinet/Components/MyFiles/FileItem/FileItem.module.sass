@@ -7,7 +7,14 @@
 
 .chosen 
   background: rgba(64, 134, 241, 0.1)
-  
+.file_wrap.chosen .file_icon:after, .file_wrap:hover .file_icon:after
+  content: ''
+  width: 10px
+  height: 10px
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(64, 134, 241, 0.1) 51%)
+  position: absolute
+  top: 0
+  right: 0
 .name
   color: #49494B
   font-size: .85rem
