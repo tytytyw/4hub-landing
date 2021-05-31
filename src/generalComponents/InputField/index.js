@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const InputField = ({
         value, set, model, mistake = false, height = '25px', switcher = false,
-        placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone
+        placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone, disabled = false
 }) => {
 
     const [isPassword, setIsPassword] = useState(true);
@@ -38,6 +38,7 @@ const InputField = ({
                     }
                     set(newVal)}
                 }
+                disabled={disabled}
             />
             {isPassword && model === 'password' && visibility === 'password' && <img
                 src='./assets/StartPage/invisible.svg'

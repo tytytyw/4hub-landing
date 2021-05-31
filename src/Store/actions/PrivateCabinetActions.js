@@ -90,66 +90,6 @@ export const onGetContacts = () => async (dispatch, getState) => {
             console.log(error)
         })
 
-    /*dispatch({
-        type: CONTACT_LIST,
-        payload: [
-            {
-                id: 1,
-                image: './assets/PrivateCabinet/avatars/a1.png',
-                name: 'Аедельская Алина Квиталина',
-                email: ['Квиталина@gmail.com', 'Квиталина222@gmail.com'],
-                tel: ['+34234454232'],
-                socials: [
-                    {type: 'twitter', link: '#'},
-                    {type: 'linkedin', link: '#'},
-                    {type: 'facebook', link: '#'},
-                ],
-                messengers: [
-                    {type: 'telegram', link: '#'},
-                    {type: 'viber', link: '#'},
-                    {type: 'whatsapp', link: '#'},
-                    {type: 'skype', link: '#'},
-                ]
-            },
-            {
-                id: 2,
-                image: './assets/PrivateCabinet/avatars/a1.png',
-                name: 'Бедельская Алина Квиталина',
-                email: ['Квиталина@gmail.com', 'Квиталина222@gmail.com'],
-                tel: ['+33333333333333'],
-                socials: [
-                    {type: 'twitter', link: '#'},
-                    {type: 'linkedin', link: '#'},
-                    {type: 'facebook', link: '#'},
-                ],
-                messengers: [
-                    {type: 'telegram', link: '#'},
-                    {type: 'viber', link: '#'},
-                    {type: 'whatsapp', link: '#'},
-                    {type: 'skype', link: '#'},
-                ]
-            },
-            {
-                id: 3,
-                image: './assets/PrivateCabinet/avatars/a1.png',
-                name: 'Ведельская Алина Квиталина',
-                email: ['Квиталина11@gmail.com', 'Квиталина22@gmail.com'],
-                tel: ['+34234454232', '+89878767675'],
-                socials: [
-                    {type: 'twitter', link: '#'},
-                    {type: 'linkedin', link: '#'},
-                    {type: 'facebook', link: '#'},
-                ],
-                messengers: [
-                    {type: 'telegram', link: '#'},
-                    {type: 'viber', link: '#'},
-                    {type: 'whatsapp', link: '#'},
-                    {type: 'skype', link: '#'},
-                ]
-            },
-        ]
-    })*/
-
 }
 
 export const onAddRecentFolders = () => async (dispatch, getState) => {

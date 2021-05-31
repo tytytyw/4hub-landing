@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="premier">
+    <path d="M29 29L0 29L0 0L29 0L29 29Z" id="Path" fill="#F8D9FF" stroke="none" />
+    <path d="M14.5 29L0 29L0 0L14.5 0L14.5 29Z" transform="translate(14.5 0)" id="Path" fill="#F3C0FF" stroke="none" />
+    <path d="M25.6016 25.6016L0 25.6016L0 0L25.6016 0L25.6016 25.6016Z" transform="translate(1.6992188 1.6992188)" id="Path" fill="#723B7F" stroke="none" />
+    <path d="M12.8008 25.6016L0 25.6016L0 0L12.8008 0L12.8008 25.6016Z" transform="translate(14.5 1.6992188)" id="Path" fill="#5C3066" stroke="none" />
+    <path d="M0 9.65156L0 0L4.09172 0C5.96448 0 7.16391 1.72187 7.16391 3.20813C7.16391 4.95985 5.83234 6.41625 4.15969 6.41625L1.87594 6.41625L1.87594 9.65156L0 9.65156ZM1.87599 4.77141L4.05099 4.77141C4.70904 4.77141 5.26084 4.15742 5.26084 3.20813C5.26084 2.3925 4.76563 1.64484 3.96943 1.64484L1.87599 1.64484L1.87599 4.77141Z" transform="translate(8.889179 10.285937)" id="Shape" fill="#F8D9FF" stroke="none" />
+    <g id="Group" transform="translate(14.5 10.705078)">
+      <path d="M4.24125 1.67198C2.63889 1.67198 2.01187 2.5012 1.82156 2.90902L1.82156 7.21823L0 7.21823L0 0.0951089L1.67203 0.0951089L1.67203 1.61761C1.79885 1.37292 2.59641 -0.159207 4.24125 0.0135464L4.24125 1.67198L4.24125 1.67198Z" transform="translate(2.6811972 2.014188)" id="Path" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L0 5.58607C0.929529 5.03597 1.55314 3.97589 1.55314 2.77732C1.55314 1.74742 0.976824 0.604865 0 0Z" transform="translate(0 0.011667969)" id="Path" fill="#F3C0FF" stroke="none" />
+    </g>
+  </g>
+</svg>

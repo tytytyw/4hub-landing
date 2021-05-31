@@ -7,25 +7,26 @@ import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onCustomizeFile, onAddRecentFiles } from '../../../../Store/actions/PrivateCabinetActions';
+import { onCustomizeFile, onAddRecentFiles, onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CustomizeFile = ({title, close, file }) => {
+const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
 
     const uid = useSelector(state => state.user.uid);
+    const path = useSelector(state => state.PrivateCabinet?.fileList?.path);
     const [name, setName] = useState(file ? file.name.slice(0, file.name.lastIndexOf('.')) : '');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState(colors.find(c => c.color === file.color));
-    const [tagOption, setTagOption] = useState({chosen: file.tag, count: 30});
-    const [sign, setSign] = useState(file.fig);
-    const [emoji, setEmoji] = useState(file.emo);
+    const [color, setColor] = useState(filePick.customize ? colors[0] : colors.find(c => c.color === file.color));
+    const [tagOption, setTagOption] = useState({chosen: filePick.customize ? '' : file.tag || '', count: 30});
+    const [sign, setSign] = useState(filePick.customize ? '' : file.fig);
+    const [emoji, setEmoji] = useState(filePick.customize ? '' : file.emo);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
@@ -54,12 +55,23 @@ const CustomizeFile = ({title, close, file }) => {
     const generateInputWrap = () => {
         if(width >= 1440) {
             return {
-                height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
+                height: `${showRepeat 
+                    ? filePick.customize 
+                        ? '140px' 
+                        : '190px' 
+                    : filePick.customize 
+                        ? '100px'
+                        : '140px'}`,
+                marginBottom: `${showRepeat ? '10px' : '35px'}`,
+                marginTop: `${filePick.customize ? '30px' : '0'}`,
             }
         } else {
             return {
-                height: `${showRepeat ? '150px' : '110px'}`,
+                height: `${showRepeat 
+                    ? filePick.customize 
+                        ? '110px'
+                        : '150px' 
+                    : '110px'}`,
                 marginBottom: `${showRepeat ? '10px' : '35px'}`
             }
         }
@@ -70,7 +82,7 @@ const CustomizeFile = ({title, close, file }) => {
 
         const data = {
             uid,
-            fids: [file.fid],
+            fids: filePick.customize ? filePick.files : [file.fid],
             fName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `${name}`,
             tag: tagOption.chosen === file.tag ? '' : `${tagOption.chosen}`,
             pass: password === passwordRepeat ? `${password}` : '',
@@ -90,16 +102,30 @@ const CustomizeFile = ({title, close, file }) => {
             fig: data.symbol ? sign : file.fig,
             is_pass: password && passwordRepeat ? 1 : 0
         }
-        api.post('/ajax/file_edit.php', data)
-            .then(res => {if(res.data.ok === 1) {
-                dispatch(onCustomizeFile(newFile));
-                dispatch(onAddRecentFiles());
-            } else {setError(true)}
-            })
-            .catch(err => {setError(true)})
-            .finally(() => {
-                close();
-            });
+        if(filePick.customize) {
+            delete data.fName;
+            if(data.pass === '') delete data.pass;
+            api.post('/ajax/file_edit.php', data)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onChooseFiles(path));
+                    dispatch(onAddRecentFiles());
+                }})
+                .catch(err => {setError(true)})
+                .finally(() => {
+                    close();
+                });
+        } else {
+            api.post('/ajax/file_edit.php', data)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onCustomizeFile(newFile));
+                    dispatch(onAddRecentFiles());
+                } else {setError(true)}
+                })
+                .catch(err => {setError(true)})
+                .finally(() => {
+                    close();
+                });
+        }
     };
 
     const closeComponent = () => {
@@ -123,10 +149,10 @@ const CustomizeFile = ({title, close, file }) => {
     return (
         <div style={{display: `block`}}>
             <PopUp set={close}>
-                <div className={styles.createFolderWrap}>
+                <div className={styles.createFolderWrap} style={{height: filePick.customize ? '582px' : '720px'}}>
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
-                    <div className={styles.fileIconWrap}>
+                    {!filePick.customize ? <div className={styles.fileIconWrap}>
                         <div className={`${styles.fileWrap} ${color?.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
                             <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
                         </div>
@@ -144,17 +170,17 @@ const CustomizeFile = ({title, close, file }) => {
                                 {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                             </div>
                         </div>
-                    </div>
+                    </div> : null}
                     <div style={generateInputWrap()}
                          className={`${styles.inputFieldsWrap}`}
                     >
-                        <InputField
+                        {!filePick.customize ? <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
                             value={name}
                             set={setName}
                             placeholder='Имя файла'
-                        />
+                        /> : null}
                         <div className={styles.tagPicker}>
                             <span>#</span>
                             <input
@@ -180,6 +206,7 @@ const CustomizeFile = ({title, close, file }) => {
                             onSwitch={onSwitch}
                             visibility={visibility}
                             setVisibility={setVisibility}
+                            disabled={!showRepeat}
                         />
                         {showRepeat && <InputField
                             model='password'

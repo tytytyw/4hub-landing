@@ -26,15 +26,15 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     const renderInnerFolders = () => {
         if((!folderList || chosenFolder.path !== f.path) && !chosenFolder.open) return null;
-        return folderList.folders.map((folder, i) => {
+        return folderList.folders.map((f, i) => {
             return <CustomFolderItem
                 key={i}
-                f={folder}
+                f={f}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 listCollapsed={listCollapsed}
                 padding={'0 15px 0 50px'}
-                chosen={folder.path === chosenFolder.subPath}
+                chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
             />

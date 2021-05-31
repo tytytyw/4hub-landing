@@ -36,7 +36,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
-    const [filePick, setFilePick] = useState({show: false, files: []});
+    const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     const callbackArrMain = [
@@ -45,7 +45,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: ''},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: () => setFilePick({...filePick, show: true})},
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
         {type: 'intoZip', name: '', text: ``, callback: ''},
         {type: 'info', name: '', text: ``, callback: ''},
@@ -73,7 +73,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
     // Change state to default after changing menu params
     useEffect(() => {
-        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: []});
+        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
     }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Types of Files view
@@ -133,6 +133,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             {filePick.show ? <OptionButtomLine
                 filePick={filePick}
+                setFilePick={setFilePick}
                 actionName={'Редактировать'}
                 setAction={setAction}
             /> : null}
@@ -145,11 +146,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
-        {action.type === 'customize' ? <CustomizeFile
-            title={action.name}
+        {action.type === 'customize' || filePick.customize ? <CustomizeFile
+            title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
             info={chosenFolder}
             file={chosenFile}
             close={nullifyAction}
+            filePick={filePick}
+            setFilePick={setFilePick}
         /> : null}
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />

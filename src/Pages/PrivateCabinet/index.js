@@ -9,6 +9,7 @@ import MyFolders from './Components/MyFolders';
 import MyProfile from './Components/MyProfile';
 import MyFiles from './Components/MyFiles';
 import FileLoader from './Components/FileLoader';
+import Programs from "./Components/Programs";
 
 const PrivateCabinet = () => {
 
@@ -87,6 +88,21 @@ const PrivateCabinet = () => {
                     fileAddCustomization={fileAddCustomization}
                     setFileAddCustomization={setFileAddCustomization}
                     setLoadingFile={setLoadingFile}
+                />}
+
+                {menuItem === 'Программы' && <Programs
+                    setItem={setItem}
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    fileSelect={fileSelect}
+                    fileAddCustomization={fileAddCustomization}
+                    setFileAddCustomization={setFileAddCustomization}
+                    setAwaitingFiles={setAwaitingFiles}
+                    awaitingFiles={awaitingFiles}
+                    loaded={loaded}
+                    setLoaded={setLoaded}
+                    loadingFile={loadingFile}
+                    fileErrors={fileErrors}
                 />}
             </div>
             {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0

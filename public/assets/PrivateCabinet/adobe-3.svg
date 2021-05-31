@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="adobe-3">
+    <path d="M29 29L0 29L0 0L29 0L29 29Z" id="Path" fill="#FF80E4" stroke="none" />
+    <path d="M14.5 29L0 29L0 0L14.5 0L14.5 29Z" transform="translate(14.5 0)" id="Path" fill="#FF5AD4" stroke="none" />
+    <path d="M25.6016 25.6016L0 25.6016L0 0L25.6016 0L25.6016 25.6016Z" transform="translate(1.6992188 1.6992188)" id="Path" fill="#7F1363" stroke="none" />
+    <path d="M12.8008 25.6016L0 25.6016L0 0L12.8008 0L12.8008 25.6016Z" transform="translate(14.5 1.6992188)" id="Path" fill="#661054" stroke="none" />
+    <path d="M2.03906 1.60982e-15L4.44516 3.58875L6.83766 0L8.86312 0L5.42391 4.89375L8.75438 9.65156L6.72891 9.65156L4.44516 6.19875L2.14787 9.65156L0.108807 9.65156L3.43928 4.89375L0 1.60982e-15L2.03906 1.60982e-15Z" transform="translate(6.25658 10.285937)" id="Path" fill="#FF80E4" stroke="none" />
+    <g id="Group" transform="translate(14.5 9.96875)">
+      <path d="M3.3849 10.0594C1.29362 10.0594 0 8.31626 0 6.36188C0 4.14609 1.49186 2.67797 3.18094 2.67797C4.61179 2.67797 5.35124 3.64313 5.58697 4.05094L5.58697 0L7.40854 0L7.40854 7.83C7.40854 8.02031 7.67577 8.3648 7.82994 8.37375L7.82994 9.92344C7.51259 9.98676 7.2543 10.0186 7.05504 10.0186C5.73979 10.0186 5.85885 8.68641 5.85885 8.68641C5.59598 9.1397 4.81241 10.0594 3.3849 10.0594ZM3.86068 8.50969C5.00363 8.50969 5.52354 7.48568 5.58703 7.31344L5.58703 5.61422C5.51442 5.41496 4.86197 4.22766 3.75193 4.22766C2.51145 4.22766 1.88959 5.45829 1.88959 6.40266C1.88959 7.44071 2.65299 8.50969 3.86068 8.50969Z" transform="translate(0.56527346 0.0453125)" id="Shape" fill="#FF5AD4" stroke="none" />
+      <path d="M0 0L0 0.881838L0.619705 0L0 0Z" transform="translate(0 0.3171875)" id="Path" fill="#FF5AD4" stroke="none" />
+      <path d="M0 0.729984L0.510955 0.729984L0 0L0 0.729984Z" transform="translate(0 9.238766)" id="Path" fill="#FF5AD4" stroke="none" />
+    </g>
+  </g>
+</svg>
