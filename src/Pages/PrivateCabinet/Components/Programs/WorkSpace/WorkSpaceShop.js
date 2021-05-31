@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
@@ -9,8 +9,6 @@ import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
-import TopListPrograms from './../TopListPrograms'
-import ServePanel from '../../ServePanel'
 import WorkBars from '../WorkElements/WorkBars'
 import BottomPanel from '../../ButtomPanel'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
@@ -18,23 +16,26 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import CustomizeFile from '../../CustomizeFile'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
-import ProgramBar from '../WorkElements/ProgramBar'
+import Categories from '../Categories'
+import ProgramShop from '../WorkElements/ProgramShop'
+import MoreProgram from '../WorkElements/MoreProgram'
 
-const WorkSpace = ({
-                       setBlob, blob, fileLoading,
+const WorkSpaceShop = ({
+                           setBlob, blob, fileLoading,
 
-                       chosenProgram, setChosenProgram,
-                       chosenTopListProgram, setChosenTopListProgram,
-                       chosenFolder,
+                           chosenProgram, setChosenProgram,
+                           chosenCategory, setChosenCategory,
+                           chosenFolder,
 
-                       listCollapsed, setItem,
-                       setFilePreview, filePreview,
-                       fileSelect
-                   }) => {
+                           listCollapsed, setItem,
+
+                           fileSelect
+                       }) => {
 
     const dispatch = useDispatch();
-    const [workElementsView, setWorkElementsView] = useState('bars');
     const programs = useSelector(state => state.programs.programs);
+
+    const [moreProgram, setMoreProgram] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
 
@@ -46,11 +47,18 @@ const WorkSpace = ({
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`}
     ];
+
     const deleteFile = () => {
         fileDelete(chosenProgram, dispatch, onDeleteFile);
         nullifyAction();
         setChosenProgram(null)
-    };
+    }
+
+    useEffect(() => setMoreProgram(null), [
+        chosenFolder,
+        chosenProgram,
+        chosenCategory
+    ])
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -65,27 +73,11 @@ const WorkSpace = ({
         })
     }
 
-    // Types of Files view
-    const renderPrograms = (Type) => {
-        if (!programs) return null;
-        return programs.map((program, i) => {
-            return <Type
-                key={i}
-                program={program}
-                setChosenProgram={setChosenProgram}
-                chosenProgram={chosenProgram}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                setFilePreview={setFilePreview}
-                filePreview={filePreview}
-            />
-        });
-    }
-
     return (
         <>
             <div
                 className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+
                 <div className={styles.header}>
                     <SearchField/>
                     <div className={styles.infoHeader}>
@@ -94,34 +86,35 @@ const WorkSpace = ({
                         <Profile setItem={setItem}/>
                     </div>
                 </div>
-                <TopListPrograms
-                    setFilePreview={setFilePreview}
-                    filePreview={filePreview}
-                    chosenTopListProgram={chosenTopListProgram}
-                    setChosenTopListProgram={setChosenTopListProgram}
+
+                <Categories
+                    chosenCategory={chosenCategory}
+                    setChosenCategory={setChosenCategory}
                 />
-                <ServePanel
-                    setBlob={setBlob}
-                    blob={blob}
-                    setView={setWorkElementsView}
-                    view={workElementsView}
-                    chosenProgram={chosenProgram}
-                    setAction={setAction}
-                    fileSelect={fileSelect}
-                />
-                {workElementsView === 'bars' &&
-                <WorkBars
-                    setBlob={setBlob}
-                    blob={blob}
-                    fileLoading={fileLoading}
-                    fileSelect={fileSelect}
-                    shop={chosenFolder === 'shop'}
-                >
-                    {renderPrograms(ProgramBar)}
-                </WorkBars>}
-                {/*{workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
-            {workElementsView === 'preview' ? <WorkBarsPreview file={chosenProgram}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenProgram}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}*/}
+
+                {moreProgram ?
+                    <MoreProgram
+                        program={moreProgram}
+                    /> :
+
+                    <WorkBars
+                        setBlob={setBlob}
+                        blob={blob}
+                        fileLoading={fileLoading}
+                        fileSelect={fileSelect}
+                        shop={chosenFolder === 'shop'}
+                    >
+                        {programs.length > 0 &&
+                        programs.map((program, i) => (
+                            <ProgramShop
+                                key={i}
+                                program={program}
+                                moreProgram={moreProgram}
+                                setMoreProgram={setMoreProgram}
+                            />
+                        ))}
+                    </WorkBars>}
+
                 <BottomPanel/>
             </div>
             {mouseParams !== null &&
@@ -146,4 +139,4 @@ const WorkSpace = ({
         </>)
 }
 
-export default WorkSpace;
+export default WorkSpaceShop

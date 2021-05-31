@@ -5,6 +5,7 @@ import shoppingIcon from '../../../../assets/PrivateCabinet/shopping-cart.svg'
 import styles from './Programms.module.sass'
 import List from '../List'
 import WorkSpace from './WorkSpace'
+import WorkSpaceShop from './WorkSpace/WorkSpaceShop'
 import CreateFolder from '../CreateFolder'
 import CreateFile from '../CreateFile'
 import CustomFolderItem from './CustomFolderItem'
@@ -14,6 +15,7 @@ import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFolder, contextMenuSubFolder} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import {
+    onGetCategories,
     onGetFolders,
     onGetPrograms,
     onGetRecentPrograms,
@@ -37,7 +39,7 @@ const Programs = ({
     const [chosenFolder, setChosenFolder] = useState(1)
     const [chosenProgram, setChosenProgram] = useState()
     const [chosenRecent, setChosenRecent] = useState()
-    const [chosenTopListProgram, setChosenTopListProgram] = useState()
+    const [chosenTopListItem, setChosenTopListItem] = useState()
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
     const [safePassword, setSafePassword] = useState({open: false})
@@ -47,6 +49,7 @@ const Programs = ({
         dispatch(onGetFolders())
         dispatch(onGetRecentPrograms())
         dispatch(onGetTopListPrograms())
+        dispatch(onGetCategories())
         dispatch(onGetPrograms(chosenFolder?.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -150,25 +153,45 @@ const Programs = ({
                 </div>
             </List>
 
-            <WorkSpace
-                setBlob={() => {/*Need to modify*/}}
-                blob={{/*Need to modify*/}}
+            {chosenFolder === 'shop' ?
+                <WorkSpaceShop
+                    setBlob={() => {/*Need to modify*/}}
+                    blob={{/*Need to modify*/}}
 
-                chosenFolder={chosenFolder}
+                    chosenFolder={chosenFolder}
 
-                chosenProgram={chosenProgram}
-                setChosenProgram={setChosenProgram}
+                    chosenProgram={chosenProgram}
+                    setChosenProgram={setChosenProgram}
 
-                chosenTopListProgram={chosenTopListProgram}
-                setChosenTopListProgram={setChosenTopListProgram}
+                    chosenCategory={chosenTopListItem}
+                    setChosenCategory={setChosenTopListItem}
 
-                setSafePassword={setSafePassword}
-                listCollapsed={listCollapsed}
-                setItem={setItem}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-                fileSelect={fileSelect}
-            />
+                    setSafePassword={setSafePassword}
+                    listCollapsed={listCollapsed}
+                    setItem={setItem}
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    fileSelect={fileSelect}
+                /> :
+                <WorkSpace
+                    setBlob={() => {/*Need to modify*/}}
+                    blob={{/*Need to modify*/}}
+
+                    chosenFolder={chosenFolder}
+
+                    chosenProgram={chosenProgram}
+                    setChosenProgram={setChosenProgram}
+
+                    chosenTopListProgram={chosenTopListItem}
+                    setChosenTopListProgram={setChosenTopListItem}
+
+                    setSafePassword={setSafePassword}
+                    listCollapsed={listCollapsed}
+                    setItem={setItem}
+                    filePreview={filePreview}
+                    setFilePreview={setFilePreview}
+                    fileSelect={fileSelect}
+                />}
 
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

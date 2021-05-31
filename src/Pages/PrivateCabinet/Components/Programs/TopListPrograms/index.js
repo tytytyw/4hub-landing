@@ -5,7 +5,7 @@ import styles from './TopListPrograms.module.sass';
 import classNames from "classnames";
 import {programIcons} from "../consts";
 
-const RecentFiles = ({setFilePreview, filePreview, chosenTopListProgram, setChosenTopListProgram}) => {
+const TopListPrograms = ({setFilePreview, filePreview, chosenTopListProgram, setChosenTopListProgram}) => {
 
     const topListPrograms = useSelector(state => state.programs.topListPrograms);
 
@@ -46,4 +46,4 @@ const RecentFiles = ({setFilePreview, filePreview, chosenTopListProgram, setChos
     )
 }
 
-export default RecentFiles;
+export default TopListPrograms

@@ -1,4 +1,5 @@
 import {
+    GET_CATEGORIES,
     GET_PROGRAMS,
     GET_PROGRAMS_FOLDERS, GET_RECENT_PROGRAMS, GET_TOP_LIST_PROGRAMS
 } from '../types'
@@ -55,7 +56,6 @@ export const onGetFolders = () => async (dispatch, getState) => {
     })
 }
 
-
 export const onGetRecentPrograms = () => async (dispatch, getState) => {
     dispatch({
         type: GET_RECENT_PROGRAMS,
@@ -78,11 +78,8 @@ export const onGetRecentPrograms = () => async (dispatch, getState) => {
     })
 }
 
-
-export const onGetTopListPrograms = (cat = false) => async (dispatch, getState) => {
-
-    if (cat) {
-        dispatch({
+export const onGetTopListPrograms = () => async (dispatch, getState) => {
+    dispatch({
             type: GET_TOP_LIST_PROGRAMS,
             payload: [
                 {
@@ -123,52 +120,50 @@ export const onGetTopListPrograms = (cat = false) => async (dispatch, getState) 
                 },
             ]
         })
-    } else {
-        dispatch({
-            type: GET_TOP_LIST_PROGRAMS,
-            payload: [
-                {
-                    id: 1,
-                    name: 'Primer pro',
-                    program: 'premier_pro',
-                    size: '10 MB',
-                },
-                {
-                    id: 2,
-                    name: 'Adobe XD',
-                    program: 'adobe_xd',
-                    size: '10 MB',
-                },
-                {
-                    id: 3,
-                    name: 'Slack',
-                    program: 'slack',
-                    size: '10 MB',
-                },
-                {
-                    id: 4,
-                    name: 'Skype',
-                    program: 'skype',
-                    size: '10 MB',
-                },
-                {
-                    id: 5,
-                    name: 'Media-encoder',
-                    program: 'media_encoder',
-                    size: '10 MB',
-                },
-                {
-                    id: 6,
-                    name: 'Google chrome',
-                    program: 'chrome',
-                    size: '10 MB',
-                },
-            ]
-        })
-    }
-
 }
 
+export const onGetCategories = () => async (dispatch, getState) => {
+    dispatch({
+            type: GET_CATEGORIES,
+            payload: [
+                {
+                    id: 1,
+                    name: 'Все',
+                    type: 'all',
+                },
+                {
+                    id: 2,
+                    name: 'Творчество',
+                    type: 'art',
+                },
+                {
+                    id: 3,
+                    name: 'Программы',
+                    type: 'programs',
+                },
+                {
+                    id: 4,
+                    name: 'Месенжеры',
+                    type: 'messengers',
+                },
+                {
+                    id: 5,
+                    name: 'Офис',
+                    type: 'office',
+                },
+                {
+                    id: 6,
+                    name: 'Развлечения',
+                    type: 'games',
+                },
+                {
+                    id: 7,
+                    name: 'Другое',
+                    type: 'other',
+                },
+            ]
+        })
+}
 
 export const onGetPrograms = (folderId) => async (dispatch, getState) => {
     dispatch({
@@ -177,32 +172,62 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 1,
                 name: 'Sketch',
-                icon: './assets/PrivateCabinet/sketch.svg'
+                icon: './assets/PrivateCabinet/sketch.svg',
+                category: 2,
+                site: 'Sketch.com',
+                price: 25,
+                rating: '4,4',
+                votes: 256
             },
             {
                 id: 2,
                 name: 'Photoshop',
-                icon: './assets/PrivateCabinet/adobe.svg'
+                icon: './assets/PrivateCabinet/adobe.svg',
+                category: 2,
+                site: 'Photoshop.com',
+                price: 30,
+                rating: '4,5',
+                votes: 124
             },
             {
                 id: 3,
                 name: 'Ai',
-                icon: './assets/PrivateCabinet/ai.svg'
+                icon: './assets/PrivateCabinet/ai.svg',
+                category: 2,
+                site: 'Ai.com',
+                price: 25,
+                rating: '4,2',
+                votes: 256
             },
             {
                 id: 4,
                 name: 'Sketch',
-                icon: './assets/PrivateCabinet/adobe-2.svg'
+                icon: './assets/PrivateCabinet/adobe-2.svg',
+                category: 2,
+                site: 'Sketch.com',
+                price: 25,
+                rating: '4,4',
+                votes: 256
             },
             {
                 id: 5,
                 name: 'Acrobat',
-                icon: './assets/PrivateCabinet/acrobat.svg'
+                icon: './assets/PrivateCabinet/acrobat.svg',
+                category: 2,
+                site: 'Acrobat.com',
+                price: 20,
+                rating: '4',
+                votes: 223
             },
             {
                 id: 6,
                 name: 'Zeplin',
-                icon: './assets/PrivateCabinet/icZeplin.svg'
+                icon: './assets/PrivateCabinet/icZeplin.svg',
+                category: 2,
+                site: 'Zeplin.com',
+                price: 35,
+                rating: '5',
+                votes: 360
             },
         ]
     })

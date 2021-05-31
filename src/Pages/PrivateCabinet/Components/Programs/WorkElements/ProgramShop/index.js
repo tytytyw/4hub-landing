@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './ProgramShop.module.sass'
 import classNames from "classnames"
 
-const ProgramShop = ({program, chosenProgram, setChosenProgram, setMouseParams, setFilePreview, filePreview}) => {
+const ProgramShop = ({program, moreProgram, setMoreProgram}) => {
 
     return (
         <div
@@ -14,7 +14,10 @@ const ProgramShop = ({program, chosenProgram, setChosenProgram, setMouseParams, 
         >
 
             <div className={styles.content}>
-                <div className={styles.contentLeft}>
+                <div
+                    className={styles.contentLeft}
+                    onClick={() => setMoreProgram(program)}
+                >
                     <img
                         className={styles.contentImg}
                         src={program.icon}

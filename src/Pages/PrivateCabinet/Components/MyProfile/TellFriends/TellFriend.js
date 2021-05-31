@@ -95,8 +95,8 @@ const TellFriend = ({ set, contact }) => {
                     <div className={styles.profileWrap}>
                         <img
                             className={styles.profileImg}
-                            src='./assets/PrivateCabinet/profile-noPhoto.svg'
-                            alt='pie-chart'
+                            src='./assets/PrivateCabinet/logo.svg'
+                            alt='logo'
                         />
                         <span>Рассказать друзьям</span>
                     </div>
@@ -106,35 +106,6 @@ const TellFriend = ({ set, contact }) => {
                     >
                         <span className={styles.times}/>
                     </span>
-                </div>
-
-                <div className={styles.block}>
-                    <span className={classNames({
-                        [styles.info]: true,
-                        [styles.errorInfo]: isMistake('email')
-                    })}>Email:</span>
-                    <Input
-                        className={styles.input}
-                        name='email'
-                        placeholder='Электронная почта'
-                        isMistake={isMistake('email')}
-                        value={fields?.email || ''}
-                        onChange={onChangeHandler}
-                        onBlur={onBlurHandler}
-                    />
-                </div>
-
-                <div className={styles.block}>
-                    <span className={styles.info}>Телефон:</span>
-                    <Input
-                        className={styles.input}
-                        name='email'
-                        placeholder='Введите Ваш номер телефона'
-                        isMistake={isMistake('email')}
-                        value={fields?.email || ''}
-                        onChange={onChangeHandler}
-                        onBlur={onBlurHandler}
-                    />
                 </div>
 
                 <div className={styles.share}>
@@ -183,37 +154,6 @@ const TellFriend = ({ set, contact }) => {
                             <p>Ещё</p>
                         </li>
                     </div>
-                </div>
-
-                <div className={styles.contacts}>
-
-                    <div className={styles.contactsWrap}>
-
-                        <div className={styles.contactsTop}>
-                            <div className={styles.blockTitle}>
-                                <span className={styles.info}>Контакты</span>
-                            </div>
-                            <div className={styles.search}>
-                                <ContactSearch
-                                    onChangeHandler={value => setSearch(value)}
-                                />
-                            </div>
-                        </div>
-
-                        <ul className={styles.contactsList}>
-                            {contactList.map((item, index) => (
-                                <RadioCheck
-                                    item={item}
-                                    name='user_id'
-                                    key={index}
-                                    selected={selectedContact}
-                                    onChange={() => setSelectedContact(item)}
-                                />
-                            ))}
-                        </ul>
-
-                    </div>
-
                 </div>
 
                 <div className={styles.actionBlock}>

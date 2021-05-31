@@ -2,14 +2,16 @@ import {
     GET_PROGRAMS_FOLDERS,
     GET_RECENT_PROGRAMS,
     GET_PROGRAMS,
-    GET_TOP_LIST_PROGRAMS
+    GET_TOP_LIST_PROGRAMS,
+    GET_CATEGORIES
 } from '../types'
 
 const INITIAL_STATE = {
     programFolders: [],
     programs: [],
     recentPrograms: [],
-    topListPrograms: []
+    topListPrograms: [],
+    categories: []
 }
 
 export default function programs(state = INITIAL_STATE, action) {
@@ -22,6 +24,8 @@ export default function programs(state = INITIAL_STATE, action) {
             return {...state, recentPrograms: action.payload}
         case GET_TOP_LIST_PROGRAMS:
             return {...state, topListPrograms: action.payload}
+        case GET_CATEGORIES:
+            return {...state, categories: action.payload}
         default:
             return state
     }
