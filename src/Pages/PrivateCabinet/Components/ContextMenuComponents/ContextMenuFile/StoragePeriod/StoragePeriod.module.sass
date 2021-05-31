@@ -56,7 +56,7 @@
     .input_submit
         color: #4086F1
         cursor: pointer
-        margin-left: 20%
+        margin-left: auto
         align-self: center
         font-family: inherit
         font-size: inherit
@@ -78,6 +78,8 @@
         display: flex
         justify-content: space-between
         align-items: center
+        .date
+            width: 100px
         input
             border-width: 1px
             border-color: #E3E3E3
@@ -92,9 +94,17 @@
             left: -1.5em
             background: none
             position: absolute
+        .from
+            margin-right: 18px
+        .to
+            margin: 0 18px
     .inputs_wrap_time
-        width: 50%
+        justify-content: start
         margin-left: 22px
+        input.time_count
+            width: 50px
+        span
+            margin: 0 3px
     .header
         width: 100%
         height: 60px

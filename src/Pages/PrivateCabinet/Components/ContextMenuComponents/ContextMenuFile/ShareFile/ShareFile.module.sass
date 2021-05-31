@@ -1,7 +1,8 @@
 .ShareFile_wrap
+    .empty::placeholder
+        color: red
     .buttonsWrap
         display: flex
-        width: 290px
         justify-content: space-between
         margin: 30px auto
         div
@@ -53,33 +54,6 @@
         .buttons_wrap
             display: flex
             margin-left: auto
-            .file_menu
-                position: relative
-                display: flex
-                width: 20px
-                margin-right: 10px
-                align-self: stretch
-                align-items: center
-                justify-content: center
-                cursor: pointer
-                min-height: 20px
-            .file_menu:hover .dots
-                background: #4086F1
-            .dots,.dots::before,.dots::after
-                content: ''
-                position: absolute
-                width: 3px
-                height: 3px
-                border-radius: .75px
-                background: inherit
-            .dots
-                position: relative
-                background: #D8D8D8
-            .dots::before
-                transform: translateY(-7px)
-            .dots::after
-                transform: translateY(7px)
-                background: inherit
         .close_wrap
             position: relative
             width: 20px

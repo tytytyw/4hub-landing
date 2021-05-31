@@ -32,7 +32,7 @@ const MyFiles = ({
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: ''},
-        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: ''},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},

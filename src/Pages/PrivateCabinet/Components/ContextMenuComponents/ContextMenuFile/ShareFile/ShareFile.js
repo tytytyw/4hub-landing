@@ -14,6 +14,7 @@ import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/e
 
 function ShareFile({file, close}) {
     const [error, setError] = useState(false);
+    const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
     const uid = useSelector(state => state.user.uid);
     const data = {
@@ -30,8 +31,7 @@ function ShareFile({file, close}) {
             .then(res => {if(res.data.ok === 1) {
                 console.log('ok')
             } else {
-                setError(res.data.error)
-                console.log(res)
+                setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
             }
             })
             .catch(err => {setError(err)})
@@ -56,20 +56,6 @@ function ShareFile({file, close}) {
                         </div>
                     </div>
                     <div className={styles.buttons_wrap}>
-                    <div
-                        className={styles.file_menu}
-                        // TODO: контекстное меню  
-                        // onClick={(e) => {
-                        //     setMouseParams({
-                        //         x: e.clientX,
-                        //         y: e.clientY,
-                        //         width: 200,
-                        //         height: 30,
-                        //     });
-                        // }}
-                    >
-                        <span className={styles.dots}></span>
-                    </div>
                         <div className={styles.close_wrap}  onClick={close}>
                             <span className={styles.close} />
                         </div>
@@ -80,7 +66,7 @@ function ShareFile({file, close}) {
                         Кому:
                     </p>
                     <div className={styles.recipient_mail}>
-                        <input onChange={(e)=> data.user_to = e.target.value} placeholder='Эл.адрес или имя' type='text'></input>
+                        <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> data.user_to = e.target.value} placeholder='Эл.адрес или имя' type='text'></input>
                     </div>
                     <div className={styles.recipient_messenger}>
                         <input value='Отправить через мессенджер' type='button'></input>
@@ -132,10 +118,8 @@ function ShareFile({file, close}) {
                         <input className={styles.input_submit} value='Скопировать ссылку' type='submit' />
                     </div>
                 </div>
-                {/* TODO: в макете нет кнопки отправки*/}
                 <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => close()}>Отмена</div>
-                        <div className={styles.add} onClick={()=> {if (data.user_to)onShareFile()}}>Отправить</div>
+                        <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}

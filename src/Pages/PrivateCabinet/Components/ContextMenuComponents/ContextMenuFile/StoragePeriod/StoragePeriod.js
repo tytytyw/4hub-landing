@@ -6,6 +6,7 @@ import { ReactComponent as Calendar } from "../../../../../../assets/PrivateCabi
 import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/clock.svg";
 
 function StoragePeriod({ file, setDisplayStotagePeriod }) {
+	const curretDate = new Date().toLocaleDateString('ru-RU')
 	return (
 		<div className={styles.wrap}>
 			<div className={classNames(styles.header, styles.border_bottom)}>
@@ -56,10 +57,10 @@ function StoragePeriod({ file, setDisplayStotagePeriod }) {
 					<h5 className={styles.title}>Укажите даты хранения</h5>
 				</div>
 				<div className={styles.inputs_wrap}>
-					<span>C</span>
-					<input type="date"></input>
-					<span>До</span>
-					<input type="date"></input>
+					<span className={styles.from}>C</span>
+					<input className={styles.date} value={curretDate} type="text" disabled></input>
+					<span className={styles.to}>До</span>
+					<input className={styles.date} type="date"></input>
 					<input
 						className={styles.input_submit}
 						value="Открыть календарь"
@@ -75,11 +76,11 @@ function StoragePeriod({ file, setDisplayStotagePeriod }) {
 				<div
 					className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}
 				>
-					<input min="0" max="24" placeholder="ЧЧ" type="number"></input>
+					<input className={styles.time_count} min="0" placeholder="ЧЧ" type="number"></input>
 					<span>:</span>
-					<input min="0" max="60" placeholder="ММ" type="number"></input>
+					<input className={styles.time_count} min="0" max="60" placeholder="ММ" type="number"></input>
 					<span>:</span>
-					<input min="0" max="60" placeholder="СС" type="number"></input>
+					<input className={styles.time_count} min="0" max="60" placeholder="СС" type="number"></input>
 				</div>
 			</div>
 			<p className={classNames(styles.hint, styles.border_bottom)}>
