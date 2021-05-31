@@ -209,6 +209,7 @@ const CreateFile = ({
                             onSwitch={onSwitch}
                             visibility={visibility}
                             setVisibility={setVisibility}
+                            disabled={!showRepeat}
                         />
                         {showRepeat && <InputField
                             model='password'

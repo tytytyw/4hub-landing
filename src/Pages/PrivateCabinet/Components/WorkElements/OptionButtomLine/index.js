@@ -2,12 +2,10 @@ import React from 'react';
 
 import styles from './OptionButtomLine.module.sass';
 
-const OptionButtomLine = ({filePick, actionName, setAction}) => {
+const OptionButtomLine = ({filePick, actionName, setAction, setFilePick}) => {
 
     const onEditFiles = () => {
-        if(filePick.files.length > 0) {
-
-        }
+        if(filePick.files.length > 0) setFilePick({...filePick, customize: true});
     }
 
     return (
