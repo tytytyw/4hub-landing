@@ -9,13 +9,12 @@ import Textarea from '../Textarea/Textarea'
 import api from '../../../../../api'
 import AlertPopup from '../AlertPopup/AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
-import {useSelector} from "react-redux";
+import {useSelector} from 'react-redux'
 
 const Support = () => {
 
     const uid = useSelector(state => state.user.uid)
 
-    const [formChanged, setFormChanged] = useState(false)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
 
@@ -23,8 +22,12 @@ const Support = () => {
     const [blur, setBlur] = useState({})
     const [success, setSuccess] = useState(false)
 
+    const requiredInputs = [
+        'subj',
+        'text'
+    ]
+
     const resetForm = () => {
-        setFormChanged(false)
         setFields({})
         setBlur({})
         setErrors({})
@@ -40,7 +43,7 @@ const Support = () => {
 
         let {value, name} = event.target
 
-        if (!isCorrectData(value, name, fields,['text'])) {
+        if (!isCorrectData(value, name, fields,requiredInputs)) {
             setErrors({...errors, [name]: true})
         } else {
             setErrors({...errors, [name]: false})
@@ -55,7 +58,7 @@ const Support = () => {
 
         event.preventDefault()
 
-        if (formChanged && formIsValid(fields, setSubmitErrors, ['text'])) {
+        if (formIsValid(fields, setSubmitErrors, requiredInputs)) {
             api.get(`/ajax/admin_send.php`, {
                 params: {
                     uid,
@@ -85,7 +88,6 @@ const Support = () => {
             <form
                 noValidate
                 onSubmit={onSubmit}
-                onChange={() => setFormChanged(true)}
                 className={styles.wrapper}
             >
                 <div className={styles.fields}>

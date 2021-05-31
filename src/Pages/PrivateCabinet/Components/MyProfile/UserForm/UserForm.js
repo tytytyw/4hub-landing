@@ -67,11 +67,14 @@ const UserForm = () => {
 
     const resetForm = (saved = false) => {
 
-        !saved && setImage(null)
+        if (!saved) {
+            setImage(null)
+            setFields(user)
+        }
 
         setEditForm(false)
         setFormChanged(false)
-        setFields(user)
+
         setBlur({})
         setErrors({})
         setSubmitErrors({})

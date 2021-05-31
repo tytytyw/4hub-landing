@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="media-encoder">
+    <path d="M29 29L0 29L0 0L29 0L29 29Z" id="Path" fill="#F8D9FF" stroke="none" />
+    <path d="M14.5 29L0 29L0 0L14.5 0L14.5 29Z" transform="translate(14.5 0)" id="Path" fill="#F3C0FF" stroke="none" />
+    <path d="M25.6016 25.6016L0 25.6016L0 0L25.6016 0L25.6016 25.6016Z" transform="translate(1.6992188 1.6992188)" id="Path" fill="#723B7F" stroke="none" />
+    <path d="M12.8008 25.6016L0 25.6016L0 0L12.8008 0L12.8008 25.6016Z" transform="translate(14.5 1.6992188)" id="Path" fill="#5C3066" stroke="none" />
+    <g id="Group" transform="translate(17.048828 13.650391)">
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(3.3984375 0)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(1.6992188 1.6992188)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(3.3984375 3.3984375)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(5.0976562 5.0976562)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+    </g>
+    <path d="M15.293 15.293L15.293 13.5938L13.5938 13.5938L13.5938 11.8945L11.8945 11.8945L11.8945 10.1953L10.1953 10.1953L10.1953 8.49609L8.49609 8.49609L8.49609 6.79688L6.79688 6.79688L6.79688 5.09766L5.09766 5.09766L5.09766 3.39844L3.39844 3.39844L3.39844 1.69922L1.69922 1.69922L1.69922 0L0 0L0 18.6914L16.9922 18.6914L18.6914 18.6914L18.6914 16.9922L16.9922 16.9922L16.9922 15.293L15.293 15.293Z" transform="translate(5.154297 5.154297)" id="Path" fill="#F8D9FF" stroke="none" />
+    <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(15.349609 11.951172)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+    <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(13.650391 10.251953)" id="Rectangle" fill="#F8D9FF" stroke="none" />
+    <g id="Group" transform="translate(17.048828 10.251953)">
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(3.3984375 0)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" id="Rectangle" fill="#F3C0FF" stroke="none" />
+    </g>
+    <g id="Group" transform="translate(10.251953 6.8535156)">
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(1.6992188 1.6992188)" id="Rectangle" fill="#F8D9FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(3.3984375 0)" id="Rectangle" fill="#F8D9FF" stroke="none" />
+      <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" id="Rectangle" fill="#F8D9FF" stroke="none" />
+    </g>
+    <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(17.048828 6.8535156)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+    <path d="M0 0L1.69922 0L1.69922 1.69922L0 1.69922L0 0Z" transform="translate(8.552734 5.154297)" id="Rectangle" fill="#F8D9FF" stroke="none" />
+    <g id="Group" transform="translate(14.5 6.8535156)">
+      <path d="M0 0L0.849609 0L0.849609 1.69922L0 1.69922L0 0Z" transform="translate(0 3.3984375)" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M0 0L0.849609 0L0.849609 1.69922L0 1.69922L0 0Z" id="Rectangle" fill="#F3C0FF" stroke="none" />
+      <path d="M7.64648 8.49609L7.64648 6.79688L5.94727 6.79688L5.94727 5.09766L4.24805 5.09766L4.24805 3.39844L2.54883 3.39844L2.54883 1.69922L0.849609 1.69922L0.849609 0L0 0L0 10.1953L7.64648 10.1953L9.3457 10.1953L9.3457 8.49609L7.64648 8.49609Z" transform="translate(0 6.796875)" id="Path" fill="#F3C0FF" stroke="none" />
+    </g>
+  </g>
+</svg>
