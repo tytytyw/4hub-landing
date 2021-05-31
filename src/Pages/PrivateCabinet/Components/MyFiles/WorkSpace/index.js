@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -47,7 +47,12 @@ const WorkSpace = ({
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
-	const [filePick] = useState({ show: false, files: [] });
+    const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
+	
+
+	useEffect(() => {
+        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
+    }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -63,6 +68,8 @@ const WorkSpace = ({
 					setAction={setAction}
 					filePreview={filePreview}
 					setFilePreview={setFilePreview}
+					setFilePick={setFilePick}
+					filePick={filePick}
 				/>
 			);
 		});
