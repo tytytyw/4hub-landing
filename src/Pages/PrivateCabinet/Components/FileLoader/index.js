@@ -172,19 +172,24 @@ const FileLoader = ({
                 </div>
             </div>
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
-                <div className={styles.timeLeft}>
+                {awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? <div className={styles.timeLeft}>
                     <span className={styles.time}>Осталось 20 мин</span>
                     <span
                         className={styles.cancel}
                         onClick={() => {
-                            setFileErrors([...fileErrors, ...loadingFile, ...awaitingFiles]);
-                            setLoadingFile([]);
-                            setAwaitingFiles([]);
-                            setProcessing(0)
-                            if(options.cancelLoading) options.cancelLoading();
+                            if(awaitingFiles.length > 0 || loadingFile.length > 0) {
+                                setFileErrors([...fileErrors, ...loadingFile, ...awaitingFiles]);
+                                setLoadingFile([]);
+                                setAwaitingFiles([]);
+                                setProcessing(0)
+                                if(options.cancelLoading) options.cancelLoading();
+                            } else {
+                                setAwaitingFiles([...awaitingFiles, ...fileErrors]);
+                                setFileErrors([]);
+                            }
                         }}
-                    >Отмена</span>
-                </div>
+                    >{(awaitingFiles.length > 0 || loadingFile.length > 0) ? 'Отмена' : 'Повторить'}</span>
+                </div> : <div className={styles.timeLeft} />}
                 <div className={styles.scrollFileLoaderWrap}>
                     {loaded.length > 0 ? renderList(loaded, true, 0, setLoaded, false) : null}
                     {loadingFile.length > 0 ? renderList(loadingFile, false, processing, setLoadingFile, false) : null}
