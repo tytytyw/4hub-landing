@@ -5,12 +5,14 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuProfile} from '../../../../generalComponents/collections';
 import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import {useHistory} from "react-router";
 
 const Profile = ({setItem}) => {
 
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
     const profileRef = useRef();
+    const history = useHistory();
 
     const exit = () => {
         const cookies = document.cookie.split(';');
@@ -18,7 +20,7 @@ const Profile = ({setItem}) => {
         window.location.reload();
     };
 
-    const openProfile = () => setItem('Личные данные');
+    const openProfile = () => history.push('personal-data');
 
     const additionalCallBacks = [exit];
     const mainCallBacks = [openProfile, '', '']
