@@ -34,7 +34,7 @@ const MyButton = ({ onClick = () => {}, active = false, ...props }) => (
     </button>
 )
 
-const MyProfile = () => {
+const MyProfile = ({ menuItem, setItem }) => {
 
     const [pageOption, setPageOption] = useState('personal_data')
     const [popup, setPopup] = useState(false)

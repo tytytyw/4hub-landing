@@ -6,7 +6,7 @@ import styles from './ContactsData.module.sass'
 import {ReactComponent as StarIcon} from '../../../../../../assets/PrivateCabinet/star-2.svg'
 import {ReactComponent as StarFillIcon} from '../../../../../../assets/PrivateCabinet/star-fill.svg'
 import {ReactComponent as ShareIcon} from '../../../../../../assets/PrivateCabinet/share.svg'
-import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/edit.svg'
+import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/pencil.svg'
 import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabinet/delete.svg'
 
 import {ReactComponent as SpeechIcon} from '../../../../../../assets/PrivateCabinet/speech-bubble-2.svg'

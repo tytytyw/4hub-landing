@@ -15,7 +15,7 @@ const WorkBars = ({children, shop}) => {
                 [styles.workBarsWrap]: true,
                 [styles.shop]: !!shop
             })}
-            style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}
+            style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 80px)' : 'calc(100% - 90px - 55px)'}`}}
         >
             {children}
         </div>
