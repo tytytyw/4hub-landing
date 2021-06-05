@@ -64,20 +64,22 @@ const FileLoader = ({
             data.append('uid', uid);
             data.append('myfile', file.file);
             data.append('fileName', `${file?.options?.name ? file.options.name.slice(0, file.options.name.lastIndexOf('.')) : file.file.name.slice(0, file.file.name.lastIndexOf('.'))}`);
-            data.append('dir', path ? path : 'global/all');
+            data.append('dir', file.filePath ? file.filePath : 'global/all');
             data.append('tag', file?.options?.tag ? file.options.tag : '');
             data.append('pass', file?.options?.password ? file.options.password : '');
             data.append('color', file?.options?.color ? file.options.color : '');
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
-            await api.post(`/ajax/file_add.php`,
-                data,
-                {
-                    onUploadProgress: e => {setProcessing((e.loaded * 100) / e.total)},
-                    cancelToken: new CancelToken(function executor(e){const cancelLoading = e; setOptions({cancelLoading})})
-                })
-                .then(res => setResponse({res, file}))
-                .catch(err => console.log(err));
+
+            console.log(data)
+            // await api.post(`/ajax/file_add.php`,
+            //     data,
+            //     {
+            //         onUploadProgress: e => {setProcessing((e.loaded * 100) / e.total)},
+            //         cancelToken: new CancelToken(function executor(e){const cancelLoading = e; setOptions({cancelLoading})})
+            //     })
+            //     .then(res => setResponse({res, file}))
+            //     .catch(err => console.log(err));
         }
     };
 

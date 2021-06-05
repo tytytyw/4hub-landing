@@ -14,6 +14,7 @@ import Programs from "./Components/Programs";
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
+    const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
@@ -40,7 +41,7 @@ const PrivateCabinet = () => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        const files = [...e.target.files].map(file => {return {file, options: {}}});
+        const files = [...e.target.files].map(file => {return {file, options: {filePath: path}}});
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
