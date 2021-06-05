@@ -42,6 +42,8 @@ const UserForm = () => {
         }
     }
 
+    useEffect(() => setFields(user), [user])
+
     useEffect(() => {
 
         const profileImage = fields?.icon?.[0]
@@ -55,7 +57,7 @@ const UserForm = () => {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [image])
+    }, [image, fields])
 
     const requiredInputs = [
         'name',
