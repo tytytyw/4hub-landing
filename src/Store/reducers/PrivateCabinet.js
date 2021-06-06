@@ -7,7 +7,13 @@ import {
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
     CHOOSE_RECENT_FILES,
-    CUSTOMIZE_FILE
+    CUSTOMIZE_FILE,
+    GET_PROGRAM_FOLDERS,
+    GET_PROGRAMS,
+    GET_RECENT_PROGRAMS,
+    GET_TOP_LIST_PROGRAMS,
+    GET_CATEGORIES,
+    GET_SAFES
 } from '../types';
 
 const INITIAL_STATE = {
@@ -19,6 +25,16 @@ const INITIAL_STATE = {
     recentFolders: null,
     recentFiles: null,
     chosenRecentFile: null,
+
+    //PROGRAMS
+    programFolders: [],
+    programs: [],
+    recentPrograms: [],
+    topListPrograms: [],
+    categories: [],
+
+    //SAFE
+    safes: []
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -51,6 +67,23 @@ export default function startPage(state = INITIAL_STATE, action) {
             });
             return {...state, fileList: {...state.fileList, files}}
         }
+
+
+        // PROGRAMS
+        case GET_PROGRAM_FOLDERS:
+            return {...state, programFolders: action.payload}
+        case GET_PROGRAMS:
+            return {...state, programs: action.payload}
+        case GET_RECENT_PROGRAMS:
+            return {...state, recentPrograms: action.payload}
+        case GET_TOP_LIST_PROGRAMS:
+            return {...state, topListPrograms: action.payload}
+        case GET_CATEGORIES:
+            return {...state, categories: action.payload}
+
+        case GET_SAFES:
+            return {...state, safes: action.payload}
+
         default:
             return state;
     }

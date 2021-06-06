@@ -225,7 +225,7 @@ const UserForm = () => {
                                 label='Телефон'
                                 name='tel'
                                 disabled={!editForm}
-                                value={fields?.tel}
+                                value={fields?.tel || ''}
                                 phone={true}
                                 onChange={onChangeHandler}
                                 onBlur={onBlurHandler}

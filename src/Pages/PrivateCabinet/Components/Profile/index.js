@@ -20,10 +20,11 @@ const Profile = ({setItem}) => {
         window.location.reload();
     };
 
-    const openProfile = () => history.push('personal-data');
+    const openProfile = () => history.replace('/personal-data');
+    const openSupport = () => history.replace('/support');
 
     const additionalCallBacks = [exit];
-    const mainCallBacks = [openProfile, '', '']
+    const mainCallBacks = [openProfile, openSupport, '']
 
     const renderMenuItems = (target, arr) => {
         return target.map((item, i) => {

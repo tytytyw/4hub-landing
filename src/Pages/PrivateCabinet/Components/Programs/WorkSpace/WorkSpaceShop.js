@@ -33,7 +33,7 @@ const WorkSpaceShop = ({
                        }) => {
 
     const dispatch = useDispatch();
-    const programs = useSelector(state => state.programs.programs);
+    const programs = useSelector(state => state.PrivateCabinet.programs);
 
     const [moreProgram, setMoreProgram] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);

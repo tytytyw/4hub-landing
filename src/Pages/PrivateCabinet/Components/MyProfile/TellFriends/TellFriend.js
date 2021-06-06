@@ -1,36 +1,32 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import styles from './SendFriend.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
 
 import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
-import ContactSearch from '../Contacts/ContactList/ContactSearch/ContactSearch'
-import RadioCheck from './RadioCheck/RadioCheck'
 import Button from '../Button/Button'
 import {useSelector} from 'react-redux'
-import {isCorrectData} from '../Input/validation'
-import {getContactName, messengersData} from '../Contacts/consts'
+import {messengersData} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
-import Input from '../Input/Input'
 
 const TellFriend = ({ set, contact }) => {
 
-    const contacts = useSelector(state => state.PrivateCabinet.contactList)
     const uid = useSelector(state => state.user.uid)
 
-    const [search, setSearch] = useState('')
+    const [selectedSoc, setSelectedSoc] = useState(null)
+    /*const [search, setSearch] = useState('')
     const [contactList, setContactList] = useState(contacts)
 
     const [selectedContact, setSelectedContact] = useState(null)
-    const [selectedSoc, setSelectedSoc] = useState(null)
+
 
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [fields, setFields] = useState({})
-    const [blur, setBlur] = useState({})
+    const [blur, setBlur] = useState({})*/
 
-    useEffect(() => {
+    /*useEffect(() => {
 
         const filterArray = contacts.filter(item => {
             const name = getContactName(item).toLowerCase()
@@ -62,7 +58,7 @@ const TellFriend = ({ set, contact }) => {
         setFields({...fields, [name]: value})
 
     }
-
+*/
     const onSubmit = event => {
 
         event.preventDefault()
@@ -81,7 +77,7 @@ const TellFriend = ({ set, contact }) => {
 
     }
 
-    const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
+    //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
 
     return (
         <PopUp set={set}>
@@ -94,7 +90,6 @@ const TellFriend = ({ set, contact }) => {
                 <div className={styles.header}>
                     <div className={styles.profileWrap}>
                         <img
-                            className={styles.profileImg}
                             src='./assets/PrivateCabinet/logo.svg'
                             alt='logo'
                         />
