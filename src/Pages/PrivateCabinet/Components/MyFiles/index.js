@@ -156,7 +156,7 @@ const MyFiles = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
             />}
-			{filePreview?.view && <PreviewFile setFilePreview={setFilePreview} file={chosenFile} />}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
 		</div>
 		
 	);
