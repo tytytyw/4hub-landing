@@ -31,12 +31,12 @@ const MyFiles = ({
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: ''},
+        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: ''},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: 'Редактирование файлов', text: ``, callback: () => setFilePick({...filePick, show: true})},
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
         {type: 'intoZip', name: '', text: ``, callback: ''},
         {type: 'info', name: '', text: ``, callback: ''},
@@ -48,6 +48,7 @@ const MyFiles = ({
 			type: "delete",
 			name: "Удаление файла",
 			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
+			callback: (list, index) => setAction(list[index])
 		},
 	];
 	const [safePassword, setSafePassword] = useState({open: false})
@@ -99,6 +100,10 @@ const MyFiles = ({
 	};
 
 	useEffect(() => dispatch(onChooseFiles("global/all")), [dispatch]);
+	// Change state to default after changing menu params
+	useEffect(() => {
+		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
+	}, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	return (
@@ -135,6 +140,8 @@ const MyFiles = ({
 				setFilePreview={setFilePreview}
 				setSafePassword={setSafePassword}
 				fileSelect={fileSelect}
+				filePick={filePick}
+				setFilePick={setFilePick}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile

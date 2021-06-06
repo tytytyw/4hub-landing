@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -12,29 +12,45 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-function ShareFile({file, close}) {
+function ShareFile({file, close, action_type}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
+    const [dateValue, setDateValue] = useState('');
+    const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
     const uid = useSelector(state => state.user.uid);
+    const setTime = (time, limit) => {
+        return time < limit
+        ? time < 10 ? `0${time}` : time
+        : time[0];
+    }
     const data = {
         uid,
         fid: file.fid,
-        dir: file.gdir,
         user_to: null,
         // TODO: неоткуда брать значение возможности редактирования}
-        is_write: 0
     }
-
+    if (action_type === 'share') {
+        data.is_write = 1
+        data.dir = file.gdir
+    } 
+    
     const onShareFile = () => {
-        api.post('/ajax/file_share.php', data)
-            .then(res => {if(res.data.ok === 1) {
-                console.log('ok')
-            } else {
-                setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
-            }
+        console.log('click')
+        data.deadline = `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '00'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '00'}`
+
+        api.post(`/ajax/file_${action_type}.php`, data)
+            .then(res => {
+                if(res.data.ok === 1) {
+                console.log('ok')   
+                } else if (res.data.error) {
+                    setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
+                } else {
+                    setError('Что-то пошло не так. Повторите попытку позже')
+                    console.log(res)
+                }
             })
-            .catch(err => {setError(err)})
+            .catch(err => {setError(`${err}`)})
     }
 
     return (
@@ -83,7 +99,9 @@ function ShareFile({file, close}) {
                         <p className={styles.input_title}>Пароль</p>
                         <input id={'input_pass'} placeholder='Вы можете установить пароль на данный файл' type='password'></input>
                     </div>
-                    <input className={styles.input_submit} value='Установить' type='submit' />
+                    <span className={styles.set_btn}>
+                        Установить
+                    </span>
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
                     <div className={styles.ico_wrap}>
@@ -93,8 +111,11 @@ function ShareFile({file, close}) {
                         <p className={styles.input_title}>Срок хранения файла/папки</p>
                         <input value='Установите срок хранения файла (после завершения файл будет удален)' type='button'></input>
                     </div>
-                    <input onClick={() => setDisplayStotagePeriod(true)} className={styles.input_submit} value='Установить' type='submit' />
+                    <span onClick={() => setDisplayStotagePeriod(true)} className={styles.set_btn}>
+                        Установить
+                    </span>
                 </div>
+                {action_type === "share" &&
                 <div className={styles.share_link}>
                     <h5 className={styles.share_link_title}>Поделиться вместо этого ссылкой </h5>
                     <div className={styles.row_item}>
@@ -105,7 +126,7 @@ function ShareFile({file, close}) {
                             <p className={styles.input_title}>Может редактировать</p>
                             <input value='Все у кого есть эта ссылкаа, смогут изменять файл' type='button'></input>
                         </div>
-                        <input className={styles.input_submit} value='Скопировать ссылку' type='submit' />
+                        <span className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
                     <div className={styles.row_item}>
                         <div className={styles.ico_wrap}>
@@ -115,15 +136,15 @@ function ShareFile({file, close}) {
                             <p className={styles.input_title}>Может просматривать</p>
                             <input value='Все у кого есть эта ссылка, смогут просматривать файл' type='button'></input>
                         </div>
-                        <input className={styles.input_submit} value='Скопировать ссылку' type='submit' />
+                        <span className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
-                </div>
+                </div>}
                 <div className={styles.buttonsWrap}>
                         <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
-            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod}/>}
+            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
         </PopUp>
     )
 }
