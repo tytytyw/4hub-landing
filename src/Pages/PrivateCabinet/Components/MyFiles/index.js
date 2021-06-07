@@ -28,13 +28,14 @@ const MyFiles = ({
 	});
 	const [filePick, setFilePick] = useState({show: false, files: []});
 	const [mouseParams, setMouseParams] = useState(null);
+	const [showLinkCopy, setShowLinkCopy] = useState(false)
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
-        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: (list, index) => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
@@ -142,6 +143,8 @@ const MyFiles = ({
 				fileSelect={fileSelect}
 				filePick={filePick}
 				setFilePick={setFilePick}
+				setShowLinkCopy ={setShowLinkCopy}
+				showLinkCopy={showLinkCopy}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile

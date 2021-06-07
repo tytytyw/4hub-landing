@@ -21,6 +21,7 @@ import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
+import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 
 const WorkSpace = ({
 	setBlob,
@@ -45,7 +46,9 @@ const WorkSpace = ({
 	fileSelect,
 	fileLoading,
 	filePick,
-	setFilePick
+	setFilePick,
+	showLinkCopy,
+	setShowLinkCopy
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -178,6 +181,7 @@ const WorkSpace = ({
 			{action.type === "resend" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
 			) : null}
+			{showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
 		</>
 	);
 };
