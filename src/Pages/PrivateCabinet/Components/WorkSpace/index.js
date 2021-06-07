@@ -71,10 +71,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     }
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
-    // Change state to default after changing menu params
-    useEffect(() => {
-        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
-    }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Types of Files view
     const renderFiles = (Type) => {
