@@ -71,15 +71,14 @@ const FileLoader = ({
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
 
-            console.log(data)
-            // await api.post(`/ajax/file_add.php`,
-            //     data,
-            //     {
-            //         onUploadProgress: e => {setProcessing((e.loaded * 100) / e.total)},
-            //         cancelToken: new CancelToken(function executor(e){const cancelLoading = e; setOptions({cancelLoading})})
-            //     })
-            //     .then(res => setResponse({res, file}))
-            //     .catch(err => console.log(err));
+            await api.post(`/ajax/file_add.php`,
+                data,
+                {
+                    onUploadProgress: e => {setProcessing((e.loaded * 100) / e.total)},
+                    cancelToken: new CancelToken(function executor(e){const cancelLoading = e; setOptions({cancelLoading})})
+                })
+                .then(res => setResponse({res, file}))
+                .catch(err => console.log(err));
         }
     };
 
