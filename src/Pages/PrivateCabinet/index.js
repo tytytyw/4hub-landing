@@ -6,12 +6,13 @@ import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } fro
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
+import Safe from './Components/Safe';
 import MyProfile from './Components/MyProfile';
 import MyFiles from './Components/MyFiles';
 import FileLoader from './Components/FileLoader';
 import Programs from "./Components/Programs";
 
-import {Switch, Route} from 'react-router'
+import {Switch, Route, Redirect} from 'react-router'
 
 const PrivateCabinet = () => {
 
@@ -70,6 +71,16 @@ const PrivateCabinet = () => {
                             menuItem={menuItem}
                             setItem={setItem}
                         />}
+                        exact
+                    />
+
+                    <Route
+                        path='/support'
+                        render={() => <MyProfile
+                            defaultPageOption='support'
+                            menuItem={menuItem}
+                            setItem={setItem}
+                        />}
                     />
 
                     <Route
@@ -125,6 +136,26 @@ const PrivateCabinet = () => {
                             fileErrors={fileErrors}
                         />}
                     />
+
+                    <Route
+                        path='/safe'
+                        render={() => <Safe
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    <Redirect to='/folders'/>
 
                 </Switch>
 

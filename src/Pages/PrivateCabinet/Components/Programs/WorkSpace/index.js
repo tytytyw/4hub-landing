@@ -34,7 +34,7 @@ const WorkSpace = ({
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
-    const programs = useSelector(state => state.programs.programs);
+    const programs = useSelector(state => state.PrivateCabinet.programs);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
 

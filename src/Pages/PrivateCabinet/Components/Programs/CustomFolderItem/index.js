@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
-import {onGetPrograms} from '../../../../../Store/actions/programsAction'
+import {onGetPrograms} from '../../../../../Store/actions/PrivateCabinetActions'
 
 const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMouseParams}) => {
 
@@ -38,8 +38,21 @@ const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMo
                 </div>
 
                 <div className={styles.innerFolderMedia}>
-                    {folder.emo && <img className={styles.symbols} src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`} alt='emoji'/>}
-                    {folder.symbol && <img className={styles.symbols} src={folder?.symbol} alt='emoji'/>}
+
+                    {folder.emo &&
+                    <img
+                        className={styles.symbols}
+                        src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
+                        alt='emoji'
+                    />}
+
+                    {folder.symbol &&
+                    <img
+                        className={styles.symbols}
+                        src={folder?.symbol}
+                        alt='emoji'
+                    />}
+
                     <div
                         className={styles.menuWrap}
                         onClick={e => {

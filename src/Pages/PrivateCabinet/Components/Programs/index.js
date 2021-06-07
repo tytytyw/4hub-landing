@@ -16,11 +16,11 @@ import {contextMenuFolder, contextMenuSubFolder} from '../../../../generalCompon
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import {
     onGetCategories,
-    onGetFolders,
     onGetPrograms,
     onGetRecentPrograms,
-    onGetTopListPrograms
-} from '../../../../Store/actions/programsAction'
+    onGetTopListPrograms,
+    onGetProgramFolders
+} from '../../../../Store/actions/PrivateCabinetActions'
 import classNames from "classnames";
 
 const Programs = ({
@@ -31,8 +31,8 @@ const Programs = ({
                   }) => {
 
     const dispatch = useDispatch()
-    const folders = useSelector(state => state.programs.programFolders)
-    const recentPrograms = useSelector(state => state.programs.recentPrograms)
+    const folders = useSelector(state => state.PrivateCabinet.programFolders)
+    const recentPrograms = useSelector(state => state.PrivateCabinet.recentPrograms)
     const [listCollapsed, setListCollapsed] = useState('')
     const [newFolder, setNewFolder] = useState(false)
 
@@ -46,7 +46,7 @@ const Programs = ({
     const [mouseParams, setMouseParams] = useState(null)
 
     useEffect(() => {
-        dispatch(onGetFolders())
+        dispatch(onGetProgramFolders())
         dispatch(onGetRecentPrograms())
         dispatch(onGetTopListPrograms())
         dispatch(onGetCategories())
