@@ -7,6 +7,7 @@ import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
 import StoragePeriod from '../StoragePeriod/StoragePeriod';
+import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
@@ -16,6 +17,7 @@ function ShareFile({file, close, action_type}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
+    const [displayMessengers, setDisplayMessengers] = useState(false);
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
     const uid = useSelector(state => state.user.uid);
@@ -33,14 +35,13 @@ function ShareFile({file, close, action_type}) {
     if (action_type === 'share') {
         data.is_write = 1
         data.dir = file.gdir
-    } 
+    }
     
     const onShareFile = () => {
-        console.log('click')
-        data.deadline = `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '00'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '00'}`
+        if (dateValue) data.deadline = `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}`
 
-        api.post(`/ajax/file_${action_type}.php`, data)
-            .then(res => {
+        api.post(`/ajax/file_${action_type}.php`, {params:{...data}})
+            .then(res => {console.log(res)
                 if(res.data.ok === 1) {
                 console.log('ok')   
                 } else if (res.data.error) {
@@ -55,7 +56,7 @@ function ShareFile({file, close, action_type}) {
 
     return (
         <PopUp set={close}>
-            {!displayStotagePeriod && <div className={styles.ShareFile_wrap}>
+            {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
                 <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <File color={file.id_color} format={file.ext} />
@@ -85,7 +86,7 @@ function ShareFile({file, close, action_type}) {
                         <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> data.user_to = e.target.value} placeholder='Эл.адрес или имя' type='text'></input>
                     </div>
                     <div className={styles.recipient_messenger}>
-                        <input value='Отправить через мессенджер' type='button'></input>
+                        <span onClick={() => setDisplayMessengers(true)}>Отправить через мессенджер</span>
                     </div>
                 </div>
                 <div className={classNames(styles.comment, styles.border_bottom)}>
@@ -145,6 +146,7 @@ function ShareFile({file, close, action_type}) {
             </div>}
             {error && <Error error={error} set={close} message={error} />}
             {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
+            {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
         </PopUp>
     )
 }
