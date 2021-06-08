@@ -2,19 +2,24 @@ import React from 'react';
 
 import styles from './SideMenu.module.sass';
 import { menu } from './listHelper';
+import {useHistory, useLocation} from "react-router";
 
-const SideMenu = ({menuItem, setItem, collapsed, setCollapsed}) => {
+const SideMenu = ({collapsed, setCollapsed}) => {
+
+    const {pathname} = useLocation()
+    const history = useHistory()
 
     const renderMenuItems = () => {
       return menu.map(item => {
+
           return <div
               className={`
                 ${styles.menuItem} 
-                ${item.name === menuItem ? styles.menuItemChosen : undefined} 
+                ${pathname === item.path ? styles.menuItemChosen : undefined} 
                 ${collapsed ? styles.menuItemCollapsed : undefined}
               `}
               key={item.name}
-              onClick={() => setItem(item.name)}
+              onClick={() => history.push(item.path)}
           >
               <img
                   className={`${styles.icons} ${collapsed ? styles.iconsCollapsed : undefined}`}

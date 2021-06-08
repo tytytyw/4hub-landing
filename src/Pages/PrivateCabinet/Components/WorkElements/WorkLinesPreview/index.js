@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useSelector} from 'react-redux';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
@@ -7,7 +6,6 @@ import File from "../../../../../generalComponents/Files";
 
 const WorkLinesPreview = ({file, children, hideFileList}) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
     useEffect(() => {
@@ -47,7 +45,12 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
         }
     }
 
-    return (<div className={styles.workLinesPreviewWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
+    return (
+        <div
+            className={styles.workLinesPreviewWrap}
+            style={{
+                height: 'calc(100% - 90px - 55px)'
+            }}>
         {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
         <div className={styles.previewFileWrap}>
             {f ? <>

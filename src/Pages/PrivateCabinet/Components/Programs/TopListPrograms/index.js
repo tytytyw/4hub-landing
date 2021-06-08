@@ -7,7 +7,7 @@ import {programIcons} from "../consts";
 
 const TopListPrograms = ({setFilePreview, filePreview, chosenTopListProgram, setChosenTopListProgram}) => {
 
-    const topListPrograms = useSelector(state => state.programs.topListPrograms);
+    const topListPrograms = useSelector(state => state.PrivateCabinet.topListPrograms);
 
     const renderRecentFiles = () => {
         if(!topListPrograms) return null;

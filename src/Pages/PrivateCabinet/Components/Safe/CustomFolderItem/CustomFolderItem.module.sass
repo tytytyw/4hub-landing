@@ -1,14 +1,38 @@
-.innerFolderWrap.active
-  background: rgba(64, 134, 241, 0.1)
+.innerFolders
+  display: flex
+  flex-direction: column
+  width: 100%
+  min-height: max-content
+  opacity: 1
+  border-bottom: 1px solid grey
+  transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
+  .addFolderToFolder
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    padding: 0 15px 0 30px
+    width: 100%
+    height: 50px
+    font-size: 12px
+    border-bottom: 1px solid grey
+    cursor: pointer
+    span
+      margin: 0 0 0 15px
+      animation: showText 0.2s ease-in-out
+    .addFolderName
+      display: flex
+      color: #7c7a7a
+    .addFolderIcon
+      width: 18px
+  .addFolderToFolder:hover
+    background: rgba(71, 125, 225, 0.1)
+  .innerFolderWrap:hover
+    background: rgba(71, 125, 225, 0.1)
 .innerFolderWrap
   display: flex
   flex-direction: column
   width: 100%
-  transition: background 0.2s ease-in-out
-  &:hover
-    background: rgba(64, 134, 241, 0.1)
-    transition: background 0.2s ease-in-out
-
   .innerFolder
     display: flex
     align-items: center
@@ -40,9 +64,9 @@
           margin: 0 0 3px 0
           color: #7c7a7a
           .name
-            font-family: 'SF Pro Light', sans-serif
             display: block
             width: max-content
+            max-width: 105px
             overflow: hidden
             white-space: nowrap
             text-overflow: ellipsis
@@ -68,8 +92,7 @@
       display: flex
       img
         margin: 0 5px 0 0
-        width: 18px
-        height: 18px
+        width: 20px
       .playButton
         transform: rotateZ(-90deg)
         cursor: pointer
@@ -82,8 +105,7 @@
         transition: fill 0.2s ease
       .revert
         transform: rotateZ(90deg)
-
-.active
+.chosenSubFolderWrap
   background: rgba(71, 125, 225, 0.1)
 .menuWrap
   display: flex

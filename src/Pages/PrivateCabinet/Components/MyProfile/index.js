@@ -27,19 +27,22 @@ const MyButton = ({ onClick = () => {}, active = false, ...props }) => (
             [styles.active]: active
         })}
     >
-        {props.text} {props.icon ?
+        {props.text} {props.icon &&
         <span className={styles.buttonIcon}>
             {props.icon}
-        </span> : null}
+        </span>}
     </button>
 )
 
-const MyProfile = () => {
-
-    const [pageOption, setPageOption] = useState('personal_data')
-    const [popup, setPopup] = useState(false)
+const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
 
     const dispatch = useDispatch()
+    const [pageOption, setPageOption] = useState()
+    const [popup, setPopup] = useState(false)
+
+    useEffect(() => {
+        setPageOption(defaultPageOption)
+    }, [defaultPageOption])
 
     useEffect(() => {
         dispatch(onGetContacts())

@@ -6,14 +6,18 @@ import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } fro
 import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
+import Safe from './Components/Safe';
 import MyProfile from './Components/MyProfile';
 import MyFiles from './Components/MyFiles';
 import FileLoader from './Components/FileLoader';
 import Programs from "./Components/Programs";
 
+import {Switch, Route, Redirect} from 'react-router'
+
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
+    const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
     const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
@@ -40,7 +44,7 @@ const PrivateCabinet = () => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        const files = [...e.target.files].map(file => {return {file, options: {}}});
+        const files = [...e.target.files].map(file => {return {file, options: {filePath: path}}});
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
@@ -50,7 +54,6 @@ const PrivateCabinet = () => {
     return (
         <div className={styles.mainWrap} style={{minHeight}}>
             <SideMenu
-                menuItem={menuItem} setItem={setItem}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
             <div
@@ -59,51 +62,103 @@ const PrivateCabinet = () => {
                     minHeight,
                     width: collapsed ? `calc(100vw - 55px)` : '82%'
                 }}>
-                {menuItem === 'Личные данные' && <MyProfile />}
-                {menuItem === 'Мои папки' && <MyFolders
-                    setItem={setItem}
-                    filePreview={filePreview}
-                    setFilePreview={setFilePreview}
-                    fileSelect={fileSelect}
-                    fileAddCustomization={fileAddCustomization}
-                    setFileAddCustomization={setFileAddCustomization}
-                    setAwaitingFiles={setAwaitingFiles}
-                    awaitingFiles={awaitingFiles}
-                    loaded={loaded}
-                    setLoaded={setLoaded}
-                    loadingFile={loadingFile}
-                    fileErrors={fileErrors}
-                    setLoadingFile={setLoadingFile}
-                />}
-                {menuItem === 'Мои файлы' && <MyFiles
-                    filePreview={filePreview}
-                    setFilePreview={setFilePreview}
-                    awaitingFiles={awaitingFiles}
-                    setAwaitingFiles={setAwaitingFiles}
-                    loaded={loaded}
-                    setLoaded={setLoaded}
-                    loadingFile={loadingFile}
-                    fileErrors={fileErrors}
-                    fileSelect={fileSelect}
-                    fileAddCustomization={fileAddCustomization}
-                    setFileAddCustomization={setFileAddCustomization}
-                    setLoadingFile={setLoadingFile}
-                />}
 
-                {menuItem === 'Программы' && <Programs
-                    setItem={setItem}
-                    filePreview={filePreview}
-                    setFilePreview={setFilePreview}
-                    fileSelect={fileSelect}
-                    fileAddCustomization={fileAddCustomization}
-                    setFileAddCustomization={setFileAddCustomization}
-                    setAwaitingFiles={setAwaitingFiles}
-                    awaitingFiles={awaitingFiles}
-                    loaded={loaded}
-                    setLoaded={setLoaded}
-                    loadingFile={loadingFile}
-                    fileErrors={fileErrors}
-                />}
+                <Switch>
+
+                    <Route
+                        path='/personal-data'
+                        render={() => <MyProfile
+                            menuItem={menuItem}
+                            setItem={setItem}
+                        />}
+                        exact
+                    />
+
+                    <Route
+                        path='/support'
+                        render={() => <MyProfile
+                            defaultPageOption='support'
+                            menuItem={menuItem}
+                            setItem={setItem}
+                        />}
+                    />
+
+                    <Route
+                        path='/folders'
+                        render={() => <MyFolders
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    <Route
+                        path='/files'
+                        render={() => <MyFiles
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            awaitingFiles={awaitingFiles}
+                            setAwaitingFiles={setAwaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    <Route
+                        path='/programs'
+                        render={() => <Programs
+                            setItem={setItem}
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                        />}
+                    />
+
+                    <Route
+                        path='/safe'
+                        render={() => <Safe
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    <Redirect to='/folders'/>
+
+                </Switch>
+
             </div>
             {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
                 ? <FileLoader

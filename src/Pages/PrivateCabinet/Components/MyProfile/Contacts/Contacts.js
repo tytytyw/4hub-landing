@@ -33,12 +33,7 @@ const Contacts = () => {
             icon: './assets/PrivateCabinet/contact-book.svg',
             label: 'Все контакты',
             onClick: () => setPageOption('ContactsAll')
-        },
-        {
-            id: '4HubContacts',
-            icon: './assets/PrivateCabinet/phone-call-2.svg',
-            label: 'Контакты 4 Hub'
-        },
+        }
     ]
 
     return (
