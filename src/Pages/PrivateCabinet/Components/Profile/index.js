@@ -7,7 +7,7 @@ import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
 
-const Profile = ({setItem}) => {
+const Profile = () => {
 
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);

@@ -20,8 +20,8 @@ import File from '../../../../../generalComponents/Files'
 import CustomizeFile from "../../CustomizeFile"
 import OptionButtomLine from "../../WorkElements/OptionButtomLine"
 
-const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
-                   chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
+const WorkSpace = ({listSize, setListSize, setBlob, blob, chosenFile, setChosenFile,
+                   chosenFolder, listCollapsed, setFilePreview, filePreview,
                    fileSelect, action, setAction
                   }) => {
 
@@ -94,10 +94,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 <div className={styles.infoHeader}>
                     <StorageSize />
                     <Notifications />
-                    <Profile setItem={setItem} />
+                    <Profile/>
                 </div>
             </div>
             <ServePanel
+                listSize={listSize}
+                setListSize={setListSize}
+
                 setBlob={setBlob}
                 blob={blob}
                 setView={setWorkElementsView}

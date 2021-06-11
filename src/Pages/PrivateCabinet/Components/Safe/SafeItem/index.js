@@ -4,14 +4,15 @@ import styles from './SafeItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
-const SafeItem = ({safe, chosen, setMouseParams, onClick}) => {
+const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
 
     return (
         <>
             <div
                 className={classNames({
                     [styles.wrapper]: true,
-                    [styles.wrapperChosen]: !!chosen
+                    [styles.wrapperChosen]: !!chosen,
+                    [styles?.[`wrapper_${listSize}`]]: true
                 })}
                 onClick={onClick}
             >

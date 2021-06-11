@@ -5,12 +5,31 @@ import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/ba
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';
 import { ReactComponent as VerticalLinesIcon } from '../../../../assets/PrivateCabinet/vertical-lines.svg';
+import { ReactComponent as SwitchSize } from '../../../../assets/PrivateCabinet/switch_size.svg';
 import { ReactComponent as MenuIcon } from '../../../../assets/PrivateCabinet/menu.svg';
 import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/safe.svg';
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
+import classNames from "classnames";
 
-const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction, fileSelect}) => {
+var array = {
+    1: ''
+};
+
+
+const ServePanel = ({blob, setBlob, listSize, setListSize, view, setView, chosenFile, setAction, fileSelect}) => {
+
+    const changeSize = () => {
+        switch (listSize) {
+            case 'md':
+                return 'lg'
+            case 'lg':
+                return 'sm'
+            default:
+                return 'md'
+        }
+    }
+
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -21,7 +40,16 @@ const ServePanel = ({blob, setBlob, view, setView, chosenFile, setAction, fileSe
                     <div className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('workLinesPreview')}><VerticalLinesIcon /></div>
                 </div>
                 <div className={styles.filterPanel}>
-                    <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
+                    <div
+                        onClick={() => setListSize(changeSize())}
+                        className={styles.iconView}
+                    >
+                        <SwitchSize className={styles.iconSVG} />
+                    </div>
+                    <div className={classNames(styles.iconView, styles.iconViewArrow)}>
+                        <MenuIcon className={styles.iconSVG} />
+                        <div />
+                    </div>
                     <span className={styles.chooseButton}>Выбрать</span>
                 </div>
             </div>
