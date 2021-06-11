@@ -7,6 +7,7 @@ import styles from './PrivateCabinet.module.sass';
 import SideMenu from './Components/SideMenu';
 import MyFolders from './Components/MyFolders';
 import Safe from './Components/Safe';
+import Devices from './Components/Devices';
 import MyProfile from './Components/MyProfile';
 import MyFiles from './Components/MyFiles';
 import FileLoader from './Components/FileLoader';
@@ -139,6 +140,24 @@ const PrivateCabinet = () => {
                     <Route
                         path='/safe'
                         render={() => <Safe
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    <Route
+                        path='/devices'
+                        render={() => <Devices
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
                             fileSelect={fileSelect}

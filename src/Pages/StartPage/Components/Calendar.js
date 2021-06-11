@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import classnames from 'classnames';
+import React, {useEffect, useState} from 'react'
+import classnames from 'classnames'
 
-import styles from './Calendar.module.sass';
-import {areEqual, daysOfWeeks, generateCalendar, getDate, months} from '../../../generalComponents/CalendarHelper';
-import Select from './Select'
+import styles from './Calendar.module.sass'
+import {areEqual, daysOfWeeks, generateCalendar, getDate, months} from '../../../generalComponents/CalendarHelper'
+import Select from "./Select"
 
 const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 

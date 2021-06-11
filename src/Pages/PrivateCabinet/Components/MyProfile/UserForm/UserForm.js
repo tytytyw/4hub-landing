@@ -18,10 +18,10 @@ const UserForm = () => {
 
     const [fields, setFields] = useState(user)
 
-    const [formChanged, setFormChanged] = useState(true)
     const [errors, setErrors] = useState({})
     const [submitErrors, setSubmitErrors] = useState({})
     const [blur, setBlur] = useState({})
+    const [formChanged, setFormChanged] = useState(true)
 
     const [editForm, setEditForm] = useState(false)
     const [showPass, setShowPass] = useState(false)

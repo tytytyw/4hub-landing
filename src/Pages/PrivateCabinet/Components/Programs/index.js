@@ -119,7 +119,7 @@ const Programs = ({
     return (
         <div className={styles.workAreaWrap}>
             <List
-                programms={true}
+                icon={false}
                 title='Программы'
                 src='add-folder.svg'
                 setListCollapsed={setListCollapsed}

@@ -15,7 +15,7 @@ import {
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_PROGRAMS,
-    GET_SAFES,
+    GET_SAFES, GET_DEVICES, GET_CONNECTED_CONTACTS,
 } from '../types';
 
 const folders = [
@@ -406,6 +406,77 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 rating: '5',
                 votes: 360
             },
+        ]
+    })
+}
+
+
+
+// DEVICES
+
+
+export const onGetDevices = () => async (dispatch, getState) => {
+    dispatch({
+        type: GET_DEVICES,
+        payload: [
+            {
+                id: 1,
+                name: 'iPhone 11 pro max',
+                device: 'iphone'
+            },
+            {
+                id: 2,
+                name: 'iMac pro',
+                device: 'imac'
+            },
+            {
+                id: 3,
+                name: 'MacBook pro',
+                device: 'macbookpro'
+            },
+            {
+                id: 4,
+                name: 'Планшет',
+                device: 'ipad11'
+            },
+            {
+                id: 5,
+                name: 'Неопознаный обьект',
+                device: false
+            },
+        ]
+    })
+}
+
+
+export const onGetConnectedContacts = () => async (dispatch, getState) => {
+    dispatch({
+        type: GET_CONNECTED_CONTACTS,
+        payload: [
+            {
+                id: 1,
+                name: 'Алина Квиталина',
+                active: 1,
+                image: './assets/PrivateCabinet/avatars/a1.svg'
+            },
+            {
+                id: 2,
+                name: 'Катерина',
+                active: 0,
+                image: './assets/PrivateCabinet/avatars/a2.svg'
+            },
+            {
+                id: 3,
+                name: 'Антон Медведев',
+                active: 1,
+                image: './assets/PrivateCabinet/avatars/a3.svg'
+            },
+            {
+                id: 4,
+                name: 'Коваленко Андрей',
+                active: 0,
+                image: './assets/PrivateCabinet/avatars/a4.svg'
+            }
         ]
     })
 }
