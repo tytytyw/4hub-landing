@@ -1,0 +1,176 @@
+.fileBar:hover
+  background: rgba(64, 134, 241, .1)
+  box-shadow: none
+.fileBar:hover .menu
+  background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+  box-shadow: none
+.fileBar:hover .menu:after
+  background: rgba(64, 134, 241, .1)
+  box-shadow: none
+.fileBar:hover .file:after
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.fileBar
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 175px
+  min-width: 175px
+  height: 185px
+  min-height: 185px
+  box-shadow: 0 2px 5px #dedede
+  position: relative
+  z-index: 3
+  cursor: default
+  font-family: "SF Pro Light", sans-serif
+  .menu
+    width: 10px
+    height: 10px
+    position: absolute
+    right: -10px
+    top: 0
+    box-shadow: 0 2px 5px #dedede
+    z-index: 2
+    span
+      width: 3px
+      height: 3px
+      background: #477DE1
+      position: absolute
+      top: 15px
+      right: 3px
+    span:before,
+    span:after
+      content: ''
+      width: 3px
+      height: 3px
+      background: #477DE1
+      position: absolute
+    span:before
+      transform: translateY(7px)
+    span:after
+      transform: translateY(-7px)
+  .menu:hover
+    background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+  .menu:hover:after
+    background: rgba(64, 134, 241, .1)
+  .menu:after
+    content: ''
+    width: 10px
+    height: 32px
+    position: absolute
+    right: 0
+    top: 5px
+    transform: skewY(-45deg)
+    cursor: pointer
+    box-shadow: 0 2px 5px #dedede
+    z-index: 1
+  .symbols
+    display: flex
+    justify-content: space-between
+    width: 95%
+    min-height: 30px
+    box-sizing: border-box
+    padding: 5px 0 0 0
+  .file
+    width: 37%
+    height: 40%
+    position: relative
+    margin: 0 0 10px 0
+    .mainFile
+      position: relative
+      z-index: 2
+    .locked
+      position: absolute
+      width: 15px
+      top: 8px
+      left: calc(50% - 8px)
+  .file:after
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 16px
+    height: 16px
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, white 50%)
+    z-index: 1
+  .fEmtyTag
+    height: 19px
+  .ftag
+    display: block
+    vertical-align: center
+    background: #34C6A2
+    border-radius: 10px
+    font-size: 10px
+    color: white
+    padding: 1px 10px
+    height: 13px
+    max-width: 85%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    margin: 0 0 5px 0
+  .fname
+    display: block
+    max-width: 85%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    margin: 0 0 15px 0
+  .fileInfo
+    display: flex
+    justify-content: space-between
+    width: 95%
+    color: grey
+    font-size: 10px
+  .loadingWrap
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 86%
+    margin: 10px 0 0 0
+    .numberPercentage
+      margin: 0 0 10px 0
+      font-size: 14px
+    .statusBar
+      height: 15px
+      width: 100%
+      background: #F4F4F4
+      border-radius: 10px
+      .innerStatusBar
+        height: 100%
+        background: #4086F1
+        border-radius: 10px
+.fileBarChosen
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 175px
+  height: 185px
+  position: relative
+  z-index: 3
+  cursor: default
+  background: rgba(64, 134, 241, .1)
+  box-shadow: none
+.fileBarChosen .menu
+  background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+  box-shadow: none
+.fileBarChosen .menu:after
+  box-shadow: none
+  background: rgba(64, 134, 241, .1)
+.fileBarChosen .file:after
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.mainMenuItems
+  margin: 10px 0 20px 0
+.additionalMenuItems
+  margin: 0 0 10px 0
+.filePickBox
+  position: absolute
+  left: -20px
+  width: 15px
+  height: 15px
+  border: 1px solid rgb(182, 182, 182)
+  border-radius: 3px
+  cursor: pointer
+  box-sizing: border-box
+.filePickBoxPicked
+  border: none
+  background: rgb(64, 134, 241)

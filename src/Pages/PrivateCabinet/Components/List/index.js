@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './List.module.sass';
 
-const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, programms = false}) => {
+const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true}) => {
 
     return (
         <div className={`${styles.listWrap} ${listCollapsed ? styles.listWrapCollapsed : undefined}`}>
@@ -15,7 +15,7 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
                     alt='play'
                     onClick={() => setListCollapsed(!listCollapsed)}
                 />
-                    {!programms &&
+                    {!!icon &&
                     <img
                         className={styles.icon}
                         src={`./assets/PrivateCabinet/${src}`}

@@ -13,7 +13,8 @@ import {
     GET_RECENT_PROGRAMS,
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
-    GET_SAFES
+    GET_SAFES,
+    GET_DEVICES, GET_CONNECTED_CONTACTS
 } from '../types';
 
 const INITIAL_STATE = {
@@ -34,7 +35,11 @@ const INITIAL_STATE = {
     categories: [],
 
     //SAFE
-    safes: []
+    safes: [],
+
+    //DEVICES
+    devices: [],
+    connectedContacts: [],
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -81,8 +86,15 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_CATEGORIES:
             return {...state, categories: action.payload}
 
+        //SAFE
         case GET_SAFES:
             return {...state, safes: action.payload}
+
+        //DEVICES
+        case GET_DEVICES:
+            return {...state, devices: action.payload}
+        case GET_CONNECTED_CONTACTS:
+            return {...state, connectedContacts: action.payload}
 
         default:
             return state;
