@@ -13,7 +13,7 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
     const set = () => setFilePreview({...filePreview, view: false, file: null});
     const [previewReq, setPreviewReq] = useState({sent: false, data: null});
 
-    const previewTypes = ['application/msword'];
+    const previewTypes = ['application/msword', 'application/excel'];
     const getPreview = () => {
         if(!previewReq.sent) {
             setPreviewReq({...previewReq, sent: true})
