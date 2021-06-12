@@ -38,6 +38,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: ''},
@@ -80,7 +81,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 key={i}
                 file={file}
                 setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
+                chosen={filePick.show ? filePick.files.findIndex(el => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 setFilePreview={setFilePreview}
@@ -90,6 +91,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             />
         });
     };
+
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -131,7 +133,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 filePick={filePick}
                 setFilePick={setFilePick}
                 actionName={'Редактировать'}
-                setAction={setAction}
+                setAction={nullifyFilePick}
             /> : null}
             <BottomPanel />
         </div>
@@ -146,7 +148,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
             info={chosenFolder}
             file={chosenFile}
-            close={nullifyAction}
+            // TODO - Check Cancellation for FilePick
+            close={filePick.customize ? nullifyFilePick : nullifyAction}
             filePick={filePick}
             setFilePick={setFilePick}
         /> : null}

@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
-const WorkBars = ({children, fileSelect, filePick}) => {
+const WorkBars = ({children, fileSelect, filePick, setFilePick}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
 

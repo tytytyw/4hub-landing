@@ -1,29 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 
 const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
 
-    const [picked, setPicked] = useState(false);
-    const onPickFile = (e) => {
-        e.stopPropagation();
-        setPicked(!picked);
-        if(!picked === true) {
-            setFilePick({...filePick, files: [...filePick.files, file.fid]});
-        } else {
-            const files = filePick.files.filter(el => el !== file.fid);
-            setFilePick({...filePick, files});
+    const onPickFile = () => {
+        if(filePick.show) {
+            const isPicked = filePick.files.filter(el => el === file.fid);
+            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
     }
-
-    useEffect(() =>{if(filePick.show === false) setPicked(false)}, [filePick.show])
 
     return (
         <>
             <div
-                className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`} onClick={() => !isLoading ?
-                setChosenFile(file) : undefined}
+                className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}
+                onClick={() => {
+                    onPickFile();
+                    if(!isLoading) setChosenFile(file);
+                }}
                 onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
             >
                 <div
@@ -44,11 +40,6 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
                     <div>{file.size_now}</div>
                     <div>{file.mtime.split(' ')[0]}</div>
                 </div>
-                {filePick?.show ? <div
-                    className={`${styles.filePickBox} ${picked ? styles.filePickBoxPicked : ''}`}
-                    onClick={onPickFile}
-                    onDoubleClick={e => e.stopPropagation()}
-                /> : null}
             </div>
         </>
     )
