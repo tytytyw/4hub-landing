@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import api from '../../../../api';
 import styles from './WorkSpace.module.sass';
 import SearchField from '../SearchField';
 import StorageSize from '../StorageSize';
@@ -19,7 +20,7 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles, onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
@@ -33,6 +34,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
+    const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
@@ -49,7 +51,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
-        {type: 'intoZip', name: '', text: ``, callback: ''},
+        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: '', text: ``, callback: ''},
@@ -58,6 +60,12 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
     const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
+
+    const intoZIP = () => {
+        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${chosenFile.fid}&dir=${fileList.path}`)
+            .then(res => dispatch(onChooseFiles(fileList.path)))
+            .catch(err => console.log(err));
+    }
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
