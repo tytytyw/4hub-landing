@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../../../api';
+import {previewTypes} from '../../../../generalComponents/collections';
 import styles from './WorkSpace.module.sass';
 import SearchField from '../SearchField';
 import StorageSize from '../StorageSize';
@@ -26,7 +27,6 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
-import {logDOM} from "@testing-library/react";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -55,7 +55,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => printFile()},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
         ];
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
@@ -68,8 +68,28 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             .catch(err => console.log(err));
     };
 
-    const printFile = () => {
-        console.log(chosenFile);
+    const checkMimeTypes = () => {
+        if(chosenFile.mime_type) {
+            if(chosenFile.mime_type === 'application/pdf') {
+                printFile(`${chosenFile.preview}`);
+            } else {
+                const chosenType = previewTypes.filter(type => type === chosenFile.mime_type);
+                if(chosenType.length > 0) {
+                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${chosenFile.fid}`)
+                        .then(res => printFile(res.data.file_pdf))
+                        .catch(err => console.log(err));
+                }
+            }
+        }
+    };
+
+    const printFile = (path) => {
+            let pri = document.getElementById('frame');
+            pri.src = `https://fs2.mh.net.ua/${path}`;
+            setTimeout(() => {
+                pri.contentWindow.focus();
+                pri.contentWindow.print();
+            }, 1000);
     };
 
     const renderMenuItems = (target, type) => {
@@ -170,6 +190,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         </form>
+        <iframe
+            style={{display: 'none'}}
+            title={'print'}
+            frameBorder='0'
+            scrolling='no'
+            id='frame'
+        />
     </>)
 }
 
