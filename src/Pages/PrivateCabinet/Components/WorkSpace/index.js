@@ -26,6 +26,7 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
+import {logDOM} from "@testing-library/react";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -54,7 +55,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: '', text: ``, callback: ''},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => printFile()},
         ];
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
@@ -65,7 +66,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         api.post(`/ajax/file_zip.php?uid=${uid}&fid=${chosenFile.fid}&dir=${fileList.path}`)
             .then(res => dispatch(onChooseFiles(fileList.path)))
             .catch(err => console.log(err));
-    }
+    };
+
+    const printFile = () => {
+        console.log(chosenFile);
+    };
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
