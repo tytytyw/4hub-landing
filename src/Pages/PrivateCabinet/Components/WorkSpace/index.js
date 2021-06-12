@@ -36,6 +36,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
+    //TODO - Need to add to different file views
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
