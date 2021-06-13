@@ -12,6 +12,7 @@ import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 import {onDeleteFile, onAddRecentFiles, onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
@@ -31,6 +32,8 @@ const MyFiles = ({
 	const [filePick, setFilePick] = useState({show: false, files: []});
 	const [mouseParams, setMouseParams] = useState(null);
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [successMessage, setSuccessMessage] = useState('');
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
@@ -38,10 +41,10 @@ const MyFiles = ({
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
-        {type: 'copyLink', name: '', text: ``, callback: (list, index) => setShowLinkCopy(true)},
+        {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
-        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
+        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
@@ -110,7 +113,18 @@ const MyFiles = ({
 		});
 	};
 	const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
-
+	const archiveFile = () => {
+		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
+        .then(res => {
+			if (res.data.ok === 1) {
+				dispatch(onDeleteFile(chosenFile))
+				setSuccessMessage('Файл добавлен в архив')
+				setShowSuccessMessage(true)
+			} else console.log(res?.error)
+		})
+        .catch(err => console.log(err))
+		.finally(() => {nullifyAction(); setChosenFile(null)})
+	};
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 	const renderMenuItems = (target, type) => {
 		return target.map((item, i) => {
@@ -173,6 +187,7 @@ const MyFiles = ({
 				setFilePick={setFilePick}
 				setShowLinkCopy ={setShowLinkCopy}
 				showLinkCopy={showLinkCopy}
+				archiveFile={archiveFile}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
@@ -195,6 +210,7 @@ const MyFiles = ({
                 title='Создайте пароль для Сейфа с паролями'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+			{showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
 		</div>
 		
 	);

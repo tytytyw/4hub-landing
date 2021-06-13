@@ -49,7 +49,8 @@ const WorkSpace = ({
 	filePick,
 	setFilePick,
 	showLinkCopy,
-	setShowLinkCopy
+	setShowLinkCopy,
+	archiveFile
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -188,6 +189,19 @@ const WorkSpace = ({
 			) : null}
 			{action.type === "resend" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+			) : null}
+			{action.type === "archive" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={archiveFile}
+					approve={"Архивировать"}
+				>
+					<div className={styles.fileActionWrap}>
+						<File format={chosenFile?.ext} color={chosenFile?.color} />
+					</div>
+				</ActionApproval>
 			) : null}
 			{showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
 		</>
