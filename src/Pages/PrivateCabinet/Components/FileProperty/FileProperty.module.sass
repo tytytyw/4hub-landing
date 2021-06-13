@@ -1,0 +1,90 @@
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 530px
+    height: 720px
+    opacity: 0
+
+.propertiesWrap
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 500px
+  height: 588px
+  cursor: default
+  position: relative
+  box-sizing: border-box
+  animation: showPopup 0.2s ease-in-out
+  .cross
+    position: absolute
+    top: 16px
+    right: 7px
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .title
+    font-size: 19px
+    font-family: "SF Pro Medium", sans-serif
+    margin: 35px 0 40px 0
+  .insetWrap
+    display: flex
+    width: 85%
+    .inset
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 12px
+      border-radius: 10px
+      padding: 5px 15px
+      margin: 0 2px 0 0
+      cursor: pointer
+    .inset:hover
+      background: rgba(234, 241, 252, 0.5)
+    .chosen
+      background: rgb(234, 241, 252)
+    .chosen:hover
+      background: rgb(234, 241, 252)
+  .buttonsWrap
+    display: flex
+    width: 290px
+    justify-content: space-between
+    div
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 140px
+      height: 39px
+      border-radius: 5px
+      cursor: pointer
+      font-size: 14px
+    .cancel
+      background: #e3e3e3
+      border: 1px solid #e9e9e9
+      color: grey
+    .cancel:hover
+      background: #fc7a7a
+      color: white
+    .buttonDisabled
+      background: #e3e3e3
+      border: 1px solid #e9e9e9
+      color: grey
+      cursor: default
+    .add
+      background: #477DE1
+      border: 1px solid #477DE1
+      color: white
+    .add:hover
+      background: #3b6dcb

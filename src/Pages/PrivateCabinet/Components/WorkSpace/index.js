@@ -27,6 +27,7 @@ import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
+import FileProperty from "../FileProperty";
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -53,7 +54,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
-        {type: 'info', name: '', text: ``, callback: ''},
+        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
         ];
@@ -187,6 +188,12 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             filePick={filePick}
             setFilePick={setFilePick}
         /> : null}
+        {action.type === 'properties'
+            ? <FileProperty
+                close={nullifyAction}
+                file={chosenFile}
+            />
+            : null}
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         </form>
