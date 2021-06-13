@@ -21,6 +21,7 @@ import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
+import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 
 const WorkSpace = ({
 	setBlob,
@@ -44,15 +45,13 @@ const WorkSpace = ({
 	filePreview,
 	fileSelect,
 	fileLoading,
+	filePick,
+	setFilePick,
+	showLinkCopy,
+	setShowLinkCopy
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
-    const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
-	
-
-	useEffect(() => {
-        if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
-    }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -131,13 +130,12 @@ const WorkSpace = ({
 					></WorkLinesPreview>
 				) : null}
 
-				{filePick.show ? (
-					<OptionButtomLine
-						filePick={filePick}
-						actionName={"Редактировать"}
-						setAction={setAction}
-					/>
-				) : null}
+				{filePick.show ? <OptionButtomLine
+                filePick={filePick}
+                setFilePick={setFilePick}
+                actionName={'Редактировать'}
+                setAction={setAction}
+            /> : null}
 				<BottomPanel />
 			</div>
 			{mouseParams !== null ? (
@@ -167,19 +165,23 @@ const WorkSpace = ({
 					</div>
 				</ActionApproval>
 			) : null}
-			{action.type === "customize" ? (
-				<CustomizeFile
-					title={action.name}
-					file={chosenFile}
-					close={nullifyAction}
-				/>
-			) : null}
+			{action.type === 'customize' || filePick.customize ? <CustomizeFile
+				title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
+				file={chosenFile}
+				close={nullifyAction}
+				filePick={filePick}
+				setFilePick={setFilePick}
+        	/> : null}
 			<form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             	<input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         	</form>
 			{action.type === "share" ? (
-				<ShareFile file={chosenFile} close={nullifyAction} />
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
 			) : null}
+			{action.type === "resend" ? (
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+			) : null}
+			{showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
 		</>
 	);
 };

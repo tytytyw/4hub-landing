@@ -19,6 +19,7 @@ import Settings from './Components/MyProfile/settings'
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
+    const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
@@ -44,7 +45,7 @@ const PrivateCabinet = () => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        const files = [...e.target.files].map(file => {return {file, options: {}}});
+        const files = [...e.target.files].map(file => {return {file, options: {filePath: path}}});
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };

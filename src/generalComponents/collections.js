@@ -69,3 +69,4 @@ export const contextMenuSubFolder = {
     ],
     additional: []
 }
+export const previewTypes = ['application/msword', 'application/excel'];
