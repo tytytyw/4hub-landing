@@ -1,13 +1,10 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
 
 import styles from './ContactItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
 const ContactItem = ({ contact, chosenContact, setChosenContact, active, setMouseParams }) => {
-
-    const dispatch = useDispatch()
 
     return (
         <>

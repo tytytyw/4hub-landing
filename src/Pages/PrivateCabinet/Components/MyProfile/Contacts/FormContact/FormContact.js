@@ -8,12 +8,12 @@ import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.sv
 
 import AddSocials from './AddSocials'
 import PopUp from '../../../../../../generalComponents/PopUp'
-import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
+import ProfileUpload from '../../UserForm/ProfileUpload'
 import Calendar from '../../../../../StartPage/Components/Calendar'
-import Button from '../../Button/Button'
+import Button from '../../Button'
 
 import {messengersIcons, socialsIcons} from '../consts'
-import Input from '../../Input/Input'
+import Input from '../../Input'
 import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'

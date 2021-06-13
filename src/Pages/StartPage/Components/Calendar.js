@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import styles from './Calendar.module.sass'
 import {areEqual, daysOfWeeks, generateCalendar, getDate, months} from '../../../generalComponents/CalendarHelper'
-import Select from "./Select"
+import Select from '../../../generalComponents/Select/Select'
 
 const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 
@@ -72,7 +72,7 @@ const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 
     const getYears = () => {
         const years = []
-        for (var i = (new Date()).getFullYear(); i >= 1920; i--) {
+        for (let i = (new Date()).getFullYear(); i >= 1920; i--) {
             years.push({id: i, text: i})
         }
         return years

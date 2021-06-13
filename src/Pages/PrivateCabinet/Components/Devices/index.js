@@ -21,23 +21,21 @@ const Devices = ({
 }) => {
 
     const dispatch = useDispatch()
-    const devices = useSelector(state => state.PrivateCabinet.devices);
-    const connectedContacts = useSelector(state => state.PrivateCabinet.connectedContacts)
+    const devices = useSelector(state => state.PrivateCabinet.devices)
 
-    const [chosenDevice, setChosenDevice] = useState(null);
-    const [chosenContact, setChosenContact] = useState(null);
+    const [chosenDevice, setChosenDevice] = useState(null)
+    const [chosenContact, setChosenContact] = useState(null)
 
-    const [listCollapsed, setListCollapsed] = useState('');
-    const [newFolder, setNewFolder] = useState(false);
+    const [listCollapsed, setListCollapsed] = useState('')
+    const [newFolder, setNewFolder] = useState(false)
 
-    const [chosenFolder, setChosenFolder] = useState('');
+    const [chosenFolder, setChosenFolder] = useState('')
 
-    const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const [safePassword, setSafePassword] = useState({open: false});
-    const [chosenFile, setChosenFile] = useState(null);
-    const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
-    const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
+    const [safePassword, setSafePassword] = useState({open: false})
+    const [chosenFile, setChosenFile] = useState(null)
+    const [mouseParams, setMouseParams] = useState(null)
+    const [action, setAction] = useState({type: '', name: '', text: ''})
 
     //Clear action on change folder
     useEffect(() => {

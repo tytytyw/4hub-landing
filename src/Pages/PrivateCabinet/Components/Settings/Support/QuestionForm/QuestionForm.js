@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 
 import styles from './QuestionForm.module.sass'
 import Input from '../../Input/Input'
-import Form from '../../Form/Form'
 import Textarea from '../../Textarea/Textarea'
 import {useInput} from '../../Input/validation'
 import Button from '../../Button/Button'
@@ -30,7 +29,7 @@ const QuestionForm = () => {
     return (
         <div className={styles.wrapper}>
 
-            <Form noValidate onSubmit={onSubmit}>
+            <form noValidate onSubmit={onSubmit}>
                 <div className={styles.fields}>
 
                     <div className={styles.row}>
@@ -85,7 +84,7 @@ const QuestionForm = () => {
                     </div>
 
                 </div>
-            </Form>
+            </form>
 
         </div>
     )

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import styles from './TariffPlan.module.sass'
-import Button from '../Button/Button'
-import TariffCard from './TariffCard/TariffCard'
+import Button from '../Button'
+import TariffCard from './TariffCard'
 
 const data = [
     {

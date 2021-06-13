@@ -12,10 +12,6 @@ import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/s
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import classNames from "classnames";
 
-var array = {
-    1: ''
-};
-
 
 const ServePanel = ({blob, setBlob, listSize, setListSize, view, setView, chosenFile, setAction, fileSelect}) => {
 

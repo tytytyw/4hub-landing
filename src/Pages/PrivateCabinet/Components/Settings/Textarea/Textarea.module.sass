@@ -1,0 +1,42 @@
+.inputWrap
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  position: relative
+
+  .textarea
+    box-sizing: border-box
+    min-height: 85px
+    resize: vertical
+    min-width: 237px
+    width: 100%
+    padding: 15px
+    border-radius: 5px
+    border: solid 1px #E3E3E3
+    background: #FFFFFF
+    color: #2B353E
+    font-size: 15px
+    line-height: 20px
+    font-weight: 500
+    &:focus
+      border: 1px solid #4086F1
+      outline: none
+
+  .label
+    color: #949494
+    font-size: 15px
+    font-family: "SF Pro Light"
+    line-height: 20px
+    letter-spacing: -0.08px
+    margin-bottom: 5px
+
+  .eye
+    cursor: pointer
+    position: absolute
+    top: calc(47px / 2 + 18px)
+    right: 10px
+    width: 18px
+    height: 16px
+
+  .redBorder
+    border: 1px solid red

@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 import styles from './ConnectedContacts.module.sass'
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg'
-import CustomFolderItem from "../CustomFolderItem"
 import classNames from "classnames"
 import ContactItem from "../ContactItem";
 
 const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams}) => {
 
-    const dispatch = useDispatch()
     const connectedContacts = useSelector(state => state.PrivateCabinet.connectedContacts)
 
     const [collapse, setCollapse] = useState(true)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => setChosenContact(null), [collapse])
 
     const renderContacts = () => {

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="18px" height="21px" viewBox="0 0 18 21" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="notifications-button">
+    <path d="M8.98963 21C10.153 21 11.1048 20.055 11.1048 18.9L6.87442 18.9C6.87442 20.055 7.82627 21 8.98963 21ZM15.8641 14.7L15.8641 8.925C15.8641 5.67 13.6431 3.045 10.576 2.31L10.576 1.575C10.576 0.735 9.83571 0 8.98963 0C8.14355 0 7.40323 0.735 7.40323 1.575L7.40323 2.31C4.33618 3.045 2.11521 5.67 2.11521 8.925L2.11521 14.7L0 16.8L0 17.85L17.9793 17.85L17.9793 16.8L15.8641 14.7Z" transform="translate(0.010368664 0)" id="Shape" fill="#CFCFCF" stroke="none" />
+  </g>
+</svg>

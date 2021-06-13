@@ -22,9 +22,10 @@ const Profile = () => {
 
     const openProfile = () => history.replace('/personal-data');
     const openSupport = () => history.replace('/support');
+    const openSettings = () => history.replace('/settings');
 
     const additionalCallBacks = [exit];
-    const mainCallBacks = [openProfile, openSupport, '']
+    const mainCallBacks = [openProfile, openSupport, openSettings]
 
     const renderMenuItems = (target, arr) => {
         return target.map((item, i) => {

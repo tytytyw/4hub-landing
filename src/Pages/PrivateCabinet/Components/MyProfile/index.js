@@ -10,34 +10,19 @@ import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
-import UserForm from './UserForm/UserForm'
+import UserForm from './UserForm'
 import BottomPanel from '../ButtomPanel'
-import classnames from 'classnames'
-import Support from './Support/Support'
-import TariffPlan from './TariffPlan/TariffPlan'
-import Contacts from './Contacts/Contacts'
-import Programs from './Programs/Programs'
+import Support from './Support'
+import TariffPlan from './TariffPlan'
+import Contacts from './Contacts'
+import Programs from './Programs'
 import TellFriend from './TellFriends/TellFriend'
-
-const MyButton = ({ onClick = () => {}, active = false, ...props }) => (
-    <button
-        onClick={onClick}
-        className={classnames({
-            [styles.button]: true,
-            [styles.active]: active
-        })}
-    >
-        {props.text} {props.icon &&
-        <span className={styles.buttonIcon}>
-            {props.icon}
-        </span>}
-    </button>
-)
+import PrimaryButton from './PrimaryButton'
 
 const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
 
     const dispatch = useDispatch()
-    const [pageOption, setPageOption] = useState()
+    const [pageOption, setPageOption] = useState(null)
     const [popup, setPopup] = useState(false)
 
     useEffect(() => {
@@ -64,33 +49,33 @@ const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
 
                 <div className={styles.buttons}>
                     <div className={styles.buttonsList}>
-                        <MyButton
+                        <PrimaryButton
                             text='Личные данные'
                             active={pageOption === 'personal_data'}
                             onClick={() => setPageOption('personal_data')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Служба поддержки'
                             active={pageOption === 'support'}
                             onClick={() => setPageOption('support')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Тарифный план'
                             active={pageOption === 'tariff_plan'}
                             onClick={() => setPageOption('tariff_plan')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Контакты'
                             active={pageOption === 'contacts'}
                             onClick={() => setPageOption('contacts')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Подключенные прораммы'
                             active={pageOption === 'programs'}
                             onClick={() => setPageOption('programs')}
                         />
                         <div className={styles.buttonsRight}>
-                            <MyButton
+                            <PrimaryButton
                                 text='Рассказать друзьям'
                                 icon={<UploadIcon/>}
                                 alt='Upload'
