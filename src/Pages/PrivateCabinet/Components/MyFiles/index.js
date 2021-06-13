@@ -6,11 +6,10 @@ import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
 import WorkSpace from "./WorkSpace/index";
-import { onChooseFiles } from "../../../../Store/actions/PrivateCabinetActions";
 import CreateFile from "../CreateFile";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
-import { onDeleteFile } from "../../../../Store/actions/PrivateCabinetActions";
+import {onDeleteFile, onAddRecentFiles, onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 
@@ -34,6 +33,7 @@ const MyFiles = ({
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -109,11 +109,8 @@ const MyFiles = ({
 			);
 		});
 	};
-	const deleteFile = () => {
-		fileDelete(chosenFile, dispatch, onDeleteFile);
-		nullifyAction();
-		setChosenFile(null);
-	};
+	const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
+
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 	const renderMenuItems = (target, type) => {
 		return target.map((item, i) => {
@@ -162,6 +159,7 @@ const MyFiles = ({
 				action={action}
 				setAction={setAction}
 				nullifyAction={nullifyAction}
+				nullifyFilePick={nullifyFilePick}
 				chosenFile={chosenFile}
 				setChosenFile={setChosenFile}
 				callbackArrMain={callbackArrMain}

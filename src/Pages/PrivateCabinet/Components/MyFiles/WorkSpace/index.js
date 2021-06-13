@@ -38,6 +38,7 @@ const WorkSpace = ({
 	action,
 	setAction,
 	nullifyAction,
+	nullifyFilePick,
 	callbackArrMain,
 	additionalMenuItems,
 	deleteFile,
@@ -62,7 +63,7 @@ const WorkSpace = ({
 					key={i}
 					file={file}
 					setChosenFile={setChosenFile}
-					chosen={chosenFile?.fid === file?.fid}
+					chosen={filePick.show ? filePick.files.findIndex(el => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
 					setMouseParams={setMouseParams}
 					setAction={setAction}
 					filePreview={filePreview}
@@ -168,7 +169,7 @@ const WorkSpace = ({
 			{action.type === 'customize' || filePick.customize ? <CustomizeFile
 				title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
 				file={chosenFile}
-				close={nullifyAction}
+				close={filePick.customize ? nullifyFilePick : nullifyAction}
 				filePick={filePick}
 				setFilePick={setFilePick}
         	/> : null}
