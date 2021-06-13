@@ -175,6 +175,13 @@ const WorkSpace = ({
 			<form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             	<input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         	</form>
+			<iframe
+				style={{display: 'none'}}
+				title={'print'}
+				frameBorder='0'
+				scrolling='no'
+				id='frame'
+        />
 			{action.type === "share" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
 			) : null}

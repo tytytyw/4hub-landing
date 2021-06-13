@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import api from '../../../../api';
+import {previewTypes} from '../../../../generalComponents/collections';
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -16,6 +18,7 @@ const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
 			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile
 }) => {
+	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
@@ -42,7 +45,7 @@ const MyFiles = ({
         {type: 'intoZip', name: '', text: ``, callback: ''},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: '', text: ``, callback: ''},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
         ];
 	const additionalMenuItems = [
 		{
@@ -52,6 +55,28 @@ const MyFiles = ({
 			callback: (list, index) => setAction(list[index])
 		},
 	];
+	const checkMimeTypes = () => {
+        if(chosenFile.mime_type) {
+            if(chosenFile.mime_type === 'application/pdf') {
+                printFile(`${chosenFile.preview}`);
+            } else {
+                const chosenType = previewTypes.filter(type => type === chosenFile.mime_type);
+                if(chosenType.length > 0) {
+                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${chosenFile.fid}`)
+                        .then(res => printFile(res.data.file_pdf))
+                        .catch(err => console.log(err));
+                }
+            }
+        }
+    };
+	const printFile = (path) => {
+		let pri = document.getElementById('frame');
+		pri.src = `https://fs2.mh.net.ua/${path}`;
+		setTimeout(() => {
+			pri.contentWindow.focus();
+			pri.contentWindow.print();
+		}, 1000);
+	};
 	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
 		if (!fileList?.files) return null;
