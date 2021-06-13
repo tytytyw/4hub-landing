@@ -26,7 +26,7 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid}) => {
                 setHrefSoc('')
             //TODO: skype, slack
         }
-    },[selectedSoc])
+    },[selectedSoc]) // eslint-disable-line react-hooks/exhaustive-deps
     
 
     return (

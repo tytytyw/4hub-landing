@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 import styles from "./StoragePeriod.module.sass";
@@ -91,7 +91,7 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 					<span className={styles.from}>C</span>
 					<input className={styles.date} value={curretDate} type="text" disabled></input>
 					<span className={styles.to}>До</span>
-					<input className={styles.date} type="text" value={dateValue} placeholder='_ _._ _._ _ _ _'  onChange={(e) => onDateChange(e)} value={dateValue} />
+					<input className={styles.date} type="text" value={dateValue} placeholder='_ _._ _._ _ _ _'  onChange={(e) => onDateChange(e)} />
 					<span
 						className={styles.open_calendar}
 						onClick={() => setShowCalendar(true)}

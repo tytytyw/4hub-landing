@@ -17,7 +17,7 @@ function CopyLink({ fid, setShowLinkCopy }) {
     useEffect(() => {
         copyText()
         setTimeout(() => setShowLinkCopy(false), 3000)
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className={styles.wrap}>
