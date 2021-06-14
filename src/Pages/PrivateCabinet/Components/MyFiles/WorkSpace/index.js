@@ -22,6 +22,8 @@ import CustomizeFile from "../../CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
+import CreateZip from '../../CreateZip';
+
 
 const WorkSpace = ({
 	setBlob,
@@ -50,7 +52,8 @@ const WorkSpace = ({
 	setFilePick,
 	showLinkCopy,
 	setShowLinkCopy,
-	archiveFile
+	archiveFile,
+	chosenFolder
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -174,6 +177,14 @@ const WorkSpace = ({
 				filePick={filePick}
 				setFilePick={setFilePick}
         	/> : null}
+			{action.type === 'intoZip'
+            ? <CreateZip
+                close={nullifyAction}
+                file={chosenFile}
+                title={action.name}
+                info={chosenFolder}
+            />
+            : null}
 			<form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             	<input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         	</form>

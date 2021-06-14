@@ -45,7 +45,7 @@ const MyFiles = ({
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
+        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
@@ -80,11 +80,6 @@ const MyFiles = ({
 			pri.contentWindow.print();
 		}, 1000);
 	};
-	const intoZIP = () => {
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${chosenFile.fid}&dir=${fileList.path}`)
-            .then(res => dispatch(onChooseFiles(fileList.path)))
-            .catch(err => console.log(err));
-    };
 	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
 		if (!fileList?.files) return null;
