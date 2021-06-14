@@ -18,6 +18,12 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect}) => {
     const size = useSelector(state => state.PrivateCabinet.size);
     const dispatch = useDispatch();
 
+    const changeSize = (s) => {
+        const sizes = ['small', 'medium', 'big'];
+        if(s === sizes[sizes.length - 1]) return sizes[0]
+        return sizes[sizes.indexOf(s) + 1];
+    }
+
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -29,8 +35,14 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect}) => {
                 </div>
                 <div className={styles.filterPanel}>
                     <div
-                        onClick={() => dispatch(onSetFileSize('medium'))}
-                        className={`${styles.iconView} ${styles.iconSize}`}
+                        onClick={() => dispatch(onSetFileSize(changeSize(size)))}
+                        className={`
+                            ${styles.iconView} 
+                            ${styles.iconSize} 
+                            ${size === 'small' ? styles.samllSize : null} 
+                            ${size === 'medium' ? styles.mediumSize : null} 
+                            ${size === 'big' ? styles.bigSize : null} 
+                        `}
                     ><FileSize className={styles.iconSVG} /></div>
                     <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span className={styles.chooseButton}>Выбрать</span>
