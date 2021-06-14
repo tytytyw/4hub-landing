@@ -4,14 +4,15 @@ import styles from './ContactItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
-const ContactItem = ({ contact, chosenContact, setChosenContact, active, setMouseParams }) => {
+const ContactItem = ({ contact, chosenContact, setChosenContact, setMouseParams, listSize }) => {
 
     return (
         <>
             <div
                 className={classNames({
                     [styles.wrapper]: true,
-                    [styles.wrapperChosen]: chosenContact === contact.id
+                    [styles.wrapperChosen]: chosenContact === contact.id,
+                    [styles?.[`wrapper_${listSize}`]]: !!listSize
                 })}
                 onClick={() => setChosenContact(contact.id)}
             >

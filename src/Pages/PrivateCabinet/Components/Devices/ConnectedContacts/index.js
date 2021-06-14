@@ -6,7 +6,7 @@ import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/p
 import classNames from "classnames"
 import ContactItem from "../ContactItem";
 
-const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams}) => {
+const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams, listSize}) => {
 
     const connectedContacts = useSelector(state => state.PrivateCabinet.connectedContacts)
 
@@ -18,6 +18,8 @@ const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setM
     const renderContacts = () => {
       return connectedContacts.map((contact, index) => {
           return <ContactItem
+              listSize={listSize}
+
               key={index}
               contact={contact}
               active={contact?.active}

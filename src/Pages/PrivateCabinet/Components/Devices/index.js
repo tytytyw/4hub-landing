@@ -29,6 +29,7 @@ const Devices = ({
     const [listCollapsed, setListCollapsed] = useState('')
     const [newFolder, setNewFolder] = useState(false)
 
+    const [listSize, setListSize] = useState('md')
     const [chosenFolder, setChosenFolder] = useState('')
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
@@ -46,13 +47,14 @@ const Devices = ({
 
     const renderDevicesList = () => {
         if(!devices) return null;
-        return devices.map((el, i) => {
+        return devices.map((dev, i) => {
             return <DeviceItem
-                key={i + el.name}
-                device={el}
-                setChosenDevice={setChosenDevice}
-                chosenDevice={chosenDevice}
+                key={i + dev.name}
+                device={dev}
+                listSize={listSize}
+                chosen={chosenDevice === dev.id}
                 setMouseParams={setMouseParams}
+                onClick={() => setChosenDevice(dev.id)}
             />
         })
     };
@@ -89,6 +91,8 @@ const Devices = ({
                 <div className={styles.folderListWrap}>
                     {renderDevicesList()}
                     <ConnectedContacts
+                        listSize={listSize}
+
                         setChosenContact={setChosenContact}
                         chosenContact={chosenContact}
 
@@ -101,6 +105,9 @@ const Devices = ({
                 </div>
             </List>
             <WorkSpace
+                listSize={listSize}
+                setListSize={setListSize}
+
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}

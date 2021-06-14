@@ -11,6 +11,7 @@
   transition: background 0.5s ease-in-out
 .wrapperChosen
   background: rgba(64, 134, 241, 0.1)
+
 .wrapper
   display: flex
   justify-content: space-between
@@ -22,17 +23,21 @@
     display: flex
     align-items: center
     color: #7c7a7a
-    .titleImg
-      width: 40px
-      text-align: center
-    .icon
-      margin: 0 11px 0 0
-    span
-      font-family: "SF Pro Light", sans-serif
-      font-size: 13px
-      animation: showText 0.2s ease-in-out
-    .title
-      margin: 0 10px 0 0
+  .titleImg
+    width: 25px
+    margin-right: 10px
+    display: flex
+    justify-content: center
+    align-items: center
+    img
+      transform: scale(1.2)
+
+  .title
+    font-family: "SF Pro Light", sans-serif
+    font-size: 14px
+    animation: showText 0.2s ease-in-out
+    margin: 0 10px 0 0
+
   .functionWrap
     display: flex
     align-items: center
@@ -48,6 +53,41 @@
       transition: fill 0.2s ease
     .revert
       transform: rotateZ(90deg)
+
+
+.wrapper_sm
+  .titleImg
+    margin-right: 8px
+    width: 25px
+    height: 25px
+    img
+      transform: scale(1)
+  .title
+    font-size: 13px
+
+
+.wrapper_md
+  .titleImg
+    margin-right: 12px
+    width: 30px
+    height: 30px
+    img
+      transform: scale(1.2)
+  .title
+    font-size: 14px
+
+
+.wrapper_lg
+  .titleImg
+    margin-right: 9px
+    width: 42px
+    height: 42px
+    img
+      transform: scale(1.4)
+  .title
+    font-size: 15px
+
+
 .menuWrap
   display: flex
   width: 20px

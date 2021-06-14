@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import styles from './ShareToMessengers.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabinet/sms.svg'
-import Button from '../../../MyProfile/Button/Button'
+import Button from '../../../MyProfile/Button'
 import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 
