@@ -57,7 +57,6 @@ const CreateZip = ({ close, title, file }) => {
         }
     };
 
-    // TODO - Need to add extra params to api
     const onAddFileToZip = () => {
 
         const name = `&fName=${name}` ? name : '';

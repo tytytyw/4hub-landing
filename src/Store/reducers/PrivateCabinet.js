@@ -14,7 +14,9 @@ import {
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_SAFES,
-    GET_DEVICES, GET_CONNECTED_CONTACTS
+    GET_DEVICES,
+    GET_CONNECTED_CONTACTS,
+    SET_SIZE,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -26,6 +28,7 @@ const INITIAL_STATE = {
     recentFolders: null,
     recentFiles: null,
     chosenRecentFile: null,
+    size: 'small',
 
     //PROGRAMS
     programFolders: [],
@@ -72,6 +75,8 @@ export default function startPage(state = INITIAL_STATE, action) {
             });
             return {...state, fileList: {...state.fileList, files}}
         }
+        case SET_SIZE:
+            return {...state, size: action.payload}
 
 
         // PROGRAMS

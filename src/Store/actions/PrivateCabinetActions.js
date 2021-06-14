@@ -15,7 +15,10 @@ import {
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_PROGRAMS,
-    GET_SAFES, GET_DEVICES, GET_CONNECTED_CONTACTS,
+    GET_SAFES,
+    GET_DEVICES,
+    GET_CONNECTED_CONTACTS,
+    SET_SIZE,
 } from '../types';
 
 const folders = [
@@ -81,7 +84,7 @@ export const onDeleteFile = (file) => {
         type: FILE_DELETE,
         payload: file
     }
-}
+};
 
 export const onGetContacts = () => async (dispatch, getState) => {
 
@@ -105,7 +108,7 @@ export const onGetContacts = () => async (dispatch, getState) => {
             console.log(error)
         })
 
-}
+};
 
 export const onAddRecentFolders = () => async (dispatch, getState) => {
 
@@ -124,7 +127,7 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
             })
         })
         .catch(err => console.log(err))
-}
+};
 
 export const onAddRecentFiles = () => async (dispatch, getState) => {
 
@@ -136,21 +139,21 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
             })
         })
         .catch(err => console.log(err));
-}
+};
 
 export const onChooseRecentFile = (file) => {
     return{
         type: CHOOSE_RECENT_FILES,
         payload: file
     }
-}
+};
 
 export const onCustomizeFile = (file) => {
     return{
         type: CUSTOMIZE_FILE,
         payload: file
     }
-}
+};
 
 
 //SAFE
@@ -185,7 +188,7 @@ export const onGetSafes = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 
 // PROGRAMS
@@ -240,7 +243,7 @@ export const onGetProgramFolders = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 export const onGetRecentPrograms = () => async (dispatch, getState) => {
     dispatch({
@@ -262,7 +265,7 @@ export const onGetRecentPrograms = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 export const onGetTopListPrograms = () => async (dispatch, getState) => {
     dispatch({
@@ -306,7 +309,7 @@ export const onGetTopListPrograms = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 export const onGetCategories = () => async (dispatch, getState) => {
     dispatch({
@@ -349,7 +352,7 @@ export const onGetCategories = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 export const onGetPrograms = (folderId) => async (dispatch, getState) => {
     dispatch({
@@ -417,7 +420,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 
 
@@ -455,7 +458,7 @@ export const onGetDevices = () => async (dispatch, getState) => {
             },
         ]
     })
-}
+};
 
 
 export const onGetConnectedContacts = () => async (dispatch, getState) => {
@@ -488,4 +491,11 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
             }
         ]
     })
+};
+
+export const onSetFileSize = (size) => {
+    return {
+        type: SET_SIZE,
+        payload: size
+    }
 }

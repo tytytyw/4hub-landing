@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="10px" viewBox="0 0 12 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 25</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6,13-Мои-папки-(-общая-папка-)-Мал" transform="translate(-787.000000, -186.000000)" fill="#B6B6B6">
+            <g id="Group-25" transform="translate(787.000000, 186.000000)">
+                <path d="M2,1 C2,0.44771525 2.44771525,1.01453063e-16 3,0 L11,0 C11.5522847,-1.01453063e-16 12,0.44771525 12,1 L12,9 C12,9.55228475 11.5522847,10 11,10 L8,10 L8,4 C8,3.44771525 7.55228475,3 7,3 L7,3 L2,3 L2,1 Z" id="Combined-Shape"></path>
+                <path d="M1,4.55555556 C1,4.24873069 1.24873069,4 1.55555556,4 L6.44444444,4 C6.75126931,4 7,4.24873069 7,4.55555556 L7,9.44444444 C7,9.75126931 6.75126931,10 6.44444444,10 L4,10 L4,6.55555556 C4,6.24873069 3.75126931,6 3.44444444,6 L3.44444444,6 L1,6 L1,4.55555556 Z" id="Combined-Shape"></path>
+                <rect id="Combined-Shape" x="0" y="7" width="3" height="3" rx="0.555555556"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
