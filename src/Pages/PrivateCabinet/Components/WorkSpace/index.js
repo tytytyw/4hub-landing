@@ -29,6 +29,8 @@ import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import FileProperty from "../FileProperty";
 import CreateZip from '../CreateZip';
+import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
+
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -47,8 +49,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
 
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: ''},
-        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: ''},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
@@ -183,6 +185,12 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             filePick={filePick}
             setFilePick={setFilePick}
         /> : null}
+        {action.type === "share" ? (
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
+			) : null}
+			{action.type === "resend" ? (
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+			) : null}
         {action.type === 'properties'
             ? <FileProperty
                 close={nullifyAction}
