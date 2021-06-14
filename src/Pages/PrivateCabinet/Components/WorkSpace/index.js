@@ -180,7 +180,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
         {action.type === 'customize' || filePick.customize ? <CustomizeFile
-            title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
+            title={filePick.customize ? `Редактировать выбранные файлы` : action.name }
             info={chosenFolder}
             file={chosenFile}
             // TODO - Check Cancellation for FilePick
