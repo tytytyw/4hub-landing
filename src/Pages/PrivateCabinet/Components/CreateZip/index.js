@@ -60,18 +60,15 @@ const CreateZip = ({ close, title, file }) => {
     // TODO - Need to add extra params to api
     const onAddFileToZip = () => {
 
-            const data = {
-                uid,
-                // fids: file.fid,
-                // fName: options.name,
-                // tag: options.tag,
-                // pass: options.password,
-                // color: options.color,
-                // symbol: options.symbol,
-                // emoji: options.emoji,
-            };
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}`)
-                .then(res => dispatch(onChooseFiles(fileList.path)))
+        const name = `&fName=${name}` ? name : '';
+        const tag = `&tag=${tagOption.chosen}` ? tagOption.chosen : '';
+        const pass = password && passwordCoincide ? `&pass=${password}` : '';
+        const color = `&color=${color}`;
+        const emoji = emoji ? `&emoji=${emoji}` : '';
+        const symbol = sign ? `&symbol=${sign}` : ''
+
+        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${name}${tag}${pass}${color}${emoji}${symbol}`)
+                .then(() => dispatch(onChooseFiles(fileList.path)))
                 .catch(() => setError(true));
     };
 
