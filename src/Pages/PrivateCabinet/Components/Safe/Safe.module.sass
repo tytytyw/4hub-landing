@@ -4,9 +4,19 @@
   height: 100%
   .folderListWrap::-webkit-scrollbar
     width: 0
-  .folderListWrap
+
+  .folderListWrap_sm
+    display: grid
+    grid-template-columns: repeat(auto-fill, calc(100% / 3))
+  .folderListWrap_md
     display: grid
     grid-template-columns: repeat(auto-fill, calc(100% / 2))
+  .folderListWrap_lg
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .folderListWrap
     width: 100%
     max-height: 100%
     overflow-x: hidden
@@ -33,7 +43,7 @@
     padding: 0 22px
     border-bottom: 1px solid #e5e5e5
     box-sizing: border-box
-    height: 67px
+    min-height: 67px
     span
       font-family: "SF Pro Bold", sans-serif
       font-size: 15px
@@ -51,9 +61,14 @@
       cursor: pointer
     .playButtonReverse
       transform: rotateZ(180deg)
+
   .children
-    padding: 0 15px
+    padding: 15px
     height: calc(100% - 67px)
+
+  .children_sm
+    padding: 5px
+
 .listWrapCollapsed
   min-width: 120px
   width: 120px

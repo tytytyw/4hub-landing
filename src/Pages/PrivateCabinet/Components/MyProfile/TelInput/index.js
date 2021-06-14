@@ -1,7 +1,7 @@
 import React from 'react'
-import Input from '../Input/Input'
+import Index from '../Input/Input'
 
-const TelInput = ({...props}) => {
+const Index = ({...props}) => {
 
     const onFocus = event => {
         /*const inp = event.target
@@ -47,7 +47,7 @@ const TelInput = ({...props}) => {
     }
 
     return (
-        <Input
+        <Index
             {...props}
             type='tel'
             onFocus={onFocus}
@@ -59,4 +59,4 @@ const TelInput = ({...props}) => {
     )
 }
 
-export default TelInput
+export default Index

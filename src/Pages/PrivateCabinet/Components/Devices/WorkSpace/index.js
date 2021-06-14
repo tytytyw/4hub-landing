@@ -17,11 +17,9 @@ import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
-import CustomizeFile from "../../CustomizeFile"
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
 
-const WorkSpace = ({
-                       setBlob, blob, chosenFile, setChosenFile,
+const WorkSpace = ({listSize, setListSize, chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
                        fileSelect, action, setAction
                    }) => {
@@ -114,8 +112,9 @@ const WorkSpace = ({
                 </div>
 
                 <ServePanel
-                    setBlob={setBlob}
-                    blob={blob}
+                    listSize={listSize}
+                    setListSize={setListSize}
+
                     setView={setWorkElementsView}
                     view={workElementsView}
                     chosenFile={chosenFile}
@@ -179,18 +178,6 @@ const WorkSpace = ({
                     <File format={chosenFile?.ext} color={chosenFile?.color}/>
                 </div>
             </ActionApproval>}
-{/*
-
-            {action.type === 'customize' || filePick.customize &&
-            <CustomizeFile
-                title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name}
-                info={chosenFolder}
-                file={chosenFile}
-                close={nullifyAction}
-                filePick={filePick}
-                setFilePick={setFilePick}
-            />}
-*/}
 
         </>)
 }

@@ -7,7 +7,7 @@ import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
 
-const Profile = ({setItem}) => {
+const Profile = () => {
 
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
@@ -22,9 +22,10 @@ const Profile = ({setItem}) => {
 
     const openProfile = () => history.replace('/personal-data');
     const openSupport = () => history.replace('/support');
+    const openSettings = () => history.replace('/settings');
 
     const additionalCallBacks = [exit];
-    const mainCallBacks = [openProfile, openSupport, '']
+    const mainCallBacks = [openProfile, openSupport, openSettings]
 
     const renderMenuItems = (target, arr) => {
         return target.map((item, i) => {

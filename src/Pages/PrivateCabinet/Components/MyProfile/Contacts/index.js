@@ -8,7 +8,7 @@ import FormContact from './FormContact/FormContact'
 import ContactsAll from './ContactsAll'
 import ContactsFav from './ContactsFav'
 
-const Contacts = () => {
+const Index = () => {
 
     const contacts = useSelector(state => state.PrivateCabinet.contactList)
 
@@ -58,4 +58,4 @@ const Contacts = () => {
     )
 }
 
-export default Contacts
+export default Index

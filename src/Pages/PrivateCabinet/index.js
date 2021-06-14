@@ -1,26 +1,26 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect, useRef, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
-import { onGetUserInfo } from '../../Store/actions/startPageAction';
-import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/PrivateCabinetActions';
-import styles from './PrivateCabinet.module.sass';
-import SideMenu from './Components/SideMenu';
-import MyFolders from './Components/MyFolders';
-import Safe from './Components/Safe';
-import Devices from './Components/Devices';
-import MyProfile from './Components/MyProfile';
-import MyFiles from './Components/MyFiles';
-import FileLoader from './Components/FileLoader';
-import Programs from "./Components/Programs";
+import { onGetUserInfo } from '../../Store/actions/startPageAction'
+import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/PrivateCabinetActions'
+import styles from './PrivateCabinet.module.sass'
+import SideMenu from './Components/SideMenu'
+import MyFolders from './Components/MyFolders'
+import Safe from './Components/Safe'
+import Devices from './Components/Devices'
+import MyProfile from './Components/MyProfile'
+import MyFiles from './Components/MyFiles'
+import FileLoader from './Components/FileLoader'
+import Programs from "./Components/Programs"
 
 import {Switch, Route, Redirect} from 'react-router'
+import Settings from './Components/MyProfile/settings'
 
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
-    const [menuItem, setItem] = useState('Мои папки');
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
@@ -68,21 +68,16 @@ const PrivateCabinet = () => {
 
                     <Route
                         path='/personal-data'
-                        render={() => <MyProfile
-                            menuItem={menuItem}
-                            setItem={setItem}
-                        />}
+                        component={MyProfile}
                         exact
                     />
 
                     <Route
                         path='/support'
-                        render={() => <MyProfile
-                            defaultPageOption='support'
-                            menuItem={menuItem}
-                            setItem={setItem}
-                        />}
+                        render={() => <MyProfile defaultPageOption='support' />}
                     />
+
+                    <Route path='/settings' component={Settings}/>
 
                     <Route
                         path='/folders'
@@ -123,7 +118,6 @@ const PrivateCabinet = () => {
                     <Route
                         path='/programs'
                         render={() => <Programs
-                            setItem={setItem}
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
                             fileSelect={fileSelect}

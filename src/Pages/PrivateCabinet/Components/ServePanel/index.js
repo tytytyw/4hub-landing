@@ -1,8 +1,6 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
-import {onSetFileSize} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';

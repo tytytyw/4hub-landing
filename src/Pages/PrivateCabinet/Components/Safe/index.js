@@ -33,6 +33,7 @@ const Safe = ({
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
 
+    const [listSize, setListSize] = useState('md')
     const [selectedSafe, setSelectedSafe] = useState(null)
     const [codePopup, setCodePopup] = useState(false)
 
@@ -53,7 +54,7 @@ const Safe = ({
             return <SafeItem
                 key={i + safe.name}
                 safe={safe}
-
+                listSize={listSize}
                 chosen={chosenFolder.path === safe.path}
                 setMouseParams={setMouseParams}
 
@@ -109,23 +110,29 @@ const Safe = ({
                         />
                     </div>
                 </div>
-                <div className={styles.children}>
-                    <div className={styles.folderListWrap}>
+                <div className={classNames(styles.children, styles?.[`children_${listSize}`])}>
+                    <div className={classNames(styles.folderListWrap, styles?.[`folderListWrap_${listSize}`])}>
                         {renderStandardFolderList()}
                     </div>
                 </div>
             </div>
 
             <WorkSpace
+                listSize={listSize}
+                setListSize={setListSize}
+
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
-                setItem={setItem}
+
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
+
                 chosenFile={chosenFile}
                 setChosenFile={setChosenFile}
+
                 fileSelect={fileSelect}
+
                 action={action}
                 setAction={setAction}
             />

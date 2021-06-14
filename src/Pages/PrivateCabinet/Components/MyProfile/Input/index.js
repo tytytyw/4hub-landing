@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './Input.module.sass'
 import classnames from 'classnames'
 
-const Input = (
+const Index = (
     {
         type, disabled, className, custom = false,
         isMistake = false, showPass = false, phone,
@@ -88,4 +88,4 @@ const Input = (
     )
 }
 
-export default Input
+export default Index

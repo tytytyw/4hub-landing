@@ -21,23 +21,22 @@ const Devices = ({
 }) => {
 
     const dispatch = useDispatch()
-    const devices = useSelector(state => state.PrivateCabinet.devices);
-    const connectedContacts = useSelector(state => state.PrivateCabinet.connectedContacts)
+    const devices = useSelector(state => state.PrivateCabinet.devices)
 
-    const [chosenDevice, setChosenDevice] = useState(null);
-    const [chosenContact, setChosenContact] = useState(null);
+    const [chosenDevice, setChosenDevice] = useState(null)
+    const [chosenContact, setChosenContact] = useState(null)
 
-    const [listCollapsed, setListCollapsed] = useState('');
-    const [newFolder, setNewFolder] = useState(false);
+    const [listCollapsed, setListCollapsed] = useState('')
+    const [newFolder, setNewFolder] = useState(false)
 
-    const [chosenFolder, setChosenFolder] = useState('');
+    const [listSize, setListSize] = useState('md')
+    const [chosenFolder, setChosenFolder] = useState('')
 
-    const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const [safePassword, setSafePassword] = useState({open: false});
-    const [chosenFile, setChosenFile] = useState(null);
-    const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
-    const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
+    const [safePassword, setSafePassword] = useState({open: false})
+    const [chosenFile, setChosenFile] = useState(null)
+    const [mouseParams, setMouseParams] = useState(null)
+    const [action, setAction] = useState({type: '', name: '', text: ''})
 
     //Clear action on change folder
     useEffect(() => {
@@ -48,13 +47,14 @@ const Devices = ({
 
     const renderDevicesList = () => {
         if(!devices) return null;
-        return devices.map((el, i) => {
+        return devices.map((dev, i) => {
             return <DeviceItem
-                key={i + el.name}
-                device={el}
-                setChosenDevice={setChosenDevice}
-                chosenDevice={chosenDevice}
+                key={i + dev.name}
+                device={dev}
+                listSize={listSize}
+                chosen={chosenDevice === dev.id}
                 setMouseParams={setMouseParams}
+                onClick={() => setChosenDevice(dev.id)}
             />
         })
     };
@@ -91,6 +91,8 @@ const Devices = ({
                 <div className={styles.folderListWrap}>
                     {renderDevicesList()}
                     <ConnectedContacts
+                        listSize={listSize}
+
                         setChosenContact={setChosenContact}
                         chosenContact={chosenContact}
 
@@ -103,6 +105,9 @@ const Devices = ({
                 </div>
             </List>
             <WorkSpace
+                listSize={listSize}
+                setListSize={setListSize}
+
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
