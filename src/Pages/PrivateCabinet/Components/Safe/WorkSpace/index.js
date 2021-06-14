@@ -20,7 +20,7 @@ import File from '../../../../../generalComponents/Files'
 import CustomizeFile from "../../CustomizeFile"
 import OptionButtomLine from "../../WorkElements/OptionButtomLine"
 
-const WorkSpace = ({listSize, setListSize, setBlob, blob, chosenFile, setChosenFile,
+const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setFilePreview, filePreview,
                    fileSelect, action, setAction
                   }) => {
@@ -98,9 +98,6 @@ const WorkSpace = ({listSize, setListSize, setBlob, blob, chosenFile, setChosenF
                 </div>
             </div>
             <ServePanel
-                listSize={listSize}
-                setListSize={setListSize}
-
                 setBlob={setBlob}
                 blob={blob}
                 setView={setWorkElementsView}
