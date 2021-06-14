@@ -60,7 +60,7 @@ const CreateZip = ({ close, title, file }) => {
     const onAddFileToZip = () => {
 
         const fName = `&fName=${name}` ? name : '';
-        const fTag = `&tag=${tagOption.chosen}` ? tagOption.chosen : '';
+        const fTag = tagOption.chosen ? `&tag=${tagOption.chosen}` : '';
         const pass = password && passwordCoincide ? `&pass=${password}` : '';
         const fColor = `&color=${color.color}`;
         const fEmoji = emoji ? `&emoji=${emoji}` : '';
