@@ -28,7 +28,7 @@ const INITIAL_STATE = {
     recentFolders: null,
     recentFiles: null,
     chosenRecentFile: null,
-    size: 'small',
+    size: 'big',
 
     //PROGRAMS
     programFolders: [],
