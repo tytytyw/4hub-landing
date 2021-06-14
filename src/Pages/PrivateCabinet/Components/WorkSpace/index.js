@@ -156,8 +156,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 filePreview={filePreview}
             />}
             <ServePanel
-                setBlob={setBlob}
-                blob={blob}
                 setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
