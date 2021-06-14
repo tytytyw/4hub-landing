@@ -21,13 +21,14 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile, onAddRecentFiles, onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import File from '../../../../generalComponents/Files';
 import RecentFiles from '../RecentFiles';
 import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import FileProperty from "../FileProperty";
+import CreateZip from '../CreateZip';
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -53,7 +54,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => intoZIP()},
+        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
         {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
@@ -62,12 +63,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
     const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
-
-    const intoZIP = () => {
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${chosenFile.fid}&dir=${fileList.path}`)
-            .then(res => dispatch(onChooseFiles(fileList.path)))
-            .catch(err => console.log(err));
-    };
 
     const checkMimeTypes = () => {
         if(chosenFile.mime_type) {
@@ -192,6 +187,14 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             ? <FileProperty
                 close={nullifyAction}
                 file={chosenFile}
+            />
+            : null}
+        {action.type === 'intoZip'
+            ? <CreateZip
+                close={nullifyAction}
+                file={chosenFile}
+                title={action.name}
+                info={chosenFolder}
             />
             : null}
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>

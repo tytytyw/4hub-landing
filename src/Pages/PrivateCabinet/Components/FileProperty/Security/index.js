@@ -19,7 +19,7 @@ const Security = ({file}) => {
     return (
         <div className={styles.securityWrap}>
             <div className={styles.infoWrap}>
-                <img src={userInfo.icon[0]} className={styles.icon}/>
+                <img src={userInfo.icon[0]} alt='' className={styles.icon}/>
                 <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} /></div>
             </div>
             <div className={styles.accessWrap}>
