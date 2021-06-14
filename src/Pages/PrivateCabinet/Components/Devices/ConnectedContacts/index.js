@@ -19,7 +19,6 @@ const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setM
       return connectedContacts.map((contact, index) => {
           return <ContactItem
               listSize={listSize}
-
               key={index}
               contact={contact}
               active={contact?.active}

@@ -19,7 +19,7 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
 
-const WorkSpace = ({listSize, setListSize, chosenFile, setChosenFile,
+const WorkSpace = ({chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
                        fileSelect, action, setAction
                    }) => {
@@ -112,9 +112,6 @@ const WorkSpace = ({listSize, setListSize, chosenFile, setChosenFile,
                 </div>
 
                 <ServePanel
-                    listSize={listSize}
-                    setListSize={setListSize}
-
                     setView={setWorkElementsView}
                     view={workElementsView}
                     chosenFile={chosenFile}

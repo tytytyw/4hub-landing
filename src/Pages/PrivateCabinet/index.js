@@ -79,23 +79,7 @@ const PrivateCabinet = () => {
 
                     <Route path='/settings' component={Settings}/>
 
-                    <Route
-                        path='/folders'
-                        render={() => <MyFolders
-                            filePreview={filePreview}
-                            setFilePreview={setFilePreview}
-                            fileSelect={fileSelect}
-                            fileAddCustomization={fileAddCustomization}
-                            setFileAddCustomization={setFileAddCustomization}
-                            setAwaitingFiles={setAwaitingFiles}
-                            awaitingFiles={awaitingFiles}
-                            loaded={loaded}
-                            setLoaded={setLoaded}
-                            loadingFile={loadingFile}
-                            fileErrors={fileErrors}
-                            setLoadingFile={setLoadingFile}
-                        />}
-                    />
+
 
                     <Route
                         path='/files'
@@ -168,7 +152,24 @@ const PrivateCabinet = () => {
                         />}
                     />
 
-                    <Redirect to='/folders'/>
+                    <Route
+                        render={() => <MyFolders
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    {/*<Redirect to='/folders'/>*/}
 
                 </Switch>
 
