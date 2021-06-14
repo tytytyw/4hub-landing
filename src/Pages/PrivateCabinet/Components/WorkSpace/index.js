@@ -30,7 +30,7 @@ import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import FileProperty from "../FileProperty";
 import CreateZip from '../CreateZip';
 import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
-
+import CopyLink from '../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -47,12 +47,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
+    const [showLinkCopy, setShowLinkCopy] = useState(false)
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
-        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
         {type: 'archive', name: '', text: ``, callback: ''},
@@ -215,6 +216,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             scrolling='no'
             id='frame'
         />
+        {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
+
     </>)
 }
 
