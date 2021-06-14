@@ -62,12 +62,12 @@ const CreateZip = ({ close, title, file }) => {
         const fName = `&fName=${name}` ? name : '';
         const fTag = `&tag=${tagOption.chosen}` ? tagOption.chosen : '';
         const pass = password && passwordCoincide ? `&pass=${password}` : '';
-        const fColor = `&color=${color}`;
+        const fColor = `&color=${color.color}`;
         const fEmoji = emoji ? `&emoji=${emoji}` : '';
-        const symbol = sign ? `&symbol=${sign}` : ''
+        const symbol = sign ? `&symbol=${sign}` : '';
 
         api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`)
-                .then(() => dispatch(onChooseFiles(fileList.path)))
+                .then(() => {dispatch(onChooseFiles(fileList.path)); close()})
                 .catch(() => setError(true));
     };
 
