@@ -1,9 +1,12 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 
 const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
+
+    const size = useSelector(state => state.PrivateCabinet.size);
 
     const onPickFile = () => {
         if(filePick.show) {
@@ -15,7 +18,12 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
     return (
         <>
             <div
-                className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}
+                className={`
+                    ${styles.fileBar} 
+                    ${chosen ? styles.fileBarChosen : null} 
+                    ${size === 'medium' ? styles.mediumSize : null}
+                    ${size === 'small' ? styles.smallSize : null}
+                `}
                 onClick={() => {
                     onPickFile();
                     if(!isLoading) setChosenFile(file);
