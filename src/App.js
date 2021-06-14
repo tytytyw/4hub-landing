@@ -16,7 +16,6 @@ function App() {
         if (window.location.href !== window.location.origin + '/') {
             window.location = window.location.origin
         }
-            /*window.location = window.location.origin*/
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
         if (!!uid) dispatch(onLog(uid[0].split('=')[1]));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
