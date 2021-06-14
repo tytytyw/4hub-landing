@@ -20,7 +20,7 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
             <div
                 className={`
                     ${styles.fileBar} 
-                    ${chosen ? styles.fileBarChosen : null} 
+                    ${chosen ? size === 'small' ? styles.fileBarSmallChosen : styles.fileBarChosen : null} 
                     ${size === 'medium' ? styles.mediumSize : null}
                     ${size === 'small' ? styles.smallSize : null}
                 `}
