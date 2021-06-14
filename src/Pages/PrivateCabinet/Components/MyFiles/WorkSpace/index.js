@@ -23,7 +23,7 @@ import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/Sha
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 import CreateZip from '../../CreateZip';
-
+import FileProperty from "../../FileProperty";
 
 const WorkSpace = ({
 	setBlob,
@@ -214,6 +214,12 @@ const WorkSpace = ({
 					</div>
 				</ActionApproval>
 			) : null}
+			{action.type === 'properties'
+            ? <FileProperty
+                close={nullifyAction}
+                file={chosenFile}
+            />
+            : null}
 			{showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
 		</>
 	);
