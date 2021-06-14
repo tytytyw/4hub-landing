@@ -4,6 +4,7 @@ import styles from './FileProperty.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import General from './General';
 import Security from './Security';
+import PrevVersions from './PrevVersions';
 
 const FileProperty = ({close, file }) => {
 
@@ -29,6 +30,7 @@ const FileProperty = ({close, file }) => {
             </div>
             {inset === 'general' ? <General file={file} /> : null}
             {inset === 'security' ? <Security file={file} /> : null}
+            {inset === 'prev' ? <PrevVersions file={file} /> : null}
             <div className={styles.buttonsWrap}>
                 <div className={styles.cancel} onClick={close}>Отмена</div>
                 <div className={`${styles.add}`} onClick={close}>Оk</div>
