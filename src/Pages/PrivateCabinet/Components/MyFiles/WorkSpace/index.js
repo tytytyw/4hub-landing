@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -38,6 +38,7 @@ const WorkSpace = ({
 	action,
 	setAction,
 	nullifyAction,
+	nullifyFilePick,
 	callbackArrMain,
 	additionalMenuItems,
 	deleteFile,
@@ -48,7 +49,8 @@ const WorkSpace = ({
 	filePick,
 	setFilePick,
 	showLinkCopy,
-	setShowLinkCopy
+	setShowLinkCopy,
+	archiveFile
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -62,7 +64,7 @@ const WorkSpace = ({
 					key={i}
 					file={file}
 					setChosenFile={setChosenFile}
-					chosen={chosenFile?.fid === file?.fid}
+					chosen={filePick.show ? filePick.files.findIndex(el => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
 					setMouseParams={setMouseParams}
 					setAction={setAction}
 					filePreview={filePreview}
@@ -168,18 +170,38 @@ const WorkSpace = ({
 			{action.type === 'customize' || filePick.customize ? <CustomizeFile
 				title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
 				file={chosenFile}
-				close={nullifyAction}
+				close={filePick.customize ? nullifyFilePick : nullifyAction}
 				filePick={filePick}
 				setFilePick={setFilePick}
         	/> : null}
 			<form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             	<input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         	</form>
+			<iframe
+				style={{display: 'none'}}
+				title={'print'}
+				frameBorder='0'
+				scrolling='no'
+				id='frame'
+        />
 			{action.type === "share" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
 			) : null}
 			{action.type === "resend" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+			) : null}
+			{action.type === "archive" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={archiveFile}
+					approve={"Архивировать"}
+				>
+					<div className={styles.fileActionWrap}>
+						<File format={chosenFile?.ext} color={chosenFile?.color} />
+					</div>
+				</ActionApproval>
 			) : null}
 			{showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
 		</>
