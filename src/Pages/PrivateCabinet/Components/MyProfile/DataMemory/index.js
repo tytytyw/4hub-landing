@@ -2,14 +2,16 @@ import React from 'react'
 
 import styles from './DataMemory.module.sass'
 import {Pie} from 'react-chartjs-2'
+import Button from "../Button";
 
-const DataMemory = () => {
+const DataMemory = ({setPageOption}) => {
 
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.diagramWrap}>
                 <Pie
+                    type='pie'
                     className={styles.diagram}
                     data={{
                         labels: false,
@@ -88,6 +90,14 @@ const DataMemory = () => {
                     <p>Пакет на использование 100 ГБ хранилища действителед до 26.12.2020</p>
                     <button className={styles.renewBtn}>Продлить</button>
                 </div>
+            </div>
+
+            <div className={styles.actionBlock}>
+                <Button
+                    onClick={() => setPageOption('tariff_plan')}
+                >
+                    Сменить пакет
+                </Button>
             </div>
 
         </div>

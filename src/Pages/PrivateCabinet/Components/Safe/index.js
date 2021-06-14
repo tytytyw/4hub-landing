@@ -33,7 +33,7 @@ const Safe = ({
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
 
-    const [listSize, setListSize] = useState('sm')
+    const [listSize, setListSize] = useState('md')
     const [selectedSafe, setSelectedSafe] = useState(null)
     const [codePopup, setCodePopup] = useState(false)
 

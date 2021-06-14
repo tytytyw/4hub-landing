@@ -64,7 +64,7 @@ const FileLoader = ({
             data.append('uid', uid);
             data.append('myfile', file.file);
             data.append('fileName', `${file?.options?.name ? file.options.name.slice(0, file.options.name.lastIndexOf('.')) : file.file.name.slice(0, file.file.name.lastIndexOf('.'))}`);
-            data.append('dir', file.filePath ? file.filePath : 'global/all');
+            data.append('dir', path ? path : 'global/all');
             data.append('tag', file?.options?.tag ? file.options.tag : '');
             data.append('pass', file?.options?.password ? file.options.password : '');
             data.append('color', file?.options?.color ? file.options.color : '');

@@ -81,8 +81,6 @@ const WorkBarsPreview = () => {
 
                 <div className={styles.previewFileWrap}>
 
-                    {/*<span className={styles.fileName}>{f.name}</span>*/}
-
                     <div className={styles.infoFileItem}>
                         <span className={styles.itemName}>Теги</span>
                         <span className={styles.addItem}>Добавить теги</span>

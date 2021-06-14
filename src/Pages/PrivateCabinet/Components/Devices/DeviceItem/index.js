@@ -4,16 +4,17 @@ import styles from './DeviceItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
-const DeviceItem = ({ device, chosenDevice, setChosenDevice, setMouseParams }) => {
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
 
     return (
         <>
             <div
                 className={classNames({
                     [styles.wrapper]: true,
-                    [styles.wrapperChosen]: chosenDevice === device.id
+                    [styles.wrapperChosen]: !!chosen,
+                    [styles?.[`wrapper_${listSize}`]]: !!listSize
                 })}
-                onClick={() => setChosenDevice(device.id)}
+                onClick={onClick}
             >
                 <div className={styles.titleWrap}>
                     <div className={styles.titleImg}>
@@ -23,7 +24,7 @@ const DeviceItem = ({ device, chosenDevice, setChosenDevice, setMouseParams }) =
                             className={styles.icon}
                         />
                     </div>
-                    <span className={styles.title}>{device.name} </span>
+                    <span className={styles.title}>{device.name}</span>
                 </div>
                 <div className={styles.functionWrap}>
                     <div

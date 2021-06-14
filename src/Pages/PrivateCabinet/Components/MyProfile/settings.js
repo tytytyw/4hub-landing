@@ -17,6 +17,7 @@ import DataMemory from './DataMemory'
 import Personal from './Personal'
 import Confident from './Confident'
 import PrimaryButton from './PrimaryButton'
+import TariffPlan from "./TariffPlan/increase_storage"
 
 const Settings = () => {
 
@@ -79,8 +80,10 @@ const Settings = () => {
 
                 {pageOption === 'confident' && <Confident/>}
                 {pageOption === 'personal' && <Personal/>}
-                {pageOption === 'data_memory' && <DataMemory/>}
+                {pageOption === 'data_memory' && <DataMemory setPageOption={setPageOption}/>}
                 {pageOption === 'questions' && <Support/>}
+
+                {pageOption === 'tariff_plan' && <TariffPlan/>}
 
             </div>
 
