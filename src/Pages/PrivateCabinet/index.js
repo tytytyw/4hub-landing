@@ -13,7 +13,7 @@ import MyFiles from './Components/MyFiles'
 import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
-import {Switch, Route, Redirect} from 'react-router'
+import {Switch, Route} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 
 const PrivateCabinet = () => {
