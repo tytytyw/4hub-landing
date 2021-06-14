@@ -12,7 +12,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
-import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
 
 const CreateZip = ({ close, title, file }) => {
 
@@ -59,14 +59,14 @@ const CreateZip = ({ close, title, file }) => {
 
     const onAddFileToZip = () => {
 
-        const name = `&fName=${name}` ? name : '';
-        const tag = `&tag=${tagOption.chosen}` ? tagOption.chosen : '';
+        const fName = `&fName=${name}` ? name : '';
+        const fTag = `&tag=${tagOption.chosen}` ? tagOption.chosen : '';
         const pass = password && passwordCoincide ? `&pass=${password}` : '';
-        const color = `&color=${color}`;
-        const emoji = emoji ? `&emoji=${emoji}` : '';
+        const fColor = `&color=${color}`;
+        const fEmoji = emoji ? `&emoji=${emoji}` : '';
         const symbol = sign ? `&symbol=${sign}` : ''
 
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${name}${tag}${pass}${color}${emoji}${symbol}`)
+        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`)
                 .then(() => dispatch(onChooseFiles(fileList.path)))
                 .catch(() => setError(true));
     };

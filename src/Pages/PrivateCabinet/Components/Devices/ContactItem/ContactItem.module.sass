@@ -22,29 +22,27 @@
     display: flex
     align-items: center
     color: #7c7a7a
-    .imageWrap
-      display: flex
-      position: relative
-      margin: 0 11px 0 0
-      .icon
-        width: 25px
-        height: 25px
-        border-radius: 50%
-      .active
-        position: absolute
-        bottom: 0
-        right: 0
-        width:  7px
-        height: 7px
-        border-radius: 50%
-        background: #71B123
+  .imageWrap
+    display: flex
+    position: relative
+    margin: 0 15px 0 0
+    .icon
+      object-fit: cover
+      border-radius: 50%
+    .active
+      position: absolute
+      bottom: 0
+      right: 0
+      width:  7px
+      height: 7px
+      border-radius: 50%
+      background: #71B123
 
-    span
-      font-family: "SF Pro Light", sans-serif
-      font-size: 13px
-      animation: showText 0.2s ease-in-out
-    .title
-      margin: 0 10px 0 0
+  .title
+    font-family: "SF Pro Light", sans-serif
+    animation: showText 0.2s ease-in-out
+    margin: 0 10px 0 0
+
   .functionWrap
     display: flex
     align-items: center
@@ -60,6 +58,47 @@
       transition: fill 0.2s ease
     .revert
       transform: rotateZ(90deg)
+
+
+.wrapper_sm
+  .imageWrap
+    margin-right: 8px
+  .icon
+    width: 25px
+    height: 25px
+  .active
+    bottom: 0
+    right: 0
+  .title
+    font-size: 13px
+
+
+.wrapper_md
+  .imageWrap
+    margin-right: 12px
+  .icon
+    width: 30px
+    height: 30px
+  .active
+    bottom: 0
+    right: 0
+  .title
+    font-size: 14px
+
+
+.wrapper_lg
+  .imageWrap
+    margin-right: 9px
+  .icon
+    width: 42px
+    height: 42px
+  .active
+    bottom: 0
+    right: 0
+  .title
+    font-size: 15px
+
+
 .menuWrap
   display: flex
   width: 20px

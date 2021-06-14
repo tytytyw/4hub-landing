@@ -8,17 +8,14 @@ import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.sv
 
 import AddSocials from './AddSocials'
 import PopUp from '../../../../../../generalComponents/PopUp'
-import ProfileUpload from '../../UserForm/ProfileUpload/ProfileUpload'
+import ProfileUpload from '../../UserForm/ProfileUpload'
 import Calendar from '../../../../../StartPage/Components/Calendar'
-import Button from '../../Button/Button'
+import Button from '../../Button'
 
-import {emptyProfileImage, socialsIcons} from '../consts'
-import Input from '../../Input/Input'
-import {onAddContact} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {socialsIcons} from '../consts'
+import Input from '../../Input'
 
 const EditContact = ({set, contacts}) => {
-
-    const dispatch = useDispatch()
 
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])

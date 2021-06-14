@@ -11,30 +11,33 @@
   transition: background 0.5s ease-in-out
 .wrapperChosen
   background: rgba(64, 134, 241, 0.1)
+
 .wrapper
   position: relative
   margin: 10px
   display: flex
   flex-direction: column
   align-items: center
-  height: 125px
   box-sizing: border-box
   padding: 10px
   cursor: pointer
   box-shadow: 0 2px 5px #dedede
   transition: background 0.5s ease-in-out
+
   .titleWrap
     display: flex
     align-items: center
     color: #7c7a7a
-    .icon
-      margin: 0 11px 0 0
     span
       font-family: "SF  Pro Light", sans-serif
       font-size: 13px
       animation: showText 0.2s ease-in-out
-    .title
-      margin: 0 10px 0 0
+
+  .icon
+    margin: 0 11px 0 0
+
+  .title
+    margin: 0 10px 0 0
 
   .topPart
     width: 100%
@@ -43,39 +46,39 @@
     position: relative
     justify-content: space-between
 
-    .icons
-      display: flex
-      align-items: center
-      .symbols
-        margin-right: 10px
+  .icons
+    display: flex
+    align-items: center
+  .symbols
+    margin-right: 10px
 
   .content
     margin-top: 8px
     text-align: center
-
     p
       margin: 0
       font-size: 13px
       line-height: 17px
       color: #49494B
 
-    .tagBlock
-      height: 14px
+  .tagBlock
+    height: 14px
 
-    .ftag
-      font-size: 10px
-      color: #fff
-      background: #34C6A2
-      border-radius: 10px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-      margin: 0
+  .ftag
+    padding: 1px 5px
+    margin: 0 auto
+    width: max-content
+    font-size: 10px
+    color: #fff
+    background: #34C6A2
+    border-radius: 10px
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
-    .safeImg
-      width: 45px
-      height: 45px
-
+  .safeImg
+    width: 45px
+    height: 45px
 
   .functionWrap
     display: flex
@@ -93,16 +96,6 @@
     .revert
       transform: rotateZ(90deg)
 
-.menuWrap
-  position: absolute
-  top: 10px
-  right: 0
-  display: flex
-  width: 20px
-  height: 20px
-  justify-content: center
-  align-items: center
-  cursor: pointer
   .menu
     position: relative
     width: 3px
@@ -120,6 +113,114 @@
     transform: translateY(8px)
   .menu::after
     transform: translateY(-8px)
+
+
+// SMALL VARIANT OF MENU ITEMS
+.wrapper_sm
+  padding: 6px
+  margin: 5px
+  height: 87px
+
+  .topPart
+    min-height: 15px
+
+  .symbols
+    margin-right: 7px
+    width: 14px
+    height: 14px
+
+  .tagBlock
+    height: 8px
+  .ftag
+    font-size: 6px
+
+  .content
+    margin-top: 5px
+    p
+      font-size: 10px
+      line-height: 13px
+
+  .safeImg
+    width: 31px
+    height: 31px
+
+  .menuWrap
+    top: 6px
+  .menu
+    width: 2px
+    height: 2px
+  .menu::before, .menu::after
+    width: 2px
+    height: 2px
+  .menu::before
+    transform: translateY(5px)
+  .menu::after
+    transform: translateY(-5px)
+
+
+
+// MEDIUM VARIANT OF MENU ITEMS
+.wrapper_md
+  height: 125px
+
+
+// LARGE VARIANT OF MENU ITEMS
+.wrapper_lg
+  padding: 15px
+  height: 193px
+  width: 200px
+
+  .topPart
+    min-height: 30px
+
+  .symbols
+    margin-right: 16px
+    width: 30px
+    height: 30px
+
+  .tagBlock
+    height: 17px
+  .ftag
+    padding: 1px 6px
+    font-size: 12px
+    line-height: 16px
+
+  .content
+    margin-top: 5px
+    p
+      font-size: 20px
+      line-height: 26px
+
+  .safeImg
+    width: 69px
+    height: 69px
+
+  .menuWrap
+    top: 16px
+    right: 10px
+  .menu
+    width: 4px
+    height: 4px
+  .menu::before, .menu::after
+    width: 4px
+    height: 4px
+  .menu::before
+    transform: translateY(10px)
+  .menu::after
+    transform: translateY(-10px)
+
+
+
+.menuWrap
+  position: absolute
+  top: 10px
+  right: 0
+  display: flex
+  width: 20px
+  height: 20px
+  justify-content: center
+  align-items: center
+  cursor: pointer
 .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
   background: #477DE1
   transition: background 0.2s ease

@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react'
 
 import styles from './FormContact.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
-/*import classnames from 'classnames'*/
-import Button from '../../Button/Button'
+import Button from '../../Button'
 import {messengersData, socialsData} from '../consts'
-import Input from "../../Input/Input";
+import Input from "../../Input"
 
 const AddSocials = ({values, setValues, set, ...props}) => {
 

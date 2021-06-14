@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './UserForm.module.sass'
-import Input from '../Input/Input.js'
-import ProfileUpload from './ProfileUpload/ProfileUpload'
+import Input from '../Input'
+import ProfileUpload from './ProfileUpload'
 import {useDispatch, useSelector} from 'react-redux'
 import api from '../../../../../api'
-import Button from '../Button/Button'
-import AlertPopup from '../AlertPopup/AlertPopup'
+import Button from '../Button'
+import AlertPopup from '../AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
 import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
 

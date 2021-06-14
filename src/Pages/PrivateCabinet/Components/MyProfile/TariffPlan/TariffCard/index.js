@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './TariffCard.module.sass'
-import Button from '../../Button/Button'
+import Button from '../../Button'
 import classnames from 'classnames'
 
 const TariffCard = ({ item }) => {

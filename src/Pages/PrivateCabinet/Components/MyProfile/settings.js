@@ -10,24 +10,20 @@ import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
-import UserForm from './UserForm'
 import BottomPanel from '../ButtomPanel'
-import Support from './Support'
-import TariffPlan from './TariffPlan'
-import Contacts from './Contacts'
-import Programs from './Programs'
 import TellFriend from './TellFriends/TellFriend'
+import Support from './Support'
+import DataMemory from './DataMemory'
+import Personal from './Personal'
+import Confident from './Confident'
 import PrimaryButton from './PrimaryButton'
+import TariffPlan from "./TariffPlan/increase_storage"
 
-const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
+const Settings = () => {
 
     const dispatch = useDispatch()
-    const [pageOption, setPageOption] = useState(null)
+    const [pageOption, setPageOption] = useState('confident')
     const [popup, setPopup] = useState(false)
-
-    useEffect(() => {
-        setPageOption(defaultPageOption)
-    }, [defaultPageOption])
 
     useEffect(() => {
         dispatch(onGetContacts())
@@ -50,30 +46,26 @@ const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
                 <div className={styles.buttons}>
                     <div className={styles.buttonsList}>
                         <PrimaryButton
-                            text='Личные данные'
-                            active={pageOption === 'personal_data'}
-                            onClick={() => setPageOption('personal_data')}
+                            text='Конфиденциальность'
+                            active={pageOption === 'confident'}
+                            onClick={() => setPageOption('confident')}
                         />
                         <PrimaryButton
-                            text='Служба поддержки'
-                            active={pageOption === 'support'}
-                            onClick={() => setPageOption('support')}
+                            text='Персонализация'
+                            active={pageOption === 'personal'}
+                            onClick={() => setPageOption('personal')}
                         />
                         <PrimaryButton
-                            text='Тарифный план'
-                            active={pageOption === 'tariff_plan'}
-                            onClick={() => setPageOption('tariff_plan')}
+                            text='Данные и память'
+                            active={pageOption === 'data_memory'}
+                            onClick={() => setPageOption('data_memory')}
                         />
                         <PrimaryButton
-                            text='Контакты'
-                            active={pageOption === 'contacts'}
-                            onClick={() => setPageOption('contacts')}
+                            text='Вопросы о 4HUB'
+                            active={pageOption === 'questions'}
+                            onClick={() => setPageOption('questions')}
                         />
-                        <PrimaryButton
-                            text='Подключенные прораммы'
-                            active={pageOption === 'programs'}
-                            onClick={() => setPageOption('programs')}
-                        />
+
                         <div className={styles.buttonsRight}>
                             <PrimaryButton
                                 text='Рассказать друзьям'
@@ -86,18 +78,19 @@ const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
                     </div>
                 </div>
 
-                {pageOption === 'personal_data' && <UserForm/>}
-                {pageOption === 'support' && <Support/>}
+                {pageOption === 'confident' && <Confident/>}
+                {pageOption === 'personal' && <Personal/>}
+                {pageOption === 'data_memory' && <DataMemory setPageOption={setPageOption}/>}
+                {pageOption === 'questions' && <Support/>}
+
                 {pageOption === 'tariff_plan' && <TariffPlan/>}
-                {pageOption === 'contacts' && <Contacts/>}
-                {pageOption === 'programs' && <Programs/>}
 
             </div>
 
             {popup &&
-                <TellFriend
-                    set={setPopup}
-                />}
+            <TellFriend
+                set={setPopup}
+            />}
 
             <BottomPanel/>
 
@@ -105,4 +98,4 @@ const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
     )
 }
 
-export default MyProfile
+export default Settings

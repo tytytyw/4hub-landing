@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './AlertPopup.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
 
-const AlertPopup = ({ set, text, title }) => {
+const Index = ({ set, text, title }) => {
     return (
         <PopUp set={set}>
             <div className={styles.sendSuccess}>
@@ -26,4 +26,4 @@ const AlertPopup = ({ set, text, title }) => {
     )
 }
 
-export default AlertPopup
+export default Index

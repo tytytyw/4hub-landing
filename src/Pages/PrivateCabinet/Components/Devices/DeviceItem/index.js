@@ -1,30 +1,30 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
 
 import styles from './DeviceItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
-const DeviceItem = ({ device, chosenDevice, setChosenDevice, setMouseParams }) => {
-
-    const dispatch = useDispatch()
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
 
     return (
         <>
             <div
                 className={classNames({
                     [styles.wrapper]: true,
-                    [styles.wrapperChosen]: chosenDevice === device.id
+                    [styles.wrapperChosen]: !!chosen,
+                    [styles?.[`wrapper_${listSize}`]]: !!listSize
                 })}
-                onClick={() => setChosenDevice(device.id)}
+                onClick={onClick}
             >
                 <div className={styles.titleWrap}>
-                    <img
-                        src={`./assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
-                        alt='icon'
-                        className={styles.icon}
-                    />
-                    <span className={styles.title}>{device.name} </span>
+                    <div className={styles.titleImg}>
+                        <img
+                            src={`./assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
+                            alt='icon'
+                            className={styles.icon}
+                        />
+                    </div>
+                    <span className={styles.title}>{device.name}</span>
                 </div>
                 <div className={styles.functionWrap}>
                     <div

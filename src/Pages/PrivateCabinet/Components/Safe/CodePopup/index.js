@@ -2,8 +2,8 @@ import React from 'react'
 import PopUp from '../../../../../generalComponents/PopUp'
 
 import styles from './CodePopup.module.sass'
-import Input from '../../MyProfile/Input/Input'
-import Button from '../../MyProfile/Button/Button'
+import Input from '../../MyProfile/Input'
+import Button from '../../MyProfile/Button'
 
 const CodePopup = ({safe, set}) => {
 
@@ -28,7 +28,7 @@ const CodePopup = ({safe, set}) => {
                             placeholder='Введите код в смс'
                             className={styles.input}
                         />
-                        <a className={styles.link}>Не пришел код?</a>
+                        <a href={'/'} className={styles.link}>Не пришел код?</a>
                     </div>
                     <div className={styles.actionBlock}>
                         <Button

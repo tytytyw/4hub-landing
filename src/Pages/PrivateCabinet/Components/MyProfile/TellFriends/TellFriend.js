@@ -4,7 +4,7 @@ import styles from './SendFriend.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
 
 import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
-import Button from '../Button/Button'
+import Button from '../Button'
 import {useSelector} from 'react-redux'
 import {messengersData} from '../Contacts/consts'
 import api from '../../../../../api'
