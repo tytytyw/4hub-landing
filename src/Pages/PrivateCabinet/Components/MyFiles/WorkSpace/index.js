@@ -168,8 +168,8 @@ const WorkSpace = ({
 				</ActionApproval>
 			) : null}
 			{action.type === 'customize' || filePick.customize ? <CustomizeFile
-				title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
-				file={chosenFile}
+            title={filePick.customize ? `Редактировать выбранные файлы` : action.name }
+			file={chosenFile}
 				close={filePick.customize ? nullifyFilePick : nullifyAction}
 				filePick={filePick}
 				setFilePick={setFilePick}
