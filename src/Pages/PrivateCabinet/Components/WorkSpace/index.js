@@ -29,6 +29,9 @@ import CustomizeFile from "../CustomizeFile";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import FileProperty from "../FileProperty";
 import CreateZip from '../CreateZip';
+import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
+import CopyLink from '../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -45,15 +48,18 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
+    const [showLinkCopy, setShowLinkCopy] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [successMessage, setSuccessMessage] = useState('');
 
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: ''},
-        {type: 'share', name: '', text: ``, callback: ''},
+        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'openInApp', name: '', text: ``, callback: ''},
-        {type: 'copyLink', name: '', text: ``, callback: ''},
+        {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
-        {type: 'archive', name: '', text: ``, callback: ''},
+        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
         {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
@@ -100,6 +106,19 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             />
         })
     }
+
+    const archiveFile = () => {
+		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
+        .then(res => {
+			if (res.data.ok === 1) {
+				dispatch(onDeleteFile(chosenFile))
+				setSuccessMessage('Файл добавлен в архив')
+				setShowSuccessMessage(true)
+			} else console.log(res?.error)
+		})
+        .catch(err => console.log(err))
+		.finally(() => {nullifyAction(); setChosenFile(null)})
+	};
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -181,6 +200,12 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             filePick={filePick}
             setFilePick={setFilePick}
         /> : null}
+        {action.type === "share" ? (
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
+			) : null}
+			{action.type === "resend" ? (
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+			) : null}
         {action.type === 'properties'
             ? <FileProperty
                 close={nullifyAction}
@@ -195,6 +220,19 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 info={chosenFolder}
             />
             : null}
+        {action.type === "archive"
+            ?   <ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={archiveFile}
+					approve={"Архивировать"}
+				>
+					<div className={styles.fileActionWrap}>
+						<File format={chosenFile?.ext} color={chosenFile?.color} />
+					</div>
+				</ActionApproval>
+			: null}
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         </form>
@@ -205,6 +243,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             scrolling='no'
             id='frame'
         />
+        {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
+        {showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
     </>)
 }
 
