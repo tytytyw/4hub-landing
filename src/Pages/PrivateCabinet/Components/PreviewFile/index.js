@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import api from '../../../../api';
-import {previewTypes} from '../../../../generalComponents/collections';
+import {previewTypes, previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
@@ -10,22 +10,32 @@ import File from "../../../../generalComponents/Files";
 const PreviewFile = ({setFilePreview, file, filePreview}) => {
 
     const uid = useSelector(state => state.user.uid);
+    const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = () => setFilePreview({...filePreview, view: false, file: null});
     const [previewReq, setPreviewReq] = useState({sent: false, data: null});
 
     const getPreview = () => {
         if(!previewReq.sent) {
-            setPreviewReq({...previewReq, sent: true})
-            api.post(`/ajax/file_preview.php?uid=${uid}&fid=${file.fid}`)
-                .then(res => setPreviewReq({sent: true, data: res.data}))
-                .catch(err => console.log(err));
+            setPreviewReq({...previewReq, sent: true});
+            setTimeout(() => {
+                api.post(`/ajax/file_preview.php?uid=${uid}&fid=${file.fid}`)
+                    .then(res => setPreviewReq({sent: true, data: res.data}))
+                    .catch(err => console.log(err));
+            }, 0);
         }
     }
 
     const renderOfficePreview = () => {
         const isType = previewTypes.filter(type => type === file.mime_type).length > 0;
-        return isType ? getPreview() : <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
+        const isFormat = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
+        if(isType) {
+            return getPreview()
+        }else if(isFormat) {
+            getPreview();
+        }else {
+            return standardPrev;
+        }
     }
 
     const renderFilePreview = () => {

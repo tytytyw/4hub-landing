@@ -70,3 +70,4 @@ export const contextMenuSubFolder = {
     additional: []
 }
 export const previewTypes = ['application/msword', 'application/excel'];
+export const previewFormats = ['doc', 'xls', 'ppt'];

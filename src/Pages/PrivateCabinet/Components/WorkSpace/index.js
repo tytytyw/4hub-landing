@@ -203,9 +203,9 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         {action.type === "share" ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
 			) : null}
-			{action.type === "resend" ? (
-				<ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
-			) : null}
+        {action.type === "resend" ? (
+            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+        ) : null}
         {action.type === 'properties'
             ? <FileProperty
                 close={nullifyAction}
