@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 import styles from "./StoragePeriod.module.sass";
@@ -18,6 +18,13 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
             if(val.length < 3) val < limit ? set(val) : set(val[0]);
         }
     };
+	useEffect(() => {
+		return(() => {
+			setTimeValue({hours, minutes, seconds})
+			if (hours && !dateValue) setDateValue(new Date().toLocaleDateString('ru'))
+		})
+	}, [hours, minutes, seconds]) // eslint-disable-line react-hooks/exhaustive-deps
+
 	const onDateChange = (e) => {
         let val = e.target.value.trim();
         let length = e.target.value.length;

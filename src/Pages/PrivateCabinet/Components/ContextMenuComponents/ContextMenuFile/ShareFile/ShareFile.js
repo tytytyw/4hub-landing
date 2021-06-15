@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -25,27 +25,36 @@ function ShareFile({file, close, action_type}) {
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const uid = useSelector(state => state.user.uid);
+    const [data, setData] = useState(
+        {
+            uid,
+            fid: file.fid,
+            user_to: '',
+            prim: '',
+            deadline: ''
+    })
     const setTime = (time, limit) => {
         return time < limit
         ? time < 10 ? `0${time}` : time
         : time[0];
     }
-    const data = {
-        uid,
-        fid: file.fid,
-        user_to: null,
-        prim: null
-        // TODO: неоткуда брать значение возможности редактирования}
-    }
-    if (action_type === 'share') {
-        data.is_write = 1
-        data.dir = file.gdir
-    }
-    
-    const onShareFile = () => {
-        if (dateValue) data.deadline = `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}`
 
-        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}`)
+    useEffect(()=> {
+        if (action_type === 'share') {
+            setData(data => ({...data, is_write: 1, dir: file.gdir}))
+        }
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    const shareUrlParam = () => {
+        if (action_type === 'share') {
+            const deadline = dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''
+            return `&deadline=${deadline}&dir=${data.dir}&is_write=${data.is_write}`
+        } else return ''
+    }
+
+    const onShareFile = () => {
+
+        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
             .then(res => {
                 if(res.data.ok === true) {
                 console.log('ok')
@@ -88,14 +97,14 @@ function ShareFile({file, close, action_type}) {
                         Кому:
                     </p>
                     <div className={styles.recipient_mail}>
-                        <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> data.user_to = e.target.value} placeholder='Эл.адрес или имя' type='text'></input>
+                        <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> setData(data => ({...data, user_to: e.target.value}))} value={data.user_to} placeholder='Эл.адрес или имя' type='text'></input>
                     </div>
                     <div className={styles.recipient_messenger}>
                         <span onClick={() => setDisplayMessengers(true)}>Отправить через мессенджер</span>
                     </div>
                 </div>
                 <div className={classNames(styles.comment, styles.border_bottom)}>
-                    <textarea onChange={(e) => data.prim = e.target.value} placeholder='Добавить комментарий к Файлу' type='text'></textarea >
+                    <textarea onChange={(e)=> setData(data => ({...data, prim: e.target.value}))} value={data.prim}  placeholder='Добавить комментарий к Файлу' type='text'></textarea >
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
                     <div className={styles.ico_wrap}>
