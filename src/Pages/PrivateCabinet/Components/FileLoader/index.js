@@ -17,10 +17,14 @@ const FileLoader = ({
     const [collapsed, setCollapsed] = useState(false);
     const [processing, setProcessing] = useState(0);
     const [closeApprove, setCloseApprove] = useState(true);
+    const [timeLeft, setTimeLeft] = useState(undefined);
+    const [params, setParams] = useState({x: -1, y: -1});
+    const [display, setDisplay] = useState('block');
     const uid = useSelector(state => state.user?.uid);
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const [response, setResponse] = useState(null);
     const dispatch = useDispatch();
+    const fileLoaderRef = useRef(null);
 
     //Cancel Loading variables
     const CancelToken = axios.CancelToken;
@@ -74,11 +78,17 @@ const FileLoader = ({
             await api.post(`/ajax/file_add.php`,
                 data,
                 {
-                    onUploadProgress: e => {setProcessing((e.loaded * 100) / e.total)},
+                    onUploadProgress: e => {
+                        setTimeLeft(((e.total / (e.loaded / e.timeStamp)) / 60000).toFixed() - 5);
+                        setProcessing((e.loaded * 100) / e.total)
+                    },
                     cancelToken: new CancelToken(function executor(e){const cancelLoading = e; setOptions({cancelLoading})})
                 })
-                .then(res => setResponse({res, file}))
-                .catch(err => console.log(err));
+                .then(res => {
+                    setResponse({res, file});
+                    setTimeLeft(undefined);
+                })
+                .catch(err => {console.log(err); setTimeLeft(undefined)});
         }
     };
 
@@ -160,9 +170,47 @@ const FileLoader = ({
         return size;
     };
 
+    const handleDragStart = e => {
+        setParams({...params, x: e.clientX, y: e.clientY, offsetX: e.clientX - e.target.offsetLeft, offsetY: e.clientY - e.target.offsetTop});
+        setTimeout(() => setDisplay('none'), 0);
+    };
+
+    const handleDragEnd = e => {
+        e.preventDefault();
+        setDisplay('block');
+        setParams({...params, x: e.clientX, y: e.clientY});
+    };
+
+    const handleDrop = e => e.preventDefault();
+
+    const renderPosition = () => {
+        if(params.x === -1 && params.y === -1) return {bottom: '30px', right: '30px'};
+        const horizontalSector = window.innerWidth / 2;
+        const verticalSector = window.innerHeight / 2;
+        let horizontal;
+        let vertical;
+        params.x <= horizontalSector ? horizontal = 'left' : horizontal = 'right';
+        params.y <= verticalSector ? vertical = 'top' : vertical = 'bottom';
+        return {[horizontal]: '30px', [vertical]: '30px'}
+    }
+
     return (
         <>
-        <div className={`${styles.loaderWrap} ${collapsed ? styles.loaderCollapsed : ''}`}>
+        <div className={`${styles.loaderWrap} ${collapsed ? styles.loaderCollapsed : ''}`}
+             draggable={true}
+             onDragStart={handleDragStart}
+             onDragEnd={handleDragEnd}
+             onDrop={handleDrop}
+             ref={fileLoaderRef}
+             style={{
+                 display: display,
+                 top: params.y === -1 && params.x === -1 ? '' : `${params.y - params.offsetY}px`,
+                 left: params.y === -1 && params.x === -1 ? '' : `${params.x - params.offsetX}px`,
+                 right: params.y === -1 && params.x === -1 ? '30px' : '',
+                 bottom: params.y === -1 && params.x === -1 ? '30px' : '',
+                 // ...renderPosition()
+             }}
+        >
             <div className={styles.header}>
                 <span className={styles.loadBar} style={{width: `${processing}%`}} />
                 {loadingFile.length > 0 || awaitingFiles.length > 0 ? <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span> : null}
@@ -174,7 +222,7 @@ const FileLoader = ({
             </div>
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
                 {awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? <div className={styles.timeLeft}>
-                    <span className={styles.time}>Осталось 20 мин</span>
+                    <div>{timeLeft !== undefined ? <span className={styles.time}>{timeLeft < 1 ? `Осталось меньше минуты` : timeLeft > 59 ? `Осталось около 1 часа` : `Осталось ${timeLeft} мин.`}</span> : null}</div>
                     <span
                         className={styles.cancel}
                         onClick={() => {
