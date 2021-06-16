@@ -33,7 +33,7 @@ const MyFiles = ({
 	const [mouseParams, setMouseParams] = useState(null);
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [successMessage, setSuccessMessage] = useState('');
+	// const [successMessage, setSuccessMessage] = useState('');
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
@@ -113,8 +113,7 @@ const MyFiles = ({
         .then(res => {
 			if (res.data.ok === 1) {
 				dispatch(onDeleteFile(chosenFile))
-				setSuccessMessage('Файл добавлен в архив')
-				setShowSuccessMessage(true)
+				setShowSuccessMessage('Файл добавлен в архив')
 			} else console.log(res?.error)
 		})
         .catch(err => console.log(err))
@@ -183,6 +182,7 @@ const MyFiles = ({
 				setShowLinkCopy ={setShowLinkCopy}
 				showLinkCopy={showLinkCopy}
 				archiveFile={archiveFile}
+				setShowSuccessMessage={setShowSuccessMessage}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
@@ -205,7 +205,7 @@ const MyFiles = ({
                 title='Создайте пароль для Сейфа с паролями'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
-			{showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
+			{showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
 		</div>
 		
 	);

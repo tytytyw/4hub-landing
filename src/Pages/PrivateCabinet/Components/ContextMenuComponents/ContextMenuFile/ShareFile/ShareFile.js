@@ -9,13 +9,12 @@ import Error from '../../../../../../generalComponents/Error';
 import StoragePeriod from '../StoragePeriod/StoragePeriod';
 import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
 import SetPassword from '../SetPassword/SetPassword'
-import SuccessMessage from '../SuccessMessage/SuccessMessage';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-function ShareFile({file, close, action_type}) {
+function ShareFile({file, close, action_type, setShowSuccessMessage}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -23,7 +22,6 @@ function ShareFile({file, close, action_type}) {
     const [displayMessengers, setDisplayMessengers] = useState(false);
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const uid = useSelector(state => state.user.uid);
     const [data, setData] = useState(
         {
@@ -57,7 +55,8 @@ function ShareFile({file, close, action_type}) {
         api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
             .then(res => {
                 if(res.data.ok === true) {
-                console.log('ok')
+                    setShowSuccessMessage('Отправлено')
+                    close()
                 } else if (res.data.error) {
                     setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
                 } else {
@@ -162,7 +161,6 @@ function ShareFile({file, close, action_type}) {
             {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
             {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
             {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}
-            {showSuccessMessage && <SuccessMessage message='пароль установлен' close={setShowSuccessMessage} />}
         </PopUp>
     )
 }
