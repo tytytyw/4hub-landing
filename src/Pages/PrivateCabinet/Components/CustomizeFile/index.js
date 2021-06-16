@@ -83,10 +83,10 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
         const data = {
             uid,
             fids: filePick.customize ? filePick.files : [file.fid],
-            fName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `${name}`,
+            fileName: name === file?.name.slice(0, file.name.lastIndexOf('.')) ? '' : `${name}${file?.fname.slice(file.name.lastIndexOf('.'))}`,
             tag: tagOption.chosen === file.tag ? '' : `${tagOption.chosen}`,
             pass: password === passwordRepeat ? `${password}` : '',
-            color: color?.color === file.color ? '' : `${color.color}`,
+            color: color?.color === file?.color ? '' : `${color?.color}`,
             symbol: sign === file.fig ? '' : `${sign}`,
             emoji: emoji === file.emo ? '' : `${emoji}`,
         };
@@ -95,13 +95,14 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
 
         const newFile = {
             ...file,
-            name: data.fName ? name + file?.name.slice(0, file.name.lastIndexOf('.'))[1] : file.name,
+            name: data.fileName ? name + file?.fname.slice(file.name.lastIndexOf('.')) : file.fname,
             tag: data.tag ? tagOption.chosen : file.tag,
             color: data.color ? color?.color : file.color,
             emo: data.emoji ? emoji : file.emo,
             fig: data.symbol ? sign : file.fig,
             is_pass: password && passwordRepeat ? 1 : 0
         }
+        console.log(newFile);
         if(filePick.customize) {
             delete data.fName;
             if(data.pass === '') delete data.pass;
