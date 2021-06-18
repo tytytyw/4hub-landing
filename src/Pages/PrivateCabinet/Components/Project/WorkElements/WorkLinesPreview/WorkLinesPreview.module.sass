@@ -6,7 +6,7 @@
   max-height: max-content
   overflow: hidden
   box-sizing: border-box
-  padding: 10px 0
+  padding: 0
   .fileListWrap::-webkit-scrollbar-track
     background: #0A3AAB
   .fileListWrap::-webkit-scrollbar-track
@@ -26,102 +26,113 @@
     overflow-y: scroll
     height: 100%
     border-right: 1px solid lightgrey
-  .previewFileWrap
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    width: 67%
-    height: 100%
-    .preview
-      display: flex
-      justify-content: center
-      align-items: center
-      width: 100%
-      height: 45%
-      overflow: hidden
-      img
-        max-width: 50%
-        max-height: 90%
-      .big_pic
-        max-width: 100%
-      video
-        max-width: 80%
-        max-height: 90%
-      iframe
-        max-width: 80%
-        width: 80%
-        height: 90%
-        max-height: 90%
-      audio
-        display: none
-      .audioPicWrap
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 100%
-        height: 100%
-        position: relative
-        .audioPic
-          max-width: 50%
-          max-height: 90%
-          height: 90%
-        .audioSwitchPlay
-          position: absolute
-          width: 3%
-          transform: rotateZ(180deg)
-          cursor: pointer
-        .audioSwitch
-          position: absolute
-          width: 5%
-          cursor: pointer
-    .fileName
-      font-size: 14px
-      font-family: "SF Pro Medium", sans-serif
-      max-width: 85%
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-      margin: 0 0 10px 0
-    .infoFileItem
-      display: flex
-      align-items: center
-      justify-content: flex-start
-      width: 100%
-      margin: 0 0 10px 0
-      .itemName
-        display: flex
-        justify-content: flex-end
-        width: 45%
-        margin: 0 20px 0 0
-        font-family: "SF Pro Light", sans-serif
-      .optionItem:hover
-        color: #4086F1
-      .optionItem
-        cursor: pointer
-        color: lightgrey
-      .tagName
-        max-width: 40%
-        font-size: 14px
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        background: #4086F1
-        border-radius: 10px
-        padding: 1px 10px
-        cursor: default
-      .colorCircle
-        width: 20px
-        height: 20px
-        border-radius: 50%
-      .description
-        font-size: 14px
-        max-width: 40%
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        font-family: "SF Pro Light", sans-serif
   .filePreviewWrap
     position: relative
     width: 120px
     height: 140px
+
+
+.previewFileWrap
+  flex-grow: 1
+  height: 100%
+  overflow-x: hidden
+  overflow-y: auto
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 8px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
+  .previewHeader
+    display: flex
+    justify-content: space-between
+    padding: 15px 25px 15px 20px
+
+    .previewTitle
+      font-family: 'SF Pro Medium'
+      margin: 0
+      font-size: 16px
+      line-height: 25px
+      color: #595959
+
+  .actionBlock
+    display: flex
+    align-items: center
+
+    .activeBtn
+      background: #4086F1
+      svg path
+        transition: all 0.3s ease
+        fill: #FFFFFF
+    
+    .actionBtn
+      width: 25px
+      height: 25px
+      margin-left: 15px
+      display: flex
+      justify-content: center
+      align-items: center
+      transition: all 0.3s ease
+      &:hover
+        background: #4086F1
+        border-radius: 3px
+        transition: all 0.3s ease
+        svg path
+          transition: all 0.3s ease
+          fill: #FFFFFF
+
+
+.previewContent
+  padding: 25px 25px 0 25px
+  position: relative
+
+  .previewImg
+    display: flex
+    justify-content: center
+    img
+      max-width: 350px
+      max-height: 400px
+
+  .commentBlock
+    margin-top: 34px
+
+    .addCommentBlock
+      display: flex
+      align-items: center
+      
+      .commentInput
+        margin-left: 17px
+        background: #F9F9F9
+        border: none
+        &::placeholder
+          font-size: 12px
+          line-height: 25px
+          color: #8A8A8A
+
+    .commentContent
+      margin: 24px 68px 0 68px
+      display: flex
+      flex-direction: column
+
+      .commentItem
+        margin-bottom: 28px
+        display: flex
+        align-items: flex-start
+
+        .commentAvatar
+          width: 26px
+          height: 26px
+          border-radius: 50%
+
+        .commentText
+          margin: 5px 0 0 13px
+          font-size: 12px
+          line-height: 18px
+          color: #595959
+          font-family: 'SF Pro Regular'
+

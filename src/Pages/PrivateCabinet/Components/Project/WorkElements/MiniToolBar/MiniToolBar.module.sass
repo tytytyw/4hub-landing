@@ -1,0 +1,52 @@
+.wrapper
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+  position: absolute
+  right: 13px
+  top: 20px
+
+  .item
+    border-radius: 3px
+    box-shadow: 0 2px 4px #dedede
+    margin-bottom: 6px
+
+    display: flex
+    align-items: center
+
+    .toolBlock.active
+      opacity: 1
+      visibility: visible
+      width: auto
+      transition: all 0.3s ease
+
+    .toolBlock
+      visibility: hidden
+      opacity: 0
+      width: 0
+      display: flex
+      align-items: center
+      background: #FFFFFF
+      border-radius: 3px
+
+    .itemBtn
+      padding: 0
+      cursor: pointer
+      width: 24px
+      height: 24px
+      display: flex
+      justify-content: center
+      align-items: center
+
+.dot
+  display: block
+  width: 5px
+  height: 5px
+  background: #444444
+  border-radius: 50%
+
+.circle
+  display: block
+  width: 17px
+  height: 17px
+  border-radius: 50%
