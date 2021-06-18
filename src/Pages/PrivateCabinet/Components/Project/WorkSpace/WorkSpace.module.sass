@@ -1,0 +1,39 @@
+.wrapper
+  flex-grow: 1
+  box-sizing: border-box
+
+
+
+.mainContent.withFiles
+  height: calc(100% - 145px - 58px)
+.mainContent
+  height: calc(100% - 145px)
+  overflow-x: hidden
+  overflow-y: auto
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 8px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
+
+.header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  height: 90px
+  border-bottom: 1px solid #e5e5e5
+  box-sizing: border-box
+  padding: 0 39px 0 17px
+  .infoHeader
+    display: flex
+    justify-content: space-between
+    align-items: center
+    min-width: 340px
+    width: 400px
+    max-width: 400px

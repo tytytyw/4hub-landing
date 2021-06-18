@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -8,6 +8,8 @@ import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
 import StoragePeriod from '../StoragePeriod/StoragePeriod';
 import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
+import SetPassword from '../SetPassword/SetPassword'
+import SuccessMessage from '../SuccessMessage/SuccessMessage';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
@@ -17,9 +19,11 @@ function ShareFile({file, close, action_type}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
+    const [displaySetPassword, setDisplaySetPassword] = useState(false);
     const [displayMessengers, setDisplayMessengers] = useState(false);
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const uid = useSelector(state => state.user.uid);
     const setTime = (time, limit) => {
         return time < limit
@@ -30,6 +34,7 @@ function ShareFile({file, close, action_type}) {
         uid,
         fid: file.fid,
         user_to: null,
+        prim: null
         // TODO: неоткуда брать значение возможности редактирования}
     }
     if (action_type === 'share') {
@@ -40,8 +45,8 @@ function ShareFile({file, close, action_type}) {
     const onShareFile = () => {
         if (dateValue) data.deadline = `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}`
 
-        api.post(`/ajax/file_${action_type}.php`, {params:{...data}})
-            .then(res => {console.log(res)
+        api.post(`/ajax/file_${action_type}.php`, data)
+            .then(res => {
                 if(res.data.ok === 1) {
                 console.log('ok')   
                 } else if (res.data.error) {
@@ -90,7 +95,7 @@ function ShareFile({file, close, action_type}) {
                     </div>
                 </div>
                 <div className={classNames(styles.comment, styles.border_bottom)}>
-                    <textarea placeholder='Добавить комментарий к Файлу' type='text'></textarea >
+                    <textarea onChange={(e) => data.prim = e.target.value} placeholder='Добавить комментарий к Файлу' type='text'></textarea >
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
                     <div className={styles.ico_wrap}>
@@ -98,9 +103,9 @@ function ShareFile({file, close, action_type}) {
                     </div>
                     <div className={styles.input_wrap}>
                         <p className={styles.input_title}>Пароль</p>
-                        <input id={'input_pass'} placeholder='Вы можете установить пароль на данный файл' type='password'></input>
+                        <input id={'input_pass'} placeholder='Вы можете установить пароль на данный файл'></input>
                     </div>
-                    <span className={styles.set_btn}>
+                    <span onClick={() => setDisplaySetPassword(true)} className={styles.set_btn}>
                         Установить
                     </span>
                 </div>
@@ -125,7 +130,7 @@ function ShareFile({file, close, action_type}) {
                         </div>
                         <div className={styles.input_wrap}>
                             <p className={styles.input_title}>Может редактировать</p>
-                            <input value='Все у кого есть эта ссылкаа, смогут изменять файл' type='button'></input>
+                            <input value='Все у кого есть эта ссылка, смогут изменять файл' type='button'></input>
                         </div>
                         <span className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
@@ -147,6 +152,8 @@ function ShareFile({file, close, action_type}) {
             {error && <Error error={error} set={close} message={error} />}
             {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
             {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
+            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}
+            {showSuccessMessage && <SuccessMessage message='пароль установлен' close={setShowSuccessMessage} />}
         </PopUp>
     )
 }

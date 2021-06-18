@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './Files.module.sass';
 
@@ -8,6 +9,8 @@ const File = ({format, color}) => {
         'ai', 'psd', 'mp4', 'mov', 'avi', 'xls', 'xlsx', 'pptx'
     ];
 
+    const size = useSelector(state => state.PrivateCabinet.size);
+
     const isFormat = () => formats.indexOf(format);
 
     const [formatSize, setFormatSize] = useState(0);
@@ -15,8 +18,8 @@ const File = ({format, color}) => {
         if(node !== null) {
             setFormatSize(node.getBoundingClientRect().width);
         }
-    }, []);
-    const fontSize = formatSize > 40 ? '12px' : '7px';
+    }, [size]); // eslint-disable-line
+    const fontSize = formatSize > 40 ? '12px' : formatSize > 30 ? '10px' : '7px';
 
     return (
         <div className={styles.file}>

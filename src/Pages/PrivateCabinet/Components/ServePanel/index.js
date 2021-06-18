@@ -1,29 +1,27 @@
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
+import {onSetFileSize} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';
 import { ReactComponent as VerticalLinesIcon } from '../../../../assets/PrivateCabinet/vertical-lines.svg';
-import { ReactComponent as SwitchSize } from '../../../../assets/PrivateCabinet/switch_size.svg';
 import { ReactComponent as MenuIcon } from '../../../../assets/PrivateCabinet/menu.svg';
 import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/safe.svg';
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
-import classNames from "classnames";
+import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
 
+const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect}) => {
 
-const ServePanel = ({blob, setBlob, listSize, setListSize, view, setView, chosenFile, setAction, fileSelect}) => {
+    const size = useSelector(state => state.PrivateCabinet.size);
+    const dispatch = useDispatch();
 
-    const changeSize = () => {
-        switch (listSize) {
-            case 'md':
-                return 'lg'
-            case 'lg':
-                return 'sm'
-            default:
-                return 'md'
-        }
+    const changeSize = (s) => {
+        const sizes = ['small', 'medium', 'big'];
+        if(s === sizes[sizes.length - 1]) return sizes[0]
+        return sizes[sizes.indexOf(s) + 1];
     }
 
     return (
@@ -37,15 +35,16 @@ const ServePanel = ({blob, setBlob, listSize, setListSize, view, setView, chosen
                 </div>
                 <div className={styles.filterPanel}>
                     <div
-                        onClick={() => setListSize(changeSize())}
-                        className={styles.iconView}
-                    >
-                        <SwitchSize className={styles.iconSVG} />
-                    </div>
-                    <div className={classNames(styles.iconView, styles.iconViewArrow)}>
-                        <MenuIcon className={styles.iconSVG} />
-                        <div />
-                    </div>
+                        onClick={() => dispatch(onSetFileSize(changeSize(size)))}
+                        className={`
+                            ${styles.iconView} 
+                            ${styles.iconSize} 
+                            ${size === 'small' ? styles.samllSize : null} 
+                            ${size === 'medium' ? styles.mediumSize : null} 
+                            ${size === 'big' ? styles.bigSize : null} 
+                        `}
+                    ><FileSize className={styles.iconSVG} /></div>
+                    <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span className={styles.chooseButton}>Выбрать</span>
                 </div>
             </div>

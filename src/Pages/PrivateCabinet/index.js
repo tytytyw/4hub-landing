@@ -13,8 +13,9 @@ import MyFiles from './Components/MyFiles'
 import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
-import {Switch, Route, Redirect} from 'react-router'
+import {Switch, Route} from 'react-router'
 import Settings from './Components/MyProfile/settings'
+import Project from "./Components/Project";
 
 const PrivateCabinet = () => {
 
@@ -78,24 +79,6 @@ const PrivateCabinet = () => {
                     />
 
                     <Route path='/settings' component={Settings}/>
-
-                    <Route
-                        path='/folders'
-                        render={() => <MyFolders
-                            filePreview={filePreview}
-                            setFilePreview={setFilePreview}
-                            fileSelect={fileSelect}
-                            fileAddCustomization={fileAddCustomization}
-                            setFileAddCustomization={setFileAddCustomization}
-                            setAwaitingFiles={setAwaitingFiles}
-                            awaitingFiles={awaitingFiles}
-                            loaded={loaded}
-                            setLoaded={setLoaded}
-                            loadingFile={loadingFile}
-                            fileErrors={fileErrors}
-                            setLoadingFile={setLoadingFile}
-                        />}
-                    />
 
                     <Route
                         path='/files'
@@ -168,7 +151,29 @@ const PrivateCabinet = () => {
                         />}
                     />
 
-                    <Redirect to='/folders'/>
+                    <Route
+                        path='/project'
+                        render={() => <Project />}
+                    />
+
+                    <Route
+                        render={() => <MyFolders
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            setAwaitingFiles={setAwaitingFiles}
+                            awaitingFiles={awaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                        />}
+                    />
+
+                    {/*<Redirect to='/folders'/>*/}
 
                 </Switch>
 

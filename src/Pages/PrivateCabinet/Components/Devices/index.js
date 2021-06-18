@@ -22,6 +22,7 @@ const Devices = ({
 
     const dispatch = useDispatch()
     const devices = useSelector(state => state.PrivateCabinet.devices)
+    const size = useSelector(state => state.PrivateCabinet.size);
 
     const [chosenDevice, setChosenDevice] = useState(null)
     const [chosenContact, setChosenContact] = useState(null)
@@ -29,7 +30,6 @@ const Devices = ({
     const [listCollapsed, setListCollapsed] = useState('')
     const [newFolder, setNewFolder] = useState(false)
 
-    const [listSize, setListSize] = useState('md')
     const [chosenFolder, setChosenFolder] = useState('')
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
@@ -51,7 +51,7 @@ const Devices = ({
             return <DeviceItem
                 key={i + dev.name}
                 device={dev}
-                listSize={listSize}
+                listSize={size}
                 chosen={chosenDevice === dev.id}
                 setMouseParams={setMouseParams}
                 onClick={() => setChosenDevice(dev.id)}
@@ -91,7 +91,7 @@ const Devices = ({
                 <div className={styles.folderListWrap}>
                     {renderDevicesList()}
                     <ConnectedContacts
-                        listSize={listSize}
+                        listSize={size}
 
                         setChosenContact={setChosenContact}
                         chosenContact={chosenContact}
@@ -105,9 +105,6 @@ const Devices = ({
                 </div>
             </List>
             <WorkSpace
-                listSize={listSize}
-                setListSize={setListSize}
-
                 chosenFolder={chosenFolder}
                 setSafePassword={setSafePassword}
                 listCollapsed={listCollapsed}
