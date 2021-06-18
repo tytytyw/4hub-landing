@@ -1,9 +1,8 @@
 import React from 'react'
 
 import styles from './TariffPlan.module.sass'
-import Button from '../Button'
 import TariffCard from './TariffCard'
-import {data} from "./consts";
+import {data} from './consts'
 
 const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
 
