@@ -1,25 +1,10 @@
-import React, {useEffect, useRef} from 'react'
+import React from 'react'
 import styles from './InfoPopover.module.sass'
 
 const InfoPopover = ({set}) => {
 
-    const ref = useRef()
-
-    useEffect(() => {
-
-        const onClick = event => {
-            if (!ref.current?.contains(event.target)) {
-                set(false)
-            }
-        }
-
-        document.addEventListener('click', onClick)
-        return () => document.removeEventListener('click', onClick)
-
-    }, [])
-
     return (
-        <div ref={ref} className={styles.popover}>
+        <div className={styles.popover}>
 
             <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>Теги</span>

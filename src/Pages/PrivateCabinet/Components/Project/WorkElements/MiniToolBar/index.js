@@ -6,43 +6,49 @@ import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCab
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
 
-const MiniToolBar = ({}) => {
+const MiniToolBar = () => {
 
-    const [figures, setFigures] = useState([
-        {color: '#E0A512'},
-        {color: '#9C0050'},
-        {color: '#BEBEBE'},
-        {color: '#CD0C21'},
-        {color: '#000000'},
-        {color: '#5026B8'},
-        {color: '#04C6F4'},
-        {color: '#6D3FD7'}
-    ])
+    const figures = [
+        {id: 1, figure: 'font'},
+        {id: 2, figure: 'circle-outlined'},
+        {id: 3, figure: 'square-outlined'},
+        {id: 4, figure: 'arrow-outlined'},
+        {id: 5, figure: 'pencil-outlined'},
+        {id: 6, figure: 'brush-outlined'},
+    ]
 
-    const [colors, setColors] = useState([
-        {color: '#E0A512'},
-        {color: '#9C0050'},
-        {color: '#BEBEBE'},
-        {color: '#CD0C21'},
-        {color: '#000000'},
-        {color: '#5026B8'},
-        {color: '#04C6F4'},
-        {color: '#6D3FD7'}
-    ])
+    const colors = [
+        {id: 1, color: '#E0A512'},
+        {id: 2, color: '#9C0050'},
+        {id: 3, color: '#BEBEBE'},
+        {id: 4, color: '#CD0C21'},
+        {id: 5, color: '#000000'},
+        {id: 6, color: '#5026B8'},
+        {id: 7, color: '#04C6F4'},
+        {id: 8, color: '#6D3FD7'},
+        {id: 9, color: '#67AB3E'},
+    ]
 
-    const [dots, setDots] = useState([
-        {width: '16px'},
-        {width: '14px'},
-        {width: '12px'},
-        {width: '10px'},
-        {width: '8px'},
-        {width: '6px'},
-        {width: '2px'},
-    ])
+    const dots = [
+        {id: 1, width: '16px'},
+        {id: 2, width: '14px'},
+        {id: 3, width: '12px'},
+        {id: 4, width: '10px'},
+        {id: 5, width: '8px'},
+        {id: 6, width: '6px'},
+        {id: 7, width: '2px'},
+        {id: 8, width: '5px'},
+    ]
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
     const [toolColors, setToolColors] = useState(false)
+
+    const [values, setValues] = useState({
+        figure: 6,
+        color: 9,
+        dot: 8
+    })
 
     return (
         <div className={styles.wrapper}>
@@ -61,14 +67,18 @@ const MiniToolBar = ({}) => {
                     {figures?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>
                             <img
-                                //src="./assets/PrivateCabinet/"
-                                alt=""
+                                className={styles.figureImg}
+                                src={`./assets/PrivateCabinet/${item.figure}.svg`}
+                                alt={item.figure}
                             />
                         </button>
                     ))}
                 </div>
 
-                <button className={styles.itemBtn}>
+                <button
+                    onMouseEnter={() => setToolFigure(true)}
+                    className={styles.itemBtn}
+                >
                     <PencilIcon/>
                 </button>
             </div>

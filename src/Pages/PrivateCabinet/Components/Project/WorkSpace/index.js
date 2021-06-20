@@ -8,21 +8,18 @@ import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
-import classNames from 'classnames'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 import FileLineShort from '../../Safe/FileLineShort'
 import {useSelector} from 'react-redux'
 
-const WorkSpace = () => {
+const WorkSpace = ({setMouseParams}) => {
 
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
-    const [recentFiles, setRecentFiles] = useState([])
 
-    const [safePassword, setSafePassword] = useState({open: false})
     const [chosenFile, setChosenFile] = useState(null)
-    const [mouseParams, setMouseParams] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
 
     const renderFiles = (Type) => {
@@ -65,17 +62,10 @@ const WorkSpace = () => {
 
             />
 
-            <div className={classNames({
-                [styles.mainContent]: true,
-                [styles.withFiles]: recentFiles?.length < 1
-            })}>
-
-                {workElementsView === 'workLinesPreview' &&
-                <WorkLinesPreview file={chosenFile}>
-                    {renderFiles(FileLineShort)}
-                </WorkLinesPreview>}
-
-            </div>
+            {workElementsView === 'workLinesPreview' &&
+            <WorkLinesPreview recentFiles={recentFiles}>
+                {renderFiles(FileLineShort)}
+            </WorkLinesPreview>}
 
         </div>
     )

@@ -49,6 +49,22 @@ export const contextMenuProfile = {
     ]
 };
 
+export const contextMenuProjects = {
+    main: [
+        {name: 'Добавить участника', img: 'add-user'},
+        {name: 'Настроить доступ', img: 'perm-set'},
+        {name: 'Создать папку', img: 'add-folder'},
+        {name: 'Скопировать ссылку', img: 'copy-link'},
+        {name: 'Переименовать', img: 'rename'},
+        {name: 'Архивировать', img: 'archive'},
+        {name: 'Все участники', img: 'all-users'},
+        {name: 'Свойства', img: 'property', margin: true},
+        {name: 'Покинуть проект', img: 'leave'},
+        {name: 'Удалить проект', img: 'delete'},
+    ],
+    additional: []
+};
+
 export const contextMenuFolder = {
     main: [
         {name: 'Переслать', img: 'resend'},
@@ -69,4 +85,5 @@ export const contextMenuSubFolder = {
     ],
     additional: []
 }
+
 export const previewTypes = ['application/msword', 'application/excel'];
