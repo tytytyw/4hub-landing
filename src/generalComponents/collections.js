@@ -18,7 +18,7 @@ export const signs = ['triangle', 'circle', 'heart', 'star', 'pentagon', 'rectan
 
 export const smiles = [
     'angry', 'angry-2', 'bored', 'confused', 'cool', 'favorite', 'grinning', 'happy', 'happy-2', 'in-love', 'kissing', 'nerd',
-    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', 'tongue-out', 'unhappy'
+    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', /*'tongue-out', 'unhappy'*/
 ];
 
 export const contextMenuFile = {

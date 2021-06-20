@@ -9,6 +9,7 @@ import {onGetProjects} from '../../../../Store/actions/PrivateCabinetActions'
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuSubFolder} from "../../../../generalComponents/collections";
+import CreateProject from "./CreateProject";
 
 const Project = () => {
 
@@ -17,6 +18,7 @@ const Project = () => {
     const [chosenFolder, setChosenFolder] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
     const [contextMenu, setContextMenu] = useState(null)
+    const [createProject, setCreateProject] = useState(false)
 
     useEffect(() => {
         dispatch(onGetProjects())
@@ -55,6 +57,7 @@ const Project = () => {
                 title='Создать проект'
                 src='add_project.svg'
                 className={styles.listWrap}
+                onCreate={setCreateProject}
             >
 
                 {projects?.length < 1 ?
@@ -88,6 +91,12 @@ const Project = () => {
                     {renderMenuItems(contextMenuSubFolder.main)}
                 </div>
             </ContextMenu>}
+
+            {createProject &&
+            <CreateProject
+                title={'Создание проекта'}
+                onCreate={setCreateProject}
+            />}
 
         </div>
     )
