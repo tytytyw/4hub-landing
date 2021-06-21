@@ -5,16 +5,18 @@ import List from './List'
 import WorkSpace from './WorkSpace'
 import ProjectItem from './ProjectItem'
 import {useDispatch, useSelector} from 'react-redux'
-import {onGetProjects} from '../../../../Store/actions/PrivateCabinetActions'
-import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-import ContextMenu from "../../../../generalComponents/ContextMenu";
-import {contextMenuSubFolder} from "../../../../generalComponents/collections";
-import CreateProject from "./CreateProject";
+import {onGetContacts, onGetProjects} from '../../../../Store/actions/PrivateCabinetActions'
+import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
+import ContextMenu from '../../../../generalComponents/ContextMenu'
+import {contextMenuProjects, contextMenuSubFolder} from '../../../../generalComponents/collections'
+import CreateProject from './CreateProject'
+import ProjectContextItem from "./ProjectContextItem";
 
 const Project = () => {
 
     const dispatch = useDispatch()
     const projects = useSelector(state => state.PrivateCabinet.projects)
+    const size = useSelector(state => state.PrivateCabinet.size)
     const [chosenFolder, setChosenFolder] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
     const [contextMenu, setContextMenu] = useState(null)
@@ -22,6 +24,7 @@ const Project = () => {
 
     useEffect(() => {
         dispatch(onGetProjects())
+        dispatch(onGetContacts())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -37,9 +40,22 @@ const Project = () => {
         })
     }
 
+    const renderProjectMenuItems = (target) => {
+        return target.map((item, i) => {
+            return <ProjectContextItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                imageSrc={`./assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
+            />
+        })
+    }
+
     const renderProjects = () => {
         return projects?.map((project, index) => (
             <ProjectItem
+                size={size}
                 key={index}
                 project={project}
                 chosenFolder={chosenFolder}
@@ -59,7 +75,6 @@ const Project = () => {
                 className={styles.listWrap}
                 onCreate={setCreateProject}
             >
-
                 {projects?.length < 1 ?
                     <div className={styles.emptyBlock}>
                         <img
@@ -72,29 +87,37 @@ const Project = () => {
                     <div className={styles.folderWrap}>
                         {renderProjects()}
                     </div>}
-
             </List>
 
             <WorkSpace
                 setMouseParams={setMouseParams}
             />
 
-            {mouseParams !== null &&
+            {mouseParams?.type === 'menu' &&
             <ContextMenu
                 params={mouseParams}
                 setParams={setMouseParams}
                 tooltip={true}
             >
-                <div
-                    className={styles.mainMenuItems}
-                >
+                <div className={styles.mainMenuItems}>
                     {renderMenuItems(contextMenuSubFolder.main)}
+                </div>
+            </ContextMenu>}
+
+            {mouseParams?.type === 'project' &&
+            <ContextMenu
+                params={mouseParams}
+                setParams={setMouseParams}
+                tooltip={true}
+            >
+                <div className={styles.mainMenuItems}>
+                    {renderProjectMenuItems(contextMenuProjects.main)}
                 </div>
             </ContextMenu>}
 
             {createProject &&
             <CreateProject
-                title={'Создание проекта'}
+                title='Создание проекта'
                 onCreate={setCreateProject}
             />}
 

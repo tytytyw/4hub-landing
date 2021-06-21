@@ -4,6 +4,9 @@ import styles from './Personal.module.sass'
 import {ReactComponent as BellIcon} from '../../../../../assets/PrivateCabinet/bell.svg'
 import classNames from 'classnames'
 import Select from '../../../../../generalComponents/Select/Select'
+import Button from '../Button'
+import {resetPersonalSettings, setPersonalSettings, setPersonalTheme} from '../../../../../Store/actions/main'
+import {useDispatch} from 'react-redux'
 
 const langs = [
     {id: 'ru', text: 'Русский'},
@@ -13,7 +16,13 @@ const langs = [
 
 const Personal = () => {
 
+    const dispatch = useDispatch()
     const [fields, setFields] = useState({})
+
+    const onSubmit = event => {
+        event.preventDefault()
+        dispatch(setPersonalSettings(fields))
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -24,6 +33,7 @@ const Personal = () => {
 
             <form
                 noValidate
+                onSubmit={onSubmit}
                 className={styles.form}
             >
                 <div className={styles.formItem}>
@@ -54,7 +64,10 @@ const Personal = () => {
 
                         <div
                             className={styles.radioBlock}
-                            onClick={() => setFields({...fields, theme: 'blue'})}
+                            onClick={() => {
+                                setFields({...fields, theme: 'blue'})
+                                dispatch(setPersonalTheme('blue'))
+                            }}
                         >
                             <div
                                 style={{
@@ -77,7 +90,10 @@ const Personal = () => {
 
                         <div
                             className={styles.radioBlock}
-                            onClick={() => setFields({...fields, theme: 'orange'})}
+                            onClick={() => {
+                                setFields({...fields, theme: 'orange'})
+                                dispatch(setPersonalTheme('orange'))
+                            }}
                         >
                             <div
                                 style={{
@@ -100,7 +116,10 @@ const Personal = () => {
 
                         <div
                             className={styles.radioBlock}
-                            onClick={() => setFields({...fields, theme: 'turquoise'})}
+                            onClick={() => {
+                                setFields({...fields, theme: 'turquoise'})
+                                dispatch(setPersonalTheme('turquoise'))
+                            }}
                         >
                             <div
                                 style={{
@@ -133,6 +152,25 @@ const Personal = () => {
                             className={styles.selectWrap}
                         />
                     </div>
+                </div>
+
+
+                <div className={styles.submitBlock}>
+                    <Button
+                        className={styles.cancelBtn}
+                        onClick={() => {
+                            setFields({})
+                            dispatch(resetPersonalSettings())
+                        }}
+                    >
+                        Отмена
+                    </Button>
+                    <Button
+                        type='submit'
+                        className={styles.submitBtn}
+                    >
+                        Сохранить
+                    </Button>
                 </div>
 
             </form>

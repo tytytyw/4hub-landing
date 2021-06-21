@@ -499,7 +499,7 @@ export const onGetProjects = () => async (dispatch, getState) => {
     dispatch({
         type: GET_PROJECTS,
         payload: [
-            {id: 1, name: 'Проект 1', tasks: 3, icon: '', tag: '', emo: '', fig: '', blocked: false},
+            {id: 1, name: 'Проект 1', tasks: 3, icon: '', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
             {id: 2, name: 'Проект 2', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: true},
             {id: 3, name: 'Проект 3', tasks: 1, icon: '', tag: '', emo: '', fig: '', blocked: false},
             {id: 4, name: 'Проект 4', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: false}

@@ -1,22 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import styles from './CreateFolder.module.sass';
-import api from '../../../../../api';
-import PopUp from '../../../../../generalComponents/PopUp';
-import {ReactComponent as FolderIcon} from '../../../../../assets/PrivateCabinet/folder-2.svg';
-import InputField from '../../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../../generalComponents/collections';
-import Error from '../../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions';
-import Colors from '../../../../../generalComponents/Elements/Colors';
-import Signs from '../../../../../generalComponents/Elements/Signs';
-import Emoji from '../../../../../generalComponents/Elements/Emoji';
+import styles from './CreateFolder.module.sass'
+import api from '../../../../../api'
+import PopUp from '../../../../../generalComponents/PopUp'
+import InputField from '../../../../../generalComponents/InputField'
+import {tags, colors} from '../../../../../generalComponents/collections'
+import Error from '../../../../../generalComponents/Error'
+import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions'
+import Colors from '../../../../../generalComponents/Elements/Colors'
+import Signs from '../../../../../generalComponents/Elements/Signs'
+import Emoji from '../../../../../generalComponents/Elements/Emoji'
 
 const CreateProject = ({onCreate, title, info}) => {
 
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
+    const [target, setTarget] = useState('');
+    const [members, setMembers] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -94,8 +95,8 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
-                            value={name}
-                            set={setName}
+                            value={target}
+                            set={setTarget}
                             placeholder='Цель проекта'
                         />
                     </div>
@@ -104,8 +105,8 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
-                            value={name}
-                            set={setName}
+                            value={members}
+                            set={setMembers}
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img

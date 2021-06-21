@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './MembersPanel.module.sass'
 import classNames from "classnames";
 
-const MembersPanel = () => {
+const MembersPanel = ({setAddMember}) => {
 
     const members = [
         {user: '', img: 'a1', active: false},
@@ -19,7 +19,7 @@ const MembersPanel = () => {
         <div className={styles.wrapper}>
             <ul className={styles.list}>
                 <li
-                    onClick={() => {}}
+                    onClick={() => setAddMember(true)}
                     className={classNames(styles.addMemberBtn, styles.item)}
                 >
                     <img

@@ -8,12 +8,10 @@ import CustomFolderItem from '../CustomFolderItem'
 import {useDispatch, useSelector} from 'react-redux'
 import {onGetProjectFolders} from '../../../../../Store/actions/PrivateCabinetActions'
 import CustomItem from '../CustomItem'
-import ProjectContext from "../ProjectContext";
-import {contextMenuProjects} from "../../../../../generalComponents/collections";
 
 const ProjectItem = ({
-        listSize, project, listCollapsed, setMouseParams,
-        chosenFolder, setChosenFolder, contextMenu, setContextMenu
+        project, listCollapsed, setMouseParams, size,
+        chosenFolder, setChosenFolder
     }) => {
 
     const dispatch = useDispatch()
@@ -35,7 +33,7 @@ const ProjectItem = ({
         return projectFolders?.map((folder, index) => {
             return <CustomFolderItem
                 key={index}
-                listSize={listSize}
+                listSize={size}
                 folder={folder}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
@@ -47,7 +45,10 @@ const ProjectItem = ({
     return (
         <div className={styles.parentWrap}>
 
-            <div className={styles.wrapper}>
+            <div className={classNames({
+                [styles.wrapper]: true,
+                [styles?.[`wrapper_${size}`]]: !!size,
+            })}>
 
                 <div
                     className={classNames({
@@ -62,22 +63,61 @@ const ProjectItem = ({
                     >
 
                         <div className={styles.leftTitleWrap}>
-                            <LampIcon/>
-                            <p className={styles.title}>{project.name}</p>
+                            <LampIcon className={styles.projectIcon}/>
+                            <div className={styles.nameWrap}>
+                                <p className={styles.title}>{project.name}</p>
+                                <div
+                                    className={classNames({
+                                        [styles.tagBlock]: true,
+                                        [styles.ftag]: !!project?.tag
+                                    })}
+                                >
+                                    {project?.tag && `#${project.tag}`}
+                                </div>
+                            </div>
                         </div>
 
-                        <PlayIcon
-                            className={classNames({
-                                [styles.playButton]: true,
-                                [styles.revert]: collapse
-                            })}
-                        />
+                        <div className={styles.stickWrap}>
+
+                            <div className={styles.symbolWrap}>
+                                {project?.fig &&
+                                <img
+                                    className={styles.symbols}
+                                    src={`./assets/PrivateCabinet/signs/${project.fig}.svg`}
+                                    alt='emoji'
+                                />}
+
+                                {project?.emo &&
+                                <img
+                                    className={classNames(styles.symbols, styles.smiles)}
+                                    src={`./assets/PrivateCabinet/smiles/${project.emo}.svg`}
+                                    alt='emoji'
+                                />}
+
+                                {project?.symbol &&
+                                <img
+                                    className={styles.symbols}
+                                    src={project.symbol}
+                                    alt='emoji'
+                                />}
+                            </div>
+
+                            <PlayIcon
+                                className={classNames({
+                                    [styles.playButton]: true,
+                                    [styles.revert]: collapse
+                                })}
+                            />
+                        </div>
 
                     </div>
 
                     <div
                         className={styles.menuWrap}
-                        onClick={() => setContextMenu(project.id)}
+                        onClick={e => {
+                            e.preventDefault()
+                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30, type: 'project'})
+                        }}
                     >
                         <span className={styles.menu}/>
                     </div>
@@ -91,6 +131,7 @@ const ProjectItem = ({
                     })}
                 >
                     <CustomItem
+                        listSize={size}
                         badge={project?.tasks}
                         item={{
                             name: 'Мои задачи в проете',
@@ -98,6 +139,7 @@ const ProjectItem = ({
                         }}
                     />
                     <CustomItem
+                        listSize={size}
                         item={{
                             name: 'Создать новую папку',
                             img: './assets/PrivateCabinet/folders/folder-grey.svg',
@@ -108,12 +150,6 @@ const ProjectItem = ({
                 </div>
 
             </div>
-
-            {contextMenu === project.id &&
-            <ProjectContext
-                set={setContextMenu}
-                data={contextMenuProjects.main}
-            />}
 
         </div>
     )

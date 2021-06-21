@@ -44,11 +44,11 @@ const MiniToolBar = () => {
     const [toolDots, setToolDots] = useState(false)
     const [toolColors, setToolColors] = useState(false)
 
-    const [values, setValues] = useState({
+    /*const [values, setValues] = useState({
         figure: 6,
         color: 9,
         dot: 8
-    })
+    })*/
 
     return (
         <div className={styles.wrapper}>

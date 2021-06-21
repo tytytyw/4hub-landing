@@ -11,6 +11,7 @@ import RecentFiles from '../../RecentFiles'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 import FileLineShort from '../../Safe/FileLineShort'
 import {useSelector} from 'react-redux'
+import AddMember from "../AddMember";
 
 const WorkSpace = ({setMouseParams}) => {
 
@@ -19,8 +20,11 @@ const WorkSpace = ({setMouseParams}) => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
 
+    const [addMember, setAddMember] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
+
+    console.log(action)
 
     const renderFiles = (Type) => {
         if(!fileList?.files) return null
@@ -35,7 +39,7 @@ const WorkSpace = ({setMouseParams}) => {
             />
         })
     }
-    
+
     return (
         <div className={styles.wrapper}>
 
@@ -59,13 +63,18 @@ const WorkSpace = ({setMouseParams}) => {
             />
 
             <MembersPanel
-
+                setAddMember={setAddMember}
             />
 
             {workElementsView === 'workLinesPreview' &&
             <WorkLinesPreview recentFiles={recentFiles}>
                 {renderFiles(FileLineShort)}
             </WorkLinesPreview>}
+
+            {addMember &&
+            <AddMember
+                set={setAddMember}
+            />}
 
         </div>
     )

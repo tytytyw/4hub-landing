@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './RadioCheck.module.sass'
 import classnames from 'classnames'
-import {emptyProfileImage, getContactName} from '../../Contacts/consts'
+import {emptyProfileImage, getContactName} from "../../../MyProfile/Contacts/consts";
 
 const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
 

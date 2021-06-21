@@ -3,11 +3,15 @@ import React from 'react';
 import styles from './SideMenu.module.sass';
 import { menu } from './listHelper';
 import {useHistory, useLocation} from "react-router";
+import {useSelector} from "react-redux";
+import {themes} from "./themes";
 
 const SideMenu = ({collapsed, setCollapsed}) => {
 
     const {pathname} = useLocation()
     const history = useHistory()
+
+    const personalSettings = useSelector(state => state.main.personalSettings)
 
     const renderMenuItems = () => {
       return menu.map(item => {
@@ -32,7 +36,12 @@ const SideMenu = ({collapsed, setCollapsed}) => {
     };
 
     return(
-        <aside className={collapsed ? styles.collapsed : styles.asideWrap}>
+        <aside
+            className={collapsed ? styles.collapsed : styles.asideWrap}
+            style={{
+                background: themes?.[personalSettings?.theme]
+            }}
+        >
             <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`./assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />
             <div className={`${styles.titleWrap} ${collapsed ? styles.titleWrapCollapsed : undefined}`}>
                 <span className={collapsed ? styles.hidden : undefined}>МЕНЮ</span>

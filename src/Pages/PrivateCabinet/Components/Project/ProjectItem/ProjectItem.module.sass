@@ -4,7 +4,23 @@
 .wrapper
   box-sizing: border-box
   overflow: hidden
-  border-bottom: 1px solid lightgrey
+
+  .projectIcon
+    width: 13px
+
+  .stickWrap
+    display: flex
+    align-items: center
+    .symbolWrap
+      margin-right: 10px
+      display: flex
+      align-items: center
+    .symbols
+      margin-right: 7px
+      max-width: 20px
+    .smiles
+      width: 15px
+      height: 15px
 
   .leftWrap
     display: flex
@@ -12,7 +28,6 @@
     align-items: center
     height: 100%
     flex-grow: 1
-
     .leftTitleWrap
       display: flex
       align-items: center
@@ -46,6 +61,23 @@
       display: block
       text-overflow: ellipsis
       white-space: nowrap
+
+    .tagBlock
+      height: 0
+
+    .ftag
+      height: 14px
+      padding: 1px 10px
+      margin: 3px auto 0
+      width: max-content
+      font-size: 10px
+      color: #fff
+      background: #34C6A2
+      border-radius: 10px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+
   .titleCollapsed
     padding: 21px 11px 14px 10px
   .playButton
@@ -58,6 +90,52 @@
     transition: fill 0.2s ease
   .playButton path
     transition: fill 0.2s ease
+
+
+.wrapper_small
+
+  .projectIcon
+    width: 10px
+    height: 15px
+
+  .titleWrap
+    height: 38px
+    padding: 0 11px 0 27px
+    .title
+      font-size: 12px
+      line-height: 15px
+
+    .ftag
+      height: 10px
+      padding: 1px 8px
+      font-size: 8px
+
+  .titleCollapsed
+    padding: 21px 11px 14px 10px
+
+
+.wrapper_big
+
+  .projectIcon
+    width: 20px
+    height: 31px
+
+  .titleWrap
+    height: 80px
+    padding: 0 11px 0 27px
+    .title
+      font-size: 14px
+      line-height: 17px
+
+    .ftag
+      height: 16px
+      padding: 1px 15px
+      font-size: 10px
+
+  .titleCollapsed
+    padding: 21px 11px 14px 10px
+
+
   //.revert
   //  transform: rotateZ(90deg)
 .innerFolders
