@@ -2,11 +2,10 @@
   width: 370px
   height: 280px
   position: fixed
-  bottom: 30px
-  right: 30px
   z-index: 3
   box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
   overflow: hidden
+  transition: top 0.1s ease-in-out, left 0.1s ease-in-out, right 0.1s ease-in-out, bottom 0.1s ease-in-out
   .header
     display: flex
     justify-content: space-between
@@ -17,6 +16,7 @@
     height: 50px
     background: rgb(234, 240, 254)
     position: relative
+    cursor: move
     .loadBar
       position: absolute
       top: 0

@@ -54,7 +54,9 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, folderList: action.payload};
         }
         case CHOOSE_FILES: {
-            return {...state, fileList: action.payload};
+            // TODO - Need to delete after serverside filtration is added
+            const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...action.payload, files}};
         }
         case FILE_DELETE: {
             const files = state.fileList.files.filter(el => el.fid !== action.payload.fid)

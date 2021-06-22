@@ -52,8 +52,14 @@ const PrivateCabinet = () => {
 
     const fileSelect = () => inputRef.current.click();
 
+    const handleDragOver = e => e.preventDefault();
+
     return (
-        <div className={styles.mainWrap} style={{minHeight}}>
+        <div
+            className={styles.mainWrap}
+            style={{minHeight}}
+            onDragOver={handleDragOver}
+        >
             <SideMenu
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
