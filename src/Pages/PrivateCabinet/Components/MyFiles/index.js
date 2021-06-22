@@ -9,7 +9,7 @@ import WorkSpace from "./WorkSpace/index";
 import CreateFile from "../CreateFile";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
-import {onDeleteFile, onAddRecentFiles, onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {onDeleteFile, onAddRecentFiles, onChooseFiles, onChooseAllFiles} from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
@@ -133,7 +133,9 @@ const MyFiles = ({
 		});
 	};
 
-	useEffect(() => dispatch(onChooseFiles("global/all")), [dispatch]);
+	useEffect(() => {
+		dispatch(onChooseAllFiles())
+		return () => dispatch(onChooseFiles('global/all'))}, [dispatch]);
 	// Change state to default after changing menu params
 	useEffect(() => {
 		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
