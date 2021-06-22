@@ -204,11 +204,11 @@ const FileLoader = ({
              ref={fileLoaderRef}
              style={{
                  display: display,
-                 top: params.y === -1 && params.x === -1 ? '' : `${params.y - params.offsetY}px`,
-                 left: params.y === -1 && params.x === -1 ? '' : `${params.x - params.offsetX}px`,
-                 right: params.y === -1 && params.x === -1 ? '30px' : '',
-                 bottom: params.y === -1 && params.x === -1 ? '30px' : '',
-                 // ...renderPosition()
+                 // top: params.y === -1 && params.x === -1 ? '' : `${params.y - params.offsetY}px`,
+                 // left: params.y === -1 && params.x === -1 ? '' : `${params.x - params.offsetX}px`,
+                 // right: params.y === -1 && params.x === -1 ? '30px' : '',
+                 // bottom: params.y === -1 && params.x === -1 ? '30px' : '',
+                 ...renderPosition()
              }}
         >
             <div className={styles.header}>
@@ -230,7 +230,7 @@ const FileLoader = ({
                                 setFileErrors([...fileErrors, ...loadingFile, ...awaitingFiles]);
                                 setLoadingFile([]);
                                 setAwaitingFiles([]);
-                                setProcessing(0)
+                                setProcessing(0);
                                 if(options.cancelLoading) options.cancelLoading();
                             } else {
                                 setAwaitingFiles([...awaitingFiles, ...fileErrors]);

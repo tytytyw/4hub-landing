@@ -34,6 +34,10 @@ export const onGetFolders = () => async (dispatch, getState) => {
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`)
         .then(res => {
             const f = {};
+            // const res = {};
+            // const resp = "{"global":{"all":{"folders":[{"name":"TempFolder","path":"global/all/TempFolder","tags":"\u0414\u0440\u0443\u0433\u043e\u0435","is_pass":0,"is_lock":0,"deadline":0,"color":"green","fig":null,"emo":"cool","folders":{"folders":[],"files_count":0}},{"name":"temp","path":"global/all/temp","tags":"\u0424\u043e\u0442\u043e","is_pass":0,"is_lock":0,"deadline":0,"color":"red","fig":"stop","emo":"happy-2","folders":{"folders":[],"files_count":0}},{"name":"testPass","path":"global/all/testPass","tags":"\u0412\u0438\u0434\u0435\u043e","is_pass":1,"is_lock":0,"deadline":0,"color":"pink","fig":"star","emo":"smart","folders":{"folders":[],"files_count":0}}],"files_count":0},"video":{"folders":[],"files_count":0},"music":{"folders":[],"files_count":0},"docs":{"folders":[],"files_count":0},"images":{"folders":[],"files_count":0}},"other":{"folders":[{"name":"1223","path":"other/1223","tags":"\u0412\u0438\u0434\u0435\u043e","is_pass":1,"is_lock":0,"deadline":0,"color":"blue","fig":"rectangle","emo":"bored","folders":{"folders":[{"name":"123","path":"other/1223/123","tags":"\u0412\u0438\u0434\u0435\u043e","is_pass":1,"is_lock":0,"deadline":0,"color":"blue","fig":"pentagon","emo":"cool","folders":{"folders":[],"files_count":0}}],"files_count":0}},{"name":"HelloFolder","path":"other/HelloFolder","tags":null,"is_pass":0,"is_lock":0,"deadline":0,"color":"rgb(249, 173, 80)","fig":null,"emo":null,"folders":{"folders":[],"files_count":0}},{"name":"NewFolder","path":"other/NewFolder","tags":"\u0424\u043e\u0442\u043e","is_pass":1,"is_lock":0,"deadline":0,"color":"purple","fig":"pentagon","emo":"cool","folders":{"folders":[{"name":"123","path":"other/NewFolder/123","tags":null,"is_pass":1,"is_lock":0,"deadline":0,"color":"green","fig":"pentagon","emo":null,"folders":{"folders":[],"files_count":0}},{"name":"test","path":"other/NewFolder/test","tags":"\u0424\u043e\u0442\u043e","is_pass":1,"is_lock":0,"deadline":0,"color":"darkblue","fig":"rectangle","emo":"cool","folders":{"folders":[],"files_count":0}}],"files_count":0}},{"name":"NewTest","path":"other/NewTest","tags":null,"is_pass":0,"is_lock":0,"deadline":0,"color":"rgb(244, 112, 125)","fig":null,"emo":"cool","folders":{"folders":[],"files_count":0}},{"name":"TestFolder","path":"other/TestFolder","tags":"\u0424\u043e\u0442\u043e","is_pass":0,"is_lock":0,"deadline":0,"color":"blue","fig":"triangle","emo":"nerd","folders":{"folders":[{"name":"123","path":"other/TestFolder/123","tags":"\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b","is_pass":0,"is_lock":0,"deadline":0,"color":"green","fig":"star","emo":"cool","folders":{"folders":[],"files_count":0}}],"files_count":0}}],"files_count":0}}";
+            // res.data = JSON.parse(resp);
+            // console.log(res);
             if (res.data?.global) {
                 f.global = folders.map(el => {
                     return {
@@ -41,7 +45,8 @@ export const onGetFolders = () => async (dispatch, getState) => {
                         nameRu: el.nameRu,
                         path: el.path,
                         folders: res.data.global[el.name].folders,
-                        files: res.data.global[el.name].files
+                        files: res.data.global[el.name].files,
+                        files_count: res.data.global[el.name].files_count
                     }
                 });
             }

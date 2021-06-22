@@ -90,7 +90,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
             </div>
-            {renderInnerFolders()}
+            {folderList ? renderInnerFolders() : null}
         </div>}
     </>)
 }

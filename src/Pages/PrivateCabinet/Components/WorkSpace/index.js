@@ -55,7 +55,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
