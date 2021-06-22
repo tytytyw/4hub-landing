@@ -33,14 +33,12 @@ const MyFiles = ({
 	const [mouseParams, setMouseParams] = useState(null);
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	// const [successMessage, setSuccessMessage] = useState('');
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},

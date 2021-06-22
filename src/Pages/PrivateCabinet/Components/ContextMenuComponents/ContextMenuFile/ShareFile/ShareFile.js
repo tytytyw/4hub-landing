@@ -54,7 +54,7 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
 
         api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
             .then(res => {
-                if(res.data.ok == true) {
+                if(res.data.ok === true) {
                     setShowSuccessMessage('Отправлено')
                     close()
                 } else if (res.data.error) {
