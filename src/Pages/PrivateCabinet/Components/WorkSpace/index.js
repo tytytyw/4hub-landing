@@ -50,7 +50,6 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [successMessage, setSuccessMessage] = useState('');
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -111,8 +110,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         .then(res => {
 			if (res.data.ok === 1) {
 				dispatch(onDeleteFile(chosenFile))
-				setSuccessMessage('Файл добавлен в архив')
-				setShowSuccessMessage(true)
+				setShowSuccessMessage('Файл добавлен в архив')
 			} else console.log(res?.error)
 		})
         .catch(err => console.log(err))
@@ -200,10 +198,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             setFilePick={setFilePick}
         /> : null}
         {action.type === "share" ? (
-				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
         {action.type === "resend" ? (
-            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
         ) : null}
         {action.type === 'properties'
             ? <FileProperty
@@ -243,7 +241,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             id='frame'
         />
         {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
-        {showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
+        {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
     </>)
 }
 

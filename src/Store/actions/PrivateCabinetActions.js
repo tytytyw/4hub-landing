@@ -4,6 +4,7 @@ import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
     CHOOSE_FILES,
+    CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
@@ -75,8 +76,8 @@ export const onChooseAllFiles = () => async (dispatch, getState) => {
     const files = await api.post(`/ajax/file_list_all.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`);
 
     dispatch({
-        type: CHOOSE_FILES,
-        payload: {files: files.data, path: ''}
+        type: CHOOSE_ALL_FILES,
+        payload: {files: files.data, path: 'global/all'}
     })
 };
 
