@@ -1,0 +1,88 @@
+.popover
+  z-index: 9
+  transition: all 0.3s ease
+
+  box-sizing: border-box
+  padding: 30px
+  min-width: 340px
+  border-radius: 10px
+  background: #FFFFFF
+  box-shadow: 2px 2px 15px #DFDFDF
+  position: absolute
+  top: 0
+  right: 12px
+  &:before
+    content: ''
+    position: absolute
+    top: -10px
+    right: 20px
+    width: 0
+    background: none
+    border-bottom: 10px solid #FFFFFF
+    border-left: 7px solid transparent
+    border-right: 7px solid transparent
+
+
+.infoFileItem
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  width: 100%
+  margin: 0 0 13px 0
+  .addItem
+    cursor: pointer
+    font-size: 14px
+    line-height: 17px
+    color: #C0C1C0
+  .itemName
+    display: flex
+    justify-content: flex-end
+    width: 30%
+    margin: 0 20px 0 0
+    font-size: 14px
+    line-height: 17px
+    color: #818081
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    font-family: "SF Pro Light", sans-serif
+  .optionItem:hover
+    color: #4086F1
+  .optionItem
+    cursor: pointer
+    color: lightgrey
+  .tagName
+    max-width: 40%
+    font-size: 14px
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    background: #4086F1
+    border-radius: 10px
+    padding: 1px 10px
+    cursor: default
+  .colorCircle
+    width: 20px
+    height: 20px
+    border-radius: 50%
+    background: #4086F1
+  .description
+    font-size: 14px
+    line-height: 17px
+    color: #666666
+    max-width: 100%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    font-family: "SF Pro Light", sans-serif
+
+  .itemBlock
+    display: flex
+    align-items: center
+
+    .itemImg
+      margin-right: 10px
+      width: 24px
+      height: 24px
+      border-radius: 50%
+

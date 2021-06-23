@@ -18,7 +18,7 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE,
+    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS,
 } from '../types';
 
 const folders = [
@@ -493,6 +493,52 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
         ]
     })
 };
+
+// PROJECT
+
+export const onGetProjects = () => async (dispatch, getState) => {
+    dispatch({
+        type: GET_PROJECTS,
+        payload: [
+            {id: 1, name: 'Проект 1', tasks: 3, icon: '', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
+            {id: 2, name: 'Проект 2', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: true},
+            {id: 3, name: 'Проект 3', tasks: 1, icon: '', tag: '', emo: '', fig: '', blocked: false},
+            {id: 4, name: 'Проект 4', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: false}
+        ]
+    })
+}
+
+export const onGetProjectFolders = () => async (dispatch, getState) => {
+
+    const folders = [
+        {
+            id: 1,
+            icon: 'folder-blue',
+            name: "Дизайн Файл",
+            symbol: './assets/PrivateCabinet/locked.svg',
+            emo: 'happy',
+            projectId: 1,
+        },
+        {
+            id: 2,
+            icon: 'folder-yellow',
+            name: "Payment Design",
+            projectId: 2,
+        },
+        {
+            id: 3,
+            icon: 'folder-green',
+            name: "App Design",
+            projectId: 1,
+        },
+    ]
+
+    dispatch({
+        type: GET_PROJECT_FOLDER,
+        payload: folders
+    })
+}
+
 
 export const onSetFileSize = (size) => {
     return {

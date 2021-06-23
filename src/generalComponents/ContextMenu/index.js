@@ -55,7 +55,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
                     {children}
                 </div>
             </div>
-            <div className={styles.background}></div>
+            <div className={styles.background}/>
         </>)
 }
 

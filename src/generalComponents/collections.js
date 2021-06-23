@@ -18,7 +18,7 @@ export const signs = ['triangle', 'circle', 'heart', 'star', 'pentagon', 'rectan
 
 export const smiles = [
     'angry', 'angry-2', 'bored', 'confused', 'cool', 'favorite', 'grinning', 'happy', 'happy-2', 'in-love', 'kissing', 'nerd',
-    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', 'tongue-out', 'unhappy'
+    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', /*'tongue-out', 'unhappy'*/
 ];
 
 export const contextMenuFile = {
@@ -48,6 +48,22 @@ export const contextMenuProfile = {
     ]
 };
 
+export const contextMenuProjects = {
+    main: [
+        {name: 'Добавить участника', img: 'add-user'},
+        {name: 'Настроить доступ', img: 'perm-set'},
+        {name: 'Создать папку', img: 'add-folder'},
+        {name: 'Скопировать ссылку', img: 'copy-link'},
+        {name: 'Переименовать', img: 'rename'},
+        {name: 'Архивировать', img: 'archive'},
+        {name: 'Все участники', img: 'all-users'},
+        {name: 'Свойства', img: 'property', margin: true},
+        {name: 'Покинуть проект', img: 'leave'},
+        {name: 'Удалить проект', img: 'delete'},
+    ],
+    additional: []
+};
+
 export const contextMenuFolder = {
     main: [
         {name: 'Переслать', img: 'resend'},
@@ -68,5 +84,6 @@ export const contextMenuSubFolder = {
     ],
     additional: [{name: 'Удалить файл', img: 'garbage'}]
 }
+
 export const previewTypes = ['application/msword', 'application/excel'];
 export const previewFormats = ['doc', 'xls', 'ppt', 'txt'];

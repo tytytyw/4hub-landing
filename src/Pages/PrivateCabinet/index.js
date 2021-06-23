@@ -15,6 +15,7 @@ import Programs from "./Components/Programs"
 
 import {Switch, Route} from 'react-router'
 import Settings from './Components/MyProfile/settings'
+import Project from "./Components/Project";
 
 const PrivateCabinet = () => {
 
@@ -85,8 +86,6 @@ const PrivateCabinet = () => {
 
                     <Route path='/settings' component={Settings}/>
 
-
-
                     <Route
                         path='/files'
                         render={() => <MyFiles
@@ -156,6 +155,11 @@ const PrivateCabinet = () => {
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
                         />}
+                    />
+
+                    <Route
+                        path='/project'
+                        render={() => <Project />}
                     />
 
                     <Route

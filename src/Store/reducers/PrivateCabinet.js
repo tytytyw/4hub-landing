@@ -16,8 +16,8 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE,
-} from '../types';
+    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS,
+} from '../types'
 
 const INITIAL_STATE = {
     global: null,
@@ -40,10 +40,14 @@ const INITIAL_STATE = {
     //SAFE
     safes: [],
 
+    //PROJECT
+    projects: [],
+    projectFolders: [],
+
     //DEVICES
     devices: [],
     connectedContacts: [],
-};
+}
 
 export default function startPage(state = INITIAL_STATE, action) {
     switch(action.type) {
@@ -96,6 +100,12 @@ export default function startPage(state = INITIAL_STATE, action) {
         //SAFE
         case GET_SAFES:
             return {...state, safes: action.payload}
+
+        //PROJECT
+        case GET_PROJECT_FOLDER:
+            return {...state, projectFolders: action.payload}
+        case GET_PROJECTS:
+            return {...state, projects: action.payload}
 
         //DEVICES
         case GET_DEVICES:

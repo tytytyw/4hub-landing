@@ -147,7 +147,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 <div className={styles.infoHeader}>
                     <StorageSize />
                     <Notifications />
-                    <Profile setItem={setItem} />
+                    <Profile />
                 </div>
             </div>
             {recentFiles?.length > 0 && <RecentFiles

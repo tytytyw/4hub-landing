@@ -88,5 +88,5 @@ export const messengersData = [
 export const emptyProfileImage = './assets/PrivateCabinet/profile-noPhoto.svg'
 
 export const getContactName = (contact) => {
-    return `${contact?.name || ''} ${contact?.sname || ''}`
+    return `${contact?.name?.trim() || ''} ${contact?.sname.trim() || ''}`
 }
