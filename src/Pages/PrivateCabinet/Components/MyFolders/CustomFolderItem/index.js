@@ -54,7 +54,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
                     {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     {!listCollapsed && <div className={styles.nameWrap}>
-                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(0)</span></div>
+                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>({f?.folders?.files_count})</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                     </div>}
                 </div>
