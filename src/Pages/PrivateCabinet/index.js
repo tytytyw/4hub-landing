@@ -27,6 +27,7 @@ const PrivateCabinet = () => {
     const [filePreview, setFilePreview] = useState({view: false, file: null});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
     const [fileErrors, setFileErrors] = useState([]);
+    const [menuItem, setMenuItem] = useState('');
 
     useEffect(() => {
         dispatch(onGetUserInfo());
@@ -101,6 +102,7 @@ const PrivateCabinet = () => {
                             fileAddCustomization={fileAddCustomization}
                             setFileAddCustomization={setFileAddCustomization}
                             setLoadingFile={setLoadingFile}
+                            setMenuItem={setMenuItem}
                         />}
                     />
 
@@ -196,6 +198,7 @@ const PrivateCabinet = () => {
                     fileAddCustomization={fileAddCustomization}
                     fileErrors={fileErrors}
                     setFileErrors={setFileErrors}
+                    menuItem={menuItem}
                 />
             : null}
             <div style={{display: 'none'}}>

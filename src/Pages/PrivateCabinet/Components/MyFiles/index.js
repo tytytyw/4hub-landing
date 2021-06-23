@@ -16,7 +16,7 @@ import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMess
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
-			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem
 }) => {
 	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
@@ -134,8 +134,13 @@ const MyFiles = ({
 	};
 
 	useEffect(() => {
+		setMenuItem('myFiles')
 		dispatch(onChooseAllFiles())
-		return () => dispatch(onChooseFiles('global/all'))}, [dispatch]);
+		return () => {
+			dispatch(onChooseFiles('global/all'));
+			setMenuItem('')
+	}}, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+	
 	// Change state to default after changing menu params
 	useEffect(() => {
 		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});

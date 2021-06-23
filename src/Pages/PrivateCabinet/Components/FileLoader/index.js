@@ -6,12 +6,12 @@ import axios from 'axios';
 import styles from './FileLoader.module.sass';
 import LoadItem from './LoadItem';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
-import {onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles, onChooseAllFiles} from "../../../../Store/actions/PrivateCabinetActions";
 import {ReactComponent as ErrorIcon} from "../../../../assets/PrivateCabinet/exclamation.svg";
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors,
+        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
 }) => {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -126,7 +126,8 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
-        dispatch(onChooseFiles(path));
+        console.log(menuItem)
+        menuItem === 'myFiles' ? dispatch(onChooseAllFiles()) : dispatch(onChooseFiles(path));
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
