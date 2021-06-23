@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styles from './MyFolders.module.sass';
 import List from '../List';
 import FolderItem from './FolderItem';
-import WorkSpace from '../WorkSpace';
+import WorkSpace from './WorkSpace';
 import CreateFolder from '../CreateFolder';
 import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
@@ -58,6 +58,7 @@ const MyFolders = ({
     const renderOtherFolderList = () => {
         if(!other) return null;
         return other.map((folder, i) => {
+            if(chosenFolder.path === folder.path) console.log(folder.path);
             return <CustomFolderItem
                 key={i + folder.name}
                 f={folder}
