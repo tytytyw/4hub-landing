@@ -61,7 +61,7 @@ const FolderItem = ({
                     className={styles.icon}
                 />
                 {!listCollapsed && <span className={styles.title}>{folder.nameRu} </span>}
-                {!listCollapsed && <span> ({folder?.files_count})</span>}
+                {!listCollapsed && <span> ({folder?.files_count || 0})</span>}
             </div>
             <div className={styles.functionWrap}>
                 <PlayIcon
