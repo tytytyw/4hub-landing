@@ -2,6 +2,7 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    CHOOSE_ALL_FILES,
     FILE_DELETE,
     CONTACT_LIST,
     ADD_RECENT_FOLDERS,
@@ -58,7 +59,14 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, folderList: action.payload};
         }
         case CHOOSE_FILES: {
-            return {...state, fileList: action.payload};
+            // TODO - Need to delete after serverside filtration is added
+            const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...action.payload, files}};
+        }
+        case CHOOSE_ALL_FILES: {
+            // TODO - Need to delete after serverside filtration is added
+            const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...action.payload, files}};
         }
         case FILE_DELETE: {
             const files = state.fileList.files.filter(el => el.fid !== action.payload.fid)

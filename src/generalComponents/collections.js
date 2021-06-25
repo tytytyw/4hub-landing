@@ -25,7 +25,6 @@ export const contextMenuFile = {
     main: [
         {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
-        {name: 'Открыть в приложении', img: 'addOn'},
         {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'settings-work-tool'},
         {name: 'Ред. несколько файлов', img: 'editSeveral'},
@@ -73,7 +72,7 @@ export const contextMenuFolder = {
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
-    additional: []
+    additional: [{name: 'Удалить файл', img: 'garbage'}]
 };
 
 export const contextMenuSubFolder = {
@@ -83,8 +82,8 @@ export const contextMenuSubFolder = {
         {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Свойства', img: 'info'},
     ],
-    additional: []
+    additional: [{name: 'Удалить файл', img: 'garbage'}]
 }
 
 export const previewTypes = ['application/msword', 'application/excel'];
-export const previewFormats = ['doc', 'xls', 'ppt'];
+export const previewFormats = ['doc', 'xls', 'ppt', 'txt'];

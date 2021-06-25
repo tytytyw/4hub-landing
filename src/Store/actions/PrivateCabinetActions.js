@@ -4,6 +4,7 @@ import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
     CHOOSE_FILES,
+    CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
@@ -30,8 +31,8 @@ const folders = [
 ];
 
 export const onGetFolders = () => async (dispatch, getState) => {
-    // TODO - Need to modify page && item per page state
-    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`)
+    // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
+    api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
             const f = {};
             if (res.data?.global) {
@@ -41,7 +42,8 @@ export const onGetFolders = () => async (dispatch, getState) => {
                         nameRu: el.nameRu,
                         path: el.path,
                         folders: res.data.global[el.name].folders,
-                        files: res.data.global[el.name].files
+                        files: res.data.global[el.name].files,
+                        files_count: res.data.global[el.name].files_count
                     }
                 });
             }
@@ -74,8 +76,8 @@ export const onChooseAllFiles = () => async (dispatch, getState) => {
     const files = await api.post(`/ajax/file_list_all.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`);
 
     dispatch({
-        type: CHOOSE_FILES,
-        payload: {files: files.data, path: ''}
+        type: CHOOSE_ALL_FILES,
+        payload: {files: files.data, path: 'global/all'}
     })
 };
 

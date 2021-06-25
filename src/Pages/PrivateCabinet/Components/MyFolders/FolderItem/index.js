@@ -48,7 +48,6 @@ const FolderItem = ({
 
     //Open global/all Folder from the beginning
     useEffect(() => {if(chosen) dispatch(onChooseFolder(folder.folders, folder.path))}, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     return (
         <>
         <div
@@ -62,7 +61,7 @@ const FolderItem = ({
                     className={styles.icon}
                 />
                 {!listCollapsed && <span className={styles.title}>{folder.nameRu} </span>}
-                {!listCollapsed && <span> ({folder.files.length})</span>}
+                {!listCollapsed && <span> ({folder?.files_count || 0})</span>}
             </div>
             <div className={styles.functionWrap}>
                 <PlayIcon

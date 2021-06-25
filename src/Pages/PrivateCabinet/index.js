@@ -16,6 +16,7 @@ import Programs from "./Components/Programs"
 import {Switch, Route} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from "./Components/Project";
+import SharedFiles from "./Components/SharedFiles";
 
 const PrivateCabinet = () => {
 
@@ -53,8 +54,14 @@ const PrivateCabinet = () => {
 
     const fileSelect = () => inputRef.current.click();
 
+    const handleDragOver = e => e.preventDefault();
+
     return (
-        <div className={styles.mainWrap} style={{minHeight}}>
+        <div
+            className={styles.mainWrap}
+            style={{minHeight}}
+            onDragOver={handleDragOver}
+        >
             <SideMenu
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
@@ -154,6 +161,11 @@ const PrivateCabinet = () => {
                     <Route
                         path='/project'
                         render={() => <Project />}
+                    />
+
+                    <Route
+                        path='/rfiles'
+                        render={() => <SharedFiles />}
                     />
 
                     <Route

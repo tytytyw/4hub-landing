@@ -39,7 +39,7 @@ function SetPassword({ file, setDisplaySetPassword, setShowSuccessMessage }) {
 			api
 				.post("/ajax/file_edit.php", data)
 				.then((res) => {
-					setShowSuccessMessage(true);
+					setShowSuccessMessage('пароль установлен');
 					closeComponent();
 				})
 				.catch((err) => {

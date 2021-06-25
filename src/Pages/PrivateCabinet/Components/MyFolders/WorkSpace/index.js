@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import api from '../../../../api';
-import {previewTypes} from '../../../../generalComponents/collections';
+import api from '../../../../../api';
+import {previewTypes} from '../../../../../generalComponents/collections';
 import styles from './WorkSpace.module.sass';
-import SearchField from '../SearchField';
-import StorageSize from '../StorageSize';
-import Notifications from '../Notifications';
-import Profile from '../Profile';
-import ServePanel from '../ServePanel';
-import WorkBars from '../WorkElements/WorkBars';
-import BottomPanel from '../ButtomPanel';
-import FileBar from '../WorkElements/FileBar';
-import WorkLines from '../WorkElements/WorkLines';
-import FileLine from '../WorkElements/FileLine';
-import WorkBarsPreview from '../WorkElements/WorkBarsPreview';
-import WorkLinesPreview from '../WorkElements/WorkLinesPreview';
-import FileLineShort from '../WorkElements/FileLineShort';
-import ContextMenu from '../../../../generalComponents/ContextMenu';
-import {contextMenuFile} from '../../../../generalComponents/collections';
-import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
-import {fileDelete} from '../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
-import ActionApproval from '../../../../generalComponents/ActionApproval';
-import File from '../../../../generalComponents/Files';
-import RecentFiles from '../RecentFiles';
-import CustomizeFile from "../CustomizeFile";
-import OptionButtomLine from "../WorkElements/OptionButtomLine";
-import FileProperty from "../FileProperty";
-import CreateZip from '../CreateZip';
-import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
-import CopyLink from '../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
-import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import SearchField from '../../SearchField';
+import StorageSize from '../../StorageSize';
+import Notifications from '../../Notifications';
+import Profile from '../../Profile';
+import ServePanel from '../../ServePanel';
+import WorkBars from '../../WorkElements/WorkBars';
+import BottomPanel from '../../ButtomPanel';
+import FileBar from '../../WorkElements/FileBar';
+import WorkLines from '../../WorkElements/WorkLines';
+import FileLine from '../../WorkElements/FileLine';
+import WorkBarsPreview from '../../WorkElements/WorkBarsPreview';
+import WorkLinesPreview from '../../WorkElements/WorkLinesPreview';
+import FileLineShort from '../../WorkElements/FileLineShort';
+import ContextMenu from '../../../../../generalComponents/ContextMenu';
+import {contextMenuFile} from '../../../../../generalComponents/collections';
+import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
+import {fileDelete} from '../../../../../generalComponents/fileMenuHelper';
+import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions';
+import ActionApproval from '../../../../../generalComponents/ActionApproval';
+import File from '../../../../../generalComponents/Files';
+import RecentFiles from '../../RecentFiles';
+import CustomizeFile from '../../CustomizeFile';
+import OptionButtomLine from '../../WorkElements/OptionButtomLine';
+import FileProperty from '../../FileProperty';
+import CreateZip from '../../CreateZip';
+import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
+import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
+import SuccessMessage from '../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                    chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -50,12 +50,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [successMessage, setSuccessMessage] = useState('');
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
@@ -112,8 +110,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         .then(res => {
 			if (res.data.ok === 1) {
 				dispatch(onDeleteFile(chosenFile))
-				setSuccessMessage('Файл добавлен в архив')
-				setShowSuccessMessage(true)
+				setShowSuccessMessage('Файл добавлен в архив')
 			} else console.log(res?.error)
 		})
         .catch(err => console.log(err))
@@ -201,10 +198,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             setFilePick={setFilePick}
         /> : null}
         {action.type === "share" ? (
-				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} />
+				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
         {action.type === "resend" ? (
-            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} />
+            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
         ) : null}
         {action.type === 'properties'
             ? <FileProperty
@@ -244,7 +241,7 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             id='frame'
         />
         {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
-        {showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
+        {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
     </>)
 }
 

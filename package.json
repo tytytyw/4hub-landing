@@ -1,7 +1,6 @@
 {
   "name": "4hab-frontend",
   "version": "0.1.0",
-  "private": true,
   "proxy": "http://fs2.mh.net.ua/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -56,17 +55,9 @@
     "enzyme-adapter-react-16": "^1.15.6"
   },
   "jest": {
-    "verbose": true,
     "clearMocks": false,
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js|jsx)?$",
-    "setupFilesAfterEnv": [
-      "<rootDir>/SetupTests.js"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/(node_modules|.vscode)/"
-    ],
     "collectCoverageFrom": [
-      "src/components/**/*.{js|jsx}"
+      "src/generalComponents/**/*.{js|jsx}"
     ]
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
+import {colors} from '../../../../../generalComponents/collections';
 import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
@@ -17,11 +18,11 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            chosen ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: ''}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: ''});
+            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: ''}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: ''});
         } else {
             setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: ''});
         }
-        dispatch(onChooseFolder(f.folders, f.path));
+        dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
     const renderInnerFolders = () => {
@@ -43,7 +44,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     return (<>
         <div
-            className={`${styles.innerFolderWrap} ${chosen ? styles.chosenSubFolderWrap : undefined}`}
+            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path ? styles.chosenSubFolderWrap : undefined}`}
             onClick={(e) => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
                 dispatch(onChooseFiles(f.path));
@@ -51,18 +52,18 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         >
             <div className={styles.innerFolder} style={{padding}}>
                 <div className={styles.innerFolderName}>
-                    <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
+                    <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
                     {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     {!listCollapsed && <div className={styles.nameWrap}>
-                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(0)</span></div>
+                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>({f?.folders?.files_count || 0})</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                     </div>}
                 </div>
                 <div className={styles.innerFolderMedia}>
                     {!listCollapsed && f.emo && <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
-                    {!subFolder ?<PlayIcon
-                        className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`}
+                    {!subFolder ? <PlayIcon
+                        className={`${styles.playButton} ${f.path === chosenFolder.path && chosenFolder.open ? styles.revert : undefined}`}
                     /> : null}
                     <div
                         className={styles.menuWrap}
@@ -73,10 +74,10 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         </div>
         {!subFolder && <div
             style={{
-                height: `${chosen && chosenFolder.open ? (f.folders.length * 50 + 50) : 0}px`,
-                minHeight: `${chosen && chosenFolder.open ? (f.folders.length * 50 + 50) : 0}px`
+                height: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`,
+                minHeight: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`
             }}
-            className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}
+            className={`${styles.innerFolders} ${f.path === chosenFolder.path && chosenFolder.open ? undefined : styles.hidden}`}
         ><div
                 className={styles.addFolderToFolder}
                 onClick={() => {
@@ -90,7 +91,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
             </div>
-            {renderInnerFolders()}
+            {folderList ? renderInnerFolders() : null}
         </div>}
     </>)
 }

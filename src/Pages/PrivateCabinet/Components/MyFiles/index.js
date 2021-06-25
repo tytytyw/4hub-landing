@@ -9,7 +9,7 @@ import WorkSpace from "./WorkSpace/index";
 import CreateFile from "../CreateFile";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
-import {onDeleteFile, onAddRecentFiles, onChooseFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {onDeleteFile, onAddRecentFiles, onChooseFiles, onChooseAllFiles} from "../../../../Store/actions/PrivateCabinetActions";
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
@@ -33,14 +33,12 @@ const MyFiles = ({
 	const [mouseParams, setMouseParams] = useState(null);
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-	const [successMessage, setSuccessMessage] = useState('');
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'openInApp', name: '', text: ``, callback: ''},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
@@ -113,8 +111,7 @@ const MyFiles = ({
         .then(res => {
 			if (res.data.ok === 1) {
 				dispatch(onDeleteFile(chosenFile))
-				setSuccessMessage('Файл добавлен в архив')
-				setShowSuccessMessage(true)
+				setShowSuccessMessage('Файл добавлен в архив')
 			} else console.log(res?.error)
 		})
         .catch(err => console.log(err))
@@ -136,7 +133,9 @@ const MyFiles = ({
 		});
 	};
 
-	useEffect(() => dispatch(onChooseFiles("global/all")), [dispatch]);
+	useEffect(() => {
+		dispatch(onChooseAllFiles())
+		return () => dispatch(onChooseFiles('global/all'))}, [dispatch]);
 	// Change state to default after changing menu params
 	useEffect(() => {
 		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
@@ -183,6 +182,7 @@ const MyFiles = ({
 				setShowLinkCopy ={setShowLinkCopy}
 				showLinkCopy={showLinkCopy}
 				archiveFile={archiveFile}
+				setShowSuccessMessage={setShowSuccessMessage}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
@@ -205,7 +205,7 @@ const MyFiles = ({
                 title='Создайте пароль для Сейфа с паролями'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
-			{showSuccessMessage && <SuccessMessage message={successMessage} close={setShowSuccessMessage} />}
+			{showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
 		</div>
 		
 	);
