@@ -16,6 +16,7 @@ import Programs from "./Components/Programs"
 import {Switch, Route} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from "./Components/Project";
+import SharedFiles from "./Components/SharedFiles";
 
 const PrivateCabinet = () => {
 
@@ -160,6 +161,11 @@ const PrivateCabinet = () => {
                     <Route
                         path='/project'
                         render={() => <Project />}
+                    />
+
+                    <Route
+                        path='/rfiles'
+                        render={() => <SharedFiles />}
                     />
 
                     <Route

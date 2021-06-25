@@ -11,10 +11,8 @@ const PrimaryButton = ({ onClick = () => {}, active = false, ...props }) => (
             [styles.active]: active
         })}
     >
-        {props.text} {props.icon &&
-    <span className={styles.buttonIcon}>
-            {props.icon}
-        </span>}
+        {props.text}
+        {props.icon && <span className={styles.buttonIcon}>{props.icon}</span>}
     </button>
 )
 

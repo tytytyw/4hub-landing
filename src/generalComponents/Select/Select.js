@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './Select.module.sass'
 import classNames from 'classnames'
@@ -8,23 +8,50 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState(initValue)
 
+    const ref = useRef()
+
+    useEffect(() => {
+
+        const onClick = (event) => {
+            if (!ref.current?.contains(event.target)) {
+                setOpen(false)
+            }
+        }
+
+        window.addEventListener('click', onClick)
+
+        return () => window.removeEventListener('click', onClick)
+
+    }, [])
+
     const getValue = () => {
+
+        if (!value) {
+            return props.placeholder
+        }
+
         const valueItem = data.find(item => item?.id === value)
         return valueItem?.text
     }
 
     return (
-        <div className={classNames({
-            [styles.selectWrap]: true,
-            [props.className]: true,
-            [styles.active]: !!open
-        })}>
+        <div
+            ref={ref}
+            className={classNames({
+                [styles.selectWrap]: true,
+                [props.className]: true,
+                [styles.active]: !!open
+            })}
+        >
 
             <div
                 onClick={() => setOpen(!open)}
                 className={styles.select}
             >
-                <span className={styles.selectInput}>{getValue()}</span>
+                <span className={classNames({
+                    [styles.selectInput]: !props.classNameSelect,
+                    [props.classNameSelect]: !!props.classNameSelect
+                })}>{getValue()}</span>
                 <span className={classNames({
                     [styles.arrow]: true,
                     [styles.active]: !!open
