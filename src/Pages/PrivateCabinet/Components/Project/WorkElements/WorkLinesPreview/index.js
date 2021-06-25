@@ -9,9 +9,11 @@ import InfoPopover from '../InfoPopover';
 import classNames from 'classnames';
 import Input from '../../../MyProfile/Input';
 import MiniToolBar from "../MiniToolBar";
+import PopUp from "../../../../../../generalComponents/PopUp";
 
 const WorkLinesPreview = ({recentFiles, children}) => {
 
+    const [previewPopup, setPreviewPopup] = useState(false)
     const [infoPopover, setInfoPopover] = useState(false)
     const [toolBar, setToolBar] = useState(false)
 
@@ -78,7 +80,11 @@ const WorkLinesPreview = ({recentFiles, children}) => {
                     />}
 
                     <div className={styles.previewImg}>
-                        <img src='./assets/PrivateCabinet/Bitmap2.png' alt='Moto Site'/>
+                        <img
+                            onDoubleClick={() => setPreviewPopup(true)}
+                            src='./assets/PrivateCabinet/Bitmap2.png'
+                            alt='Moto Site'
+                        />
                     </div>
 
                     <div className={styles.commentBlock}>
@@ -148,7 +154,21 @@ const WorkLinesPreview = ({recentFiles, children}) => {
                 </div>
 
             </div>
+
+            {previewPopup &&
+            <PopUp set={setPreviewPopup}>
+                <img
+                    style={{
+                        width: '700px',
+                        height: '804px'
+                    }}
+                    className={styles.previewPopupImg}
+                    src="./assets/PrivateCabinet/Bitmap2.png"
+                    alt="Bitmap"
+                />
+            </PopUp>}
+
         </div>)
 }
 
-export default WorkLinesPreview;
+export default WorkLinesPreview
