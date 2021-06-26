@@ -18,7 +18,7 @@ const FileLoader = ({
     const [processing, setProcessing] = useState(0);
     const [closeApprove, setCloseApprove] = useState(true);
     const [timeLeft, setTimeLeft] = useState(undefined);
-    const [params, setParams] = useState({x: -1, y: -1});
+    const [params, setParams] = useState({x: -1, y: -1, offsetX: 0, offsetY: 0, width: 0, height: 0});
     const [display, setDisplay] = useState('block');
     const uid = useSelector(state => state.user?.uid);
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
@@ -171,7 +171,7 @@ const FileLoader = ({
     };
 
     const handleDragStart = e => {
-        setParams({...params, x: e.clientX, y: e.clientY, offsetX: e.clientX - e.target.offsetLeft, offsetY: e.clientY - e.target.offsetTop});
+        setParams({...params, offsetX: e.clientX - e.target.offsetLeft, offsetY: e.clientY - e.target.offsetTop, width: e.target.clientWidth, height: e.target.clientHeight});
         setTimeout(() => setDisplay('none'), 0);
     };
 
@@ -184,14 +184,15 @@ const FileLoader = ({
     const handleDrop = e => e.preventDefault();
 
     const renderPosition = () => {
-        if(params.x === -1 && params.y === -1) return {bottom: '30px', right: '30px'};
-        const horizontalSector = window.innerWidth / 2;
-        const verticalSector = window.innerHeight / 2;
-        let horizontal;
-        let vertical;
-        params.x <= horizontalSector ? horizontal = 'left' : horizontal = 'right';
-        params.y <= verticalSector ? vertical = 'top' : vertical = 'bottom';
-        return {[horizontal]: '30px', [vertical]: '30px'}
+        const position = {top: '', left: '', right: '', bottom: ''};
+        if(params.x === -1 && params.y === -1) return {...position, right: '50px', bottom: '50px'};
+        window.innerWidth / 2 >= params.x
+            ? position.left = (params.x - params.offsetX) > 50 ? `${params.x - params.offsetX}px` : `${50}px`
+            : position.left = (params.x + (params.width - params.offsetX)) < (window.innerWidth - 50) ? `${params.x - params.offsetX}px` : `${window.innerWidth - 50 - params.width}px`;
+        window.innerHeight / 2 >= params.y
+            ? position.top = (params.y - params.offsetY) > 50 ? `${params.y - params.offsetY}px` : `${50}px`
+            : position.top = (params.y + (params.height - params.offsetY)) < (window.innerHeight - 50) ? `${params.y - params.offsetY}px` : `${window.innerHeight - 50 - params.height}px`;
+        return position;
     }
 
     return (
@@ -204,10 +205,6 @@ const FileLoader = ({
              ref={fileLoaderRef}
              style={{
                  display: display,
-                 // top: params.y === -1 && params.x === -1 ? '' : `${params.y - params.offsetY}px`,
-                 // left: params.y === -1 && params.x === -1 ? '' : `${params.x - params.offsetX}px`,
-                 // right: params.y === -1 && params.x === -1 ? '30px' : '',
-                 // bottom: params.y === -1 && params.x === -1 ? '30px' : '',
                  ...renderPosition()
              }}
         >
