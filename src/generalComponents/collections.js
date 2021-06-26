@@ -71,8 +71,9 @@ export const contextMenuFolder = {
         {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
+        {name: 'Удалить папку', img: 'garbage'}
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: [{name: 'Удалить папку', img: 'garbage'}]
 };
 
 export const contextMenuSubFolder = {
@@ -81,8 +82,9 @@ export const contextMenuSubFolder = {
         {name: 'Настроить доступ', img: 'shareFile'},
         {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Свойства', img: 'info'},
+        {name: 'Удалить папку', img: 'garbage'}
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: [{name: 'Удалить папку', img: 'garbage'}]
 }
 
 export const previewTypes = ['application/msword', 'application/excel'];
