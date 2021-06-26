@@ -166,6 +166,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 fileSelect={fileSelect}
                 archive={() => onActiveCallbackArrMain('archive')}
                 resend={() => onActiveCallbackArrMain('resend')}
+                chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+                filePick={filePick}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}

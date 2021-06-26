@@ -13,7 +13,7 @@ import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/s
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
 
-const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, resend }) => {
+const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, resend, chooseSeveral, filePick }) => {
 
     const size = useSelector(state => state.PrivateCabinet.size);
     const dispatch = useDispatch();
@@ -45,7 +45,10 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                         `}
                     ><FileSize className={styles.iconSVG} /></div>
                     <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
-                    <span className={styles.chooseButton}>Выбрать</span>
+                    <span
+                        className={filePick.show ? styles.chooseButtonActive : styles.chooseButton}
+                        onClick={chooseSeveral}
+                    >Выбрать</span>
                 </div>
             </div>
             <div className={styles.groupEnd}>
