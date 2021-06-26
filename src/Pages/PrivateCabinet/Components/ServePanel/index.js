@@ -13,7 +13,7 @@ import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/s
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
 
-const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect}) => {
+const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, resend }) => {
 
     const size = useSelector(state => state.PrivateCabinet.size);
     const dispatch = useDispatch();
@@ -54,8 +54,14 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect}) => {
                     <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
                 </div>
                 <div className={styles.iconButtons}>
-                    <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><SafeIcon className={styles.iconSafe} /></div>
-                    <div className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}><ShareIcon className={styles.iconShare} /></div>
+                    <div
+                        className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
+                        onClick={() => {if(chosenFile) archive()}}
+                    ><SafeIcon className={styles.iconSafe} /></div>
+                    <div
+                        className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
+                        onClick={() => {if(chosenFile) resend()}}
+                    ><ShareIcon className={styles.iconShare} /></div>
                     <div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
                         onClick={() => {

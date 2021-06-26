@@ -138,6 +138,12 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
         });
     };
 
+    const onActiveCallbackArrMain = (type) => {
+        let index;
+        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
+        callbackArrMain[index].callback(callbackArrMain, index);
+    };
+
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -158,6 +164,8 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 chosenFile={chosenFile}
                 setAction={setAction}
                 fileSelect={fileSelect}
+                archive={() => onActiveCallbackArrMain('archive')}
+                resend={() => onActiveCallbackArrMain('resend')}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}
@@ -197,10 +205,10 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
             filePick={filePick}
             setFilePick={setFilePick}
         /> : null}
-        {action.type === "share" ? (
+        {action.type === 'share' ? (
 				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
-        {action.type === "resend" ? (
+        {action.type === 'resend' ? (
             <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
         ) : null}
         {action.type === 'properties'
@@ -217,13 +225,13 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
                 info={chosenFolder}
             />
             : null}
-        {action.type === "archive"
+        {action.type === 'archive'
             ?   <ActionApproval
 					name={action.name}
 					text={action.text}
 					set={nullifyAction}
 					callback={archiveFile}
-					approve={"Архивировать"}
+					approve={'Архивировать'}
 				>
 					<div className={styles.fileActionWrap}>
 						<File format={chosenFile?.ext} color={chosenFile?.color} />
