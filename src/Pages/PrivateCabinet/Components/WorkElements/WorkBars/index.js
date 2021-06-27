@@ -44,7 +44,16 @@ const WorkBars = ({children, fileSelect, filePick, setFilePick}) => {
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>
-            {!children && <img src='./assets/PrivateCabinet/addPropose.png' alt='addFile' className={styles.textAddIcon} />}
+            {!children || children?.length === 0 && <img
+                src='./assets/PrivateCabinet/addPropose.png'
+                alt='addFile'
+                className={size === 'big'
+                    ? styles.textAddIcon
+                    : size === 'medium'
+                        ? styles.textAddIconMedium
+                        : styles.textAddIconSmall
+                }
+            />}
             {children}
         </div>
     )
