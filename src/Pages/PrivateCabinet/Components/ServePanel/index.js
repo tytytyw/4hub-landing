@@ -46,7 +46,7 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                     ><FileSize className={styles.iconSVG} /></div>
                     <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span
-                        className={filePick.show ? styles.chooseButtonActive : styles.chooseButton}
+                        className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
                     >Выбрать</span>
                 </div>
