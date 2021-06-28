@@ -53,7 +53,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     return (<>
         <div
-            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path ? styles.chosenSubFolderWrap : undefined}`}
+            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path || f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
             onClick={(e) => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
                 dispatch(onChooseFiles(f.path));
