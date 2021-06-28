@@ -12,7 +12,7 @@ import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
 import PreviewFile from '../PreviewFile';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections";
+import { contextMenuFolder, contextMenuSubFolder, contextMenuFolderGeneral } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
 const MyFolders = ({
@@ -157,7 +157,7 @@ const MyFolders = ({
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : contextMenuFolder.main, callbackArrMain)}</div>
+                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : chosenFolder.path.indexOf('global') >= 0 ? contextMenuFolderGeneral.main : contextMenuFolder.main, callbackArrMain)}</div>
             </ContextMenu> : null}
         </div>
     )
