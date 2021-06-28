@@ -118,6 +118,7 @@ const WorkSpace = ({
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
+					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
