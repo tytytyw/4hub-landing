@@ -89,6 +89,12 @@ const WorkSpace = ({
 		});
 	};
 
+	const onActiveCallbackArrMain = (type) => {
+        let index;
+        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
+        callbackArrMain[index].callback(callbackArrMain, index);
+    };
+
 	return (
 		<>
 			<div
@@ -119,6 +125,8 @@ const WorkSpace = ({
 					setAction={setAction}
 					fileSelect={fileSelect}
 					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					archive={() => onActiveCallbackArrMain('archive')}
+                	resend={() => onActiveCallbackArrMain('resend')}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
