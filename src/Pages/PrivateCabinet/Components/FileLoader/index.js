@@ -5,9 +5,10 @@ import api from '../../../../api';
 import axios from 'axios';
 import styles from './FileLoader.module.sass';
 import LoadItem from './LoadItem';
-import ActionApproval from "../../../../generalComponents/ActionApproval";
-import {onChooseFiles, onChooseAllFiles} from "../../../../Store/actions/PrivateCabinetActions";
-import {ReactComponent as ErrorIcon} from "../../../../assets/PrivateCabinet/exclamation.svg";
+import ActionApproval from '../../../../generalComponents/ActionApproval';
+import {onChooseFiles, onChooseAllFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
+import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -196,9 +197,23 @@ const FileLoader = ({
         return position;
     }
 
+    // Spin Status Loader
+    const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
+    const circleRef = useRef();
+    const onProgress = (processing) => {
+        const radius = circleRef?.current?.r?.baseVal?.value;
+        const circumference = 2 * Math.PI * radius;
+        setData({
+            strokeDasharray: `${circumference} ${circumference}`,
+            strokeDashoffset: `${circumference - processing / 100 * circumference}`
+        });
+    };
+
+    useEffect(() => {onProgress(processing)}, [processing]);
+
     return (
         <>
-        <div className={`${styles.loaderWrap} ${collapsed ? styles.loaderCollapsed : ''}`}
+        <div className={`${styles.loaderWrap} ${collapsed ? `${styles.loaderCollapsed} ${styles.wrapperCollapsed}` : styles.wrapperNotCollapsed}`}
              draggable={true}
              onDragStart={handleDragStart}
              onDragEnd={handleDragEnd}
@@ -210,10 +225,21 @@ const FileLoader = ({
              }}
         >
             <div className={styles.header}>
-                <span className={styles.loadBar} style={{width: `${processing}%`}} />
-                {loadingFile.length > 0 || awaitingFiles.length > 0 ? <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span> : null}
-                {loadingFile.length === 0 && awaitingFiles.length === 0 ? <span>Загрузка завершена</span> : null}
-                <div className={styles.optionsWrap}>
+                {!collapsed ? <span className={`${collapsed ? '' : styles.loadBar}`} style={{width: `${processing}%`}} /> : null}
+                {(loadingFile.length > 0 || awaitingFiles.length > 0) && !collapsed ? <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span> : null}
+                {loadingFile.length === 0 && awaitingFiles.length === 0 && !collapsed ? <span>Загрузка завершена</span> : null}
+                <div className={`${styles.optionsWrap} ${collapsed ? styles.optionFull : styles.optionSmall}`}>
+                    <div className={styles.progressBarWrap}>
+                        {collapsed && processing ? <>
+                            <svg viewBox="0 0 100 100" width="30px" className={styles.progressBar}>
+                                <circle className={styles.load} cx="50" cy="50" r="45"/>
+                                <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
+                            </svg>
+                            <img src='./assets/PrivateCabinet/download_arrow.svg' alt='' className={styles.downloadArrow} />
+                        </> : null}
+                        {collapsed && !processing && fileErrors.length === 0 ? <CheckIcon className={styles.checkIcon} /> : null}
+                        {collapsed && fileErrors.length > 0 && !processing ? <ErrorIcon className={styles.mark} /> : null}
+                    </div>
                     <div className={`${collapsed ? styles.arrowUp : styles.arrowDown}`} onClick={() => setCollapsed(!collapsed)} />
                     <span className={styles.cross} onClick={() => setCloseApprove(false)} />
                 </div>

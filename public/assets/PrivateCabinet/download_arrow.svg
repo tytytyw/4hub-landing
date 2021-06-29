@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="11px" viewBox="0 0 6 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 11</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="5,6-Загрузка-файлов-скрытый-1" transform="translate(-1311.000000, -870.000000)" fill="#4086F1">
+            <g id="Group-11" transform="translate(1311.000000, 870.000000)">
+                <rect id="Rectangle" x="2" y="2" width="2" height="1" rx="0.5"></rect>
+                <rect id="Rectangle" x="2" y="0" width="2" height="1" rx="0.5"></rect>
+                <g id="direct-download" transform="translate(0.000000, 4.000000)" fill-rule="nonzero">
+                    <path d="M3,6.3 C2.91458333,6.3 2.83291667,6.2622 2.77416667,6.1956 L0.586666667,3.7206 C0.397083333,3.5064 0.537916667,3.15 0.8125,3.15 L1.95833333,3.15 L1.95833333,0.5625 C1.95833333,0.25245 2.19208333,0 2.47916667,0 L3.52083333,0 C3.80791667,0 4.04166667,0.25245 4.04166667,0.5625 L4.04166667,3.15 L5.1875,3.15 C5.46208333,3.15 5.60291667,3.5064 5.41333333,3.7206 L3.22583333,6.1956 C3.16708333,6.2622 3.08541667,6.3 3,6.3 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
