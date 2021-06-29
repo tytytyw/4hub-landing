@@ -184,7 +184,7 @@ const CreateFile = ({
                                     <img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
                                     <span className={styles.hoverPanel}/>
                                 </div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                             </div>
                         </div>
                     </div>
