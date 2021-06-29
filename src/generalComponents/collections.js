@@ -23,7 +23,6 @@ export const smiles = [
 
 export const contextMenuFile = {
     main: [
-        {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
         {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'settings-work-tool'},
