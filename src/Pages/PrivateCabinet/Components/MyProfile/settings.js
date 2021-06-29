@@ -26,6 +26,7 @@ const Settings = () => {
     const [pageOption, setPageOption] = useState('confident')
     const [popup, setPopup] = useState(false)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => dispatch(setPreviewTheme(null)), [pageOption])
 
     useEffect(() => {

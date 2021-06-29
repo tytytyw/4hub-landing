@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import styles from './WorkSpace.module.sass'
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile} from '../../../../../Store/actions/PrivateCabinetActions'
-import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
@@ -13,11 +12,9 @@ import TopListPrograms from './../TopListPrograms'
 import ServePanel from '../../ServePanel'
 import WorkBars from '../WorkElements/WorkBars'
 import BottomPanel from '../../ButtomPanel'
-import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import CustomizeFile from '../../CustomizeFile'
-import {contextMenuFile} from '../../../../../generalComponents/collections'
 import ProgramBar from '../WorkElements/ProgramBar'
 
 const WorkSpace = ({
@@ -29,7 +26,7 @@ const WorkSpace = ({
 
                        listCollapsed, setItem,
                        setFilePreview, filePreview,
-                       mouseParams, setMouseParams,
+                       setMouseParams,
                        fileSelect
                    }) => {
 
@@ -41,13 +38,6 @@ const WorkSpace = ({
     const [action, setAction] = useState({type: '', name: '', text: ''});
 
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
-
-    const callbackArrMain = ['', '', '', '',
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
-    const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`}
-    ];
 
     const deleteFile = () => {
         fileDelete(chosenProgram, dispatch, onDeleteFile);
@@ -133,4 +123,4 @@ const WorkSpace = ({
         </>)
 }
 
-export default WorkSpace;
+export default WorkSpace
