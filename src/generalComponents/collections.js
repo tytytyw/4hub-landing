@@ -1,4 +1,4 @@
-export const tags = ['Фото', 'Видео', 'Музыка', 'Документы','Другое'];
+export const tags = ['Фото', 'Видео', 'Музыка', 'Документы', 'Другое'];
 
 export const colors = [
     {dark: '#efeeee', light: '#efeeee', color: 'grey'},
@@ -33,7 +33,7 @@ export const contextMenuFile = {
         {name: 'Свойства', img: 'info'},
         {name: 'Загрузить', img: 'download-blue'},
         {name: 'Печать', img: 'print-2'},
-        ],
+    ],
     additional: [{name: 'Удалить файл', img: 'garbage'}]
 };
 
@@ -84,6 +84,34 @@ export const contextMenuSubFolder = {
     ],
     additional: [{name: 'Удалить файл', img: 'garbage'}]
 }
+
+
+// Programs
+export const contextProgramFolder = {
+    main: [
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Расшарить', img: 'shareFile'},
+        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Редактировать файл', img: 'settings-work-tool'},
+        {name: 'Переместить в архив', img: 'archive'},
+        {name: 'Свойства', img: 'info'},
+    ],
+    additional: [
+        {name: 'Удалить файл', img: 'garbage'}
+    ]
+}
+
+export const contextProgram = {
+    main: [
+        {name: 'Открыть', img: 'open-file-button'},
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Скопировать сслылку', img: 'link-4'},
+    ],
+    additional: [
+        {name: 'Удалить файл', img: 'garbage'}
+    ]
+}
+
 
 export const previewTypes = ['application/msword', 'application/excel'];
 export const previewFormats = ['doc', 'xls', 'ppt', 'txt'];

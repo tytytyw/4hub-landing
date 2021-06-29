@@ -1,4 +1,4 @@
-import {PERSONAL_SETTINGS, PERSONAL_SETTINGS_THEME, RESET_PERSONAL_SETTINGS} from '../types'
+import {PERSONAL_SETTINGS, PERSONAL_SETTINGS_THEME, PREVIEW_THEME, RESET_PERSONAL_SETTINGS} from '../types'
 
 export const setPersonalSettings = data => async (dispatch, getState) => {
     dispatch({
@@ -10,6 +10,13 @@ export const setPersonalSettings = data => async (dispatch, getState) => {
 export const setPersonalTheme = data => async (dispatch, getState) => {
     dispatch({
         type: PERSONAL_SETTINGS_THEME,
+        payload: data
+    })
+}
+
+export const setPreviewTheme = data => async (dispatch, getState) => {
+    dispatch({
+        type: PREVIEW_THEME,
         payload: data
     })
 }

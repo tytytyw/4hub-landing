@@ -3,13 +3,14 @@ import React from 'react'
 import styles from './ProgramBar.module.sass'
 import classNames from "classnames";
 
-const ProgramBar = ({program, chosenProgram, setChosenProgram, setMouseParams, setFilePreview, filePreview}) => {
+const ProgramBar = ({program, chosenProgram, setChosenProgram, setMouseParams, size}) => {
 
     return (
         <div
             className={classNames({
-                [styles.fileBar]: true,
-                [styles.fileBarChosen]: chosenProgram === program?.id
+                [styles.wrapper]: true,
+                [styles.active]: chosenProgram === program?.id,
+                [styles?.[`wrapper_${size}`]]: size !== 'medium'
             })}
             onClick={() => setChosenProgram(program?.id)}
             //onDoubleClick={() => setFilePreview({...filePreview, view: true, program})}
@@ -17,7 +18,7 @@ const ProgramBar = ({program, chosenProgram, setChosenProgram, setMouseParams, s
             <div
                 className={styles.menu}
                 onClick={e => {
-                    setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+                    setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30, type: 'program'})
                 }}
             >
                 <span/>

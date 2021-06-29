@@ -13,10 +13,12 @@ import MyFiles from './Components/MyFiles'
 import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
-import {Switch, Route} from 'react-router'
+import {Switch, Route, useHistory} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from "./Components/Project";
 import SharedFiles from "./Components/SharedFiles";
+import DownloadedFiles from "./Components/DownloadedFiles";
+import {setPreviewTheme} from "../../Store/actions/main";
 
 const PrivateCabinet = () => {
 
@@ -29,7 +31,17 @@ const PrivateCabinet = () => {
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
     const [fileErrors, setFileErrors] = useState([]);
 
+    const history = useHistory()
+
+    history.listen(() => {
+        const route = history?.location.pathname
+        if (route !== 'settings') {
+            dispatch(setPreviewTheme(null))
+        }
+    })
+
     useEffect(() => {
+
         dispatch(onGetUserInfo());
         dispatch(onGetFolders());
         dispatch(onChooseFiles('global/all'));
@@ -164,8 +176,13 @@ const PrivateCabinet = () => {
                     />
 
                     <Route
-                        path='/rfiles'
+                        path='/shared-files'
                         render={() => <SharedFiles />}
+                    />
+
+                    <Route
+                        path='/downloaded-files'
+                        render={() => <DownloadedFiles />}
                     />
 
                     <Route

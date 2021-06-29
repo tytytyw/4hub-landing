@@ -1,36 +1,5 @@
-.parentWrapper
-  height: calc(100% - 145px)
-
 .wrapper
-  height: 100%
-  overflow-y: auto
-  overflow-x: hidden
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    width: 12px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
 
-.header
-  display: flex
-  align-items: center
-  justify-content: space-between
-  height: 90px
-  border-bottom: 1px solid #e5e5e5
-  box-sizing: border-box
-  padding: 0 39px 0 17px
-  .infoHeader
-    display: flex
-    justify-content: space-between
-    align-items: center
-    min-width: 340px
-    width: 400px
-    max-width: 400px
 
 .searchWrap
   display: flex
@@ -56,6 +25,7 @@
   height: 32px
 
   .selectContentYear
+    margin-right: 10px
     font-size: 12px
     line-height: 14px
     height: 100%
@@ -84,11 +54,10 @@
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
-
+    border: 1px solid transparent
     cursor: pointer
     width: 171px
     height: 34px
-    border: none
     background: #ffffff
     border-radius: 3px
     padding: 0 10px
@@ -132,9 +101,8 @@
       line-height: 12px
       font-family: inherit
 
+
 .collapseHeader
-  cursor: pointer
-  padding: 20px
   display: flex
   align-items: center
 
@@ -144,12 +112,9 @@
     color: #606060
 
   .arrowFile
+    cursor: pointer
     width: 30px
-    .playButton.revert
-      transform: rotate(90deg)
-      path
-        fill: #4086F1
-    .playButton
+    img
       transform: rotate(-90deg)
 
   .collapseBtn
@@ -169,27 +134,5 @@
     font-family: inherit
     color: #666666
     font-size: 12px
-    line-height: 16px
     box-shadow: 0 2px 4px #dedede
     transition: background-color 0.2s ease-in-out
-
-
-.collapseContent
-  padding: 0 20px
-
-.fileDate
-  border-top: 1px solid #CFCFCF
-  padding: 18px 20px 14px 20px
-  p
-    margin: 0
-    font-size: 14px
-    line-height: 19px
-    color: #606060
-
-
-
-.fileActionWrap
-  width: 66px
-  height: 75px
-  position: relative
-

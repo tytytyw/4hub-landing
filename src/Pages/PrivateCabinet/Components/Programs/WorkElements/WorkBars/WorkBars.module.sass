@@ -1,69 +1,29 @@
-.workBarsWrap::-webkit-scrollbar-track
-  background: #0A3AAB
-.workBarsWrap::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-.workBarsWrap::-webkit-scrollbar
-  width: 12px
-  background-color: #FFFFFF
-.workBarsWrap::-webkit-scrollbar-thumb
-  background-color: #4086F1
-
-.workBarsWrap.shop
+.wrapper.shop
   grid-template-columns: repeat(auto-fill, calc(100% / 2 - 10px))
 
-.workBarsWrap
+.wrapper
   display: grid
-  grid-template-columns: repeat(auto-fill, 205px)
-  grid-auto-rows: 205px
   justify-content: center
   width: 100%
   overflow-x: hidden
   overflow-y: scroll
   box-sizing: border-box
   padding: 10px 0 25px 20px
-  .addFile:hover
-    border: 1px dashed #477DE1
-  .addFile
-    display: flex
-    flex-direction: column
-    justify-content: flex-start
-    align-items: center
-    width: 175px
-    height: 185px
-    border: 1px dashed #dfdfdf
-    position: relative
-    background: #fcfcfe
-    box-sizing: border-box
-    padding: 57px 0 0 0
-    cursor: pointer
-    margin: 0 30px 15px 0
-    .form
-      opacity: 0
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
-      input
-        opacity: 0
-        position: absolute
-        top: 0
-        left: 0
-        width: 100%
-        height: 100%
-        cursor: pointer
-    .addIcon
-      margin: 0 0 23px 0
-    .addIcon path
-      transition: fill 0.2s ease-in-out
-    span
-      font-size: 10px
-      text-align: center
-      width: 120px
-    input:hover ~ .addIcon path
-      fill: #477DE1
-      transition: fill 0.2s ease-in-out
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 12px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
+.wrapper
+  grid-template-columns: repeat(auto-fill, 180px)
+  grid-auto-rows: 160px
+
   .textAddIcon
     margin: 30px 0 0 30px
     width: 375px
@@ -71,3 +31,73 @@
   .fileBars
     display: flex
     border: 1px solid green
+
+
+.wrapper_small
+  grid-template-columns: repeat(auto-fill, 130px)
+  grid-auto-rows: 100px
+
+  .textAddIcon
+    margin: 30px 0 0 30px
+    width: 375px
+    height: 142px
+  .fileBars
+    display: flex
+    border: 1px solid green
+
+
+.wrapper_big
+  grid-template-columns: repeat(auto-fill, 220px)
+  grid-auto-rows: 200px
+
+  .textAddIcon
+    margin: 30px 0 0 30px
+    width: 375px
+    height: 142px
+  .fileBars
+    display: flex
+    border: 1px solid green
+
+
+.addFile:hover
+  border: 1px dashed #477DE1
+.addFile
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  width: 175px
+  height: 185px
+  border: 1px dashed #dfdfdf
+  position: relative
+  background: #fcfcfe
+  box-sizing: border-box
+  padding: 57px 0 0 0
+  cursor: pointer
+  margin: 0 30px 15px 0
+  .form
+    opacity: 0
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    input
+      opacity: 0
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      cursor: pointer
+  .addIcon
+    margin: 0 0 23px 0
+  .addIcon path
+    transition: fill 0.2s ease-in-out
+  span
+    font-size: 10px
+    text-align: center
+    width: 120px
+  input:hover ~ .addIcon path
+    fill: #477DE1
+    transition: fill 0.2s ease-in-out

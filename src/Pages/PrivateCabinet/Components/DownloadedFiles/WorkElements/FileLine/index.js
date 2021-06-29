@@ -90,8 +90,14 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     />}
                 </div>}
 
-                <div className={styles.linkWrap}>
-                    <a className={styles.link}>https://google.com</a>
+                <div className={styles.senderWrap}>
+                    <p className={styles.senderText}>Отправитель</p>
+                    <img
+                        className={styles.senderAvatar}
+                        src="./assets/PrivateCabinet/avatars/a1.svg"
+                        alt="Avatar"
+                    />
+                    <p className={styles.sender}>Alina Kvitalina</p>
                 </div>
 
             </div>

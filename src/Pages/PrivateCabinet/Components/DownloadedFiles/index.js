@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import styles from './SharedFiles.module.sass'
+import styles from './DownloadedFiles.module.sass'
 import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
@@ -17,7 +17,7 @@ import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 
-const SharedFiles = () => {
+const DownloadedFiles = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
@@ -189,7 +189,7 @@ const SharedFiles = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" ? (
+            {action.type === "delete" &&
                 <ActionApproval
                     name={action.name}
                     text={action.text}
@@ -200,11 +200,10 @@ const SharedFiles = () => {
                     <div className={styles.fileActionWrap}>
                         <File format={chosenFile?.ext} color={chosenFile?.color} />
                     </div>
-                </ActionApproval>
-            ) : null}
+                </ActionApproval>}
 
         </div>
     )
 }
 
-export default SharedFiles
+export default DownloadedFiles

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
-import shoppingIcon from '../../../../assets/PrivateCabinet/shopping-cart.svg'
 import styles from './Programms.module.sass'
 import List from '../List'
 import WorkSpace from './WorkSpace'
@@ -12,7 +11,10 @@ import CustomFolderItem from './CustomFolderItem'
 import CreateSafePassword from '../CreateSafePassword'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
-import {contextMenuFolder, contextMenuSubFolder} from '../../../../generalComponents/collections'
+import {
+    contextProgram,
+    contextProgramFolder
+} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import {
     onGetCategories,
@@ -21,7 +23,7 @@ import {
     onGetTopListPrograms,
     onGetProgramFolders
 } from '../../../../Store/actions/PrivateCabinetActions'
-import classNames from "classnames";
+import Shops from './Shops'
 
 const Programs = ({
                       setItem, filePreview, setFilePreview, fileSelect,
@@ -32,11 +34,16 @@ const Programs = ({
 
     const dispatch = useDispatch()
     const folders = useSelector(state => state.PrivateCabinet.programFolders)
+    const size = useSelector(state => state.PrivateCabinet.size)
     const recentPrograms = useSelector(state => state.PrivateCabinet.recentPrograms)
+
     const [listCollapsed, setListCollapsed] = useState('')
     const [newFolder, setNewFolder] = useState(false)
 
-    const [chosenFolder, setChosenFolder] = useState(1)
+    const [collapseShop, setCollapseShop] = useState(false)
+
+    const [chosenShop, setChosenShop] = useState(null)
+    const [chosenFolder, setChosenFolder] = useState(null)
     const [chosenProgram, setChosenProgram] = useState()
     const [chosenRecent, setChosenRecent] = useState()
     const [chosenTopListItem, setChosenTopListItem] = useState()
@@ -67,7 +74,7 @@ const Programs = ({
                 setNewFolder={setNewFolder}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
-                chosen={chosenFolder.path === folder.path}
+                chosen={chosenFolder?.path === folder.path}
                 padding={'0px 10px 0px 26px'}
                 setMouseParams={setMouseParams}
             />
@@ -87,7 +94,7 @@ const Programs = ({
                 setNewFolder={setNewFolder}
                 chosenFolder={chosenRecent}
                 setChosenFolder={setChosenRecent}
-                chosen={chosenFolder.path === folder.path}
+                chosen={chosenFolder?.path === folder.path}
                 padding={'0px 10px 0px 26px'}
                 setMouseParams={setMouseParams}
             />
@@ -96,6 +103,15 @@ const Programs = ({
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean})
 
+    const callbackArrMain = [
+        {
+            type: 'delete',
+            name: 'Удаление файла',
+            text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`,
+            callback: () => {}
+        }
+    ]
+
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
             return <ContextMenuItem
@@ -103,18 +119,11 @@ const Programs = ({
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
+                callback={() => type[i]?.callback(type, i)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }
-
-    const callbackArrMain = [
-        {
-            type: 'delete',
-            name: 'Удаление файла',
-            text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`
-        }
-    ]
 
     return (
         <div className={styles.workAreaWrap}>
@@ -131,16 +140,21 @@ const Programs = ({
             >
                 <div className={styles.folderListWrap}>
 
-                    <div
-                        onClick={() => setChosenFolder('shop')}
-                        className={classNames({
-                            [styles.listItem]: true,
-                            [styles.active]: chosenFolder === 'shop'
-                        })}
-                    >
-                        <div className={styles.itemInfo}>
-                            <img src={shoppingIcon} alt='Shop'/>
-                            <p>Магазин</p>
+                    <Shops
+                        chosenShop={chosenShop}
+                        setChosenShop={setChosenShop}
+                        collapseShop={collapseShop}
+                        setCollapseShop={setCollapseShop}
+                        listSize={size}
+                    />
+
+                    <div className={styles.createFolderWrap}>
+                        <p>Создать новую папку</p>
+                        <div className={styles.createFolderImg}>
+                            <img
+                                src="./assets/PrivateCabinet/add-folder.svg"
+                                alt="Create Folder"
+                            />
                         </div>
                     </div>
 
@@ -185,6 +199,9 @@ const Programs = ({
                     chosenTopListProgram={chosenTopListItem}
                     setChosenTopListProgram={setChosenTopListItem}
 
+                    mouseParams={mouseParams}
+                    setMouseParams={setMouseParams}
+
                     setSafePassword={setSafePassword}
                     listCollapsed={listCollapsed}
                     setItem={setItem}
@@ -201,7 +218,7 @@ const Programs = ({
                 setChosenFolder={setChosenFolder}
             />}
 
-            {fileAddCustomization.show ? <CreateFile
+            {fileAddCustomization.show && <CreateFile
                 title='Добавление файла'
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
@@ -213,7 +230,7 @@ const Programs = ({
                 setLoaded={setLoaded}
                 loadingFile={loadingFile}
                 fileErrors={fileErrors}
-            /> : null}
+            />}
 
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
@@ -236,7 +253,16 @@ const Programs = ({
                 <div
                     className={styles.mainMenuItems}
                 >
-                    {renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : contextMenuFolder.main, callbackArrMain)}
+                    {renderMenuItems(mouseParams.type === 'program' ?
+                        contextProgram.main :
+                        contextProgramFolder.main,
+                        callbackArrMain)}
+                </div>
+                <div>
+                    {renderMenuItems(mouseParams.type === 'program' ?
+                        contextProgram.additional :
+                        contextProgramFolder.additional,
+                        callbackArrMain)}
                 </div>
             </ContextMenu>}
         </div>

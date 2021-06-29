@@ -29,13 +29,15 @@ const WorkSpace = ({
 
                        listCollapsed, setItem,
                        setFilePreview, filePreview,
+                       mouseParams, setMouseParams,
                        fileSelect
                    }) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
     const programs = useSelector(state => state.PrivateCabinet.programs);
-    const [mouseParams, setMouseParams] = useState(null);
+    const size = useSelector(state => state.PrivateCabinet.size);
+
     const [action, setAction] = useState({type: '', name: '', text: ''});
 
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -46,23 +48,11 @@ const WorkSpace = ({
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`}
     ];
+
     const deleteFile = () => {
         fileDelete(chosenProgram, dispatch, onDeleteFile);
         nullifyAction();
         setChosenProgram(null)
-    };
-
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-        })
     }
 
     // Types of Files view
@@ -78,6 +68,7 @@ const WorkSpace = ({
                 setAction={setAction}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                size={size}
             />
         });
     }
@@ -85,7 +76,8 @@ const WorkSpace = ({
     return (
         <>
             <div
-                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}
+            >
                 <div className={styles.header}>
                     <SearchField/>
                     <div className={styles.infoHeader}>
@@ -124,12 +116,7 @@ const WorkSpace = ({
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenProgram}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}*/}
                 <BottomPanel/>
             </div>
-            {mouseParams !== null &&
-            <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
-                <div
-                    className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
-            </ContextMenu>}
+
             {action.type === 'delete' &&
             <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}
                             approve={'Удалить'}>
