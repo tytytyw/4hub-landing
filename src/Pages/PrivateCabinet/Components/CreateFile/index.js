@@ -156,7 +156,7 @@ const CreateFile = ({
                     <span className={styles.cross} onClick={() => setBlob({...blob, file: null, show: false})} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                        <div className={`${styles.fileWrap}`}>
                             <div className={styles.file}><File color={color.light} format={getName(blob?.options?.name ? blob.options.name : blob.file.name).format} /></div>
                         </div>
                         <div className={styles.picPreview}>
@@ -164,13 +164,27 @@ const CreateFile = ({
                             <div className={styles.name}>{getName(blob?.options?.name ? blob.options.name : blob.file.name).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={`${styles.minitag} ${styles.redCross}`}
+                                    className={styles.minitagWrap}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
-                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                    <span className={styles.hoverPanel}/>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                    <span className={styles.hoverPanel}/>
+                                </div>
+                                {sign && <div className={styles.signWrap} onClick={() => setSign('')}>
+                                    <img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' />
+                                    <span className={styles.hoverPanel}/>
+                                </div>}
+                                {emoji && <div className={styles.signWrap} onClick={() => setEmoji('')}>
+                                    <img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
+                                    <span className={styles.hoverPanel}/>
+                                </div>}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                             </div>
                         </div>
                     </div>

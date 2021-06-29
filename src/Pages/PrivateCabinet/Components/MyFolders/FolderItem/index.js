@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './FolderItem.module.sass';
@@ -8,6 +8,7 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
+import api from '../../../../../api';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -15,7 +16,9 @@ const FolderItem = ({
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
+    const [filesQuantity, setFilesQuantity] = useState(0);
 
     const openFolder = (e) => {
         let boolean = false;
@@ -47,7 +50,12 @@ const FolderItem = ({
     };
 
     //Open global/all Folder from the beginning
-    useEffect(() => {if(chosen) dispatch(onChooseFolder(folder.folders, folder.path))}, []); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        if(chosen) dispatch(onChooseFolder(folder.folders, folder.path));
+        api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
+            .then(res => {if(res.data.ok === 1) setFilesQuantity(res.data.col)})
+            .catch(err => console.log(err));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <>
         <div
@@ -61,7 +69,7 @@ const FolderItem = ({
                     className={styles.icon}
                 />
                 {!listCollapsed && <span className={styles.title}>{folder.nameRu} </span>}
-                {!listCollapsed && <span> ({folder?.files_count || 0})</span>}
+                {!listCollapsed && <span> ({filesQuantity})</span>}
             </div>
             <div className={styles.functionWrap}>
                 <PlayIcon

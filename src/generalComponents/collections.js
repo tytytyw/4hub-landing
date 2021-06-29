@@ -64,7 +64,7 @@ export const contextMenuProjects = {
     additional: []
 };
 
-export const contextMenuFolder = {
+export const contextMenuFolderGeneral = {
     main: [
         {name: 'Переслать', img: 'resend'},
         {name: 'Настроить доступ', img: 'shareFile'},
@@ -72,7 +72,19 @@ export const contextMenuFolder = {
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: []
+};
+
+export const contextMenuFolder = {
+    main: [
+        {name: 'Переслать', img: 'resend'},
+        {name: 'Настроить доступ', img: 'shareFile'},
+        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Добавить папку', img: 'settings-work-tool'},
+        {name: 'Свойства', img: 'info'},
+        {name: 'Удалить папку', img: 'garbage'}
+    ],
+    additional: []
 };
 
 export const contextMenuSubFolder = {
@@ -81,8 +93,9 @@ export const contextMenuSubFolder = {
         {name: 'Настроить доступ', img: 'shareFile'},
         {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Свойства', img: 'info'},
+        {name: 'Удалить папку', img: 'garbage'}
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: []
 }
 
 
@@ -114,4 +127,4 @@ export const contextProgram = {
 
 
 export const previewTypes = ['application/msword', 'application/excel'];
-export const previewFormats = ['doc', 'xls', 'ppt', 'txt'];
+export const previewFormats = ['doc', 'xls', 'ppt', 'rtf', 'xlt', 'csv'];

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
@@ -7,12 +7,21 @@ import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/Privat
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
+import api from '../../../../../api';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
 
+    const [filesQuantity, setFilesQuantity] = useState(0);
+    const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
+            .then(res => {if(res.data.ok === 1) setFilesQuantity(res.data.col)})
+            .catch(err => console.log(err));
+    }, []); // eslint-disable-line
 
     const openFolder = (e) => {
         let boolean = false;
@@ -44,7 +53,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     return (<>
         <div
-            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path ? styles.chosenSubFolderWrap : undefined}`}
+            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path || f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
             onClick={(e) => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
                 dispatch(onChooseFiles(f.path));
@@ -55,7 +64,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
                     {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     {!listCollapsed && <div className={styles.nameWrap}>
-                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>({f?.folders?.files_count || 0})</span></div>
+                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>({filesQuantity})</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                     </div>}
                 </div>

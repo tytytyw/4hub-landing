@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -60,10 +60,14 @@ const WorkSpace = ({
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 
+	const [foundFiles, setFoundFiles] = useState(null)
+
 	// Types of Files view
 	const renderFiles = (Type) => {
 		if (!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
+		const array = foundFiles ? foundFiles : fileList.files
+
+		return array.map((file, i) => {
 			return (
 				<Type
 					key={i}
@@ -85,6 +89,12 @@ const WorkSpace = ({
 		});
 	};
 
+	const onActiveCallbackArrMain = (type) => {
+        let index;
+        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
+        callbackArrMain[index].callback(callbackArrMain, index);
+    };
+
 	return (
 		<>
 			<div
@@ -93,7 +103,7 @@ const WorkSpace = ({
 				}`}
 			>
 				<div className={styles.header}>
-					<SearchField />
+					<SearchField setFoundFiles={setFoundFiles} fileList={fileList} />
 					<div className={styles.infoHeader}>
 						<StorageSize />
 						<Notifications />
@@ -114,6 +124,9 @@ const WorkSpace = ({
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
+					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					archive={() => onActiveCallbackArrMain('archive')}
+                	resend={() => onActiveCallbackArrMain('resend')}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
