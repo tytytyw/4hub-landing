@@ -11,15 +11,23 @@ import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
 import PreviewFile from '../PreviewFile';
-import ContextMenu from "../../../../generalComponents/ContextMenu";
-import { contextMenuFolder, contextMenuSubFolder, contextMenuFolderGeneral } from "../../../../generalComponents/collections";
-import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import ContextMenu from '../../../../generalComponents/ContextMenu';
+import {
+    contextMenuFolder,
+    contextMenuSubFolder,
+    contextMenuFolderGeneral
+} from '../../../../generalComponents/collections';
+import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import ActionApproval from '../../../../generalComponents/ActionApproval';
+import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
+import api from '../../../../api';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
 }) => {
 
+    const uid = useSelector(state => state.user.uid);
     const global = useSelector(state => state.PrivateCabinet.global);
     const other = useSelector(state => state.PrivateCabinet.other?.folders);
     const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
@@ -85,15 +93,42 @@ const MyFolders = ({
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                // callback={() => setAction(type[i])}
+                callback={() => type[i]?.callback(type, i)}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     };
 
     const callbackArrMain = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`}
+        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
+
+    const callbackArrOther = [
+        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
+    ];
+
+    const callbackArrSub = [
+        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])}
+    ];
+
+    const deleteFolder = () => {
+        api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.subPath ? chosenFolder.subPath : chosenFolder.path}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    };
 
     return (
         <div className={styles.workAreaWrap}>
@@ -157,8 +192,21 @@ const MyFolders = ({
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : chosenFolder.path.indexOf('global') >= 0 ? contextMenuFolderGeneral.main : contextMenuFolder.main, callbackArrMain)}</div>
+                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
+                    ? contextMenuSubFolder.main
+                    : chosenFolder.path.indexOf('global') >= 0
+                        ? contextMenuFolderGeneral.main
+                        : contextMenuFolder.main,
+            chosenFolder.subPath
+                    ? callbackArrSub
+                    : chosenFolder.path.indexOf('global') >= 0
+                        ? callbackArrMain
+                        : callbackArrOther
+                )}</div>
             </ContextMenu> : null}
+            {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={'Удалить'}>
+                <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
+            </ActionApproval> : null}
         </div>
     )
 }

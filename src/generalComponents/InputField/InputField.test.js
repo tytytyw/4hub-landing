@@ -1,5 +1,4 @@
 import InputField from './index';
-import styles from './InputField.module.sass';
 import {shallow, mount} from 'enzyme';
 import React from 'react';
 
