@@ -35,7 +35,7 @@ export const menu = [
     },
     {
         name: 'Расшаренные файлы',
-        path: '/rfiles',
+        path: '/shared-files',
         src: './assets/PrivateCabinet/sharedFiles.svg'
     },
     {

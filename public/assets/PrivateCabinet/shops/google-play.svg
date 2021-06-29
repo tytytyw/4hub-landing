@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="26px" height="29px" viewBox="0 0 26 29" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="google-play">
+    <path d="M12.5627 5.3824C12.5627 6.2524 12.0664 7.018 11.3455 7.4124L5.2 10.7648L0 5.3824L5.2 0L11.3455 3.3524C12.0664 3.7468 12.5627 4.5124 12.5627 5.3824Z" transform="translate(13.437273 8.5376)" id="Path" fill="#FFC107" stroke="none" />
+    <path d="M13.4373 13.2124L0.673636 26.4248C0.248182 26.0072 0 25.4388 0 24.8124L0 1.6124C0 0.986 0.248182 0.4176 0.673636 0L13.4373 13.2124Z" transform="translate(0 0.7076)" id="Path" fill="#03A9F4" stroke="none" />
+    <path d="M12.7636 0L17.9636 5.3824C2.39555 13.7634 1.74318 15.0185 0 13.2124L12.7636 0Z" transform="translate(0.6736364 13.92)" id="Path" fill="#F44336" stroke="none" />
+    <path d="M17.9636 8.53766L12.7636 13.9201L0 0.707659C0.730364 -0.0498209 1.90155 -0.215701 2.83636 0.290059L17.9636 8.53766Z" transform="translate(0.6736364 -5.9144535E-05)" id="Path" fill="#4CAF50" stroke="none" />
+  </g>
+</svg>

@@ -24,25 +24,33 @@
     background: rgba(64, 134, 241, 0.1)
 
   .fileAbout
-    margin-right: 40px
-    flex-grow: 1
     display: flex
     align-items: center
     width: 65%
 
-  .linkWrap
-    margin-left: auto
+  .senderWrap
     display: flex
     justify-content: center
     align-items: center
-    border-radius: 3px
-    box-shadow: 2px 2px 10px #dedede
-    min-width: 331px
-    height: 24px
-  .link
+  .sender
     font-size: 11px
     line-height: 15px
     color: #4086F1
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+  .senderText
+    font-size: 11px
+    line-height: 15px
+    color: #606060
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+  .senderAvatar
+    margin: 0 10px 0 22px
+    width: 30px
+    height: 30px
+    border-radius: 50%
 
   .file
     min-width: 35px
@@ -89,13 +97,19 @@
   padding: 0 7px
   min-height: 37px
 
-  .linkWrap
-    width: 331px
-    height: 24px
-  .link
+  .sender
     font-size: 11px
     line-height: 15px
     color: #4086F1
+  .senderText
+    font-size: 11px
+    line-height: 15px
+    color: #606060
+  .senderAvatar
+    margin: 0 14px 0 26px
+    width: 22px
+    height: 22px
+    border-radius: 50%
 
   .file
     min-width: 24px
@@ -112,23 +126,21 @@
     font-size: 9px
     line-height: 12px
   .symbols
-    flex-grow: 1
     margin-right: 12px
     width: 30%
-
 
 
 .wrapper_big
   padding: 0 10px
   min-height: 96px
 
-  .linkWrap
-    width: 331px
-    height: 24px
-  .link
-    font-size: 11px
-    line-height: 15px
-    color: #4086F1
+  .sender, .senderText
+    font-size: 13px
+    line-height: 17px
+  .senderAvatar
+    margin: 0 12px 0 18px
+    width: 46px
+    height: 46px
 
   .file
     min-width: 66px
@@ -136,7 +148,7 @@
     position: relative
     margin: 0 16px 0 0
   .infoWrap
-    max-width: 350px
+    width: 80%
     justify-content: center
   .fileName
     font-size: 15px
@@ -144,10 +156,6 @@
   .fileDate, .fileSize
     font-size: 12px
     line-height: 16px
-  .symbols
-    flex-grow: 1
-    margin-right: 12px
-    width: 30%
   .locked
     width: 15px
     margin: 0 10px 0 0

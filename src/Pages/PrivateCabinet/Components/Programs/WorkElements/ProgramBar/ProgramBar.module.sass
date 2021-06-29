@@ -1,12 +1,8 @@
-.fileBar
+.wrapper
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
-  width: 175px
-  min-width: 175px
-  height: 185px
-  min-height: 185px
   box-shadow: 0 2px 5px #dedede
   position: relative
   z-index: 3
@@ -65,17 +61,8 @@
       box-shadow: 0 2px 5px #dedede
       z-index: 1
 
-.fileBarChosen
-  display: flex
-  flex-direction: column
-  align-items: center
-  width: 175px
-  height: 185px
-  position: relative
-  z-index: 3
-  cursor: default
+.wrapper.active
   background: rgba(64, 134, 241, .1)
-  box-shadow: none
   .menu
     background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
     box-shadow: none
@@ -89,11 +76,16 @@
 .additionalMenuItems
   margin: 0 0 10px 0
 
-.content
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
+
+.wrapper
+  width: 150px
+  height: 140px
+
+  .content
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
 
   .contentInfo
     font-size: 14px
@@ -101,5 +93,35 @@
     color: #49494B
 
   .contentImg
-    min-width: 63px
-    min-height: 63px
+    min-width: 70px
+    min-height: 45px
+
+
+.wrapper_small
+  width: 104px
+  height: 97px
+
+  .contentInfo
+    font-size: 11px
+    line-height: 15px
+
+  .contentImg
+    min-width: 46px
+    min-height: 40px
+    width: 46px
+    height: 40px
+
+
+.wrapper_big
+  width: 187px
+  height: 174px
+
+  .contentInfo
+    font-size: 16px
+    line-height: 22px
+
+  .contentImg
+    min-width: 87px
+    min-height: 80px
+    width: 46px
+    height: 40px

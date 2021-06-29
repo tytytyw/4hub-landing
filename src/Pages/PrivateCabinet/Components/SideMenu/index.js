@@ -12,6 +12,14 @@ const SideMenu = ({collapsed, setCollapsed}) => {
     const history = useHistory()
 
     const personalSettings = useSelector(state => state.main.personalSettings)
+    const previewTheme = useSelector(state => state.main.previewTheme)
+
+    const getThemeBg = () => {
+        if (previewTheme) {
+            return themes?.[previewTheme]
+        }
+        return themes?.[personalSettings?.theme]
+    }
 
     const renderMenuItems = () => {
       return menu.map(item => {
@@ -39,7 +47,7 @@ const SideMenu = ({collapsed, setCollapsed}) => {
         <aside
             className={collapsed ? styles.collapsed : styles.asideWrap}
             style={{
-                background: themes?.[personalSettings?.theme]
+                background: getThemeBg()
             }}
         >
             <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`./assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />

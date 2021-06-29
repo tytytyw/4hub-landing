@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import styles from './WorkSpace.module.sass'
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile} from '../../../../../Store/actions/PrivateCabinetActions'
-import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
@@ -13,11 +12,9 @@ import TopListPrograms from './../TopListPrograms'
 import ServePanel from '../../ServePanel'
 import WorkBars from '../WorkElements/WorkBars'
 import BottomPanel from '../../ButtomPanel'
-import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import CustomizeFile from '../../CustomizeFile'
-import {contextMenuFile} from '../../../../../generalComponents/collections'
 import ProgramBar from '../WorkElements/ProgramBar'
 
 const WorkSpace = ({
@@ -29,40 +26,23 @@ const WorkSpace = ({
 
                        listCollapsed, setItem,
                        setFilePreview, filePreview,
+                       setMouseParams,
                        fileSelect
                    }) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
     const programs = useSelector(state => state.PrivateCabinet.programs);
-    const [mouseParams, setMouseParams] = useState(null);
+    const size = useSelector(state => state.PrivateCabinet.size);
+
     const [action, setAction] = useState({type: '', name: '', text: ''});
 
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
-    const callbackArrMain = ['', '', '', '',
-        {type: 'customize', name: 'Редактирование файла', text: ``},
-        '', '', '', '', '', '', ''];
-    const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenProgram?.name}?`}
-    ];
     const deleteFile = () => {
         fileDelete(chosenProgram, dispatch, onDeleteFile);
         nullifyAction();
         setChosenProgram(null)
-    };
-
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-        })
     }
 
     // Types of Files view
@@ -78,6 +58,7 @@ const WorkSpace = ({
                 setAction={setAction}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                size={size}
             />
         });
     }
@@ -85,7 +66,8 @@ const WorkSpace = ({
     return (
         <>
             <div
-                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}
+            >
                 <div className={styles.header}>
                     <SearchField/>
                     <div className={styles.infoHeader}>
@@ -124,12 +106,7 @@ const WorkSpace = ({
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenProgram}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}*/}
                 <BottomPanel/>
             </div>
-            {mouseParams !== null &&
-            <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
-                <div
-                    className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
-            </ContextMenu>}
+
             {action.type === 'delete' &&
             <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile}
                             approve={'Удалить'}>
@@ -146,4 +123,4 @@ const WorkSpace = ({
         </>)
 }
 
-export default WorkSpace;
+export default WorkSpace

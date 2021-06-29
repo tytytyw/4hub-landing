@@ -8,7 +8,7 @@ import {ReactComponent as SettingsIcon} from '../../../../../../assets/PrivateCa
 import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
-import {useSelector} from 'react-redux'
+import {useSelector} from "react-redux";
 
 const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview}) => {
 
@@ -90,9 +90,14 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     />}
                 </div>}
 
-                <div className={styles.linkWrap}>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a className={styles.link}>https://google.com</a>
+                <div className={styles.senderWrap}>
+                    <p className={styles.senderText}>Отправитель</p>
+                    <img
+                        className={styles.senderAvatar}
+                        src="./assets/PrivateCabinet/avatars/a1.svg"
+                        alt="Avatar"
+                    />
+                    <p className={styles.sender}>Alina Kvitalina</p>
                 </div>
 
             </div>

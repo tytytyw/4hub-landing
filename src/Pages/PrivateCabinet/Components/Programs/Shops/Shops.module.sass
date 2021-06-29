@@ -1,0 +1,35 @@
+.listItem
+  border-bottom: 1px solid #DFDFDF
+
+.itemWrap
+  padding: 0 17px 0 26px
+  cursor: pointer
+  min-height: 50px
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  &:hover
+    background: rgba(64, 134, 241, 0.1)
+    transition: background 0.2s ease-in-out
+.itemInfo
+  display: flex
+  align-items: center
+  p
+    font-family: 'SF Pro Light'
+    font-size: 13px
+    color: #7c7a7a
+  img
+    margin-right: 10px
+
+.playButton.active path
+  fill: #4086F1
+.playButton
+  transform: rotate(-90deg)
+
+
+.shopList
+  margin: 0
+  padding: 0
+  display: flex
+  flex-direction: column

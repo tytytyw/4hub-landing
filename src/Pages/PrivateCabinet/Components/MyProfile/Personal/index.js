@@ -5,8 +5,8 @@ import {ReactComponent as BellIcon} from '../../../../../assets/PrivateCabinet/b
 import classNames from 'classnames'
 import Select from '../../../../../generalComponents/Select/Select'
 import Button from '../Button'
-import {resetPersonalSettings, setPersonalSettings, setPersonalTheme} from '../../../../../Store/actions/main'
-import {useDispatch} from 'react-redux'
+import {resetPersonalSettings, setPersonalSettings, setPreviewTheme} from '../../../../../Store/actions/main'
+import {useDispatch, useSelector} from 'react-redux'
 
 const langs = [
     {id: 'ru', text: 'Русский'},
@@ -17,7 +17,14 @@ const langs = [
 const Personal = () => {
 
     const dispatch = useDispatch()
-    const [fields, setFields] = useState({})
+    const personalSettings = useSelector(state => state.main.personalSettings)
+    const previewTheme = useSelector(state => state.main.previewTheme)
+
+    let currentTheme = previewTheme || personalSettings?.theme
+
+    const [fields, setFields] = useState({
+        theme: currentTheme
+    })
 
     const onSubmit = event => {
         event.preventDefault()
@@ -66,15 +73,9 @@ const Personal = () => {
                             className={styles.radioBlock}
                             onClick={() => {
                                 setFields({...fields, theme: 'blue'})
-                                dispatch(setPersonalTheme('blue'))
+                                dispatch(setPreviewTheme('blue'))
                             }}
                         >
-                            <div
-                                style={{
-                                    backgroundImage: 'linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)'
-                                }}
-                                className={styles.colorBlock}
-                            />
                             <div className={styles.radio}>
                                 <input
                                     name='theme'
@@ -86,21 +87,27 @@ const Personal = () => {
                                 />
                                 <label htmlFor='blue'>Синий</label>
                             </div>
+                            <div
+                                style={{
+                                    backgroundImage: 'linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)'
+                                }}
+                                className={styles.colorBlock}
+                            />
+                            <button
+                                style={{background: '#4086F1'}}
+                                className={styles.button}
+                            >
+                                Кнопка
+                            </button>
                         </div>
 
                         <div
                             className={styles.radioBlock}
                             onClick={() => {
                                 setFields({...fields, theme: 'orange'})
-                                dispatch(setPersonalTheme('orange'))
+                                dispatch(setPreviewTheme('orange'))
                             }}
                         >
-                            <div
-                                style={{
-                                    backgroundImage: 'linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)'
-                                }}
-                                className={styles.colorBlock}
-                            />
                             <div className={styles.radio}>
                                 <input
                                     name='theme'
@@ -112,21 +119,27 @@ const Personal = () => {
                                 />
                                 <label htmlFor='orange'>Оранжевый</label>
                             </div>
+                            <div
+                                style={{
+                                    backgroundImage: 'linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)'
+                                }}
+                                className={styles.colorBlock}
+                            />
+                            <button
+                                style={{background: '#F58338'}}
+                                className={styles.button}
+                            >
+                                Кнопка
+                            </button>
                         </div>
 
                         <div
                             className={styles.radioBlock}
                             onClick={() => {
                                 setFields({...fields, theme: 'turquoise'})
-                                dispatch(setPersonalTheme('turquoise'))
+                                dispatch(setPreviewTheme('turquoise'))
                             }}
                         >
-                            <div
-                                style={{
-                                    backgroundImage: 'linear-gradient(180deg, #10AADD 0%, #18697C 100%)'
-                                }}
-                                className={styles.colorBlock}
-                            />
                             <div className={styles.radio}>
                                 <input
                                     name='theme'
@@ -138,6 +151,18 @@ const Personal = () => {
                                 />
                                 <label htmlFor='turquoise'>Берюзовый</label>
                             </div>
+                            <div
+                                style={{
+                                    backgroundImage: 'linear-gradient(180deg, #10AADD 0%, #18697C 100%)'
+                                }}
+                                className={styles.colorBlock}
+                            />
+                            <button
+                                style={{background: '#10AADC'}}
+                                className={styles.button}
+                            >
+                                Кнопка
+                            </button>
                         </div>
 
                     </div>
