@@ -37,7 +37,6 @@ const MyFiles = ({
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
