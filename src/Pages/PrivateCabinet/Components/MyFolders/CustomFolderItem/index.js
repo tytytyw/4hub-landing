@@ -15,13 +15,20 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
             .then(res => {if(res.data.ok === 1) setFilesQuantity(res.data.col)})
             .catch(err => console.log(err));
-    }, []); // eslint-disable-line
+    };
+
+    useEffect(() => {getQuantity()}, []); // eslint-disable-line
+
+    useEffect(() => {
+        if(fileList.path === f.path) getQuantity()
+    }, [fileList?.files?.length]); // eslint-disable-line
 
     const openFolder = (e) => {
         let boolean = false;
@@ -51,13 +58,22 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         })
     };
 
+    const clickHandle = (e) => {
+        subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
+        dispatch(onChooseFiles(f.path));
+    };
+
+    const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
+
+    const handleAddFolder = () => {
+        setNewFolderInfo({...newFolderInfo, path: f.path});
+        setNewFolder(true);
+    };
+
     return (<>
         <div
             className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path || f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
-            onClick={(e) => {
-                subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
-                dispatch(onChooseFiles(f.path));
-            }}
+            onClick={clickHandle}
         >
             <div className={styles.innerFolder} style={{padding}}>
                 <div className={styles.innerFolderName}>
@@ -76,7 +92,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     /> : null}
                     <div
                         className={styles.menuWrap}
-                        onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                        onClick={menuClick}
                     ><span className={styles.menu} /></div>
                 </div>
             </div>
@@ -89,10 +105,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             className={`${styles.innerFolders} ${f.path === chosenFolder.path && chosenFolder.open ? undefined : styles.hidden}`}
         ><div
                 className={styles.addFolderToFolder}
-                onClick={() => {
-                    setNewFolderInfo({...newFolderInfo, path: f.path});
-                    setNewFolder(true);
-                }}
+                onClick={handleAddFolder}
             >
                 <div className={styles.addFolderName}>
                     <FolderIcon style={{width: '17px'}} />
