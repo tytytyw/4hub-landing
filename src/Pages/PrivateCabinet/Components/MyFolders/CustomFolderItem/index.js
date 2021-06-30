@@ -27,7 +27,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     useEffect(() => {getQuantity()}, []); // eslint-disable-line
 
     useEffect(() => {
-        if(fileList.path === f.path) getQuantity()
+        if(folderList?.path === f?.path) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
     const openFolder = (e) => {

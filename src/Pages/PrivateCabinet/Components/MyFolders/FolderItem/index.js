@@ -16,6 +16,7 @@ const FolderItem = ({
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const [filesQuantity, setFilesQuantity] = useState(0);
@@ -49,13 +50,32 @@ const FolderItem = ({
         })
     };
 
+    const getQuantity = () => {
+        api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
+            .then(res => {
+                console.log(res.data.ok);
+                if(res.data.ok === 1) setFilesQuantity(res.data.col)
+            })
+            .catch(err => console.log(err));
+    };
+
     //Open global/all Folder from the beginning
     useEffect(() => {
         if(chosen) dispatch(onChooseFolder(folder.folders, folder.path));
-        api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
-            .then(res => {if(res.data.ok === 1) setFilesQuantity(res.data.col)})
-            .catch(err => console.log(err));
+        getQuantity();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if(folderList?.path === folder?.path) getQuantity()
+    }, [fileList?.files?.length]); // eslint-disable-line
+
+    const openMenu = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
+
+    const addFolder = () => {
+        setNewFolderInfo({...newFolderInfo, path: folder.path});
+        setNewFolder(true);
+    };
+
     return (
         <>
         <div
@@ -77,7 +97,7 @@ const FolderItem = ({
                 />
                 <div
                     className={styles.menuWrap}
-                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                    onClick={openMenu}
                 ><span className={styles.menu} /></div>
             </div>
         </div>
@@ -88,10 +108,7 @@ const FolderItem = ({
              className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
             <div
                 className={styles.addFolderToFolder}
-                onClick={() => {
-                    setNewFolderInfo({...newFolderInfo, path: folder.path});
-                    setNewFolder(true);
-                }}
+                onClick={addFolder}
             >
                 <div className={styles.addFolderName}>
                     <FolderIcon style={{width: '17px'}} />
