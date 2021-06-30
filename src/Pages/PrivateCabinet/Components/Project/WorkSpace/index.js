@@ -24,7 +24,6 @@ const WorkSpace = ({setMouseParams}) => {
     const [addMember, setAddMember] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
-    console.log(action)
 
     const renderFiles = (Type) => {
         if(!fileList?.files) return null
@@ -38,6 +37,7 @@ const WorkSpace = ({setMouseParams}) => {
                 setAction={setAction}
 
                 size={size}
+                action={action}
             />
         })
     }

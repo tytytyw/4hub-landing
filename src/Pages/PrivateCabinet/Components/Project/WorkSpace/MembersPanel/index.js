@@ -29,7 +29,7 @@ const MembersPanel = ({setAddMember}) => {
                     />
                 </li>
                 {members?.map((member, index) => (
-                    <li className={styles.item}>
+                    <li className={styles.item} key={index}>
                         <img
                             className={styles.itemImg}
                             src={`./assets/PrivateCabinet/avatars/${member?.img}.svg`}
