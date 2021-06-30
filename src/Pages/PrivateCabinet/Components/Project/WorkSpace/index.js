@@ -15,6 +15,7 @@ import AddMember from "../AddMember";
 
 const WorkSpace = ({setMouseParams}) => {
 
+    const size = useSelector(state => state.PrivateCabinet.size)
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
 
@@ -35,6 +36,8 @@ const WorkSpace = ({setMouseParams}) => {
                 chosen={chosenFile?.fid === file?.fid}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
+
+                size={size}
             />
         })
     }
