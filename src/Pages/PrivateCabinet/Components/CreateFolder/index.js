@@ -95,7 +95,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                 <span className={styles.title}>{title}</span>
                 <div className={styles.folderIconWrap}>
                     <div className={`${styles.folder} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
-                        <FolderIcon className={`${styles.folderIcon} ${color.color}`} />
+                        <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === color.color)[0]?.name}`} />
                     </div>
                     <div className={styles.picPreview}>
                         <div className={styles.folderName}>{name}</div>
