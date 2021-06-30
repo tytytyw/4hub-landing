@@ -23,7 +23,7 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                 <div className={styles.search}>
                     <input
                         type='search'
-                        value={search}
+                        value={search || ''}
                         onChange={event => setSearch(event.target.value)}
                         className={styles.input}
                         placeholder='Введите ключевое слово'
@@ -41,6 +41,7 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
 
                 {months?.map((item, index) => (
                     <button
+                        key={index}
                         onClick={() => setMonth(item.id)}
                         className={classNames({
                             [styles.button]: true,

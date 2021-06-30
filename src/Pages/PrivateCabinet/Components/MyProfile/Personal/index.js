@@ -94,6 +94,7 @@ const Personal = () => {
                                 className={styles.colorBlock}
                             />
                             <button
+                                type='button'
                                 style={{background: '#4086F1'}}
                                 className={styles.button}
                             >
@@ -126,6 +127,7 @@ const Personal = () => {
                                 className={styles.colorBlock}
                             />
                             <button
+                                type='button'
                                 style={{background: '#F58338'}}
                                 className={styles.button}
                             >
@@ -158,6 +160,7 @@ const Personal = () => {
                                 className={styles.colorBlock}
                             />
                             <button
+                                type='button'
                                 style={{background: '#10AADC'}}
                                 className={styles.button}
                             >

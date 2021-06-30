@@ -89,9 +89,7 @@ const Project = () => {
                     </div>}
             </List>
 
-            <WorkSpace
-                setMouseParams={setMouseParams}
-            />
+            <WorkSpace setMouseParams={setMouseParams}/>
 
             {mouseParams?.type === 'menu' &&
             <ContextMenu

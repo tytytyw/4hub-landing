@@ -3,13 +3,14 @@ import React from 'react'
 import styles from './FileLineShort.module.sass'
 import classNames from 'classnames'
 
-const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview}) => {
+const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, size}) => {
 
     return (
         <div
             className={classNames({
-                [styles.fileLineShortWrap]: true,
-                [styles.fileChosen]: !!chosen
+                [styles.wrapper]: true,
+                [styles.fileChosen]: !!chosen,
+                [styles?.[`wrapper_${size}`]]: size !== 'medium'
             })}
             onClick={() => setChosenFile(file)}
             onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
@@ -20,12 +21,12 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
                 </div>
                 <div className={styles.fileName}>
                     <p>{file.name}</p>
-                    <div><span>JPEG</span>-<span>10 MB</span></div>
+                    <div className={styles.fileInfo}><span>JPEG</span>&nbsp;-&nbsp;<span>10 MB</span></div>
                 </div>
             </div>
 
             <div className={styles.rightWrap}>
-                <div className={styles.fileName}>
+                <div className={styles.fileDate}>
                     <p>19.08.2019</p>
                 </div>
                 <div

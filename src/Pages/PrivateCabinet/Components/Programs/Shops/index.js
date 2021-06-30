@@ -10,8 +10,8 @@ const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMou
 
     const shops = [
         {id: 1, name: 'App Store', img: './assets/PrivateCabinet/shops/app-store.svg'},
-        {id: 1, name: 'Google Play', img: './assets/PrivateCabinet/shops/google-play.svg'},
-        {id: 1, name: 'Street Market', img: './assets/PrivateCabinet/shops/street-market.svg'},
+        {id: 2, name: 'Google Play', img: './assets/PrivateCabinet/shops/google-play.svg'},
+        {id: 3, name: 'Street Market', img: './assets/PrivateCabinet/shops/street-market.svg'},
     ]
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

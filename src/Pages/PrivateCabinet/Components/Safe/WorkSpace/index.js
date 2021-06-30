@@ -28,6 +28,7 @@ const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview');
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const size = useSelector(state => state.PrivateCabinet.size);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -84,6 +85,8 @@ const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
                 filePreview={filePreview}
                 filePick={filePick}
                 setFilePick={setFilePick}
+
+                size={size}
             />
         });
     };
