@@ -1,0 +1,144 @@
+.innerFolders
+  display: flex
+  flex-direction: column
+  width: 100%
+  min-height: max-content
+  opacity: 1
+  border-bottom: 1px solid grey
+  transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
+  .addFolderToFolder
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    padding: 0 15px 0 30px
+    width: 100%
+    height: 50px
+    font-size: 12px
+    border-bottom: 1px solid grey
+    cursor: pointer
+    span
+      margin: 0 0 0 15px
+      animation: showText 0.2s ease-in-out
+    .addFolderName
+      display: flex
+      color: #7c7a7a
+    .addFolderIcon
+      width: 18px
+  .addFolderToFolder:hover
+    background: rgba(71, 125, 225, 0.1)
+  .innerFolderWrap:hover
+    background: rgba(71, 125, 225, 0.1)
+.innerFolderWrap
+  display: flex
+  flex-direction: column
+  width: 100%
+  .innerFolder
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    width: 100%
+    height: 50px
+    font-size: 12px
+    cursor: pointer
+    .innerFolderName
+      display: flex
+      align-items: center
+      position: relative
+      height: 100%
+      .innerFolderIcon
+        margin: 0 10px 0 0
+      .lock
+        position: absolute
+        top: 23px
+        left: -9px
+        width: 15px
+      .nameWrap
+        display: flex
+        flex-direction: column
+        justify-content: center
+        .Name
+          display: flex
+          font-size: 13px
+          margin: 0 0 3px 0
+          color: #7c7a7a
+          .name
+            display: block
+            width: max-content
+            max-width: 105px
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            animation: showText 0.2s ease-in-out
+          span
+            max-width: 15px
+            animation: showText 0.2s ease-in-out
+        .tag
+          display: block
+          font-size: 10px
+          box-sizing: border-box
+          padding: 1px 5px
+          background: rgb(0, 125, 255)
+          color: #FFFFFF
+          border-radius: 10px
+          width: max-content
+          max-width: 100px
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          animation: showText 0.2s ease-in-out
+    .innerFolderMedia
+      display: flex
+      img
+        margin: 0 5px 0 0
+        width: 20px
+      .playButton
+        transform: rotateZ(-90deg)
+        cursor: pointer
+        margin: 0 10px 0 10px
+        width: 8px
+      .playButton:hover path
+        fill: #477DE1
+        transition: fill 0.2s ease
+      .playButton path
+        transition: fill 0.2s ease
+      .revert
+        transform: rotateZ(90deg)
+.chosenSubFolderWrap
+  background: rgba(71, 125, 225, 0.1)
+.menuWrap
+  display: flex
+  width: 20px
+  height: 20px
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  .menu
+    position: relative
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before, .menu::after
+    content: ''
+    position: absolute
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before
+    transform: translateY(8px)
+  .menu::after
+    transform: translateY(-8px)
+.menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
+  background: #477DE1
+  transition: background 0.2s ease
+.hidden
+  position: relative
+  z-index: -200
+  opacity: 0
+  height: 0
+  min-height: 0
+  width: 0
+  transition: height 0.2s ease-in-out, width 0.2s ease-in-out, opacity 0.2s ease-in-out
