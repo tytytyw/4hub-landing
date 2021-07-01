@@ -1,17 +1,11 @@
 import React from 'react';
 
 import styles from './List.module.sass';
-import classNames from "classnames";
 
 const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true}) => {
 
     return (
-        <div
-            className={classNames({
-                [styles.listWrap]: true,
-                [styles.listWrapCollapsed]: !!listCollapsed
-            })}
-        >
+        <div className={`${styles.listWrap} ${listCollapsed ? styles.listWrapCollapsed : undefined}`}>
             <div className={styles.header}>
                 {!listCollapsed && <span>{title}</span>}
                 <div className={styles.imgWrap}>

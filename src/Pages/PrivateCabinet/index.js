@@ -19,6 +19,8 @@ import Project from "./Components/Project";
 import SharedFiles from "./Components/SharedFiles";
 import DownloadedFiles from "./Components/DownloadedFiles";
 import {setPreviewTheme} from "../../Store/actions/main";
+import Archive from "./Components/Archive";
+import Journal from "./Components/Journal";
 
 const PrivateCabinet = () => {
 
@@ -185,6 +187,16 @@ const PrivateCabinet = () => {
                     <Route
                         path='/downloaded-files'
                         render={() => <DownloadedFiles />}
+                    />
+
+                    <Route
+                        path='/archive'
+                        render={() => <Archive />}
+                    />
+
+                    <Route
+                        path='/journal'
+                        render={() => <Journal />}
                     />
 
                     <Route

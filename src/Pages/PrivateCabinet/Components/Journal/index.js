@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import styles from './DownloadedFiles.module.sass'
+import styles from './Journal.module.sass'
 import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
@@ -8,7 +8,7 @@ import Profile from '../Profile'
 import ServePanel from '../ServePanel'
 import FileLine from './WorkElements/FileLine'
 import {useSelector} from 'react-redux'
-import DateBlock from '../SharedFiles/DateBlock'
+import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
@@ -16,8 +16,10 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
+import Shops from "../Programs/Shops";
+import List from "../List";
 
-const DownloadedFiles = () => {
+const Journal = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
@@ -105,67 +107,79 @@ const DownloadedFiles = () => {
     return (
         <div className={styles.parentWrapper}>
 
-            <div className={styles.header}>
-                <SearchField />
-                <div className={styles.infoHeader}>
-                    <StorageSize />
-                    <Notifications />
-                    <Profile />
-                </div>
-            </div>
+            <List
+                icon={false}
+                title='Программы'
+                src='add-folder.svg'
+            >
 
-            <ServePanel
-                setView={setWorkElementsView}
-                view={workElementsView}
-            />
+            </List>
 
             <div className={styles.wrapper}>
 
-                <DateBlock
-                    search={search}
-                    setSearch={setSearch}
-                    year={year}
-                    setYear={setYear}
-                    month={month}
-                    setMonth={setMonth}
+                <div className={styles.header}>
+                    <SearchField />
+                    <div className={styles.infoHeader}>
+                        <StorageSize />
+                        <Notifications />
+                        <Profile />
+                    </div>
+                </div>
+
+                <ServePanel
+                    setView={setWorkElementsView}
+                    view={workElementsView}
                 />
 
-                <div className={styles.filesWrap}>
+                <div className={styles.contentWrap}>
 
-                    <div className={styles.fileWrap}>
+                    <DateBlock
+                        search={search}
+                        setSearch={setSearch}
+                        year={year}
+                        setYear={setYear}
+                        month={month}
+                        setMonth={setMonth}
+                    />
 
-                        <div
-                            onClick={() => setCollapse(!collapse)}
-                            className={styles.collapseHeader}
-                        >
-                            <p className={styles.dateName}>Август</p>
-                            <button className={styles.collapseBtn}>
-                                2 объектов
-                            </button>
+                    <div className={styles.filesWrap}>
+
+                        <div className={styles.fileWrap}>
+
                             <div
-                                className={classNames({
-                                    [styles.arrowFile]: true,
-                                    [styles.active]: !!collapse
-                                })}
+                                onClick={() => setCollapse(!collapse)}
+                                className={styles.collapseHeader}
                             >
-                                <PlayIcon
+                                <p className={styles.dateName}>Август</p>
+                                <button className={styles.collapseBtn}>
+                                    2 объектов
+                                </button>
+                                <div
                                     className={classNames({
-                                        [styles.playButton]: true,
-                                        [styles.revert]: !!collapse
+                                        [styles.arrowFile]: true,
+                                        [styles.active]: !!collapse
                                     })}
-                                />
+                                >
+                                    <PlayIcon
+                                        className={classNames({
+                                            [styles.playButton]: true,
+                                            [styles.revert]: !!collapse
+                                        })}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        {collapse &&
-                        <div className={styles.fileDate}>
-                            <p>10.08.2020</p>
-                        </div>}
+                            {collapse &&
+                            <div className={styles.fileDate}>
+                                <p>10.08.2020</p>
+                            </div>}
 
-                        <div className={styles.collapseContent}>
-                            {collapse ?
-                                renderFiles() :
-                                renderFile()}
+                            <div className={styles.collapseContent}>
+                                {collapse ?
+                                    renderFiles() :
+                                    renderFile()}
+                            </div>
+
                         </div>
 
                     </div>
@@ -189,7 +203,7 @@ const DownloadedFiles = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" &&
+            {action.type === "delete" ? (
                 <ActionApproval
                     name={action.name}
                     text={action.text}
@@ -200,10 +214,11 @@ const DownloadedFiles = () => {
                     <div className={styles.fileActionWrap}>
                         <File format={chosenFile?.ext} color={chosenFile?.color} />
                     </div>
-                </ActionApproval>}
+                </ActionApproval>
+            ) : null}
 
         </div>
     )
 }
 
-export default DownloadedFiles
+export default Journal
