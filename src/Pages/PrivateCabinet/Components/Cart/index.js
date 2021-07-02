@@ -10,14 +10,13 @@ import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
 import DateBlock from "../SharedFiles/DateBlock";
-import classNames from "classnames";
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
-import FileBar from "../WorkElements/FileBar";
-import WorkBars from "./WorkBars";
+import FileBar from "./WorkElements/FileBar";
+import classNames from "classnames";
+import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 
 const Cart = () => {
 
@@ -26,27 +25,54 @@ const Cart = () => {
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
     const [year, setYear] = useState(null)
-    const [collapse, setCollapse] = useState(false)
     const [month, setMonth] = useState(null)
 
+    const [collapse, setCollapse] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
-    const [action, setAction] = useState({ type: "", name: "", text: "" })
+    const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
     const [filePreview, setFilePreview] = useState(null)
 
-    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+    const nullifyAction = () => setAction({type: "", name: "", text: ""});
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => {}},
+        {
+            type: 'copyLink', name: '', text: ``, callback: () => {
+            }
+        },
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
+        {
+            type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {
+            }
+        },
+        {
+            type: 'archive',
+            name: 'Добавить файл в архив',
+            text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
+            callback: (list, index) => setAction(list[index])
+        },
+        {
+            type: 'intoZip',
+            name: 'Сжать в ZIP',
+            text: ``,
+            callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})
+        },
+        {
+            type: 'properties',
+            name: 'Свойства',
+            text: ``,
+            callback: () => setAction({...action, type: 'properties', name: 'Свойства'})
+        },
+        {
+            type: 'download', name: 'Загрузка файла', text: ``, callback: () => {
+            }
+        },
+        {
+            type: 'print', name: 'Распечатать файл', text: ``, callback: () => {
+            }
+        },
     ]
     const additionalMenuItems = [
         {
@@ -72,11 +98,11 @@ const Cart = () => {
         })
     }
 
-    const renderFile = () => {
+    const renderFile = (Type) => {
         const file = fileList?.files?.[fileList.files.length - 1]
         if (!file) return null
         return (
-            <FileLine
+            <Type
                 file={file}
                 setChosenFile={setChosenFile}
                 chosenFile={chosenFile}
@@ -108,11 +134,11 @@ const Cart = () => {
         <div className={styles.parentWrapper}>
 
             <div className={styles.header}>
-                <SearchField />
+                <SearchField/>
                 <div className={styles.infoHeader}>
-                    <StorageSize />
-                    <Notifications />
-                    <Profile />
+                    <StorageSize/>
+                    <Notifications/>
+                    <Profile/>
                 </div>
             </div>
 
@@ -132,7 +158,39 @@ const Cart = () => {
                     setMonth={setMonth}
                 />
 
-                {renderFiles(FileBar)}
+                <div
+                    onClick={() => setCollapse(!collapse)}
+                    className={styles.collapseHeader}
+                >
+                    <p className={styles.dateName}>Август</p>
+                    <button className={styles.collapseBtn}>
+                        2 объектов
+                    </button>
+                    <div
+                        className={classNames({
+                            [styles.arrowFile]: true,
+                            [styles.active]: !!collapse
+                        })}
+                    >
+                        <PlayIcon
+                            className={classNames({
+                                [styles.playButton]: true,
+                                [styles.revert]: !!collapse
+                            })}
+                        />
+                    </div>
+                </div>
+
+                {collapse &&
+                <div className={styles.fileDate}>
+                    <p>10.08.2020</p>
+                </div>}
+
+                <div className={styles.collapseContent}>
+                    {collapse ?
+                        renderFiles(FileBar) :
+                        renderFile(FileBar)}
+                </div>
 
             </div>
 
@@ -156,11 +214,12 @@ const Cart = () => {
                     name={action.name}
                     text={action.text}
                     set={nullifyAction}
-                    callback={() => {}}
+                    callback={() => {
+                    }}
                     approve={"Удалить"}
                 >
                     <div className={styles.fileActionWrap}>
-                        <File format={chosenFile?.ext} color={chosenFile?.color} />
+                        <File format={chosenFile?.ext} color={chosenFile?.color}/>
                     </div>
                 </ActionApproval>
             ) : null}

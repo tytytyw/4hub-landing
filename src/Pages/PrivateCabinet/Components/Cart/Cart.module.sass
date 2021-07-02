@@ -1,8 +1,8 @@
 .parentWrapper
-  height: 100%
+  height: calc(100% - 145px)
 
 .wrapper
-  max-height: calc(100% - 145px)
+  height: 100%
   overflow-y: auto
   overflow-x: hidden
   &::-webkit-scrollbar-track
@@ -175,7 +175,21 @@
 
 
 .collapseContent
-  padding: 0 20px
+  display: flex
+  flex-wrap: nowrap
+  overflow-x: auto
+  padding: 10px 20px
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    height: 4px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
 
 .fileDate
   border-top: 1px solid #CFCFCF
@@ -185,7 +199,6 @@
     font-size: 14px
     line-height: 19px
     color: #606060
-
 
 
 .fileActionWrap
