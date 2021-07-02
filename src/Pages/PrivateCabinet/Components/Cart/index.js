@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 import styles from './Cart.module.sass'
 import {useSelector} from "react-redux";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-import FileLine from "../Archive/WorkElements/FileLine";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
@@ -22,6 +21,7 @@ const Cart = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
+    const size = useSelector((state) => state.PrivateCabinet.size)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
     const [year, setYear] = useState(null)
@@ -38,15 +38,9 @@ const Cart = () => {
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {
-            type: 'copyLink', name: '', text: ``, callback: () => {
-            }
-        },
+        {type: 'copyLink', name: '', text: ``, callback: () => {}},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {
-            type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {
-            }
-        },
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
         {
             type: 'archive',
             name: 'Добавить файл в архив',
@@ -65,14 +59,8 @@ const Cart = () => {
             text: ``,
             callback: () => setAction({...action, type: 'properties', name: 'Свойства'})
         },
-        {
-            type: 'download', name: 'Загрузка файла', text: ``, callback: () => {
-            }
-        },
-        {
-            type: 'print', name: 'Распечатать файл', text: ``, callback: () => {
-            }
-        },
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
     ]
     const additionalMenuItems = [
         {
@@ -186,7 +174,10 @@ const Cart = () => {
                     <p>10.08.2020</p>
                 </div>}
 
-                <div className={styles.collapseContent}>
+                <div className={classNames({
+                    [styles.collapseContent]: true,
+                    [styles?.[`collapseContent_${size}`]]: size !== 'meidum'
+                })}>
                     {collapse ?
                         renderFiles(FileBar) :
                         renderFile(FileBar)}
