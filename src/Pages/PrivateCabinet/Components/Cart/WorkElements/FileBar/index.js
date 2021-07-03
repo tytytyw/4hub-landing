@@ -9,7 +9,7 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
     const size = useSelector(state => state.PrivateCabinet.size);
 
     const onPickFile = () => {
-        if(filePick.show) {
+        if(filePick?.show) {
             const isPicked = filePick.files.filter(el => el === file.fid);
             isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
