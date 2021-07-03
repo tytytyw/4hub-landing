@@ -1,11 +1,12 @@
 .parentWrapper
-  height: calc(100% - 145px)
+  display: flex
+  height: 100%
+
+.contentRight
+  overflow: hidden
 
 .wrapper
-  flex-grow: 1
-
-.contentWrap
-  height: 100%
+  height: calc(100% - 145px)
   overflow-y: auto
   overflow-x: hidden
   &::-webkit-scrollbar-track

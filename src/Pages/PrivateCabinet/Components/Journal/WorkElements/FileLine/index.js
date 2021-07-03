@@ -90,11 +90,6 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     />}
                 </div>}
 
-                <div className={styles.linkWrap}>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a className={styles.link}>https://google.com</a>
-                </div>
-
             </div>
 
             <div className={styles.optionsWrap}>

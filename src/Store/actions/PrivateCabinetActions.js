@@ -19,7 +19,7 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS,
+    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS, GET_JOURNAL_FOLDERS,
 } from '../types';
 
 const folders = [
@@ -540,6 +540,66 @@ export const onGetProjectFolders = () => async (dispatch, getState) => {
         payload: folders
     })
 }
+
+
+// JOURNAL
+
+export const onGetJournalFolders = (folders) => ({
+    type: GET_JOURNAL_FOLDERS,
+    payload: [
+        {
+            id: 1,
+            icon: 'my-files',
+            name: "Весь список",
+        },
+        {
+            id: 2,
+            icon: 'shared-files',
+            name: "Расшаренные файлы",
+        },
+        {
+            id: 3,
+            icon: 'downloaded-files',
+            name: "Загруженные файлы",
+        },
+        {
+            id: 4,
+            icon: 'downloaded-link',
+            name: "Загруженные ссылки",
+        },
+        {
+            id: 5,
+            icon: 'my-folders',
+            name: "Мои папки",
+        },
+        {
+            id: 6,
+            icon: 'my-files',
+            name: "Мои файлы",
+        },
+        {
+            id: 7,
+            icon: 'programs',
+            name: "Программы",
+        },
+        {
+            id: 8,
+            icon: 'project',
+            name: "Совместный проект",
+        },
+        {
+            id: 9,
+            icon: 'archive',
+            name: "Архив",
+        },
+        {
+            id: 9,
+            icon: 'trash-cart',
+            name: "Корзина",
+        },
+    ]
+})
+
 
 
 export const onSetFileSize = (size) => {

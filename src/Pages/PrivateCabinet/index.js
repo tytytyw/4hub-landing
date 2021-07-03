@@ -21,6 +21,7 @@ import DownloadedFiles from "./Components/DownloadedFiles";
 import {setPreviewTheme} from "../../Store/actions/main";
 import Archive from "./Components/Archive";
 import Journal from "./Components/Journal";
+import Cart from "./Components/Cart";
 
 const PrivateCabinet = () => {
 
@@ -197,6 +198,11 @@ const PrivateCabinet = () => {
                     <Route
                         path='/journal'
                         render={() => <Journal />}
+                    />
+
+                    <Route
+                        path='/cart'
+                        render={() => <Cart />}
                     />
 
                     <Route

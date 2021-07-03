@@ -11,13 +11,24 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
 
             <div className={styles.searchWrap}>
 
-                <div className={styles.yearSelect}>
-                    <Select
-                        placeholder='Выбрать год'
-                        className={styles.select}
-                        classNameSelect={styles.selectContentYear}
-                        data={getYears()}
-                    />
+                <div className={styles.selectsWrap}>
+                    <div className={styles.yearSelect}>
+                        <Select
+                            placeholder='Выбрать год'
+                            className={styles.select}
+                            classNameSelect={styles.selectContentYear}
+                            data={getYears()}
+                        />
+                    </div>
+
+                    <div className={styles.daySelect}>
+                        <Select
+                            placeholder='Выбрать день'
+                            className={styles.select}
+                            classNameSelect={styles.selectContent}
+                            data={getDays()}
+                        />
+                    </div>
                 </div>
 
                 <div className={styles.search}>
@@ -51,15 +62,6 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                         {item.text}
                     </button>
                 ))}
-
-                <div className={styles.daySelect}>
-                    <Select
-                        placeholder='Выбрать день'
-                        className={styles.select}
-                        classNameSelect={styles.selectContent}
-                        data={getDays()}
-                    />
-                </div>
 
             </div>
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './Journal.module.sass'
 import SearchField from '../SearchField'
@@ -7,47 +7,43 @@ import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
 import FileLine from './WorkElements/FileLine'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import ActionApproval from "../../../../generalComponents/ActionApproval";
-import File from "../../../../generalComponents/Files";
-import classNames from "classnames";
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import List from "../List";
+import ActionApproval from '../../../../generalComponents/ActionApproval'
+import File from '../../../../generalComponents/Files'
+import classNames from 'classnames'
+import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
+import List from './List'
+import FolderItem from './FolderItem'
+import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
 
 const Journal = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
+
+    const dispatch = useDispatch()
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
+    const journalFolders = useSelector((state) => state.PrivateCabinet.journalFolders)
 
     const [year, setYear] = useState(null)
     const [collapse, setCollapse] = useState(false)
+
     const [listCollapsed, setListCollapsed] = useState(false)
+
     const [month, setMonth] = useState(null)
 
+    const [chosenFolder, setChosenFolder] = useState(null)
     const [chosenFile, setChosenFile] = useState(null)
-    const [action, setAction] = useState({ type: "", name: "", text: "" })
+    const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
     const [filePreview, setFilePreview] = useState(null)
 
-    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+    const nullifyAction = () => setAction({type: "", name: "", text: ""})
 
-    const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => {}},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
-    ]
     const additionalMenuItems = [
         {
             type: 'delete',
@@ -56,6 +52,11 @@ const Journal = () => {
             callback: (list, index) => setAction(list[index])
         },
     ]
+
+    useEffect(() => {
+        dispatch(onGetJournalFolders())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -104,124 +105,129 @@ const Journal = () => {
         ))
     }
 
+    const renderFolders = () => {
+        return journalFolders?.map((folder, index) => (
+            <FolderItem
+                folder={folder}
+                chosenFolder={chosenFolder}
+                setChosenFolder={setChosenFolder}
+                setMouseParams={setMouseParams}
+            />
+        ))
+    }
+
     return (
         <div className={styles.parentWrapper}>
 
-            <div className={styles.sideWrap}>
                 <List
-                    icon={false}
-                    title='Программы'
+                    title='Папки'
                     src='add-folder.svg'
-                    setListCollapsed={setListCollapsed}
-                    listCollapsed={listCollapsed}
-                    onCreate={(boolean) => {}}
                 >
-                    <div className={styles.folderListWrap}>
-
-                    </div>
+                    {renderFolders()}
                 </List>
-            </div>
 
-            <div className={styles.wrapper}>
+                <div className={styles.contentRight}>
 
-                <div className={styles.header}>
-                    <SearchField />
-                    <div className={styles.infoHeader}>
-                        <StorageSize />
-                        <Notifications />
-                        <Profile />
+                    <div className={styles.header}>
+                        <SearchField/>
+                        <div className={styles.infoHeader}>
+                            <StorageSize/>
+                            <Notifications/>
+                            <Profile/>
+                        </div>
                     </div>
-                </div>
 
-                <ServePanel
-                    setView={setWorkElementsView}
-                    view={workElementsView}
-                />
-
-                <div className={styles.contentWrap}>
-
-                    <DateBlock
-                        search={search}
-                        setSearch={setSearch}
-                        year={year}
-                        setYear={setYear}
-                        month={month}
-                        setMonth={setMonth}
+                    <ServePanel
+                        setView={setWorkElementsView}
+                        view={workElementsView}
                     />
 
-                    <div className={styles.filesWrap}>
+                    <div className={styles.wrapper}>
 
-                        <div className={styles.fileWrap}>
+                        <DateBlock
+                            search={search}
+                            setSearch={setSearch}
+                            year={year}
+                            setYear={setYear}
+                            month={month}
+                            setMonth={setMonth}
+                        />
 
-                            <div
-                                onClick={() => setCollapse(!collapse)}
-                                className={styles.collapseHeader}
-                            >
-                                <p className={styles.dateName}>Август</p>
-                                <button className={styles.collapseBtn}>
-                                    2 объектов
-                                </button>
+                        <div className={styles.filesWrap}>
+
+                            <div className={styles.fileWrap}>
+
                                 <div
-                                    className={classNames({
-                                        [styles.arrowFile]: true,
-                                        [styles.active]: !!collapse
-                                    })}
+                                    onClick={() => setCollapse(!collapse)}
+                                    className={styles.collapseHeader}
                                 >
-                                    <PlayIcon
+                                    <p className={styles.dateName}>Август</p>
+                                    <button className={styles.collapseBtn}>
+                                        2 объектов
+                                    </button>
+                                    <div
                                         className={classNames({
-                                            [styles.playButton]: true,
-                                            [styles.revert]: !!collapse
+                                            [styles.arrowFile]: true,
+                                            [styles.active]: !!collapse
                                         })}
-                                    />
+                                    >
+                                        <PlayIcon
+                                            className={classNames({
+                                                [styles.playButton]: true,
+                                                [styles.revert]: !!collapse
+                                            })}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            {collapse &&
-                            <div className={styles.fileDate}>
-                                <p>10.08.2020</p>
-                            </div>}
+                                {collapse &&
+                                <div className={styles.fileDate}>
+                                    <p>10.08.2020</p>
+                                </div>}
 
-                            <div className={styles.collapseContent}>
-                                {collapse ?
-                                    renderFiles() :
-                                    renderFile()}
+                                <div className={styles.collapseContent}>
+                                    {collapse ?
+                                        renderFiles() :
+                                        renderFile()}
+                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
 
+                    {mouseParams !== null && (
+                        <ContextMenu
+                            params={mouseParams}
+                            setParams={setMouseParams}
+                            tooltip={true}
+                        >
+                            <div className={styles.mainMenuItems}>
+                                {renderMenuItems(contextMenuFile.main)}
+                            </div>
+                            <div className={styles.additionalMenuItems}>
+                                {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+                            </div>
+                        </ContextMenu>
+                    )}
+
+                    {action.type === 'delete' ? (
+                        <ActionApproval
+                            name={action.name}
+                            text={action.text}
+                            set={nullifyAction}
+                            callback={() => {
+                            }}
+                            approve={'Удалить'}
+                        >
+                            <div className={styles.fileActionWrap}>
+                                <File format={chosenFile?.ext} color={chosenFile?.color}/>
+                            </div>
+                        </ActionApproval>
+                    ) : null}
+
                 </div>
-
-                {mouseParams !== null && (
-                    <ContextMenu
-                        params={mouseParams}
-                        setParams={setMouseParams}
-                        tooltip={true}
-                    >
-                        <div className={styles.mainMenuItems}>
-                            {renderMenuItems(contextMenuFile.main, callbackArrMain)}
-                        </div>
-                        <div className={styles.additionalMenuItems}>
-                            {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-                        </div>
-                    </ContextMenu>
-                )}
-
-                {action.type === "delete" ? (
-                    <ActionApproval
-                        name={action.name}
-                        text={action.text}
-                        set={nullifyAction}
-                        callback={() => {}}
-                        approve={"Удалить"}
-                    >
-                        <div className={styles.fileActionWrap}>
-                            <File format={chosenFile?.ext} color={chosenFile?.color} />
-                        </div>
-                    </ActionApproval>
-                ) : null}
-            </div>
 
         </div>
     )
