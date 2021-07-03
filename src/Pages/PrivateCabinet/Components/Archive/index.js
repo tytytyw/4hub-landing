@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import styles from './DownloadedFiles.module.sass'
+import styles from './Archive.module.sass'
 import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
@@ -17,7 +17,7 @@ import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 
-const DownloadedFiles = () => {
+const Archive = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
@@ -189,7 +189,7 @@ const DownloadedFiles = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" &&
+            {action.type === "delete" ? (
                 <ActionApproval
                     name={action.name}
                     text={action.text}
@@ -200,10 +200,11 @@ const DownloadedFiles = () => {
                     <div className={styles.fileActionWrap}>
                         <File format={chosenFile?.ext} color={chosenFile?.color} />
                     </div>
-                </ActionApproval>}
+                </ActionApproval>
+            ) : null}
 
         </div>
     )
 }
 
-export default DownloadedFiles
+export default Archive

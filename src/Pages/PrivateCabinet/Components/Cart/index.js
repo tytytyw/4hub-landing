@@ -1,38 +1,39 @@
 import React, {useState} from 'react'
 
-import styles from './DownloadedFiles.module.sass'
-import SearchField from '../SearchField'
-import StorageSize from '../StorageSize'
-import Notifications from '../Notifications'
-import Profile from '../Profile'
-import ServePanel from '../ServePanel'
-import FileLine from './WorkElements/FileLine'
-import {useSelector} from 'react-redux'
-import DateBlock from '../SharedFiles/DateBlock'
-import ContextMenu from '../../../../generalComponents/ContextMenu'
-import {contextMenuFile} from '../../../../generalComponents/collections'
-import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
+import styles from './Cart.module.sass'
+import {useSelector} from "react-redux";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import SearchField from "../SearchField";
+import StorageSize from "../StorageSize";
+import Notifications from "../Notifications";
+import Profile from "../Profile";
+import ServePanel from "../ServePanel";
+import DateBlock from "../SharedFiles/DateBlock";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
+import FileBar from "./WorkElements/FileBar";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 
-const DownloadedFiles = () => {
+const Cart = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
+    const size = useSelector((state) => state.PrivateCabinet.size)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
     const [year, setYear] = useState(null)
-    const [collapse, setCollapse] = useState(false)
     const [month, setMonth] = useState(null)
 
+    const [collapse, setCollapse] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
-    const [action, setAction] = useState({ type: "", name: "", text: "" })
+    const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
     const [filePreview, setFilePreview] = useState(null)
 
-    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+    const nullifyAction = () => setAction({type: "", name: "", text: ""});
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -40,9 +41,24 @@ const DownloadedFiles = () => {
         {type: 'copyLink', name: '', text: ``, callback: () => {}},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+        {
+            type: 'archive',
+            name: 'Добавить файл в архив',
+            text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
+            callback: (list, index) => setAction(list[index])
+        },
+        {
+            type: 'intoZip',
+            name: 'Сжать в ZIP',
+            text: ``,
+            callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})
+        },
+        {
+            type: 'properties',
+            name: 'Свойства',
+            text: ``,
+            callback: () => setAction({...action, type: 'properties', name: 'Свойства'})
+        },
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
     ]
@@ -70,11 +86,11 @@ const DownloadedFiles = () => {
         })
     }
 
-    const renderFile = () => {
+    const renderFile = (Type) => {
         const file = fileList?.files?.[fileList.files.length - 1]
         if (!file) return null
         return (
-            <FileLine
+            <Type
                 file={file}
                 setChosenFile={setChosenFile}
                 chosenFile={chosenFile}
@@ -86,10 +102,10 @@ const DownloadedFiles = () => {
         )
     }
 
-    const renderFiles = () => {
+    const renderFiles = (Type) => {
         if (!fileList) return null
         return fileList.files?.map((file, index) => (
-            <FileLine
+            <Type
                 key={index}
                 file={file}
                 setChosenFile={setChosenFile}
@@ -106,11 +122,11 @@ const DownloadedFiles = () => {
         <div className={styles.parentWrapper}>
 
             <div className={styles.header}>
-                <SearchField />
+                <SearchField/>
                 <div className={styles.infoHeader}>
-                    <StorageSize />
-                    <Notifications />
-                    <Profile />
+                    <StorageSize/>
+                    <Notifications/>
+                    <Profile/>
                 </div>
             </div>
 
@@ -130,46 +146,41 @@ const DownloadedFiles = () => {
                     setMonth={setMonth}
                 />
 
-                <div className={styles.filesWrap}>
-
-                    <div className={styles.fileWrap}>
-
-                        <div
-                            onClick={() => setCollapse(!collapse)}
-                            className={styles.collapseHeader}
-                        >
-                            <p className={styles.dateName}>Август</p>
-                            <button className={styles.collapseBtn}>
-                                2 объектов
-                            </button>
-                            <div
-                                className={classNames({
-                                    [styles.arrowFile]: true,
-                                    [styles.active]: !!collapse
-                                })}
-                            >
-                                <PlayIcon
-                                    className={classNames({
-                                        [styles.playButton]: true,
-                                        [styles.revert]: !!collapse
-                                    })}
-                                />
-                            </div>
-                        </div>
-
-                        {collapse &&
-                        <div className={styles.fileDate}>
-                            <p>10.08.2020</p>
-                        </div>}
-
-                        <div className={styles.collapseContent}>
-                            {collapse ?
-                                renderFiles() :
-                                renderFile()}
-                        </div>
-
+                <div
+                    onClick={() => setCollapse(!collapse)}
+                    className={styles.collapseHeader}
+                >
+                    <p className={styles.dateName}>Август</p>
+                    <button className={styles.collapseBtn}>
+                        2 объектов
+                    </button>
+                    <div
+                        className={classNames({
+                            [styles.arrowFile]: true,
+                            [styles.active]: !!collapse
+                        })}
+                    >
+                        <PlayIcon
+                            className={classNames({
+                                [styles.playButton]: true,
+                                [styles.revert]: !!collapse
+                            })}
+                        />
                     </div>
+                </div>
 
+                {collapse &&
+                <div className={styles.fileDate}>
+                    <p>10.08.2020</p>
+                </div>}
+
+                <div className={classNames({
+                    [styles.collapseContent]: true,
+                    [styles?.[`collapseContent_${size}`]]: size !== 'meidum'
+                })}>
+                    {collapse ?
+                        renderFiles(FileBar) :
+                        renderFile(FileBar)}
                 </div>
 
             </div>
@@ -189,21 +200,23 @@ const DownloadedFiles = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" &&
+            {action.type === "delete" ? (
                 <ActionApproval
                     name={action.name}
                     text={action.text}
                     set={nullifyAction}
-                    callback={() => {}}
+                    callback={() => {
+                    }}
                     approve={"Удалить"}
                 >
                     <div className={styles.fileActionWrap}>
-                        <File format={chosenFile?.ext} color={chosenFile?.color} />
+                        <File format={chosenFile?.ext} color={chosenFile?.color}/>
                     </div>
-                </ActionApproval>}
+                </ActionApproval>
+            ) : null}
 
         </div>
     )
 }
 
-export default DownloadedFiles
+export default Cart

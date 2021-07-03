@@ -17,7 +17,7 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS,
+    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS, GET_JOURNAL_FOLDERS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -48,6 +48,9 @@ const INITIAL_STATE = {
     //DEVICES
     devices: [],
     connectedContacts: [],
+
+    //JOURNAL
+    journalFolders: []
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -118,6 +121,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, devices: action.payload}
         case GET_CONNECTED_CONTACTS:
             return {...state, connectedContacts: action.payload}
+
+        //JOURNAL
+        case GET_JOURNAL_FOLDERS:
+            return {...state, journalFolders: action.payload}
 
         default:
             return state;
