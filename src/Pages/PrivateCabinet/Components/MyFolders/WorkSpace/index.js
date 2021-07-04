@@ -33,8 +33,8 @@ import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/Sha
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 import SuccessMessage from '../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
-const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
-                   chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
+const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
+                   chosenFolder, listCollapsed, setFilePreview, filePreview,
                    fileSelect, action, setAction
                   }) => {
 
@@ -65,7 +65,11 @@ const WorkSpace = ({setBlob, blob, fileLoading, chosenFile, setChosenFile,
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
-    const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
+    const deleteFile = () => {
+        fileDelete(chosenFile, dispatch, onDeleteFile);
+        nullifyAction(); setChosenFile(null);
+        dispatch(onAddRecentFiles())
+    };
 
     const checkMimeTypes = () => {
         if(chosenFile.mime_type) {

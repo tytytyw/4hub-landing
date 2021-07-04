@@ -29,6 +29,7 @@ export const contextMenuFile = {
         {name: 'Ред. несколько файлов', img: 'editSeveral'},
         {name: 'Переместить в ахрив', img: 'archive'},
         {name: 'Сжать в Zip', img: 'zip'},
+        {name: 'Сжать несколько файлов в Zip', img: 'severalZip'},
         {name: 'Свойства', img: 'info'},
         {name: 'Загрузить', img: 'download-blue'},
         {name: 'Печать', img: 'print-2'},
@@ -78,7 +79,7 @@ export const contextMenuFolder = {
     main: [
         {name: 'Переслать', img: 'resend'},
         {name: 'Настроить доступ', img: 'shareFile'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
@@ -103,7 +104,7 @@ export const contextProgramFolder = {
     main: [
         {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'settings-work-tool'},
         {name: 'Переместить в архив', img: 'archive'},
         {name: 'Свойства', img: 'info'},
@@ -117,7 +118,7 @@ export const contextProgram = {
     main: [
         {name: 'Открыть', img: 'open-file-button'},
         {name: 'Переслать', img: 'resend'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
     ],
     additional: [
         {name: 'Удалить файл', img: 'garbage'}

@@ -32,7 +32,7 @@ const Journal = () => {
     const [year, setYear] = useState(null)
     const [collapse, setCollapse] = useState(false)
 
-    const [listCollapsed, setListCollapsed] = useState(false)
+    //const [listCollapsed, setListCollapsed] = useState(false)
 
     const [month, setMonth] = useState(null)
 
