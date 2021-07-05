@@ -114,17 +114,31 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
         })
     }
 
+    const addToArchive = (uid, fid, file) => {
+        api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+            .then(res => {
+                if (res.data.ok === 1) {
+                    dispatch(onDeleteFile(file))
+                    setShowSuccessMessage('Файл добавлен в архив')
+                } else console.log(res?.error)
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                nullifyAction();
+                setChosenFile(null);
+                if(filePick.show) nullifyFilePick();
+            })
+    }
+
     const archiveFile = () => {
-		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
-        .then(res => {
-			if (res.data.ok === 1) {
-				dispatch(onDeleteFile(chosenFile))
-				setShowSuccessMessage('Файл добавлен в архив')
-			} else console.log(res?.error)
-		})
-        .catch(err => console.log(err))
-		.finally(() => {nullifyAction(); setChosenFile(null)})
-	};
+        if(filePick.show) {
+            filePick.files.forEach(fid => {
+                addToArchive(uid, fid, {fid});
+            })
+        } else {
+            addToArchive(uid, chosenFile.fid, chosenFile);
+        }
+	}
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -145,13 +159,18 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 setFilePick={setFilePick}
             />
         });
-    };
+    }
 
     const onActiveCallbackArrMain = (type) => {
         let index;
         callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
         callbackArrMain[index].callback(callbackArrMain, index);
     };
+
+    const cancelArchive = () => {
+        nullifyFilePick();
+        nullifyAction();
+    }
 
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
@@ -243,14 +262,14 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
             : null}
         {action.type === 'archive'
             ?   <ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? 'Добавить выбранные файлы в архив' : action.name}
+					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					set={cancelArchive}
 					callback={archiveFile}
 					approve={'Архивировать'}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
 			: null}
