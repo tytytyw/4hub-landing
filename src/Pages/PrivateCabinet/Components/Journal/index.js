@@ -108,6 +108,7 @@ const Journal = () => {
     const renderFolders = () => {
         return journalFolders?.map((folder, index) => (
             <FolderItem
+                key={index}
                 folder={folder}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}

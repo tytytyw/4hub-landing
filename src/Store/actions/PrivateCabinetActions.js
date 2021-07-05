@@ -19,7 +19,11 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS, GET_JOURNAL_FOLDERS,
+    SET_SIZE,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_JOURNAL_FOLDERS,
+    SEARCH,
 } from '../types';
 
 const folders = [
@@ -608,3 +612,12 @@ export const onSetFileSize = (size) => {
         payload: size
     }
 }
+
+export const onSearch = (value) => {
+    return {
+        type: SEARCH,
+        payload: value
+    }
+}
+
+
