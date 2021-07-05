@@ -14,7 +14,7 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 import {onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
 
-const CreateZip = ({ close, title, file }) => {
+const CreateZip = ({ close, title, file, filePick, nullifyFilePick }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -59,15 +59,35 @@ const CreateZip = ({ close, title, file }) => {
 
     const onAddFileToZip = () => {
 
-        const fName = `&fName=${name}` ? name : '';
+        // const fName = `&fName=${name}` ? name : '';
+        const zipName = name ? `&zip_name=${name}` : '';
         const fTag = tagOption.chosen ? `&tag=${tagOption.chosen}` : '';
         const pass = password && passwordCoincide ? `&pass=${password}` : '';
         const fColor = `&color=${color.color}`;
         const fEmoji = emoji ? `&emoji=${emoji}` : '';
         const symbol = sign ? `&symbol=${sign}` : '';
+        const fids = filePick.show ? `&fids=${filePick.files}` : `&fids=[]${file.fid}`
+        const url = `/ajax/file_zip.php?uid=${uid}${fids}&dir=${fileList.path}$${zipName}${fTag}${pass}${fColor}${fEmoji}${symbol}`;
+        // const data = {
+        //     uid,
+        //     zip_name: name ? name : '',
+        //     tag: tagOption.chosen ? tagOption.chosen : '',
+        //     pass: password && passwordCoincide ? password : '',
+        //     color: color.color,
+        //     emoji: emoji ? emoji : '',
+        //     symbol: sign ? sign : '',
+        //     fids: filePick.show ? filePick.files : [file.fid]
+        // }
 
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`)
-                .then(() => {dispatch(onChooseFiles(fileList.path)); close()})
+        // `/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`;
+
+
+            // api.post('/ajax/file_zip.php', data)
+            api.post(url)
+                .then(() => {
+                    dispatch(onChooseFiles(fileList.path));
+                    close();
+                })
                 .catch(() => setError(true));
     };
 
@@ -92,9 +112,14 @@ const CreateZip = ({ close, title, file }) => {
         }
     };
 
+    const onCancel = () => {
+        nullifyFilePick();
+        close();
+    }
+
     return (
         <div style={{display: `block`}}>
-            <PopUp set={close}>
+            <PopUp set={onCancel}>
                 <div className={styles.createWrap}>
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
@@ -170,7 +195,7 @@ const CreateZip = ({ close, title, file }) => {
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={close}>Отмена</div>
+                        <div className={styles.cancel} onClick={onCancel}>Отмена</div>
                         <div className={`${styles.add}`} onClick={onAddFileToZip}>Добавить</div>
                     </div>
                 </div>

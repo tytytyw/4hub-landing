@@ -23,11 +23,11 @@ export const smiles = [
 
 export const contextMenuFile = {
     main: [
-        {name: 'Расшарить', img: 'shareFile'},
+        {name: 'Расшарить', img: 'share'},
         {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'settings-work-tool'},
         {name: 'Ред. несколько файлов', img: 'editSeveral'},
-        {name: 'Переместить в ахрив', img: 'archive'},
+        {name: 'Переместить в архив', img: 'archive'},
         {name: 'Сжать в Zip', img: 'zip'},
         {name: 'Сжать несколько файлов в Zip', img: 'severalZip'},
         {name: 'Свойства', img: 'info'},
