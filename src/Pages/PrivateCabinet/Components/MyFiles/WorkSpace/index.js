@@ -155,9 +155,10 @@ const WorkSpace = ({
 						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
+						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
 						setAction={setAction}
 						action={action}
-						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+						nullifyFilePick={nullifyFilePick}
 					/>
 				) : null}
 				<BottomPanel />
@@ -252,14 +253,14 @@ const WorkSpace = ({
 			) : null}
 			{action.type === "archive" ? (
 				<ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
+					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					set={cancelArchive}
 					callback={archiveFile}
-					approve={"Архивировать"}
+					approve={'Архивировать'}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
 			) : null}

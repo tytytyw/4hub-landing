@@ -117,17 +117,32 @@ const MyFiles = ({
 		setChosenFile(null);
 		dispatch(onAddRecentFiles());
 	};
+
+	const addToArchive = (uid, fid, file) => {
+		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+			.then(res => {
+				if (res.data.ok === 1) {
+					dispatch(onDeleteFile(file))
+					setShowSuccessMessage('Файл добавлен в архив')
+				} else console.log(res?.error)
+			})
+			.catch(err => console.log(err))
+			.finally(() => {
+				nullifyAction();
+				setChosenFile(null);
+				if(filePick.show) nullifyFilePick();
+			})
+	}
+
 	const archiveFile = () => {
-		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
-        .then(res => {
-			if (res.data.ok === 1) {
-				dispatch(onDeleteFile(chosenFile))
-				setShowSuccessMessage('Файл добавлен в архив')
-			} else console.log(res?.error)
-		})
-        .catch(err => console.log(err))
-		.finally(() => {nullifyAction(); setChosenFile(null)})
-	};
+		if(filePick.show) {
+			filePick.files.forEach(fid => {
+				addToArchive(uid, fid, {fid});
+			})
+		} else {
+			addToArchive(uid, chosenFile.fid, chosenFile);
+		}
+	}
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 	const excessItems = () => {
 		if(filePick.show) {
