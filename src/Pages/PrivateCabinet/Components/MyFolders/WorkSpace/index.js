@@ -260,6 +260,7 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 info={chosenFolder}
                 filePick={filePick}
                 nullifyFilePick={nullifyFilePick}
+                setShowSuccessMessage={setShowSuccessMessage}
             />
             : null}
         {action.type === 'archive'

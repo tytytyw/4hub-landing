@@ -14,7 +14,7 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 import {onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
 
-const CreateZip = ({ close, title, file, filePick, nullifyFilePick }) => {
+const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -59,33 +59,22 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick }) => {
 
     const onAddFileToZip = () => {
 
-        // const fName = `&fName=${name}` ? name : '';
-        const zipName = name ? `&zip_name=${name}` : '';
-        const fTag = tagOption.chosen ? `&tag=${tagOption.chosen}` : '';
-        const pass = password && passwordCoincide ? `&pass=${password}` : '';
-        const fColor = `&color=${color.color}`;
-        const fEmoji = emoji ? `&emoji=${emoji}` : '';
-        const symbol = sign ? `&symbol=${sign}` : '';
-        const fids = filePick.show ? `&fids=${filePick.files}` : `&fids=[]${file.fid}`
-        const url = `/ajax/file_zip.php?uid=${uid}${fids}&dir=${fileList.path}$${zipName}${fTag}${pass}${fColor}${fEmoji}${symbol}`;
-        // const data = {
-        //     uid,
-        //     zip_name: name ? name : '',
-        //     tag: tagOption.chosen ? tagOption.chosen : '',
-        //     pass: password && passwordCoincide ? password : '',
-        //     color: color.color,
-        //     emoji: emoji ? emoji : '',
-        //     symbol: sign ? sign : '',
-        //     fids: filePick.show ? filePick.files : [file.fid]
-        // }
+        const data = {
+            uid,
+            dir: fileList.path,
+            zip_name: name ? name : '',
+            tag: tagOption.chosen ? tagOption.chosen : '',
+            pass: password && passwordCoincide ? password : '',
+            color: color.color,
+            emoji: emoji ? emoji : '',
+            symbol: sign ? sign : '',
+            fids: filePick.show ? filePick.files : [file.fid]
+        }
 
-        // `/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`;
-
-
-            // api.post('/ajax/file_zip.php', data)
-            api.post(url)
+            api.post('/ajax/file_zip.php', data)
                 .then(() => {
                     dispatch(onChooseFiles(fileList.path));
+                    setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     close();
                 })
                 .catch(() => setError(true));
