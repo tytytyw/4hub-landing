@@ -67,9 +67,9 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
     }
 
     return (
-        <PopUp set={close}>
+        <PopUp set={close}>{console.log(data.fids)}
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
-                <div className={classNames(styles.header, styles.border_bottom)}>
+                {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <File color={file.id_color} format={file.ext} />
                         {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
@@ -89,7 +89,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
                             <span className={styles.close} />
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
                         Кому:
