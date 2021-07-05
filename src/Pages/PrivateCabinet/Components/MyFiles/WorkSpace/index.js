@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -60,14 +60,11 @@ const WorkSpace = ({
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 
-	const [foundFiles, setFoundFiles] = useState(null)
-
 	// Types of Files view
 	const renderFiles = (Type) => {
-		if (!fileList?.files) return null;
-		const array = foundFiles ? foundFiles : fileList.files
-
-		return array.map((file, i) => {
+		
+        if(!fileList?.files) return null;
+		return fileList.files.map((file, i) => {
 			return (
 				<Type
 					key={i}
@@ -159,7 +156,6 @@ const WorkSpace = ({
 						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
-						actionName={"Редактировать"}
 						setAction={setAction}
 						action={action}
 						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}

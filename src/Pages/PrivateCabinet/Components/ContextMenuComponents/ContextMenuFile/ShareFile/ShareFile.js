@@ -67,7 +67,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
     }
 
     return (
-        <PopUp set={close}>{console.log(data.fids)}
+        <PopUp set={close}>
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
                 {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
