@@ -105,7 +105,18 @@ const MyFiles = ({
 			);
 		});
 	};
-	const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
+	const deleteFile = () => {
+		if(filePick.show) {
+			const gdir = fileList.path;
+			filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
+			setFilePick({...filePick, files: [], show: false});
+		} else{
+			fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
+		}
+		nullifyAction();
+		setChosenFile(null);
+		dispatch(onAddRecentFiles());
+	};
 	const archiveFile = () => {
 		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
         .then(res => {
@@ -168,10 +179,14 @@ const MyFiles = ({
 	}}, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 	
 	// Change state to default after changing menu params
-	useEffect(() => {
-		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
-	}, [action]); // eslint-disable-line react-hooks/exhaustive-deps
+	// useEffect(() => {
+	// 	if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
+	// }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const cancelArchive = () => {
+		nullifyFilePick();
+		nullifyAction();
+	}
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -214,6 +229,7 @@ const MyFiles = ({
 				showLinkCopy={showLinkCopy}
 				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
+				cancelArchive={cancelArchive}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile

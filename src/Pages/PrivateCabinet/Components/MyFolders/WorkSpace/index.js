@@ -255,8 +255,14 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
         </ContextMenu> : null}
-        {action.type === 'delete' ? <ActionApproval name={filePick.show ? 'Удаление файлов' : action.name} text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text} set={cancelArchive} callback={deleteFile} approve={'Удалить'}>
-            <div className={styles.fileActionWrap}><File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} /></div>
+        {action.type === 'delete' ?
+            <ActionApproval
+                name={filePick.show ? 'Удаление файлов' : action.name}
+                text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text}
+                set={cancelArchive}
+                callback={deleteFile}
+                approve={'Удалить'}
+            ><div className={styles.fileActionWrap}><File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
         {action.type === 'customize' || filePick.customize ? <CustomizeFile
             title={filePick.customize ? `Редактировать выбранные файлы` : action.name }

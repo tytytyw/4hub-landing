@@ -26,8 +26,6 @@ import CreateZip from "../../CreateZip";
 import FileProperty from "../../FileProperty";
 
 const WorkSpace = ({
-	setBlob,
-	blob,
 	chosenFile,
 	setChosenFile,
 	listCollapsed,
@@ -56,7 +54,9 @@ const WorkSpace = ({
 	chosenFolder,
 	showSuccessMessage,
 	setShowSuccessMessage,
+    cancelArchive,
 }) => {
+	console.log(filePick)
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 
@@ -114,16 +114,15 @@ const WorkSpace = ({
 					/>
 				)}
 				<ServePanel
-					setBlob={setBlob}
-					blob={blob}
 					setView={setWorkElementsView}
 					view={workElementsView}
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
-					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
 					archive={() => onActiveCallbackArrMain('archive')}
                 	share={() => onActiveCallbackArrMain('share')}
+					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					filePick={filePick}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
@@ -179,14 +178,14 @@ const WorkSpace = ({
 			) : null}
 			{action.type === "delete" ? (
 				<ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? 'Удаление файлов' : action.name}
+					text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text}
+					set={cancelArchive}
 					callback={deleteFile}
-					approve={"Удалить"}
+					approve={'Удалить'}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
 			) : null}
