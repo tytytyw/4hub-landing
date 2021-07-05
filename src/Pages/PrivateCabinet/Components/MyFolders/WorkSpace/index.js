@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../../../../api';
-import {previewTypes} from '../../../../../generalComponents/collections';
+import {previewFormats, previewTypes} from '../../../../../generalComponents/collections';
 import styles from './WorkSpace.module.sass';
 import SearchField from '../../SearchField';
 import StorageSize from '../../StorageSize';
@@ -120,6 +120,7 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                     default: return ['print'];
                 }
             }
+            if(previewFormats.filter(ext => chosenFile.ext.toLowerCase().includes(ext))[0]) return [];
             return ['print'];
         }
     }
