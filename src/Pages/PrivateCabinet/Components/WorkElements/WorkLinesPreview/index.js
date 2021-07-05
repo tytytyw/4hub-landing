@@ -2,10 +2,12 @@ import React, {useState, useEffect, useRef} from 'react';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
-import File from "../../../../../generalComponents/Files";
+import File from '../../../../../generalComponents/Files';
+import {useSelector} from 'react-redux';
 
 const WorkLinesPreview = ({file, children, hideFileList}) => {
 
+    const search = useSelector(state => state.PrivateCabinet?.search);
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
     useEffect(() => {
@@ -101,6 +103,11 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                         : ''}
                 </div>
             </>: null}
+            {children?.length === 0 && search.length !== 0
+                ? <div
+                    className={styles.noSearchResults}
+                >Нет элементов удовлетворяющих условиям поиска</div>
+                : null}
         </div>
     </div>)
 }

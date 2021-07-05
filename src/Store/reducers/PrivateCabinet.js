@@ -17,7 +17,11 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS, GET_JOURNAL_FOLDERS,
+    SET_SIZE,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_JOURNAL_FOLDERS,
+    SEARCH,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -30,6 +34,9 @@ const INITIAL_STATE = {
     recentFiles: null,
     chosenRecentFile: null,
     size: 'big',
+
+    //SEARCH
+    search: '',
 
     //PROGRAMS
     programFolders: [],
@@ -92,7 +99,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_SIZE:
             return {...state, size: action.payload}
-
+        //SEARCH
+        case SEARCH: {
+            return {...state, search: action.payload}
+        }
 
         // PROGRAMS
         case GET_PROGRAM_FOLDERS:

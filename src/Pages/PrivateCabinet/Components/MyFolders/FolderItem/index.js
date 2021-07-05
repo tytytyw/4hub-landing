@@ -53,7 +53,6 @@ const FolderItem = ({
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
             .then(res => {
-                console.log(res.data.ok);
                 if(res.data.ok === 1) setFilesQuantity(res.data.col)
             })
             .catch(err => console.log(err));

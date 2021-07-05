@@ -8,6 +8,7 @@ const WorkBarsPreview = ({children, file}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [f, setF] = useState(file);
+    const search = useSelector(state => state.PrivateCabinet?.search);
     useEffect(() => {setF(file); setPlay(false)}, [file]);
 
     const audioRef = useRef(null);
@@ -43,12 +44,16 @@ const WorkBarsPreview = ({children, file}) => {
 
     return (<div className={styles.workBarsPreviewWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
         <div className={styles.preview}>
+            {children?.length === 0 && search.length !== 0
+                ? <div
+                    className={styles.noSearchResults}
+                >Нет элементов удовлетворяющих условиям поиска</div>
+                : null}
             {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
         </div>
         <div className={styles.renderedFiles}>
             <div className={styles.innerFiles}>{children}</div>
         </div>
-
     </div>)
 }
 

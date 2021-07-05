@@ -177,7 +177,7 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
-                <SearchField />
+                <SearchField setChosenFile={setChosenFile} />
                 <div className={styles.infoHeader}>
                     <StorageSize />
                     <Notifications />
