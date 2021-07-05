@@ -168,7 +168,7 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 setAction={setAction}
                 fileSelect={fileSelect}
                 archive={() => onActiveCallbackArrMain('archive')}
-                resend={() => onActiveCallbackArrMain('resend')}
+                share={() => onActiveCallbackArrMain('share')}
                 chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
                 filePick={filePick}
             />
@@ -211,10 +211,10 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
             setFilePick={setFilePick}
         /> : null}
         {action.type === 'share' ? (
-				<ShareFile file={chosenFile} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
+				<ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
         {action.type === 'resend' ? (
-            <ShareFile file={chosenFile} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
+            <ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
         ) : null}
         {action.type === 'properties'
             ? <FileProperty

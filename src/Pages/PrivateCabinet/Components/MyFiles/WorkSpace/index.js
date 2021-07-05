@@ -126,7 +126,7 @@ const WorkSpace = ({
 					fileSelect={fileSelect}
 					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
 					archive={() => onActiveCallbackArrMain('archive')}
-                	resend={() => onActiveCallbackArrMain('resend')}
+                	share={() => onActiveCallbackArrMain('share')}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
@@ -233,6 +233,7 @@ const WorkSpace = ({
 			{action.type === "share" ? (
 				<ShareFile
 					file={chosenFile}
+					files={filePick.files}
 					close={nullifyAction}
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
@@ -242,6 +243,7 @@ const WorkSpace = ({
 			{action.type === "resend" ? (
 				<ShareFile
 					file={chosenFile}
+					files={filePick.files}
 					close={nullifyAction}
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}

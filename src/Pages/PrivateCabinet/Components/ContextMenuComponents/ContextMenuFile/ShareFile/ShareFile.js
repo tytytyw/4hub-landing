@@ -14,7 +14,7 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-function ShareFile({file, close, action_type, setShowSuccessMessage}) {
+function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -26,7 +26,7 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
     const [data, setData] = useState(
         {
             uid,
-            fid: file.fid,
+            fids: files.length ? [...files] : [file.fid],
             user_to: '',
             prim: '',
             deadline: ''
@@ -51,8 +51,7 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
     }
 
     const onShareFile = () => {
-
-        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
+        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fids=[${data.fids}]&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
             .then(res => {
                 if(res.data.ok === true) {
                     setShowSuccessMessage('Отправлено')
