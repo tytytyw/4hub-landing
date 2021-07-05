@@ -23,18 +23,18 @@ export const smiles = [
 
 export const contextMenuFile = {
     main: [
-        {name: 'Расшарить', img: 'share'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
-        {name: 'Редактировать файл', img: 'settings-work-tool'},
-        {name: 'Ред. несколько файлов', img: 'editSeveral'},
-        {name: 'Переместить в архив', img: 'archive'},
-        {name: 'Сжать в Zip', img: 'zip'},
-        {name: 'Сжать несколько файлов в Zip', img: 'severalZip'},
-        {name: 'Свойства', img: 'info'},
-        {name: 'Загрузить', img: 'download-blue'},
-        {name: 'Печать', img: 'print-2'},
+        {name: 'Расшарить', img: 'share', type: 'share'},
+        {name: 'Скопировать ссылку', img: 'link-4', type: 'copyLink'},
+        {name: 'Редактировать файл', img: 'settings-work-tool', type: 'customize'},
+        {name: 'Ред. несколько файлов', img: 'editSeveral', type: 'customizeSeveral'},
+        {name: 'Переместить в архив', img: 'archive', type: 'archive'},
+        {name: 'Сжать в Zip', img: 'zip', type: 'intoZip'},
+        {name: 'Сжать несколько файлов в Zip', img: 'severalZip', type: 'intoZipSeveral'},
+        {name: 'Свойства', img: 'info', type: 'properties'},
+        {name: 'Загрузить', img: 'download-blue', type: 'download'},
+        {name: 'Печать', img: 'print-2', type: 'print'},
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: [{name: 'Удалить файл', img: 'garbage', type: 'delete'}]
 };
 
 export const contextMenuProfile = {

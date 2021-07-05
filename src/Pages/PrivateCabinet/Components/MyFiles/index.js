@@ -118,15 +118,40 @@ const MyFiles = ({
 		.finally(() => {nullifyAction(); setChosenFile(null)})
 	};
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+	const excessItems = () => {
+		if(filePick.show) {
+			return ['intoZip', 'properties', 'download', 'print']
+		} else {
+			if(chosenFile.mime_type) {
+				switch (chosenFile.mime_type.split('/')[0]) {
+					case 'image': return []
+					case 'video': return ['print']
+					case 'audio': return ['print']
+					case 'application': {
+						return chosenFile.mime_type === 'application/x-compressed'
+							? ['print', 'intoZip', 'intoZipSeveral']
+							: [];
+					}
+					default: return ['print'];
+				}
+			}
+			return ['print'];
+		}
+	}
 	const renderMenuItems = (target, type) => {
-		return target.map((item, i) => {
+		const eItems = excessItems();
+		let filteredMenu = [...target];
+		filteredMenu.forEach((el, i, arr) => {
+			eItems.forEach(excess => {if(excess === el.type) delete arr[i]});
+		});
+		return filteredMenu.map((item, i) => {
 			return (
 				<ContextMenuItem
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					callback={() => type[i]?.callback(type, i)}
+					callback={() => type.forEach((el, index) => {if(el.type === item.type) el.callback(type, index)})}
 					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
