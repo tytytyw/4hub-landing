@@ -103,7 +103,7 @@ const WorkSpace = ({
 				}`}
 			>
 				<div className={styles.header}>
-					<SearchField setFoundFiles={setFoundFiles} fileList={fileList} />
+					<SearchField setChosenFile={setChosenFile} />
 					<div className={styles.infoHeader}>
 						<StorageSize />
 						<Notifications />
