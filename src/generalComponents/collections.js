@@ -34,7 +34,7 @@ export const contextMenuFile = {
         {name: 'Загрузить', img: 'download-blue', type: 'download'},
         {name: 'Печать', img: 'print-2', type: 'print'},
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage', type: 'delete'}]
+    additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
 };
 
 export const contextMenuProfile = {

@@ -291,7 +291,7 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
             : null}
         {action.type === 'archive'
             ?   <ActionApproval
-					name={filePick.show ? 'Добавить выбранные файлы в архив' : action.name}
+					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
 					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
 					set={cancelArchive}
 					callback={archiveFile}
