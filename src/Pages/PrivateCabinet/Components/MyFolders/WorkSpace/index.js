@@ -40,14 +40,14 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
-    const uid = useSelector(state => state.user.uid);
+    const uid = useSelector(state => state?.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     //TODO - Need to add to different file views
-    const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
+    const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
-    const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
+    const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -55,9 +55,10 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: (list, index) => setFilePick({...filePick, show: true})},
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
+        {type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => setFilePick({...filePick, show: true, intoZip: true})},
         {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
@@ -66,9 +67,14 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
     const deleteFile = () => {
-        fileDelete(chosenFile, dispatch, onDeleteFile);
-        nullifyAction(); setChosenFile(null);
-        dispatch(onAddRecentFiles())
+        if(filePick.show) {
+            const gdir = fileList.path;
+            filePick.files.forEach(fid => fileDelete({gdir, fid}, dispatch, uid));
+            setFilePick({...filePick, files: [], show: false});
+        } else{fileDelete(chosenFile, dispatch, uid)}
+        nullifyAction();
+        setChosenFile(null);
+        dispatch(onAddRecentFiles());
     };
 
     const checkMimeTypes = () => {
@@ -187,10 +193,13 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 file={chosenFile}
             >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             {filePick.show ? <OptionButtomLine
+                callbackArrMain={callbackArrMain}
                 filePick={filePick}
                 setFilePick={setFilePick}
-                actionName={'Редактировать'}
-                setAction={nullifyFilePick}
+                actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+                setAction={setAction}
+                action={action}
+                nullifyFilePick={nullifyFilePick}
             /> : null}
             <BottomPanel />
         </div>
@@ -228,6 +237,8 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 file={chosenFile}
                 title={action.name}
                 info={chosenFolder}
+                filePick={filePick}
+                nullifyFilePick={nullifyFilePick}
             />
             : null}
         {action.type === 'archive'
