@@ -156,10 +156,13 @@ const WorkSpace = ({
 
 				{filePick.show ? (
 					<OptionButtomLine
+						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
 						actionName={"Редактировать"}
 						setAction={setAction}
+						action={action}
+						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
 					/>
 				) : null}
 				<BottomPanel />
@@ -208,6 +211,8 @@ const WorkSpace = ({
 					file={chosenFile}
 					title={action.name}
 					info={chosenFolder}
+					filePick={filePick}
+                	nullifyFilePick={nullifyFilePick}
 				/>
 			) : null}
 			<form
