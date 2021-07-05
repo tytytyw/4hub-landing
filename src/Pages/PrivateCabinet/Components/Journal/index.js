@@ -32,7 +32,7 @@ const Journal = () => {
     const [year, setYear] = useState(null)
     const [collapse, setCollapse] = useState(false)
 
-    const [listCollapsed, setListCollapsed] = useState(false)
+    //const [listCollapsed, setListCollapsed] = useState(false)
 
     const [month, setMonth] = useState(null)
 
@@ -108,6 +108,7 @@ const Journal = () => {
     const renderFolders = () => {
         return journalFolders?.map((folder, index) => (
             <FolderItem
+                key={index}
                 folder={folder}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
