@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from '../../../../api';
-import {previewTypes} from '../../../../generalComponents/collections';
+import {previewFormats, previewTypes} from '../../../../generalComponents/collections';
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -135,6 +135,7 @@ const MyFiles = ({
 					default: return ['print'];
 				}
 			}
+			if(previewFormats.filter(ext => chosenFile.ext.toLowerCase().includes(ext))[0]) return [];
 			return ['print'];
 		}
 	}
