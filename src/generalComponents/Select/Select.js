@@ -46,7 +46,10 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
 
             <div
                 onClick={() => setOpen(!open)}
-                className={styles.select}
+                className={classNames({
+                    [styles.select]: true,
+                    [styles.selected]: true//!!value
+                })}
             >
                 <span className={classNames({
                     [styles.selectInput]: !props.classNameSelect,

@@ -16,6 +16,7 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
+import BottomPanel from "../ButtomPanel";
 
 const Archive = () => {
 
@@ -189,7 +190,7 @@ const Archive = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" ? (
+            {action.type === "delete" && (
                 <ActionApproval
                     name={action.name}
                     text={action.text}
@@ -201,7 +202,9 @@ const Archive = () => {
                         <File format={chosenFile?.ext} color={chosenFile?.color} />
                     </div>
                 </ActionApproval>
-            ) : null}
+            )}
+
+            <BottomPanel />
 
         </div>
     )
