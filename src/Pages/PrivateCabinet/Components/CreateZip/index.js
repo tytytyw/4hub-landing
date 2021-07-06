@@ -75,7 +75,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                 .then(() => {
                     dispatch(onChooseFiles(fileList.path));
                     setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
-                    close();
+                    onCancel();
                 })
                 .catch(() => setError(true));
     };
