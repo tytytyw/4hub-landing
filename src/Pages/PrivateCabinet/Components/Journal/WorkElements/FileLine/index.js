@@ -63,6 +63,7 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                                 src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
                                 alt='emoji'
                             />}
+                            <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>
                         </div>}
                     </div>
 
@@ -88,6 +89,7 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                         src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
                         alt='emoji'
                     />}
+                    <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>
                 </div>}
 
             </div>

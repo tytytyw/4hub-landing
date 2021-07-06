@@ -19,6 +19,7 @@ import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play
 import List from './List'
 import FolderItem from './FolderItem'
 import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
+import BottomPanel from "../ButtomPanel";
 
 const Journal = () => {
 
@@ -198,37 +199,39 @@ const Journal = () => {
 
                     </div>
 
-                    {mouseParams !== null && (
-                        <ContextMenu
-                            params={mouseParams}
-                            setParams={setMouseParams}
-                            tooltip={true}
-                        >
-                            <div className={styles.mainMenuItems}>
-                                {renderMenuItems(contextMenuFile.main)}
-                            </div>
-                            <div className={styles.additionalMenuItems}>
-                                {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-                            </div>
-                        </ContextMenu>
-                    )}
-
-                    {action.type === 'delete' && (
-                        <ActionApproval
-                            name={action.name}
-                            text={action.text}
-                            set={nullifyAction}
-                            callback={() => {
-                            }}
-                            approve={'Удалить'}
-                        >
-                            <div className={styles.fileActionWrap}>
-                                <File format={chosenFile?.ext} color={chosenFile?.color}/>
-                            </div>
-                        </ActionApproval>
-                    )}
-
                 </div>
+
+            {mouseParams !== null && (
+                <ContextMenu
+                    params={mouseParams}
+                    setParams={setMouseParams}
+                    tooltip={true}
+                >
+                    <div className={styles.mainMenuItems}>
+                        {renderMenuItems(contextMenuFile.main)}
+                    </div>
+                    <div className={styles.additionalMenuItems}>
+                        {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+                    </div>
+                </ContextMenu>
+            )}
+
+            {action.type === 'delete' && (
+                <ActionApproval
+                    name={action.name}
+                    text={action.text}
+                    set={nullifyAction}
+                    callback={() => {
+                    }}
+                    approve={'Удалить'}
+                >
+                    <div className={styles.fileActionWrap}>
+                        <File format={chosenFile?.ext} color={chosenFile?.color}/>
+                    </div>
+                </ActionApproval>
+            )}
+
+            <BottomPanel />
 
         </div>
     )

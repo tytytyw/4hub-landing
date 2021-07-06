@@ -16,6 +16,7 @@ import File from "../../../../generalComponents/Files";
 import FileBar from "./WorkElements/FileBar";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
+import BottomPanel from "../ButtomPanel";
 
 const Cart = () => {
 
@@ -200,7 +201,7 @@ const Cart = () => {
                 </ContextMenu>
             )}
 
-            {action.type === "delete" ? (
+            {action.type === "delete" && (
                 <ActionApproval
                     name={action.name}
                     text={action.text}
@@ -213,7 +214,9 @@ const Cart = () => {
                         <File format={chosenFile?.ext} color={chosenFile?.color}/>
                     </div>
                 </ActionApproval>
-            ) : null}
+            )}
+
+            <BottomPanel />
 
         </div>
     )
