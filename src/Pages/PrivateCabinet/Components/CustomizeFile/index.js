@@ -102,7 +102,6 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
             fig: data.symbol ? sign : file.fig,
             is_pass: password && passwordRepeat ? 1 : 0
         }
-        console.log(newFile);
         if(filePick.customize) {
             delete data.fName;
             if(data.pass === '') delete data.pass;

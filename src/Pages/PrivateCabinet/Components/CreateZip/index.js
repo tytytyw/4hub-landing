@@ -113,17 +113,24 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                        <div className={`${styles.fileWrap}`} >
                             <div className={styles.file}><File color={color.light} format='ZIP' /></div>
                         </div>
                         <div className={styles.picPreview}>
                             <div className={styles.name}>{getName(file.fname).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={`${styles.minitag} ${styles.redCross}`}
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ? styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                </div>
+                                {/*<div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />*/}
                                 {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                                 {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
                                 {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
