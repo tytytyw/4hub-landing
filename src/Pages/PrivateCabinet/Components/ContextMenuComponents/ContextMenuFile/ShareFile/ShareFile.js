@@ -43,15 +43,12 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
         }
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const shareUrlParam = () => {
-        if (action_type === 'share') {
-            const deadline = dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''
-            return `&deadline=${deadline}&dir=${data.dir}&is_write=${data.is_write}`
-        } else return ''
-    }
+    useEffect(()=> {
+        setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
+    },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
-        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fids=[${data.fids}]&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
+        api.post(`/ajax/file_${action_type}.php`, data)
             .then(res => {
                 if(res.data.ok === true) {
                     setShowSuccessMessage('Отправлено')
