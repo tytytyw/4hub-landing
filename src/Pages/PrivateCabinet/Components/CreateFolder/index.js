@@ -94,17 +94,27 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                 <span className={styles.cross} onClick={() => onCreate(false)} />
                 <span className={styles.title}>{title}</span>
                 <div className={styles.folderIconWrap}>
-                    <div className={`${styles.folder} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                    <div className={`${styles.folder}`}>
                         <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === color.color)[0]?.name}`} />
                     </div>
                     <div className={styles.picPreview}>
                         <div className={styles.folderName}>{name}</div>
                         <div className={styles.folderOptions}>
+                            {/*{tagOption.chosen && <div*/}
+                            {/*    className={`${styles.minitag} ${styles.redCross}`}*/}
+                            {/*    onClick={() => setTagOption({...tagOption, chosen: ''})}*/}
+                            {/*># {tagOption.chosen}</div>}*/}
                             {tagOption.chosen && <div
-                                className={`${styles.minitag} ${styles.redCross}`}
+                                className={`${styles.minitagWrap} ${styles.redCross}`}
                                 onClick={() => setTagOption({...tagOption, chosen: ''})}
-                            ># {tagOption.chosen}</div>}
-                            <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                            >
+                                <div
+                                    className={`${styles.minitag}`}
+                                >#{tagOption.chosen}</div>
+                            </div>}
+                            <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ?  styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
+                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                            </div>
                             {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                             {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
                             {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
