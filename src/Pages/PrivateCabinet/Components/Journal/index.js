@@ -213,7 +213,7 @@ const Journal = () => {
                         </ContextMenu>
                     )}
 
-                    {action.type === 'delete' ? (
+                    {action.type === 'delete' && (
                         <ActionApproval
                             name={action.name}
                             text={action.text}
@@ -226,7 +226,7 @@ const Journal = () => {
                                 <File format={chosenFile?.ext} color={chosenFile?.color}/>
                             </div>
                         </ActionApproval>
-                    ) : null}
+                    )}
 
                 </div>
 
