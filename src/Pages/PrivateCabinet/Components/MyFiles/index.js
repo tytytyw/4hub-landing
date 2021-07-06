@@ -106,18 +106,18 @@ const MyFiles = ({
 		});
 	};
 	const deleteFile = () => {
-		if(filePick.show) {
-			const gdir = fileList.path;
-			filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
-			setFilePick({...filePick, files: [], show: false});
-		} else{
-			fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
-		}
-		nullifyAction();
-		setChosenFile(null);
-		dispatch(onAddRecentFiles());
-	};
-
+        if(filePick.show) {
+            const gdir = fileList.path;
+            filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
+            setFilePick({...filePick, files: [], show: false});
+        } else{
+            fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
+        }
+        nullifyAction();
+        setChosenFile(null);
+        dispatch(onAddRecentFiles());
+    };
+	
 	const addToArchive = (uid, fid, file) => {
 		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
 			.then(res => {

@@ -56,7 +56,6 @@ const WorkSpace = ({
 	setShowSuccessMessage,
     cancelArchive,
 }) => {
-	console.log(filePick)
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 
