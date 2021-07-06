@@ -26,6 +26,7 @@ const InputField = ({
                     [styles.isPassword]: model === 'password',
                 })}
                 type={model === 'password' ? visibility : 'text'}
+                autoComplete='off'
                 value={value}
                 placeholder={placeholder}
                 onChange={(e) => {

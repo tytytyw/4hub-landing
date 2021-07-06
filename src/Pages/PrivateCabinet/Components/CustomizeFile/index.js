@@ -153,7 +153,7 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     {!filePick.customize ? <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color?.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                        <div className={`${styles.fileWrap}`}>
                             <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
                         </div>
                         <div className={styles.picPreview}>
@@ -161,10 +161,16 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
                             <div className={styles.name}>{getName(file.name).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={`${styles.minitag} ${styles.redCross}`}
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                </div>
                                 {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                                 {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
                                 {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
