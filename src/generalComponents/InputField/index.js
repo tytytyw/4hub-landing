@@ -15,6 +15,10 @@ const InputField = ({
         if(onSwitch) onSwitch(!isPassword);
     };
 
+    const deleteReadOnly = (e) => {
+        e.target.removeAttribute('readonly');
+    }
+
     return (
         <div style={{height}} className={classnames({
             [styles.wrap]: true,
@@ -27,8 +31,10 @@ const InputField = ({
                 })}
                 type={model === 'password' ? visibility : 'text'}
                 autoComplete='off'
+                readOnly={true}
                 value={value}
                 placeholder={placeholder}
+                onFocus={deleteReadOnly}
                 onChange={(e) => {
                     let newVal = e.target.value;
                     if(comparePass) comparePass(e.target.value);
