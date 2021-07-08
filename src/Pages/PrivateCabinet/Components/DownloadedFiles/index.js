@@ -16,6 +16,7 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
+import BottomPanel from "../ButtomPanel";
 
 const DownloadedFiles = () => {
 
@@ -172,6 +173,8 @@ const DownloadedFiles = () => {
 
                 </div>
 
+
+
             </div>
 
             {mouseParams !== null && (
@@ -201,6 +204,8 @@ const DownloadedFiles = () => {
                         <File format={chosenFile?.ext} color={chosenFile?.color} />
                     </div>
                 </ActionApproval>}
+
+            <BottomPanel />
 
         </div>
     )
