@@ -14,7 +14,9 @@ import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 
-const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
+const CustomizeFile = ({
+           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles,
+}) => {
 
     const uid = useSelector(state => state.user.uid);
     const path = useSelector(state => state.PrivateCabinet?.fileList?.path);
@@ -23,10 +25,10 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState(filePick.customize ? colors[0] : colors.find(c => c.color === file.color));
-    const [tagOption, setTagOption] = useState({chosen: filePick.customize ? '' : file.tag || '', count: 30});
-    const [sign, setSign] = useState(filePick.customize ? '' : file.fig);
-    const [emoji, setEmoji] = useState(filePick.customize ? '' : file.emo);
+    const [color, setColor] = useState( filePick.customize || fileAddCustomization.several ? colors[0] : colors.find(c => c.color === file.color));
+    const [tagOption, setTagOption] = useState({chosen: filePick.customize || fileAddCustomization.several ? '' : file.tag || '', count: 30});
+    const [sign, setSign] = useState(filePick.customize || fileAddCustomization.several ? '' : file.fig);
+    const [emoji, setEmoji] = useState(filePick.customize || fileAddCustomization.several ? '' : file.emo);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
@@ -56,19 +58,19 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
         if(width >= 1440) {
             return {
                 height: `${showRepeat 
-                    ? filePick.customize 
+                    ? filePick.customize || fileAddCustomization.several
                         ? '140px' 
                         : '190px' 
-                    : filePick.customize 
+                    : filePick.customize || fileAddCustomization.several
                         ? '100px'
                         : '140px'}`,
                 marginBottom: `${showRepeat ? '10px' : '35px'}`,
-                marginTop: `${filePick.customize ? '30px' : '0'}`,
+                marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
             }
         } else {
             return {
                 height: `${showRepeat 
-                    ? filePick.customize 
+                    ? filePick.customize || fileAddCustomization.several
                         ? '110px'
                         : '150px' 
                     : '110px'}`,
@@ -146,13 +148,25 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
         }
     };
 
+    const addToAwaitingFiles = () => {
+        const options = {
+            tag: tagOption.chosen === file?.tag ? '' : `${tagOption.chosen}`,
+            pass: password === passwordRepeat ? `${password}` : '',
+            color: color?.color === file?.color ? '' : `${color?.color}`,
+            symbol: sign === file?.fig ? '' : `${sign}`,
+            emoji: emoji === file?.emo ? '' : `${emoji}`,
+        };
+        saveCustomizeSeveralFiles(options);
+    }
+
     return (
         <div style={{display: `block`}}>
             <PopUp set={close}>
-                <div className={styles.createFolderWrap} style={{height: filePick.customize ? '582px' : '720px'}}>
+                <div className={styles.createFolderWrap} style={{height: filePick.customize ||  fileAddCustomization?.several ? '582px' : '720px'}}>
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
-                    {!filePick.customize ? <div className={styles.fileIconWrap}>
+                    {filePick.customize || fileAddCustomization?.several ? null :
+                    <div className={styles.fileIconWrap}>
                         <div className={`${styles.fileWrap}`}>
                             <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
                         </div>
@@ -176,17 +190,18 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
                                 {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                             </div>
                         </div>
-                    </div> : null}
+                    </div>}
                     <div style={generateInputWrap()}
                          className={`${styles.inputFieldsWrap}`}
                     >
-                        {!filePick.customize ? <InputField
+                        {filePick.customize || fileAddCustomization.several ? null :
+                        <InputField
                             model='text'
                             height={width >= 1440 ? '40px' : '30px'}
                             value={name}
                             set={setName}
                             placeholder='Имя файла'
-                        /> : null}
+                        />}
                         <div className={styles.tagPicker}>
                             <span>#</span>
                             <input
@@ -231,8 +246,14 @@ const CustomizeFile = ({title, close, file, filePick, setFilePick }) => {
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => close()}>Отмена</div>
-                        <div className={`${file ? styles.add : styles.buttonDisabled}`} onClick={() => {if(file) onAddFile()}}>Сохранить</div>
+                        <div className={styles.cancel} onClick={close}>Отмена</div>
+                        <div
+                            className={`${file || fileAddCustomization.several ? styles.add : styles.buttonDisabled}`}
+                            onClick={() => {
+                                if(file) onAddFile();
+                                if(fileAddCustomization.several) addToAwaitingFiles();
+                            }}
+                        >Сохранить</div>
                     </div>
                 </div>
             </PopUp>

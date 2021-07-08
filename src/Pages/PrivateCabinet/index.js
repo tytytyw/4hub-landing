@@ -31,7 +31,7 @@ const PrivateCabinet = () => {
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
-    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
+    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
 
@@ -71,6 +71,13 @@ const PrivateCabinet = () => {
     const fileSelect = () => inputRef.current.click();
 
     const handleDragOver = e => e.preventDefault();
+
+    const nullifyAddingSeveralFiles = () => setFileAddCustomization({...fileAddCustomization, several: false, files: []});
+
+    const saveCustomizeSeveralFiles = (options) => {
+        const arr = fileAddCustomization.files.map(obj => ({file: obj.file, options: {...obj.options, ...options}}));
+        setAwaitingFiles([...awaitingFiles, ...arr]);
+    }
 
     return (
         <div
@@ -219,6 +226,8 @@ const PrivateCabinet = () => {
                             loadingFile={loadingFile}
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                         />}
                     />
 

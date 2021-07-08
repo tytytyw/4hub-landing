@@ -27,6 +27,7 @@ import Error from '../../../../generalComponents/Error';
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
+               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles,
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -174,6 +175,10 @@ const MyFolders = ({
                 fileSelect={fileSelect}
                 action={action}
                 setAction={setAction}
+                fileAddCustomization={fileAddCustomization}
+                setFileAddCustomization={setFileAddCustomization}
+                nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

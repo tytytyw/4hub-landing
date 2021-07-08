@@ -33,10 +33,11 @@ import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/Sha
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
 import SuccessMessage from '../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
-const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
-                   chosenFolder, listCollapsed, setFilePreview, filePreview,
-                   fileSelect, action, setAction
-                  }) => {
+const WorkSpace = ({
+       fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
+       chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
+       fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization,
+}) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('bars');
@@ -264,14 +265,17 @@ const WorkSpace = ({fileLoading, chosenFile, setChosenFile,
                 approve={'Удалить'}
             ><div className={styles.fileActionWrap}><File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
-        {action.type === 'customize' || filePick.customize ? <CustomizeFile
-            title={filePick.customize ? `Редактировать выбранные файлы` : action.name }
+        {action.type === 'customize' || filePick.customize || fileAddCustomization.several ? <CustomizeFile
+            title={filePick.customize ||  fileAddCustomization?.several ? `Редактировать выбранные файлы` : action.name }
             info={chosenFolder}
             file={chosenFile}
             // TODO - Check Cancellation for FilePick
-            close={filePick.customize ? nullifyFilePick : nullifyAction}
+            close={filePick.customize ? nullifyFilePick : fileAddCustomization.several ? nullifyAddingSeveralFiles : nullifyAction}
             filePick={filePick}
             setFilePick={setFilePick}
+            fileAddCustomization={fileAddCustomization}
+            setFileAddCustomization={setFileAddCustomization}
+            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
         /> : null}
         {action.type === 'share' ? (
 				<ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />

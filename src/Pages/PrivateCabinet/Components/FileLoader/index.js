@@ -52,10 +52,14 @@ const FileLoader = ({
     };
 
     useEffect(() => {
-        if(awaitingFiles.length > 1) {
+        if(awaitingFiles.length > 1 && !fileAddCustomization.several) {
+            setFileAddCustomization({...fileAddCustomization, several: true, files: [...awaitingFiles]});
+            setAwaitingFiles([]);
+        } else if(awaitingFiles.length > 1 && fileAddCustomization.several) {
             startLoading();
+            setFileAddCustomization({...fileAddCustomization, several: false, files: []})
         } else if(!fileAddCustomization.show) {
-            setFileAddCustomization({show: true, file: awaitingFiles[0]});
+            setFileAddCustomization({...fileAddCustomization, show: true, file: awaitingFiles[0]});
             setAwaitingFiles([]);
         } else {
             setFileAddCustomization({show: false, file: null})
