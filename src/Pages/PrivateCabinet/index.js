@@ -22,6 +22,7 @@ import {setPreviewTheme} from "../../Store/actions/main";
 import Archive from "./Components/Archive";
 import Journal from "./Components/Journal";
 import Cart from "./Components/Cart";
+import Calendar from "./Components/Calendar";
 
 const PrivateCabinet = () => {
 
@@ -203,6 +204,11 @@ const PrivateCabinet = () => {
                     <Route
                         path='/cart'
                         render={() => <Cart />}
+                    />
+
+                    <Route
+                        path='/calendar'
+                        render={() => <Calendar />}
                     />
 
                     <Route
