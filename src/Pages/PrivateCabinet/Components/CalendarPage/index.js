@@ -18,6 +18,8 @@ import List from './List'
 import FolderItem from './FolderItem'
 import ListTaskItem from './ListTaskItem'
 import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
+import WorkSpace from "./WorkSpace";
+import ListCalendar from "./ListCalendar";
 
 const CalendarPage = () => {
 
@@ -28,12 +30,16 @@ const CalendarPage = () => {
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
     const journalFolders = useSelector((state) => state.PrivateCabinet.journalFolders)
 
-    const [year, setYear] = useState(null)
+
     const [collapse, setCollapse] = useState(false)
 
     const [listCollapsed, setListCollapsed] = useState(false)
 
-    const [month, setMonth] = useState(null)
+    const date = new Date()
+
+    const [year, setYear] = useState(date.getFullYear())
+    const [day, setDay] = useState(null)
+    const [month, setMonth] = useState(date.getMonth())
 
     const [chosenFolder, setChosenFolder] = useState(null)
     const [chosenFile, setChosenFile] = useState(null)
@@ -115,6 +121,36 @@ const CalendarPage = () => {
         ))
     }
 
+    const taskList = [
+        {
+            name: 'Сдать задачу за 2020 год',
+            term: 'С 12 августа По 16 августа 2020',
+            tag: 'Отчет',
+            sender: 'Недельская Алина Квиталина',
+            avatar: 'a1',
+            ctime: '14:45',
+            type: 1
+        },
+        {
+            name: 'Сдать задачу за 2020 год',
+            term: 'С 12 августа По 16 августа 2020',
+            tag: 'Отчет',
+            sender: 'Недельская Алина Квиталина',
+            avatar: 'a1',
+            ctime: '14:45',
+            type: 2
+        },
+        {
+            name: 'Сдать задачу за 2020 год',
+            term: 'С 12 августа По 16 августа 2020',
+            tag: 'Отчет',
+            sender: 'Недельская Алина Квиталина',
+            avatar: 'a1',
+            ctime: '14:45',
+            type: 3
+        },
+    ]
+
     return (
         <div className={styles.parentWrapper}>
 
@@ -134,29 +170,37 @@ const CalendarPage = () => {
                     src='add-folder.svg'
                 >
 
+                    <ListCalendar
+                        day={day}
+                        month={month}
+                        year={year}
+                    />
+
                     <div className={styles.myTasksBlock}>
                         <p className={styles.title}>Мои задачи <span>12.04.2020</span></p>
                     </div>
 
-                    <ListTaskItem/>
+                    {taskList?.map((task, i) => (
+                        <ListTaskItem
+                            key={i}
+                            task={task}
+                        />
+                    ))}
 
                 </List>
 
                 <div className={styles.wrapper}>
 
-                    <ServePanel
-                        setView={setWorkElementsView}
-                        view={workElementsView}
-                    />
-
                     <DateBlock
                         search={search}
                         setSearch={setSearch}
-                        year={year}
-                        setYear={setYear}
                         month={month}
                         setMonth={setMonth}
+                        setYear={setYear}
+                        setDay={setDay}
                     />
+
+                    <WorkSpace/>
 
                 </div>
 

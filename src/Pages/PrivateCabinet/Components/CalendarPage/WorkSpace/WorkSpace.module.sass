@@ -1,0 +1,84 @@
+.wrapper
+  position: relative
+  padding: 10px 0
+
+.topBlockWrap
+  width: 100%
+  background: #ffffff
+  position: absolute
+  .topBlock
+    margin-left: 53px
+  .daysList
+    margin: 0
+    width: 100%
+    display: flex
+    justify-content: space-between
+  .dayItem
+    width: 100%
+    display: flex
+    align-items: center
+    flex-direction: column
+    .day
+      margin: 0
+      font-size: 13px
+      line-height: 17px
+      color: #49494B
+    .dayNumber.active
+      color: #ffffff
+      background: #4086F1
+    .dayNumber
+      cursor: pointer
+      background: transparent
+      width: 40px
+      height: 40px
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 50%
+      margin: 12px 0 0 0
+      font-size: 26px
+      line-height: 35px
+      color: #49494B
+      transition: all 0.2s ease
+      &:hover
+        color: #ffffff
+        background: #4086F1
+
+
+.leftBlockWrap
+  box-sizing: border-box
+  width: 40px
+  background: #ffffff
+  position: absolute
+  left: 0
+  top: 0
+
+  .hoursList
+    margin-top: 129px
+    height: 100%
+    display: flex
+    align-items: center
+    flex-direction: column
+    .hourItem
+      height: 48px
+    .hour
+      font-size: 11px
+      line-height: 15px
+      color: #49494B
+
+
+
+
+.table
+  width: 100%
+  border-collapse: collapse
+  margin-top: 36px
+
+  .firstCell
+    border: 1px solid #DFDFDF
+    width: 53px
+    height: 45px
+
+  .cell
+    border: 1px solid #DFDFDF
+    height: 45px

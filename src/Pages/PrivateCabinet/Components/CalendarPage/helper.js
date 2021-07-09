@@ -15,16 +15,16 @@ export const getDays = () => {
 }
 
 export const months = [
-    {id: 1, text: 'Январь'},
-    {id: 2, text: 'Февраль'},
-    {id: 3, text: 'Март'},
-    {id: 4, text: 'Апрель'},
-    {id: 5, text: 'Май'},
-    {id: 6, text: 'Июнь'},
-    {id: 7, text: 'Июль'},
-    {id: 8, text: 'Август'},
-    {id: 9, text: 'Сентябрь'},
-    {id: 10, text: 'Октябрь'},
-    {id: 11, text: 'Ноябрь'},
-    {id: 12, text: 'Декабрь'},
+    {id: 0, text: 'Январь'},
+    {id: 1, text: 'Февраль'},
+    {id: 2, text: 'Март'},
+    {id: 3, text: 'Апрель'},
+    {id: 4, text: 'Май'},
+    {id: 5, text: 'Июнь'},
+    {id: 6, text: 'Июль'},
+    {id: 7, text: 'Август'},
+    {id: 8, text: 'Сентябрь'},
+    {id: 9, text: 'Октябрь'},
+    {id: 10, text: 'Ноябрь'},
+    {id: 11, text: 'Декабрь'},
 ]

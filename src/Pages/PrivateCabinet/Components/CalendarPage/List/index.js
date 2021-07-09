@@ -29,16 +29,15 @@ const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children,
                 </div>
             </div>
 
-            <div className={styles.addTaskBlock}>
-                <p>Создать задачу</p>
-                <img
-                    className={styles.addTaskIcon}
-                    src="./assets/PrivateCabinet/folders/add.svg"
-                    alt="Add Task Icon"
-                />
-            </div>
-
             <div className={styles.children}>
+                <div className={styles.addTaskBlock}>
+                    <p>Создать задачу</p>
+                    <img
+                        className={styles.addTaskIcon}
+                        src="./assets/PrivateCabinet/folders/add.svg"
+                        alt="Add Task Icon"
+                    />
+                </div>
                 {children}
             </div>
         </div>

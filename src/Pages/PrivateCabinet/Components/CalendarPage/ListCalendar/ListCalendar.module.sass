@@ -1,0 +1,62 @@
+.wrapper
+  padding: 13px 20px
+
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: 16px
+
+  .month
+    margin: 0
+    font-size: 13px
+    line-height: 17px
+    color: #49494B
+  .calendarIcon
+    width: 20px
+    height: 20px
+
+
+.content
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+
+  .weekDay
+    width: calc(100% / 7)
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 12px
+    line-height: 16px
+    color: #8D8D8D
+    height: 26px
+  .dayWrap
+    display: flex
+    align-items: center
+    justify-content: center
+    width: calc(100% / 7)
+
+    .day
+      cursor: pointer
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 26px
+      height: 26px
+      border-radius: 50%
+      transition: all 0.2s
+      font-size: 12px
+      line-height: 16px
+      color: #49494B
+      &:hover
+        color: #ffffff
+        background: #4086F1
+
+    .anotherDay
+      color: #8D8D8D
+
+    .selectedDay
+      color: #ffffff
+      background: #4086F1
+        
