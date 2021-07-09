@@ -1,7 +1,9 @@
 import React from 'react';
 
 import styles from './List.module.sass';
+import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/icons/folder-filled.svg';
 import classNames from "classnames";
+import {ReactComponent as PlayIcon} from "../../../../../assets/PrivateCabinet/play-grey.svg";
 
 const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children, onCreate, icon = true}) => {
 
@@ -13,16 +15,29 @@ const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children,
             })}
         >
             <div className={styles.header}>
-                {!listCollapsed && <span>Журлнал действий</span>}
+                <div className={styles.titleWrap}>
+                    <FolderIcon className={styles.folderIcon}/>
+                    <h4 className={styles.title}>{title}</h4>
+                </div>
                 <div className={styles.imgWrap}>
-                    <img
-                        className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
-                        src='./assets/PrivateCabinet/play-grey.svg'
-                        alt='play'
-                        onClick={() => setListCollapsed(!listCollapsed)}
+                    <PlayIcon
+                        className={classNames({
+                            [styles.playButton]: true,
+                            [styles.revert]: !!listCollapsed
+                        })}
                     />
                 </div>
             </div>
+
+            <div className={styles.addTaskBlock}>
+                <p>Создать задачу</p>
+                <img
+                    className={styles.addTaskIcon}
+                    src="./assets/PrivateCabinet/folders/add.svg"
+                    alt="Add Task Icon"
+                />
+            </div>
+
             <div className={styles.children}>
                 {children}
             </div>

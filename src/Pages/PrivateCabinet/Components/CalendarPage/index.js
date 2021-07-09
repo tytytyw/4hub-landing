@@ -14,10 +14,9 @@ import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ActionApproval from '../../../../generalComponents/ActionApproval'
 import File from '../../../../generalComponents/Files'
-import classNames from 'classnames'
-import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
 import List from './List'
 import FolderItem from './FolderItem'
+import ListTaskItem from './ListTaskItem'
 import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
 
 const CalendarPage = () => {
@@ -119,115 +118,81 @@ const CalendarPage = () => {
     return (
         <div className={styles.parentWrapper}>
 
+            <div className={styles.header}>
+                <SearchField/>
+                <div className={styles.infoHeader}>
+                    <StorageSize/>
+                    <Notifications/>
+                    <Profile/>
+                </div>
+            </div>
+
+            <div className={styles.contentRight}>
+
                 <List
-                    title='Папки'
+                    title='Мой календарь'
                     src='add-folder.svg'
                 >
-                    {renderFolders()}
+
+                    <div className={styles.myTasksBlock}>
+                        <p className={styles.title}>Мои задачи <span>12.04.2020</span></p>
+                    </div>
+
+                    <ListTaskItem/>
+
                 </List>
 
-                <div className={styles.contentRight}>
-
-                    <div className={styles.header}>
-                        <SearchField/>
-                        <div className={styles.infoHeader}>
-                            <StorageSize/>
-                            <Notifications/>
-                            <Profile/>
-                        </div>
-                    </div>
+                <div className={styles.wrapper}>
 
                     <ServePanel
                         setView={setWorkElementsView}
                         view={workElementsView}
                     />
 
-                    <div className={styles.wrapper}>
-
-                        <DateBlock
-                            search={search}
-                            setSearch={setSearch}
-                            year={year}
-                            setYear={setYear}
-                            month={month}
-                            setMonth={setMonth}
-                        />
-
-                        <div className={styles.filesWrap}>
-
-                            <div className={styles.fileWrap}>
-
-                                <div
-                                    onClick={() => setCollapse(!collapse)}
-                                    className={styles.collapseHeader}
-                                >
-                                    <p className={styles.dateName}>Август</p>
-                                    <button className={styles.collapseBtn}>
-                                        2 объектов
-                                    </button>
-                                    <div
-                                        className={classNames({
-                                            [styles.arrowFile]: true,
-                                            [styles.active]: !!collapse
-                                        })}
-                                    >
-                                        <PlayIcon
-                                            className={classNames({
-                                                [styles.playButton]: true,
-                                                [styles.revert]: !!collapse
-                                            })}
-                                        />
-                                    </div>
-                                </div>
-
-                                {collapse &&
-                                <div className={styles.fileDate}>
-                                    <p>10.08.2020</p>
-                                </div>}
-
-                                <div className={styles.collapseContent}>
-                                    {collapse ?
-                                        renderFiles() :
-                                        renderFile()}
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {mouseParams !== null && (
-                        <ContextMenu
-                            params={mouseParams}
-                            setParams={setMouseParams}
-                            tooltip={true}
-                        >
-                            <div className={styles.mainMenuItems}>
-                                {renderMenuItems(contextMenuFile.main)}
-                            </div>
-                            <div className={styles.additionalMenuItems}>
-                                {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-                            </div>
-                        </ContextMenu>
-                    )}
-
-                    {action.type === 'delete' ? (
-                        <ActionApproval
-                            name={action.name}
-                            text={action.text}
-                            set={nullifyAction}
-                            callback={() => {
-                            }}
-                            approve={'Удалить'}
-                        >
-                            <div className={styles.fileActionWrap}>
-                                <File format={chosenFile?.ext} color={chosenFile?.color}/>
-                            </div>
-                        </ActionApproval>
-                    ) : null}
+                    <DateBlock
+                        search={search}
+                        setSearch={setSearch}
+                        year={year}
+                        setYear={setYear}
+                        month={month}
+                        setMonth={setMonth}
+                    />
 
                 </div>
+
+            </div>
+
+
+
+            {mouseParams !== null && (
+                <ContextMenu
+                    params={mouseParams}
+                    setParams={setMouseParams}
+                    tooltip={true}
+                >
+                    <div className={styles.mainMenuItems}>
+                        {renderMenuItems(contextMenuFile.main)}
+                    </div>
+                    <div className={styles.additionalMenuItems}>
+                        {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+                    </div>
+                </ContextMenu>
+            )}
+
+            {action.type === 'delete' && (
+                <ActionApproval
+                    name={action.name}
+                    text={action.text}
+                    set={nullifyAction}
+                    callback={() => {
+                    }}
+                    approve={'Удалить'}
+                >
+                    <div className={styles.fileActionWrap}>
+                        <File format={chosenFile?.ext} color={chosenFile?.color}/>
+                    </div>
+                </ActionApproval>
+            )}
 
         </div>
     )

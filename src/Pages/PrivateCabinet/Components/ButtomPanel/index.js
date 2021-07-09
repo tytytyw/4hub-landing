@@ -3,11 +3,14 @@ import React from 'react';
 import styles from './BottomPanel.module.sass';
 import {themes} from "../SideMenu/themes";
 import {useSelector} from "react-redux";
+import {useHistory} from "react-router";
 
 const BottomPanel = () => {
 
     const images = ['mail.svg', 'calendar-5.svg', 'sms.svg', 'round-webcam.svg', 'calendar-4.svg', 'picture-1.svg', 'shopping-cart.svg'];
+    const links = ['', '/calendar', '', '', '', '', '/cart'];
 
+    const history = useHistory()
     const personalSettings = useSelector(state => state.main.personalSettings)
     const previewTheme = useSelector(state => state.main.previewTheme)
 
@@ -19,11 +22,12 @@ const BottomPanel = () => {
     }
 
     const renderIcons = () => {
-        return images.map(el => {
+        return images.map((el, i) => {
             return <img
                 key={el}
                 src={`../assets/PrivateCabinet/${el}`}
                 alt='icon'
+                onClick={() => history.push(links?.[i])}
             />
         });
     };

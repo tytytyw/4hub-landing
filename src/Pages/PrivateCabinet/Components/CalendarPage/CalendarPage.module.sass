@@ -1,9 +1,10 @@
 .parentWrapper
-  display: flex
   height: 100%
 
 .contentRight
+  display: flex
   overflow: hidden
+  height: calc(100% - 90px)
 
 .wrapper
   height: calc(100% - 145px)
@@ -19,6 +20,19 @@
     background-color: #FFFFFF
   &::-webkit-scrollbar-thumb
     background-color: #4086F1
+
+
+.myTasksBlock
+  height: 50px
+  display: flex
+  align-items: center
+  padding: 0 22px
+  border-bottom: 1px solid #DFDFDF
+  .title
+    margin: 0
+    font-size: 13px
+    line-height: 18px
+    color: #49494B
 
 .header
   display: flex
