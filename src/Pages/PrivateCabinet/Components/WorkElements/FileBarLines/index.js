@@ -10,7 +10,7 @@ import { ReactComponent as SettingsIcon } from "../../../../../assets/PrivateCab
 import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabinet/share.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
 
-const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePreview, filePreview }) => {
+const FileBar = ({ file, chosen, setChosenFile, setFilePreview, filePreview }) => {
 	return (
 		<div
 			className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}

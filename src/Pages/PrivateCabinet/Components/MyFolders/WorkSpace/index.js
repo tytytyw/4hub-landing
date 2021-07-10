@@ -236,6 +236,7 @@ const WorkSpace = ({
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}
+                filePick={filePick}
             >{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview
                 file={chosenFile}
