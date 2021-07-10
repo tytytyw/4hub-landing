@@ -144,12 +144,13 @@ const WorkSpace = ({
         })
     }
 
-    const addToArchive = (uid, fid, file) => {
+    const addToArchive = (uid, fid, file, options) => {
         api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
             .then(res => {
                 if (res.data.ok === 1) {
-                    dispatch(onDeleteFile(file))
-                    setShowSuccessMessage('Файл добавлен в архив')
+                    dispatch(onDeleteFile(file));
+                    if(options.single) setShowSuccessMessage('Файл добавлен в архив');
+                    if(options.several) setShowSuccessMessage('Выбранные файлы добавлено в архив');
                 } else console.log(res?.error)
             })
             .catch(err => console.log(err))
@@ -162,11 +163,12 @@ const WorkSpace = ({
 
     const archiveFile = () => {
         if(filePick.show) {
-            filePick.files.forEach(fid => {
-                addToArchive(uid, fid, {fid});
+            filePick.files.forEach((fid, i) => {
+                const options = {single: false, several: i === filePick.files.length - 1};
+                addToArchive(uid, fid, {fid}, options);
             })
         } else {
-            addToArchive(uid, chosenFile.fid, chosenFile);
+            addToArchive(uid, chosenFile.fid, chosenFile, {single: true, several: false});
         }
 	}
 
