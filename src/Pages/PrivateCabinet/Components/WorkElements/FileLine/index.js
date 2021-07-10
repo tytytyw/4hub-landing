@@ -10,7 +10,7 @@ import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
-          setFilePick,
+          setFilePick, callbackArrMain
 }) => {
 
     const onPickFile = () => {
@@ -19,6 +19,30 @@ const FileLine = ({
             isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
         setChosenFile(file)
+    }
+
+    const downloadFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})
+        }, 0)
+    }
+
+    const printFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'print') item.callback()})
+        }, 0)
+    }
+
+    const onPropertiesFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'properties') item.callback()})
+        }, 0)
+    }
+
+    const onShareFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'properties') setAction(item)})
+        }, 0)
     }
 
     return (<div
@@ -39,11 +63,26 @@ const FileLine = ({
             </div>
         </div>
         <div className={styles.optionsWrap}>
-            <div className={styles.iconView}><DownLoadIcon /></div>
-            <div className={styles.iconView}><PrintIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconSettings}`}><SettingsIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconTrash}`} onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})} ><DeleteIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconShare}`}><ShareIcon /></div>
+            <div
+                className={styles.iconView}
+                onClick={downloadFile}
+            ><DownLoadIcon /></div>
+            <div
+                className={styles.iconView}
+                onClick={printFile}
+            ><PrintIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconSettings}`}
+                onClick={onPropertiesFile}
+            ><SettingsIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconTrash}`}
+                onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})}
+            ><DeleteIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconShare}`}
+                onClick={onShareFile}
+            ><ShareIcon /></div>
             <div
                 className={styles.menuWrap}
                 onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}

@@ -189,6 +189,7 @@ const WorkSpace = ({
                 filePreview={filePreview}
                 filePick={filePick}
                 setFilePick={setFilePick}
+                callbackArrMain={callbackArrMain}
             />
         });
     }
