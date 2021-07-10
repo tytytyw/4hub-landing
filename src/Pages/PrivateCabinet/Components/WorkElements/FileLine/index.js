@@ -8,10 +8,21 @@ import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabin
 import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 
-const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview}) => {
+const FileLine = ({
+          file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
+          setFilePick,
+}) => {
+
+    const onPickFile = () => {
+        if(filePick.show) {
+            const isPicked = filePick.files.filter(el => el === file.fid);
+            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+        }
+        setChosenFile(file)
+    }
 
     return (<div
-        onClick={() => setChosenFile(file)}
+        onClick={onPickFile}
         onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
         className={`${chosen ? styles.fileLineWrapChosen : styles.fileLineWrap}`}>
         <div className={styles.fileAbout}>

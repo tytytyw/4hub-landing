@@ -4,7 +4,9 @@ import {useSelector} from 'react-redux';
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 
-const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
+const FileBar = ({
+         file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick
+}) => {
 
     const size = useSelector(state => state.PrivateCabinet.size);
 
@@ -13,6 +15,7 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
             const isPicked = filePick.files.filter(el => el === file.fid);
             isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
+        if(!isLoading) setChosenFile(file);
     }
 
     return (
@@ -24,10 +27,7 @@ const FileBar = ({file, isLoading, chosen, setChosenFile, setMouseParams, setFil
                     ${size === 'medium' ? styles.mediumSize : null}
                     ${size === 'small' ? styles.smallSize : null}
                 `}
-                onClick={() => {
-                    onPickFile();
-                    if(!isLoading) setChosenFile(file);
-                }}
+                onClick={onPickFile}
                 onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
             >
                 <div
