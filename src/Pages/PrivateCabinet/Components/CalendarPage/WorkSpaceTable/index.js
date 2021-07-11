@@ -9,9 +9,7 @@ const WorkSpaceTable = ({taskList}) => {
         const task = taskList?.find(item => item?.weekDay === day && item?.hour === hour)
         if (task) {
             return (
-                <TableTaskItem
-                    task={task}
-                />
+                <TableTaskItem task={task}/>
             )
         }
     }
@@ -53,26 +51,28 @@ const WorkSpaceTable = ({taskList}) => {
 
             <table className={styles.table}>
 
-                <tr className={styles.row}>
-                    <td className={styles.firstCell}/>
-                    <td className={styles.cell}/>
-                    <td className={styles.cell}/>
-                    <td className={styles.cell}/>
-                    <td className={styles.cell}/>
-                    <td className={styles.cell}/>
-                    <td className={styles.cell}/>
-                </tr>
-
-                {hours?.map((hour, index) => (
-                    <tr key={index} className={styles.row}>
+                <tbody>
+                    <tr className={styles.row}>
                         <td className={styles.firstCell}/>
-                        {days?.map((day, dayIndex) => (
-                            <td key={dayIndex} className={styles.cell}>
-                                {renderTask(day?.id, hour?.value)}
-                            </td>
-                        ))}
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
                     </tr>
-                ))}
+
+                    {hours?.map((hour, index) => (
+                        <tr key={index} className={styles.row}>
+                            <td className={styles.firstCell}/>
+                            {days?.map((day, dayIndex) => (
+                                <td key={dayIndex} className={styles.cell}>
+                                    {renderTask(day?.id, hour?.value)}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
 
             </table>
 

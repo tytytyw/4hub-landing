@@ -3,12 +3,13 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from './Select.module.sass'
 import classNames from 'classnames'
 
-const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
+const Select = ({data = [], initValue, value, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(initValue)
 
     const ref = useRef()
+
+    useEffect(() => setOpen(false), [value])
 
     useEffect(() => {
         const onClick = (event) => {
@@ -26,8 +27,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
             return props.placeholder
         }
 
-        const valueItem = data.find(item => item?.id === value)
-        return valueItem?.text
+        return value
     }
 
     return (
@@ -41,10 +41,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
 
             <div
                 onClick={() => setOpen(!open)}
-                className={classNames({
-                    [styles.select]: true,
-                    [styles.selected]: !!value
-                })}
+                className={styles.select}
             >
                 <span className={styles.selectInput}>{getValue()}</span>
                 <span className={classNames({
