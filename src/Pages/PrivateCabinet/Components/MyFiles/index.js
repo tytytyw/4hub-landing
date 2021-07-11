@@ -16,7 +16,7 @@ import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMess
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
-			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem, nullifyAddingSeveralFiles, saveCustomizeSeveralFiles
 }) => {
 	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
@@ -247,6 +247,10 @@ const MyFiles = ({
 				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
 				cancelArchive={cancelArchive}
+				fileAddCustomization={fileAddCustomization}
+            	setFileAddCustomization={setFileAddCustomization}
+				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
