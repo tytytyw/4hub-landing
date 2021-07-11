@@ -1,34 +1,20 @@
 import React from 'react'
 import styles from './WorkSpace.module.sass'
+import TableTaskItem from '../TableTaskItem'
+import {days, hours} from '../helper'
 
-const WorkSpace = () => {
+const WorkSpaceTable = ({taskList}) => {
 
-    const days = [
-        {day: 'Вт', number: '11'},
-        {day: 'Ср', number: '12'},
-        {day: 'Чт', number: '13'},
-        {day: 'Пн', number: '14'},
-        {day: 'Сб', number: '15'},
-        {day: 'Вс', number: '16'},
-    ]
-
-    const hours = [
-        {value: '9:00'},
-        {value: '10:00'},
-        {value: '11:00'},
-        {value: '12:00'},
-        {value: '13:00'},
-        {value: '14:00'},
-        {value: '15:00'},
-        {value: '16:00'},
-        {value: '17:00'},
-        {value: '18:00'},
-        {value: '19:00'},
-        {value: '20:00'},
-        {value: '21:00'},
-        {value: '22:00'},
-        {value: '23:00'},
-    ]
+    const renderTask = (day, hour) => {
+        const task = taskList?.find(item => item?.weekDay === day && item?.hour === hour)
+        if (task) {
+            return (
+                <TableTaskItem
+                    task={task}
+                />
+            )
+        }
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -76,12 +62,13 @@ const WorkSpace = () => {
                     <td className={styles.cell}/>
                     <td className={styles.cell}/>
                 </tr>
-                {hours?.map((item, index) => (
+
+                {hours?.map((hour, index) => (
                     <tr key={index} className={styles.row}>
                         <td className={styles.firstCell}/>
                         {days?.map((day, dayIndex) => (
                             <td key={dayIndex} className={styles.cell}>
-
+                                {renderTask(day?.id, hour?.value)}
                             </td>
                         ))}
                     </tr>
@@ -93,4 +80,4 @@ const WorkSpace = () => {
     )
 }
 
-export default WorkSpace
+export default WorkSpaceTable

@@ -1,26 +1,13 @@
 import React from 'react'
 
 import styles from './ListTaskItem.module.sass'
-
-const taskTypesColor = {
-    1: '#25AB27',
-    2: '#E4791C',
-    3: '#A11CE4',
-}
+import {hexToRgb, taskTypesColor} from '../helper'
 
 const ListTaskItem = ({task}) => {
 
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-
     const color = taskTypesColor?.[task?.type]
     const rgba = hexToRgb(color)
+
     return (
         <div
             className={styles.wrapper}
