@@ -6,9 +6,9 @@ import styles from './ShareFolder.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
-import StoragePeriod from '../StoragePeriod/StoragePeriod';
-import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
-import SetPassword from '../SetPassword/SetPassword'
+import StoragePeriod from '../../ContextMenuFile/StoragePeriod/StoragePeriod';
+import ShareToMessengers from '../../ContextMenuFile/ShareToMessengers/ShareToMessengers';
+import SetPassword from '../../ContextMenuFile/SetPassword/SetPassword'
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';

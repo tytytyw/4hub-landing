@@ -51,7 +51,7 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
         <div
             className={styles.workLinesPreviewWrap}
             style={{
-                height: 'calc(100% - 90px - 55px)'
+                height: 'calc(100% - 90px - 150px)'
             }}>
         {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
         <div className={styles.previewFileWrap}>

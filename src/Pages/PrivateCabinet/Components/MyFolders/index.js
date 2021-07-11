@@ -23,6 +23,7 @@ import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/fo
 import api from '../../../../api';
 import {onChooseFiles, onGetFolders} from '../../../../Store/actions/PrivateCabinetActions';
 import Error from '../../../../generalComponents/Error';
+import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -205,6 +206,16 @@ const MyFolders = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
+            {action.type === 'resendFolder' ? (
+                <ShareFolder
+                    file={chosenFile}
+                    files={{}}
+                    close={nullifyAction}
+                    action_type={action.type}
+                    // showSuccessMessage={showSuccessMessage}
+                    // setShowSuccessMessage={setShowSuccessMessage}
+                />
+            ) : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
