@@ -118,30 +118,32 @@ const MyFiles = ({
         dispatch(onAddRecentFiles());
     };
 	
-	const addToArchive = (uid, fid, file) => {
-		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
-			.then(res => {
-				if (res.data.ok === 1) {
-					dispatch(onDeleteFile(file))
-					setShowSuccessMessage('Файл добавлен в архив')
-				} else console.log(res?.error)
-			})
-			.catch(err => console.log(err))
-			.finally(() => {
-				nullifyAction();
-				setChosenFile(null);
-				if(filePick.show) nullifyFilePick();
-			})
-	}
+	const addToArchive = (uid, fid, file, options) => {
+        api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+            .then(res => {
+                if (res.data.ok === 1) {
+                    dispatch(onDeleteFile(file));
+                    if(options.single) setShowSuccessMessage('Файл добавлен в архив');
+                    if(options.several) setShowSuccessMessage('Выбранные файлы добавлено в архив');
+                } else console.log(res?.error)
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                nullifyAction();
+                setChosenFile(null);
+                if(filePick.show) nullifyFilePick();
+            })
+    }
 
 	const archiveFile = () => {
-		if(filePick.show) {
-			filePick.files.forEach(fid => {
-				addToArchive(uid, fid, {fid});
-			})
-		} else {
-			addToArchive(uid, chosenFile.fid, chosenFile);
-		}
+        if(filePick.show) {
+            filePick.files.forEach((fid, i) => {
+                const options = {single: false, several: i === filePick.files.length - 1};
+                addToArchive(uid, fid, {fid}, options);
+            })
+        } else {
+            addToArchive(uid, chosenFile.fid, chosenFile, {single: true, several: false});
+        }
 	}
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 	const excessItems = () => {
