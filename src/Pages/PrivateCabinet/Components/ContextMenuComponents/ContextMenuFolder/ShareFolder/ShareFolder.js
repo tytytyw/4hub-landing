@@ -13,8 +13,10 @@ import { ReactComponent as Password } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
+import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../../generalComponents/collections";
 
-function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
+function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -26,7 +28,7 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
     const [data, setData] = useState(
         {
             uid,
-            fids: files.length ? [...files] : [file.fid],
+            fids: /*files.length ? [...files] :*/ ['123132'],
             user_to: '',
             prim: '',
             deadline: ''
@@ -37,15 +39,15 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
         : time[0];
     }
 
-    useEffect(()=> {
-        if (action_type === 'share') {
-            setData(data => ({...data, is_write: 1, dir: file.gdir}))
-        }
-    },[]) // eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(()=> {
+    //     if (action_type === 'share') {
+    //         setData(data => ({...data, is_write: 1, dir: file.gdir}))
+    //     }
+    // },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(()=> {
-        setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
-    },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(()=> {
+    //     setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
+    // },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
         api.post(`/ajax/file_${action_type}.php`, data)
@@ -62,22 +64,22 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
             })
             .catch(err => {setError(`${err}`)})
     }
-
+console.log(folder)
     return (
         <PopUp set={close}>
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
                 {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
-                        <File color={file.id_color} format={file.ext} />
-                        {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                        <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === folder.info.color)[0]?.name}`} />
+                        {folder.info.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                     </div>
                     <div className={styles.descriptionWrap}>
-                        <div className={styles.fileName}>{file.name.slice(0, file.name.lastIndexOf('.'))}</div>
+                        <div className={styles.fileName}>{folder.info.name}</div>
                         <div className={styles.innerFileInfo}>
-                            <div className={styles.fileSize}>{file.size_now}</div>
+                            {/*<div className={styles.fileSize}>{file.size_now}</div>*/}
                             <div className={styles.descriptionGroup}>
-                                {file.fig && <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='sign' />}
-                                {file.emo && <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' />}
+                                {/*{file.fig && <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='sign' />}*/}
+                                {/*{file.emo && <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' />}*/}
                             </div>
                         </div>
                     </div>
@@ -154,9 +156,9 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
-            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
-            {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
-            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}
+            {/*{displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}*/}
+            {/*{displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}*/}
+            {/*{displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}*/}
         </PopUp>
     )
 }
