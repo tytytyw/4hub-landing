@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import styles from './TableTaskItem.module.sass'
-import {hexToRgb, taskTypesColor} from '../helper'
+import {taskTypesColor} from '../helper'
 import PopoverTaskItem from "./PopoverTaskItem";
 
 const TableTaskItem = ({task}) => {

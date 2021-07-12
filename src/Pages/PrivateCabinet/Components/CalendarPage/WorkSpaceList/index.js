@@ -71,6 +71,7 @@ const WorkSpaceList = ({taskList, year, month, day}) => {
                     const rgba = hexToRgb(color)
                     return task ? (
                         <div
+                            key={index}
                             className={styles.listItemActive}
                             style={{
                                 background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
@@ -82,7 +83,7 @@ const WorkSpaceList = ({taskList, year, month, day}) => {
                             </div>
                         </div>
                     ) : (
-                        <div className={styles.listItem}>
+                        <div key={index} className={styles.listItem}>
                             <div className={styles.hour}>{hour.value}</div>
                             <div className={styles.hourItem}>
                                 {renderTask(hour.value)}
