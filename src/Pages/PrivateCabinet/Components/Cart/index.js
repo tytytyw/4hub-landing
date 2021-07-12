@@ -63,6 +63,7 @@ const Cart = () => {
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
     ]
+
     const additionalMenuItems = [
         {
             type: 'delete',

@@ -17,7 +17,7 @@ const WorkSpaceTable = ({taskList}) => {
     return (
         <div className={styles.wrapper}>
 
-            <div className={styles.topBlockWrap}>
+            {/*<div className={styles.topBlockWrap}>
                 <div className={styles.topBlock}>
                     <ul className={styles.daysList}>
                         {days?.map((item, index) => (
@@ -32,7 +32,7 @@ const WorkSpaceTable = ({taskList}) => {
                         ))}
                     </ul>
                 </div>
-            </div>
+            </div>*/}
 
             <div className={styles.leftBlockWrap}>
                 <ul className={styles.hoursList}>
@@ -49,11 +49,58 @@ const WorkSpaceTable = ({taskList}) => {
             </div>
 
 
-            <table className={styles.table}>
+            {/*<table className={styles.table}>
 
                 <tbody>
                     <tr className={styles.row}>
                         <td className={styles.firstCell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                        <td className={styles.cell}/>
+                    </tr>
+
+                    {hours?.map((hour, index) => (
+                        <tr key={index} className={styles.row}>
+                            <td className={styles.firstCell}/>
+                            {days?.map((day, dayIndex) => (
+                                <td key={dayIndex} className={styles.cell}>
+                                    {renderTask(day?.id, hour?.value)}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+
+            </table>*/}
+
+            <table className={styles.table}>
+
+                <thead className={styles.thead}>
+                    <tr className={styles.row}>
+                        <th className={styles.firstCell}/>
+                        {days?.map((item, index) => (
+                            <td
+                                key={index}
+                                onClick={() => {}}
+                            >
+                                <div className={styles.dayItem}>
+                                    <span className={styles.day}>{item.day}</span>
+                                    <h4 className={styles.dayNumber}>{item.number}</h4>
+                                </div>
+                            </td>
+                        ))}
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr className={styles.row}>
+                        <td className={styles.firstCell}/>
+                        <td className={styles.cell}/>
                         <td className={styles.cell}/>
                         <td className={styles.cell}/>
                         <td className={styles.cell}/>
