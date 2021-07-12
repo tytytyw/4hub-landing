@@ -21,6 +21,7 @@ import DownloadedFiles from "./Components/DownloadedFiles";
 import {setPreviewTheme} from "../../Store/actions/main";
 import Archive from "./Components/Archive";
 import Journal from "./Components/Journal";
+import CalendarPage from "./Components/CalendarPage";
 import Cart from "./Components/Cart";
 import Calendar from "./Components/Calendar";
 
@@ -208,7 +209,7 @@ const PrivateCabinet = () => {
 
                     <Route
                         path='/calendar'
-                        render={() => <Calendar />}
+                        render={() => <CalendarPage />}
                     />
 
                     <Route
