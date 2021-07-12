@@ -11,17 +11,13 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
     const ref = useRef()
 
     useEffect(() => {
-
         const onClick = (event) => {
             if (!ref.current?.contains(event.target)) {
                 setOpen(false)
             }
         }
-
         window.addEventListener('click', onClick)
-
         return () => window.removeEventListener('click', onClick)
-
     }, [])
 
     const getValue = () => {
@@ -48,7 +44,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                 onClick={() => setOpen(!open)}
                 className={classNames({
                     [styles.select]: true,
-                    [styles.selected]: true//!!value
+                    [styles.selected]: !!value
                 })}
             >
                 <span className={classNames({

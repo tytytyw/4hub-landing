@@ -4,7 +4,7 @@ import Select from '../../../../../generalComponents/Select/Select'
 import {getDays, getYears, months} from '../helper'
 import classNames from 'classnames'
 
-const DateBlock = ({search, setSearch, month, setMonth}) => {
+const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
 
     return (
         <div className={styles.wrapper}>
@@ -18,6 +18,8 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                             className={styles.select}
                             classNameSelect={styles.selectContentYear}
                             data={getYears()}
+
+                            onChange={value => setYear(value)}
                         />
                     </div>
 
@@ -27,6 +29,8 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                             className={styles.select}
                             classNameSelect={styles.selectContent}
                             data={getDays()}
+
+                            onChange={value => setDay(value)}
                         />
                     </div>
                 </div>
