@@ -35,13 +35,13 @@ const FileLine = ({
 
     const onPropertiesFile = () => {
         setTimeout(() => {
-            callbackArrMain.forEach(item => {if(item.type === 'properties') item.callback()})
+            callbackArrMain.forEach((item, index) => {if(item.type === 'customize') item.callback(callbackArrMain, index)})
         }, 0)
     }
 
     const onShareFile = () => {
         setTimeout(() => {
-            callbackArrMain.forEach(item => {if(item.type === 'properties') setAction(item)})
+            callbackArrMain.forEach(item => {if(item.type === 'share') setAction(item)})
         }, 0)
     }
 

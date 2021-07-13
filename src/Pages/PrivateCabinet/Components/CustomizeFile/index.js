@@ -25,7 +25,7 @@ const CustomizeFile = ({
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState( filePick.customize || fileAddCustomization.several ? colors[0] : colors.find(c => c.color === file.color));
+    const [color, setColor] = useState( filePick.customize || fileAddCustomization.several ? colors[0] : colors.find(c => c.color === file.color) ?? colors[0]);
     const [tagOption, setTagOption] = useState({chosen: filePick.customize || fileAddCustomization.several ? '' : file.tag || '', count: 30});
     const [sign, setSign] = useState(filePick.customize || fileAddCustomization.several ? '' : file.fig);
     const [emoji, setEmoji] = useState(filePick.customize || fileAddCustomization.several ? '' : file.emo);
@@ -182,8 +182,8 @@ const CustomizeFile = ({
                                         className={`${styles.minitag}`}
                                     >#{tagOption.chosen}</div>
                                 </div>}
-                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
-                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                <div className={`${styles.colorWrap} ${color?.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
                                 </div>
                                 {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                                 {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
