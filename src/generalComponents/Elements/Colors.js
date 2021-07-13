@@ -8,14 +8,18 @@ const Colors = ({ color, setColor }) => {
     const renderColors = () => {
         return colors.map((el, i) => {
             return <div
+                className={`
+                    ${styles.circleColorWrap} 
+                    ${el.name === color.name ? styles.chosenColorWrap : ''}`}
                 key={i}
+            ><div
                 className={styles.circleColor}
                 style={{
-                    background: color?.dark === el.dark ? el.dark : el.light,
+                    background: el.light,
                     border: `1px solid ${el.dark}`
                 }}
                 onClick={() => setColor(el)}
-            />
+            /></div>
         })
     };
 
@@ -25,6 +29,6 @@ const Colors = ({ color, setColor }) => {
             <div>{renderColors()}</div>
         </div>
     )
-};
+}
 
 export default Colors;
