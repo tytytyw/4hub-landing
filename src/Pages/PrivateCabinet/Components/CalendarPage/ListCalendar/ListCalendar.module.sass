@@ -17,6 +17,55 @@
     height: 20px
 
 
+.contentCollapsed
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  .daysWrap
+    max-height: 180px
+    overflow-y: auto
+    overflow-x: hidden
+
+  .weekDay
+    width: calc(100% / 7)
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 12px
+    line-height: 16px
+    color: #8D8D8D
+    height: 26px
+
+  .dayWrap
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 26px
+  .day
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 26px
+    height: 26px
+    border-radius: 50%
+    transition: all 0.2s
+    font-size: 12px
+    line-height: 16px
+    color: #49494B
+    &:hover
+      color: #ffffff
+      background: #4086F1
+
+  .anotherDay
+    color: #8D8D8D
+
+  .selectedDay
+    color: #ffffff
+    background: #4086F1
+
+
 .content
   display: flex
   align-items: center

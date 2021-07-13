@@ -45,11 +45,11 @@ export const hexToRgb = (hex) => {
 }
 
 export const days = [
-    //{id: 1, day: 'Пн', number: '10'},
+    {id: 1, day: 'Пн', number: '10'},
     {id: 2, day: 'Вт', number: '11'},
     {id: 3, day: 'Ср', number: '12'},
     {id: 4, day: 'Чт', number: '13'},
-    {id: 5, day: 'Пн', number: '14'},
+    {id: 5, day: 'Пт', number: '14'},
     {id: 6, day: 'Сб', number: '15'},
     {id: 7, day: 'Вс', number: '16'},
 ]
