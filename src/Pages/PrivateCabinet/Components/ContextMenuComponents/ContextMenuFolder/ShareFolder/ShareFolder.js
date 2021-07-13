@@ -127,7 +127,6 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                         Установить
                     </span>
                 </div>
-                {action_type === "share" &&
                 <div className={styles.share_link}>
                     <h5 className={styles.share_link_title}>Поделиться вместо этого ссылкой </h5>
                     <div className={styles.row_item}>
@@ -150,7 +149,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                         </div>
                         <span className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
-                </div>}
+                </div>
                 <div className={styles.buttonsWrap}>
                         <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
                 </div>
