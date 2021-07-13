@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './ListTaskItem.module.sass'
 import {hexToRgb, taskTypesColor} from '../helper'
+import classNames from "classnames";
 
 const ListTaskItem = ({task, collapsed}) => {
 
@@ -17,6 +18,10 @@ const ListTaskItem = ({task, collapsed}) => {
                         background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
                     }}
                 >
+
+                    <p className={styles.timeBlock}>
+                        {task?.ctime}
+                    </p>
 
                     <div className={styles.leftBlock}>
                         <span
@@ -58,19 +63,20 @@ const ListTaskItem = ({task, collapsed}) => {
 
                         </div>
 
-                        <p className={styles.timeBlock}>
-                            {task?.ctime}
-                        </p>
-
                     </div>
 
                 </div> :
                 <div
-                    className={styles.wrapper}
+                    className={classNames(styles.wrapper, styles.wrapperCollapsed)}
                     style={{
                         background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
                     }}
                 >
+
+                    <p className={styles.timeBlock}>
+                        {task?.ctime}
+                    </p>
+
                     <div className={styles.topBlock}>
                         <span
                             style={{

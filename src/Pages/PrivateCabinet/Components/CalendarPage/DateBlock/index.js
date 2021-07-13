@@ -35,21 +35,6 @@ const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
                     </div>
                 </div>
 
-                <div className={styles.search}>
-                    <input
-                        type='search'
-                        value={search || ''}
-                        onChange={event => setSearch(event.target.value)}
-                        className={styles.input}
-                        placeholder='Введите ключевое слово'
-                    />
-                    <img
-                        className={styles.icon}
-                        src='./assets/PrivateCabinet/magnifying-glass-2.svg'
-                        alt='Search'
-                    />
-                </div>
-
             </div>
 
             <div className={styles.buttonsWrap}>

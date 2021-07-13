@@ -23,7 +23,6 @@ import Archive from "./Components/Archive";
 import Journal from "./Components/Journal";
 import CalendarPage from "./Components/CalendarPage";
 import Cart from "./Components/Cart";
-import Calendar from "./Components/Calendar";
 
 const PrivateCabinet = () => {
 

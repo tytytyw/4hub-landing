@@ -18,7 +18,7 @@ const events = [
     {id: 6, name: 'Другое', icon: 'other'},
 ]
 
-const CreateTask = ({onCreate, title, setSuccess, setEvent}) => {
+const CreateTask = ({onCreate, setSuccess, setEvent}) => {
 
     const [eventType, setEventType] = useState('');
     const [dateFrom, setDateFrom] = useState('');
@@ -71,6 +71,7 @@ const CreateTask = ({onCreate, title, setSuccess, setEvent}) => {
                                     <ul className={styles.eventsList}>
                                         {events.map((event, index) => (
                                             <li
+                                                key={index}
                                                 onClick={() => setEventType(event?.id)}
                                                 className={styles.eventItem}
                                             >
@@ -150,6 +151,7 @@ const CreateTask = ({onCreate, title, setSuccess, setEvent}) => {
                                     placeholder='Опишите задачу'
                                     className={styles.description}
                                     onChange={event => setDesc(event.target.value)}
+                                    value={desc}
                                 >
                                     {desc}
                                 </textarea>

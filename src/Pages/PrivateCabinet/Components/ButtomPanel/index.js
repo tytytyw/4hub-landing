@@ -8,7 +8,7 @@ import {useHistory} from "react-router";
 const BottomPanel = () => {
 
     const images = ['mail.svg', 'calendar-5.svg', 'sms.svg', 'round-webcam.svg', 'calendar-4.svg', 'picture-1.svg', 'shopping-cart.svg'];
-    const links = ['', '/calendar', '', '', '', '', '/cart'];
+    const links = ['', '/calendar', '', '', '', '', '/programs'];
 
     const history = useHistory()
     const personalSettings = useSelector(state => state.main.personalSettings)
