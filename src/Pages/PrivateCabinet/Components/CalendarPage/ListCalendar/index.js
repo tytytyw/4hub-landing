@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {getDays, getNextMonthDays, getPrevMonthDays} from './helper'
 import {months} from "../helper";
 
-const ListCalendar = ({day, setDay, month, year}) => {
+const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
 
     const date = new Date()
     date.setDate(1);
@@ -13,6 +13,18 @@ const ListCalendar = ({day, setDay, month, year}) => {
     const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(date))
     const [days, setDays] = useState(getDays(date))
     const [nextMonthDays, setNextMonthDays] = useState(getNextMonthDays(date))
+
+    const getAllDays = () => {
+        const result = []
+        for (let i = 1; i <= 12; i++) {
+            for (let j = 1; j <=31; j++) {
+                result.push(j)
+            }
+        }
+        return result
+    }
+
+    const allDays = getAllDays()
 
     useEffect(() => {
 
@@ -55,22 +67,23 @@ const ListCalendar = ({day, setDay, month, year}) => {
                 />
             </div>
 
-            <div className={styles.content}>
+            {!collapsed ?
+                <div className={styles.content}>
 
-                {weekDays?.map((weekDay, i) => (
-                    <div
-                        className={styles.weekDay}
-                        key={weekDay.id}
-                    >
-                        {weekDay.name}
-                    </div>
-                ))}
+                    {weekDays?.map((weekDay, i) => (
+                        <div
+                            className={styles.weekDay}
+                            key={weekDay.id}
+                        >
+                            {weekDay.name}
+                        </div>
+                    ))}
 
-                {prevMonthDays?.map((itemDay, index) => (
-                    <div
-                        key={index}
-                        className={styles.dayWrap}
-                    >
+                    {prevMonthDays?.map((itemDay, index) => (
+                        <div
+                            key={index}
+                            className={styles.dayWrap}
+                        >
                         <span
                             className={classNames({
                                 [styles.day]: true,
@@ -81,14 +94,14 @@ const ListCalendar = ({day, setDay, month, year}) => {
                         >
                             {itemDay}
                         </span>
-                    </div>
-                ))}
+                        </div>
+                    ))}
 
-                {days?.map((itemDay, index) => (
-                    <div
-                        key={index}
-                        className={styles.dayWrap}
-                    >
+                    {days?.map((itemDay, index) => (
+                        <div
+                            key={index}
+                            className={styles.dayWrap}
+                        >
                         <span
                             className={classNames({
                                 [styles.day]: true,
@@ -98,14 +111,14 @@ const ListCalendar = ({day, setDay, month, year}) => {
                         >
                             {itemDay}
                         </span>
-                    </div>
-                ))}
+                        </div>
+                    ))}
 
-                {nextMonthDays?.map((itemDay, index) => (
-                    <div
-                        key={index}
-                        className={styles.dayWrap}
-                    >
+                    {nextMonthDays?.map((itemDay, index) => (
+                        <div
+                            key={index}
+                            className={styles.dayWrap}
+                        >
                         <span
                             className={classNames({
                                 [styles.day]: true,
@@ -116,10 +129,40 @@ const ListCalendar = ({day, setDay, month, year}) => {
                         >
                             {itemDay}
                         </span>
-                    </div>
-                ))}
+                        </div>
+                    ))}
 
-            </div>
+                </div> :
+                <div className={styles.contentCollapsed}>
+
+                    <div
+                        className={styles.weekDay}
+                        key={0}
+                    >
+                        Пн
+                    </div>
+
+                    <div className={styles.daysWrap}>
+                        {allDays?.map((itemDay, index) => (
+                            <div
+                                key={index}
+                                className={styles.dayWrap}
+                            >
+                                <span
+                                    className={classNames({
+                                        [styles.day]: true,
+                                        [styles.anotherDay]: true,
+                                        [styles.selectedDay]: day === itemDay
+                                    })}
+                                    onClick={() => setDay(itemDay)}
+                                >
+                                    {itemDay}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>}
 
         </div>
     )

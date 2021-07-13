@@ -31,7 +31,7 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                     </div>
                 </div>
 
-                <div className={styles.search}>
+                {/*<div className={styles.search}>
                     <input
                         type='search'
                         value={search || ''}
@@ -44,7 +44,7 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                         src='./assets/PrivateCabinet/magnifying-glass-2.svg'
                         alt='Search'
                     />
-                </div>
+                </div>*/}
 
             </div>
 

@@ -5,7 +5,7 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../../assets/PrivateCabinet/play-grey.svg";
 
-const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children, onCreate, icon = true}) => {
+const List = ({title, setListCollapsed, listCollapsed, children}) => {
 
     return (
         <div
@@ -17,10 +17,11 @@ const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children,
             <div className={styles.header}>
                 <div className={styles.titleWrap}>
                     <FolderIcon className={styles.folderIcon}/>
-                    <h4 className={styles.title}>{title}</h4>
+                    {!listCollapsed && <h4 className={styles.title}>{title}</h4>}
                 </div>
                 <div className={styles.imgWrap}>
                     <PlayIcon
+                        onClick={() => setListCollapsed(!listCollapsed)}
                         className={classNames({
                             [styles.playButton]: true,
                             [styles.revert]: !!listCollapsed

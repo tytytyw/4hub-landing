@@ -8,7 +8,7 @@ import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
-import DateBlock from "../SharedFiles/DateBlock";
+import DateBlock from "../Journal/DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
@@ -63,6 +63,7 @@ const Cart = () => {
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
     ]
+
     const additionalMenuItems = [
         {
             type: 'delete',

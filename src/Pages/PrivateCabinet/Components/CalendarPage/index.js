@@ -29,6 +29,8 @@ const CalendarPage = () => {
     const [day, setDay] = useState(date.getDay())
     const [month, setMonth] = useState(date.getMonth())
 
+    const [listCollapsed, setListCollapsed] = useState(false)
+
     useEffect(() => setViewType('list'), [day])
     useEffect(() => setViewType('table'), [month])
 
@@ -85,6 +87,8 @@ const CalendarPage = () => {
                 <List
                     title='Мой календарь'
                     src='add-folder.svg'
+                    listCollapsed={listCollapsed}
+                    setListCollapsed={setListCollapsed}
                 >
                     <div className={styles.addTaskBlock}>
                         <p>Создать задачу</p>
@@ -100,14 +104,18 @@ const CalendarPage = () => {
                         setDay={setDay}
                         month={month}
                         year={year}
+                        collapsed={listCollapsed}
                     />
                     <div className={styles.myTasksBlock}>
-                        <p className={styles.title}>Мои задачи <span>12.04.2020</span></p>
+                        <p className={styles.title}>
+                            Мои задачи {!listCollapsed && <span>12.04.2020</span>}
+                        </p>
                     </div>
                     {taskList?.map((task, i) => (
                         <ListTaskItem
                             key={i}
                             task={task}
+                            collapsed={listCollapsed}
                         />
                     ))}
                 </List>
