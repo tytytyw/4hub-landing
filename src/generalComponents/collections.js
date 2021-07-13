@@ -10,7 +10,7 @@ export const colors = [
     {dark: '#792794', light: 'rgb(160, 51, 195)', color: 'rgb(160, 51, 195)', name: 'purple'},
     {dark: '#992928', light: 'rgb(194, 52, 51)', color: 'rgb(194, 52, 51)', name: 'red'},
     {dark: '#267d8d', light: 'rgb(52, 174, 196)', color: 'rgb(52, 174, 196)', name: 'aqua'},
-    {dark: '#a0602a', light: 'rgb(196, 118, 151)', color: 'rgb(196, 118, 151)', name: 'brown'},
+    {dark: 'rgb(161,98,125)', light: 'rgb(196, 118, 151)', color: 'rgb(196, 118, 151)', name: 'brown'},
     {dark: '#40289b', light: 'rgb(81, 52, 197)', color: 'rgb(81, 52, 197)', name: 'darkblue'}
 ];
 
