@@ -106,7 +106,7 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
@@ -114,7 +114,7 @@ const MyFolders = ({
     ];
 
     const callbackArrOther = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
@@ -123,7 +123,7 @@ const MyFolders = ({
     ];
 
     const callbackArrSub = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
