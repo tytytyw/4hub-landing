@@ -1,12 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
-import {useSelector} from 'react-redux';
 
-const WorkLinesPreview = ({file, children, hideFileList}) => {
+const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
 
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet?.search);
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
@@ -50,9 +52,26 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
     return (
         <div
             className={styles.workLinesPreviewWrap}
-            style={{
-                height: 'calc(100% - 90px - 150px)'
-            }}>
+            style={{height: `${recentFiles?.length > 0
+                    ? filePick.show
+                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
+                        : 'calc(100% - 90px - 55px - 78px)'
+                    : filePick.show
+                        ? 'calc(100% - 90px - 55px - 80px)'
+                        : 'calc(100% - 90px - 55px)'
+                }`,
+                gridTemplateColumns: size === 'small'
+                    ? 'repeat(auto-fill, 118px)'
+                    : size === 'medium'
+                        ? 'repeat(auto-fill, 160px)'
+                        : 'repeat(auto-fill, 205px)',
+                gridAutoRows: size === 'small'
+                    ? '118px'
+                    : size === 'medium'
+                        ? '160px'
+                        : '205px',
+            }}
+        >
         {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
         <div className={styles.previewFileWrap}>
             {f ? <>

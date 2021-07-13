@@ -245,6 +245,7 @@ const WorkSpace = ({
             >{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
+                filePick={filePick}
             >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             {filePick.show ? <OptionButtomLine
                 callbackArrMain={callbackArrMain}
