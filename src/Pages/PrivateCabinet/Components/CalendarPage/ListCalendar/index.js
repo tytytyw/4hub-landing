@@ -5,9 +5,8 @@ import classNames from "classnames";
 import {getDays, getNextMonthDays, getPrevMonthDays} from './helper'
 import {months} from "../helper";
 
-const ListCalendar = ({day, month, year}) => {
+const ListCalendar = ({day, setDay, month, year}) => {
 
-    const [selectedDay, setSelectedDay] = useState(null)
     const date = new Date()
     date.setDate(1);
 
@@ -67,7 +66,7 @@ const ListCalendar = ({day, month, year}) => {
                     </div>
                 ))}
 
-                {prevMonthDays?.map((day, index) => (
+                {prevMonthDays?.map((itemDay, index) => (
                     <div
                         key={index}
                         className={styles.dayWrap}
@@ -76,16 +75,16 @@ const ListCalendar = ({day, month, year}) => {
                             className={classNames({
                                 [styles.day]: true,
                                 [styles.anotherDay]: true,
-                                [styles.selectedDay]: selectedDay === day
+                                [styles.selectedDay]: day === itemDay
                             })}
-                            onClick={() => setSelectedDay(day)}
+                            onClick={() => setDay(itemDay)}
                         >
-                            {day}
+                            {itemDay}
                         </span>
                     </div>
                 ))}
 
-                {days?.map((day, index) => (
+                {days?.map((itemDay, index) => (
                     <div
                         key={index}
                         className={styles.dayWrap}
@@ -93,16 +92,16 @@ const ListCalendar = ({day, month, year}) => {
                         <span
                             className={classNames({
                                 [styles.day]: true,
-                                [styles.selectedDay]: selectedDay === day
+                                [styles.selectedDay]: itemDay === day
                             })}
-                            onClick={() => setSelectedDay(day)}
+                            onClick={() => setDay(itemDay)}
                         >
-                            {day}
+                            {itemDay}
                         </span>
                     </div>
                 ))}
 
-                {nextMonthDays?.map((day, index) => (
+                {nextMonthDays?.map((itemDay, index) => (
                     <div
                         key={index}
                         className={styles.dayWrap}
@@ -111,11 +110,11 @@ const ListCalendar = ({day, month, year}) => {
                             className={classNames({
                                 [styles.day]: true,
                                 [styles.anotherDay]: true,
-                                [styles.selectedDay]: selectedDay === day
+                                [styles.selectedDay]: itemDay === day
                             })}
-                            onClick={() => setSelectedDay(day)}
+                            onClick={() => setDay(itemDay)}
                         >
-                            {day}
+                            {itemDay}
                         </span>
                     </div>
                 ))}

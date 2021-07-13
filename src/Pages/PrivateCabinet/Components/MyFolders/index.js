@@ -38,7 +38,7 @@ const MyFolders = ({
     const path = useSelector(state => state.PrivateCabinet.folderList?.path);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
@@ -208,7 +208,7 @@ const MyFolders = ({
             />}
             {action.type === 'resendFolder' ? (
                 <ShareFolder
-                    file={chosenFile}
+                    folder={chosenFolder}
                     files={{}}
                     close={nullifyAction}
                     action_type={action.type}

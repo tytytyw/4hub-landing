@@ -100,10 +100,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                     <div className={styles.picPreview}>
                         <div className={styles.folderName}>{name}</div>
                         <div className={styles.folderOptions}>
-                            {/*{tagOption.chosen && <div*/}
-                            {/*    className={`${styles.minitag} ${styles.redCross}`}*/}
-                            {/*    onClick={() => setTagOption({...tagOption, chosen: ''})}*/}
-                            {/*># {tagOption.chosen}</div>}*/}
                             {tagOption.chosen && <div
                                 className={`${styles.minitagWrap} ${styles.redCross}`}
                                 onClick={() => setTagOption({...tagOption, chosen: ''})}

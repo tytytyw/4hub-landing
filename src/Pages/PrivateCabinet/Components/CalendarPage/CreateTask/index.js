@@ -10,19 +10,22 @@ import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import Select from './Select/Select'
 
 const events = [
-    {name: 'Задача', icon: 'task'},
-    {name: 'День рождение', icon: 'birthday'},
-    {name: 'Встреча online', icon: 'online-meeting'},
-    {name: 'Встреча offline', icon: 'offline-meeting'},
-    {name: 'Напоминание', icon: 'reminder'},
-    {name: 'Другое', icon: 'other'},
+    {id: 1, name: 'Задача', icon: 'task'},
+    {id: 2, name: 'День рождение', icon: 'birthday'},
+    {id: 3, name: 'Встреча online', icon: 'online-meeting'},
+    {id: 4, name: 'Встреча offline', icon: 'offline-meeting'},
+    {id: 5, name: 'Напоминание', icon: 'reminder'},
+    {id: 6, name: 'Другое', icon: 'other'},
 ]
 
-const CreateTask = ({onCreate, title}) => {
+const CreateTask = ({onCreate, title, setSuccess, setEvent}) => {
 
-    const [target, setTarget] = useState('');
+    const [eventType, setEventType] = useState('');
+    const [dateFrom, setDateFrom] = useState('');
+    const [dateTo, setDateTo] = useState('');
     const [members, setMembers] = useState('');
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
+    const [desc, setDesc] = useState('');
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
@@ -43,6 +46,11 @@ const CreateTask = ({onCreate, title}) => {
         if (count >= 0) setTagOption({...tagOption, chosen, count});
     }
 
+    const getEventName = id => {
+        const event = events.find(item => item.id === id)
+        return event?.name
+    }
+
     return (
         <>
             <PopUp set={onCreate}>
@@ -50,7 +58,7 @@ const CreateTask = ({onCreate, title}) => {
                     <span className={styles.cross} onClick={() => onCreate(false)}/>
 
                     <div className={styles.content}>
-                        <span className={styles.title}>{title}</span>
+                        <span className={styles.title}>Добавить событие</span>
 
                         <div className={styles.inputFieldsWrap}>
 
@@ -58,10 +66,14 @@ const CreateTask = ({onCreate, title}) => {
                                 <Select
                                     placeholder='Выбрать'
                                     data={events}
+                                    value={getEventName(eventType)}
                                 >
                                     <ul className={styles.eventsList}>
                                         {events.map((event, index) => (
-                                            <li className={styles.eventItem}>
+                                            <li
+                                                onClick={() => setEventType(event?.id)}
+                                                className={styles.eventItem}
+                                            >
                                                 <div className={styles.eventIconWrap}>
                                                     <img
                                                         className={styles.eventIcon}
@@ -77,21 +89,27 @@ const CreateTask = ({onCreate, title}) => {
                             </div>
 
                             <div className={styles.rangeDateWrap}>
-                                <InputField
-                                    model='text'
-                                    height={width >= 1440 ? '40px' : '30px'}
-                                    value={members}
-                                    set={setMembers}
-                                    placeholder='Участники (введите email или выбирите из списка)'
-                                />
+                                <div className={styles.rangeDateBlock}>
+                                    <span>С:</span>
+                                    <input
+                                        type="text"
+                                        className={styles.rangeInput}
+                                        placeholder='_ _ . _ _ . _ _ _ _'
+                                        value={dateFrom}
+                                        onChange={event => setDateFrom(event.target.value)}
+                                    />
+                                </div>
                                 &nbsp;&nbsp;
-                                <InputField
-                                    model='text'
-                                    height={width >= 1440 ? '40px' : '30px'}
-                                    value={members}
-                                    set={setMembers}
-                                    placeholder='Участники (введите email или выбирите из списка)'
-                                />
+                                <div className={styles.rangeDateBlock}>
+                                    <span>До:</span>
+                                    <input
+                                        type="text"
+                                        className={styles.rangeInput}
+                                        placeholder='_ _ . _ _ . _ _ _ _'
+                                        value={dateTo}
+                                        onChange={event => setDateTo(event.target.value)}
+                                    />
+                                </div>
                             </div>
 
                             <div className={styles.inputWrap}>
@@ -131,7 +149,10 @@ const CreateTask = ({onCreate, title}) => {
                                 <textarea
                                     placeholder='Опишите задачу'
                                     className={styles.description}
-                                />
+                                    onChange={event => setDesc(event.target.value)}
+                                >
+                                    {desc}
+                                </textarea>
                             </div>
 
                         </div>
@@ -143,13 +164,30 @@ const CreateTask = ({onCreate, title}) => {
 
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                        <div className={styles.add} onClick={() => {
-                        }}>Создать
+                        <div
+                            className={styles.add}
+                            onClick={() => {
+                                setEvent({
+                                    name: getEventName(eventType),
+                                    emoji,
+                                    sign,
+                                    color,
+                                    dateFrom,
+                                    dateTo,
+                                    tagOption,
+                                    desc
+                                })
+                                onCreate(false)
+                                setSuccess(true)
+                            }}
+                        >
+                            Создать
                         </div>
                     </div>
 
                 </div>
             </PopUp>
+
         </>
     )
 }

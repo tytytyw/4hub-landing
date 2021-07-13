@@ -8,17 +8,20 @@ import Profile from '../Profile'
 import DateBlock from './DateBlock'
 import List from './List'
 import ListTaskItem from './ListTaskItem'
-import WorkSpaceTable from "./WorkSpaceTable";
-import WorkSpaceList from "./WorkSpaceList";
-import ListCalendar from "./ListCalendar";
-import CreateTask from "./CreateTask";
+import WorkSpaceTable from './WorkSpaceTable'
+import WorkSpaceList from './WorkSpaceList'
+import ListCalendar from './ListCalendar'
+import CreateTask from './CreateTask'
+import SuccessCreated from './CreateTask/SuccessCreated'
 
 const CalendarPage = () => {
 
     const [search, setSearch] = useState(null)
-    //const [listCollapsed, setListCollapsed] = useState(false)
     const [viewType, setViewType] = useState('list')
     const [createTask, setCreateTask] = useState(false)
+
+    const [event, setEvent] = useState({})
+    const [success, setSuccess] = useState(false)
 
     const date = new Date()
 
@@ -94,6 +97,7 @@ const CalendarPage = () => {
                     </div>
                     <ListCalendar
                         day={day}
+                        setDay={setDay}
                         month={month}
                         year={year}
                     />
@@ -144,6 +148,14 @@ const CalendarPage = () => {
             <CreateTask
                 title='Создание проекта'
                 onCreate={setCreateTask}
+                setSuccess={setSuccess}
+                setEvent={setEvent}
+            />}
+
+            {success &&
+            <SuccessCreated
+                event={event}
+                set={setSuccess}
             />}
 
         </div>

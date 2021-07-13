@@ -1,20 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import styles from './ShareFolder.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
-import StoragePeriod from '../../ContextMenuFile/StoragePeriod/StoragePeriod';
-import ShareToMessengers from '../../ContextMenuFile/ShareToMessengers/ShareToMessengers';
-import SetPassword from '../../ContextMenuFile/SetPassword/SetPassword'
+import StoragePeriod from '../StoragePeriod/StoragePeriod';
+import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
+import SetPassword from '../SetPassword/SetPassword';
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
+import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../../generalComponents/collections";
 
-function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
+function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -23,10 +24,11 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
     const uid = useSelector(state => state.user.uid);
+    const [size, ] = useState('0 MB')
     const [data, setData] = useState(
         {
             uid,
-            fids: files.length ? [...files] : [file.fid],
+            fids: /*files.length ? [...files] :*/ ['123132'],
             user_to: '',
             prim: '',
             deadline: ''
@@ -39,7 +41,7 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
 
     useEffect(()=> {
         if (action_type === 'share') {
-            setData(data => ({...data, is_write: 1, dir: file.gdir}))
+            setData(data => ({...data, is_write: 1, dir: folder?.info?.path}))
         }
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -68,16 +70,16 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
                 {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
-                        <File color={file.id_color} format={file.ext} />
-                        {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                        <FolderIcon className={`${styles.folderIcon} ${folder?.info?.color ? colors.filter(el => el.color === folder.info.color)[0]?.name : folder.info?.nameRu ? styles.generalFolder : ''}`} />
+                        {folder?.info?.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                     </div>
                     <div className={styles.descriptionWrap}>
-                        <div className={styles.fileName}>{file.name.slice(0, file.name.lastIndexOf('.'))}</div>
+                        <div className={styles.fileName}>{folder?.info?.nameRu ?? folder?.info?.name}</div>
                         <div className={styles.innerFileInfo}>
-                            <div className={styles.fileSize}>{file.size_now}</div>
+                            <div className={styles.fileSize}>{size}</div>
                             <div className={styles.descriptionGroup}>
-                                {file.fig && <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='sign' />}
-                                {file.emo && <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' />}
+                                {folder?.info?.fig && <img src={`./assets/PrivateCabinet/signs/${folder.info.fig}.svg`} alt='sign' />}
+                                {folder?.info?.emo && <img src={`./assets/PrivateCabinet/smiles/${folder.info.emo}.svg`} alt='emoji' />}
                             </div>
                         </div>
                     </div>
@@ -154,9 +156,25 @@ function ShareFolder({file, files, close, action_type, setShowSuccessMessage}) {
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
-            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
-            {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
-            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}
+            {displayStotagePeriod && <StoragePeriod
+                folder={folder}
+                setDisplayStotagePeriod={setDisplayStotagePeriod}
+                dateValue={dateValue}
+                setDateValue={setDateValue}
+                timeValue={timeValue}
+                setTimeValue={setTimeValue}
+                size={size}
+            />}
+            {displayMessengers && <ShareToMessengers
+                setDisplayMessengers={setDisplayMessengers}
+                close={close}
+                fid={folder?.info?.fid}
+            />}
+            {displaySetPassword && <SetPassword
+                folder={folder}
+                setDisplaySetPassword={setDisplaySetPassword}
+                setShowSuccessMessage={setShowSuccessMessage}
+            />}
         </PopUp>
     )
 }
