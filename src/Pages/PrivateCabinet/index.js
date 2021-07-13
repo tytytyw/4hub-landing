@@ -127,6 +127,8 @@ const PrivateCabinet = () => {
                             setFileAddCustomization={setFileAddCustomization}
                             setLoadingFile={setLoadingFile}
                             setMenuItem={setMenuItem}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                         />}
                     />
 
