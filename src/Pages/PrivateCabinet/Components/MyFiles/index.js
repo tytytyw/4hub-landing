@@ -88,7 +88,8 @@ const MyFiles = ({
 					setChosenFile={setChosenFile}
 					key={i}
 					file={file}
-					chosen={chosenFile?.fid === file?.fid}
+					// chosen={chosenFile?.fid === file?.fid}
+					chosen={filePick.show ? filePick.files.findIndex(el => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
 					listCollapsed={listCollapsed}
 					renderMenuItems={renderMenuItems}
 					mouseParams={mouseParams}
@@ -101,6 +102,8 @@ const MyFiles = ({
 					deleteFile={deleteFile}
 					setFilePreview={setFilePreview}
 					filePreview={filePreview}
+					filePick={filePick}
+					setFilePick={setFilePick}
 				/>
 			);
 		});

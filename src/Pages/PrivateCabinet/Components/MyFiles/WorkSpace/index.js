@@ -137,12 +137,18 @@ const WorkSpace = ({
 					</WorkBars>
 				) : null}
 				{workElementsView === "lines" ? (
-					<WorkLines fileLoading={fileLoading}>
+					<WorkLines
+						fileLoading={fileLoading}
+						filePick={filePick}
+					>
 						{renderFiles(FileLine)}
 					</WorkLines>
 				) : null}
 				{workElementsView === "preview" ? (
-					<WorkBarsPreview file={chosenFile}>
+					<WorkBarsPreview
+						file={chosenFile}
+						filePick={filePick}
+					>
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
 				) : null}
@@ -150,7 +156,8 @@ const WorkSpace = ({
 					<WorkLinesPreview
 						file={chosenFile}
 						hideFileList={true}
-					></WorkLinesPreview>
+						filePick={filePick}
+					/>
 				) : null}
 
 				{filePick.show ? (
