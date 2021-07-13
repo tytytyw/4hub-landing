@@ -4,11 +4,12 @@ import {useSelector} from 'react-redux';
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
 
-const WorkBarsPreview = ({children, file}) => {
+const WorkBarsPreview = ({children, file, filePick}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.PrivateCabinet?.search);
+    const size = useSelector(state => state.PrivateCabinet.size);
     useEffect(() => {setF(file); setPlay(false)}, [file]);
 
     const audioRef = useRef(null);
@@ -42,7 +43,28 @@ const WorkBarsPreview = ({children, file}) => {
         }
     }
 
-    return (<div className={styles.workBarsPreviewWrap} style={{height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`}}>
+    return (<div
+        className={styles.workBarsPreviewWrap}
+        style={{height: `${recentFiles?.length > 0
+                ? filePick.show
+                    ? 'calc(100% - 90px - 55px - 78px - 80px)'
+                    : 'calc(100% - 90px - 55px - 78px)'
+                : filePick.show
+                    ? 'calc(100% - 90px - 55px - 80px)'
+                    : 'calc(100% - 90px - 55px)'
+            }`,
+            gridTemplateColumns: size === 'small'
+                ? 'repeat(auto-fill, 118px)'
+                : size === 'medium'
+                    ? 'repeat(auto-fill, 160px)'
+                    : 'repeat(auto-fill, 205px)',
+            gridAutoRows: size === 'small'
+                ? '118px'
+                : size === 'medium'
+                    ? '160px'
+                    : '205px',
+        }}
+    >
         <div className={styles.preview}>
             {children?.length === 0 && search.length !== 0
                 ? <div
