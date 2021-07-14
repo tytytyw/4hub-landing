@@ -29,7 +29,7 @@ const FileLine = ({
 
     const printFile = () => {
         setTimeout(() => {
-            callbackArrMain.forEach(item => {if(item.type === 'print') item.callback()})
+            callbackArrMain.forEach(item => {if(item.type === 'print') item.callback(file)})
         }, 0)
     }
 

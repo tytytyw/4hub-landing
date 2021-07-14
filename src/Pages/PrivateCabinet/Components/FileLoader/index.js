@@ -131,7 +131,6 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
-        console.log(menuItem)
         menuItem === 'myFiles' ? dispatch(onChooseAllFiles()) : dispatch(onChooseFiles(path));
     };
     let firstRenderFixer = useRef(0)

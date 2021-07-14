@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../../../../api';
-import {previewFormats, previewTypes} from '../../../../../generalComponents/collections';
+import {previewFormats} from '../../../../../generalComponents/collections';
 import styles from './WorkSpace.module.sass';
 import SearchField from '../../SearchField';
 import StorageSize from '../../StorageSize';
@@ -62,7 +62,7 @@ const WorkSpace = ({
         {type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => setFilePick({...filePick, show: true, intoZip: true})},
         {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: (file) => checkMimeTypes(file)},
         ];
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
@@ -80,24 +80,30 @@ const WorkSpace = ({
         dispatch(onAddRecentFiles());
     };
 
-    const checkMimeTypes = () => {
-        if(chosenFile.mime_type) {
-            if(chosenFile.mime_type === 'application/pdf') {
-                printFile(`${chosenFile.preview}`);
-            } else {
-                const chosenType = previewTypes.filter(type => type === chosenFile.mime_type);
-                if(chosenType.length > 0) {
-                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${chosenFile.fid}`)
-                        .then(res => printFile(res.data.file_pdf))
-                        .catch(err => console.log(err));
-                }
+    const checkMimeTypes = (file) => {
+        const mType = file?.mime_type ?? chosenFile?.mime_type;
+        const fid = file?.fid ?? chosenFile?.fid;
+        const preview = file?.preview ?? chosenFile?.preview;
+        const ext = file?.ext ?? chosenFile?.ext;
+        if(mType === 'application/pdf') {
+            if(mType === 'application/pdf') {
+                printFile(`${preview}`);
+            } else if(mType.includes('image')) {
+                printFile(`${preview}`);
+            }
+        } else {
+            const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
+            if(chosenType.length > 0) {
+                api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
+                    .then(res => printFile(res.data.file_pdf))
+                    .catch(err => console.log(err));
             }
         }
     };
 
     const printFile = (path) => {
             let pri = document.getElementById('frame');
-            pri.src = `https://fs2.mh.net.ua/${path}`;
+            pri.src = `https://fs2.mh.net.ua${path}`;
             setTimeout(() => {
                 pri.contentWindow.focus();
                 pri.contentWindow.print();
