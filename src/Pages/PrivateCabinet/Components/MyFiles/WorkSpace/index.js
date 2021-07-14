@@ -220,6 +220,7 @@ const WorkSpace = ({
 					info={chosenFolder}
 					filePick={filePick}
                 	nullifyFilePick={nullifyFilePick}
+					setShowSuccessMessage={setShowSuccessMessage}
 				/>
 			) : null}
 			<form
