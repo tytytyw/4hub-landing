@@ -47,7 +47,8 @@ const MyFiles = ({
 		{type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
-        ];
+	]
+
 	const additionalMenuItems = [
 		{
 			type: "delete",
@@ -55,7 +56,8 @@ const MyFiles = ({
 			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
 			callback: (list, index) => setAction(list[index])
 		},
-	];
+	]
+
 	const checkMimeTypes = (file) => {
 		const mType = file?.mime_type ?? chosenFile?.mime_type;
 		const fid = file?.fid ?? chosenFile?.fid;
@@ -75,7 +77,8 @@ const MyFiles = ({
 					.catch(err => console.log(err));
 			}
 		}
-	};
+	}
+
 	const printFile = (path) => {
 		let pri = document.getElementById('frame');
 		pri.src = `https://fs2.mh.net.ua/${path}`;
@@ -83,7 +86,8 @@ const MyFiles = ({
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
 		}, 1000);
-	};
+	}
+
 	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
 		if (!fileList?.files) return null;
@@ -112,7 +116,8 @@ const MyFiles = ({
 				/>
 			);
 		});
-	};
+	}
+
 	const deleteFile = () => {
         if(filePick.show) {
             const gdir = fileList.path;
@@ -124,7 +129,7 @@ const MyFiles = ({
         nullifyAction();
         setChosenFile(null);
         dispatch(onAddRecentFiles());
-    };
+    }
 	
 	const addToArchive = (uid, fid, file, options) => {
         api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
@@ -193,7 +198,7 @@ const MyFiles = ({
 				/>
 			);
 		});
-	};
+	}
 
 	useEffect(() => {
 		setMenuItem('myFiles')
