@@ -18,12 +18,12 @@ import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
-import CustomizeFile from "../../CustomizeFile";
+import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLink from "../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
-import CreateZip from "../../CreateZip";
-import FileProperty from "../../FileProperty";
+import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
+import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 
 const WorkSpace = ({
 	chosenFile,

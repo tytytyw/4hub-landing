@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateZip.module.sass';
-import api from '../../../../api';
-import PopUp from '../../../../generalComponents/PopUp';
-import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
-import Error from '../../../../generalComponents/Error';
-import Colors from '../../../../generalComponents/Elements/Colors';
-import '../../../../generalComponents/colors.sass';
-import Signs from '../../../../generalComponents/Elements/Signs';
-import Emoji from '../../../../generalComponents/Elements/Emoji';
-import File from '../../../../generalComponents/Files';
-import {onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import api from '../../../../../../api';
+import PopUp from '../../../../../../generalComponents/PopUp';
+import InputField from '../../../../../../generalComponents/InputField';
+import {tags, colors} from '../../../../../../generalComponents/collections';
+import Error from '../../../../../../generalComponents/Error';
+import Colors from '../../../../../../generalComponents/Elements/Colors';
+import '../../../../../../generalComponents/colors.sass';
+import Signs from '../../../../../../generalComponents/Elements/Signs';
+import Emoji from '../../../../../../generalComponents/Elements/Emoji';
+import File from '../../../../../../generalComponents/Files';
+import {onChooseFiles} from '../../../../../../Store/actions/PrivateCabinetActions';
 
 const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage }) => {
 

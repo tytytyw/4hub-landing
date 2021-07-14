@@ -17,7 +17,7 @@ import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
-import CustomizeFile from "../../CustomizeFile"
+import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile"
 import OptionButtomLine from "../../WorkElements/OptionButtomLine"
 
 const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,

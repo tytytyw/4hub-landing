@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from '../../../../api';
-import {previewFormats, previewTypes} from '../../../../generalComponents/collections';
+import {previewFormats} from '../../../../generalComponents/collections';
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -56,20 +56,26 @@ const MyFiles = ({
 			callback: (list, index) => setAction(list[index])
 		},
 	];
-	const checkMimeTypes = () => {
-        if(chosenFile.mime_type) {
-            if(chosenFile.mime_type === 'application/pdf') {
-                printFile(`${chosenFile.preview}`);
-            } else {
-                const chosenType = previewTypes.filter(type => type === chosenFile.mime_type);
-                if(chosenType.length > 0) {
-                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${chosenFile.fid}`)
-                        .then(res => printFile(res.data.file_pdf))
-                        .catch(err => console.log(err));
-                }
-            }
-        }
-    };
+	const checkMimeTypes = (file) => {
+		const mType = file?.mime_type ?? chosenFile?.mime_type;
+		const fid = file?.fid ?? chosenFile?.fid;
+		const preview = file?.preview ?? chosenFile?.preview;
+		const ext = file?.ext ?? chosenFile?.ext;
+		if(mType === 'application/pdf') {
+			if(mType === 'application/pdf') {
+				printFile(`${preview}`);
+			} else if(mType.includes('image')) {
+				printFile(`${preview}`);
+			}
+		} else {
+			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
+			if(chosenType.length > 0) {
+				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
+					.then(res => printFile(res.data.file_pdf))
+					.catch(err => console.log(err));
+			}
+		}
+	};
 	const printFile = (path) => {
 		let pri = document.getElementById('frame');
 		pri.src = `https://fs2.mh.net.ua/${path}`;

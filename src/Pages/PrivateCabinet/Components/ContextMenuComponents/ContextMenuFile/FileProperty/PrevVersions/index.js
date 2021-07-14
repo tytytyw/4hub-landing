@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './PrevVersions.module.sass';
-import File from "../../../../../generalComponents/Files";
-import InputField from "../../../../../generalComponents/InputField";
+import File from "../../../../../../../generalComponents/Files";
+import InputField from "../../../../../../../generalComponents/InputField";
 
 const PrevVersions = ({file}) => {
     return (<div className={styles.prevVersionsWrap}>

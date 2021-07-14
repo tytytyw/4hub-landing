@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CustomizeFile.module.sass';
-import api from '../../../../api';
-import PopUp from '../../../../generalComponents/PopUp';
-import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
-import Error from '../../../../generalComponents/Error';
-import { onCustomizeFile, onAddRecentFiles, onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
-import Colors from '../../../../generalComponents/Elements/Colors';
-import '../../../../generalComponents/colors.sass';
-import Signs from '../../../../generalComponents/Elements/Signs';
-import Emoji from '../../../../generalComponents/Elements/Emoji';
-import File from '../../../../generalComponents/Files';
+import api from '../../../../../../api';
+import PopUp from '../../../../../../generalComponents/PopUp';
+import InputField from '../../../../../../generalComponents/InputField';
+import {tags, colors} from '../../../../../../generalComponents/collections';
+import Error from '../../../../../../generalComponents/Error';
+import { onCustomizeFile, onAddRecentFiles, onChooseFiles } from '../../../../../../Store/actions/PrivateCabinetActions';
+import Colors from '../../../../../../generalComponents/Elements/Colors';
+import '../../../../../../generalComponents/colors.sass';
+import Signs from '../../../../../../generalComponents/Elements/Signs';
+import Emoji from '../../../../../../generalComponents/Elements/Emoji';
+import File from '../../../../../../generalComponents/Files';
 
 const CustomizeFile = ({
            title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles,

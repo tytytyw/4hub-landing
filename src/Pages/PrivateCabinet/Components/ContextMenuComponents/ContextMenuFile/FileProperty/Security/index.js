@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './Security.module.sass';
-import InputField from '../../../../../generalComponents/InputField';
+import InputField from '../../../../../../../generalComponents/InputField';
 
 const Security = ({file}) => {
 
