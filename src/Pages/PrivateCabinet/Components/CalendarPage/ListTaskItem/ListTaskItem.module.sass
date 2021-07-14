@@ -3,6 +3,7 @@
   padding: 0 20px 0 30px
   //background: rgba(37, 171, 39, 0.1)
   display: flex
+  position: relative
 
   .leftBlock
     display: flex
@@ -12,11 +13,13 @@
     margin-right: 16px
 
   .circle
+    display: block
     width: 20px
     height: 20px
     border-radius: 50%
 
   .avatar
+    display: block
     width: 20px
     height: 20px
     border-radius: 50%
@@ -29,7 +32,10 @@
     padding-bottom: 20px
 
   .timeBlock
-    margin: 9px 0 0 0
+    margin: 0
+    position: absolute
+    top: 5px
+    right: 12px
     font-size: 10px
     line-height: 16px
     color: #49494B
@@ -50,5 +56,15 @@
       font-size: 12px
       line-height: 16px
       color: #49494B
+
+
+.wrapperCollapsed
+  padding: 13px 30px 20px 30px
+  display: flex
+  flex-direction: column
+
+  .contentBlock
+    padding: 0 0 10px 5px
+
 
 

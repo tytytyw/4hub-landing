@@ -13,6 +13,7 @@ import WorkSpaceList from './WorkSpaceList'
 import ListCalendar from './ListCalendar'
 import CreateTask from './CreateTask'
 import SuccessCreated from './CreateTask/SuccessCreated'
+import BottomPanel from "../ButtomPanel";
 
 const CalendarPage = () => {
 
@@ -165,6 +166,8 @@ const CalendarPage = () => {
                 event={event}
                 set={setSuccess}
             />}
+
+            <BottomPanel/>
 
         </div>
     )
