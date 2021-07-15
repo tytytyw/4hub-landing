@@ -7,6 +7,7 @@ import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
 import WorkBars from "../WorkElements/WorkBars"
+import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
 import FileBar from "../WorkElements/FileBar";
 import FileLine from './WorkElements/FileLine'
 import {useSelector} from 'react-redux'
@@ -20,7 +21,7 @@ import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 import BottomPanel from "../ButtomPanel";
 
-const SharedFiles = () => {
+const SharedFiles = (filePreview, setFilePreview) => {
 
     const [workElementsView, setWorkElementsView] = useState('lines')
     const [search, setSearch] = useState(null)
@@ -33,7 +34,7 @@ const SharedFiles = () => {
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({ type: "", name: "", text: "" })
     const [mouseParams, setMouseParams] = useState(null)
-    const [filePreview, setFilePreview] = useState(null)
+    // const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
@@ -101,8 +102,10 @@ const SharedFiles = () => {
                 chosenFile={chosenFile}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
-                // filePreview={filePreview}
-                // setFilePreview={setFilePreview}
+                filePreview={filePreview}
+                setFilePreview={setFilePreview}
+                setFilePick={setFilePick}
+                filePick={filePick}
             />
         ))
     }
@@ -168,19 +171,24 @@ const SharedFiles = () => {
                         </div>}
 
                         <div className={styles.collapseContent}>
-                            {workElementsView === "bars" ?
-                                collapse ?
+                            {workElementsView === "bars" && collapse ?
                                     <WorkBars filePick={filePick}>
                                         {renderFiles(FileBar)}
                                     </WorkBars>
-                                    : null
                             : null}
                             
-                            {workElementsView === "lines" ?
-                                collapse ?
+                            {workElementsView === "lines" && collapse ?
                                     renderFiles(FileLine)
-                                    : null
                             : null}
+
+                            {workElementsView === "preview" && collapse ? (
+                                <WorkBarsPreview
+                                    file={chosenFile}
+                                    filePick={filePick}
+                                >
+                                    {renderFiles(FileBar)}
+                                </WorkBarsPreview>
+                            ) : null}
                         </div>
                     </div>
                 </div>
