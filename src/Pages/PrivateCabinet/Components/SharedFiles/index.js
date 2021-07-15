@@ -21,7 +21,7 @@ import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 import BottomPanel from "../ButtomPanel";
 
-const SharedFiles = (filePreview, setFilePreview) => {
+const SharedFiles = ({filePreview, setFilePreview}) => {
 
     const [workElementsView, setWorkElementsView] = useState('lines')
     const [search, setSearch] = useState(null)
@@ -100,14 +100,12 @@ const SharedFiles = (filePreview, setFilePreview) => {
                 file={file}
                 setChosenFile={setChosenFile}
                 chosenFile={chosenFile}
-                setChosenFile={setChosenFile}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
                 setFilePick={setFilePick}
                 filePick={filePick}
-                setChosenFile={setChosenFile}
                 chosen={
                     filePick.show
                         ? filePick.files.findIndex((el) => el === file.fid) >= 0
