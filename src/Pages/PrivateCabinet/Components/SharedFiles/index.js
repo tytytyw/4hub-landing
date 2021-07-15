@@ -100,12 +100,19 @@ const SharedFiles = (filePreview, setFilePreview) => {
                 file={file}
                 setChosenFile={setChosenFile}
                 chosenFile={chosenFile}
+                setChosenFile={setChosenFile}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
                 setFilePick={setFilePick}
                 filePick={filePick}
+                setChosenFile={setChosenFile}
+                chosen={
+                    filePick.show
+                        ? filePick.files.findIndex((el) => el === file.fid) >= 0
+                        : chosenFile?.fid === file?.fid
+                }
             />
         ))
     }
@@ -172,9 +179,9 @@ const SharedFiles = (filePreview, setFilePreview) => {
 
                         <div className={styles.collapseContent}>
                             {workElementsView === "bars" && collapse ?
-                                    <WorkBars filePick={filePick}>
-                                        {renderFiles(FileBar)}
-                                    </WorkBars>
+                                <WorkBars filePick={filePick}>
+                                    {renderFiles(FileBar)}
+                                </WorkBars>
                             : null}
                             
                             {workElementsView === "lines" && collapse ?
