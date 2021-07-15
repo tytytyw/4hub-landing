@@ -6,6 +6,8 @@ import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
+import WorkBars from "../WorkElements/WorkBars"
+import FileBar from "../WorkElements/FileBar";
 import FileLine from './WorkElements/FileLine'
 import {useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
@@ -20,7 +22,7 @@ import BottomPanel from "../ButtomPanel";
 
 const SharedFiles = () => {
 
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    const [workElementsView, setWorkElementsView] = useState('lines')
     const [search, setSearch] = useState(null)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
@@ -34,6 +36,8 @@ const SharedFiles = () => {
     const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+    const [filePick, setFilePick] = useState({show: false, files: []});
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -71,34 +75,34 @@ const SharedFiles = () => {
         })
     }
 
-    const renderFile = () => {
-        const file = fileList?.files?.[fileList.files.length - 1]
-        if (!file) return null
-        return (
-            <FileLine
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        )
-    }
+    // const renderFile = (Type) => {
+    //     const file = fileList?.files?.[fileList.files.length - 1]
+    //     if (!file) return null
+    //     return (
+    //         <Type
+    //             file={file}
+    //             setChosenFile={setChosenFile}
+    //             chosenFile={chosenFile}
+    //             setMouseParams={setMouseParams}
+    //             setAction={setAction}
+    //             filePreview={filePreview}
+    //             setFilePreview={setFilePreview}
+    //         />
+    //     )
+    // }
 
-    const renderFiles = () => {
+    const renderFiles = (Type) => {
         if (!fileList) return null
         return fileList.files?.map((file, index) => (
-            <FileLine
+            <Type
                 key={index}
                 file={file}
                 setChosenFile={setChosenFile}
                 chosenFile={chosenFile}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
+                // filePreview={filePreview}
+                // setFilePreview={setFilePreview}
             />
         ))
     }
@@ -164,15 +168,22 @@ const SharedFiles = () => {
                         </div>}
 
                         <div className={styles.collapseContent}>
-                            {collapse ?
-                                renderFiles() :
-                                renderFile()}
+                            {workElementsView === "bars" ?
+                                collapse ?
+                                    <WorkBars filePick={filePick}>
+                                        {renderFiles(FileBar)}
+                                    </WorkBars>
+                                    : null
+                            : null}
+                            
+                            {workElementsView === "lines" ?
+                                collapse ?
+                                    renderFiles(FileLine)
+                                    : null
+                            : null}
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
             {mouseParams !== null && (
