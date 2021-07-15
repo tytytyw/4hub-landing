@@ -7,19 +7,20 @@ import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
 import WorkBars from "../WorkElements/WorkBars"
-import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
-import FileBar from "../WorkElements/FileBar";
+import WorkBarsPreview from "../WorkElements/WorkBarsPreview"
+import FileBar from "../WorkElements/FileBar"
 import FileLine from './WorkElements/FileLine'
 import {useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import ActionApproval from "../../../../generalComponents/ActionApproval";
-import File from "../../../../generalComponents/Files";
-import classNames from "classnames";
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import BottomPanel from "../ButtomPanel";
+import ActionApproval from "../../../../generalComponents/ActionApproval"
+import File from "../../../../generalComponents/Files"
+import PreviewFile from '../PreviewFile'
+import classNames from "classnames"
+import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg"
+import BottomPanel from "../ButtomPanel"
 
 const SharedFiles = ({filePreview, setFilePreview}) => {
 
@@ -229,7 +230,7 @@ const SharedFiles = ({filePreview, setFilePreview}) => {
             )}
 
             <BottomPanel />
-
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
         </div>
     )
 }
