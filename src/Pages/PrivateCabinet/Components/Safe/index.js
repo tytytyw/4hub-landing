@@ -32,8 +32,9 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
     const [selectedSafe, setSelectedSafe] = useState(null)
 
     const [codePopup, setCodePopup] = useState(false)
-    const [errPass, setErrPass] = useState(false)
-    const [recoverPass, setRecoverPass] = useState(true)
+    const [errPass, setErrPass] = useState(true)
+    const [recoverPass, setRecoverPass] = useState(false)
+    const [noSafePopup, setNoSafePopup] = useState(true)
 
     const [action, setAction] = useState({type: '', name: '', text: ''})
     const nullifyAction = () => setAction({type: '', name: '', text: ''})
@@ -117,7 +118,6 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                             {renderSafesList()}
                         </div>}
 
-
                 </div>
             </div>
 
@@ -163,6 +163,12 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
             <ErrorPass
                 safe={selectedSafe}
                 set={setErrPass}
+            />}
+
+            {noSafePopup &&
+            <ErrorPass
+                safe={selectedSafe}
+                set={setNoSafePopup}
             />}
 
             {recoverPass &&
