@@ -12,6 +12,8 @@ const RefreshPass = ({safe, set}) => {
     const [passwordRepeat, setPasswordRepeat] = useState('')
     const [showPass, setShowPass] = useState(false)
 
+    const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
+
     return (
         <PopUp set={set}>
 
@@ -36,32 +38,56 @@ const RefreshPass = ({safe, set}) => {
                         <h4 className={styles.title}>Обновите пароль</h4>
                     </div>
 
-                    <div className={styles.inputWrap}>
-                        <Input
-                            type='password'
-                            label='Новый пароль'
-                            placeholder='Введите пароль'
-                            className={styles.input}
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
-                            showPass={showPass}
-                            setShowPass={setShowPass}
-                        />
+                    <div className={styles.formItem}>
+
+                        <label
+                            htmlFor={styles.passInput}
+                            className={styles.label}
+                        >
+                            Новый пароль
+                        </label>
+
+                        <div className={styles.inputWrap}>
+                            <input
+                                id={styles.passInput}
+                                type={showPass ? 'text' : 'password'}
+                                className={styles.passInput}
+                                value={password}
+                                onChange={event => setPassword(event.target.value)}
+                            />
+                            <img
+                                src={getEyeImg()}
+                                alt='eye'
+                                className={styles.eye}
+                                onClick={() => setShowPass(!showPass)}
+                            />
+                        </div>
                     </div>
 
-                    <div className={styles.inputWrap}>
-                        <Input
-                            type='password'
-                            label='Повторить пароль'
-                            placeholder='Введите номер телефона (форма ввода +3 )'
-                            name='tel'
-                            className={styles.input}
-                            value={passwordRepeat}
-                            onChange={event => setPasswordRepeat(event.target.value)}
-                            showPass={showPass}
-                            setShowPass={setShowPass}
-                        />
+                    <div className={styles.formItem}>
 
+                        <label
+                            htmlFor={styles.inputWrap}
+                            className={styles.label}
+                        >
+                            Повторить пароль
+                        </label>
+
+                        <div className={styles.inputWrap}>
+                            <input
+                                id={styles.inputWrap}
+                                type={showPass ? 'text' : 'password'}
+                                className={styles.passInput}
+                                value={passwordRepeat}
+                                onChange={event => setPasswordRepeat(event.target.value)}
+                            />
+                            <img
+                                src={getEyeImg()}
+                                alt='eye'
+                                className={styles.eye}
+                                onClick={() => setShowPass(!showPass)}
+                            />
+                        </div>
                     </div>
 
                     <div className={styles.actionBlock}>
