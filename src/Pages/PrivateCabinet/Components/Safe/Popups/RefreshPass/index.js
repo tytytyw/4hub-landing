@@ -1,12 +1,16 @@
-import React from 'react'
-import PopUp from '../../../../../generalComponents/PopUp'
+import React, {useState} from 'react'
+import PopUp from '../../../../../../generalComponents/PopUp'
 
-import styles from './CodePopup.module.sass'
-import Input from '../../MyProfile/Input'
-import Button from '../../MyProfile/Button'
-import SafeIcon from "../SafeIcon";
+import styles from './RefreshPass.module.sass'
+import Input from '../../../MyProfile/Input'
+import Button from '../../../MyProfile/Button'
+import SafeIcon from '../../SafeIcon'
 
-const CodePopup = ({safe, set}) => {
+const RefreshPass = ({safe, set}) => {
+
+    const [password, setPassword] = useState('')
+    const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [showPass, setShowPass] = useState(false)
 
     return (
         <PopUp set={set}>
@@ -29,31 +33,35 @@ const CodePopup = ({safe, set}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <SafeIcon
-                            className={styles.titleImg}
-                        />
-                        <h4 className={styles.title}>{safe?.name || 'Сейф не найден'}</h4>
+                        <h4 className={styles.title}>Обновите пароль</h4>
                     </div>
 
                     <div className={styles.inputWrap}>
                         <Input
+                            type='password'
+                            label='Новый пароль'
                             placeholder='Введите пароль'
                             className={styles.input}
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
+                            showPass={showPass}
+                            setShowPass={setShowPass}
                         />
-                        <a href={'/'} className={styles.link}>Забыли пароль?</a>
                     </div>
-
-                    <p className={styles.orItem}>или</p>
 
                     <div className={styles.inputWrap}>
                         <Input
+                            type='password'
+                            label='Повторить пароль'
                             placeholder='Введите номер телефона (форма ввода +3 )'
-                            label={false}
                             name='tel'
                             className={styles.input}
-                            phone={true}
+                            value={passwordRepeat}
+                            onChange={event => setPasswordRepeat(event.target.value)}
+                            showPass={showPass}
+                            setShowPass={setShowPass}
                         />
-                        <a href={'/'} className={styles.link}>Не пришол код?</a>
+
                     </div>
 
                     <div className={styles.actionBlock}>
@@ -61,7 +69,7 @@ const CodePopup = ({safe, set}) => {
                             type='submit'
                             className={styles.actionBtn}
                         >
-                            Войти
+                            Готово
                         </Button>
                     </div>
 
@@ -73,4 +81,4 @@ const CodePopup = ({safe, set}) => {
 
 }
 
-export default CodePopup
+export default RefreshPass

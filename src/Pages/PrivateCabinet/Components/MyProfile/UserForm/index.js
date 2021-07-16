@@ -201,7 +201,8 @@ const UserForm = () => {
                         </div>
                     </div>
 
-                    {editForm && <div className={styles.row}>
+                    {editForm &&
+                    <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
 
                             <Input

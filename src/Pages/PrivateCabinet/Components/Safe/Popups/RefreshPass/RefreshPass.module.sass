@@ -1,0 +1,84 @@
+.wrapper
+  width: 489px
+  min-height: 251px
+  padding-bottom: 10px
+  position: relative
+  font-family: 'SF Pro Medium', sans-serif
+
+  .top
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    padding: 10px
+
+.content
+  padding: 10px 20px
+
+  .titleWrap
+    text-align: center
+    .titleImg
+      width: 45px
+      height: 45px
+    .title
+      margin: 0 0 26px 0
+      font-size: 18px
+      line-height: 25px
+      color: #2B353E
+
+  .inputWrap
+    padding: 0 10px
+    margin-bottom: 18px
+
+    .input::placeholder
+      font-size: 13px
+      line-height: 18px
+      font-family: 'SF Pro Light', sans-serif
+      color: #B0B0B0
+
+  .actionBlock
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-top: 50px
+
+    .actionBtn
+      border-radius: 3px
+      background: #4086F1
+      font-size: 13px
+      line-height: 18px
+      color: #fff
+      box-shadow: 0 2px 4px #DFDFDF
+
+
+.closeWrap
+  position: absolute
+  top: 15px
+  right: 15px
+
+.close
+  width: 20px
+  height: 20px
+  cursor: pointer
+  position: relative
+
+  .times
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(45deg)
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(-45deg)

@@ -1,7 +1,7 @@
 export const tags = ['Фото', 'Видео', 'Музыка', 'Документы', 'Другое'];
 
 export const colors = [
-    {dark: '#efeeee', light: '#efeeee', color: 'grey'},
+    {dark: '#efeeee', light: '#efeeee', color: 'grey', name: 'grey'},
     {dark: '#c4aa8f', light: 'rgb(254, 220, 184)', color: 'rgb(254, 220, 184)', name: 'wheat'},
     {dark: '#326bc1', light: 'rgb(64, 134, 242)', color: 'rgb(64, 134, 242)', name: 'blue'},
     {dark: '#27967a', light: 'rgb(52, 198, 162)', color: 'rgb(52, 198, 162)', name: 'green'},

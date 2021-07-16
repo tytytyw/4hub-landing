@@ -1,11 +1,10 @@
 import React from 'react'
-import PopUp from '../../../../../generalComponents/PopUp'
+import PopUp from '../../../../../../generalComponents/PopUp'
 
-import styles from './RecoverPass.module.sass'
-import Button from '../../MyProfile/Button'
-import Input from '../../MyProfile/Input'
+import styles from './SuccessPass.module.sass'
+import Button from '../../../MyProfile/Button'
 
-const RecoverPass = ({set}) => {
+const SuccessPass = ({set}) => {
 
     return (
         <PopUp set={set}>
@@ -28,28 +27,31 @@ const RecoverPass = ({set}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Восстановление пароля</h4>
+                        <h4 className={styles.title}>Ваш пароль обновлён</h4>
+                    </div>
+
+                    <div className={styles.imageWrap}>
+                        <img
+                            className={styles.image}
+                            src="./assets/PrivateCabinet/alerts/success-pc.png"
+                            alt="Warning PC"
+                        />
                     </div>
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Введите Email / Телефон указанный при регистрации, Вам будет
-                            направленно письмо с ссылкой для востановления пароля
+                            В целях безопасности, на Email Вашей учетной записи
+                            отправлено подтверждение этого изменения
                         </p>
-                    </div>
-                    
-                    <div className={styles.inputWrap}>
-                        <Input
-                            label={'Email / Телефон'}
-                        />
                     </div>
 
                     <div className={styles.actionBlock}>
                         <Button
                             type='submit'
                             className={styles.submitBtn}
+                            onClick={() => set(false)}
                         >
-                            Отправить
+                            Продолжить
                         </Button>
                     </div>
 
@@ -57,8 +59,8 @@ const RecoverPass = ({set}) => {
             </div>
 
         </PopUp>
-)
+    )
 
 }
 
-export default RecoverPass
+export default SuccessPass
