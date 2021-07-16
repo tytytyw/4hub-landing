@@ -1,8 +1,8 @@
 import React from 'react'
 
 import styles from './SafeItem.module.sass'
-import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
+import SafeIcon from "../SafeIcon";
 
 const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
 
@@ -44,10 +44,9 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                 </div>
 
                 <div className={styles.content}>
-                    <img
+
+                    <SafeIcon
                         className={styles.safeImg}
-                        src="./assets/PrivateCabinet/bank.svg"
-                        alt="Safe"
                     />
 
                     <div

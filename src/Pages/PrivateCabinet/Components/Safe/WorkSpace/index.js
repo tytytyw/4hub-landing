@@ -17,17 +17,16 @@ import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
-import CustomizeFile from "../../CustomizeFile"
-import OptionButtomLine from "../../WorkElements/OptionButtomLine"
 
-const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
-                   chosenFolder, listCollapsed, setFilePreview, filePreview,
+const WorkSpace = ({chosenFile, setChosenFile,
+                   listCollapsed, setFilePreview, filePreview,
                    fileSelect, action, setAction
                   }) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview');
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    //const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const fileList = [];
     const size = useSelector(state => state.PrivateCabinet.size);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
@@ -90,6 +89,7 @@ const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
             />
         });
     };
+
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             <div className={styles.header}>
@@ -101,66 +101,63 @@ const WorkSpace = ({setBlob, blob, chosenFile, setChosenFile,
                 </div>
             </div>
             <ServePanel
-                setBlob={setBlob}
-                blob={blob}
                 setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
                 fileSelect={fileSelect}
             />
-           {/* {workElementsView === 'bars' &&
-            <WorkBars
-                fileLoading={fileLoading}
-                fileSelect={fileSelect}
-                filePick={filePick}
+
+            {fileList?.files?.length > 0 &&
+            <div
+                style={{
+                    height: 'calc(100% - 90px - 55px)'
+                }}
             >
-                {renderFiles(FileBar)}
-            </WorkBars>}
 
-            {workElementsView === 'lines' &&
-            <WorkLines fileLoading={fileLoading}>
-                {renderFiles(FileLine)}
-            </WorkLines>}
+                {/*{workElementsView === 'bars' &&
+                <WorkBars
+                    fileLoading={fileLoading}
+                    fileSelect={fileSelect}
+                    filePick={filePick}
+                >
+                    {renderFiles(FileBar)}
+                </WorkBars>}
 
-            {workElementsView === 'preview' &&
-            <WorkBarsPreview file={chosenFile}>
-                {renderFiles(FileBar)}
-            </WorkBarsPreview>}
-*/}
-            {workElementsView === 'workLinesPreview' &&
-            <WorkLinesPreview file={chosenFile}>
-                {renderFiles(FileLineShort)}
-            </WorkLinesPreview>}
+                {workElementsView === 'lines' &&
+                <WorkLines fileLoading={fileLoading}>
+                    {renderFiles(FileLine)}
+                </WorkLines>}
 
-            {filePick.show && <OptionButtomLine
-                filePick={filePick}
-                setFilePick={setFilePick}
-                actionName={'Редактировать'}
-                setAction={setAction}
-            />}
+                {workElementsView === 'preview' &&
+                <WorkBarsPreview file={chosenFile}>
+                    {renderFiles(FileBar)}
+                </WorkBarsPreview>}*/}
+
+                {workElementsView === 'workLinesPreview' &&
+                <WorkLinesPreview file={chosenFile}>
+                    {renderFiles(FileLineShort)}
+                </WorkLinesPreview>}
+
+            </div>}
 
             <BottomPanel />
         </div>
+
         {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
         </ContextMenu> : null}
+
         {action.type === 'delete' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFile} approve={'Удалить'}>
             <div className={styles.fileActionWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
         </ActionApproval> : null}
-        {action.type === 'customize' || filePick.customize ? <CustomizeFile
-            title={filePick.customize ? `Редактировать ${filePick.files.length} файла` : action.name }
-            info={chosenFolder}
-            file={chosenFile}
-            close={nullifyAction}
-            filePick={filePick}
-            setFilePick={setFilePick}
-        /> : null}
+
         <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
             <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
         </form>
+
     </>)
 }
 
-export default WorkSpace;
+export default WorkSpace
