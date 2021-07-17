@@ -6,11 +6,11 @@ import Button from '../../../MyProfile/Button'
 import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 
-const ShareToMessengers = ({setDisplayMessengers, close, fid}) => {
+const ShareToMessengers = ({setDisplayMessengers, close}) => {
 
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [hrefSoc, setHrefSoc] = useState(null)
-    const file_link = `http://fs2.mh.net.ua/ajax/download.php?fid=${fid}`;
+    const file_link = `http://fs2.mh.net.ua/ajax/download.php`;
     useEffect(()=> {
         switch(selectedSoc) {
             case 'telegram':

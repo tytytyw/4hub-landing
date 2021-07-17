@@ -24,6 +24,7 @@ import api from '../../../../api';
 import {onChooseFiles, onGetFolders} from '../../../../Store/actions/PrivateCabinetActions';
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -44,6 +45,7 @@ const MyFolders = ({
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
     const closeError = () => setError({isError: false, message: ''});
@@ -180,6 +182,8 @@ const MyFolders = ({
                 setFileAddCustomization={setFileAddCustomization}
                 nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
                 saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                showSuccessMessage={showSuccessMessage}
+                setShowSuccessMessage={setShowSuccessMessage}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -212,8 +216,8 @@ const MyFolders = ({
                     files={{}}
                     close={nullifyAction}
                     action_type={action.type}
-                    // showSuccessMessage={showSuccessMessage}
-                    // setShowSuccessMessage={setShowSuccessMessage}
+                    showSuccessMessage={showSuccessMessage}
+                    setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
@@ -234,6 +238,7 @@ const MyFolders = ({
                 <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
             </ActionApproval> : null}
             <Error error={error.isError} set={closeError} message={error.message} />
+            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import styles from './ShareFolder.module.sass';
@@ -28,11 +28,13 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     const [data, setData] = useState(
         {
             uid,
-            fids: /*files.length ? [...files] :*/ ['123132'],
-            user_to: '',
+            dir: folder.path,
+            email: '',
             prim: '',
-            deadline: ''
-    })
+            deadline: '',
+            is_read: true
+    });
+    const linkRef = useRef('');
     const setTime = (time, limit) => {
         return time < limit
         ? time < 10 ? `0${time}` : time
@@ -49,26 +51,47 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
     },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const onShareFile = () => {
-        api.post(`/ajax/file_${action_type}.php`, data)
-            .then(res => {
-                if(res.data.ok === true) {
-                    setShowSuccessMessage('Отправлено')
-                    close()
-                } else if (res.data.error) {
-                    setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
-                } else {
-                    setError('Что-то пошло не так. Повторите попытку позже')
-                    console.log(res)
-                }
-            })
-            .catch(err => {setError(`${err}`)})
+    const onShareFile = async (forAll, isRead) => { // "$GUEST$" to give access to every user that has a link
+        const email = forAll ?? data.email;
+        const is_read = isRead ?? data['is_read'];
+        const url = `/ajax/dir_access_add.php?uid=${data.uid}&dir=${data.dir}&email=${email}&is_read=${is_read}&prim=${data.prim}&deadline=${data.deadline}`;
+        try {
+            const res = await api.get(url);
+            if(res.data.ok === 1) {
+                if(res.data.link_shere_to_user) return res.data.link_shere_to_user
+            } else if (res.data.error) {
+                setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
+            } else {
+                setError('Что-то пошло не так. Повторите попытку позже')
+            }
+            console.log(res);
+        } catch (err) {
+            setError(`${err}`)
+        }
     }
+
+    const copyLink = async (forAll, isRead) => {
+        const link = await onShareFile(forAll, isRead);
+        if(link) {
+            if(navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(link);
+            } else {
+                linkRef.current.value = link;
+                linkRef.current.focus();
+                linkRef.current.select();
+                document.execCommand('copy');
+            }
+            setShowSuccessMessage(true);
+        }
+    }
+
+    const copyRead = () => copyLink('$GUEST$', true);
+    const copyWrite = () => copyLink('$GUEST$', false);
 
     return (
         <PopUp set={close}>
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
-                {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
+                <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <FolderIcon className={`${styles.folderIcon} ${folder?.info?.color ? colors.filter(el => el.color === folder.info.color)[0]?.name : folder.info?.nameRu ? styles.generalFolder : ''}`} />
                         {folder?.info?.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
@@ -88,13 +111,13 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                             <span className={styles.close} />
                         </div>
                     </div>
-                </div>}
+                </div>
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
                         Кому:
                     </p>
                     <div className={styles.recipient_mail}>
-                        <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> setData(data => ({...data, user_to: e.target.value}))} value={data.user_to} placeholder='Эл.адрес или имя' type='text'></input>
+                        <input className={emptyField ? styles.empty : ''} onClick={() => setEmptyField(false)} onChange={(e)=> setData(data => ({...data, email: e.target.value}))} value={data.email} placeholder='Эл.адрес или имя' type='text'></input>
                     </div>
                     <div className={styles.recipient_messenger}>
                         <span onClick={() => setDisplayMessengers(true)}>Отправить через мессенджер</span>
@@ -137,7 +160,10 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                             <p className={styles.input_title}>Может редактировать</p>
                             <input value='Все у кого есть эта ссылка, смогут изменять файл' type='button'></input>
                         </div>
-                        <span className={styles.set_btn}>Скопировать ссылку</span>
+                        <span
+                            className={styles.set_btn}
+                            onClick={copyWrite}
+                        >Скопировать ссылку</span>
                     </div>
                     <div className={styles.row_item}>
                         <div className={styles.ico_wrap}>
@@ -147,11 +173,14 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                             <p className={styles.input_title}>Может просматривать</p>
                             <input value='Все у кого есть эта ссылка, смогут просматривать файл' type='button'></input>
                         </div>
-                        <span className={styles.set_btn}>Скопировать ссылку</span>
+                        <span
+                            className={styles.set_btn}
+                            onClick={copyRead}
+                        >Скопировать ссылку</span>
                     </div>
                 </div>
                 <div className={styles.buttonsWrap}>
-                        <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
+                        <div className={styles.add} onClick={() => {data.email ? onShareFile() : setEmptyField(true)}}>Отправить</div>
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
@@ -167,6 +196,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
             {displayMessengers && <ShareToMessengers
                 setDisplayMessengers={setDisplayMessengers}
                 close={close}
+                // TODO - Use created url
                 fid={folder?.info?.fid}
             />}
             {displaySetPassword && <SetPassword
@@ -174,6 +204,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                 setDisplaySetPassword={setDisplaySetPassword}
                 setShowSuccessMessage={setShowSuccessMessage}
             />}
+            <input ref={linkRef} type='text' style={{display: 'none'}} />
         </PopUp>
     )
 }

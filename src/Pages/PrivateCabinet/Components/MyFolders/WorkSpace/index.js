@@ -31,12 +31,12 @@ import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProper
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
-import SuccessMessage from '../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
-       fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization,
+       fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
+       setShowSuccessMessage
 }) => {
 
     const dispatch = useDispatch();
@@ -50,7 +50,6 @@ const WorkSpace = ({
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -336,7 +335,6 @@ const WorkSpace = ({
             id='frame'
         />
         {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
-        {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
     </>)
 }
 
