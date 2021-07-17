@@ -15,14 +15,15 @@ import Programs from "./Components/Programs"
 
 import {Switch, Route, useHistory} from 'react-router'
 import Settings from './Components/MyProfile/settings'
-import Project from "./Components/Project";
-import SharedFiles from "./Components/SharedFiles";
-import DownloadedFiles from "./Components/DownloadedFiles";
-import {setPreviewTheme} from "../../Store/actions/main";
-import Archive from "./Components/Archive";
-import Journal from "./Components/Journal";
-import CalendarPage from "./Components/CalendarPage";
-import Cart from "./Components/Cart";
+import Project from './Components/Project';
+import SharedFiles from './Components/SharedFiles';
+import DownloadedFiles from './Components/DownloadedFiles';
+import {setPreviewTheme} from '../../Store/actions/main';
+import Archive from './Components/Archive';
+import Journal from './Components/Journal';
+import CalendarPage from './Components/CalendarPage';
+import Cart from './Components/Cart';
+import Loader from '../../generalComponents/Loaders/4HUB';
 
 const PrivateCabinet = () => {
 
@@ -35,6 +36,7 @@ const PrivateCabinet = () => {
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
+    const [loadingType, setLoadingType] = useState('');
 
     const history = useHistory()
 
@@ -265,7 +267,7 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-
+            {loadingType ? <Loader type={loadingType} /> : null}
         </div>
     )
 }
