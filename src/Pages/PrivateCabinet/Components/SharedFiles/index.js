@@ -6,21 +6,25 @@ import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
+import WorkBars from "../WorkElements/WorkBars"
+import WorkBarsPreview from "../WorkElements/WorkBarsPreview"
+import FileBar from "../WorkElements/FileBar"
 import FileLine from './WorkElements/FileLine'
 import {useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import ActionApproval from "../../../../generalComponents/ActionApproval";
-import File from "../../../../generalComponents/Files";
-import classNames from "classnames";
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import BottomPanel from "../ButtomPanel";
+import ActionApproval from "../../../../generalComponents/ActionApproval"
+import File from "../../../../generalComponents/Files"
+import PreviewFile from '../PreviewFile'
+import classNames from "classnames"
+import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg"
+import BottomPanel from "../ButtomPanel"
 
-const SharedFiles = () => {
+const SharedFiles = ({filePreview, setFilePreview}) => {
 
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    const [workElementsView, setWorkElementsView] = useState('lines')
     const [search, setSearch] = useState(null)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
@@ -31,9 +35,11 @@ const SharedFiles = () => {
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({ type: "", name: "", text: "" })
     const [mouseParams, setMouseParams] = useState(null)
-    const [filePreview, setFilePreview] = useState(null)
+    // const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+    const [filePick, setFilePick] = useState({show: false, files: []});
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -71,26 +77,26 @@ const SharedFiles = () => {
         })
     }
 
-    const renderFile = () => {
-        const file = fileList?.files?.[fileList.files.length - 1]
-        if (!file) return null
-        return (
-            <FileLine
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        )
-    }
+    // const renderFile = (Type) => {
+    //     const file = fileList?.files?.[fileList.files.length - 1]
+    //     if (!file) return null
+    //     return (
+    //         <Type
+    //             file={file}
+    //             setChosenFile={setChosenFile}
+    //             chosenFile={chosenFile}
+    //             setMouseParams={setMouseParams}
+    //             setAction={setAction}
+    //             filePreview={filePreview}
+    //             setFilePreview={setFilePreview}
+    //         />
+    //     )
+    // }
 
-    const renderFiles = () => {
+    const renderFiles = (Type) => {
         if (!fileList) return null
         return fileList.files?.map((file, index) => (
-            <FileLine
+            <Type
                 key={index}
                 file={file}
                 setChosenFile={setChosenFile}
@@ -99,6 +105,13 @@ const SharedFiles = () => {
                 setAction={setAction}
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
+                setFilePick={setFilePick}
+                filePick={filePick}
+                chosen={
+                    filePick.show
+                        ? filePick.files.findIndex((el) => el === file.fid) >= 0
+                        : chosenFile?.fid === file?.fid
+                }
             />
         ))
     }
@@ -164,15 +177,27 @@ const SharedFiles = () => {
                         </div>}
 
                         <div className={styles.collapseContent}>
-                            {collapse ?
-                                renderFiles() :
-                                renderFile()}
+                            {workElementsView === "bars" && collapse ?
+                                <WorkBars filePick={filePick}>
+                                    {renderFiles(FileBar)}
+                                </WorkBars>
+                            : null}
+                            
+                            {workElementsView === "lines" && collapse ?
+                                    renderFiles(FileLine)
+                            : null}
+
+                            {workElementsView === "preview" && collapse ? (
+                                <WorkBarsPreview
+                                    file={chosenFile}
+                                    filePick={filePick}
+                                >
+                                    {renderFiles(FileBar)}
+                                </WorkBarsPreview>
+                            ) : null}
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
             {mouseParams !== null && (
@@ -205,7 +230,7 @@ const SharedFiles = () => {
             )}
 
             <BottomPanel />
-
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
         </div>
     )
 }

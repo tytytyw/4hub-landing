@@ -192,7 +192,10 @@ const PrivateCabinet = () => {
 
                     <Route
                         path='/shared-files'
-                        render={() => <SharedFiles />}
+                        render={() => <SharedFiles
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                        />}
                     />
 
                     <Route
