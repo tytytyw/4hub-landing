@@ -13,12 +13,13 @@ import WorkSpaceList from './WorkSpaceList'
 import ListCalendar from './ListCalendar'
 import CreateTask from './CreateTask'
 import SuccessCreated from './CreateTask/SuccessCreated'
-import BottomPanel from "../ButtomPanel";
+import BottomPanel from '../ButtomPanel'
+import FullCalendarTable from './FullCalendar'
 
 const CalendarPage = () => {
 
     const [search, setSearch] = useState(null)
-    const [viewType, setViewType] = useState('list')
+    const [viewType, setViewType] = useState('full')
     const [createTask, setCreateTask] = useState(false)
 
     const [event, setEvent] = useState({})
@@ -96,8 +97,8 @@ const CalendarPage = () => {
                         <img
                             onClick={() => setCreateTask(true)}
                             className={styles.addTaskIcon}
-                            src="./assets/PrivateCabinet/folders/add.svg"
-                            alt="Add Task Icon"
+                            src='./assets/PrivateCabinet/folders/add.svg'
+                            alt='Add Task Icon'
                         />
                     </div>
                     <ListCalendar
@@ -131,6 +132,8 @@ const CalendarPage = () => {
                         setYear={setYear}
                         setDay={setDay}
                     />
+
+                    {viewType === 'full' && <FullCalendarTable/>}
 
                     {viewType === 'table' &&
                     <WorkSpaceTable

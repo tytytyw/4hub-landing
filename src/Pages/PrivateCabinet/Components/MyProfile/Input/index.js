@@ -75,7 +75,10 @@ const Input = (
                     maxLength={phone ? 18 : props.maxLength}
 
                     onChange={onChangeHandler}
-                    {...props}
+                    value={props.value}
+                    name={props.name}
+                    placeholder={props.placeholder}
+                    //{...props}
                 />
                 {type === 'password' && <img
                     src={getEyeImg()}

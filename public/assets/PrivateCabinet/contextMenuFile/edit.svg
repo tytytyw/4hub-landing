@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>edit</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="7.1-Мои-файлы-(вид-блоки)" transform="translate(-691.000000, -448.000000)" fill="#4086F1" fill-rule="nonzero">
-            <g id="Group-18" transform="translate(675.000000, 279.000000)">
-                <g id="edit" transform="translate(16.500000, 169.500000)">
-                    <polygon id="Path" points="1.44889589 10.7285577 10.1973335 1.94475083 13.0187684 4.77751682 4.27033076 13.5613237"></polygon>
-                    <polygon id="Path" points="0.0214440687 14.9945082 3.13941633 14.1274069 0.885076957 11.864014"></polygon>
-                    <path d="M13.7988466,0.455874409 C13.2134954,-0.130417694 12.2658397,-0.130417694 11.6804884,0.455874409 L11.0450512,1.09386361 L13.8664862,3.9266296 L14.5019234,3.2886404 C15.0861043,2.70093841 15.0861043,1.74947678 14.5019234,1.16177478 L13.7988466,0.455874409 Z" id="Path"></path>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="edit">
+    <path d="M0 8.78381L8.74844 0L11.5699 2.83277L2.82143 11.6166L0 8.78381Z" transform="translate(1.4488959 1.9447508)" id="Path" fill="#4086F1" stroke="none" />
+    <path d="M0 3.13049L3.11797 2.26339L0.863633 0L0 3.13049Z" transform="translate(0.02144407 11.864014)" id="Path" fill="#4086F1" stroke="none" />
+    <path d="M2.7538 0.439719C2.16844 -0.146573 1.22079 -0.146573 0.635437 0.439719L0 1.07771L2.82143 3.91047L3.45687 3.27249C4.04105 2.68478 4.04105 1.73332 3.45687 1.14562L2.7538 0.439719Z" transform="translate(11.045052 0.016155332)" id="Path" fill="#4086F1" stroke="none" />
+  </g>
 </svg>

@@ -165,35 +165,10 @@ export const onCustomizeFile = (file) => {
 
 //SAFE
 
-export const onGetSafes = () => async (dispatch, getState) => {
+export const onGetSafes = (data = []) => async (dispatch, getState) => {
     dispatch({
         type: GET_SAFES,
-        payload: [
-            {
-                id: 1,
-                name: 'Пароли',
-                emo: 'nerd'
-            },
-            {
-                id: 2,
-                name: 'Имя сейфа',
-                tag: 'Дизайн'
-            },
-            {
-                id: 3,
-                name: 'Имя сейфа',
-                emo: 'cool',
-                fig: 'like'
-            },
-            {
-                id: 4,
-                name: 'Имя сейфа',
-            },
-            {
-                id: 5,
-                name: 'Имя сейфа',
-            },
-        ]
+        payload: data
     })
 };
 
