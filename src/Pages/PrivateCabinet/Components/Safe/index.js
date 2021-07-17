@@ -6,14 +6,12 @@ import SafeItem from './SafeItem'
 import WorkSpace from './WorkSpace'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
-import { contextMenuSubFolder } from '../../../../generalComponents/collections'
+import {contextMenuSafeItem} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import classNames from 'classnames'
 import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 import CodePopup from './Popups/CodePopup'
-import ErrorPass from './Popups/ErrorPass'
 import NoSafe from './Popups/NoSafe'
-import RecoverPass from './Popups/RecoverPass'
 import SuccessPass from './Popups/SuccessPass'
 import CreateSafe from './Popups/CreateSafe'
 import RefreshPass from './Popups/RefreshPass'
@@ -36,14 +34,16 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
     const [createSafe, setCreateSafe] = useState(false)
 
     const [codePopup, setCodePopup] = useState(false)
-    const [refreshPass, setRefreshPass] = useState(true)
-    const [errPass, setErrPass] = useState(false)
-    const [recoverPass, setRecoverPass] = useState(false)
+    const [refreshPass, setRefreshPass] = useState(false)
     const [successPass, setSuccessPass] = useState(false)
     const [noSafePopup, setNoSafePopup] = useState(false)
 
     const [action, setAction] = useState({type: '', name: '', text: ''})
     const nullifyAction = () => setAction({type: '', name: '', text: ''})
+
+    useEffect(() => {
+        setNoSafePopup(safes?.length < 1)
+    }, [safes])
 
     useEffect(() => {
         dispatch(onGetSafes())
@@ -62,7 +62,6 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                 listSize={size}
                 chosen={setSelectedSafe?.id === safe.id}
                 setMouseParams={setMouseParams}
-
                 onClick={() => {
                     setSelectedSafe(safe)
                     setCodePopup(true)
@@ -103,6 +102,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                             onClick={() => setListCollapsed(!listCollapsed)}
                         />
                         <img
+                            onClick={() => setCreateSafe(true)}
                             className={styles.icon}
                             src={`./assets/PrivateCabinet/add-safe.svg`}
                             alt='icon'
@@ -120,7 +120,10 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                             />
                             <h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый СЕЙФ</h4>
                         </div> :
-                        <div className={classNames(styles.folderListWrap, styles?.[`folderListWrap_${size}`])}>
+                        <div className={classNames({
+                            [styles.folderListWrap]: true,
+                            [styles?.[`folderListWrap_${size}`]]: size !== 'medium'
+                        })}>
                             {renderSafesList()}
                         </div>}
 
@@ -155,15 +158,13 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                     setParams={setMouseParams}
                     tooltip={true}
                 >
-                    <div className={styles.mainMenuItems}>
-                        {renderMenuItems(contextMenuSubFolder.main)}</div>
+                    <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuSafeItem.main)}</div>
+                    <div style={{marginTop: '30px'}} className={styles.mainMenuItems}>{renderMenuItems(contextMenuSafeItem.additional)}</div>
                 </ContextMenu>}
 
+            {noSafePopup && <NoSafe setCreateSafe={setCreateSafe} set={setNoSafePopup}/>}
             {codePopup   && <CodePopup safe={selectedSafe} set={setCodePopup}/>}
             {refreshPass && <RefreshPass safe={selectedSafe} set={setRefreshPass}/>}
-            {noSafePopup && <NoSafe set={setNoSafePopup}/>}
-            {recoverPass && <RecoverPass safe={selectedSafe} set={setRecoverPass} />}
-            {errPass     && <ErrorPass set={setErrPass}/>}
             {successPass && <SuccessPass set={setSuccessPass}/>}
 
             {createSafe  && <CreateSafe onCreate={setCreateSafe}/>}

@@ -97,6 +97,18 @@ export const contextMenuSubFolder = {
     additional: []
 }
 
+export const contextMenuSafeItem = {
+    main: [
+        {name: 'Предоставить доступ', img: 'download-blue'},
+        {name: 'Редактировать', img: 'edit'},
+        {name: 'Настроить', img: 'settings-work-tool'},
+        {name: 'Свойства', img: 'info'},
+    ],
+    additional: [
+        {name: 'Удалить', img: 'garbage'}
+    ]
+}
+
 
 // Programs
 export const contextProgramFolder = {

@@ -2,7 +2,7 @@ import React from 'react'
 
 import styles from './SafeItem.module.sass'
 import classNames from 'classnames'
-import SafeIcon from "../SafeIcon";
+import SafeIcon from '../SafeIcon'
 
 const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
 
@@ -14,7 +14,6 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                     [styles.wrapperChosen]: !!chosen,
                     [styles?.[`wrapper_${listSize}`]]: true
                 })}
-                onClick={onClick}
             >
                 <div
                     className={styles.menuWrap}
@@ -34,18 +33,22 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                             alt='emoji'
                         />}
 
-                        {safe?.fig &&
+                        {safe?.sign &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/signs/${safe.fig}.svg`}
+                            src={`./assets/PrivateCabinet/signs/${safe.sign}.svg`}
                             alt='emoji'
                         />}
                     </div>
                 </div>
 
-                <div className={styles.content}>
+                <div
+                    onClick={onClick}
+                    className={styles.content}
+                >
 
                     <SafeIcon
+                        type={safe?.color}
                         className={styles.safeImg}
                     />
 

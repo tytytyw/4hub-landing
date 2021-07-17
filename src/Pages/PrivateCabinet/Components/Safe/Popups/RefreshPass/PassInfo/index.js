@@ -22,11 +22,11 @@ const PassInfo = ({setVisible, value, inputRef}) => {
 
     useEffect(() => {
         const onClick = (event) => {
-            if (!ref.current?.contains(event.target) &&
+            if (
+                !ref.current?.contains(event.target) &&
                 !inputRef.current?.contains(event.target) &&
-                checkEnable()) {
-                setVisible(false)
-            }
+                checkEnable()
+            ) setVisible(false)
         }
         window.addEventListener('click', onClick)
         return () => window.removeEventListener('click', onClick)

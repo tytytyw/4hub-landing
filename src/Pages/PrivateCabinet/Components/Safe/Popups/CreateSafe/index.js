@@ -9,8 +9,13 @@ import {colors, tags} from '../../../../../../generalComponents/collections'
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../SafeIcon'
 import classNames from 'classnames'
+import {useDispatch, useSelector} from 'react-redux'
+import {onGetSafes} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CreateSafe = ({onCreate}) => {
+
+    const safes = useSelector(state => state.PrivateCabinet.safes)
+    const dispatch = useDispatch()
 
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
@@ -30,7 +35,37 @@ const CreateSafe = ({onCreate}) => {
         })
     }
 
+    const [errors, setErrors] = useState({})
+
+    const addErrors = () => {
+        setErrors({
+            name: !!name,
+            password: !!password,
+            passwordRepeat: password === passwordRepeat
+        })
+    }
+
+    const formIsValid = () => {
+        addErrors()
+        return !!name && !!password && password === passwordRepeat
+    }
+
     const onAddSafe = () => {
+
+        if (formIsValid()) {
+            const safeObj = {
+                id: safes?.length + 1,
+                name,
+                password,
+                tag: tagOption?.chosen,
+                color: color?.name,
+                sign,
+                emo: emoji,
+            }
+
+            dispatch(onGetSafes([...safes, safeObj]))
+            onCreate(false)
+        }
 
     }
 
@@ -122,6 +157,7 @@ const CreateSafe = ({onCreate}) => {
                                     className={styles.input}
                                     value={name}
                                     onChange={event => setName(event.target.value)}
+                                    isMistake={errors?.name}
                                 />
                             </div>
 
@@ -146,26 +182,28 @@ const CreateSafe = ({onCreate}) => {
                             <div className={styles.inputWrap}>
                                 <Input
                                     type='password'
-                                    name='pass'
+                                    name='password'
                                     placeholder='Установить пароль'
                                     showPass={showPass}
                                     setShowPass={setShowPass}
                                     className={styles.input}
                                     value={password}
                                     onChange={event => setPassword(event.target.value)}
+                                    isMistake={errors?.password}
                                 />
                             </div>
 
                             <div className={styles.inputWrap}>
                                 <Input
                                     type='password'
-                                    name='pass_r'
+                                    name='passwordRepeat'
                                     placeholder='Введите повторно пароль пароль'
                                     showPass={showPass}
                                     setShowPass={setShowPass}
                                     className={styles.input}
                                     value={passwordRepeat}
                                     onChange={event => setPasswordRepeat(event.target.value)}
+                                    isMistake={errors?.passwordRepeat}
                                 />
                             </div>
 

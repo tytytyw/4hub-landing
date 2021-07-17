@@ -57,8 +57,9 @@ const ErrorPass = ({set}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
+                            onClick={() => set(false)}
                         >
-                            Войти
+                            Повторить
                         </Button>
                     </div>
 

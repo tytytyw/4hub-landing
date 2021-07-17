@@ -1,12 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './CodePopup.module.sass'
 import Input from '../../../MyProfile/Input'
 import Button from '../../../MyProfile/Button'
 import SafeIcon from "../../SafeIcon";
+import ErrorPass from "../ErrorPass";
+import RecoverPass from "../RecoverPass";
 
-const CodePopup = ({safe, set}) => {
+const CodePopup = ({safe, set, setError}) => {
+
+    const [password, setPassword] = useState('')
+    const [errPass, setErrPass] = useState(false)
+    const [recoverPass, setRecoverPass] = useState(false)
+    const [errors, setErrors] = useState({})
+
+    const formIsValid = () => {
+        setErrors({
+            password: !password
+        })
+        return !!password
+    }
+
+    const onEnter = () => {
+
+        if (formIsValid()) {
+
+            if (password !== safe?.password) {
+                setErrPass(true)
+            } else {
+
+                console.log('complete')
+
+            }
+        }
+
+    }
 
     return (
         <PopUp set={set}>
@@ -30,6 +59,7 @@ const CodePopup = ({safe, set}) => {
 
                     <div className={styles.titleWrap}>
                         <SafeIcon
+                            type={safe?.color}
                             className={styles.titleImg}
                         />
                         <h4 className={styles.title}>{safe?.name || 'Сейф не найден'}</h4>
@@ -39,8 +69,16 @@ const CodePopup = ({safe, set}) => {
                         <Input
                             placeholder='Введите пароль'
                             className={styles.input}
+                            isMistake={errors?.password}
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
                         />
-                        <a href={'/'} className={styles.link}>Забыли пароль?</a>
+                        <span
+                            className={styles.link}
+                            onClick={() => setRecoverPass(true)}
+                        >
+                            Забыли пароль?
+                        </span>
                     </div>
 
                     <p className={styles.orItem}>или</p>
@@ -53,13 +91,14 @@ const CodePopup = ({safe, set}) => {
                             className={styles.input}
                             phone={true}
                         />
-                        <a href={'/'} className={styles.link}>Не пришол код?</a>
+                        <span className={styles.link}>Не пришол код?</span>
                     </div>
 
                     <div className={styles.actionBlock}>
                         <Button
                             type='submit'
                             className={styles.actionBtn}
+                            onClick={onEnter}
                         >
                             Войти
                         </Button>
@@ -67,6 +106,9 @@ const CodePopup = ({safe, set}) => {
 
                 </div>
             </div>
+
+            {recoverPass && <RecoverPass safe={safe} set={setRecoverPass} />}
+            {errPass && <ErrorPass set={setErrPass}/>}
 
         </PopUp>
     )

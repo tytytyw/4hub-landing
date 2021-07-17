@@ -4,7 +4,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './NoSafe.module.sass'
 import Button from '../../../MyProfile/Button'
 
-const NoSafe = ({set}) => {
+const NoSafe = ({set, setCreateSafe}) => {
 
     return (
         <PopUp set={set}>
@@ -56,6 +56,10 @@ const NoSafe = ({set}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
+                            onClick={() => {
+                                set(false)
+                                setCreateSafe(true)
+                            }}
                         >
                             Создать
                         </Button>

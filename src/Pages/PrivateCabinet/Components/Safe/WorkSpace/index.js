@@ -44,10 +44,12 @@ const WorkSpace = ({chosenFile, setChosenFile,
         {type: 'info', name: '', text: ``, callback: ''},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: '', text: ``, callback: ''},
-        ];
+    ];
+
     const additionalMenuItems = [
         {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
+
     const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
 
     const renderMenuItems = (target, type) => {
