@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './RefreshPass.module.sass'
-import Input from '../../../MyProfile/Input'
 import Button from '../../../MyProfile/Button'
-import SafeIcon from '../../SafeIcon'
+import PassInfo from './PassInfo'
 
 const RefreshPass = ({safe, set}) => {
 
@@ -12,7 +11,11 @@ const RefreshPass = ({safe, set}) => {
     const [passwordRepeat, setPasswordRepeat] = useState('')
     const [showPass, setShowPass] = useState(false)
 
+    const [showInfo, setShowInfo] = useState(false)
+
     const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
+
+    const inputRef = useRef()
 
     return (
         <PopUp set={set}>
@@ -49,12 +52,23 @@ const RefreshPass = ({safe, set}) => {
 
                         <div className={styles.inputWrap}>
                             <input
+                                ref={inputRef}
+                                onFocus={() => setShowInfo(true)}
                                 id={styles.passInput}
                                 type={showPass ? 'text' : 'password'}
                                 className={styles.passInput}
                                 value={password}
                                 onChange={event => setPassword(event.target.value)}
                             />
+
+                            {showInfo &&
+                            <PassInfo
+                                value={password}
+                                inputRef={inputRef}
+                                visible={showInfo}
+                                setVisible={setShowInfo}
+                            />}
+
                             <img
                                 src={getEyeImg()}
                                 alt='eye'

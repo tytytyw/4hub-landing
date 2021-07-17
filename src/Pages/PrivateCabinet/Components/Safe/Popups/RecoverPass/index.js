@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './RecoverPass.module.sass'
 import Button from '../../../MyProfile/Button'
-import Input from '../../../MyProfile/Input'
 
 const RecoverPass = ({set}) => {
+
+    const [email, setEmail] = useState('')
 
     return (
         <PopUp set={set}>
@@ -37,11 +38,24 @@ const RecoverPass = ({set}) => {
                             направленно письмо с ссылкой для востановления пароля
                         </p>
                     </div>
-                    
-                    <div className={styles.inputWrap}>
-                        <Input
-                            label={'Email / Телефон'}
-                        />
+
+                    <div className={styles.formItem}>
+
+                        <label
+                            htmlFor={styles.inputWrap}
+                            className={styles.label}
+                        >
+                            Email / Телефон
+                        </label>
+
+                        <div className={styles.inputWrap}>
+                            <input
+                                id={styles.inputWrap}
+                                className={styles.input}
+                                value={email}
+                                onChange={event => setEmail(event.target.value)}
+                            />
+                        </div>
                     </div>
 
                     <div className={styles.actionBlock}>

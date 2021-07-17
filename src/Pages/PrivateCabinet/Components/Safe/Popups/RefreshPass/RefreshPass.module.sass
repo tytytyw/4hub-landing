@@ -29,6 +29,7 @@
     padding: 0 10px
     margin-bottom: 18px
     display: flex
+    align-items: flex-start
     flex-direction: column
 
     .inputWrap
@@ -36,12 +37,13 @@
       border: 1px solid #E3E3E3
       border-radius: 6px
       background: #FAFAFA
-      height: 38px
+      height: auto
+      width: 100%
 
       .eye
         cursor: pointer
         position: absolute
-        top: calc(50% - 16px / 2)
+        top: calc(19px - 16px / 2)
         right: 10px
         width: 18px
         height: 16px
@@ -61,10 +63,10 @@
       box-sizing: border-box
       background: none
       border: none
-      height: 100%
       display: flex
       align-items: center
       width: 100%
+      height: 38px
 
   .actionBlock
     display: flex

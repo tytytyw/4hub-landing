@@ -9,16 +9,14 @@ import ContextMenu from '../../../../generalComponents/ContextMenu'
 import { contextMenuSubFolder } from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import classNames from 'classnames'
-import {
-    onGetSafes
-} from '../../../../Store/actions/PrivateCabinetActions'
+import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 import CodePopup from './Popups/CodePopup'
 import ErrorPass from './Popups/ErrorPass'
 import NoSafe from './Popups/NoSafe'
 import RecoverPass from './Popups/RecoverPass'
 import SuccessPass from './Popups/SuccessPass'
-import CreateSafe from "./Popups/CreateSafe";
-import RefreshPass from "./Popups/RefreshPass";
+import CreateSafe from './Popups/CreateSafe'
+import RefreshPass from './Popups/RefreshPass'
 
 const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
@@ -161,17 +159,14 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                         {renderMenuItems(contextMenuSubFolder.main)}</div>
                 </ContextMenu>}
 
-            {codePopup && <CodePopup safe={selectedSafe} set={setCodePopup}/>}
+            {codePopup   && <CodePopup safe={selectedSafe} set={setCodePopup}/>}
             {refreshPass && <RefreshPass safe={selectedSafe} set={setRefreshPass}/>}
             {noSafePopup && <NoSafe set={setNoSafePopup}/>}
             {recoverPass && <RecoverPass safe={selectedSafe} set={setRecoverPass} />}
-            {errPass && <ErrorPass set={setErrPass}/>}
+            {errPass     && <ErrorPass set={setErrPass}/>}
             {successPass && <SuccessPass set={setSuccessPass}/>}
 
-            {createSafe &&
-            <CreateSafe
-                onCreate={setCreateSafe}
-            />}
+            {createSafe  && <CreateSafe onCreate={setCreateSafe}/>}
 
         </div>
     )
