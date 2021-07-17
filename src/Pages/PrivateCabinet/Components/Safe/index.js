@@ -12,9 +12,13 @@ import classNames from 'classnames'
 import {
     onGetSafes
 } from '../../../../Store/actions/PrivateCabinetActions'
-import CodePopup from './CodePopup'
-import ErrorPass from './ErrorPass'
-import RecoverPass from './RecoverPass'
+import CodePopup from './Popups/CodePopup'
+import ErrorPass from './Popups/ErrorPass'
+import NoSafe from './Popups/NoSafe'
+import RecoverPass from './Popups/RecoverPass'
+import SuccessPass from './Popups/SuccessPass'
+import CreateSafe from "./Popups/CreateSafe";
+import RefreshPass from "./Popups/RefreshPass";
 
 const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
@@ -31,9 +35,14 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
     const [listCollapsed, setListCollapsed] = useState('')
     const [selectedSafe, setSelectedSafe] = useState(null)
 
+    const [createSafe, setCreateSafe] = useState(false)
+
     const [codePopup, setCodePopup] = useState(false)
+    const [refreshPass, setRefreshPass] = useState(true)
     const [errPass, setErrPass] = useState(false)
-    const [recoverPass, setRecoverPass] = useState(true)
+    const [recoverPass, setRecoverPass] = useState(false)
+    const [successPass, setSuccessPass] = useState(false)
+    const [noSafePopup, setNoSafePopup] = useState(false)
 
     const [action, setAction] = useState({type: '', name: '', text: ''})
     const nullifyAction = () => setAction({type: '', name: '', text: ''})
@@ -117,7 +126,6 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                             {renderSafesList()}
                         </div>}
 
-
                 </div>
             </div>
 
@@ -153,22 +161,16 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                         {renderMenuItems(contextMenuSubFolder.main)}</div>
                 </ContextMenu>}
 
-            {codePopup &&
-            <CodePopup
-                safe={selectedSafe}
-                set={setCodePopup}
-            />}
+            {codePopup && <CodePopup safe={selectedSafe} set={setCodePopup}/>}
+            {refreshPass && <RefreshPass safe={selectedSafe} set={setRefreshPass}/>}
+            {noSafePopup && <NoSafe set={setNoSafePopup}/>}
+            {recoverPass && <RecoverPass safe={selectedSafe} set={setRecoverPass} />}
+            {errPass && <ErrorPass set={setErrPass}/>}
+            {successPass && <SuccessPass set={setSuccessPass}/>}
 
-            {errPass &&
-            <ErrorPass
-                safe={selectedSafe}
-                set={setErrPass}
-            />}
-
-            {recoverPass &&
-            <RecoverPass
-                safe={selectedSafe}
-                set={setRecoverPass}
+            {createSafe &&
+            <CreateSafe
+                onCreate={setCreateSafe}
             />}
 
         </div>

@@ -1,14 +1,12 @@
 import React from 'react'
+import {colors} from "../../../../../generalComponents/collections";
 
-const colors = {
-    blue: {light: '#4086F1', dark: '#367DEA'},
-    yellow: {light: '#F9AD50', dark: '#E19941'},
-}
+const getColorObj = type => colors?.find(item => item.name === type)
 
 const SafeIcon = ({type = 'blue', ...props}) => {
 
-    const lightColor = colors?.[type]?.light
-    const darkColor = colors?.[type]?.dark
+    const lightColor = getColorObj(type)?.light
+    const darkColor = getColorObj(type)?.dark
 
     return (
         <svg className={props.className} width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg">

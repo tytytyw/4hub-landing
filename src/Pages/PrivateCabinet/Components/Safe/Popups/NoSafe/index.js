@@ -1,10 +1,10 @@
 import React from 'react'
-import PopUp from '../../../../../generalComponents/PopUp'
+import PopUp from '../../../../../../generalComponents/PopUp'
 
-import styles from './ErrorPass.module.sass'
-import Button from '../../MyProfile/Button'
+import styles from './NoSafe.module.sass'
+import Button from '../../../MyProfile/Button'
 
-const ErrorPass = ({set}) => {
+const NoSafe = ({set}) => {
 
     return (
         <PopUp set={set}>
@@ -27,22 +27,21 @@ const ErrorPass = ({set}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Ошибка неверный пароль</h4>
+                        <h4 className={styles.title}>У Вас еще нет ни одного сейфа</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
                         <img
                             className={styles.image}
-                            src="./assets/PrivateCabinet/alerts/warning-pc.png"
+                            src="./assets/PrivateCabinet/alerts/nosafe-pc.png"
                             alt="Warning PC"
                         />
                     </div>
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Неверный пароль повторите попытку или если Вы забыли
-                            пароль в можите его востановить через вкладку «забыл пароль»
-                            или войдите с помощью Вашего мобильного телефона
+                            Функция сейф поможет Вам хранить важные данные а так
+                            же свои пароли в надежном месте
                         </p>
                     </div>
 
@@ -52,13 +51,13 @@ const ErrorPass = ({set}) => {
                             className={styles.cancelBtn}
                             onClick={() => set(false)}
                         >
-                            Закрыть
+                            Отмена
                         </Button>
                         <Button
                             type='submit'
                             className={styles.submitBtn}
                         >
-                            Войти
+                            Создать
                         </Button>
                     </div>
 
@@ -70,4 +69,4 @@ const ErrorPass = ({set}) => {
 
 }
 
-export default ErrorPass
+export default NoSafe

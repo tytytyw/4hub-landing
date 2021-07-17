@@ -1,10 +1,10 @@
 import React from 'react'
-import PopUp from '../../../../../generalComponents/PopUp'
+import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './CodePopup.module.sass'
-import Input from '../../MyProfile/Input'
-import Button from '../../MyProfile/Button'
-import SafeIcon from "../SafeIcon";
+import Input from '../../../MyProfile/Input'
+import Button from '../../../MyProfile/Button'
+import SafeIcon from "../../SafeIcon";
 
 const CodePopup = ({safe, set}) => {
 
