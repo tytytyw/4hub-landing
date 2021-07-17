@@ -80,8 +80,9 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                 linkRef.current.focus();
                 linkRef.current.select();
                 document.execCommand('copy');
+                linkRef.current.value = '';
             }
-            setShowSuccessMessage(true);
+            setShowSuccessMessage('Ссылка скопирована');
         }
     }
 
