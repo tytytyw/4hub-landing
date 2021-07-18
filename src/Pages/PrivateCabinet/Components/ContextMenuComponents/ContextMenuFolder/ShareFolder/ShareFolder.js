@@ -64,7 +64,6 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
             } else {
                 setError('Что-то пошло не так. Повторите попытку позже')
             }
-            console.log(res);
         } catch (err) {
             setError(`${err}`)
         }
@@ -88,6 +87,10 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
 
     const copyRead = () => copyLink('$GUEST$', true);
     const copyWrite = () => copyLink('$GUEST$', false);
+    const onShareToUser = async () => {
+        const res = await onShareFile();
+        if(res) close();
+    }
 
     return (
         <PopUp set={close}>
@@ -181,7 +184,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                     </div>
                 </div>
                 <div className={styles.buttonsWrap}>
-                        <div className={styles.add} onClick={() => {data.email ? onShareFile() : setEmptyField(true)}}>Отправить</div>
+                        <div className={styles.add} onClick={() => {data.email ? onShareToUser() : setEmptyField(true)}}>Отправить</div>
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
