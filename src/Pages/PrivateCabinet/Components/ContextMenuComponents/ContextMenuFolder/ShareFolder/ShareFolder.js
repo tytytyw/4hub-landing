@@ -51,7 +51,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
     },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const onShareFile = async (forAll, isRead) => { // "$GUEST$" to give access to every user that has a link
+    const onShareFolder = async (forAll, isRead) => { // "$GUEST$" to give access to every user that has a link
         const email = forAll ?? data.email;
         const is_read = isRead ?? data['is_read'];
         const url = `/ajax/dir_access_add.php?uid=${data.uid}&dir=${data.dir}&email=${email}&is_read=${is_read}&prim=${data.prim}&deadline=${data.deadline}`;
@@ -70,7 +70,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     }
 
     const copyLink = async (forAll, isRead) => {
-        const link = await onShareFile(forAll, isRead);
+        const link = await onShareFolder(forAll, isRead);
         if(link) {
             if(navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(link);
@@ -88,7 +88,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     const copyRead = () => copyLink('$GUEST$', true);
     const copyWrite = () => copyLink('$GUEST$', false);
     const onShareToUser = async () => {
-        const res = await onShareFile();
+        const res = await onShareFolder();
         if(res) close();
     }
 
@@ -201,7 +201,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                 setDisplayMessengers={setDisplayMessengers}
                 close={close}
                 // TODO - Use created url
-                fid={folder?.info?.fid}
+                onShareFolder={onShareFolder}
             />}
             {displaySetPassword && <SetPassword
                 folder={folder}

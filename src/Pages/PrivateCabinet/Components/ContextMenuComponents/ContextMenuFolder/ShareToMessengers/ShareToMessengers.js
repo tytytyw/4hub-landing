@@ -6,26 +6,33 @@ import Button from '../../../MyProfile/Button'
 import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 
-const ShareToMessengers = ({setDisplayMessengers, close}) => {
+const ShareToMessengers = ({setDisplayMessengers, close, onShareFolder}) => {
 
-    const [selectedSoc, setSelectedSoc] = useState(null)
-    const [hrefSoc, setHrefSoc] = useState(null)
-    const file_link = `http://fs2.mh.net.ua/ajax/download.php`;
-    useEffect(()=> {
-        switch(selectedSoc) {
-            case 'telegram':
-                setHrefSoc(`https://t.me/share/url?url=${file_link}`)
-                break;
-            case 'whatsapp':
-                setHrefSoc(`https://api.whatsapp.com/send/?text=${file_link}`)
-                break;
-            case 'viber':
-                setHrefSoc(`viber://forward?text=${file_link}`)
-                break;
-            default:
-                setHrefSoc('')
-            //TODO: skype, slack
+    const [selectedSoc, setSelectedSoc] = useState('viber');
+    const [hrefSoc, setHrefSoc] = useState(null);
+    const [isButton, setIsButton] = useState(false);
+
+    useEffect(() => {
+        async function chooseMessenger() {
+            setIsButton(false);
+            const file_link = await onShareFolder('$GUEST$', false);
+            switch(selectedSoc) {
+                case 'telegram':
+                    setHrefSoc(`https://t.me/share/url?url=${file_link}`)
+                    break;
+                case 'whatsapp':
+                    setHrefSoc(`https://api.whatsapp.com/send/?text=${file_link}`)
+                    break;
+                case 'viber':
+                    setHrefSoc(`viber://forward?text=${file_link}`)
+                    break;
+                default:
+                    setHrefSoc('')
+                //TODO: skype, slack
+            }
         }
+        chooseMessenger()
+            .then(() => setIsButton(true));
     },[selectedSoc]) // eslint-disable-line react-hooks/exhaustive-deps
     
 
@@ -77,11 +84,16 @@ const ShareToMessengers = ({setDisplayMessengers, close}) => {
                 </div>
 
                 <div className={styles.actionBlock}>
-                    <a target='_blanck' href={hrefSoc}>
-                        <Button onClick={() => close()} className={styles.actionBtn}>
-                            Отправить
-                        </Button>
+                    {isButton
+                        ? <a target='_blanc' href={hrefSoc}>
+                        <Button
+                            onClick={close}
+                            className={styles.actionBtn}
+                        >Отправить</Button>
                     </a>
+                        : <Button
+                            className={styles.inactiveButton}
+                        >Отправить</Button>}
                 </div>
 
             </div>
