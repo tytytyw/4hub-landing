@@ -36,7 +36,7 @@ const PrivateCabinet = () => {
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
-    const [loadingType, setLoadingType] = useState('');
+    const [loadingType, ] = useState('');
 
     const history = useHistory()
 
