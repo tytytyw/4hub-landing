@@ -30,7 +30,7 @@ import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareF
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-
+import OptionButtomLine from "../WorkElements/OptionButtomLine";
 
 const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomization, nullifyAddingSeveralFiles, setFileAddCustomization, saveCustomizeSeveralFiles}) => {
 
@@ -71,13 +71,13 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
 	]
     const additionalMenuItems = [
-        {
-            type: 'delete',
-            name: 'Удаление файла',
-            text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
-            callback: (list, index) => setAction(list[index])
-        },
-    ]
+		{
+			type: "delete",
+			name: "Удаление файла",
+			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
+			callback: (list, index) => setAction(list[index])
+		},
+	]
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -394,7 +394,17 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 			)}
 
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
-
+            {filePick.show ? (
+					<OptionButtomLine
+						callbackArrMain={callbackArrMain}
+						filePick={filePick}
+						setFilePick={setFilePick}
+						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+						setAction={setAction}
+						action={action}
+						nullifyFilePick={nullifyFilePick}
+					/>
+				) : null}
         </div>
     )
 }
