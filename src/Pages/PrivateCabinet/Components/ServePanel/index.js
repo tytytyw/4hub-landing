@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
@@ -12,9 +12,14 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
+import {contextMenuFilters} from '../../../../generalComponents/collections';
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
 const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick }) => {
 
+    const [mouseParams, setMouseParams] = useState(null);
+    const filterRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
     const dispatch = useDispatch();
 
@@ -22,6 +27,21 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
         const sizes = ['small', 'medium', 'big'];
         if(s === sizes[sizes.length - 1]) return sizes[0]
         return sizes[sizes.indexOf(s) + 1];
+    }
+
+    const setFilter = () => {};
+
+    const renderMenuFilters = (target, callback) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                imageSrc={``}
+                callback={callback ? callback() : ''}
+            />
+        })
     }
 
     return (
@@ -44,7 +64,11 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                             ${size === 'big' ? styles.bigSize : null} 
                         `}
                     ><FileSize className={styles.iconSVG} /></div>
-                    <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
+                    <div
+                        ref={filterRef}
+                        className={styles.iconView}
+                        onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 180, height: 30})}}
+                    ><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span
                         className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
@@ -73,6 +97,9 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={filterRef}>
+                <div>{renderMenuFilters(contextMenuFilters.main, setFilter)}</div>
+            </ContextMenu> : null}
         </div>
     )
 }
