@@ -24,6 +24,7 @@ import {
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
     SEARCH,
+    CHOOSE_SHARED_FILES
 } from '../types';
 
 const folders = [
@@ -595,4 +596,15 @@ export const onSearch = (value) => {
     }
 }
 
-
+// SHARED FILES
+export const onGetSharedFiles  = () => async (dispatch, getState) => {
+    try {
+        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
+        dispatch({
+            type: CHOOSE_SHARED_FILES,
+            payload: res.data.data
+        })
+    } catch (e) {
+        console.log(e);
+    }
+}

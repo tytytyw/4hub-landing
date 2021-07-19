@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './SharedFiles.module.sass'
 import SearchField from '../SearchField'
@@ -6,27 +6,33 @@ import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
-import WorkBars from "../WorkElements/WorkBars"
-import WorkBarsPreview from "../WorkElements/WorkBarsPreview"
-import FileBar from "../WorkElements/FileBar"
+import WorkBars from '../WorkElements/WorkBars'
+import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
+import FileBar from '../WorkElements/FileBar'
 import FileLine from './WorkElements/FileLine'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import ActionApproval from "../../../../generalComponents/ActionApproval"
-import File from "../../../../generalComponents/Files"
+import ActionApproval from '../../../../generalComponents/ActionApproval'
+import File from '../../../../generalComponents/Files'
 import PreviewFile from '../PreviewFile'
-import classNames from "classnames"
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg"
-import BottomPanel from "../ButtomPanel"
+import classNames from 'classnames'
+import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
+import BottomPanel from '../ButtomPanel'
+import {onGetSharedFiles} from '../../../../Store/actions/PrivateCabinetActions';
 
 const SharedFiles = ({filePreview, setFilePreview}) => {
 
     const [workElementsView, setWorkElementsView] = useState('lines')
     const [search, setSearch] = useState(null)
-    const fileList = useSelector((state) => state.PrivateCabinet.fileList)
+    const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(onGetSharedFiles());
+    },[]); // eslint-disable-line
 
     const [year, setYear] = useState(null)
     const [collapse, setCollapse] = useState(false)
@@ -76,24 +82,8 @@ const SharedFiles = ({filePreview, setFilePreview}) => {
         })
     }
 
-    // const renderFile = (Type) => {
-    //     const file = fileList?.files?.[fileList.files.length - 1]
-    //     if (!file) return null
-    //     return (
-    //         <Type
-    //             file={file}
-    //             setChosenFile={setChosenFile}
-    //             chosenFile={chosenFile}
-    //             setMouseParams={setMouseParams}
-    //             setAction={setAction}
-    //             filePreview={filePreview}
-    //             setFilePreview={setFilePreview}
-    //         />
-    //     )
-    // }
-
     const renderFiles = (Type) => {
-        if (!fileList) return null
+        if (!fileList || fileList.length === 0) return null
         return fileList.files?.map((file, index) => (
             <Type
                 key={index}
@@ -148,12 +138,12 @@ const SharedFiles = ({filePreview, setFilePreview}) => {
                     <div className={styles.fileWrap}>
 
                         <div
-                            onClick={() => setCollapse(!collapse)}
+                            onClick={() => {setCollapse(!collapse)}}
                             className={styles.collapseHeader}
                         >
                             <p className={styles.dateName}>Август</p>
                             <button className={styles.collapseBtn}>
-                                2 объектов
+                                {fileList?.files.length ?? 0} объектов
                             </button>
                             <div
                                 className={classNames({

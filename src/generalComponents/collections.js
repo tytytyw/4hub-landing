@@ -48,6 +48,17 @@ export const contextMenuProfile = {
     ]
 };
 
+export const contextMenuFilters = {
+    main: [
+        {name: 'По имени', img: ''},
+        {name: 'По дате добавления файла', img: ''},
+        {name: 'По типу файла', img: ''},
+        {name: 'По размеру', img: ''},
+        {name: 'По тэгам', img: ''},
+    ],
+    additional: []
+};
+
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user'},

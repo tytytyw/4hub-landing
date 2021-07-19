@@ -138,6 +138,8 @@ const MyFolders = ({
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onGetFolders());
                 dispatch(onChooseFiles('global/all'));
+                //TODO - Need to fix bag to disappear subfolder after deletion - React Component doesn't see changes
+                setChosenFolder({...chosenFolder, open: false});
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
             }})
