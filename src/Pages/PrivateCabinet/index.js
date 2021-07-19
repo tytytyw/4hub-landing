@@ -197,6 +197,11 @@ const PrivateCabinet = () => {
                         render={() => <SharedFiles
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            setFileAddCustomization={setFileAddCustomization}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                         />}
                     />
 
