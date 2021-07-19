@@ -13,7 +13,6 @@ import {useSelector} from 'react-redux'
 const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview}) => {
 
     const size = useSelector(state => state.PrivateCabinet.size)
-
     return (
         <div
             onClick={() => setChosenFile(file)}
@@ -91,8 +90,7 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                 </div>}
 
                 <div className={styles.linkWrap}>
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a className={styles.link}>https://google.com</a>
+                    <a className={styles.link} href={`https://fs2.mh.net.ua`}>https://fs2.mh.net.ua</a>
                 </div>
 
             </div>
@@ -129,7 +127,7 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                 <div
                     className={styles.menuWrap}
                     onClick={e => {
-                        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+                        setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 30})
                     }}
                 >
                     <span className={styles.menu}/>
