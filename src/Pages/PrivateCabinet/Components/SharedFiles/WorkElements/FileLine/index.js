@@ -10,9 +10,32 @@ import {ReactComponent as ShareIcon} from '../../../../../../assets/PrivateCabin
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
 
-const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview}) => {
+const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview, callbackArrMain}) => {
 
     const size = useSelector(state => state.PrivateCabinet.size)
+    const downloadFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})
+        }, 0)
+    }
+
+    const printFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'print') item.callback(file)})
+        }, 0)
+    }
+
+    const onPropertiesFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach((item, index) => {if(item.type === 'customize') item.callback(callbackArrMain, index)})
+        }, 0)
+    }
+
+    const onShareFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'share') setAction(item)})
+        }, 0)
+    }
     return (
         <div
             onClick={() => setChosenFile(file)}
@@ -98,15 +121,21 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
             <div className={styles.optionsWrap}>
 
                 <div className={styles.iconView}>
-                    <DownLoadIcon/>
+                    <DownLoadIcon
+                        onClick={downloadFile}
+                    />
                 </div>
 
                 <div className={styles.iconView}>
-                    <PrintIcon/>
+                    <PrintIcon 
+                        onClick={printFile}
+                    />
                 </div>
 
                 <div className={classNames(styles.iconView, styles.iconSettings)}>
-                    <SettingsIcon/>
+                    <SettingsIcon
+                        onClick={onPropertiesFile}
+                    />
                 </div>
 
                 <div
@@ -121,7 +150,9 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                 </div>
 
                 <div className={classNames(styles.iconView, styles.iconShare)}>
-                    <ShareIcon/>
+                    <ShareIcon
+                        onClick={onShareFile}
+                    />
                 </div>
 
                 <div

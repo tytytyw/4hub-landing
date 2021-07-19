@@ -113,6 +113,7 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
                         ? filePick.files.findIndex((el) => el === file.fid) >= 0
                         : chosenFile?.fid === file?.fid
                 }
+                callbackArrMain={callbackArrMain}
             />
         ))
     }
@@ -312,7 +313,6 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {action.type === 'customize' || filePick.customize || fileAddCustomization.several ? <CustomizeFile
             title={filePick.customize ||  fileAddCustomization?.several ? `Редактировать выбранные файлы` : action.name }
-            // info={chosenFolder}
             file={chosenFile}
             // TODO - Check Cancellation for FilePick
             close={filePick.customize ? nullifyFilePick : fileAddCustomization.several ? nullifyAddingSeveralFiles : nullifyAction}
@@ -327,7 +327,6 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 					close={nullifyAction}
 					file={chosenFile}
 					title={action.name}
-					// info={chosenFolder}
 					filePick={filePick}
                 	nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
