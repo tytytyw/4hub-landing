@@ -35,7 +35,7 @@ import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 
 const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomization, nullifyAddingSeveralFiles, setFileAddCustomization, saveCustomizeSeveralFiles}) => {
 
-    const [workElementsView, setWorkElementsView] = useState('lines')
+    const [workElementsView, setWorkElementsView] = useState('bars')
     const [search, setSearch] = useState(null)
     const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles)
     const dispatch = useDispatch();
@@ -270,7 +270,7 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
                             <p>10.08.2020</p>
                         </div>}
 
-                        <div className={styles.collapseContent}>
+                        <div>
                             {workElementsView === "bars" && collapse ?
                                 <WorkBars filePick={filePick}>
                                     {renderFiles(FileBar)}
@@ -278,7 +278,9 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
                             : null}
                             
                             {workElementsView === "lines" && collapse ?
-                                    renderFiles(FileLine)
+                                    <div className={styles.collapseContent}>
+                                        {renderFiles(FileLine)}
+                                    </div>
                             : null}
 
                             {workElementsView === "preview" && collapse ? (
@@ -293,6 +295,17 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
                     </div>
                 </div>
             </div>
+            {filePick.show ? (
+					<OptionButtomLine
+						callbackArrMain={callbackArrMain}
+						filePick={filePick}
+						setFilePick={setFilePick}
+						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+						setAction={setAction}
+						action={action}
+						nullifyFilePick={nullifyFilePick}
+					/>
+				) : null}
 
             {mouseParams !== null && (
                 <ContextMenu
@@ -407,17 +420,7 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 			)}
 
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
-            {filePick.show ? (
-					<OptionButtomLine
-						callbackArrMain={callbackArrMain}
-						filePick={filePick}
-						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
-						setAction={setAction}
-						action={action}
-						nullifyFilePick={nullifyFilePick}
-					/>
-				) : null}
+            
         </div>
     )
 }
