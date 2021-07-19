@@ -21,7 +21,7 @@ import PreviewFile from '../PreviewFile'
 import classNames from 'classnames'
 import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
 import BottomPanel from '../ButtomPanel'
-import {onGetSharedFiles, onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import {onGetSharedFiles, onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';// eslint-disable-line
 import {previewFormats} from '../../../../generalComponents/collections';
 import api from '../../../../api';
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
@@ -31,7 +31,7 @@ import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty"
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
-import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
+import { fileDelete } from "../../../../generalComponents/fileMenuHelper";// eslint-disable-line
 
 const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomization, nullifyAddingSeveralFiles, setFileAddCustomization, saveCustomizeSeveralFiles}) => {
 
@@ -190,18 +190,19 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
             })
     }
 
-    const deleteFile = () => {
-        if(filePick.show) {
-            const gdir = fileList.path;
-            filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
-            setFilePick({...filePick, files: [], show: false});
-        } else{
-            fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
-        }
-        nullifyAction();
-        setChosenFile(null);
-        dispatch(onAddRecentFiles());
-    }
+    //TODO: api delete shared files
+    // const deleteFile = () => {
+    //     if(filePick.show) {
+    //         const gdir = fileList.path;
+    //         filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
+    //         setFilePick({...filePick, files: [], show: false});
+    //     } else{
+    //         fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
+    //     }
+    //     nullifyAction();
+    //     setChosenFile(null);
+    //     dispatch(onAddRecentFiles());
+    // }
 
     return (
         <div className={styles.parentWrapper}>
