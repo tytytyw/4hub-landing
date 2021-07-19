@@ -29,6 +29,7 @@ import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
 import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 
 const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomization, nullifyAddingSeveralFiles, setFileAddCustomization, saveCustomizeSeveralFiles}) => {
@@ -391,6 +392,9 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 			{showLinkCopy && (
 				<CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
 			)}
+
+            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+
         </div>
     )
 }
