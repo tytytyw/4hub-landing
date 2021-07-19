@@ -35,7 +35,6 @@ const SharedFiles = ({filePreview, setFilePreview}) => {
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({ type: "", name: "", text: "" })
     const [mouseParams, setMouseParams] = useState(null)
-    // const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
