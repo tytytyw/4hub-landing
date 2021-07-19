@@ -19,6 +19,7 @@ export const CHOOSE_RECENT_FILES = 'CHOOSE_RECENT_FILES';
 export const CUSTOMIZE_FILE = 'CUSTOMIZE_FILE';
 export const SET_SIZE = 'SET_SIZE';
 export const SEARCH = 'SEARCH';
+export const CHOOSE_SHARED_FILES = 'CHOOSE_SHARED_FILES';
 
 export const CONTACT_LIST = 'CONTACT_LIST';
 
