@@ -4,7 +4,7 @@ import {ReactComponent as CheckedIcon} from '../../../../../../../assets/Private
 import classNames from 'classnames'
 import {hasNumOrChar, hasUpperLowerCase} from "./helper";
 
-const PassInfo = ({setVisible, value, inputRef}) => {
+const PassInfo = ({setVisible, value, inputRef, setEnable}) => {
 
     const ref = useRef()
 
@@ -19,6 +19,9 @@ const PassInfo = ({setVisible, value, inputRef}) => {
     const checkEnable = useCallback(() => {
         return value?.length >= 8 && hasUpperLowerCase(value) && hasNumOrChar(value)
     }, [value])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => setEnable(checkEnable()), [checkEnable])
 
     useEffect(() => {
         const onClick = (event) => {

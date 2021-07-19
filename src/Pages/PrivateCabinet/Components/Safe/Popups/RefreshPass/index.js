@@ -4,6 +4,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './RefreshPass.module.sass'
 import Button from '../../../MyProfile/Button'
 import PassInfo from './PassInfo'
+import SuccessPass from "../SuccessPass";
 
 const RefreshPass = ({safe, set}) => {
 
@@ -11,11 +12,19 @@ const RefreshPass = ({safe, set}) => {
     const [passwordRepeat, setPasswordRepeat] = useState('')
     const [showPass, setShowPass] = useState(false)
 
+    const [success, setSuccess] = useState(false)
+    const [enable, setEnable] = useState(false)
     const [showInfo, setShowInfo] = useState(false)
 
     const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
 
     const inputRef = useRef()
+
+    const onSubmit = () => {
+        if (enable) {
+            setSuccess(true)
+        }
+    }
 
     return (
         <PopUp set={set}>
@@ -63,6 +72,7 @@ const RefreshPass = ({safe, set}) => {
 
                             {showInfo &&
                             <PassInfo
+                                setEnable={setEnable}
                                 value={password}
                                 inputRef={inputRef}
                                 visible={showInfo}
@@ -108,6 +118,7 @@ const RefreshPass = ({safe, set}) => {
                         <Button
                             type='submit'
                             className={styles.actionBtn}
+                            onClick={onSubmit}
                         >
                             Готово
                         </Button>
@@ -115,6 +126,8 @@ const RefreshPass = ({safe, set}) => {
 
                 </div>
             </div>
+
+            {success && <SuccessPass complete={() => set(false)} set={setSuccess}/>}
 
         </PopUp>
     )

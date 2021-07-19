@@ -34,7 +34,7 @@ const CalendarPage = () => {
     const [listCollapsed, setListCollapsed] = useState(false)
 
     useEffect(() => setViewType('list'), [day])
-    useEffect(() => setViewType('table'), [month])
+    useEffect(() => setViewType('full'), [month])
 
     const taskList = [
         {

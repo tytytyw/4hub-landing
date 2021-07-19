@@ -4,7 +4,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './RecoverPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
-const RecoverPass = ({set}) => {
+const RecoverPass = ({set, setRefreshPass}) => {
 
     const [email, setEmail] = useState('')
 
@@ -62,6 +62,10 @@ const RecoverPass = ({set}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
+                            onClick={() => {
+                                set(false)
+                                setRefreshPass(true)
+                            }}
                         >
                             Отправить
                         </Button>

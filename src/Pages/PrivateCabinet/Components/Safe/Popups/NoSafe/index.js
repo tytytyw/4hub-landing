@@ -40,8 +40,7 @@ const NoSafe = ({set, setCreateSafe}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Функция сейф поможет Вам хранить важные данные а так
-                            же свои пароли в надежном месте
+                            Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте
                         </p>
                     </div>
 

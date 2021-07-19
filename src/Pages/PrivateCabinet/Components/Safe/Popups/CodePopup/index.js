@@ -8,7 +8,7 @@ import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
 
-const CodePopup = ({safe, set, setError}) => {
+const CodePopup = ({safe, set, setRefreshPass}) => {
 
     const [password, setPassword] = useState('')
     const [errPass, setErrPass] = useState(false)
@@ -29,9 +29,7 @@ const CodePopup = ({safe, set, setError}) => {
             if (password !== safe?.password) {
                 setErrPass(true)
             } else {
-
                 console.log('complete')
-
             }
         }
 
@@ -62,7 +60,7 @@ const CodePopup = ({safe, set, setError}) => {
                             type={safe?.color}
                             className={styles.titleImg}
                         />
-                        <h4 className={styles.title}>{safe?.name || 'Сейф не найден'}</h4>
+                        <h4 className={styles.title}>{safe?.name}</h4>
                     </div>
 
                     <div className={styles.inputWrap}>
@@ -107,7 +105,7 @@ const CodePopup = ({safe, set, setError}) => {
                 </div>
             </div>
 
-            {recoverPass && <RecoverPass safe={safe} set={setRecoverPass} />}
+            {recoverPass && <RecoverPass setRefreshPass={setRefreshPass} safe={safe} set={setRecoverPass} />}
             {errPass && <ErrorPass set={setErrPass}/>}
 
         </PopUp>
