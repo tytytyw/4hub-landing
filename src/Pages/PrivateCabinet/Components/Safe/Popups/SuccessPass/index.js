@@ -4,7 +4,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './SuccessPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
-const SuccessPass = ({set}) => {
+const SuccessPass = ({set, complete}) => {
 
     return (
         <PopUp set={set}>
@@ -49,7 +49,10 @@ const SuccessPass = ({set}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
-                            onClick={() => set(false)}
+                            onClick={() => {
+                                complete()
+                                set(false)
+                            }}
                         >
                             Продолжить
                         </Button>

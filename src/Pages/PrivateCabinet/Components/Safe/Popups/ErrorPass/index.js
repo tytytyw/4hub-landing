@@ -27,7 +27,7 @@ const ErrorPass = ({set}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Ошибка неверный пароль</h4>
+                        <h4 className={styles.title}>Неверный пароль</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
@@ -40,9 +40,7 @@ const ErrorPass = ({set}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Неверный пароль повторите попытку или если Вы забыли
-                            пароль в можите его востановить через вкладку «забыл пароль»
-                            или войдите с помощью Вашего мобильного телефона
+                            Неверный пароль. Повторите попытку, восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона.
                         </p>
                     </div>
 

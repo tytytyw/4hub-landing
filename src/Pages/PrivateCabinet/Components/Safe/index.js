@@ -12,7 +12,6 @@ import classNames from 'classnames'
 import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 import CodePopup from './Popups/CodePopup'
 import NoSafe from './Popups/NoSafe'
-import SuccessPass from './Popups/SuccessPass'
 import CreateSafe from './Popups/CreateSafe'
 import RefreshPass from './Popups/RefreshPass'
 
@@ -35,7 +34,6 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
     const [codePopup, setCodePopup] = useState(false)
     const [refreshPass, setRefreshPass] = useState(false)
-    const [successPass, setSuccessPass] = useState(false)
     const [noSafePopup, setNoSafePopup] = useState(false)
 
     const [action, setAction] = useState({type: '', name: '', text: ''})
@@ -122,7 +120,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                         </div> :
                         <div className={classNames({
                             [styles.folderListWrap]: true,
-                            [styles?.[`folderListWrap_${size}`]]: size !== 'medium'
+                            [styles?.[`folderListWrap_${size}`]]: !!size
                         })}>
                             {renderSafesList()}
                         </div>}
@@ -162,12 +160,29 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                     <div style={{marginTop: '30px'}} className={styles.mainMenuItems}>{renderMenuItems(contextMenuSafeItem.additional)}</div>
                 </ContextMenu>}
 
-            {noSafePopup && <NoSafe setCreateSafe={setCreateSafe} set={setNoSafePopup}/>}
-            {codePopup   && <CodePopup safe={selectedSafe} set={setCodePopup}/>}
-            {refreshPass && <RefreshPass safe={selectedSafe} set={setRefreshPass}/>}
-            {successPass && <SuccessPass set={setSuccessPass}/>}
+            {noSafePopup &&
+            <NoSafe
+                setCreateSafe={setCreateSafe}
+                set={setNoSafePopup}
+            />}
 
-            {createSafe  && <CreateSafe onCreate={setCreateSafe}/>}
+            {codePopup &&
+            <CodePopup
+                setRefreshPass={setRefreshPass}
+                safe={selectedSafe}
+                set={setCodePopup}
+            />}
+
+            {refreshPass &&
+            <RefreshPass
+                safe={selectedSafe}
+                set={setRefreshPass}
+            />}
+
+            {createSafe &&
+            <CreateSafe
+                onCreate={setCreateSafe}
+            />}
 
         </div>
     )
