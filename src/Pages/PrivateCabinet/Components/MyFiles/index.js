@@ -13,6 +13,7 @@ import {onDeleteFile, onAddRecentFiles, onChooseFiles, onChooseAllFiles} from ".
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import Loader from '../../../../generalComponents/Loaders/4HUB'
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
@@ -23,6 +24,7 @@ const MyFiles = ({
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const [workElementsView, setWorkElementsView] = useState("bars");
+	const [showLoader, setShowLoader] = useState(false)
 	const [listCollapsed, setListCollapsed] = useState(false);
 	const [chosenFolder] = useState({
 		path: "global/all",
@@ -59,6 +61,7 @@ const MyFiles = ({
 	]
 
 	const checkMimeTypes = (file) => {
+		setShowLoader(true)
 		const mType = file?.mime_type ?? chosenFile?.mime_type;
 		const fid = file?.fid ?? chosenFile?.fid;
 		const preview = file?.preview ?? chosenFile?.preview;
@@ -73,8 +76,10 @@ const MyFiles = ({
 			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
 			if(chosenType.length > 0) {
 				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
-					.then(res => printFile(res.data.file_pdf))
-					.catch(err => console.log(err));
+					.then(res => {
+						printFile(res.data.file_pdf)
+					})
+					.catch(err => console.log(err))
 			}
 		}
 	}
@@ -86,6 +91,7 @@ const MyFiles = ({
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
 		}, 1000);
+		setShowLoader(false)
 	}
 
 	const [safePassword, setSafePassword] = useState({open: false})
@@ -207,7 +213,7 @@ const MyFiles = ({
 			dispatch(onChooseFiles('global/all'));
 			setMenuItem('')
 	}}, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
-	
+
 	// Change state to default after changing menu params
 	// useEffect(() => {
 	// 	if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
@@ -287,6 +293,7 @@ const MyFiles = ({
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
 			{showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+			{showLoader && <Loader />}
 		</div>
 		
 	);

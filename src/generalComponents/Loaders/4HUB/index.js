@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './FourHUB.module.sass';
 
-const Loader = ({type = 'scale'}) => {
+const Loader = ({type = 'squarify'}) => {
     return (
         <div className={styles.loaderWrap}>
             <div className={styles.container}>
