@@ -61,12 +61,12 @@ const MyFiles = ({
 	]
 
 	const checkMimeTypes = (file) => {
-		setShowLoader(true)
 		const mType = file?.mime_type ?? chosenFile?.mime_type;
 		const fid = file?.fid ?? chosenFile?.fid;
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
 		if(mType === 'application/pdf') {
+			setShowLoader(true)
 			if(mType === 'application/pdf') {
 				printFile(`${preview}`);
 			} else if(mType.includes('image')) {
@@ -75,6 +75,7 @@ const MyFiles = ({
 		} else {
 			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
 			if(chosenType.length > 0) {
+				setShowLoader(true)
 				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
 					.then(res => {
 						printFile(res.data.file_pdf)

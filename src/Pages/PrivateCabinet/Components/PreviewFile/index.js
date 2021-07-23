@@ -6,6 +6,7 @@ import {previewTypes, previewFormats} from '../../../../generalComponents/collec
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
+import Loader from '../../../../generalComponents/Loaders/4HUB'
 
 const PreviewFile = ({setFilePreview, file, filePreview}) => {
 
@@ -15,13 +16,17 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
     const set = () => setFilePreview({...filePreview, view: false, file: null});
     const [previewReq, setPreviewReq] = useState({sent: false, data: null});
 
+    const [showLoader, setShowLoader] = useState(false)
+
     const getPreview = () => {
         if(!previewReq.sent) {
+            setShowLoader(true)
             setPreviewReq({...previewReq, sent: true});
             setTimeout(() => {
                 api.post(`/ajax/file_preview.php?uid=${uid}&fid=${file.fid}`)
                     .then(res => setPreviewReq({sent: true, data: res.data}))
-                    .catch(err => console.log(err));
+                    .catch(err => console.log(err))
+                    .finally(() => setShowLoader(false))
             }, 0);
         }
     }
@@ -75,6 +80,7 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
                     ? <iframe src={`https://fs2.mh.net.ua${previewReq.data.file_pdf}`} title={previewReq.data.file_name} frameBorder="0" scrolling="no" />
                     : null}
             </div>
+            {showLoader && <Loader />}
         </PopUp>
     );
 }
