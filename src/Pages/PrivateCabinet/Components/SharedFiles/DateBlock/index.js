@@ -20,6 +20,15 @@ const DateBlock = ({month, setMonth}) => {
                     />
                 </div>
 
+                <div className={styles.daySelect}>
+                    <Select
+                        placeholder='Выбрать день'
+                        className={styles.select}
+                        classNameSelect={styles.selectContent}
+                        data={getDays()}
+                    />
+                </div>
+
             </div>
 
             <div className={styles.buttonsWrap}>
@@ -36,15 +45,6 @@ const DateBlock = ({month, setMonth}) => {
                         {item.text}
                     </button>
                 ))}
-
-                <div className={styles.daySelect}>
-                    <Select
-                        placeholder='Выбрать день'
-                        className={styles.select}
-                        classNameSelect={styles.selectContent}
-                        data={getDays()}
-                    />
-                </div>
 
             </div>
 
