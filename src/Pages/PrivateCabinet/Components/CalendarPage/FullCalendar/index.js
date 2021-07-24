@@ -82,7 +82,6 @@ const FullCalendarTable = () => {
                 }}
                 firstDay={1}
                 locale='ru'
-                //renderEventContent={renderEventContent}
                 eventContent={renderEventContent}
             />
         </div>
