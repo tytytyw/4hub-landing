@@ -15,7 +15,7 @@ import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 
 const CustomizeFile = ({
-           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles,
+           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles, setLoadingType
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -81,6 +81,7 @@ const CustomizeFile = ({
 
     const onAddFile = () => {
         if(password !== passwordRepeat) return setPasswordCoincide(false);
+        setLoadingType('squarify')
 
         const data = {
             uid,
@@ -115,6 +116,7 @@ const CustomizeFile = ({
                 .catch(err => {setError(true)})
                 .finally(() => {
                     close();
+                    setLoadingType('')
                 });
         } else {
             api.post('/ajax/file_edit.php', data)
@@ -126,6 +128,7 @@ const CustomizeFile = ({
                 .catch(err => {setError(true)})
                 .finally(() => {
                     close();
+                    setLoadingType('')
                 });
         }
     };

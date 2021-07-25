@@ -466,6 +466,7 @@ const SharedFiles = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                    setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "intoZip" ? (
@@ -506,6 +507,7 @@ const SharedFiles = ({
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+                    setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "resend" ? (
@@ -516,6 +518,7 @@ const SharedFiles = ({
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+                    setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "archive" ? (
