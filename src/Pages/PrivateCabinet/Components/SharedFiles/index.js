@@ -201,6 +201,7 @@ const SharedFiles = ({
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
 		if (mType === "application/pdf") {
+            setLoadingType('squarify')
 			if (mType === "application/pdf") {
 				printFile(`${preview}`);
 			} else if (mType.includes("image")) {
@@ -211,6 +212,7 @@ const SharedFiles = ({
 				ext.toLowerCase().includes(format)
 			);
 			if (chosenType.length > 0) {
+                setLoadingType('squarify')
 				api
 					.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
 					.then((res) => printFile(res.data.file_pdf))
@@ -222,6 +224,7 @@ const SharedFiles = ({
 	const printFile = (path) => {
 		let pri = document.getElementById("frame");
 		pri.src = `https://fs2.mh.net.ua/${path}`;
+        setLoadingType('')
 		setTimeout(() => {
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
@@ -254,6 +257,7 @@ const SharedFiles = ({
 	};
 
 	const addToArchive = (uid, fid, file, options) => {
+        setLoadingType('squarify')
 		api
 			.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
 			.then((res) => {
@@ -268,6 +272,7 @@ const SharedFiles = ({
 			.finally(() => {
 				nullifyAction();
 				setChosenFile(null);
+                setLoadingType('')
 				if (filePick.show) nullifyFilePick();
 			});
 	};
@@ -477,6 +482,7 @@ const SharedFiles = ({
 					filePick={filePick}
 					nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
+                    setLoadingType={setLoadingType}
 				/>
 			) : null}
 			<form

@@ -137,6 +137,7 @@ const MyFiles = ({
     }
 	
 	const addToArchive = (uid, fid, file, options) => {
+		setLoadingType('squarify')
         api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
             .then(res => {
                 if (res.data.ok === 1) {
@@ -149,6 +150,7 @@ const MyFiles = ({
             .finally(() => {
                 nullifyAction();
                 setChosenFile(null);
+				setLoadingType('')
                 if(filePick.show) nullifyFilePick();
             })
     }

@@ -14,7 +14,7 @@ import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 import {onChooseFiles} from '../../../../../../Store/actions/PrivateCabinetActions';
 
-const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage }) => {
+const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -70,6 +70,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
             symbol: sign ? sign : '',
             fids: filePick.show ? filePick.files : [file.fid]
         }
+        setLoadingType('squarify')
 
             api.post('/ajax/file_zip.php', data)
                 .then(() => {
@@ -77,7 +78,8 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                     setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     onCancel();
                 })
-                .catch(() => setError(true));
+                .catch(() => setError(true))
+                .finally(() => setLoadingType())
     };
 
     const onChangeTag = (chosen) => {

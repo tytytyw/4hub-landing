@@ -153,6 +153,7 @@ const WorkSpace = ({
     }
 
     const addToArchive = (uid, fid, file, options) => {
+        setLoadingType('squarify')
         api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
             .then(res => {
                 if (res.data.ok === 1) {
@@ -165,6 +166,7 @@ const WorkSpace = ({
             .finally(() => {
                 nullifyAction();
                 setChosenFile(null);
+                setLoadingType('')
                 if(filePick.show) nullifyFilePick();
             })
     }
@@ -313,6 +315,7 @@ const WorkSpace = ({
                 filePick={filePick}
                 nullifyFilePick={nullifyFilePick}
                 setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
             />
             : null}
         {action.type === 'archive'

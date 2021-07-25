@@ -223,6 +223,7 @@ const WorkSpace = ({
 					filePick={filePick}
                 	nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			<form
