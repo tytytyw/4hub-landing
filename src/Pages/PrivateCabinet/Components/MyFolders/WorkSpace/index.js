@@ -36,7 +36,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage
+       setShowSuccessMessage, loadingType, setLoadingType
 }) => {
 
     const dispatch = useDispatch();
@@ -85,6 +85,7 @@ const WorkSpace = ({
         const preview = file?.preview ?? chosenFile?.preview;
         const ext = file?.ext ?? chosenFile?.ext;
         if(mType === 'application/pdf') {
+            setLoadingType('squarify')
             if(mType === 'application/pdf') {
                 printFile(`${preview}`);
             } else if(mType.includes('image')) {
@@ -93,6 +94,7 @@ const WorkSpace = ({
         } else {
             const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
             if(chosenType.length > 0) {
+                setLoadingType('squarify')
                 api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
                     .then(res => printFile(res.data.file_pdf))
                     .catch(err => console.log(err));
@@ -107,6 +109,7 @@ const WorkSpace = ({
                 pri.contentWindow.focus();
                 pri.contentWindow.print();
             }, 1000);
+            setLoadingType('')
     };
 
     const excessItems = () => {

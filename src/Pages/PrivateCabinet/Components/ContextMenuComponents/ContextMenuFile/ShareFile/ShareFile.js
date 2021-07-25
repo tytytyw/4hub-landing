@@ -14,7 +14,7 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
+function ShareFile({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -48,6 +48,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
     },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
+        setLoadingType('squarify')
         api.post(`/ajax/file_${action_type}.php`, data)
             .then(res => {
                 if(res.data.ok === true) {
@@ -61,6 +62,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage}) {
                 }
             })
             .catch(err => {setError(`${err}`)})
+            .finally(() => setLoadingType(''))
     }
 
     return (

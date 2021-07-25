@@ -29,7 +29,7 @@ import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMess
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
-               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles,
+               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -186,6 +186,7 @@ const MyFolders = ({
                 saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                 showSuccessMessage={showSuccessMessage}
                 setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -222,7 +223,7 @@ const MyFolders = ({
                     setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
-            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
                     ? contextMenuSubFolder.main

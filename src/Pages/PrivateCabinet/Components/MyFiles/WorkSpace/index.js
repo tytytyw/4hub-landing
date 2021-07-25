@@ -58,7 +58,8 @@ const WorkSpace = ({
 	fileAddCustomization,
 	setFileAddCustomization,
 	nullifyAddingSeveralFiles,
-	saveCustomizeSeveralFiles
+	saveCustomizeSeveralFiles,
+	setLoadingType
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -251,6 +252,7 @@ const WorkSpace = ({
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "resend" ? (
@@ -261,6 +263,7 @@ const WorkSpace = ({
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "archive" ? (

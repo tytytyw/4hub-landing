@@ -1,360 +1,480 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 
-import styles from './SharedFiles.module.sass'
-import SearchField from '../SearchField'
-import StorageSize from '../StorageSize'
-import Notifications from '../Notifications'
-import Profile from '../Profile'
-import ServePanel from '../ServePanel'
-import WorkBars from '../WorkElements/WorkBars'
-import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
-import FileBar from '../WorkElements/FileBar'
-import FileLine from './WorkElements/FileLine'
-import {useDispatch, useSelector} from 'react-redux'
-import DateBlock from './DateBlock'
-import ContextMenu from '../../../../generalComponents/ContextMenu'
-import {contextMenuFile} from '../../../../generalComponents/collections'
-import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import ActionApproval from '../../../../generalComponents/ActionApproval'
-import File from '../../../../generalComponents/Files'
-import PreviewFile from '../PreviewFile'
-import classNames from 'classnames'
-import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
-import BottomPanel from '../ButtomPanel'
-import {onGetSharedFiles, onDeleteFile, onAddRecentFiles} from '../../../../Store/actions/PrivateCabinetActions';
-import {previewFormats} from '../../../../generalComponents/collections';
-import api from '../../../../api';
+import styles from "./SharedFiles.module.sass";
+import SearchField from "../SearchField";
+import StorageSize from "../StorageSize";
+import Notifications from "../Notifications";
+import Profile from "../Profile";
+import ServePanel from "../ServePanel";
+import WorkBars from "../WorkElements/WorkBars";
+import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
+import FileBar from "../WorkElements/FileBar";
+import FileLine from "./WorkElements/FileLine";
+import { useDispatch, useSelector } from "react-redux";
+import DateBlock from "./DateBlock";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import { contextMenuFile } from "../../../../generalComponents/collections";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import ActionApproval from "../../../../generalComponents/ActionApproval";
+import File from "../../../../generalComponents/Files";
+import PreviewFile from "../PreviewFile";
+import classNames from "classnames";
+import { ReactComponent as PlayIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
+import BottomPanel from "../ButtomPanel";
+import {
+	onGetSharedFiles,
+	onDeleteFile,
+	onAddRecentFiles,
+} from "../../../../Store/actions/PrivateCabinetActions";
+import { previewFormats } from "../../../../generalComponents/collections";
+import api from "../../../../api";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
 import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
-import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 
-const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomization, nullifyAddingSeveralFiles, setFileAddCustomization, saveCustomizeSeveralFiles}) => {
+const SharedFiles = ({
+	filePreview,
+	setFilePreview,
+	fileSelect,
+	fileAddCustomization,
+	nullifyAddingSeveralFiles,
+	setFileAddCustomization,
+	saveCustomizeSeveralFiles,
+	setLoadingType,
+}) => {
+	const [workElementsView, setWorkElementsView] = useState("bars");
+	const [search, setSearch] = useState(null);
+	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
+	const dispatch = useDispatch();
 
-    const [workElementsView, setWorkElementsView] = useState('bars')
-    const [search, setSearch] = useState(null)
-    const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles)
-    const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(onGetSharedFiles());
+	}, []); // eslint-disable-line
 
-    useEffect(() => {
-        dispatch(onGetSharedFiles());
-    },[]); // eslint-disable-line
+	const [year, setYear] = useState(null);
+	const [collapse, setCollapse] = useState(false);
+	const [month, setMonth] = useState(null);
 
-    const [year, setYear] = useState(null)
-    const [collapse, setCollapse] = useState(false)
-    const [month, setMonth] = useState(null)
+	const [chosenFile, setChosenFile] = useState(null);
+	const [action, setAction] = useState({ type: "", name: "", text: "" });
+	const [mouseParams, setMouseParams] = useState(null);
 
-    const [chosenFile, setChosenFile] = useState(null)
-    const [action, setAction] = useState({ type: "", name: "", text: "" })
-    const [mouseParams, setMouseParams] = useState(null)
+	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+	const [filePick, setFilePick] = useState({ show: false, files: [] });
+	const [showLinkCopy, setShowLinkCopy] = useState(false);
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const uid = useSelector((state) => state.user.uid);
 
-    const [filePick, setFilePick] = useState({show: false, files: []});
-    const [showLinkCopy, setShowLinkCopy] = useState(false)
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const uid = useSelector(state => state.user.uid);
-
-    const callbackArrMain = [
-        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-		{type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => setFilePick({...filePick, show: true, intoZip: true})},
-		{type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
-	]
-    const additionalMenuItems = [
+	const callbackArrMain = [
+		{
+			type: "share",
+			name: "",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "copyLink",
+			name: "",
+			text: ``,
+			callback: () => setShowLinkCopy(true),
+		},
+		{
+			type: "customize",
+			name: "Редактирование файла",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "customizeSeveral",
+			name: `Редактирование файлов`,
+			text: ``,
+			callback: () => setFilePick({ ...filePick, show: true }),
+		},
+		{
+			type: "archive",
+			name: "Добавить файл в архив",
+			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "intoZip",
+			name: "Сжать в ZIP",
+			text: ``,
+			callback: (list, index) =>
+				setAction({
+					...action,
+					type: list[index].type,
+					name: list[index].name,
+				}),
+		},
+		{
+			type: "intoZipSeveral",
+			name: "Сжать в ZIP",
+			text: ``,
+			callback: () => setFilePick({ ...filePick, show: true, intoZip: true }),
+		},
+		{
+			type: "properties",
+			name: "Свойства",
+			text: ``,
+			callback: () =>
+				setAction({ ...action, type: "properties", name: "Свойства" }),
+		},
+		{
+			type: "download",
+			name: "Загрузка файла",
+			text: ``,
+			callback: () => document.downloadFile.submit(),
+		},
+		{
+			type: "print",
+			name: "Распечатать файл",
+			text: ``,
+			callback: () => checkMimeTypes(),
+		},
+	];
+	const additionalMenuItems = [
 		{
 			type: "delete",
 			name: "Удаление файла",
 			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index])
+			callback: (list, index) => setAction(list[index]),
 		},
-	]
+	];
 
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return (
-                <ContextMenuItem
-                    key={i}
-                    width={mouseParams.width}
-                    height={mouseParams.height}
-                    text={item.name}
-                    callback={() => type[i]?.callback(type, i)}
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-                />
-            )
-        })
-    }
+	const renderMenuItems = (target, type) => {
+		return target.map((item, i) => {
+			return (
+				<ContextMenuItem
+					key={i}
+					width={mouseParams.width}
+					height={mouseParams.height}
+					text={item.name}
+					callback={() => type[i]?.callback(type, i)}
+					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+				/>
+			);
+		});
+	};
 
-    const renderFiles = (Type) => {
-        if (!fileList || fileList.length === 0) return null
-        return fileList.files?.map((file, index) => (
-            <Type
-                key={index}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-                setFilePick={setFilePick}
-                filePick={filePick}
-                chosen={
-                    filePick.show
-                        ? filePick.files.findIndex((el) => el === file.fid) >= 0
-                        : chosenFile?.fid === file?.fid
-                }
-                callbackArrMain={callbackArrMain}
-            />
-        ))
-    }
+	const renderFiles = (Type) => {
+		if (!fileList || fileList.length === 0) return null;
+		return fileList.files?.map((file, index) => (
+			<Type
+				key={index}
+				file={file}
+				setChosenFile={setChosenFile}
+				chosenFile={chosenFile}
+				setMouseParams={setMouseParams}
+				setAction={setAction}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				setFilePick={setFilePick}
+				filePick={filePick}
+				chosen={
+					filePick.show
+						? filePick.files.findIndex((el) => el === file.fid) >= 0
+						: chosenFile?.fid === file?.fid
+				}
+				callbackArrMain={callbackArrMain}
+			/>
+		));
+	};
 
-    const onActiveCallbackArrMain = (type) => {
-        let index;
-        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
-        callbackArrMain[index].callback(callbackArrMain, index);
-    };
+	const onActiveCallbackArrMain = (type) => {
+		let index;
+		callbackArrMain.forEach((el, i) =>
+			el.type === type ? (index = i) : undefined
+		);
+		callbackArrMain[index].callback(callbackArrMain, index);
+	};
 
-    const checkMimeTypes = (file) => {
+	const checkMimeTypes = (file) => {
 		const mType = file?.mime_type ?? chosenFile?.mime_type;
 		const fid = file?.fid ?? chosenFile?.fid;
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
-		if(mType === 'application/pdf') {
-			if(mType === 'application/pdf') {
+		if (mType === "application/pdf") {
+			if (mType === "application/pdf") {
 				printFile(`${preview}`);
-			} else if(mType.includes('image')) {
+			} else if (mType.includes("image")) {
 				printFile(`${preview}`);
 			}
 		} else {
-			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
-			if(chosenType.length > 0) {
-				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
-					.then(res => printFile(res.data.file_pdf))
-					.catch(err => console.log(err));
+			const chosenType = previewFormats.filter((format) =>
+				ext.toLowerCase().includes(format)
+			);
+			if (chosenType.length > 0) {
+				api
+					.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
+					.then((res) => printFile(res.data.file_pdf))
+					.catch((err) => console.log(err));
 			}
 		}
-	}
+	};
 
-    const printFile = (path) => {
-		let pri = document.getElementById('frame');
+	const printFile = (path) => {
+		let pri = document.getElementById("frame");
 		pri.src = `https://fs2.mh.net.ua/${path}`;
 		setTimeout(() => {
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
 		}, 1000);
-	}
+	};
 
-    const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false});
+	const nullifyFilePick = () =>
+		setFilePick({ show: false, files: [], customize: false });
 
-    const cancelArchive = () => {
+	const cancelArchive = () => {
 		nullifyFilePick();
 		nullifyAction();
-	}
+	};
 
-    const archiveFile = () => {
-        if(filePick.show) {
-            filePick.files.forEach((fid, i) => {
-                const options = {single: false, several: i === filePick.files.length - 1};
-                addToArchive(uid, fid, {fid}, options);
-            })
-        } else {
-            addToArchive(uid, chosenFile.fid, chosenFile, {single: true, several: false});
-        }
-	}
+	const archiveFile = () => {
+		if (filePick.show) {
+			filePick.files.forEach((fid, i) => {
+				const options = {
+					single: false,
+					several: i === filePick.files.length - 1,
+				};
+				addToArchive(uid, fid, { fid }, options);
+			});
+		} else {
+			addToArchive(uid, chosenFile.fid, chosenFile, {
+				single: true,
+				several: false,
+			});
+		}
+	};
 
-    const addToArchive = (uid, fid, file, options) => {
-        api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
-            .then(res => {
-                if (res.data.ok === 1) {
-                    dispatch(onDeleteFile(file));
-                    if(options.single) setShowSuccessMessage('Файл добавлен в архив');
-                    if(options.several) setShowSuccessMessage('Выбранные файлы добавлено в архив');
-                } else console.log(res?.error)
-            })
-            .catch(err => console.log(err))
-            .finally(() => {
-                nullifyAction();
-                setChosenFile(null);
-                if(filePick.show) nullifyFilePick();
-            })
-    }
+	const addToArchive = (uid, fid, file, options) => {
+		api
+			.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					dispatch(onDeleteFile(file));
+					if (options.single) setShowSuccessMessage("Файл добавлен в архив");
+					if (options.several)
+						setShowSuccessMessage("Выбранные файлы добавлено в архив");
+				} else console.log(res?.error);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				nullifyAction();
+				setChosenFile(null);
+				if (filePick.show) nullifyFilePick();
+			});
+	};
 
-    const deleteFile = () => {
-        if(filePick.show) {
-            const gdir = fileList.path;
-            filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
-            setFilePick({...filePick, files: [], show: false});
-        } else{
-            fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
-        }
-        nullifyAction();
-        setChosenFile(null);
-        dispatch(onAddRecentFiles());
-    }
+	const deleteFile = () => {
+		if (filePick.show) {
+			const gdir = fileList.path;
+			filePick.files.forEach((fid, i, arr) =>
+				fileDelete(
+					{ gdir, fid },
+					dispatch,
+					uid,
+					i === arr.length - 1 ? setShowSuccessMessage : "",
+					"Файлы перемещено в корзину"
+				)
+			);
+			setFilePick({ ...filePick, files: [], show: false });
+		} else {
+			fileDelete(
+				chosenFile,
+				dispatch,
+				uid,
+				setShowSuccessMessage,
+				"Файл перемещен в корзину"
+			);
+		}
+		nullifyAction();
+		setChosenFile(null);
+		dispatch(onAddRecentFiles());
+	};
 
-    return (
-        <div className={styles.parentWrapper}>
+	return (
+		<div className={styles.parentWrapper}>
+			<div className={styles.header}>
+				<SearchField />
+				<div className={styles.infoHeader}>
+					<StorageSize />
+					<Notifications />
+					<Profile />
+				</div>
+			</div>
 
-            <div className={styles.header}>
-                <SearchField />
-                <div className={styles.infoHeader}>
-                    <StorageSize />
-                    <Notifications />
-                    <Profile />
-                </div>
-            </div>
+			<ServePanel
+				setView={setWorkElementsView}
+				view={workElementsView}
+				chosenFile={chosenFile}
+				setAction={setAction}
+				fileSelect={fileSelect}
+				archive={() => onActiveCallbackArrMain("archive")}
+				share={() => onActiveCallbackArrMain("share")}
+				chooseSeveral={() =>
+					setFilePick({ ...filePick, files: [], show: !filePick.show })
+				}
+				filePick={filePick}
+			/>
 
-            <ServePanel
-                setView={setWorkElementsView}
-                view={workElementsView}
-                chosenFile={chosenFile}
-                setAction={setAction}
-                fileSelect={fileSelect}
-                archive={() => onActiveCallbackArrMain('archive')}
-                share={() => onActiveCallbackArrMain('share')}
-                chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
-                filePick={filePick}
-            />
+			<div className={styles.wrapper}>
+				<DateBlock
+					search={search}
+					setSearch={setSearch}
+					year={year}
+					setYear={setYear}
+					month={month}
+					setMonth={setMonth}
+				/>
 
-            <div className={styles.wrapper}>
+				<div className={styles.filesWrap}>
+					<div className={styles.fileWrap}>
+						<div
+							onClick={() => {
+								setCollapse(!collapse);
+							}}
+							className={styles.collapseHeader}
+						>
+							<p className={styles.dateName}>Август</p>
+							<button className={styles.collapseBtn}>
+								{fileList?.files.length ?? 0} объектов
+							</button>
+							<div
+								className={classNames({
+									[styles.arrowFile]: true,
+									[styles.active]: !!collapse,
+								})}
+							>
+								<PlayIcon
+									className={classNames({
+										[styles.playButton]: true,
+										[styles.revert]: !!collapse,
+									})}
+								/>
+							</div>
+						</div>
 
-                <DateBlock
-                    search={search}
-                    setSearch={setSearch}
-                    year={year}
-                    setYear={setYear}
-                    month={month}
-                    setMonth={setMonth}
-                />
+						{collapse && (
+							<div className={styles.fileDate}>
+								<p>10.08.2020</p>
+							</div>
+						)}
 
-                <div className={styles.filesWrap}>
+						<div>
+							{workElementsView === "bars" && collapse ? (
+								<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
+							) : null}
 
-                    <div className={styles.fileWrap}>
+							{workElementsView === "lines" && collapse ? (
+								<div className={styles.collapseContent}>
+									{renderFiles(FileLine)}
+								</div>
+							) : null}
 
-                        <div
-                            onClick={() => {setCollapse(!collapse)}}
-                            className={styles.collapseHeader}
-                        >
-                            <p className={styles.dateName}>Август</p>
-                            <button className={styles.collapseBtn}>
-                                {fileList?.files.length ?? 0} объектов
-                            </button>
-                            <div
-                                className={classNames({
-                                    [styles.arrowFile]: true,
-                                    [styles.active]: !!collapse
-                                })}
-                            >
-                                <PlayIcon
-                                    className={classNames({
-                                        [styles.playButton]: true,
-                                        [styles.revert]: !!collapse
-                                    })}
-                                />
-                            </div>
-                        </div>
+							{workElementsView === "preview" && collapse ? (
+								<WorkBarsPreview file={chosenFile} filePick={filePick}>
+									{renderFiles(FileBar)}
+								</WorkBarsPreview>
+							) : null}
+						</div>
+					</div>
+				</div>
+			</div>
+			{filePick.show ? (
+				<OptionButtomLine
+					callbackArrMain={callbackArrMain}
+					filePick={filePick}
+					setFilePick={setFilePick}
+					actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+					setAction={setAction}
+					action={action}
+					nullifyFilePick={nullifyFilePick}
+				/>
+			) : null}
 
-                        {collapse &&
-                        <div className={styles.fileDate}>
-                            <p>10.08.2020</p>
-                        </div>}
+			{mouseParams !== null && (
+				<ContextMenu
+					params={mouseParams}
+					setParams={setMouseParams}
+					tooltip={true}
+				>
+					<div className={styles.mainMenuItems}>
+						{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+					</div>
+					<div className={styles.additionalMenuItems}>
+						{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+					</div>
+				</ContextMenu>
+			)}
+			{action.type === "delete" ? (
+				<ActionApproval
+					name={filePick.show ? "Удаление файлов" : action.name}
+					text={
+						filePick.show
+							? "Вы действительно хотите удалить выбранные файлы?"
+							: action.text
+					}
+					set={cancelArchive}
+					callback={deleteFile}
+					approve={"Удалить"}
+				>
+					<div className={styles.fileActionWrap}>
+						<File
+							format={filePick.show ? "FILES" : chosenFile?.ext}
+							color={chosenFile?.color}
+						/>
+					</div>
+				</ActionApproval>
+			) : null}
 
-                        <div>
-                            {workElementsView === "bars" && collapse ?
-                                <WorkBars filePick={filePick}>
-                                    {renderFiles(FileBar)}
-                                </WorkBars>
-                            : null}
-                            
-                            {workElementsView === "lines" && collapse ?
-                                    <div className={styles.collapseContent}>
-                                        {renderFiles(FileLine)}
-                                    </div>
-                            : null}
-
-                            {workElementsView === "preview" && collapse ? (
-                                <WorkBarsPreview
-                                    file={chosenFile}
-                                    filePick={filePick}
-                                >
-                                    {renderFiles(FileBar)}
-                                </WorkBarsPreview>
-                            ) : null}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {filePick.show ? (
-					<OptionButtomLine
-						callbackArrMain={callbackArrMain}
-						filePick={filePick}
-						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
-						setAction={setAction}
-						action={action}
-						nullifyFilePick={nullifyFilePick}
-					/>
-				) : null}
-
-            {mouseParams !== null && (
-                <ContextMenu
-                    params={mouseParams}
-                    setParams={setMouseParams}
-                    tooltip={true}
-                >
-                    <div className={styles.mainMenuItems}>
-                        {renderMenuItems(contextMenuFile.main, callbackArrMain)}
-                    </div>
-                    <div className={styles.additionalMenuItems}>
-                        {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-                    </div>
-                </ContextMenu>
-            )}
-            {action.type === "delete" ? (
-                <ActionApproval
-                    name={filePick.show ? 'Удаление файлов' : action.name}
-                    text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text}
-                    set={cancelArchive}
-                    callback={deleteFile}
-                    approve={'Удалить'}
-                >
-                    <div className={styles.fileActionWrap}>
-                        <File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
-                    </div>
-                </ActionApproval>
-            ) : null}
-
-            <BottomPanel />
-            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
-            {action.type === 'customize' || filePick.customize || fileAddCustomization.several ? <CustomizeFile
-            title={filePick.customize ||  fileAddCustomization?.several ? `Редактировать выбранные файлы` : action.name }
-            file={chosenFile}
-            // TODO - Check Cancellation for FilePick
-            close={filePick.customize ? nullifyFilePick : fileAddCustomization.several ? nullifyAddingSeveralFiles : nullifyAction}
-            filePick={filePick}
-            setFilePick={setFilePick}
-            fileAddCustomization={fileAddCustomization}
-            setFileAddCustomization={setFileAddCustomization}
-            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-        /> : null}
+			<BottomPanel />
+			{filePreview?.view ? (
+				<PreviewFile
+					setFilePreview={setFilePreview}
+					file={filePreview?.file}
+					filePreview={filePreview}
+					setLoadingType={setLoadingType}
+				/>
+			) : null}
+			{action.type === "customize" ||
+			filePick.customize ||
+			fileAddCustomization.several ? (
+				<CustomizeFile
+					title={
+						filePick.customize || fileAddCustomization?.several
+							? `Редактировать выбранные файлы`
+							: action.name
+					}
+					file={chosenFile}
+					// TODO - Check Cancellation for FilePick
+					close={
+						filePick.customize
+							? nullifyFilePick
+							: fileAddCustomization.several
+							? nullifyAddingSeveralFiles
+							: nullifyAction
+					}
+					filePick={filePick}
+					setFilePick={setFilePick}
+					fileAddCustomization={fileAddCustomization}
+					setFileAddCustomization={setFileAddCustomization}
+					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+				/>
+			) : null}
 			{action.type === "intoZip" ? (
 				<CreateZip
 					close={nullifyAction}
 					file={chosenFile}
 					title={action.name}
 					filePick={filePick}
-                	nullifyFilePick={nullifyFilePick}
+					nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
 				/>
 			) : null}
@@ -400,14 +520,21 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 			) : null}
 			{action.type === "archive" ? (
 				<ActionApproval
-					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
-					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					name={filePick.show ? "Архивировать выбранные файлы" : action.name}
+					text={
+						filePick.show
+							? " Вы действительно хотите переместить в архив выбранные файлы?"
+							: action.text
+					}
 					set={cancelArchive}
 					callback={archiveFile}
-					approve={'Архивировать'}
+					approve={"Архивировать"}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
+						<File
+							format={filePick.show ? "FILES" : chosenFile?.ext}
+							color={chosenFile?.color}
+						/>
 					</div>
 				</ActionApproval>
 			) : null}
@@ -418,10 +545,14 @@ const SharedFiles = ({filePreview, setFilePreview, fileSelect, fileAddCustomizat
 				<CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
 			)}
 
-            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
-            
-        </div>
-    )
-}
+			{showSuccessMessage && (
+				<SuccessMessage
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+				/>
+			)}
+		</div>
+	);
+};
 
-export default SharedFiles
+export default SharedFiles;

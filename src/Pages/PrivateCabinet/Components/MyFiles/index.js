@@ -13,18 +13,16 @@ import {onDeleteFile, onAddRecentFiles, onChooseFiles, onChooseAllFiles} from ".
 import CreateSafePassword from '../CreateSafePassword';
 import PreviewFile from '../PreviewFile';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import Loader from '../../../../generalComponents/Loaders/4HUB'
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
-			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem, nullifyAddingSeveralFiles, saveCustomizeSeveralFiles
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem, nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType
 }) => {
 	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const [workElementsView, setWorkElementsView] = useState("bars");
-	const [showLoader, setShowLoader] = useState(false)
 	const [listCollapsed, setListCollapsed] = useState(false);
 	const [chosenFolder] = useState({
 		path: "global/all",
@@ -66,7 +64,7 @@ const MyFiles = ({
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
 		if(mType === 'application/pdf') {
-			setShowLoader(true)
+			setLoadingType('squarify')
 			if(mType === 'application/pdf') {
 				printFile(`${preview}`);
 			} else if(mType.includes('image')) {
@@ -75,7 +73,7 @@ const MyFiles = ({
 		} else {
 			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
 			if(chosenType.length > 0) {
-				setShowLoader(true)
+				setLoadingType('squarify')
 				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
 					.then(res => {
 						printFile(res.data.file_pdf)
@@ -92,7 +90,7 @@ const MyFiles = ({
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
 		}, 1000);
-		setShowLoader(false)
+		setLoadingType('')
 	}
 
 	const [safePassword, setSafePassword] = useState({open: false})
@@ -271,6 +269,7 @@ const MyFiles = ({
             	setFileAddCustomization={setFileAddCustomization}
 				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
 				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+				setLoadingType={setLoadingType}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
@@ -292,9 +291,8 @@ const MyFiles = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
             />}
-            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
 			{showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
-			{showLoader && <Loader />}
 		</div>
 		
 	);
