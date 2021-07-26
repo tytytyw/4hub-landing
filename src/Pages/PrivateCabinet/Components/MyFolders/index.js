@@ -108,10 +108,10 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
 
@@ -119,7 +119,7 @@ const MyFolders = ({
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
     ];

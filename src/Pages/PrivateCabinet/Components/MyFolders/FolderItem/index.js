@@ -68,7 +68,10 @@ const FolderItem = ({
         if(folderList?.path === folder?.path) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
-    const openMenu = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
+    const openMenu = (e) => {
+        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+        setNewFolderInfo({...newFolderInfo, path: folder.path})
+    };
 
     const addFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: folder.path});
