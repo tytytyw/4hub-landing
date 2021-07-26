@@ -3,23 +3,28 @@ import api from '../../api'
 import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
-    CHOOSE_FILES,
     CHOOSE_ALL_FILES,
+    CHOOSE_FILES,
     CHOOSE_FOLDER,
-    CONTACT_LIST,
-    FILE_DELETE,
-    GET_FOLDERS,
     CHOOSE_RECENT_FILES,
+    CONTACT_LIST,
     CUSTOMIZE_FILE,
-    GET_PROGRAM_FOLDERS,
-    GET_RECENT_PROGRAMS,
-    GET_TOP_LIST_PROGRAMS,
+    FILE_DELETE,
     GET_CATEGORIES,
-    GET_PROGRAMS,
-    GET_SAFES,
-    GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER, GET_PROJECTS, GET_JOURNAL_FOLDERS,
+    GET_DEVICES,
+    GET_FOLDERS,
+    GET_JOURNAL_FOLDERS,
+    GET_PROGRAM_FOLDERS,
+    GET_PROGRAMS,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_RECENT_PROGRAMS,
+    GET_SAFES,
+    GET_TOP_LIST_PROGRAMS,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
+    SET_SIZE,
 } from '../types';
 
 const folders = [
@@ -108,8 +113,8 @@ export const onGetContacts = () => async (dispatch, getState) => {
             })
 
         }).catch(error => {
-            console.log(error)
-        })
+        console.log(error)
+    })
 
 };
 
@@ -118,11 +123,13 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
     api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
         .then(res => {
             const newFolders = res.data.map(folder => {
-                if(folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
+                if (folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
                     const newFolder = folder;
                     folders.forEach(f => f.path === folder.path ? newFolder.name = f.nameRu : undefined);
                     return newFolder
-                } else {return folder}
+                } else {
+                    return folder
+                }
             });
             dispatch({
                 type: ADD_RECENT_FOLDERS,
@@ -145,14 +152,14 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
 };
 
 export const onChooseRecentFile = (file) => {
-    return{
+    return {
         type: CHOOSE_RECENT_FILES,
         payload: file
     }
 };
 
 export const onCustomizeFile = (file) => {
-    return{
+    return {
         type: CUSTOMIZE_FILE,
         payload: file
     }
@@ -401,7 +408,6 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 };
 
 
-
 // DEVICES
 
 
@@ -576,10 +582,56 @@ export const onGetJournalFolders = (folders) => ({
 })
 
 
-
 export const onSetFileSize = (size) => {
     return {
         type: SET_SIZE,
         payload: size
+    }
+}
+
+
+// CALENDAR PAGE
+export const setCalendarDate = date => {
+    return {
+        type: SET_CALENDAR_DATE,
+        payload: date
+    }
+}
+
+export const setCalendarEvents = events => {
+    return {
+        type: SET_CALENDAR_EVENTS,
+        payload: [
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-29 09:00'),
+                type: 1
+            },
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-25 12:00'),
+                type: 2
+            },
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-26 22:00'),
+                type: 3,
+            },
+        ]
     }
 }

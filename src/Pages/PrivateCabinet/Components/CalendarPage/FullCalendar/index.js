@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -8,13 +8,20 @@ import styles from './FullCalendar.module.sass'
 import './FullCalendar.css'
 import {days} from '../helper'
 import TableTaskItem from '../TableTaskItem'
+import {useSelector} from 'react-redux'
 
-const FullCalendarTable = () => {
+const FullCalendarTable = ({events}) => {
 
     const calendarRef = useRef()
+    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
 
-    const renderEventContent = (eventInfo) => {
-        return <TableTaskItem task={eventInfo.event?.extendedProps}/>
+    const renderEventContent = eventInfo => {
+        return (
+            <TableTaskItem
+                date={eventInfo?.event.start}
+                task={eventInfo.event?.extendedProps}
+            />
+        )
     }
 
     const renderHeaderCell = eventInfo => {
@@ -28,42 +35,16 @@ const FullCalendarTable = () => {
         )
     }
 
-    const events = [
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            date: '2021-07-23 10:00',
-            type: 1
-        },
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            date: '2021-07-22 02:00',
-            type: 2
-        },
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            type: 3,
-            date: '2021-07-20 13:00',
-        },
-    ]
+    useEffect(() => {
+        const calendarApi = calendarRef.current.getApi()
+        calendarApi.gotoDate(calendarDate)
+    }, [calendarDate])
 
     return (
         <div className={styles.wrapper}>
+
             <FullCalendar
+                initialDate={calendarDate}
                 ref={calendarRef}
                 events={events}
                 plugins={[timeGridPlugin, interactionPlugin]}
@@ -86,7 +67,6 @@ const FullCalendarTable = () => {
             />
         </div>
     )
-
 }
 
 export default FullCalendarTable

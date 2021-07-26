@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 
 import styles from './TableListTaskItem.module.sass'
-import {taskTypesColor} from '../helper'
+import {eventTypesColor} from '../helper'
 import classNames from "classnames";
 
 const TableListTaskItem = ({task}) => {
 
     const [collapse, setCollapse] = useState(false)
-    const color = taskTypesColor?.[task?.type]
+    const color = eventTypesColor?.[task?.type]
 
     return (
         <div className={styles.wrapper}>
