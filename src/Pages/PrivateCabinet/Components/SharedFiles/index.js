@@ -35,7 +35,6 @@ import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty"
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
-import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 
 const SharedFiles = ({
 	filePreview,
@@ -50,6 +49,7 @@ const SharedFiles = ({
 	const [workElementsView, setWorkElementsView] = useState("bars");
 	const [search, setSearch] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
+	const user = useSelector(state => state.user.userInfo);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -59,13 +59,10 @@ const SharedFiles = ({
 	const [year, setYear] = useState(null);
 	const [collapse, setCollapse] = useState(false);
 	const [month, setMonth] = useState(null);
-
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [mouseParams, setMouseParams] = useState(null);
-
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
 	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -277,26 +274,37 @@ const SharedFiles = ({
 			});
 	};
 
+	const deleteAccess = (fid, dir, set, msg) => {
+		setLoadingType('squarify')
+		api.post(`/ajax/file_share_del.php`, {fids: [fid], dir, uid, user_to: user.name})
+			.then(res => {
+				if (res.data.ok) {
+					dispatch(onGetSharedFiles())
+					if(set) set(msg)
+				} else console.log(res?.error)
+			})
+			.catch(err => console.log(err))
+			.finally(() => setLoadingType(''))
+	}
+
 	const deleteFile = () => {
 		if (filePick.show) {
-			const gdir = fileList.path;
-			filePick.files.forEach((fid, i, arr) =>
-				fileDelete(
-					{ gdir, fid },
-					dispatch,
-					uid,
+			filePick.files.forEach((fid, i, arr) => {
+				const file = fileList.files.filter(file => file.fid === fid);
+				deleteAccess(
+					fid,
+					file[0].dir,
 					i === arr.length - 1 ? setShowSuccessMessage : "",
-					"Файлы перемещено в корзину"
-				)
-			);
+					"Файлы удалены"
+				)}
+			)
 			setFilePick({ ...filePick, files: [], show: false });
 		} else {
-			fileDelete(
-				chosenFile,
-				dispatch,
-				uid,
+			deleteAccess(
+				chosenFile.fid,
+				chosenFile.dir,
 				setShowSuccessMessage,
-				"Файл перемещен в корзину"
+				"Файл удален"
 			);
 		}
 		nullifyAction();
@@ -458,7 +466,6 @@ const SharedFiles = ({
 							: action.name
 					}
 					file={chosenFile}
-					// TODO - Check Cancellation for FilePick
 					close={
 						filePick.customize
 							? nullifyFilePick
