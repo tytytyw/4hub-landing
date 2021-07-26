@@ -59,6 +59,22 @@ export const contextMenuFilters = {
     additional: []
 };
 
+export const contextMenuCreateFile = {
+    other: [
+        {name: 'One Office', img: 'microsoft-oneOffice'},
+    ],
+    microsoft: [
+        {name: 'Документ Word', img: 'word'},
+        {name: 'Книга Excel', img: 'excel'},
+        {name: 'Презентация PowerPoint', img: 'powerpoint'},
+    ],
+    google: [
+        {name: 'Документ Google', img: 'google-doc'},
+        {name: 'Таблица Google', img: 'google-table'},
+        {name: 'Презентация Google', img: 'google-presentation'},
+    ],
+};
+
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user'},
