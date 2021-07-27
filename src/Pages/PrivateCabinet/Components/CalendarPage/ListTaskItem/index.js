@@ -1,12 +1,12 @@
 import React from 'react'
 
 import styles from './ListTaskItem.module.sass'
-import {hexToRgb, taskTypesColor} from '../helper'
-import classNames from "classnames";
+import {hexToRgb, eventTypesColor} from '../helper'
+import classNames from 'classnames'
 
-const ListTaskItem = ({task, collapsed}) => {
+const ListTaskItem = ({event, collapsed}) => {
 
-    const color = taskTypesColor?.[task?.type]
+    const color = eventTypesColor?.[event?.type]
     const rgba = hexToRgb(color)
 
     return (
@@ -20,7 +20,7 @@ const ListTaskItem = ({task, collapsed}) => {
                 >
 
                     <p className={styles.timeBlock}>
-                        {task?.ctime}
+                        {event?.ctime}
                     </p>
 
                     <div className={styles.leftBlock}>
@@ -32,7 +32,7 @@ const ListTaskItem = ({task, collapsed}) => {
                         />
                         <img
                             className={styles.avatar}
-                            src={`./assets/PrivateCabinet/avatars/${task.avatar}.svg`}
+                            src={`./assets/PrivateCabinet/avatars/${event.avatar}.svg`}
                             alt="Avatar 1"
                         />
                     </div>
@@ -43,22 +43,22 @@ const ListTaskItem = ({task, collapsed}) => {
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Имя задачи</p>
-                                <p className={styles.value}>{task?.name}</p>
+                                <p className={styles.value}>{event?.name}</p>
                             </div>
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Сроки</p>
-                                <p className={styles.value}>{task?.term}</p>
+                                <p className={styles.value}>{event?.term}</p>
                             </div>
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Тег</p>
-                                <p className={styles.value}>{task?.tag}</p>
+                                <p className={styles.value}>{event?.tag}</p>
                             </div>
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Отправитель</p>
-                                <p className={styles.value}>{task?.sender}</p>
+                                <p className={styles.value}>{event?.sender}</p>
                             </div>
 
                         </div>
@@ -74,7 +74,7 @@ const ListTaskItem = ({task, collapsed}) => {
                 >
 
                     <p className={styles.timeBlock}>
-                        {task?.ctime}
+                        {event?.ctime}
                     </p>
 
                     <div className={styles.topBlock}>
@@ -90,24 +90,23 @@ const ListTaskItem = ({task, collapsed}) => {
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Имя задачи</p>
-                                <p className={styles.value}>{task?.name}</p>
+                                <p className={styles.value}>{event?.name}</p>
                             </div>
 
                             <div className={styles.infoItem}>
                                 <p className={styles.option}>Срок</p>
-                                <p className={styles.value}>{task?.term}</p>
+                                <p className={styles.value}>{event?.term}</p>
                             </div>
                         </div>
                     </div>
                     <div className={styles.bottomBlock}>
                         <img
                             className={styles.avatar}
-                            src={`./assets/PrivateCabinet/avatars/${task.avatar}.svg`}
+                            src={`./assets/PrivateCabinet/avatars/${event.avatar}.svg`}
                             alt="Avatar 1"
                         />
                     </div>
-                </div>
-            }
+                </div>}
         </>
     )
 }

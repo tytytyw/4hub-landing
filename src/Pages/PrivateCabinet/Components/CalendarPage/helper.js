@@ -29,7 +29,7 @@ export const months = [
     {id: 11, text: 'Декабрь'},
 ]
 
-export const taskTypesColor = {
+export const eventTypesColor = {
     1: '#25AB27',
     2: '#E4791C',
     3: '#A11CE4',
@@ -55,19 +55,44 @@ export const days = [
 ]
 
 export const hours = [
-    {value: '9:00'},
-    {value: '10:00'},
-    {value: '11:00'},
-    {value: '12:00'},
-    {value: '13:00'},
-    {value: '14:00'},
-    {value: '15:00'},
-    {value: '16:00'},
-    {value: '17:00'},
-    {value: '18:00'},
-    {value: '19:00'},
-    {value: '20:00'},
-    {value: '21:00'},
-    {value: '22:00'},
-    {value: '23:00'},
+    {text: '9:00', value: 9},
+    {text: '10:00', value: 10},
+    {text: '11:00', value: 11},
+    {text: '12:00', value: 12},
+    {text: '13:00', value: 13},
+    {text: '14:00', value: 14},
+    {text: '15:00', value: 15},
+    {text: '16:00', value: 16},
+    {text: '17:00', value: 17},
+    {text: '18:00', value: 18},
+    {text: '19:00', value: 19},
+    {text: '20:00', value: 20},
+    {text: '21:00', value: 21},
+    {text: '22:00', value: 22},
+    {text: '23:00', value: 23},
+]
+
+export const monthNameType = {
+    0: 'Января',
+    1: 'Февраля',
+    2: 'Марта',
+    3: 'Апреля',
+    4: 'Мая',
+    5: 'Июня',
+    6: 'Июля',
+    7: 'Августа',
+    8: 'Сентября',
+    9: 'Октября',
+    10: 'Ноября',
+    11: 'Декабря',
+}
+
+export const weekDays = [
+    {id: 1, name: 'Вс'},
+    {id: 2, name: 'Пн'},
+    {id: 3, name: 'Вт'},
+    {id: 4, name: 'Ср'},
+    {id: 5, name: 'Чт'},
+    {id: 6, name: 'Пт'},
+    {id: 7, name: 'Сб'},
 ]

@@ -7,70 +7,32 @@ import Notifications from '../Notifications'
 import Profile from '../Profile'
 import DateBlock from './DateBlock'
 import List from './List'
-import ListTaskItem from './ListTaskItem'
-import WorkSpaceTable from './WorkSpaceTable'
 import WorkSpaceList from './WorkSpaceList'
 import ListCalendar from './ListCalendar'
 import CreateTask from './CreateTask'
 import SuccessCreated from './CreateTask/SuccessCreated'
 import BottomPanel from '../ButtomPanel'
 import FullCalendarTable from './FullCalendar'
+import {useDispatch, useSelector} from 'react-redux'
+import {setCalendarEvents} from '../../../../Store/actions/PrivateCabinetActions'
+import SidebarTasks from "./SidebarTasks";
 
 const CalendarPage = () => {
 
-    const [search, setSearch] = useState(null)
-    const [viewType, setViewType] = useState('full')
+    const [viewType, setViewType] = useState('list')
     const [createTask, setCreateTask] = useState(false)
 
     const [event, setEvent] = useState({})
     const [success, setSuccess] = useState(false)
-
-    const date = new Date()
-
-    const [year, setYear] = useState(date.getFullYear())
-    const [day, setDay] = useState(date.getDay())
-    const [month, setMonth] = useState(date.getMonth())
-
     const [listCollapsed, setListCollapsed] = useState(false)
 
-    useEffect(() => setViewType('list'), [day])
-    useEffect(() => setViewType('full'), [month])
+    const dispatch = useDispatch()
+    const events = useSelector(state => state.PrivateCabinet.calendarEvents)
 
-    const taskList = [
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            weekDay: 2,
-            hour: '12:00',
-            type: 1
-        },
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            weekDay: 5,
-            hour: '19:00',
-            type: 2
-        },
-        {
-            name: 'Сдать задачу за 2020 год',
-            term: 'С 12 августа По 16 августа 2020',
-            tag: 'Отчет',
-            sender: 'Недельская Алина Квиталина',
-            avatar: 'a1',
-            ctime: '14:45',
-            type: 3,
-            weekDay: 4,
-            hour: '10:00',
-        },
-    ]
+    useEffect(() => {
+        dispatch(setCalendarEvents())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div className={styles.parentWrapper}>
@@ -101,56 +63,14 @@ const CalendarPage = () => {
                             alt='Add Task Icon'
                         />
                     </div>
-                    <ListCalendar
-                        day={day}
-                        setDay={setDay}
-                        month={month}
-                        year={year}
-                        collapsed={listCollapsed}
-                    />
-                    <div className={styles.myTasksBlock}>
-                        <p className={styles.title}>
-                            Мои задачи {!listCollapsed && <span>12.04.2020</span>}
-                        </p>
-                    </div>
-                    {taskList?.map((task, i) => (
-                        <ListTaskItem
-                            key={i}
-                            task={task}
-                            collapsed={listCollapsed}
-                        />
-                    ))}
+                    <ListCalendar setViewType={setViewType} collapsed={listCollapsed}/>
+                    <SidebarTasks data={events} listCollapsed={listCollapsed}/>
                 </List>
 
                 <div className={styles.wrapper}>
-
-                    <DateBlock
-                        search={search}
-                        setSearch={setSearch}
-                        month={month}
-                        setMonth={setMonth}
-                        setYear={setYear}
-                        setDay={setDay}
-                    />
-
-                    {viewType === 'full' && <FullCalendarTable/>}
-
-                    {viewType === 'table' &&
-                    <WorkSpaceTable
-                        taskList={taskList}
-                        month={month}
-                        year={year}
-                        day={day}
-                    />}
-
-                    {viewType === 'list' &&
-                    <WorkSpaceList
-                        taskList={taskList}
-                        month={month}
-                        year={year}
-                        day={day}
-                    />}
-
+                    <DateBlock setViewType={setViewType}/>
+                    {viewType === 'full' && <FullCalendarTable events={events}/>}
+                    {viewType === 'list' && <WorkSpaceList events={events}/>}
                 </div>
 
             </div>
