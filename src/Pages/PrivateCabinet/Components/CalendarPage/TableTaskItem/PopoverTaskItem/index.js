@@ -1,15 +1,24 @@
 import React from 'react'
 
 import styles from './PopoverTaskItem.module.sass'
-import {hexToRgb, taskTypesColor} from '../../helper'
+import {hexToRgb, eventTypesColor} from '../../helper'
+import classNames from 'classnames'
 
-const PopoverTaskItem = ({task}) => {
+const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
 
-    const color = taskTypesColor?.[task?.type]
+    console.log({reverseSide})
+
+    const color = eventTypesColor?.[task?.type]
     const rgba = hexToRgb(color)
 
     return (
-        <div className={styles.wrapper}>
+        <div className={classNames({
+            [styles.wrapper]: true,
+            [styles.contentWrap]: !reverse,
+            [styles.reverseWrap]: reverse,
+            [styles.contentSideWrap]: !reverseSide,
+            [styles.reverseSideWrap]: reverseSide,
+        })}>
             <div
                 className={styles.content}
                 style={{

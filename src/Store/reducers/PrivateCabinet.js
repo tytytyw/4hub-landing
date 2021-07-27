@@ -17,10 +17,10 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE,
-    GET_PROJECT_FOLDER,
+    SET_SIZE, GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
+    SET_CALENDAR_DATE, SET_CALENDAR_EVENTS,
     SEARCH, CHOOSE_SHARED_FILES,
 } from '../types'
 
@@ -61,6 +61,10 @@ const INITIAL_STATE = {
 
     //JOURNAL
     journalFolders: [],
+
+    //CALENDAR PAGE
+    calendarDate: new Date(),
+    calendarEvents: [],
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -143,6 +147,14 @@ export default function startPage(state = INITIAL_STATE, action) {
         //JOURNAL
         case GET_JOURNAL_FOLDERS:
             return {...state, journalFolders: action.payload}
+
+        //CALENDAR PAGE
+        case SET_CALENDAR_DATE:
+            return {...state, calendarDate: action.payload}
+
+        //CALENDAR PAGE
+        case SET_CALENDAR_EVENTS:
+            return {...state, calendarEvents: action.payload}
 
         default:
             return state;

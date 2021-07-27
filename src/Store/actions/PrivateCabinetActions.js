@@ -24,7 +24,9 @@ import {
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
     SEARCH,
-    CHOOSE_SHARED_FILES
+    CHOOSE_SHARED_FILES,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
 } from '../types';
 
 const folders = [
@@ -586,6 +588,52 @@ export const onSetFileSize = (size) => {
     return {
         type: SET_SIZE,
         payload: size
+    }
+}
+
+// CALENDAR PAGE
+export const setCalendarDate = date => {
+    return {
+        type: SET_CALENDAR_DATE,
+        payload: date
+    }
+}
+
+export const setCalendarEvents = events => {
+    return {
+        type: SET_CALENDAR_EVENTS,
+        payload: [
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-29 09:00'),
+                type: 1
+            },
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-25 12:00'),
+                type: 2
+            },
+            {
+                name: 'Сдать задачу за 2020 год',
+                term: 'С 12 августа По 16 августа 2020',
+                tag: 'Отчет',
+                sender: 'Недельская Алина Квиталина',
+                avatar: 'a1',
+                ctime: '14:45',
+                date: new Date('2021-07-26 22:00'),
+                type: 3,
+            },
+        ]
     }
 }
 

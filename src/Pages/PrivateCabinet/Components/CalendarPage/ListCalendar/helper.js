@@ -1,4 +1,7 @@
-export const getDays = (date) => {
+export const getDays = cDay => {
+
+    const date = new Date(cDay)
+    date.setDate(1)
 
     const lastDay = new Date(
         date.getFullYear(),
@@ -14,7 +17,10 @@ export const getDays = (date) => {
     return result
 }
 
-export const getPrevMonthDays = (date) => {
+export const getPrevMonthDays = cDay => {
+
+    const date = new Date(cDay)
+    date.setDate(1)
 
     const prevLastDay = new Date(
         date.getFullYear(),
@@ -32,7 +38,10 @@ export const getPrevMonthDays = (date) => {
     return result
 }
 
-export const getNextMonthDays = (date) => {
+export const getNextMonthDays = cDay => {
+
+    const date = new Date(cDay)
+    date.setDate(1)
 
     const lastDayIndex = new Date(
         date.getFullYear(),
@@ -47,5 +56,15 @@ export const getNextMonthDays = (date) => {
         result.push(i)
     }
 
+    return result
+}
+
+export const getAllDays = () => {
+    const result = []
+    for (let i = 1; i <= 12; i++) {
+        for (let j = 1; j <= 31; j++) {
+            result.push(j)
+        }
+    }
     return result
 }

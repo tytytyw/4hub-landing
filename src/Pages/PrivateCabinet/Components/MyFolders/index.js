@@ -25,6 +25,7 @@ import {onChooseFiles, onGetFolders} from '../../../../Store/actions/PrivateCabi
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -108,10 +109,10 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
 
@@ -119,7 +120,7 @@ const MyFolders = ({
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
     ];
@@ -223,6 +224,11 @@ const MyFolders = ({
                     setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
+            {action.type === 'copyLink' ? <CopyLinkFolder
+                nullifyAction={nullifyAction}
+                folder={chosenFolder}
+                setShowSuccessMessage={setShowSuccessMessage}
+            /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath

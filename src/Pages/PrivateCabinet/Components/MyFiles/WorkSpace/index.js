@@ -85,6 +85,7 @@ const WorkSpace = ({
 					setFilePreview={setFilePreview}
 					setFilePick={setFilePick}
 					filePick={filePick}
+					callbackArrMain={callbackArrMain}
 				/>
 			);
 		});

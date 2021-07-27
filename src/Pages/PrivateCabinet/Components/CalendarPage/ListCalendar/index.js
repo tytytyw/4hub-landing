@@ -2,64 +2,53 @@ import React, {useEffect, useState} from 'react'
 
 import styles from './ListCalendar.module.sass'
 import classNames from "classnames";
-import {getDays, getNextMonthDays, getPrevMonthDays} from './helper'
-import {months} from "../helper";
+import {getAllDays, getDays, getNextMonthDays, getPrevMonthDays} from './helper'
+import {months, weekDays} from '../helper'
+import {useDispatch, useSelector} from 'react-redux'
+import {setCalendarDate} from '../../../../../Store/actions/PrivateCabinetActions'
 
-const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
+const ListCalendar = ({setViewType, collapsed = false}) => {
 
-    const date = new Date()
-    date.setDate(1);
+    const dispatch = useDispatch()
+    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
 
-    const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(date))
-    const [days, setDays] = useState(getDays(date))
-    const [nextMonthDays, setNextMonthDays] = useState(getNextMonthDays(date))
-
-    const getAllDays = () => {
-        const result = []
-        for (let i = 1; i <= 12; i++) {
-            for (let j = 1; j <=31; j++) {
-                result.push(j)
-            }
-        }
-        return result
-    }
+    const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(calendarDate))
+    const [days, setDays] = useState(getDays(calendarDate))
+    const [nextMonthDays, setNextMonthDays] = useState(getNextMonthDays(calendarDate))
 
     const allDays = getAllDays()
 
     useEffect(() => {
-
-        if (month !== null || year) {
-            month && date.setMonth(month)
-            year && date.setFullYear(year)
-            setPrevMonthDays(getPrevMonthDays(date))
-            setDays(getDays(date))
-            setNextMonthDays(getNextMonthDays(date))
-        }
-
-        year && date.setFullYear(year)
+        setPrevMonthDays(getPrevMonthDays(calendarDate))
+        setDays(getDays(calendarDate))
+        setNextMonthDays(getNextMonthDays(calendarDate))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [year, month])
-
-    const weekDays = [
-        {id: 1, name: 'Вс'},
-        {id: 2, name: 'Пн'},
-        {id: 3, name: 'Вт'},
-        {id: 4, name: 'Ср'},
-        {id: 5, name: 'Чт'},
-        {id: 6, name: 'Пт'},
-        {id: 7, name: 'Сб'},
-    ]
+    }, [calendarDate])
 
     const getMonthName = () => {
-        const monthItem = months?.find(item => item?.id === month)
+        const monthItem = months?.find(item => item?.id === calendarDate.getMonth())
         return monthItem?.text
     }
+
+    const onChangeDay = (day, month = null) => {
+        const date = new Date(calendarDate)
+        date.setDate(day)
+        if (month !== null) {
+            date.setMonth(month)
+        }
+        dispatch(setCalendarDate(date))
+        setViewType('list')
+    }
+
+    const dayActive = day => calendarDate.getDate() === day
 
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.header}>
-                <p className={styles.month}>{getMonthName(month)} {year}</p>
+                <p className={styles.month}>
+                    {getMonthName(calendarDate.getMonth())} {calendarDate.getFullYear()}
+                </p>
                 <img
                     src="./assets/PrivateCabinet/calendar-9.svg"
                     className={styles.calendarIcon}
@@ -85,12 +74,8 @@ const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
                             className={styles.dayWrap}
                         >
                         <span
-                            className={classNames({
-                                [styles.day]: true,
-                                [styles.anotherDay]: true,
-                                [styles.selectedDay]: day === itemDay
-                            })}
-                            onClick={() => setDay(itemDay)}
+                            className={classNames(styles.day, styles.anotherDay)}
+                            onClick={() => onChangeDay(itemDay, calendarDate.getMonth() - 1)}
                         >
                             {itemDay}
                         </span>
@@ -105,9 +90,9 @@ const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
                         <span
                             className={classNames({
                                 [styles.day]: true,
-                                [styles.selectedDay]: itemDay === day
+                                [styles.selectedDay]: dayActive(itemDay)
                             })}
-                            onClick={() => setDay(itemDay)}
+                            onClick={() => onChangeDay(itemDay)}
                         >
                             {itemDay}
                         </span>
@@ -119,28 +104,19 @@ const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
                             key={index}
                             className={styles.dayWrap}
                         >
-                        <span
-                            className={classNames({
-                                [styles.day]: true,
-                                [styles.anotherDay]: true,
-                                [styles.selectedDay]: itemDay === day
-                            })}
-                            onClick={() => setDay(itemDay)}
-                        >
-                            {itemDay}
-                        </span>
+                            <span
+                                className={classNames(styles.day, styles.anotherDay)}
+                                onClick={() => onChangeDay(itemDay, calendarDate.getMonth() + 1)}
+                            >
+                                {itemDay}
+                            </span>
                         </div>
                     ))}
 
                 </div> :
                 <div className={styles.contentCollapsed}>
 
-                    <div
-                        className={styles.weekDay}
-                        key={0}
-                    >
-                        Пн
-                    </div>
+                    <div className={styles.weekDay}>Пн</div>
 
                     <div className={styles.daysWrap}>
                         {allDays?.map((itemDay, index) => (
@@ -152,9 +128,9 @@ const ListCalendar = ({day, setDay, month, year, collapsed = false}) => {
                                     className={classNames({
                                         [styles.day]: true,
                                         [styles.anotherDay]: true,
-                                        [styles.selectedDay]: day === itemDay
+                                        [styles.selectedDay]: dayActive(itemDay)
                                     })}
-                                    onClick={() => setDay(itemDay)}
+                                    onClick={() => onChangeDay(itemDay)}
                                 >
                                     {itemDay}
                                 </span>

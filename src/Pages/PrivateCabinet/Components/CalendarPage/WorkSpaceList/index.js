@@ -1,42 +1,54 @@
 import React from 'react'
 import styles from './WorkSpace.module.sass'
-import {hexToRgb, hours, taskTypesColor} from '../helper'
+import {hexToRgb, hours, eventTypesColor, monthNameType} from '../helper'
 import TableListTaskItem from '../TableListTaskItem'
+import {useSelector} from 'react-redux'
 
-const monthNameType = {
-    0: 'Января',
-    1: 'Февраля',
-    2: 'Марта',
-    3: 'Апреля',
-    4: 'Мая',
-    5: 'Июня',
-    6: 'Июля',
-    7: 'Августа',
-    8: 'Сентября',
-    9: 'Октября',
-    10: 'Ноября',
-    11: 'Декабря',
-}
+const WorkSpaceList = ({events}) => {
 
-const WorkSpaceList = ({taskList, year, month, day}) => {
+    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+
+    const checkDateEvent = event => {
+
+        if (!event)
+            return false
+
+        return event?.date?.getFullYear() === calendarDate.getFullYear() &&
+               event?.date?.getMonth() === calendarDate.getMonth() &&
+               event?.date?.getDate() === calendarDate.getDate()
+
+    }
 
     const getTask = hour => {
-        const task = taskList?.find(item => /*item?.weekDay === day && */item?.hour === hour)
-        if (task) {
-            return task
+
+        const event = events?.find(item => {
+            const itemHour = item?.date.getHours()
+            return itemHour === hour
+        })
+
+        if (checkDateEvent(event)) {
+            return event
         }
+
         return false
     }
 
     const renderTask = hour => {
         const task = getTask(hour)
         if (task) {
-            return (
-                <TableListTaskItem
-                    task={task}
-                />
-            )
+            return <TableListTaskItem task={task}/>
         }
+    }
+
+    const getStrDate = () => {
+        return `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
+    }
+
+    const getEventsCount = () => {
+        const findEvents = events.filter(event => {
+            return event?.date.getDate() === calendarDate.getDate()
+        })
+        return findEvents?.length
     }
 
     return (
@@ -44,11 +56,11 @@ const WorkSpaceList = ({taskList, year, month, day}) => {
 
             <div className={styles.headerBlock}>
 
-                <p className={styles.date}>{day} {monthNameType?.[month]} {year}г</p>
+                <p className={styles.date}>{getStrDate()}</p>
 
                 <div className={styles.headerBtnWrap}>
                     <button className={styles.headerBtn}>
-                        7 задач
+                        {getEventsCount()} задач
                     </button>
                 </div>
                 <div className={styles.headerBtnWrap}>
@@ -66,10 +78,10 @@ const WorkSpaceList = ({taskList, year, month, day}) => {
 
             <div className={styles.list}>
                 {hours?.map((hour, index) => {
-                    const task = getTask(hour.value)
-                    const color = taskTypesColor?.[task?.type]
+                    const event = getTask(hour.value)
+                    const color = eventTypesColor?.[event?.type]
                     const rgba = hexToRgb(color)
-                    return task ? (
+                    return event ? (
                         <div
                             key={index}
                             className={styles.listItemActive}
@@ -77,16 +89,16 @@ const WorkSpaceList = ({taskList, year, month, day}) => {
                                 background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
                             }}
                         >
-                            <div className={styles.hour}>{hour.value}</div>
+                            <div className={styles.hour}>{hour.text}</div>
                             <div className={styles.hourItem}>
                                 {renderTask(hour.value)}
                             </div>
                         </div>
                     ) : (
                         <div key={index} className={styles.listItem}>
-                            <div className={styles.hour}>{hour.value}</div>
+                            <div className={styles.hour}>{hour.text}</div>
                             <div className={styles.hourItem}>
-                                {renderTask(hour.value)}
+
                             </div>
                         </div>
                     )
