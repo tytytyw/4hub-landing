@@ -9,6 +9,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
     const [url, setUrl] = useState('');
+    const [review, setReview] = useState({open: true, text: 'Просмотр'});
     const linkRef = useRef('');
 
     const saveChanges = () => {
@@ -86,8 +87,22 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                             <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
                         </div>
                         <div className={styles.review}>
-                            <span>Просмотр</span>
+                            <span onClick={() => setReview({...review, open: !review.open})}>{review.text}</span>
                             <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                            {review.open ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр', open: false})}>
+                                    <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
+                                    <div className={styles.description}>Просмотр</div>
+                                </div>
+                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание', open: false})}>
+                                    <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
+                                    <div>Скачивание</div>
+                                </div>
+                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Редактировать', open: false})}>
+                                    <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
+                                    <div>Редактировать</div>
+                                </div>
+                            </div> : null}
                         </div>
                     </div>
                 </main>
