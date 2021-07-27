@@ -21,21 +21,12 @@ import {
     GET_PROJECTS,
     GET_RECENT_PROGRAMS,
     GET_SAFES,
-<<<<<<< HEAD
     GET_TOP_LIST_PROGRAMS,
     SET_CALENDAR_DATE,
     SET_CALENDAR_EVENTS,
     SET_SIZE,
-=======
-    GET_DEVICES,
-    GET_CONNECTED_CONTACTS,
-    SET_SIZE,
-    GET_PROJECT_FOLDER,
-    GET_PROJECTS,
-    GET_JOURNAL_FOLDERS,
     SEARCH,
     CHOOSE_SHARED_FILES
->>>>>>> 2144785c84ea84f6248b013046448e52dd238ee0
 } from '../types';
 
 const folders = [
@@ -600,7 +591,26 @@ export const onSetFileSize = (size) => {
     }
 }
 
-<<<<<<< HEAD
+export const onSearch = (value) => {
+    return {
+        type: SEARCH,
+        payload: value
+    }
+}
+
+// SHARED FILES
+export const onGetSharedFiles  = () => async (dispatch, getState) => {
+    try {
+        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
+        dispatch({
+            type: CHOOSE_SHARED_FILES,
+            payload: res.data.data
+        })
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 
 // CALENDAR PAGE
 export const setCalendarDate = date => {
@@ -645,24 +655,5 @@ export const setCalendarEvents = events => {
                 type: 3,
             },
         ]
-=======
-export const onSearch = (value) => {
-    return {
-        type: SEARCH,
-        payload: value
-    }
-}
-
-// SHARED FILES
-export const onGetSharedFiles  = () => async (dispatch, getState) => {
-    try {
-        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
-        dispatch({
-            type: CHOOSE_SHARED_FILES,
-            payload: res.data.data
-        })
-    } catch (e) {
-        console.log(e);
->>>>>>> 2144785c84ea84f6248b013046448e52dd238ee0
     }
 }
