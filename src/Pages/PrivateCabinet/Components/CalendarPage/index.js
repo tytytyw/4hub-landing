@@ -7,7 +7,6 @@ import Notifications from '../Notifications'
 import Profile from '../Profile'
 import DateBlock from './DateBlock'
 import List from './List'
-import ListTaskItem from './ListTaskItem'
 import WorkSpaceList from './WorkSpaceList'
 import ListCalendar from './ListCalendar'
 import CreateTask from './CreateTask'
@@ -16,6 +15,7 @@ import BottomPanel from '../ButtomPanel'
 import FullCalendarTable from './FullCalendar'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCalendarEvents} from '../../../../Store/actions/PrivateCabinetActions'
+import SidebarTasks from "./SidebarTasks";
 
 const CalendarPage = () => {
 
@@ -64,18 +64,7 @@ const CalendarPage = () => {
                         />
                     </div>
                     <ListCalendar setViewType={setViewType} collapsed={listCollapsed}/>
-                    <div className={styles.myTasksBlock}>
-                        <p className={styles.title}>
-                            Мои задачи {!listCollapsed && <span>12.04.2020</span>}
-                        </p>
-                    </div>
-                    {events?.map((event, i) => (
-                        <ListTaskItem
-                            key={i}
-                            event={event}
-                            collapsed={listCollapsed}
-                        />
-                    ))}
+                    <SidebarTasks data={events} listCollapsed={listCollapsed}/>
                 </List>
 
                 <div className={styles.wrapper}>
