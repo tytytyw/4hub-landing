@@ -3,23 +3,17 @@ import api from '../../api'
 import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
-    CHOOSE_ALL_FILES,
     CHOOSE_FILES,
+    CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
-    CHOOSE_RECENT_FILES,
     CONTACT_LIST,
-    CUSTOMIZE_FILE,
     FILE_DELETE,
-    GET_CATEGORIES,
-    GET_CONNECTED_CONTACTS,
-    GET_DEVICES,
     GET_FOLDERS,
-    GET_JOURNAL_FOLDERS,
+    CHOOSE_RECENT_FILES,
+    CUSTOMIZE_FILE,
     GET_PROGRAM_FOLDERS,
-    GET_PROGRAMS,
-    GET_PROJECT_FOLDER,
-    GET_PROJECTS,
     GET_RECENT_PROGRAMS,
+<<<<<<< HEAD
     GET_SAFES,
     GET_TOP_LIST_PROGRAMS,
     SET_CALENDAR_DATE,
@@ -27,6 +21,23 @@ import {
     SET_SIZE,
     SEARCH,
     CHOOSE_SHARED_FILES
+=======
+    GET_TOP_LIST_PROGRAMS,
+    GET_CATEGORIES,
+    GET_PROGRAMS,
+    GET_SAFES,
+    GET_DEVICES,
+    GET_CONNECTED_CONTACTS,
+    SET_SIZE,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_JOURNAL_FOLDERS,
+    SEARCH,
+    CHOOSE_SHARED_FILES,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
+    SET_SIZE,
+>>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
 } from '../types';
 
 const folders = [
@@ -115,8 +126,8 @@ export const onGetContacts = () => async (dispatch, getState) => {
             })
 
         }).catch(error => {
-        console.log(error)
-    })
+            console.log(error)
+        })
 
 };
 
@@ -125,13 +136,11 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
     api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
         .then(res => {
             const newFolders = res.data.map(folder => {
-                if (folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
+                if(folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
                     const newFolder = folder;
                     folders.forEach(f => f.path === folder.path ? newFolder.name = f.nameRu : undefined);
                     return newFolder
-                } else {
-                    return folder
-                }
+                } else {return folder}
             });
             dispatch({
                 type: ADD_RECENT_FOLDERS,
@@ -154,14 +163,14 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
 };
 
 export const onChooseRecentFile = (file) => {
-    return {
+    return{
         type: CHOOSE_RECENT_FILES,
         payload: file
     }
 };
 
 export const onCustomizeFile = (file) => {
-    return {
+    return{
         type: CUSTOMIZE_FILE,
         payload: file
     }
@@ -410,6 +419,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 };
 
 
+
 // DEVICES
 
 
@@ -584,6 +594,7 @@ export const onGetJournalFolders = (folders) => ({
 })
 
 
+
 export const onSetFileSize = (size) => {
     return {
         type: SET_SIZE,
@@ -591,6 +602,7 @@ export const onSetFileSize = (size) => {
     }
 }
 
+<<<<<<< HEAD
 export const onSearch = (value) => {
     return {
         type: SEARCH,
@@ -611,6 +623,8 @@ export const onGetSharedFiles  = () => async (dispatch, getState) => {
     }
 }
 
+=======
+>>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
 
 // CALENDAR PAGE
 export const setCalendarDate = date => {
@@ -655,5 +669,28 @@ export const setCalendarEvents = events => {
                 type: 3,
             },
         ]
+<<<<<<< HEAD
+=======
+    }
+}
+
+export const onSearch = (value) => {
+    return {
+        type: SEARCH,
+        payload: value
+    }
+}
+
+// SHARED FILES
+export const onGetSharedFiles  = () => async (dispatch, getState) => {
+    try {
+        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
+        dispatch({
+            type: CHOOSE_SHARED_FILES,
+            payload: res.data.data
+        })
+    } catch (e) {
+        console.log(e);
+>>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
     }
 }
