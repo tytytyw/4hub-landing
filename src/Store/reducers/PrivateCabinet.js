@@ -17,10 +17,18 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
+<<<<<<< HEAD
     SET_SIZE, GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
     SET_CALENDAR_DATE, SET_CALENDAR_EVENTS,
+=======
+    SET_SIZE,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_JOURNAL_FOLDERS,
+    SEARCH, CHOOSE_SHARED_FILES,
+>>>>>>> 2144785c84ea84f6248b013046448e52dd238ee0
 } from '../types'
 
 const INITIAL_STATE = {
@@ -33,6 +41,9 @@ const INITIAL_STATE = {
     recentFiles: null,
     chosenRecentFile: null,
     size: 'big',
+
+    //SEARCH
+    search: '',
 
     //PROGRAMS
     programFolders: [],
@@ -52,12 +63,18 @@ const INITIAL_STATE = {
     devices: [],
     connectedContacts: [],
 
+    // SHARED FILES
+    sharedFiles: null,
+
     //JOURNAL
     journalFolders: [],
+<<<<<<< HEAD
 
     //CALENDAR PAGE
     calendarDate: new Date(),
     calendarEvents: [],
+=======
+>>>>>>> 2144785c84ea84f6248b013046448e52dd238ee0
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -99,7 +116,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_SIZE:
             return {...state, size: action.payload}
-
+        //SEARCH
+        case SEARCH: {
+            return {...state, search: action.payload}
+        }
 
         // PROGRAMS
         case GET_PROGRAM_FOLDERS:
@@ -128,6 +148,11 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, devices: action.payload}
         case GET_CONNECTED_CONTACTS:
             return {...state, connectedContacts: action.payload}
+
+        // SHARED FILES
+        case CHOOSE_SHARED_FILES: {
+            return {...state, sharedFiles: {...state.sharedFiles, files: action.payload}};
+        }
 
         //JOURNAL
         case GET_JOURNAL_FOLDERS:

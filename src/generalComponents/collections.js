@@ -10,7 +10,7 @@ export const colors = [
     {dark: '#792794', light: 'rgb(160, 51, 195)', color: 'rgb(160, 51, 195)', name: 'purple'},
     {dark: '#992928', light: 'rgb(194, 52, 51)', color: 'rgb(194, 52, 51)', name: 'red'},
     {dark: '#267d8d', light: 'rgb(52, 174, 196)', color: 'rgb(52, 174, 196)', name: 'aqua'},
-    {dark: '#a0602a', light: 'rgb(196, 118, 151)', color: 'rgb(196, 118, 151)', name: 'brown'},
+    {dark: 'rgb(161,98,125)', light: 'rgb(196, 118, 151)', color: 'rgb(196, 118, 151)', name: 'brown'},
     {dark: '#40289b', light: 'rgb(81, 52, 197)', color: 'rgb(81, 52, 197)', name: 'darkblue'}
 ];
 
@@ -23,17 +23,18 @@ export const smiles = [
 
 export const contextMenuFile = {
     main: [
-        {name: 'Расшарить', img: 'shareFile'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
-        {name: 'Редактировать файл', img: 'settings-work-tool'},
-        {name: 'Ред. несколько файлов', img: 'editSeveral'},
-        {name: 'Переместить в ахрив', img: 'archive'},
-        {name: 'Сжать в Zip', img: 'zip'},
-        {name: 'Свойства', img: 'info'},
-        {name: 'Загрузить', img: 'download-blue'},
-        {name: 'Печать', img: 'print-2'},
+        {name: 'Расшарить', img: 'share', type: 'share'},
+        {name: 'Скопировать ссылку', img: 'link-4', type: 'copyLink'},
+        {name: 'Редактировать файл', img: 'settings-work-tool', type: 'customize'},
+        {name: 'Ред. несколько файлов', img: 'editSeveral', type: 'customizeSeveral'},
+        {name: 'Переместить в архив', img: 'archive', type: 'archive'},
+        {name: 'Сжать в Zip', img: 'zip', type: 'intoZip'},
+        {name: 'Сжать несколько файлов в Zip', img: 'severalZip', type: 'intoZipSeveral'},
+        {name: 'Свойства', img: 'info', type: 'properties'},
+        {name: 'Загрузить', img: 'download-blue', type: 'download'},
+        {name: 'Печать', img: 'print-2', type: 'print'},
     ],
-    additional: [{name: 'Удалить файл', img: 'garbage'}]
+    additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
 };
 
 export const contextMenuProfile = {
@@ -45,6 +46,33 @@ export const contextMenuProfile = {
     additional: [
         {name: 'Выход', img: 'sign-out-icon'},
     ]
+};
+
+export const contextMenuFilters = {
+    main: [
+        {name: 'По имени', img: ''},
+        {name: 'По дате добавления файла', img: ''},
+        {name: 'По типу файла', img: ''},
+        {name: 'По размеру', img: ''},
+        {name: 'По тэгам', img: ''},
+    ],
+    additional: []
+};
+
+export const contextMenuCreateFile = {
+    other: [
+        {name: 'One Office', img: 'microsoft-oneOffice'},
+    ],
+    microsoft: [
+        {name: 'Документ Word', img: 'word'},
+        {name: 'Книга Excel', img: 'excel'},
+        {name: 'Презентация PowerPoint', img: 'powerpoint'},
+    ],
+    google: [
+        {name: 'Документ Google', img: 'google-doc'},
+        {name: 'Таблица Google', img: 'google-table'},
+        {name: 'Презентация Google', img: 'google-presentation'},
+    ],
 };
 
 export const contextMenuProjects = {
@@ -65,9 +93,9 @@ export const contextMenuProjects = {
 
 export const contextMenuFolderGeneral = {
     main: [
-        {name: 'Переслать', img: 'resend'},
+        // {name: 'Расшарить', img: 'resend'},
         {name: 'Настроить доступ', img: 'shareFile'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        // {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
@@ -76,9 +104,9 @@ export const contextMenuFolderGeneral = {
 
 export const contextMenuFolder = {
     main: [
-        {name: 'Переслать', img: 'resend'},
+        {name: 'Расшарить', img: 'resend'},
         {name: 'Настроить доступ', img: 'shareFile'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
@@ -88,7 +116,7 @@ export const contextMenuFolder = {
 
 export const contextMenuSubFolder = {
     main: [
-        {name: 'Переслать', img: 'resend'},
+        {name: 'Расшарить', img: 'resend'},
         {name: 'Настроить доступ', img: 'shareFile'},
         {name: 'Скопировать сслылку', img: 'link-4'},
         {name: 'Свойства', img: 'info'},
@@ -115,7 +143,7 @@ export const contextProgramFolder = {
     main: [
         {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'settings-work-tool'},
         {name: 'Переместить в архив', img: 'archive'},
         {name: 'Свойства', img: 'info'},
@@ -129,7 +157,7 @@ export const contextProgram = {
     main: [
         {name: 'Открыть', img: 'open-file-button'},
         {name: 'Переслать', img: 'resend'},
-        {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
     ],
     additional: [
         {name: 'Удалить файл', img: 'garbage'}

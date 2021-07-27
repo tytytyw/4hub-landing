@@ -25,9 +25,9 @@ const FolderItem = ({
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: ''}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: ''});
+            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: '', info: folder}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: '', info: folder});
         } else {
-            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: ''});
+            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder});
         }
         dispatch(onChooseFolder(folder.folders, folder.path));
         dispatch(onChooseFiles(folder.path));
@@ -53,7 +53,6 @@ const FolderItem = ({
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
             .then(res => {
-                console.log(res.data.ok);
                 if(res.data.ok === 1) setFilesQuantity(res.data.col)
             })
             .catch(err => console.log(err));
@@ -69,7 +68,10 @@ const FolderItem = ({
         if(folderList?.path === folder?.path) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
-    const openMenu = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
+    const openMenu = (e) => {
+        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+        setNewFolderInfo({...newFolderInfo, path: folder.path})
+    };
 
     const addFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: folder.path});

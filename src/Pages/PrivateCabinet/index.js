@@ -15,14 +15,15 @@ import Programs from "./Components/Programs"
 
 import {Switch, Route, useHistory} from 'react-router'
 import Settings from './Components/MyProfile/settings'
-import Project from "./Components/Project";
-import SharedFiles from "./Components/SharedFiles";
-import DownloadedFiles from "./Components/DownloadedFiles";
-import {setPreviewTheme} from "../../Store/actions/main";
-import Archive from "./Components/Archive";
-import Journal from "./Components/Journal";
-import CalendarPage from "./Components/CalendarPage";
-import Cart from "./Components/Cart";
+import Project from './Components/Project';
+import SharedFiles from './Components/SharedFiles';
+import DownloadedFiles from './Components/DownloadedFiles';
+import {setPreviewTheme} from '../../Store/actions/main';
+import Archive from './Components/Archive';
+import Journal from './Components/Journal';
+import CalendarPage from './Components/CalendarPage';
+import Cart from './Components/Cart';
+import Loader from '../../generalComponents/Loaders/4HUB';
 
 const PrivateCabinet = () => {
 
@@ -32,9 +33,10 @@ const PrivateCabinet = () => {
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null});
-    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}});
+    const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
+    const [loadingType, setLoadingType] = useState('');
 
     const history = useHistory()
 
@@ -72,6 +74,13 @@ const PrivateCabinet = () => {
     const fileSelect = () => inputRef.current.click();
 
     const handleDragOver = e => e.preventDefault();
+
+    const nullifyAddingSeveralFiles = () => setFileAddCustomization({...fileAddCustomization, several: false, files: []});
+
+    const saveCustomizeSeveralFiles = (options) => {
+        const arr = fileAddCustomization.files.map(obj => ({file: obj.file, options: {...obj.options, ...options}}));
+        setAwaitingFiles([...awaitingFiles, ...arr]);
+    }
 
     return (
         <div
@@ -120,6 +129,10 @@ const PrivateCabinet = () => {
                             setFileAddCustomization={setFileAddCustomization}
                             setLoadingFile={setLoadingFile}
                             setMenuItem={setMenuItem}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                            loadingType={loadingType}
+                            setLoadingType={setLoadingType}
                         />}
                     />
 
@@ -183,7 +196,18 @@ const PrivateCabinet = () => {
 
                     <Route
                         path='/shared-files'
-                        render={() => <SharedFiles />}
+                        render={() => <SharedFiles
+                            filePreview={filePreview}
+                            setFilePreview={setFilePreview}
+                            fileSelect={fileSelect}
+                            fileAddCustomization={fileAddCustomization}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            setFileAddCustomization={setFileAddCustomization}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                            loadingType={loadingType}
+                            setLoadingType={setLoadingType}
+                            
+                        />}
                     />
 
                     <Route
@@ -225,6 +249,9 @@ const PrivateCabinet = () => {
                             loadingFile={loadingFile}
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                            setLoadingType={setLoadingType}
                         />}
                     />
 
@@ -251,7 +278,7 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-
+            {loadingType ? <Loader type={loadingType} /> : null}
         </div>
     )
 }

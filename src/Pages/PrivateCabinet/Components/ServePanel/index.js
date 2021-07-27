@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
@@ -12,9 +12,16 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
+import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
-const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, resend, chooseSeveral, filePick }) => {
+const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick }) => {
 
+    const [mouseParams, setMouseParams] = useState(null);
+    const [typeContext, setTypeContext] = useState('');
+    const filterRef = useRef();
+    const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
     const dispatch = useDispatch();
 
@@ -22,6 +29,34 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
         const sizes = ['small', 'medium', 'big'];
         if(s === sizes[sizes.length - 1]) return sizes[0]
         return sizes[sizes.indexOf(s) + 1];
+    }
+
+    const openContextMenu = (e, type) => {
+        const width = type === 'createFile' ? 215 : 180;
+        const height = type === 'createFile' ? 35 : 30;
+        setMouseParams({x: e.clientX, y: e.clientY, width, height});
+        setTypeContext(type);
+    }
+
+    const setFilter = () => {
+        setTypeContext('');
+    };
+
+    const createFile = () => {
+        setTypeContext('');
+    };
+
+    const renderMenuItems = (target, callback, src) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                imageSrc={src ? `${src + item.img}.svg` : ''}
+                callback={callback ? callback : ''}
+            />
+        })
     }
 
     return (
@@ -44,7 +79,11 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                             ${size === 'big' ? styles.bigSize : null} 
                         `}
                     ><FileSize className={styles.iconSVG} /></div>
-                    <div className={styles.iconView}><MenuIcon className={styles.iconSVG} /><div /></div>
+                    <div
+                        ref={filterRef}
+                        className={styles.iconView}
+                        onClick={e => openContextMenu(e, 'filter')}
+                    ><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span
                         className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
@@ -53,7 +92,11 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
             </div>
             <div className={styles.groupEnd}>
                 <div className={styles.buttons}>
-                    <div className={styles.createButton}><span>Создать</span><div /></div>
+                    <div
+                        ref={createRef}
+                        className={styles.createButton}
+                        onClick={e => openContextMenu(e, 'createFile')}
+                    ><span>Создать</span><div /></div>
                     <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
                 </div>
                 <div className={styles.iconButtons}>
@@ -63,7 +106,7 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                     ><SafeIcon className={styles.iconSafe} /></div>
                     <div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-                        onClick={() => {if(chosenFile) resend()}}
+                        onClick={() => {if(chosenFile) share()}}
                     ><ShareIcon className={styles.iconShare} /></div>
                     <div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
@@ -73,6 +116,12 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef}>
+                {typeContext === 'filter' ? <div>{renderMenuItems(contextMenuFilters.main, setFilter, '')}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
+            </ContextMenu> : null}
         </div>
     )
 }

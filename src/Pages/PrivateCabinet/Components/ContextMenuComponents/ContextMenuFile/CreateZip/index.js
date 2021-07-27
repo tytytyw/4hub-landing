@@ -2,19 +2,19 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateZip.module.sass';
-import api from '../../../../api';
-import PopUp from '../../../../generalComponents/PopUp';
-import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
-import Error from '../../../../generalComponents/Error';
-import Colors from '../../../../generalComponents/Elements/Colors';
-import '../../../../generalComponents/colors.sass';
-import Signs from '../../../../generalComponents/Elements/Signs';
-import Emoji from '../../../../generalComponents/Elements/Emoji';
-import File from '../../../../generalComponents/Files';
-import {onChooseFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import api from '../../../../../../api';
+import PopUp from '../../../../../../generalComponents/PopUp';
+import InputField from '../../../../../../generalComponents/InputField';
+import {tags, colors} from '../../../../../../generalComponents/collections';
+import Error from '../../../../../../generalComponents/Error';
+import Colors from '../../../../../../generalComponents/Elements/Colors';
+import '../../../../../../generalComponents/colors.sass';
+import Signs from '../../../../../../generalComponents/Elements/Signs';
+import Emoji from '../../../../../../generalComponents/Elements/Emoji';
+import File from '../../../../../../generalComponents/Files';
+import {onChooseFiles} from '../../../../../../Store/actions/PrivateCabinetActions';
 
-const CreateZip = ({ close, title, file }) => {
+const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -59,16 +59,27 @@ const CreateZip = ({ close, title, file }) => {
 
     const onAddFileToZip = () => {
 
-        const fName = `&fName=${name}` ? name : '';
-        const fTag = tagOption.chosen ? `&tag=${tagOption.chosen}` : '';
-        const pass = password && passwordCoincide ? `&pass=${password}` : '';
-        const fColor = `&color=${color.color}`;
-        const fEmoji = emoji ? `&emoji=${emoji}` : '';
-        const symbol = sign ? `&symbol=${sign}` : '';
+        const data = {
+            uid,
+            dir: fileList.path,
+            zip_name: name ? name : '',
+            tag: tagOption.chosen ? tagOption.chosen : '',
+            pass: password && passwordCoincide ? password : '',
+            color: color.color,
+            emoji: emoji ? emoji : '',
+            symbol: sign ? sign : '',
+            fids: filePick.show ? filePick.files : [file.fid]
+        }
+        setLoadingType('squarify')
 
-        api.post(`/ajax/file_zip.php?uid=${uid}&fid=${file.fid}&dir=${fileList.path}${fName}${fTag}${pass}${fColor}${fEmoji}${symbol}`)
-                .then(() => {dispatch(onChooseFiles(fileList.path)); close()})
-                .catch(() => setError(true));
+            api.post('/ajax/file_zip.php', data)
+                .then(() => {
+                    dispatch(onChooseFiles(fileList.path));
+                    setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
+                    onCancel();
+                })
+                .catch(() => setError(true))
+                .finally(() => setLoadingType())
     };
 
     const onChangeTag = (chosen) => {
@@ -92,24 +103,36 @@ const CreateZip = ({ close, title, file }) => {
         }
     };
 
+    const onCancel = () => {
+        nullifyFilePick();
+        close();
+    }
+
     return (
         <div style={{display: `block`}}>
-            <PopUp set={close}>
+            <PopUp set={onCancel}>
                 <div className={styles.createWrap}>
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
+                        <div className={`${styles.fileWrap}`} >
                             <div className={styles.file}><File color={color.light} format='ZIP' /></div>
                         </div>
                         <div className={styles.picPreview}>
                             <div className={styles.name}>{getName(file.fname).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={`${styles.minitag} ${styles.redCross}`}
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ? styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                </div>
+                                {/*<div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />*/}
                                 {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                                 {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
                                 {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
@@ -170,7 +193,7 @@ const CreateZip = ({ close, title, file }) => {
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={close}>Отмена</div>
+                        <div className={styles.cancel} onClick={onCancel}>Отмена</div>
                         <div className={`${styles.add}`} onClick={onAddFileToZip}>Добавить</div>
                     </div>
                 </div>

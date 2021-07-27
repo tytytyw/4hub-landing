@@ -14,7 +14,7 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-function ShareFile({file, close, action_type, setShowSuccessMessage}) {
+function ShareFile({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -26,7 +26,7 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
     const [data, setData] = useState(
         {
             uid,
-            fid: file.fid,
+            fids: files.length ? [...files] : [file.fid],
             user_to: '',
             prim: '',
             deadline: ''
@@ -43,16 +43,13 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
         }
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const shareUrlParam = () => {
-        if (action_type === 'share') {
-            const deadline = dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''
-            return `&deadline=${deadline}&dir=${data.dir}&is_write=${data.is_write}`
-        } else return ''
-    }
+    useEffect(()=> {
+        setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
+    },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
-
-        api.post(`/ajax/file_${action_type}.php?uid=${data.uid}&fid=${data.fid}&user_to=${data.user_to}&prim=${data.prim}${shareUrlParam()}`)
+        setLoadingType('squarify')
+        api.post(`/ajax/file_${action_type}.php`, data)
             .then(res => {
                 if(res.data.ok === true) {
                     setShowSuccessMessage('Отправлено')
@@ -65,12 +62,13 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
                 }
             })
             .catch(err => {setError(`${err}`)})
+            .finally(() => setLoadingType(''))
     }
 
     return (
         <PopUp set={close}>
             {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
-                <div className={classNames(styles.header, styles.border_bottom)}>
+                {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <File color={file.id_color} format={file.ext} />
                         {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
@@ -90,7 +88,7 @@ function ShareFile({file, close, action_type, setShowSuccessMessage}) {
                             <span className={styles.close} />
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
                         Кому:

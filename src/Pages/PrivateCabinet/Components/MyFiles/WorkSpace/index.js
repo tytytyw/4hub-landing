@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -18,16 +18,14 @@ import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
-import CustomizeFile from "../../CustomizeFile";
+import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLink from "../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
-import CreateZip from "../../CreateZip";
-import FileProperty from "../../FileProperty";
+import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
+import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 
 const WorkSpace = ({
-	setBlob,
-	blob,
 	chosenFile,
 	setChosenFile,
 	listCollapsed,
@@ -56,18 +54,21 @@ const WorkSpace = ({
 	chosenFolder,
 	showSuccessMessage,
 	setShowSuccessMessage,
+    cancelArchive,
+	fileAddCustomization,
+	setFileAddCustomization,
+	nullifyAddingSeveralFiles,
+	saveCustomizeSeveralFiles,
+	setLoadingType
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 
-	const [foundFiles, setFoundFiles] = useState(null)
-
 	// Types of Files view
 	const renderFiles = (Type) => {
-		if (!fileList?.files) return null;
-		const array = foundFiles ? foundFiles : fileList.files
-
-		return array.map((file, i) => {
+		
+        if(!fileList?.files) return null;
+		return fileList.files.map((file, i) => {
 			return (
 				<Type
 					key={i}
@@ -103,7 +104,7 @@ const WorkSpace = ({
 				}`}
 			>
 				<div className={styles.header}>
-					<SearchField setFoundFiles={setFoundFiles} fileList={fileList} />
+					<SearchField setChosenFile={setChosenFile} />
 					<div className={styles.infoHeader}>
 						<StorageSize />
 						<Notifications />
@@ -117,16 +118,15 @@ const WorkSpace = ({
 					/>
 				)}
 				<ServePanel
-					setBlob={setBlob}
-					blob={blob}
 					setView={setWorkElementsView}
 					view={workElementsView}
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
-					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
 					archive={() => onActiveCallbackArrMain('archive')}
-                	resend={() => onActiveCallbackArrMain('resend')}
+                	share={() => onActiveCallbackArrMain('share')}
+					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					filePick={filePick}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
@@ -138,12 +138,18 @@ const WorkSpace = ({
 					</WorkBars>
 				) : null}
 				{workElementsView === "lines" ? (
-					<WorkLines fileLoading={fileLoading}>
+					<WorkLines
+						fileLoading={fileLoading}
+						filePick={filePick}
+					>
 						{renderFiles(FileLine)}
 					</WorkLines>
 				) : null}
 				{workElementsView === "preview" ? (
-					<WorkBarsPreview file={chosenFile}>
+					<WorkBarsPreview
+						file={chosenFile}
+						filePick={filePick}
+					>
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
 				) : null}
@@ -151,15 +157,19 @@ const WorkSpace = ({
 					<WorkLinesPreview
 						file={chosenFile}
 						hideFileList={true}
-					></WorkLinesPreview>
+						filePick={filePick}
+					/>
 				) : null}
 
 				{filePick.show ? (
 					<OptionButtomLine
+						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
-						actionName={"Редактировать"}
+						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
 						setAction={setAction}
+						action={action}
+						nullifyFilePick={nullifyFilePick}
 					/>
 				) : null}
 				<BottomPanel />
@@ -180,34 +190,40 @@ const WorkSpace = ({
 			) : null}
 			{action.type === "delete" ? (
 				<ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? 'Удаление файлов' : action.name}
+					text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text}
+					set={cancelArchive}
 					callback={deleteFile}
-					approve={"Удалить"}
+					approve={'Удалить'}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
 			) : null}
-			{action.type === "customize" || filePick.customize ? (
-				<CustomizeFile
-					title={
-						filePick.customize ? `Редактировать выбранные файлы` : action.name
-					}
-					file={chosenFile}
-					close={filePick.customize ? nullifyFilePick : nullifyAction}
-					filePick={filePick}
-					setFilePick={setFilePick}
-				/>
-			) : null}
+			{action.type === 'customize' || filePick.customize || fileAddCustomization.several ? <CustomizeFile
+            title={filePick.customize ||  fileAddCustomization?.several ? `Редактировать выбранные файлы` : action.name }
+            info={chosenFolder}
+            file={chosenFile}
+            // TODO - Check Cancellation for FilePick
+            close={filePick.customize ? nullifyFilePick : fileAddCustomization.several ? nullifyAddingSeveralFiles : nullifyAction}
+            filePick={filePick}
+            setFilePick={setFilePick}
+            fileAddCustomization={fileAddCustomization}
+            setFileAddCustomization={setFileAddCustomization}
+            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+			setLoadingType={setLoadingType}
+        /> : null}
 			{action.type === "intoZip" ? (
 				<CreateZip
 					close={nullifyAction}
 					file={chosenFile}
 					title={action.name}
 					info={chosenFolder}
+					filePick={filePick}
+                	nullifyFilePick={nullifyFilePick}
+					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			<form
@@ -233,31 +249,35 @@ const WorkSpace = ({
 			{action.type === "share" ? (
 				<ShareFile
 					file={chosenFile}
+					files={filePick.files}
 					close={nullifyAction}
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "resend" ? (
 				<ShareFile
 					file={chosenFile}
+					files={filePick.files}
 					close={nullifyAction}
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "archive" ? (
 				<ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
+					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					set={cancelArchive}
 					callback={archiveFile}
-					approve={"Архивировать"}
+					approve={'Архивировать'}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
 			) : null}

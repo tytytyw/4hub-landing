@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from '../../../../api';
-import {previewTypes} from '../../../../generalComponents/collections';
+import {previewFormats} from '../../../../generalComponents/collections';
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -16,7 +16,7 @@ import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMess
 
 const MyFiles = ({
 			 filePreview, setFilePreview, awaitingFiles, setAwaitingFiles, loaded, setFileAddCustomization,
-			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem
+			 setLoaded, loadingFile, fileErrors, fileSelect, fileAddCustomization, setLoadingFile, setMenuItem, nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType
 }) => {
 	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
@@ -43,10 +43,12 @@ const MyFiles = ({
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+		{type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => setFilePick({...filePick, show: true, intoZip: true})},
+		{type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
         {type: 'download', name: 'Загрузка файла', text: ``, callback: () => document.downloadFile.submit()},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => checkMimeTypes()},
-        ];
+	]
+
 	const additionalMenuItems = [
 		{
 			type: "delete",
@@ -54,21 +56,33 @@ const MyFiles = ({
 			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
 			callback: (list, index) => setAction(list[index])
 		},
-	];
-	const checkMimeTypes = () => {
-        if(chosenFile.mime_type) {
-            if(chosenFile.mime_type === 'application/pdf') {
-                printFile(`${chosenFile.preview}`);
-            } else {
-                const chosenType = previewTypes.filter(type => type === chosenFile.mime_type);
-                if(chosenType.length > 0) {
-                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${chosenFile.fid}`)
-                        .then(res => printFile(res.data.file_pdf))
-                        .catch(err => console.log(err));
-                }
-            }
-        }
-    };
+	]
+
+	const checkMimeTypes = (file) => {
+		const mType = file?.mime_type ?? chosenFile?.mime_type;
+		const fid = file?.fid ?? chosenFile?.fid;
+		const preview = file?.preview ?? chosenFile?.preview;
+		const ext = file?.ext ?? chosenFile?.ext;
+		if(mType === 'application/pdf') {
+			setLoadingType('squarify')
+			if(mType === 'application/pdf') {
+				printFile(`${preview}`);
+			} else if(mType.includes('image')) {
+				printFile(`${preview}`);
+			}
+		} else {
+			const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
+			if(chosenType.length > 0) {
+				setLoadingType('squarify')
+				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
+					.then(res => {
+						printFile(res.data.file_pdf)
+					})
+					.catch(err => console.log(err))
+			}
+		}
+	}
+
 	const printFile = (path) => {
 		let pri = document.getElementById('frame');
 		pri.src = `https://fs2.mh.net.ua/${path}`;
@@ -76,7 +90,9 @@ const MyFiles = ({
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
 		}, 1000);
-	};
+		setLoadingType('')
+	}
+
 	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
 		if (!fileList?.files) return null;
@@ -87,7 +103,7 @@ const MyFiles = ({
 					setChosenFile={setChosenFile}
 					key={i}
 					file={file}
-					chosen={chosenFile?.fid === file?.fid}
+					chosen={filePick.show ? filePick.files.findIndex(el => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
 					listCollapsed={listCollapsed}
 					renderMenuItems={renderMenuItems}
 					mouseParams={mouseParams}
@@ -100,37 +116,96 @@ const MyFiles = ({
 					deleteFile={deleteFile}
 					setFilePreview={setFilePreview}
 					filePreview={filePreview}
+					filePick={filePick}
+					setFilePick={setFilePick}
 				/>
 			);
 		});
-	};
-	const deleteFile = () => {fileDelete(chosenFile, dispatch, onDeleteFile); nullifyAction(); setChosenFile(null); dispatch(onAddRecentFiles())};
+	}
+
+	const deleteFile = () => {
+        if(filePick.show) {
+            const gdir = fileList.path;
+            filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
+            setFilePick({...filePick, files: [], show: false});
+        } else{
+            fileDelete(chosenFile, dispatch, uid, setShowSuccessMessage, 'Файл перемещен в корзину');
+        }
+        nullifyAction();
+        setChosenFile(null);
+        dispatch(onAddRecentFiles());
+    }
+	
+	const addToArchive = (uid, fid, file, options) => {
+		setLoadingType('squarify')
+        api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+            .then(res => {
+                if (res.data.ok === 1) {
+                    dispatch(onDeleteFile(file));
+                    if(options.single) setShowSuccessMessage('Файл добавлен в архив');
+                    if(options.several) setShowSuccessMessage('Выбранные файлы добавлено в архив');
+                } else console.log(res?.error)
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                nullifyAction();
+                setChosenFile(null);
+				setLoadingType('')
+                if(filePick.show) nullifyFilePick();
+            })
+    }
+
 	const archiveFile = () => {
-		api.post(`/ajax/file_archive.php?uid=${uid}&fid=${chosenFile.fid}`)
-        .then(res => {
-			if (res.data.ok === 1) {
-				dispatch(onDeleteFile(chosenFile))
-				setShowSuccessMessage('Файл добавлен в архив')
-			} else console.log(res?.error)
-		})
-        .catch(err => console.log(err))
-		.finally(() => {nullifyAction(); setChosenFile(null)})
-	};
+        if(filePick.show) {
+            filePick.files.forEach((fid, i) => {
+                const options = {single: false, several: i === filePick.files.length - 1};
+                addToArchive(uid, fid, {fid}, options);
+            })
+        } else {
+            addToArchive(uid, chosenFile.fid, chosenFile, {single: true, several: false});
+        }
+	}
 	const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+	const excessItems = () => {
+		if(filePick.show) {
+			return ['intoZip', 'properties', 'download', 'print']
+		} else {
+			if(chosenFile.mime_type) {
+				switch (chosenFile.mime_type.split('/')[0]) {
+					case 'image': return []
+					case 'video': return ['print']
+					case 'audio': return ['print']
+					case 'application': {
+						return chosenFile.mime_type === 'application/x-compressed'
+							? ['print', 'intoZip', 'intoZipSeveral']
+							: [];
+					}
+					default: return ['print'];
+				}
+			}
+			if(previewFormats.filter(ext => chosenFile.ext.toLowerCase().includes(ext))[0]) return [];
+			return ['print'];
+		}
+	}
 	const renderMenuItems = (target, type) => {
-		return target.map((item, i) => {
+		const eItems = excessItems();
+		let filteredMenu = [...target];
+		filteredMenu.forEach((el, i, arr) => {
+			eItems.forEach(excess => {if(excess === el.type) delete arr[i]});
+		});
+		return filteredMenu.map((item, i) => {
 			return (
 				<ContextMenuItem
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					callback={() => type[i]?.callback(type, i)}
+					callback={() => type.forEach((el, index) => {if(el.type === item.type) el.callback(type, index)})}
 					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});
-	};
+	}
 
 	useEffect(() => {
 		setMenuItem('myFiles')
@@ -139,12 +214,16 @@ const MyFiles = ({
 			dispatch(onChooseFiles('global/all'));
 			setMenuItem('')
 	}}, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
-	
-	// Change state to default after changing menu params
-	useEffect(() => {
-		if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
-	}, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
+	// Change state to default after changing menu params
+	// useEffect(() => {
+	// 	if(action?.type !== 'customizeSeveral') setFilePick({show: false, files: [], customize: false});
+	// }, [action]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	const cancelArchive = () => {
+		nullifyFilePick();
+		nullifyAction();
+	}
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -187,6 +266,12 @@ const MyFiles = ({
 				showLinkCopy={showLinkCopy}
 				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
+				cancelArchive={cancelArchive}
+				fileAddCustomization={fileAddCustomization}
+            	setFileAddCustomization={setFileAddCustomization}
+				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+				setLoadingType={setLoadingType}
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
@@ -208,7 +293,7 @@ const MyFiles = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для Сейфа с паролями'
             />}
-            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
 			{showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
 		</div>
 		

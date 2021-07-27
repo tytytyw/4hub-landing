@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './General.module.sass';
-import File from '../../../../../generalComponents/Files';
-import InputField from '../../../../../generalComponents/InputField';
+import File from '../../../../../../../generalComponents/Files';
+import InputField from '../../../../../../../generalComponents/InputField';
 
 const General = ({file}) => {
     return (<div className={styles.generalWrap}>

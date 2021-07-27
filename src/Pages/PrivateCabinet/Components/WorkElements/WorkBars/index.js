@@ -4,10 +4,11 @@ import {useSelector} from 'react-redux';
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
-const WorkBars = ({children, fileSelect, filePick, setFilePick}) => {
+const WorkBars = ({children, fileSelect, filePick}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
+    const search = useSelector(state => state.PrivateCabinet.search);
 
     return (
 
@@ -44,16 +45,30 @@ const WorkBars = ({children, fileSelect, filePick, setFilePick}) => {
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>
-            {!children || children?.length === 0 ? <img
-                src='./assets/PrivateCabinet/addPropose.png'
-                alt='addFile'
-                className={size === 'big'
-                    ? styles.textAddIcon
-                    : size === 'medium'
-                        ? styles.textAddIconMedium
-                        : styles.textAddIconSmall
-                }
-            /> : null}
+            {(!children || children?.length === 0) && search.length === 0
+                ? <img
+                    src='./assets/PrivateCabinet/addPropose.png'
+                    alt='addFile'
+                    className={size === 'big'
+                        ? styles.textAddIcon
+                        : size === 'medium'
+                            ? styles.textAddIconMedium
+                            : styles.textAddIconSmall
+                    }
+                />
+                : null}
+            {children?.length === 0 && search.length !== 0
+                ? <div
+                    className={styles.noSearchResults}
+                    style={{
+                        left: size === 'small'
+                            ? '158px'
+                            : size === 'medium'
+                                ? '200px'
+                                : '245px',
+                    }}
+                >Нет элементов удовлетворяющих условиям поиска</div>
+                : null}
             {children}
         </div>
     )

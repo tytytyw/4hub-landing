@@ -23,10 +23,14 @@ import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/fo
 import api from '../../../../api';
 import {onChooseFiles, onGetFolders} from '../../../../Store/actions/PrivateCabinetActions';
 import Error from '../../../../generalComponents/Error';
+import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
+               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -36,12 +40,13 @@ const MyFolders = ({
     const path = useSelector(state => state.PrivateCabinet.folderList?.path);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: ''});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);
     const [action, setAction] = useState({type: '', name: '', text: ''});
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
     const closeError = () => setError({isError: false, message: ''});
@@ -104,24 +109,24 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
 
     const callbackArrOther = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
     ];
 
     const callbackArrSub = [
-        {type: 'resendFolder', name: 'Переслать', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
@@ -134,6 +139,8 @@ const MyFolders = ({
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onGetFolders());
                 dispatch(onChooseFiles('global/all'));
+                //TODO - Need to fix bag to disappear subfolder after deletion - React Component doesn't see changes
+                setChosenFolder({...chosenFolder, open: false});
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
             }})
@@ -174,6 +181,13 @@ const MyFolders = ({
                 fileSelect={fileSelect}
                 action={action}
                 setAction={setAction}
+                fileAddCustomization={fileAddCustomization}
+                setFileAddCustomization={setFileAddCustomization}
+                nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+                showSuccessMessage={showSuccessMessage}
+                setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -200,7 +214,22 @@ const MyFolders = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
+            {action.type === 'resendFolder' ? (
+                <ShareFolder
+                    folder={chosenFolder}
+                    files={{}}
+                    close={nullifyAction}
+                    action_type={action.type}
+                    showSuccessMessage={showSuccessMessage}
+                    setShowSuccessMessage={setShowSuccessMessage}
+                />
+            ) : null}
+            {action.type === 'copyLink' ? <CopyLinkFolder
+                nullifyAction={nullifyAction}
+                folder={chosenFolder}
+                setShowSuccessMessage={setShowSuccessMessage}
+            /> : null}
+            {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
                     ? contextMenuSubFolder.main
@@ -218,6 +247,7 @@ const MyFolders = ({
                 <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
             </ActionApproval> : null}
             <Error error={error.isError} set={closeError} message={error.message} />
+            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
         </div>
     )
 }

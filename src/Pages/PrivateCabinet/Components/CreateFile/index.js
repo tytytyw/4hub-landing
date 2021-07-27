@@ -164,25 +164,21 @@ const CreateFile = ({
                             <div className={styles.name}>{getName(blob?.options?.name ? blob.options.name : blob.file.name).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={styles.minitagWrap}
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
                                 >
                                     <div
                                         className={`${styles.minitag}`}
                                     >#{tagOption.chosen}</div>
-                                    <span className={styles.hoverPanel}/>
                                 </div>}
-                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined}`} onClick={() => setColor(colors[0])}>
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
                                     <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
-                                    <span className={styles.hoverPanel}/>
                                 </div>
-                                {sign && <div className={styles.signWrap} onClick={() => setSign('')}>
+                                {sign && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setSign('')}>
                                     <img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' />
-                                    <span className={styles.hoverPanel}/>
                                 </div>}
-                                {emoji && <div className={styles.signWrap} onClick={() => setEmoji('')}>
+                                {emoji && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setEmoji('')}>
                                     <img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
-                                    <span className={styles.hoverPanel}/>
                                 </div>}
                                 {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                             </div>

@@ -17,12 +17,23 @@ const FileItem = ({
 	additionalMenuItems,
 	setFilePreview,
 	filePreview,
-	chosen
+	chosen,
+	filePick,
+	setFilePick
 }) => {
+
+	const onPickFile = () => {
+		if(filePick.show) {
+			const isPicked = filePick.files.filter(el => el === file.fid);
+			isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+		}
+		setChosenFile(file);
+	}
+
 	return (
 		<div
 			className={classNames({[styles.file_wrap]: true, [styles.chosen]:chosen})}
-			onClick={() => setChosenFile(file)}
+			onClick={onPickFile}
 			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
 		>
 			<div className={styles.file_icon}>

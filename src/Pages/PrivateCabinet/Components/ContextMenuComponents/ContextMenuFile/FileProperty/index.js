@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import styles from './FileProperty.module.sass';
-import PopUp from '../../../../generalComponents/PopUp';
+import PopUp from '../../../../../../generalComponents/PopUp';
 import General from './General';
 import Security from './Security';
 import PrevVersions from './PrevVersions';

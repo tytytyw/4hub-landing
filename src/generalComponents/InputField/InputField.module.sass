@@ -7,6 +7,7 @@
   position: relative
   border: 1px solid #bab8b8
   border-radius: 5px
+  box-sizing: border-box
   .inputField
     border: none
     color: black
@@ -18,12 +19,13 @@
     font-family: "SF Pro Bold", sans-serif
   .isPassword
     width: calc(80% - 30px)
+    box-shadow: 0 0 0px 1000px #ffffff inset
   .inputField::placeholder
     color: #bab8b8
     font-family: "SF Pro Light", sans-serif
   .eye
     position: absolute
-    right: calc(7% + 34px)
+    right: 5%
     top: calc(48% - 9px)
     cursor: pointer
     width: 18px
@@ -45,7 +47,7 @@
     transition: background 0.1s ease-in-out
     cursor: pointer
     position: absolute
-    right: 15px
+    right: calc(5% + 34px)
     top: calc(48% - 7.5px)
   .switcherActive
     width: 29px
@@ -59,7 +61,7 @@
     transition: background 0.1s ease-in-out
     cursor: pointer
     position: absolute
-    right: 15px
+    right: calc(5% + 34px)
     top: calc(48% - 7.5px)
   .switch
     width: 13px

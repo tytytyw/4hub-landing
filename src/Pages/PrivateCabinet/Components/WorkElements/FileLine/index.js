@@ -8,10 +8,45 @@ import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabin
 import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 
-const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview}) => {
+const FileLine = ({
+          file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
+          setFilePick, callbackArrMain
+}) => {
+
+    const onPickFile = () => {
+        if(filePick.show) {
+            const isPicked = filePick.files.filter(el => el === file.fid);
+            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+        }
+        setChosenFile(file)
+    }
+
+    const downloadFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})
+        }, 0)
+    }
+
+    const printFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'print') item.callback(file)})
+        }, 0)
+    }
+
+    const onPropertiesFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach((item, index) => {if(item.type === 'customize') item.callback(callbackArrMain, index)})
+        }, 0)
+    }
+
+    const onShareFile = () => {
+        setTimeout(() => {
+            callbackArrMain.forEach(item => {if(item.type === 'share') setAction(item)})
+        }, 0)
+    }
 
     return (<div
-        onClick={() => setChosenFile(file)}
+        onClick={onPickFile}
         onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
         className={`${chosen ? styles.fileLineWrapChosen : styles.fileLineWrap}`}>
         <div className={styles.fileAbout}>
@@ -28,14 +63,29 @@ const FileLine = ({file, setChosenFile, chosen, setMouseParams, setAction, setFi
             </div>
         </div>
         <div className={styles.optionsWrap}>
-            <div className={styles.iconView}><DownLoadIcon /></div>
-            <div className={styles.iconView}><PrintIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconSettings}`}><SettingsIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconTrash}`} onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})} ><DeleteIcon /></div>
-            <div className={`${styles.iconView} ${styles.iconShare}`}><ShareIcon /></div>
+            <div
+                className={styles.iconView}
+                onClick={downloadFile}
+            ><DownLoadIcon /></div>
+            <div
+                className={styles.iconView}
+                onClick={printFile}
+            ><PrintIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconSettings}`}
+                onClick={onPropertiesFile}
+            ><SettingsIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconTrash}`}
+                onClick={() => setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`})}
+            ><DeleteIcon /></div>
+            <div
+                className={`${styles.iconView} ${styles.iconShare}`}
+                onClick={onShareFile}
+            ><ShareIcon /></div>
             <div
                 className={styles.menuWrap}
-                onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 30})}}
             ><span className={styles.menu} /></div>
         </div>
     </div>)

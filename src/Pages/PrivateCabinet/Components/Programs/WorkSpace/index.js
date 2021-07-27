@@ -14,7 +14,7 @@ import WorkBars from '../WorkElements/WorkBars'
 import BottomPanel from '../../ButtomPanel'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
-import CustomizeFile from '../../CustomizeFile'
+import CustomizeFile from '../../ContextMenuComponents/ContextMenuFile/CustomizeFile'
 import ProgramBar from '../WorkElements/ProgramBar'
 
 const WorkSpace = ({
