@@ -9,7 +9,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
     const [url, setUrl] = useState('');
-    const [review, setReview] = useState({open: true, text: 'Просмотр'});
+    const [review, setReview] = useState({open: false, text: 'Просмотр'});
     const linkRef = useRef('');
 
     const saveChanges = () => {
@@ -98,10 +98,11 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                                     <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
                                     <div>Скачивание</div>
                                 </div>
-                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Редактировать', open: false})}>
+                                <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать', open: false})}>
                                     <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
                                     <div>Редактировать</div>
                                 </div>
+                                <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
                             </div> : null}
                         </div>
                     </div>
