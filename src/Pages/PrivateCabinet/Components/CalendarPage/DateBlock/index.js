@@ -3,8 +3,33 @@ import styles from './DateBlock.module.sass'
 import Select from '../../../../../generalComponents/Select/Select'
 import {getDays, getYears, months} from '../helper'
 import classNames from 'classnames'
+import {useDispatch, useSelector} from 'react-redux'
+import {setCalendarDate} from '../../../../../Store/actions/PrivateCabinetActions'
 
-const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
+const DateBlock = ({setViewType}) => {
+
+    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const dispatch = useDispatch()
+
+    const onChangeDay = day => {
+        const date = new Date(calendarDate)
+        date.setDate(day)
+        dispatch(setCalendarDate(date))
+        setViewType('list')
+    }
+
+    const onChangeMonth = item => {
+        const date = new Date(calendarDate)
+        date.setMonth(item.id)
+        dispatch(setCalendarDate(date))
+        setViewType('full')
+    }
+
+    const onChangeYear = year => {
+        const date = new Date(calendarDate)
+        date.setFullYear(year)
+        dispatch(setCalendarDate(date))
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -19,7 +44,7 @@ const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
                             classNameSelect={styles.selectContentYear}
                             data={getYears()}
 
-                            onChange={value => setYear(value)}
+                            onChange={value => onChangeYear(value)}
                         />
                     </div>
 
@@ -30,7 +55,7 @@ const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
                             classNameSelect={styles.selectContent}
                             data={getDays()}
 
-                            onChange={value => setDay(value)}
+                            onChange={value => onChangeDay(value)}
                         />
                     </div>
                 </div>
@@ -42,10 +67,10 @@ const DateBlock = ({search, setSearch, month, setMonth, setYear, setDay}) => {
                 {months?.map((item, index) => (
                     <button
                         key={index}
-                        onClick={() => setMonth(item.id)}
+                        onClick={() => onChangeMonth(item)}
                         className={classNames({
                             [styles.button]: true,
-                            [styles.active]: item.id === month
+                            [styles.active]: item.id === calendarDate.getMonth()
                         })}
                     >
                         {item.text}

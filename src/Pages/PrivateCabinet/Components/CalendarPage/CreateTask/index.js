@@ -51,6 +51,33 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
         return event?.name
     }
 
+    const maskDate = (date) => {
+        const tempValue = date.replace(/\D/gim, '')
+        return tempValue.replace(
+            ...({
+                2: [/(\d{2})/g, '$1'],
+                3: [/(\d{2})/g, '$1.'],
+                4: [/(\d{2})(\d{0,2})/g, '$1.$2'],
+                5: [/(\d{2})(\d{2})/g, '$1.$2.'],
+                6: [/(\d{2})(\d{2})(\d{0,4})/g, '$1.$2.$3'],
+                7: [/(\d{2})(\d{2})(\d{1,4})/g, '$1.$2.$3'],
+                8: [/(\d{2})(\d{2})(\d{4})/g, '$1.$2.$3']
+            }[tempValue.length] || [])
+        )
+    }
+
+    const onChangeDateFrom = event => {
+        let {value} = event.target
+        event.target.value = maskDate(value)
+        setDateFrom(event.target.value)
+    }
+
+    const onChangeDateTo = event => {
+        let {value} = event.target
+        event.target.value = maskDate(value)
+        setDateTo(event.target.value)
+    }
+
     return (
         <>
             <PopUp set={onCreate}>
@@ -58,6 +85,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                     <span className={styles.cross} onClick={() => onCreate(false)}/>
 
                     <div className={styles.content}>
+
                         <span className={styles.title}>Добавить событие</span>
 
                         <div className={styles.inputFieldsWrap}>
@@ -97,7 +125,8 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                         className={styles.rangeInput}
                                         placeholder='_ _ . _ _ . _ _ _ _'
                                         value={dateFrom}
-                                        onChange={event => setDateFrom(event.target.value)}
+                                        maxLength={10}
+                                        onChange={onChangeDateFrom}
                                     />
                                 </div>
                                 &nbsp;&nbsp;
@@ -108,7 +137,8 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                         className={styles.rangeInput}
                                         placeholder='_ _ . _ _ . _ _ _ _'
                                         value={dateTo}
-                                        onChange={event => setDateTo(event.target.value)}
+                                        maxLength={10}
+                                        onChange={onChangeDateTo}
                                     />
                                 </div>
                             </div>
