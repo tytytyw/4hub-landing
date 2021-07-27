@@ -10,6 +10,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
     const uid = useSelector(state => state.user.uid);
     const [url, setUrl] = useState('');
     const [review, setReview] = useState({open: false, text: 'Просмотр'});
+    const [access, setAccess] = useState({open: false, text: 'limited'});
     const linkRef = useRef('');
 
     const saveChanges = () => {
@@ -84,7 +85,17 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                             </div>
                         </div>
                         <div className={styles.openList}>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy' onClick={() => setAccess({...access, open: !access.open})} />
+                            {access.open ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited', open: false})}>
+                                    <div className={`${styles.radio} ${access.text === 'limited' ? styles.radioChosen : ''}`} />
+                                    <div className={styles.description}>Доступ ограниченный</div>
+                                </div>
+                                <div className={styles.reviewOption} onClick={() => setAccess({...access, text: 'onLink', open: false})}>
+                                    <div className={`${styles.radio} ${access.text === 'onLink' ? styles.radioChosen : ''}`} />
+                                    <div>Доступные пользователям, у которых есть ссылка</div>
+                                </div>
+                            </div> : null}
                         </div>
                         <div className={styles.review}>
                             <span onClick={() => setReview({...review, open: !review.open})}>{review.text}</span>
