@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 
 import api from "../../../../../../api";
 import styles from "./CopyLink.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 
-function CopyLinkFolder({ nullifyAction, folder }) {
+function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
     const [url, setUrl] = useState('');
+    const linkRef = useRef('');
 
     const saveChanges = () => {
         nullifyAction();
@@ -22,6 +23,21 @@ function CopyLinkFolder({ nullifyAction, folder }) {
     }
 
     useEffect(() => {getLink()}, []) // eslint-disable-line
+
+    const copyLink = () => {
+        if(url) {
+            if(navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url);
+            } else {
+                linkRef.current.value = url;
+                linkRef.current.focus();
+                linkRef.current.select();
+                document.execCommand('copy');
+                linkRef.current.value = '';
+            }
+            setShowSuccessMessage('Ссылка скопирована');
+        }
+    }
 
     return (
         <PopUp set={nullifyAction}>
@@ -38,7 +54,7 @@ function CopyLinkFolder({ nullifyAction, folder }) {
                 <main>
                     <div className={styles.copyLink}>
                         <div className={styles.link}>{url}</div>
-                        <div className={styles.copy}>Копировать ссылку</div>
+                        <div className={styles.copy} onClick={copyLink}>Копировать ссылку</div>
                     </div>
                     <div className={styles.accessUsers}>
                         <div className={styles.infoWrap}>
@@ -80,6 +96,7 @@ function CopyLinkFolder({ nullifyAction, folder }) {
                     <div className={`${styles.add}`} onClick={saveChanges}>Готово</div>
                 </div>
             </div>
+            <input ref={linkRef} type='text' style={{display: 'none'}} />
         </PopUp>
     )
 }

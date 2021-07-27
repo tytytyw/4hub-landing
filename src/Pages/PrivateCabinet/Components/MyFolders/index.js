@@ -227,6 +227,7 @@ const MyFolders = ({
             {action.type === 'copyLink' ? <CopyLinkFolder
                 nullifyAction={nullifyAction}
                 folder={chosenFolder}
+                setShowSuccessMessage={setShowSuccessMessage}
             /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
