@@ -13,15 +13,6 @@ import {
     CUSTOMIZE_FILE,
     GET_PROGRAM_FOLDERS,
     GET_RECENT_PROGRAMS,
-<<<<<<< HEAD
-    GET_SAFES,
-    GET_TOP_LIST_PROGRAMS,
-    SET_CALENDAR_DATE,
-    SET_CALENDAR_EVENTS,
-    SET_SIZE,
-    SEARCH,
-    CHOOSE_SHARED_FILES
-=======
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_PROGRAMS,
@@ -36,8 +27,6 @@ import {
     CHOOSE_SHARED_FILES,
     SET_CALENDAR_DATE,
     SET_CALENDAR_EVENTS,
-    SET_SIZE,
->>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
 } from '../types';
 
 const folders = [
@@ -602,30 +591,6 @@ export const onSetFileSize = (size) => {
     }
 }
 
-<<<<<<< HEAD
-export const onSearch = (value) => {
-    return {
-        type: SEARCH,
-        payload: value
-    }
-}
-
-// SHARED FILES
-export const onGetSharedFiles  = () => async (dispatch, getState) => {
-    try {
-        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
-        dispatch({
-            type: CHOOSE_SHARED_FILES,
-            payload: res.data.data
-        })
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-=======
->>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
-
 // CALENDAR PAGE
 export const setCalendarDate = date => {
     return {
@@ -669,8 +634,6 @@ export const setCalendarEvents = events => {
                 type: 3,
             },
         ]
-<<<<<<< HEAD
-=======
     }
 }
 
@@ -691,6 +654,5 @@ export const onGetSharedFiles  = () => async (dispatch, getState) => {
         })
     } catch (e) {
         console.log(e);
->>>>>>> f63052cdbf510d02ab4f8092305fdcb73b4fc85f
     }
 }
