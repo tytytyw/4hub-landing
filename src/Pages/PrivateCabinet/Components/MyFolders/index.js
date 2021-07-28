@@ -197,7 +197,7 @@ const MyFolders = ({
                 setChosenFolder={setChosenFolder}
             />}
             {fileAddCustomization.show ? <CreateFile
-                title='Добавление файла'
+                title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
                 setBlob={setFileAddCustomization}
@@ -209,6 +209,7 @@ const MyFolders = ({
                 loadingFile={loadingFile}
                 fileErrors={fileErrors}
                 setLoadingFile={setLoadingFile}
+                create={fileAddCustomization.create}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}

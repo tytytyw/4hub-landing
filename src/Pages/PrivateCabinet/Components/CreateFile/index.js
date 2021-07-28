@@ -12,14 +12,16 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
-import {onAddRecentFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
+import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile,
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create,
 }) => {
 
     const uid = useSelector(state => state.user.uid);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const search = useSelector(state => state.PrivateCabinet.search);
     const [name, setName] = useState(blob?.options?.name ? blob.options.name.slice(0, blob.options.name.lastIndexOf('.')) : blob.file.name.slice(0, blob.file.name.lastIndexOf('.')));
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -102,13 +104,20 @@ const CreateFile = ({
                     setLoaded(files);
                 } else {setError(true)}
                 })
-                .catch(err => {setError(true)})
+                .catch(() => {setError(true)})
+                .finally(() => closeComponent());
+        } else if(create) {
+            const url = `/ajax/file_new.php/?uid=${uid}&fileName=${options.name.slice(0, options.name.lastIndexOf('.'))}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${options.color}&symbol=${options.symbol}&emoji=${options.emoji}&ext=${options.name.slice(options.name.lastIndexOf('.') + 1)}`;
+            api.post(url)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onChooseFiles(fileList.path, search))
+                } else {setError(true)}})
+                .catch(() => {setError(true)})
                 .finally(() => closeComponent());
         } else {
             if(loadingFile.length > 0) {
                 setAwaitingFiles([...awaitingFiles, {...blob, options}]);
             } else {setLoadingFile([{...blob, options}])}
-            // setAwaitingFiles([...awaitingFiles, {...blob, options}]);
             if(loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0) closeComponent();
         }
     };
@@ -146,7 +155,7 @@ const CreateFile = ({
         if(size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
         if(size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
         if(size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;
-        return size;
+        return `${size} KB`;
     };
 
     return (
