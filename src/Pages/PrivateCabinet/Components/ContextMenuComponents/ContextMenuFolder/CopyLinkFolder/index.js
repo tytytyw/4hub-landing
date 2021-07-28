@@ -11,14 +11,21 @@ import {ReactComponent as WorldIcon} from '../../../../../../assets/PrivateCabin
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
-    const [url, setUrl] = useState('');
-    const [review, setReview] = useState({open: false, text: 'Просмотр'});
-    const [access, setAccess] = useState({open: false, text: 'limited'});
+    const [url, setUrl] = useState('Загрузка...');
+    const [review, setReview] = useState({text: 'Просмотр'});
+    const [access, setAccess] = useState({text: 'limited'});
+    const [context, setContext] = useState('');
     const linkRef = useRef('');
 
-    const saveChanges = () => {
-        nullifyAction();
-    }
+    const saveChanges = () => {nullifyAction()}
+
+    useEffect(() => {
+        function nullifyContext() {setContext('')}
+
+        if(context) window.addEventListener('click', nullifyContext);
+
+        return () => {window.removeEventListener('click', nullifyContext)}
+    }, [context]) // eslint-disable-line
 
     const getLink = () => {
         const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST$&is_read=true`;
@@ -87,32 +94,32 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                                 <div className={styles.description}>просматривать могут все у кого есть ссылка</div>
                             </div>
                         </div>
-                        <div className={styles.openList}>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy' onClick={() => setAccess({...access, open: !access.open})} />
-                            {access.open ? <div className={styles.reviewOptions}>
-                                <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited', open: false})}>
+                        <div className={styles.openList} onClick={() => setContext('access')}>
+                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy' />
+                            {context === 'access' ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited'})}>
                                     <div className={`${styles.radio} ${access.text === 'limited' ? styles.radioChosen : ''}`} />
                                     <div className={styles.description}>Доступ ограниченный</div>
                                 </div>
-                                <div className={styles.reviewOption} onClick={() => setAccess({...access, text: 'onLink', open: false})}>
+                                <div className={styles.reviewOption} onClick={() => setAccess({...access, text: 'onLink'})}>
                                     <div className={`${styles.radio} ${access.text === 'onLink' ? styles.radioChosen : ''}`} />
                                     <div>Доступные пользователям, у которых есть ссылка</div>
                                 </div>
                             </div> : null}
                         </div>
-                        <div className={styles.review}>
-                            <span onClick={() => setReview({...review, open: !review.open})}>{review.text}</span>
+                        <div className={styles.review} onClick={() => setContext('review')}>
+                            <span>{review.text}</span>
                             <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
-                            {review.open ? <div className={styles.reviewOptions}>
-                                <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр', open: false})}>
+                            {context === 'review' ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
                                     <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
                                     <div className={styles.description}>Просмотр</div>
                                 </div>
-                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание', open: false})}>
+                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
                                     <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
                                     <div>Скачивание</div>
                                 </div>
-                                <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать', open: false})}>
+                                <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
                                     <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
                                     <div>Редактировать</div>
                                 </div>
