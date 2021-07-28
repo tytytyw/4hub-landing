@@ -4,6 +4,9 @@ import api from "../../../../../../api";
 import styles from "./CopyLink.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
+import {ReactComponent as CopyIcon} from '../../../../../../assets/PrivateCabinet/copy.svg';
+import {ReactComponent as UserIcon} from '../../../../../../assets/PrivateCabinet/userIcon.svg';
+import {ReactComponent as WorldIcon} from '../../../../../../assets/PrivateCabinet/world.svg';
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
@@ -46,7 +49,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
             <div className={styles.copyLinkWrap}>
                 <header>
                     <div className={styles.circle}>
-                        <img src='/assets/PrivateCabinet/copy.svg' alt='copy'/>
+                        <CopyIcon className={styles.copyIcon} />
                     </div>
                     <div className={styles.details}>
                         <div className={styles.title}>Скопируйте ссылку</div>
@@ -61,7 +64,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     <div className={styles.accessUsers}>
                         <div className={styles.infoWrap}>
                             <div className={styles.circle}>
-                                <img src='/assets/PrivateCabinet/userIcon.svg' alt='copy'/>
+                                <UserIcon className={styles.userIcon} />
                             </div>
                             <div className={styles.details}>
                                 <div className={styles.title}>Предоставьте доступ пользователям и группам</div>
@@ -77,7 +80,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     <div className={styles.chosenUsers}>
                         <div className={styles.infoWrap}>
                             <div className={styles.circle}>
-                                <img src='/assets/PrivateCabinet/world.svg' alt='copy'/>
+                                <WorldIcon className={styles.worldIcon} />
                             </div>
                             <div className={styles.details}>
                                 <div className={styles.title}>Доступные пользователи, у которых есть ссылка</div>

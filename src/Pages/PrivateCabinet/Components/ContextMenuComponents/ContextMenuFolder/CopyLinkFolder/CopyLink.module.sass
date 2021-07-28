@@ -7,12 +7,25 @@
         display: flex
         padding: 10px 15px
         align-items: center
+        &:hover .circle
+            background: rgb(64, 134, 241)
+        &:hover .copyIcon path:first-child
+            fill: #FFF
+        &:hover .copyIcon path:nth-child(2),
+        &:hover .copyIcon path:last-child
+            fill: #4086F1
+        .copyIcon path:nth-child(2)
+            fill: rgb(235, 247, 232)
+        .copyIcon path:last-child
+            fill: rgb(235, 247, 232)
+        .copyIcon path:first-child
+            fill: #A4A4A4
         .circle
             display: flex
             justify-content: center
             align-items: center
             border-radius: 50%
-            background: rgb(64, 134, 241)
+            background: rgb(235, 247, 232)
             width: 50px
             height: 50px
             margin: 0 15px 0 0
@@ -103,6 +116,10 @@
                 img
                     width: 6px
                     transform: rotate(270deg)
+            &:hover .circle
+                background: rgb(64, 134, 241)
+            &:hover .userIcon path
+                fill: #FFFFFF
         .line
             width: 80%
             height: 1px
@@ -212,6 +229,10 @@
                     margin: 0 0 0 40px
                     font-size: 11px
                     color: grey
+            &:hover .circle
+                background: rgb(64, 134, 241)
+            &:hover .worldIcon path
+                fill: #FFFFFF
     .buttonsWrap
         display: flex
         width: 290px
