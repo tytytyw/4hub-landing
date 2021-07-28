@@ -128,6 +128,8 @@ const WorkSpace = ({
                 	share={() => onActiveCallbackArrMain('share')}
 					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
 					filePick={filePick}
+					fileAddCustomization={fileAddCustomization}
+					setFileAddCustomization={setFileAddCustomization}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
