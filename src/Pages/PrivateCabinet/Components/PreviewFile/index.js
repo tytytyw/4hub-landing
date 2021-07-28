@@ -34,8 +34,9 @@ const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
         if(isType) {
             return getPreview()
         }else if(isFormat) {
-                window.open(file?.edit_url,'_blank')
-                // getPreview();
+            window.open(file?.edit_url,'_blank')
+            ;set()
+            // getPreview();
         } else {
             return standardPrev;
         }
