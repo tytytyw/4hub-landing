@@ -9,7 +9,7 @@ import ServePanel from "../ServePanel";
 import WorkBars from "../WorkElements/WorkBars";
 import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
 import FileBar from "../WorkElements/FileBar";
-import FileLine from "./WorkElements/FileLine";
+import FileLine from "../WorkElements/FileLine";
 import { useDispatch, useSelector } from "react-redux";
 import DateBlock from "./DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -160,7 +160,7 @@ const SharedFiles = ({
 		});
 	};
 
-	const renderFiles = (Type) => {
+	const renderFiles = (Type, shareLink) => {
 		if (!fileList || fileList.length === 0) return null;
 		return fileList.files?.map((file, index) => (
 			<Type
@@ -180,6 +180,7 @@ const SharedFiles = ({
 						: chosenFile?.fid === file?.fid
 				}
 				callbackArrMain={callbackArrMain}
+				shareLink={shareLink}
 			/>
 		));
 	};
@@ -387,7 +388,7 @@ const SharedFiles = ({
 
 							{workElementsView === "lines" && collapse ? (
 								<div className={styles.collapseContent}>
-									{renderFiles(FileLine)}
+									{renderFiles(FileLine, true)}
 								</div>
 							) : null}
 
