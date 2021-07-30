@@ -46,10 +46,10 @@ const SharedFiles = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 }) => {
-	const workElementsView = useSelector(state => state.PrivateCabinet.view);
+	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 	const [search, setSearch] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
-	const user = useSelector(state => state.user.userInfo);
+	const user = useSelector((state) => state.user.userInfo);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -67,6 +67,8 @@ const SharedFiles = ({
 	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
+
+	const size = useSelector((state) => state.PrivateCabinet.size);
 
 	const callbackArrMain = [
 		{
@@ -199,7 +201,7 @@ const SharedFiles = ({
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
 		if (mType === "application/pdf") {
-            setLoadingType('squarify')
+			setLoadingType("squarify");
 			if (mType === "application/pdf") {
 				printFile(`${preview}`);
 			} else if (mType.includes("image")) {
@@ -210,7 +212,7 @@ const SharedFiles = ({
 				ext.toLowerCase().includes(format)
 			);
 			if (chosenType.length > 0) {
-                setLoadingType('squarify')
+				setLoadingType("squarify");
 				api
 					.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
 					.then((res) => printFile(res.data.file_pdf))
@@ -222,7 +224,7 @@ const SharedFiles = ({
 	const printFile = (path) => {
 		let pri = document.getElementById("frame");
 		pri.src = `https://fs2.mh.net.ua/${path}`;
-        setLoadingType('')
+		setLoadingType("");
 		setTimeout(() => {
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
@@ -255,7 +257,7 @@ const SharedFiles = ({
 	};
 
 	const addToArchive = (uid, fid, file, options) => {
-        setLoadingType('squarify')
+		setLoadingType("squarify");
 		api
 			.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
 			.then((res) => {
@@ -270,35 +272,41 @@ const SharedFiles = ({
 			.finally(() => {
 				nullifyAction();
 				setChosenFile(null);
-                setLoadingType('')
+				setLoadingType("");
 				if (filePick.show) nullifyFilePick();
 			});
 	};
 
 	const deleteAccess = (fid, dir, set, msg) => {
-		setLoadingType('squarify')
-		api.post(`/ajax/file_share_del.php`, {fids: [fid], dir, uid, user_to: user.name})
-			.then(res => {
-				if (res.data.ok) {
-					dispatch(onGetSharedFiles())
-					if(set) set(msg)
-				} else console.log(res?.error)
+		setLoadingType("squarify");
+		api
+			.post(`/ajax/file_share_del.php`, {
+				fids: [fid],
+				dir,
+				uid,
+				user_to: user.name,
 			})
-			.catch(err => console.log(err))
-			.finally(() => setLoadingType(''))
-	}
+			.then((res) => {
+				if (res.data.ok) {
+					dispatch(onGetSharedFiles());
+					if (set) set(msg);
+				} else console.log(res?.error);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => setLoadingType(""));
+	};
 
 	const deleteFile = () => {
 		if (filePick.show) {
 			filePick.files.forEach((fid, i, arr) => {
-				const file = fileList.files.filter(file => file.fid === fid);
+				const file = fileList.files.filter((file) => file.fid === fid);
 				deleteAccess(
 					fid,
 					file[0].dir,
 					i === arr.length - 1 ? setShowSuccessMessage : "",
 					"Файлы удалены"
-				)}
-			)
+				);
+			});
 			setFilePick({ ...filePick, files: [], show: false });
 		} else {
 			deleteAccess(
@@ -337,7 +345,14 @@ const SharedFiles = ({
 				filePick={filePick}
 			/>
 
-			<div className={styles.wrapper}>
+			<div
+				className={styles.wrapper}
+				style={{
+					height: `${
+						filePick.show ? "calc(100% - 225px)" : "calc(100% - 140px)"
+					}`,
+				}}
+			>
 				<DateBlock
 					search={search}
 					setSearch={setSearch}
@@ -380,36 +395,35 @@ const SharedFiles = ({
 							</div>
 						)}
 
-							{workElementsView === "bars" && collapse ? (
-								<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
-							) : null}
+						{workElementsView === "bars" && collapse ? (
+							<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
+						) : null}
 
-							{workElementsView === "lines" && collapse ? (
-								<div className={styles.collapseContent}>
-									{renderFiles(FileLine, true)}
-								</div>
-							) : null}
+						{workElementsView === "lines" && collapse ? (
+							<div className={styles.collapseContent}>
+								{renderFiles(FileLine, true)}
+							</div>
+						) : null}
 
-							{workElementsView === "preview" && collapse ? (
-								<WorkBarsPreview file={chosenFile} filePick={filePick}>
-									{renderFiles(FileBar)}
-								</WorkBarsPreview>
-							) : null}
+						{workElementsView === "preview" && collapse ? (
+							<WorkBarsPreview file={chosenFile} filePick={filePick}>
+								{renderFiles(FileBar)}
+							</WorkBarsPreview>
+						) : null}
 					</div>
-					{filePick.show ? (
-						<OptionButtomLine
-							callbackArrMain={callbackArrMain}
-							filePick={filePick}
-							setFilePick={setFilePick}
-							actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
-							setAction={setAction}
-							action={action}
-							nullifyFilePick={nullifyFilePick}
-						/>
-					) : null}
 				</div>
 			</div>
-
+			{filePick.show ? (
+				<OptionButtomLine
+					callbackArrMain={callbackArrMain}
+					filePick={filePick}
+					setFilePick={setFilePick}
+					actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+					setAction={setAction}
+					action={action}
+					nullifyFilePick={nullifyFilePick}
+				/>
+			) : null}
 
 			{mouseParams !== null && (
 				<ContextMenu
@@ -477,7 +491,7 @@ const SharedFiles = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "intoZip" ? (
@@ -488,7 +502,7 @@ const SharedFiles = ({
 					filePick={filePick}
 					nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			<form
@@ -519,7 +533,7 @@ const SharedFiles = ({
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "resend" ? (
@@ -530,7 +544,7 @@ const SharedFiles = ({
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "archive" ? (
