@@ -396,19 +396,20 @@ const SharedFiles = ({
 								</WorkBarsPreview>
 							) : null}
 					</div>
+					{filePick.show ? (
+						<OptionButtomLine
+							callbackArrMain={callbackArrMain}
+							filePick={filePick}
+							setFilePick={setFilePick}
+							actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+							setAction={setAction}
+							action={action}
+							nullifyFilePick={nullifyFilePick}
+						/>
+					) : null}
 				</div>
 			</div>
-			{filePick.show ? (
-				<OptionButtomLine
-					callbackArrMain={callbackArrMain}
-					filePick={filePick}
-					setFilePick={setFilePick}
-					actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
-					setAction={setAction}
-					action={action}
-					nullifyFilePick={nullifyFilePick}
-				/>
-			) : null}
+
 
 			{mouseParams !== null && (
 				<ContextMenu
