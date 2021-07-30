@@ -10,8 +10,10 @@ import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
 
-const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview, callbackArrMain, shareLink}) => {
-
+const FileLine = ({
+          file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
+          setFilePick, shareLink, callbackArrMain
+}) => {
     const size = useSelector(state => state.PrivateCabinet.size)
     const downloadFile = () => {
         setTimeout(() => {
@@ -36,13 +38,22 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
             callbackArrMain.forEach(item => {if(item.type === 'share') setAction(item)})
         }, 0)
     }
+
+    const onPickFile = () => {
+        if(filePick.show) {
+            const isPicked = filePick.files.filter(el => el === file.fid);
+            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+        }
+        setChosenFile(file)
+    }
+
     return (
         <div
-            onClick={() => setChosenFile(file)}
+            onClick={onPickFile}
             onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
             className={classNames({
                 [styles.wrapper]: true,
-                [styles.active]: chosenFile?.fid === file?.fid,
+                [styles.active]: chosen,
                 [styles?.[`wrapper_${size}`]]: size !== 'medium'
             })}
         >

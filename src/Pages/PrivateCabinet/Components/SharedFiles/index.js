@@ -380,7 +380,6 @@ const SharedFiles = ({
 							</div>
 						)}
 
-						<div>
 							{workElementsView === "bars" && collapse ? (
 								<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
 							) : null}
@@ -396,7 +395,6 @@ const SharedFiles = ({
 									{renderFiles(FileBar)}
 								</WorkBarsPreview>
 							) : null}
-						</div>
 					</div>
 				</div>
 			</div>
