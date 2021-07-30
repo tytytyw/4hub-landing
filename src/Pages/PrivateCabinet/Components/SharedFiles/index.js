@@ -68,8 +68,6 @@ const SharedFiles = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 
-	const size = useSelector((state) => state.PrivateCabinet.size);
-
 	const callbackArrMain = [
 		{
 			type: "share",
