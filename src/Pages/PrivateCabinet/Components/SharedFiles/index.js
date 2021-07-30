@@ -46,7 +46,7 @@ const SharedFiles = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 }) => {
-	const [workElementsView, setWorkElementsView] = useState("bars");
+	const workElementsView = useSelector(state => state.PrivateCabinet.view);
 	const [search, setSearch] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
 	const user = useSelector(state => state.user.userInfo);
@@ -325,7 +325,6 @@ const SharedFiles = ({
 			</div>
 
 			<ServePanel
-				setView={setWorkElementsView}
 				view={workElementsView}
 				chosenFile={chosenFile}
 				setAction={setAction}

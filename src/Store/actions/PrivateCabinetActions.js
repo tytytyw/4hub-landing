@@ -20,6 +20,7 @@ import {
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
+    SET_WORKELEMENTSVIEW,
     GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
@@ -588,6 +589,13 @@ export const onSetFileSize = (size) => {
     return {
         type: SET_SIZE,
         payload: size
+    }
+}
+
+export const onSetWorkElementsView = (view) => {
+    return {
+        type: SET_WORKELEMENTSVIEW,
+        payload: view
     }
 }
 

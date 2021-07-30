@@ -17,7 +17,9 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER,
+    SET_SIZE,
+    SET_WORKELEMENTSVIEW,
+    GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
     SET_CALENDAR_DATE, SET_CALENDAR_EVENTS,
@@ -34,6 +36,7 @@ const INITIAL_STATE = {
     recentFiles: null,
     chosenRecentFile: null,
     size: 'big',
+    view: 'bars',
 
     //SEARCH
     search: '',
@@ -106,6 +109,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_SIZE:
             return {...state, size: action.payload}
+        case SET_WORKELEMENTSVIEW:
+            return {...state, view: action.payload}
         //SEARCH
         case SEARCH: {
             return {...state, search: action.payload}
