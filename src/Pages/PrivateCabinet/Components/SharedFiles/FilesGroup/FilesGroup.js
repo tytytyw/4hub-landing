@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
+import FileLineShort from "../../SharedFiles/WorkElements/FileLineShort/index";
 import FileBar from "../../WorkElements/FileBar";
 import FileLine from "../../WorkElements/FileLine";
 import classNames from "classnames";
@@ -17,9 +18,9 @@ function FilesGroup({
 	setChosenFile,
 	filePick,
 	setFilePick,
-    setAction,
-    setMouseParams,
-    mounthName
+	setAction,
+	setMouseParams,
+	mounthName,
 }) {
 	const [collapse, setCollapse] = useState(false);
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
@@ -50,58 +51,61 @@ function FilesGroup({
 	};
 
 	return (
-		<div className={styles.filesWrap}>
-			<div className={styles.fileWrap}>
-				<div
-					onClick={() => {
-						setCollapse(!collapse);
-					}}
-					className={styles.collapseHeader}
-				>
-					<p className={styles.dateName}>{mounthName}</p>
-                    <div className={styles.buttonsWrap}>
-                        <button className={styles.collapseBtn}>
-                            {fileList?.files.length ?? 0} объектов
-                        </button>
-                        <div
-                            className={classNames({
-                                [styles.arrowFile]: true,
-                                [styles.active]: !!collapse,
-                            })}
-                        >
-                            <PlayIcon
-                                className={classNames({
-                                    [styles.playButton]: true,
-                                    [styles.revert]: !!collapse,
-                                })}
-                            />
-                        </div>
-                    </div>
+		<div className={styles.fileWrap}>
+			<div
+				onClick={() => {
+					setCollapse(!collapse);
+				}}
+				className={styles.collapseHeader}
+			>
+				<p className={styles.dateName}>{mounthName}</p>
+				<div className={styles.buttonsWrap}>
+					<button className={styles.collapseBtn}>
+						{fileList?.files.length ?? 0} объектов
+					</button>
+					<div
+						className={classNames({
+							[styles.arrowFile]: true,
+							[styles.active]: !!collapse,
+						})}
+					>
+						<PlayIcon
+							className={classNames({
+								[styles.playButton]: true,
+								[styles.revert]: !!collapse,
+							})}
+						/>
+					</div>
 				</div>
-
-				{collapse && workElementsView !== 'preview' && (
-					<div className={styles.fileDate}>
-                        {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						<p>10.08.2020</p>
-					</div>
-				)}
-
-				{workElementsView === "bars" && collapse ? (
-					<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
-				) : null}
-
-				{workElementsView === "lines" && collapse ? (
-					<div className={styles.collapseContent}>
-						{renderFiles(FileLine, true)}
-					</div>
-				) : null}
-
-				{workElementsView === "preview" && collapse ? (
-					<WorkBarsPreview file={chosenFile} filePick={filePick}>
-						{renderFiles(FileBar)}
-					</WorkBarsPreview>
-				) : null}
 			</div>
+
+			{collapse && workElementsView !== "preview" && workElementsView !== "workLinesPreview" && (
+				<div className={styles.fileDate}>
+					{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+					<p>10.08.2020</p>
+				</div>
+			)}
+
+			{workElementsView === "bars" && collapse ? (
+				<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
+			) : null}
+
+			{workElementsView === "lines" && collapse ? (
+				<div className={styles.collapseContent}>
+					{renderFiles(FileLine, true)}
+				</div>
+			) : null}
+
+			{workElementsView === "preview" && collapse ? (
+				<WorkBarsPreview file={chosenFile} filePick={filePick}>
+					{renderFiles(FileBar)}
+				</WorkBarsPreview>
+			) : null}
+			{workElementsView === "workLinesPreview" && collapse ? (
+                <div>
+					{renderFiles(FileLineShort, true)}
+				</div>
+			) : null}
 		</div>
 	);
 }

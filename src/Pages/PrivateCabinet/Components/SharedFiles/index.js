@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./SharedFiles.module.sass";
 import FilesGroup from "./FilesGroup/FilesGroup";
+import SideList from "./SideList";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
@@ -350,8 +351,20 @@ const SharedFiles = ({
 					month={month}
 					setMonth={setMonth}
 				/>
-				{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
-				{months().map((item, i) => renderFilesGroup(item.name, i))}
+				<div className={styles.workSpace}>
+					{workElementsView === "workLinesPreview" && (
+						<SideList
+						>
+							{months().map((item, i) => renderFilesGroup(item.name, i))}
+						</SideList>
+					)}
+					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
+					{workElementsView !== "workLinesPreview" && (
+						<div className={styles.FilesList}>
+							{months().map((item, i) => renderFilesGroup(item.name, i))}
+						</div>
+					)}
+				</div>
 			</div>
 			{filePick.show ? (
 				<OptionButtomLine
