@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 
-const WorkBars = ({children, fileSelect, filePick}) => {
+const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -34,7 +34,7 @@ const WorkBars = ({children, fileSelect, filePick}) => {
                         : '205px',
             }}
         >
-            <div
+            {!hideUploadFile && <div
                 onClick={fileSelect}
                 className={`
                     ${styles.addFile}
@@ -44,7 +44,7 @@ const WorkBars = ({children, fileSelect, filePick}) => {
             >
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
-            </div>
+            </div>}
             {(!children || children?.length === 0) && search.length === 0
                 ? <img
                     src='./assets/PrivateCabinet/addPropose.png'
