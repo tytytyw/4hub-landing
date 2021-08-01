@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./SharedFiles.module.sass";
 import FilesGroup from "./FilesGroup/FilesGroup";
+import WorkLinesPreview from "../WorkElements/WorkLinesPreview";
 import SideList from "./SideList";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
@@ -353,10 +354,18 @@ const SharedFiles = ({
 				/>
 				<div className={styles.workSpace}>
 					{workElementsView === "workLinesPreview" && (
-						<SideList
-						>
-							{months().map((item, i) => renderFilesGroup(item.name, i))}
-						</SideList>
+						<>
+							<SideList>
+								{months().map((item, i) => renderFilesGroup(item.name, i))}
+							</SideList>
+							<div className={styles.filePreviewWrap}>
+							<WorkLinesPreview
+								file={chosenFile}
+								hideFileList={true}
+								filePick={filePick}
+							/>
+							</div>
+						</>
 					)}
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
