@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./SharedFiles.module.sass";
+import FilesGroup from "./FilesGroup/FilesGroup";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
-import WorkBars from "../WorkElements/WorkBars";
-import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
-import FileBar from "../WorkElements/FileBar";
-import FileLine from "../WorkElements/FileLine";
 import { useDispatch, useSelector } from "react-redux";
 import DateBlock from "./DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -18,8 +15,6 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import PreviewFile from "../PreviewFile";
-import classNames from "classnames";
-import { ReactComponent as PlayIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
 import BottomPanel from "../ButtomPanel";
 import {
 	onGetSharedFiles,
@@ -35,6 +30,9 @@ import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty"
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
+
+//TODO: заменить при получении сгрупированного на даты списка файлов
+import { months } from "../../../../generalComponents/CalendarHelper";
 
 const SharedFiles = ({
 	filePreview,
@@ -57,7 +55,6 @@ const SharedFiles = ({
 	}, []); // eslint-disable-line
 
 	const [year, setYear] = useState(null);
-	const [collapse, setCollapse] = useState(false);
 	const [month, setMonth] = useState(null);
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
@@ -145,6 +142,25 @@ const SharedFiles = ({
 		},
 	];
 
+	const renderFilesGroup = (mounth, i) => {
+		return (
+			<FilesGroup
+				key={i}
+				fileList={fileList}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				mounthName={mounth}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+			/>
+		);
+	};
+
 	const renderMenuItems = (target, type) => {
 		return target.map((item, i) => {
 			return (
@@ -158,31 +174,6 @@ const SharedFiles = ({
 				/>
 			);
 		});
-	};
-
-	const renderFiles = (Type, shareLink) => {
-		if (!fileList || fileList.length === 0) return null;
-		return fileList.files?.map((file, index) => (
-			<Type
-				key={index}
-				file={file}
-				setChosenFile={setChosenFile}
-				chosenFile={chosenFile}
-				setMouseParams={setMouseParams}
-				setAction={setAction}
-				filePreview={filePreview}
-				setFilePreview={setFilePreview}
-				setFilePick={setFilePick}
-				filePick={filePick}
-				chosen={
-					filePick.show
-						? filePick.files.findIndex((el) => el === file.fid) >= 0
-						: chosenFile?.fid === file?.fid
-				}
-				callbackArrMain={callbackArrMain}
-				shareLink={shareLink}
-			/>
-		));
 	};
 
 	const onActiveCallbackArrMain = (type) => {
@@ -359,57 +350,8 @@ const SharedFiles = ({
 					month={month}
 					setMonth={setMonth}
 				/>
-
-				<div className={styles.filesWrap}>
-					<div className={styles.fileWrap}>
-						<div
-							onClick={() => {
-								setCollapse(!collapse);
-							}}
-							className={styles.collapseHeader}
-						>
-							<p className={styles.dateName}>Август</p>
-							<button className={styles.collapseBtn}>
-								{fileList?.files.length ?? 0} объектов
-							</button>
-							<div
-								className={classNames({
-									[styles.arrowFile]: true,
-									[styles.active]: !!collapse,
-								})}
-							>
-								<PlayIcon
-									className={classNames({
-										[styles.playButton]: true,
-										[styles.revert]: !!collapse,
-									})}
-								/>
-							</div>
-						</div>
-
-						{collapse && (
-							<div className={styles.fileDate}>
-								<p>10.08.2020</p>
-							</div>
-						)}
-
-						{workElementsView === "bars" && collapse ? (
-							<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
-						) : null}
-
-						{workElementsView === "lines" && collapse ? (
-							<div className={styles.collapseContent}>
-								{renderFiles(FileLine, true)}
-							</div>
-						) : null}
-
-						{workElementsView === "preview" && collapse ? (
-							<WorkBarsPreview file={chosenFile} filePick={filePick}>
-								{renderFiles(FileBar)}
-							</WorkBarsPreview>
-						) : null}
-					</div>
-				</div>
+				{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
+				{months().map((item, i) => renderFilesGroup(item.name, i))}
 			</div>
 			{filePick.show ? (
 				<OptionButtomLine
