@@ -16,7 +16,10 @@ import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComp
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
-const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick }) => {
+const ServePanel = ({
+        view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+        setFileAddCustomization, fileAddCustomization,
+}) => {
 
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
@@ -42,7 +45,12 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
         setTypeContext('');
     };
 
-    const createFile = () => {
+    const createFile = (ext) => {
+        const file = {
+            file: {name: `No Name.${ext}`, size: 0},
+            options: {}
+        }
+        setFileAddCustomization({...fileAddCustomization, show: true, file, create: true})
         setTypeContext('');
     };
 
@@ -54,7 +62,7 @@ const ServePanel = ({ view, setView, chosenFile, setAction, fileSelect, archive,
                 height={mouseParams.height}
                 text={item.name}
                 imageSrc={src ? `${src + item.img}.svg` : ''}
-                callback={callback ? callback : ''}
+                callback={item?.ext ? () => {callback(item.ext)} : ''}
             />
         })
     }

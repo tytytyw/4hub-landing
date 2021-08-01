@@ -27,11 +27,16 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
     const [error, setError] = useState(false);
+    const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
 
     useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const onAddName = (name) => {
+        setNoNameError(false);
+        setName(name);
+    }
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
     const renderTags = () => {
@@ -59,14 +64,18 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     };
 
     const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
-      api.post(`/ajax/dir_add.php?${params}`)
-          .then(res => {if(res.data.ok === 1) {
-              onCreate(false);
-          } else {setError(true)}
-          })
-          .catch(() => {setError(true)})
-          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+        if(name) {
+            const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+            api.post(`/ajax/dir_add.php?${params}`)
+                .then(res => {if(res.data.ok === 1) {
+                    onCreate(false);
+                } else {setError(true)}
+                })
+                .catch(() => {setError(true)})
+                .finally(() => {dispatch(onGetFolders())}); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+        } else {
+            setNoNameError(true)
+        }
     };
 
     const closeComponent = () => {
@@ -124,8 +133,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         model='text'
                         height={width >= 1440 ? '40px' : '30px'}
                         value={name}
-                        set={setName}
+                        set={onAddName}
                         placeholder='Имя папки'
+                        mistake={noNameError}
                     />
                     <div className={styles.tagPicker}>
                         <span>#</span>

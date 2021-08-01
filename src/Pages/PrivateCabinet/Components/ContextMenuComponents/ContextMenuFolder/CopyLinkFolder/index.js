@@ -4,16 +4,28 @@ import api from "../../../../../../api";
 import styles from "./CopyLink.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
+import {ReactComponent as CopyIcon} from '../../../../../../assets/PrivateCabinet/copy.svg';
+import {ReactComponent as UserIcon} from '../../../../../../assets/PrivateCabinet/userIcon.svg';
+import {ReactComponent as WorldIcon} from '../../../../../../assets/PrivateCabinet/world.svg';
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState('Загрузка...');
+    const [review, setReview] = useState({text: 'Просмотр'});
+    const [access, setAccess] = useState({text: 'limited'});
+    const [context, setContext] = useState('');
     const linkRef = useRef('');
 
-    const saveChanges = () => {
-        nullifyAction();
-    }
+    const saveChanges = () => {nullifyAction()}
+
+    useEffect(() => {
+        function nullifyContext() {setContext('')}
+
+        if(context) window.addEventListener('click', nullifyContext);
+
+        return () => {window.removeEventListener('click', nullifyContext)}
+    }, [context]) // eslint-disable-line
 
     const getLink = () => {
         const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST$&is_read=true`;
@@ -44,7 +56,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
             <div className={styles.copyLinkWrap}>
                 <header>
                     <div className={styles.circle}>
-                        <img src='/assets/PrivateCabinet/copy.svg' alt='copy'/>
+                        <CopyIcon className={styles.copyIcon} />
                     </div>
                     <div className={styles.details}>
                         <div className={styles.title}>Скопируйте ссылку</div>
@@ -59,7 +71,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     <div className={styles.accessUsers}>
                         <div className={styles.infoWrap}>
                             <div className={styles.circle}>
-                                <img src='/assets/PrivateCabinet/userIcon.svg' alt='copy'/>
+                                <UserIcon className={styles.userIcon} />
                             </div>
                             <div className={styles.details}>
                                 <div className={styles.title}>Предоставьте доступ пользователям и группам</div>
@@ -75,19 +87,44 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     <div className={styles.chosenUsers}>
                         <div className={styles.infoWrap}>
                             <div className={styles.circle}>
-                                <img src='/assets/PrivateCabinet/world.svg' alt='copy'/>
+                                <WorldIcon className={styles.worldIcon} />
                             </div>
                             <div className={styles.details}>
                                 <div className={styles.title}>Доступные пользователи, у которых есть ссылка</div>
                                 <div className={styles.description}>просматривать могут все у кого есть ссылка</div>
                             </div>
                         </div>
-                        <div className={styles.openList}>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                        <div className={styles.openList} onClick={() => setContext('access')}>
+                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy' />
+                            {context === 'access' ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited'})}>
+                                    <div className={`${styles.radio} ${access.text === 'limited' ? styles.radioChosen : ''}`} />
+                                    <div className={styles.description}>Доступ ограниченный</div>
+                                </div>
+                                <div className={styles.reviewOption} onClick={() => setAccess({...access, text: 'onLink'})}>
+                                    <div className={`${styles.radio} ${access.text === 'onLink' ? styles.radioChosen : ''}`} />
+                                    <div>Доступные пользователям, у которых есть ссылка</div>
+                                </div>
+                            </div> : null}
                         </div>
-                        <div className={styles.review}>
-                            <span>Просмотр</span>
+                        <div className={styles.review} onClick={() => setContext('review')}>
+                            <span>{review.text}</span>
                             <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                            {context === 'review' ? <div className={styles.reviewOptions}>
+                                <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
+                                    <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
+                                    <div className={styles.description}>Просмотр</div>
+                                </div>
+                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
+                                    <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
+                                    <div>Скачивание</div>
+                                </div>
+                                <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
+                                    <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
+                                    <div>Редактировать</div>
+                                </div>
+                                <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
+                            </div> : null}
                         </div>
                     </div>
                 </main>

@@ -64,9 +64,9 @@ export const contextMenuCreateFile = {
         {name: 'One Office', img: 'microsoft-oneOffice'},
     ],
     microsoft: [
-        {name: 'Документ Word', img: 'word'},
-        {name: 'Книга Excel', img: 'excel'},
-        {name: 'Презентация PowerPoint', img: 'powerpoint'},
+        {name: 'Документ Word', img: 'word', ext: 'docx'},
+        {name: 'Книга Excel', img: 'excel', ext: 'xlsx'},
+        {name: 'Презентация PowerPoint', img: 'powerpoint', ext: 'pptx'},
     ],
     google: [
         {name: 'Документ Google', img: 'google-doc'},

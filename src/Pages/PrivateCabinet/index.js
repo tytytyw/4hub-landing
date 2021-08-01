@@ -32,7 +32,7 @@ const PrivateCabinet = () => {
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false)
     const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
-    const [filePreview, setFilePreview] = useState({view: false, file: null});
+    const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');

@@ -36,7 +36,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, loadingType, setLoadingType
+       setShowSuccessMessage, setLoadingType
 }) => {
 
     const dispatch = useDispatch();
@@ -239,6 +239,8 @@ const WorkSpace = ({
                 share={() => onActiveCallbackArrMain('share')}
                 chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
                 filePick={filePick}
+                fileAddCustomization={fileAddCustomization}
+                setFileAddCustomization={setFileAddCustomization}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}
