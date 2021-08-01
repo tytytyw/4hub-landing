@@ -148,6 +148,7 @@ const SharedFiles = ({
 		return (
 			<FilesGroup
 				key={i}
+				index={i}
 				fileList={fileList}
 				filePreview={filePreview}
 				setFilePreview={setFilePreview}

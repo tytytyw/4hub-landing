@@ -21,8 +21,9 @@ function FilesGroup({
 	setAction,
 	setMouseParams,
 	mounthName,
+    index
 }) {
-	const [collapse, setCollapse] = useState(false);
+	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 
 	const renderFiles = (Type, shareLink) => {
