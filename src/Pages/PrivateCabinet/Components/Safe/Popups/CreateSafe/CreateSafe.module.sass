@@ -6,7 +6,7 @@
     opacity: 0
   99%
     width: 430px
-    height: 500px
+    height: auto
     opacity: 0
 
 @keyframes showPopup
@@ -35,28 +35,16 @@
 .createFolderWrap
   position: relative
   width: 530px
-  height: 700px
+  height: auto
   animation: showPopup 0.2s ease-in-out
   font-family: 'SF Pro Regular', sans-serif
 
   .content
     margin: 20px 0
-    height: calc(100% - 90px)
-    overflow: auto
     display: flex
     flex-direction: column
     justify-content: flex-start
     align-items: center
-    &::-webkit-scrollbar-track
-      background: #0A3AAB
-    &::-webkit-scrollbar-track
-      -webkit-box-shadow: none
-      background-color: #F5F5F5
-    &::-webkit-scrollbar
-      width: 7px
-      background-color: #FFFFFF
-    &::-webkit-scrollbar-thumb
-      background-color: #4086F1
 
   .cross
     position: absolute
@@ -263,7 +251,7 @@
         z-index: 3
         animation: showTags 0.2s ease-in-out
   .buttonsWrap
-    margin: 0 auto
+    margin: 0 auto 20px auto
     display: flex
     justify-content: space-between
     width: 290px
@@ -289,55 +277,16 @@
       color: white
     .add:hover
       background: #3b6dcb
+
+
 @media (max-width: 1420px)
   .createFolderWrap
     width: 430px
-    height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
       margin: 10px 0 10px 0
-    .folderIconWrap
-      width: 78%
-      margin: 0 0 18px 0
-      .folderIcon
-        width: 51px
-        height: 42px
-      .picPreview
-        .folderName
-          font-size: 15px
-        .format
-          font-size: 11px
-          margin: 0 0 2px 0
-        .name
-          font-size: 12px
-          margin: 0 0 2px 0
-        .minitag
-          font-size: 11px
-        div
-          img
-            width: 15px
-        .circle
-          width: 15px
-          height: 15px
-        .lock
-          width: 12px
-    .inputFieldsWrap
-      .tagPicker
-        height: 30px
-        font-size: 11px
-        .inputField
-          font-size: 12px
-        .tagList
-          height: 110px
-          bottom: -108px
-          div
-            display: flex
-            align-items: center
-            position: relative
-            background: white
-            width: 100%
-            height: 30px
+
     .buttonsWrap
       width: 210px
       div

@@ -229,14 +229,16 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                         <div className={styles.formItem}>
                             {numbers.map((number, index) => (
                                 <div className={styles.formBlock} key={index}>
-                                    <span
-                                        onClick={() => {
-                                            numbers.splice(index, 1)
-                                            setNumbers([...numbers])
-                                        }}
-                                        className={styles.minusBtn}
-                                    />
-                                    <span className={styles.info}>Введите номер телефона:</span>
+                                    <div className={styles.infoWrap}>
+                                        <span
+                                            onClick={() => {
+                                                numbers.splice(index, 1)
+                                                setNumbers([...numbers])
+                                            }}
+                                            className={styles.minusBtn}
+                                        />
+                                        <span className={styles.info}>Введите номер телефона:</span>
+                                    </div>
                                     <Input
                                         phone={true}
                                         //name={`number-${index}`}

@@ -20,6 +20,9 @@ const DateBlock = ({setViewType}) => {
 
     const onChangeMonth = item => {
         const date = new Date(calendarDate)
+        if (date.getDate() === 31) {
+            date.setDate(1)
+        }
         date.setMonth(item.id)
         dispatch(setCalendarDate(date))
         setViewType('full')

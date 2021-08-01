@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 
 import styles from './CreateTask.module.sass'
-import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'
 import {colors, tags} from '../../../../../generalComponents/collections'
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import Select from './Select/Select'
+import PopUp from '../../../../../generalComponents/PopUp'
 
 const events = [
     {id: 1, name: 'Задача', icon: 'task'},

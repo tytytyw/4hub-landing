@@ -10,7 +10,7 @@ const ContactsAll = ({data = []}) => {
     const [selectedContact, setSelectedContact] = useState(data?.[0])
 
     useEffect(() => {
-        const newSelectedContact = data.find(contact => contact?.id === selectedContact?.id)
+        const newSelectedContact = data?.find(contact => contact?.id === selectedContact?.id)
         newSelectedContact && setSelectedContact(newSelectedContact)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])

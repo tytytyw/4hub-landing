@@ -19,15 +19,15 @@ import SidebarTasks from "./SidebarTasks";
 
 const CalendarPage = () => {
 
+    const dispatch = useDispatch()
+    const events = useSelector(state => state.PrivateCabinet.calendarEvents)
+
     const [viewType, setViewType] = useState('list')
     const [createTask, setCreateTask] = useState(false)
 
     const [event, setEvent] = useState({})
     const [success, setSuccess] = useState(false)
     const [listCollapsed, setListCollapsed] = useState(false)
-
-    const dispatch = useDispatch()
-    const events = useSelector(state => state.PrivateCabinet.calendarEvents)
 
     useEffect(() => {
         dispatch(setCalendarEvents())

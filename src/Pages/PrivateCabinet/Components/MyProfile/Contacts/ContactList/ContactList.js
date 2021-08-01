@@ -18,7 +18,7 @@ const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
 
     useEffect(() => {
 
-        const searchResult = data.filter(item => {
+        const searchResult = data?.filter(item => {
             const name = getContactName(item).toLowerCase()
             const searchValue = search.toLowerCase()
             return name.includes(searchValue)
@@ -63,9 +63,13 @@ const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
 
 const getGrouppedArray = initialArray => {
 
+    if (initialArray?.length < 1) {
+        return []
+    }
+
     const groupedArray = []
     let contactsItem = []
-    initialArray.forEach(item => {
+    initialArray?.forEach(item => {
 
         let firstLetter = item.name?.charAt(0)
         let findByGroup = groupedArray.find(item => item.group === firstLetter)
