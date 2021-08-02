@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./SharedFiles.module.sass";
+import FilesGroup from "./FilesGroup/FilesGroup";
+import WorkLinesPreview from "../WorkElements/WorkLinesPreview";
+import SideList from "./SideList";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
-import WorkBars from "../WorkElements/WorkBars";
-import WorkBarsPreview from "../WorkElements/WorkBarsPreview";
-import FileBar from "../WorkElements/FileBar";
-import FileLine from "./WorkElements/FileLine";
 import { useDispatch, useSelector } from "react-redux";
 import DateBlock from "./DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -18,8 +17,6 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import PreviewFile from "../PreviewFile";
-import classNames from "classnames";
-import { ReactComponent as PlayIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
 import BottomPanel from "../ButtomPanel";
 import {
 	onGetSharedFiles,
@@ -36,6 +33,9 @@ import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 
+//TODO: заменить при получении сгрупированного на даты списка файлов
+import { months } from "../../../../generalComponents/CalendarHelper";
+
 const SharedFiles = ({
 	filePreview,
 	setFilePreview,
@@ -46,10 +46,10 @@ const SharedFiles = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 }) => {
-	const [workElementsView, setWorkElementsView] = useState("bars");
+	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 	const [search, setSearch] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
-	const user = useSelector(state => state.user.userInfo);
+	const user = useSelector((state) => state.user.userInfo);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -57,7 +57,6 @@ const SharedFiles = ({
 	}, []); // eslint-disable-line
 
 	const [year, setYear] = useState(null);
-	const [collapse, setCollapse] = useState(false);
 	const [month, setMonth] = useState(null);
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
@@ -145,43 +144,81 @@ const SharedFiles = ({
 		},
 	];
 
+	const renderFilesGroup = (mounth, i) => {
+		return (
+			<FilesGroup
+				key={i}
+				index={i}
+				fileList={fileList}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				mounthName={mounth}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+			/>
+		);
+	};
+
+	const excessItems = () => {
+		if (chosenFile.is_write === "0") return ["customize", "customizeSeveral"];
+		if (filePick.show) {
+			return ["intoZip", "properties", "download", "print"];
+		} else {
+			if (chosenFile.mime_type) {
+				switch (chosenFile.mime_type.split("/")[0]) {
+					case "image":
+						return [];
+					case "video":
+						return ["print"];
+					case "audio":
+						return ["print"];
+					case "application": {
+						return chosenFile.mime_type === "application/x-compressed"
+							? ["print", "intoZip", "intoZipSeveral"]
+							: [];
+					}
+					default:
+						return ["print"];
+				}
+			}
+			if (
+				previewFormats.filter((ext) =>
+					chosenFile.ext.toLowerCase().includes(ext)
+				)[0]
+			)
+				return [];
+			return ["print"];
+		}
+	};
 	const renderMenuItems = (target, type) => {
-		return target.map((item, i) => {
+		const eItems = excessItems();
+		let filteredMenu = [...target];
+		filteredMenu.forEach((el, i, arr) => {
+			eItems.forEach((excess) => {
+				if (excess === el.type) delete arr[i];
+			});
+		});
+		return filteredMenu.map((item, i) => {
 			return (
 				<ContextMenuItem
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					callback={() => type[i]?.callback(type, i)}
+					callback={() =>
+						type.forEach((el, index) => {
+							if (el.type === item.type) el.callback(type, index);
+						})
+					}
 					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});
-	};
-
-	const renderFiles = (Type) => {
-		if (!fileList || fileList.length === 0) return null;
-		return fileList.files?.map((file, index) => (
-			<Type
-				key={index}
-				file={file}
-				setChosenFile={setChosenFile}
-				chosenFile={chosenFile}
-				setMouseParams={setMouseParams}
-				setAction={setAction}
-				filePreview={filePreview}
-				setFilePreview={setFilePreview}
-				setFilePick={setFilePick}
-				filePick={filePick}
-				chosen={
-					filePick.show
-						? filePick.files.findIndex((el) => el === file.fid) >= 0
-						: chosenFile?.fid === file?.fid
-				}
-				callbackArrMain={callbackArrMain}
-			/>
-		));
 	};
 
 	const onActiveCallbackArrMain = (type) => {
@@ -198,7 +235,7 @@ const SharedFiles = ({
 		const preview = file?.preview ?? chosenFile?.preview;
 		const ext = file?.ext ?? chosenFile?.ext;
 		if (mType === "application/pdf") {
-            setLoadingType('squarify')
+			setLoadingType("squarify");
 			if (mType === "application/pdf") {
 				printFile(`${preview}`);
 			} else if (mType.includes("image")) {
@@ -209,7 +246,7 @@ const SharedFiles = ({
 				ext.toLowerCase().includes(format)
 			);
 			if (chosenType.length > 0) {
-                setLoadingType('squarify')
+				setLoadingType("squarify");
 				api
 					.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
 					.then((res) => printFile(res.data.file_pdf))
@@ -221,7 +258,7 @@ const SharedFiles = ({
 	const printFile = (path) => {
 		let pri = document.getElementById("frame");
 		pri.src = `https://fs2.mh.net.ua/${path}`;
-        setLoadingType('')
+		setLoadingType("");
 		setTimeout(() => {
 			pri.contentWindow.focus();
 			pri.contentWindow.print();
@@ -254,7 +291,7 @@ const SharedFiles = ({
 	};
 
 	const addToArchive = (uid, fid, file, options) => {
-        setLoadingType('squarify')
+		setLoadingType("squarify");
 		api
 			.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
 			.then((res) => {
@@ -269,35 +306,41 @@ const SharedFiles = ({
 			.finally(() => {
 				nullifyAction();
 				setChosenFile(null);
-                setLoadingType('')
+				setLoadingType("");
 				if (filePick.show) nullifyFilePick();
 			});
 	};
 
 	const deleteAccess = (fid, dir, set, msg) => {
-		setLoadingType('squarify')
-		api.post(`/ajax/file_share_del.php`, {fids: [fid], dir, uid, user_to: user.name})
-			.then(res => {
-				if (res.data.ok) {
-					dispatch(onGetSharedFiles())
-					if(set) set(msg)
-				} else console.log(res?.error)
+		setLoadingType("squarify");
+		api
+			.post(`/ajax/file_share_del.php`, {
+				fids: [fid],
+				dir,
+				uid,
+				user_to: user.name,
 			})
-			.catch(err => console.log(err))
-			.finally(() => setLoadingType(''))
-	}
+			.then((res) => {
+				if (res.data.ok) {
+					dispatch(onGetSharedFiles());
+					if (set) set(msg);
+				} else console.log(res?.error);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => setLoadingType(""));
+	};
 
 	const deleteFile = () => {
 		if (filePick.show) {
 			filePick.files.forEach((fid, i, arr) => {
-				const file = fileList.files.filter(file => file.fid === fid);
+				const file = fileList.files.filter((file) => file.fid === fid);
 				deleteAccess(
 					fid,
 					file[0].dir,
 					i === arr.length - 1 ? setShowSuccessMessage : "",
 					"Файлы удалены"
-				)}
-			)
+				);
+			});
 			setFilePick({ ...filePick, files: [], show: false });
 		} else {
 			deleteAccess(
@@ -324,7 +367,6 @@ const SharedFiles = ({
 			</div>
 
 			<ServePanel
-				setView={setWorkElementsView}
 				view={workElementsView}
 				chosenFile={chosenFile}
 				setAction={setAction}
@@ -337,7 +379,14 @@ const SharedFiles = ({
 				filePick={filePick}
 			/>
 
-			<div className={styles.wrapper}>
+			<div
+				className={styles.wrapper}
+				style={{
+					height: `${
+						filePick.show ? "calc(100% - 225px)" : "calc(100% - 140px)"
+					}`,
+				}}
+			>
 				<DateBlock
 					search={search}
 					setSearch={setSearch}
@@ -346,58 +395,27 @@ const SharedFiles = ({
 					month={month}
 					setMonth={setMonth}
 				/>
-
-				<div className={styles.filesWrap}>
-					<div className={styles.fileWrap}>
-						<div
-							onClick={() => {
-								setCollapse(!collapse);
-							}}
-							className={styles.collapseHeader}
-						>
-							<p className={styles.dateName}>Август</p>
-							<button className={styles.collapseBtn}>
-								{fileList?.files.length ?? 0} объектов
-							</button>
-							<div
-								className={classNames({
-									[styles.arrowFile]: true,
-									[styles.active]: !!collapse,
-								})}
-							>
-								<PlayIcon
-									className={classNames({
-										[styles.playButton]: true,
-										[styles.revert]: !!collapse,
-									})}
+				<div className={styles.workSpace}>
+					{workElementsView === "workLinesPreview" && (
+						<>
+							<SideList>
+								{months().map((item, i) => renderFilesGroup(item.name, i))}
+							</SideList>
+							<div className={styles.filePreviewWrap}>
+								<WorkLinesPreview
+									file={chosenFile}
+									hideFileList={true}
+									filePick={filePick}
 								/>
 							</div>
+						</>
+					)}
+					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
+					{workElementsView !== "workLinesPreview" && (
+						<div className={styles.FilesList}>
+							{months().map((item, i) => renderFilesGroup(item.name, i))}
 						</div>
-
-						{collapse && (
-							<div className={styles.fileDate}>
-								<p>10.08.2020</p>
-							</div>
-						)}
-
-						<div>
-							{workElementsView === "bars" && collapse ? (
-								<WorkBars filePick={filePick}>{renderFiles(FileBar)}</WorkBars>
-							) : null}
-
-							{workElementsView === "lines" && collapse ? (
-								<div className={styles.collapseContent}>
-									{renderFiles(FileLine)}
-								</div>
-							) : null}
-
-							{workElementsView === "preview" && collapse ? (
-								<WorkBarsPreview file={chosenFile} filePick={filePick}>
-									{renderFiles(FileBar)}
-								</WorkBarsPreview>
-							) : null}
-						</div>
-					</div>
+					)}
 				</div>
 			</div>
 			{filePick.show ? (
@@ -478,7 +496,7 @@ const SharedFiles = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "intoZip" ? (
@@ -489,7 +507,7 @@ const SharedFiles = ({
 					filePick={filePick}
 					nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			<form
@@ -520,7 +538,7 @@ const SharedFiles = ({
 					action_type={action.type}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "resend" ? (
@@ -531,7 +549,7 @@ const SharedFiles = ({
 					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
-                    setLoadingType={setLoadingType}
+					setLoadingType={setLoadingType}
 				/>
 			) : null}
 			{action.type === "archive" ? (

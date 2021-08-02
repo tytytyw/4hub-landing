@@ -31,7 +31,6 @@ const WorkSpace = ({
 	listCollapsed,
 	setItem,
 	workElementsView,
-	setWorkElementsView,
 	renderMenuItems,
 	mouseParams,
 	setMouseParams,
@@ -119,8 +118,6 @@ const WorkSpace = ({
 					/>
 				)}
 				<ServePanel
-					setView={setWorkElementsView}
-					view={workElementsView}
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}

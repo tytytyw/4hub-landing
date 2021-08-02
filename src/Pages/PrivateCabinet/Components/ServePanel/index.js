@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
 import {onSetFileSize} from '../../../../Store/actions/PrivateCabinetActions';
+import {onSetWorkElementsView} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';
@@ -17,17 +18,16 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 
 const ServePanel = ({
-        view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+         chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization,
 }) => {
-
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
+    const view = useSelector(state => state.PrivateCabinet.view);
     const dispatch = useDispatch();
-
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];
         if(s === sizes[sizes.length - 1]) return sizes[0]
@@ -71,10 +71,10 @@ const ServePanel = ({
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
                 <div className={styles.viewPanel}>
-                    <div className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('bars')}><BarsIcon /></div>
-                    <div className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('lines')}><LinesIcon /></div>
-                    <div className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('preview')}><PreviewIcon /></div>
-                    <div className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('workLinesPreview')}><VerticalLinesIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
                 </div>
                 <div className={styles.filterPanel}>
                     <div

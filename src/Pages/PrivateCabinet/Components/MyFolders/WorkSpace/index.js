@@ -40,7 +40,8 @@ const WorkSpace = ({
 }) => {
 
     const dispatch = useDispatch();
-    const [workElementsView, setWorkElementsView] = useState('bars');
+    const workElementsView = useSelector(state => state.PrivateCabinet.view);
+
     const uid = useSelector(state => state?.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
@@ -230,7 +231,6 @@ const WorkSpace = ({
                 filePreview={filePreview}
             />}
             <ServePanel
-                setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}

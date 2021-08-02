@@ -22,7 +22,8 @@ const MyFiles = ({
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
-	const [workElementsView, setWorkElementsView] = useState("bars");
+	const workElementsView = useSelector(state => state.PrivateCabinet.view);
+
 	const [listCollapsed, setListCollapsed] = useState(false);
 	const [chosenFolder] = useState({
 		path: "global/all",
@@ -243,7 +244,6 @@ const MyFiles = ({
 			<WorkSpace
 				chosenFolder={chosenFolder}
 				workElementsView={workElementsView}
-				setWorkElementsView={setWorkElementsView}
 				renderMenuItems={renderMenuItems}
 				mouseParams={mouseParams}
 				setMouseParams={setMouseParams}
