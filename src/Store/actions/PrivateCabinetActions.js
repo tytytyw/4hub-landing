@@ -71,9 +71,9 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-export const onChooseFiles = (path, search) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
-    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${1}&items_per_page=${20}`);
+    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${20}&sort=${getState().PrivateCabinet.sort}`);
 
     dispatch({
         type: CHOOSE_FILES,

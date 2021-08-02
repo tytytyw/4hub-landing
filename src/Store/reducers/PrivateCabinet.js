@@ -40,6 +40,8 @@ const INITIAL_STATE = {
 
     //SEARCH
     search: '',
+    //SORT
+    sort: 'byDateCreated',
 
     //PROGRAMS
     programFolders: [],
@@ -80,8 +82,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CHOOSE_FILES: {
             // TODO - Need to delete after serverside filtration is added
-            const files = action.payload.files.sort((a, b) => b.date - a.date);
-            return {...state, fileList: {...action.payload, files}};
+            // const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...state.fileList, ...action.payload}};
         }
         case CHOOSE_ALL_FILES: {
             // TODO - Need to delete after serverside filtration is added
