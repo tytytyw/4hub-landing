@@ -26,6 +26,7 @@ import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -103,7 +104,7 @@ const MyFolders = ({
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type[i]?.callback(type, i)}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     };
