@@ -653,9 +653,9 @@ export const onSearch = (value) => {
 }
 
 // SHARED FILES
-export const onGetSharedFiles  = () => async (dispatch, getState) => {
+export const onGetSharedFiles  = (day, mounth) => async (dispatch, getState) => {
     try {
-        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
+        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}&m=${mounth}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
             payload: res.data.data

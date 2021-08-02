@@ -52,12 +52,8 @@ const SharedFiles = ({
 	const user = useSelector((state) => state.user.userInfo);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(onGetSharedFiles());
-	}, []); // eslint-disable-line
-
 	const [year, setYear] = useState(null);
-	const [month, setMonth] = useState(null);
+	const [month, setMonth] = useState("");
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [mouseParams, setMouseParams] = useState(null);
@@ -66,6 +62,34 @@ const SharedFiles = ({
 	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
+
+	const [filesNotCustomize, setFilesNotCustomize] = useState([]);
+
+	useEffect(() => {
+		dispatch(onGetSharedFiles("", month));
+	}, [month]); // eslint-disable-line
+
+	useEffect(() => {
+		if (filePick.customize) {
+			setFilePick({
+				show: true,
+				files: filePick?.files.filter(
+					(fid) => filesNotCustomize.indexOf(fid) === -1
+				),
+				customize: true,
+			});
+		}
+	}, [filePick.customize]); // eslint-disable-line
+
+	useEffect(() => {
+		fileList?.files.forEach((file) => {
+			if (
+				file.is_write === "0" &&
+				filesNotCustomize.indexOf(file.is_write) === -1
+			)
+				setFilesNotCustomize((state) => [...state, file.fid]);
+		});
+	}, [fileList]); // eslint-disable-line
 
 	const callbackArrMain = [
 		{
@@ -399,7 +423,9 @@ const SharedFiles = ({
 					{workElementsView === "workLinesPreview" && (
 						<>
 							<SideList>
-								{months().map((item, i) => renderFilesGroup(item.name, i))}
+								{month
+									? renderFilesGroup(months()[month - 1].name, 0)
+									: months().map((item, i) => renderFilesGroup(item.name, i))}
 							</SideList>
 							<div className={styles.filePreviewWrap}>
 								<WorkLinesPreview
@@ -413,7 +439,9 @@ const SharedFiles = ({
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
 						<div className={styles.FilesList}>
-							{months().map((item, i) => renderFilesGroup(item.name, i))}
+							{month
+								? renderFilesGroup(months()[month - 1].name, 0)
+								: months().map((item, i) => renderFilesGroup(item.name, i))}
 						</div>
 					)}
 				</div>
