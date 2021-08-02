@@ -11,6 +11,7 @@ import {onGetContacts} from "../../../../../../Store/actions/PrivateCabinetActio
 import {imageSrc} from "../../../../../../generalComponents/globalVariables";
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
@@ -73,7 +74,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
     }
 
     const renderContacts = () => {
-        if(!contactList) return null
+        if(!contactList) return <Loader type='switch' position='absolute' background='white' width='200px' height='200px'/>
         return contactList.map((contact, i) => {
             const index = chosenContacts?.findIndex(c => c.id === contact.id);
             return <div
