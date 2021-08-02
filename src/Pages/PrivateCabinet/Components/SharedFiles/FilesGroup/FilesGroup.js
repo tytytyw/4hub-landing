@@ -53,7 +53,7 @@ function FilesGroup({
 
 	return (
 		<div className={styles.fileWrap}>
-			{fileList.files?.length > 0 && <div
+			{fileList?.files.length > 0 && <div
 				onClick={() => {
 					setCollapse(!collapse);
 				}}
@@ -85,7 +85,7 @@ function FilesGroup({
 				workElementsView !== "workLinesPreview" && (
 					<div className={styles.fileDate}>
 						{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						{fileList.files?.length > 0 && <p>10.08.2020</p>}
+						{fileList?.files.length > 0 && <p>10.08.2020</p>}
 					</div>
 				)}
 

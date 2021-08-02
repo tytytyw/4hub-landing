@@ -399,7 +399,9 @@ const SharedFiles = ({
 					{workElementsView === "workLinesPreview" && (
 						<>
 							<SideList>
-								{months().map((item, i) => renderFilesGroup(item.name, i))}
+								{month
+									? renderFilesGroup(months()[month - 1].name, 0)
+									: months().map((item, i) => renderFilesGroup(item.name, i))}
 							</SideList>
 							<div className={styles.filePreviewWrap}>
 								<WorkLinesPreview
