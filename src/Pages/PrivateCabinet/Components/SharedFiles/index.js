@@ -63,9 +63,33 @@ const SharedFiles = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 
+	const [filesNotCustomize, setFilesNotCustomize] = useState([]);
+
 	useEffect(() => {
 		dispatch(onGetSharedFiles("", month));
 	}, [month]); // eslint-disable-line
+
+	useEffect(() => {
+		if (filePick.customize) {
+			setFilePick({
+				show: true,
+				files: filePick?.files.filter(
+					(fid) => filesNotCustomize.indexOf(fid) === -1
+				),
+				customize: true,
+			});
+		}
+	}, [filePick.customize]); // eslint-disable-line
+
+	useEffect(() => {
+		fileList?.files.forEach((file) => {
+			if (
+				file.is_write === "0" &&
+				filesNotCustomize.indexOf(file.is_write) === -1
+			)
+				setFilesNotCustomize((state) => [...state, file.fid]);
+		});
+	}, [fileList]); // eslint-disable-line
 
 	const callbackArrMain = [
 		{
