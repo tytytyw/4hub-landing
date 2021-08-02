@@ -5,13 +5,38 @@
   width: 365px
   height: 40px
   border: 1px solid #d0d0d0
+  padding: 0 0 0 10px
+  .select
+    width: 155px
+    box-shadow: none
+    position: relative
+    span
+      color: #606060
+      opacity: 0.7
+    div:first-child
+      background: none
+    .SearchType
+      font-size: 12px
+      line-height: 14px
+      height: 100%
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      padding-left: 10px
+  .select::before
+    content: ''
+    width: 1px
+    height: 70%
+    background: #DFDFDF
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
   input
     border: none
     outline: none
     width: 83.5%
     height: 90%
     margin: 0 21px 0 0
-    padding: 0 0 0 13px
     box-sizing: border-box
   input::placeholder
     font-family: "SF Pro Light", sans-serif
@@ -20,6 +45,7 @@
     color: #c8c8c8
   img
     cursor: pointer
+    margin-right: 9px
 @media (max-width: 1420px)
   .searchWrap
     width: 300px
