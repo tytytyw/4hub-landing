@@ -52,12 +52,8 @@ const SharedFiles = ({
 	const user = useSelector((state) => state.user.userInfo);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(onGetSharedFiles());
-	}, []); // eslint-disable-line
-
 	const [year, setYear] = useState(null);
-	const [month, setMonth] = useState(null);
+	const [month, setMonth] = useState("");
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [mouseParams, setMouseParams] = useState(null);
@@ -66,6 +62,10 @@ const SharedFiles = ({
 	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
+
+	useEffect(() => {
+		dispatch(onGetSharedFiles("", month));
+	}, [month]); // eslint-disable-line
 
 	const callbackArrMain = [
 		{
@@ -413,7 +413,9 @@ const SharedFiles = ({
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
 						<div className={styles.FilesList}>
-							{months().map((item, i) => renderFilesGroup(item.name, i))}
+							{month
+								? renderFilesGroup(months()[month - 1].name, 0)
+								: months().map((item, i) => renderFilesGroup(item.name, i))}
 						</div>
 					)}
 				</div>

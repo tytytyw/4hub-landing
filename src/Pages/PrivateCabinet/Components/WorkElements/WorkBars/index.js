@@ -45,7 +45,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>}
-            {(!children || children?.length === 0) && search.length === 0
+            {!hideUploadFile && (!children || children?.length === 0) && search.length === 0
                 ? <img
                     src='./assets/PrivateCabinet/addPropose.png'
                     alt='addFile'
@@ -57,7 +57,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
                     }
                 />
                 : null}
-            {children?.length === 0 && search.length !== 0
+            {children?.length === 0 && (search.length !== 0 || hideUploadFile)
                 ? <div
                     className={styles.noSearchResults}
                     style={{
