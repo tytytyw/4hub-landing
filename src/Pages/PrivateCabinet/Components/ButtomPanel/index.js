@@ -21,7 +21,7 @@ const BottomPanel = () => {
 	const personalSettings = useSelector((state) => state.main.personalSettings);
 	const previewTheme = useSelector((state) => state.main.previewTheme);
     
-    const [notifications] = useState({"mail.svg": "144", "calendar-5.svg": "2", "sms.svg": "5"})
+    const [notifications] = useState({"mail.svg": "14", "calendar-5.svg": "2", "sms.svg": "5"})
 
 	const getThemeBg = () => {
 		if (previewTheme) {
