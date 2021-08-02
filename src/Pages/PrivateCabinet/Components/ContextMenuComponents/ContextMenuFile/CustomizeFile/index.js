@@ -165,7 +165,10 @@ const CustomizeFile = ({
     return (
         <div style={{display: `block`}}>
             <PopUp set={close}>
-                <div className={styles.createFolderWrap} style={{height: filePick.customize ||  fileAddCustomization?.several ? '582px' : '720px'}}>
+                <div
+                    className={styles.createFolderWrap}
+                    //style={{height: filePick.customize ||  fileAddCustomization?.several ? '582px' : '720px'}}
+                >
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     {filePick.customize || fileAddCustomization?.several ? null :

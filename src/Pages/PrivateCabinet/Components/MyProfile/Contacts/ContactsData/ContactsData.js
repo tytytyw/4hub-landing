@@ -29,7 +29,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
     const getFavourites = contacts => {
         const favouritesData = []
-        contacts.forEach(contact => {
+        contacts?.forEach(contact => {
             if (contact?.is_fav === '1') {
                 favouritesData.push(contact?.id)
             }

@@ -13,7 +13,6 @@ import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 import CodePopup from './Popups/CodePopup'
 import NoSafe from './Popups/NoSafe'
 import CreateSafe from './Popups/CreateSafe'
-import RefreshPass from './Popups/RefreshPass'
 
 const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
@@ -168,15 +167,10 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
             {codePopup &&
             <CodePopup
+                refreshPass={refreshPass}
                 setRefreshPass={setRefreshPass}
                 safe={selectedSafe}
                 set={setCodePopup}
-            />}
-
-            {refreshPass &&
-            <RefreshPass
-                safe={selectedSafe}
-                set={setRefreshPass}
             />}
 
             {createSafe &&

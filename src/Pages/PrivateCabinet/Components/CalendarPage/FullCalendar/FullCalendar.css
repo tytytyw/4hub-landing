@@ -22,12 +22,20 @@
     overflow: hidden!important;
 }
 
+/*.fc .fc-timegrid-col, .fc .fc-col-header-cell {
+    min-width: 140px;
+}*/
+
 .fc .fc-timegrid-col.fc-day-today {
     background-color: transparent;
 }
 
 .fc .fc-timegrid-slot {
     height: 45px;
+}
+
+.fc .fc-timegrid-axis {
+    width: 50px;
 }
 
 .fc-timegrid-slots table tr td:first-child {
