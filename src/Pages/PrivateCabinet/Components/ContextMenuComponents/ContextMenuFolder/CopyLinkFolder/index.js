@@ -29,20 +29,22 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const saveChanges = () => {nullifyAction()}
 
-    useEffect(() => {
-        function nullifyContext(e) {
+    const checkContextMenu = e => {
+        if(!context) {
+            e.nativeEvent.path.forEach(el => {
+                if(typeof el.className === 'string' && el.className.includes(styles.contacts)) onOpenContacts();
+                if(typeof el.className === 'string' && el.className.includes(styles.review)) setContext('review');
+                if(typeof el.className === 'string' && el.className.includes(styles.openList)) setContext('access');
+            })
+        } else {
             let block = false
-            e.path.forEach(el => {
+            e.nativeEvent.path.forEach(el => {
                 if(typeof el.className === 'string' && el.className.includes(styles.contactsList)) block = true;
             })
-
             if(!block) setContext("");
         }
 
-        if(context) window.addEventListener("click", nullifyContext);
-
-        return () => {window.removeEventListener("click", nullifyContext)}
-    }, [context]) // eslint-disable-line
+    }
 
     const getLink = () => {
         const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST$&is_read=true`;
@@ -123,8 +125,6 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
         ))
     }
 
-    console.log(folder)
-
     return (
         <PopUp set={nullifyAction}>
             {sendAccess && chosenContacts.length > 0 ? <div className={styles.sendLinkWrap}>
@@ -145,7 +145,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                             <div className={styles.listWrap}>
                                 {rendercontactsSend()}
                             </div>
-                            <div className={styles.review} onClick={() => setContext('review')}>
+                            <div className={styles.review}>
                                 <span>{review.text}</span>
                                 <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
                                 {context === 'review' ? <div className={styles.reviewOptions}>
@@ -186,7 +186,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     </div>
                 </main>
             </div> : null}
-            {!sendAccess || chosenContacts.length === 0 ? <div className={styles.copyLinkWrap}>
+            {!sendAccess || chosenContacts.length === 0 ? <div className={styles.copyLinkWrap} onClick={checkContextMenu}>
                 <header>
                     <div className={styles.circle}>
                         <CopyIcon className={styles.copyIcon} />
@@ -247,7 +247,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                                 <div className={styles.description}>просматривать могут все у кого есть ссылка</div>
                             </div>
                         </div>
-                        <div className={styles.openList} onClick={() => setContext('access')}>
+                        <div className={styles.openList}>
                             <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'access' ? styles.imageReverse : ''} />
                             {context === 'access' ? <div className={styles.reviewOptions}>
                                 <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited'})}>
@@ -260,7 +260,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                                 </div>
                             </div> : null}
                         </div>
-                        <div className={styles.review} onClick={() => setContext('review')}>
+                        <div className={styles.review}>
                             <span>{review.text}</span>
                             <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
                             {context === 'review' ? <div className={styles.reviewOptions}>
