@@ -3,28 +3,44 @@ import React, {useEffect, useRef, useState} from "react"
 import api from "../../../../../../api";
 import styles from "./CopyLink.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import {useSelector} from "react-redux";
-import {ReactComponent as CopyIcon} from '../../../../../../assets/PrivateCabinet/copy.svg';
-import {ReactComponent as UserIcon} from '../../../../../../assets/PrivateCabinet/userIcon.svg';
-import {ReactComponent as WorldIcon} from '../../../../../../assets/PrivateCabinet/world.svg';
+import {useDispatch, useSelector} from "react-redux";
+import {ReactComponent as CopyIcon} from "../../../../../../assets/PrivateCabinet/copy.svg";
+import {ReactComponent as UserIcon} from "../../../../../../assets/PrivateCabinet/userIcon.svg";
+import {ReactComponent as WorldIcon} from "../../../../../../assets/PrivateCabinet/world.svg";
+import {onGetContacts} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {imageSrc} from "../../../../../../generalComponents/globalVariables";
+import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../../generalComponents/collections";
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
 
     const uid = useSelector(state => state.user.uid);
-    const [url, setUrl] = useState('Загрузка...');
-    const [review, setReview] = useState({text: 'Просмотр'});
-    const [access, setAccess] = useState({text: 'limited'});
+    const contactList = useSelector(state => state.PrivateCabinet.contactList);
+    const [url, setUrl] = useState("Загрузка...");
+    const [review, setReview] = useState({text: "Просмотр"});
+    const [access, setAccess] = useState({text: "limited"});
     const [context, setContext] = useState('');
-    const linkRef = useRef('');
+    const linkRef = useRef("");
+    const [chosenContacts, setChosenContacts] = useState([]);
+    const [sendAccess, setSendAccess] = useState(false);
+    const [notify, setNotify] = useState(false);
+    const dispatch = useDispatch();
 
     const saveChanges = () => {nullifyAction()}
 
     useEffect(() => {
-        function nullifyContext() {setContext('')}
+        function nullifyContext(e) {
+            let block = false
+            e.path.forEach(el => {
+                if(typeof el.className === 'string' && el.className.includes(styles.contactsList)) block = true;
+            })
 
-        if(context) window.addEventListener('click', nullifyContext);
+            if(!block) setContext("");
+        }
 
-        return () => {window.removeEventListener('click', nullifyContext)}
+        if(context) window.addEventListener("click", nullifyContext);
+
+        return () => {window.removeEventListener("click", nullifyContext)}
     }, [context]) // eslint-disable-line
 
     const getLink = () => {
@@ -51,9 +67,125 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
         }
     }
 
+    const onOpenContacts = () => {
+        dispatch(onGetContacts());
+        setContext('addContacts');
+    }
+
+    const renderContacts = () => {
+        if(!contactList) return null
+        return contactList.map((contact, i) => {
+            const index = chosenContacts?.findIndex(c => c.id === contact.id);
+            return <div
+                key={i}
+                className={styles.contact}
+                // TODO - Need to optimize code - too long rendering changeContact
+                onClick={() => chooseContact(contact, index)}
+            >
+                <div className={`${styles.radioContact} ${index > -1 ? styles.radioContactChosen : ''}`}/>
+                <img src={imageSrc + contact.icon[0]} alt='img'/>
+                <div className={styles.contactInfo}>
+                    <span>{contact.name}</span>
+                    <span>{contact.email[0]}</span>
+                </div>
+            </div>
+        })
+    }
+
+    const chooseContact = (contact, index) => {
+        if (index) {
+            setChosenContacts([...chosenContacts, contact])
+        } else {
+            deleteContact(index);
+        }
+    }
+
+    const deleteContact = (index) => {
+        let list = chosenContacts;
+        list.splice(index, 1);
+        setChosenContacts(list);
+        if(list.length === 0) setSendAccess(false)
+    }
+
+    const rendercontactsSend = () => {
+        return contactList.map((contact, i) => (
+            <div
+                key={i}
+                className={styles.listItem}
+                onClick={() => deleteContact(i)}
+            >
+                <img src={imageSrc + contact.icon[0]} alt='img'/>
+                <div className={styles.contactInfo}>
+                    <span>{contact.email[0]}</span>
+                </div>
+            </div>
+        ))
+    }
+
+    console.log(folder)
+
     return (
         <PopUp set={nullifyAction}>
-            <div className={styles.copyLinkWrap}>
+            {sendAccess && chosenContacts.length > 0 ? <div className={styles.sendLinkWrap}>
+                <header>
+                    <div
+                        className={styles.backbutton}
+                        onClick={() => setSendAccess(false)}
+                    >
+                        <img src='./assets/PrivateCabinet/arrow.svg' alt='img' />
+                    </div>
+                    <div className={styles.details}>
+                        <div className={styles.title}>Предоставьте доступ пользователям и группам</div>
+                    </div>
+                </header>
+                <main>
+                    <div className={styles.sendAccessWrap}>
+                        <div className={styles.contactWrap}>
+                            <div className={styles.listWrap}>
+                                {rendercontactsSend()}
+                            </div>
+                            <div className={styles.review} onClick={() => setContext('review')}>
+                                <span>{review.text}</span>
+                                <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
+                                {context === 'review' ? <div className={styles.reviewOptions}>
+                                    <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
+                                        <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
+                                        <div className={styles.description}>Просмотр</div>
+                                    </div>
+                                    <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
+                                        <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
+                                        <div>Скачивание</div>
+                                    </div>
+                                    <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
+                                        <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
+                                        <div>Редактировать</div>
+                                    </div>
+                                    <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
+                                </div> : null}
+                            </div>
+                        </div>
+                        <div
+                            className={styles.notificationUserWrap}
+                            onClick={() => setNotify(!notify)}
+                        >
+                            <div className={notify ? styles.notifyEnable : styles.notifyDisable}/>
+                            <span>Уведомить пользователя</span>
+                        </div>
+                        <div className={styles.message}>
+                            <textarea placeholder='Добавить сообщение' />
+                        </div>
+                        <div className={`${styles.folder}`}>
+                            <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === folder.info.color)[0]?.name}`} />
+                            <div className={styles.folderInfo}>{folder.info.name}</div>
+                        </div>
+                        <div className={styles.buttonsWrap}>
+                            <div className={styles.cancel} onClick={() => setSendAccess(false)}>Отмена</div>
+                            <div className={styles.send} onClick={() => {}}>Отправить</div>
+                        </div>
+                    </div>
+                </main>
+            </div> : null}
+            {!sendAccess || chosenContacts.length === 0 ? <div className={styles.copyLinkWrap}>
                 <header>
                     <div className={styles.circle}>
                         <CopyIcon className={styles.copyIcon} />
@@ -78,9 +210,29 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                                 <div className={styles.description}>совместный доступ не настроен</div>
                             </div>
                         </div>
-                        <div className={styles.contacts}>
+                        <div className={styles.contacts} onClick={onOpenContacts}>
                             <span>Контакты</span>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                            <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'addContacts' ? styles.imageReverse : ''} />
+                            {context === 'addContacts' ? <div className={styles.contactsList}>
+                                <div className={styles.contactsHeader}>
+                                    <img src={imageSrc + 'assets/PrivateCabinet/notebook-of-contacts.svg'} alt='img' />
+                                    <span>Контакты</span>
+                                </div>
+                                <div className={styles.line}/>
+                                <div className={styles.contactsSearchBar}>
+                                    <input type='text' placeholder='Введите имя или email' />
+                                    <img src={imageSrc + 'assets/PrivateCabinet/magnifying-glass-2.svg'} alt='img' />
+                                </div>
+                                <div className={styles.contactList}>
+                                    {renderContacts()}
+                                </div>
+                                <div className={styles.buttonWrap}>
+                                    <div
+                                        className={`${chosenContacts.length > 0 ? styles.button : styles.buttonDisabled}`}
+                                        onClick={() => setSendAccess(true)}
+                                    >Готово</div>
+                                </div>
+                            </div> : null}
                         </div>
                     </div>
                     <div className={styles.line}/>
@@ -95,7 +247,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                             </div>
                         </div>
                         <div className={styles.openList} onClick={() => setContext('access')}>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy' />
+                            <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'access' ? styles.imageReverse : ''} />
                             {context === 'access' ? <div className={styles.reviewOptions}>
                                 <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited'})}>
                                     <div className={`${styles.radio} ${access.text === 'limited' ? styles.radioChosen : ''}`} />
@@ -109,7 +261,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                         </div>
                         <div className={styles.review} onClick={() => setContext('review')}>
                             <span>{review.text}</span>
-                            <img src='/assets/PrivateCabinet/play-black.svg' alt='copy'/>
+                            <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
                             {context === 'review' ? <div className={styles.reviewOptions}>
                                 <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
                                     <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
@@ -132,7 +284,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                     <div className={styles.cancel} onClick={nullifyAction}>Отмена</div>
                     <div className={`${styles.add}`} onClick={saveChanges}>Готово</div>
                 </div>
-            </div>
+            </div> : null}
             <input ref={linkRef} type='text' style={{display: 'none'}} />
         </PopUp>
     )
