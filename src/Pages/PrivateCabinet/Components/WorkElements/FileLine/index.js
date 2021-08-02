@@ -60,7 +60,7 @@ const FileLine = ({
             <div className={styles.fileAbout}>
 
                 <div className={styles.file}>
-                    <File format={file.ext} color={file.color}/>
+                    <File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />
                 </div>
 
                 <div className={styles.infoWrap}>
@@ -143,9 +143,9 @@ const FileLine = ({
                     />
                 </div>
 
-                <div className={classNames(styles.iconView, styles.iconSettings)}>
+                <div className={classNames({[styles.iconView]: true, [styles.iconSettings]: true, [styles.disable]: file.is_write === '0'})}>
                     <SettingsIcon
-                        onClick={onPropertiesFile}
+                        onClick={file.is_write === '0' ? null : onPropertiesFile}
                     />
                 </div>
 

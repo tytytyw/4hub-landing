@@ -8,6 +8,8 @@
     position: absolute
     top: 0
     right: 0
+.notEdit
+  filter: grayscale(100%)
 
 .wrapper
   display: flex
@@ -177,18 +179,21 @@
     transition: background 0.2s ease-in-out
     //box-shadow: 0 2px 4px #dedede
     margin: 0 8px 0 0
+  .iconView.disable
+    opacity: 0.2
+    cursor: default
   .iconSettings path:first-child
     fill: #B1B1B1
   .iconSettings path:nth-child(2)
     fill: white
-  .iconView:hover
+  .iconView:not(.disable):hover
     background: #4086F1
     transition: background 0.2s ease-in-out
   .iconView path
     fill: #B1B1B1
-  .iconView:hover path
+  .iconView:not(.disable):hover path
     fill: white
-  .iconSettings:hover path:nth-child(2)
+  .iconSettings:not(.disable):hover path:nth-child(2)
     fill: #4086F1
   .iconTrash path, .iconTrash:hover path
     fill: rgb(215, 36, 25)

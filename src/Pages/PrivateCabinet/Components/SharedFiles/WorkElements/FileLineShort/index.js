@@ -43,7 +43,7 @@ const FileLineShort = ({
 			<div>
 				<div className={styles.fileAbout}>
 					<div className={styles.file}>
-						<File format={file.ext} color={file.color} />
+						<File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />
 					</div>
 
 					<div className={styles.infoWrap}>

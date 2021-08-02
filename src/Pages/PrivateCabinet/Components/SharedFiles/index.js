@@ -164,15 +164,57 @@ const SharedFiles = ({
 		);
 	};
 
+	const excessItems = () => {
+		if (chosenFile.is_write === "0") return ["customize", "customizeSeveral"];
+		if (filePick.show) {
+			return ["intoZip", "properties", "download", "print"];
+		} else {
+			if (chosenFile.mime_type) {
+				switch (chosenFile.mime_type.split("/")[0]) {
+					case "image":
+						return [];
+					case "video":
+						return ["print"];
+					case "audio":
+						return ["print"];
+					case "application": {
+						return chosenFile.mime_type === "application/x-compressed"
+							? ["print", "intoZip", "intoZipSeveral"]
+							: [];
+					}
+					default:
+						return ["print"];
+				}
+			}
+			if (
+				previewFormats.filter((ext) =>
+					chosenFile.ext.toLowerCase().includes(ext)
+				)[0]
+			)
+				return [];
+			return ["print"];
+		}
+	};
 	const renderMenuItems = (target, type) => {
-		return target.map((item, i) => {
+		const eItems = excessItems();
+		let filteredMenu = [...target];
+		filteredMenu.forEach((el, i, arr) => {
+			eItems.forEach((excess) => {
+				if (excess === el.type) delete arr[i];
+			});
+		});
+		return filteredMenu.map((item, i) => {
 			return (
 				<ContextMenuItem
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					callback={() => type[i]?.callback(type, i)}
+					callback={() =>
+						type.forEach((el, index) => {
+							if (el.type === item.type) el.callback(type, index);
+						})
+					}
 					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
@@ -360,11 +402,11 @@ const SharedFiles = ({
 								{months().map((item, i) => renderFilesGroup(item.name, i))}
 							</SideList>
 							<div className={styles.filePreviewWrap}>
-							<WorkLinesPreview
-								file={chosenFile}
-								hideFileList={true}
-								filePick={filePick}
-							/>
+								<WorkLinesPreview
+									file={chosenFile}
+									hideFileList={true}
+									filePick={filePick}
+								/>
 							</div>
 						</>
 					)}
