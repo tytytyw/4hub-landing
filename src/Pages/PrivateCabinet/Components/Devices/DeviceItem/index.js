@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './DeviceItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
 
@@ -19,7 +20,7 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
                 <div className={styles.titleWrap}>
                     <div className={styles.titleImg}>
                         <img
-                            src={`./assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
+                            src={imageSrc + `/assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
                             alt='icon'
                             className={styles.icon}
                         />

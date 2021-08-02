@@ -414,36 +414,55 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 
 export const onGetDevices = () => async (dispatch, getState) => {
-    dispatch({
-        type: GET_DEVICES,
-        payload: [
-            {
-                id: 1,
-                name: 'iPhone 11 pro max',
-                device: 'iphone'
-            },
-            {
-                id: 2,
-                name: 'iMac pro',
-                device: 'imac'
-            },
-            {
-                id: 3,
-                name: 'MacBook pro',
-                device: 'macbookpro'
-            },
-            {
-                id: 4,
-                name: 'Планшет',
-                device: 'ipad11'
-            },
-            {
-                id: 5,
-                name: 'Неопознаный обьект',
-                device: false
-            },
-        ]
-    })
+    api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
+        .then(res => {
+            if(res.data.ok === 1) {
+                let list = [];
+                Object.entries(res.data.devices).forEach(device => {
+                    let obj = {
+                        id: device[1].id,
+                        name: device[1].data.browser,
+                        // device: device[1].data.platform
+                    }
+                    list.push(obj);
+                })
+                dispatch({
+                    type: GET_DEVICES,
+                    payload: list
+                })
+            }
+        })
+        .catch(err => console.log(err))
+    // dispatch({
+    //     type: GET_DEVICES,
+    //     payload: [
+    //         {
+    //             id: 1,
+    //             name: 'iPhone 11 pro max',
+    //             device: 'iphone'
+    //         },
+    //         {
+    //             id: 2,
+    //             name: 'iMac pro',
+    //             device: 'imac'
+    //         },
+    //         {
+    //             id: 3,
+    //             name: 'MacBook pro',
+    //             device: 'macbookpro'
+    //         },
+    //         {
+    //             id: 4,
+    //             name: 'Планшет',
+    //             device: 'ipad11'
+    //         },
+    //         {
+    //             id: 5,
+    //             name: 'Неопознаный обьект',
+    //             device: false
+    //         },
+    //     ]
+    // })
 };
 
 
