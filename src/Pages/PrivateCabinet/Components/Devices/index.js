@@ -55,6 +55,7 @@ const Devices = ({
                 chosen={chosenDevice === dev.id}
                 setMouseParams={setMouseParams}
                 onClick={() => setChosenDevice(dev.id)}
+                listCollapsed={listCollapsed}
             />
         })
     };

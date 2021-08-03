@@ -5,7 +5,7 @@ import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCollapsed }) => {
 
     return (
         <>
@@ -25,13 +25,13 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
                             className={styles.icon}
                         />
                     </div>
-                    <div className={styles.deviceInfo}>
+                    {!listCollapsed ? <div className={styles.deviceInfo}>
                         <span className={styles.title}>{device.name}</span>
                         <div className={styles.details}>
                             <span>OS: {device.os}</span>
                             <span>Last visited: {device.last_visit}</span>
                         </div>
-                    </div>
+                    </div> : null}
                 </div>
                 <div className={styles.functionWrap}>
                     <div
