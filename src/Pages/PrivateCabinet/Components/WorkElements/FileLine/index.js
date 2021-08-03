@@ -71,7 +71,7 @@ const FileLine = ({
 
                     <div className={styles.fileInfo}>
                         <span className={styles.fileDate}>
-                            {file.mtime.split(' ')[0]}
+                            {file.ctime.split(' ')[0]}
                         </span>
                         <span className={styles.fileSize}>
                             {file.size_now}

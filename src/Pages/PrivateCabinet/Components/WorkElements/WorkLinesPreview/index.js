@@ -105,13 +105,13 @@ const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
                 </div>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Создан</span>
-                    {f?.mtime
+                    {f?.ctime
                         ? <span className={styles.description}>{f.mtime.split(' ')[0]}</span>
                         : ''}
                 </div>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Изменен</span>
-                    {f?.ctime
+                    {f?.mtime
                         ? <span className={styles.description}>{f.ctime.split(' ')[0]}</span>
                         : ''}
                 </div>

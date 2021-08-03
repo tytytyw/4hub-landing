@@ -46,7 +46,7 @@ const FileBar = ({
                 <div className={styles.fname}>{file.name}</div>
                 <div className={styles.fileInfo}>
                     <div>{file.size_now}</div>
-                    <div>{file.mtime.split(' ')[0]}</div>
+                    <div>{file.ctime.split(' ')[0]}</div>
                 </div>
             </div>
         </>

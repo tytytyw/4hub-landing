@@ -79,7 +79,7 @@ export const onChooseFiles = (path, search, page) => async (dispatch, getState) 
     //TODO - Need to check sort by creattionDate, modificationDate, byName
 
     //TODO - Need to delete !!!TESTING ENVIRONMENT!!!!!
-    // files.data.forEach(el => console.log(el.ext))
+    // files.data.forEach(el => console.log(el.ctime))
 
     dispatch({
         type: CHOOSE_FILES,
