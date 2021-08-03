@@ -74,7 +74,7 @@ export const onChooseFolder = (folders, path) => {
 
 export const onChooseFiles = (path, search, page) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
-    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${20}&sort=${getState().PrivateCabinet.sort}`);
+    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${0}&sort=${getState().PrivateCabinet.sort}`);
 
     //TODO - Need to check sort by creattionDate, modificationDate, byName
 
@@ -120,7 +120,6 @@ export const onGetContacts = () => async (dispatch, getState) => {
                 type: CONTACT_LIST,
                 payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
             })
-
         }).catch(error => {
             console.log(error)
         })
@@ -428,7 +427,9 @@ export const onGetDevices = () => async (dispatch, getState) => {
                     let obj = {
                         id: device[1].id,
                         name: device[1].data.browser,
-                        // device: device[1].data.platform
+                        os: device[1].data.platform,
+                        device: device[1].data.device_type || 'unknown',
+                        last_visit: device[1].data?.ut_last?.split(' ')[0] ?? ''
                     }
                     list.push(obj);
                 })
@@ -439,36 +440,6 @@ export const onGetDevices = () => async (dispatch, getState) => {
             }
         })
         .catch(err => console.log(err))
-    // dispatch({
-    //     type: GET_DEVICES,
-    //     payload: [
-    //         {
-    //             id: 1,
-    //             name: 'iPhone 11 pro max',
-    //             device: 'iphone'
-    //         },
-    //         {
-    //             id: 2,
-    //             name: 'iMac pro',
-    //             device: 'imac'
-    //         },
-    //         {
-    //             id: 3,
-    //             name: 'MacBook pro',
-    //             device: 'macbookpro'
-    //         },
-    //         {
-    //             id: 4,
-    //             name: 'Планшет',
-    //             device: 'ipad11'
-    //         },
-    //         {
-    //             id: 5,
-    //             name: 'Неопознаный обьект',
-    //             device: false
-    //         },
-    //     ]
-    // })
 };
 
 
