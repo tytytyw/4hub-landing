@@ -429,7 +429,7 @@ export const onGetDevices = () => async (dispatch, getState) => {
                         name: device[1].data.browser,
                         os: device[1].data.platform,
                         device: device[1].data.device_type || 'unknown',
-                        last_visit: device[1].data?.ut_last?.split(' ')[0] ?? ''
+                        last_visit: device[1]?.ut_last?.split(' ')[0] || ''
                     }
                     list.push(obj);
                 })

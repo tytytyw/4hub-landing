@@ -25,7 +25,13 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
                             className={styles.icon}
                         />
                     </div>
-                    <span className={styles.title}>{device.name}</span>
+                    <div className={styles.deviceInfo}>
+                        <span className={styles.title}>{device.name}</span>
+                        <div className={styles.details}>
+                            <span>OS: {device.os}</span>
+                            <span>Last visited: {device.last_visit}</span>
+                        </div>
+                    </div>
                 </div>
                 <div className={styles.functionWrap}>
                     <div
