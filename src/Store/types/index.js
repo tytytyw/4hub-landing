@@ -21,6 +21,7 @@ export const SET_SIZE = 'SET_SIZE';
 export const SET_WORKELEMENTSVIEW = 'SET_WORKELEMENTSVIEW';
 export const SEARCH = 'SEARCH';
 export const CHOOSE_SHARED_FILES = 'CHOOSE_SHARED_FILES';
+export const SORT_FILES = 'SORT_FILES';
 
 export const CONTACT_LIST = 'CONTACT_LIST';
 

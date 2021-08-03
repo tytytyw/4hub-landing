@@ -22,8 +22,11 @@ import {
     GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
-    SET_CALENDAR_DATE, SET_CALENDAR_EVENTS,
-    SEARCH, CHOOSE_SHARED_FILES,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
+    SEARCH,
+    CHOOSE_SHARED_FILES,
+    SORT_FILES,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -116,6 +119,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         //SEARCH
         case SEARCH: {
             return {...state, search: action.payload}
+        }
+        //SORT FILES
+        case SORT_FILES: {
+            return {...state, sort: action.payload}
         }
 
         // PROGRAMS

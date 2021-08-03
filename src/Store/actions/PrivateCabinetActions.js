@@ -28,6 +28,7 @@ import {
     CHOOSE_SHARED_FILES,
     SET_CALENDAR_DATE,
     SET_CALENDAR_EVENTS,
+    SORT_FILES,
 } from '../types';
 
 const folders = [
@@ -74,6 +75,11 @@ export const onChooseFolder = (folders, path) => {
 export const onChooseFiles = (path, search, page) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
     const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${20}&sort=${getState().PrivateCabinet.sort}`);
+
+    //TODO - Need to check sort by creattionDate, modificationDate, byName
+
+    //TODO - Need to delete !!!TESTING ENVIRONMENT!!!!!
+    // files.data.forEach(el => console.log(el.ext))
 
     dispatch({
         type: CHOOSE_FILES,
@@ -681,5 +687,12 @@ export const onGetSharedFiles  = (day, mounth) => async (dispatch, getState) => 
         })
     } catch (e) {
         console.log(e);
+    }
+}
+
+export const onSortFile = (filter) => {
+    return {
+        type: SORT_FILES,
+        payload: filter
     }
 }

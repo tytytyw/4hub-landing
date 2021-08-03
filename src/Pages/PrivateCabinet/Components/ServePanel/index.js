@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
-import {onSetFileSize} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onSetFileSize, onSortFile} from '../../../../Store/actions/PrivateCabinetActions';
 import {onSetWorkElementsView} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
@@ -27,6 +27,7 @@ const ServePanel = ({
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
     const view = useSelector(state => state.PrivateCabinet.view);
+    const search = useSelector(state => state.PrivateCabinet.search);
     const dispatch = useDispatch();
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];
@@ -41,8 +42,10 @@ const ServePanel = ({
         setTypeContext(type);
     }
 
-    const setFilter = () => {
-        setTypeContext('');
+    const setFilter = (filter) => {
+        setTypeContext(filter);
+        dispatch(onSortFile(filter));
+        dispatch(onChooseFiles('global/all', search, 1));
     };
 
     const createFile = (ext) => {

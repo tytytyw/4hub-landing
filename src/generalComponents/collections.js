@@ -50,11 +50,12 @@ export const contextMenuProfile = {
 
 export const contextMenuFilters = {
     main: [
-        {name: 'По имени', img: ''},
-        {name: 'По дате добавления файла', img: ''},
-        {name: 'По типу файла', img: ''},
-        {name: 'По размеру', img: ''},
-        {name: 'По тэгам', img: ''},
+        {name: 'По имени', img: '', ext: 'byName'},
+        {name: 'По дате добавления файла', img: '', ext: 'byDateCreated'},
+        {name: 'По дате изменения файла', img: '', ext: 'byDateChanged'},
+        {name: 'По типу файла', img: '', ext: 'byType'},
+        {name: 'По размеру', img: '', ext: 'bySize'},
+        {name: 'По тэгам', img: '', ext: 'byTags'},
     ],
     additional: []
 };
