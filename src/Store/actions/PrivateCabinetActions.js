@@ -419,6 +419,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 
 export const onGetDevices = () => async (dispatch, getState) => {
+    console.log(new Date())
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
             if(res.data.ok === 1) {

@@ -13,10 +13,11 @@ import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabi
 import {colors} from "../../../../../../generalComponents/collections";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
-function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
+function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadingType }) {
 
     const uid = useSelector(state => state.user.uid);
     const contactList = useSelector(state => state.PrivateCabinet.contactList);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [url, setUrl] = useState("Загрузка...");
     const [review, setReview] = useState({text: "Просмотр"});
     const [access, setAccess] = useState({text: "limited"});
@@ -25,6 +26,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
     const [chosenContacts, setChosenContacts] = useState([]);
     const [sendAccess, setSendAccess] = useState(false);
     const [notify, setNotify] = useState(false);
+    const [prim, setPrim] = useState('');
     const dispatch = useDispatch();
 
     const saveChanges = () => {nullifyAction()}
@@ -125,6 +127,29 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
         ))
     }
 
+    const sendFolder = () => {
+        const path = fileList.path;
+        const access = review.text === 'Просмотр';
+        setLoadingType('squarify');
+        chosenContacts.forEach((c, i) => {
+            api.get(`/ajax/dir_access_add.php?uid=${uid}&dir=${path}&email=${c.email[0]}&is_read=${access}&prim=${prim}`)
+                .then(res => {
+                    if(res.data.ok === 1) {
+                        console.log('success')
+                    } else {console.log('fail')}
+                })
+                .catch(err => console.log(err))
+                .finally(() => {
+                    if(chosenContacts.length - 1 === i) {
+                        setLoadingType('');
+                        setShowSuccessMessage('Ссылка отправлена на почту');
+                        nullifyAction();
+                    }
+                })
+        })
+
+    }
+
     return (
         <PopUp set={nullifyAction}>
             {sendAccess && chosenContacts.length > 0 ? <div className={styles.sendLinkWrap}>
@@ -173,7 +198,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                             <span>Уведомить пользователя</span>
                         </div>
                         <div className={styles.message}>
-                            <textarea placeholder='Добавить сообщение' />
+                            <textarea placeholder='Добавить сообщение' value={prim} onChange={e => setPrim(e.target.value)} />
                         </div>
                         <div className={`${styles.folder}`}>
                             <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === folder.info.color)[0]?.name}`} />
@@ -181,7 +206,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage }) {
                         </div>
                         <div className={styles.buttonsWrap}>
                             <div className={styles.cancel} onClick={() => setSendAccess(false)}>Отмена</div>
-                            <div className={styles.send} onClick={() => {}}>Отправить</div>
+                            <div className={styles.send} onClick={sendFolder}>Отправить</div>
                         </div>
                     </div>
                 </main>
