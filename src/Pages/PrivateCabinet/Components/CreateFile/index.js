@@ -7,29 +7,33 @@ import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onChooseFiles } from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
+import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
-const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, setProgress, onToggleSafePassword }) => {
+const CreateFile = ({
+                title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create,
+}) => {
 
     const uid = useSelector(state => state.user.uid);
-    const [name, setName] = useState(blob.file ? blob.file.name.slice(0, blob.file.name.lastIndexOf('.')) : '');
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const search = useSelector(state => state.PrivateCabinet.search);
+    const [name, setName] = useState(blob?.options?.name ? blob.options.name.slice(0, blob.options.name.lastIndexOf('.')) : blob.file.name.slice(0, blob.file.name.lastIndexOf('.')));
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(true);
-    const [color, setColor] = useState(colors[0]);
-    const [tagOption, setTagOption] = useState({chosen: '', count: 30});
-    const [sign, setSign] = useState('');
-    const [emoji, setEmoji] = useState('');
+    const [color, setColor] = useState(blob?.options?.color ? colors.find(c => c.color === blob.options.color) : colors[0]);
+    const [tagOption, setTagOption] = useState({chosen: blob?.options?.tag ? blob.options.tag : '', count: 30});
+    const [sign, setSign] = useState(blob?.options?.symbol ? blob.options.symbol : '');
+    const [emoji, setEmoji] = useState(blob?.options?.emoji ? blob.options.emoji : '');
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
-    const [display, setDisplay] = useState('block');
     const [isSafe, setIsSafe] = useState(false)
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
@@ -59,32 +63,63 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
     };
 
     const onAddFile = () => {
-        let data = new FormData();
-        data.append('uid', uid);
-        data.append('myfile', blob.file);
-        data.append('fileName', `${name}`);
-        data.append('dir', info.subPath ? info.subPath : info.path ? info.path : 'global/all');
-        data.append('tag', tagOption.chosen);
-        data.append('pass', passwordCoincide ? password : '');
-        data.append('color', color.color);
-        data.append('symbol', sign);
-        data.append('emoji', emoji);
-        setDisplay('none');
-        setFileLoading({...fileLoading, isLoading: true, file: {ext: blob.file.name.slice(blob.file.name.lastIndexOf('.') + 1), color: color.color}})
+        let options = {
+            name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
+            tag: tagOption.chosen,
+            pass: passwordCoincide ? password : '',
+            color: color.color,
+            symbol: sign,
+            emoji: emoji
+        };
 
-        api.post(`/ajax/file_add.php`,
-            data,
-            {onUploadProgress: e => setProgress((e.loaded * 100) / e.total)})
-            .then(res => {if(res.data.ok === 1) {
-                setBlob({...blob, file: null, show: false});
-            } else {setError(true)}
-            })
-            .catch(err => {setError(true)})
-            .finally(() => {
-                setDisplay('block');
-                setFileLoading({...fileLoading, isLoading: false, percentage: 0, file: {ext: '', color: ''}});
-                dispatch(onChooseFiles(info.subPath ? info.subPath : info.path));
-            });
+        if(blob.file.fid) {
+            if(password !== passwordRepeat) return setPasswordCoincide(false);
+
+            const data = {
+                uid,
+                fids: [blob.file.fid],
+                fName: options.name,
+                tag: options.tag,
+                pass: options.password,
+                color: options.color,
+                symbol: options.symbol,
+                emoji: options.emoji,
+            };
+
+            const newFile = {
+                ...blob.file,
+                name: options.name,
+                tag: options.tag,
+                color: options.color,
+                emo: options.emoji,
+                fig: options.symbol,
+                is_pass: options.password ? 1 : 0,
+                ext: options.name.slice(options.name.lastIndexOf('.')),
+            };
+            api.post('/ajax/file_edit.php', data)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onCustomizeFile(newFile));
+                    dispatch(onAddRecentFiles());
+                    let files = loaded.map(el => el.file.fid === newFile.fid ? {file: newFile, options} : el)
+                    setLoaded(files);
+                } else {setError(true)}
+                })
+                .catch(() => {setError(true)})
+                .finally(() => closeComponent());
+        } else if(create) {
+            const url = `/ajax/file_new.php/?uid=${uid}&fileName=${options.name.slice(0, options.name.lastIndexOf('.'))}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${options.color}&symbol=${options.symbol}&emoji=${options.emoji}&ext=${options.name.slice(options.name.lastIndexOf('.') + 1)}`;
+            api.post(url)
+                .then(res => {if(res.data.ok === 1) {
+                    dispatch(onChooseFiles(fileList.path, search))
+                } else {setError(true)}})
+                .catch(() => {setError(true)})
+                .finally(() => closeComponent());
+        } else {
+            if(loadingFile.length > 0) {
+                setAwaitingFiles([...awaitingFiles, {...blob, options}]);
+            } else {setLoadingFile([{...blob, options}])}
+            if(loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0) closeComponent();
+        }
     };
 
     const closeComponent = () => {
@@ -116,47 +151,47 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
     };
 
     const setSize = () => {
-        let size = blob.file.size;
+        let size = blob.file?.size;
         if(size / 1000000000 > 1) size = `${(size / 1000000000).toFixed(2)} GB`;
         if(size / 1000000 > 1) size = `${(size / 1000000).toFixed(2)} MB`;
         if(size / 1000 > 1) size = `${(size / 1000).toFixed(2)} KB`;
-        return size;
-    };
-
-    const onFile = e => {
-        const file = e.target.files[0];
-        setBlob({...blob, file});
-        setName(getName(file.name).name);
+        return `${size} KB`;
     };
 
     return (
-        <div style={{display: `${display}`}}>
+        <div style={{display: `block`}}>
             <PopUp set={onCloseTab}>
                 <div className={styles.createFolderWrap}>
                     <span className={styles.cross} onClick={() => setBlob({...blob, file: null, show: false})} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
-                            <div className={styles.file}><File color={color.light} format={blob.file ? getName(blob.file.name).format : ''} /></div>
+                        <div className={`${styles.fileWrap}`}>
+                            <div className={styles.file}><File color={color.light} format={getName(blob?.options?.name ? blob.options.name : blob.file.name).format} /></div>
                         </div>
-                        {!blob.file && <div className={styles.openFile}>
-                            <input type='file' className={styles.inputFile} onChange={e => onFile(e)} />
-                            Перетащите файл или нажмите<span> Загрузить</span>
-                        </div>}
-                        {blob.file && <div className={styles.picPreview}>
-                            <div className={styles.format}>{getName(blob.file.name).format} {setSize()}</div>
-                            <div className={styles.name}>{getName(blob.file.name).name}</div>
+                        <div className={styles.picPreview}>
+                            <div className={styles.format}>{getName(blob?.options?.name ? blob.options.name : blob.file.name).format} {setSize()}</div>
+                            <div className={styles.name}>{getName(blob?.options?.name ? blob.options.name : blob.file.name).name}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
-                                    className={`${styles.minitag} ${styles.redCross}`}
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
                                     onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >#{tagOption.chosen}</div>}
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
-                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                </div>
+                                {sign && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setSign('')}>
+                                    <img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' />
+                                </div>}
+                                {emoji && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setEmoji('')}>
+                                    <img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
+                                </div>}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                             </div>
-                        </div>}
+                        </div>
                     </div>
                     <div style={generateInputWrap()}
                          className={styles.inputFieldsWrap}
@@ -193,6 +228,7 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
                             onSwitch={onSwitch}
                             visibility={visibility}
                             setVisibility={setVisibility}
+                            disabled={!showRepeat}
                         />
                         {showRepeat && <InputField
                             model='password'
@@ -223,7 +259,7 @@ const CreateFile = ({title, info, blob, setBlob, fileLoading, setFileLoading, se
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
-                        <div className={`${blob.file ? styles.add : styles.buttonDisabled}`} onClick={() => {if(blob.file) onAddFile()}}>Добавить</div>
+                        <div className={`${styles.add}`} onClick={onAddFile}>Добавить</div>
                     </div>
                 </div>
             </PopUp>

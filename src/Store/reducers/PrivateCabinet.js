@@ -2,12 +2,32 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    CHOOSE_ALL_FILES,
     FILE_DELETE,
     CONTACT_LIST,
-    ADD_CONTACT,
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
-} from '../types';
+    CHOOSE_RECENT_FILES,
+    CUSTOMIZE_FILE,
+    GET_PROGRAM_FOLDERS,
+    GET_PROGRAMS,
+    GET_RECENT_PROGRAMS,
+    GET_TOP_LIST_PROGRAMS,
+    GET_CATEGORIES,
+    GET_SAFES,
+    GET_DEVICES,
+    GET_CONNECTED_CONTACTS,
+    SET_SIZE,
+    SET_WORKELEMENTSVIEW,
+    GET_PROJECT_FOLDER,
+    GET_PROJECTS,
+    GET_JOURNAL_FOLDERS,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
+    SEARCH,
+    CHOOSE_SHARED_FILES,
+    SORT_FILES,
+} from '../types'
 
 const INITIAL_STATE = {
     global: null,
@@ -17,7 +37,43 @@ const INITIAL_STATE = {
     contactList: null,
     recentFolders: null,
     recentFiles: null,
-};
+    chosenRecentFile: null,
+    size: 'big',
+    view: 'bars',
+
+    //SEARCH
+    search: '',
+    //SORT
+    sort: 'byDateCreated',
+
+    //PROGRAMS
+    programFolders: [],
+    programs: [],
+    recentPrograms: [],
+    topListPrograms: [],
+    categories: [],
+
+    //SAFE
+    safes: [],
+
+    //PROJECT
+    projects: [],
+    projectFolders: [],
+
+    //DEVICES
+    devices: [],
+    connectedContacts: [],
+
+    // SHARED FILES
+    sharedFiles: null,
+
+    //JOURNAL
+    journalFolders: [],
+
+    //CALENDAR PAGE
+    calendarDate: new Date(),
+    calendarEvents: [],
+}
 
 export default function startPage(state = INITIAL_STATE, action) {
     switch(action.type) {
@@ -28,7 +84,14 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, folderList: action.payload};
         }
         case CHOOSE_FILES: {
-            return {...state, fileList: action.payload};
+            // TODO - Need to delete after serverside filtration is added
+            // const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...state.fileList, ...action.payload}};
+        }
+        case CHOOSE_ALL_FILES: {
+            // TODO - Need to delete after serverside filtration is added
+            const files = action.payload.files.sort((a, b) => b.date - a.date);
+            return {...state, fileList: {...action.payload, files}};
         }
         case FILE_DELETE: {
             const files = state.fileList.files.filter(el => el.fid !== action.payload.fid)
@@ -36,12 +99,77 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CONTACT_LIST:
             return {...state, contactList: action.payload}
-        case ADD_CONTACT:
-            return {...state, contactList: [...state.contactList, action.payload]}
         case ADD_RECENT_FOLDERS:
             return {...state, recentFolders: action.payload}
         case ADD_RECENT_FILES:
             return {...state, recentFiles: action.payload}
+        case CHOOSE_RECENT_FILES:
+            return {...state, chosenRecentFile: action.payload}
+        case CUSTOMIZE_FILE: {
+            const files = state.fileList.files.map(file => {
+                if(file.fid !== action.payload.fid) return file;
+                return action.payload;
+            });
+            return {...state, fileList: {...state.fileList, files}}
+        }
+        case SET_SIZE:
+            return {...state, size: action.payload}
+        case SET_WORKELEMENTSVIEW:
+            return {...state, view: action.payload}
+        //SEARCH
+        case SEARCH: {
+            return {...state, search: action.payload}
+        }
+        //SORT FILES
+        case SORT_FILES: {
+            return {...state, sort: action.payload}
+        }
+
+        // PROGRAMS
+        case GET_PROGRAM_FOLDERS:
+            return {...state, programFolders: action.payload}
+        case GET_PROGRAMS:
+            return {...state, programs: action.payload}
+        case GET_RECENT_PROGRAMS:
+            return {...state, recentPrograms: action.payload}
+        case GET_TOP_LIST_PROGRAMS:
+            return {...state, topListPrograms: action.payload}
+        case GET_CATEGORIES:
+            return {...state, categories: action.payload}
+
+        //SAFE
+        case GET_SAFES:
+            return {...state, safes: action.payload}
+
+        //PROJECT
+        case GET_PROJECT_FOLDER:
+            return {...state, projectFolders: action.payload}
+        case GET_PROJECTS:
+            return {...state, projects: action.payload}
+
+        //DEVICES
+        case GET_DEVICES:
+            return {...state, devices: action.payload}
+        case GET_CONNECTED_CONTACTS:
+            return {...state, connectedContacts: action.payload}
+
+        // SHARED FILES
+        case CHOOSE_SHARED_FILES: {
+            return {...state, sharedFiles: {...state.sharedFiles, files: action.payload}};
+        }
+
+        //JOURNAL
+        case GET_JOURNAL_FOLDERS:
+            return {...state, journalFolders: action.payload}
+
+        //CALENDAR PAGE
+        case SET_CALENDAR_DATE:
+            return {...state, calendarDate: action.payload}
+
+        //CALENDAR PAGE
+        case SET_CALENDAR_EVENTS:
+            return {...state, calendarEvents: action.payload}
+
         default:
             return state;
     }

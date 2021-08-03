@@ -1,0 +1,135 @@
+.fileChosen
+  background: rgba(64, 134, 241, .1)
+.wrapper
+  box-sizing: border-box
+  position: relative
+  display: flex
+  justify-content: space-between
+  width: 100%
+  min-height: 70px
+  align-items: center
+  cursor: default
+  padding: 0 13px
+  &:hover
+    background: rgba(64, 134, 241, .1)
+  &:hover .fileWrap:after
+    content: ''
+    width: 5px
+    height: 5px
+    top: 0
+    right: 0
+    position: absolute
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+
+  .fileName
+    .fileInfo
+      font-size: 13px
+      line-height: 17px
+      color: #BCBCBC
+    p
+      font-size: 15px
+      line-height: 20px
+      color: #606060
+      margin: 0 0 6px 0
+      width: 100%
+      max-width: 100px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+
+  .infoWrap
+    display: flex
+    align-items: center
+    width: 85%
+  .fileWrap
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 60px
+    margin-right: 21px
+    img
+      max-width: 100%
+
+  .rightWrap
+    display: flex
+    align-items: center
+
+  .fileDate
+    font-size: 13px
+    line-height: 17px
+    color: #666666
+    margin-right: 32px
+
+
+.wrapper_small
+  min-height: 51px
+  .fileName
+    .fileInfo
+      font-size: 10px
+      line-height: 12px
+    p
+      font-size: 13px
+      line-height: 17px
+      margin: 0 0 6px 0
+      max-width: 100px
+  .infoWrap
+    width: 85%
+  .fileWrap
+    max-width: 42px
+    margin-right: 21px
+  .fileDate
+    font-size: 10px
+    line-height: 13px
+
+
+.wrapper_big
+  min-height: 94px
+  .fileName
+    .fileInfo
+      font-size: 13px
+      line-height: 17px
+    p
+      font-size: 15px
+      line-height: 20px
+      margin: 0 0 6px 0
+      max-width: 120px
+  .infoWrap
+    width: 85%
+  .fileWrap
+    max-width: 66px
+    margin-right: 14px
+  .fileDate
+    font-size: 13px
+    line-height: 17px
+
+
+.menuWrap
+  cursor: pointer
+  position: absolute
+  right: 0
+  display: flex
+  height: 20px
+  width: 10px
+  justify-content: center
+  align-items: center
+  margin: 0 10px 0 0
+  .menu
+    position: relative
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before, .menu::after
+    content: ''
+    position: absolute
+    width: 3px
+    height: 3px
+    background: #c1c0c0
+    transition: background 0.2s ease
+  .menu::before
+    transform: translateY(8px)
+  .menu::after
+    transform: translateY(-8px)
+  .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
+    background: #477DE1
+    transition: background 0.2s ease

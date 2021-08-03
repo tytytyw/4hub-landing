@@ -1,11 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
-import File from "../../../../../generalComponents/Files";
+import File from '../../../../../generalComponents/Files';
 
-const WorkLinesPreview = ({file, children, hideFileList}) => {
+const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
 
+    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const size = useSelector(state => state.PrivateCabinet.size);
+    const search = useSelector(state => state.PrivateCabinet?.search);
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
     useEffect(() => {
@@ -39,16 +43,35 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                     </div>
                 </>
             }
-            // case 'application': {
-            //     return <iframe src={`https://fs2.mh.net.ua${f.preview}`} title={f.name} frameBorder="0" scrolling="no"  />
-            // }
             default: {
                 return <div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div>
             }
         }
     }
 
-    return (<div className={styles.workLinesPreviewWrap}>
+    return (
+        <div
+            className={styles.workLinesPreviewWrap}
+            style={{height: `${recentFiles?.length > 0
+                    ? filePick.show
+                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
+                        : 'calc(100% - 90px - 55px - 78px)'
+                    : filePick.show
+                        ? 'calc(100% - 90px - 55px - 80px)'
+                        : 'calc(100% - 90px - 55px)'
+                }`,
+                gridTemplateColumns: size === 'small'
+                    ? 'repeat(auto-fill, 118px)'
+                    : size === 'medium'
+                        ? 'repeat(auto-fill, 160px)'
+                        : 'repeat(auto-fill, 205px)',
+                gridAutoRows: size === 'small'
+                    ? '118px'
+                    : size === 'medium'
+                        ? '160px'
+                        : '205px',
+            }}
+        >
         {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
         <div className={styles.previewFileWrap}>
             {f ? <>
@@ -82,13 +105,13 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                 </div>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Создан</span>
-                    {f?.mtime
+                    {f?.ctime
                         ? <span className={styles.description}>{f.mtime.split(' ')[0]}</span>
                         : ''}
                 </div>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Изменен</span>
-                    {f?.ctime
+                    {f?.mtime
                         ? <span className={styles.description}>{f.ctime.split(' ')[0]}</span>
                         : ''}
                 </div>
@@ -99,6 +122,11 @@ const WorkLinesPreview = ({file, children, hideFileList}) => {
                         : ''}
                 </div>
             </>: null}
+            {children?.length === 0 && search.length !== 0
+                ? <div
+                    className={styles.noSearchResults}
+                >Нет элементов удовлетворяющих условиям поиска</div>
+                : null}
         </div>
     </div>)
 }

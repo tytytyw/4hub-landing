@@ -1,0 +1,33 @@
+.wrapper
+  padding-bottom: 50px
+
+  .dayItem
+    width: 100%
+    display: flex
+    align-items: center
+    flex-direction: column
+    .day
+      margin: 0
+      font-size: 13px
+      line-height: 17px
+      color: #49494B
+    .dayNumber.active
+      color: #ffffff
+      background: #4086F1
+    .dayNumber
+      cursor: pointer
+      background: transparent
+      width: 40px
+      height: 40px
+      display: flex
+      align-items: center
+      justify-content: center
+      border-radius: 50%
+      margin: 12px 0 0 0
+      font-size: 26px
+      line-height: 35px
+      color: #49494B
+      transition: all 0.2s ease
+      &:hover
+        color: #ffffff
+        background: #4086F1

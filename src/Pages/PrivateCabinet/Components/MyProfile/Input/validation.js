@@ -59,3 +59,58 @@ const useValidation = (value, validations) => {
         isEmail
     }
 }
+
+
+export const formIsValid = (fields, setSubmitErrors, requiredInputs) => {
+
+    let dataErrors = {}
+    let isValid = true
+
+    requiredInputs.forEach(name => {
+        const value = fields?.[name]
+        if (!isCorrectData(value, name, fields, requiredInputs)) {
+            dataErrors = {...dataErrors, [name]: true}
+            isValid = false
+        } else {
+            dataErrors = {...dataErrors, [name]: false}
+        }
+    })
+
+    setSubmitErrors(dataErrors)
+
+    return isValid
+
+}
+
+const validateEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+/*export const isCorrectData = (value, name, requiredInputs = []) => {
+
+    switch (true) {
+        case name === 'email':
+            return validateEmail(value) && !!value
+        case requiredInputs.includes(name):
+            return !!value
+        default:
+            return true
+    }
+
+}*/
+
+export const isCorrectData = (value, name, fields, requiredInputs = []) => {
+
+    switch (true) {
+        case name === 'email':
+            return validateEmail(value) && !!value
+        case name === 'password_r':
+            return value === fields?.pass && !!value
+        case requiredInputs.includes(name):
+            return !!value
+        default:
+            return true
+    }
+
+}

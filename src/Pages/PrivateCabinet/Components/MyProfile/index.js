@@ -1,44 +1,33 @@
 import React, {useEffect, useState} from 'react'
+import {useDispatch} from 'react-redux'
+
+import {onGetContacts} from '../../../../Store/actions/PrivateCabinetActions'
 
 import styles from './MyProfile.module.sass'
-import uploadIcon from '../../../../assets/PrivateCabinet/upload.svg'
+import {ReactComponent as UploadIcon} from '../../../../assets/PrivateCabinet/upload.svg'
 
 import SearchField from '../SearchField'
 import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
-import UserForm from './UserForm/UserForm'
+import UserForm from './UserForm'
 import BottomPanel from '../ButtomPanel'
-import classnames from 'classnames'
-import Support from './Support/Support'
-import TariffPlan from './TariffPlan/TariffPlan'
-import Contacts from './Contacts/Contacts'
-import Programs from './Programs/Programs'
-import SendFriend from './TellFriends/SendFriend/SendFriend'
-import {onGetContacts} from "../../../../Store/actions/PrivateCabinetActions";
-import {useDispatch} from "react-redux"
+import Support from './Support'
+import TariffPlan from './TariffPlan'
+import Contacts from './Contacts'
+import Programs from './Programs'
+import TellFriend from './TellFriends/TellFriend'
+import PrimaryButton from './PrimaryButton'
 
-const MyButton = ({ text, icon, alt, onClick = () => {}, active = false }) => (
-    <button
-        onClick={onClick}
-        className={classnames({
-            [styles.button]: true,
-            [styles.active]: active
-        })}
-    >
-        {text} {icon ?
-        <span className={styles.buttonIcon}>
-            <img src={icon} alt={alt}/>
-        </span> : null}
-    </button>
-)
-
-const MyProfile = () => {
-
-    const [pageOption, setPageOption] = useState('personal_data')
-    const [popup, setPopup] = useState(false)
+const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
 
     const dispatch = useDispatch()
+    const [pageOption, setPageOption] = useState(null)
+    const [popup, setPopup] = useState(false)
+
+    useEffect(() => {
+        setPageOption(defaultPageOption)
+    }, [defaultPageOption])
 
     useEffect(() => {
         dispatch(onGetContacts())
@@ -60,35 +49,35 @@ const MyProfile = () => {
 
                 <div className={styles.buttons}>
                     <div className={styles.buttonsList}>
-                        <MyButton
+                        <PrimaryButton
                             text='Личные данные'
                             active={pageOption === 'personal_data'}
                             onClick={() => setPageOption('personal_data')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Служба поддержки'
                             active={pageOption === 'support'}
                             onClick={() => setPageOption('support')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Тарифный план'
                             active={pageOption === 'tariff_plan'}
                             onClick={() => setPageOption('tariff_plan')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Контакты'
                             active={pageOption === 'contacts'}
                             onClick={() => setPageOption('contacts')}
                         />
-                        <MyButton
+                        <PrimaryButton
                             text='Подключенные прораммы'
                             active={pageOption === 'programs'}
                             onClick={() => setPageOption('programs')}
                         />
                         <div className={styles.buttonsRight}>
-                            <MyButton
+                            <PrimaryButton
                                 text='Рассказать друзьям'
-                                icon={uploadIcon}
+                                icon={<UploadIcon/>}
                                 alt='Upload'
                                 active={popup}
                                 onClick={() => setPopup(true)}
@@ -106,9 +95,9 @@ const MyProfile = () => {
             </div>
 
             {popup &&
-            <SendFriend
-                set={setPopup}
-            />}
+                <TellFriend
+                    set={setPopup}
+                />}
 
             <BottomPanel/>
 

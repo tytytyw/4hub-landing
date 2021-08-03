@@ -5,12 +5,14 @@ import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuProfile} from '../../../../generalComponents/collections';
 import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import {useHistory} from "react-router";
 
-const Profile = ({setItem}) => {
+const Profile = () => {
 
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
     const profileRef = useRef();
+    const history = useHistory();
 
     const exit = () => {
         const cookies = document.cookie.split(';');
@@ -18,10 +20,12 @@ const Profile = ({setItem}) => {
         window.location.reload();
     };
 
-    const openProfile = () => setItem('Личные данные');
+    const openProfile = () => history.replace('/personal-data');
+    const openSupport = () => history.replace('/support');
+    const openSettings = () => history.replace('/settings');
 
     const additionalCallBacks = [exit];
-    const mainCallBacks = [openProfile, '', '']
+    const mainCallBacks = [openProfile, openSupport, openSettings]
 
     const renderMenuItems = (target, arr) => {
         return target.map((item, i) => {
@@ -45,7 +49,7 @@ const Profile = ({setItem}) => {
         >
             <img
                 className={styles.profileImg}
-                src='./assets/PrivateCabinet/profile-noPhoto.svg'
+                src={user?.icon?.[0] || './assets/PrivateCabinet/profile-noPhoto.svg'}
                 alt='pie-chart'
             />
             <span>{user?.name ? user.name : 'User'}</span>

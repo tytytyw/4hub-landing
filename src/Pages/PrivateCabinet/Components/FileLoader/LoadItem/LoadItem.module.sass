@@ -1,0 +1,129 @@
+.loadItemWrap
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 99%
+  min-height: 50px
+  height: 50px
+  border-top: 1px solid #e0dede
+  box-sizing: border-box
+  padding: 0 5px 0 30px
+  cursor: default
+  .nameWrap
+    height: 100%
+    min-height: 100%
+    width: 75%
+    max-width: 75%
+    display: flex
+    align-items: center
+    .fileWrap
+      position: relative
+      width: 27px
+      min-width: 27px
+      height: 30px
+      display: flex
+      margin: 0 10px 0 0
+    .name
+      font-size: 12px
+      color: #a7a4a4
+      display: block
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+.settingsWrap
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 10%
+  .settings
+    min-width: 20px
+    cursor: pointer
+  .settings path:first-child
+    fill: #007dff
+  .settings path:nth-child(2)
+    fill: white
+.optionsItemWrap
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 15%
+  min-width: 15%
+  height: 50px
+  cursor: pointer
+  .checkIcon
+    width: 30px
+  .crossIcon
+    width: 30px
+    cursor: pointer
+  .crossIcon path:first-child
+    fill: rgb(193, 193, 193)
+  .crossIcon:hover path:first-child
+    fill: #f44336
+.optionsItemWrap .progress .progressBar
+  display: block
+.optionsItemWrap .progress .crossUpload
+  display: none
+.optionsItemWrap:hover .progress .progressBar
+  display: none
+.optionsItemWrap:hover .progress .crossUpload
+  display: block
+  width: 30px
+  height: 30px
+.optionsItemWrap .loadedItemWrap .checkIcon
+  display: block
+.optionsItemWrap .loadedItemWrap .cross
+  display: none
+.optionsItemWrap:hover .loadedItemWrap .checkIcon
+  display: none
+.optionsItemWrap:hover .loadedItemWrap .cross
+  display: block
+  width: 30px
+  height: 30px
+.cross
+  min-width: 30px
+  width: 30px
+  min-height: 30px
+  height: 30px
+.cross path:first-child
+  fill: #f44336
+
+.load
+  fill: none
+  stroke: rgb(209, 209, 209)
+  stroke-width: 8
+  transform-origin: 50px 50px
+.loaded
+  fill: none
+  stroke-width: 8
+  stroke: #1cadeb
+  transform: rotate(-90deg)
+  transform-origin: 50px 50px
+  transition: stroke-dashoffset 0.1s ease-in-out
+.error
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 15%
+  min-width: 15%
+  height: 50px
+  cursor: pointer
+  .mark
+    display: block
+    min-width: 30px
+    width: 30px
+    min-height: 30px
+    height: 30px
+  .mark path
+    fill: #f44336
+  .reload
+    display: none
+    min-width: 30px
+    width: 30px
+    min-height: 30px
+    height: 30px
+  .reload path
+    fill: #1cadeb
+.error:hover .mark
+  display: none
+.error:hover .reload
+  display: block

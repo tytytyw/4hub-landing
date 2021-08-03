@@ -48,21 +48,22 @@
     font-size: 12px
     box-shadow: 0 2px 4px #dedede
     transition: background 0.2s ease-in-out, color 0.2s ease-in-out
-  .button:hover
-    background: #4086F1
-    color: white
-    transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+
+    svg path
+      transition: all 0.2s ease-in-out
+
+    &:hover
+      background: #4086F1
+      color: #fff
+      transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+
+      svg path
+        stroke: #fff
+        fill: #fff
 
   .active
     background: #4086F1
     color: white
-
-  .button:hover
-    background: #4086F1
-    color: #fff
-    .buttonIcon svg
-      stroke: #fff
-      fill: #fff
 
   .buttonIcon
     margin-left: 10px

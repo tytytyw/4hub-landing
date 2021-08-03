@@ -21,9 +21,9 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
 
     const setMenuHorizontal = () => {
         if(params.width + params.x >= screenWidth) {
-            return `${params.x - params.width + 30}px`;
+            return `${params.x - params.width}px`;
         } else {
-            return `${params.x - 30}px`;
+            return `${params.x}px`;
         }
     }
 
@@ -48,14 +48,14 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
                 <div className={styles.wrap}>
                     {!element && tooltip ? <span style={{
                         top: top.tooltip,
-                        right: params.width + params.x >= screenWidth ? '20px' : `${params.width - 40}px`,
+                        right: params.width + params.x >= screenWidth ? '0px' : `${params.width - 20}px`,
                         borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
                         borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
                     }}/> : null}
                     {children}
                 </div>
             </div>
-            <div className={styles.background}></div>
+            <div className={styles.background}/>
         </>)
 }
 

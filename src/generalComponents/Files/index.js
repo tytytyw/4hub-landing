@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './Files.module.sass';
 
@@ -8,6 +9,8 @@ const File = ({format, color}) => {
         'ai', 'psd', 'mp4', 'mov', 'avi', 'xls', 'xlsx', 'pptx'
     ];
 
+    const size = useSelector(state => state.PrivateCabinet.size);
+
     const isFormat = () => formats.indexOf(format);
 
     const [formatSize, setFormatSize] = useState(0);
@@ -15,8 +18,8 @@ const File = ({format, color}) => {
         if(node !== null) {
             setFormatSize(node.getBoundingClientRect().width);
         }
-    }, []);
-    const fontSize = formatSize > 40 ? '12px' : '7px';
+    }, [size]); // eslint-disable-line
+    const fontSize = formatSize > 40 ? '12px' : formatSize > 30 ? '10px' : '7px';
 
     return (
         <div className={styles.file}>
@@ -29,7 +32,10 @@ const File = ({format, color}) => {
                 ref={formatRef}
                 className={`${styles.label} ${isFormat() > -1 ? styles[`${format}Big`] : styles.othersBig}`}
                 style={{background: `${color ? color : ''}`, fontSize}}
-            >{format ? format.toUpperCase() : <img src='./assets/PrivateCabinet/down-arrow-2.svg' alt='img' />}</div>
+            >
+                {format.toUpperCase() === 'ZIP' ? <img className={styles.zip} src='/assets/PrivateCabinet/zipper.svg' alt='' /> : null}
+                {format ? <span className={format.toUpperCase() === 'ZIP' ? styles.labelZip : null}>{format.toUpperCase()}</span> : <img src='./assets/PrivateCabinet/down-arrow-2.svg' alt='img' />}
+            </div>
         </div>
     )
 };

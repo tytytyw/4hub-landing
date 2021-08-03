@@ -1,0 +1,227 @@
+@keyframes showPopup1420
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 430px
+    height: 500px
+    opacity: 0
+
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 500px
+    height: 741px
+    opacity: 0
+
+.wrapper
+  width: 500px
+  height: 741px
+  animation: showPopup 0.2s ease-in-out
+
+.header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 20px
+  border-bottom: 1px solid #DFDFDF
+
+.block
+  height: 60px
+  display: flex
+  align-items: center
+  padding: 0 20px
+  border-bottom: 1px solid #DFDFDF
+
+  .label
+    margin-right: 11px
+    font-size: 12px
+    line-height: 14px
+    color: #606060
+    white-space: nowrap
+    display: block
+    text-overflow: ellipsis
+    overflow: hidden
+
+  .input
+    font-size: 12px
+    line-height: 15px
+    color: #606060
+    padding: 0
+    flex-grow: 1
+    height: 30px
+    border: none
+    &::placeholder
+      font-size: 12px
+      line-height: 15px
+      color: #9E9E9E
+      font-family: 'SF Pro Light'
+
+
+.share
+  padding: 20px 20px 10px 20px
+  border-bottom: 1px solid #DFDFDF
+
+  .titleIcon
+    margin-right: 10px
+
+  .socials
+    display: flex
+    align-items: center
+    list-style: none
+    overflow-x: auto
+    overflow-y: hidden
+    padding: 0
+    margin: 0
+
+    //&::-webkit-scrollbar-track
+    //  background: #0A3AAB
+    //&::-webkit-scrollbar-track
+    //  -webkit-box-shadow: none
+    //  background-color: #F5F5F5
+    //&::-webkit-scrollbar
+    //  height: 5px
+    //  background-color: #FFFFFF
+    //&::-webkit-scrollbar-thumb
+    //  background-color: #4086F1
+
+    .socialsItem.active
+      background: #EBF2FD
+      border-radius: 5px
+
+    .socialsItem
+      cursor: pointer
+      text-align: center
+      display: block
+      width: 75px
+      padding: 10px 0
+      box-sizing: border-box
+
+      &:hover
+        background: #EBF2FD
+
+      p
+        margin: 0
+        font-size: 12px
+        line-height: 16px
+        color: #606060
+
+      img
+        width: 35px
+        height: 35px
+        border-radius: 50%
+
+
+.contacts
+  height: 290px
+  border-bottom: 1px solid #DFDFDF
+
+  .contactsTop
+    padding: 0 20px
+
+  .contactsWrap
+    box-sizing: border-box
+    max-height: 100%
+    overflow: auto
+    padding: 20px 0
+
+    &::-webkit-scrollbar-track
+      background: #0A3AAB
+    &::-webkit-scrollbar-track
+      -webkit-box-shadow: none
+      background-color: #F5F5F5
+    &::-webkit-scrollbar
+      width: 12px
+      background-color: #FFFFFF
+    &::-webkit-scrollbar-thumb
+      background-color: #4086F1
+
+  .search
+    padding: 0 5px
+
+  .contactsList
+    padding: 0
+    margin: 20px 0
+
+
+.actionBlock
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 10px
+
+.actionBtn
+  border-radius: 3px
+  background: #4086F1
+  font-size: 13px
+  line-height: 18px
+  color: #fff
+  box-shadow: 0 2px 4px #DFDFDF
+
+.blockTitle
+  display: flex
+  align-items: center
+  margin-bottom: 10px
+
+.info
+  font-size: 12px
+  line-height: 15px
+  color: #606060
+  margin-right: 10px
+
+.info.errorInfo
+  color: red
+
+.close
+  width: 20px
+  height: 20px
+  cursor: pointer
+  position: relative
+
+
+  .times
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(45deg)
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(-45deg)
+
+.profileWrap
+  display: flex
+  align-items: center
+  img
+    max-width: 100%
+  .profileImg
+    object-fit: cover
+    width: 34px
+    height: 34px
+    border-radius: 50%
+    margin: 0 9px 0 0
+  span
+    font-size: 12px
+    line-height: 15px
+    color: #606060
+    margin: 0 26px 0 0
+    min-width: 55px
+    text-overflow: ellipsis

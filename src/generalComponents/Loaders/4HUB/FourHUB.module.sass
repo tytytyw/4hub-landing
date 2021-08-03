@@ -1,0 +1,163 @@
+@mixin square()
+  position: absolute
+  width: 20%
+  height: 20%
+  background: white
+  margin: 1px
+  border-radius: 10px
+@keyframes appear
+  0%
+    width: 0
+    height: 0
+
+@keyframes darkening
+  0%
+    background: rgba(0, 0, 0, 0)
+.loaderWrap
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 10000
+  width: 100%
+  height: 100%
+  left: 0
+  top: 0
+  animation: darkening 1s ease-in-out
+  .container
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 500px
+    height: 500px
+    animation: appear 1s ease-in-out
+    .greenSquare
+      @include square
+      top: calc(50% - 20% - 10px)
+      left: calc(50% - 20% - 10px)
+      background: rgb(52, 198, 162)
+    .yellowSquareFirst
+      @include square
+      top: calc(50% - 20% - 10px)
+      left: 50%
+      background: rgb(238, 211, 40)
+    .yellowSquareSecond
+      @include square
+      top: 50%
+      left: calc(50% - 20% - 10px)
+      background: rgb(238, 211, 40)
+    .yellowSquareThird
+      @include square
+      top: 50%
+      left: 50%
+      background: rgb(238, 211, 40)
+
+// switching squares places
+@keyframes item-1_move
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(0, 110%)
+  50%
+    transform: translate(110%, 110%)
+  75%
+    transform: translate(110%, 0)
+
+
+@keyframes item-2_move
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(-110%, 0)
+  50%
+    transform: translate(-110%, 110%)
+  75%
+    transform: translate(0, 110%)
+
+@keyframes item-3_move
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(0, -110%)
+  50%
+    transform: translate(-110%, -110%)
+  75%
+    transform: translate(-110%, 0)
+
+@keyframes item-4_move
+  0%, 100%
+    transform: translate(0, 0)
+  25%
+    transform: translate(110%, 0)
+  50%
+    transform: translate(110%, -110%)
+  75%
+    transform: translate(0, -110%)
+.loaderWrap
+  .container
+    .switchGreen
+      animation: item-1_move 1.8s cubic-bezier(.6,.01,.4,1) infinite
+    .switchFirst
+      animation: item-2_move 1.8s cubic-bezier(.6,.01,.4,1) infinite
+    .switchSecond
+      animation: item-4_move 1.8s cubic-bezier(.6,.01,.4,1) infinite
+    .switchThird
+      animation: item-3_move 1.8s cubic-bezier(.6,.01,.4,1) infinite
+
+// from circle to square
+@keyframes squarify
+  0%
+    border-radius: 10px 10px 10px 10px
+    transform: rotate(0deg)
+  25%
+    border-radius: 50% 10px 10px 10px
+    transform: rotate(45deg)
+  50%
+    border-radius: 50% 50% 10px 10px
+    transform:  rotate(90deg)
+  75%
+    border-radius: 50% 50% 50% 10px
+    transform: rotate(135deg)
+  100%
+    border-radius: 50%
+    transform: rotate(180deg)
+
+.loaderWrap
+  .container
+    .squarifyGreen
+      top: calc(50% - 20% - 40px)
+      left: calc(50% - 20% - 40px)
+      animation: squarify 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate
+    .squarifyFirst
+      animation: squarify 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate
+    .squarifySecond
+      animation: squarify 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate
+    .squarifyThird
+      animation: squarify 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate
+
+// from circle to square
+@keyframes scale
+  0%
+    transform: scale(1)
+  100%
+    box-shadow: inset 1px 1px 5px rgb(205, 182, 36)
+    transform: scale(1.2)
+
+@keyframes squareRotate
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(90deg)
+
+.loaderWrap
+  .container
+    .scaleGreen
+      top: calc(50% - 20% - 40px)
+      left: calc(50% - 20% - 40px)
+      animation: squareRotate 1.5s 2s infinite cubic-bezier(1,.015,.295,1.225)
+    .scaleFirst
+      animation: scale 1s 1.4s infinite cubic-bezier(1,.015,.295,1.225) alternate
+    .scaleSecond
+      animation: scale 1s 2.7s infinite cubic-bezier(1,.015,.295,1.225) alternate
+    .scaleThird
+      animation: scale 1s 2.1s infinite cubic-bezier(1,.015,.295,1.225) alternate

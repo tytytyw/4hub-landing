@@ -1,0 +1,192 @@
+.wrap
+    display: flex
+    flex-direction: column
+    width: 520px
+    box-sizing: border-box
+    position: relative
+    font-family: "SF Pro Light"
+    font-size: 11px
+    padding: 9px 20px
+    color: #606060
+    .hint
+        width: 94%
+        font-size: 12px
+        line-height: 17px
+        letter-spacing: -0.055364px
+        color: #979797
+        margin: 18px 0
+        padding-bottom: 18px
+    .buttonsWrap
+        display: flex
+        justify-content: space-between
+        margin: 0 auto
+        div
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 152px
+            height: 39px
+            border-radius: 5px
+            cursor: pointer
+            font-size: 14px
+        .cancel
+            background: #e3e3e3
+            border: 1px solid #e9e9e9
+            color: grey
+        .cancel:hover
+            background: #fc7a7a
+            color: white
+        .buttonDisabled
+            background: #e3e3e3
+            border: 1px solid #e9e9e9
+            color: grey
+            cursor: default
+        .add
+            background: #477DE1
+            border: 1px solid #477DE1
+            color: white
+        .add:hover
+            background: #3b6dcb
+    .title_wrap
+        display: flex
+        align-items: center
+    .title
+        font-size: 12px
+        margin: 18px 0 18px 12px
+    .open_calendar
+        color: #4086F1
+        cursor: pointer
+        margin-left: auto
+        align-self: center
+        font-family: inherit
+        font-size: inherit
+        border: none
+        outline: none
+    .open_calendar:hover
+        opacity: .9
+        text-decoration: underline
+    .open_calendar:active
+        opacity: .5
+    input
+        font-family: inherit
+        font-size: inherit
+        outline: none
+        color: inherit
+        box-sizing: border-box
+        background: none
+    .inputs_wrap
+        display: flex
+        justify-content: space-between
+        align-items: center
+        .date
+            width: 100px
+        input
+            border-width: 1px
+            border-color: #E3E3E3
+            border-radius: 4px
+            padding: 9px 5px
+            font-size: 12px
+            text-align: center
+        input[type="date"]
+            position: relative
+        input[type="date"]::-webkit-calendar-picker-indicator
+            width: 100%
+            left: -1.5em
+            background: none
+            position: absolute
+        .from
+            margin-right: 18px
+        .to
+            margin: 0 18px
+    .inputs_wrap_time
+        justify-content: start
+        margin-left: 22px
+        input.time_count
+            width: 50px
+        span
+            margin: 0 3px
+    .header
+        width: 100%
+        height: 60px
+        display: flex
+        align-items: center
+        box-sizing: border-box
+        .buttons_wrap
+            display: flex
+            margin-left: auto
+        .close_wrap
+            position: relative
+            width: 20px
+            height: 20px
+            cursor: pointer
+        .close_wrap:hover
+            .close
+                background: #4086F1
+        .close
+            position: absolute
+            top: 10px
+            width: 16px
+            height: 2px
+            background: #c7c7c7
+            transform: rotate(45deg)
+        .close:before
+            content: ''
+            position: absolute
+            top: 0
+            right: 0
+            width: 16px
+            height: 2px
+            background: inherit
+            transform: rotate(90deg)
+        .innerFileWrap
+            width: 27px
+            height: 30px
+            position: relative
+            display: flex
+            margin: 0 10px 0 0
+            .lock
+                position: absolute
+                width: 6px
+                top: 3px
+                left: calc(50% - 3px)
+        .descriptionWrap
+            .fileName
+                display: block
+                overflow: hidden
+                white-space: nowrap
+                text-overflow: ellipsis
+                color: #606060
+                width: 123px
+                font-family: "SF Pro Bold", sans-serif
+                font-size: 12px
+                margin-bottom: 3px
+            .innerFileInfo
+                display: flex
+                align-items: center
+                justify-content: space-between
+            .fileSize
+                font-family: "SF Pro Regular", sans-serif
+                font-size: 10px
+                color: #8B8B8B
+                white-space: nowrap
+            .descriptionGroup
+                display: flex
+                .fileTag
+                    display: block
+                    overflow: hidden
+                    white-space: nowrap
+                    text-overflow: ellipsis
+                    max-width: 30px
+                    font-family: "SF Pro Regular", sans-serif
+                    font-size: 8px
+                    color: #FFFFFF
+                    background: rgb(0, 203, 165)
+                    padding: 0 5px
+                    border-radius: 5px
+                    margin: 0 5px 0 0
+                img
+                    width: 13px
+                    margin: 0 5px 0 0
+                    object-fit: contain
+    .border_bottom
+        border-bottom: 0.75px solid #DFDFDF

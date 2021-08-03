@@ -1,0 +1,68 @@
+.workAreaWrap
+  display: flex
+  width: 100%
+  height: 100%
+  .folderListWrap
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: 100%
+    overflow-x: hidden
+    overflow-y: scroll
+    &::-webkit-scrollbar
+      width: 0
+    .listItem.active
+      background: rgba(64, 134, 241, 0.1)
+    .listItem
+      cursor: pointer
+      display: flex
+      align-items: center
+      min-height: 50px
+      padding: 0 10px 0 26px
+      &:hover
+        background: rgba(64, 134, 241, 0.1)
+        transition: background 0.2s ease-in-out
+      .itemInfo
+        display: flex
+        align-items: center
+        p
+          font-family: 'SF Pro Light'
+          font-size: 13px
+          color: #7c7a7a
+        img
+          margin-right: 10px
+
+    .recentPrograms
+      padding: 14px 10px 14px 26px
+      border-bottom: solid 1px #DFDFDF
+
+      p
+        font-family: 'SF Pro Bold', sans-serif
+        margin: 0
+        font-size: 15px
+        line-height: 20px
+        color: #49494B
+
+
+  .createFolderWrap
+    min-height: 51px
+    padding: 0 13px 0 26px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    border-bottom: 1px solid #DFDFDF
+    p
+      font-size: 13px
+      line-height: 18px
+      color: #49494B
+    .createFolderImg
+      display: flex
+      justify-content: center
+      align-items: center
+      cursor: pointer
+
+  .workSpace
+    display: flex
+    flex-direction: column
+.mainMenuItems
+  margin: 10px 0 20px 0

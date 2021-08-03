@@ -10,6 +10,15 @@
     display: flex
     justify-content: space-between
     width: 87%
+    .circleColorWrap
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 30px
+      height: 30px
+      &:hover
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 50%
     .circleColor
       position: relative
       width: 20px
@@ -17,19 +26,9 @@
       border-radius: 50%
       cursor: pointer
       z-index: 2
-    .circleColor:hover:before
-      content: ''
-      width: 100%
-      height: 100%
-      border-radius: 50%
-      background: rgba(1, 1, 1, 0.2)
-      z-index: 1
-    .circleColorChosen
-      width: 20px
-      height: 20px
+    .chosenColorWrap
       background: rgba(1, 1, 1, 0.2)
       border-radius: 50%
-      z-index: 2
 @media (max-width: 1420px)
   .colorWrap
     div

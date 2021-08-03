@@ -1,0 +1,219 @@
+.ShareFile_wrap
+    .empty::placeholder
+        color: red
+    .buttonsWrap
+        display: flex
+        justify-content: space-between
+        margin: 15px auto
+        div
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 140px
+            height: 39px
+            border-radius: 5px
+            cursor: pointer
+            font-size: 14px
+        .cancel
+            background: #e3e3e3
+            border: 1px solid #e9e9e9
+            color: grey
+        .cancel:hover
+            background: #fc7a7a
+            color: white
+        .buttonDisabled
+            background: #e3e3e3
+            border: 1px solid #e9e9e9
+            color: grey
+            cursor: default
+        .add
+            background: #477DE1
+            border: 1px solid #477DE1
+            color: white
+        .add:hover
+            background: #3b6dcb
+    .border_bottom
+        border-bottom: 0.75px solid #DFDFDF
+    display: flex
+    flex-direction: column
+    width: 30vw
+    height: max-content
+    min-width: 521px
+    position: relative
+    font-family: "SF Pro Light"
+    font-size: 11px
+    .header
+        width: 100%
+        height: 60px
+        display: flex
+        align-items: center
+        padding: 0 20px
+        
+        box-sizing: border-box
+        .buttons_wrap
+            display: flex
+            margin-left: auto
+        .close_wrap
+            position: relative
+            width: 20px
+            height: 20px
+            cursor: pointer
+        .close_wrap:hover
+            .close
+                background: #4086F1
+        .close
+            position: absolute
+            top: 10px
+            width: 16px
+            height: 2px
+            background: #c7c7c7
+            transform: rotate(45deg)
+        .close:before
+            content: ''
+            position: absolute
+            top: 0
+            right: 0
+            width: 16px
+            height: 2px
+            background: inherit
+            transform: rotate(90deg)
+        .innerFileWrap
+            width: 27px
+            height: 30px
+            position: relative
+            display: flex
+            margin: 0 10px 0 0
+            .lock
+                position: absolute
+                width: 6px
+                top: 3px
+                left: calc(50% - 3px)
+        .descriptionWrap
+            .fileName
+                display: block
+                overflow: hidden
+                white-space: nowrap
+                text-overflow: ellipsis
+                color: #606060
+                width: 123px
+                font-family: "SF Pro Bold", sans-serif
+                font-size: 12px
+                margin-bottom: 3px
+            .innerFileInfo
+                display: flex
+                align-items: center
+                justify-content: space-between
+            .fileSize
+                font-family: "SF Pro Regular", sans-serif
+                font-size: 10px
+                color: #8B8B8B
+                white-space: nowrap
+            .descriptionGroup
+                display: flex
+                .fileTag
+                    display: block
+                    overflow: hidden
+                    white-space: nowrap
+                    text-overflow: ellipsis
+                    max-width: 30px
+                    font-family: "SF Pro Regular", sans-serif
+                    font-size: 8px
+                    color: #FFFFFF
+                    background: rgb(0, 203, 165)
+                    padding: 0 5px
+                    border-radius: 5px
+                    margin: 0 5px 0 0
+                img
+                    width: 13px
+                    margin: 0 5px 0 0
+                    object-fit: contain
+    input
+        font-family: inherit
+        font-size: inherit
+        border: none
+        outline: none
+        color: inherit
+        box-sizing: border-box
+        background: none
+    input::placeholder,textarea::placeholder
+        color: #9E9E9E
+    #input_pass
+        color: #979797
+.recipient
+    .recipient_title
+        margin-right: 28px
+    .recipient_mail
+        width: 45%
+        input
+            width: 100%
+    color: #606060
+    display: flex
+    align-items: center
+    padding: 12px 20px
+    .recipient_messenger
+        margin-left: auto
+        span
+            border: 1px solid #E3E3E3
+            border-radius: 4px
+            padding: 11px 7px
+            cursor: pointer
+            transition: color .2s ease, background .2s ease, border .2s ease
+    .recipient_messenger:hover
+        span
+            border: 1px solid #4086F1
+            background: #4086F1
+            color: #fff
+    .recipient_messenger:active
+        opacity: .6
+.comment
+    height: 145px
+    textarea
+        resize: none
+        width: 100%
+        height: 100%
+        padding: 16px 20px
+        box-sizing: border-box
+        font-family: inherit
+        font-size: inherit
+        border: none
+        outline: none
+        color: inherit                
+.row_item
+    padding: 13px 18px
+    .input_wrap
+        width: 70%
+        .input_title
+            color: #606060
+        input
+            width: 100%
+            font-size: 9px
+            cursor: pointer
+            color: #979797
+            padding: 0 2px
+            text-align: left
+    .ico_wrap
+        width: 20px
+        margin-right: 3px
+    p
+        margin: 0  0 5px
+    display: flex
+    align-items: flex-start
+    .set_btn
+        color: #4086F1
+        cursor: pointer
+        margin-left: auto
+        align-self: center
+    .set_btn:hover
+        opacity: .9
+        text-decoration: underline
+    .set_btn:active
+        opacity: .5
+.share_link
+    .share_link_title
+        color: #606060
+        font-size: 11px
+        font-family: "SF Pro Regular"
+        padding: 0 20px
+    .row_item
+        .row_ico path
+            fill: #979797

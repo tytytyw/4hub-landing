@@ -1,0 +1,85 @@
+.selectWrap.active
+  border-radius: 5px 5px 0 0
+
+.selectWrap
+  width: 100%
+  height: 100%
+  position: relative
+  border-radius: 5px
+  box-shadow: 0 0 5px rgba(151, 151, 151, 0.5)
+
+  .selected
+    background: #F0F6FF
+
+  .select
+    cursor: pointer
+    height: 100%
+
+    .selectInput
+      font-size: 14px
+      line-height: 18px
+      color: #000
+      display: flex
+      align-items: center
+      padding-left: 12px
+      height: 100%
+
+  .arrow.active
+    border-top: 6px solid #4086F1
+
+  .arrow
+    position: absolute
+    top: calc(100% / 2 - 3px)
+    right: 10px
+    //border-top: 6px solid #4086F1
+    border-top: 6px solid #666
+    border-left: 5px solid transparent
+    border-right: 5px solid transparent
+
+    &:hover
+      border-top: 6px solid #4086F1
+
+
+  .contentWrap.active
+    max-height: 300px
+
+  .contentWrap
+    position: absolute
+    top: 100%
+    z-index: 9
+    overflow: hidden
+    overflow-y: auto
+    width: 100%
+    max-height: 0
+    background: #F0F6FF
+    border-radius: 0 0 5px 5px
+    box-shadow: 0 4px 5px rgba(151, 151, 151, 0.5)
+
+    &::-webkit-scrollbar-track
+      background: #0A3AAB
+    &::-webkit-scrollbar-track
+      -webkit-box-shadow: none
+      background-color: #F5F5F5
+    &::-webkit-scrollbar
+      width: 5px
+      background-color: #FFFFFF
+    &::-webkit-scrollbar-thumb
+      background-color: #4086F1
+
+    .content
+      max-height: 100%
+      padding: 0
+      margin: 0
+
+      .option.active
+        background: #ffffff
+
+      .option
+        font-size: 12px
+        font-weight: 500
+        display: block
+        width: 100%
+        cursor: pointer
+        padding: 5px 12px
+        &:hover
+          background: #ffffff

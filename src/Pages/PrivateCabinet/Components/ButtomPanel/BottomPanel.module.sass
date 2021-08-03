@@ -1,13 +1,32 @@
 .buttomPanelWrap:hover
   transform: translateY(0)
   transition: transform 0.2s ease-in-out
+.notificationsWrap
+  position: relative
+  cursor: pointer
+  .counter
+    display: flex
+    justify-content: center
+    align-items: center
+    min-width: 10px
+    width: max-content
+    min-height: 10px
+    height: max-content
+    background: red
+    border-radius: 50%
+    font-size: 9px
+    color: white
+    position: absolute
+    top: -7px
+    right: -7px
+    padding: 0 1px
 .buttomPanelWrap
   transform: translateY(35px)
   transition: transform 0.2s ease-in-out
   width: 800px
   height: 53px
   position: fixed
-  z-index: 10
+  z-index: 9
   bottom: 0
   left: calc(50% - 280px)
   border-top-left-radius: 5px
@@ -15,7 +34,6 @@
   display: flex
   flex-direction: column
   align-items: center
-  background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 99.24%)
   .curtain
     width: 35px
     height: 3px

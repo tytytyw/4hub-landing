@@ -4,6 +4,7 @@ import styles from "./FileItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import { contextMenuFile } from "../../../../../generalComponents/collections";
+import classNames from "classnames";
 
 const FileItem = ({
 	file,
@@ -11,13 +12,30 @@ const FileItem = ({
 	renderMenuItems,
 	mouseParams,
 	setMouseParams,
-	chosenFile,
 	setChosenFile,
 	callbackArrMain,
 	additionalMenuItems,
+	setFilePreview,
+	filePreview,
+	chosen,
+	filePick,
+	setFilePick
 }) => {
+
+	const onPickFile = () => {
+		if(filePick.show) {
+			const isPicked = filePick.files.filter(el => el === file.fid);
+			isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+		}
+		setChosenFile(file);
+	}
+
 	return (
-		<div className={styles.file_wrap} onClick={() => setChosenFile(file)}>
+		<div
+			className={classNames({[styles.file_wrap]: true, [styles.chosen]:chosen})}
+			onClick={onPickFile}
+			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
+		>
 			<div className={styles.file_icon}>
 				<File color={file.color} format={file.ext} />
 			</div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './FolderItem.module.sass';
@@ -8,22 +8,26 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
+import api from '../../../../../api';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
-        setNewFolder, chosenFolder, setChosenFolder, chosen
+        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
+    const [filesQuantity, setFilesQuantity] = useState(0);
 
     const openFolder = (e) => {
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: ''}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: ''});
+            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: '', info: folder}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: '', info: folder});
         } else {
-            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: ''});
+            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder});
         }
         dispatch(onChooseFolder(folder.folders, folder.path));
         dispatch(onChooseFiles(folder.path));
@@ -41,12 +45,38 @@ const FolderItem = ({
                 padding={'0 15px 0 50px'}
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
+                setMouseParams={setMouseParams}
             />
         })
     };
 
+    const getQuantity = () => {
+        api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
+            .then(res => {
+                if(res.data.ok === 1) setFilesQuantity(res.data.col)
+            })
+            .catch(err => console.log(err));
+    };
+
     //Open global/all Folder from the beginning
-    useEffect(() => {if(chosen) dispatch(onChooseFolder(folder.folders, folder.path))}, []); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        if(chosen) dispatch(onChooseFolder(folder.folders, folder.path));
+        getQuantity();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if(folderList?.path === folder?.path) getQuantity()
+    }, [fileList?.files?.length]); // eslint-disable-line
+
+    const openMenu = (e) => {
+        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+        setNewFolderInfo({...newFolderInfo, path: folder.path})
+    };
+
+    const addFolder = () => {
+        setNewFolderInfo({...newFolderInfo, path: folder.path});
+        setNewFolder(true);
+    };
 
     return (
         <>
@@ -61,13 +91,16 @@ const FolderItem = ({
                     className={styles.icon}
                 />
                 {!listCollapsed && <span className={styles.title}>{folder.nameRu} </span>}
-                {!listCollapsed && <span> ({folder.files.length})</span>}
+                {!listCollapsed && <span> ({filesQuantity})</span>}
             </div>
             <div className={styles.functionWrap}>
                 <PlayIcon
                     className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`}
                 />
-                <div className={styles.menuWrap}><span className={styles.menu} /></div>
+                <div
+                    className={styles.menuWrap}
+                    onClick={openMenu}
+                ><span className={styles.menu} /></div>
             </div>
         </div>
         <div style={{
@@ -77,10 +110,7 @@ const FolderItem = ({
              className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}>
             <div
                 className={styles.addFolderToFolder}
-                onClick={() => {
-                    setNewFolderInfo({...newFolderInfo, path: folder.path});
-                    setNewFolder(true);
-                }}
+                onClick={addFolder}
             >
                 <div className={styles.addFolderName}>
                     <FolderIcon style={{width: '17px'}} />

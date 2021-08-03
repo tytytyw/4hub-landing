@@ -3,18 +3,23 @@ import React, {useEffect, useState} from 'react'
 import styles from './ContacList.module.sass'
 import ContactSearch from './ContactSearch/ContactSearch'
 import SearchList from './SearchList/SearchList'
+import {getContactName} from '../consts'
 
-const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem }) => {
+const ContactList = ({data = [], selectedItem, setSelectedItem}) => {
 
-    const [contactList, setContactList] = useState([])
+    const [search, setSearch] = useState('')
+    const [contactList, setContactList] = useState(data)
 
-    useEffect(() => setContactList(data), [data])
+    useEffect(() => {
+        setContactList(data)
+        setSearch('')
+    }, [data])
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(() => {
 
-        const searchResult = data.filter(item => {
-            const name = item.name.toLowerCase()
+        const searchResult = data?.filter(item => {
+            const name = getContactName(item).toLowerCase()
             const searchValue = search.toLowerCase()
             return name.includes(searchValue)
         })
@@ -29,20 +34,21 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
 
             <div className={styles.search}>
                 <ContactSearch
-                    onChangeHandler={onSearch}
+                    value={search}
+                    onChangeHandler={value => setSearch(value)}
                 />
             </div>
 
             <div className={styles.contactListWrap}>
 
                 <ul className={styles.contactList}>
-                    {getGrouppedArray(contactList).map((item, index) => (
+                    {getGrouppedArray(contactList).map((contact, index) => (
                         <li key={index}>
-                            <p className={styles.group}>{item.group}</p>
+                            <p className={styles.group}>{contact.group}</p>
                             <SearchList
-                                data={item.contacts}
-                                onItemClick={onItemClick}
+                                data={contact.contacts}
                                 selectedItem={selectedItem}
+                                setSelectedItem={setSelectedItem}
                             />
                         </li>
                     ))}
@@ -57,13 +63,15 @@ const ContactList = ({ data = [], onItemClick, onSearch, search, selectedItem })
 
 const getGrouppedArray = initialArray => {
 
-    initialArray.sort((a, b) => a.name.localeCompare(b.name))
+    if (initialArray?.length < 1) {
+        return []
+    }
 
     const groupedArray = []
     let contactsItem = []
-    initialArray.forEach(item => {
+    initialArray?.forEach(item => {
 
-        let firstLetter = item.name.charAt(0)
+        let firstLetter = item.name?.charAt(0)
         let findByGroup = groupedArray.find(item => item.group === firstLetter)
 
         if (!findByGroup) {

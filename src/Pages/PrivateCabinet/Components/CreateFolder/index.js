@@ -27,11 +27,16 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
     const [error, setError] = useState(false);
+    const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
 
     useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const onAddName = (name) => {
+        setNoNameError(false);
+        setName(name);
+    }
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
     const renderTags = () => {
@@ -59,14 +64,18 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     };
 
     const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
-      api.post(`/ajax/dir_add.php?${params}`)
-          .then(res => {if(res.data.ok === 1) {
-              onCreate(false);
-          } else {setError(true)}
-          })
-          .catch(() => {setError(true)})
-          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+        if(name) {
+            const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+            api.post(`/ajax/dir_add.php?${params}`)
+                .then(res => {if(res.data.ok === 1) {
+                    onCreate(false);
+                } else {setError(true)}
+                })
+                .catch(() => {setError(true)})
+                .finally(() => {dispatch(onGetFolders())}); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+        } else {
+            setNoNameError(true)
+        }
     };
 
     const closeComponent = () => {
@@ -94,17 +103,23 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                 <span className={styles.cross} onClick={() => onCreate(false)} />
                 <span className={styles.title}>{title}</span>
                 <div className={styles.folderIconWrap}>
-                    <div className={`${styles.folder} ${color.color !== 'grey' ? styles.redCross : undefined}`} onClick={() => setColor(colors[0])}>
-                        <FolderIcon className={`${styles.folderIcon} ${color.color}`} />
+                    <div className={`${styles.folder}`}>
+                        <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === color.color)[0]?.name}`} />
                     </div>
                     <div className={styles.picPreview}>
                         <div className={styles.folderName}>{name}</div>
                         <div className={styles.folderOptions}>
                             {tagOption.chosen && <div
-                                className={`${styles.minitag} ${styles.redCross}`}
+                                className={`${styles.minitagWrap} ${styles.redCross}`}
                                 onClick={() => setTagOption({...tagOption, chosen: ''})}
-                            ># {tagOption.chosen}</div>}
-                            <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                            >
+                                <div
+                                    className={`${styles.minitag}`}
+                                >#{tagOption.chosen}</div>
+                            </div>}
+                            <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ?  styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
+                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                            </div>
                             {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
                             {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
                             {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
@@ -118,8 +133,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         model='text'
                         height={width >= 1440 ? '40px' : '30px'}
                         value={name}
-                        set={setName}
+                        set={onAddName}
                         placeholder='Имя папки'
+                        mistake={noNameError}
                     />
                     <div className={styles.tagPicker}>
                         <span>#</span>

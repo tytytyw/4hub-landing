@@ -1,0 +1,127 @@
+.wrapper
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  box-shadow: 0 2px 5px #dedede
+  position: relative
+  z-index: 3
+  cursor: default
+  font-family: "SF Pro Light", sans-serif
+  &:hover
+    background: rgba(64, 134, 241, .1)
+    box-shadow: none
+  &:hover .menu
+    background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+    box-shadow: none
+  &:hover .menu:after
+    background: rgba(64, 134, 241, .1)
+    box-shadow: none
+  &:hover .file:after
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+  .menu
+    width: 10px
+    height: 10px
+    position: absolute
+    right: -10px
+    top: 0
+    box-shadow: 0 2px 5px #dedede
+    z-index: 2
+    span
+      width: 3px
+      height: 3px
+      background: #477DE1
+      position: absolute
+      top: 15px
+      right: 3px
+    span:before,
+    span:after
+      content: ''
+      width: 3px
+      height: 3px
+      background: #477DE1
+      position: absolute
+    span:before
+      transform: translateY(7px)
+    span:after
+      transform: translateY(-7px)
+    &:hover
+      background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+    &:hover:after
+      background: rgba(64, 134, 241, .1)
+    &:after
+      content: ''
+      width: 10px
+      height: 32px
+      position: absolute
+      right: 0
+      top: 5px
+      transform: skewY(-45deg)
+      cursor: pointer
+      box-shadow: 0 2px 5px #dedede
+      z-index: 1
+
+.wrapper.active
+  background: rgba(64, 134, 241, .1)
+  .menu
+    background: linear-gradient(314deg, white 0%, white 50%, rgba(64, 134, 241, .1) 50%)
+    box-shadow: none
+  .menu:after
+    box-shadow: none
+    background: rgba(64, 134, 241, .1)
+  .file:after
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.mainMenuItems
+  margin: 10px 0 20px 0
+.additionalMenuItems
+  margin: 0 0 10px 0
+
+
+.wrapper
+  width: 150px
+  height: 140px
+
+  .content
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+  .contentInfo
+    font-size: 14px
+    line-height: 18px
+    color: #49494B
+
+  .contentImg
+    min-width: 70px
+    min-height: 45px
+
+
+.wrapper_small
+  width: 104px
+  height: 97px
+
+  .contentInfo
+    font-size: 11px
+    line-height: 15px
+
+  .contentImg
+    min-width: 46px
+    min-height: 40px
+    width: 46px
+    height: 40px
+
+
+.wrapper_big
+  width: 187px
+  height: 174px
+
+  .contentInfo
+    font-size: 16px
+    line-height: 22px
+
+  .contentImg
+    min-width: 87px
+    min-height: 80px
+    width: 46px
+    height: 40px

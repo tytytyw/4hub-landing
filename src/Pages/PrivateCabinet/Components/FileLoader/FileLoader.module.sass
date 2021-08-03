@@ -1,0 +1,145 @@
+.wrapperCollapsed
+  width: 125px
+.wrapperNotCollapsed
+  width: 370px
+.loaderWrap
+  height: 280px
+  position: fixed
+  z-index: 3
+  box-shadow: 0 2px 4px rgba(140, 140, 140, 0.5)
+  overflow: hidden
+  transition: top 0.1s ease-in-out, left 0.1s ease-in-out, right 0.1s ease-in-out, bottom 0.1s ease-in-out
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    box-sizing: border-box
+    padding: 0 20px
+    width: 100%
+    height: 50px
+    background: rgb(234, 240, 254)
+    position: relative
+    cursor: move
+    .loadBar
+      position: absolute
+      top: 0
+      left: 0
+      height: 100%
+      background: rgba(111, 152, 255, 0.3)
+      transition: width 0.3s ease-in-out
+  .optionFull
+    width: 100%
+  .optionSmall
+    width: 20%
+  .optionsWrap
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .progressBarWrap
+      position: relative
+      .checkIcon
+        width: 30px
+      .mark
+        display: block
+        min-width: 30px
+        width: 30px
+        min-height: 30px
+        height: 30px
+      .mark path
+        fill: #f44336
+      .downloadArrow
+        position: absolute
+        width: 10px
+        top: calc(50% - 9px)
+        left: calc(50% - 5px)
+      .progressBar
+        .load
+          fill: none
+          stroke: rgb(209, 209, 209)
+          stroke-width: 8
+          transform-origin: 50px 50px
+        .loaded
+          fill: none
+          stroke-width: 8
+          stroke: #1cadeb
+          transform: rotate(-90deg)
+          transform-origin: 50px 50px
+          transition: stroke-dashoffset 0.1s ease-in-out
+    .arrowDown
+      transform: rotateZ(45deg) translateY(-5px)
+      border-bottom: 1px solid grey
+      border-right: 1px solid grey
+      width: 9px
+      height: 9px
+      cursor: pointer
+    .arrowUp
+      transform: rotateZ(-45deg) translateY(5px)
+      border-top: 1px solid grey
+      border-right: 1px solid grey
+      width: 9px
+      height: 9px
+      cursor: pointer
+    .cross
+      position: relative
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+    .cross:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(90deg)
+  .main
+    width: 100%
+    height: 230px
+    background: #FFFFFF
+    .timeLeft
+      display: flex
+      justify-content: space-between
+      align-items: center
+      width: 100%
+      height: 30px
+      font-size: 12px
+      padding: 0 15px
+      box-sizing: border-box
+      color: #a7a4a4
+      .cancel
+        color: rgb(83, 143, 250)
+        cursor: pointer
+      .cancel:hover
+        color: rgb(69, 131, 243)
+    .scrollFileLoaderWrap
+      overflow-x: hidden
+      overflow-y: scroll
+      display: flex
+      flex-direction: column
+      align-items: center
+      width: 100%
+      height: 200px
+      &::-webkit-scrollbar-track
+        background: #0A3AAB
+      &::-webkit-scrollbar-track
+        -webkit-box-shadow: none
+        background-color: #F5F5F5
+      &::-webkit-scrollbar
+        width: 4px
+        background-color: #FFFFFF
+      &::-webkit-scrollbar-thumb
+        background-color: #4086F1
+  .mainHidden
+    display: none
+.loaderCollapsed
+  height: 50px
+.mark
+  min-width: 60px
+  width: 60px
+  min-height: 60px
+  height: 60px
+.mark path
+  fill: #f44336

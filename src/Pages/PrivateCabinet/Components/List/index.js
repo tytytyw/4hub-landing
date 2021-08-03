@@ -1,11 +1,17 @@
 import React from 'react';
 
 import styles from './List.module.sass';
+import classNames from "classnames";
 
-const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate}) => {
+const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true}) => {
 
     return (
-        <div className={`${styles.listWrap} ${listCollapsed ? styles.listWrapCollapsed : undefined}`}>
+        <div
+            className={classNames({
+                [styles.listWrap]: true,
+                [styles.listWrapCollapsed]: !!listCollapsed
+            })}
+        >
             <div className={styles.header}>
                 {!listCollapsed && <span>{title}</span>}
                 <div className={styles.imgWrap}>
@@ -15,12 +21,13 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate})
                     alt='play'
                     onClick={() => setListCollapsed(!listCollapsed)}
                 />
-                <img
-                    className={styles.icon}
-                    src={`./assets/PrivateCabinet/${src}`}
-                    alt='icon'
-                    onClick={() => onCreate(true)}
-                />
+                    {!!icon &&
+                    <img
+                        className={styles.icon}
+                        src={`./assets/PrivateCabinet/${src}`}
+                        alt='icon'
+                        onClick={() => onCreate(true)}
+                    />}
                 </div>
             </div>
             <div className={styles.children}>

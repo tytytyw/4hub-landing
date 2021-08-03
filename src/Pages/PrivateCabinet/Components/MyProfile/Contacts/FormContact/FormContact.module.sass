@@ -1,0 +1,229 @@
+.wrapper
+  width: 429px
+  height: auto
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  padding-bottom: 20px
+
+  .content
+    flex-grow: 1
+
+  .top
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    padding: 10px
+
+  .header
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    .uploadBlock
+      width: 60px
+      height: 60px
+
+
+  .formContent
+    margin: 20px 25px
+
+    .formItem
+
+      &:last-child
+        border-bottom: 1px solid #DFDFDF
+
+      .formBlock
+        display: flex
+        align-items: center
+        justify-content: space-between
+        padding: 10px 5px
+        border-top: 1px solid #DFDFDF
+
+        .infoWrap
+          display: flex
+          align-items: center
+
+        .option
+          display: flex
+          align-items: center
+          img
+            margin-right: 9px
+            width: 24px
+            height: 24px
+            border-radius: 50%
+
+      .clickable
+        cursor: pointer
+        justify-content: flex-start
+
+.inputStyle
+  font-size: 12px
+  line-height: 15px
+  color: #606060
+  &::placeholder
+    font-size: 12px
+    line-height: 15px
+    color: #9E9E9E
+    font-family: 'SF Pro Light'
+
+
+.input
+  font-size: 12px
+  line-height: 15px
+  color: #606060
+  width: 100%
+  height: 50%
+  padding: 0
+  border-radius: 0
+  border: none
+  font-family: "SF Pro Light"
+  &::placeholder
+    font-size: 12px
+    line-height: 15px
+    color: #9E9E9E
+    font-family: 'SF Pro Light'
+  &:focus
+    border: none
+
+.minusBtn
+  cursor: pointer
+  margin-right: 10px
+  min-width: 18px
+  height: 18px
+  border-radius: 50%
+  background: #de1818
+  position: relative
+  &:after
+    content: ''
+    position: absolute
+    top: 8px
+    right: 4px
+    width: 10px
+    height: 2px
+    border-radius: 10px
+    background: #FFFFFF
+
+
+.submitBlock
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: 25px
+
+  .submitBtn, .cancelBtn, .editBtn
+    margin: 0 5px
+    font-family: 'SF Pro Light'
+  .submitBtn
+    width: 142px
+  .cancelBtn
+    width: 135px
+    background: #F5F5F5
+    color: #A4A4A4
+
+.socialsList
+  flex-grow: 1
+  display: flex
+  align-items: center
+  padding: 0
+  margin: 0
+  list-style: none
+
+  .socialsImg
+    width: 24px
+    height: 24px
+    margin-right: 5px
+    border-radius: 50%
+
+.title
+  text-align: center
+  font-size: 15px
+  line-height: 24px
+  color: #2B353E
+  margin: 0 0 15px
+
+.info
+  white-space: nowrap
+  font-size: 12px
+  line-height: 15px
+  color: #969DA8
+  margin-right: 10px
+
+.errorInfo
+  color: red
+
+.icon
+  margin-left: 5px
+  cursor: pointer
+  text-align: center
+  width: 20px
+  height: 20px
+
+
+.infoImg
+  margin-right: 10px
+
+.actionBlock
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-top: 15px
+
+.actionBtn
+  border-radius: 3px
+  background: #4086F1
+  font-size: 13px
+  line-height: 18px
+  color: #fff
+  box-shadow: 0 2px 4px #DFDFDF
+
+.blockTitle
+  display: flex
+  align-items: center
+  margin-bottom: 18px
+
+.close
+  width: 20px
+  height: 20px
+  cursor: pointer
+  position: relative
+
+
+  .times
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(45deg)
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(-45deg)
+
+.profileWrap
+  display: flex
+  align-items: center
+  .profileImg
+    width: 34px
+    height: 34px
+    border-radius: 50%
+    margin: 0 13px 0 0
+  span
+    font-size: 12px
+    line-height: 15px
+    color: #606060
+    margin: 0 26px 0 0
+    min-width: 55px
+    text-overflow: ellipsis

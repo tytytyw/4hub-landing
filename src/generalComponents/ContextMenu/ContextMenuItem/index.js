@@ -6,9 +6,11 @@ const ContextMenuItem = ({width, height, text, imageSrc, callback}) => {
     return <div
         className={styles.itemWrap}
         style={{width, height}}
-        onClick={() => {if(callback) callback()}}
+        onClick={() => {
+            if(callback) callback();
+        }}
     >
-        <img src={imageSrc} alt='img' />
+        {imageSrc ? <img src={imageSrc} alt='img' /> : <div style={{width: '10px'}} />}
         <div>{text}</div>
     </div>
 }
