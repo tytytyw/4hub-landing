@@ -9,7 +9,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const WorkBars = ({
           children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
-          gLoader, setGLoader
+          gLoader
 }) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
@@ -99,6 +99,20 @@ const WorkBars = ({
                 background='rgba(255, 255, 255, 0.75)'
                 zIndex={5}
             /> : children}
+            <div
+                className={styles.bottomLine}
+                style={{height: loadingFiles ? '100px' : '40px'}}
+            >
+                {loadingFiles && !gLoader ? <Loader
+                    type='switch'
+                    position='absolute'
+                    background='white'
+                    zIndex={5}
+                    width='100px'
+                    height='100px'
+
+                /> : null}
+            </div>
         </div>
     )
 }

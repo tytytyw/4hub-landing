@@ -35,9 +35,9 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
+            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
         } else {
-            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f});
+            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
         }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
@@ -64,7 +64,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             resolve(cancelRequest('cancelChooseFiles'));
         })
         await cancel.then(() => {
-            subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
+            subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
             setGLoader(true)
             dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
         })
