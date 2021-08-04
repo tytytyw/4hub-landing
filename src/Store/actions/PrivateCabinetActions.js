@@ -76,33 +76,32 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-const cancelChooseFiles = CancelToken.source();
 export const onChooseFiles = (path, search, page, set) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
-    try {
-        window.cancellationTokens = {cancelChooseFiles}
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = {cancelChooseFiles}
         const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.sort}`;
-        const files = await api.post(url, {},{
+        api.get(url,{
             cancelToken: cancelChooseFiles.token
-        });
-        //TODO - Need to check sort by creationDate, modificationDate, byName
+        }).then(files => {
+            //TODO - Need to check sort by creationDate, modificationDate, byName
 
-        //TODO - Need to delete !!!TESTING ENVIRONMENT!!!!!
-        // files.data.forEach(el => console.log(el.ctime))
+            //TODO - Need to delete !!!TESTING ENVIRONMENT!!!!!
+            // files.data.forEach(el => console.log(el.ctime))
 
-        page > 1
-            ? dispatch({
-                type: LOAD_FILES,
-                payload: {files: files.data, path}
-            })
-            : dispatch({
-                type: CHOOSE_FILES,
-                payload: {files: files.data, path}
-            })
-        if(set) set();
-    } catch (e) {
-        console.log(e)
-    }
+            page > 1
+                ? dispatch({
+                    type: LOAD_FILES,
+                    payload: {files: files.data, path}
+                })
+                : dispatch({
+                    type: CHOOSE_FILES,
+                    payload: {files: files.data, path}
+                })
+            if(set) set();
+        })
+            .catch(e => console.log(e))
+            .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
 export const onChooseAllFiles = () => async (dispatch, getState) => {

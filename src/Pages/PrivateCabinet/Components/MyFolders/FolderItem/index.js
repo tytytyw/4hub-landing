@@ -8,7 +8,7 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
-import api from '../../../../../api';
+import api, {cancelRequest} from '../../../../../api';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -21,7 +21,7 @@ const FolderItem = ({
     const dispatch = useDispatch();
     const [filesQuantity, setFilesQuantity] = useState(0);
 
-    const openFolder = (e) => {
+    const openFolder = async (e) => {
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
@@ -29,8 +29,13 @@ const FolderItem = ({
         } else {
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder});
         }
-        dispatch(onChooseFolder(folder.folders, folder.path));
-        dispatch(onChooseFiles(folder.path, '', 1));
+        const cancel = new Promise(resolve => {
+            resolve(cancelRequest('cancelChooseFiles'));
+        })
+        await cancel.then(() => {
+            dispatch(onChooseFolder(folder.folders, folder.path));
+            dispatch(onChooseFiles(folder.path, '', 1));
+        })
     };
 
     const renderInnerFolders = () => {

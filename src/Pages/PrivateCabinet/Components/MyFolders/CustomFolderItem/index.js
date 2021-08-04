@@ -7,7 +7,7 @@ import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/Privat
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import api from '../../../../../api';
+import api, {cancelRequest} from '../../../../../api';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
@@ -58,9 +58,14 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         })
     };
 
-    const clickHandle = (e) => {
-        subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
-        dispatch(onChooseFiles(f.path, '', 1));
+    const clickHandle = async (e) => {
+        const cancel = new Promise(resolve => {
+            resolve(cancelRequest('cancelChooseFiles'));
+        })
+        await cancel.then(() => {
+            subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
+            dispatch(onChooseFiles(f.path, '', 1));
+        })
     };
 
     const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
