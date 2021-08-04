@@ -30,7 +30,7 @@ const FolderItem = ({
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder});
         }
         dispatch(onChooseFolder(folder.folders, folder.path));
-        dispatch(onChooseFiles(folder.path));
+        dispatch(onChooseFiles(folder.path, '', 1));
     };
 
     const renderInnerFolders = () => {
@@ -53,7 +53,10 @@ const FolderItem = ({
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
             .then(res => {
-                if(res.data.ok === 1) setFilesQuantity(res.data.col)
+                if(res.data.ok === 1) {
+                    setFilesQuantity(res.data.col)
+                    if(chosen) setChosenFolder({...chosenFolder, files_amount: res.data.col})
+                }
             })
             .catch(err => console.log(err));
     };

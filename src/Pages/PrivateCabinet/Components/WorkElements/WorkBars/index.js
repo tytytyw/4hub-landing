@@ -1,18 +1,37 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
+import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
+const WorkBars = ({children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder} ) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet.search);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList)
+    const [loadingFiles, setLoadingFiles] = useState(false);
+    const dispatch = useDispatch();
+
+    const onSuccessLoading = () => {
+        setLoadingFiles(false);
+        setPage(page => page + 1);
+    }
+
+    const loadFiles = e => {
+        if(!loadingFiles && (e.target.scrollHeight - e.target.offsetHeight - 200 < e.target.scrollTop)) {
+            if(chosenFolder.files_amount > fileList.files.length) {
+                setLoadingFiles(true);
+                dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
+            }
+        }
+    }
 
     return (
-
         <div
+            ref={fileRef}
             className={styles.workBarsWrap}
             style={{height: `${recentFiles?.length > 0 
                     ? filePick.show 
@@ -33,6 +52,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
                         ? '160px'
                         : '205px',
             }}
+            onScroll={loadFiles}
         >
             {!hideUploadFile && <div
                 onClick={fileSelect}
@@ -47,7 +67,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile}) => {
             </div>}
             {!hideUploadFile && (!children || children?.length === 0) && search.length === 0
                 ? <img
-                    src='./assets/PrivateCabinet/addPropose.png'
+                    src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
                     alt='addFile'
                     className={size === 'big'
                         ? styles.textAddIcon

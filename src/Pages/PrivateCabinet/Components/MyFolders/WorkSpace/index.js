@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../../../../api';
@@ -46,11 +46,19 @@ const WorkSpace = ({
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
-    //TODO - Need to add to different file views
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
+    const [page, setPage] = useState(1);
+    const fileRef = useRef(null);
+
+    useEffect(() => {
+        if(fileList?.files.length <= 10) {
+            setPage(2);
+            if(fileRef.current) fileRef.current.scrollTop = 0;
+        }
+    }, [fileList?.files, fileList?.path]);
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -246,6 +254,10 @@ const WorkSpace = ({
                 fileLoading={fileLoading}
                 fileSelect={fileSelect}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}

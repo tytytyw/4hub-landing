@@ -60,7 +60,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     const clickHandle = (e) => {
         subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
-        dispatch(onChooseFiles(f.path));
+        dispatch(onChooseFiles(f.path, '', 1));
     };
 
     const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
