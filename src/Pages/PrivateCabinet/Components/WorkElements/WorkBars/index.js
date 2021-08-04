@@ -26,7 +26,7 @@ const WorkBars = ({
 
     const loadFiles = e => {
         if(!loadingFiles && (e.target.scrollHeight - e.target.offsetHeight - 200 < e.target.scrollTop)) {
-            if(chosenFolder.files_amount > fileList.files.length) {
+            if(chosenFolder?.files_amount > fileList.files.length) {
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
             }
