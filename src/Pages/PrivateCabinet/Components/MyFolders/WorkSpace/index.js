@@ -10,7 +10,7 @@ import Notifications from '../../Notifications';
 import Profile from '../../Profile';
 import ServePanel from '../../ServePanel';
 import WorkBars from '../../WorkElements/WorkBars';
-import BottomPanel from '../../ButtomPanel';
+import BottomPanel from '../../BottomPanel';
 import FileBar from '../../WorkElements/FileBar';
 import WorkLines from '../../WorkElements/WorkLines';
 import FileLine from '../../WorkElements/FileLine';
@@ -36,7 +36,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType
+       setShowSuccessMessage, setLoadingType, gLoader, setGLoader
 }) => {
 
     const dispatch = useDispatch();
@@ -258,6 +258,8 @@ const WorkSpace = ({
                 setPage={setPage}
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
+                gLoader={gLoader}
+                setGLoader={setGLoader}
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}

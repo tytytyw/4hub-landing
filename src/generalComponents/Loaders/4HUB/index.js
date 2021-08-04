@@ -2,13 +2,14 @@ import React from 'react';
 
 import styles from './FourHUB.module.sass';
 
-const Loader = ({type, position, background, width, height}) => {
+const Loader = ({type, position, background, width, height, zIndex}) => {
     return (
         <div
             className={styles.loaderWrap}
             style={{
                 position: `${position ?? 'fixed'}`,
-                background: `${background ?? 'rgba(0, 0, 0, 0.95)'}`
+                background: `${background ?? 'rgba(0, 0, 0, 0.95)'}`,
+                zIndex: `${zIndex ?? 10000}`
             }}
         >
             <div

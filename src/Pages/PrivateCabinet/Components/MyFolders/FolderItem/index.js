@@ -12,7 +12,8 @@ import api, {cancelRequest} from '../../../../../api';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
-        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams
+        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams,
+        setGLoader
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
@@ -32,10 +33,12 @@ const FolderItem = ({
         const cancel = new Promise(resolve => {
             resolve(cancelRequest('cancelChooseFiles'));
         })
-        await cancel.then(() => {
-            dispatch(onChooseFolder(folder.folders, folder.path));
-            dispatch(onChooseFiles(folder.path, '', 1));
-        })
+        await cancel
+            .then(() => {
+                dispatch(onChooseFolder(folder.folders, folder.path));
+                setGLoader(true);
+                dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
+            })
     };
 
     const renderInnerFolders = () => {

@@ -16,7 +16,7 @@ import File from "../../../../generalComponents/Files";
 import FileBar from "./WorkElements/FileBar";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import BottomPanel from "../ButtomPanel";
+import BottomPanel from "../BottomPanel";
 
 const Cart = () => {
 

@@ -76,12 +76,12 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-export const onChooseFiles = (path, search, page, set) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
         const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.sort}`;
-        api.get(url,{
+        await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
             //TODO - Need to check sort by creationDate, modificationDate, byName
@@ -99,6 +99,7 @@ export const onChooseFiles = (path, search, page, set) => async (dispatch, getSt
                     payload: {files: files.data, path}
                 })
             if(set) set();
+            if(setLoad) setLoad(false)
         })
             .catch(e => console.log(e))
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});

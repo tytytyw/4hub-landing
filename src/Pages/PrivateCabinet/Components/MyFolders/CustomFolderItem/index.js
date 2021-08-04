@@ -10,7 +10,8 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 import api, {cancelRequest} from '../../../../../api';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
+                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader
+}) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
@@ -64,7 +65,8 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         })
         await cancel.then(() => {
             subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
-            dispatch(onChooseFiles(f.path, '', 1));
+            setGLoader(true)
+            dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
         })
     };
 

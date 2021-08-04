@@ -17,7 +17,7 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import PreviewFile from "../PreviewFile";
-import BottomPanel from "../ButtomPanel";
+import BottomPanel from "../BottomPanel";
 import {
 	onGetSharedFiles,
 	onDeleteFile,

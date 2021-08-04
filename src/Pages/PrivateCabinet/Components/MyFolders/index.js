@@ -50,6 +50,7 @@ const MyFolders = ({
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
+    const [gLoader, setGLoader] = useState(false);
     const closeError = () => setError({isError: false, message: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
@@ -70,6 +71,7 @@ const MyFolders = ({
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === el.path}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
@@ -90,6 +92,7 @@ const MyFolders = ({
                 padding={'0px 10px 0px 26px'}
                 subFolder={false}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
@@ -189,6 +192,8 @@ const MyFolders = ({
                 showSuccessMessage={showSuccessMessage}
                 setShowSuccessMessage={setShowSuccessMessage}
                 setLoadingType={setLoadingType}
+                gLoader={gLoader}
+                setGLoader={setGLoader}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

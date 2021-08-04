@@ -5,8 +5,12 @@ import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
-const WorkBars = ({children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder} ) => {
+const WorkBars = ({
+          children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
+          gLoader, setGLoader
+}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -54,7 +58,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile, page, setPage
             }}
             onScroll={loadFiles}
         >
-            {!hideUploadFile && <div
+            {!hideUploadFile ? <div
                 onClick={fileSelect}
                 className={`
                     ${styles.addFile}
@@ -64,7 +68,7 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile, page, setPage
             >
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
-            </div>}
+            </div> : null}
             {!hideUploadFile && (!children || children?.length === 0) && search.length === 0
                 ? <img
                     src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
@@ -89,7 +93,12 @@ const WorkBars = ({children, fileSelect, filePick, hideUploadFile, page, setPage
                     }}
                 >Нет элементов удовлетворяющих условиям поиска</div>
                 : null}
-            {children}
+            {gLoader ? <Loader
+                type='squarify'
+                position='absolute'
+                background='rgba(255, 255, 255, 0.75)'
+                zIndex={5}
+            /> : children}
         </div>
     )
 }
