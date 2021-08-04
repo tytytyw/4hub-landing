@@ -55,12 +55,12 @@ const FolderItem = ({
         })
     };
 
-    const getQuantity = () => {
+    const getQuantity = async () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
             .then(res => {
                 if(res.data.ok === 1) {
                     setFilesQuantity(res.data.col)
-                    if(chosen) setChosenFolder({...chosenFolder, files_amount: res.data.col})
+                    if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount: res.data.col}))
                 }
             })
             .catch(err => console.log(err));
