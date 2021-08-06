@@ -18,6 +18,7 @@ import {
     GET_CATEGORIES,
     GET_PROGRAMS,
     GET_SAFES,
+    ADD_SAFE,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -192,11 +193,36 @@ export const onCustomizeFile = (file) => {
 
 //SAFE
 
-export const onGetSafes = (data = []) => async (dispatch, getState) => {
-    dispatch({
-        type: GET_SAFES,
-        payload: data
-    })
+export const onGetSafes = () => async (dispatch, getState) => {
+    api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
+        .then((res) => {
+            // TODO: fix res.data.ok from api always === 0 
+            if (res.data.ok || true) {
+                dispatch({
+                    type: GET_SAFES,
+                    payload: Object.values(res.data.safes)
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
+};
+
+export const onAddSafe = (name, pass) => async (dispatch, getState) => {
+    //TODO: add params: &tag=${tag}&color=${color}&sign=${sign}&emo=${emo}
+    api.get(`/ajax/safe_add.php?uid=${getState().user.uid}&name=${name}&pass=${pass}`)
+        .then((res) => {
+            if (res.data.ok) {
+                dispatch({
+                    type: ADD_SAFE,
+                    payload: res.data
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
 };
 
 

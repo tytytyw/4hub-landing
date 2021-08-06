@@ -35,6 +35,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES'
 
 //SAFES
 export const GET_SAFES = 'GET_SAFES'
+export const ADD_SAFE = 'ADD_SAFE'
 
 //DEVICES
 export const GET_DEVICES = 'GET_DEVICES'

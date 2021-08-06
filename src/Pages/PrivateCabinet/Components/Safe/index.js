@@ -52,7 +52,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
 
     const renderSafesList = () => {
         if(!safes) return null
-        return safes.map((safe, i) => {
+        return safes?.map((safe, i) => {
             return <SafeItem
                 key={i + safe.name}
                 safe={safe}

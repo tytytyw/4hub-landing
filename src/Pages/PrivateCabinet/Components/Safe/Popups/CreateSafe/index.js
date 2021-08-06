@@ -9,12 +9,11 @@ import {colors, tags} from '../../../../../../generalComponents/collections'
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../SafeIcon'
 import classNames from 'classnames'
-import {useDispatch, useSelector} from 'react-redux'
-import {onGetSafes} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {useDispatch} from 'react-redux'
+import {onAddSafe} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CreateSafe = ({onCreate}) => {
 
-    const safes = useSelector(state => state.PrivateCabinet.safes)
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
@@ -50,11 +49,11 @@ const CreateSafe = ({onCreate}) => {
         return !!name && !!password && password === passwordRepeat
     }
 
-    const onAddSafe = () => {
+    const AddSafe = () => {
 
         if (formIsValid()) {
             const safeObj = {
-                id: safes?.length + 1,
+                // id: safes?.length + 1,
                 name,
                 password,
                 tag: tagOption?.chosen,
@@ -63,7 +62,7 @@ const CreateSafe = ({onCreate}) => {
                 emo: emoji,
             }
 
-            dispatch(onGetSafes([...safes, safeObj]))
+            dispatch(onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo))
             onCreate(false)
         }
 
@@ -232,7 +231,7 @@ const CreateSafe = ({onCreate}) => {
 
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                        <div className={styles.add} onClick={() => onAddSafe()}>Добавить</div>
+                        <div className={styles.add} onClick={() => AddSafe()}>Добавить</div>
                     </div>
                 </div>
             </PopUp>
