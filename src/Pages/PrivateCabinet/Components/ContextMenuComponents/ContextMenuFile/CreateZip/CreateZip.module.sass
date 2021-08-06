@@ -6,7 +6,7 @@
     opacity: 0
   99%
     width: 430px
-    height: 500px
+    //height: 500px
     opacity: 0
 
 @keyframes showPopup
@@ -45,7 +45,7 @@
   align-items: center
   position: relative
   width: 530px
-  height: 720px
+  //height: 720px
   animation: showPopup 0.2s ease-in-out
   cursor: default
   .cross
@@ -261,6 +261,7 @@
     display: flex
     width: 290px
     justify-content: space-between
+    margin-bottom: 20px
     div
       display: flex
       justify-content: center
@@ -288,14 +289,15 @@
       color: white
     .add:hover
       background: #3b6dcb
+
 @media (max-width: 1420px)
-  .createFolderWrap
+  .createWrap
     width: 430px
-    height: 500px
+    height: auto
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
-      margin: 10px 0 10px 0
+      margin: 40px 0 25px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
