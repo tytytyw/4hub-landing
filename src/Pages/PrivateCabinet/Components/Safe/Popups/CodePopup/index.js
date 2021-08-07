@@ -8,7 +8,7 @@ import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
 import {useDispatch} from 'react-redux'
-import {onGetSafeAccess} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {onGetSafeAccess, onGetSafeFileList} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
 
@@ -17,6 +17,8 @@ const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
     const [errPass, setErrPass] = useState(false)
     const [recoverPass, setRecoverPass] = useState(false)
     const [errors, setErrors] = useState({})
+    //TODO: remove
+    const [filelist, setfilelist] = useState(false)
 
     const formIsValid = () => {
         setErrors({
@@ -29,7 +31,13 @@ const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
         
         if (formIsValid()) {
             dispatch(onGetSafeAccess(password, safe.id))
+            setfilelist(true)
         }
+    }
+
+    const getFileList = () => {
+        console.log("click")
+        dispatch(onGetSafeFileList(1, safe.id))
     }
 
     return (
@@ -79,7 +87,7 @@ const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
                         </span>
                         </div>
 
-                        <p className={styles.orItem}>или</p>
+                        {/* <p className={styles.orItem}>или</p>
 
                         <div className={styles.inputWrap}>
                             <Input
@@ -90,7 +98,14 @@ const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
                                 phone={true}
                             />
                             <span className={styles.link}>Не пришол код?</span>
-                        </div>
+                        </div> */}
+
+                        {filelist &&  <Button
+                                placeholder='CODE'
+                                className={styles.input}
+                                onClick={getFileList}
+
+                            />}
 
                         <div className={styles.actionBlock}>
                             <Button

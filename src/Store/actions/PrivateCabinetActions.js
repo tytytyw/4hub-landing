@@ -20,6 +20,7 @@ import {
     GET_SAFES,
     ADD_SAFE,
     GET_SAFE_ACCESS,
+    GET_SAFE_FILELIST,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -242,6 +243,21 @@ export const onGetSafeAccess = (password, id_safe) => async (dispatch, getState)
         .catch(error => console.log(error))
 };
 
+export const onGetSafeFileList = (code, id_safe) => async (dispatch, getState) => {
+    api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
+        .then((res) => {
+            if (res.data.ok) {
+                console.log(res) 
+                dispatch({
+                    type: GET_SAFE_FILELIST,
+                    // payload: 
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
+};
 
 // PROGRAMS
 

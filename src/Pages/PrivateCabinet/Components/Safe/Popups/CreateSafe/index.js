@@ -194,6 +194,7 @@ const CreateSafe = ({onCreate}) => {
 
                             <div className={styles.inputWrap}>
                                 <Input
+                                    autocomplete="off"
                                     type='password'
                                     name='passwordRepeat'
                                     placeholder='Введите повторно пароль пароль'
