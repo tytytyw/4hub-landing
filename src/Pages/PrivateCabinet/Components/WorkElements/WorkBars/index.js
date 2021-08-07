@@ -22,16 +22,17 @@ const WorkBars = ({
     // Checking for files on page to be full
     // useEffect(() => {onCheckFilesPerPage()}, [fileList?.path]) // eslint-disable-line
 
-    const onSuccessLoading = () => {
+    const onSuccessLoading = (result) => {
+        console.log(result)
         setLoadingFiles(false);
-        setPage(page => page + 1);
-        console.log(page);
+        result ? setPage(page => page + 1) : setPage(0);
     }
 
 
     const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access)) {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
+                console.log(chosenFolder?.files_amount > fileList?.files.length);
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
             }
