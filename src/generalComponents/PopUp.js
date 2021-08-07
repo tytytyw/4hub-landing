@@ -13,7 +13,7 @@ const PopUp = (props) => {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                overflow: 'auto',
+                //overflow: 'auto',
                 background: `rgba(1, 1, 1, 0.5)`,
                 zIndex: `${props.zIndex ? props.zIndex : 11}`
             }}
