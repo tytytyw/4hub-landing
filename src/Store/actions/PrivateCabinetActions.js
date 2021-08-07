@@ -76,7 +76,7 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad, repeat) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
@@ -99,7 +99,10 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
                     payload: {files: files.data, path}
                 })
             if(set) set(files.data.length);
-            if(setLoad) setLoad(false)
+            if(setLoad) {
+                new  Promise(async resolve => await resolve( setLoad(false)))
+                    .then(() => {if(repeat) repeat()})
+            }
         })
             .catch(e => console.log(e))
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});

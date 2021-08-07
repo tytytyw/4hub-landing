@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
@@ -15,35 +15,34 @@ const WorkBars = ({
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet.search);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList)
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
-    // Checking for files on page to be full
-    // useEffect(() => {onCheckFilesPerPage()}, [fileList?.path]) // eslint-disable-line
+    // Loading files to full the page
+    useEffect(() => {
+        if(fileList?.path === chosenFolder?.path) onCheckFilesPerPage()
+    }, [fileList?.path, size, chosenFolder?.files_amount]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
-        console.log(result)
         setLoadingFiles(false);
-        result ? setPage(page => page + 1) : setPage(0);
+        result > 0 ? setPage(page => page + 1) : setPage(0);
     }
 
-
-    const loadFiles = (e, access) => {
+    const loadFiles = (e, access, repeat) => {
         if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
-                console.log(chosenFolder?.files_amount > fileList?.files.length);
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
+                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, '', repeat));
             }
         }
     }
 
-    // const onCheckFilesPerPage = () => {
-    //     if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight) {
-    //         loadFiles('', true);
-    //     }
-    // }
+    const onCheckFilesPerPage = () => {
+        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+            loadFiles('', true, onCheckFilesPerPage);
+        }
+    }
 
     return (
         <div

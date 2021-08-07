@@ -56,6 +56,7 @@ const FolderItem = ({
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
