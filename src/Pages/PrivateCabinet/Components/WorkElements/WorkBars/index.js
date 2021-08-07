@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
@@ -19,19 +19,29 @@ const WorkBars = ({
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
+    // Checking for files on page to be full
+    // useEffect(() => {onCheckFilesPerPage()}, [fileList?.path]) // eslint-disable-line
+
     const onSuccessLoading = () => {
         setLoadingFiles(false);
         setPage(page => page + 1);
     }
 
-    const loadFiles = e => {
-        if(!loadingFiles && (e.target.scrollHeight - e.target.offsetHeight - 200 < e.target.scrollTop)) {
-            if(chosenFolder?.files_amount > fileList.files.length) {
+
+    const loadFiles = (e, access) => {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access)) {
+            if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
             }
         }
     }
+
+    // const onCheckFilesPerPage = () => {
+    //     if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight) {
+    //         loadFiles('', true);
+    //     }
+    // }
 
     return (
         <div

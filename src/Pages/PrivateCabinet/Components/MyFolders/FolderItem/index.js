@@ -30,15 +30,17 @@ const FolderItem = ({
         } else {
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder, files_amount: filesQuantity});
         }
-        const cancel = new Promise(resolve => {
-            resolve(cancelRequest('cancelChooseFiles'));
-        })
-        await cancel
-            .then(() => {
-                dispatch(onChooseFolder(folder.folders, folder.path));
-                setGLoader(true);
-                dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
+        if(folderList.path !== folder.path) {
+            const cancel = new Promise(resolve => {
+                resolve(cancelRequest('cancelChooseFiles'));
             })
+            await cancel
+                .then(() => {
+                    dispatch(onChooseFolder(folder.folders, folder.path));
+                    setGLoader(true);
+                    dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
+                })
+        }
     };
 
     const renderInnerFolders = () => {
