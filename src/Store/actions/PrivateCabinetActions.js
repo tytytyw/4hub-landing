@@ -99,10 +99,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, repeat) => async
                     payload: {files: files.data, path}
                 })
             if(set) set(files.data.length);
-            if(setLoad) {
-                new  Promise(async resolve => await resolve( setLoad(false)))
-                    .then(() => {if(repeat) repeat()})
-            }
+            if(setLoad) setLoad(false);
         })
             .catch(e => console.log(e))
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});

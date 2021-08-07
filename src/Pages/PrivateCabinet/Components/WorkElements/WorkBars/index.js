@@ -3,9 +3,9 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles} from '../../../../../Store/actions/PrivateCabinetActions';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
-import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import Loader from '../../../../../generalComponents/Loaders/4HUB';
 
 const WorkBars = ({
           children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
@@ -17,16 +17,16 @@ const WorkBars = ({
     const search = useSelector(state => state.PrivateCabinet.search);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
+    const [allow, setAllow] = useState(true);
     const dispatch = useDispatch();
 
     // Loading files to full the page
-    useEffect(() => {
-        if(fileList?.path === chosenFolder?.path) onCheckFilesPerPage()
-    }, [fileList?.path, size, chosenFolder?.files_amount]) // eslint-disable-line
+    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
         result > 0 ? setPage(page => page + 1) : setPage(0);
+        setAllow(true);
     }
 
     const loadFiles = (e, access, repeat) => {

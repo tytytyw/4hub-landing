@@ -56,7 +56,9 @@ const WorkSpace = ({
     useEffect(() => {
         if(fileList?.files.length <= 10 && chosenFolder?.path === fileList?.path) {
             setPage(2);
-            if(fileRef.current) fileRef.current.scrollTop = 0;
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
         }
     }, [fileList?.files, fileList?.path]); //eslint-disable-line
 
