@@ -196,8 +196,7 @@ export const onCustomizeFile = (file) => {
 export const onGetSafes = () => async (dispatch, getState) => {
     api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
         .then((res) => {
-            // TODO: fix res.data.ok from api always === 0 
-            if (res.data.ok || true) {
+            if (res.data.ok) {
                 dispatch({
                     type: GET_SAFES,
                     payload: Object.values(res.data.safes)
