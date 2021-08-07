@@ -212,6 +212,7 @@ const CreateSafe = ({onCreate}) => {
                                     placeholder='Введите Ваш номер телефона'
                                     phone={true}
                                     className={styles.input}
+                                    disabled
                                 />
                             </div>
 

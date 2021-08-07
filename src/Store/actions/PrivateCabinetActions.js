@@ -19,6 +19,7 @@ import {
     GET_PROGRAMS,
     GET_SAFES,
     ADD_SAFE,
+    GET_SAFE_ACCESS,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -216,6 +217,23 @@ export const onAddSafe = (name, pass) => async (dispatch, getState) => {
                 dispatch({
                     type: ADD_SAFE,
                     payload: res.data
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
+};
+
+
+export const onGetSafeAccess = (password, id_safe) => async (dispatch, getState) => {
+    api.get(`/ajax/safe_get_access.php?uid=${getState().user.uid}&pass=${password}&id_safe=${id_safe}`)
+        .then((res) => {
+            if (res.data.ok) {
+                console.log(res) 
+                dispatch({
+                    type: GET_SAFE_ACCESS,
+                    // payload: Object.values(res.data.safes)
                 })
             } else {
                 console.log(res) 

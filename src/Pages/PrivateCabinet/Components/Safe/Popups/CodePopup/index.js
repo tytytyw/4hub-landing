@@ -7,9 +7,12 @@ import Button from '../../../MyProfile/Button'
 import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
+import {useDispatch} from 'react-redux'
+import {onGetSafeAccess} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
 
+    const dispatch = useDispatch()
     const [password, setPassword] = useState('')
     const [errPass, setErrPass] = useState(false)
     const [recoverPass, setRecoverPass] = useState(false)
@@ -23,16 +26,10 @@ const CodePopup = ({safe, set, refreshPass, setRefreshPass}) => {
     }
 
     const onEnter = () => {
-
+        
         if (formIsValid()) {
-
-            if (password !== safe?.password) {
-                setErrPass(true)
-            } else {
-                console.log('complete')
-            }
+            dispatch(onGetSafeAccess(password, safe.id))
         }
-
     }
 
     return (
