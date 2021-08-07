@@ -16,7 +16,7 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create,
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -110,7 +110,7 @@ const CreateFile = ({
             const url = `/ajax/file_new.php/?uid=${uid}&fileName=${options.name.slice(0, options.name.lastIndexOf('.'))}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${options.color}&symbol=${options.symbol}&emoji=${options.emoji}&ext=${options.name.slice(options.name.lastIndexOf('.') + 1)}`;
             api.post(url)
                 .then(res => {if(res.data.ok === 1) {
-                    dispatch(onChooseFiles(fileList.path, search))
+                    dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader));
                 } else {setError(true)}})
                 .catch(() => {setError(true)})
                 .finally(() => closeComponent());

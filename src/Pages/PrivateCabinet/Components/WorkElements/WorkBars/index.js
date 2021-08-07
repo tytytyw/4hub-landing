@@ -25,6 +25,7 @@ const WorkBars = ({
     const onSuccessLoading = () => {
         setLoadingFiles(false);
         setPage(page => page + 1);
+        console.log(page);
     }
 
 
