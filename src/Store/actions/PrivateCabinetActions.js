@@ -76,7 +76,7 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-export const onChooseFiles = (path, search, page, set, setLoad, repeat) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const searched = search ? `&search=${search}` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}

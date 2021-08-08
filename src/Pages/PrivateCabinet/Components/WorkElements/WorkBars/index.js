@@ -27,18 +27,18 @@ const WorkBars = ({
         result > 0 ? setPage(page => page + 1) : setPage(0);
     }
 
-    const loadFiles = (e, access, repeat) => {
+    const loadFiles = (e, access) => {
         if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, '', repeat));
+                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
             }
         }
     }
 
     const onCheckFilesPerPage = () => {
         if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-            loadFiles('', true, onCheckFilesPerPage);
+            loadFiles('', true);
         }
     }
 
