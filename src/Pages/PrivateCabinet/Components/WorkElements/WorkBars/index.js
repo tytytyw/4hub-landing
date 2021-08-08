@@ -17,7 +17,6 @@ const WorkBars = ({
     const search = useSelector(state => state.PrivateCabinet.search);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
-    const [allow, setAllow] = useState(true);
     const dispatch = useDispatch();
 
     // Loading files to full the page
@@ -26,7 +25,6 @@ const WorkBars = ({
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
         result > 0 ? setPage(page => page + 1) : setPage(0);
-        setAllow(true);
     }
 
     const loadFiles = (e, access, repeat) => {
