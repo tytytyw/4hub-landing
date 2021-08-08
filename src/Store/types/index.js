@@ -35,8 +35,6 @@ export const GET_CATEGORIES = 'GET_CATEGORIES'
 
 //SAFES
 export const GET_SAFES = 'GET_SAFES'
-export const ADD_SAFE = 'ADD_SAFE'
-export const GET_SAFE_ACCESS = 'GET_SAFE_ACCESS'
 export const GET_SAFE_FILELIST = 'GET_SAFE_FILELIST'
 
 //DEVICES

@@ -9,12 +9,13 @@ import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuSafeItem} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import classNames from 'classnames'
-import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 import CodePopup from './Popups/CodePopup'
 import NoSafe from './Popups/NoSafe'
 import CreateSafe from './Popups/CreateSafe'
+import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
 
-const Safe = ({filePreview, setFilePreview, fileSelect}) => {
+
+const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
 
     const dispatch = useDispatch()
 
@@ -171,6 +172,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect}) => {
                 setRefreshPass={setRefreshPass}
                 safe={selectedSafe}
                 set={setCodePopup}
+                setLoadingType={setLoadingType}
             />}
 
             {createSafe &&

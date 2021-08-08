@@ -9,8 +9,9 @@ import {colors, tags} from '../../../../../../generalComponents/collections'
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../SafeIcon'
 import classNames from 'classnames'
+import api from '../../../../../../api';
+
 import {useDispatch} from 'react-redux'
-import {onAddSafe} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CreateSafe = ({onCreate}) => {
 
@@ -49,6 +50,24 @@ const CreateSafe = ({onCreate}) => {
         return !!name && !!password && password === passwordRepeat
     }
 
+    
+    
+    const onAddSafe = (name, pass) => async (dispatch, getState) => {
+        //TODO: add params: &tag=${tag}&color=${color}&sign=${sign}&emo=${emo}
+        api.get(`/ajax/safe_add.php?uid=${getState().user.uid}&name=${name}&pass=${pass}`)
+            .then((res) => {
+                if (res.data.ok) {
+                    // dispatch({
+                    //     type: ADD_SAFE,
+                    //     payload: res.data
+                    // })
+                } else {
+                    console.log(res) 
+                }
+            })
+            .catch(error => console.log(error))
+    };
+
     const AddSafe = () => {
 
         if (formIsValid()) {
@@ -62,7 +81,7 @@ const CreateSafe = ({onCreate}) => {
                 emo: emoji,
             }
 
-            dispatch(onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo))
+            onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo)
             onCreate(false)
         }
 
