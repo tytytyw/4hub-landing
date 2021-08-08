@@ -187,7 +187,10 @@
     flex-direction: column
     justify-content: space-between
     width: 78%
+    .inputWrap
+      margin-bottom: 5px
     .tagPicker
+      margin-bottom: 5px
       display: flex
       align-items: center
       width: 101%
@@ -293,11 +296,11 @@
 @media (max-width: 1420px)
   .createWrap
     width: 430px
-    height: auto
+    max-height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
-      margin: 40px 0 25px 0
+      margin: 15px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
@@ -346,6 +349,7 @@
             width: 100%
             height: 30px
     .buttonsWrap
+      margin-bottom: 10px
       width: 210px
       div
         display: flex

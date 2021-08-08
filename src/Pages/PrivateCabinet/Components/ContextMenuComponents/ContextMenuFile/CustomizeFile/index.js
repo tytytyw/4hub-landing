@@ -57,7 +57,7 @@ const CustomizeFile = ({
     const generateInputWrap = () => {
         if(width >= 1440) {
             return {
-                height: `${showRepeat 
+                height: `${showRepeat
                     ? filePick.customize || fileAddCustomization.several
                         ? '140px' 
                         : '190px' 
@@ -65,15 +65,15 @@ const CustomizeFile = ({
                         ? '100px'
                         : '140px'}`,
                 marginBottom: `${showRepeat ? '5px' : '35px'}`,
-                marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
+                //marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
             }
         } else {
             return {
-                height: `${showRepeat 
+                /*height: `${showRepeat
                     ? filePick.customize || fileAddCustomization.several
                         ? '110px'
                         : '150px' 
-                    : '110px'}`,
+                    : '110px'}`,*/
                 marginBottom: `${showRepeat ? '5px' : '35px'}`
             }
         }
@@ -200,16 +200,16 @@ const CustomizeFile = ({
                     <div style={generateInputWrap()}
                          className={`${styles.inputFieldsWrap}`}
                     >
-                        {filePick.customize || fileAddCustomization.several ? null :
-                            <div className={styles.inputWrap}>
+                        <div className={styles.inputWrap}>
+                            {filePick.customize || fileAddCustomization.several ? null :
                                 <InputField
                                     model='text'
                                     height={width >= 1440 ? '40px' : '30px'}
                                     value={name}
                                     set={setName}
                                     placeholder='Имя файла'
-                                />
-                            </div>}
+                                />}
+                        </div>
                         <div className={styles.tagPicker}>
                             <span>#</span>
                             <input
