@@ -64,7 +64,7 @@ const CustomizeFile = ({
                     : filePick.customize || fileAddCustomization.several
                         ? '100px'
                         : '140px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`,
+                marginBottom: `${showRepeat ? '5px' : '35px'}`,
                 marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
             }
         } else {
@@ -74,7 +74,7 @@ const CustomizeFile = ({
                         ? '110px'
                         : '150px' 
                     : '110px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
+                marginBottom: `${showRepeat ? '5px' : '35px'}`
             }
         }
     };
@@ -201,13 +201,15 @@ const CustomizeFile = ({
                          className={`${styles.inputFieldsWrap}`}
                     >
                         {filePick.customize || fileAddCustomization.several ? null :
-                        <InputField
-                            model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={name}
-                            set={setName}
-                            placeholder='Имя файла'
-                        />}
+                            <div className={styles.inputWrap}>
+                                <InputField
+                                    model='text'
+                                    height={width >= 1440 ? '40px' : '30px'}
+                                    value={name}
+                                    set={setName}
+                                    placeholder='Имя файла'
+                                />
+                            </div>}
                         <div className={styles.tagPicker}>
                             <span>#</span>
                             <input
@@ -223,30 +225,34 @@ const CustomizeFile = ({
                                 {renderTags()}
                             </div>
                         </div>
-                        <InputField
-                            model='password'
-                            switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={password}
-                            set={setPassword}
-                            placeholder='Пароль'
-                            onSwitch={onSwitch}
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                            disabled={!showRepeat}
-                        />
-                        {showRepeat && <InputField
-                            model='password'
-                            switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={passwordRepeat}
-                            set={setPasswordRepeat}
-                            placeholder='Повторите пароль'
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                            comparePass={comparePass}
-                            mistake={!passwordCoincide}
-                        />}
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={true}
+                                height={width >= 1440 ? '40px' : '30px'}
+                                value={password}
+                                set={setPassword}
+                                placeholder='Пароль'
+                                onSwitch={onSwitch}
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                disabled={!showRepeat}
+                            />
+                        </div>
+                        <div className={styles.inputWrap}>
+                            {showRepeat && <InputField
+                                    model='password'
+                                    switcher={false}
+                                    height={width >= 1440 ? '40px' : '30px'}
+                                    value={passwordRepeat}
+                                    set={setPasswordRepeat}
+                                    placeholder='Повторите пароль'
+                                    visibility={visibility}
+                                    setVisibility={setVisibility}
+                                    comparePass={comparePass}
+                                    mistake={!passwordCoincide}
+                                />}
+                            </div>
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
