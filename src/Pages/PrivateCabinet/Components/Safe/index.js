@@ -23,15 +23,11 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
     const [chosenFile, setChosenFile] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
 
-    //const safes = []
     const safes = useSelector(state => state.PrivateCabinet.safes)
     const size = useSelector(state => state.PrivateCabinet.size)
-
     const [listCollapsed, setListCollapsed] = useState('')
     const [selectedSafe, setSelectedSafe] = useState(null)
-
     const [createSafe, setCreateSafe] = useState(false)
-
     const [codePopup, setCodePopup] = useState(false)
     const [refreshPass, setRefreshPass] = useState(false)
     const [noSafePopup, setNoSafePopup] = useState(false)
@@ -43,12 +39,11 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
     //TODO: fileList get current fileList from api
     const safeFileList = useSelector(state => state.PrivateCabinet.fileList)
     //TODO: fileList get current fileList from api
-    let fileList = []
-    //TODO: fileList get current fileList from api
     const [showFileList, setShowFileList] = useState(false)
     //TODO: fileList get current fileList from api
     useEffect(() => {
         if (showFileList) setShowFileList(safeFileList)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showFileList])
 
 

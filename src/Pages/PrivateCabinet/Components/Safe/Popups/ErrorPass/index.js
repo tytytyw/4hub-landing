@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './ErrorPass.module.sass'

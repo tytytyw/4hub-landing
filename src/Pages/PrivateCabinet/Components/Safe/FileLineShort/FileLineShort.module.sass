@@ -1,135 +1,200 @@
-.fileChosen
-  background: rgba(64, 134, 241, .1)
-.wrapper
-  box-sizing: border-box
-  position: relative
-  display: flex
-  justify-content: space-between
-  width: 100%
-  min-height: 70px
-  align-items: center
-  cursor: default
-  padding: 0 13px
-  &:hover
-    background: rgba(64, 134, 241, .1)
-  &:hover .fileWrap:after
+.wrapper.active
+  background: rgba(64, 134, 241, 0.1)
+  .file:after, .fileLineWrap:hover .file:after
     content: ''
-    width: 5px
-    height: 5px
+    width: 20px
+    height: 20px
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(64, 134, 241, 0.1) 51%)
+    position: absolute
     top: 0
     right: 0
-    position: absolute
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
 
-  .fileName
-    .fileInfo
-      font-size: 13px
-      line-height: 17px
-      color: #BCBCBC
-    p
-      font-size: 15px
-      line-height: 20px
-      color: #606060
-      margin: 0 0 6px 0
-      width: 100%
-      max-width: 100px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-
+.wrapper
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  width: 100%
+  min-height: 58px
+  box-sizing: border-box
+  padding: 8px 16px
+  cursor: default
+  &:hover
+    background: rgba(64, 134, 241, 0.1)
+    .file:after, .fileLineWrap:hover .file:after
+      content: ''
+      width: 20px
+      height: 20px
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(64, 134, 241, 0.1) 51%)
+      position: absolute
+      top: 0
+      right: 0
+  .fileAbout
+    display: flex
+    align-items: center
+  .file
+    min-width: 35px
+    height: 40px
+    position: relative
+    margin: 0 20px 0 0
   .infoWrap
     display: flex
-    align-items: center
-    width: 85%
-  .fileWrap
-    display: flex
-    align-items: center
-    justify-content: center
-    width: 60px
-    margin-right: 21px
-    img
-      max-width: 100%
-
-  .rightWrap
-    display: flex
-    align-items: center
-
-  .fileDate
+    flex-direction: column
+    justify-content: space-between
+    height: 40px
+    width: 80%
+  .fileName
+    width: 90%
+    display: block
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    color: rgb(96, 96, 96)
     font-size: 13px
-    line-height: 17px
-    color: #666666
-    margin-right: 32px
+    font-family: "SF Pro Medium", sans-serif
+  .fileInfo
+    display: flex
+    align-items: flex-end
+  .fileDate
+    color: rgb(96, 96, 96)
+    font-size: 9px
+    margin: 0 20px 0 0
+  .fileSize
+    color: rgb(127, 127, 127)
+    font-size: 9px
+    margin: 0 40px 0 0
+  .symbols
+    display: flex
+    align-items: center
+  .locked
+    width: 15px
+    margin: 0 10px 0 0
+  .sign, .smile
+    width: 16px
+    margin: 0 10px 0 0
 
 
 .wrapper_small
-  min-height: 51px
-  .fileName
-    .fileInfo
-      font-size: 10px
-      line-height: 12px
-    p
-      font-size: 13px
-      line-height: 17px
-      margin: 0 0 6px 0
-      max-width: 100px
+  padding: 3px 7px
+  min-height: 37px
+  .file
+    min-width: 24px
+    height: 27px
+    position: relative
+    margin: 0 16px 0 0
   .infoWrap
-    width: 85%
-  .fileWrap
-    max-width: 42px
-    margin-right: 21px
-  .fileDate
-    font-size: 10px
-    line-height: 13px
+    max-width: 165px
+    justify-content: center
+    margin-right: 5px
+  .fileName
+    font-size: 11px
+    line-height: 15px
+  .fileDate, .fileSize
+    font-size: 9px
+    line-height: 12px
+  .symbols
+    flex-grow: 1
+    width: 30%
+
 
 
 .wrapper_big
-  min-height: 94px
-  .fileName
-    .fileInfo
-      font-size: 13px
-      line-height: 17px
-    p
-      font-size: 15px
-      line-height: 20px
-      margin: 0 0 6px 0
-      max-width: 120px
+  padding: 10px 20px
+  min-height: 87px
+  .file
+    min-width: 60px
+    height: 62px
+    position: relative
+    margin: 0 16px 0 0
+  .fileInfo
+    margin-top: 7px
   .infoWrap
-    width: 85%
-  .fileWrap
-    max-width: 66px
-    margin-right: 14px
-  .fileDate
-    font-size: 13px
-    line-height: 17px
+    justify-content: center
+    height: 50px
+    max-width: 70%
+  .fileName
+    font-size: 18px
+    line-height: 20px
+  .fileDate, .fileSize
+    font-size: 14px
+    line-height: 16px
+    white-space: nowrap
+    margin-right: 20px
+  .symbols
+    flex-grow: 1
+    margin-right: 12px
+    width: 30%
+  .locked
+    width: 15px
+    margin: 0 10px 0 0
+  .sign, .smile
+    width: 16px
+    margin: 0 10px 0 0
+
+
+.optionsWrap
+  display: flex
+  align-items: center
+  .iconView
+    display: flex
+    align-items: center
+    justify-content: space-around
+    position: relative
+    border-radius: 3px
+    width: 40px
+    height: 27px
+    overflow: hidden
+    cursor: pointer
+    transition: background 0.2s ease-in-out
+    //box-shadow: 0 2px 4px #dedede
+    margin: 0 8px 0 0
+  .iconSettings path:first-child
+    fill: #B1B1B1
+  .iconSettings path:nth-child(2)
+    fill: white
+  .iconView:hover
+    background: #4086F1
+    transition: background 0.2s ease-in-out
+  .iconView path
+    fill: #B1B1B1
+  .iconView:hover path
+    fill: white
+  .iconSettings:hover path:nth-child(2)
+    fill: #4086F1
+  .iconTrash path, .iconTrash:hover path
+    fill: rgb(215, 36, 25)
+  .iconShare path
+    fill: #4086F1
+  .iconShare:hover path
+    fill: white
+
+
 
 
 .menuWrap
-  cursor: pointer
-  position: absolute
-  right: 0
   display: flex
+  width: 20px
   height: 20px
-  width: 10px
   justify-content: center
   align-items: center
-  margin: 0 10px 0 0
+  cursor: pointer
   .menu
     position: relative
     width: 3px
     height: 3px
     background: #c1c0c0
     transition: background 0.2s ease
-  .menu::before, .menu::after
-    content: ''
-    position: absolute
-    width: 3px
-    height: 3px
-    background: #c1c0c0
-    transition: background 0.2s ease
-  .menu::before
-    transform: translateY(8px)
-  .menu::after
-    transform: translateY(-8px)
+    &::before, &::after
+      content: ''
+      position: absolute
+      width: 3px
+      height: 3px
+      background: #c1c0c0
+      transition: background 0.2s ease
+    &::before
+      transform: translateY(8px)
+    &::after
+      transform: translateY(-8px)
+
   .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
     background: #477DE1
     transition: background 0.2s ease
