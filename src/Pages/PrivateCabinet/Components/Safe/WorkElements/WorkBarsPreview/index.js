@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
-import File from '../../../../../generalComponents/Files';
+import File from '../../../../../../generalComponents/Files';
 
-const WorkBarsPreview = ({children, file, filePick}) => {
+const WorkBarsPreview = ({children, file}) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.PrivateCabinet?.search);
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -45,14 +44,7 @@ const WorkBarsPreview = ({children, file, filePick}) => {
 
     return (<div
         className={styles.workBarsPreviewWrap}
-        style={{height: `${recentFiles?.length > 0
-                ? filePick.show
-                    ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                    : 'calc(100% - 90px - 55px - 78px)'
-                : filePick.show
-                    ? 'calc(100% - 90px - 55px - 80px)'
-                    : 'calc(100% - 90px - 55px)'
-            }`,
+        style={{
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'

@@ -8,11 +8,11 @@ import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 import BottomPanel from '../../BottomPanel'
-import WorkLinesPreview from './../WorkElements/WorkLinesPreview'
+import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 
-import WorkBarsPreview from '../../WorkElements/WorkBarsPreview'
-import WorkBars from '../../WorkElements/WorkBars'
-import WorkLines from '../../WorkElements/WorkLines'
+import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
+import WorkBars from '../WorkElements/WorkBars'
+import WorkLines from '../WorkElements/WorkLines'
 import FileBar from "../../WorkElements/FileBar";
 import FileLine from "../../WorkElements/FileLine";
 

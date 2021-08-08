@@ -2,17 +2,16 @@ import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
-import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
-import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {ReactComponent as AddIcon} from '../../../../../../assets/PrivateCabinet/plus-3.svg';
+import {onChooseFiles} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
 const WorkBars = ({
-          children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
+          children, fileSelect, hideUploadFile, page, setPage, fileRef, chosenFolder,
           gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet.search);
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
@@ -37,14 +36,7 @@ const WorkBars = ({
         <div
             ref={fileRef}
             className={styles.workBarsWrap}
-            style={{height: `${recentFiles?.length > 0 
-                    ? filePick.show 
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick.show 
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                    }`,
+            style={{
                 gridTemplateColumns: size === 'small'
                     ? 'repeat(auto-fill, 118px)'
                     : size === 'medium'
