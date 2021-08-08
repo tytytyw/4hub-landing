@@ -6,17 +6,18 @@ import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import {colors, tags} from '../../../../../../generalComponents/collections'
+import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../SafeIcon'
 import classNames from 'classnames'
 import api from '../../../../../../api';
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 const CreateSafe = ({onCreate}) => {
 
     const dispatch = useDispatch()
-
+	const uid = useSelector((state) => state.user.uid);
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
@@ -52,15 +53,12 @@ const CreateSafe = ({onCreate}) => {
 
     
     
-    const onAddSafe = (name, pass) => async (dispatch, getState) => {
+    const onAddSafe = (name, pass, tag, color, sign, emo) => {
         //TODO: add params: &tag=${tag}&color=${color}&sign=${sign}&emo=${emo}
-        api.get(`/ajax/safe_add.php?uid=${getState().user.uid}&name=${name}&pass=${pass}`)
+        api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}`)
             .then((res) => {
                 if (res.data.ok) {
-                    // dispatch({
-                    //     type: ADD_SAFE,
-                    //     payload: res.data
-                    // })
+                    dispatch(onGetSafes())
                 } else {
                     console.log(res) 
                 }
@@ -72,7 +70,6 @@ const CreateSafe = ({onCreate}) => {
 
         if (formIsValid()) {
             const safeObj = {
-                // id: safes?.length + 1,
                 name,
                 password,
                 tag: tagOption?.chosen,

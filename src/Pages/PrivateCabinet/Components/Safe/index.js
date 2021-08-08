@@ -39,6 +39,19 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
     const [action, setAction] = useState({type: '', name: '', text: ''})
     const nullifyAction = () => setAction({type: '', name: '', text: ''})
 
+
+    //TODO: fileList get current fileList from api
+    const safeFileList = useSelector(state => state.PrivateCabinet.fileList)
+    //TODO: fileList get current fileList from api
+    let fileList = []
+    //TODO: fileList get current fileList from api
+    const [showFileList, setShowFileList] = useState(false)
+    //TODO: fileList get current fileList from api
+    useEffect(() => {
+        if (showFileList) setShowFileList(safeFileList)
+    }, [showFileList])
+
+
     useEffect(() => {
         setNoSafePopup(safes?.length < 1)
     }, [safes])
@@ -63,6 +76,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
                 onClick={() => {
                     setSelectedSafe(safe)
                     setCodePopup(true)
+                    setShowFileList(false)
                 }}
             />
         })
@@ -141,6 +155,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
 
                 action={action}
                 setAction={setAction}
+                fileList={showFileList}
             />
 
             {filePreview?.view &&
@@ -173,6 +188,7 @@ const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
                 safe={selectedSafe}
                 set={setCodePopup}
                 setLoadingType={setLoadingType}
+                setShowFileList={setShowFileList}
             />}
 
             {createSafe &&

@@ -20,13 +20,12 @@ import File from '../../../../../generalComponents/Files'
 
 const WorkSpace = ({chosenFile, setChosenFile,
                    listCollapsed, setFilePreview, filePreview,
-                   fileSelect, action, setAction
+                   fileSelect, action, setAction, fileList
                   }) => {
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview');
-    //const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const fileList = [];
+ 
     const size = useSelector(state => state.PrivateCabinet.size);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});

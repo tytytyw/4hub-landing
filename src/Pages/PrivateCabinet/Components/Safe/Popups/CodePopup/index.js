@@ -7,7 +7,7 @@ import Button from "../../../MyProfile/Button";
 import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import api from "../../../../../../api";
 
 const CodePopup = ({
@@ -16,8 +16,8 @@ const CodePopup = ({
 	refreshPass,
 	setRefreshPass,
 	setLoadingType,
+	setShowFileList
 }) => {
-	const dispatch = useDispatch();
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
 	const [errPass, setErrPass] = useState(false);
@@ -27,6 +27,7 @@ const CodePopup = ({
 	const [sendCode, showSendCode] = useState(false);
 
 	const onGetSafeAccess = (password, id_safe, code) => {
+		
 		if ((!sendCode && password) || (sendCode && code)) {
 			setLoadingType("squarify");
 			api
@@ -35,8 +36,13 @@ const CodePopup = ({
 				)
 				.then((res) => {
 					//TODO: check res.ok
-					if (res.data.f_pass) showSendCode(true);
-					else setErrPass(true);
+					if (res.data.f_pass) showSendCode(true)
+						else setErrPass(true);
+                    if (sendCode && res.data.f_pass && res.data.f_access) {
+                        setShowFileList(true)
+						set()
+                    }
+					
 				})
 				.catch((error) => console.log(error))
 				.finally(() => setLoadingType(""));
