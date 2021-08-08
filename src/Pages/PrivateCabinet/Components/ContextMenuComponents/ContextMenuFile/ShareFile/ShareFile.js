@@ -73,16 +73,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
                         <File color={file.id_color} format={file.ext} />
                         {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
                     </div>
-                    <div className={styles.descriptionWrap}>
-                        <div className={styles.fileName}>{file.name.slice(0, file.name.lastIndexOf('.'))}</div>
-                        <div className={styles.innerFileInfo}>
-                            <div className={styles.fileSize}>{file.size_now}</div>
-                            <div className={styles.descriptionGroup}>
-                                {file.fig && <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='sign' />}
-                                {file.emo && <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' />}
-                            </div>
-                        </div>
-                    </div>
+
                     <div className={styles.buttons_wrap}>
                         <div className={styles.close_wrap}  onClick={close}>
                             <span className={styles.close} />
