@@ -97,6 +97,24 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
         })
     }
 
+    const renderView = () => (
+        <div className={styles.reviewOptions}>
+            <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
+                <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
+                <div className={styles.description}>Просмотр</div>
+            </div>
+            <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
+                <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
+                <div>Скачивание</div>
+            </div>
+            <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
+                <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
+                <div>Редактировать</div>
+            </div>
+            <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
+        </div>
+    )
+
     const chooseContact = (contact, index) => {
         if (index) {
             setChosenContacts([...chosenContacts, contact])
@@ -152,7 +170,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
 
     return (
         <PopUp set={nullifyAction}>
-            {sendAccess && chosenContacts.length > 0 ? <div className={styles.sendLinkWrap}>
+            {sendAccess && chosenContacts.length > 0 ? <div className={styles.sendLinkWrap} onClick={checkContextMenu}>
                 <header>
                     <div
                         className={styles.backbutton}
@@ -173,21 +191,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                             <div className={styles.review}>
                                 <span>{review.text}</span>
                                 <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
-                                {context === 'review' ? <div className={styles.reviewOptions}>
-                                    <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
-                                        <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
-                                        <div className={styles.description}>Просмотр</div>
-                                    </div>
-                                    <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
-                                        <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
-                                        <div>Скачивание</div>
-                                    </div>
-                                    <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
-                                        <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
-                                        <div>Редактировать</div>
-                                    </div>
-                                    <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
-                                </div> : null}
+                                {context === 'review' ? renderView() : null}
                             </div>
                         </div>
                         <div
@@ -288,21 +292,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                         <div className={styles.review}>
                             <span>{review.text}</span>
                             <img src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='copy' className={context === 'review' ? styles.imageReverse : ''}/>
-                            {context === 'review' ? <div className={styles.reviewOptions}>
-                                <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
-                                    <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
-                                    <div className={styles.description}>Просмотр</div>
-                                </div>
-                                <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
-                                    <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
-                                    <div>Скачивание</div>
-                                </div>
-                                <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
-                                    <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
-                                    <div>Редактировать</div>
-                                </div>
-                                <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
-                            </div> : null}
+                            {context === 'review' ? renderView() : null}
                         </div>
                     </div>
                 </main>
