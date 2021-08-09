@@ -62,10 +62,6 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 		nullifyAction();
 	}, [path]);
 
-    useEffect(() => {
-		console.log(selectedSafe)
-	}, [selectedSafe]);
-
 	const renderSafesList = () => {
 		if (!safes) return null;
 		return safes?.map((safe, i) => {
@@ -128,6 +124,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
         nullifyAction();
         api.post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
             .then(res => {if(res.data.ok === 1) {
+                setShowSuccessMessage('Сейф удален')
                 dispatch(onGetSafes());
             } else {
                 console.log(res)
