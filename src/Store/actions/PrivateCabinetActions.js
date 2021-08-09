@@ -197,10 +197,17 @@ export const onGetSafes = () => async (dispatch, getState) => {
     api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
         .then((res) => {
             if (res.data.ok) {
-                dispatch({
-                    type: GET_SAFES,
-                    payload: Object.values(res.data.safes)
-                })
+                if (res.data.safes) {
+                    dispatch({
+                        type: GET_SAFES,
+                        payload: Object.values(res.data.safes)
+                    })
+                } else {
+                        dispatch({
+                            type: GET_SAFES,
+                            payload: []
+                        })
+                    }
             } else {
                 console.log(res) 
             }
