@@ -222,7 +222,7 @@ const CreateSafe = ({onCreate}) => {
                                 />
                             </div>
 
-                            <div className={styles.inputWrap}>
+                            {/* <div className={styles.inputWrap}>
                                 <Input
                                     name='phone'
                                     placeholder='Введите Ваш номер телефона'
@@ -230,16 +230,16 @@ const CreateSafe = ({onCreate}) => {
                                     className={styles.input}
                                     disabled
                                 />
-                            </div>
+                            </div> */}
 
                         </div>
 
-                        <div className={styles.textWrap}>
+                        {/* <div className={styles.textWrap}>
                             <p className={styles.text}>
                                 Примечание: на указанный контактный номер телефона
                                 будет отправлено код-пароль для доступа к сейфу
                             </p>
-                        </div>
+                        </div> */}
 
                         <Colors color={color} setColor={setColor}/>
                         <Signs sign={sign} setSign={setSign}/>

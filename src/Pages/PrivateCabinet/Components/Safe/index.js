@@ -96,7 +96,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 		{
 			type: "deleteSafe",
 			name: "Удаление сейфа",
-			text: `Вы действительно хотите удалить выбранный сейф?`,
+			text: `Вы действительно хотите удалить сейф ${selectedSafe?.name}?`,
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -117,7 +117,6 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	};
 
     const cancelArchive = () => {
-        console.log('cancelArchive()')
 		// nullifyFilePick();
 		nullifyAction();
 	}
