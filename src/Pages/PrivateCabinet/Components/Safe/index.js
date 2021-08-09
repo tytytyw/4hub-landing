@@ -5,6 +5,7 @@ import styles from "./Safe.module.sass";
 import SafeItem from "./SafeItem";
 import SafeIcon from './SafeIcon'
 import WorkSpace from "./WorkSpace";
+import ShareSafe from "../ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import PreviewFile from "../PreviewFile";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -83,12 +84,13 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 		});
 	};
 
-	// const callbackArrMain = [
-	//     {type: 'resend', name: 'Предоставить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-	//     {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
-	//     {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
-	//     {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
-	// ];
+	const callbackArrMain = [
+	    {type: 'share', name: 'Предоставить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        // TODO: 
+	    // {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
+	    // {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
+	    // {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+	];
 
 	const additionalMenuItems = [
 		{
@@ -211,7 +213,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					tooltip={true}
 				>
 					<div className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuSafeItem.main)}
+						{renderMenuItems(contextMenuSafeItem.main, callbackArrMain)}
 					</div>
 					<div style={{ marginTop: "30px" }} className={styles.mainMenuItems}>
 						{renderMenuItems(contextMenuSafeItem.additional, additionalMenuItems)}
@@ -249,6 +251,16 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
                         <SafeIcon />
 					</div>
 				</ActionApproval>
+			) : null}
+            {action.type === "share" ? (
+				<ShareSafe
+					safe={selectedSafe}
+					close={nullifyAction}
+					action_type={action.type}
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
+				/>
 			) : null}
 
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
