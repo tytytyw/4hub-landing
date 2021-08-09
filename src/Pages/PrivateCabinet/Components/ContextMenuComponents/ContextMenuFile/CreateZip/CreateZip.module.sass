@@ -6,7 +6,7 @@
     opacity: 0
   99%
     width: 430px
-    height: 500px
+    //height: 500px
     opacity: 0
 
 @keyframes showPopup
@@ -45,7 +45,7 @@
   align-items: center
   position: relative
   width: 530px
-  height: 720px
+  //height: 720px
   animation: showPopup 0.2s ease-in-out
   cursor: default
   .cross
@@ -187,7 +187,10 @@
     flex-direction: column
     justify-content: space-between
     width: 78%
+    .inputWrap
+      margin-bottom: 5px
     .tagPicker
+      margin-bottom: 5px
       display: flex
       align-items: center
       width: 101%
@@ -261,6 +264,7 @@
     display: flex
     width: 290px
     justify-content: space-between
+    margin-bottom: 20px
     div
       display: flex
       justify-content: center
@@ -288,14 +292,14 @@
       color: white
     .add:hover
       background: #3b6dcb
+
 @media (max-width: 1420px)
-  .createFolderWrap
+  .createWrap
     width: 430px
-    height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
-      margin: 10px 0 10px 0
+      margin: 15px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
@@ -344,6 +348,7 @@
             width: 100%
             height: 30px
     .buttonsWrap
+      margin-bottom: 12px
       width: 210px
       div
         display: flex

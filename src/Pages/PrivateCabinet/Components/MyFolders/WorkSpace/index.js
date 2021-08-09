@@ -54,11 +54,13 @@ const WorkSpace = ({
     const fileRef = useRef(null);
 
     useEffect(() => {
-        if(fileList?.files.length <= 10) {
+        if(fileList?.files.length <= 10 && chosenFolder?.path === fileList?.path) {
             setPage(2);
-            if(fileRef.current) fileRef.current.scrollTop = 0;
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
         }
-    }, [fileList?.files, fileList?.path]);
+    }, [fileList?.files, fileList?.path]); //eslint-disable-line
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},

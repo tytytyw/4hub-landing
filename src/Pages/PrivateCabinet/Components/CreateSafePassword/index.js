@@ -35,12 +35,12 @@ const CreateSafePassword = ({onToggle, title}) => {
         if(width >= 1440) {
             return {
               height: '160px',
-              marginBottom: '15px'
+              marginBottom: '10px'
           }
       } else {
           return {
-              height: '110px',
-              marginBottom: '15px'
+              //height: '110px',
+              marginBottom: '10px'
           }
       }
     };
@@ -76,13 +76,15 @@ const CreateSafePassword = ({onToggle, title}) => {
                 <div style={generateInputWrap()}
                      className={styles.inputFieldsWrap}
                 >
-                    <InputField
-                        model='text'
-                        height={width >= 1440 ? '40px' : '30px'}
-                        value={name}
-                        set={setName}
-                        placeholder='Имя сейфа (по умолчанию Пароли)'
-                    />
+                    <div className={styles.inputWrap}>
+                        <InputField
+                            model='text'
+                            height={width >= 1440 ? '40px' : '30px'}
+                            value={name}
+                            set={setName}
+                            placeholder='Имя сейфа (по умолчанию Пароли)'
+                        />
+                    </div>
                     <div className={styles.tagPicker}>
                         <span>#</span>
                         <input
@@ -98,14 +100,16 @@ const CreateSafePassword = ({onToggle, title}) => {
                             {renderTags()}
                         </div>
                     </div>
-                    <InputField
-                        model='text'
-                        height={width >= 1440 ? '40px' : '30px'}
-                        value={phoneNumber}
-                        set={setPhoneNumber}
-                        placeholder='Введите Ваш номер телефона'
-                        phone={true}
-                    />
+                    <div className={styles.inputWrap}>
+                        <InputField
+                            model='text'
+                            height={width >= 1440 ? '40px' : '30px'}
+                            value={phoneNumber}
+                            set={setPhoneNumber}
+                            placeholder='Введите Ваш номер телефона'
+                            phone={true}
+                        />
+                    </div>
                 </div>
                 <span className={styles.description}>Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу</span>
                 <Colors color={color} setColor={setColor} />

@@ -216,6 +216,7 @@ const MyFolders = ({
                 fileErrors={fileErrors}
                 setLoadingFile={setLoadingFile}
                 create={fileAddCustomization.create}
+                setGLoader={setGLoader}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}

@@ -39,7 +39,7 @@
   align-items: center
   position: relative
   width: 530px
-  height: 720px
+  //height: 720px
   animation: showPopup 0.2s ease-in-out
   .cross
     position: absolute
@@ -77,6 +77,7 @@
     transform: rotate(-45deg)
   .title
     font-size: 19px
+    font-family: 'SF Pro Medium', sans-serif
     margin: 40px 0 40px 0
   .folderIconWrap
     display: flex
@@ -222,6 +223,7 @@
     display: flex
     width: 290px
     justify-content: space-between
+    margin-bottom: 20px
     div
       display: flex
       justify-content: center
@@ -244,14 +246,15 @@
       color: white
     .add:hover
       background: #3b6dcb
+
 @media (max-width: 1420px)
   .createFolderWrap
     width: 430px
-    height: 500px
+    //height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
-      margin: 10px 0 10px 0
+      margin: 15px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
@@ -278,6 +281,7 @@
         .lock
           width: 12px
     .inputFieldsWrap
+      margin: 10px 0
       .tagPicker
         height: 30px
         font-size: 11px
@@ -295,6 +299,7 @@
             height: 30px
     .buttonsWrap
       width: 210px
+      margin-bottom: 12px
       div
         display: flex
         justify-content: center

@@ -55,19 +55,22 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
 
     const clickHandle = async (e) => {
-        const cancel = new Promise(resolve => {
-            resolve(cancelRequest('cancelChooseFiles'));
-        })
-        await cancel.then(() => {
-            subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
-            setGLoader(true)
-            dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
-        })
+        if(folderList.path !== f.path || chosenFolder.subPath) {
+            const cancel = new Promise(resolve => {
+                resolve(cancelRequest('cancelChooseFiles'));
+            })
+            await cancel.then(() => {
+                subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
+                setGLoader(true)
+                dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
+            })
+        }
     };
 
     const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};

@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles} from '../../../../../Store/actions/PrivateCabinetActions';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
-import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import Loader from '../../../../../generalComponents/Loaders/4HUB';
 
 const WorkBars = ({
           children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
@@ -15,21 +15,30 @@ const WorkBars = ({
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet.search);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList)
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
-    const onSuccessLoading = () => {
+    // Loading files to full the page
+    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+
+    const onSuccessLoading = (result) => {
         setLoadingFiles(false);
-        setPage(page => page + 1);
+        result > 0 ? setPage(page => page + 1) : setPage(0);
     }
 
-    const loadFiles = e => {
-        if(!loadingFiles && (e.target.scrollHeight - e.target.offsetHeight - 200 < e.target.scrollTop)) {
-            if(chosenFolder?.files_amount > fileList.files.length) {
+    const loadFiles = (e, access) => {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
+            if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
+                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
             }
+        }
+    }
+
+    const onCheckFilesPerPage = () => {
+        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+            loadFiles('', true);
         }
     }
 

@@ -99,8 +99,8 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
                     type: CHOOSE_FILES,
                     payload: {files: files.data, path}
                 })
-            if(set) set();
-            if(setLoad) setLoad(false)
+            if(set) set(files.data.length);
+            if(setLoad) setLoad(false);
         })
             .catch(e => console.log(e))
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
