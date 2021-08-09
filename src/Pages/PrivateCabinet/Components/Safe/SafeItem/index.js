@@ -4,7 +4,7 @@ import styles from './SafeItem.module.sass'
 import classNames from 'classnames'
 import SafeIcon from '../SafeIcon'
 
-const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
+const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe}) => {
 
     return (
         <>
@@ -19,6 +19,7 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                     className={styles.menuWrap}
                     onClick={e => {
                         setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+                        setSelectedSafe(safe)
                     }}
                 >
                     <span className={styles.menu}/>

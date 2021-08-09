@@ -1,198 +1,258 @@
-import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import styles from './Safe.module.sass'
-import SafeItem from './SafeItem'
-import WorkSpace from './WorkSpace'
-import PreviewFile from '../PreviewFile'
-import ContextMenu from '../../../../generalComponents/ContextMenu'
-import {contextMenuSafeItem} from '../../../../generalComponents/collections'
-import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
-import classNames from 'classnames'
-import CodePopup from './Popups/CodePopup'
-import NoSafe from './Popups/NoSafe'
-import CreateSafe from './Popups/CreateSafe'
-import {onGetSafes} from '../../../../Store/actions/PrivateCabinetActions'
+import styles from "./Safe.module.sass";
+import SafeItem from "./SafeItem";
+import SafeIcon from './SafeIcon'
+import WorkSpace from "./WorkSpace";
+import ActionApproval from "../../../../generalComponents/ActionApproval";
+import PreviewFile from "../PreviewFile";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import { contextMenuSafeItem } from "../../../../generalComponents/collections";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import classNames from "classnames";
+import CodePopup from "./Popups/CodePopup";
+import NoSafe from "./Popups/NoSafe";
+import CreateSafe from "./Popups/CreateSafe";
+import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
+import api from '../../../../api';
 
+const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
+	const dispatch = useDispatch();
+    const uid = useSelector(state => state.user.uid);
+	const path = useSelector((state) => state.PrivateCabinet.folderList?.path);
+	const [chosenFile, setChosenFile] = useState(null);
+	const [mouseParams, setMouseParams] = useState(null);
 
-const Safe = ({filePreview, setFilePreview, fileSelect, setLoadingType}) => {
+	const safes = useSelector((state) => state.PrivateCabinet.safes);
+	const size = useSelector((state) => state.PrivateCabinet.size);
+	const [listCollapsed, setListCollapsed] = useState("");
+	const [selectedSafe, setSelectedSafe] = useState(null);
+	const [createSafe, setCreateSafe] = useState(false);
+	const [codePopup, setCodePopup] = useState(false);
+	const [refreshPass, setRefreshPass] = useState(false);
+	const [noSafePopup, setNoSafePopup] = useState(false);
 
-    const dispatch = useDispatch()
+	const [action, setAction] = useState({ type: "", name: "", text: "" });
+	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-    const path = useSelector(state => state.PrivateCabinet.folderList?.path)
-    const [chosenFile, setChosenFile] = useState(null)
-    const [mouseParams, setMouseParams] = useState(null)
+	//TODO: fileList get current fileList from api
+	const safeFileList = useSelector((state) => state.PrivateCabinet.fileList);
+	//TODO: fileList get current fileList from api
+	const [showFileList, setShowFileList] = useState(false);
+	//TODO: fileList get current fileList from api
+	useEffect(() => {
+		if (showFileList) setShowFileList(safeFileList);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [showFileList]);
 
-    const safes = useSelector(state => state.PrivateCabinet.safes)
-    const size = useSelector(state => state.PrivateCabinet.size)
-    const [listCollapsed, setListCollapsed] = useState('')
-    const [selectedSafe, setSelectedSafe] = useState(null)
-    const [createSafe, setCreateSafe] = useState(false)
-    const [codePopup, setCodePopup] = useState(false)
-    const [refreshPass, setRefreshPass] = useState(false)
-    const [noSafePopup, setNoSafePopup] = useState(false)
+	useEffect(() => {
+		setNoSafePopup(safes?.length < 1);
+	}, [safes]);
 
-    const [action, setAction] = useState({type: '', name: '', text: ''})
-    const nullifyAction = () => setAction({type: '', name: '', text: ''})
+	useEffect(() => {
+		dispatch(onGetSafes());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	//Clear action on change folder
+	useEffect(() => {
+		nullifyAction();
+	}, [path]);
 
-    //TODO: fileList get current fileList from api
-    const safeFileList = useSelector(state => state.PrivateCabinet.fileList)
-    //TODO: fileList get current fileList from api
-    const [showFileList, setShowFileList] = useState(false)
-    //TODO: fileList get current fileList from api
     useEffect(() => {
-        if (showFileList) setShowFileList(safeFileList)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showFileList])
+		console.log(selectedSafe)
+	}, [selectedSafe]);
 
+	const renderSafesList = () => {
+		if (!safes) return null;
+		return safes?.map((safe, i) => {
+			return (
+				<SafeItem
+					key={i + safe.name}
+					safe={safe}
+					listSize={size}
+					chosen={setSelectedSafe?.id === safe.id}
+					setMouseParams={setMouseParams}
+                    setSelectedSafe={setSelectedSafe}
+					onClick={() => {
+						setSelectedSafe(safe);
+						setCodePopup(true);
+						setShowFileList(false);
+					}}
+				/>
+			);
+		});
+	};
 
-    useEffect(() => {
-        setNoSafePopup(safes?.length < 1)
-    }, [safes])
+	// const callbackArrMain = [
+	//     {type: 'resend', name: 'Предоставить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+	//     {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
+	//     {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
+	//     {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+	// ];
 
-    useEffect(() => {
-        dispatch(onGetSafes())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+	const additionalMenuItems = [
+		{
+			type: "deleteSafe",
+			name: "Удаление сейфа",
+			text: `Вы действительно хотите удалить выбранный сейф?`,
+			callback: (list, index) => setAction(list[index]),
+		},
+	];
 
-    //Clear action on change folder
-    useEffect(() => {nullifyAction()}, [path])
+	const renderMenuItems = (target, type) => {
+		return target.map((item, i) => {
+			return (
+				<ContextMenuItem
+					key={i}
+					width={mouseParams.width}
+					height={mouseParams.height}
+					text={item.name}
+					callback={() => type[i]?.callback(type, i)}
+					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+				/>
+			);
+		});
+	};
 
-    const renderSafesList = () => {
-        if(!safes) return null
-        return safes?.map((safe, i) => {
-            return <SafeItem
-                key={i + safe.name}
-                safe={safe}
-                listSize={size}
-                chosen={setSelectedSafe?.id === safe.id}
-                setMouseParams={setMouseParams}
-                onClick={() => {
-                    setSelectedSafe(safe)
-                    setCodePopup(true)
-                    setShowFileList(false)
-                }}
-            />
-        })
+    const cancelArchive = () => {
+        console.log('cancelArchive()')
+		// nullifyFilePick();
+		nullifyAction();
+	}
+
+    const deleteSafe = () => {
+        nullifyAction();
+        api.post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
+            .then(res => {if(res.data.ok === 1) {
+                dispatch(onGetSafes());
+            } else {
+                console.log(res)
+            }})
+            .catch(err => console.log(err));
     }
 
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                // callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
-        })
-    }
+	return (
+		<div className={styles.workAreaWrap}>
+			<div
+				className={classNames({
+					[styles.listWrap]: true,
+					[styles.listWrapCollapsed]: !!listCollapsed,
+				})}
+			>
+				<div className={styles.header}>
+					{!listCollapsed && <span>Создать сейф</span>}
+					<div className={styles.imgWrap}>
+						<img
+							className={`${styles.playButton} ${
+								listCollapsed ? styles.playButtonReverse : undefined
+							}`}
+							src="./assets/PrivateCabinet/play-grey.svg"
+							alt="play"
+							onClick={() => setListCollapsed(!listCollapsed)}
+						/>
+						<img
+							onClick={() => setCreateSafe(true)}
+							className={styles.icon}
+							src={`./assets/PrivateCabinet/add-safe.svg`}
+							alt="icon"
+						/>
+					</div>
+				</div>
+				<div
+					className={classNames(styles.children, styles?.[`children_${size}`])}
+				>
+					{safes?.length < 1 ? (
+						<div className={styles.emptyBlock}>
+							<img
+								className={styles.emptyImg}
+								src="./assets/PrivateCabinet/create_arrow.svg"
+								alt="Create Arrow"
+							/>
+							<h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый СЕЙФ</h4>
+						</div>
+					) : (
+						<div
+							className={classNames({
+								[styles.folderListWrap]: true,
+								[styles?.[`folderListWrap_${size}`]]: !!size,
+							})}
+						>
+							{renderSafesList()}
+						</div>
+					)}
+				</div>
+			</div>
 
-    return (
-        <div className={styles.workAreaWrap}>
+			<WorkSpace
+				listCollapsed={listCollapsed}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				fileSelect={fileSelect}
+				action={action}
+				setAction={setAction}
+				fileList={showFileList}
+			/>
 
-            <div
-                className={classNames({
-                    [styles.listWrap]: true,
-                    [styles.listWrapCollapsed]: !!listCollapsed
-                })}
-            >
-                <div className={styles.header}>
-                    {!listCollapsed && <span>Создать сейф</span>}
-                    <div className={styles.imgWrap}>
-                        <img
-                            className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
-                            src='./assets/PrivateCabinet/play-grey.svg'
-                            alt='play'
-                            onClick={() => setListCollapsed(!listCollapsed)}
-                        />
-                        <img
-                            onClick={() => setCreateSafe(true)}
-                            className={styles.icon}
-                            src={`./assets/PrivateCabinet/add-safe.svg`}
-                            alt='icon'
-                        />
-                    </div>
-                </div>
-                <div className={classNames(styles.children, styles?.[`children_${size}`])}>
+			{filePreview?.view && (
+				<PreviewFile
+					setFilePreview={setFilePreview}
+					file={filePreview?.file}
+					filePreview={filePreview}
+				/>
+			)}
 
-                    {safes?.length < 1 ?
-                        <div className={styles.emptyBlock}>
-                            <img
-                                className={styles.emptyImg}
-                                src='./assets/PrivateCabinet/create_arrow.svg'
-                                alt='Create Arrow'
-                            />
-                            <h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый СЕЙФ</h4>
-                        </div> :
-                        <div className={classNames({
-                            [styles.folderListWrap]: true,
-                            [styles?.[`folderListWrap_${size}`]]: !!size
-                        })}>
-                            {renderSafesList()}
-                        </div>}
+			{mouseParams !== null && (
+				<ContextMenu
+					params={mouseParams}
+					setParams={setMouseParams}
+					tooltip={true}
+				>
+					<div className={styles.mainMenuItems}>
+						{renderMenuItems(contextMenuSafeItem.main)}
+					</div>
+					<div style={{ marginTop: "30px" }} className={styles.mainMenuItems}>
+						{renderMenuItems(contextMenuSafeItem.additional, additionalMenuItems)}
+					</div>
+				</ContextMenu>
+			)}
 
-                </div>
-            </div>
+			{noSafePopup && (
+				<NoSafe setCreateSafe={setCreateSafe} set={setNoSafePopup} />
+			)}
 
-            <WorkSpace
-                listCollapsed={listCollapsed}
+			{codePopup && (
+				<CodePopup
+					refreshPass={refreshPass}
+					setRefreshPass={setRefreshPass}
+					safe={selectedSafe}
+					set={setCodePopup}
+					setLoadingType={setLoadingType}
+					setShowFileList={setShowFileList}
+				/>
+			)}
 
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
+			{createSafe && <CreateSafe onCreate={setCreateSafe} />}
 
-                chosenFile={chosenFile}
-                setChosenFile={setChosenFile}
+			{action.type === "deleteSafe" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={cancelArchive}
+					callback={deleteSafe}
+					approve={"Удалить"}
+				>
+					<div className={styles.fileActionWrap}>
+                        {/* TODO: add icon color */}
+                        <SafeIcon />
+					</div>
+				</ActionApproval>
+			) : null}
+		</div>
+	);
+};
 
-                fileSelect={fileSelect}
-
-                action={action}
-                setAction={setAction}
-                fileList={showFileList}
-            />
-
-            {filePreview?.view &&
-                <PreviewFile
-                    setFilePreview={setFilePreview}
-                    file={filePreview?.file}
-                    filePreview={filePreview}
-                />}
-
-            {mouseParams !== null &&
-                <ContextMenu
-                    params={mouseParams}
-                    setParams={setMouseParams}
-                    tooltip={true}
-                >
-                    <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuSafeItem.main)}</div>
-                    <div style={{marginTop: '30px'}} className={styles.mainMenuItems}>{renderMenuItems(contextMenuSafeItem.additional)}</div>
-                </ContextMenu>}
-
-            {noSafePopup &&
-            <NoSafe
-                setCreateSafe={setCreateSafe}
-                set={setNoSafePopup}
-            />}
-
-            {codePopup &&
-            <CodePopup
-                refreshPass={refreshPass}
-                setRefreshPass={setRefreshPass}
-                safe={selectedSafe}
-                set={setCodePopup}
-                setLoadingType={setLoadingType}
-                setShowFileList={setShowFileList}
-            />}
-
-            {createSafe &&
-            <CreateSafe
-                onCreate={setCreateSafe}
-            />}
-
-        </div>
-    )
-}
-
-export default Safe
+export default Safe;
