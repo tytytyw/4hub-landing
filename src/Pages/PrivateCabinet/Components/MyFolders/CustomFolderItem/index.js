@@ -61,7 +61,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     };
 
     const clickHandle = async (e) => {
-        if(folderList.path !== f.path) {
+        if(folderList.path !== f.path || chosenFolder.subPath) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
