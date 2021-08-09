@@ -16,6 +16,7 @@ import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
 import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
 import api from '../../../../api';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
 const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const [codePopup, setCodePopup] = useState(false);
 	const [refreshPass, setRefreshPass] = useState(false);
 	const [noSafePopup, setNoSafePopup] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -251,6 +253,8 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					</div>
 				</ActionApproval>
 			) : null}
+
+            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
 		</div>
 	);
 };
