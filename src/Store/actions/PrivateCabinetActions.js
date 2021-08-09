@@ -18,6 +18,7 @@ import {
     GET_CATEGORIES,
     GET_PROGRAMS,
     GET_SAFES,
+    GET_SAFE_FILELIST,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -192,13 +193,43 @@ export const onCustomizeFile = (file) => {
 
 //SAFE
 
-export const onGetSafes = (data = []) => async (dispatch, getState) => {
-    dispatch({
-        type: GET_SAFES,
-        payload: data
-    })
+export const onGetSafes = () => async (dispatch, getState) => {
+    api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
+        .then((res) => {
+            if (res.data.ok) {
+                if (res.data.safes) {
+                    dispatch({
+                        type: GET_SAFES,
+                        payload: Object.values(res.data.safes)
+                    })
+                } else {
+                        dispatch({
+                            type: GET_SAFES,
+                            payload: []
+                        })
+                    }
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
 };
 
+export const onGetSafeFileList = (code, id_safe) => async (dispatch, getState) => {
+    api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
+        .then((res) => {
+            if (res.data.ok) {
+                console.log(res) 
+                dispatch({
+                    type: GET_SAFE_FILELIST,
+                    // payload: 
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
+};
 
 // PROGRAMS
 

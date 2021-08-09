@@ -4,7 +4,7 @@ import styles from './SafeItem.module.sass'
 import classNames from 'classnames'
 import SafeIcon from '../SafeIcon'
 
-const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
+const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe}) => {
 
     return (
         <>
@@ -19,6 +19,7 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                     className={styles.menuWrap}
                     onClick={e => {
                         setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+                        setSelectedSafe(safe)
                     }}
                 >
                     <span className={styles.menu}/>
@@ -26,17 +27,17 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
 
                 <div className={styles.topPart}>
                     <div className={styles.icons}>
-                        {safe?.emo &&
+                        {safe?.id_emo &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/smiles/${safe.emo}.svg`}
+                            src={`./assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
                             alt='emoji'
                         />}
 
-                        {safe?.sign &&
+                        {safe?.id_fig &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/signs/${safe.sign}.svg`}
+                            src={`./assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
                             alt='emoji'
                         />}
                     </div>
@@ -48,17 +49,17 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize}) => {
                 >
 
                     <SafeIcon
-                        type={safe?.color}
+                        type={safe?.id_color}
                         className={styles.safeImg}
                     />
 
                     <div
                         className={classNames({
                             [styles.tagBlock]: true,
-                            [styles.ftag]: !!safe?.tag
+                            [styles.ftag]: !!safe?.tags
                         })}
                     >
-                        {safe?.tag && `#${safe.tag}`}
+                        {safe?.tags && `#${safe.tags}`}
                     </div>
 
                     <p>{safe?.name}</p>
