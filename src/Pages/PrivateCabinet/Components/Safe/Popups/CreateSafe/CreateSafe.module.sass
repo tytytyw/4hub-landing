@@ -40,7 +40,7 @@
   font-family: 'SF Pro Regular', sans-serif
 
   .content
-    margin: 20px 0
+    margin: 20px 0 0 0
     display: flex
     flex-direction: column
     justify-content: flex-start
@@ -89,7 +89,7 @@
   .folderIconWrap
     display: flex
     width: 78%
-    margin: 0 0 28px 0
+    margin: 0 0 20px 0
     .folder
       position: relative
       img
@@ -99,7 +99,7 @@
         width: 20px
     .safeIcon
       width: 60px
-      height: 60px
+      height: 55px
     .picPreview
       display: flex
       flex-direction: column
@@ -159,7 +159,7 @@
     width: 78%
 
     .inputWrap
-      margin-bottom: 15px
+      margin-bottom: 10px
 
     .input
       width: 101%
@@ -283,19 +283,62 @@
   .createFolderWrap
     width: 430px
     animation: showPopup1420 0.2s ease-in-out
+    .content
+      margin: 0
+    .cross
+      top: 20px
     .title
       font-size: 15px
-      margin: 10px 0 10px 0
+      margin: 15px 0 10px 0
+    .folderIconWrap
+      margin-bottom: 10px
+      .picPreview
+        .minitag
+          font-size: 12px
+          margin: 0 10px 0 0
+        .folderName
+          font-size: 15px
+        .circle
+          width: 15px
+          height: 15px
+          margin: 0 10px 0 0
+      .safeIcon
+        width: 50px
+        height: 35px
+    .inputFieldsWrap
+      .tagPicker
+        height: 30px
+        font-size: 12px
+        margin-bottom: 5px
+        .inputField
+          font-size: 12px
+        .tagList
+          height: 110px
+          bottom: -108px
+        .inputField::placeholder
+          font-size: 12px
+      .inputWrap
+        margin-bottom: 5px
+      .input
+        height: 30px
+        font-size: 12px
+        &::placeholder
+          font-size: 12px
+
+    .textWrap
+      max-width: 350px
+      padding: 0 10px
+      margin: 0 0 10px 0
+      .text
+        margin: 0
+        font-size: 11px
+        line-height: 18px
 
     .buttonsWrap
-      width: 210px
+      width: 250px
+      margin-bottom: 12px
       div
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 100px
-        height: 29px
-        border-radius: 5px
-        cursor: pointer
-        font-size: 11px
+        width: 120px
+        height: 32px
+        font-size: 12px
 

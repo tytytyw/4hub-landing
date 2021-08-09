@@ -192,10 +192,12 @@
     flex-direction: column
     justify-content: space-between
     width: 78%
+    .inputWrap
+      margin-bottom: 5px
     .tagPicker
       display: flex
       align-items: center
-      width: 100%
+      width: 101%
       height: 40px
       position: relative
       border: 1px solid #bab8b8
@@ -206,6 +208,7 @@
       font-size: 14px
       padding: 0 15px
       box-sizing: border-box
+      margin-bottom: 5px
       .inputField
         height: 90%
         width: 80%
@@ -215,7 +218,6 @@
         font-size: 14px
         color: #bab8b8
         border: none
-        box-shadow: 0 0 0px 1000px #ffffff inset
       .inputField::placeholder
         font-family: "SF Pro Light", sans-serif
         font-size: 14px
@@ -328,19 +330,18 @@
 @media (max-width: 1420px)
   .createFolderWrap
     width: 430px
-    height: auto
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
-      margin: 40px 0 25px 0
+      margin: 15px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
       .folderIcon
         width: 51px
-        height: 42px
+        height: 38px
     .fileIconWrap
-      margin: 0 0 25px 0
+      margin: 0 0 7px 0
       .fileWrap
         .file
           width: 44px
@@ -385,6 +386,7 @@
             height: 30px
     .buttonsWrap
       width: 210px
+      margin-bottom: 12px
       div
         display: flex
         justify-content: center

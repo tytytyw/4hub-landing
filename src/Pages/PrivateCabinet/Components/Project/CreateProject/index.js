@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import styles from './CreateFolder.module.sass'
+import styles from './CreateProject.module.sass'
 import api from '../../../../../api'
 import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'

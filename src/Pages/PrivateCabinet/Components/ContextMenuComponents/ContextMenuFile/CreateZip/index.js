@@ -47,12 +47,12 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
         if(width >= 1440) {
             return {
                 height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
+                marginBottom: `${showRepeat ? '5px' : '35px'}`
             }
         } else {
             return {
                 height: `${showRepeat ? '150px' : '110px'}`,
-                marginBottom: `${showRepeat ? '10px' : '35px'}`
+                marginBottom: `${showRepeat ? '5px' : '35px'}`
             }
         }
     };
@@ -142,13 +142,15 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                     <div style={generateInputWrap()}
                          className={styles.inputFieldsWrap}
                     >
-                        <InputField
-                            model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={name}
-                            set={setName}
-                            placeholder='Имя файла'
-                        />
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='text'
+                                height={width >= 1440 ? '40px' : '30px'}
+                                value={name}
+                                set={setName}
+                                placeholder='Имя файла'
+                            />
+                        </div>
                         <div className={styles.tagPicker}>
                             <span>#</span>
                             <input
@@ -164,30 +166,34 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                                 {renderTags()}
                             </div>
                         </div>
-                        <InputField
-                            model='password'
-                            switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={password}
-                            set={setPassword}
-                            placeholder='Пароль'
-                            onSwitch={onSwitch}
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                            disabled={!showRepeat}
-                        />
-                        {showRepeat && <InputField
-                            model='password'
-                            switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={passwordRepeat}
-                            set={setPasswordRepeat}
-                            placeholder='Повторите пароль'
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                            comparePass={comparePass}
-                            mistake={!passwordCoincide}
-                        />}
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={true}
+                                height={width >= 1440 ? '40px' : '30px'}
+                                value={password}
+                                set={setPassword}
+                                placeholder='Пароль'
+                                onSwitch={onSwitch}
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                disabled={!showRepeat}
+                            />
+                        </div>
+                        <div className={styles.inputWrap}>
+                            {showRepeat && <InputField
+                                model='password'
+                                switcher={false}
+                                height={width >= 1440 ? '40px' : '30px'}
+                                value={passwordRepeat}
+                                set={setPasswordRepeat}
+                                placeholder='Повторите пароль'
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                comparePass={comparePass}
+                                mistake={!passwordCoincide}
+                            />}
+                        </div>
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
