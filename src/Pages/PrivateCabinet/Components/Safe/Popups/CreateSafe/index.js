@@ -53,9 +53,8 @@ const CreateSafe = ({onCreate}) => {
 
     
     
-    const onAddSafe = (name, pass, tag, color, sign, emo) => {
-        //TODO: add params: &tag=${tag}&color=${color}&sign=${sign}&emo=${emo}
-        api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}`)
+    const onAddSafe = (name, pass, tag, color, fig, emo) => {
+        api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
             .then((res) => {
                 if (res.data.ok) {
                     dispatch(onGetSafes())
