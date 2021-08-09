@@ -41,6 +41,14 @@ const INITIAL_STATE = {
     chosenRecentFile: null,
     size: 'big',
     view: 'bars',
+    fileCriterion: {
+        sorting: 'byDateCreated',
+        filters: {
+            color: '',
+            emoji: '',
+            figure: ''
+        }
+    },
 
     //SEARCH
     search: '',

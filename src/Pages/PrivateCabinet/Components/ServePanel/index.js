@@ -70,6 +70,16 @@ const ServePanel = ({
         })
     }
 
+    const renderSortingItems = (target, callback, src) => (
+        target.map((item, i) => {
+            return <div className={styles.contextSortingItem} key={i}>
+                <div className={styles.chosen}><img src={`/assets/PrivateCabinet/check.svg`} alt='check' /></div>
+                <div>{item.name}</div>
+                {item.ext === 'byName' ? <div className={styles.switch}><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
+            </div>
+        })
+    )
+
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
@@ -127,8 +137,8 @@ const ServePanel = ({
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef}>
-                {typeContext === 'filter' ? <div>{renderMenuItems(contextMenuFilters.main, setFilter, '')}</div> : null}
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
+                {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter, '')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}

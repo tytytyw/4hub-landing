@@ -2,9 +2,15 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose}) => {
 
-    const closeContext = () => setParams(null);
+    const closeContext = e => {
+        if(!customClose) {
+            setParams(null);
+        } else {
+            console.log(e);
+        }
+    };
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     const contextMenuRef = useRef();
@@ -55,7 +61,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
                     {children}
                 </div>
             </div>
-            <div className={styles.background}/>
+            <div className={styles.background} />
         </>)
 }
 
