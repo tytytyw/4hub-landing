@@ -247,8 +247,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					approve={"Удалить"}
 				>
 					<div className={styles.fileActionWrap}>
-                        {/* TODO: add icon color */}
-                        <SafeIcon />
+                        <SafeIcon type={selectedSafe.id_color} />
 					</div>
 				</ActionApproval>
 			) : null}

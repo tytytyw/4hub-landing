@@ -49,7 +49,7 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize, setSelectedS
                 >
 
                     <SafeIcon
-                        type={safe?.color}
+                        type={safe?.id_color || 'blue'}
                         className={styles.safeImg}
                     />
 

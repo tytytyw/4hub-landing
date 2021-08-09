@@ -68,7 +68,7 @@ const CodePopup = ({
 
 						<div className={styles.content}>
 							<div className={styles.titleWrap}>
-								<SafeIcon type={safe?.color} className={styles.titleImg} />
+								<SafeIcon type={safe?.id_color} className={styles.titleImg} />
 								<h4 className={styles.title}>{safe?.name}</h4>
 							</div>
 
