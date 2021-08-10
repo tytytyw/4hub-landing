@@ -14,7 +14,7 @@ import api from '../../../../../../api';
 
 import {useDispatch, useSelector} from 'react-redux'
 
-const CreateSafe = ({onCreate}) => {
+const CreateSafe = ({onCreate, setLoadingType}) => {
 
     const dispatch = useDispatch()
 	const uid = useSelector((state) => state.user.uid);
@@ -54,6 +54,7 @@ const CreateSafe = ({onCreate}) => {
     
     
     const onAddSafe = (name, pass, tag, color, fig, emo) => {
+        setLoadingType('squarify')
         api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
             .then((res) => {
                 if (res.data.ok) {
@@ -63,6 +64,7 @@ const CreateSafe = ({onCreate}) => {
                 }
             })
             .catch(error => console.log(error))
+            .finally(() => setLoadingType(''))
     };
 
     const AddSafe = () => {

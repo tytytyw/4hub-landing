@@ -50,6 +50,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	}, [showFileList]);
 
 	useEffect(() => {
+		setLoadingType (safes === null ? 'squarify' : '')
 		setNoSafePopup(safes?.length < 1);
 	}, [safes]);
 
@@ -235,7 +236,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 				/>
 			)}
 
-			{createSafe && <CreateSafe onCreate={setCreateSafe} />}
+			{createSafe && <CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />}
 
 			{action.type === "deleteSafe" ? (
 				<ActionApproval

@@ -62,7 +62,7 @@ const INITIAL_STATE = {
     categories: [],
 
     //SAFE
-    safes: [],
+    safes: null,
 
     //PROJECT
     projects: [],
