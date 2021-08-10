@@ -8,7 +8,8 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
         if(!customClose) {
             setParams(null);
         } else {
-            console.log(e);
+            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0;
+            if(isBackground) setParams(null);
         }
     };
     const screenWidth = window.innerWidth;
