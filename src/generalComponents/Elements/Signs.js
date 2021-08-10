@@ -4,7 +4,7 @@ import styles from './Signs.module.sass';
 import { signs } from '../collections';
 import classnames from "classnames";
 
-const Signs = ({sign, setSign}) => {
+const Signs = ({sign, setSign, title = 'Добавить знак', editableClass = ''}) => {
 
     const renderSigns = () => {
         return signs.map((el, i) => {
@@ -21,8 +21,8 @@ const Signs = ({sign, setSign}) => {
     };
 
     return (
-        <div className={styles.signsWrap}>
-            <span>Добавить знак</span>
+        <div className={`${styles.signsWrap} ${editableClass ? styles[editableClass] : ''}`}>
+            <span className={styles.title}>{title}</span>
             <div>{renderSigns()}</div>
         </div>
     )
