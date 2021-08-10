@@ -52,10 +52,11 @@ export const contextMenuFilters = {
     main: [
         {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
         {name: `По дате добавления`, reverseName: 'По дате добавления', img: '', ext: 'byDateCreated'},
-        {name: 'По дате создания', reverseName: 'По дате создания', img: '', ext: 'byDateCreated'},
+        {name: 'По дате создания', reverseName: 'По дате создания', img: '', ext: 'byDateCreated&sort_reverse=0'},
         {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged'},
-        {name: '!!!По дате последнего открытия', reverseName: '!!!По дате последнего открытия', img: '', ext: 'byDateOpened'},
-        {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize'},
+        // TODO - tell Alexey - DO NOT HAVE OPENING HISTORY
+        {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
+        {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize&sort_reverse=1'},
         {name: 'По размеру (от малых к большим)', reverseName: '', img: '', ext: 'bySize'},
         {name: 'По типу', reverseName: 'По типу U+21FD', img: '', ext: 'byType'},
         {name: 'По тэгам', reverseName: 'По тэгам', img: '', ext: 'byTags'},

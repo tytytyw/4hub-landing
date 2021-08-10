@@ -8,7 +8,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
         if(!customClose) {
             setParams(null);
         } else {
-            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0;
+            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
             if(isBackground) setParams(null);
         }
     };

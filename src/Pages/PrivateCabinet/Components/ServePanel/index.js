@@ -28,6 +28,7 @@ const ServePanel = ({
     const size = useSelector(state => state.PrivateCabinet.size);
     const view = useSelector(state => state.PrivateCabinet.view);
     const search = useSelector(state => state.PrivateCabinet.search);
+    const fileCriterion = useSelector(state => state.PrivateCabinet.fileCriterion);
     const dispatch = useDispatch();
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];
@@ -42,9 +43,9 @@ const ServePanel = ({
         setTypeContext(type);
     }
 
-    const setFilter = (filter) => {
-        setTypeContext(filter);
-        dispatch(onSortFile(filter));
+    const setFilter = (sorting) => {
+        // setTypeContext(sorting);
+        dispatch(onSortFile(sorting));
         dispatch(onChooseFiles('global/all', search, 1));
     };
 
@@ -70,12 +71,18 @@ const ServePanel = ({
         })
     }
 
-    const renderSortingItems = (target, callback, src) => (
+    const renderSortingItems = (target, callback) => (
         target.map((item, i) => {
-            return <div className={styles.contextSortingItem} key={i}>
-                <div className={styles.chosen}><img src={`/assets/PrivateCabinet/check.svg`} alt='check' /></div>
+            return <div
+                onClick={() => callback(item.ext)}
+                className={styles.contextSortingItem}
+                key={i}
+            >
+                <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`/assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
                 <div>{item.name}</div>
-                {item.ext === 'byName' ? <div className={styles.switch}><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
+                {item.ext === 'byName' ? <div
+                    className={styles.switch}
+                ><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
             </div>
         })
     )
@@ -138,7 +145,7 @@ const ServePanel = ({
                 </div>
             </div>
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
-                {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter, '')}</div> : null}
+                {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
