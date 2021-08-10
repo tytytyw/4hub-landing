@@ -53,12 +53,14 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
                 }}
             >
                 <div className={styles.wrap}>
-                    {!element && tooltip ? <span style={{
-                        top: top.tooltip,
-                        right: params.width + params.x >= screenWidth ? '0px' : `${params.width - 20}px`,
-                        borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
-                        borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
-                    }}/> : null}
+                    {!element && tooltip ? <span
+                        className={styles.span}
+                        style={{
+                            top: top.tooltip,
+                            right: params.width + params.x >= screenWidth ? '0px' : `${params.width - 20}px`,
+                            borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
+                            borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
+                        }}/> : null}
                     {children}
                 </div>
             </div>
