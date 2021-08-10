@@ -18,7 +18,7 @@ export const signs = ['triangle', 'circle', 'heart', 'star', 'pentagon', 'rectan
 
 export const smiles = [
     'angry', 'angry-2', 'bored', 'confused', 'cool', 'favorite', 'grinning', 'happy', 'happy-2', 'in-love', 'kissing', 'nerd',
-    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', /*'tongue-out', 'unhappy'*/
+    'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', 'tongue-out', 'unhappy'
 ];
 
 export const contextMenuFile = {
@@ -50,12 +50,16 @@ export const contextMenuProfile = {
 
 export const contextMenuFilters = {
     main: [
-        {name: 'По имени', img: '', ext: 'byName'},
-        {name: 'По дате добавления файла', img: '', ext: 'byDateCreated'},
-        {name: 'По дате изменения файла', img: '', ext: 'byDateChanged'},
-        {name: 'По типу файла', img: '', ext: 'byType'},
-        {name: 'По размеру', img: '', ext: 'bySize'},
-        {name: 'По тэгам', img: '', ext: 'byTags'},
+        {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
+        {name: `По дате добавления`, reverseName: 'По дате добавления', img: '', ext: 'byDateCreated'},
+        {name: 'По дате создания', reverseName: 'По дате создания', img: '', ext: 'byDateCreated&sort_reverse=0'},
+        {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged'},
+        // TODO - tell Alexey - DO NOT HAVE OPENING HISTORY
+        {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
+        {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize&sort_reverse=1'},
+        {name: 'По размеру (от малых к большим)', reverseName: '', img: '', ext: 'bySize'},
+        {name: 'По типу', reverseName: 'По типу U+21FD', img: '', ext: 'byType'},
+        {name: 'По тэгам', reverseName: 'По тэгам', img: '', ext: 'byTags'},
     ],
     additional: []
 };

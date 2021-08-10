@@ -3,7 +3,7 @@
   flex-direction: column
   width: 78%
   margin: 0 0 25px 0
-  span
+  .title
     font-size: 13px
     margin: 0 0 8px 0
   div
@@ -33,6 +33,27 @@
       height: 22px
       border: 1px solid grey
       border-radius: 5px
+.minify // for filter context menu
+  width: 190px
+  height: 40px
+  position: relative
+  margin: 0 0 0 30px
+  .title
+    font-size: 11px
+    margin: 5px 0 5px 0
+    position: static
+  div
+    width: 95%
+    .sign
+      img
+        width: 15px
+        height: 15px
+    .sign:hover:before
+      width: 15px
+      height: 15px
+    .signChosen:before
+      width: 15px
+      height: 15px
 @media (max-width: 1420px)
   .signsWrap
     margin: 0 0 15px 0
@@ -40,3 +61,9 @@
       .sign
         width: 10px
         height: 10px
+  .minify
+    margin: 0 0 0 30px
+    div
+      .sign
+        width: 15px
+        height: 15px

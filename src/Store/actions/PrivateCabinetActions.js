@@ -81,7 +81,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
     const searched = search ? `&search=${search}` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.sort}`;
+        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.fileCriterion.sorting}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
@@ -711,9 +711,9 @@ export const onGetSharedFiles  = (day, mounth) => async (dispatch, getState) => 
     }
 }
 
-export const onSortFile = (filter) => {
+export const onSortFile = (sorting) => {
     return {
         type: SORT_FILES,
-        payload: filter
+        payload: sorting
     }
 }

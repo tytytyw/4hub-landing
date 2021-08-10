@@ -41,11 +41,18 @@ const INITIAL_STATE = {
     chosenRecentFile: null,
     size: 'big',
     view: 'bars',
+    //SORT && FILTER
+    fileCriterion: {
+        sorting: 'byDateCreated',
+        filters: {
+            color: '',
+            emoji: '',
+            figure: ''
+        }
+    },
 
     //SEARCH
     search: '',
-    //SORT
-    sort: 'byDateCreated',
 
     //PROGRAMS
     programFolders: [],
@@ -124,7 +131,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         //SORT FILES
         case SORT_FILES: {
-            return {...state, sort: action.payload}
+            return {...state, fileCriterion: {...state.fileCriterion, sorting: action.payload}}
         }
 
         // PROGRAMS

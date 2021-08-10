@@ -2,9 +2,16 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose}) => {
 
-    const closeContext = () => setParams(null);
+    const closeContext = e => {
+        if(!customClose) {
+            setParams(null);
+        } else {
+            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
+            if(isBackground) setParams(null);
+        }
+    };
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
     const contextMenuRef = useRef();
@@ -46,16 +53,18 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef}) => {
                 }}
             >
                 <div className={styles.wrap}>
-                    {!element && tooltip ? <span style={{
-                        top: top.tooltip,
-                        right: params.width + params.x >= screenWidth ? '0px' : `${params.width - 20}px`,
-                        borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
-                        borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
-                    }}/> : null}
+                    {!element && tooltip ? <span
+                        className={styles.span}
+                        style={{
+                            top: top.tooltip,
+                            right: params.width + params.x >= screenWidth ? '0px' : `${params.width - 20}px`,
+                            borderTop: top.tooltip === '-20px' ? '' : '10px solid white',
+                            borderBottom: top.tooltip !== '-20px' ? '' : '10px solid white',
+                        }}/> : null}
                     {children}
                 </div>
             </div>
-            <div className={styles.background}/>
+            <div className={styles.background} />
         </>)
 }
 

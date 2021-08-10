@@ -16,6 +16,9 @@ import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/fi
 import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import Colors from "../../../../generalComponents/Elements/Colors";
+import Signs from "../../../../generalComponents/Elements/Signs";
+import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
@@ -23,11 +26,15 @@ const ServePanel = ({
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
+    const [color, setColor] = useState('');
+    const [sign, setSign] = useState('');
+    const [emoji, setEmoji] = useState('');
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
     const view = useSelector(state => state.PrivateCabinet.view);
     const search = useSelector(state => state.PrivateCabinet.search);
+    const fileCriterion = useSelector(state => state.PrivateCabinet.fileCriterion);
     const dispatch = useDispatch();
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];
@@ -42,9 +49,9 @@ const ServePanel = ({
         setTypeContext(type);
     }
 
-    const setFilter = (filter) => {
-        setTypeContext(filter);
-        dispatch(onSortFile(filter));
+    const setFilter = (sorting) => {
+        // setTypeContext(sorting);
+        dispatch(onSortFile(sorting));
         dispatch(onChooseFiles('global/all', search, 1));
     };
 
@@ -69,6 +76,22 @@ const ServePanel = ({
             />
         })
     }
+
+    const renderSortingItems = (target, callback) => (
+        target.map((item, i) => {
+            return <div
+                onClick={() => callback(item.ext)}
+                className={styles.contextSortingItem}
+                key={i}
+            >
+                <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`/assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
+                <div>{item.name}</div>
+                {item.ext === 'byName' ? <div
+                    className={styles.switch}
+                ><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
+            </div>
+        })
+    )
 
     return (
         <div className={styles.servePanelWrap}>
@@ -127,8 +150,11 @@ const ServePanel = ({
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef}>
-                {typeContext === 'filter' ? <div>{renderMenuItems(contextMenuFilters.main, setFilter, '')}</div> : null}
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
+                {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
+                {typeContext === 'filter' ? <Colors color={color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Signs sign={sign} setSign={setSign} title='По значкам' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Emoji emoji={emoji} setEmoji={setEmoji} title='По эмоджи' editableClass='minify' /> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
