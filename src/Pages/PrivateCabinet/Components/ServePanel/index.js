@@ -16,6 +16,7 @@ import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/fi
 import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import Colors from "../../../../generalComponents/Elements/Colors";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
@@ -23,6 +24,7 @@ const ServePanel = ({
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
+    const [color, setColor] = useState('');
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -146,6 +148,7 @@ const ServePanel = ({
             </div>
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
+                {typeContext === 'filter' ? <Colors color={color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
