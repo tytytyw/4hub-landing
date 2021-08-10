@@ -4,7 +4,7 @@ import styles from './Emoji.module.sass';
 import { smiles } from '../collections';
 import classnames from 'classnames';
 
-const Emoji = ({emoji, setEmoji}) => {
+const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editableClass = ''}) => {
 
     const renderEmoji = () => {
         return smiles.map((el, i) => {
@@ -21,8 +21,8 @@ const Emoji = ({emoji, setEmoji}) => {
     };
 
     return (
-        <div className={styles.emojiWrap}>
-            <span>Добавить эмоджи</span>
+        <div className={`${styles.emojiWrap} ${editableClass ? styles[editableClass] : ''}`}>
+            <span className={styles.title}>{title}</span>
             <div>{renderEmoji()}</div>
         </div>
     )

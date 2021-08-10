@@ -18,6 +18,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Colors from "../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../generalComponents/Elements/Signs";
+import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
@@ -27,6 +28,7 @@ const ServePanel = ({
     const [typeContext, setTypeContext] = useState('');
     const [color, setColor] = useState('');
     const [sign, setSign] = useState('');
+    const [emoji, setEmoji] = useState('');
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -152,6 +154,7 @@ const ServePanel = ({
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
                 {typeContext === 'filter' ? <Colors color={color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
                 {typeContext === 'filter' ? <Signs sign={sign} setSign={setSign} title='По значкам' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Emoji emoji={emoji} setEmoji={setEmoji} title='По эмоджи' editableClass='minify' /> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
