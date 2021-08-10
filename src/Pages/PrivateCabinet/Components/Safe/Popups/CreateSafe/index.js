@@ -167,7 +167,7 @@ const CreateSafe = ({onCreate}) => {
                             <div className={styles.inputWrap}>
                                 <Input
                                     name='name'
-                                    placeholder='Имя файла'
+                                    placeholder='Имя сейфа'
                                     className={styles.input}
                                     value={name}
                                     onChange={event => setName(event.target.value)}
