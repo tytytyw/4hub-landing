@@ -52,6 +52,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	useEffect(() => {
 		setLoadingType (safes === null ? 'squarify' : '')
 		setNoSafePopup(safes?.length < 1);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [safes]);
 
 	useEffect(() => {

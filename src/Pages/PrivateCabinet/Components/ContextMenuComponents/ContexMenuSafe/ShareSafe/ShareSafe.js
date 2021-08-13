@@ -7,17 +7,19 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import StoragePeriod from "../StoragePeriod/StoragePeriod";
-import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
-import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
-import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
-import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
-import SetPassword from '../../ContextMenuFile/SetPassword/SetPassword'
-
+import ShareToMessengers from "../../ContextMenuFile/ShareToMessengers/ShareToMessengers";
+import SetPassword from "../SetPassword/SetPassword";
+import { ReactComponent as Password } from "../../../../../../assets/PrivateCabinet/password.svg";
+import { ReactComponent as Calendar } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
+import { ReactComponent as Pensil } from "../../../../../../assets/PrivateCabinet/edit.svg";
+import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/eye.svg";
+import { ReactComponent as Download } from "../../../../../../assets/PrivateCabinet/download-2.svg";
 
 function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 	const [error, setError] = useState(false);
 	const [emptyField, setEmptyField] = useState(false);
 	const [displaySetPassword, setDisplaySetPassword] = useState(false);
+	const [displayMessengers, setDisplayMessengers] = useState(false);
 	const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
 	const [dateValue, setDateValue] = useState("");
 	const [timeValue, setTimeValue] = useState({
@@ -30,9 +32,16 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 		user_to: "",
 		prim: "",
 		deadline: "",
+		pass: "",
+		is_read: 1,
+		is_write: 1,
+		is_download: 1,
 	});
 	const setTime = (time, limit) => {
 		return time < limit ? (time < 10 ? `0${time}` : time) : time[0];
+	};
+	const switchOn = (value) => {
+		setData((data) => ({ ...data, [value]: data[value] ? 0 : 1 }));
 	};
 
 	useEffect(() => {
@@ -50,7 +59,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 		setLoadingType("squarify");
 		api
 			.get(
-				`/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}`
+				`/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`
 			)
 			.then((res) => {
 				if (res.data.ok === 1) {
@@ -74,6 +83,11 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 			.finally(() => setLoadingType(""));
 	};
 
+	const onAddPass = (password) => {
+		setData((data) => ({ ...data, pass: password }));
+	};
+
+	
 	return (
 		<PopUp set={close}>
 			{!displayStotagePeriod && (
@@ -132,6 +146,11 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 								type="text"
 							></input>
 						</div>
+						<div className={styles.recipient_messenger}>
+							<span onClick={() => setDisplayMessengers(true)}>
+								Отправить через мессенджер
+							</span>
+						</div>
 					</div>
 					<div className={classNames(styles.comment, styles.border_bottom)}>
 						<textarea
@@ -148,11 +167,10 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							<Password className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
-							<p className={styles.input_title}>Пароль</p>
-							<input
-								id={"input_pass"}
-								placeholder="Вы можете установить пароль на данный файл"
-							></input>
+							<p className={styles.input_title}>Временный пароль</p>
+							<span className={styles.input_descrp}>
+								Установите временный пароль для выбранного Вами пользователя
+							</span>
 						</div>
 						<span
 							onClick={() => setDisplaySetPassword(true)}
@@ -166,11 +184,10 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							<Calendar className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
-							<p className={styles.input_title}>Срок хранения сейфа</p>
-							<input
-								value="Установите срок хранения сейфа (после завершения сейф будет удален)"
-								type="button"
-							></input>
+							<p className={styles.input_title}>Срок доступа к сейфу</p>
+							<span className={styles.input_descrp}>
+								Установите срок доступа к сейфу для выбранного Вами пользователя
+							</span>
 						</div>
 						<span
 							onClick={() => setDisplayStotagePeriod(true)}
@@ -181,36 +198,91 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					</div>
 					<div className={styles.share_link}>
 						<h5 className={styles.share_link_title}>
-							Поделиться вместо этого ссылкой{" "}
+							Взаимодействие с информацией в сейфе
 						</h5>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
 								<Pensil className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
-								<p className={styles.input_title}>Может редактировать</p>
-								<input
-									value="Все у кого есть эта ссылка, смогут изменять файл"
-									type="button"
-								></input>
+								<p className={styles.input_title}>Редактирование</p>
+								<span className={styles.input_descrp}>
+									Все пользователи, которым предоставлен доступ к сейфу, могут
+									редактировать его содержание
+								</span>
 							</div>
-							<span className={styles.set_btn}>Скопировать ссылку</span>
+							<div
+								className={classNames({
+									[styles.switcherActive]: data?.is_write,
+									[styles.switcher]: true,
+								})}
+								onClick={() => switchOn("is_write")}
+							>
+								<div
+									className={classNames({
+										[styles.switchActive]: data?.is_write,
+										[styles.switch]: true,
+									})}
+								/>
+							</div>
 						</div>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
 								<Eye className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
-								<p className={styles.input_title}>Может просматривать</p>
-								<input
-									value="Все у кого есть эта ссылка, смогут просматривать файл"
-									type="button"
-								></input>
+								<p className={styles.input_title}>Просмотр</p>
+								<span className={styles.input_descrp}>
+									Все пользователи, которым предоставлен доступ к сейфу, могут
+									просматривать содержание сейфа
+								</span>
 							</div>
-							<span className={styles.set_btn}>Скопировать ссылку</span>
+							<div
+								className={classNames({
+									[styles.switcherActive]: data?.is_read,
+									[styles.switcher]: true,
+								})}
+								onClick={() => switchOn("is_read")}
+							>
+								<div
+									className={classNames({
+										[styles.switchActive]: data?.is_read,
+										[styles.switch]: true,
+									})}
+								/>
+							</div>
+						</div>
+						<div className={styles.row_item}>
+							<div className={styles.ico_wrap}>
+								<Download className={styles.row_ico} />
+							</div>
+							<div className={styles.input_wrap}>
+								<p className={styles.input_title}>Скачивание</p>
+								<span className={styles.input_descrp}>
+									Все пользователи, которым предоставлен доступ к сейфу, могут
+									скачать содержание сейфа
+								</span>
+							</div>
+							<div
+								className={classNames({
+									[styles.switcherActive]: data?.is_download,
+									[styles.switcher]: true,
+								})}
+								onClick={() => switchOn("is_download")}
+							>
+								<div
+									className={classNames({
+										[styles.switchActive]: data?.is_download,
+										[styles.switch]: true,
+									})}
+								/>
+							</div>
 						</div>
 					</div>
 					<div className={styles.buttonsWrap}>
+						<div className={styles.cancel} onClick={() => close()}>
+							Отмена
+						</div>
 						<div
 							className={styles.add}
 							onClick={() => {
@@ -231,6 +303,19 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					setDateValue={setDateValue}
 					timeValue={timeValue}
 					setTimeValue={setTimeValue}
+				/>
+			)}
+			{displayMessengers && (
+				<ShareToMessengers
+					setDisplayMessengers={setDisplayMessengers}
+					close={close}
+					fid={safe.id}
+				/>
+			)}
+			{displaySetPassword && (
+				<SetPassword
+					onAddPass={onAddPass}
+					setDisplaySetPassword={setDisplaySetPassword}
 				/>
 			)}
 		</PopUp>
