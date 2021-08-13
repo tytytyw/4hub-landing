@@ -152,14 +152,6 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                                             alt='emoji'
                                         />
                                     </div>}
-
-                                    {/*{password.length === passwordRepeat.length &&
-                                    <img
-                                        className={styles.lock}
-                                        src='./assets/PrivateCabinet/locked.svg'
-                                        alt='lock'
-                                    />}*/}
-
                                 </div>
                             </div>
                         </div>
@@ -223,26 +215,7 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                                     isMistake={errors?.passwordRepeat}
                                 />
                             </div>
-
-                            {/* <div className={styles.inputWrap}>
-                                <Input
-                                    name='phone'
-                                    placeholder='Введите Ваш номер телефона'
-                                    phone={true}
-                                    className={styles.input}
-                                    disabled
-                                />
-                            </div> */}
-
                         </div>
-
-                        {/* <div className={styles.textWrap}>
-                            <p className={styles.text}>
-                                Примечание: на указанный контактный номер телефона
-                                будет отправлено код-пароль для доступа к сейфу
-                            </p>
-                        </div> */}
-
                         <Colors color={color} setColor={setColor}/>
                         <Signs sign={sign} setSign={setSign}/>
                         <Emoji emoji={emoji} setEmoji={setEmoji}/>
