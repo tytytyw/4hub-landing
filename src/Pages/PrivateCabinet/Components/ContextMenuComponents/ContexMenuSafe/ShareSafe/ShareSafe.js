@@ -7,11 +7,17 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import StoragePeriod from "../StoragePeriod/StoragePeriod";
-import { ReactComponent as Calendar } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
+import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
+import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
+import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
+import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
+import SetPassword from '../../ContextMenuFile/SetPassword/SetPassword'
+
 
 function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 	const [error, setError] = useState(false);
 	const [emptyField, setEmptyField] = useState(false);
+	const [displaySetPassword, setDisplaySetPassword] = useState(false);
 	const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
 	const [dateValue, setDateValue] = useState("");
 	const [timeValue, setTimeValue] = useState({
@@ -77,6 +83,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							<div className={styles.innerFileWrap}>
 								<SafeIcon type={safe.id_color} />
 							</div>
+
 							<div className={styles.descriptionWrap}>
 								<div className={styles.fileName}>{safe.name}</div>
 								<div className={styles.innerFileInfo}>
@@ -138,6 +145,24 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					</div>
 					<div className={classNames(styles.row_item, styles.border_bottom)}>
 						<div className={styles.ico_wrap}>
+							<Password className={styles.row_ico} />
+						</div>
+						<div className={styles.input_wrap}>
+							<p className={styles.input_title}>Пароль</p>
+							<input
+								id={"input_pass"}
+								placeholder="Вы можете установить пароль на данный файл"
+							></input>
+						</div>
+						<span
+							onClick={() => setDisplaySetPassword(true)}
+							className={styles.set_btn}
+						>
+							Установить
+						</span>
+					</div>
+					<div className={classNames(styles.row_item, styles.border_bottom)}>
+						<div className={styles.ico_wrap}>
 							<Calendar className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
@@ -153,6 +178,37 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						>
 							Установить
 						</span>
+					</div>
+					<div className={styles.share_link}>
+						<h5 className={styles.share_link_title}>
+							Поделиться вместо этого ссылкой{" "}
+						</h5>
+						<div className={styles.row_item}>
+							<div className={styles.ico_wrap}>
+								<Pensil className={styles.row_ico} />
+							</div>
+							<div className={styles.input_wrap}>
+								<p className={styles.input_title}>Может редактировать</p>
+								<input
+									value="Все у кого есть эта ссылка, смогут изменять файл"
+									type="button"
+								></input>
+							</div>
+							<span className={styles.set_btn}>Скопировать ссылку</span>
+						</div>
+						<div className={styles.row_item}>
+							<div className={styles.ico_wrap}>
+								<Eye className={styles.row_ico} />
+							</div>
+							<div className={styles.input_wrap}>
+								<p className={styles.input_title}>Может просматривать</p>
+								<input
+									value="Все у кого есть эта ссылка, смогут просматривать файл"
+									type="button"
+								></input>
+							</div>
+							<span className={styles.set_btn}>Скопировать ссылку</span>
+						</div>
 					</div>
 					<div className={styles.buttonsWrap}>
 						<div
