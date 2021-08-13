@@ -7,7 +7,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import StoragePeriod from "../StoragePeriod/StoragePeriod";
-import ShareToMessengers from "../../ContextMenuFile/ShareToMessengers/ShareToMessengers";
+import ShareToMessengers from "../ShareToMessengers/ShareToMessengers";
 import SetPassword from "../SetPassword/SetPassword";
 import { ReactComponent as Password } from "../../../../../../assets/PrivateCabinet/password.svg";
 import { ReactComponent as Calendar } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
@@ -87,7 +87,6 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 		setData((data) => ({ ...data, pass: password }));
 	};
 
-	
 	return (
 		<PopUp set={close}>
 			{!displayStotagePeriod && (
@@ -133,24 +132,30 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						</div>
 					}
 					<div className={classNames(styles.recipient, styles.border_bottom)}>
-						<p className={styles.recipient_title}>Кому:</p>
-						<div className={styles.recipient_mail}>
-							<input
-								className={emptyField ? styles.empty : ""}
-								onClick={() => setEmptyField(false)}
-								onChange={(e) =>
-									setData((data) => ({ ...data, user_to: e.target.value }))
-								}
-								value={data.user_to}
-								placeholder="Эл.адрес или имя"
-								type="text"
-							></input>
-						</div>
-						<div className={styles.recipient_messenger}>
+						<p className={styles.recipient_title}>{displayMessengers ? 'Предоставить доступ с помощью' : 'Кому'}:</p>
+						{!displayMessengers && (
+							<div className={styles.recipient_mail}>
+								<input
+									className={emptyField ? styles.empty : ""}
+									onClick={() => setEmptyField(false)}
+									onChange={(e) =>
+										setData((data) => ({ ...data, user_to: e.target.value }))
+									}
+									value={data.user_to}
+									placeholder="Эл.адрес или имя"
+									type="text"
+								></input>
+							</div>
+						)}
+						{displayMessengers && (
+							<ShareToMessengers setDisplayMessengers={setDisplayMessengers} user_to={data.user_to} />
+						)}
+						{!displayMessengers &&<div className={styles.recipient_messenger}>
 							<span onClick={() => setDisplayMessengers(true)}>
 								Отправить через мессенджер
 							</span>
-						</div>
+						</div>}
+						
 					</div>
 					<div className={classNames(styles.comment, styles.border_bottom)}>
 						<textarea
@@ -295,6 +300,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 				</div>
 			)}
 			{error && <Error error={error} set={close} message={error} />}
+
 			{displayStotagePeriod && (
 				<StoragePeriod
 					safe={safe}
@@ -305,13 +311,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					setTimeValue={setTimeValue}
 				/>
 			)}
-			{displayMessengers && (
-				<ShareToMessengers
-					setDisplayMessengers={setDisplayMessengers}
-					close={close}
-					fid={safe.id}
-				/>
-			)}
+
 			{displaySetPassword && (
 				<SetPassword
 					onAddPass={onAddPass}
