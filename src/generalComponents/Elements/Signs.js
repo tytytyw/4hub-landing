@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './Signs.module.sass';
 import { signs } from '../collections';
 import classnames from "classnames";
+import {imageSrc} from '../globalVariables';
 
 const Signs = ({sign, setSign, title = 'Добавить знак', editableClass = ''}) => {
 
@@ -15,7 +16,7 @@ const Signs = ({sign, setSign, title = 'Добавить знак', editableClas
                     [styles.signChosen]: sign === el
                 })}
                 onClick={() => setSign(el)}
-            ><img src={`./assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
+            ><img src={`${imageSrc}assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
             </div>
         })
     };

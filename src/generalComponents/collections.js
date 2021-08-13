@@ -51,8 +51,8 @@ export const contextMenuProfile = {
 export const contextMenuFilters = {
     main: [
         {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
-        {name: `По дате добавления`, reverseName: 'По дате добавления', img: '', ext: 'byDateCreated'},
-        {name: 'По дате создания', reverseName: 'По дате создания', img: '', ext: 'byDateCreated&sort_reverse=0'},
+        {name: `По дате добавления/создания`, reverseName: 'По дате добавления', img: '', ext: 'byDateCreated'},
+        // {name: 'По дате создания', reverseName: 'По дате создания', img: '', ext: 'byDateCreated&sort_reverse=0'},
         {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged'},
         // TODO - tell Alexey - DO NOT HAVE OPENING HISTORY
         {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
