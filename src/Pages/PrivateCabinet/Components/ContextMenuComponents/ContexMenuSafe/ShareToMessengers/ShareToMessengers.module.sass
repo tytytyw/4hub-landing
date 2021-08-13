@@ -1,0 +1,85 @@
+@keyframes open 
+  0% 
+    width: 30px
+  100% 
+    width: 50px
+
+.share
+  user-select: none
+  .titleIcon
+    margin-right: 10px
+  .socials
+    display: flex
+    align-items: center
+    list-style: none
+    overflow-x: auto
+    overflow-y: hidden
+    padding: 0
+    .socialsItem
+      padding: 6px 0
+      cursor: pointer
+      text-align: center
+      display: block
+      width: 50px
+      animation: open .4s ease
+      box-sizing: border-box
+      &:hover
+        background: #EBF2FD
+      img
+        width: 35px
+        height: 35px
+        border-radius: 50%
+
+.close
+  width: 20px
+  height: 20px
+  cursor: pointer
+  position: relative
+  .times
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(45deg)
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(-45deg)
+  &:hover
+    .times:before,
+    .times:after
+      background: #4086F1
+
+
+  .times
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(45deg)
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 8px
+      width: 2px
+      height: 18px
+      border-radius: 10px
+      background: #C7C7C7
+      transform: rotate(-45deg)
