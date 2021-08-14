@@ -34,7 +34,7 @@ function CopyLinkFolder({
 	const [prim, setPrim] = useState("");
 	const dispatch = useDispatch();
 	const [data, setData] = useState({
-		user_to: "",
+		user_to: "$GUEST$",
 		prim: "",
 		deadline: "",
 		pass: "",
@@ -81,8 +81,8 @@ function CopyLinkFolder({
 	};
 
 	const getLink = () => {
-		//TODO: add params read write down; prim deadline pass; check user_to:$GUEST$
-		const url = `/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&user_to=$GUEST$&is_read=true`;
+		//TODO: check user_to:$GUEST$
+		const url = `/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&user_to=${data.user_to}&is_read=true&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`;
 		api.get(url)
 			.then((res) => setUrl(safe.link))
 			.catch((err) => console.log(err));
