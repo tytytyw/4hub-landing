@@ -7,6 +7,8 @@ import {imageSrc} from '../globalVariables';
 
 const Signs = ({sign, setSign, title = 'Добавить знак', editableClass = ''}) => {
 
+    const set = (el) => sign === el ? setSign('') : setSign(el);
+
     const renderSigns = () => {
         return signs.map((el, i) => {
             return <div
@@ -15,7 +17,7 @@ const Signs = ({sign, setSign, title = 'Добавить знак', editableClas
                     [styles.sign]: true,
                     [styles.signChosen]: sign === el
                 })}
-                onClick={() => setSign(el)}
+                onClick={() => set(el)}
             ><img src={`${imageSrc}assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
             </div>
         })

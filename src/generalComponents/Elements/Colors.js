@@ -5,6 +5,8 @@ import { colors } from '../collections';
 
 const Colors = ({ color, setColor, title = 'Выберите цвет', editableClass }) => {
 
+    const set = (el) => color === el ? setColor('') : setColor(el);
+
     const renderColors = () => {
         return colors.map((el, i) => {
             return <div
@@ -18,7 +20,7 @@ const Colors = ({ color, setColor, title = 'Выберите цвет', editable
                     background: el.light,
                     border: `1px solid ${el.dark}`
                 }}
-                onClick={() => setColor(el)}
+                onClick={() => set(el)}
             /></div>
         })
     };

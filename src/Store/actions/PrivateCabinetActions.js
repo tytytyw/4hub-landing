@@ -91,11 +91,6 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
-            //TODO - Need to check sort by creationDate, modificationDate, byName
-
-            //TODO - Need to delete !!!TESTING ENVIRONMENT!!!!!
-            // files.data.forEach(el => console.log(el.ctime))
-
             page > 1
                 ? dispatch({
                     type: LOAD_FILES,

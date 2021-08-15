@@ -49,7 +49,7 @@ const ServePanel = ({
 
     const setFilter = (sorting) => {
         dispatch(onSortFile(sorting));
-        dispatch(onChooseFiles('global/all', search, 1));
+        dispatch(onChooseFiles(fileList.path, search, 1));
     };
 
     const createFile = (ext) => {

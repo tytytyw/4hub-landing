@@ -7,6 +7,8 @@ import {imageSrc} from '../globalVariables';
 
 const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editableClass = ''}) => {
 
+    const set = (el) => emoji === el ? setEmoji('') : setEmoji(el);
+
     const renderEmoji = () => {
         return smiles.map((el, i) => {
             return <div
@@ -15,7 +17,7 @@ const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editab
                     [styles.emoji]: true,
                     [styles.emojiChosen]: emoji === el
                 })}
-                onClick={() => setEmoji(el)}
+                onClick={() => set(el)}
             ><img src={`${imageSrc}assets/PrivateCabinet/smiles/${el}.svg`} alt='smile' />
             </div>
         })
