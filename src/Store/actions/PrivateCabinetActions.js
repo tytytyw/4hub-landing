@@ -35,6 +35,7 @@ import {
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
+    SET_REVERSE_CRITERION,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -85,9 +86,10 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
     const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
     const color = getState().PrivateCabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().PrivateCabinet.fileCriterion.filters.color.color}` : '';
     const searched = search ? `&search=${search}` : '';
+    const sortReverse = getState().PrivateCabinet.fileCriterion.reverse && getState().PrivateCabinet.fileCriterion?.reverse[getState().PrivateCabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.fileCriterion.sorting}${emoji}${sign}${color}`;
+        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
@@ -736,6 +738,13 @@ export const onChangeFilterFigure = (value) => {
 export const onChangeFilterEmoji = (value) => {
     return {
         type: SET_FILTER_EMOJI,
+        payload: value
+    }
+}
+
+export const onSetReverseCriterion = (value) => {
+    return {
+        type: SET_REVERSE_CRITERION,
         payload: value
     }
 }

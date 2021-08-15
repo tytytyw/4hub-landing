@@ -2,7 +2,15 @@ import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
-import {onChooseFiles, onSetFileSize, onSortFile, onChangeFilterFigure, onChangeFilterEmoji, onChangeFilterColor} from '../../../../Store/actions/PrivateCabinetActions';
+import {
+    onChooseFiles,
+    onSetFileSize,
+    onSortFile,
+    onChangeFilterFigure,
+    onChangeFilterEmoji,
+    onChangeFilterColor,
+    onSetReverseCriterion
+} from '../../../../Store/actions/PrivateCabinetActions';
 import {onSetWorkElementsView} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
@@ -26,6 +34,7 @@ const ServePanel = ({
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
+    // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
@@ -49,7 +58,7 @@ const ServePanel = ({
 
     const setFilter = (sorting) => {
         dispatch(onSortFile(sorting));
-        dispatch(onChooseFiles(fileList.path, search, 1));
+        dispatch(onChooseFiles(fileList.path, search, 1, '', ''));
     };
 
     const createFile = (ext) => {
@@ -82,9 +91,10 @@ const ServePanel = ({
                 key={i}
             >
                 <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`/assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
-                <div>{item.name}</div>
+                <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
                 {item.ext === 'byName' ? <div
                     className={styles.switch}
+                    onClick={() => dispatch(onSetReverseCriterion(item.ext))}
                 ><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
             </div>
         })
