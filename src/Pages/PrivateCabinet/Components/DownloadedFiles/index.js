@@ -16,7 +16,7 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import BottomPanel from "../ButtomPanel";
+import BottomPanel from "../BottomPanel";
 
 const DownloadedFiles = () => {
 

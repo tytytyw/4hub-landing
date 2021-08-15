@@ -3,14 +3,14 @@
   flex-direction: column
   width: 78%
   margin: 0 0 15px 0
-  span
+  .title
     font-size: 13px
     margin: 0 0 8px 0
   div
     display: flex
     flex-wrap: wrap
     //justify-content: space-between
-    width: 100%
+    width: 92%
     .emoji
       display: flex
       align-items: center
@@ -25,11 +25,36 @@
     .emojiChosen
       border: 1px solid grey
       border-radius: 5px
+.minify // for filter context menu
+  width: 190px
+  height: 70px
+  position: relative
+  margin: 0 0 0 30px
+  .title
+    font-size: 11px
+    margin: 5px 0 5px 0
+    position: static
+  div
+    width: 100%
+    .emoji
+      width: 15px
+      height: 15px
+      margin: 0 0 5px 0
+      img
+        width: 15px
+        height: 15px
 @media (max-width: 1420px)
   .emojiWrap
-    margin: 0 0 10px 0
+    margin: 0 0 0 30px
     div
       .emoji
         margin: 0 7px 5px 0
         width: 18px
         height: 18px
+  .minify
+    margin: 0 0 10px 0
+    div
+      .emoji
+        width: 15px
+        height: 15px
+        margin: 0 0 5px 0

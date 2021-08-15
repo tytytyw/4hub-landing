@@ -26,6 +26,7 @@ import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -40,7 +41,7 @@ const MyFolders = ({
     const path = useSelector(state => state.PrivateCabinet.folderList?.path);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
@@ -49,6 +50,7 @@ const MyFolders = ({
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
+    const [gLoader, setGLoader] = useState(false);
     const closeError = () => setError({isError: false, message: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
@@ -69,6 +71,7 @@ const MyFolders = ({
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === el.path}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
@@ -89,6 +92,7 @@ const MyFolders = ({
                 padding={'0px 10px 0px 26px'}
                 subFolder={false}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
@@ -103,7 +107,7 @@ const MyFolders = ({
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type[i]?.callback(type, i)}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     };
@@ -188,6 +192,8 @@ const MyFolders = ({
                 showSuccessMessage={showSuccessMessage}
                 setShowSuccessMessage={setShowSuccessMessage}
                 setLoadingType={setLoadingType}
+                gLoader={gLoader}
+                setGLoader={setGLoader}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -210,6 +216,7 @@ const MyFolders = ({
                 fileErrors={fileErrors}
                 setLoadingFile={setLoadingFile}
                 create={fileAddCustomization.create}
+                setGLoader={setGLoader}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
@@ -229,6 +236,7 @@ const MyFolders = ({
                 nullifyAction={nullifyAction}
                 folder={chosenFolder}
                 setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
             /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>

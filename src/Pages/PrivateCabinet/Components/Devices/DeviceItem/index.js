@@ -3,8 +3,9 @@ import React from 'react'
 import styles from './DeviceItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCollapsed }) => {
 
     return (
         <>
@@ -19,12 +20,18 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize }) => {
                 <div className={styles.titleWrap}>
                     <div className={styles.titleImg}>
                         <img
-                            src={`./assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
+                            src={imageSrc + `/assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
                             alt='icon'
                             className={styles.icon}
                         />
                     </div>
-                    <span className={styles.title}>{device.name}</span>
+                    {!listCollapsed ? <div className={styles.deviceInfo}>
+                        <span className={styles.title}>{device.name}</span>
+                        <div className={styles.details}>
+                            <span>OS: {device.os}</span>
+                            <span>Last visited: {device.last_visit}</span>
+                        </div>
+                    </div> : null}
                 </div>
                 <div className={styles.functionWrap}>
                     <div

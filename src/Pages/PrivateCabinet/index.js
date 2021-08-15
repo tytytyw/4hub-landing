@@ -51,7 +51,7 @@ const PrivateCabinet = () => {
 
         dispatch(onGetUserInfo());
         dispatch(onGetFolders());
-        dispatch(onChooseFiles('global/all'));
+        dispatch(onChooseFiles('global/all', '', 1));
         dispatch(onAddRecentFiles());
         dispatch(onAddRecentFolders());
 
@@ -168,6 +168,7 @@ const PrivateCabinet = () => {
                             loadingFile={loadingFile}
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
+                            setLoadingType={setLoadingType}
                         />}
                     />
 

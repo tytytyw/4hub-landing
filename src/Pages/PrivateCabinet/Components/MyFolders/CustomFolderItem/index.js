@@ -7,10 +7,11 @@ import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/Privat
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import api from '../../../../../api';
+import api, {cancelRequest} from '../../../../../api';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
+                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader
+}) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
@@ -34,9 +35,9 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
+            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
         } else {
-            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f});
+            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
         }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
@@ -54,13 +55,22 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
 
-    const clickHandle = (e) => {
-        subFolder ? setChosenFolder({...chosenFolder, subPath: f.path}) : openFolder(e);
-        dispatch(onChooseFiles(f.path));
+    const clickHandle = async (e) => {
+        if(folderList.path !== f.path || chosenFolder.subPath) {
+            const cancel = new Promise(resolve => {
+                resolve(cancelRequest('cancelChooseFiles'));
+            })
+            await cancel.then(() => {
+                subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
+                setGLoader(true)
+                dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
+            })
+        }
     };
 
     const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};

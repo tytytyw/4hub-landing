@@ -39,7 +39,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
 
     useEffect(()=> {
         if (action_type === 'share') {
-            setData(data => ({...data, is_write: 1, dir: file.gdir}))
+            setData(data => ({...data, is_write: 0, dir: file.gdir}))
         }
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
 

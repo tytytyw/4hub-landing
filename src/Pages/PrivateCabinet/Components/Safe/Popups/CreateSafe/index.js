@@ -6,17 +6,18 @@ import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import {colors, tags} from '../../../../../../generalComponents/collections'
+import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../SafeIcon'
 import classNames from 'classnames'
+import api from '../../../../../../api';
+
 import {useDispatch, useSelector} from 'react-redux'
-import {onGetSafes} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CreateSafe = ({onCreate}) => {
 
-    const safes = useSelector(state => state.PrivateCabinet.safes)
     const dispatch = useDispatch()
-
+	const uid = useSelector((state) => state.user.uid);
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
@@ -50,11 +51,24 @@ const CreateSafe = ({onCreate}) => {
         return !!name && !!password && password === passwordRepeat
     }
 
-    const onAddSafe = () => {
+    
+    
+    const onAddSafe = (name, pass, tag, color, fig, emo) => {
+        api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
+            .then((res) => {
+                if (res.data.ok) {
+                    dispatch(onGetSafes())
+                } else {
+                    console.log(res) 
+                }
+            })
+            .catch(error => console.log(error))
+    };
+
+    const AddSafe = () => {
 
         if (formIsValid()) {
             const safeObj = {
-                id: safes?.length + 1,
                 name,
                 password,
                 tag: tagOption?.chosen,
@@ -63,7 +77,7 @@ const CreateSafe = ({onCreate}) => {
                 emo: emoji,
             }
 
-            dispatch(onGetSafes([...safes, safeObj]))
+            onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo)
             onCreate(false)
         }
 
@@ -195,6 +209,7 @@ const CreateSafe = ({onCreate}) => {
 
                             <div className={styles.inputWrap}>
                                 <Input
+                                    autocomplete="off"
                                     type='password'
                                     name='passwordRepeat'
                                     placeholder='Введите повторно пароль пароль'
@@ -207,23 +222,24 @@ const CreateSafe = ({onCreate}) => {
                                 />
                             </div>
 
-                            <div className={styles.inputWrap}>
+                            {/* <div className={styles.inputWrap}>
                                 <Input
                                     name='phone'
                                     placeholder='Введите Ваш номер телефона'
                                     phone={true}
                                     className={styles.input}
+                                    disabled
                                 />
-                            </div>
+                            </div> */}
 
                         </div>
 
-                        <div className={styles.textWrap}>
+                        {/* <div className={styles.textWrap}>
                             <p className={styles.text}>
                                 Примечание: на указанный контактный номер телефона
                                 будет отправлено код-пароль для доступа к сейфу
                             </p>
-                        </div>
+                        </div> */}
 
                         <Colors color={color} setColor={setColor}/>
                         <Signs sign={sign} setSign={setSign}/>
@@ -232,7 +248,7 @@ const CreateSafe = ({onCreate}) => {
 
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                        <div className={styles.add} onClick={() => onAddSafe()}>Добавить</div>
+                        <div className={styles.add} onClick={() => AddSafe()}>Добавить</div>
                     </div>
                 </div>
             </PopUp>

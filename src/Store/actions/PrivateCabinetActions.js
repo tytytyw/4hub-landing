@@ -1,4 +1,5 @@
-import api from '../../api'
+import api from '../../api';
+import axios from 'axios';
 
 import {
     ADD_RECENT_FILES,
@@ -17,9 +18,11 @@ import {
     GET_CATEGORIES,
     GET_PROGRAMS,
     GET_SAFES,
+    GET_SAFE_FILELIST,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
+    SET_WORKELEMENTSVIEW,
     GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
@@ -27,7 +30,15 @@ import {
     CHOOSE_SHARED_FILES,
     SET_CALENDAR_DATE,
     SET_CALENDAR_EVENTS,
+    SORT_FILES,
+    LOAD_FILES,
+    SET_FILTER_COLOR,
+    SET_FILTER_EMOJI,
+    SET_FILTER_FIGURE,
+    SET_REVERSE_CRITERION,
 } from '../types';
+
+const CancelToken = axios.CancelToken;
 
 const folders = [
     {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
@@ -70,14 +81,32 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
-export const onChooseFiles = (path, search) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
+    const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
+    const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
+    const color = getState().PrivateCabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().PrivateCabinet.fileCriterion.filters.color.color}` : '';
     const searched = search ? `&search=${search}` : '';
-    const files = await api.post(`/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${1}&items_per_page=${20}`);
-
-    dispatch({
-        type: CHOOSE_FILES,
-        payload: {files: files.data, path}
-    })
+    const sortReverse = getState().PrivateCabinet.fileCriterion.reverse && getState().PrivateCabinet.fileCriterion?.reverse[getState().PrivateCabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = {cancelChooseFiles}
+        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+        await api.get(url,{
+            cancelToken: cancelChooseFiles.token
+        }).then(files => {
+            page > 1
+                ? dispatch({
+                    type: LOAD_FILES,
+                    payload: {files: files.data, path}
+                })
+                : dispatch({
+                    type: CHOOSE_FILES,
+                    payload: {files: files.data, path}
+                })
+            if(set) set(files.data.length);
+            if(setLoad) setLoad(false);
+        })
+            .catch(e => console.log(e))
+            .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
 export const onChooseAllFiles = () => async (dispatch, getState) => {
@@ -113,7 +142,6 @@ export const onGetContacts = () => async (dispatch, getState) => {
                 type: CONTACT_LIST,
                 payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
             })
-
         }).catch(error => {
             console.log(error)
         })
@@ -168,13 +196,43 @@ export const onCustomizeFile = (file) => {
 
 //SAFE
 
-export const onGetSafes = (data = []) => async (dispatch, getState) => {
-    dispatch({
-        type: GET_SAFES,
-        payload: data
-    })
+export const onGetSafes = () => async (dispatch, getState) => {
+    api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
+        .then((res) => {
+            if (res.data.ok) {
+                if (res.data.safes) {
+                    dispatch({
+                        type: GET_SAFES,
+                        payload: Object.values(res.data.safes)
+                    })
+                } else {
+                        dispatch({
+                            type: GET_SAFES,
+                            payload: []
+                        })
+                    }
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
 };
 
+export const onGetSafeFileList = (code, id_safe) => async (dispatch, getState) => {
+    api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
+        .then((res) => {
+            if (res.data.ok) {
+                console.log(res) 
+                dispatch({
+                    type: GET_SAFE_FILELIST,
+                    // payload: 
+                })
+            } else {
+                console.log(res) 
+            }
+        })
+        .catch(error => console.log(error))
+};
 
 // PROGRAMS
 
@@ -413,36 +471,28 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 
 export const onGetDevices = () => async (dispatch, getState) => {
-    dispatch({
-        type: GET_DEVICES,
-        payload: [
-            {
-                id: 1,
-                name: 'iPhone 11 pro max',
-                device: 'iphone'
-            },
-            {
-                id: 2,
-                name: 'iMac pro',
-                device: 'imac'
-            },
-            {
-                id: 3,
-                name: 'MacBook pro',
-                device: 'macbookpro'
-            },
-            {
-                id: 4,
-                name: 'Планшет',
-                device: 'ipad11'
-            },
-            {
-                id: 5,
-                name: 'Неопознаный обьект',
-                device: false
-            },
-        ]
-    })
+    console.log(new Date())
+    api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
+        .then(res => {
+            if(res.data.ok === 1) {
+                let list = [];
+                Object.entries(res.data.devices).forEach(device => {
+                    let obj = {
+                        id: device[1].id,
+                        name: device[1].data.browser,
+                        os: device[1].data.platform,
+                        device: device[1].data.device_type || 'unknown',
+                        last_visit: device[1]?.ut_last?.split(' ')[0] || ''
+                    }
+                    list.push(obj);
+                })
+                dispatch({
+                    type: GET_DEVICES,
+                    payload: list
+                })
+            }
+        })
+        .catch(err => console.log(err))
 };
 
 
@@ -591,6 +641,13 @@ export const onSetFileSize = (size) => {
     }
 }
 
+export const onSetWorkElementsView = (view) => {
+    return {
+        type: SET_WORKELEMENTSVIEW,
+        payload: view
+    }
+}
+
 // CALENDAR PAGE
 export const setCalendarDate = date => {
     return {
@@ -645,14 +702,49 @@ export const onSearch = (value) => {
 }
 
 // SHARED FILES
-export const onGetSharedFiles  = () => async (dispatch, getState) => {
+export const onGetSharedFiles  = (day, mounth) => async (dispatch, getState) => {
     try {
-        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}`)
+        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}&m=${mounth}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
             payload: res.data.data
         })
     } catch (e) {
         console.log(e);
+    }
+}
+
+export const onSortFile = (sorting) => {
+    return {
+        type: SORT_FILES,
+        payload: sorting
+    }
+}
+
+export const onChangeFilterColor = (value) => {
+    return {
+        type: SET_FILTER_COLOR,
+        payload: value
+    }
+}
+
+export const onChangeFilterFigure = (value) => {
+    return {
+        type: SET_FILTER_FIGURE,
+        payload: value
+    }
+}
+
+export const onChangeFilterEmoji = (value) => {
+    return {
+        type: SET_FILTER_EMOJI,
+        payload: value
+    }
+}
+
+export const onSetReverseCriterion = (value) => {
+    return {
+        type: SET_REVERSE_CRITERION,
+        payload: value
     }
 }

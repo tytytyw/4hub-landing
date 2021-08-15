@@ -7,7 +7,7 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import WorkBars from "../../WorkElements/WorkBars";
-import BottomPanel from "../../ButtomPanel";
+import BottomPanel from "../../BottomPanel";
 import FileBar from "../../WorkElements/FileBar";
 import WorkLines from "../../WorkElements/WorkLines";
 import FileLine from "../../WorkElements/FileLine";
@@ -31,7 +31,6 @@ const WorkSpace = ({
 	listCollapsed,
 	setItem,
 	workElementsView,
-	setWorkElementsView,
 	renderMenuItems,
 	mouseParams,
 	setMouseParams,
@@ -119,8 +118,6 @@ const WorkSpace = ({
 					/>
 				)}
 				<ServePanel
-					setView={setWorkElementsView}
-					view={workElementsView}
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}

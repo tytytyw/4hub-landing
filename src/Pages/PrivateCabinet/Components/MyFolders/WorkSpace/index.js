@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import api from '../../../../../api';
@@ -10,7 +10,7 @@ import Notifications from '../../Notifications';
 import Profile from '../../Profile';
 import ServePanel from '../../ServePanel';
 import WorkBars from '../../WorkElements/WorkBars';
-import BottomPanel from '../../ButtomPanel';
+import BottomPanel from '../../BottomPanel';
 import FileBar from '../../WorkElements/FileBar';
 import WorkLines from '../../WorkElements/WorkLines';
 import FileLine from '../../WorkElements/FileLine';
@@ -36,20 +36,31 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType
+       setShowSuccessMessage, setLoadingType, gLoader, setGLoader
 }) => {
 
     const dispatch = useDispatch();
-    const [workElementsView, setWorkElementsView] = useState('bars');
+    const workElementsView = useSelector(state => state.PrivateCabinet.view);
+
     const uid = useSelector(state => state?.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
-    //TODO - Need to add to different file views
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
+    const [page, setPage] = useState(1);
+    const fileRef = useRef(null);
+
+    useEffect(() => {
+        if(fileList?.files.length <= 10 && chosenFolder?.path === fileList?.path) {
+            setPage(2);
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
+        }
+    }, [fileList?.files, fileList?.path]); //eslint-disable-line
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
@@ -230,7 +241,6 @@ const WorkSpace = ({
                 filePreview={filePreview}
             />}
             <ServePanel
-                setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
@@ -246,6 +256,12 @@ const WorkSpace = ({
                 fileLoading={fileLoading}
                 fileSelect={fileSelect}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
+                gLoader={gLoader}
+                setGLoader={setGLoader}
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}

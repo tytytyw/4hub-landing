@@ -19,7 +19,7 @@ import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play
 import List from './List'
 import FolderItem from './FolderItem'
 import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
-import BottomPanel from "../ButtomPanel";
+import BottomPanel from "../BottomPanel";
 
 const Journal = () => {
 

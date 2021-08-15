@@ -12,6 +12,7 @@ import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 import FileLineShort from '../../Safe/FileLineShort'
 import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
+import BottomPanel from "../../BottomPanel";
 
 const WorkSpace = ({setMouseParams}) => {
 
@@ -67,6 +68,7 @@ const WorkSpace = ({setMouseParams}) => {
             <MembersPanel
                 setAddMember={setAddMember}
             />
+            <BottomPanel />
 
             {workElementsView === 'workLinesPreview' &&
             <WorkLinesPreview recentFiles={recentFiles}>

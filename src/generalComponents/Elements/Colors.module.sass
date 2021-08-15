@@ -3,7 +3,7 @@
   flex-direction: column
   width: 78%
   margin: 0 0 15px 0
-  span
+  .title
     font-size: 13px
     margin: 0 0 8px 0
   div
@@ -21,6 +21,9 @@
         border-radius: 50%
     .circleColor
       position: relative
+      display: flex
+      justify-content: center
+      align-items: center
       width: 20px
       height: 20px
       border-radius: 50%
@@ -29,9 +32,31 @@
     .chosenColorWrap
       background: rgba(1, 1, 1, 0.2)
       border-radius: 50%
+.minify // for filter context menu
+  width: 190px
+  height: 40px
+  position: relative
+  margin: 0 0 0 30px
+  .title
+    font-size: 11px
+    margin: 5px 0 5px 0
+    position: static
+  div
+    width: 95%
+    .circleColorWrap
+      width: 15px
+      height: 15px
+    .circleColor
+      width: 11px
+      height: 11px
 @media (max-width: 1420px)
   .colorWrap
     div
       .circleColor
         width: 15px
         height: 15px
+  .minify
+    div
+      .circleColor
+        width: 11px
+        height: 11px

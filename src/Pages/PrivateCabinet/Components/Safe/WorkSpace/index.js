@@ -7,8 +7,15 @@ import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
-import BottomPanel from '../../ButtomPanel'
-import WorkLinesPreview from './../WorkElements/WorkLinesPreview'
+import BottomPanel from '../../BottomPanel'
+import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
+
+import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
+import WorkBars from '../WorkElements/WorkBars'
+import WorkLines from '../WorkElements/WorkLines'
+import FileBar from "../../WorkElements/FileBar";
+import FileLine from "../../WorkElements/FileLine";
+
 import FileLineShort from '../FileLineShort'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
@@ -20,13 +27,12 @@ import File from '../../../../../generalComponents/Files'
 
 const WorkSpace = ({chosenFile, setChosenFile,
                    listCollapsed, setFilePreview, filePreview,
-                   fileSelect, action, setAction
+                   fileSelect, action, setAction, fileList
                   }) => {
 
     const dispatch = useDispatch();
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview');
-    //const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const fileList = [];
+    const workElementsView = useSelector(state => state.PrivateCabinet.view)
+ 
     const size = useSelector(state => state.PrivateCabinet.size);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
@@ -79,14 +85,19 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 key={i}
                 file={file}
                 setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
+                chosen={
+					filePick.show
+						? filePick.files.findIndex((el) => el === file.fid) >= 0
+						: chosenFile?.fid === file?.fid
+				}
+                chosenFile={chosenFile}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
                 filePick={filePick}
                 setFilePick={setFilePick}
-
+                callbackArrMain={callbackArrMain}
                 size={size}
             />
         });
@@ -103,7 +114,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 </div>
             </div>
             <ServePanel
-                setView={setWorkElementsView}
                 view={workElementsView}
                 chosenFile={chosenFile}
                 setAction={setAction}
@@ -117,27 +127,26 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 }}
             >
 
-                {/*{workElementsView === 'bars' &&
+                {workElementsView === 'bars' &&
                 <WorkBars
-                    fileLoading={fileLoading}
-                    fileSelect={fileSelect}
+                    file={chosenFile}
                     filePick={filePick}
                 >
                     {renderFiles(FileBar)}
                 </WorkBars>}
 
                 {workElementsView === 'lines' &&
-                <WorkLines fileLoading={fileLoading}>
+                <WorkLines file={chosenFile} filePick={filePick}>
                     {renderFiles(FileLine)}
                 </WorkLines>}
 
                 {workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile}>
+                <WorkBarsPreview file={chosenFile} filePick={filePick}>
                     {renderFiles(FileBar)}
-                </WorkBarsPreview>}*/}
+                </WorkBarsPreview>}
 
                 {workElementsView === 'workLinesPreview' &&
-                <WorkLinesPreview file={chosenFile}>
+                <WorkLinesPreview file={chosenFile} filePick={filePick}> 
                     {renderFiles(FileLineShort)}
                 </WorkLinesPreview>}
 

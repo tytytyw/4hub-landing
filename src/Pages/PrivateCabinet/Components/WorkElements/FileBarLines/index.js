@@ -20,7 +20,7 @@ const FileBar = ({ file, chosen, setChosenFile, setFilePreview, filePreview }) =
 			<div className={styles.file_wrap}>
 				<div className={styles.wrap_left}>
 					<div className={styles.file_icon}>
-						<File color={file.color} format={file.ext} />
+						<File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} />
 					</div>
 					<div className={styles.file_info}>
 						<p className={styles.name}>{file.name}</p>

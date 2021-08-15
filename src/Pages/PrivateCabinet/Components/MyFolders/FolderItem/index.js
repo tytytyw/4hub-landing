@@ -8,11 +8,12 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
-import api from '../../../../../api';
+import api, {cancelRequest} from '../../../../../api';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
-        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams
+        setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams,
+        setGLoader
     }) => {
 
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
@@ -21,16 +22,25 @@ const FolderItem = ({
     const dispatch = useDispatch();
     const [filesQuantity, setFilesQuantity] = useState(0);
 
-    const openFolder = (e) => {
+    const openFolder = async (e) => {
         let boolean = false;
         e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
         if(boolean) {
-            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: '', info: folder}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: '', info: folder});
+            chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: '', info: folder, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: '', info: folder});
         } else {
-            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder});
+            setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder, files_amount: filesQuantity});
         }
-        dispatch(onChooseFolder(folder.folders, folder.path));
-        dispatch(onChooseFiles(folder.path));
+        if(folderList.path !== folder.path || chosenFolder.subPath) {
+            const cancel = new Promise(resolve => {
+                resolve(cancelRequest('cancelChooseFiles'));
+            })
+            await cancel
+                .then(() => {
+                    dispatch(onChooseFolder(folder.folders, folder.path));
+                    setGLoader(true);
+                    dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
+                })
+        }
     };
 
     const renderInnerFolders = () => {
@@ -46,14 +56,18 @@ const FolderItem = ({
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
+                setGLoader={setGLoader}
             />
         })
     };
 
-    const getQuantity = () => {
+    const getQuantity = async () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${folder.path}`)
             .then(res => {
-                if(res.data.ok === 1) setFilesQuantity(res.data.col)
+                if(res.data.ok === 1) {
+                    setFilesQuantity(res.data.col)
+                    if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount: res.data.col}))
+                }
             })
             .catch(err => console.log(err));
     };

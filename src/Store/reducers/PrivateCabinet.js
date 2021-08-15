@@ -2,6 +2,7 @@ import {
     GET_FOLDERS,
     CHOOSE_FOLDER,
     CHOOSE_FILES,
+    LOAD_FILES,
     CHOOSE_ALL_FILES,
     FILE_DELETE,
     CONTACT_LIST,
@@ -17,11 +18,19 @@ import {
     GET_SAFES,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
-    SET_SIZE, GET_PROJECT_FOLDER,
+    SET_SIZE,
+    SET_WORKELEMENTSVIEW,
+    GET_PROJECT_FOLDER,
     GET_PROJECTS,
     GET_JOURNAL_FOLDERS,
-    SET_CALENDAR_DATE, SET_CALENDAR_EVENTS,
-    SEARCH, CHOOSE_SHARED_FILES,
+    SET_CALENDAR_DATE,
+    SET_CALENDAR_EVENTS,
+    SEARCH,
+    CHOOSE_SHARED_FILES,
+    SORT_FILES,
+    SET_FILTER_COLOR,
+    SET_FILTER_EMOJI,
+    SET_FILTER_FIGURE, SET_REVERSE_CRITERION,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -34,6 +43,17 @@ const INITIAL_STATE = {
     recentFiles: null,
     chosenRecentFile: null,
     size: 'big',
+    view: 'bars',
+    //SORT && FILTER
+    fileCriterion: {
+        sorting: 'byDateCreated',
+        reverse: {byName: false},
+        filters: {
+            color: '',
+            emoji: '',
+            figure: ''
+        }
+    },
 
     //SEARCH
     search: '',
@@ -76,9 +96,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, folderList: action.payload};
         }
         case CHOOSE_FILES: {
-            // TODO - Need to delete after serverside filtration is added
-            const files = action.payload.files.sort((a, b) => b.date - a.date);
-            return {...state, fileList: {...action.payload, files}};
+            return {...state, fileList: {...action.payload}};
+        }
+        case LOAD_FILES: {
+            return {...state, fileList: {...state.fileList, files: [...state.fileList.files, ...action.payload.files]}};
         }
         case CHOOSE_ALL_FILES: {
             // TODO - Need to delete after serverside filtration is added
@@ -106,9 +127,27 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_SIZE:
             return {...state, size: action.payload}
+        case SET_WORKELEMENTSVIEW:
+            return {...state, view: action.payload}
         //SEARCH
         case SEARCH: {
             return {...state, search: action.payload}
+        }
+        //SORT FILES
+        case SORT_FILES: {
+            return {...state, fileCriterion: {...state.fileCriterion, sorting: action.payload}}
+        }
+        case SET_FILTER_COLOR: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, color: action.payload}}}
+        }
+        case SET_FILTER_FIGURE: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, figure: action.payload}}}
+        }
+        case SET_FILTER_EMOJI: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, emoji: action.payload}}}
+        }
+        case SET_REVERSE_CRITERION: {
+            return {...state, fileCriterion: {...state.fileCriterion, reverse: {...state.fileCriterion.reverse, [action.payload]: !state.fileCriterion.reverse[action.payload]}}}
         }
 
         // PROGRAMS

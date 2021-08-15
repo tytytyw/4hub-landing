@@ -2,7 +2,16 @@ import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
-import {onSetFileSize} from '../../../../Store/actions/PrivateCabinetActions';
+import {
+    onChooseFiles,
+    onSetFileSize,
+    onSortFile,
+    onChangeFilterFigure,
+    onChangeFilterEmoji,
+    onChangeFilterColor,
+    onSetReverseCriterion
+} from '../../../../Store/actions/PrivateCabinetActions';
+import {onSetWorkElementsView} from '../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';
@@ -15,19 +24,25 @@ import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/fi
 import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import Colors from "../../../../generalComponents/Elements/Colors";
+import Signs from "../../../../generalComponents/Elements/Signs";
+import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
-        view, setView, chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+         chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization,
 }) => {
-
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
+    // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
+    const view = useSelector(state => state.PrivateCabinet.view);
+    const search = useSelector(state => state.PrivateCabinet.search);
+    const fileCriterion = useSelector(state => state.PrivateCabinet.fileCriterion);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const dispatch = useDispatch();
-
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];
         if(s === sizes[sizes.length - 1]) return sizes[0]
@@ -41,8 +56,9 @@ const ServePanel = ({
         setTypeContext(type);
     }
 
-    const setFilter = () => {
-        setTypeContext('');
+    const setFilter = (sorting) => {
+        dispatch(onSortFile(sorting));
+        dispatch(onChooseFiles(fileList.path, search, 1, '', ''));
     };
 
     const createFile = (ext) => {
@@ -67,14 +83,44 @@ const ServePanel = ({
         })
     }
 
+    const renderSortingItems = (target, callback) => (
+        target.map((item, i) => {
+            return <div
+                onClick={() => callback(item.ext)}
+                className={styles.contextSortingItem}
+                key={i}
+            >
+                <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`/assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
+                <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
+                {item.ext === 'byName' ? <div
+                    className={styles.switch}
+                    onClick={() => dispatch(onSetReverseCriterion(item.ext))}
+                ><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
+            </div>
+        })
+    )
+
+    const setFigure = (value) => {
+        dispatch(onChangeFilterFigure(value));
+        dispatch(onChooseFiles(fileList.path, search, 1));
+    }
+    const setColor = (value) => {
+        dispatch(onChangeFilterColor(value));
+        dispatch(onChooseFiles(fileList.path, search, 1));
+    }
+    const setEmoji = (value) => {
+        dispatch(onChangeFilterEmoji(value));
+        dispatch(onChooseFiles(fileList.path, search, 1));
+    }
+
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
                 <div className={styles.viewPanel}>
-                    <div className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('bars')}><BarsIcon /></div>
-                    <div className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('lines')}><LinesIcon /></div>
-                    <div className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('preview')}><PreviewIcon /></div>
-                    <div className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`} onClick={() => setView('workLinesPreview')}><VerticalLinesIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
                 </div>
                 <div className={styles.filterPanel}>
                     <div
@@ -124,8 +170,11 @@ const ServePanel = ({
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>
             </div>
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef}>
-                {typeContext === 'filter' ? <div>{renderMenuItems(contextMenuFilters.main, setFilter, '')}</div> : null}
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
+                {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
+                {typeContext === 'filter' ? <Colors color={fileCriterion.filters.color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Signs sign={fileCriterion.filters.figure} setSign={setFigure} title='По значкам' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Emoji emoji={fileCriterion.filters.emoji} setEmoji={setEmoji} title='По эмоджи' editableClass='minify' /> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
