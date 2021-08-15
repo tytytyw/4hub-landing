@@ -28,6 +28,9 @@ import {
     SEARCH,
     CHOOSE_SHARED_FILES,
     SORT_FILES,
+    SET_FILTER_COLOR,
+    SET_FILTER_EMOJI,
+    SET_FILTER_FIGURE,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -132,6 +135,15 @@ export default function startPage(state = INITIAL_STATE, action) {
         //SORT FILES
         case SORT_FILES: {
             return {...state, fileCriterion: {...state.fileCriterion, sorting: action.payload}}
+        }
+        case SET_FILTER_COLOR: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, color: action.payload}}}
+        }
+        case SET_FILTER_FIGURE: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, figure: action.payload}}}
+        }
+        case SET_FILTER_EMOJI: {
+            return {...state, fileCriterion: {...state.fileCriterion, filters: {...state.fileCriterion.filters, emoji: action.payload}}}
         }
 
         // PROGRAMS
