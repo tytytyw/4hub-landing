@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import api from "../../../../../api";
 import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
 
-const CodePopup = ({ set, setShowCodePopup }) => {
+const CodePopup = ({ setShowCodePopup }) => {
 	const [code, setCode] = useState("");
 	const [errors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
@@ -27,11 +27,11 @@ const CodePopup = ({ set, setShowCodePopup }) => {
 	};
 
 	return (
-		<PopUp set={set}>
+		<PopUp set={setShowCodePopup}>
 			<div className={styles.wrapper}>
 				<div className={styles.top}>
 					<div className={styles.closeWrap}>
-						<div className={styles.close} onClick={() => set(false)}>
+						<div className={styles.close} onClick={() => setShowCodePopup(false)}>
 							<span className={styles.times} />
 						</div>
 					</div>
