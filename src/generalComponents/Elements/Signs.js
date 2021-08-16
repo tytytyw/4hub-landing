@@ -3,8 +3,11 @@ import React from 'react';
 import styles from './Signs.module.sass';
 import { signs } from '../collections';
 import classnames from "classnames";
+import {imageSrc} from '../globalVariables';
 
 const Signs = ({sign, setSign, title = 'Добавить знак', editableClass = ''}) => {
+
+    const set = (el) => sign === el ? setSign('') : setSign(el);
 
     const renderSigns = () => {
         return signs.map((el, i) => {
@@ -14,8 +17,8 @@ const Signs = ({sign, setSign, title = 'Добавить знак', editableClas
                     [styles.sign]: true,
                     [styles.signChosen]: sign === el
                 })}
-                onClick={() => setSign(el)}
-            ><img src={`./assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
+                onClick={() => set(el)}
+            ><img src={`${imageSrc}assets/PrivateCabinet/signs/${el}.svg`} alt='sign' />
             </div>
         })
     };
