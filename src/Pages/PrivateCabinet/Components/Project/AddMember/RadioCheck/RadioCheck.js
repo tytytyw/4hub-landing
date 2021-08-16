@@ -30,7 +30,7 @@ const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
                 <span className={styles.icon}>
                     <img
                         src={item?.icon?.[0] || emptyProfileImage}
-                        alt={item.id}
+                        alt={item?.id}
                     />
                 </span>
                 <p>{getContactName(item)}</p>

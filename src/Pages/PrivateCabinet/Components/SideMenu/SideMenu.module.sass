@@ -65,7 +65,7 @@
       margin: 5px 0 0 0
     span
       font-family: "SF Pro Regular", sans-serif
-      font-size: 13px
+      font-size: 12px
       transition: font-size 0.3s ease
     .hidden
       font-size: 0
@@ -76,9 +76,16 @@
     font-family: "SF Pro Bold", sans-serif
   .menuItemChosen
     background: #0A3AAC
+
+@media (max-width: 1900px)
+  .asideWrap
+    min-width: 230px
+    max-width: 250px
+
 @media (max-width: 1437px)
   .asideWrap
-    width: 17%
+    min-width: 230px
+    max-width: 250px
   .hubIcon
     margin: 25px 0
   .menuItemsWrap
