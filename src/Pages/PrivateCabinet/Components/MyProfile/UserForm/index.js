@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from './UserForm.module.sass'
 import Input from '../Input'
 import ProfileUpload from './ProfileUpload'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import api from '../../../../../api'
 import Button from '../Button'
 import AlertPopup from '../AlertPopup'
@@ -30,6 +30,7 @@ const UserForm = () => {
 
     const [image, setImage] = useState(null)
     const [preview, setPreview] = useState()
+    const dispatch = useDispatch()
 
     const fileInputRef = useRef()
     const formRef = useRef()
@@ -42,6 +43,8 @@ const UserForm = () => {
             setImage(null)
         }
     }
+
+    useEffect(() => dispatch(onGetUserInfo()), [showCodePopup, success])
 
     useEffect(() => setFields(user), [user])
 
@@ -268,7 +271,6 @@ const UserForm = () => {
                 setShowCodePopup={setShowCodePopup}
                 onGetUserInfo={onGetUserInfo}
             />}
-            {/* TODO:  */}
             {showCodePopup && <CodePopup
                 setShowCodePopup={setShowCodePopup}
                
