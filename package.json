@@ -1,7 +1,7 @@
 {
   "name": "4hab-frontend",
   "version": "0.1.0",
-  "proxy": "http://fs2.mh.net.ua/",
+  "proxy": "https://fs2.mh.net.ua/",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.8.0",
     "@fullcalendar/interaction": "^5.8.0",
