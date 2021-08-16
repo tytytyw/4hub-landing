@@ -59,7 +59,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 		setLoadingType("squarify");
 		api
 			.get(
-				`/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`
+				`/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&pass=${data.pass}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`
 			)
 			.then((res) => {
 				if (res.data.ok === 1) {
