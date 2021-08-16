@@ -3,10 +3,11 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from './UserForm.module.sass'
 import Input from '../Input'
 import ProfileUpload from './ProfileUpload'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import api from '../../../../../api'
 import Button from '../Button'
 import AlertPopup from '../AlertPopup'
+import CodePopup from '../CodePopup/index'
 import {formIsValid, isCorrectData} from '../Input/validation'
 import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
 
@@ -14,7 +15,6 @@ const UserForm = () => {
 
     const user = useSelector(state => state.user.userInfo)
     const uid = useSelector(state => state.user.uid)
-    const dispatch = useDispatch()
 
     const [fields, setFields] = useState(user)
 
@@ -25,6 +25,7 @@ const UserForm = () => {
 
     const [editForm, setEditForm] = useState(false)
     const [showPass, setShowPass] = useState(false)
+    const [showCodePopup, setShowCodePopup] = useState(false)
     const [success, setSuccess] = useState(false)
 
     const [image, setImage] = useState(null)
@@ -114,7 +115,6 @@ const UserForm = () => {
             api.post(`/ajax/user_edit.php?uid=${uid}`, formData)
                 .then(() => {
                     setSuccess(true)
-                    dispatch(onGetUserInfo())
                     resetForm(true)
                 }).catch(err => {
                     console.log(err)
@@ -265,6 +265,13 @@ const UserForm = () => {
                 title='Данные успешно обновлены'
                 text='В целях безопасности, на Email Вашей учетной записи
                         отправлено подтверждение этого изменения'
+                setShowCodePopup={setShowCodePopup}
+                onGetUserInfo={onGetUserInfo}
+            />}
+            {/* TODO:  */}
+            {showCodePopup && <CodePopup
+                setShowCodePopup={setShowCodePopup}
+               
             />}
 
         </div>

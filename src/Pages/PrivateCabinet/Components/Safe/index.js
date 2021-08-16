@@ -18,6 +18,7 @@ import CreateSafe from "./Popups/CreateSafe";
 import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
 import api from '../../../../api';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import CopyLink from '../ContextMenuComponents/ContexMenuSafe/CopyLink';
 
 const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const dispatch = useDispatch();
@@ -50,7 +51,9 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	}, [showFileList]);
 
 	useEffect(() => {
+		setLoadingType (safes === null ? 'squarify' : '')
 		setNoSafePopup(safes?.length < 1);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [safes]);
 
 	useEffect(() => {
@@ -86,6 +89,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 
 	const callbackArrMain = [
 	    {type: 'share', name: 'Предоставить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+		{type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         // TODO: 
 	    // {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
 	    // {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
@@ -235,7 +239,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 				/>
 			)}
 
-			{createSafe && <CreateSafe onCreate={setCreateSafe} />}
+			{createSafe && <CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />}
 
 			{action.type === "deleteSafe" ? (
 				<ActionApproval
@@ -262,6 +266,12 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 			) : null}
 
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+			{action.type === 'copyLink' ? <CopyLink
+                nullifyAction={nullifyAction}
+                safe={selectedSafe}
+                setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
+            /> : null}
 		</div>
 	);
 };
