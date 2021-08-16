@@ -44,7 +44,7 @@ const UserForm = () => {
         }
     }
 
-    useEffect(() => dispatch(onGetUserInfo()), [showCodePopup, success])
+    useEffect(() => dispatch(onGetUserInfo()), [showCodePopup, success]) // eslint-disable-line
 
     useEffect(() => setFields(user), [user])
 
