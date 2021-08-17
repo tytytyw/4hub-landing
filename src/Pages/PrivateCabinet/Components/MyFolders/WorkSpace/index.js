@@ -278,6 +278,11 @@ const WorkSpace = ({
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
+                gLoader={gLoader}
             >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             {filePick.show ? <OptionButtomLine
                 callbackArrMain={callbackArrMain}
