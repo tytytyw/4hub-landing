@@ -56,6 +56,7 @@ const MyFolders = ({
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
+    useEffect(() => {dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));}, []); //eslint-disable-line
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -142,8 +143,8 @@ const MyFolders = ({
         api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.subPath ? chosenFolder.subPath : chosenFolder.path}`)
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onGetFolders());
-                dispatch(onChooseFiles('global/all'));
-                //TODO - Need to fix bag to disappear subfolder after deletion - React Component doesn't see changes
+                dispatch(onChooseFiles('global/all', '', 1));
+                //TODO - Need to fix bug to disappear subfolder after deletion - React Component doesn't see changes
                 setChosenFolder({...chosenFolder, open: false});
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
