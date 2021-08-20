@@ -64,7 +64,7 @@ export const contextMenuFilters = {
 
 export const contextMenuCreateFile = {
     other: [
-        {name: 'One Office', img: 'microsoft-oneOffice'},
+        {name: 'ONLYOFFICE', img: 'microsoft-oneOffice'},
     ],
     microsoft: [
         {name: 'Документ Word', img: 'word', ext: 'docx'},
