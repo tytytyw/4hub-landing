@@ -219,7 +219,7 @@ const Programs = ({
             />}
 
             {fileAddCustomization.show && <CreateFile
-                title='Добавление файла'
+                title='Добавить файла'
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
                 setBlob={setFileAddCustomization}

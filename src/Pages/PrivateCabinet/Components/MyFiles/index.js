@@ -275,7 +275,7 @@ const MyFiles = ({
 			/>
 			{fileAddCustomization.show && (
 				<CreateFile
-					title="Добавление файла"
+					title={fileAddCustomization.create ? 'Создать файл' : 'Добавить файл'}
 					info={chosenFolder}
 					blob={fileAddCustomization.file}
 					setBlob={setFileAddCustomization}
