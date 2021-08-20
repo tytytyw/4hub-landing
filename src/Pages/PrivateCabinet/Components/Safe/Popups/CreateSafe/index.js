@@ -40,15 +40,14 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
 
     const addErrors = () => {
         setErrors({
-            name: !!name,
-            password: !!password,
-            passwordRepeat: password === passwordRepeat
+            name: !name,
+            passwordRepeat: password !== passwordRepeat
         })
     }
 
     const formIsValid = () => {
         addErrors()
-        return !!name && !!password && password === passwordRepeat
+        return !!name && password === passwordRepeat
     }
 
     
