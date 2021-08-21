@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import api from '../../../../api';
-import {previewTypes, previewFormats} from '../../../../generalComponents/collections';
+import {previewTypes} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
@@ -30,16 +30,11 @@ const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
 
     const renderOfficePreview = () => {
         const isType = previewTypes.filter(type => type === file.mime_type).length > 0;
-        const isFormat = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
-        if(isType) {
-            return getPreview()
-        }else if(isFormat) {
-            window.open(file?.edit_url,'_blank');
-            set();
-            // getPreview();
-        } else {
-            return standardPrev;
-        }
+            if(isType) {
+                return getPreview()
+            } else {
+                return standardPrev;
+            }
     }
 
     const renderFilePreview = () => {

@@ -9,13 +9,21 @@ import { ReactComponent as SettingsIcon } from "../../../../../assets/PrivateCab
 
 import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabinet/share.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
+import {previewFormats} from "../../../../../generalComponents/collections";
 
 const FileBar = ({ file, chosen, setChosenFile, setFilePreview, filePreview }) => {
+
+	const handleDoubleClick = () => {
+		const isForamt = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
+		if(isForamt) return window.open(file?.edit_url);
+		return setFilePreview({...filePreview, view: true, file})
+	}
+
 	return (
 		<div
 			className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}
 			onClick={() => setChosenFile(file)}
-			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
+			onDoubleClick={handleDoubleClick}
 		>
 			<div className={styles.file_wrap}>
 				<div className={styles.wrap_left}>

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './AlertPopup.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
 
-const Index = ({ set, text, title }) => {
+const Index = ({ set, text, title, setShowCodePopup }) => {
     return (
         <PopUp set={set}>
             <div className={styles.sendSuccess}>
@@ -19,7 +19,10 @@ const Index = ({ set, text, title }) => {
                 </p>
                 <div
                     className={styles.closeButton}
-                    onClick={() => set(false)}
+                    onClick={() => {
+                        set(false);
+                        setShowCodePopup(true)
+                    }}
                 >Продолжить</div>
             </div>
         </PopUp>

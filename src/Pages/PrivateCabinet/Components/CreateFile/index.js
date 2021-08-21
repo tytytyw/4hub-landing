@@ -62,7 +62,7 @@ const CreateFile = ({
         }
     };
 
-    const onAddFile = () => {
+    const onAddFile = (open) => {
         let options = {
             name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
             tag: tagOption.chosen,
@@ -110,6 +110,7 @@ const CreateFile = ({
             const url = `/ajax/file_new.php/?uid=${uid}&fileName=${options.name.slice(0, options.name.lastIndexOf('.'))}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${options.color}&symbol=${options.symbol}&emoji=${options.emoji}&ext=${options.name.slice(options.name.lastIndexOf('.') + 1)}`;
             api.post(url)
                 .then(res => {if(res.data.ok === 1) {
+                    if(open) window.open(res.data.edit_url);
                     dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader));
                 } else {setError(true)}})
                 .catch(() => {setError(true)})
@@ -163,7 +164,7 @@ const CreateFile = ({
             <PopUp set={onCloseTab}>
                 <div className={styles.createFolderWrap}>
                     <span className={styles.cross} onClick={() => setBlob({...blob, file: null, show: false})} />
-                    <span className={styles.title}>{title}</span>
+                    <span className={`${create ? styles.titleCreate : styles.title}`}>{title}</span>
                     <div className={styles.fileIconWrap}>
                         <div className={`${styles.fileWrap}`}>
                             <div className={styles.file}><File color={color.light} format={getName(blob?.options?.name ? blob.options.name : blob.file.name).format} /></div>
@@ -263,11 +264,12 @@ const CreateFile = ({
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
-                    <Emoji emoji={emoji} setEmoji={setEmoji} />
+                    <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? 'create' : ''} />
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
-                        <div className={`${styles.add}`} onClick={onAddFile}>Добавить</div>
+                        <div className={`${styles.add}`} onClick={onAddFile}>{create ? 'Создать' : 'Добавить'}</div>
                     </div>
+                    <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>Создать и открыть в редакторе</div>
                 </div>
             </PopUp>
             {error && <Error error={error} set={closeComponent} message='Файл не добавлен' />}

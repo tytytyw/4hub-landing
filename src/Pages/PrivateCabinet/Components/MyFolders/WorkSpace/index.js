@@ -261,19 +261,33 @@ const WorkSpace = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
-                setGLoader={setGLoader}
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
+                gLoader={gLoader}
             >{renderFiles(FileLine)}</WorkLines> : null}
             {workElementsView === 'preview' ? <WorkBarsPreview
                 file={chosenFile}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
+                gLoader={gLoader}
             >{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
+                page={page}
+                setPage={setPage}
+                fileRef={fileRef}
+                chosenFolder={chosenFolder}
+                gLoader={gLoader}
             >{renderFiles(FileLineShort)}</WorkLinesPreview> : null}
             {filePick.show ? <OptionButtomLine
                 callbackArrMain={callbackArrMain}

@@ -14,7 +14,7 @@ import api from '../../../../../../api';
 
 import {useDispatch, useSelector} from 'react-redux'
 
-const CreateSafe = ({onCreate}) => {
+const CreateSafe = ({onCreate, setLoadingType}) => {
 
     const dispatch = useDispatch()
 	const uid = useSelector((state) => state.user.uid);
@@ -54,6 +54,7 @@ const CreateSafe = ({onCreate}) => {
     
     
     const onAddSafe = (name, pass, tag, color, fig, emo) => {
+        setLoadingType('squarify')
         api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
             .then((res) => {
                 if (res.data.ok) {
@@ -63,6 +64,7 @@ const CreateSafe = ({onCreate}) => {
                 }
             })
             .catch(error => console.log(error))
+            .finally(() => setLoadingType(''))
     };
 
     const AddSafe = () => {
@@ -150,14 +152,6 @@ const CreateSafe = ({onCreate}) => {
                                             alt='emoji'
                                         />
                                     </div>}
-
-                                    {/*{password.length === passwordRepeat.length &&
-                                    <img
-                                        className={styles.lock}
-                                        src='./assets/PrivateCabinet/locked.svg'
-                                        alt='lock'
-                                    />}*/}
-
                                 </div>
                             </div>
                         </div>
@@ -167,7 +161,7 @@ const CreateSafe = ({onCreate}) => {
                             <div className={styles.inputWrap}>
                                 <Input
                                     name='name'
-                                    placeholder='Имя файла'
+                                    placeholder='Имя сейфа'
                                     className={styles.input}
                                     value={name}
                                     onChange={event => setName(event.target.value)}
@@ -221,26 +215,7 @@ const CreateSafe = ({onCreate}) => {
                                     isMistake={errors?.passwordRepeat}
                                 />
                             </div>
-
-                            {/* <div className={styles.inputWrap}>
-                                <Input
-                                    name='phone'
-                                    placeholder='Введите Ваш номер телефона'
-                                    phone={true}
-                                    className={styles.input}
-                                    disabled
-                                />
-                            </div> */}
-
                         </div>
-
-                        {/* <div className={styles.textWrap}>
-                            <p className={styles.text}>
-                                Примечание: на указанный контактный номер телефона
-                                будет отправлено код-пароль для доступа к сейфу
-                            </p>
-                        </div> */}
-
                         <Colors color={color} setColor={setColor}/>
                         <Signs sign={sign} setSign={setSign}/>
                         <Emoji emoji={emoji} setEmoji={setEmoji}/>

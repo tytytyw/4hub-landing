@@ -48,8 +48,11 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
 
     }
 
-    const getLink = () => {
-        const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST$&is_read=true`;
+    const getLink = (status) => {
+        setUrl('Загрузка...')
+        let stat = '$&is_read=true'
+        if(status === 'write') stat = '$&is_read=false'
+        const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST${stat}`;
         api.get(url)
             .then(res => setUrl(res.data.link_shere_to_user))
             .catch(err => console.log(err));
@@ -99,7 +102,12 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
 
     const renderView = () => (
         <div className={styles.reviewOptions}>
-            <div  className={styles.reviewOption} onClick={() => setReview({...review, text: 'Просмотр'})}>
+            <div
+                className={styles.reviewOption}
+                onClick={() => {
+                    setReview({...review, text: 'Просмотр'});
+                    getLink();
+                }}>
                 <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
                 <div className={styles.description}>Просмотр</div>
             </div>
@@ -107,7 +115,12 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                 <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
                 <div>Скачивание</div>
             </div>
-            <div className={`${styles.reviewOption} ${styles.reviewOptionLast}`} onClick={() => setReview({...review, text: 'Редактировать'})}>
+            <div
+                className={`${styles.reviewOption} ${styles.reviewOptionLast}`}
+                onClick={() => {
+                    setReview({...review, text: 'Редактировать'});
+                    getLink('write');
+                }}>
                 <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
                 <div>Редактировать</div>
             </div>

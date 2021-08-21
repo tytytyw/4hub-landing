@@ -7,6 +7,7 @@
   overflow: hidden
   box-sizing: border-box
   padding: 10px 0
+  position: relative
   .fileListWrap::-webkit-scrollbar-track
     background: #0A3AAB
   .fileListWrap::-webkit-scrollbar-track
@@ -26,6 +27,10 @@
     overflow-y: scroll
     height: 100%
     border-right: 1px solid lightgrey
+    .bottomLine
+      grid-column: 1 / -1
+      width: 100%
+      position: relative
   .previewFileWrap
     display: flex
     flex-direction: column

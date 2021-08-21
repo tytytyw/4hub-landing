@@ -64,7 +64,7 @@ export const contextMenuFilters = {
 
 export const contextMenuCreateFile = {
     other: [
-        {name: 'One Office', img: 'microsoft-oneOffice'},
+        {name: 'ONLYOFFICE', img: 'microsoft-oneOffice'},
     ],
     microsoft: [
         {name: 'Документ Word', img: 'word', ext: 'docx'},
@@ -131,6 +131,7 @@ export const contextMenuSubFolder = {
 export const contextMenuSafeItem = {
     main: [
         {name: 'Предоставить доступ', img: 'download-blue'},
+        {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать', img: 'edit'},
         {name: 'Настроить', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},

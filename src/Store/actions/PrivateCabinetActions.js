@@ -150,7 +150,7 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 export const onAddRecentFolders = () => async (dispatch, getState) => {
 
-    api.post(`ajax/dir_recent.php?uid=${getState().user.uid}`)
+    api.get(`ajax/dir_recent.php?uid=${getState().user.uid}`)
         .then(res => {
             const newFolders = res.data.map(folder => {
                 if(folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
@@ -169,7 +169,7 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
 
 export const onAddRecentFiles = () => async (dispatch, getState) => {
 
-    api.post(`/ajax/history_files.php?uid=${getState().user.uid}`)
+    api.get(`/ajax/history_files.php?uid=${getState().user.uid}`)
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,

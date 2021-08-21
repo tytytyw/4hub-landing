@@ -5,6 +5,7 @@
         display: flex
         justify-content: space-between
         margin: 15px auto
+        width: 290px
         div
             display: flex
             justify-content: center
@@ -88,7 +89,6 @@
                 top: 3px
                 left: calc(50% - 3px)
         .descriptionWrap
-            display: flex
             .fileName
                 display: block
                 overflow: hidden
@@ -153,6 +153,8 @@
     #input_pass
         color: #979797
 .recipient
+    height: 38px
+    justify-content: space-between
     .recipient_title
         margin-right: 28px
     .recipient_mail
@@ -192,17 +194,59 @@
         outline: none
         color: inherit                
 .row_item
-    padding: 13px 18px
+    padding: 13px 20px
+    position: relative
+    .switcher
+        width: 29px
+        height: 15px
+        background: white
+        border: 1px solid #D1D1D1
+        border-radius: 10px
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        transition: background 0.1s ease-in-out
+        cursor: pointer
+        position: absolute
+        right: 20px
+        top: calc(48% - 7.5px)
+    .switcherActive
+        width: 29px
+        height: 15px
+        border: 1px solid #D1D1D1
+        border-radius: 10px
+        display: flex
+        background: white
+        align-items: center
+        justify-content: flex-start
+        transition: background 0.1s ease-in-out
+        cursor: pointer
+        position: absolute
+        right: 20px
+        top: calc(48% - 7.5px)
+    .switch
+        width: 13px
+        height: 13px
+        background: #D1D1D1
+        border-radius: 50%
+        transform: translateX(9%)
+        transition: transform 0.1s ease-in-out
+    .switchActive
+        width: 13px
+        height: 13px
+        background: #39B31E
+        border-radius: 50%
+        transform: translateX(115%)
+        transition: transform 0.1s ease-in-out
     .input_wrap
-        width: 70%
+        width: 75%
         .input_title
             color: #606060
-        input
+        .input_descrp
             width: 100%
             font-size: 9px
-            cursor: pointer
+            cursor: default
             color: #979797
-            padding: 0 2px
             text-align: left
     .ico_wrap
         width: 20px

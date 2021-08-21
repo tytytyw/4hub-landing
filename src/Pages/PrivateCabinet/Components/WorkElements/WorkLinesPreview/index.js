@@ -1,15 +1,23 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
 
-const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
+const WorkLinesPreview = ({
+      file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
+}) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet?.search);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const [loadingFiles, setLoadingFiles] = useState(false);
+    const dispatch = useDispatch();
+
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
     useEffect(() => {
@@ -49,6 +57,29 @@ const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
         }
     }
 
+    // Loading files to full the page
+    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+
+    const onSuccessLoading = (result) => {
+        setLoadingFiles(false);
+        result > 0 ? setPage(page => page + 1) : setPage(0);
+    }
+
+    const loadFiles = (e, access) => {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
+            if(chosenFolder?.files_amount > fileList?.files.length) {
+                setLoadingFiles(true);
+                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
+            }
+        }
+    }
+
+    const onCheckFilesPerPage = () => {
+        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+            loadFiles('', true);
+        }
+    }
+
     return (
         <div
             className={styles.workLinesPreviewWrap}
@@ -72,7 +103,33 @@ const WorkLinesPreview = ({file, children, hideFileList, filePick}) => {
                         : '205px',
             }}
         >
-        {!hideFileList && <div className={styles.fileListWrap}>{children}</div>}
+        {!hideFileList && <div
+            className={styles.fileListWrap}
+            ref={fileRef}
+            onScroll={loadFiles}
+        >
+            {!gLoader && children}
+            <div
+                className={styles.bottomLine}
+                style={{height: loadingFiles ? '100px' : '40px'}}
+            >
+                {loadingFiles && !gLoader ? <Loader
+                    type='switch'
+                    position='absolute'
+                    background='white'
+                    zIndex={5}
+                    width='100px'
+                    height='100px'
+
+                /> : null}
+            </div>
+        </div>}
+        {gLoader && <Loader
+            type='squarify'
+            position='absolute'
+            background='rgba(255, 255, 255, 0.75)'
+            zIndex={5}
+        />}
         <div className={styles.previewFileWrap}>
             {f ? <>
                 <div className={styles.preview}>
