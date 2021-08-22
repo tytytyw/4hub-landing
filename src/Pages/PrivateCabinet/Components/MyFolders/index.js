@@ -149,7 +149,7 @@ const MyFolders = ({
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
             }})
-            .catch(err => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
+            .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
     };
 
     return (
@@ -171,6 +171,7 @@ const MyFolders = ({
                         chosenFolder={chosenFolder}
                         setChosenFolder={setChosenFolder}
                         setMouseParams={setMouseParams}
+                        setGLoader={setGLoader}
                     />}
                 </div>
             </List>
