@@ -17,7 +17,7 @@ const SearchField = ({setChosenFile}) => {
 	const search = (query) => dispatch(onChooseFiles(path, query));
 	const debounceCallback = useDebounce(search, 500);
 	const handleChange = (e) => {
-		setChosenFile(null);
+		if(setChosenFile) setChosenFile(null);
 		dispatch(onSearch(e.target.value));
 		debounceCallback(e.target.value);
 	};

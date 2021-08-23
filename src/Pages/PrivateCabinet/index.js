@@ -24,6 +24,7 @@ import Journal from './Components/Journal';
 import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
+import Chat from "./Components/Chat";
 
 const PrivateCabinet = () => {
 
@@ -234,6 +235,11 @@ const PrivateCabinet = () => {
                     <Route
                         path='/calendar'
                         render={() => <CalendarPage />}
+                    />
+
+                    <Route
+                        path='/chat'
+                        render={() => <Chat />}
                     />
 
                     <Route
