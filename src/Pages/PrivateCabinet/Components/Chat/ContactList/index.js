@@ -1,0 +1,55 @@
+import React, {useEffect} from "react";
+
+import styles from "./ContactList.module.sass";
+import {useDispatch, useSelector} from "react-redux";
+import {onGetContacts} from "../../../../../Store/actions/PrivateCabinetActions";
+
+const ContactList = () => {
+
+    const contactList = useSelector(state => state.PrivateCabinet.contactList);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(!contactList) dispatch(onGetContacts());
+    }, [])
+
+    const renderContactList = () => (
+        contactList.map(contact => (
+            <div className={styles.item}>
+                <div className={styles.groupName}>
+                    <img src={contact.icon[0]} alt="img" className={styles.avatar} />
+                    <div className={styles.info}>
+                        <div className={styles.name}>{`${contact.sname} ${contact.name}`}</div>
+                        <div className={styles.status}>в сети 29 мин. назад</div>
+                    </div>
+                </div>
+                <div className={styles.functionWrap}>
+                    <div
+                        className={styles.menuWrap}
+                        // onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}
+                    ><span className={styles.menu}/></div>
+                </div>
+            </div>
+        ))
+    )
+
+    return (
+        <div className={styles.listWrap}>
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+            {contactList ? renderContactList() : null}
+        </div>
+    )
+}
+
+export default ContactList;

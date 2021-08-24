@@ -5,6 +5,7 @@ import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile";
+import WorkSpace from "./WorkSpace";
 
 const Chat = () => {
 
@@ -18,7 +19,7 @@ const Chat = () => {
                     <Profile />
                 </div>
             </div>
-
+            <WorkSpace />
         </div>
     )
 }
