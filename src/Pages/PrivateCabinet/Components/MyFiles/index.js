@@ -21,7 +21,7 @@ const MyFiles = ({
 	const uid = useSelector(state => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
-	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
+	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
 	const workElementsView = useSelector(state => state.PrivateCabinet.view);
 
 	const [page, setPage] = useState(1);
@@ -99,8 +99,8 @@ const MyFiles = ({
 
 	const [safePassword, setSafePassword] = useState({open: false})
 	const renderFileBar = () => {
-		if (!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
+		if (!fileListAll?.files) return null;
+		return fileListAll.files.map((file, i) => {
 			return (
 				<FileItem
 					chosenFile={chosenFile}
@@ -129,7 +129,7 @@ const MyFiles = ({
 
 	const deleteFile = () => {
         if(filePick.show) {
-            const gdir = fileList.path;
+            const gdir = fileListAll.path;
             filePick.files.forEach((fid, i, arr) => fileDelete({gdir, fid}, dispatch, uid, i === arr.length - 1 ? setShowSuccessMessage : '', 'Файлы перемещено в корзину'));
             setFilePick({...filePick, files: [], show: false});
         } else{
@@ -210,7 +210,6 @@ const MyFiles = ({
 			);
 		});
 	}
-
 	useEffect(() => {dispatch(onChooseAllFiles('', 1, '', setGLoader));}, []); //eslint-disable-line
 
 	const cancelArchive = () => {

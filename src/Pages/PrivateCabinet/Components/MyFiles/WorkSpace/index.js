@@ -64,24 +64,24 @@ const WorkSpace = ({
 	gLoader,
 	setGLoader
 }) => {
-	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
+	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
 	const fileRef = useRef(null);
 
 	useEffect(() => {
-        if(fileList?.files.length <= 10) {
+        if(fileListAll?.files.length <= 10) {
             setPage(2);
             if(fileRef.current) {
                 fileRef.current.scrollTop = 0;
             }
         }
-    }, [fileList?.files, fileList?.path]); //eslint-disable-line
+    }, [fileListAll?.files, fileListAll?.path]); //eslint-disable-line
 
 	// Types of Files view
 	const renderFiles = (Type) => {
 		
-        if(!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
+        if(!fileListAll?.files) return null;
+		return fileListAll.files.map((file, i) => {
 			return (
 				<Type
 					key={i}
