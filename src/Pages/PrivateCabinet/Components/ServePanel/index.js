@@ -11,6 +11,11 @@ import {
     onChangeFilterColor,
     onSetReverseCriterion
 } from '../../../../Store/actions/PrivateCabinetActions';
+import {onSetWorkElementsView} from '../../../../Store/actions/PrivateCabinetActions';
+import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
+import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
+import { ReactComponent as PreviewIcon } from '../../../../assets/PrivateCabinet/preview.svg';
+import { ReactComponent as VerticalLinesIcon } from '../../../../assets/PrivateCabinet/vertical-lines.svg';
 import { ReactComponent as MenuIcon } from '../../../../assets/PrivateCabinet/menu.svg';
 import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/safe.svg';
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
@@ -25,7 +30,7 @@ import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
-        setFileAddCustomization, fileAddCustomization,
+        setFileAddCustomization, fileAddCustomization, disableWorkElementsView
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
@@ -33,6 +38,7 @@ const ServePanel = ({
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.PrivateCabinet.size);
+    const view = useSelector(state => state.PrivateCabinet.view);
     const search = useSelector(state => state.PrivateCabinet.search);
     const fileCriterion = useSelector(state => state.PrivateCabinet.fileCriterion);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -110,6 +116,12 @@ const ServePanel = ({
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
+            {!disableWorkElementsView && <div className={styles.viewPanel}>
+                    <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
+                    <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
+            </div>}
                 <div className={styles.filterPanel}>
                     <div
                         onClick={() => dispatch(onSetFileSize(changeSize(size)))}

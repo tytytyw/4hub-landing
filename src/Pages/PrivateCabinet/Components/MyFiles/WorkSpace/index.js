@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from 'react';
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -62,6 +62,17 @@ const WorkSpace = ({
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
+	const [page, setPage] = useState(1);
+	const fileRef = useRef(null);
+
+	useEffect(() => {
+        if(fileList?.files.length <= 10) {
+            setPage(2);
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
+        }
+    }, [fileList?.files, fileList?.path]); //eslint-disable-line
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -130,6 +141,7 @@ const WorkSpace = ({
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
+						page={page}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
 						filePick={filePick}
@@ -139,6 +151,7 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "lines" ? (
 					<WorkLines
+						page={page}
 						fileLoading={fileLoading}
 						filePick={filePick}
 					>
@@ -147,6 +160,7 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "preview" ? (
 					<WorkBarsPreview
+						page={page}
 						file={chosenFile}
 						filePick={filePick}
 					>
@@ -155,6 +169,7 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "workLinesPreview" ? (
 					<WorkLinesPreview
+						page={page}
 						file={chosenFile}
 						hideFileList={true}
 						filePick={filePick}
