@@ -11,7 +11,7 @@ const ContactList = () => {
 
     useEffect(() => {
         if(!contactList) dispatch(onGetContacts());
-    }, [])
+    }, []) //eslint-disable-line
 
     const renderContactList = () => (
         contactList.map(contact => (
@@ -35,18 +35,6 @@ const ContactList = () => {
 
     return (
         <div className={styles.listWrap}>
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
-            {contactList ? renderContactList() : null}
             {contactList ? renderContactList() : null}
         </div>
     )

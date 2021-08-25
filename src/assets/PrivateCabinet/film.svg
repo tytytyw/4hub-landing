@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="14px" viewBox="0 0 24 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>film</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="21-чат" transform="translate(-1104.000000, -117.000000)" fill="#4086F1" fill-rule="nonzero">
+            <g id="film" transform="translate(1104.000000, 117.000000)">
+                <path d="M15.4947917,0 L1.66666667,0 C0.746527778,0.00105983256 0.00108506667,0.729166667 0,1.62790698 L0,12.3407219 C0.00108506667,13.2394622 0.746527778,13.9675691 1.66666667,13.9686289 L15.4947917,13.9686289 C16.4147136,13.9675691 17.1603733,13.2394622 17.1614583,12.3407219 L17.1614583,1.62790698 C17.1603733,0.729166667 16.4147136,0.00105983256 15.4947917,0 Z" id="Path"></path>
+                <polygon id="Path" points="18.2725694 9.21399587 24 12.2682292 24 1.73537429 18.2725694 4.78960756"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

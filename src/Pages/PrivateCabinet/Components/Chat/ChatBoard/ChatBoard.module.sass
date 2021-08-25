@@ -1,0 +1,107 @@
+.chatBoardWrap
+  display: flex
+  flex-direction: column
+  width: calc(100% - 300px - 300px)
+  height: 100%
+  //border: 1px solid red
+  .chatBoardHeader
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    height: 68px
+    background: rgb(245, 249, 254)
+    box-sizing: border-box
+    padding: 0 10px
+    .groupName
+      display: flex
+      .avatar
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        margin: 0 10px 0 0
+      .info
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: flex-start
+        font-family: "SF Pro Regular", sans-serif
+        .name
+          font-size: 13px
+          color: rgb(73, 73, 73)
+        .status
+          font-size: 8px
+          color: rgb(133, 133, 133)
+    .headerOptions
+      display: flex
+      align-items: center
+      svg
+        margin: 0 15px 0 0
+  .chatBoardMessageList
+    display: flex
+    width: 100%
+    height: calc(100% - 68px - 78px)
+  .chatBoardFooter
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
+    width: 100%
+    height: 78px
+    border-top: 1px solid rgb(174, 174, 174)
+    box-sizing: border-box
+    padding: 0 10px
+    .downloadOptions
+      display: flex
+      align-items: center
+      position: relative
+      height: 80%
+      &:after
+        content: ""
+        position: absolute
+        width: 1px
+        height: 60%
+        top: 20%
+        right: 0
+        background: rgb(174, 174, 174)
+      svg
+        width: 25px
+        min-height: 20px
+        margin: 0 15px 0 0
+        cursor: pointer
+    .textMessage
+      display: flex
+      height: 80%
+      align-items: center
+      width: 60%
+      .messageImg
+        margin: 0 5px 0 0
+        width: 22px
+      .textInput
+        width: 87%
+        height: 25px
+        font-size: 15px
+        font-family: "SF Pro Regular", sans-serif
+        border: none
+    .sendOptions
+      display: flex
+      height: 80%
+      align-items: center
+      .button
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 34px
+        height: 34px
+        border-radius: 50%
+        background: rgb(63, 134, 241)
+        margin: 0 10px 0 0
+        cursor: pointer
+      .triangle
+        position: relative
+        margin: 0 5px 0 0
+        &:after
+          content: ""
+          position: absolute
+          left: 13px
+          border: 8px solid transparent
+          border-left: 10px solid white

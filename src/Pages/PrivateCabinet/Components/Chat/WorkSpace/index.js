@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import styles from "./WorkSpace.module.sass";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/play-grey.svg";
@@ -7,6 +7,7 @@ import {ReactComponent as ContactsIcon} from "../../../../../assets/PrivateCabin
 import {ReactComponent as SettingsIcon} from "../../../../../assets/PrivateCabinet/gear-6.svg";
 import ContactList from "../ContactList";
 import BottomPanel from "../../BottomPanel";
+import ChatBoard from "../ChatBoard";
 
 const WorkSpace = () => {
 
@@ -40,10 +41,12 @@ const WorkSpace = () => {
                     <input placeholder='Введите имя пользователя' type='text'/>
                     <img src='./assets/PrivateCabinet/magnifying-glass-2.svg' alt='search' className={styles.searchGlass} />
                 </div>
+                <div className={styles.list}>
+                    <ContactList />
+                </div>
             </div>
-            <div className={styles.list}>
-                <ContactList />
-            </div>
+            <ChatBoard />
+            {/*<EmojiArea/>*/}
             <BottomPanel />
         </div>
     )
