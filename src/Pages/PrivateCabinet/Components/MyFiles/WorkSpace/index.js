@@ -141,6 +141,7 @@ const WorkSpace = ({
 					filePick={filePick}
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
+					addFile={fileSelect}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars

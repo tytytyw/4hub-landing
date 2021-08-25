@@ -248,7 +248,7 @@ const WorkSpace = ({
                 archive={() => onActiveCallbackArrMain('archive')}
                 share={() => onActiveCallbackArrMain('share')}
                 addFolder={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
-                addFile={() => console.log('add addFile')}
+                addFile={fileSelect}
                 chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
                 filePick={filePick}
                 fileAddCustomization={fileAddCustomization}
