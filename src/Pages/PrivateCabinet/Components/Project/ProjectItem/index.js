@@ -62,7 +62,11 @@ const ProjectItem = ({
                     >
 
                         <div className={styles.leftTitleWrap}>
-                            <img src={`./assets/PrivateCabinet/project/${project.icon}.svg`} className={styles.projectIcon}/>
+                            <img
+                                src={`./assets/PrivateCabinet/project/${project.icon}.svg`}
+                                alt='icon'
+                                className={styles.projectIcon}
+                            />
                             <div className={styles.nameWrap}>
                                 <p className={styles.title}>{project.name}</p>
                                 <div
