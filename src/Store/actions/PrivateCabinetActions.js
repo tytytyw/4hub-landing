@@ -109,13 +109,33 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
-export const onChooseAllFiles = () => async (dispatch, getState) => {
-    const files = await api.post(`/ajax/file_list_all.php?uid=${getState().user.uid}&page=${1}&items_per_page=${20}`);
+export const onChooseAllFiles = (search, page, set, setLoad) => async (dispatch, getState) => {
+    const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
+    const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
+    const color = getState().PrivateCabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().PrivateCabinet.fileCriterion.filters.color.color}` : '';
+    const searched = search ? `&search=${search}` : '';
+    const sortReverse = getState().PrivateCabinet.fileCriterion.reverse && getState().PrivateCabinet.fileCriterion?.reverse[getState().PrivateCabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = {cancelChooseFiles}
 
-    dispatch({
-        type: CHOOSE_ALL_FILES,
-        payload: {files: files.data, path: 'global/all'}
+    const url = `/ajax/file_list_all.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${10}&sort=${getState().PrivateCabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+    await api.get(url,{
+        cancelToken: cancelChooseFiles.token
+    }).then(files => {
+        page > 1
+            ? dispatch({
+                type: LOAD_FILES,
+                payload: {files: files.data, path: 'global/all'}
+            })
+            : dispatch({
+                type: CHOOSE_ALL_FILES,
+                payload: {files: files.data, path: 'global/all'}
+            })
+        if(set) set(files.data.length);
+        if(setLoad) setLoad(false);
     })
+        .catch(e => console.log(e))
+        .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
 export const onDeleteFile = (file) => {

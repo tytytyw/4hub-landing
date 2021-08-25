@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -58,11 +58,14 @@ const WorkSpace = ({
 	setFileAddCustomization,
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
-	setLoadingType
+	setLoadingType,
+	page,
+	setPage,
+	gLoader,
+	setGLoader
 }) => {
 	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
-	const [page, setPage] = useState(1);
 	const fileRef = useRef(null);
 
 	useEffect(() => {
@@ -142,6 +145,9 @@ const WorkSpace = ({
 				{workElementsView === "bars" ? (
 					<WorkBars
 						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
 						filePick={filePick}
@@ -152,6 +158,9 @@ const WorkSpace = ({
 				{workElementsView === "lines" ? (
 					<WorkLines
 						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						fileLoading={fileLoading}
 						filePick={filePick}
 					>
@@ -161,6 +170,9 @@ const WorkSpace = ({
 				{workElementsView === "preview" ? (
 					<WorkBarsPreview
 						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						file={chosenFile}
 						filePick={filePick}
 					>
@@ -170,6 +182,9 @@ const WorkSpace = ({
 				{workElementsView === "workLinesPreview" ? (
 					<WorkLinesPreview
 						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						file={chosenFile}
 						hideFileList={true}
 						filePick={filePick}
