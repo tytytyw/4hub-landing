@@ -534,10 +534,12 @@ export const onGetProjects = () => async (dispatch, getState) => {
     dispatch({
         type: GET_PROJECTS,
         payload: [
-            {id: 1, name: 'Проект 1', tasks: 3, icon: '', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
-            {id: 2, name: 'Проект 2', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: true},
-            {id: 3, name: 'Проект 3', tasks: 1, icon: '', tag: '', emo: '', fig: '', blocked: false},
-            {id: 4, name: 'Проект 4', tasks: 0, icon: '', tag: '', emo: '', fig: '', blocked: false}
+            {id: 1, name: 'Название Проекта', tasks: 3, icon: 'coworking', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
+            {id: 2, name: 'Дизайн проект', tasks: 0, icon: 'rocket', tag: '', emo: '', fig: '', blocked: true},
+            {id: 3, name: 'Имя проекта', tasks: 1, icon: 'thunder', tag: '', emo: '', fig: '', blocked: false},
+            {id: 4, name: 'Проект 4', tasks: 0, icon: 'pen', tag: '', emo: '', fig: '', blocked: false},
+            {id: 5, name: 'Проект 5', tasks: 1, icon: 'suitcase', tag: '', emo: '', fig: '', blocked: false},
+            {id: 6, name: 'Проект 6', tasks: 1, icon: 'lamp', tag: '', emo: '', fig: '', blocked: false}
         ]
     })
 }
