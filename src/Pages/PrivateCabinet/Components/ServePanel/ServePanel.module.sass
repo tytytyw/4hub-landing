@@ -258,9 +258,11 @@
 .iconView rect
   fill: #ababab
   transition: fill 0.2s ease-in-out
-.iconView path
+.iconView:not(.addIcon) path
   fill: #ababab
   transition: fill 0.2s ease-in-out
+.addIcon:hover path:nth-child(2)
+  fill: #4086F1
 .iconView:hover rect
   fill: white
   transition: fill 0.2s ease-in-out

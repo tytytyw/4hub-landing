@@ -196,6 +196,9 @@ const MyFolders = ({
                 setLoadingType={setLoadingType}
                 gLoader={gLoader}
                 setGLoader={setGLoader}
+                setNewFolder={setNewFolder}
+                setNewFolderInfo={setNewFolderInfo}
+                newFolderInfo={newFolderInfo}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
