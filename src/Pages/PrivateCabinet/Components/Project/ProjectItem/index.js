@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
 import styles from './ProjectItem.module.sass'
-import {ReactComponent as LampIcon} from '../../../../../assets/PrivateCabinet/project-icon.svg'
 import classNames from "classnames";
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg'
 import CustomFolderItem from '../CustomFolderItem'
@@ -63,7 +62,11 @@ const ProjectItem = ({
                     >
 
                         <div className={styles.leftTitleWrap}>
-                            <LampIcon className={styles.projectIcon}/>
+                            <img
+                                src={`./assets/PrivateCabinet/project/${project.icon}.svg`}
+                                alt='icon'
+                                className={styles.projectIcon}
+                            />
                             <div className={styles.nameWrap}>
                                 <p className={styles.title}>{project.name}</p>
                                 <div

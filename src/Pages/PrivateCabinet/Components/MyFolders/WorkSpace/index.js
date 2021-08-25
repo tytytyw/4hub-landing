@@ -36,7 +36,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType, gLoader, setGLoader
+       setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo
 }) => {
 
     const dispatch = useDispatch();
@@ -247,6 +247,8 @@ const WorkSpace = ({
                 fileSelect={fileSelect}
                 archive={() => onActiveCallbackArrMain('archive')}
                 share={() => onActiveCallbackArrMain('share')}
+                addFolder={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
+                addFile={fileSelect}
                 chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
                 filePick={filePick}
                 fileAddCustomization={fileAddCustomization}

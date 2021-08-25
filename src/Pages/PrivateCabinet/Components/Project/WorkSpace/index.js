@@ -20,7 +20,7 @@ const WorkSpace = ({setMouseParams}) => {
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
 
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    const [workElementsView, setWorkElementsView] = useState('')
 
     const [addMember, setAddMember] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
@@ -61,8 +61,7 @@ const WorkSpace = ({setMouseParams}) => {
             />}
 
             <ServePanel
-                setView={setWorkElementsView}
-                view={workElementsView}
+                disableWorkElementsView={true}
             />
 
             <MembersPanel

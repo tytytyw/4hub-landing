@@ -2,6 +2,8 @@ import React, {useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
+import classNames from "classnames";
+
 import {
     onChooseFiles,
     onSetFileSize,
@@ -21,6 +23,8 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
+import { ReactComponent as AddFileIcon } from '../../../../assets/PrivateCabinet/add_file.svg';
+import { ReactComponent as AddFolderIcon } from '../../../../assets/PrivateCabinet/add_folder.svg';
 import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -30,7 +34,7 @@ import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
-        setFileAddCustomization, fileAddCustomization,
+        setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
@@ -116,12 +120,12 @@ const ServePanel = ({
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
-                <div className={styles.viewPanel}>
+            {!disableWorkElementsView && <div className={styles.viewPanel}>
                     <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
                     <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
                     <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
                     <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
-                </div>
+            </div>}
                 <div className={styles.filterPanel}>
                     <div
                         onClick={() => dispatch(onSetFileSize(changeSize(size)))}
@@ -142,7 +146,27 @@ const ServePanel = ({
                         className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
                     >Выбрать</span>
+
+
+                    {addFile && <div
+                        onClick={() => addFile()}
+                        className={classNames(styles.iconView, styles.addIcon)}
+                    >
+                        <AddFileIcon className={styles.iconSVG} />
+                    </div>}
+
+                    {addFolder && <div
+                        onClick={() => addFolder(true)}
+                        className={classNames(styles.iconView, styles.addIcon)}
+                    >
+                        <AddFolderIcon className={styles.iconSVG} />
+                    </div>}
+
+
                 </div>
+
+            
+
             </div>
             <div className={styles.groupEnd}>
                 <div className={styles.buttons}>

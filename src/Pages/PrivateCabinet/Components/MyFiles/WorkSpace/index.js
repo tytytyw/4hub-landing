@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from 'react';
 import { useSelector } from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -58,16 +58,30 @@ const WorkSpace = ({
 	setFileAddCustomization,
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
-	setLoadingType
+	setLoadingType,
+	page,
+	setPage,
+	gLoader,
+	setGLoader
 }) => {
-	const fileList = useSelector((state) => state.PrivateCabinet.fileList);
+	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
+	const fileRef = useRef(null);
+
+	useEffect(() => {
+        if(fileListAll?.files.length <= 10) {
+            setPage(2);
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
+        }
+    }, [fileListAll?.files, fileListAll?.path]); //eslint-disable-line
 
 	// Types of Files view
 	const renderFiles = (Type) => {
 		
-        if(!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
+        if(!fileListAll?.files) return null;
+		return fileListAll.files.map((file, i) => {
 			return (
 				<Type
 					key={i}
@@ -127,9 +141,14 @@ const WorkSpace = ({
 					filePick={filePick}
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
+					addFile={fileSelect}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
+						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
 						filePick={filePick}
@@ -139,6 +158,10 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "lines" ? (
 					<WorkLines
+						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						fileLoading={fileLoading}
 						filePick={filePick}
 					>
@@ -147,6 +170,10 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "preview" ? (
 					<WorkBarsPreview
+						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						file={chosenFile}
 						filePick={filePick}
 					>
@@ -155,6 +182,10 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "workLinesPreview" ? (
 					<WorkLinesPreview
+						page={page}
+						setPage={setPage}
+						gLoader={gLoader}
+						fileRef={fileRef}
 						file={chosenFile}
 						hideFileList={true}
 						filePick={filePick}

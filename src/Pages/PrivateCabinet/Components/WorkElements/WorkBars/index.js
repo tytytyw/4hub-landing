@@ -67,7 +67,7 @@ const WorkBars = ({
             }}
             onScroll={loadFiles}
         >
-            {!hideUploadFile ? <div
+            {!hideUploadFile && (!children || children?.length === 0) && search.length === 0 ? <div
                 onClick={fileSelect}
                 className={`
                     ${styles.addFile}
