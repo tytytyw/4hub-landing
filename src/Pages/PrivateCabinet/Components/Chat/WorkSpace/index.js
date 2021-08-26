@@ -8,6 +8,7 @@ import {ReactComponent as SettingsIcon} from "../../../../../assets/PrivateCabin
 import ContactList from "../ContactList";
 import BottomPanel from "../../BottomPanel";
 import ChatBoard from "../ChatBoard";
+import EmojiArea from "../EmojiArea";
 
 const WorkSpace = () => {
 
@@ -46,7 +47,7 @@ const WorkSpace = () => {
                 </div>
             </div>
             <ChatBoard />
-            {/*<EmojiArea/>*/}
+            <EmojiArea />
             <BottomPanel />
         </div>
     )
