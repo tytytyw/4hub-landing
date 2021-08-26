@@ -28,10 +28,10 @@ const ChatBoard = () => {
                     </div>
                 </div> : null}
                 <div className={styles.headerOptions}>
-                    <AddContactIcon />
-                    <PhoneIcon />
-                    <CameraIcon />
-                    <InfoIcon />
+                    <AddContactIcon className={styles.icon} />
+                    <PhoneIcon className={styles.icon} />
+                    <CameraIcon className={styles.icon} />
+                    <InfoIcon className={styles.icon} />
                 </div>
             </header>
             <main className={styles.chatBoardMessageList}>
