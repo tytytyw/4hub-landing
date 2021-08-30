@@ -124,7 +124,11 @@ export default function startPage(state = INITIAL_STATE, action) {
                 if(file.fid !== action.payload.fid) return file;
                 return action.payload;
             });
-            return {...state, fileList: {...state.fileList, files}}
+            const filesAll = state.fileListAll.files.map(file => {
+                if(file.fid !== action.payload.fid) return file;
+                return action.payload;
+            });
+            return {...state, fileList: {...state.fileList, files}, fileListAll: {...state.fileListAll, files: filesAll}}
         }
         case SET_SIZE:
             return {...state, size: action.payload}

@@ -243,7 +243,7 @@ const WorkSpace = ({
             fileAddCustomization={fileAddCustomization}
             setFileAddCustomization={setFileAddCustomization}
             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-			setLoadingType={setLoadingType}
+            setLoadingType={setLoadingType}
         /> : null}
 			{action.type === "intoZip" ? (
 				<CreateZip
