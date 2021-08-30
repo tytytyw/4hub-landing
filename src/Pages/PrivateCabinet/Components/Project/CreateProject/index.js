@@ -11,6 +11,7 @@ import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
+import ProjectIcons from '../ProjectIcons/ProjectIcons'
 
 const CreateProject = ({onCreate, title, info}) => {
 
@@ -26,6 +27,7 @@ const CreateProject = ({onCreate, title, info}) => {
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
+    const [icon, setIcon] = useState('');
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
@@ -162,6 +164,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     </div>}
 
                 </div>
+                <ProjectIcons color={color} icon={icon} setIcon={setIcon} />
                 <Colors color={color} setColor={setColor} />
                 <Signs sign={sign} setSign={setSign} />
                 <Emoji emoji={emoji} setEmoji={setEmoji} />

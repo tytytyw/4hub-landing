@@ -170,3 +170,8 @@ export const contextProgram = {
 
 export const previewTypes = ['application/msword', 'application/excel'];
 export const previewFormats = ['doc', 'xls', 'ppt', 'rtf', 'xlt', 'csv'];
+
+
+
+//Project
+export const projectIcons = ['lamp', 'coworking','rocket', 'suitcase', 'clipboard', 'thunder', 'pen'];
