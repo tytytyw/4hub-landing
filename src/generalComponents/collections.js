@@ -85,13 +85,15 @@ export const contextMenuProjects = {
         {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
         {name: 'Скопировать ссылку', img: 'copy-link', type: 'copyLink'},
         {name: 'Переименовать', img: 'rename'},
-        {name: 'Архивировать', img: 'archive'},
+        {name: 'Архивировать', img: 'archive', type: 'archive'},
         {name: 'Все участники', img: 'all-users'},
         {name: 'Свойства', img: 'property', margin: true},
-        {name: 'Покинуть проект', img: 'leave'},
-        {name: 'Удалить проект', img: 'delete'},
+
     ],
-    additional: []
+    additional: [
+        {name: 'Покинуть проект', img: 'leave', type: 'leave'},
+        {name: 'Удалить проект', img: 'delete', type: 'delete'},
+    ]
 };
 
 export const contextMenuFolderGeneral = {
