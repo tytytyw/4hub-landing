@@ -62,7 +62,6 @@ const WorkSpace = ({
 	page,
 	setPage,
 	gLoader,
-	setGLoader
 }) => {
 	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);

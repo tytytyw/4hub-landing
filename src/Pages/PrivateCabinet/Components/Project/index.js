@@ -82,6 +82,7 @@ const Project = () => {
                 contextMenu={contextMenu}
                 setContextMenu={setContextMenu}
                 setSelectedProject={setSelectedProject}
+                chosen={selectedProject?.id === project.id}
             />
         ))
     }

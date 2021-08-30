@@ -17,7 +17,7 @@ import {ReactComponent as ThunderIcon} from '../../../../../assets/PrivateCabine
 
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
-        chosenFolder, setChosenFolder, setSelectedProject
+        chosenFolder, setChosenFolder, setSelectedProject, chosen
     }) => {
 
     const dispatch = useDispatch()
@@ -57,6 +57,7 @@ const ProjectItem = ({
             case 'rocket': return <RocketIcon className={project.color} alt='icon' />
             case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
             case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
+            default: return <ClipboardIcon className={project.color} alt='icon'/>
         }
     }
 
@@ -65,6 +66,7 @@ const ProjectItem = ({
 
             <div className={classNames({
                 [styles.wrapper]: true,
+                [styles.wrapperChosen]: !!chosen,
                 [styles?.[`wrapper_${size}`]]: !!size,
             })}>
 

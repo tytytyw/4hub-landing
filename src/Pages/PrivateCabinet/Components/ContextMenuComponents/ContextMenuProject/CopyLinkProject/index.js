@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react"
 
-import api from "../../../../../../api";
+// import api from "../../../../../../api";
 import styles from "./CopyLink.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useDispatch, useSelector} from "react-redux";
@@ -13,11 +13,10 @@ import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabi
 import {colors} from "../../../../../../generalComponents/collections";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
-function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage, setLoadingType }) {
+function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage }) {
 
-    const uid = useSelector(state => state.user.uid);
+    // const uid = useSelector(state => state.user.uid);
     const contactList = useSelector(state => state.PrivateCabinet.contactList);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [url, setUrl] = useState("Загрузка...");
     const [review, setReview] = useState({text: "Просмотр"});
     const [access, setAccess] = useState({text: "limited"});

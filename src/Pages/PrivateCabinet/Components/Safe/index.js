@@ -40,7 +40,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
 	//TODO: fileList get current fileList from api
-	const [FileList, SetFileList] =  useState(false);
+	// const [FileList, SetFileList] =  useState(false);
 	//TODO: fileList get current fileList from api
 	const [showFileList, setShowFileList] = useState(false);
 	//TODO: fileList get current fileList from api
@@ -76,7 +76,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					key={i + safe.name}
 					safe={safe}
 					listSize={size}
-					chosen={setSelectedSafe?.id === safe.id}
+					chosen={selectedSafe?.id === safe.id}
 					setMouseParams={setMouseParams}
                     setSelectedSafe={setSelectedSafe}
 					onClick={() => {

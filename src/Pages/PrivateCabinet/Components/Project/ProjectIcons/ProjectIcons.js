@@ -25,6 +25,7 @@ const ProjectIcons = ({color, icon, setIcon, title = 'Выберите икон�
                 case 'rocket': return <RocketIcon className={color.name} alt='icon' />
                 case 'suitcase': return <SuitcaseIcon className={color.name} alt='icon' />
                 case 'thunder': return <ThunderIcon className={color.name} alt='icon' />
+                default: return <ClipboardIcon className={color.name} alt='icon'/>
             }
         }
         return projectIcons.map((el, i) => {
