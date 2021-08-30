@@ -12,6 +12,7 @@ export const GET_FOLDERS = 'GET_FOLDERS';
 export const CHOOSE_FOLDER = 'CHOOSE_FOLDER';
 export const CHOOSE_FILES = 'CHOOSE_FILES';
 export const LOAD_FILES = 'LOAD_FILES';
+export const LOAD_FILES_ALL = 'LOAD_FILES_ALL';
 export const CHOOSE_ALL_FILES = 'CHOOSE_ALL_FILES';
 export const FILE_DELETE = 'FILE_DELETE';
 export const ADD_RECENT_FILES = 'ADD_RECENT_FILES';

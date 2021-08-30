@@ -32,6 +32,7 @@ import {
     SET_CALENDAR_EVENTS,
     SORT_FILES,
     LOAD_FILES,
+    LOAD_FILES_ALL,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
@@ -96,7 +97,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
             page > 1
                 ? dispatch({
                     type: LOAD_FILES,
-                    payload: {files: files.data, path}
+                    payload: {files: files.data, }
                 })
                 : dispatch({
                     type: CHOOSE_FILES,
@@ -109,7 +110,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
-export const onChooseAllFiles = (search, page, set, setLoad) => async (dispatch, getState) => {
+export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
     const color = getState().PrivateCabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().PrivateCabinet.fileCriterion.filters.color.color}` : '';
@@ -124,7 +125,7 @@ export const onChooseAllFiles = (search, page, set, setLoad) => async (dispatch,
     }).then(files => {
         page > 1
             ? dispatch({
-                type: LOAD_FILES,
+                type: LOAD_FILES_ALL,
                 payload: {files: files.data, path: 'global/all'}
             })
             : dispatch({

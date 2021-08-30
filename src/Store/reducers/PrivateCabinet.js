@@ -3,6 +3,7 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     LOAD_FILES,
+    LOAD_FILES_ALL,
     CHOOSE_ALL_FILES,
     FILE_DELETE,
     CONTACT_LIST,
@@ -101,6 +102,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case LOAD_FILES: {
             return {...state, fileList: {...state.fileList, files: [...state.fileList.files, ...action.payload.files]}};
+        }
+        case LOAD_FILES_ALL: {
+            return {...state, fileListAll: {...state.fileListAll, files: [...state.fileListAll.files, ...action.payload.files]}};
         }
         case CHOOSE_ALL_FILES: {
             // TODO - Need to delete after serverside filtration is added
