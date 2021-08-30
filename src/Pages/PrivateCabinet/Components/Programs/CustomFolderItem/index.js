@@ -5,7 +5,7 @@ import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {onGetPrograms} from '../../../../../Store/actions/PrivateCabinetActions'
 
-const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMouseParams}) => {
+const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
 
     const dispatch = useDispatch();
 
@@ -18,11 +18,14 @@ const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMo
         <div
             className={classNames({
                 [styles.innerFolderWrap]: true,
-                [styles.active]: chosenFolder === folder?.id
+                [styles.active]: chosenFolder === folder?.id,
             })}
             onClick={onClickHandler}
         >
-            <div className={styles.innerFolder} style={{padding}}>
+            <div className={classNames({
+                [styles.innerFolder]: true,
+                [styles?.[`innerFolder_${listSize}`]]: !!listSize
+            })} >
 
                 <div className={styles.innerFolderName}>
                     <img
@@ -32,26 +35,29 @@ const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMo
                     />
                     <div className={styles.nameWrap}>
                         <div className={styles.Name}>
-                            <div className={styles.name}>{folder.nameRu}</div>
+                            {!listCollapsed && <div className={styles.name}>{folder.nameRu}</div>}
                         </div>
                     </div>
                 </div>
 
                 <div className={styles.innerFolderMedia}>
 
-                    {folder.emo &&
-                    <img
-                        className={styles.symbols}
-                        src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
-                        alt='emoji'
-                    />}
+                    {!listCollapsed &&
+                    <>
+                        {folder.emo &&
+                        <img
+                            className={styles.symbols}
+                            src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
+                            alt='emoji'
+                        />}
 
-                    {folder.symbol &&
-                    <img
-                        className={styles.symbols}
-                        src={folder?.symbol}
-                        alt='emoji'
-                    />}
+                        {folder.symbol &&
+                        <img
+                            className={styles.symbols}
+                            src={folder?.symbol}
+                            alt='emoji'
+                        />}
+                    </>}
 
                     <div
                         className={styles.menuWrap}

@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import shoppingIcon from '../../../../../assets/PrivateCabinet/shopping-cart.svg'
 import ShopItem from "../ShopItem";
 
-const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMouseParams, listSize}) => {
+const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMouseParams, listSize, listCollapsed}) => {
 
     const shops = [
         {id: 1, name: 'App Store', img: './assets/PrivateCabinet/shops/app-store.svg'},
@@ -27,6 +27,7 @@ const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMou
                 setChosenShop={setChosenShop}
                 setMouseParams={setMouseParams}
                 listSize={listSize}
+                listCollapsed={listCollapsed}
             />
         ))
 
@@ -45,7 +46,7 @@ const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMou
             >
                 <div className={styles.itemInfo}>
                     <img src={shoppingIcon} alt='Shop'/>
-                    <p>Магазин</p>
+                    {!listCollapsed && <p>Магазин</p>}
                 </div>
                 <PlayIcon
                     className={classNames({

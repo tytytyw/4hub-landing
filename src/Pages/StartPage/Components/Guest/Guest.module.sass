@@ -1,0 +1,173 @@
+.wrapper 
+  height: 100%
+  display: flex
+  flex-direction: column
+
+
+.header 
+  display: flex
+  height: 90px
+
+  .logoWrap 
+    width: 257px
+    height: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    background: linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)
+
+    .logo 
+      display: flex
+
+      p 
+        margin-left: 3px
+        color: #fff
+      
+    
+  
+
+  .navbar 
+    padding: 0 36px 0 30px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-grow: 1
+    border-bottom: 1px solid #DFDFDF
+
+    .authActionBlock 
+      display: flex
+      align-items: center
+    
+  
+
+
+
+.main 
+  height: calc(100% - 90px)
+  overflow-y: auto
+  flex-grow: 1
+
+  &::-webkit-scrollbar-track 
+    background: #0A3AAB
+  
+  &::-webkit-scrollbar-track 
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  
+  &::-webkit-scrollbar 
+    width: 12px
+    background-color: #FFFFFF
+  
+  &::-webkit-scrollbar-thumb 
+    background-color: #4086F1
+  
+
+
+
+
+.authBtn 
+  width: 111px
+  height: 28px
+  font-size: 12px
+  font-family: 'SF Pro Regular', sans-serif
+  display: flex
+  align-items: center
+  justify-content: center
+  border: 1px solid #4086F1
+  border-radius: 3px
+
+  color: #606060
+  background: #ffffff
+
+  &.authBtnReg 
+    margin-left: 10px
+    color: #ffffff
+    background: #4086F1
+
+
+.collapseHeader
+  cursor: pointer
+  padding: 20px 20px 17px 20px
+  display: flex
+  align-items: center
+  border-bottom: 1px solid #CFCFCF
+
+  .dateName
+    font-size: 14px
+    line-height: 17px
+    color: #606060
+
+  .arrowFile
+    width: 30px
+    .playButton.revert
+      path
+        fill: #4086F1
+    .playButton
+      transform: rotate(-90deg)
+
+  .collapseBtn
+    margin: 0 12px
+    display: block
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
+    cursor: pointer
+    width: 121px
+    height: 32px
+    border: none
+    background: rgba(64, 134, 241, 0.1)
+    border-radius: 16px
+    padding: 0 10px
+    font-family: inherit
+    color: #666666
+    font-size: 12px
+    line-height: 16px
+    box-shadow: 0 2px 4px #dedede
+    transition: background-color 0.2s ease-in-out
+
+.topBlock
+  display: flex
+  align-items: center
+  padding: 6px 28px
+  border-bottom: 1px solid #CFCFCF
+  p
+    margin: 0 0 0 8px
+    font-size: 11px
+    line-height: 15px
+    color: #49494B
+
+@media((max-width: 1420px))
+  .collapseContent
+    grid-column-gap: 19px
+    column-gap: 19px
+
+.collapseContent
+  display: grid
+  width: 100%
+  justify-content: center
+  flex-wrap: nowrap
+  overflow-x: auto
+  padding: 18px 0 20px 0
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    height: 4px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
+.collapseContent
+  grid-template-columns: repeat(auto-fill, 180px)
+  grid-auto-rows: 160px
+
+.collapseContent_small
+  grid-template-columns: repeat(auto-fill, 130px)
+  grid-auto-rows: 100px
+
+.collapseContent_big
+  grid-template-columns: repeat(auto-fill, 205px)
+  grid-auto-rows: 200px

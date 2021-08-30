@@ -5,6 +5,7 @@ import './App.sass';
 import {onLog} from './Store/actions/startPageAction';
 import StartPage from './Pages/StartPage';
 import PrivateCabinet from './Pages/PrivateCabinet';
+import Guest from "./Pages/StartPage/Components/Guest";
 
 function App() {
 
@@ -22,8 +23,9 @@ function App() {
 
     return (
         <>
-            {!uid && <StartPage/>}
-            {uid && <PrivateCabinet/>}
+            {/*{!uid && <StartPage/>}*/}
+            {!uid && <Guest/>}
+            {/*{uid && <PrivateCabinet/>}*/}
         </>
     );
 }
