@@ -11,6 +11,7 @@ import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuProjects, contextMenuSubFolder} from '../../../../generalComponents/collections'
 import CreateProject from './CreateProject'
 import ProjectContextItem from "./ProjectContextItem";
+import CreateFolder from '../ContextMenuComponents/ContextMenuProject/CreateFolder';
 
 const Project = () => {
 
@@ -22,6 +23,7 @@ const Project = () => {
     const [contextMenu, setContextMenu] = useState(null)
     const [createProject, setCreateProject] = useState(false)
     const [addMember, setAddMember] = useState(false)
+    const [newFolder, setNewFolder] = useState(false);
 
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -33,7 +35,8 @@ const Project = () => {
     }, [])
 
     const callbackArrMain = [
-        {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)}
+        {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},
+        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         ];
 
     const renderMenuItems = (target) => {
@@ -126,6 +129,10 @@ const Project = () => {
             <CreateProject
                 title='Создание проекта'
                 onCreate={setCreateProject}
+            />}
+            {newFolder && <CreateFolder
+                onCreate={setNewFolder}
+                title='Новая папка'
             />}
 
         </div>

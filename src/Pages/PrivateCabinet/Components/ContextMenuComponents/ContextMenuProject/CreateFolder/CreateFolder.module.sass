@@ -1,0 +1,317 @@
+@keyframes showPopup1420
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 430px
+    height: 500px
+    opacity: 0
+
+@keyframes showPopup
+  0%
+    width: 10px
+    height: 10px
+    background: white
+    opacity: 0
+  99%
+    width: 530px
+    height: 720px
+    opacity: 0
+
+@keyframes showTags
+  0%
+    display: none
+    height: 0
+    opacity: 0
+    bottom: 0
+  100%
+    display: block
+    height: 140px
+    opacity: 1
+    bottom: -137px
+
+.createFolderWrap
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  position: relative
+  width: 530px
+  //height: 720px
+  animation: showPopup 0.2s ease-in-out
+  .cross
+    position: absolute
+    top: 20px
+    right: 15px
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  .redCross
+    position: relative
+    cursor: pointer
+  .redCross:hover:before,
+  .redCross:hover:after
+    content: ''
+    position: absolute
+    top: 3px
+    right: 0
+    width: 8px
+    height: 1px
+    background: red
+  .redCross:before
+    transform: rotate(45deg)
+  .redCross:after
+    transform: rotate(-45deg)
+  .title
+    font-size: 19px
+    font-family: "SF Pro Medium", sans-serif
+    margin: 40px 0 40px 0
+  .folderIconWrap
+    display: flex
+    width: 78%
+    margin: 0 0 28px 0
+    .folder
+      position: relative
+      img
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 20px
+    .folderIcon
+      width: 71px
+      height: 62px
+    .picPreview
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+      padding: 0 0 0 20px
+      width: 100%
+      .folderName
+        display: block
+        font-size: 20px
+        max-width: 280px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+      .folderOptions
+        display: flex
+        align-items: center
+      .minitagWrap
+        position: relative
+        min-width: 10%
+        max-width: 40%
+        cursor: pointer
+        overflow: hidden
+        white-space: nowrap
+      .minitag
+        display: block
+        background: rgb(52, 198, 162)
+        color: white
+        padding: 2px 10px
+        border-radius: 20px
+        font-family: "SF Pro Regular", sans-serif
+        font-size: 16px
+        min-width: 10%
+        max-width: 100%
+        height: max-content
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        cursor: pointer
+        margin: 0 10px 0 0
+      div
+        display: flex
+        img
+          width: 25px
+          margin: 0 10px 0 0
+      .colorWrap
+        min-width: 25px
+        min-height: 25px
+        position: relative
+        cursor: pointer
+        .circle
+          width: 25px
+          height: 25px
+          border-radius: 50%
+          margin: 0 10px 0 0
+      .lock
+        width: 17px
+  .inputFieldsWrap
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    width: 78%
+    .inputWrap
+      margin-bottom: 5px
+    .tagPicker
+      display: flex
+      align-items: center
+      width: 101%
+      height: 40px
+      position: relative
+      border: 1px solid #bab8b8
+      border-radius: 5px
+      cursor: default
+      color: #bab8b8
+      font-family: "SF Pro Light", sans-serif
+      font-size: 14px
+      padding: 0 15px
+      box-sizing: border-box
+      margin-bottom: 5px
+      .inputField
+        height: 90%
+        width: 80%
+        padding: 0 0 0 3px
+        outline: none
+        font-family: "SF Pro Light", sans-serif
+        font-size: 14px
+        color: #bab8b8
+        border: none
+      .inputField::placeholder
+        font-family: "SF Pro Light", sans-serif
+        font-size: 14px
+        color: #bab8b8
+      .tagList::-webkit-scrollbar
+        width: 0
+      .tagList
+        display: none
+        position: absolute
+        z-index: 2
+        left: -1px
+        bottom: -137px
+        width: 100%
+        height: 140px
+        background: white
+        overflow-x: hidden
+        overflow-y: scroll
+        border: 1px solid #bab8b8
+        border-top: none
+        border-bottom-left-radius: 5px
+        border-bottom-right-radius: 5px
+        cursor: pointer
+        div
+          display: flex
+          align-items: center
+          position: relative
+          background: white
+          width: 100%
+          height: 35px
+          box-sizing: border-box
+          padding: 0 15px
+          color: #bab8b8
+        div:before
+          content: ''
+          position: absolute
+          top: 0
+          height: 1px
+          width: 90%
+          background: grey
+        div:hover
+          background: linear-gradient(276deg, rgba(255,255,255,1) 0%, rgb(236, 236, 236) 50%, rgba(255,255,255,1) 100%)
+      .inputField:focus ~ .tagList,
+      .inputField:hover ~ .tagList,
+      .tagList:hover
+        display: block
+        z-index: 3
+        animation: showTags 0.2s ease-in-out
+  .buttonsWrap
+    display: flex
+    width: 290px
+    justify-content: space-between
+    margin-bottom: 20px
+    div
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 140px
+      height: 39px
+      border-radius: 5px
+      cursor: pointer
+      font-size: 14px
+    .cancel
+      background: #e3e3e3
+      border: 1px solid #e9e9e9
+      color: grey
+    .cancel:hover
+      background: #fc7a7a
+      color: white
+    .add
+      background: #477DE1
+      border: 1px solid #477DE1
+      color: white
+    .add:hover
+      background: #3b6dcb
+
+@media (max-width: 1420px)
+  .createFolderWrap
+    width: 430px
+    height: auto
+    //max-height: 500px
+    animation: showPopup1420 0.2s ease-in-out
+    .title
+      font-size: 15px
+      margin: 15px 0
+    .folderIconWrap
+      width: 78%
+      margin: 0 0 10px 0
+      .folderIcon
+        width: 51px
+        height: 45px
+      .picPreview
+        .folderName
+          font-size: 15px
+        .format
+          font-size: 11px
+          margin: 0 0 2px 0
+        .name
+          font-size: 12px
+          margin: 0 0 2px 0
+        .minitag
+          font-size: 11px
+        div
+          img
+            width: 15px
+        .colorWrap
+          min-width: 15px
+          min-height: 15px
+          .circle
+            width: 15px
+            height: 15px
+        .lock
+          width: 12px
+    .inputFieldsWrap
+      .tagPicker
+        height: 30px
+        font-size: 11px
+        .inputField
+          font-size: 12px
+        .tagList
+          height: 110px
+          bottom: -108px
+          div
+            display: flex
+            align-items: center
+            position: relative
+            background: white
+            width: 100%
+            height: 30px
+    .buttonsWrap
+      width: 250px
+      margin-bottom: 12px
+      div
+        width: 120px
+        height: 32px
+        font-size: 12px

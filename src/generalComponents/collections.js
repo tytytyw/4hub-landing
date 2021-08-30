@@ -82,7 +82,7 @@ export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
         {name: 'Настроить доступ', img: 'perm-set'},
-        {name: 'Создать папку', img: 'add-folder'},
+        {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
         {name: 'Скопировать ссылку', img: 'copy-link'},
         {name: 'Переименовать', img: 'rename'},
         {name: 'Архивировать', img: 'archive'},
