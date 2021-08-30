@@ -13,6 +13,7 @@ import CreateProject from './CreateProject'
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from '../ContextMenuComponents/ContextMenuProject/CreateFolder';
 import CopyLinkProject from '../ContextMenuComponents/ContextMenuProject/CopyLinkProject';
+import CustomizeProject from '../ContextMenuComponents/ContextMenuProject/CustomizeProject';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import {ReactComponent as ClipboardIcon} from '../../../../assets/PrivateCabinet/project/clipboard.svg'
@@ -22,6 +23,7 @@ import {ReactComponent as PenIcon} from '../../../../assets/PrivateCabinet/proje
 import {ReactComponent as RocketIcon} from '../../../../assets/PrivateCabinet/project/rocket.svg'
 import {ReactComponent as SuitcaseIcon} from '../../../../assets/PrivateCabinet/project/suitcase.svg'
 import {ReactComponent as ThunderIcon} from '../../../../assets/PrivateCabinet/project/thunder.svg'
+
 
 const Project = () => {
 
@@ -50,6 +52,7 @@ const Project = () => {
         {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'customize', name: 'Редактирование проекта', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать проект ${selectedProject?.name}?`, callback: (list, index) => setAction(list[index])},
     ];
 
@@ -214,6 +217,13 @@ const Project = () => {
                         {getIcon(selectedProject)}
 					</div>
 				</ActionApproval>
+			) : null}
+            {action.type === "customize" ? (
+				<CustomizeProject
+                    title='Редатирование проекта'
+                    onCreate={nullifyAction}
+                    project={selectedProject}
+            />
 			) : null}
 
         </div>
