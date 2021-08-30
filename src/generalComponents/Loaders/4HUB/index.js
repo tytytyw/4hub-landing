@@ -1,8 +1,8 @@
-import React from 'react';
+ import React from 'react';
 
 import styles from './FourHUB.module.sass';
 
-const Loader = ({type, position, background, width, height, zIndex}) => {
+const Loader = ({type, position, background, width, height, zIndex, containerType = ''}) => {
     return (
         <div
             className={styles.loaderWrap}
@@ -13,7 +13,7 @@ const Loader = ({type, position, background, width, height, zIndex}) => {
             }}
         >
             <div
-                className={styles.container}
+                className={styles[containerType + 'container']}
                 style={{
                     width: `${width ?? '500px'}`,
                     height: `${height ?? '500px'}`
