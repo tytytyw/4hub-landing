@@ -80,7 +80,7 @@ export const contextMenuCreateFile = {
 
 export const contextMenuProjects = {
     main: [
-        {name: 'Добавить участника', img: 'add-user'},
+        {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
         {name: 'Настроить доступ', img: 'perm-set'},
         {name: 'Создать папку', img: 'add-folder'},
         {name: 'Скопировать ссылку', img: 'copy-link'},

@@ -21,12 +21,20 @@ const Project = () => {
     const [mouseParams, setMouseParams] = useState(null)
     const [contextMenu, setContextMenu] = useState(null)
     const [createProject, setCreateProject] = useState(false)
+    const [addMember, setAddMember] = useState(false)
+
+    const [action, setAction] = useState({type: '', name: '', text: ''});
+    const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     useEffect(() => {
         dispatch(onGetProjects())
         dispatch(onGetContacts())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    const callbackArrMain = [
+        {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)}
+        ];
 
     const renderMenuItems = (target) => {
         return target.map((item, i) => {
@@ -40,13 +48,14 @@ const Project = () => {
         })
     }
 
-    const renderProjectMenuItems = (target) => {
+    const renderProjectMenuItems = (target, type) => {
         return target.map((item, i) => {
             return <ProjectContextItem
                 key={i}
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
+                callback={() => type.forEach((el, index) => {if(el.type === item.type) el.callback(type, index)})}
                 imageSrc={`./assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
             />
         })
@@ -89,7 +98,7 @@ const Project = () => {
                     </div>}
             </List>
 
-            <WorkSpace setMouseParams={setMouseParams}/>
+            <WorkSpace setMouseParams={setMouseParams} addMember={addMember} setAddMember={setAddMember} />
 
             {mouseParams?.type === 'menu' &&
             <ContextMenu
@@ -109,7 +118,7 @@ const Project = () => {
                 tooltip={true}
             >
                 <div className={styles.mainMenuItems}>
-                    {renderProjectMenuItems(contextMenuProjects.main)}
+                    {renderProjectMenuItems(contextMenuProjects.main, callbackArrMain)}
                 </div>
             </ContextMenu>}
 
