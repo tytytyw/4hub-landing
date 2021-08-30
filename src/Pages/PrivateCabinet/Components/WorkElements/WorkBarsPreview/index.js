@@ -120,21 +120,22 @@ const WorkBarsPreview = ({
                 style={{width: loadingFiles ? '100px' : '40px'}}
             >
                 {loadingFiles && !gLoader ? <Loader
-                    type='switch'
+                    type='bounceDots'
                     position='absolute'
                     background='white'
                     zIndex={5}
                     width='100px'
                     height='100px'
-
+                    containerType='bounceDots'
                 /> : null}
             </div>
         </div>
         {gLoader ? <Loader
-            type='squarify'
+            type='bounceDots'
             position='absolute'
             background='rgba(255, 255, 255, 0.75)'
             zIndex={5}
+            containerType='bounceDots'
         /> : null}
     </div>)
 }

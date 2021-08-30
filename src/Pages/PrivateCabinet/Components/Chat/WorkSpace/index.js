@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 
 import styles from "./WorkSpace.module.sass";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/play-grey.svg";
@@ -13,6 +13,16 @@ import EmojiArea from "../EmojiArea";
 const WorkSpace = () => {
 
     const [boardOption, setBoardOption] = useState('chats');
+    const [cursorPosition, setCursorPosition] = useState(0);
+    const inputRef = useRef();
+    const insertToInput = (value) => {
+        if(inputRef.current) {
+            inputRef.current.value = inputRef.current.value.slice(0, cursorPosition) + value + ' ' + inputRef.current.value.slice(cursorPosition);
+            inputRef.current.focus();
+            inputRef.current.selectionStart = cursorPosition + 3;
+            inputRef.current.selectionEnd = cursorPosition + 3;
+        }
+    }
 
     return(
         <div className={styles.chatWorkSpaceWrap}>
@@ -46,8 +56,8 @@ const WorkSpace = () => {
                     <ContactList />
                 </div>
             </div>
-            <ChatBoard />
-            <EmojiArea />
+            <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} />
+            <EmojiArea insertToInput={insertToInput} />
             <BottomPanel />
         </div>
     )
