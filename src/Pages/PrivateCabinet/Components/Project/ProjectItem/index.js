@@ -17,7 +17,7 @@ import {ReactComponent as ThunderIcon} from '../../../../../assets/PrivateCabine
 
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
-        chosenFolder, setChosenFolder
+        chosenFolder, setChosenFolder, setSelectedProject
     }) => {
 
     const dispatch = useDispatch()
@@ -61,7 +61,7 @@ const ProjectItem = ({
     }
 
     return (
-        <div className={styles.parentWrap}>
+        <div onClick={() => setSelectedProject(project)} className={styles.parentWrap}>
 
             <div className={classNames({
                 [styles.wrapper]: true,

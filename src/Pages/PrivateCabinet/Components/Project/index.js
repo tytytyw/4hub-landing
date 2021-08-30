@@ -12,6 +12,9 @@ import {contextMenuProjects, contextMenuSubFolder} from '../../../../generalComp
 import CreateProject from './CreateProject'
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from '../ContextMenuComponents/ContextMenuProject/CreateFolder';
+import CopyLinkProject from '../ContextMenuComponents/ContextMenuProject/CopyLinkProject';
+import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+
 
 const Project = () => {
 
@@ -27,6 +30,8 @@ const Project = () => {
 
     const [action, setAction] = useState({type: '', name: '', text: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const [selectedProject, setSelectedProject] = useState(null);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     useEffect(() => {
         dispatch(onGetProjects())
@@ -37,6 +42,7 @@ const Project = () => {
     const callbackArrMain = [
         {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
+        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         ];
 
     const renderMenuItems = (target) => {
@@ -75,6 +81,7 @@ const Project = () => {
                 setMouseParams={setMouseParams}
                 contextMenu={contextMenu}
                 setContextMenu={setContextMenu}
+                setSelectedProject={setSelectedProject}
             />
         ))
     }
@@ -125,6 +132,8 @@ const Project = () => {
                 </div>
             </ContextMenu>}
 
+            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+
             {createProject &&
             <CreateProject
                 title='Создание проекта'
@@ -134,6 +143,11 @@ const Project = () => {
                 onCreate={setNewFolder}
                 title='Новая папка'
             />}
+            {action.type === 'copyLink' ? <CopyLinkProject
+                nullifyAction={nullifyAction}
+                setShowSuccessMessage={setShowSuccessMessage}
+                // setLoadingType={setLoadingType}
+            /> : null}
 
         </div>
     )
