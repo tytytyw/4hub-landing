@@ -7,7 +7,7 @@ import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabin
 import classNames from "classnames";
 import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
 
-const MiniToolBar = ({drawParams, setDrawParams}) => {
+const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
@@ -134,7 +134,10 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
             </div>
 
             <div className={styles.item}>
-                <button className={styles.itemBtn}>
+                <button
+                    className={styles.itemBtn}
+                    onClick={unDoPaint}
+                >
                     <ForwardIcon/>
                 </button>
 

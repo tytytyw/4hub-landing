@@ -13,6 +13,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
+import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
 
@@ -21,24 +22,32 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
     const [toolBar, setToolBar] = useState(false)
     const canvasRef = useRef()
     const [mouse, setMouse] = useState({down: false})
-    const [drawParams, setDrawParams] = useState({color: 'black', width: 2})
+    const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0})
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null
     const uid = useSelector(state => state.user.uid)
+    const [undoList, setUndoList] = useState([]);
 
     useEffect(() => {
         if(chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image') {
             const canvas = canvasRef.current.getContext('2d');
+            canvas.clearRect(0, 0, 350, 400);
             const img = new Image();
             img.src = chosenFile.preview;
-            img.onload = () => canvas.drawImage(img, 0, 0, 350, 400);
+            img.onload = (e) => {
+                const sizes = imageToRatio(e.path[0].naturalWidth, e.path[0].naturalHeight, 350, 400);
+                canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
+                setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}))
+            }
         }
     }, [chosenFile])
 
-    const handleEditImage = () => setToolBar(!toolBar);
+    const handleEditImage = () => setToolBar(!toolBar)
 
     const mouseUpHandler = () => {
-        setMouse(mouse => ({...mouse, down: false}));
-        sendDraw();
+        if(toolBar) {
+            setMouse(mouse => ({...mouse, down: false}));
+            sendDraw();
+        }
     }
 
     const mouseDownHandler = e => {
@@ -46,6 +55,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             setMouse(mouse => ({...mouse, down: true}));
             ctx.beginPath();
             ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+            setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
         }
     }
 
@@ -63,7 +73,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
     }
 
     const sendDraw = () => {
-        api.post(`/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${drawParams.color}&width=${350}&height=${400}`)
+        api.post(`/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${drawParams.color}&width=${drawParams.imgWidth}&height=${drawParams.imgHeight}`)
             .then(res => console.log(res));
     }
 
@@ -72,8 +82,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             case 'image': {
                 return <canvas
                     ref={canvasRef}
-                    width='350'
-                    height='400'
                     className={styles.canvas}
                     onMouseDown={mouseDownHandler}
                     onMouseMove={mouseMoveHandler}
@@ -99,6 +107,22 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             // }
             default: {
                 return <div className={styles.filePreviewWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div>
+            }
+        }
+    }
+
+    const unDoPaint = () => {
+        ctx.clearRect(0, 0, ctx.width, ctx.height)
+        if(undoList.length > 0) {
+            const dataUrl = undoList[undoList.length - 1];
+            let img = new Image();
+            img.src = dataUrl;
+            img.onload = () => {
+                const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, 350, 400);
+                ctx.drawImage(img, 0, 0, sizes.width, sizes.height);
+                let newUndoList = undoList;
+                newUndoList.pop();
+                setUndoList(() => ([...newUndoList]));
             }
         }
     }
@@ -164,6 +188,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                     <MiniToolBar
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
+                        unDoPaint={unDoPaint}
                     />}
 
                     <div className={styles.previewImg}>
