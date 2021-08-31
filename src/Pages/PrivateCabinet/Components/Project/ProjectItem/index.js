@@ -7,10 +7,17 @@ import CustomFolderItem from '../CustomFolderItem'
 import {useDispatch, useSelector} from 'react-redux'
 import {onGetProjectFolders} from '../../../../../Store/actions/PrivateCabinetActions'
 import CustomItem from '../CustomItem'
+import {ReactComponent as ClipboardIcon} from '../../../../../assets/PrivateCabinet/project/clipboard.svg'
+import {ReactComponent as CoworkingIcon} from '../../../../../assets/PrivateCabinet/project/coworking.svg'
+import {ReactComponent as LampIcon} from '../../../../../assets/PrivateCabinet/project/lamp.svg'
+import {ReactComponent as PenIcon} from '../../../../../assets/PrivateCabinet/project/pen.svg'
+import {ReactComponent as RocketIcon} from '../../../../../assets/PrivateCabinet/project/rocket.svg'
+import {ReactComponent as SuitcaseIcon} from '../../../../../assets/PrivateCabinet/project/suitcase.svg'
+import {ReactComponent as ThunderIcon} from '../../../../../assets/PrivateCabinet/project/thunder.svg'
 
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
-        chosenFolder, setChosenFolder
+        chosenFolder, setChosenFolder, setSelectedProject, chosen
     }) => {
 
     const dispatch = useDispatch()
@@ -41,11 +48,25 @@ const ProjectItem = ({
         })
     }
 
+    const getIcon = (icon) => {
+        switch (icon) {
+            case 'clipboard': return <ClipboardIcon className={project.color} alt='icon'/>
+            case 'coworking': return <CoworkingIcon className={project.color} alt='icon' />
+            case 'lamp': return <LampIcon className={project.color} alt='icon' />
+            case 'pen': return <PenIcon className={project.color} alt='icon' />
+            case 'rocket': return <RocketIcon className={project.color} alt='icon' />
+            case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
+            case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
+            default: return <ClipboardIcon className={project.color} alt='icon'/>
+        }
+    }
+
     return (
-        <div className={styles.parentWrap}>
+        <div onClick={() => setSelectedProject(project)} className={styles.parentWrap}>
 
             <div className={classNames({
                 [styles.wrapper]: true,
+                [styles.wrapperChosen]: !!chosen,
                 [styles?.[`wrapper_${size}`]]: !!size,
             })}>
 
@@ -62,11 +83,7 @@ const ProjectItem = ({
                     >
 
                         <div className={styles.leftTitleWrap}>
-                            <img
-                                src={`./assets/PrivateCabinet/project/${project.icon}.svg`}
-                                alt='icon'
-                                className={styles.projectIcon}
-                            />
+                            {getIcon(project.icon)}
                             <div className={styles.nameWrap}>
                                 <p className={styles.title}>{project.name}</p>
                                 <div

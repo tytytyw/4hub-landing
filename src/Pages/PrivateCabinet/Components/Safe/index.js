@@ -40,12 +40,15 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
 	//TODO: fileList get current fileList from api
-	const safeFileList = useSelector((state) => state.PrivateCabinet.fileList);
+	// const [FileList, SetFileList] =  useState(false);
 	//TODO: fileList get current fileList from api
 	const [showFileList, setShowFileList] = useState(false);
 	//TODO: fileList get current fileList from api
 	useEffect(() => {
-		if (showFileList) setShowFileList(safeFileList);
+		if (showFileList) {
+			//TODO: set FileList
+			// SetFileList([]);
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showFileList]);
 
@@ -73,7 +76,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					key={i + safe.name}
 					safe={safe}
 					listSize={size}
-					chosen={setSelectedSafe?.id === safe.id}
+					chosen={selectedSafe?.id === safe.id}
 					setMouseParams={setMouseParams}
                     setSelectedSafe={setSelectedSafe}
 					onClick={() => {
@@ -134,6 +137,8 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
             }})
             .catch(err => console.log(err));
     }
+
+	
 
 	return (
 		<div className={styles.workAreaWrap}>

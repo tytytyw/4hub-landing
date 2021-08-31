@@ -14,7 +14,7 @@ import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
 
-const WorkSpace = ({setMouseParams}) => {
+const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
 
     const size = useSelector(state => state.PrivateCabinet.size)
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
@@ -22,7 +22,6 @@ const WorkSpace = ({setMouseParams}) => {
 
     const [workElementsView, setWorkElementsView] = useState('')
 
-    const [addMember, setAddMember] = useState(false)
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
 
