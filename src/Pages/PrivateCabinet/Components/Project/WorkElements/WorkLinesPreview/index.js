@@ -18,7 +18,7 @@ const WorkLinesPreview = ({recentFiles, children}) => {
     const [toolBar, setToolBar] = useState(false)
     const canvasRef = useRef()
     const [mouse, setMouse] = useState({down: false})
-    const [drawParams, setDrawParams] = useState({color: 'black'})
+    const [drawParams, setDrawParams] = useState({color: 'black', width: 2})
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
 
     useEffect(() => {
@@ -49,6 +49,7 @@ const WorkLinesPreview = ({recentFiles, children}) => {
     const draw = (x, y) => {
         ctx.lineTo(x, y);
         ctx.strokeStyle = drawParams.color;
+        ctx.lineWidth = drawParams.width;
         ctx.stroke();
     }
 
@@ -111,7 +112,6 @@ const WorkLinesPreview = ({recentFiles, children}) => {
 
                     {toolBar &&
                     <MiniToolBar
-                        set={setToolBar}
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
                     />}

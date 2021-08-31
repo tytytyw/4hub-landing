@@ -30,14 +30,14 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
     ]
 
     const dots = [
-        {id: 1, width: '16px'},
-        {id: 2, width: '14px'},
-        {id: 3, width: '12px'},
-        {id: 4, width: '10px'},
-        {id: 5, width: '8px'},
-        {id: 6, width: '6px'},
-        {id: 7, width: '2px'},
-        {id: 8, width: '5px'},
+        {id: 1, width: 16},
+        {id: 2, width: 14},
+        {id: 3, width: 12},
+        {id: 4, width: 10},
+        {id: 5, width: 8},
+        {id: 6, width: 6},
+        {id: 7, width: 5},
+        {id: 8, width: 2},
     ]
 
     const [toolFigure, setToolFigure] = useState(false)
@@ -95,11 +95,18 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
                     })}
                 >
                     {dots?.map((item, index) => (
-                        <button key={index} className={styles.itemBtn}>
+                        <button
+                            key={index}
+                            className={styles.itemBtn}
+                            onClick={() => {
+                                setDrawParams(drawParams => ({...drawParams, width: item.width}))
+                                setToolDots(false);
+                            }}
+                        >
                             <span
                                 style={{
-                                    width: `${item?.width}`,
-                                    height: `${item?.width}`
+                                    width: `${item?.width}px`,
+                                    height: `${item?.width}px`
                                 }}
                                 className={styles.dot}
                             />
@@ -111,7 +118,13 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
                     className={styles.itemBtn}
                     onMouseEnter={() => setToolDots(true)}
                 >
-                    <span className={styles.dot}/>
+                    <span
+                        className={styles.dot}
+                        style={{
+                            width: `${drawParams.width}px`,
+                            height: `${drawParams.width}px`
+                        }}
+                    />
                 </button>
             </div>
 
@@ -131,7 +144,10 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
                             <span
                                 style={{background: `${item?.color}`}}
                                 className={styles.circle}
-                                onClick={() => setDrawParams(drawParams => ({...drawParams, color: item.color}))}
+                                onClick={() => {
+                                    setDrawParams(drawParams => ({...drawParams, color: item.color}));
+                                    setToolColors(false);
+                                }}
                             />
                         </button>
                     ))}
@@ -142,7 +158,7 @@ const MiniToolBar = ({drawParams, setDrawParams}) => {
                     className={classNames(styles.itemBtn, styles.itemBtnActive)}
                 >
                     <span
-                        style={{background: '#67AB3E'}}
+                        style={{background: drawParams.color}}
                         className={styles.circle}
                     />
                 </button>
