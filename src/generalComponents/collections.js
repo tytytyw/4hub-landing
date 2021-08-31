@@ -177,3 +177,35 @@ export const previewFormats = ['doc', 'xls', 'ppt', 'rtf', 'xlt', 'csv'];
 
 //Project
 export const projectIcons = ['lamp', 'coworking','rocket', 'suitcase', 'clipboard', 'thunder', 'pen'];
+
+export const figuresPaint = [
+    {id: 1, figure: 'font'},
+    {id: 2, figure: 'circle-outlined'},
+    {id: 3, figure: 'square-outlined'},
+    {id: 4, figure: 'arrow-outlined'},
+    {id: 5, figure: 'pencil-outlined'},
+    {id: 6, figure: 'brush-outlined'},
+];
+
+export const colorsPaint = [
+    {id: 1, color: '#E0A512'},
+    {id: 2, color: '#9C0050'},
+    {id: 3, color: '#BEBEBE'},
+    {id: 4, color: '#CD0C21'},
+    {id: 5, color: '#000000'},
+    {id: 6, color: '#5026B8'},
+    {id: 7, color: '#04C6F4'},
+    {id: 8, color: '#6D3FD7'},
+    {id: 9, color: '#67AB3E'},
+]
+
+export const dotsPaint = [
+    {id: 1, width: 16},
+    {id: 2, width: 14},
+    {id: 3, width: 12},
+    {id: 4, width: 10},
+    {id: 5, width: 8},
+    {id: 6, width: 6},
+    {id: 7, width: 5},
+    {id: 8, width: 2},
+]

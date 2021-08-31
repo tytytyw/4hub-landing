@@ -19,9 +19,8 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
     const size = useSelector(state => state.PrivateCabinet.size)
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
-
+    const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
     const [workElementsView, setWorkElementsView] = useState('')
-
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
 
@@ -32,10 +31,12 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
                 key={i}
                 file={file}
                 setChosenFile={setChosenFile}
+                chosenFile={chosenFile}
                 chosen={chosenFile?.fid === file?.fid}
                 setMouseParams={setMouseParams}
                 setAction={setAction}
-
+                filePick={filePick}
+                setFilePick={setFilePick}
                 size={size}
                 action={action}
             />
@@ -68,7 +69,10 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
             />
             <BottomPanel />
 
-            <WorkLinesPreview recentFiles={recentFiles}>
+            <WorkLinesPreview
+                recentFiles={recentFiles}
+                chosenFile={chosenFile}
+            >
                 {renderFiles(FileLineShort)}
             </WorkLinesPreview>
 
