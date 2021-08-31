@@ -68,6 +68,7 @@ const Programs = ({
             return <CustomFolderItem
                 key={i + folder.name}
                 folder={folder}
+                listSize={size}
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
@@ -88,6 +89,7 @@ const Programs = ({
             return <CustomFolderItem
                 key={i + folder.name}
                 folder={folder}
+                listSize={size}
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
@@ -146,10 +148,11 @@ const Programs = ({
                         collapseShop={collapseShop}
                         setCollapseShop={setCollapseShop}
                         listSize={size}
+                        listCollapsed={listCollapsed}
                     />
 
                     <div className={styles.createFolderWrap}>
-                        <p>Создать новую папку</p>
+                        {!listCollapsed && <p>Создать новую папку</p>}
                         <div className={styles.createFolderImg}>
                             <img
                                 src="./assets/PrivateCabinet/add-folder.svg"
@@ -161,7 +164,9 @@ const Programs = ({
                     {renderProgramFolders()}
 
                     <div className={styles.recentPrograms}>
-                        <p>Недавние Программы</p>
+                        {!listCollapsed ?
+                            <p>Недавние Программы</p> :
+                            <p>Недавние</p>}
                     </div>
                     {renderRecentPrograms()}
                 </div>

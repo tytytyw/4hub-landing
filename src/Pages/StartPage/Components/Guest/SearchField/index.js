@@ -1,11 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useDebounce} from '../../../../generalComponents/Hooks';
 
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onSearch} from '../../../../Store/actions/PrivateCabinetActions';
-import Select from "../../../../generalComponents/Select/Select";
-
+import {onChooseFiles, onSearch} from "../../../../../Store/actions/PrivateCabinetActions";
+import {useDebounce} from "../../../../../generalComponents/Hooks";
 
 const SearchField = ({setChosenFile}) => {
 	const inputRef = useRef(null);
@@ -21,8 +19,6 @@ const SearchField = ({setChosenFile}) => {
 		debounceCallback(e.target.value);
 	};
 
-	const [searchArea, setSearhArea] = useState([{text: 'Глобальный', active: true, id:'Глобальный'}, {text: 'Локальный', active: false, id:'Локальный'}])
-
 	useEffect(() => {onSearch('')}, [path]);
 
 	return (
@@ -37,13 +33,6 @@ const SearchField = ({setChosenFile}) => {
 				value={searchField}
 				ref={inputRef}
 				onChange={handleChange}
-			/>
-			<Select
-				placeholder={searchArea.filter(item => item.active)[0].text}
-				className={styles.select}
-				classNameSelect={styles.SearchType}
-				setSearhArea={setSearhArea}
-				data={searchArea}
 			/>
 			
 		</div>

@@ -262,8 +262,6 @@ const PrivateCabinet = () => {
                         />}
                     />
 
-                    {/*<Redirect to='/folders'/>*/}
-
                 </Switch>
 
             </div>
