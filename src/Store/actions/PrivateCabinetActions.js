@@ -429,7 +429,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Sketch.com',
                 price: 25,
                 rating: '4,4',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 2,
@@ -439,7 +441,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Photoshop.com',
                 price: 30,
                 rating: '4,5',
-                votes: 124
+                votes: 124,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 3,
@@ -449,7 +453,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Ai.com',
                 price: 25,
                 rating: '4,2',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 4,
@@ -459,7 +465,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Sketch.com',
                 price: 25,
                 rating: '4,4',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 5,
@@ -469,7 +477,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Acrobat.com',
                 price: 20,
                 rating: '4',
-                votes: 223
+                votes: 223,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 6,
@@ -479,7 +489,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Zeplin.com',
                 price: 35,
                 rating: '5',
-                votes: 360
+                votes: 360,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
         ]
     })

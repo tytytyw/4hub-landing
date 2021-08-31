@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import './App.sass';
 
@@ -12,6 +12,8 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
+    const [guest] = useState(false)
+
     //! Temporary comment before BUILT
     useEffect(() => {
         if (window.location.href !== window.location.origin + '/') {
@@ -23,9 +25,9 @@ function App() {
 
     return (
         <>
-            {/*{!uid && <StartPage/>}*/}
-            {!uid && <Guest/>}
-            {/*{uid && <PrivateCabinet/>}*/}
+            {!uid && <StartPage/>}
+            {guest && <Guest/>}
+            {!guest && uid && <PrivateCabinet/>}
         </>
     );
 }

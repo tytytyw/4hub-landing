@@ -18,7 +18,6 @@ import { ReactComponent as LinesIcon } from '../../../../../assets/PrivateCabine
 import { ReactComponent as PreviewIcon } from '../../../../../assets/PrivateCabinet/preview.svg';
 import { ReactComponent as VerticalLinesIcon } from '../../../../../assets/PrivateCabinet/vertical-lines.svg';
 import { ReactComponent as MenuIcon } from '../../../../../assets/PrivateCabinet/menu.svg';
-import { ReactComponent as SafeIcon } from '../../../../../assets/PrivateCabinet/safe.svg';
 import { ReactComponent as ShareIcon } from '../../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../../assets/PrivateCabinet/file_size.svg';

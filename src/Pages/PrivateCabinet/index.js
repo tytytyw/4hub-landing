@@ -13,7 +13,7 @@ import MyFiles from './Components/MyFiles'
 import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
-import {Switch, Route, useHistory, Redirect} from 'react-router'
+import {Switch, Route, useHistory} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from './Components/Project';
 import SharedFiles from './Components/SharedFiles';
@@ -25,7 +25,6 @@ import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
-import Guest from "../StartPage/Components/Guest";
 
 const PrivateCabinet = () => {
 
