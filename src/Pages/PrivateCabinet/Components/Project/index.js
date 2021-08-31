@@ -25,8 +25,7 @@ const Project = () => {
     useEffect(() => {
         dispatch(onGetProjects())
         dispatch(onGetContacts())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []) // eslint-disable-line
 
     const renderMenuItems = (target) => {
         return target.map((item, i) => {

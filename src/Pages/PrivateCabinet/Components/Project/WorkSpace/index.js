@@ -69,10 +69,9 @@ const WorkSpace = ({setMouseParams}) => {
             />
             <BottomPanel />
 
-            {workElementsView === 'workLinesPreview' &&
             <WorkLinesPreview recentFiles={recentFiles}>
                 {renderFiles(FileLineShort)}
-            </WorkLinesPreview>}
+            </WorkLinesPreview>
 
             {addMember &&
             <AddMember

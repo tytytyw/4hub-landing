@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import styles from './WorkLinesPreview.module.sass';
 
@@ -16,6 +16,41 @@ const WorkLinesPreview = ({recentFiles, children}) => {
     const [previewPopup, setPreviewPopup] = useState(false)
     const [infoPopover, setInfoPopover] = useState(false)
     const [toolBar, setToolBar] = useState(false)
+    const canvasRef = useRef()
+    const [mouse, setMouse] = useState({down: false})
+    const [drawParams, setDrawParams] = useState({color: 'black'})
+    const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
+
+    useEffect(() => {
+            const canvas = canvasRef.current.getContext('2d');
+            const img = new Image();
+            img.src = './assets/PrivateCabinet/Bitmap2.png';
+            img.onload = () => canvas.drawImage(img, 0, 0, 350, 400);
+    }, [])
+
+    const handleEditImage = () => setToolBar(!toolBar);
+
+    const mouseUpHandler = () => setMouse(mouse => ({...mouse, down: false}))
+
+    const mouseDownHandler = e => {
+        if(toolBar) {
+            setMouse(mouse => ({...mouse, down: true}));
+            ctx.beginPath();
+            ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        }
+    }
+
+    const mouseMoveHandler = e => {
+        if(toolBar && mouse.down) {
+            draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+        }
+    }
+
+    const draw = (x, y) => {
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = drawParams.color;
+        ctx.stroke();
+    }
 
     return (
         <div
@@ -36,7 +71,7 @@ const WorkLinesPreview = ({recentFiles, children}) => {
                     <div className={styles.actionBlock}>
 
                         <button
-                            onClick={() => setToolBar(!toolBar)}
+                            onClick={handleEditImage}
                             className={classNames({
                                 [styles.actionBtn]: true,
                                 [styles.activeBtn]: toolBar
@@ -77,13 +112,19 @@ const WorkLinesPreview = ({recentFiles, children}) => {
                     {toolBar &&
                     <MiniToolBar
                         set={setToolBar}
+                        drawParams={drawParams}
+                        setDrawParams={setDrawParams}
                     />}
 
                     <div className={styles.previewImg}>
-                        <img
-                            onDoubleClick={() => setPreviewPopup(true)}
-                            src='./assets/PrivateCabinet/Bitmap2.png'
-                            alt='Moto Site'
+                        <canvas
+                            ref={canvasRef}
+                            width='350'
+                            height='400'
+                            className={styles.canvas}
+                            onMouseDown={mouseDownHandler}
+                            onMouseMove={mouseMoveHandler}
+                            onMouseUp={mouseUpHandler}
                         />
                     </div>
 

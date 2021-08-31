@@ -6,7 +6,7 @@ import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCab
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
 
-const MiniToolBar = () => {
+const MiniToolBar = ({drawParams, setDrawParams}) => {
 
     const figures = [
         {id: 1, figure: 'font'},
@@ -131,6 +131,7 @@ const MiniToolBar = () => {
                             <span
                                 style={{background: `${item?.color}`}}
                                 className={styles.circle}
+                                onClick={() => setDrawParams(drawParams => ({...drawParams, color: item.color}))}
                             />
                         </button>
                     ))}
