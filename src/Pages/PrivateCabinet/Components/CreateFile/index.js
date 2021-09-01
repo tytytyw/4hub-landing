@@ -269,7 +269,7 @@ const CreateFile = ({
                         <div className={styles.cancel} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
                         <div className={`${styles.add}`} onClick={onAddFile}>{create ? 'Создать' : 'Добавить'}</div>
                     </div>
-                    <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>Создать и открыть в редакторе</div>
+                    {create ? <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>Создать и открыть в редакторе</div> : null}
                 </div>
             </PopUp>
             {error && <Error error={error} set={closeComponent} message='Файл не добавлен' />}
