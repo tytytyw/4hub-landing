@@ -48,7 +48,7 @@ const CreateProject = ({onCreate, title, info}) => {
     const width = window.innerWidth;
 
     const onAddProject = () => {
-        if(!name) setNoNameError(true);
+        if(!name) return setNoNameError(true);
         if(password !== passwordRepeat) return setPasswordCoincide(false);
         // TODO: add api
         console.log('onAddProject')

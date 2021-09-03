@@ -4,10 +4,17 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './ErrorPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
-const ErrorPass = ({set}) => {
+const ErrorPass = ({setErrPass, set, mistake}) => {
+    
+    const getTaregtString = () => {
+        switch (mistake) {
+            case 'code': return 'код';
+            default: return 'пароль'
+        }
+    }
 
     return (
-        <PopUp set={set}>
+        <PopUp setErrPass={setErrPass}>
 
             <div className={styles.wrapper}>
 
@@ -16,7 +23,7 @@ const ErrorPass = ({set}) => {
                     <div className={styles.closeWrap}>
                         <div
                             className={styles.close}
-                            onClick={() => set(false)}
+                            onClick={() => setErrPass(false)}
                         >
                             <span className={styles.times}/>
                         </div>
@@ -27,7 +34,7 @@ const ErrorPass = ({set}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Неверный пароль</h4>
+                        <h4 className={styles.title}>Неверный {getTaregtString()}</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
@@ -40,7 +47,7 @@ const ErrorPass = ({set}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Неверный пароль. Повторите попытку, восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона.
+                            Неверный {getTaregtString()}. Повторите попытку{mistake === 'password' ? ', восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона' : ''}.
                         </p>
                     </div>
 
@@ -55,7 +62,7 @@ const ErrorPass = ({set}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
-                            onClick={() => set(false)}
+                            onClick={() => setErrPass(false)}
                         >
                             Повторить
                         </Button>

@@ -39,18 +39,8 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-	//TODO: fileList get current fileList from api
-	// const [FileList, SetFileList] =  useState(false);
-	//TODO: fileList get current fileList from api
-	const [showFileList, setShowFileList] = useState(false);
-	//TODO: fileList get current fileList from api
-	useEffect(() => {
-		if (showFileList) {
-			//TODO: set FileList
-			// SetFileList([]);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [showFileList]);
+	// TODO: fileList get current fileList from api
+	const [fileList, SetFileList] =  useState(null);
 
 	useEffect(() => {
 		setLoadingType (safes === null ? 'squarify' : '')
@@ -60,6 +50,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 
 	useEffect(() => {
 		dispatch(onGetSafes());
+		return () => SetFileList(null)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -82,7 +73,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					onClick={() => {
 						setSelectedSafe(safe);
 						setCodePopup(true);
-						setShowFileList(false);
+						SetFileList(false);
 					}}
 				/>
 			);
@@ -201,7 +192,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 				fileSelect={fileSelect}
 				action={action}
 				setAction={setAction}
-				fileList={showFileList}
+				fileList={fileList}
 			/>
 
 			{filePreview?.view && (
@@ -238,7 +229,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 					safe={selectedSafe}
 					set={setCodePopup}
 					setLoadingType={setLoadingType}
-					setShowFileList={setShowFileList}
+					SetFileList={SetFileList}
 				/>
 			)}
 

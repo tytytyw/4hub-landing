@@ -16,7 +16,7 @@ const CodePopup = ({
 	refreshPass,
 	setRefreshPass,
 	setLoadingType,
-	setShowFileList
+	SetFileList
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
@@ -37,7 +37,7 @@ const CodePopup = ({
 				.then((res) => {
 					//TODO: check res.ok
 					if (res.data.f_pass) showSendCode(true)
-						else setErrPass(true);
+						else setErrPass('password');
 				})
 				.catch((error) => console.log(error))
 				.finally(() => setLoadingType(""));
@@ -48,9 +48,10 @@ const CodePopup = ({
 				.then(res => {
 					console.log(res)
 					if(res.data.ok === 1) {
-						console.log(res)
+						SetFileList(res.data.files)
 					} else {
-						console.log(res)
+						//TODO: validate code from response
+						setErrPass('code')
 					}})
 				.catch(err => console.log(err));
 		}
@@ -60,10 +61,7 @@ const CodePopup = ({
 		setErrors({ password: false, code: false });
 	}, [password, code]);
 
-	useEffect(() => {if (sendCode) {
-		//TODO: set FileList
-		console.log('code')}
-	}, [sendCode]);
+	useEffect(() => SetFileList(null), []);
 
 	return (
 		<>
@@ -149,7 +147,7 @@ const CodePopup = ({
 					set={setRecoverPass}
 				/>
 			)}
-			{errPass && <ErrorPass set={setErrPass} />}
+			{errPass && <ErrorPass setErrPass={setErrPass} mistake={errPass} set={set} />}
 		</>
 	);
 };
