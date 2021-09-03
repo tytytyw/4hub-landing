@@ -1,13 +1,12 @@
-import React, {useState} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, {useState, useEffect} from 'react'
+// import { useSelector, useDispatch } from 'react-redux'
 
 import styles from './CreateProject.module.sass'
-import api from '../../../../../api'
+// import api from '../../../../../api'
 import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'
 import {tags, colors} from '../../../../../generalComponents/collections'
 import Error from '../../../../../generalComponents/Error'
-import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions'
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
@@ -15,7 +14,7 @@ import ProjectIcons from '../ProjectIcons/ProjectIcons'
 
 const CreateProject = ({onCreate, title, info}) => {
 
-    const uid = useSelector(state => state.user.uid);
+    // const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [members, setMembers] = useState('');
@@ -30,7 +29,10 @@ const CreateProject = ({onCreate, title, info}) => {
     const [icon, setIcon] = useState('');
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
-    const dispatch = useDispatch();
+    const [noNameError, setNoNameError] = useState(false);
+    // const dispatch = useDispatch();
+
+    useEffect(() => {if (name) setNoNameError(false)}, [name])
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -45,15 +47,11 @@ const CreateProject = ({onCreate, title, info}) => {
 
     const width = window.innerWidth;
 
-    const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
-      api.post(`/ajax/dir_add.php?${params}`)
-          .then(res => {if(res.data.ok === 1) {
-              onCreate(false);
-          } else {setError(true)}
-          })
-          .catch(() => {setError(true)})
-          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+    const onAddProject = () => {
+        if(!name) setNoNameError(true);
+        if(password !== passwordRepeat) return setPasswordCoincide(false);
+        // TODO: add api
+        console.log('onAddProject')
     };
 
     const closeComponent = () => {
@@ -90,6 +88,7 @@ const CreateProject = ({onCreate, title, info}) => {
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
+                            mistake={noNameError}
                         />
                     </div>
 
@@ -160,6 +159,7 @@ const CreateProject = ({onCreate, title, info}) => {
                             visibility={visibility}
                             setVisibility={setVisibility}
                             comparePass={comparePass}
+                            mistake={!passwordCoincide}
                         />
                     </div>}
 
@@ -170,7 +170,7 @@ const CreateProject = ({onCreate, title, info}) => {
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
                     <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                    <div className={styles.add} onClick={() => onAddFolder()}>Создать</div>
+                    <div className={styles.add} onClick={() => onAddProject()}>Создать</div>
                 </div>
             </div>
         </PopUp>
