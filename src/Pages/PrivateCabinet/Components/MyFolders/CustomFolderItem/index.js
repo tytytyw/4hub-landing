@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
 import {colors} from '../../../../../generalComponents/collections';
-import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseFolder, onSetPath} from '../../../../../Store/actions/PrivateCabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
@@ -61,19 +61,20 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     };
 
     const clickHandle = async (e) => {
-        if(folderList.path !== f.path || chosenFolder.subPath) {
+        if(fileList.path !== f.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
             await cancel.then(() => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
                 setGLoader(true)
+                dispatch(onSetPath(f.path));
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
             })
         }
     };
 
-    const menuClick = (e) => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})};
+    const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
 
     const handleAddFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: f.path});

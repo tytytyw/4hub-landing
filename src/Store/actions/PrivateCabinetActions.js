@@ -37,6 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
+    SET_FILES_PATH,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -81,6 +82,13 @@ export const onChooseFolder = (folders, path) => {
         payload: {folders, path}
     }
 };
+
+export const onSetPath = (path) => {
+        return {
+            type: SET_FILES_PATH,
+            payload: path
+        }
+}
 
 export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
