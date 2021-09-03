@@ -6,6 +6,7 @@ import classNames from "classnames";
 
 import {
     onChooseFiles,
+    onChooseAllFiles,
     onSetFileSize,
     onSortFile,
     onChangeFilterFigure,
@@ -62,7 +63,8 @@ const ServePanel = ({
 
     const setFilter = (sorting) => {
         dispatch(onSortFile(sorting));
-        dispatch(onChooseFiles(fileList.path, search, 1, '', ''));
+        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     };
 
     const createFile = (ext) => {
@@ -106,15 +108,18 @@ const ServePanel = ({
 
     const setFigure = (value) => {
         dispatch(onChangeFilterFigure(value));
-        dispatch(onChooseFiles(fileList.path, search, 1));
+        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
-        dispatch(onChooseFiles(fileList.path, search, 1));
+        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
-        dispatch(onChooseFiles(fileList.path, search, 1));
+        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
 
     return (

@@ -61,7 +61,7 @@ const CodePopup = ({
 		setErrors({ password: false, code: false });
 	}, [password, code]);
 
-	useEffect(() => SetFileList(null), []);
+	useEffect(() => SetFileList(null), []); // eslint-disable-line
 
 	return (
 		<>
