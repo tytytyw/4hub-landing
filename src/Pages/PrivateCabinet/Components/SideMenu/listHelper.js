@@ -1,7 +1,7 @@
 export const menu = [
     {
         name: 'Мои папки',
-        path: '/folders',
+        path: '/',
         src: './assets/PrivateCabinet/folder.svg'
     },
     {

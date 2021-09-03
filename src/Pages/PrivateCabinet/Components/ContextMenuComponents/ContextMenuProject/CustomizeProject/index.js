@@ -1,37 +1,35 @@
 import React, {useState} from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
-import styles from './CreateProject.module.sass'
-import api from '../../../../../api'
-import PopUp from '../../../../../generalComponents/PopUp'
-import InputField from '../../../../../generalComponents/InputField'
-import {tags, colors} from '../../../../../generalComponents/collections'
-import Error from '../../../../../generalComponents/Error'
-import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions'
-import Colors from '../../../../../generalComponents/Elements/Colors'
-import Signs from '../../../../../generalComponents/Elements/Signs'
-import Emoji from '../../../../../generalComponents/Elements/Emoji'
-import ProjectIcons from '../ProjectIcons/ProjectIcons'
+import styles from './CustomizeProject.module.sass'
+// import api from '../../../../../api'
+import PopUp from '../../../../../../generalComponents/PopUp'
+import InputField from '../../../../../../generalComponents/InputField'
+import {tags} from '../../../../../../generalComponents/collections'
+import Error from '../../../../../../generalComponents/Error'
+import Colors from '../../../../../../generalComponents/Elements/Colors'
+import Signs from '../../../../../../generalComponents/Elements/Signs'
+import Emoji from '../../../../../../generalComponents/Elements/Emoji'
+import ProjectIcons from '../../../Project/ProjectIcons/ProjectIcons'
 
-const CreateProject = ({onCreate, title, info}) => {
+const CustomizeProject = ({onCreate, title, project}) => {
 
-    const uid = useSelector(state => state.user.uid);
+    // const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [members, setMembers] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-    const [passwordCoincide, setPasswordCoincide] = useState(false);
+    const [setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(false);
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
-    const [color, setColor] = useState(colors[0]);
+    const [color, setColor] = useState(project.color);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
-    const [icon, setIcon] = useState('');
+    const [icon, setIcon] = useState(project.icon);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
-    const dispatch = useDispatch();
-
+    // const dispatch = useDispatch();
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
     const renderTags = () => {
@@ -45,15 +43,8 @@ const CreateProject = ({onCreate, title, info}) => {
 
     const width = window.innerWidth;
 
-    const onAddFolder = () => {
-        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
-      api.post(`/ajax/dir_add.php?${params}`)
-          .then(res => {if(res.data.ok === 1) {
-              onCreate(false);
-          } else {setError(true)}
-          })
-          .catch(() => {setError(true)})
-          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+    const onCustomize = () => {
+        //TODO: add api
     };
 
     const closeComponent = () => {
@@ -170,7 +161,7 @@ const CreateProject = ({onCreate, title, info}) => {
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
                     <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                    <div className={styles.add} onClick={() => onAddFolder()}>Создать</div>
+                    <div className={styles.add} onClick={() => onCustomize()}>Сохранить</div>
                 </div>
             </div>
         </PopUp>
@@ -179,4 +170,4 @@ const CreateProject = ({onCreate, title, info}) => {
     )
 }
 
-export default CreateProject
+export default CustomizeProject

@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFiles} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseAllFiles} from '../../../../../Store/actions/PrivateCabinetActions';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import Loader from '../../../../../generalComponents/Loaders/4HUB';
 
@@ -16,6 +16,7 @@ const WorkBars = ({
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet.search);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
@@ -32,6 +33,10 @@ const WorkBars = ({
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
+                
+            } else if (window.location.pathname.includes('files')){
+                setLoadingFiles(true);
+                dispatch(onChooseAllFiles(fileListAll?.path, search, page, onSuccessLoading, ''))
             }
         }
     }
@@ -103,23 +108,24 @@ const WorkBars = ({
                 >Нет элементов удовлетворяющих условиям поиска</div>
                 : null}
             {gLoader ? <Loader
-                type='squarify'
+                type='bounceDots'
                 position='absolute'
                 background='rgba(255, 255, 255, 0.75)'
                 zIndex={5}
+                containerType='bounceDots'
             /> : children}
             <div
                 className={styles.bottomLine}
                 style={{height: loadingFiles ? '100px' : '40px'}}
             >
                 {loadingFiles && !gLoader ? <Loader
-                    type='switch'
+                    type='bounceDots'
                     position='absolute'
                     background='white'
                     zIndex={5}
                     width='100px'
                     height='100px'
-
+                    containerType='bounceDots'
                 /> : null}
             </div>
         </div>

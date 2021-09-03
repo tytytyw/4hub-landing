@@ -161,3 +161,31 @@
       animation: scale 1s 2.7s infinite cubic-bezier(1,.015,.295,1.225) alternate
     .scaleThird
       animation: scale 1s 2.1s infinite cubic-bezier(1,.015,.295,1.225) alternate
+
+// Dots that bounce one after another. Type - bounceDot
+@keyframes bounceDot
+  10%
+    transform: translateY(-70%)
+  40%
+    transform: translateY(0)
+
+.loaderWrap
+  .bounceDotscontainer
+    display: flex
+    justify-content: center
+    align-items: center
+    div
+      width: 5%
+      height: 5%
+      border-radius: 50%
+      margin: 0 1% 0 0
+      background: rgb(238, 211, 40)
+    .bounceDotsGreen
+      background: rgb(52, 198, 162)
+      animation: bounceDot 1.2s infinite ease-in-out
+    .bounceDotsFirst
+      animation: bounceDot 1.2s 0.12s infinite ease-in-out
+    .bounceDotsSecond
+      animation: bounceDot 1.2s 0.24s infinite ease-in-out
+    .bounceDotsThird
+      animation: bounceDot 1.2s 0.36s infinite ease-in-out

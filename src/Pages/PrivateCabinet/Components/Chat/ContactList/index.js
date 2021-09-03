@@ -14,8 +14,8 @@ const ContactList = () => {
     }, []) //eslint-disable-line
 
     const renderContactList = () => (
-        contactList.map(contact => (
-            <div className={styles.item}>
+        contactList.map((contact, i) => (
+            <div className={styles.item} key={i}>
                 <div className={styles.groupName}>
                     <img src={contact.icon[0]} alt="img" className={styles.avatar} />
                     <div className={styles.info}>

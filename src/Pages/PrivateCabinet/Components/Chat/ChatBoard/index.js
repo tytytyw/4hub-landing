@@ -11,11 +11,12 @@ import {ReactComponent as FileIcon} from "../../../../../assets/PrivateCabinet/f
 import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/photo-5.svg";
 import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/radio-3.svg";
 
-const ChatBoard = () => {
+const ChatBoard = ({inputRef, setCursorPosition}) => {
 
     //TODO - Need to change after chat is developed
     const contactList = useSelector(state => state.PrivateCabinet.contactList)
 
+    const findCursorPosition = () => setCursorPosition(inputRef.current.selectionStart);
 
     return (
         <div className={styles.chatBoardWrap}>
@@ -45,7 +46,14 @@ const ChatBoard = () => {
                 </div>
                 <div className={styles.textMessage}>
                      <img src="./assets/PrivateCabinet/send.svg" alt="img" className={styles.messageImg} />
-                    <input type="text" placeholder="Введите текст сообщения" className={styles.textInput} />
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Введите текст сообщения"
+                        className={styles.textInput}
+                        onClick={findCursorPosition}
+                        onChange={findCursorPosition}
+                    />
                 </div>
                 <div className={styles.sendOptions}>
                     <div className={styles.button}><RadioIcon /></div>

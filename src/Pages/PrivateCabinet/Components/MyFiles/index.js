@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from '../../../../api';
 import {previewFormats} from '../../../../generalComponents/collections';
@@ -33,6 +33,7 @@ const MyFiles = ({
 		open: false,
 		subPath: "",
 	});
+	const fileRef = useRef(null);
 	const [filePick, setFilePick] = useState({show: false, files: []});
 	const [mouseParams, setMouseParams] = useState(null);
 	const [showLinkCopy, setShowLinkCopy] = useState(false)
@@ -210,7 +211,15 @@ const MyFiles = ({
 			);
 		});
 	}
-	useEffect(() => {dispatch(onChooseAllFiles('', 1, '', setGLoader));}, []); //eslint-disable-line
+	useEffect(() => {dispatch(onChooseAllFiles('global/all', '', 1, '', setGLoader));}, []); //eslint-disable-line
+	useEffect(() => {
+        if(fileListAll?.files.length <= 10) {
+            setPage(2);
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
+        }
+    }, [fileListAll?.files]); //eslint-disable-line
 
 	const cancelArchive = () => {
 		nullifyFilePick();

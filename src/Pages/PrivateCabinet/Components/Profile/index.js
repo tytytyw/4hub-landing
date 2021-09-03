@@ -6,6 +6,7 @@ import {contextMenuProfile} from '../../../../generalComponents/collections';
 import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
+import {imageSrc} from "../../../../generalComponents/globalVariables";
 
 const Profile = () => {
 
@@ -49,7 +50,7 @@ const Profile = () => {
         >
             <img
                 className={styles.profileImg}
-                src={user?.icon?.[0] || './assets/PrivateCabinet/profile-noPhoto.svg'}
+                src={user?.icon?.[0] ? imageSrc + user?.icon?.[0] : imageSrc + '/assets/PrivateCabinet/profile-noPhoto.svg'}
                 alt='pie-chart'
             />
             <span>{user?.name ? user.name : 'User'}</span>

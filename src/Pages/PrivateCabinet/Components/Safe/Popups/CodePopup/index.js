@@ -28,30 +28,42 @@ const CodePopup = ({
 
 	const onGetSafeAccess = (password, id_safe, code) => {
 		
-		if ((!sendCode && password) || (sendCode && code)) {
+		if (password && !code) {
 			setLoadingType("squarify");
 			api
 				.get(
-					`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}${code ? `&id_code=${code}` : ""}`
+					`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
 				)
 				.then((res) => {
 					//TODO: check res.ok
 					if (res.data.f_pass) showSendCode(true)
 						else setErrPass(true);
-                    if (sendCode && res.data.f_pass && res.data.f_access) {
-                        setShowFileList(true)
-						set()
-                    }
-					
 				})
 				.catch((error) => console.log(error))
 				.finally(() => setLoadingType(""));
 		} else setErrors({ password: !password, code: !code });
+
+		if (code) {
+			api.post(`/ajax/safe_file_list.php?uid=${uid}&id_safe=${id_safe}&code=${code}`)
+				.then(res => {
+					console.log(res)
+					if(res.data.ok === 1) {
+						console.log(res)
+					} else {
+						console.log(res)
+					}})
+				.catch(err => console.log(err));
+		}
 	};
 
 	useEffect(() => {
 		setErrors({ password: false, code: false });
 	}, [password, code]);
+
+	useEffect(() => {if (sendCode) {
+		//TODO: set FileList
+		console.log('code')}
+	}, [sendCode]);
 
 	return (
 		<>

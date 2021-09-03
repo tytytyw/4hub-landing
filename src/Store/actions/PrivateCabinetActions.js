@@ -32,10 +32,12 @@ import {
     SET_CALENDAR_EVENTS,
     SORT_FILES,
     LOAD_FILES,
+    LOAD_FILES_ALL,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
+    SET_FILES_PATH,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -81,6 +83,13 @@ export const onChooseFolder = (folders, path) => {
     }
 };
 
+export const onSetPath = (path) => {
+        return {
+            type: SET_FILES_PATH,
+            payload: path
+        }
+}
+
 export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
@@ -96,7 +105,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
             page > 1
                 ? dispatch({
                     type: LOAD_FILES,
-                    payload: {files: files.data, path}
+                    payload: {files: files.data, }
                 })
                 : dispatch({
                     type: CHOOSE_FILES,
@@ -109,7 +118,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
-export const onChooseAllFiles = (search, page, set, setLoad) => async (dispatch, getState) => {
+export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().PrivateCabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().PrivateCabinet.fileCriterion.filters.figure}` : '';
     const color = getState().PrivateCabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().PrivateCabinet.fileCriterion.filters.color.color}` : '';
@@ -124,7 +133,7 @@ export const onChooseAllFiles = (search, page, set, setLoad) => async (dispatch,
     }).then(files => {
         page > 1
             ? dispatch({
-                type: LOAD_FILES,
+                type: LOAD_FILES_ALL,
                 payload: {files: files.data, path: 'global/all'}
             })
             : dispatch({
@@ -503,7 +512,6 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 
 export const onGetDevices = () => async (dispatch, getState) => {
-    console.log(new Date())
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
             if(res.data.ok === 1) {
@@ -566,12 +574,12 @@ export const onGetProjects = () => async (dispatch, getState) => {
     dispatch({
         type: GET_PROJECTS,
         payload: [
-            {id: 1, name: 'Название Проекта', tasks: 3, icon: 'coworking', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
-            {id: 2, name: 'Дизайн проект', tasks: 0, icon: 'rocket', tag: '', emo: '', fig: '', blocked: true},
-            {id: 3, name: 'Имя проекта', tasks: 1, icon: 'thunder', tag: '', emo: '', fig: '', blocked: false},
-            {id: 4, name: 'Проект 4', tasks: 0, icon: 'pen', tag: '', emo: '', fig: '', blocked: false},
-            {id: 5, name: 'Проект 5', tasks: 1, icon: 'suitcase', tag: '', emo: '', fig: '', blocked: false},
-            {id: 6, name: 'Проект 6', tasks: 1, icon: 'lamp', tag: '', emo: '', fig: '', blocked: false}
+            {id: 1, name: 'Название Проекта', tasks: 3, icon: 'coworking', color: 'red', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
+            {id: 2, name: 'Дизайн проект', tasks: 0, icon: 'rocket', color: 'blue', tag: '', emo: '', fig: '', blocked: true},
+            {id: 3, name: 'Имя проекта', tasks: 1, icon: 'thunder', color: 'green', tag: '', emo: '', fig: '', blocked: false},
+            {id: 4, name: 'Проект 4', tasks: 0, icon: 'pen', color: 'pink', tag: '', emo: '', fig: '', blocked: false},
+            {id: 5, name: 'Проект 5', tasks: 1, icon: 'suitcase', color: 'orange', tag: '', emo: '', fig: '', blocked: false},
+            {id: 6, name: 'Проект 6', tasks: 1, icon: 'lamp', color: 'red', tag: '', emo: '', fig: '', blocked: false}
         ]
     })
 }

@@ -3,6 +3,7 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     LOAD_FILES,
+    LOAD_FILES_ALL,
     CHOOSE_ALL_FILES,
     FILE_DELETE,
     CONTACT_LIST,
@@ -30,7 +31,9 @@ import {
     SORT_FILES,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
-    SET_FILTER_FIGURE, SET_REVERSE_CRITERION,
+    SET_FILTER_FIGURE,
+    SET_REVERSE_CRITERION,
+    SET_FILES_PATH,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -102,6 +105,12 @@ export default function startPage(state = INITIAL_STATE, action) {
         case LOAD_FILES: {
             return {...state, fileList: {...state.fileList, files: [...state.fileList.files, ...action.payload.files]}};
         }
+        case SET_FILES_PATH: {
+            return {...state, fileList: {...state.fileList, path: action.payload}};
+        }
+        case LOAD_FILES_ALL: {
+            return {...state, fileListAll: {...state.fileListAll, files: [...state.fileListAll.files, ...action.payload.files]}};
+        }
         case CHOOSE_ALL_FILES: {
             // TODO - Need to delete after serverside filtration is added
             const files = action.payload.files.sort((a, b) => b.date - a.date);
@@ -124,7 +133,11 @@ export default function startPage(state = INITIAL_STATE, action) {
                 if(file.fid !== action.payload.fid) return file;
                 return action.payload;
             });
-            return {...state, fileList: {...state.fileList, files}}
+            const filesAll = state.fileListAll.files.map(file => {
+                if(file.fid !== action.payload.fid) return file;
+                return action.payload;
+            });
+            return {...state, fileList: {...state.fileList, files}, fileListAll: {...state.fileListAll, files: filesAll}}
         }
         case SET_SIZE:
             return {...state, size: action.payload}
