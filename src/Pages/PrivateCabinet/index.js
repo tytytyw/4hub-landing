@@ -243,6 +243,8 @@ const PrivateCabinet = () => {
                     />
 
                     <Route
+                        exact
+                        path='/'
                         render={() => <MyFolders
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
