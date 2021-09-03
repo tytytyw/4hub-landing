@@ -16,6 +16,10 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import CustomizeFile from '../../ContextMenuComponents/ContextMenuFile/CustomizeFile'
 import ProgramBar from '../WorkElements/ProgramBar'
+import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
+import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
+import ProgramLineShort from '../WorkElements/ProgramLineShort'
+import ProgramLine from '../WorkElements/ProgramLine'
 
 const WorkSpace = ({
                        setBlob, blob, fileLoading,
@@ -31,7 +35,9 @@ const WorkSpace = ({
                    }) => {
 
     const dispatch = useDispatch();
-    const [workElementsView, setWorkElementsView] = useState('bars');
+
+    const [filePick] = useState({ show: false, files: [] });
+    const view = useSelector(state => state.PrivateCabinet.view);
     const programs = useSelector(state => state.PrivateCabinet.programs);
     const size = useSelector(state => state.PrivateCabinet.size);
 
@@ -85,13 +91,11 @@ const WorkSpace = ({
                 <ServePanel
                     setBlob={setBlob}
                     blob={blob}
-                    setView={setWorkElementsView}
-                    view={workElementsView}
                     chosenProgram={chosenProgram}
                     setAction={setAction}
                     fileSelect={fileSelect}
                 />
-                {workElementsView === 'bars' &&
+                {view === 'bars' &&
                 <WorkBars
                     setBlob={setBlob}
                     blob={blob}
@@ -101,9 +105,28 @@ const WorkSpace = ({
                 >
                     {renderPrograms(ProgramBar)}
                 </WorkBars>}
-                {/*{workElementsView === 'lines' ? <WorkLines fileLoading={fileLoading}>{renderFiles(FileLine)}</WorkLines> : null}
-            {workElementsView === 'preview' ? <WorkBarsPreview file={chosenProgram}>{renderFiles(FileBar)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview file={chosenProgram}>{renderFiles(FileLineShort)}</WorkLinesPreview> : null}*/}
+                {view === "lines" && (
+                    <div className={styles.collapseContentLine}>
+                        {renderPrograms(ProgramLine)}
+                    </div>
+                )}
+
+                {view === 'preview' &&
+                <WorkBarsPreview
+                    filePick={filePick}
+                    chosenProgram={chosenProgram}
+                    setChosenProgram={setChosenProgram}
+                >
+                    {renderPrograms(ProgramBar)}
+                </WorkBarsPreview>}
+                {view === 'workLinesPreview' &&
+                <WorkLinesPreview
+                    chosenProgram={chosenProgram}
+                    setChosenProgram={setChosenProgram}
+                >
+                    {renderPrograms(ProgramLineShort)}
+                </WorkLinesPreview>}
+
                 <BottomPanel/>
             </div>
 

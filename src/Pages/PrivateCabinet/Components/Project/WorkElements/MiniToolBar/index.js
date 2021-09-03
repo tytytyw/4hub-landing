@@ -5,40 +5,9 @@ import {ReactComponent as PencilIcon} from '../../../../../../assets/PrivateCabi
 import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCabinet/forward.svg'
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
+import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
 
-const MiniToolBar = () => {
-
-    const figures = [
-        {id: 1, figure: 'font'},
-        {id: 2, figure: 'circle-outlined'},
-        {id: 3, figure: 'square-outlined'},
-        {id: 4, figure: 'arrow-outlined'},
-        {id: 5, figure: 'pencil-outlined'},
-        {id: 6, figure: 'brush-outlined'},
-    ]
-
-    const colors = [
-        {id: 1, color: '#E0A512'},
-        {id: 2, color: '#9C0050'},
-        {id: 3, color: '#BEBEBE'},
-        {id: 4, color: '#CD0C21'},
-        {id: 5, color: '#000000'},
-        {id: 6, color: '#5026B8'},
-        {id: 7, color: '#04C6F4'},
-        {id: 8, color: '#6D3FD7'},
-        {id: 9, color: '#67AB3E'},
-    ]
-
-    const dots = [
-        {id: 1, width: '16px'},
-        {id: 2, width: '14px'},
-        {id: 3, width: '12px'},
-        {id: 4, width: '10px'},
-        {id: 5, width: '8px'},
-        {id: 6, width: '6px'},
-        {id: 7, width: '2px'},
-        {id: 8, width: '5px'},
-    ]
+const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
@@ -64,7 +33,7 @@ const MiniToolBar = () => {
                         [styles.active]: !!toolFigure
                     })}
                 >
-                    {figures?.map((item, index) => (
+                    {figuresPaint?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>
                             <img
                                 className={styles.figureImg}
@@ -94,12 +63,19 @@ const MiniToolBar = () => {
                         [styles.active]: !!toolDots
                     })}
                 >
-                    {dots?.map((item, index) => (
-                        <button key={index} className={styles.itemBtn}>
+                    {dotsPaint?.map((item, index) => (
+                        <button
+                            key={index}
+                            className={styles.itemBtn}
+                            onClick={() => {
+                                setDrawParams(drawParams => ({...drawParams, width: item.width}))
+                                setToolDots(false);
+                            }}
+                        >
                             <span
                                 style={{
-                                    width: `${item?.width}`,
-                                    height: `${item?.width}`
+                                    width: `${item?.width}px`,
+                                    height: `${item?.width}px`
                                 }}
                                 className={styles.dot}
                             />
@@ -111,7 +87,13 @@ const MiniToolBar = () => {
                     className={styles.itemBtn}
                     onMouseEnter={() => setToolDots(true)}
                 >
-                    <span className={styles.dot}/>
+                    <span
+                        className={styles.dot}
+                        style={{
+                            width: `${drawParams.width}px`,
+                            height: `${drawParams.width}px`
+                        }}
+                    />
                 </button>
             </div>
 
@@ -126,11 +108,15 @@ const MiniToolBar = () => {
                         [styles.active]: !!toolColors
                     })}
                 >
-                    {colors?.map((item, index) => (
+                    {colorsPaint?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>
                             <span
                                 style={{background: `${item?.color}`}}
                                 className={styles.circle}
+                                onClick={() => {
+                                    setDrawParams(drawParams => ({...drawParams, color: item.color}));
+                                    setToolColors(false);
+                                }}
                             />
                         </button>
                     ))}
@@ -141,14 +127,17 @@ const MiniToolBar = () => {
                     className={classNames(styles.itemBtn, styles.itemBtnActive)}
                 >
                     <span
-                        style={{background: '#67AB3E'}}
+                        style={{background: drawParams.color}}
                         className={styles.circle}
                     />
                 </button>
             </div>
 
             <div className={styles.item}>
-                <button className={styles.itemBtn}>
+                <button
+                    className={styles.itemBtn}
+                    onClick={unDoPaint}
+                >
                     <ForwardIcon/>
                 </button>
 

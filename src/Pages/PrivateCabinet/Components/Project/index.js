@@ -45,8 +45,7 @@ const Project = () => {
     useEffect(() => {
         dispatch(onGetProjects())
         dispatch(onGetContacts())
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []) // eslint-disable-line
 
      const callbackArrMain = [
         {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},

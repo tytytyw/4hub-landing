@@ -6,7 +6,7 @@ import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import { onChooseFolder, onChooseFiles } from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 
@@ -30,7 +30,8 @@ const FolderItem = ({
         } else {
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder, files_amount: filesQuantity});
         }
-        if(folderList.path !== folder.path || chosenFolder.subPath) {
+        // if(folderList.path !== folder.path || chosenFolder.subPath) {
+        if(fileList.path !== folder.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
@@ -38,6 +39,14 @@ const FolderItem = ({
                 .then(() => {
                     dispatch(onChooseFolder(folder.folders, folder.path));
                     setGLoader(true);
+                    dispatch(onSetPath(folder.path));
+                    const ev = e;
+                    setTimeout(() => {
+                        ev.nativeEvent.path.some(el => {
+                            if(el.className === styles.menuWrap) openMenu(ev);
+                            return el.className === styles.menuWrap;
+                        })
+                    }, 0)
                     dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
                 })
         }

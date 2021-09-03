@@ -31,7 +31,9 @@ import {
     SORT_FILES,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
-    SET_FILTER_FIGURE, SET_REVERSE_CRITERION,
+    SET_FILTER_FIGURE,
+    SET_REVERSE_CRITERION,
+    SET_FILES_PATH,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -102,6 +104,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case LOAD_FILES: {
             return {...state, fileList: {...state.fileList, files: [...state.fileList.files, ...action.payload.files]}};
+        }
+        case SET_FILES_PATH: {
+            return {...state, fileList: {...state.fileList, path: action.payload}};
         }
         case LOAD_FILES_ALL: {
             return {...state, fileListAll: {...state.fileListAll, files: [...state.fileListAll.files, ...action.payload.files]}};

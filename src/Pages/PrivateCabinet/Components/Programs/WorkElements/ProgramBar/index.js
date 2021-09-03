@@ -9,10 +9,10 @@ const ProgramBar = ({program, chosenProgram, setChosenProgram, setMouseParams, s
         <div
             className={classNames({
                 [styles.wrapper]: true,
-                [styles.active]: chosenProgram === program?.id,
+                [styles.active]: chosenProgram?.id === program?.id,
                 [styles?.[`wrapper_${size}`]]: size !== 'medium'
             })}
-            onClick={() => setChosenProgram(program?.id)}
+            onClick={() => setChosenProgram(program)}
             //onDoubleClick={() => setFilePreview({...filePreview, view: true, program})}
         >
             <div

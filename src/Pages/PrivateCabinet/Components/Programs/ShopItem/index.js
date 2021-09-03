@@ -4,7 +4,7 @@ import styles from './ShopItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 
-const ShopItem = ({ shop, chosenShop, setChosenShop, setMouseParams, listSize }) => {
+const ShopItem = ({ shop, chosenShop, setChosenShop, setMouseParams, listSize, listCollapsed }) => {
 
     return (
         <>
@@ -24,7 +24,7 @@ const ShopItem = ({ shop, chosenShop, setChosenShop, setMouseParams, listSize })
                             className={styles.icon}
                         />
                     </div>
-                    <span className={styles.title}>{shop.name} </span>
+                    {!listCollapsed && <span className={styles.title}>{shop.name} </span>}
                 </div>
                 <div className={styles.functionWrap}>
                     {/*<div

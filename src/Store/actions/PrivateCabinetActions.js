@@ -37,6 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
+    SET_FILES_PATH,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -81,6 +82,13 @@ export const onChooseFolder = (folders, path) => {
         payload: {folders, path}
     }
 };
+
+export const onSetPath = (path) => {
+        return {
+            type: SET_FILES_PATH,
+            payload: path
+        }
+}
 
 export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().PrivateCabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().PrivateCabinet.fileCriterion.filters.emoji}` : '';
@@ -430,7 +438,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Sketch.com',
                 price: 25,
                 rating: '4,4',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 2,
@@ -440,7 +450,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Photoshop.com',
                 price: 30,
                 rating: '4,5',
-                votes: 124
+                votes: 124,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 3,
@@ -450,7 +462,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Ai.com',
                 price: 25,
                 rating: '4,2',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 4,
@@ -460,7 +474,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Sketch.com',
                 price: 25,
                 rating: '4,4',
-                votes: 256
+                votes: 256,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 5,
@@ -470,7 +486,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Acrobat.com',
                 price: 20,
                 rating: '4',
-                votes: 223
+                votes: 223,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
             {
                 id: 6,
@@ -480,7 +498,9 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
                 site: 'Zeplin.com',
                 price: 35,
                 rating: '5',
-                votes: 360
+                votes: 360,
+                size_now: "11.7 KB",
+                ctime: "09.08.2021 15:51"
             },
         ]
     })
@@ -492,7 +512,6 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 
 export const onGetDevices = () => async (dispatch, getState) => {
-    console.log(new Date())
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
             if(res.data.ok === 1) {

@@ -53,6 +53,35 @@
       .infoHeader
         min-width: 300px
 
+
+.workSpace
+  display: flex
+  height: 100%
+.filePreviewWrap
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-grow: 1
+
+.collapseContentLine
+  box-sizing: border-box
+  height: calc(100% - 221px)
+  overflow-y: auto
+  display: flex
+  flex-direction: column
+  padding: 18px 28px 50px
+
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 12px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
 .file_list
   display: flex
   flex-direction: column

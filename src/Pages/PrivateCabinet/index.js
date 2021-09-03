@@ -243,6 +243,8 @@ const PrivateCabinet = () => {
                     />
 
                     <Route
+                        exact
+                        path='/'
                         render={() => <MyFolders
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
@@ -261,8 +263,6 @@ const PrivateCabinet = () => {
                             setLoadingType={setLoadingType}
                         />}
                     />
-
-                    {/*<Redirect to='/folders'/>*/}
 
                 </Switch>
 
