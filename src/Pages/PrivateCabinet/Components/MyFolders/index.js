@@ -101,8 +101,6 @@ const MyFolders = ({
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
     const renderMenuItems = (target, type) => {
-        // console.log(target)
-        // console.log(type)
         return target.map((item, i) => {
             return <ContextMenuItem
                 key={i}

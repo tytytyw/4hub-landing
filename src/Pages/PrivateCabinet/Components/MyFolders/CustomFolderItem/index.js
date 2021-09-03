@@ -67,8 +67,15 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             })
             await cancel.then(() => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
-                setGLoader(true)
+                setGLoader(true);
                 dispatch(onSetPath(f.path));
+                const ev = e;
+                setTimeout(() => {
+                    ev.nativeEvent.path.some(el => {
+                        if(el.className === styles.menuWrap) menuClick(ev);
+                        return el.className === styles.menuWrap;
+                    })
+                }, 0)
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
             })
         }
