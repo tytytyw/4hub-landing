@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
@@ -8,7 +8,7 @@ import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/fo
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../Store/actions/PrivateCabinetActions';
+import {onGetFolders} from '../../../../Store/actions/PrivateCabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
@@ -17,6 +17,7 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
 
     const uid = useSelector(state => state.user.uid);
+    const folderList = useSelector(state => state.PrivateCabinet.folderList);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -30,8 +31,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
-
-    useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onAddName = (name) => {
         setNoNameError(false);
@@ -72,7 +71,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                 } else {setError(true)}
                 })
                 .catch(() => {setError(true)})
-                .finally(() => {dispatch(onGetFolders())}); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+                .finally(() => {
+                    dispatch(onGetFolders(folderList.path));
+                }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {
             setNoNameError(true)
         }

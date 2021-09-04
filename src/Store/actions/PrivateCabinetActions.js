@@ -50,7 +50,7 @@ const folders = [
     {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
 ];
 
-export const onGetFolders = () => async (dispatch, getState) => {
+export const onGetFolders = (path) => async (dispatch, getState) => {
     // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -72,6 +72,20 @@ export const onGetFolders = () => async (dispatch, getState) => {
                 type: GET_FOLDERS,
                 payload: f
             });
+            if(path) {
+                let folders = [];
+                    if(path.split('/')[0] === 'global') {
+                        folders = res.data[path.split('/')[0]][path.split('/')[1]].folders;
+                    } else {
+                        res.data[path.split('/')[0]].folders.forEach(f => {
+                            if(f.name === path.split('/')[1]) folders = f.folders.folders;
+                        })
+                    }
+                dispatch({
+                    type: CHOOSE_FOLDER,
+                    payload: {folders, path}
+                });
+            }
         })
         .catch(err => console.log(err))
 };
