@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFile.module.sass';
@@ -159,6 +159,12 @@ const CreateFile = ({
         return `${size} KB`;
     };
 
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
+    }
+
     return (
         <div style={{display: `block`}}>
             <PopUp set={onCloseTab}>
@@ -218,7 +224,11 @@ const CreateFile = ({
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
                             />
                             <span>{tagOption.count}/30</span>
-                            <div className={styles.tagList} >
+                            <div
+                                className={styles.tagList}
+                                ref={tagRef}
+                                onClick={handleChoose}
+                            >
                                 {renderTags()}
                             </div>
                         </div>
