@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
@@ -96,6 +96,13 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
         setPasswordCoincide(boolean);
     }
 
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
+    }
+
     return (
         <>
         <PopUp set={onCreate}>
@@ -150,7 +157,11 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
                         />
                         <span>{tagOption.count}/30</span>
-                        <div className={styles.tagList} >
+                        <div
+                            className={styles.tagList}
+                            ref={tagRef}
+                            onClick={handleChoose}
+                        >
                             {renderTags()}
                         </div>
                     </div>

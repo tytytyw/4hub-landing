@@ -159,6 +159,7 @@ const CreateFile = ({
         return `${size} KB`;
     };
 
+    // AutoHide .tagList after file is chosen
     const tagRef = useRef(null);
     const handleChoose = () => {
         tagRef.current.style.display = 'none';
