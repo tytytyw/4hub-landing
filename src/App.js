@@ -3,9 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
-import StartPage from './Pages/StartPage';
 import PrivateCabinet from './Pages/PrivateCabinet';
 import Guest from "./Pages/StartPage/Components/Guest";
+import StartPage from "./Pages/StartPage";
 
 function App() {
 
