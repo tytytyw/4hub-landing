@@ -114,11 +114,11 @@ const WorkBars = ({
                 zIndex={5}
                 containerType='bounceDots'
             /> : children}
-            <div
+            {loadingFiles && !gLoader ? <div
                 className={styles.bottomLine}
                 style={{height: loadingFiles ? '100px' : '40px'}}
             >
-                {loadingFiles && !gLoader ? <Loader
+                <Loader
                     type='bounceDots'
                     position='absolute'
                     background='white'
@@ -126,8 +126,8 @@ const WorkBars = ({
                     width='100px'
                     height='100px'
                     containerType='bounceDots'
-                /> : null}
-            </div>
+                />
+            </div> : null}
         </div>
     )
 }
