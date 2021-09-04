@@ -8,7 +8,7 @@ const InputField = ({
         placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone, disabled = false
 }) => {
 
-    const [isPassword, setIsPassword] = useState(true);
+    const [isPassword, setIsPassword] = useState(false);
 
     const switchOn = () => {
         setIsPassword(!isPassword);
