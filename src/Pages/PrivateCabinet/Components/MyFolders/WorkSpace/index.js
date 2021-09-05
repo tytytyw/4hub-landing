@@ -36,7 +36,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType, gLoader, setNewFolder, setNewFolderInfo, newFolderInfo
+       setShowSuccessMessage, setLoadingType, gLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage, setFilesPage, menuItem
 }) => {
 
     const dispatch = useDispatch();
@@ -50,12 +50,11 @@ const WorkSpace = ({
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const [showLinkCopy, setShowLinkCopy] = useState(false);
-    const [page, setPage] = useState(1);
     const fileRef = useRef(null);
 
     useEffect(() => {
         if(fileList?.files.length <= 10 && chosenFolder?.path === fileList?.path) {
-            setPage(2);
+            setFilesPage(2);
             if(fileRef.current) {
                 fileRef.current.scrollTop = 0;
             }
@@ -253,13 +252,14 @@ const WorkSpace = ({
                 filePick={filePick}
                 fileAddCustomization={fileAddCustomization}
                 setFileAddCustomization={setFileAddCustomization}
+                menuItem={menuItem}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}
                 fileSelect={fileSelect}
                 filePick={filePick}
-                page={page}
-                setPage={setPage}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
@@ -267,8 +267,8 @@ const WorkSpace = ({
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}
                 filePick={filePick}
-                page={page}
-                setPage={setPage}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
@@ -276,8 +276,8 @@ const WorkSpace = ({
             {workElementsView === 'preview' ? <WorkBarsPreview
                 file={chosenFile}
                 filePick={filePick}
-                page={page}
-                setPage={setPage}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
@@ -285,8 +285,8 @@ const WorkSpace = ({
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
-                page={page}
-                setPage={setPage}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}

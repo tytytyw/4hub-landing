@@ -59,9 +59,10 @@ const WorkSpace = ({
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
 	setLoadingType,
-	page,
-	setPage,
+	filesPage,
+	setFilesPage,
 	gLoader,
+	menuItem
 }) => {
 	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
 	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
@@ -69,7 +70,7 @@ const WorkSpace = ({
 
 	useEffect(() => {
         if(fileListAll?.files.length <= 10) {
-            setPage(2);
+            setFilesPage(2);
             if(fileRef.current) {
                 fileRef.current.scrollTop = 0;
             }
@@ -141,11 +142,12 @@ const WorkSpace = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
+					menuItem={menuItem}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars
-						page={page}
-						setPage={setPage}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
 						gLoader={gLoader}
 						fileRef={fileRef}
 						fileLoading={fileLoading}
@@ -157,8 +159,8 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "lines" ? (
 					<WorkLines
-						page={page}
-						setPage={setPage}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
 						gLoader={gLoader}
 						fileRef={fileRef}
 						fileLoading={fileLoading}
@@ -169,8 +171,8 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "preview" ? (
 					<WorkBarsPreview
-						page={page}
-						setPage={setPage}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
 						gLoader={gLoader}
 						fileRef={fileRef}
 						file={chosenFile}
@@ -181,8 +183,8 @@ const WorkSpace = ({
 				) : null}
 				{workElementsView === "workLinesPreview" ? (
 					<WorkLinesPreview
-						page={page}
-						setPage={setPage}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
 						gLoader={gLoader}
 						fileRef={fileRef}
 						file={chosenFile}

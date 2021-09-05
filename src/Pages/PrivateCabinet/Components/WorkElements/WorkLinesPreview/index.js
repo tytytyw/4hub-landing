@@ -8,7 +8,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
+      file, children, hideFileList, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
@@ -57,19 +57,19 @@ const WorkLinesPreview = ({
         }
     }
 
-    // Loading files to full the page
-    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+    // Loading files to full the filesPage
+    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
-        result > 0 ? setPage(page => page + 1) : setPage(0);
+        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
     const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
+                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
             }
         }
     }

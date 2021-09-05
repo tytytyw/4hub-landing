@@ -12,7 +12,8 @@ import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/che
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
+        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem,
+        filesPage
 }) => {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -26,6 +27,9 @@ const FileLoader = ({
     const [response, setResponse] = useState(null);
     const dispatch = useDispatch();
     const fileLoaderRef = useRef(null);
+    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
+    const search = useSelector(state => state.PrivateCabinet?.search);
 
     //Cancel Loading variables
     const CancelToken = axios.CancelToken;
@@ -131,7 +135,8 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
-        menuItem === 'myFiles' ? dispatch(onChooseAllFiles()) : dispatch(onChooseFiles(path));
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, '', ''));
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, filesPage, '', ''));
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps

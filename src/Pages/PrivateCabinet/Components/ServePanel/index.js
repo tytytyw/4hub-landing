@@ -35,7 +35,7 @@ import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
-        setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile
+        setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile, menuItem
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
@@ -108,18 +108,18 @@ const ServePanel = ({
 
     const setFigure = (value) => {
         dispatch(onChangeFilterFigure(value));
-        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
-        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
-        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
 
     return (

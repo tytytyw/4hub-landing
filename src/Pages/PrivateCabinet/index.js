@@ -38,6 +38,7 @@ const PrivateCabinet = () => {
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
     const [loadingType, setLoadingType] = useState('');
+    const [filesPage, setFilesPage] = useState(1);
 
     const history = useHistory()
 
@@ -129,11 +130,14 @@ const PrivateCabinet = () => {
                             fileAddCustomization={fileAddCustomization}
                             setFileAddCustomization={setFileAddCustomization}
                             setLoadingFile={setLoadingFile}
+                            menuItem={menuItem}
                             setMenuItem={setMenuItem}
                             nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
                             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                             loadingType={loadingType}
                             setLoadingType={setLoadingType}
+                            filesPage={filesPage}
+                            setFilesPage={setFilesPage}
                         />}
                     />
 
@@ -261,6 +265,10 @@ const PrivateCabinet = () => {
                             nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
                             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                             setLoadingType={setLoadingType}
+                            menuItem={menuItem}
+                            setMenuItem={setMenuItem}
+                            filesPage={filesPage}
+                            setFilesPage={setFilesPage}
                         />}
                     />
 
@@ -280,6 +288,7 @@ const PrivateCabinet = () => {
                     fileErrors={fileErrors}
                     setFileErrors={setFileErrors}
                     menuItem={menuItem}
+                    filesPage={filesPage}
                 />
             : null}
             <div style={{display: 'none'}}>

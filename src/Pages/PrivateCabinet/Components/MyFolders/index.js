@@ -29,9 +29,9 @@ import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkF
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
-               setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
+               setItem, menuItem, setMenuItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
-               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType
+               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType, filesPage, setFilesPage
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -56,7 +56,12 @@ const MyFolders = ({
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
-    useEffect(() => {dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));}, []); //eslint-disable-line
+    useEffect(() => {
+        setFilesPage(1)
+        setMenuItem('myFolders')
+        dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));
+        return () => setMenuItem('')
+    }, []); //eslint-disable-line
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -199,6 +204,9 @@ const MyFolders = ({
                 setNewFolder={setNewFolder}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
+                menuItem={menuItem}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

@@ -8,7 +8,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import Loader from '../../../../../generalComponents/Loaders/4HUB';
 
 const WorkBars = ({
-          children, fileSelect, filePick, hideUploadFile, page, setPage, fileRef, chosenFolder,
+          children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef, chosenFolder,
           gLoader
 }) => {
 
@@ -20,23 +20,23 @@ const WorkBars = ({
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
-    // Loading files to full the page
-    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+    // Loading files to full the filesPage
+    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
-        result > 0 ? setPage(page => page + 1) : setPage(0);
+        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
     const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
+        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
+                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
                 
             } else if (window.location.pathname.includes('files')){
                 setLoadingFiles(true);
-                dispatch(onChooseAllFiles(fileListAll?.path, search, page, onSuccessLoading, ''))
+                dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''))
             }
         }
     }
