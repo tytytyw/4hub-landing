@@ -114,13 +114,13 @@ const WorkSpace = ({
     };
 
     const printFile = (path) => {
-            let pri = document.getElementById('frame');
-            pri.src = `https://fs2.mh.net.ua${path}`;
-            setTimeout(() => {
-                pri.contentWindow.focus();
-                pri.contentWindow.print();
-            }, 1000);
-            setLoadingType('')
+        let pri = document.getElementById('frame');
+        pri.src = `https://fs2.mh.net.ua${path}`;
+        setTimeout(() => {
+            pri.contentWindow.focus();
+            pri.contentWindow.print();
+        }, 1000);
+        setLoadingType('')
     };
 
     const excessItems = () => {
@@ -228,6 +228,7 @@ const WorkSpace = ({
 
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+            
             <div className={styles.header}>
                 <SearchField setChosenFile={setChosenFile} />
                 <div className={styles.infoHeader}>

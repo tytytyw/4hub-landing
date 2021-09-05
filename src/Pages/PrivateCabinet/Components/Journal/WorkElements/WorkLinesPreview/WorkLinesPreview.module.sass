@@ -20,11 +20,12 @@
       grid-column: 1 / -1
       width: 100%
       position: relative
-      
+    
+
   .previewFileWrap
-    box-sizing: border-box
-    padding: 50px 0
+    padding: 30px 50px
     flex-grow: 1
+    box-sizing: border-box
     overflow: auto
     height: 100%
     &::-webkit-scrollbar-track
@@ -42,15 +43,19 @@
       font-size: 14px
       font-family: "SF Pro Regular", sans-serif
       color: #878787
+    .previewInfo
+      margin: auto 80px
+
     .preview
+      margin: 30px auto
+      padding: 0 20px
+      flex-grow: 1
       display: flex
       justify-content: center
       align-items: center
-      width: 100%
       overflow: hidden
       img
-        max-width: 50%
-        max-height: 90%
+        max-height: 288px
       .big_pic
         max-width: 100%
       video
@@ -83,53 +88,80 @@
           position: absolute
           width: 5%
           cursor: pointer
-    .fileName
-      text-align: center
-      font-size: 14px
-      font-family: "SF Pro Medium", sans-serif
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-      margin: 10px 0 10px 0
-    .infoFileItem
-      display: flex
-      align-items: center
-      justify-content: flex-start
-      width: 100%
-      margin: 0 0 10px 0
-      .itemName
-        display: flex
-        justify-content: flex-end
-        width: 45%
-        margin: 0 20px 0 0
-        font-family: "SF Pro Light", sans-serif
-      .optionItem:hover
-        color: #4086F1
-      .optionItem
-        cursor: pointer
-        color: lightgrey
-      .tagName
-        max-width: 40%
-        font-size: 14px
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        background: #4086F1
-        border-radius: 10px
-        padding: 1px 10px
-        cursor: default
-      .colorCircle
-        width: 20px
-        height: 20px
-        border-radius: 50%
-      .description
-        font-size: 14px
-        max-width: 40%
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        font-family: "SF Pro Light", sans-serif
+    
   .filePreviewWrap
     position: relative
     width: 120px
     height: 140px
+
+
+
+
+.previewFileInfo
+  min-width: 320px
+  margin: auto 0
+  box-sizing: border-box
+
+  .previewFileInfoWrap
+    width: 100%
+
+  .fileName
+    font-size: 14px
+    font-family: "SF Pro Medium", sans-serif
+    max-width: 85%
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    margin: 0 0 10px 0
+  .infoFileItem
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    width: 100%
+    margin: 0 0 8px 0
+    .addItem
+      cursor: pointer
+      font-size: 14px
+      line-height: 19px
+      color: #C0C1C0
+    .itemName
+      display: flex
+      justify-content: flex-end
+      width: 48%
+      margin: 0 20px 0 0
+      font-size: 14px
+      line-height: 19px
+      color: #818081
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      font-family: "SF Pro Light", sans-serif
+    .optionItem:hover
+      color: #4086F1
+    .optionItem
+      cursor: pointer
+      color: lightgrey
+    .tagName
+      font-size: 14px
+      line-height: 19px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      background: #4086F1
+      color: #fff
+      border-radius: 10px
+      padding: 1px 10px
+      cursor: default
+    .colorCircle
+      width: 20px
+      height: 20px
+      border-radius: 50%
+      background: #4086F1
+    .description
+      font-size: 14px
+      line-height: 19px
+      color: #666666
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      font-family: "SF Pro Light", sans-serif  

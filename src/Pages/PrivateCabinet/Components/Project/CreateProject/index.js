@@ -22,7 +22,7 @@ const CreateProject = ({onCreate, title, info}) => {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
-    const [showRepeat, setShowRepeat] = useState(false);
+    const [showRepeat, setShowRepeat] = useState(true);
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
@@ -42,8 +42,6 @@ const CreateProject = ({onCreate, title, info}) => {
             >{tag}</div>;
         })
     };
-
-    const width = window.innerWidth;
 
     const onAddFolder = () => {
         const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
@@ -86,7 +84,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
@@ -96,7 +94,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={target}
                             set={setTarget}
                             placeholder='Цель проекта'
@@ -106,9 +104,9 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={members}
                             set={setMembers}
+                            height={null}
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img
@@ -138,7 +136,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={password}
                             set={setPassword}
                             placeholder='Установить пароль'
@@ -153,7 +151,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'

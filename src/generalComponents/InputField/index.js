@@ -20,7 +20,7 @@ const InputField = ({
     }
 
     return (
-        <div style={{height}} className={classnames({
+        <div style={height && {height}} className={classnames({
             [styles.wrap]: true,
             [styles.redBorder]: mistake
         })}>

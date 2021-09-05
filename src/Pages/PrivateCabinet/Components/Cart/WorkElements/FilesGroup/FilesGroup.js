@@ -3,11 +3,14 @@ import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../../WorkElements/WorkBarsPreview";
-import FileLineShort from "../FileLineShort";
-import FileBar from "../../WorkElements/FileBar";
-import FileLine from "../../WorkElements/FileLine";
+import FileLineShort from "../../../Archive/WorkElements/FileLineShort";
+import FileBar from "../../../WorkElements/FileBar";
+import FileLine from "../../../WorkElements/FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
+
+import WorkLinesPreview from '../../../Archive/WorkElements/WorkLinesPreview'
+import SideList from '../../../SharedFiles/SideList'
 
 function FilesGroup({
 	fileList,
@@ -89,27 +92,45 @@ function FilesGroup({
 					</div>
 				)}
 
-			{workElementsView === "bars" && collapse ? (
-				<WorkBars filePick={filePick} hideUploadFile={true}>{renderFiles(FileBar)}</WorkBars>
-			) : null}
+			{collapse &&
+			<>
+				{workElementsView === "bars" && (
+					<WorkBars filePick={filePick} hideUploadFile={true}>{renderFiles(FileBar)}</WorkBars>
+				)}
 
-			{workElementsView === "lines" && collapse ? (
-				<div className={styles.collapseContent}>
-					{renderFiles(FileLine, true)}
-				</div>
-			) : null}
+				{workElementsView === "lines" && (
+					<div className={styles.collapseContent}>
+						{renderFiles(FileLine, true)}
+					</div>
+				)}
 
-			{workElementsView === "preview" && collapse ? (
-				<WorkBarsPreview
-					file={chosenFile}
-					filePick={filePick}
-				>
-					{renderFiles(FileBar)}
-				</WorkBarsPreview>
-			) : null}
-			{workElementsView === "workLinesPreview" && collapse ? (
-				<div>{renderFiles(FileLineShort, true)}</div>
-			) : null}
+				{workElementsView === "preview" && (
+					<div className={styles.workSpace}>
+						<WorkBarsPreview
+							file={chosenFile}
+							filePick={filePick}
+						>
+							{renderFiles(FileBar)}
+						</WorkBarsPreview>
+					</div>
+				)}
+				{workElementsView === "workLinesPreview" && (
+					<div className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
+						<SideList>
+							{renderFiles(FileLineShort, true)}
+						</SideList>
+						<div className={styles.filePreviewWrap}>
+								<WorkLinesPreview
+										file={chosenFile}
+										hideFileList={true}
+										filePick={filePick}
+								/>
+						</div>
+					</div>
+				)}
+			</>}	
+
+			
 		</div>
 	);
 }
