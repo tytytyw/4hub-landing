@@ -16,7 +16,6 @@ import BottomPanel from "../../BottomPanel";
 
 const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size)
     const fileList = useSelector(state => state.PrivateCabinet.fileList)
     const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
@@ -37,7 +36,6 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
                 setAction={setAction}
                 filePick={filePick}
                 setFilePick={setFilePick}
-                size={size}
                 action={action}
             />
         })
