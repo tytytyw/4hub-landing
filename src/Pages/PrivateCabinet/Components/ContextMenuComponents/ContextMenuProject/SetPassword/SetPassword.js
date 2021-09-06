@@ -98,9 +98,9 @@ console.log(folder)
 							Отмена
 						</div>
 						<div
-							className={`${folder?.info ? styles.add : styles.buttonDisabled}`}
+							className={styles.add}
 							onClick={() => {
-								if (folder.info) onAddPass();
+								onAddPass();
 							}}
 						>
 							Установить

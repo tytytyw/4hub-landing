@@ -10,7 +10,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
     const dispatch = useDispatch();
 
     const onClickHandler = () => {
-        setChosenFolder(folder?.id)
+        setChosenFolder(folder)
         dispatch(onGetPrograms(folder?.id))
     }
 

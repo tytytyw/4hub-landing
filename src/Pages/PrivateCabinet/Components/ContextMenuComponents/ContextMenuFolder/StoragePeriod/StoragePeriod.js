@@ -48,7 +48,7 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 
 	return (
 		<div className={styles.wrap}>
-			<div className={classNames(styles.header, styles.border_bottom)}>
+			{folder && <div className={classNames(styles.header, styles.border_bottom)}>
 				<div className={styles.innerFileWrap}>
 					<FolderIcon className={`${styles.folderIcon} ${folder?.info?.color ? colors.filter(el => el.color === folder.info.color)[0]?.name : folder.info?.nameRu ? styles.generalFolder : ''}`} />
 					{/*<File color={file.id_color} format={file.ext} />*/}
@@ -90,7 +90,7 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 						<span className={styles.close} />
 					</div>
 				</div>
-			</div>
+			</div>}
 			<div className={styles.date_wrap}>
 				<div className={styles.title_wrap}>
 					<CalendarIco />

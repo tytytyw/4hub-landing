@@ -197,7 +197,7 @@ const Safe = ({
 	const addToArchive = (uid, fid, file, options) => {
 		setLoadingType("squarify");
 		api
-			.post(`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid},id_safe=${authorizedSafe.id_safe}`)
+			.post(`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid}&id_safe=${authorizedSafe.id_safe}`)
 			.then((res) => {
 				if (res.data.ok === 1) {
 					dispatch(onDeleteSafeFile(fid));

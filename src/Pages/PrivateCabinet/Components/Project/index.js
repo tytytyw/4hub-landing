@@ -16,6 +16,7 @@ import CopyLinkProject from '../ContextMenuComponents/ContextMenuProject/CopyLin
 import CustomizeProject from '../ContextMenuComponents/ContextMenuProject/CustomizeProject';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
+import ConfigAccessFolder from '../ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder';
 import {ReactComponent as ClipboardIcon} from '../../../../assets/PrivateCabinet/project/clipboard.svg'
 import {ReactComponent as CoworkingIcon} from '../../../../assets/PrivateCabinet/project/coworking.svg'
 import {ReactComponent as LampIcon} from '../../../../assets/PrivateCabinet/project/lamp.svg'
@@ -60,7 +61,15 @@ const Project = () => {
         {type: 'leave', name: 'Покинуть проект', text: `Вы действительно покинуть проект ${selectedProject?.name}?`, callback: (list, index) => setAction(list[index])}
     ];
 
-    const renderMenuItems = (target) => {
+    const callbackArrSub = [
+        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
+        // {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
+    ];
+
+    const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
             return <ContextMenuItem
                 key={i}
@@ -68,6 +77,7 @@ const Project = () => {
                 height={mouseParams.height}
                 text={item.name}
                 imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                callback={() => type.forEach((el, index) => {if(el.name === item.name) el.callback(type, index)})}
             />
         })
     }
@@ -146,7 +156,7 @@ const Project = () => {
                 tooltip={true}
             >
                 <div className={styles.mainMenuItems}>
-                    {renderMenuItems(contextMenuSubFolder.main)}
+                    {renderMenuItems(contextMenuSubFolder.main, callbackArrSub)}
                 </div>
             </ContextMenu>}
 
@@ -224,6 +234,16 @@ const Project = () => {
                     project={selectedProject}
             />
 			) : null}
+
+            {action.type === 'setAccessFolder' ? (
+                <ConfigAccessFolder
+                    folder={chosenFolder}
+                    files={{}}
+                    close={nullifyAction}
+                    showSuccessMessage={showSuccessMessage}
+                    setShowSuccessMessage={setShowSuccessMessage}
+                />
+            ) : null}
 
         </div>
     )
