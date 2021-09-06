@@ -9,7 +9,6 @@ import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
-import {previewFormats} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
@@ -48,11 +47,7 @@ const FileLine = ({
         setChosenFile(file)
     }
 
-    const handleDoubleClick = () => {
-        const isForamt = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
-        if(isForamt) return window.open(file?.edit_url);
-        return setFilePreview({...filePreview, view: true, file})
-    }
+    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file})
 
     return (
         <div

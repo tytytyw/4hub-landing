@@ -14,14 +14,24 @@
   display: flex
   justify-content: space-between
   width: 100%
+  max-width: 100%
   height: 56px
   min-height: 56px
   align-items: center
   cursor: default
+  .fileChosenTriangle .fileWrap:after
+    content: ''
+    width: 5px
+    height: 5px
+    top: 0
+    right: 0
+    position: absolute
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
   .infoWrap
     display: flex
     align-items: center
-    width: 85%
+    width: calc(100% - 20px - 10px)
+    max-width: calc(100% - 20px - 10px)
     .fileWrap
       position: relative
       height: 25px
@@ -31,8 +41,8 @@
       margin: 0 15px 0 15px
     .fileName
       font-size: 12px
-      width: 100%
-      max-width: 100%
+      width: calc(100% - 22px - 30px)
+      max-width: calc(100% - 22px - 30px)
       overflow: hidden
       white-space: nowrap
       text-overflow: ellipsis
@@ -65,3 +75,36 @@
   .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
     background: #477DE1
     transition: background 0.2s ease
+
+.mediumSize
+  height: 70px
+  min-height: 70px
+  &:hover .fileWrap:after,
+  .fileChosenTriangle .fileWrap:after
+    width: 11px
+    height: 11px
+  .infoWrap
+    .fileWrap
+      height: 55px
+      min-height: 55px
+      width: 47px
+      max-width: 47px
+    .fileName
+      font-size: 14px
+
+.bigSize
+  height: 90px
+  min-height: 90px
+  &:hover .fileWrap:after,
+  .fileChosenTriangle .fileWrap:after
+    width: 17px
+    height: 17px
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+  .infoWrap
+    .fileWrap
+      height: 75px
+      min-height: 75px
+      width: 67px
+      min-width: 67px
+    .fileName
+      font-size: 16px

@@ -157,7 +157,6 @@ const MyFolders = ({
             <List
                 title='Папки'
                 src='add-folder.svg'
-                setListCollapsed={setListCollapsed}
                 listCollapsed={listCollapsed}
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
             >

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
@@ -17,6 +17,7 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
 
     const uid = useSelector(state => state.user.uid);
+    const folderList = useSelector(state => state.PrivateCabinet.folderList);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -30,8 +31,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
-
-    useEffect(() => {setChosenFolder({...chosenFolder, open: false})}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onAddName = (name) => {
         setNoNameError(false);
@@ -57,7 +56,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                 } else {setError(true)}
                 })
                 .catch(() => {setError(true)})
-                .finally(() => {dispatch(onGetFolders())}); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
+                .finally(() => {
+                    dispatch(onGetFolders(folderList.path));
+                }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {
             setNoNameError(true)
         }
@@ -79,6 +80,13 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
         let boolean = true;
         passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = false});
         setPasswordCoincide(boolean);
+    }
+
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
     }
 
     return (
@@ -133,7 +141,11 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
                             />
                             <span>{tagOption.count}/30</span>
-                            <div className={styles.tagList} >
+                            <div
+                                className={styles.tagList}
+                                ref={tagRef}
+                                onClick={handleChoose}
+                            >
                                 {renderTags()}
                             </div>
                         </div>

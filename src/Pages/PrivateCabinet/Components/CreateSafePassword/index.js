@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 
 import styles from './CreateSafePassword.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
@@ -55,6 +55,13 @@ const CreateSafePassword = ({onToggle, title}) => {
         if(count >= 0) setTagOption({...tagOption, chosen, count});
     };
 
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
+    }
+
     return (
         <>
         <PopUp set={onToggle}>
@@ -96,7 +103,11 @@ const CreateSafePassword = ({onToggle, title}) => {
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
                         />
                         <span>{tagOption.count}/30</span>
-                        <div className={styles.tagList} >
+                        <div
+                            className={styles.tagList}
+                            ref={tagRef}
+                            onClick={handleChoose}
+                        >
                             {renderTags()}
                         </div>
                     </div>
