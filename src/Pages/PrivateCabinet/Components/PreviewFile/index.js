@@ -1,40 +1,24 @@
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import React from 'react';
 
-import api from '../../../../api';
-import {previewTypes} from '../../../../generalComponents/collections';
+import {previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 
 const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
 
-    const uid = useSelector(state => state.user.uid);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = () => setFilePreview({...filePreview, view: false, file: null});
-    const [previewReq, setPreviewReq] = useState({sent: false, data: null});
-
-    const getPreview = () => {
-        if(!previewReq.sent) {
-            setLoadingType('squarify')
-            setPreviewReq({...previewReq, sent: true});
-            setTimeout(() => {
-                api.post(`/ajax/file_preview.php?uid=${uid}&fid=${file.fid}`)
-                    .then(res => setPreviewReq({sent: true, data: res.data}))
-                    .catch(err => console.log(err))
-                    .finally(() => setLoadingType(false))
-            }, 0);
-        }
-    }
 
     const renderOfficePreview = () => {
-        const isType = previewTypes.filter(type => type === file.mime_type).length > 0;
-            if(isType) {
-                return getPreview()
-            } else {
-                return standardPrev;
-            }
+        const isFormat = previewFormats.filter(type => file.ext.toLowerCase().includes(type)).length > 0;
+        console.log(isFormat);
+        if(isFormat && file.edit_url) {
+            return <iframe src={file.edit_url} title={file.name} frameBorder="0" scrolling="no" />
+        } else {
+            return standardPrev;
+        }
     }
 
     const renderFilePreview = () => {
@@ -70,9 +54,6 @@ const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
         <PopUp set={set} background={'none'}>
             <div className={styles.preview} onClick={() => set()}>
                 {file ? file.is_preview === 1 ? renderFilePreview() : renderOfficePreview() : null}
-                {previewReq.data !== null
-                    ? <iframe src={`https://fs2.mh.net.ua${previewReq.data.file_pdf}`} title={previewReq.data.file_name} frameBorder="0" scrolling="no" />
-                    : null}
             </div>
         </PopUp>
     );
