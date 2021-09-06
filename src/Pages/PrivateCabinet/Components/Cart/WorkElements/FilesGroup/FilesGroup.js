@@ -4,8 +4,8 @@ import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../../WorkElements/WorkBarsPreview";
 import FileLineShort from "../../../Archive/WorkElements/FileLineShort";
-import FileBar from "../../../WorkElements/FileBar";
-import FileLine from "../../../WorkElements/FileLine";
+import FileBar from "../FileBar";
+import FileLine from "../FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 
