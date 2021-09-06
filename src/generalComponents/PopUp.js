@@ -9,7 +9,7 @@ const PopUp = (props) => {
     }
 
     const handleMouseUp = e => {
-        if(e.target.id === targetClick) {
+        if(e.target.id === 'popUp' && e.target.id === targetClick) {
             setTargetClick('');
             props.set(false);
         }
