@@ -4,8 +4,8 @@ import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
 import PrivateCabinet from './Pages/PrivateCabinet';
-import Guest from "./Pages/StartPage/Components/Guest";
 import StartPage from "./Pages/StartPage";
+import Guest from "./Pages/PrivateCabinet/Components/Guest";
 
 function App() {
 

@@ -4,25 +4,28 @@ import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../../WorkElements/WorkBarsPreview";
 import FileLineShort from "../FileLineShort";
-import FileBar from "../../WorkElements/FileBar";
-import FileLine from "../../WorkElements/FileLine";
+import FileBar from "../FileBar";
+import FileLine from "../FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 
+import WorkLinesPreview from '../WorkLinesPreview'
+import SideList from '../../../SharedFiles/SideList'
+
 function FilesGroup({
-	fileList,
-	filePreview,
-	setFilePreview,
-	callbackArrMain,
-	chosenFile,
-	setChosenFile,
-	filePick,
-	setFilePick,
-	setAction,
-	setMouseParams,
-	mounthName,
-    index
-}) {
+						fileList,
+						filePreview,
+						setFilePreview,
+						callbackArrMain,
+						chosenFile,
+						setChosenFile,
+						filePick,
+						setFilePick,
+						setAction,
+						setMouseParams,
+						mounthName,
+						index
+					}) {
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 
@@ -81,35 +84,53 @@ function FilesGroup({
 			</div>}
 
 			{collapse &&
-				workElementsView !== "preview" &&
-				workElementsView !== "workLinesPreview" && (
-					<div className={styles.fileDate}>
-						{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						{fileList?.files.length > 0 && <p>10.08.2020</p>}
+			workElementsView !== "preview" &&
+			workElementsView !== "workLinesPreview" && (
+				<div className={styles.fileDate}>
+					{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+					{fileList?.files.length > 0 && <p>10.08.2020</p>}
+				</div>
+			)}
+
+			{collapse &&
+			<>
+				{workElementsView === "bars" && (
+					<WorkBars filePick={filePick} hideUploadFile={true}>{renderFiles(FileBar)}</WorkBars>
+				)}
+
+				{workElementsView === "lines" && (
+					<div className={styles.collapseContent}>
+						{renderFiles(FileLine, true)}
 					</div>
 				)}
 
-			{workElementsView === "bars" && collapse ? (
-				<WorkBars filePick={filePick} hideUploadFile={true}>{renderFiles(FileBar)}</WorkBars>
-			) : null}
+				{workElementsView === "preview" && (
+					<div className={styles.workSpace}>
+						<WorkBarsPreview
+							file={chosenFile}
+							filePick={filePick}
+						>
+							{renderFiles(FileBar)}
+						</WorkBarsPreview>
+					</div>
+				)}
+				{workElementsView === "workLinesPreview" && (
+					<div className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
+						<SideList>
+							{renderFiles(FileLineShort, true)}
+						</SideList>
+						<div className={styles.filePreviewWrap}>
+							<WorkLinesPreview
+								file={chosenFile}
+								hideFileList={true}
+								filePick={filePick}
+							/>
+						</div>
+					</div>
+				)}
+			</>}
 
-			{workElementsView === "lines" && collapse ? (
-				<div className={styles.collapseContent}>
-					{renderFiles(FileLine, true)}
-				</div>
-			) : null}
 
-			{workElementsView === "preview" && collapse ? (
-				<WorkBarsPreview
-					file={chosenFile}
-					filePick={filePick}
-				>
-					{renderFiles(FileBar)}
-				</WorkBarsPreview>
-			) : null}
-			{workElementsView === "workLinesPreview" && collapse ? (
-				<div>{renderFiles(FileLineShort, true)}</div>
-			) : null}
 		</div>
 	);
 }

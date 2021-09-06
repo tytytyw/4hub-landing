@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFile.module.sass';
@@ -15,9 +15,9 @@ import File from '../../../../generalComponents/Files';
 import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
 const CreateFile = ({
-                title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
-}) => {
+                        title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
+                        awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
+                    }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -144,6 +144,13 @@ const CreateFile = ({
         return `${size} KB`;
     };
 
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
+    }
+
     return (
         <div style={{display: `block`}}>
             <PopUp set={onCloseTab}>
@@ -202,7 +209,11 @@ const CreateFile = ({
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
                             />
                             <span>{tagOption.count}/30</span>
-                            <div className={styles.tagList} >
+                            <div
+                                className={styles.tagList}
+                                ref={tagRef}
+                                onClick={handleChoose}
+                            >
                                 {renderTags()}
                             </div>
                         </div>

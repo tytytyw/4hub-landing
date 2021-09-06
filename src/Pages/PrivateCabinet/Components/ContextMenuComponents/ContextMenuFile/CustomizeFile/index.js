@@ -15,8 +15,8 @@ import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 
 const CustomizeFile = ({
-           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles, setLoadingType
-}) => {
+                           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles, setLoadingType
+                       }) => {
 
     const uid = useSelector(state => state.user.uid);
     const path = useSelector(state => state.PrivateCabinet?.fileList?.path);
@@ -145,37 +145,37 @@ const CustomizeFile = ({
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
                     {filePick.customize || fileAddCustomization?.several ? null :
-                    <div className={styles.fileIconWrap}>
-                        <div className={`${styles.fileWrap}`}>
-                            <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
-                        </div>
-                        <div className={styles.picPreview}>
-                            <div className={styles.format}>{getName(file.name).format} {file.size_now}</div>
-                            <div className={styles.name}>{getName(file.name).name}</div>
-                            <div className={styles.fileOptions}>
-                                {tagOption.chosen && <div
-                                    className={`${styles.minitagWrap} ${styles.redCross}`}
-                                    onClick={() => setTagOption({...tagOption, chosen: ''})}
-                                >
-                                    <div
-                                        className={`${styles.minitag}`}
-                                    >#{tagOption.chosen}</div>
-                                </div>}
-                                <div className={`${styles.colorWrap} ${color?.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
-                                    <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
-                                </div>
-                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                        <div className={styles.fileIconWrap}>
+                            <div className={`${styles.fileWrap}`}>
+                                <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
                             </div>
-                        </div>
-                    </div>}
+                            <div className={styles.picPreview}>
+                                <div className={styles.format}>{getName(file.name).format} {file.size_now}</div>
+                                <div className={styles.name}>{getName(file.name).name}</div>
+                                <div className={styles.fileOptions}>
+                                    {tagOption.chosen && <div
+                                        className={`${styles.minitagWrap} ${styles.redCross}`}
+                                        onClick={() => setTagOption({...tagOption, chosen: ''})}
+                                    >
+                                        <div
+                                            className={`${styles.minitag}`}
+                                        >#{tagOption.chosen}</div>
+                                    </div>}
+                                    <div className={`${styles.colorWrap} ${color?.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
+                                        <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
+                                    </div>
+                                    {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                                    {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                                    {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                                </div>
+                            </div>
+                        </div>}
                     <div className={`${styles.inputFieldsWrap}`}>
                         <div className={styles.inputWrap}>
                             {filePick.customize || fileAddCustomization.several ? null :
                                 <InputField
                                     model='text'
-                                    height={null}
+                                    
                                     value={name}
                                     set={setName}
                                     placeholder='Имя файла'
@@ -200,7 +200,7 @@ const CustomizeFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={null}
+                                
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -210,21 +210,21 @@ const CustomizeFile = ({
                                 disabled={!showRepeat}
                             />
                         </div>
-                        {showRepeat && 
-                            <div className={styles.inputWrap}>
-                                <InputField
-                                    model='password'
-                                    switcher={false}
-                                    height={null}
-                                    value={passwordRepeat}
-                                    set={setPasswordRepeat}
-                                    placeholder='Повторите пароль'
-                                    visibility={visibility}
-                                    setVisibility={setVisibility}
-                                    comparePass={comparePass}
-                                    mistake={!passwordCoincide}
-                                />
-                            </div>}
+                        {showRepeat &&
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={false}
+                                
+                                value={passwordRepeat}
+                                set={setPasswordRepeat}
+                                placeholder='Повторите пароль'
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                comparePass={comparePass}
+                                mistake={!passwordCoincide}
+                            />
+                        </div>}
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />

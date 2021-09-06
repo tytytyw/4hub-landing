@@ -4,63 +4,37 @@ import styles from './Guest.module.sass'
 import SearchField from "./SearchField";
 import classNames from "classnames";
 import ServePanel from "./ServePanel";
-import SideList from "./SideList";
-import WorkLinesPreview from "../../../PrivateCabinet/Components/WorkElements/WorkLinesPreview";
-import FileBar from "./WorkElements/FileBar";
-import {useDispatch, useSelector} from "react-redux";
-import {onChooseAllFiles} from "../../../../Store/actions/PrivateCabinetActions";
 
-import filesList from './data.json'
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
-import FileLine from "../../../PrivateCabinet/Components/WorkElements/FileLine";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import CopyLink from "../../../PrivateCabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
-import WorkBarsPreview from "./WorkElements/WorkBarsPreview";
-import FileLineShort from "./WorkElements/FileLineShort";
+import {months} from "../../../../generalComponents/CalendarHelper";
+import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
+import {onGetGuestSharedFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {useDispatch, useSelector} from "react-redux";
 
 const Guest = () => {
 
     const dispatch = useDispatch()
 
-    const size = useSelector((state) => state.PrivateCabinet.size)
-    const view = useSelector(state => state.PrivateCabinet.view);
+    const fileList = useSelector((state) => state.PrivateCabinet.guestSharedFiles);
 
-    const [filePick] = useState({show: false, files: [], customize: false});
+    const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
     const [filePreview, setFilePreview] = useState(null)
     const [chosenFile, setChosenFile] = useState(null)
+
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
 
     const [showLinkCopy, setShowLinkCopy] = useState(false);
-    const [collapse, setCollapse] = useState(true);
-    const [gLoader, setGLoader] = useState(false);
 
-    console.log(gLoader)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => {dispatch(onChooseAllFiles('', 1, '', setGLoader));}, []);
-
-    const renderFiles = (Type) => {
-        if (!filesList) return null
-        return filesList?.map((file, index) => (
-            <Type
-                key={index}
-                file={file}
-                filePick={filePick}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        ))
-    }
+    useEffect(() => {
+        dispatch(onGetGuestSharedFiles());
+    }, [dispatch]);
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -109,6 +83,27 @@ const Guest = () => {
         },
     ];
 
+
+    const renderFilesGroup = (mounth, i) => {
+        return (
+            <FilesGroup
+                key={i}
+                index={i}
+                fileList={fileList}
+                filePreview={filePreview}
+                setFilePreview={setFilePreview}
+                callbackArrMain={callbackArrMain}
+                chosenFile={chosenFile}
+                setChosenFile={setChosenFile}
+                filePick={filePick}
+                setFilePick={setFilePick}
+                mounthName={mounth}
+                setAction={setAction}
+                setMouseParams={setMouseParams}
+            />
+        );
+    };
+
     return (
         <div className={styles.wrapper}>
 
@@ -146,65 +141,12 @@ const Guest = () => {
                     <p>Дизайн файлообменика</p>
                 </div>
 
-                <div
-                    onClick={() => setCollapse(!collapse)}
-                    className={styles.collapseHeader}
-                >
-                    <p className={styles.dateName}>Август</p>
-                    <button className={styles.collapseBtn}>
-                        2 объектов
-                    </button>
-                    <div
-                        className={classNames({
-                            [styles.arrowFile]: true,
-                            [styles.active]: !!collapse
-                        })}
-                    >
-                        <PlayIcon
-                            className={classNames({
-                                [styles.playButton]: true,
-                                [styles.revert]: !!collapse
-                            })}
-                        />
-                    </div>
-                </div>
-
                 <div className={styles.workSpaceWrap}>
-                    {view === "bars" && (
-                        <div className={classNames({
-                            [styles.collapseContent]: true,
-                            [styles?.[`collapseContent_${size}`]]: size !== 'meidum'
-                        })}>
-                            {collapse && renderFiles(FileBar)}
-                        </div>
-                    )}
-                    {view === "lines" && (
-                        <div className={styles.collapseContentLine}>
-                            {renderFiles(FileLine, true)}
-                        </div>
-                    )}
-                    {view === "preview" && (
-                        <WorkBarsPreview
-                            file={chosenFile}
-                            filePick={filePick}
-                        >
-                            {renderFiles(FileBar)}
-                        </WorkBarsPreview>
-                    )}
-                    {view === "workLinesPreview" && (
-                        <div className={styles.workSpace}>
-                            <SideList>
-                                <div>{renderFiles(FileLineShort, true)}</div>
-                            </SideList>
-                            <div className={styles.filePreviewWrap}>
-                                <WorkLinesPreview
-                                    file={chosenFile}
-                                    hideFileList={true}
-                                    filePick={filePick}
-                                />
-                            </div>
-                        </div>
-                    )}
+
+                    <div className={styles.FilesList}>
+                        {months().map((item, i) => renderFilesGroup(item.name, i))}
+                    </div>
+
                 </div>
 
             </div>

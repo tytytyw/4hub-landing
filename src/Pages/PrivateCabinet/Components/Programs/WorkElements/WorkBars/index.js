@@ -11,7 +11,7 @@ const WorkBars = ({children, shop}) => {
     return (
 
         <div className={styles.parentWrap}>
-            <div 
+            <div
                 className={classNames({
                     [styles.wrapper]: true,
                     [styles.shop]: !!shop,

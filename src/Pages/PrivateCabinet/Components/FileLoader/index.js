@@ -22,6 +22,7 @@ const FileLoader = ({
     const [params, setParams] = useState({x: -1, y: -1, offsetX: 0, offsetY: 0, width: 0, height: 0});
     const [display, setDisplay] = useState('block');
     const uid = useSelector(state => state.user?.uid);
+    const search = useSelector(state => state.PrivateCabinet.search);
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const [response, setResponse] = useState(null);
     const dispatch = useDispatch();
@@ -131,7 +132,7 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
-        menuItem === 'myFiles' ? dispatch(onChooseAllFiles()) : dispatch(onChooseFiles(path));
+        menuItem === 'myFiles' ? dispatch(onChooseAllFiles()) : dispatch(onChooseFiles(path, search, 1));
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps

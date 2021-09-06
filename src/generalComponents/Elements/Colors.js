@@ -18,10 +18,11 @@ const Colors = ({ color, setColor, title = 'Выберите цвет', editable
                 className={styles.circleColor}
                 style={{
                     background: el.light,
-                    border: `1px solid ${el.dark}`
+                    border: `1px solid ${el.dark}`,
+                    color: 'black'
                 }}
                 onClick={() => set(el)}
-            /></div>
+            >{el.name === color.name && <span>&#10003;</span>}</div></div>
         })
     };
 

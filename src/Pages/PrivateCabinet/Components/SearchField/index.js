@@ -13,7 +13,7 @@ const SearchField = ({setChosenFile}) => {
 	const searchField = useSelector(state => state.PrivateCabinet?.search);
 	const dispatch = useDispatch();
 
-	const search = (query) => dispatch(onChooseFiles(path, query));
+	const search = (query) => dispatch(onChooseFiles(path, query, 1));
 	const debounceCallback = useDebounce(search, 500);
 	const handleChange = (e) => {
 		if(setChosenFile) setChosenFile(null);

@@ -3,35 +3,35 @@ import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../../WorkElements/WorkBarsPreview";
-import FileLineShort from "../../../Archive/WorkElements/FileLineShort";
+import FileLineShort from "../FileLineShort";
 import FileBar from "../FileBar";
-import FileLine from "../FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 
-import WorkLinesPreview from '../../../Archive/WorkElements/WorkLinesPreview'
 import SideList from '../../../SharedFiles/SideList'
+import WorkLinesPreview from "../../../Archive/WorkElements/WorkLinesPreview";
+import FileLine from "../../../Archive/WorkElements/FileLine";
 
 function FilesGroup({
-	fileList,
-	filePreview,
-	setFilePreview,
-	callbackArrMain,
-	chosenFile,
-	setChosenFile,
-	filePick,
-	setFilePick,
-	setAction,
-	setMouseParams,
-	mounthName,
-    index
-}) {
+						fileList,
+						filePreview,
+						setFilePreview,
+						callbackArrMain,
+						chosenFile,
+						setChosenFile,
+						filePick,
+						setFilePick,
+						setAction,
+						setMouseParams,
+						mounthName,
+						index
+					}) {
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 
 	const renderFiles = (Type, shareLink) => {
 		if (!fileList || fileList.length === 0) return null;
-		return fileList.files?.map((file, index) => (
+		return fileList?.map((file, index) => (
 			<Type
 				key={index}
 				file={file}
@@ -56,7 +56,7 @@ function FilesGroup({
 
 	return (
 		<div className={styles.fileWrap}>
-			{fileList?.files.length > 0 && <div
+			{fileList?.length > 0 && <div
 				onClick={() => {
 					setCollapse(!collapse);
 				}}
@@ -65,7 +65,7 @@ function FilesGroup({
 				<p className={styles.dateName}>{mounthName}</p>
 				<div className={styles.buttonsWrap}>
 					<button className={styles.collapseBtn}>
-						{fileList?.files.length ?? 0} объектов
+						{fileList?.length ?? 0} объектов
 					</button>
 					<div
 						className={classNames({
@@ -84,13 +84,13 @@ function FilesGroup({
 			</div>}
 
 			{collapse &&
-				workElementsView !== "preview" &&
-				workElementsView !== "workLinesPreview" && (
-					<div className={styles.fileDate}>
-						{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						{fileList?.files.length > 0 && <p>10.08.2020</p>}
-					</div>
-				)}
+			workElementsView !== "preview" &&
+			workElementsView !== "workLinesPreview" && (
+				<div className={styles.fileDate}>
+					{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+					{fileList?.length > 0 && <p>10.08.2020</p>}
+				</div>
+			)}
 
 			{collapse &&
 			<>
@@ -120,17 +120,17 @@ function FilesGroup({
 							{renderFiles(FileLineShort, true)}
 						</SideList>
 						<div className={styles.filePreviewWrap}>
-								<WorkLinesPreview
-										file={chosenFile}
-										hideFileList={true}
-										filePick={filePick}
-								/>
+							<WorkLinesPreview
+								file={chosenFile}
+								hideFileList={true}
+								filePick={filePick}
+							/>
 						</div>
 					</div>
 				)}
-			</>}	
+			</>}
 
-			
+
 		</div>
 	);
 }

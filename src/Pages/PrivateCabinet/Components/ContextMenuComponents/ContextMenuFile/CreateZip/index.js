@@ -42,21 +42,6 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
         })
     };
 
-    const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-                height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '5px' : '35px'}`
-            }
-        } else {
-            return {
-                height: `${showRepeat ? '150px' : '110px'}`,
-                marginBottom: `${showRepeat ? '5px' : '35px'}`
-            }
-        }
-    };
-
     const onAddFileToZip = () => {
 
         const data = {
@@ -139,13 +124,10 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                             </div>
                         </div>
                     </div>
-                    <div style={generateInputWrap()}
-                         className={styles.inputFieldsWrap}
-                    >
+                    <div className={styles.inputFieldsWrap}>
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                height={width >= 1440 ? '40px' : '30px'}
                                 value={name}
                                 set={setName}
                                 placeholder='Имя файла'
@@ -170,7 +152,6 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={width >= 1440 ? '40px' : '30px'}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -180,11 +161,10 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                                 disabled={!showRepeat}
                             />
                         </div>
-                        <div className={styles.inputWrap}>
-                            {showRepeat && <InputField
+                        {showRepeat && <div className={styles.inputWrap}>
+                            <InputField
                                 model='password'
                                 switcher={false}
-                                height={width >= 1440 ? '40px' : '30px'}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'
@@ -192,8 +172,8 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
                                 mistake={!passwordCoincide}
-                            />}
-                        </div>
+                            />
+                        </div>}
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
