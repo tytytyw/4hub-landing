@@ -9,7 +9,6 @@ import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
-import {previewFormats} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
