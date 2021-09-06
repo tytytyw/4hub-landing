@@ -26,7 +26,7 @@ const CreateFile = ({
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
-    const [showRepeat, setShowRepeat] = useState(true);
+    const [showRepeat, setShowRepeat] = useState(false);
     const [color, setColor] = useState(blob?.options?.color ? colors.find(c => c.color === blob.options.color) : colors[0]);
     const [tagOption, setTagOption] = useState({chosen: blob?.options?.tag ? blob.options.tag : '', count: 30});
     const [sign, setSign] = useState(blob?.options?.symbol ? blob.options.symbol : '');

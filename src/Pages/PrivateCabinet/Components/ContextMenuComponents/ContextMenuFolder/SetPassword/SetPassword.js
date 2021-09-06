@@ -11,7 +11,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
-	const [showRepeat, setShowRepeat] = useState(true);
+	const [showRepeat, setShowRepeat] = useState(false);
 	const [visibility, setVisibility] = useState("password");
 	const [error, setError] = useState(false);
 	const onSwitch = (boolean) => setShowRepeat(boolean);

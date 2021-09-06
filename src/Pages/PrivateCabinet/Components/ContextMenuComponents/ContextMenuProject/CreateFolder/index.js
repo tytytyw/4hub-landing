@@ -21,7 +21,7 @@ const CreateFolder = ({onCreate, title}) => {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
-    const [showRepeat, setShowRepeat] = useState(true);
+    const [showRepeat, setShowRepeat] = useState(false);
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');

@@ -24,7 +24,7 @@ const CustomizeFile = ({
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
-    const [showRepeat, setShowRepeat] = useState(true);
+    const [showRepeat, setShowRepeat] = useState(false);
     const [color, setColor] = useState( filePick.customize || fileAddCustomization.several ? colors[0] : colors.find(c => c.color === file.color) ?? colors[0]);
     const [tagOption, setTagOption] = useState({chosen: filePick.customize || fileAddCustomization.several ? '' : file.tag || '', count: 30});
     const [sign, setSign] = useState(filePick.customize || fileAddCustomization.several ? '' : file.fig);
