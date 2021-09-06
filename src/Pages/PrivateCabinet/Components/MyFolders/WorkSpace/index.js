@@ -95,7 +95,7 @@ const WorkSpace = ({
         const fid = file?.fid ?? chosenFile?.fid;
         const preview = file?.preview ?? chosenFile?.preview;
         const ext = file?.ext ?? chosenFile?.ext;
-        if(mType === 'application/pdf') {
+        if(mType === 'application/pdf' || mType.includes('image')) {
             setLoadingType('squarify')
             if(mType === 'application/pdf') {
                 printFile(`${preview}`);
