@@ -48,21 +48,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
         })
     };
 
-    const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-              height: `${showRepeat ? '190px' : '140px'}`,
-              marginBottom: `${showRepeat ? '5px' : '35px'}`
-          }
-      } else {
-          return {
-              height: `${showRepeat ? '150px' : '110px'}`,
-              marginBottom: `${showRepeat ? '5px' : '35px'}`
-          }
-      }
-    };
-
     const onAddFolder = () => {
         if(name) {
             const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
@@ -126,13 +111,11 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         </div>
                     </div>
                 </div>
-                <div style={generateInputWrap()}
-                     className={styles.inputFieldsWrap}
-                >
+                <div className={styles.inputFieldsWrap}>
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={name}
                             set={onAddName}
                             placeholder='Имя папки'
@@ -158,7 +141,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={password}
                             set={setPassword}
                             placeholder='Пароль'
@@ -167,19 +150,19 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                             setVisibility={setVisibility}
                         />
                     </div>
-                    <div className={styles.inputWrap}>
-                        {showRepeat && <InputField
-                                model='password'
-                                switcher={false}
-                                height={width >= 1440 ? '40px' : '30px'}
-                                value={passwordRepeat}
-                                set={setPasswordRepeat}
-                                placeholder='Повторите пароль'
-                                visibility={visibility}
-                                setVisibility={setVisibility}
-                                comparePass={comparePass}
-                            />}
-                    </div>
+                    {showRepeat && <div className={styles.inputWrap}>
+                        <InputField
+                            model='password'
+                            switcher={false}
+                            height={null}
+                            value={passwordRepeat}
+                            set={setPasswordRepeat}
+                            placeholder='Повторите пароль'
+                            visibility={visibility}
+                            setVisibility={setVisibility}
+                            comparePass={comparePass}
+                        />
+                    </div>}
                 </div>
                 <Colors color={color} setColor={setColor} />
                 <Signs sign={sign} setSign={setSign} />

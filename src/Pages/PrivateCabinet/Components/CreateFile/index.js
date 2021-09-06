@@ -47,21 +47,6 @@ const CreateFile = ({
         })
     };
 
-    const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-                //height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '5px' : '35px'}`
-            }
-        } else {
-            return {
-                //height: `${showRepeat ? '150px' : '110px'}`,
-                marginBottom: `${showRepeat ? '0' : '30px'}`
-            }
-        }
-    };
-
     const onAddFile = (open) => {
         let options = {
             name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
@@ -195,13 +180,12 @@ const CreateFile = ({
                         </div>
                     </div>
                     <div
-                        style={generateInputWrap()}
                         className={styles.inputFieldsWrap}
                     >
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={name}
                                 set={setName}
                                 placeholder='Имя файла'
@@ -226,7 +210,7 @@ const CreateFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -236,11 +220,11 @@ const CreateFile = ({
                                 disabled={!showRepeat}
                             />
                         </div>
-                        <div className={styles.inputWrap}>
-                            {showRepeat && <InputField
+                        {showRepeat && <div className={styles.inputWrap}>
+                            <InputField
                                 model='password'
                                 switcher={false}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'
@@ -248,8 +232,8 @@ const CreateFile = ({
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
                                 mistake={!passwordCoincide}
-                            />}
-                        </div>
+                            />
+                        </div>}
                     </div>
                     <div className={styles.safeWrap}>
                         <div className={styles.safe}>

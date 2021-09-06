@@ -52,33 +52,6 @@ const CustomizeFile = ({
         })
     };
 
-    const width = window.innerWidth;
-
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-                height: `${showRepeat
-                    ? filePick.customize || fileAddCustomization.several
-                        ? '140px' 
-                        : '190px' 
-                    : filePick.customize || fileAddCustomization.several
-                        ? '100px'
-                        : '140px'}`,
-                marginBottom: `${showRepeat ? '5px' : '35px'}`,
-                //marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
-            }
-        } else {
-            return {
-                /*height: `${showRepeat
-                    ? filePick.customize || fileAddCustomization.several
-                        ? '110px'
-                        : '150px' 
-                    : '110px'}`,*/
-                marginBottom: `${showRepeat ? '5px' : '35px'}`
-            }
-        }
-    };
-
     const onAddFile = () => {
         if(password !== passwordRepeat) return setPasswordCoincide(false);
         setLoadingType('squarify')
@@ -197,14 +170,12 @@ const CustomizeFile = ({
                             </div>
                         </div>
                     </div>}
-                    <div style={generateInputWrap()}
-                         className={`${styles.inputFieldsWrap}`}
-                    >
+                    <div className={`${styles.inputFieldsWrap}`}>
                         <div className={styles.inputWrap}>
                             {filePick.customize || fileAddCustomization.several ? null :
                                 <InputField
                                     model='text'
-                                    height={width >= 1440 ? '40px' : '30px'}
+                                    height={null}
                                     value={name}
                                     set={setName}
                                     placeholder='Имя файла'
@@ -229,7 +200,7 @@ const CustomizeFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -239,11 +210,12 @@ const CustomizeFile = ({
                                 disabled={!showRepeat}
                             />
                         </div>
-                        <div className={styles.inputWrap}>
-                            {showRepeat && <InputField
+                        {showRepeat && 
+                            <div className={styles.inputWrap}>
+                                <InputField
                                     model='password'
                                     switcher={false}
-                                    height={width >= 1440 ? '40px' : '30px'}
+                                    height={null}
                                     value={passwordRepeat}
                                     set={setPasswordRepeat}
                                     placeholder='Повторите пароль'
@@ -251,8 +223,8 @@ const CustomizeFile = ({
                                     setVisibility={setVisibility}
                                     comparePass={comparePass}
                                     mistake={!passwordCoincide}
-                                />}
-                            </div>
+                                />
+                            </div>}
                     </div>
                     <Colors color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
