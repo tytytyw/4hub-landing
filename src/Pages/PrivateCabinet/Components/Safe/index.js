@@ -395,6 +395,7 @@ const Safe = ({
 					fileErrors={fileErrors}
 					setLoadingFile={setLoadingFile}
 					onToggleSafePassword={onSafePassword}
+					menuItem={menuItem}
 				/>
 			)}
 		</div>

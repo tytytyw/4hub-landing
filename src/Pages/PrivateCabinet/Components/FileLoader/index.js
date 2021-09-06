@@ -6,7 +6,7 @@ import axios from 'axios';
 import styles from './FileLoader.module.sass';
 import LoadItem from './LoadItem';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
-import {onChooseFiles, onChooseAllFiles} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseAllFiles, onGetSafeFileList} from '../../../../Store/actions/PrivateCabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 
@@ -144,6 +144,7 @@ const FileLoader = ({
         }else {console.log(res)}
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, '', ''));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, filesPage, '', ''));
+        if (menuItem === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps

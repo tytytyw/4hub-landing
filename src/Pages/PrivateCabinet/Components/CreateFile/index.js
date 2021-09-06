@@ -16,7 +16,7 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -96,7 +96,7 @@ const CreateFile = ({
                 is_pass: options.password ? 1 : 0,
                 ext: options.name.slice(options.name.lastIndexOf('.')),
             };
-            api.post('/ajax/file_edit.php', data)
+            api.post(`/ajax/${menuItem === 'Safe' ? 'safe_' : ''}file_edit.php`, data)
                 .then(res => {if(res.data.ok === 1) {
                     dispatch(onCustomizeFile(newFile));
                     dispatch(onAddRecentFiles());

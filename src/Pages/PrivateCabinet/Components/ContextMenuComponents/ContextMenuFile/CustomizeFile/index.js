@@ -155,6 +155,8 @@ const CustomizeFile = ({
 			is_pass: password && passwordRepeat ? 1 : 0,
 		};
 		if (filePick.customize) {
+			console.log(menuItem)
+
 			delete data.fName;
 			if (data.pass === "") delete data.pass;
 			api
