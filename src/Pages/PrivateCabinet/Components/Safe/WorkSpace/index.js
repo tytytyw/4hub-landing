@@ -24,6 +24,7 @@ import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
+import classNames from 'classnames'
 
 const WorkSpace = ({chosenFile, setChosenFile,
                    listCollapsed, setFilePreview, filePreview,
@@ -104,7 +105,15 @@ const WorkSpace = ({chosenFile, setChosenFile,
     };
 
     return (<>
-        <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+        <div 
+            className={classNames({
+                [styles.workSpaceWrap]: true,
+                [styles.workSpaceWrapUncollapsed]: !listCollapsed,
+                [styles?.[`workSpaceWrapUncollapsed_${size}`]]: !listCollapsed && !!size,
+                [styles.workSpaceWrapCollapsed]: !!listCollapsed,
+                [styles?.[`workSpaceWrap_${size}`]]: !!listCollapsed && !!size,
+            })}
+        >
             <div className={styles.header}>
                 <SearchField />
                 <div className={styles.infoHeader}>

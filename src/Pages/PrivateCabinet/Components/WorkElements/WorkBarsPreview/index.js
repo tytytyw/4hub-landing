@@ -107,6 +107,7 @@ const WorkBarsPreview = ({
                 : null}
             {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
         </div>
+        
         <div className={styles.renderedFiles}>
             <div
                 ref={fileRef}

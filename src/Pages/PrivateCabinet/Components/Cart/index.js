@@ -14,7 +14,7 @@ import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import BottomPanel from "../BottomPanel";
-import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
+import FilesGroup from '../Archive/WorkElements/FilesGroup/FilesGroup'
 
 import { months } from "../../../../generalComponents/CalendarHelper";
 

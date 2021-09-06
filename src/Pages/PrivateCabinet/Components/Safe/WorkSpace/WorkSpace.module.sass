@@ -1,24 +1,52 @@
-@keyframes collapse
+@keyframes collapse_big
   0%
     width: calc(100% - 311px)
     min-width: calc(100% - 311px)
     max-width: calc(100% - 311px)
   100%
-    min-width: calc(100% - 121px)
-    max-width: calc(100% - 121px)
-    width: calc(100% - 121px)
+    min-width: calc(100% - 230px)
+    max-width: calc(100% - 230px)
+    width: calc(100% - 230px)
+
+@keyframes collapse_sm
+  0%
+    width: calc(100% - 311px)
+    min-width: calc(100% - 311px)
+    max-width: calc(100% - 311px)
+  100%
+    min-width: calc(100% - 209px)
+    max-width: calc(100% - 209px)
+    width: calc(100% - 209px)    
+    
 @keyframes uncollapse
   0%
-    min-width: calc(100% - 121px)
-    max-width: calc(100% - 121px)
-    width: calc(100% - 121px)
+    min-width: calc(100% - 230px)
+    max-width: calc(100% - 230px)
+    width: calc(100% - 230px)
   100%
     width: calc(100% - 311px)
     min-width: calc(100% - 311px)
     max-width: calc(100% - 311px)
 
-.workSpaceWrapUncollapsed
-  animation: uncollapse 0.3s ease-in-out
+@keyframes uncollapse_sm
+  0%
+    min-width: calc(100% - 209px)
+    max-width: calc(100% - 209px)
+    width: calc(100% - 209px)
+  100%
+    width: calc(100% - 311px)
+    min-width: calc(100% - 311px)
+    max-width: calc(100% - 311px)    
+
+// .workSpaceWrapUncollapsed_big
+//   animation: uncollapse 0.3s ease-in-out
+
+// .workSpaceWrapUncollapsed_medium
+//   animation: uncollapse-sm 0.3s ease-in-out  
+  
+// .workSpaceWrapUncollapsed_small
+//   animation: uncollapse_sm 0.3s ease-in-out
+
 .workSpaceWrap
   width: calc(100% - 310px)
   max-width: calc(100% - 310px)
@@ -39,10 +67,26 @@
       min-width: 340px
       width: 400px
       max-width: 400px
-.workSpaceWrapCollapsed
-  min-width: calc(100% - 121px)
-  width: calc(100% - 121px)
-  animation: collapse 0.3s ease-in-out
+
+
+// .workSpaceWrapCollapsed
+//   min-width: calc(100% - 230px)
+//   width: calc(100% - 230px)
+//   animation: collapse_big 0.3s ease-in-out
+
+.workSpaceWrap_big
+  min-width: calc(100% - 230px)
+  width: calc(100% - 230px)
+
+.workSpaceWrap_medium
+  min-width: calc(100% - 209px)
+  width: calc(100% - 209px)
+
+.workSpaceWrap_small
+  min-width: calc(100% - 209px)
+  width: calc(100% - 209px)
+
+
 .fileActionWrap
   width: 66px
   height: 75px

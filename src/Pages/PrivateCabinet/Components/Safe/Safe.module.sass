@@ -7,11 +7,19 @@
     width: 0
 
   .folderListWrap_small
+    padding: 5px
     display: grid
-    grid-template-columns: repeat(auto-fill, calc(100% / 3))
+    grid-template-columns: repeat(auto-fill, calc(100% / 3)) 
+  .folderListWrapCollapsed_small
+    display: grid
+    grid-template-columns: repeat(auto-fill, calc(100% / 2))   
   .folderListWrap_medium
     display: grid
     grid-template-columns: repeat(auto-fill, calc(100% / 2))
+  .folderListWrapCollapsed_medium
+    padding: 0 20px
+    display: flex
+    flex-direction: column
   .folderListWrap_big
     display: flex
     flex-direction: column
@@ -22,6 +30,16 @@
     max-height: 100%
     overflow-x: hidden
     overflow-y: scroll
+    &::-webkit-scrollbar-track
+      background: #0A3AAB
+    &::-webkit-scrollbar-track
+      -webkit-box-shadow: none
+      background-color: #F5F5F5
+    &::-webkit-scrollbar
+      width: 5px
+      background-color: #FFFFFF
+    &::-webkit-scrollbar-thumb
+      background-color: #4086F1
   .workSpace
     display: flex
     flex-direction: column
@@ -38,7 +56,7 @@
   height: 100%
   width: 310px
   border-right: 1px solid #e5e5e5
-  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
+  //transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
 
   position: relative
 
@@ -85,10 +103,14 @@
     box-sizing: border-box
     height: calc(100% - 67px)
 
-  .children_small
-    padding: 5px
+.listWrapCollapsed_medium
+  min-width: 209px
+  width: 209px
 
-.listWrapCollapsed
-  min-width: 120px
-  width: 120px
-  transition: width 0.3s ease-in-out, min-width 0.3s ease-in-out
+.listWrapCollapsed_big
+  min-width: 230px
+  width: 230px
+  
+.listWrapCollapsed_small
+  min-width: 209px
+  width: 209px

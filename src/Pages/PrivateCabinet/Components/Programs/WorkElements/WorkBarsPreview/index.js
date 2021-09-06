@@ -7,8 +7,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
 const WorkBarsPreview = ({
-    children, chosenProgram, setChosenProgram, filePick, page, setPage, fileRef, chosenFolder,
-    gLoader
+    children, chosenProgram, fileRef, gLoader
 }) => {
 
     const search = useSelector(state => state.PrivateCabinet?.search);
@@ -16,6 +15,7 @@ const WorkBarsPreview = ({
 
     return (
         <div className={styles.workBarsPreviewWrap}>
+            
             <div className={styles.preview}>
                 {children?.length === 0 && search.length !== 0
                     ? <div
