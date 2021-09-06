@@ -15,9 +15,9 @@ import File from '../../../../generalComponents/Files';
 import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
 
 const CreateFile = ({
-                title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
-}) => {
+                        title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
+                        awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader
+                    }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -45,21 +45,6 @@ const CreateFile = ({
                 onClick={() => onChangeTag(tag)}
             >{tag}</div>;
         })
-    };
-
-    const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-                //height: `${showRepeat ? '190px' : '140px'}`,
-                marginBottom: `${showRepeat ? '5px' : '35px'}`
-            }
-        } else {
-            return {
-                //height: `${showRepeat ? '150px' : '110px'}`,
-                marginBottom: `${showRepeat ? '0' : '30px'}`
-            }
-        }
     };
 
     const onAddFile = (open) => {
@@ -195,13 +180,12 @@ const CreateFile = ({
                         </div>
                     </div>
                     <div
-                        style={generateInputWrap()}
                         className={styles.inputFieldsWrap}
                     >
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={name}
                                 set={setName}
                                 placeholder='Имя файла'
@@ -226,7 +210,7 @@ const CreateFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -236,11 +220,11 @@ const CreateFile = ({
                                 disabled={!showRepeat}
                             />
                         </div>
-                        <div className={styles.inputWrap}>
-                            {showRepeat && <InputField
+                        {showRepeat && <div className={styles.inputWrap}>
+                            <InputField
                                 model='password'
                                 switcher={false}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'
@@ -248,8 +232,8 @@ const CreateFile = ({
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
                                 mistake={!passwordCoincide}
-                            />}
-                        </div>
+                            />
+                        </div>}
                     </div>
                     <div className={styles.safeWrap}>
                         <div className={styles.safe}>
