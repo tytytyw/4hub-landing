@@ -1,11 +1,10 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './Guest.module.sass'
 import SearchField from "./SearchField";
 import classNames from "classnames";
 import ServePanel from "./ServePanel";
 
-import fileList from './data.json'
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
@@ -14,8 +13,14 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import CopyLink from "../../../PrivateCabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {months} from "../../../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
+import {onGetGuestSharedFiles} from "../../../../Store/actions/PrivateCabinetActions";
+import {useDispatch, useSelector} from "react-redux";
 
 const Guest = () => {
+
+    const dispatch = useDispatch()
+
+    const fileList = useSelector((state) => state.PrivateCabinet.guestSharedFiles);
 
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const [action, setAction] = useState({type: "", name: "", text: ""})
@@ -27,7 +32,9 @@ const Guest = () => {
 
     const [showLinkCopy, setShowLinkCopy] = useState(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        dispatch(onGetGuestSharedFiles());
+    }, [dispatch]);
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {

@@ -12,7 +12,7 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
-    const [guest] = useState(true)
+    const [guest] = useState(false)
 
     //! Temporary comment before BUILT
     useEffect(() => {

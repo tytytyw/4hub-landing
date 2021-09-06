@@ -37,7 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -802,5 +802,18 @@ export const onSetReverseCriterion = (value) => {
     return {
         type: SET_REVERSE_CRITERION,
         payload: value
+    }
+}
+
+// GUEST MODE
+export const onGetGuestSharedFiles  = () => async (dispatch) => {
+    try {
+        const res = await axios.get(`/ajax/file_share_get.php`)
+        dispatch({
+            type: CHOOSE_GUEST_SHARED_FILES,
+            payload: res.data.data
+        })
+    } catch (e) {
+        console.log(e);
     }
 }
