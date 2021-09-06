@@ -79,7 +79,7 @@ const FileLoader = ({
             data.append('myfile', file.file);
             data.append('fileName', `${file?.options?.name ? file.options.name.slice(0, file.options.name.lastIndexOf('.')) : file.file.name.slice(0, file.file.name.lastIndexOf('.'))}`);
             data.append('tag', file?.options?.tag ? file.options.tag : '');
-            data.append('pass', file?.options?.password ? file.options.password : '');
+            data.append('pass', file?.options?.pass ? file.options.pass : '');
             data.append('color', file?.options?.color ? file.options.color : '');
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');

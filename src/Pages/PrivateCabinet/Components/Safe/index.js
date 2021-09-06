@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Safe.module.sass";
 import SafeItem from "./SafeItem";
-import SafeIcon from './SafeIcon'
+import SafeIcon from "./SafeIcon";
 import WorkSpace from "./WorkSpace";
 import ShareSafe from "../ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
@@ -16,12 +16,28 @@ import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
 import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
-import api from '../../../../api';
-import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
+import api from "../../../../api";
+import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
+import CreateFile from "../CreateFile";
 
-const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenuItem }) => {
+const Safe = ({
+	filePreview,
+	setFilePreview,
+	fileSelect,
+	setLoadingType,
+	setMenuItem,
+	fileAddCustomization,
+	setFileAddCustomization,
+	setAwaitingFiles,
+	awaitingFiles,
+	loaded,
+	setLoaded,
+	loadingFile,
+	fileErrors,
+	setLoadingFile,
+}) => {
 	const dispatch = useDispatch();
-    const uid = useSelector(state => state.user.uid);
+	const uid = useSelector((state) => state.user.uid);
 	const path = useSelector((state) => state.PrivateCabinet.folderList?.path);
 	const [chosenFile, setChosenFile] = useState(null);
 	const [mouseParams, setMouseParams] = useState(null);
@@ -34,16 +50,17 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 	const [codePopup, setCodePopup] = useState(false);
 	const [refreshPass, setRefreshPass] = useState(false);
 	const [noSafePopup, setNoSafePopup] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [safePassword, setSafePassword] = useState({ open: false });
 
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
 	// TODO: fileList get current fileList from api
-	const [fileList, SetFileList] =  useState(null);
+	const [fileList, SetFileList] = useState(null);
 
 	useEffect(() => {
-		setLoadingType (safes === null ? 'squarify' : '')
+		setLoadingType(safes === null ? "squarify" : "");
 		setNoSafePopup(safes?.length < 1);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [safes]);
@@ -51,7 +68,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 	useEffect(() => {
 		dispatch(onGetSafes());
 		setMenuItem("Safe");
-		return () => SetFileList(null)
+		return () => SetFileList(null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -61,7 +78,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 	}, [path]);
 
 	useEffect(() => {
-		SetFileList(null)
+		SetFileList(null);
 	}, [selectedSafe]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
 	const renderSafesList = () => {
@@ -74,7 +91,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 					listSize={size}
 					chosen={selectedSafe?.id === safe.id}
 					setMouseParams={setMouseParams}
-                    setSelectedSafe={setSelectedSafe}
+					setSelectedSafe={setSelectedSafe}
 					onClick={() => {
 						setSelectedSafe(safe);
 						setCodePopup(true);
@@ -86,11 +103,16 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 	};
 
 	const callbackArrMain = [
-	    {type: 'share', name: 'Предоставить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        // TODO: 
-	    // {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
-	    // {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
-	    // {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+		{
+			type: "share",
+			name: "Предоставить доступ",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+		// TODO:
+		// {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
+		// {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
+		// {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
 	];
 
 	const additionalMenuItems = [
@@ -117,24 +139,28 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 		});
 	};
 
-    const cancelArchive = () => {
+	const cancelArchive = () => {
 		// nullifyFilePick();
 		nullifyAction();
-	}
+	};
 
-    const deleteSafe = () => {
-        nullifyAction();
-        api.post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
-            .then(res => {if(res.data.ok === 1) {
-                setShowSuccessMessage('Сейф удален')
-                dispatch(onGetSafes());
-            } else {
-                console.log(res)
-            }})
-            .catch(err => console.log(err));
-    }
+	const deleteSafe = () => {
+		nullifyAction();
+		api
+			.post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					setShowSuccessMessage("Сейф удален");
+					dispatch(onGetSafes());
+				} else {
+					console.log(res);
+				}
+			})
+			.catch((err) => console.log(err));
+	};
 
-	
+	const onSafePassword = (boolean) =>
+		setSafePassword({ ...safePassword, open: boolean });
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -198,6 +224,8 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 				action={action}
 				setAction={setAction}
 				fileList={fileList}
+				fileAddCustomization={fileAddCustomization}
+				setFileAddCustomization={setFileAddCustomization}
 			/>
 
 			{filePreview?.view && (
@@ -218,7 +246,10 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 						{renderMenuItems(contextMenuSafeItem.main, callbackArrMain)}
 					</div>
 					<div style={{ marginTop: "30px" }} className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuSafeItem.additional, additionalMenuItems)}
+						{renderMenuItems(
+							contextMenuSafeItem.additional,
+							additionalMenuItems
+						)}
 					</div>
 				</ContextMenu>
 			)}
@@ -238,7 +269,9 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 				/>
 			)}
 
-			{createSafe && <CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />}
+			{createSafe && (
+				<CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />
+			)}
 
 			{action.type === "deleteSafe" ? (
 				<ActionApproval
@@ -249,11 +282,11 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 					approve={"Удалить"}
 				>
 					<div className={styles.fileActionWrap}>
-                        <SafeIcon type={selectedSafe.id_color} />
+						<SafeIcon type={selectedSafe.id_color} />
 					</div>
 				</ActionApproval>
 			) : null}
-            {action.type === "share" ? (
+			{action.type === "share" ? (
 				<ShareSafe
 					safe={selectedSafe}
 					close={nullifyAction}
@@ -264,7 +297,27 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenu
 				/>
 			) : null}
 
-            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+			{showSuccessMessage && (
+				<SuccessMessage
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+				/>
+			)}
+			{fileAddCustomization.show && (
+				<CreateFile
+					title={fileAddCustomization.create ? "Создать файл" : "Добавить файл"}
+					blob={fileAddCustomization.file}
+					setBlob={setFileAddCustomization}
+					awaitingFiles={awaitingFiles}
+					setAwaitingFiles={setAwaitingFiles}
+					loaded={loaded}
+					setLoaded={setLoaded}
+					loadingFile={loadingFile}
+					fileErrors={fileErrors}
+					setLoadingFile={setLoadingFile}
+					onToggleSafePassword={onSafePassword}
+				/>
+			)}
 		</div>
 	);
 };
