@@ -11,6 +11,7 @@ import {
     ADD_RECENT_FILES,
     CHOOSE_RECENT_FILES,
     CUSTOMIZE_FILE,
+    CUSTOMIZE_SAFE_FILE,
     GET_PROGRAM_FOLDERS,
     GET_PROGRAMS,
     GET_RECENT_PROGRAMS,
@@ -140,6 +141,13 @@ export default function startPage(state = INITIAL_STATE, action) {
                 return action.payload;
             });
             return {...state, fileList: {...state.fileList, files}, fileListAll: {...state.fileListAll, files: filesAll}}
+        }
+        case CUSTOMIZE_SAFE_FILE: {
+            const safeFiles = state.safeFileList.map(file => {
+                if(file.fid !== action.payload.fid) return file;
+                return action.payload;
+            });
+            return {...state, safeFileList: safeFiles}
         }
         case SET_SIZE:
             return {...state, size: action.payload}

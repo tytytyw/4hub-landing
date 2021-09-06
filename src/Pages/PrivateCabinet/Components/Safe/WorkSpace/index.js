@@ -27,9 +27,10 @@ import {
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
+import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 
 const WorkSpace = ({
-    menuItem,
+	menuItem,
 	chosenFile,
 	setChosenFile,
 	listCollapsed,
@@ -43,14 +44,13 @@ const WorkSpace = ({
 	setFilePick,
 	fileAddCustomization,
 	setFileAddCustomization,
-    nullifyFilePick,
-    nullifyAddingSeveralFiles,
-    saveCustomizeSeveralFiles,
-    setLoadingType,
+	nullifyFilePick,
+	nullifyAddingSeveralFiles,
+	saveCustomizeSeveralFiles,
+	setLoadingType,
 }) => {
 	const dispatch = useDispatch();
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
-
 	const size = useSelector((state) => state.PrivateCabinet.size);
 	const [mouseParams, setMouseParams] = useState(null);
 
@@ -94,15 +94,28 @@ const WorkSpace = ({
 		},
 	];
 
+    const onActiveCallbackArrMain = (type) => {
+        let index;
+        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
+        callbackArrMain[index].callback(callbackArrMain, index);
+    };
+
 	const deleteFile = () => {
 		fileDelete(chosenFile, dispatch, onDeleteFile);
 		nullifyAction();
 		setChosenFile(null);
 		dispatch(onAddRecentFiles());
 	};
-    const excessItems = () => {
+	const excessItems = () => {
 		if (filePick.show) {
-			return ["intoZip", "properties", "download", "print", "share", "copyLink"];
+			return [
+				"intoZip",
+				"properties",
+				"download",
+				"print",
+				"share",
+				"copyLink",
+			];
 		} else {
 			if (chosenFile.mime_type) {
 				switch (chosenFile.mime_type.split("/")[0]) {
@@ -211,55 +224,65 @@ const WorkSpace = ({
 					</div>
 				</div>
 				<ServePanel
-					view={workElementsView}
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
+                	share={() => onActiveCallbackArrMain('share')}
+					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					filePick={filePick}
+					fileAddCustomization={fileAddCustomization}
+					setFileAddCustomization={setFileAddCustomization}
+					addFile={fileSelect}
+					menuItem={menuItem}
 				/>
 
-				{fileList && (
-					<div
-						style={{
-							height: "calc(100% - 90px - 55px)",
-						}}
+				{workElementsView === "bars" && (
+					<WorkBars
+						file={chosenFile}
+						filePick={filePick}
+						fileSelect={fileSelect}
 					>
-						{workElementsView === "bars" && (
-							<WorkBars
-								file={chosenFile}
-								filePick={filePick}
-								fileSelect={fileSelect}
-							>
-								{renderFiles(FileBar)}
-							</WorkBars>
-						)}
-
-						{workElementsView === "lines" && (
-							<WorkLines
-								file={chosenFile}
-								filePick={filePick}
-								fileSelect={fileSelect}
-							>
-								{renderFiles(FileLine)}
-							</WorkLines>
-						)}
-
-						{workElementsView === "preview" && (
-							<WorkBarsPreview file={chosenFile} filePick={filePick}>
-								{" "}
-								fileSelect={fileSelect}
-								{renderFiles(FileBar)}
-							</WorkBarsPreview>
-						)}
-
-						{workElementsView === "workLinesPreview" && (
-							<WorkLinesPreview file={chosenFile} filePick={filePick}>
-								{" "}
-								fileSelect={fileSelect}
-								{renderFiles(FileLineShort)}
-							</WorkLinesPreview>
-						)}
-					</div>
+						{renderFiles(FileBar)}
+					</WorkBars>
 				)}
+
+				{workElementsView === "lines" && (
+					<WorkLines
+						file={chosenFile}
+						filePick={filePick}
+						fileSelect={fileSelect}
+					>
+						{renderFiles(FileLine)}
+					</WorkLines>
+				)}
+
+				{workElementsView === "preview" && (
+					<WorkBarsPreview file={chosenFile} filePick={filePick}>
+						{" "}
+						fileSelect={fileSelect}
+						{renderFiles(FileBar)}
+					</WorkBarsPreview>
+				)}
+
+				{workElementsView === "workLinesPreview" && (
+					<WorkLinesPreview file={chosenFile} filePick={filePick}>
+						{" "}
+						fileSelect={fileSelect}
+						{renderFiles(FileLineShort)}
+					</WorkLinesPreview>
+				)}
+
+				{filePick.show ? (
+					<OptionButtomLine
+						callbackArrMain={callbackArrMain}
+						filePick={filePick}
+						setFilePick={setFilePick}
+						actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+						setAction={setAction}
+						action={action}
+						nullifyFilePick={nullifyFilePick}
+					/>
+				) : null}
 
 				<BottomPanel />
 			</div>
@@ -316,7 +339,7 @@ const WorkSpace = ({
 					setFileAddCustomization={setFileAddCustomization}
 					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
 					setLoadingType={setLoadingType}
-                    menuItem={menuItem}
+					menuItem={menuItem}
 				/>
 			) : null}
 

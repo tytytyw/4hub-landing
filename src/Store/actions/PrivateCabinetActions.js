@@ -12,6 +12,7 @@ import {
     GET_FOLDERS,
     CHOOSE_RECENT_FILES,
     CUSTOMIZE_FILE,
+    CUSTOMIZE_SAFE_FILE,
     GET_PROGRAM_FOLDERS,
     GET_RECENT_PROGRAMS,
     GET_TOP_LIST_PROGRAMS,
@@ -252,18 +253,18 @@ export const onGetSafeFileList = (code, id_safe, set, setErrPass, setLoadingType
     api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
         .then((res) => {
             if (res.data.ok) {
-                onAuthorizedSafe(id_safe, code)
+                dispatch(onAuthorizedSafe(id_safe, code))
                 dispatch({
                     type: GET_SAFE_FILELIST,
                     payload: res.data.files
                 })
-                set()
+                if (set) set()
             } else {
                 setErrPass('code')
             }
         })
         .catch(error => console.log(error))
-        .finally(() => setLoadingType(''))
+        .finally(() => setLoadingType ? setLoadingType(''): '')
 };
 
 export const onAuthorizedSafe = (id_safe, code) => async (dispatch) => {
@@ -282,6 +283,13 @@ export const onExitSafe = () => async (dispatch) => {
         type: AUTHORIZED_SAFE,
         payload: null
     })
+};
+
+export const onCustomizeSafeFile = (file) => {
+    return{
+        type: CUSTOMIZE_SAFE_FILE,
+        payload: file
+    }
 };
 
 // PROGRAMS
