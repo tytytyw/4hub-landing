@@ -86,7 +86,7 @@ const PrivateCabinet = () => {
     return (
         <div
             className={styles.mainWrap}
-            style={{minHeight}}
+            //style={{minHeight}}
             onDragOver={handleDragOver}
         >
             <SideMenu

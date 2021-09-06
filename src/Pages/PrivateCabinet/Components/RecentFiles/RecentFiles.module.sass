@@ -1,22 +1,8 @@
 .wrap
-  display: flex
-  width: 100%
-  height: max-content
-  margin: 10px 0 10px 0
-  justify-content: center
-.recentFilesWrap
-  display: flex
-  align-items: center
-  height: 58px
-  min-height: 58px
-  max-height: 58px
-  width: 95%
-  min-width: 95%
+  max-width: 100%
+  margin: 10px
   box-shadow: 0 1px 3px #DEDEDE
-  overflow-y: hidden
-  overflow-x: scroll
-  padding: 0 10px
-  box-sizing: border-box
+  overflow-x: auto
   &::-webkit-scrollbar-track
     background: #0A3AAB
   &::-webkit-scrollbar-track
@@ -27,86 +13,93 @@
     background-color: #FFFFFF
   &::-webkit-scrollbar-thumb
     background-color: #4086F1
-  .chosen
-    background: rgba(64, 134, 241, 0.1)
-  .chosen .innerFileWrap:after
-    content: ''
-    position: absolute
-    top: 0
-    right: 0
-    width: 7px
-    height: 7px
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
-  .fileWrap:hover
-    background: rgba(64, 134, 241, 0.1)
-  .fileWrap:hover .innerFileWrap:after
-    content: ''
-    position: absolute
-    top: 0
-    right: 0
-    width: 7px
-    height: 7px
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
-  .fileWrap
+  
+.recentFilesWrap
+  display: flex
+  align-items: center
+  height: 58px
+
+
+.chosen
+  background: rgba(64, 134, 241, 0.1)
+.chosen .innerFileWrap:after
+  content: ''
+  position: absolute
+  top: 0
+  right: 0
+  width: 7px
+  height: 7px
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.fileWrap:hover
+  background: rgba(64, 134, 241, 0.1)
+.fileWrap:hover .innerFileWrap:after
+  content: ''
+  position: absolute
+  top: 0
+  right: 0
+  width: 7px
+  height: 7px
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.fileWrap
+  display: flex
+  align-items: center
+  margin: 0 10px 0 10px
+  width: 160px
+  cursor: default
+  padding: 10px 5px
+  box-sizing: border-box
+  min-width: max-content
+  .innerFileWrap
+    position: relative
+    width: 27px
+    min-width: 27px
+    height: 30px
     display: flex
-    align-items: center
-    margin: 0 10px 0 10px
-    width: 160px
-    cursor: default
-    padding: 10px 5px
-    box-sizing: border-box
-    min-width: max-content
-    .innerFileWrap
-      position: relative
-      width: 27px
-      min-width: 27px
-      height: 30px
+    margin: 0 10px 0 0
+    .lock
+      position: absolute
+      width: 6px
+      left: calc(50% - 3px)
+      top: 3px
+  .descriptionWrap
+    display: flex
+    flex-direction: column
+    .fileName
+      display: block
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      color: #606060
+      width: 123px
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 12px
+    .innerFileInfo
       display: flex
-      margin: 0 10px 0 0
-      .lock
-        position: absolute
-        width: 6px
-        left: calc(50% - 3px)
-        top: 3px
-    .descriptionWrap
-      display: flex
-      flex-direction: column
-      .fileName
-        display: block
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        color: #606060
-        width: 123px
+      align-items: center
+      justify-content: space-between
+      .fileSize
         font-family: "SF Pro Regular", sans-serif
-        font-size: 12px
-      .innerFileInfo
+        font-size: 10px
+        color: #8B8B8B
+        white-space: nowrap
+      .descriptionGroup
         display: flex
-        align-items: center
-        justify-content: space-between
-        .fileSize
-          font-family: "SF Pro Regular", sans-serif
-          font-size: 10px
-          color: #8B8B8B
+        .fileTag
+          display: block
+          overflow: hidden
           white-space: nowrap
-        .descriptionGroup
-          display: flex
-          .fileTag
-            display: block
-            overflow: hidden
-            white-space: nowrap
-            text-overflow: ellipsis
-            max-width: 30px
-            font-family: "SF Pro Regular", sans-serif
-            font-size: 8px
-            color: #FFFFFF
-            background: rgb(0, 203, 165)
-            padding: 0 5px
-            border-radius: 5px
-            margin: 0 5px 0 0
-          img
-            width: 10px
-            margin: 0 5px 0 0
+          text-overflow: ellipsis
+          max-width: 30px
+          font-family: "SF Pro Regular", sans-serif
+          font-size: 8px
+          color: #FFFFFF
+          background: rgb(0, 203, 165)
+          padding: 0 5px
+          border-radius: 5px
+          margin: 0 5px 0 0
+        img
+          width: 10px
+          margin: 0 5px 0 0
 
 
 

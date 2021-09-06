@@ -20,9 +20,8 @@
 .workSpaceWrapUncollapsed
   animation: uncollapse 0.3s ease-in-out
 .workSpaceWrap
-  width: calc(100% - 310px)
-  max-width: calc(100% - 310px)
-  overflow: hidden
+  max-width: calc(100% - 311px)
+  flex-grow: 1
   height: 100%
   .header
     display: flex
@@ -50,10 +49,13 @@
 .mainMenuItems
 .additionalMenuItems
   margin: 10px 0 10px 0
+
 @media (max-width: 1420px)
   .workSpaceWrap
     .header
+      padding: 0 17px
       .infoHeader
+        width: 300px
         min-width: 300px
 .file_list
   display: flex

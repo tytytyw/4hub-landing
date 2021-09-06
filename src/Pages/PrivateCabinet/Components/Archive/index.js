@@ -14,17 +14,14 @@ import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import BottomPanel from "../BottomPanel";
-import SideList from '../SharedFiles/SideList'
-import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
+import FilesGroup from '../Cart/WorkElements/FilesGroup/FilesGroup'
 
 import { months } from "../../../../generalComponents/CalendarHelper";
-import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 
 const Archive = () => {
 
     const workElementsView = useSelector((state) => state.PrivateCabinet.view);
-
-    //const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    
     const [search, setSearch] = useState(null)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
@@ -126,30 +123,11 @@ const Archive = () => {
 
                 <div className={styles.workSpaceWrap}>
 
-                    {workElementsView === "workLinesPreview" && (
-						<div className={styles.workSpace}>
-							<SideList>
-								{month
-									? renderFilesGroup(months()[month - 1].name, 0)
-									: months().map((item, i) => renderFilesGroup(item.name, i))}
-							</SideList>
-							<div className={styles.filePreviewWrap}>
-								<WorkLinesPreview
-									file={chosenFile}
-									hideFileList={true}
-									filePick={filePick}
-								/>
-							</div>
-						</div>
-					)}
-					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
-					{workElementsView !== "workLinesPreview" && (
-						<div className={styles.FilesList}>
-							{month
-								? renderFilesGroup(months()[month - 1].name, 0)
-								: months().map((item, i) => renderFilesGroup(item.name, i))}
-						</div>
-					)}
+                    <div className={styles.FilesList}>
+                        {month
+                            ? renderFilesGroup(months()[month - 1].name, 0)
+                            : months().map((item, i) => renderFilesGroup(item.name, i))}
+                    </div>
 
                 </div>
 

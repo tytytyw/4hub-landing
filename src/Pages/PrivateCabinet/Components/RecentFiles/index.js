@@ -41,9 +41,9 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
 
     return(
         <div className={styles.wrap}>
-        <div className={styles.recentFilesWrap}>
-            {renderRecentFiles()}
-        </div>
+            <div className={styles.recentFilesWrap}>
+                {renderRecentFiles()}
+            </div>
         </div>
     )
 }

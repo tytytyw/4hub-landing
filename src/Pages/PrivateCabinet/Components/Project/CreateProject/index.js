@@ -7,6 +7,7 @@ import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'
 import {tags, colors} from '../../../../../generalComponents/collections'
 import Error from '../../../../../generalComponents/Error'
+import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions'
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
@@ -47,11 +48,15 @@ const CreateProject = ({onCreate, title, info}) => {
 
     const width = window.innerWidth;
 
-    const onAddProject = () => {
-        if(!name) setNoNameError(true);
-        if(password !== passwordRepeat) return setPasswordCoincide(false);
-        // TODO: add api
-        console.log('onAddProject')
+    const onAddFolder = () => {
+        const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+      api.post(`/ajax/dir_add.php?${params}`)
+          .then(res => {if(res.data.ok === 1) {
+              onCreate(false);
+          } else {setError(true)}
+          })
+          .catch(() => {setError(true)})
+          .finally(() => {dispatch(onGetFolders())}); //! NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
     };
 
     const closeComponent = () => {
@@ -91,7 +96,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
@@ -102,7 +107,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={target}
                             set={setTarget}
                             placeholder='Цель проекта'
@@ -112,9 +117,9 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={members}
                             set={setMembers}
+                            height={null}
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img
@@ -148,7 +153,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={password}
                             set={setPassword}
                             placeholder='Установить пароль'
@@ -163,7 +168,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            height={null}
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'

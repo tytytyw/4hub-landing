@@ -199,15 +199,16 @@
   .inputFieldsWrap
     display: flex
     flex-direction: column
-    //justify-content: space-between
     width: 78%
+    margin: 0 0 20px 0
     .inputWrap
-      margin-bottom: 5px
+      height: 40px
+      margin-bottom: 10px
     .tagPicker
-      margin-bottom: 5px
+      margin-bottom: 10px
       display: flex
       align-items: center
-      width: 101%
+      width: 100%
       height: 40px
       position: relative
       border: 1px solid #bab8b8
@@ -349,6 +350,8 @@
     color: white
   .addOpen:hover
     background: #3b6dcb
+
+
 @media (max-width: 1420px)
   .createFolderWrap
     width: 430px
@@ -357,6 +360,9 @@
     .title
       font-size: 15px
       margin: 10px 0 10px 0
+    .titleCreate
+      font-size: 15px
+      margin: 15px 0
     .folderIconWrap
       width: 78%
       margin: 0 0 18px 0
@@ -393,9 +399,14 @@
         .lock
           width: 12px
     .inputFieldsWrap
+      margin: 0 0 5px 0
+      .inputWrap
+        height: 28px
+        margin-bottom: 5px
       .tagPicker
-        height: 30px
-        font-size: 12px
+        height: 28px
+        font-size: 11px
+        margin-bottom: 5px
         .inputField
           font-size: 12px
         .tagList
