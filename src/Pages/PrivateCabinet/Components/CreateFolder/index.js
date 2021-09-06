@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
