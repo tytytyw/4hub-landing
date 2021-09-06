@@ -14,9 +14,9 @@
   flex-direction: column
   justify-content: space-between
   width: 100%
-  min-height: 58px
+  min-height: 64px
   box-sizing: border-box
-  padding: 8px 16px
+  padding: 8px 10px
   cursor: default
   &:hover
     background: rgba(64, 134, 241, 0.1)
@@ -29,9 +29,10 @@
       top: 0
       right: 0
   .fileAbout
+    height: 100%
     display: flex
-    justify-content: space-between
     align-items: center
+    justify-content: space-between
   .linkWrap
     display: flex
     justify-content: center
@@ -45,16 +46,16 @@
     font-size: 10px
     line-height: 15px
     color: #4086F1
+    nowrap
   .file
-    min-width: 35px
-    height: 40px
+    min-width: 40px
+    height: 45px
     position: relative
     margin: 0 20px 0 0
   .infoWrap
     display: flex
     flex-direction: column
     justify-content: space-between
-    height: 40px
     width: 70%
   .fileName
     width: 90%
@@ -64,6 +65,7 @@
     text-overflow: ellipsis
     color: rgb(96, 96, 96)
     font-size: 13px
+    line-height: 17px
     font-family: "SF Pro Medium", sans-serif
   .fileInfo
     display: flex
@@ -77,19 +79,21 @@
     font-size: 9px
     margin: 0 40px 0 0
   .symbols
+    margin-top: 7px
     display: flex
     align-items: center
   .locked
-    width: 15px
+    width: 10px
     margin: 0 10px 0 0
   .sign, .smile
-    width: 16px
+    width: 13px
     margin: 0 10px 0 0
 
 
 .wrapper_small
-  padding: 3px 7px
-  min-height: 37px
+  justify-content: center
+  padding: 3px 7px 3px 23px
+  min-height: 51px
   .linkWrap
     height: 19px
   .link
@@ -118,8 +122,8 @@
 
 
 .wrapper_big
-  padding: 10px 20px
-  min-height: 96px
+  padding: 10px
+  min-height: 94px
   .linkWrap
     width: 90%
     height: 24px
@@ -133,22 +137,16 @@
     position: relative
     margin: 0 16px 0 0
   .fileInfo
-    margin-top: 7px
+    margin-top: 3px
   .infoWrap
     justify-content: center
-    height: 50px
     max-width: 60%
-  .fileName
-    font-size: 18px
-    line-height: 20px
   .fileDate, .fileSize
     font-size: 14px
     line-height: 16px
     white-space: nowrap
   .symbols
-    flex-grow: 1
-    margin-right: 12px
-    width: 30%
+    margin-top: 18px
   .locked
     width: 15px
     margin: 0 10px 0 0

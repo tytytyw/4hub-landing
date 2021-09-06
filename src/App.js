@@ -4,15 +4,15 @@ import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
 import PrivateCabinet from './Pages/PrivateCabinet';
-import Guest from "./Pages/StartPage/Components/Guest";
 import StartPage from "./Pages/StartPage";
+import Guest from "./Pages/PrivateCabinet/Components/Guest";
 
 function App() {
 
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
-    const [guest] = useState(false)
+    const [guest] = useState(true)
 
     //! Temporary comment before BUILT
     useEffect(() => {
