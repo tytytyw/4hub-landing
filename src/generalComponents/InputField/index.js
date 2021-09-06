@@ -4,7 +4,7 @@ import styles from './InputField.module.sass';
 import classnames from 'classnames';
 
 const InputField = ({
-        value, set, model, mistake = false, height = '25px', switcher = false,
+        value, set, model, mistake = false, switcher = false,
         placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone, disabled = false
 }) => {
 
@@ -20,7 +20,7 @@ const InputField = ({
     }
 
     return (
-        <div style={height && {height}} className={classnames({
+        <div className={classnames({
             [styles.wrap]: true,
             [styles.redBorder]: mistake
         })}>
