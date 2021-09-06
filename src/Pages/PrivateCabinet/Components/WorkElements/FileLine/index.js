@@ -48,11 +48,7 @@ const FileLine = ({
         setChosenFile(file)
     }
 
-    const handleDoubleClick = () => {
-        const isForamt = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
-        if(isForamt) return window.open(file?.edit_url);
-        return setFilePreview({...filePreview, view: true, file})
-    }
+    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file})
 
     return (
         <div
