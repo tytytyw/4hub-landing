@@ -48,21 +48,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
         })
     };
 
-    const width = window.innerWidth;
-    const generateInputWrap = () => {
-        if(width >= 1440) {
-            return {
-              height: `${showRepeat ? '190px' : '140px'}`,
-              marginBottom: `${showRepeat ? '5px' : '35px'}`
-          }
-      } else {
-          return {
-              height: `${showRepeat ? '150px' : '110px'}`,
-              marginBottom: `${showRepeat ? '5px' : '35px'}`
-          }
-      }
-    };
-
     const onAddFolder = () => {
         if(name) {
             const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
@@ -98,99 +83,97 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
 
     return (
         <>
-        <PopUp set={onCreate}>
-            <div className={styles.createFolderWrap}>
-                <span className={styles.cross} onClick={() => onCreate(false)} />
-                <span className={styles.title}>{title}</span>
-                <div className={styles.folderIconWrap}>
-                    <div className={`${styles.folder}`}>
-                        <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === color.color)[0]?.name}`} />
-                    </div>
-                    <div className={styles.picPreview}>
-                        <div className={styles.folderName}>{name}</div>
-                        <div className={styles.folderOptions}>
-                            {tagOption.chosen && <div
-                                className={`${styles.minitagWrap} ${styles.redCross}`}
-                                onClick={() => setTagOption({...tagOption, chosen: ''})}
-                            >
-                                <div
-                                    className={`${styles.minitag}`}
-                                >#{tagOption.chosen}</div>
-                            </div>}
-                            <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ?  styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
-                                <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+            <PopUp set={onCreate}>
+                <div className={styles.createFolderWrap}>
+                    <span className={styles.cross} onClick={() => onCreate(false)} />
+                    <span className={styles.title}>{title}</span>
+                    <div className={styles.folderIconWrap}>
+                        <div className={`${styles.folder}`}>
+                            <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === color.color)[0]?.name}`} />
+                        </div>
+                        <div className={styles.picPreview}>
+                            <div className={styles.folderName}>{name}</div>
+                            <div className={styles.folderOptions}>
+                                {tagOption.chosen && <div
+                                    className={`${styles.minitagWrap} ${styles.redCross}`}
+                                    onClick={() => setTagOption({...tagOption, chosen: ''})}
+                                >
+                                    <div
+                                        className={`${styles.minitag}`}
+                                    >#{tagOption.chosen}</div>
+                                </div>}
+                                <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ?  styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
+                                    <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
+                                </div>
+                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                             </div>
-                            {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                            {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                            {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
                         </div>
                     </div>
-                </div>
-                <div style={generateInputWrap()}
-                     className={styles.inputFieldsWrap}
-                >
-                    <div className={styles.inputWrap}>
-                        <InputField
-                            model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={name}
-                            set={onAddName}
-                            placeholder='Имя папки'
-                            mistake={noNameError}
-                        />
-                    </div>
-                    <div className={styles.tagPicker}>
-                        <span>#</span>
-                        <input
-                            className={styles.inputField}
-                            type='text'
-                            placeholder='Добавте #Тег'
-                            value={tagOption.chosen}
-                            onChange={(e) => onChangeTag(e.target.value)}
-                            onFocus={() => {setTagOption({...tagOption, show: true})}}
-                        />
-                        <span>{tagOption.count}/30</span>
-                        <div className={styles.tagList} >
-                            {renderTags()}
+                    <div className={styles.inputFieldsWrap}>
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='text'
+                                height={null}
+                                value={name}
+                                set={onAddName}
+                                placeholder='Имя папки'
+                                mistake={noNameError}
+                            />
                         </div>
-                    </div>
-                    <div className={styles.inputWrap}>
-                        <InputField
-                            model='password'
-                            switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
-                            value={password}
-                            set={setPassword}
-                            placeholder='Пароль'
-                            onSwitch={onSwitch}
-                            visibility={visibility}
-                            setVisibility={setVisibility}
-                        />
-                    </div>
-                    <div className={styles.inputWrap}>
-                        {showRepeat && <InputField
+                        <div className={styles.tagPicker}>
+                            <span>#</span>
+                            <input
+                                className={styles.inputField}
+                                type='text'
+                                placeholder='Добавте #Тег'
+                                value={tagOption.chosen}
+                                onChange={(e) => onChangeTag(e.target.value)}
+                                onFocus={() => {setTagOption({...tagOption, show: true})}}
+                            />
+                            <span>{tagOption.count}/30</span>
+                            <div className={styles.tagList} >
+                                {renderTags()}
+                            </div>
+                        </div>
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={true}
+                                height={null}
+                                value={password}
+                                set={setPassword}
+                                placeholder='Пароль'
+                                onSwitch={onSwitch}
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                            />
+                        </div>
+                        {showRepeat && <div className={styles.inputWrap}>
+                            <InputField
                                 model='password'
                                 switcher={false}
-                                height={width >= 1440 ? '40px' : '30px'}
+                                height={null}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'
                                 visibility={visibility}
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
-                            />}
+                            />
+                        </div>}
+                    </div>
+                    <Colors color={color} setColor={setColor} />
+                    <Signs sign={sign} setSign={setSign} />
+                    <Emoji emoji={emoji} setEmoji={setEmoji} />
+                    <div className={styles.buttonsWrap}>
+                        <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
+                        <div className={styles.add} onClick={() => onAddFolder()}>Добавить</div>
                     </div>
                 </div>
-                <Colors color={color} setColor={setColor} />
-                <Signs sign={sign} setSign={setSign} />
-                <Emoji emoji={emoji} setEmoji={setEmoji} />
-                <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                    <div className={styles.add} onClick={() => onAddFolder()}>Добавить</div>
-                </div>
-            </div>
-        </PopUp>
-        {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
+            </PopUp>
+            {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
         </>
     )
 }
