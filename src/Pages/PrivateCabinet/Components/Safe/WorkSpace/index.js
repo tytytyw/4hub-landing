@@ -45,6 +45,7 @@ const WorkSpace = ({
 	setLoadingType,
 	deleteFile,
     cancelArchive,
+    archiveFile,
 }) => {
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 	const size = useSelector((state) => state.PrivateCabinet.size);
@@ -69,7 +70,12 @@ const WorkSpace = ({
 			text: ``,
 			callback: (list, index) => setFilePick({ ...filePick, show: true }),
 		},
-		{ type: "archive", name: "", text: ``, callback: "" },
+		{
+			type: "archive",
+			name: "Добавить файл в архив",
+			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
+			callback: (list, index) => setAction(list[index]),
+		},
 		{ type: "intoZip", name: "", text: ``, callback: "" },
 		{ type: "info", name: "", text: ``, callback: "" },
 		{
@@ -337,6 +343,20 @@ const WorkSpace = ({
 					setLoadingType={setLoadingType}
 					menuItem={menuItem}
 				/>
+			) : null}
+
+            {action.type === "archive" ? (
+				<ActionApproval
+					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
+					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					set={cancelArchive}
+					callback={archiveFile}
+					approve={'Архивировать'}
+				>
+					<div className={styles.fileActionWrap}>
+						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
+					</div>
+				</ActionApproval>
 			) : null}
 
 			<form

@@ -16,7 +16,7 @@ import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
-import { onGetSafes, onExitSafe } from "../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/actions/PrivateCabinetActions";
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
@@ -194,6 +194,44 @@ const Safe = ({
 		setChosenFile(null);
 	};
 
+	const addToArchive = (uid, fid, file, options) => {
+		setLoadingType("squarify");
+		api
+			.post(`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid},id_safe=${authorizedSafe.id_safe}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					dispatch(onDeleteSafeFile(fid));
+					if (options.single) setShowSuccessMessage("Файл добавлен в архив");
+					if (options.several)
+						setShowSuccessMessage("Выбранные файлы добавлено в архив");
+				} else console.log(res?.error);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				nullifyAction();
+				setChosenFile(null);
+				setLoadingType("");
+				if (filePick.show) nullifyFilePick();
+			});
+	};
+
+	const archiveFile = () => {
+		if (filePick.show) {
+			filePick.files.forEach((fid, i) => {
+				const options = {
+					single: false,
+					several: i === filePick.files.length - 1,
+				};
+				addToArchive(uid, fid, { fid }, options);
+			});
+		} else {
+			addToArchive(uid, chosenFile.fid, chosenFile, {
+				single: true,
+				several: false,
+			});
+		}
+	};
+
 	return (
 		<div className={styles.workAreaWrap}>
 			<div
@@ -267,6 +305,7 @@ const Safe = ({
 				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
 				deleteFile={deleteFile}
 				cancelArchive={cancelArchive}
+				archiveFile={archiveFile}
 			/>
 
 			{filePreview?.view && (
