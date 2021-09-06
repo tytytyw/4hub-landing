@@ -23,6 +23,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
+import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 
 const WorkSpace = ({
 	menuItem,
@@ -83,6 +84,13 @@ const WorkSpace = ({
 			name: "Загрузка файла",
 			text: ``,
 			callback: () => document.downloadFile.submit(),
+		},
+		{
+			type: "properties",
+			name: "Свойства",
+			text: ``,
+			callback: () =>
+				setAction({ ...action, type: "properties", name: "Свойства" }),
 		},
 		{ type: "print", name: "", text: ``, callback: "" },
 	];
@@ -357,6 +365,10 @@ const WorkSpace = ({
 						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
 					</div>
 				</ActionApproval>
+			) : null}
+
+			{action.type === "properties" ? (
+				<FileProperty close={nullifyAction} file={chosenFile} />
 			) : null}
 
 			<form
