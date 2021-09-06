@@ -174,7 +174,10 @@ const PrivateCabinet = () => {
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
                             setLoadingType={setLoadingType}
+                            menuItem={menuItem}
                             setMenuItem={setMenuItem}
+                            nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                         />}
                     />
 

@@ -15,7 +15,7 @@ import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 
 const CustomizeFile = ({
-           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles, setLoadingType
+           title, close, file, filePick, fileAddCustomization, setFileAddCustomization, saveCustomizeSeveralFiles, setLoadingType, menuItem
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -108,10 +108,11 @@ const CustomizeFile = ({
         if(filePick.customize) {
             delete data.fName;
             if(data.pass === '') delete data.pass;
-            api.post('/ajax/file_edit.php', data)
+            api.post(`/ajax/${menuItem === 'Safe' ? 'safe_' : ''}file_edit.php`, data)
                 .then(res => {if(res.data.ok === 1) {
-                    dispatch(onChooseFiles(path));
-                    dispatch(onAddRecentFiles());
+                    if (menuItem === 'MyFolders') dispatch(onChooseFiles(path));
+                    if (menuItem === 'MyFiles') dispatch(onAddRecentFiles());
+                    if (menuItem === 'Safe') console.log('TODO: need to dispacth filelist');
                 }})
                 .catch(err => {setError(true)})
                 .finally(() => {
@@ -119,10 +120,10 @@ const CustomizeFile = ({
                     setLoadingType('')
                 });
         } else {
-            api.post('/ajax/file_edit.php', data)
+            api.post(`/ajax/${menuItem === 'Safe' ? 'safe_' : ''}file_edit.php`, data)
                 .then(res => {if(res.data.ok === 1) {
                     dispatch(onCustomizeFile(newFile));
-                    dispatch(onAddRecentFiles());
+                    if (menuItem !== 'Safe') dispatch(onAddRecentFiles());
                 } else {setError(true)}
                 })
                 .catch(err => {setError(true)})

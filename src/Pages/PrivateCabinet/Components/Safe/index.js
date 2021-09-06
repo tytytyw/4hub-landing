@@ -21,6 +21,7 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import CreateFile from "../CreateFile";
 
 const Safe = ({
+	menuItem,
 	filePreview,
 	setFilePreview,
 	fileSelect,
@@ -35,6 +36,8 @@ const Safe = ({
 	loadingFile,
 	fileErrors,
 	setLoadingFile,
+	nullifyAddingSeveralFiles,
+	saveCustomizeSeveralFiles,
 }) => {
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
@@ -52,11 +55,10 @@ const Safe = ({
 	const [noSafePopup, setNoSafePopup] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [safePassword, setSafePassword] = useState({ open: false });
-
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
+	const [filePick, setFilePick] = useState({ show: false, files: [] });
+	const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-
-	// TODO: fileList get current fileList from api
 	const [fileList, SetFileList] = useState(null);
 
 	useEffect(() => {
@@ -215,6 +217,7 @@ const Safe = ({
 			</div>
 
 			<WorkSpace
+				menuItem={menuItem}
 				listCollapsed={listCollapsed}
 				filePreview={filePreview}
 				setFilePreview={setFilePreview}
@@ -226,6 +229,12 @@ const Safe = ({
 				fileList={fileList}
 				fileAddCustomization={fileAddCustomization}
 				setFileAddCustomization={setFileAddCustomization}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				nullifyFilePick={nullifyFilePick}
+				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+				setLoadingType={setLoadingType}
+				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
 			/>
 
 			{filePreview?.view && (
