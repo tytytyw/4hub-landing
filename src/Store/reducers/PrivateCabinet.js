@@ -6,6 +6,7 @@ import {
     LOAD_FILES_ALL,
     CHOOSE_ALL_FILES,
     FILE_DELETE,
+    SAFE_FILE_DELETE,
     CONTACT_LIST,
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
@@ -193,6 +194,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, authorizedSafe: action.payload}
         case GET_SAFE_FILELIST:
             return {...state, safeFileList: action?.payload?.length ? [...action.payload] : null}
+        case SAFE_FILE_DELETE: {
+            const files = state.safeFileList.filter(el => el.fid !== action.payload)
+            return {...state, safeFileList: files};
+        }
 
         //PROJECT
         case GET_PROJECT_FOLDER:

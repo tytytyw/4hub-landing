@@ -11,6 +11,7 @@ import PreviewFile from "../PreviewFile";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuSafeItem } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import { safeFileDelete } from "../../../../generalComponents/fileMenuHelper";
 import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
@@ -48,6 +49,7 @@ const Safe = ({
 	const safes = useSelector((state) => state.PrivateCabinet.safes);
 	const fileList = useSelector((state) => state.PrivateCabinet.safeFileList);
 	const size = useSelector((state) => state.PrivateCabinet.size);
+	const authorizedSafe = useSelector(state => state.PrivateCabinet.authorizedSafe);
 	const [listCollapsed, setListCollapsed] = useState("");
 	const [selectedSafe, setSelectedSafe] = useState(null);
 	const [createSafe, setCreateSafe] = useState(false);
@@ -80,7 +82,8 @@ const Safe = ({
 
 	useEffect(() => {
 		dispatch(onExitSafe())
-	}, [selectedSafe]); // eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedSafe]); 
 
 	const renderSafesList = () => {
 		if (!safes) return null;
@@ -162,6 +165,35 @@ const Safe = ({
 	const onSafePassword = (boolean) =>
 		setSafePassword({ ...safePassword, open: boolean });
 
+	const deleteFile = () => {
+		if (filePick.show) {
+			filePick.files.forEach((fid, i, arr) =>
+			{
+			safeFileDelete(
+					authorizedSafe.id_safe,
+					fid,
+					dispatch,
+					uid,
+					i === arr.length - 1 ? setShowSuccessMessage : "",
+					"Файлы перемещено в корзину"
+				)
+			}
+			);
+			setFilePick({ ...filePick, files: [], show: false });
+		} else {
+			safeFileDelete(
+				authorizedSafe.id_safe,
+				chosenFile.fid,
+				dispatch,
+				uid,
+				setShowSuccessMessage,
+				"Файл перемещен в корзину"
+			);
+		}
+		nullifyAction();
+		setChosenFile(null);
+	};
+
 	return (
 		<div className={styles.workAreaWrap}>
 			<div
@@ -233,6 +265,8 @@ const Safe = ({
 				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
 				setLoadingType={setLoadingType}
 				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+				deleteFile={deleteFile}
+				cancelArchive={cancelArchive}
 			/>
 
 			{filePreview?.view && (

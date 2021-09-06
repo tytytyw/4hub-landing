@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
@@ -19,11 +19,6 @@ import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { previewFormats } from "../../../../../generalComponents/collections";
-import { fileDelete } from "../../../../../generalComponents/fileMenuHelper";
-import {
-	onDeleteFile,
-	onAddRecentFiles,
-} from "../../../../../Store/actions/PrivateCabinetActions";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
@@ -48,8 +43,9 @@ const WorkSpace = ({
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
 	setLoadingType,
+	deleteFile,
+    cancelArchive,
 }) => {
-	const dispatch = useDispatch();
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 	const size = useSelector((state) => state.PrivateCabinet.size);
 	const [mouseParams, setMouseParams] = useState(null);
@@ -94,18 +90,14 @@ const WorkSpace = ({
 		},
 	];
 
-    const onActiveCallbackArrMain = (type) => {
-        let index;
-        callbackArrMain.forEach((el, i) => el.type === type ? index = i : undefined);
-        callbackArrMain[index].callback(callbackArrMain, index);
-    };
-
-	const deleteFile = () => {
-		fileDelete(chosenFile, dispatch, onDeleteFile);
-		nullifyAction();
-		setChosenFile(null);
-		dispatch(onAddRecentFiles());
+	const onActiveCallbackArrMain = (type) => {
+		let index;
+		callbackArrMain.forEach((el, i) =>
+			el.type === type ? (index = i) : undefined
+		);
+		callbackArrMain[index].callback(callbackArrMain, index);
 	};
+
 	const excessItems = () => {
 		if (filePick.show) {
 			return [
@@ -169,12 +161,6 @@ const WorkSpace = ({
 		});
 	};
 
-	//useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
-	// Change state to default after changing menu params
-	useEffect(() => {
-		if (action?.type !== "customizeSeveral")
-			setFilePick({ show: false, files: [], customize: false });
-	}, [action]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -227,8 +213,10 @@ const WorkSpace = ({
 					chosenFile={chosenFile}
 					setAction={setAction}
 					fileSelect={fileSelect}
-                	share={() => onActiveCallbackArrMain('share')}
-					chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+					share={() => onActiveCallbackArrMain("share")}
+					chooseSeveral={() =>
+						setFilePick({ ...filePick, files: [], show: !filePick.show })
+					}
 					filePick={filePick}
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
@@ -303,15 +291,23 @@ const WorkSpace = ({
 			) : null}
 
 			{action.type === "delete" ? (
+                
 				<ActionApproval
-					name={action.name}
-					text={action.text}
-					set={nullifyAction}
+					name={filePick.show ? "Удаление файлов" : action.name}
+					text={
+						filePick.show
+							? "Вы действительно хотите удалить выбранные файлы?"
+							: action.text
+					}
+					set={cancelArchive}
 					callback={deleteFile}
 					approve={"Удалить"}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={chosenFile?.ext} color={chosenFile?.color} />
+						<File
+							format={filePick.show ? "FILES" : chosenFile?.ext}
+							color={chosenFile?.color}
+						/>
 					</div>
 				</ActionApproval>
 			) : null}

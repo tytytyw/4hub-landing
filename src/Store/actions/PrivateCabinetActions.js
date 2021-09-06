@@ -9,6 +9,7 @@ import {
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
+    SAFE_FILE_DELETE,
     GET_FOLDERS,
     CHOOSE_RECENT_FILES,
     CUSTOMIZE_FILE,
@@ -288,6 +289,13 @@ export const onExitSafe = () => async (dispatch) => {
 export const onCustomizeSafeFile = (file) => {
     return{
         type: CUSTOMIZE_SAFE_FILE,
+        payload: file
+    }
+};
+
+export const onDeleteSafeFile = (file) => {
+    return {
+        type: SAFE_FILE_DELETE,
         payload: file
     }
 };
