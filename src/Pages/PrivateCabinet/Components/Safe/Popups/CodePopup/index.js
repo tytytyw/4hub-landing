@@ -9,7 +9,7 @@ import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
-import { onAuthorizedSafe } from "../../../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafeFileList } from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CodePopup = ({
 	safe,
@@ -17,7 +17,6 @@ const CodePopup = ({
 	refreshPass,
 	setRefreshPass,
 	setLoadingType,
-	SetFileList
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
@@ -30,7 +29,6 @@ const CodePopup = ({
 	const dispatch = useDispatch();
 
 	const onGetSafeAccess = (password, id_safe, code) => {
-		
 		if (password && !code) {
 			setLoadingType("squarify");
 			api
@@ -47,25 +45,14 @@ const CodePopup = ({
 		} else setErrors({ password: !password, code: !code });
 
 		if (code) {
-			api.post(`/ajax/safe_file_list.php?uid=${uid}&id_safe=${id_safe}&code=${code}`)
-				.then(res => {
-					if(res.data.ok === 1) {
-						SetFileList(res.data.files)
-						dispatch(onAuthorizedSafe(id_safe, code))
-						set()
-					} else {
-						//TODO: validate code from response
-						setErrPass('code')
-					}})
-				.catch(err => console.log(err));
+			setLoadingType("squarify");
+			dispatch(onGetSafeFileList(code, id_safe, set, setErrPass, setLoadingType))
 		}
 	};
 
 	useEffect(() => {
 		setErrors({ password: false, code: false });
 	}, [password, code]);
-
-	useEffect(() => SetFileList(null), []); // eslint-disable-line
 
 
 	return (

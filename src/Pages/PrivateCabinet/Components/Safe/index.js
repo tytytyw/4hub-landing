@@ -15,7 +15,7 @@ import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
-import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafes, onExitSafe } from "../../../../Store/actions/PrivateCabinetActions";
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
@@ -46,6 +46,7 @@ const Safe = ({
 	const [mouseParams, setMouseParams] = useState(null);
 
 	const safes = useSelector((state) => state.PrivateCabinet.safes);
+	const fileList = useSelector((state) => state.PrivateCabinet.safeFileList);
 	const size = useSelector((state) => state.PrivateCabinet.size);
 	const [listCollapsed, setListCollapsed] = useState("");
 	const [selectedSafe, setSelectedSafe] = useState(null);
@@ -59,7 +60,6 @@ const Safe = ({
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
 	const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-	const [fileList, SetFileList] = useState(null);
 
 	useEffect(() => {
 		setLoadingType(safes === null ? "squarify" : "");
@@ -70,7 +70,6 @@ const Safe = ({
 	useEffect(() => {
 		dispatch(onGetSafes());
 		setMenuItem("Safe");
-		return () => SetFileList(null);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -80,7 +79,7 @@ const Safe = ({
 	}, [path]);
 
 	useEffect(() => {
-		SetFileList(null);
+		dispatch(onExitSafe())
 	}, [selectedSafe]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
 	const renderSafesList = () => {
@@ -97,7 +96,6 @@ const Safe = ({
 					onClick={() => {
 						setSelectedSafe(safe);
 						setCodePopup(true);
-						SetFileList(false);
 					}}
 				/>
 			);
@@ -274,7 +272,6 @@ const Safe = ({
 					safe={selectedSafe}
 					set={setCodePopup}
 					setLoadingType={setLoadingType}
-					SetFileList={SetFileList}
 				/>
 			)}
 

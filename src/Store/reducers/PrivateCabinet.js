@@ -18,6 +18,7 @@ import {
     GET_CATEGORIES,
     GET_SAFES,
     AUTHORIZED_SAFE,
+    GET_SAFE_FILELIST,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -71,6 +72,7 @@ const INITIAL_STATE = {
     categories: [],
 
     //SAFE
+    safeFileList: null,
     safes: null,
     authorizedSafe: {id: null, code: null},
 
@@ -181,6 +183,8 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, safes: action.payload}
         case AUTHORIZED_SAFE:
             return {...state, authorizedSafe: action.payload}
+        case GET_SAFE_FILELIST:
+            return {...state, safeFileList: action?.payload?.length ? [...action.payload] : null}
 
         //PROJECT
         case GET_PROJECT_FOLDER:

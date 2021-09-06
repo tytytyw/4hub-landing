@@ -248,26 +248,39 @@ export const onGetSafes = () => async (dispatch, getState) => {
         .catch(error => console.log(error))
 };
 
-export const onGetSafeFileList = (code, id_safe) => async (dispatch, getState) => {
+export const onGetSafeFileList = (code, id_safe, set, setErrPass, setLoadingType) => async (dispatch, getState) => {
     api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
         .then((res) => {
             if (res.data.ok) {
-                console.log(res) 
+                onAuthorizedSafe(id_safe, code)
                 dispatch({
                     type: GET_SAFE_FILELIST,
-                    // payload: 
+                    payload: res.data.files
                 })
+                set()
             } else {
-                console.log(res) 
+                setErrPass('code')
             }
         })
         .catch(error => console.log(error))
+        .finally(() => setLoadingType(''))
 };
 
 export const onAuthorizedSafe = (id_safe, code) => async (dispatch) => {
     dispatch({
         type: AUTHORIZED_SAFE,
         payload: {id_safe, code}
+    })
+};
+
+export const onExitSafe = () => async (dispatch) => {
+    dispatch({
+        type: GET_SAFE_FILELIST,
+        payload: null
+    })
+    dispatch({
+        type: AUTHORIZED_SAFE,
+        payload: null
     })
 };
 
