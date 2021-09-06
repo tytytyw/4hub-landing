@@ -19,6 +19,7 @@ import {
     GET_PROGRAMS,
     GET_SAFES,
     GET_SAFE_FILELIST,
+    AUTHORIZED_SAFE,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -261,6 +262,13 @@ export const onGetSafeFileList = (code, id_safe) => async (dispatch, getState) =
             }
         })
         .catch(error => console.log(error))
+};
+
+export const onAuthorizedSafe = (id_safe, code) => async (dispatch) => {
+    dispatch({
+        type: AUTHORIZED_SAFE,
+        payload: {id_safe, code}
+    })
 };
 
 // PROGRAMS

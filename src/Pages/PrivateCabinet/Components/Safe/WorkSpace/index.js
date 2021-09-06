@@ -79,8 +79,8 @@ const WorkSpace = ({chosenFile, setChosenFile,
 
     // Types of Files view
     const renderFiles = (Type) => {
-        if(!fileList?.files) return null;
-        return fileList.files.map((file, i) => {
+        if(!fileList) return null;
+        return fileList.map((file, i) => {
             return <Type
                 key={i}
                 file={file}
@@ -120,7 +120,7 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 fileSelect={fileSelect}
             />
 
-            {fileList?.files?.length > 0 &&
+            {fileList &&
             <div
                 style={{
                     height: 'calc(100% - 90px - 55px)'
@@ -131,23 +131,24 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 <WorkBars
                     file={chosenFile}
                     filePick={filePick}
+                    fileSelect={fileSelect}
                 >
                     {renderFiles(FileBar)}
                 </WorkBars>}
 
                 {workElementsView === 'lines' &&
-                <WorkLines file={chosenFile} filePick={filePick}>
+                <WorkLines file={chosenFile} filePick={filePick} fileSelect={fileSelect}>
                     {renderFiles(FileLine)}
                 </WorkLines>}
 
                 {workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile} filePick={filePick}>
+                <WorkBarsPreview file={chosenFile} filePick={filePick}> fileSelect={fileSelect}
                     {renderFiles(FileBar)}
                 </WorkBarsPreview>}
 
                 {workElementsView === 'workLinesPreview' &&
-                <WorkLinesPreview file={chosenFile} filePick={filePick}> 
-                    {renderFiles(FileLineShort)}
+                <WorkLinesPreview file={chosenFile} filePick={filePick}> fileSelect={fileSelect}
+                    {renderFiles(FileLineShort)} 
                 </WorkLinesPreview>}
 
             </div>}

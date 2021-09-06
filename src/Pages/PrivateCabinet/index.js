@@ -174,6 +174,7 @@ const PrivateCabinet = () => {
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
                             setLoadingType={setLoadingType}
+                            setMenuItem={setMenuItem}
                         />}
                     />
 

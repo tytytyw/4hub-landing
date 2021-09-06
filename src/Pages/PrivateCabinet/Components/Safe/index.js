@@ -19,7 +19,7 @@ import { onGetSafes } from "../../../../Store/actions/PrivateCabinetActions";
 import api from '../../../../api';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 
-const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
+const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType, setMenuItem }) => {
 	const dispatch = useDispatch();
     const uid = useSelector(state => state.user.uid);
 	const path = useSelector((state) => state.PrivateCabinet.folderList?.path);
@@ -50,6 +50,7 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 
 	useEffect(() => {
 		dispatch(onGetSafes());
+		setMenuItem("Safe");
 		return () => SetFileList(null)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -58,6 +59,10 @@ const Safe = ({ filePreview, setFilePreview, fileSelect, setLoadingType }) => {
 	useEffect(() => {
 		nullifyAction();
 	}, [path]);
+
+	useEffect(() => {
+		SetFileList(null)
+	}, [selectedSafe]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
 	const renderSafesList = () => {
 		if (!safes) return null;

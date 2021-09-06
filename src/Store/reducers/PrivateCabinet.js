@@ -17,6 +17,7 @@ import {
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_SAFES,
+    AUTHORIZED_SAFE,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -71,6 +72,7 @@ const INITIAL_STATE = {
 
     //SAFE
     safes: null,
+    authorizedSafe: {id: null, code: null},
 
     //PROJECT
     projects: [],
@@ -177,6 +179,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         //SAFE
         case GET_SAFES:
             return {...state, safes: action.payload}
+        case AUTHORIZED_SAFE:
+            return {...state, authorizedSafe: action.payload}
 
         //PROJECT
         case GET_PROJECT_FOLDER:

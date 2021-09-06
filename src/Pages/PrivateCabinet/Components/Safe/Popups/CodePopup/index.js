@@ -7,8 +7,9 @@ import Button from "../../../MyProfile/Button";
 import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
+import { onAuthorizedSafe } from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const CodePopup = ({
 	safe,
@@ -25,6 +26,8 @@ const CodePopup = ({
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
 	const [sendCode, showSendCode] = useState(false);
+
+	const dispatch = useDispatch();
 
 	const onGetSafeAccess = (password, id_safe, code) => {
 		
@@ -46,9 +49,10 @@ const CodePopup = ({
 		if (code) {
 			api.post(`/ajax/safe_file_list.php?uid=${uid}&id_safe=${id_safe}&code=${code}`)
 				.then(res => {
-					console.log(res)
 					if(res.data.ok === 1) {
 						SetFileList(res.data.files)
+						dispatch(onAuthorizedSafe(id_safe, code))
+						set()
 					} else {
 						//TODO: validate code from response
 						setErrPass('code')
@@ -62,6 +66,7 @@ const CodePopup = ({
 	}, [password, code]);
 
 	useEffect(() => SetFileList(null), []); // eslint-disable-line
+
 
 	return (
 		<>
