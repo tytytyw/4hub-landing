@@ -228,6 +228,7 @@ const WorkSpace = ({
 					setAction={setAction}
 					fileSelect={fileSelect}
 					share={() => onActiveCallbackArrMain("share")}
+					archive={() => onActiveCallbackArrMain('archive')}
 					chooseSeveral={() =>
 						setFilePick({ ...filePick, files: [], show: !filePick.show })
 					}
