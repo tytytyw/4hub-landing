@@ -200,7 +200,7 @@ const CustomizeFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                
+                                isPass={showRepeat}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'

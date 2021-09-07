@@ -87,7 +87,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={null}
+                            
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
@@ -98,7 +98,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={null}
+                            
                             value={target}
                             set={setTarget}
                             placeholder='Цель проекта'
@@ -110,7 +110,7 @@ const CreateProject = ({onCreate, title, info}) => {
                             model='text'
                             value={members}
                             set={setMembers}
-                            height={null}
+                            
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img
@@ -144,11 +144,12 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={null}
+                            
                             value={password}
                             set={setPassword}
                             placeholder='Установить пароль'
                             onSwitch={onSwitch}
+                            isPass={showRepeat}
                             visibility={visibility}
                             setVisibility={setVisibility}
                         />
@@ -159,7 +160,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={false}
-                            height={null}
+                            
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'

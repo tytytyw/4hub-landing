@@ -126,7 +126,7 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                 <div
                     className={styles.menuWrap}
                     onClick={e => {
-                        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+                        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
                     }}
                 >
                     <span className={styles.menu}/>

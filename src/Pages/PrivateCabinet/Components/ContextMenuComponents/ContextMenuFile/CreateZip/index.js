@@ -152,6 +152,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                             <InputField
                                 model='password'
                                 switcher={true}
+                                isPass={showRepeat}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'

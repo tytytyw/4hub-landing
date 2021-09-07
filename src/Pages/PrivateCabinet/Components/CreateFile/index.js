@@ -192,7 +192,7 @@ const CreateFile = ({
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                height={null}
+                                
                                 value={name}
                                 set={setName}
                                 placeholder='Имя файла'
@@ -221,11 +221,12 @@ const CreateFile = ({
                             <InputField
                                 model='password'
                                 switcher={true}
-                                height={null}
+                                
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
                                 onSwitch={onSwitch}
+                                isPass={showRepeat}
                                 visibility={visibility}
                                 setVisibility={setVisibility}
                                 disabled={!showRepeat}
@@ -235,7 +236,7 @@ const CreateFile = ({
                             <InputField
                                 model='password'
                                 switcher={false}
-                                height={null}
+                                
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'

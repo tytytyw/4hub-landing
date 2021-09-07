@@ -150,6 +150,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         </div>
                         <div className={styles.inputWrap}>
                             <InputField
+                                isPass={showRepeat}
                                 model='password'
                                 switcher={true}
                                 value={password}

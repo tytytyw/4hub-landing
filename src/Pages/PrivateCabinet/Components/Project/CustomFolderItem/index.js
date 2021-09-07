@@ -64,7 +64,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
                         className={styles.menuWrap}
                         onClick={e => {
                             e.preventDefault()
-                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30, type: 'menu'})
+                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25, type: 'menu'})
                         }}
                     >
                         <span className={styles.menu}/>

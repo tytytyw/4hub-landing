@@ -132,6 +132,7 @@ const CreateFolder = ({onCreate, title}) => {
                             set={setPassword}
                             placeholder='Пароль'
                             onSwitch={onSwitch}
+                            isPass={showRepeat}
                             visibility={visibility}
                             setVisibility={setVisibility}
                         />
