@@ -1,10 +1,20 @@
 .workBarsPreviewWrap
-  display: flex
-  flex-direction: column
   width: 100%
+  overflow-y: auto
+  height: calc((100% - 90px) - 132px)
   position: relative
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 12px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
   .preview
-    padding: 20px 0
+    padding: 30px 0
     display: flex
     justify-content: center
     align-items: center
@@ -61,11 +71,10 @@
   .renderedFiles
     display: flex
     align-items: center
-    height: 38%
-    max-height: 38%
     overflow-y: hidden
     overflow-x: scroll
     white-space: nowrap
+    column-gap: 25px
     max-width: 100%
     width: 100%
     box-sizing: border-box

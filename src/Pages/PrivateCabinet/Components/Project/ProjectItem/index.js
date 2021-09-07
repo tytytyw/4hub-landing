@@ -136,7 +136,7 @@ const ProjectItem = ({
                         className={styles.menuWrap}
                         onClick={e => {
                             e.preventDefault()
-                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30, type: 'project'})
+                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25, type: 'project'})
                         }}
                     >
                         <span className={styles.menu}/>

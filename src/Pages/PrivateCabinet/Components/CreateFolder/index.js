@@ -123,7 +123,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                height={null}
                                 value={name}
                                 set={onAddName}
                                 placeholder='Имя папки'
@@ -151,9 +150,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                         </div>
                         <div className={styles.inputWrap}>
                             <InputField
+                                isPass={showRepeat}
                                 model='password'
                                 switcher={true}
-                                height={null}
                                 value={password}
                                 set={setPassword}
                                 placeholder='Пароль'
@@ -166,7 +165,6 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                             <InputField
                                 model='password'
                                 switcher={false}
-                                height={null}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'

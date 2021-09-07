@@ -34,7 +34,7 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
         </div>
         <div
             className={styles.menuWrap}
-            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 30})}}
+            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})}}
         ><span className={styles.menu} /></div>
     </div>)
 }

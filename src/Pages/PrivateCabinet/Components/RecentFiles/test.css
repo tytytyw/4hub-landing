@@ -1,0 +1,25 @@
+.block-1 {
+	background: #ccc;
+	margin: 10px 20px;
+	border-radius: 10px;
+}
+
+
+.list {
+	overflow-x: auto;
+	padding: 0;
+	list-style: none;
+	display: flex;
+}
+.list::-webkit-scrollbar {
+	height: 0px;
+}
+
+.item {
+	margin: 5px;
+	min-width: 150px;
+	height: 60px;
+	margin-right: 10px;
+	background: #fff;
+	border: 1px solid #000;
+}

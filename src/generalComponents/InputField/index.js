@@ -4,11 +4,11 @@ import styles from './InputField.module.sass';
 import classnames from 'classnames';
 
 const InputField = ({
-        value, set, model, mistake = false, switcher = false,
+        value, set, model, mistake = false, switcher = false, isPass = false,
         placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone, disabled = false
 }) => {
 
-    const [isPassword, setIsPassword] = useState(false);
+    const [isPassword, setIsPassword] = useState(isPass);
 
     const switchOn = () => {
         setIsPassword(!isPassword);

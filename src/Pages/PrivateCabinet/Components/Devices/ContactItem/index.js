@@ -30,7 +30,7 @@ const ContactItem = ({ contact, chosenContact, setChosenContact, setMouseParams,
                 <div className={styles.functionWrap}>
                     <div
                         className={styles.menuWrap}
-                        onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}
+                        onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}
                     ><span className={styles.menu}/></div>
                 </div>
             </div>
