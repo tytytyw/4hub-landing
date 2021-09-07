@@ -158,6 +158,7 @@ const MyFolders = ({
                 title='Папки'
                 src='add-folder.svg'
                 listCollapsed={listCollapsed}
+                setListCollapsed={setListCollapsed}
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
             >
                 <div className={styles.folderListWrap}>

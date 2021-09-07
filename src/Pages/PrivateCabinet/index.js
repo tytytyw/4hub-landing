@@ -96,7 +96,8 @@ const PrivateCabinet = () => {
                 className={styles.workArea}
                 style={{
                     minHeight,
-                    width: collapsed ? `calc(100vw - 55px)` : '82%'
+                    width: collapsed ? `calc(100vw - 55px)` : '82%',
+                    minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
                 }}>
 
                 <Switch>
@@ -261,6 +262,7 @@ const PrivateCabinet = () => {
                             nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
                             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                             setLoadingType={setLoadingType}
+
                         />}
                     />
 
