@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./FileLineShort.module.sass";
-import File from "../../../../../../generalComponents/Files";
+import File from "../../../../generalComponents/Files";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
-import WorkBars from "../../../WorkElements/WorkBars";
-import WorkBarsPreview from "../../../WorkElements/WorkBarsPreview";
+import WorkBars from "../../../PrivateCabinet/Components/WorkElements/WorkBars";
+import WorkBarsPreview from "../../../PrivateCabinet/Components/WorkElements/WorkBarsPreview";
 import FileLineShort from "../FileLineShort";
 import FileBar from "../FileBar";
 import classNames from "classnames";
-import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
+import { ReactComponent as PlayIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
 
-import SideList from '../../../SharedFiles/SideList'
-import WorkLinesPreview from "../../../Archive/WorkElements/WorkLinesPreview";
-import FileLine from "../../../Archive/WorkElements/FileLine";
+import SideList from '../../../PrivateCabinet/Components/SharedFiles/SideList'
+import WorkLinesPreview from "../../../PrivateCabinet/Components/Archive/WorkElements/WorkLinesPreview";
+import FileLine from "../../../PrivateCabinet/Components/Archive/WorkElements/FileLine";
 
 function FilesGroup({
 						fileList,
