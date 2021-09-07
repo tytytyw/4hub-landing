@@ -30,7 +30,6 @@ const FileLoader = ({
     const fileLoaderRef = useRef(null);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
-    const search = useSelector(state => state.PrivateCabinet?.search);
     const authorizedSafe = useSelector(state => state.PrivateCabinet.authorizedSafe);
 
     //Cancel Loading variables
