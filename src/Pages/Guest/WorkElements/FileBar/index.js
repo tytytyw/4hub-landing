@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './FileBar.module.sass';
-import File from '../../../../../../generalComponents/Files';
+import File from '../../../../generalComponents/Files';
 
 const FileBar = ({file, isLoading = false, chosenFile, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
 

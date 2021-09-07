@@ -12,24 +12,24 @@ import {
     onChangeFilterEmoji,
     onChangeFilterColor,
     onSetReverseCriterion
-} from '../../../../../Store/actions/PrivateCabinetActions';
-import { ReactComponent as BarsIcon } from '../../../../../assets/PrivateCabinet/bars.svg';
-import { ReactComponent as LinesIcon } from '../../../../../assets/PrivateCabinet/lines.svg';
-import { ReactComponent as PreviewIcon } from '../../../../../assets/PrivateCabinet/preview.svg';
-import { ReactComponent as VerticalLinesIcon } from '../../../../../assets/PrivateCabinet/vertical-lines.svg';
-import { ReactComponent as MenuIcon } from '../../../../../assets/PrivateCabinet/menu.svg';
-import { ReactComponent as ShareIcon } from '../../../../../assets/PrivateCabinet/share.svg';
-import { ReactComponent as DeleteIcon } from '../../../../../assets/PrivateCabinet/delete.svg';
-import { ReactComponent as FileSize } from '../../../../../assets/PrivateCabinet/file_size.svg';
-import { ReactComponent as AddFileIcon } from '../../../../../assets/PrivateCabinet/add_file.svg';
-import { ReactComponent as AddFolderIcon } from '../../../../../assets/PrivateCabinet/add_folder.svg';
-import Colors from "../../../../../generalComponents/Elements/Colors";
-import Signs from "../../../../../generalComponents/Elements/Signs";
-import Emoji from "../../../../../generalComponents/Elements/Emoji";
-import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
-import {onSetWorkElementsView} from "../../../../../Store/actions/PrivateCabinetActions";
-import ContextMenu from "../../../../../generalComponents/ContextMenu";
-import {contextMenuCreateFile, contextMenuFilters} from "../../../../../generalComponents/collections";
+} from '../../../Store/actions/PrivateCabinetActions';
+import { ReactComponent as BarsIcon } from '../../../assets/PrivateCabinet/bars.svg';
+import { ReactComponent as LinesIcon } from '../../../assets/PrivateCabinet/lines.svg';
+import { ReactComponent as PreviewIcon } from '../../../assets/PrivateCabinet/preview.svg';
+import { ReactComponent as VerticalLinesIcon } from '../../../assets/PrivateCabinet/vertical-lines.svg';
+import { ReactComponent as MenuIcon } from '../../../assets/PrivateCabinet/menu.svg';
+import { ReactComponent as ShareIcon } from '../../../assets/PrivateCabinet/share.svg';
+import { ReactComponent as DeleteIcon } from '../../../assets/PrivateCabinet/delete.svg';
+import { ReactComponent as FileSize } from '../../../assets/PrivateCabinet/file_size.svg';
+import { ReactComponent as AddFileIcon } from '../../../assets/PrivateCabinet/add_file.svg';
+import { ReactComponent as AddFolderIcon } from '../../../assets/PrivateCabinet/add_folder.svg';
+import Colors from "../../../generalComponents/Elements/Colors";
+import Signs from "../../../generalComponents/Elements/Signs";
+import Emoji from "../../../generalComponents/Elements/Emoji";
+import ContextMenuItem from "../../../generalComponents/ContextMenu/ContextMenuItem";
+import {onSetWorkElementsView} from "../../../Store/actions/PrivateCabinetActions";
+import ContextMenu from "../../../generalComponents/ContextMenu";
+import {contextMenuCreateFile, contextMenuFilters} from "../../../generalComponents/collections";
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
