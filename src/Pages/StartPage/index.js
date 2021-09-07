@@ -12,8 +12,9 @@ import RegisterProfile from './Components/RegisterProfile';
 import ForgotPassword from './Components/ForgotPassword';
 import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'
+import DownloadFolder from "./Components/DownloadFolder";
 
-const StartPage = () => {
+const StartPage = ({setOptions}) => {
 
     const [pageOption, setPage] = useState('init');
     const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
@@ -24,6 +25,9 @@ const StartPage = () => {
         }
         if(/action=pass_remember/.test(window.location.search)) {
             setPage('renewPassword');
+        }
+        if(/action=forder/.test(window.location.search)) {
+            setPage('downloadFolder');
         }
         }, []);
 
@@ -56,6 +60,7 @@ const StartPage = () => {
                 {pageOption === 'landing' && <Landing />}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
+                {pageOption === 'downloadFolder' && <DownloadFolder setPage={setPage} setOptions={setOptions} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {(pageOption === 'register' || pageOption === 'registerSuccess') && <RegisterProfile setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}

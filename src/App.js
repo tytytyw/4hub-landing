@@ -12,22 +12,18 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
-    const [guest] = useState(false)
+    const [options, setOptions] = useState({guest: false})
 
-    //! Temporary comment before BUILT
     useEffect(() => {
-        // if (window.location.href !== window.location.origin + '/') {
-        //     window.location = window.location.origin
-        // }
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
         if (!!uid) dispatch(onLog(uid[0].split('=')[1]));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
-            {!uid && <StartPage/>}
-            {guest && <Guest/>}
-            {!guest && uid && <PrivateCabinet/>}
+            {!uid && !options.guest ? <StartPage setOptions={setOptions} /> : null}
+            {!uid && options.guest ? <Guest/> : null}
+            {!options.guest && uid ? <PrivateCabinet/> : null}
         </>
     );
 }
