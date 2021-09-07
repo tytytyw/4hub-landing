@@ -46,7 +46,7 @@ const Profile = () => {
         <div
             ref={profileRef}
             className={styles.profileWrap}
-            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}}
         >
             <img
                 className={styles.profileImg}

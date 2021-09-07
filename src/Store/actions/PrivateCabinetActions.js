@@ -40,7 +40,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -53,7 +53,7 @@ const folders = [
     {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
 ];
 
-export const onGetFolders = () => async (dispatch, getState) => {
+export const onGetFolders = (path) => async (dispatch, getState) => {
     // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -75,6 +75,20 @@ export const onGetFolders = () => async (dispatch, getState) => {
                 type: GET_FOLDERS,
                 payload: f
             });
+            if(path) {
+                let folders = [];
+                    if(path.split('/')[0] === 'global') {
+                        folders = res.data[path.split('/')[0]][path.split('/')[1]].folders;
+                    } else {
+                        res.data[path.split('/')[0]].folders.forEach(f => {
+                            if(f.name === path.split('/')[1]) folders = f.folders.folders;
+                        })
+                    }
+                dispatch({
+                    type: CHOOSE_FOLDER,
+                    payload: {folders, path}
+                });
+            }
         })
         .catch(err => console.log(err))
 };
@@ -825,5 +839,18 @@ export const onSetReverseCriterion = (value) => {
     return {
         type: SET_REVERSE_CRITERION,
         payload: value
+    }
+}
+
+// GUEST MODE
+export const onGetGuestSharedFiles  = () => async (dispatch) => {
+    try {
+        const res = await axios.get(`/ajax/file_share_get.php`)
+        dispatch({
+            type: CHOOSE_GUEST_SHARED_FILES,
+            payload: res.data.data
+        })
+    } catch (e) {
+        console.log(e);
     }
 }

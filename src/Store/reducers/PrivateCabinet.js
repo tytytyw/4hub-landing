@@ -37,7 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -95,6 +95,10 @@ const INITIAL_STATE = {
     //CALENDAR PAGE
     calendarDate: new Date(),
     calendarEvents: [],
+
+
+    // GUEST MODE
+    guestSharedFiles: []
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -227,6 +231,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         //CALENDAR PAGE
         case SET_CALENDAR_EVENTS:
             return {...state, calendarEvents: action.payload}
+
+        //GUEST MODE
+        case CHOOSE_GUEST_SHARED_FILES:
+            return {...state, guestSharedFiles: action.payload}
 
         default:
             return state;

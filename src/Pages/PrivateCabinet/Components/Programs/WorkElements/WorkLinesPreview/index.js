@@ -5,37 +5,14 @@ import styles from './WorkLinesPreview.module.sass';
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
 const WorkLinesPreview = ({
-    children, chosenProgram, setChosenProgram, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
+    children, chosenProgram, hideFileList, fileRef, gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
-    const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet?.search);
     const [loadingFiles] = useState(false);
 
     return (
-        <div
-            className={styles.workLinesPreviewWrap}
-            style={{height: `${recentFiles?.length > 0
-                    ? filePick?.show
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick?.show
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                }`,
-                gridTemplateColumns: size === 'small'
-                    ? 'repeat(auto-fill, 118px)'
-                    : size === 'medium'
-                        ? 'repeat(auto-fill, 160px)'
-                        : 'repeat(auto-fill, 205px)',
-                gridAutoRows: size === 'small'
-                    ? '118px'
-                    : size === 'medium'
-                        ? '160px'
-                        : '205px',
-            }}
-        >
+        <div className={styles.workLinesPreviewWrap}>
         {!hideFileList && <div
             className={styles.fileListWrap}
             ref={fileRef}
@@ -76,7 +53,6 @@ const WorkLinesPreview = ({
                         </div>
                     </div>
                 </div>
-                <span className={styles.fileName}>{chosenProgram?.name}</span>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Теги</span>
                     {chosenProgram?.tag
@@ -98,6 +74,7 @@ const WorkLinesPreview = ({
                 >Нет элементов удовлетворяющих условиям поиска</div>
                 : null}
         </div>
+    
     </div>)
 }
 

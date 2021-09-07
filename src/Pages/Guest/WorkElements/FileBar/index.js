@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 
 import styles from './FileBar.module.sass';
-import File from '../../../../../../generalComponents/Files';
+import File from '../../../../generalComponents/Files';
 
 const FileBar = ({file, isLoading = false, chosenFile, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
 
@@ -36,7 +36,7 @@ const FileBar = ({file, isLoading = false, chosenFile, setChosenFile, setMousePa
             >
                 <div
                     className={styles.menu}
-                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})}}
+                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}}
                 ><span/></div>
                 <div className={styles.symbols}>
                     <div>{file?.fig && !isLoading ? <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='fig' /> : null}</div>

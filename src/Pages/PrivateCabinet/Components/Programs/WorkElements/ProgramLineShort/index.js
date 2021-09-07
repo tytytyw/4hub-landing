@@ -104,7 +104,7 @@ const ProgramLineShort = ({
 									x: e.clientX,
 									y: e.clientY,
 									width: 260,
-									height: 30,
+									height: 25,
 								});
 							}}
 						>

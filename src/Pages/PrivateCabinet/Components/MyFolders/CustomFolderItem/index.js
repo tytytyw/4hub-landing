@@ -81,7 +81,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         }
     };
 
-    const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30})
+    const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
 
     const handleAddFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: f.path});

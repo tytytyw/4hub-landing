@@ -30,6 +30,11 @@ const FileLineShort = ({
 		setChosenFile(file);
 	};
 
+	const getFileName = file => {
+		const slicedName = file.name && file.name.slice(0, file.name.lastIndexOf("."))
+		return slicedName || '(empty name)'
+	}
+
 	return (
 		<div
 			onClick={onPickFile}
@@ -40,48 +45,54 @@ const FileLineShort = ({
 				[styles?.[`wrapper_${size}`]]: size !== "medium",
 			})}
 		>
-			<div>
 				<div className={styles.fileAbout}>
+					
 					<div className={styles.file}>
 						<File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />
 					</div>
 
 					<div className={styles.infoWrap}>
+
 						<div className={styles.fileName}>
-							{file.name && file.name.slice(0, file.name.lastIndexOf("."))}
+							{getFileName(file)}
 						</div>
 
 						<div className={styles.fileInfo}>
+
 							<span className={styles.fileDate}>
 								{file.mtime.split(" ")[0]}
 							</span>
+
 							<span className={styles.fileSize}>{file.size_now}</span>
-							{size !== "small" && (
-								<div className={styles.symbols}>
-									{file.is_pass === 1 && (
-										<img
-											className={styles.locked}
-											src={`./assets/PrivateCabinet/locked.svg`}
-											alt="lock"
-										/>
-									)}
-									{file.fig && (
-										<img
-											className={styles.sign}
-											src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
-											alt="sign"
-										/>
-									)}
-									{file.emo && (
-										<img
-											className={styles.smile}
-											src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
-											alt="emoji"
-										/>
-									)}
-								</div>
+							
+						</div>
+
+						{size !== 'small' && (
+						<div className={styles.symbols}>
+							{file.is_pass === 1 && (
+								<img
+									className={styles.locked}
+									src={`./assets/PrivateCabinet/locked.svg`}
+									alt="lock"
+								/>
+							)}
+							{file.fig && (
+								<img
+									className={styles.sign}
+									src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+									alt="sign"
+								/>
+							)}
+							{file.emo && (
+								<img
+									className={styles.smile}
+									src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+									alt="emoji"
+								/>
 							)}
 						</div>
+					)}
+
 					</div>
 
 					{size === "small" && (
@@ -109,28 +120,25 @@ const FileLineShort = ({
 							)}
 						</div>
 					)}
+					
 					<div className={styles.optionsWrap}>
 						<div
 							className={styles.menuWrap}
 							onClick={(e) => {
+								e.stopPropagation()
 								setMouseParams({
 									x: e.clientX,
 									y: e.clientY,
 									width: 260,
-									height: 30,
+									height: 25,
 								});
 							}}
 						>
 							<span className={styles.menu} />
 						</div>
 					</div>
+				
 				</div>
-			</div>
-			{/*<div className={styles.linkWrap}>
-				<a className={styles.link} href={`https://fs2.mh.net.ua`}>
-					https://fs2.mh.net.ua
-				</a>
-			</div>*/}
 		</div>
 	);
 };

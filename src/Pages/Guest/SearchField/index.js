@@ -2,8 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onSearch} from "../../../../../Store/actions/PrivateCabinetActions";
-import {useDebounce} from "../../../../../generalComponents/Hooks";
+import {onChooseFiles, onSearch} from "../../../Store/actions/PrivateCabinetActions";
+import {useDebounce} from "../../../generalComponents/Hooks";
 
 const SearchField = ({setChosenFile}) => {
 	const inputRef = useRef(null);

@@ -6,7 +6,6 @@ import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
-import FileLine from './WorkElements/FileLine'
 import {useDispatch, useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
@@ -14,16 +13,18 @@ import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ActionApproval from '../../../../generalComponents/ActionApproval'
 import File from '../../../../generalComponents/Files'
-import classNames from 'classnames'
-import {ReactComponent as PlayIcon} from '../../../../assets/PrivateCabinet/play-grey.svg'
 import List from './List'
 import FolderItem from './FolderItem'
 import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
 import BottomPanel from "../BottomPanel";
 
+import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
+
+import { months } from "../../../../generalComponents/CalendarHelper";
+
 const Journal = () => {
 
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    const workElementsView = useSelector((state) => state.PrivateCabinet.view);
     const [search, setSearch] = useState(null)
 
     const dispatch = useDispatch()
@@ -31,11 +32,10 @@ const Journal = () => {
     const journalFolders = useSelector((state) => state.PrivateCabinet.journalFolders)
 
     const [year, setYear] = useState(null)
-    const [collapse, setCollapse] = useState(false)
-
-    //const [listCollapsed, setListCollapsed] = useState(false)
 
     const [month, setMonth] = useState(null)
+
+    const [filePick, setFilePick] = useState({ show: false, files: [] });
 
     const [chosenFolder, setChosenFolder] = useState(null)
     const [chosenFile, setChosenFile] = useState(null)
@@ -44,6 +44,19 @@ const Journal = () => {
     const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({type: "", name: "", text: ""})
+
+    const callbackArrMain = [
+        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: '', text: ``, callback: () => {}},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
+        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
+        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
+        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
+        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
+    ]
 
     const additionalMenuItems = [
         {
@@ -74,38 +87,6 @@ const Journal = () => {
         })
     }
 
-    const renderFile = () => {
-        const file = fileList?.files?.[fileList.files.length - 1]
-        if (!file) return null
-        return (
-            <FileLine
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        )
-    }
-
-    const renderFiles = () => {
-        if (!fileList) return null
-        return fileList.files?.map((file, index) => (
-            <FileLine
-                key={index}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        ))
-    }
-
     const renderFolders = () => {
         return journalFolders?.map((folder, index) => (
             <FolderItem
@@ -117,6 +98,26 @@ const Journal = () => {
             />
         ))
     }
+    
+    const renderFilesGroup = (mounth, i) => {
+		return (
+			<FilesGroup
+				key={i}
+				index={i}
+				fileList={fileList}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				mounthName={mounth}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+			/>
+		);
+	};
 
     return (
         <div className={styles.parentWrapper}>
@@ -140,7 +141,6 @@ const Journal = () => {
                     </div>
 
                     <ServePanel
-                        setView={setWorkElementsView}
                         view={workElementsView}
                     />
 
@@ -155,44 +155,28 @@ const Journal = () => {
                             setMonth={setMonth}
                         />
 
-                        <div className={styles.filesWrap}>
+                        <div className={styles.workSpaceWrap}>
 
-                            <div className={styles.fileWrap}>
-
-                                <div
-                                    onClick={() => setCollapse(!collapse)}
-                                    className={styles.collapseHeader}
-                                >
-                                    <p className={styles.dateName}>Август</p>
-                                    <button className={styles.collapseBtn}>
-                                        2 объектов
-                                    </button>
-                                    <div
-                                        className={classNames({
-                                            [styles.arrowFile]: true,
-                                            [styles.active]: !!collapse
-                                        })}
-                                    >
-                                        <PlayIcon
-                                            className={classNames({
-                                                [styles.playButton]: true,
-                                                [styles.revert]: !!collapse
-                                            })}
+                            {/* {workElementsView === "workLinesPreview" && (
+                                <div className={styles.workSpace}>
+                                    <SideList>
+                                        {month
+                                            ? renderFilesGroup(months()[month - 1].name, 0)
+                                            : months().map((item, i) => renderFilesGroup(item.name, i))}
+                                    </SideList>
+                                    <div className={styles.filePreviewWrap}>
+                                        <WorkLinesPreview
+                                            file={chosenFile}
+                                            hideFileList={true}
+                                            filePick={filePick}
                                         />
                                     </div>
                                 </div>
-
-                                {collapse &&
-                                <div className={styles.fileDate}>
-                                    <p>10.08.2020</p>
-                                </div>}
-
-                                <div className={styles.collapseContent}>
-                                    {collapse ?
-                                        renderFiles() :
-                                        renderFile()}
-                                </div>
-
+                            )} */}
+                            <div className={styles.FilesList}>
+                                {month
+                                    ? renderFilesGroup(months()[month - 1].name, 0)
+                                    : months().map((item, i) => renderFilesGroup(item.name, i))}
                             </div>
 
                         </div>

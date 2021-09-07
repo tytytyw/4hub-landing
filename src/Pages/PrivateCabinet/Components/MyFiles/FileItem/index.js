@@ -82,7 +82,7 @@ const FileItem = ({
 							x: e.clientX,
 							y: e.clientY,
 							width: 200,
-							height: 30,
+							height: 25,
 						});
 					}}
 				>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 
 import styles from './CreateSafe.module.sass'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
@@ -87,6 +87,13 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
     const onChangeTag = (chosen) => {
         const count = 30 - chosen.length
         if (count >= 0) setTagOption({...tagOption, chosen, count})
+    }
+
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
     }
 
     return (
@@ -181,7 +188,11 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                                     }}
                                 />
                                 <span>{tagOption.count}/30</span>
-                                <div className={styles.tagList}>
+                                <div
+                                    className={styles.tagList}
+                                    ref={tagRef}
+                                    onClick={handleChoose}
+                                >
                                     {renderTags()}
                                 </div>
                             </div>

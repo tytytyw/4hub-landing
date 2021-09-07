@@ -87,7 +87,7 @@ const PrivateCabinet = () => {
     return (
         <div
             className={styles.mainWrap}
-            style={{minHeight}}
+            //style={{minHeight}}
             onDragOver={handleDragOver}
         >
             <SideMenu
@@ -97,7 +97,8 @@ const PrivateCabinet = () => {
                 className={styles.workArea}
                 style={{
                     minHeight,
-                    width: collapsed ? `calc(100vw - 55px)` : '82%'
+                    width: collapsed ? `calc(100vw - 55px)` : '82%',
+                    minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
                 }}>
 
                 <Switch>

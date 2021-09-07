@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 // import { useSelector, useDispatch } from 'react-redux'
 
 import styles from './CreateProject.module.sass'
@@ -45,8 +45,6 @@ const CreateProject = ({onCreate, title, info}) => {
         })
     };
 
-    const width = window.innerWidth;
-
     const onAddProject = () => {
         if(!name) return setNoNameError(true);
         if(password !== passwordRepeat) return setPasswordCoincide(false);
@@ -72,6 +70,13 @@ const CreateProject = ({onCreate, title, info}) => {
         setPasswordCoincide(boolean);
     }
 
+    // AutoHide .tagList after file is chosen
+    const tagRef = useRef(null);
+    const handleChoose = () => {
+        tagRef.current.style.display = 'none';
+        setTimeout(() => {tagRef.current.style.display = ''}, 0);
+    }
+
     return (
         <>
         <PopUp set={onCreate}>
@@ -84,7 +89,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
@@ -95,7 +100,7 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
+                            
                             value={target}
                             set={setTarget}
                             placeholder='Цель проекта'
@@ -105,9 +110,9 @@ const CreateProject = ({onCreate, title, info}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={members}
                             set={setMembers}
+                            
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img
@@ -128,7 +133,11 @@ const CreateProject = ({onCreate, title, info}) => {
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
                         />
                         <span>{tagOption.count}/30</span>
-                        <div className={styles.tagList} >
+                        <div
+                            className={styles.tagList}
+                            ref={tagRef}
+                            onClick={handleChoose}
+                        >
                             {renderTags()}
                         </div>
                     </div>
@@ -137,11 +146,12 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            
                             value={password}
                             set={setPassword}
                             placeholder='Установить пароль'
                             onSwitch={onSwitch}
+                            isPass={showRepeat}
                             visibility={visibility}
                             setVisibility={setVisibility}
                         />
@@ -152,7 +162,7 @@ const CreateProject = ({onCreate, title, info}) => {
                         <InputField
                             model='password'
                             switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
+                            
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'

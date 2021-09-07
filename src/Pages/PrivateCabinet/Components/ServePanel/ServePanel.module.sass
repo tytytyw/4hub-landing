@@ -2,11 +2,11 @@
   display: flex
   align-items: center
   justify-content: space-between
-  width: 100%
+  max-width: 100%
   height: 55px
   border-bottom: 1px solid #e5e5e5
   box-sizing: border-box
-  padding: 0 20px
+  padding: 0 15px
   font-family: "SF Pro Light", sans-serif
   .groupStart
     display: flex
@@ -15,7 +15,7 @@
       box-shadow: 0 2px 4px #dedede
       border-radius: 3px
       overflow: hidden
-      margin: 0 19px 0 0
+      margin: 0 15px 0 0
       .iconViewChosen
         background: #4086F1
         padding: 5px 14px
@@ -273,22 +273,70 @@
   fill: white
 .iconViewChosen path
   fill: white
-@media (max-width: 1366px)
+
+
+@media (max-width: 1450px)
   .servePanelWrap
+    padding: 0 10px
     .groupStart
       .viewPanel
-        .iconView
+        margin: 0 5px 0 0
+        .iconViewChosen
           padding: 5px 10px
+        .iconView
+          padding: 5px 8px
       .filterPanel
+        .iconView
+          width: 30px
+          height: 29px
         .chooseButton
-          width: 75px
+          width: 70px
+          height: 29px
+          margin-right: 5px
+        .chooseButtonActive
+          margin-right: 5px
+          width: 70px
+          height: 29px
     .groupEnd
       .buttons
+        margin: 0 10px 0 0
         .createButton
-          width: 90px
+          width: 80px
+          height: 29px
+          margin: 0 10px 0 0
           span
-            margin: 0 10px 0 15px
+            margin: 0 10px 0 10px
         .downloadButton
-          width: 90px
+          width: 80px
+          height: 29px
+      .iconButtons
+        .iconDisabled
+          width: 30px
+          height: 29px
+          margin: 0 5px 0 0
+        .iconView
+          width: 30px
+          height: 29px
+          margin: 0 5px 0 0
+    .contextSortingItem
+      height: 25px
+
+// @media (max-width: 1366px)
+//   .servePanelWrap
+//     .groupStart
+//       .viewPanel
+//         .iconView
+//           padding: 5px 10px
+//       .filterPanel
+//         .chooseButton
+//           width: 75px
+//     .groupEnd
+//       .buttons
+//         .createButton
+//           width: 90px
+//           span
+//             margin: 0 10px 0 15px
+//         .downloadButton
+//           width: 90px
 
 

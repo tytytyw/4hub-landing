@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {previewFormats} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick
@@ -19,11 +18,7 @@ const FileBar = ({
         if(!isLoading) setChosenFile(file);
     }
 
-    const handleDoubleClick = () => {
-        const isForamt = previewFormats.filter(format => file.fname.slice(file.fname.lastIndexOf('.')).includes(format)).length > 0;
-        if(isForamt) return window.open(file?.edit_url);
-        return setFilePreview({...filePreview, view: true, file})
-    }
+    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file});
 
     return (
         <>
@@ -39,7 +34,7 @@ const FileBar = ({
             >
                 <div
                     className={styles.menu}
-                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 30})}}
+                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})}}
                 ><span/></div>
                 <div className={styles.symbols}>
                     <div>{file?.fig && !isLoading ? <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='fig' /> : null}</div>

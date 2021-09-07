@@ -39,7 +39,7 @@ const DownloadFile = ({ setPage }) => {
         const d1 = new Date(Object.values(getDate(0)).reverse().join('-') + ' 00:00:00');
         const d2 = new Date(file.deadline);
         const days = (d2 - d1)/86400000;
-        const last = days.toString()[days.toString().length - 1];
+        const last = days.toFixed().toString()[days.toString().length - 1];
         if(last === '1') return `${days.toFixed()} день`;
         if(last === '2' || last === '3' || last === '4') return `${days.toFixed()} дня`;
         return `${days.toFixed()} дней`;

@@ -238,6 +238,7 @@ const Safe = ({
 				className={classNames({
 					[styles.listWrap]: true,
 					[styles.listWrapCollapsed]: !!listCollapsed,
+					[styles?.[`listWrapCollapsed_${size}`]]: !!listCollapsed && !!size,
 				})}
 			>
 				<div className={styles.header}>
@@ -276,6 +277,7 @@ const Safe = ({
 							className={classNames({
 								[styles.folderListWrap]: true,
 								[styles?.[`folderListWrap_${size}`]]: !!size,
+								[styles?.[`folderListWrapCollapsed_${size}`]]: !!listCollapsed && !!size
 							})}
 						>
 							{renderSafesList()}

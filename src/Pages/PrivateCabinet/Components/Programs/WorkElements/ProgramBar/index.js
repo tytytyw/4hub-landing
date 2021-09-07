@@ -18,7 +18,7 @@ const ProgramBar = ({program, chosenProgram, setChosenProgram, setMouseParams, s
             <div
                 className={styles.menu}
                 onClick={e => {
-                    setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 30, type: 'program'})
+                    setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25, type: 'program'})
                 }}
             >
                 <span/>

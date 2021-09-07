@@ -13,22 +13,23 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
-import FileBar from "./WorkElements/FileBar";
-import classNames from "classnames";
-import {ReactComponent as PlayIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 import BottomPanel from "../BottomPanel";
+import FilesGroup from '../Archive/WorkElements/FilesGroup/FilesGroup'
+
+import { months } from "../../../../generalComponents/CalendarHelper";
 
 const Cart = () => {
 
-    const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
+    const workElementsView = useSelector((state) => state.PrivateCabinet.view);
     const [search, setSearch] = useState(null)
-    const size = useSelector((state) => state.PrivateCabinet.size)
     const fileList = useSelector((state) => state.PrivateCabinet.fileList)
 
+    
     const [year, setYear] = useState(null)
     const [month, setMonth] = useState(null)
 
-    const [collapse, setCollapse] = useState(false)
+    const [filePick, setFilePick] = useState({ show: false, files: [] });
+
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
@@ -87,38 +88,27 @@ const Cart = () => {
             )
         })
     }
+    
+    const renderFilesGroup = (mounth, i) => {
+		return (
+			<FilesGroup
+				key={i}
+				index={i}
+				fileList={fileList}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				mounthName={mounth}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+			/>
+		);
+	};
 
-    const renderFile = (Type) => {
-        const file = fileList?.files?.[fileList.files.length - 1]
-        if (!file) return null
-        return (
-            <Type
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        )
-    }
-
-    const renderFiles = (Type) => {
-        if (!fileList) return null
-        return fileList.files?.map((file, index) => (
-            <Type
-                key={index}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosenFile={chosenFile}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-            />
-        ))
-    }
 
     return (
         <div className={styles.parentWrapper}>
@@ -133,7 +123,6 @@ const Cart = () => {
             </div>
 
             <ServePanel
-                setView={setWorkElementsView}
                 view={workElementsView}
             />
 
@@ -148,41 +137,30 @@ const Cart = () => {
                     setMonth={setMonth}
                 />
 
-                <div
-                    onClick={() => setCollapse(!collapse)}
-                    className={styles.collapseHeader}
-                >
-                    <p className={styles.dateName}>Август</p>
-                    <button className={styles.collapseBtn}>
-                        2 объектов
-                    </button>
-                    <div
-                        className={classNames({
-                            [styles.arrowFile]: true,
-                            [styles.active]: !!collapse
-                        })}
-                    >
-                        <PlayIcon
-                            className={classNames({
-                                [styles.playButton]: true,
-                                [styles.revert]: !!collapse
-                            })}
-                        />
+                 <div className={styles.workSpaceWrap}>
+
+                    {/* {workElementsView === "workLinesPreview" && (
+						<div className={styles.workSpace}>
+							<SideList>
+								{month
+									? renderFilesGroup(months()[month - 1].name, 0)
+									: months().map((item, i) => renderFilesGroup(item.name, i))}
+							</SideList>
+							<div className={styles.filePreviewWrap}>
+								<WorkLinesPreview
+									file={chosenFile}
+									hideFileList={true}
+									filePick={filePick}
+								/>
+							</div>
+						</div>
+					)} */}
+                    <div className={styles.FilesList}>
+                        {month
+                            ? renderFilesGroup(months()[month - 1].name, 0)
+                            : months().map((item, i) => renderFilesGroup(item.name, i))}
                     </div>
-                </div>
 
-                {collapse &&
-                <div className={styles.fileDate}>
-                    <p>10.08.2020</p>
-                </div>}
-
-                <div className={classNames({
-                    [styles.collapseContent]: true,
-                    [styles?.[`collapseContent_${size}`]]: size !== 'meidum'
-                })}>
-                    {collapse ?
-                        renderFiles(FileBar) :
-                        renderFile(FileBar)}
                 </div>
 
             </div>

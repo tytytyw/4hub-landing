@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const PopUp = (props) => {
+
+    const [targetClick, setTargetClick] = useState('');
+
+    const handleMouseDown = e => {
+        setTargetClick(e.target.id);
+    }
+
+    const handleMouseUp = e => {
+        if(e.target.id === 'popUp' && e.target.id === targetClick) {
+            setTargetClick('');
+            props.set(false);
+        }
+    }
+
     return(
         <div
+            id='popUp'
             style={{
                 padding: '20px 0',
                 boxSizing: 'border-box',
@@ -13,11 +28,11 @@ const PopUp = (props) => {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                //overflow: 'auto',
                 background: `rgba(1, 1, 1, 0.5)`,
                 zIndex: `${props.zIndex ? props.zIndex : 11}`
             }}
-            onClick={() => props.set(false)}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
         >
             <div
                 onClick={e => e.stopPropagation()}

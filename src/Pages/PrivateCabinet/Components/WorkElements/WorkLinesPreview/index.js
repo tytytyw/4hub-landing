@@ -11,7 +11,7 @@ const WorkLinesPreview = ({
       file, children, hideFileList, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    //const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet?.search);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
@@ -83,25 +83,25 @@ const WorkLinesPreview = ({
     return (
         <div
             className={styles.workLinesPreviewWrap}
-            style={{height: `${recentFiles?.length > 0
-                    ? filePick.show
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick.show
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                }`,
-                gridTemplateColumns: size === 'small'
-                    ? 'repeat(auto-fill, 118px)'
-                    : size === 'medium'
-                        ? 'repeat(auto-fill, 160px)'
-                        : 'repeat(auto-fill, 205px)',
-                gridAutoRows: size === 'small'
-                    ? '118px'
-                    : size === 'medium'
-                        ? '160px'
-                        : '205px',
-            }}
+            // style={{height: `${recentFiles?.length > 0
+            //         ? filePick.show
+            //             ? 'calc(100% - 90px - 55px - 78px - 80px)'
+            //             : 'calc(100% - 90px - 55px - 78px)'
+            //         : filePick.show
+            //             ? 'calc(100% - 90px - 55px - 80px)'
+            //             : 'calc(100% - 90px - 55px)'
+            //     }`,
+            //     gridTemplateColumns: size === 'small'
+            //         ? 'repeat(auto-fill, 118px)'
+            //         : size === 'medium'
+            //             ? 'repeat(auto-fill, 160px)'
+            //             : 'repeat(auto-fill, 205px)',
+            //     gridAutoRows: size === 'small'
+            //         ? '118px'
+            //         : size === 'medium'
+            //             ? '160px'
+            //             : '205px',
+            // }}
         >
         {!hideFileList && <div
             className={styles.fileListWrap}
@@ -136,7 +136,7 @@ const WorkLinesPreview = ({
                 <div className={styles.preview}>
                     {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
                 </div>
-                <span className={styles.fileName}>{f.name}</span>
+                <p className={styles.fileName}>{f.name}</p>
                 <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>Теги</span>
                     {f.tag

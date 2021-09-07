@@ -94,7 +94,7 @@ const WorkSpace = ({
         const fid = file?.fid ?? chosenFile?.fid;
         const preview = file?.preview ?? chosenFile?.preview;
         const ext = file?.ext ?? chosenFile?.ext;
-        if(mType === 'application/pdf') {
+        if(mType === 'application/pdf' || mType.includes('image')) {
             setLoadingType('squarify')
             if(mType === 'application/pdf') {
                 printFile(`${preview}`);
@@ -113,13 +113,13 @@ const WorkSpace = ({
     };
 
     const printFile = (path) => {
-            let pri = document.getElementById('frame');
-            pri.src = `https://fs2.mh.net.ua${path}`;
-            setTimeout(() => {
-                pri.contentWindow.focus();
-                pri.contentWindow.print();
-            }, 1000);
-            setLoadingType('')
+        let pri = document.getElementById('frame');
+        pri.src = `https://fs2.mh.net.ua${path}`;
+        setTimeout(() => {
+            pri.contentWindow.focus();
+            pri.contentWindow.print();
+        }, 1000);
+        setLoadingType('')
     };
 
     const excessItems = () => {
@@ -227,6 +227,7 @@ const WorkSpace = ({
 
     return (<>
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+            
             <div className={styles.header}>
                 <SearchField setChosenFile={setChosenFile} />
                 <div className={styles.infoHeader}>

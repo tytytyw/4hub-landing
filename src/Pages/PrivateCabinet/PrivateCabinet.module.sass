@@ -6,4 +6,11 @@
   .workArea
     flex-grow: 1
     height: 100vh
-    transition: width 0.2s ease
+    transition: width 0.2s ease, min-width 0.2s ease
+
+
+@media (max-width: 1450px)
+  .mainWrap
+    .workArea
+      max-width: calc(100% - 230px)
+      transition: width 0.2s ease, min-width 0.2s ease

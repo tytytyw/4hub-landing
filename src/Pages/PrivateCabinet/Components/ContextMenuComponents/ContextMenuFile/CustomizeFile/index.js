@@ -233,177 +233,115 @@ const CustomizeFile = ({
 		saveCustomizeSeveralFiles(options);
 	};
 
-	return (
-		<div style={{ display: `block` }}>
-			<PopUp set={close}>
-				<div
-					className={styles.createFolderWrap}
-					//style={{height: filePick.customize ||  fileAddCustomization?.several ? '582px' : '720px'}}
-				>
-					<span className={styles.cross} onClick={close} />
-					<span className={styles.title}>{title}</span>
-					{filePick.customize || fileAddCustomization?.several ? null : (
-						<div className={styles.fileIconWrap}>
-							<div className={`${styles.fileWrap}`}>
-								<div className={styles.file}>
-									<File
-										color={color?.light}
-										format={file ? getName(file.name).format : ""}
-									/>
-								</div>
-							</div>
-							<div className={styles.picPreview}>
-								<div className={styles.format}>
-									{getName(file.name).format} {file.size_now}
-								</div>
-								<div className={styles.name}>{getName(file.name).name}</div>
-								<div className={styles.fileOptions}>
-									{tagOption.chosen && (
-										<div
-											className={`${styles.minitagWrap} ${styles.redCross}`}
-											onClick={() => setTagOption({ ...tagOption, chosen: "" })}
-										>
-											<div className={`${styles.minitag}`}>
-												#{tagOption.chosen}
-											</div>
-										</div>
-									)}
-									<div
-										className={`${styles.colorWrap} ${
-											color?.color !== "grey" ? styles.colorWrapTap : undefined
-										} ${styles.redCross}`}
-										onClick={() => setColor(colors[0])}
-									>
-										<div
-											className={styles.circle}
-											style={{
-												background: color?.light,
-												border: `1px solid ${color?.dark}`,
-											}}
-										/>
-									</div>
-									{sign && (
-										<div
-											className={styles.redCross}
-											onClick={() => setSign("")}
-										>
-											<img
-												src={`./assets/PrivateCabinet/signs/${sign}.svg`}
-												alt="emoji"
-											/>
-										</div>
-									)}
-									{emoji && (
-										<div
-											className={styles.redCross}
-											onClick={() => setEmoji("")}
-										>
-											<img
-												src={`./assets/PrivateCabinet/smiles/${emoji}.svg`}
-												alt="emoji"
-											/>
-										</div>
-									)}
-									{file.is_pass ? (
-										<img
-											className={styles.lock}
-											src="./assets/PrivateCabinet/locked.svg"
-											alt="lock"
-										/>
-									) : null}
-								</div>
-							</div>
-						</div>
-					)}
-					<div
-						style={generateInputWrap()}
-						className={`${styles.inputFieldsWrap}`}
-					>
-						<div className={styles.inputWrap}>
-							{filePick.customize || fileAddCustomization.several ? null : (
-								<InputField
-									model="text"
-									height={width >= 1440 ? "40px" : "30px"}
-									value={name}
-									set={setName}
-									placeholder="Имя файла"
-								/>
-							)}
-						</div>
-						<div className={styles.tagPicker}>
-							<span>#</span>
-							<input
-								className={styles.inputField}
-								type="text"
-								placeholder="Добавте #Тег"
-								value={tagOption.chosen}
-								onChange={(e) => onChangeTag(e.target.value)}
-								onFocus={() => {
-									setTagOption({ ...tagOption, show: true });
-								}}
-							/>
-							<span>{tagOption.count}/30</span>
-							<div className={styles.tagList}>{renderTags()}</div>
-						</div>
-						<div className={styles.inputWrap}>
-							<InputField
-								model="password"
-								switcher={true}
-								height={width >= 1440 ? "40px" : "30px"}
-								value={password}
-								set={setPassword}
-								placeholder="Пароль"
-								onSwitch={onSwitch}
-								visibility={visibility}
-								setVisibility={setVisibility}
-								disabled={!showRepeat}
-							/>
-						</div>
-						<div className={styles.inputWrap}>
-							{showRepeat && (
-								<InputField
-									model="password"
-									switcher={false}
-									height={width >= 1440 ? "40px" : "30px"}
-									value={passwordRepeat}
-									set={setPasswordRepeat}
-									placeholder="Повторите пароль"
-									visibility={visibility}
-									setVisibility={setVisibility}
-									comparePass={comparePass}
-									mistake={!passwordCoincide}
-								/>
-							)}
-						</div>
-					</div>
-					<Colors color={color} setColor={setColor} />
-					<Signs sign={sign} setSign={setSign} />
-					<Emoji emoji={emoji} setEmoji={setEmoji} />
-					<div className={styles.buttonsWrap}>
-						<div className={styles.cancel} onClick={close}>
-							Отмена
-						</div>
-						<div
-							className={`${
-								file || fileAddCustomization.several
-									? styles.add
-									: styles.buttonDisabled
-							}`}
-							onClick={() => {
-								if (file) onAddFile();
-								if (fileAddCustomization.several) addToAwaitingFiles();
-							}}
-						>
-							Сохранить
-						</div>
-					</div>
-				</div>
-			</PopUp>
-			{error && (
-				<Error error={error} set={closeComponent} message="Файл не изменен" />
-			)}
-		</div>
-	);
-};
+    return (
+        <div style={{display: `block`}}>
+            <PopUp set={close}>
+                <div
+                    className={styles.createFolderWrap}
+                    //style={{height: filePick.customize ||  fileAddCustomization?.several ? '582px' : '720px'}}
+                >
+                    <span className={styles.cross} onClick={close} />
+                    <span className={styles.title}>{title}</span>
+                    {filePick.customize || fileAddCustomization?.several ? null :
+                        <div className={styles.fileIconWrap}>
+                            <div className={`${styles.fileWrap}`}>
+                                <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
+                            </div>
+                            <div className={styles.picPreview}>
+                                <div className={styles.format}>{getName(file.name).format} {file.size_now}</div>
+                                <div className={styles.name}>{getName(file.name).name}</div>
+                                <div className={styles.fileOptions}>
+                                    {tagOption.chosen && <div
+                                        className={`${styles.minitagWrap} ${styles.redCross}`}
+                                        onClick={() => setTagOption({...tagOption, chosen: ''})}
+                                    >
+                                        <div
+                                            className={`${styles.minitag}`}
+                                        >#{tagOption.chosen}</div>
+                                    </div>}
+                                    <div className={`${styles.colorWrap} ${color?.color !== 'grey' ? styles.colorWrapTap : undefined} ${styles.redCross}`} onClick={() => setColor(colors[0])}>
+                                        <div className={styles.circle} style={{background: color?.light, border: `1px solid ${color?.dark}`}} />
+                                    </div>
+                                    {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                                    {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                                    {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                                </div>
+                            </div>
+                        </div>}
+                    <div className={`${styles.inputFieldsWrap}`}>
+                        <div className={styles.inputWrap}>
+                            {filePick.customize || fileAddCustomization.several ? null :
+                                <InputField
+                                    model='text'
+                                    
+                                    value={name}
+                                    set={setName}
+                                    placeholder='Имя файла'
+                                />}
+                        </div>
+                        <div className={styles.tagPicker}>
+                            <span>#</span>
+                            <input
+                                className={styles.inputField}
+                                type='text'
+                                placeholder='Добавте #Тег'
+                                value={tagOption.chosen}
+                                onChange={(e) => onChangeTag(e.target.value)}
+                                onFocus={() => {setTagOption({...tagOption, show: true})}}
+                            />
+                            <span>{tagOption.count}/30</span>
+                            <div className={styles.tagList} >
+                                {renderTags()}
+                            </div>
+                        </div>
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={true}
+                                isPass={showRepeat}
+                                value={password}
+                                set={setPassword}
+                                placeholder='Пароль'
+                                onSwitch={onSwitch}
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                disabled={!showRepeat}
+                            />
+                        </div>
+                        {showRepeat &&
+                        <div className={styles.inputWrap}>
+                            <InputField
+                                model='password'
+                                switcher={false}
+                                
+                                value={passwordRepeat}
+                                set={setPasswordRepeat}
+                                placeholder='Повторите пароль'
+                                visibility={visibility}
+                                setVisibility={setVisibility}
+                                comparePass={comparePass}
+                                mistake={!passwordCoincide}
+                            />
+                        </div>}
+                    </div>
+                    <Colors color={color} setColor={setColor} />
+                    <Signs sign={sign} setSign={setSign} />
+                    <Emoji emoji={emoji} setEmoji={setEmoji} />
+                    <div className={styles.buttonsWrap}>
+                        <div className={styles.cancel} onClick={close}>Отмена</div>
+                        <div
+                            className={`${file || fileAddCustomization.several ? styles.add : styles.buttonDisabled}`}
+                            onClick={() => {
+                                if(file) onAddFile();
+                                if(fileAddCustomization.several) addToAwaitingFiles();
+                            }}
+                        >Сохранить</div>
+                    </div>
+                </div>
+            </PopUp>
+            {error && <Error error={error} set={closeComponent} message='Файл не изменен' />}
+        </div>
+    )
+}
 
 export default CustomizeFile;

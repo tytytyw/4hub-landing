@@ -140,13 +140,14 @@
     width: 78%
     margin: 0 0 20px 0
     .inputWrap
+      height: 40px
       margin-bottom: 10px
       position: relative
       .arrowInput
         cursor: pointer
         height: 15px
         position: absolute
-        top: calc(45px / 2 - 15px / 2)
+        top: calc(40px / 2 - 15px / 2)
         right: 17px
     .tagPicker
       display: flex
@@ -281,10 +282,20 @@
         .lock
           width: 12px
     .inputFieldsWrap
-      margin: 10px 0
+      margin: 0
+      .inputWrap
+        margin-bottom: 7px
+        height: 28px
+        .arrowInput
+          cursor: pointer
+          height: 15px
+          position: absolute
+          top: calc(30px / 2 - 15px / 2)
+          right: 17px
       .tagPicker
-        height: 30px
+        height: 28px
         font-size: 11px
+        margin-bottom: 7px
         .inputField
           font-size: 12px
         .tagList

@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-    withCredentials: true,
+    withCredentials: false,
 });
 
-api.defaults.withCredentials = true;
+api.defaults.withCredentials = false;
 
 export default api;
 

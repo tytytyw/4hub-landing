@@ -125,12 +125,12 @@ const ServePanel = ({
     return (
         <div className={styles.servePanelWrap}>
             <div className={styles.groupStart}>
-            {!disableWorkElementsView && <div className={styles.viewPanel}>
-                    <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
-                    <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
-                    <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
-                    <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
-            </div>}
+                {!disableWorkElementsView && <div className={styles.viewPanel}>
+                        <div onClick={() => dispatch(onSetWorkElementsView('bars'))} className={`${view === 'bars' ? styles.iconViewChosen : styles.iconView}`} ><BarsIcon /></div>
+                        <div onClick={() => dispatch(onSetWorkElementsView('lines'))} className={`${view === 'lines' ? styles.iconViewChosen : styles.iconView}`} ><LinesIcon /></div>
+                        <div onClick={() => dispatch(onSetWorkElementsView('preview'))} className={`${view === 'preview' ? styles.iconViewChosen : styles.iconView}`}><PreviewIcon /></div>
+                        <div onClick={() => dispatch(onSetWorkElementsView('workLinesPreview'))} className={`${view === 'workLinesPreview' ? styles.iconViewChosen : styles.iconView}`}><VerticalLinesIcon /></div>
+                </div>}
                 <div className={styles.filterPanel}>
                     <div
                         onClick={() => dispatch(onSetFileSize(changeSize(size)))}
@@ -170,9 +170,8 @@ const ServePanel = ({
 
                 </div>
 
-            
-
             </div>
+            
             <div className={styles.groupEnd}>
                 <div className={styles.buttons}>
                     <div
