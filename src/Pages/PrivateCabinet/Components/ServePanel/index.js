@@ -34,7 +34,7 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
-         chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+         chosenFile, setAction, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile, menuItem
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
@@ -179,7 +179,7 @@ const ServePanel = ({
                         className={styles.createButton}
                         onClick={e => openContextMenu(e, 'createFile')}
                     ><span>Создать</span><div /></div>
-                    <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
+                    <label className={styles.downloadButton} onClick={() => addFile()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
                 </div>
                 <div className={styles.iconButtons}>
                     <div
