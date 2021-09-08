@@ -142,8 +142,8 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, '', ''));
-        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, filesPage, '', ''));
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
         if (menuItem === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
     };
     let firstRenderFixer = useRef(0)
