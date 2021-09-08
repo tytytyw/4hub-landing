@@ -229,7 +229,7 @@ const WorkSpace = ({
         <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
             
             <div className={styles.header}>
-                <SearchField setChosenFile={setChosenFile} />
+                <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
                 <div className={styles.infoHeader}>
                     <StorageSize />
                     <Notifications />

@@ -118,7 +118,7 @@ const WorkSpace = ({
 				}`}
 			>
 				<div className={styles.header}>
-					<SearchField setChosenFile={setChosenFile} />
+					<SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
 					<div className={styles.infoHeader}>
 						<StorageSize />
 						<Notifications />
