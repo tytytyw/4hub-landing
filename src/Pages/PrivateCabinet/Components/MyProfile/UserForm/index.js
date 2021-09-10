@@ -79,7 +79,7 @@ const UserForm = () => {
         }
 
         setEditForm(false)
-        setFormChanged(false)
+        //setFormChanged(false)
 
         setBlur({})
         setErrors({})

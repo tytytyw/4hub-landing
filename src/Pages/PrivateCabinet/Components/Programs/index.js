@@ -52,6 +52,8 @@ const Programs = ({
     const [safePassword, setSafePassword] = useState({open: false})
     const [mouseParams, setMouseParams] = useState(null)
 
+    const [createFolder, setCreateFolder] = useState(false)
+
     useEffect(() => {
         dispatch(onGetProgramFolders())
         dispatch(onGetRecentPrograms())
@@ -153,7 +155,10 @@ const Programs = ({
 
                     <div className={styles.createFolderWrap}>
                         {!listCollapsed && <p>Создать новую папку</p>}
-                        <div className={styles.createFolderImg}>
+                        <div 
+                            onClick={() => setCreateFolder(true)}
+                            className={styles.createFolderImg}
+                        >
                             <img
                                 src="./assets/PrivateCabinet/add-folder.svg"
                                 alt="Create Folder"
@@ -248,6 +253,14 @@ const Programs = ({
                     file={filePreview?.file}
                     filePreview={filePreview}
                 />}
+
+            {createFolder &&
+            <CreateFolder
+                onCreate={setCreateFolder}
+                title='Новая папка'
+                chosenFolder={chosenFolder}
+                setChosenFolder={setChosenFolder}
+            />}
 
             {mouseParams !== null &&
             <ContextMenu
