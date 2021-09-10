@@ -9,14 +9,19 @@
   div
     display: flex
     justify-content: space-between
-    width: 87%
+    width: 83%
     .sign
+      width: 22px
+      height: 22px
       display: flex
       align-items: center
       justify-content: center
       cursor: pointer
       border: 1px solid white
       position: relative
+      img
+        width: 20px
+        height: 20px
     .sign:hover:before
       content: ''
       position: absolute
@@ -43,7 +48,7 @@
     margin: 5px 0 5px 0
     position: static
   div
-    width: 94%
+    width: 95%
     .sign
       img
         width: 15px
@@ -59,11 +64,69 @@
     margin: 0 0 15px 0
     div
       .sign
-        width: 10px
-        height: 10px
+        width: 17px
+        height: 17px
+        img
+          width: 16px
+          height: 16px
+      .sign:hover:before
+        content: ''
+        position: absolute
+        width: 18px
+        height: 18px
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 5px
+      .signChosen
+        position: relative
+      .signChosen:before
+        content: ''
+        position: absolute
+        width: 18px
+        height: 18px
+        border: 1px solid grey
+        border-radius: 5px
+        .sign:hover:before
+          width: 15px
+          height: 15px
+      img
+        width: 15px
+        height: 15px
   .minify
     margin: 0 0 0 30px
     div
       .sign
+        width: 15px
+        height: 15px
+
+@media (max-height: 720px)
+  .signsWrap
+    margin: 0 0 15px 0
+    div
+      .sign
+        width: 17px
+        height: 17px
+        img
+          width: 16px
+          height: 16px
+      .sign:hover:before
+        content: ''
+        position: absolute
+        width: 18px
+        height: 18px
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 5px
+      .signChosen
+        position: relative
+      .signChosen:before
+        content: ''
+        position: absolute
+        width: 18px
+        height: 18px
+        border: 1px solid grey
+        border-radius: 5px
+        .sign:hover:before
+          width: 15px
+          height: 15px
+      img
         width: 15px
         height: 15px
