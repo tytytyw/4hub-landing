@@ -123,6 +123,7 @@ const WorkSpace = ({
     };
 
     const excessItems = () => {
+        console.log(filePick.show);
         if(filePick.show) {
             return ['intoZip', 'properties', 'download', 'print']
         } else {
