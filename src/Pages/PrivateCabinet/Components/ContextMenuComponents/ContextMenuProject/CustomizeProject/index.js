@@ -41,8 +41,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
         })
     };
 
-    const width = window.innerWidth;
-
     const onCustomize = () => {
         //TODO: add api
     };
@@ -77,7 +75,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
@@ -87,7 +84,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={target}
                             set={setTarget}
                             placeholder='Цель проекта'
@@ -97,7 +93,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={members}
                             set={setMembers}
                             placeholder='Участники (введите email или выбирите из списка)'
@@ -129,7 +124,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={password}
                             set={setPassword}
                             placeholder='Установить пароль'
@@ -144,7 +138,6 @@ const CustomizeProject = ({onCreate, title, project}) => {
                         <InputField
                             model='password'
                             switcher={false}
-                            height={width >= 1440 ? '40px' : '30px'}
                             value={passwordRepeat}
                             set={setPasswordRepeat}
                             placeholder='Повторите пароль'
