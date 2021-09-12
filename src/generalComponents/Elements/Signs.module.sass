@@ -9,7 +9,7 @@
   div
     display: flex
     justify-content: space-between
-    width: 87%
+    width: 92%
     .sign
       display: flex
       align-items: center
@@ -17,6 +17,8 @@
       cursor: pointer
       border: 1px solid white
       position: relative
+      img
+        max-width: 100%
     .sign:hover:before
       content: ''
       position: absolute
@@ -56,11 +58,11 @@
       height: 15px
 @media (max-width: 1420px)
   .signsWrap
-    margin: 0 0 15px 0
+    margin: 0 0 10px 0
     div
+      width: 87%
       .sign
-        width: 10px
-        height: 10px
+        width: 20px
   .minify
     margin: 0 0 0 30px
     div

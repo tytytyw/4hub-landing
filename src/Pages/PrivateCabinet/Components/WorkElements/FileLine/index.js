@@ -139,11 +139,12 @@ const FileLine = ({
                     />
                 </div>
 
+                {file?.ext !== 'ZIP' && 
                 <div className={styles.iconView}>
                     <PrintIcon 
                         onClick={printFile}
                     />
-                </div>
+                </div>}
 
                 <div className={classNames({[styles.iconView]: true, [styles.iconSettings]: true, [styles.disable]: file.is_write === '0'})}>
                     <SettingsIcon

@@ -78,11 +78,18 @@
     color: rgb(96, 96, 96)
     font-size: 13px
     margin: 0 20px 0 0
+    display: block
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
   .fileSize
     color: rgb(127, 127, 127)
     font-size: 13px
     margin: 0 40px 0 0
+    display: block
     white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
   .symbols
     display: flex
     align-items: center
@@ -234,3 +241,15 @@
   .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
     background: #477DE1
     transition: background 0.2s ease
+
+
+
+@media (max-width: 1450px)
+  .wrapper
+    .fileSize
+      margin-right: 10px
+    .fileDate
+      margin-right: 10px
+    .fileAbout
+      margin-right: 10px
+      max-width: 50%
