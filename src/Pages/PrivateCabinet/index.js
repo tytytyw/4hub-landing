@@ -299,7 +299,11 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {loadingType ? <Loader type={loadingType} /> : null}
+            {loadingType ? <Loader
+                position='absolute'
+                zIndex={5}
+                containerType='bounceDots'
+            /> : null}
         </div>
     )
 }

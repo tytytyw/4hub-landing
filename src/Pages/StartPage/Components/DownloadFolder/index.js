@@ -1,25 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {getDate} from "../../../../generalComponents/CalendarHelper";
-// import api from "../../../../api";
+import api from "../../../../api";
 import styles from "./DownloadFolder.module.sass";
 import {ReactComponent as DownloadIcon} from "../../../../assets/StartPage/down-arrow.svg";
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import Error from "../../../../generalComponents/Error";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 
-const DownloadFolder = ({ setPage, setOptions }) => {
+const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
 
     const emptyFolder = {
-        name: 'Test Folder', //'No folder',
+        name: 'No folder',
         size: 0,
         is_pass: 0,
         deadline: '2022-09-06 19:38:00'
     }
 
     const [error, setError] = useState(false);
-    const [folder, setFolder] = useState(emptyFolder);
+    const [folder, setFolder] = useState();
     const [password, setPassword] = useState('');
     const [visibility, setVisibility] = useState('password')
-    const FileId = window.location.search.split('fid=')[1];
+    const folderId = window.location.search.split('did=')[1];
 
     const countLeftDays = () => {
         const d1 = new Date(Object.values(getDate(0)).reverse().join('-') + ' 00:00:00');
@@ -46,17 +47,20 @@ const DownloadFolder = ({ setPage, setOptions }) => {
     };
 
     useEffect(() => {
-        if(false) setFolder(); // TODO - Need to delete
-        // api.post(`/ajax/download_start.php?fid=${FileId}&info`)
-        //     .then(res => {
-        //         if(res.status === 200 && typeof res.data === 'object') {
-        //             setFile(res.data)
-        //         } else {
-        //             setError(true); setFile(emptyFile);
-        //             setTimeout(() => {setError(false)}, 5000);
-        //         }
-        //     })
-        //     .catch(err => {console.log(err); setError(true); setFile(emptyFile)});
+        setLoader(true);
+        api.post(`/ajax/dir_share_download.php?did=${folderId}`)
+            .then(res => {
+                setLoader(false);
+                // ?action=forder&did=9bf31c7ff062936a96d3c8bd1f8f2ff3
+                //!!! ?action=forder&did=98f13708210194c475687be6106a3b84
+                if(res.status === 200 && !res.data?.errors) {
+                    setFolder({...emptyFolder, ...res.data}) // TODO - Need to delete emptyFolder after server added size && date
+                } else {
+                    setError(true); setFolder(emptyFolder);
+                    setTimeout(() => {setError(false)}, 5000);
+                }
+            })
+            .catch(() => {setLoader(false); setError(true); setFolder(emptyFolder)});
         // return () => window.history.pushState('', '', "/");
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -66,7 +70,7 @@ const DownloadFolder = ({ setPage, setOptions }) => {
 
     return (
         <>
-            {folder && <form className={styles.main} name='fdownload' action='/ajax/download_start.php' method='post'>
+            {folder && <form className={styles.main} name='fdownload' >
                 <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
                 {folder && <>
                     <div className={styles.downloadWrapFile}>
@@ -74,12 +78,13 @@ const DownloadFolder = ({ setPage, setOptions }) => {
                         <div className={styles.fileName}>{folder.name}</div>
                         <div className={styles.fileSize}>{setSize()}</div>
                     </div>
-                    {folder.name !== 'No file' && <DownloadIcon
+                    {folder.name !== 'No folder' ?
+                        <form name='downloadFile' action={`https://fs2.mh.net.ua/${folder.zip}`} method='get'>
+                        <DownloadIcon
                         className={styles.download}
-                        onClick={() => document.fdownload.submit()}
-                    />}
+                        onClick={() => document.downloadFile.submit()}
+                    /></form> : null}
                     {folder.name !== 'No folder' && <h2>Скачать папку «{folder.name}»</h2>}
-                    <input style={{display: 'none'}} name='fid' value={FileId} readOnly />
                     {folder.is_pass === 1 && <div className={styles.passwordWrap}>
                         <input
                             type={visibility}
@@ -102,11 +107,21 @@ const DownloadFolder = ({ setPage, setOptions }) => {
                             onClick={() => setVisibility('password')}
                         />}
                     </div>}
-                    {folder.name !=='No folder' && <span className={styles.term}>Срок хранения папки ( {countLeftDays()} до {showTime()})</span>}
-                    {folder.name ? <div className={styles.guestButton} onClick={switchToGuestCabinet}>Посмотреть в гостевом режиме</div> : null}
+                    {folder.name !=='No folder' ? <span className={styles.term}>Срок хранения папки ( {countLeftDays()} до {showTime()})</span> : null}
+                    {folder.name !=='No folder' ? <div className={styles.guestButton} onClick={switchToGuestCabinet}>Посмотреть в гостевом режиме</div> : null}
                 </>}
             </form>}
             {error && <Error error={error} set={setError} message={'Упс... Такая папка не найдена'} />}
+            {loader ? <>
+                <span>Идет процесс созадния ZIP архива</span>
+                <Loader
+                    type='bounceDots'
+                    position='absolute'
+                    background='rgba(0, 0, 0, 0)'
+                    zIndex={5}
+                    containerType='bounceDots'
+                />
+            </>: null}
         </>
     )
 }
