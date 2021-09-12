@@ -32,7 +32,7 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
             email: '',
             prim: '',
             deadline: '',
-            is_read: true
+            is_read: 1
     });
     const linkRef = useRef('');
     const setTime = (time, limit) => {
@@ -85,8 +85,8 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
         }
     }
 
-    const copyRead = () => copyLink('$GUEST$', true);
-    const copyWrite = () => copyLink('$GUEST$', false);
+    const copyRead = () => copyLink('$GUEST$', 1);
+    const copyWrite = () => copyLink('$GUEST$', 0);
     const onShareToUser = async () => {
         const res = await onShareFolder();
         if(res) close();
