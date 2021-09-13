@@ -121,7 +121,7 @@ const Project = () => {
             case 'rocket': return <RocketIcon className={project.color} alt='icon' />
             case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
             case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
-            default: return <ClipboardIcon className={project.color} alt='icon'/>
+            default: return <ClipboardIcon className={'blue'} alt='icon'/>
         }
     }
 
