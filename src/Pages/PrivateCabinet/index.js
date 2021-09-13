@@ -25,6 +25,7 @@ import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
+import {menu} from "./Components/SideMenu/listHelper";
 
 const PrivateCabinet = () => {
 
@@ -91,6 +92,7 @@ const PrivateCabinet = () => {
             onDragOver={handleDragOver}
         >
             <SideMenu
+                data={menu}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
             <div

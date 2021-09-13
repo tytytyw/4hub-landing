@@ -7,7 +7,7 @@ import {onChooseFiles, onSearch} from '../../../../Store/actions/PrivateCabinetA
 import Select from "../../../../generalComponents/Select/Select";
 
 
-const SearchField = ({setChosenFile}) => {
+const SearchField = ({setChosenFile, selectable = true}) => {
 	const inputRef = useRef(null);
 	const path = useSelector(state => state.PrivateCabinet?.fileList?.path || state.PrivateCabinet?.folderList?.path);
 	const searchField = useSelector(state => state.PrivateCabinet?.search);
@@ -38,13 +38,14 @@ const SearchField = ({setChosenFile}) => {
 				ref={inputRef}
 				onChange={handleChange}
 			/>
+			{selectable &&
 			<Select
 				placeholder={searchArea.filter(item => item.active)[0].text}
 				className={styles.select}
 				classNameSelect={styles.SearchType}
 				setSearhArea={setSearhArea}
 				data={searchArea}
-			/>
+			/>}
 			
 		</div>
 	);
