@@ -250,6 +250,7 @@ const Project = ({setLoadingType}) => {
                     title='Редатирование проекта'
                     onCreate={nullifyAction}
                     project={selectedProject}
+                    setLoadingType={setLoadingType}
             />
 			) : null}
 
