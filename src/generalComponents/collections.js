@@ -133,7 +133,7 @@ export const contextMenuSubFolder = {
 export const contextMenuSafeItem = {
     main: [
         {name: 'Предоставить доступ', img: 'download-blue'},
-        {name: 'Редактировать', img: 'edit'},
+        {name: 'Редактировать', img: 'edit', type: 'customizeSafe'},
         {name: 'Настроить', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
