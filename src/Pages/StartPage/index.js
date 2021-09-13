@@ -17,6 +17,7 @@ import DownloadFolder from "./Components/DownloadFolder";
 const StartPage = ({setOptions}) => {
 
     const [pageOption, setPage] = useState('init');
+    const [loader, setLoader] = useState(false);
     const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
     useEffect(() => {
@@ -60,7 +61,7 @@ const StartPage = ({setOptions}) => {
                 {pageOption === 'landing' && <Landing />}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
-                {pageOption === 'downloadFolder' && <DownloadFolder setPage={setPage} setOptions={setOptions} />}
+                {pageOption === 'downloadFolder' && <DownloadFolder setPage={setPage} setOptions={setOptions} loader={loader} setLoader={setLoader} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {(pageOption === 'register' || pageOption === 'registerSuccess') && <RegisterProfile setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}

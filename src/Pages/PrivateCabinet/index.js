@@ -32,7 +32,7 @@ const PrivateCabinet = () => {
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false)
-    const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
+    //const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
@@ -95,11 +95,12 @@ const PrivateCabinet = () => {
             />
             <div
                 className={styles.workArea}
-                style={{
-                    minHeight,
-                    width: collapsed ? `calc(100vw - 55px)` : '82%',
-                    minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
-                }}>
+                // style={{
+                //     minHeight,
+                //     width: collapsed ? `calc(100vw - 55px)` : '82%',
+                //     minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
+                // }}
+            >
 
                 <Switch>
 
@@ -299,7 +300,11 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {loadingType ? <Loader type={loadingType} /> : null}
+            {loadingType ? <Loader
+                position='absolute'
+                zIndex={5}
+                containerType='bounceDots'
+            /> : null}
         </div>
     )
 }

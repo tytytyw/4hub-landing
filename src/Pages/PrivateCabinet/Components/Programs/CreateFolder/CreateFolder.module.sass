@@ -77,7 +77,7 @@
     transform: rotate(-45deg)
   .title
     font-size: 19px
-    font-family: 'SF Pro Medium', sans-serif
+    font-family: "SF Pro Medium", sans-serif
     margin: 40px 0 40px 0
   .folderIconWrap
     display: flex
@@ -109,13 +109,23 @@
       .folderOptions
         display: flex
         align-items: center
+      .minitagWrap
+        position: relative
+        min-width: 10%
+        max-width: 40%
+        cursor: pointer
+        overflow: hidden
+        white-space: nowrap
       .minitag
         display: block
-        color: #477DE1
-        font-family: "SF Pro Medium", sans-serif
+        background: rgb(52, 198, 162)
+        color: white
+        padding: 2px 10px
+        border-radius: 20px
+        font-family: "SF Pro Regular", sans-serif
         font-size: 16px
-        min-width: 20%
-        max-width: 40%
+        min-width: 10%
+        max-width: 100%
         height: max-content
         overflow: hidden
         white-space: nowrap
@@ -127,28 +137,26 @@
         img
           width: 25px
           margin: 0 10px 0 0
-      .circle
-        width: 20px
-        height: 20px
-        border-radius: 50%
-        margin: 0 10px 0 0
+      .colorWrap
+        min-width: 25px
+        min-height: 25px
+        position: relative
+        cursor: pointer
+        .circle
+          width: 25px
+          height: 25px
+          border-radius: 50%
+          margin: 0 10px 0 0
       .lock
         width: 17px
   .inputFieldsWrap
     display: flex
     flex-direction: column
+    justify-content: space-between
     width: 78%
-    margin: 0 0 20px 0
     .inputWrap
       height: 40px
       margin-bottom: 10px
-      position: relative
-      .arrowInput
-        cursor: pointer
-        height: 15px
-        position: absolute
-        top: calc(40px / 2 - 15px / 2)
-        right: 17px
     .tagPicker
       display: flex
       align-items: center
@@ -251,17 +259,18 @@
 @media (max-width: 1420px)
   .createFolderWrap
     width: 430px
-    //height: 500px
+    height: auto
+    //max-height: 500px
     animation: showPopup1420 0.2s ease-in-out
     .title
       font-size: 15px
       margin: 15px 0
     .folderIconWrap
       width: 78%
-      margin: 0 0 18px 0
+      margin: 0 0 10px 0
       .folderIcon
         width: 51px
-        height: 42px
+        height: 45px
       .picPreview
         .folderName
           font-size: 15px
@@ -276,22 +285,23 @@
         div
           img
             width: 15px
-        .circle
-          width: 15px
-          height: 15px
+        .colorWrap
+          min-width: 15px
+          min-height: 15px
+          .circle
+            width: 15px
+            height: 15px
         .lock
           width: 12px
     .inputFieldsWrap
-      margin: 10px 0
+      margin: 0 0 5px 0
       .inputWrap
         height: 28px
         margin-bottom: 5px
-        .arrowInput
-          top: calc(28px / 2 - 15px / 2)
       .tagPicker
         height: 28px
-        margin-bottom: 5px
         font-size: 11px
+        margin-bottom: 5px
         .inputField
           font-size: 12px
         .tagList
@@ -305,15 +315,9 @@
             width: 100%
             height: 30px
     .buttonsWrap
-      width: 210px
+      width: 250px
       margin-bottom: 12px
       div
-        display: flex
-        justify-content: center
-        align-items: center
-        width: 100px
-        height: 29px
-        border-radius: 5px
-        cursor: pointer
-        font-size: 11px
-
+        width: 120px
+        height: 32px
+        font-size: 12px

@@ -33,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watchAll",
     "eject": "react-scripts eject",
     "deploy": "gulp deploy"
   },
@@ -69,6 +69,6 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sss|styl|sass)$": "<rootDir>/node_modules/jest-css-modules"
     },
-    "setupFilesAfterEnv": "./setupTests.js"
+    "setupFilesAfterEnv": ["./setupTests.js"]
   }
 }
