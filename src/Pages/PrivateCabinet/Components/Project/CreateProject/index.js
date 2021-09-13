@@ -48,7 +48,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
 
     const onAddProject = () => {
         if(!name) return setNoNameError(true);
-        if(password !== passwordRepeat) return setPasswordCoincide(false);
+        if(showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
         onCreate(false)
         setLoadingType('squarify')
         api.get(`/ajax/project_add.php/?uid=${uid}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
