@@ -50,11 +50,11 @@ const PrivateCabinet = () => {
         }
     })
 
-    const stayOnline = () => {
+    const stayOnline = (time) => {
         setTimeout(() => {
             api.post(`ajax/user_alive?uid=${uid}`)
-                .finally(() => stayOnline());
-        }, 60000)
+                .finally(() => stayOnline(60000));
+        }, time)
     }
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
-        stayOnline();
+        stayOnline(0);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //Loading multiple files info
