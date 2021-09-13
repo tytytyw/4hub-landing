@@ -5,6 +5,7 @@ import List from './List'
 import WorkSpace from './WorkSpace'
 import ProjectItem from './ProjectItem'
 import {useDispatch, useSelector} from 'react-redux'
+import api from '../../../../api'
 import {onGetContacts, onGetProjects} from '../../../../Store/actions/PrivateCabinetActions'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
@@ -30,6 +31,7 @@ const Project = ({setLoadingType}) => {
 
     const dispatch = useDispatch()
     const projects = useSelector(state => state.PrivateCabinet.projects)
+    const uid = useSelector(state => state.user.uid);
     const size = useSelector(state => state.PrivateCabinet.size)
     const [chosenFolder, setChosenFolder] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
@@ -125,6 +127,21 @@ const Project = ({setLoadingType}) => {
         }
     }
 
+    const deleteProject = () => {
+        nullifyAction();
+		api
+			.post(`/ajax/project_del.php?uid=${uid}&id_project=${selectedProject.id}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					setShowSuccessMessage("Проект удален");
+					dispatch(onGetProjects());
+				} else {
+					console.log(res);
+				}
+			})
+			.catch((err) => console.log(err));
+    }
+
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -194,8 +211,8 @@ const Project = ({setLoadingType}) => {
 					name={action.name}
 					text={action.text}
 					set={nullifyAction}
-					callback={nullifyAction}
 					approve={'Удалить'}
+                    callback={deleteProject}
 				>
 					<div className={styles.fileActionWrap}>
                         {getIcon(selectedProject)}
