@@ -34,8 +34,8 @@
     .signChosen:before
       content: ''
       position: absolute
-      width: 22px
-      height: 22px
+      width: 16px
+      height: 16px
       border: 1px solid grey
       border-radius: 5px
 .minify // for filter context menu
@@ -48,11 +48,11 @@
     margin: 5px 0 5px 0
     position: static
   div
-    width: 95%
+    width: 94%
     .sign
       img
-        width: 15px
-        height: 15px
+        width: 14px
+        height: 14px
     .sign:hover:before
       width: 15px
       height: 15px
@@ -61,9 +61,8 @@
       height: 15px
 @media (max-width: 1420px)
   .signsWrap
-    margin: 0 0 10px 0
+    margin: 0 0 15px 0
     div
-      width: 87%
       .sign
         width: 17px
         height: 17px
@@ -82,8 +81,8 @@
       .signChosen:before
         content: ''
         position: absolute
-        width: 18px
-        height: 18px
+        width: 16px
+        height: 16px
         border: 1px solid grey
         border-radius: 5px
         .sign:hover:before
@@ -96,8 +95,11 @@
     margin: 0 0 0 30px
     div
       .sign
-        width: 15px
-        height: 15px
+        width: 14px
+        height: 14px
+        img
+          width: 14px
+          height: 14px
 
 @media (max-height: 720px)
   .signsWrap
@@ -131,3 +133,12 @@
       img
         width: 15px
         height: 15px
+  .minify
+    margin: 0 0 0 30px
+    div
+      .sign
+        width: 14px
+        height: 14px
+        img
+          width: 14px
+          height: 14px
