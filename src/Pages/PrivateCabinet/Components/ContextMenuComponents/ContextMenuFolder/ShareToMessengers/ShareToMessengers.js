@@ -15,7 +15,7 @@ const ShareToMessengers = ({setDisplayMessengers, close, onShareFolder}) => {
     useEffect(() => {
         async function chooseMessenger() {
             setIsButton(false);
-            const file_link = await onShareFolder('$GUEST$', false);
+            const file_link = await onShareFolder('$GUEST$', 0);
             switch(selectedSoc) {
                 case 'telegram':
                     setHrefSoc(`https://t.me/share/url?url=${file_link}`)

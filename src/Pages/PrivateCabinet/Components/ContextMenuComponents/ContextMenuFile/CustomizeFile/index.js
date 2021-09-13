@@ -86,35 +86,6 @@ const CustomizeFile = ({
 		});
 	};
 
-	// const width = window.innerWidth;
-
-	// const generateInputWrap = () => {
-	// 	if (width >= 1440) {
-	// 		return {
-	// 			height: `${
-	// 				showRepeat
-	// 					? filePick.customize || fileAddCustomization.several
-	// 						? "140px"
-	// 						: "190px"
-	// 					: filePick.customize || fileAddCustomization.several
-	// 					? "100px"
-	// 					: "140px"
-	// 			}`,
-	// 			marginBottom: `${showRepeat ? "5px" : "35px"}`,
-	// 			//marginTop: `${filePick.customize || fileAddCustomization.several ? '30px' : '0'}`,
-	// 		};
-	// 	} else {
-	// 		return {
-	// 			/*height: `${showRepeat
-    //                 ? filePick.customize || fileAddCustomization.several
-    //                     ? '110px'
-    //                     : '150px' 
-    //                 : '110px'}`,*/
-	// 			marginBottom: `${showRepeat ? "5px" : "35px"}`,
-	// 		};
-	// 	}
-	// };
-
 	const onAddFile = () => {
 		if (password !== passwordRepeat) return setPasswordCoincide(false);
 		setLoadingType("squarify");

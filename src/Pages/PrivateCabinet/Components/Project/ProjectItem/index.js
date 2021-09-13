@@ -50,14 +50,14 @@ const ProjectItem = ({
 
     const getIcon = (icon) => {
         switch (icon) {
-            case 'clipboard': return <ClipboardIcon className={project.color} alt='icon'/>
-            case 'coworking': return <CoworkingIcon className={project.color} alt='icon' />
-            case 'lamp': return <LampIcon className={project.color} alt='icon' />
-            case 'pen': return <PenIcon className={project.color} alt='icon' />
-            case 'rocket': return <RocketIcon className={project.color} alt='icon' />
-            case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
-            case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
-            default: return <ClipboardIcon className={project.color} alt='icon'/>
+            case 'clipboard': return <ClipboardIcon className={project.id_color} alt='icon'/>
+            case 'coworking': return <CoworkingIcon className={project.id_color} alt='icon' />
+            case 'lamp': return <LampIcon className={project.id_color} alt='icon' />
+            case 'pen': return <PenIcon className={project.id_color} alt='icon' />
+            case 'rocket': return <RocketIcon className={project.id_color} alt='icon' />
+            case 'suitcase': return <SuitcaseIcon className={project.id_color} alt='icon' />
+            case 'thunder': return <ThunderIcon className={project.id_color} alt='icon' />
+            default: return <ClipboardIcon className={project.id_color} alt='icon'/>
         }
     }
 
@@ -89,10 +89,10 @@ const ProjectItem = ({
                                 <div
                                     className={classNames({
                                         [styles.tagBlock]: true,
-                                        [styles.ftag]: !!project?.tag
+                                        [styles.ftag]: !!project?.tags
                                     })}
                                 >
-                                    {project?.tag && `#${project.tag}`}
+                                    {project?.tags && `#${project.tags}`}
                                 </div>
                             </div>
                         </div>
@@ -100,26 +100,20 @@ const ProjectItem = ({
                         <div className={styles.stickWrap}>
 
                             <div className={styles.symbolWrap}>
-                                {project?.fig &&
+                                {project?.id_fig &&
                                 <img
                                     className={styles.symbols}
-                                    src={`./assets/PrivateCabinet/signs/${project.fig}.svg`}
+                                    src={`./assets/PrivateCabinet/signs/${project.id_fig}.svg`}
                                     alt='emoji'
                                 />}
 
-                                {project?.emo &&
+                                {project?.id_emo &&
                                 <img
                                     className={classNames(styles.symbols, styles.smiles)}
-                                    src={`./assets/PrivateCabinet/smiles/${project.emo}.svg`}
+                                    src={`./assets/PrivateCabinet/smiles/${project.id_emo}.svg`}
                                     alt='emoji'
                                 />}
 
-                                {project?.symbol &&
-                                <img
-                                    className={styles.symbols}
-                                    src={project.symbol}
-                                    alt='emoji'
-                                />}
                             </div>
 
                             <PlayIcon

@@ -26,6 +26,7 @@ import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
 import {menu} from "./Components/SideMenu/listHelper";
+import api from "../../api";
 
 const PrivateCabinet = () => {
 
@@ -50,6 +51,13 @@ const PrivateCabinet = () => {
         }
     })
 
+    const stayOnline = (time) => {
+        setTimeout(() => {
+            api.post(`ajax/user_alive?uid=${uid}`)
+                .finally(() => stayOnline(60000));
+        }, time)
+    }
+
     useEffect(() => {
 
         dispatch(onGetUserInfo());
@@ -61,6 +69,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
+        stayOnline(0);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //Loading multiple files info
@@ -205,7 +214,7 @@ const PrivateCabinet = () => {
 
                     <Route
                         path='/project'
-                        render={() => <Project />}
+                        render={() => <Project setLoadingType={setLoadingType} />}
                     />
 
                     <Route
@@ -302,7 +311,12 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {loadingType ? <Loader type={loadingType} /> : null}
+            {loadingType ? <Loader
+                position='absolute'
+                zIndex={5}
+                containerType='bounceDots'
+                type='bounceDots'
+            /> : null}
         </div>
     )
 }

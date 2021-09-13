@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import styles from './CreateProject.module.sass'
-// import api from '../../../../../api'
+import api from '../../../../../api'
 import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'
 import {tags, colors} from '../../../../../generalComponents/collections'
@@ -11,10 +11,11 @@ import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import ProjectIcons from '../ProjectIcons/ProjectIcons'
+import {onGetProjects} from '../../../../../Store/actions/PrivateCabinetActions'
 
-const CreateProject = ({onCreate, title, info}) => {
+const CreateProject = ({onCreate, title, setLoadingType}) => {
 
-    // const uid = useSelector(state => state.user.uid);
+    const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');
     const [members, setMembers] = useState('');
@@ -30,7 +31,7 @@ const CreateProject = ({onCreate, title, info}) => {
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const [noNameError, setNoNameError] = useState(false);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     useEffect(() => {if (name) setNoNameError(false)}, [name])
 
@@ -48,8 +49,18 @@ const CreateProject = ({onCreate, title, info}) => {
     const onAddProject = () => {
         if(!name) return setNoNameError(true);
         if(password !== passwordRepeat) return setPasswordCoincide(false);
-        // TODO: add api
-        console.log('onAddProject')
+        onCreate(false)
+        setLoadingType('squarify')
+        api.get(`/ajax/project_add.php/?uid=${uid}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
+            .then((res) => {
+                if (res.data.ok === 1) {
+                    dispatch(onGetProjects())
+                } else {
+                    console.log(res) 
+                }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setLoadingType(''))
     };
 
     const closeComponent = () => {

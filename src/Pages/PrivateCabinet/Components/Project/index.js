@@ -5,6 +5,7 @@ import List from './List'
 import WorkSpace from './WorkSpace'
 import ProjectItem from './ProjectItem'
 import {useDispatch, useSelector} from 'react-redux'
+import api from '../../../../api'
 import {onGetContacts, onGetProjects} from '../../../../Store/actions/PrivateCabinetActions'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
@@ -26,10 +27,11 @@ import {ReactComponent as SuitcaseIcon} from '../../../../assets/PrivateCabinet/
 import {ReactComponent as ThunderIcon} from '../../../../assets/PrivateCabinet/project/thunder.svg'
 
 
-const Project = () => {
+const Project = ({setLoadingType}) => {
 
     const dispatch = useDispatch()
     const projects = useSelector(state => state.PrivateCabinet.projects)
+    const uid = useSelector(state => state.user.uid);
     const size = useSelector(state => state.PrivateCabinet.size)
     const [chosenFolder, setChosenFolder] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
@@ -51,7 +53,7 @@ const Project = () => {
      const callbackArrMain = [
         {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
-        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customize', name: 'Редактирование проекта', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать проект ${selectedProject?.name}?`, callback: (list, index) => setAction(list[index])},
     ];
@@ -63,7 +65,7 @@ const Project = () => {
 
     const callbackArrSub = [
         // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
@@ -114,15 +116,30 @@ const Project = () => {
 
     const getIcon = (project) => {
         switch (project.icon) {
-            case 'clipboard': return <ClipboardIcon className={project.color} alt='icon'/>
-            case 'coworking': return <CoworkingIcon className={project.color} alt='icon' />
-            case 'lamp': return <LampIcon className={project.color} alt='icon' />
-            case 'pen': return <PenIcon className={project.color} alt='icon' />
-            case 'rocket': return <RocketIcon className={project.color} alt='icon' />
-            case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
-            case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
-            default: return <ClipboardIcon className={project.color} alt='icon'/>
+            case 'clipboard': return <ClipboardIcon className={project.id_color} alt='icon'/>
+            case 'coworking': return <CoworkingIcon className={project.id_color} alt='icon' />
+            case 'lamp': return <LampIcon className={project.id_color} alt='icon' />
+            case 'pen': return <PenIcon className={project.id_color} alt='icon' />
+            case 'rocket': return <RocketIcon className={project.id_color} alt='icon' />
+            case 'suitcase': return <SuitcaseIcon className={project.id_color} alt='icon' />
+            case 'thunder': return <ThunderIcon className={project.id_color} alt='icon' />
+            default: return <ClipboardIcon className={project.id_color} alt='icon'/>
         }
+    }
+
+    const deleteProject = () => {
+        nullifyAction();
+		api
+			.post(`/ajax/project_del.php?uid=${uid}&id_project=${selectedProject.id}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					setShowSuccessMessage("Проект удален");
+					dispatch(onGetProjects());
+				} else {
+					console.log(res);
+				}
+			})
+			.catch((err) => console.log(err));
     }
 
     return (
@@ -178,6 +195,7 @@ const Project = () => {
             <CreateProject
                 title='Создание проекта'
                 onCreate={setCreateProject}
+                setLoadingType={setLoadingType}
             />}
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -186,6 +204,7 @@ const Project = () => {
             {action.type === 'copyLink' ? <CopyLinkProject
                 nullifyAction={nullifyAction}
                 setShowSuccessMessage={setShowSuccessMessage}
+                project={selectedProject}
                 // setLoadingType={setLoadingType}
             /> : null}
             {action.type === "delete" ? (
@@ -193,8 +212,8 @@ const Project = () => {
 					name={action.name}
 					text={action.text}
 					set={nullifyAction}
-					callback={nullifyAction}
 					approve={'Удалить'}
+                    callback={deleteProject}
 				>
 					<div className={styles.fileActionWrap}>
                         {getIcon(selectedProject)}
@@ -232,6 +251,7 @@ const Project = () => {
                     title='Редатирование проекта'
                     onCreate={nullifyAction}
                     project={selectedProject}
+                    setLoadingType={setLoadingType}
             />
 			) : null}
 

@@ -34,7 +34,7 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
-         chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+         chosenFile, setAction, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile, menuItem
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
@@ -63,8 +63,8 @@ const ServePanel = ({
 
     const setFilter = (sorting) => {
         dispatch(onSortFile(sorting));
-        if (window.location.pathname === '/') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-            else if (window.location.pathname === '/files') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     };
 
     const createFile = (ext) => {
@@ -108,18 +108,18 @@ const ServePanel = ({
 
     const setFigure = (value) => {
         dispatch(onChangeFilterFigure(value));
-        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
-        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
-        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     }
 
     return (
@@ -179,7 +179,7 @@ const ServePanel = ({
                         className={styles.createButton}
                         onClick={e => openContextMenu(e, 'createFile')}
                     ><span>Создать</span><div /></div>
-                    <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
+                    <label className={styles.downloadButton} onClick={() => addFile()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
                 </div>
                 <div className={styles.iconButtons}>
                     <div

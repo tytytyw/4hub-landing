@@ -50,6 +50,8 @@ const WorkSpace = ({
 }) => {
 	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
 	const size = useSelector((state) => state.PrivateCabinet.size);
+	const authorizedSafe = useSelector(state => state.PrivateCabinet.authorizedSafe);
+
 	const [mouseParams, setMouseParams] = useState(null);
 
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -223,10 +225,9 @@ const WorkSpace = ({
 						<Profile />
 					</div>
 				</div>
-				<ServePanel
+				{authorizedSafe && <ServePanel
 					chosenFile={chosenFile}
 					setAction={setAction}
-					fileSelect={fileSelect}
 					share={() => onActiveCallbackArrMain("share")}
 					archive={() => onActiveCallbackArrMain('archive')}
 					chooseSeveral={() =>
@@ -237,13 +238,12 @@ const WorkSpace = ({
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
 					menuItem={menuItem}
-				/>
+				/>}
 
 				{workElementsView === "bars" && (
 					<WorkBars
 						file={chosenFile}
 						filePick={filePick}
-						fileSelect={fileSelect}
 					>
 						{renderFiles(FileBar)}
 					</WorkBars>
@@ -253,7 +253,6 @@ const WorkSpace = ({
 					<WorkLines
 						file={chosenFile}
 						filePick={filePick}
-						fileSelect={fileSelect}
 					>
 						{renderFiles(FileLine)}
 					</WorkLines>
@@ -261,16 +260,12 @@ const WorkSpace = ({
 
 				{workElementsView === "preview" && (
 					<WorkBarsPreview file={chosenFile} filePick={filePick}>
-						{" "}
-						fileSelect={fileSelect}
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
 				)}
 
 				{workElementsView === "workLinesPreview" && (
 					<WorkLinesPreview file={chosenFile} filePick={filePick}>
-						{" "}
-						fileSelect={fileSelect}
 						{renderFiles(FileLineShort)}
 					</WorkLinesPreview>
 				)}

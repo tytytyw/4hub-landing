@@ -52,7 +52,7 @@ export const contextMenuFilters = {
     main: [
         {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
         {name: `По дате добавления/создания`, reverseName: 'По дате добавления/создания', img: '', ext: 'byDateCreated'},
-        {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged'},
+        {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged&sort_reverse=1'},
         {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
         {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize&sort_reverse=1'},
         {name: 'По размеру (от малых к большим)', reverseName: '', img: '', ext: 'bySize'},
@@ -81,9 +81,8 @@ export const contextMenuCreateFile = {
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
-        {name: 'Настроить доступ', img: 'perm-set'},
+        {name: 'Доступ и экспорт', img: 'perm-set', type: 'copyLink'},
         {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
-        {name: 'Скопировать ссылку', img: 'copy-link', type: 'copyLink'},
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
         {name: 'Все участники', img: 'all-users'},
@@ -133,7 +132,7 @@ export const contextMenuSubFolder = {
 export const contextMenuSafeItem = {
     main: [
         {name: 'Предоставить доступ', img: 'download-blue'},
-        {name: 'Редактировать', img: 'edit'},
+        {name: 'Редактировать', img: 'edit', type: 'customizeSafe'},
         {name: 'Настроить', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
