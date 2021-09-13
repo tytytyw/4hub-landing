@@ -53,7 +53,7 @@ const Project = ({setLoadingType}) => {
      const callbackArrMain = [
         {type: 'addMember', name: 'Добавить участника', text: ``, callback: () => setAddMember(true)},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
-        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customize', name: 'Редактирование проекта', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать проект ${selectedProject?.name}?`, callback: (list, index) => setAction(list[index])},
     ];
@@ -65,7 +65,7 @@ const Project = ({setLoadingType}) => {
 
     const callbackArrSub = [
         // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         // {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
@@ -204,6 +204,7 @@ const Project = ({setLoadingType}) => {
             {action.type === 'copyLink' ? <CopyLinkProject
                 nullifyAction={nullifyAction}
                 setShowSuccessMessage={setShowSuccessMessage}
+                project={selectedProject}
                 // setLoadingType={setLoadingType}
             /> : null}
             {action.type === "delete" ? (
