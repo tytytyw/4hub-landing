@@ -26,7 +26,7 @@ import {ReactComponent as SuitcaseIcon} from '../../../../assets/PrivateCabinet/
 import {ReactComponent as ThunderIcon} from '../../../../assets/PrivateCabinet/project/thunder.svg'
 
 
-const Project = () => {
+const Project = ({setLoadingType}) => {
 
     const dispatch = useDispatch()
     const projects = useSelector(state => state.PrivateCabinet.projects)
@@ -114,14 +114,14 @@ const Project = () => {
 
     const getIcon = (project) => {
         switch (project.icon) {
-            case 'clipboard': return <ClipboardIcon className={project.color} alt='icon'/>
-            case 'coworking': return <CoworkingIcon className={project.color} alt='icon' />
-            case 'lamp': return <LampIcon className={project.color} alt='icon' />
-            case 'pen': return <PenIcon className={project.color} alt='icon' />
-            case 'rocket': return <RocketIcon className={project.color} alt='icon' />
-            case 'suitcase': return <SuitcaseIcon className={project.color} alt='icon' />
-            case 'thunder': return <ThunderIcon className={project.color} alt='icon' />
-            default: return <ClipboardIcon className={'blue'} alt='icon'/>
+            case 'clipboard': return <ClipboardIcon className={project.id_color} alt='icon'/>
+            case 'coworking': return <CoworkingIcon className={project.id_color} alt='icon' />
+            case 'lamp': return <LampIcon className={project.id_color} alt='icon' />
+            case 'pen': return <PenIcon className={project.id_color} alt='icon' />
+            case 'rocket': return <RocketIcon className={project.id_color} alt='icon' />
+            case 'suitcase': return <SuitcaseIcon className={project.id_color} alt='icon' />
+            case 'thunder': return <ThunderIcon className={project.id_color} alt='icon' />
+            default: return <ClipboardIcon className={project.id_color} alt='icon'/>
         }
     }
 
@@ -178,6 +178,7 @@ const Project = () => {
             <CreateProject
                 title='Создание проекта'
                 onCreate={setCreateProject}
+                setLoadingType={setLoadingType}
             />}
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

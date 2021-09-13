@@ -628,7 +628,7 @@ export const onGetProjects = () => async (dispatch, getState) => {
                 if (res.data.projects) {
                     dispatch({
                         type: GET_PROJECTS,
-                        payload: [res.data.projects]
+                        payload: Object.values(res.data.projects)
                     })
                 } else {
                     dispatch({
