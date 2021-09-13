@@ -26,6 +26,7 @@ import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
+import ConfigAccessFolder from '../ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
@@ -137,7 +138,7 @@ const MyFolders = ({
 
     const callbackArrSub = [
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])}
@@ -251,6 +252,15 @@ const MyFolders = ({
                 setShowSuccessMessage={setShowSuccessMessage}
                 setLoadingType={setLoadingType}
             /> : null}
+            {action.type === 'setAccessFolder' ? (
+                <ConfigAccessFolder
+                    folder={chosenFolder}
+                    files={{}}
+                    close={nullifyAction}
+                    showSuccessMessage={showSuccessMessage}
+                    setShowSuccessMessage={setShowSuccessMessage}
+                />
+            ) : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
