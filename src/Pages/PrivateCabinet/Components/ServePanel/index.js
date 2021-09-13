@@ -63,8 +63,8 @@ const ServePanel = ({
 
     const setFilter = (sorting) => {
         dispatch(onSortFile(sorting));
-        if (menuItem === 'MyFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'MyFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
     };
 
     const createFile = (ext) => {
