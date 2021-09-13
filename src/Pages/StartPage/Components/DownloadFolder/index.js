@@ -51,8 +51,6 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
         api.post(`/ajax/dir_share_download.php?did=${folderId}`)
             .then(res => {
                 setLoader(false);
-                // ?action=forder&did=9bf31c7ff062936a96d3c8bd1f8f2ff3
-                //!!! ?action=forder&did=98f13708210194c475687be6106a3b84
                 if(res.status === 200 && !res.data?.errors) {
                     setFolder({...emptyFolder, ...res.data}) // TODO - Need to delete emptyFolder after server added size && date
                 } else {

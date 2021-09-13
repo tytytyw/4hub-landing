@@ -36,7 +36,8 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType, gLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage, setFilesPage, menuItem
+       setShowSuccessMessage, setLoadingType, gLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
+       setFilesPage, menuItem
 }) => {
 
     const dispatch = useDispatch();
@@ -91,20 +92,15 @@ const WorkSpace = ({
 
     const checkMimeTypes = (file) => {
         const mType = file?.mime_type ?? chosenFile?.mime_type;
+        const isFormat = previewFormats.filter(format => chosenFile.ext.toLowerCase().includes(format)).length > 0;
         const fid = file?.fid ?? chosenFile?.fid;
         const preview = file?.preview ?? chosenFile?.preview;
-        const ext = file?.ext ?? chosenFile?.ext;
-        if(mType === 'application/pdf' || mType.includes('image')) {
-            setLoadingType('squarify')
-            if(mType === 'application/pdf') {
-                printFile(`${preview}`);
-            } else if(mType.includes('image')) {
-                printFile(`${preview}`);
-            }
+        if(mType === 'application/pdf' || (mType && mType?.includes('image'))) {
+            setLoadingType('bounceDot')
+            printFile(`${preview}`)
         } else {
-            const chosenType = previewFormats.filter(format => ext.toLowerCase().includes(format));
-            if(chosenType.length > 0) {
-                setLoadingType('squarify')
+            if(isFormat) {
+                setLoadingType('bounceDot')
                 api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
                     .then(res => printFile(res.data.file_pdf))
                     .catch(err => console.log(err));
@@ -123,7 +119,6 @@ const WorkSpace = ({
     };
 
     const excessItems = () => {
-        console.log(filePick.show);
         if(filePick.show) {
             return ['intoZip', 'properties', 'download', 'print']
         } else {

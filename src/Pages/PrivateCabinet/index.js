@@ -304,6 +304,7 @@ const PrivateCabinet = () => {
                 position='absolute'
                 zIndex={5}
                 containerType='bounceDots'
+                type='bounceDots'
             /> : null}
         </div>
     )
