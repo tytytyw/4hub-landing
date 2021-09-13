@@ -48,8 +48,7 @@ function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage }) {
     }
 
     const getLink = () => {
-        setUrl('Загрузка...')
-        //TODO: add api
+        setUrl(project.link)
     }
 
     useEffect(() => {getLink()}, []) // eslint-disable-line

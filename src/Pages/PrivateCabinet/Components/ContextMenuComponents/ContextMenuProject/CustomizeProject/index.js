@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-// import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './CustomizeProject.module.sass'
-// import api from '../../../../../api'
+import api from '../../../../../../api/index'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import InputField from '../../../../../../generalComponents/InputField'
 import {tags} from '../../../../../../generalComponents/collections'
@@ -11,25 +11,27 @@ import Colors from '../../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import ProjectIcons from '../../../Project/ProjectIcons/ProjectIcons'
+import {onGetProjects} from '../../../../../../Store/actions/PrivateCabinetActions'
 
-const CustomizeProject = ({onCreate, title, project}) => {
+const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
 
-    // const uid = useSelector(state => state.user.uid);
-    const [name, setName] = useState('');
+    const uid = useSelector(state => state.user.uid);
+    const [name, setName] = useState(project.name);
     const [target, setTarget] = useState('');
     const [members, setMembers] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(false);
-    const [tagOption, setTagOption] = useState({chosen: '', count: 30});
-    const [color, setColor] = useState(project.color);
-    const [sign, setSign] = useState('');
-    const [emoji, setEmoji] = useState('');
-    const [icon, setIcon] = useState(project.icon);
+    const [noNameError, setNoNameError] = useState(false);
+    const [tagOption, setTagOption] = useState({chosen: project.tags, count: 30});
+    const [color, setColor] = useState({name: project.id_color});
+    const [sign, setSign] = useState(project.id_fig);
+    const [emoji, setEmoji] = useState(project.id_emo);
+    const [icon, setIcon] = useState(project.id_icon);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
     const renderTags = () => {
@@ -42,7 +44,20 @@ const CustomizeProject = ({onCreate, title, project}) => {
     };
 
     const onCustomize = () => {
-        //TODO: add api
+        if(!name) return setNoNameError(true);
+        if(password !== passwordRepeat) return setPasswordCoincide(false);
+        onCreate(false)
+        setLoadingType('squarify')
+        api.get(`/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
+            .then((res) => {
+                if (res.data.ok === 1) {
+                    dispatch(onGetProjects())
+                } else {
+                    console.log(res) 
+                }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setLoadingType(''))
     };
 
     const closeComponent = () => {
@@ -78,6 +93,7 @@ const CustomizeProject = ({onCreate, title, project}) => {
                             value={name}
                             set={setName}
                             placeholder='Имя проекта'
+                            mistake={noNameError}
                         />
                     </div>
 
