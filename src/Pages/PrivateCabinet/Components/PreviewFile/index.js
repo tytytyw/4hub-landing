@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 
-const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
+const PreviewFile = ({setFilePreview, file, filePreview}) => {
 
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
@@ -13,7 +13,6 @@ const PreviewFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
 
     const renderOfficePreview = () => {
         const isFormat = previewFormats.filter(type => file.ext.toLowerCase().includes(type)).length > 0;
-        console.log(isFormat);
         if(isFormat && file.edit_url) {
             return <iframe src={file.edit_url} title={file.name} frameBorder="0" scrolling="no" />
         } else {
