@@ -25,6 +25,7 @@ import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
+import api from "../../api";
 
 const PrivateCabinet = () => {
 
@@ -49,6 +50,13 @@ const PrivateCabinet = () => {
         }
     })
 
+    const stayOnline = () => {
+        setTimeout(() => {
+            api.post(`ajax/user_alive?uid=${uid}`)
+                .finally(() => stayOnline());
+        }, 60000)
+    }
+
     useEffect(() => {
 
         dispatch(onGetUserInfo());
@@ -60,6 +68,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
+        stayOnline();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //Loading multiple files info
