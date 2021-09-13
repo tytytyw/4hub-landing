@@ -9,7 +9,29 @@
   div
     display: flex
     justify-content: space-between
-    width: 87%
+    width: 83%
+    .circleColorWrap
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 30px
+      height: 30px
+      &:hover
+        background: rgba(1, 1, 1, 0.2)
+        border-radius: 50%
+    .circleColor
+.colorWrap
+  display: flex
+  flex-direction: column
+  width: 78%
+  margin: 0 0 15px 0
+  .title
+    font-size: 13px
+    margin: 0 0 8px 0
+  div
+    display: flex
+    justify-content: space-between
+    width: 83%
     .circleColorWrap
       display: flex
       justify-content: center
@@ -51,13 +73,33 @@
       height: 11px
 @media (max-width: 1420px)
   .colorWrap
-    margin: 0 0 10px 0
     div
       .circleColor
         width: 15px
         height: 15px
+      .circleColorWrap
+        width: 21px
+        height: 21px
   .minify
     div
       .circleColor
         width: 11px
         height: 11px
+      .circleColorWrap
+        width: 15px
+        height: 15px
+
+@media (max-height: 720px)
+  .colorWrap
+    div
+      .circleColor
+        width: 15px
+        height: 15px
+      .circleColorWrap
+        width: 21px
+        height: 21px
+  .minify
+    div
+      .circleColorWrap
+        width: 15px
+        height: 15px

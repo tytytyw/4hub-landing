@@ -9,7 +9,7 @@ const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editab
 
     const set = (el) => emoji === el ? setEmoji('') : setEmoji(el);
 
-    const renderEmoji = () => {
+    const renderEmoji = smiles => {
         return smiles.map((el, i) => {
             return <div
                 key={i}
@@ -26,7 +26,8 @@ const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editab
     return (
         <div className={`${styles.emojiWrap} ${editableClass ? styles[editableClass] : ''}`}>
             <span className={styles.title}>{title}</span>
-            <div>{renderEmoji()}</div>
+            <div className={styles.emojiRow}>{renderEmoji(smiles.slice(0, smiles.length/2))}</div>
+            <div className={styles.emojiRow}>{renderEmoji(smiles.slice(smiles.length/2))}</div>
         </div>
     )
 }

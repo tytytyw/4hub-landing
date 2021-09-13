@@ -1,23 +1,22 @@
 import React, {useRef, useState} from 'react'
 
-import styles from './CreateSafe.module.sass'
+import styles from './CustomizeSafe.module.sass'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import {colors, tags} from '../../../../../../generalComponents/collections'
-import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
+// import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
 import Input from '../../../MyProfile/Input'
-import SafeIcon from '../../SafeIcon'
+import SafeIcon from '../../../Safe/SafeIcon'
 import classNames from 'classnames'
-import api from '../../../../../../api';
+// import api from '../../../../../../api';
+// import {useSelector} from 'react-redux'
 
-import {useDispatch, useSelector} from 'react-redux'
+const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => {
 
-const CreateSafe = ({onCreate, setLoadingType}) => {
-
-    const dispatch = useDispatch()
-	const uid = useSelector((state) => state.user.uid);
+    // const dispatch = useDispatch()
+	// const uid = useSelector((state) => state.user.uid);
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
@@ -52,21 +51,22 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
 
     
     
-    const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
-        setLoadingType('squarify')
-        api.get(`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
-            .then((res) => {
-                if (res.data.ok) {
-                    dispatch(onGetSafes())
-                } else {
-                    console.log(res) 
-                }
-            })
-            .catch(error => console.log(error))
-            .finally(() => setLoadingType(''))
+    const onAddSafe = (name, pass, tag, color, fig, emo) => {
+        //TODO: add api
+        // setLoadingType('squarify')
+        // api.get(`/ajax/safe_.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
+        //     .then((res) => {
+        //         if (res.data.ok) {
+        //             dispatch(onGetSafes())
+        //         } else {
+        //             console.log(res) 
+        //         }
+        //     })
+        //     .catch(error => console.log(error))
+        //     .finally(() => setLoadingType(''))
     };
 
-    const customizeSafe = () => {
+    const AddSafe = () => {
 
         if (formIsValid()) {
             const safeObj = {
@@ -78,8 +78,8 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                 emo: emoji,
             }
 
-            onCustomizeSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo)
-            onCreate(false)
+            onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo)
+            close()
         }
 
     }
@@ -98,12 +98,12 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
 
     return (
         <>
-            <PopUp set={onCreate}>
+            <PopUp set={close}>
                 <div className={styles.createFolderWrap}>
-                    <span className={styles.cross} onClick={() => onCreate(false)}/>
+                    <span className={styles.cross} onClick={() => close()}/>
 
                     <div className={styles.content}>
-                        <span className={styles.title}>Создание сейфа</span>
+                        <span className={styles.title}>Редактирование сейфа</span>
                         <div className={styles.folderIconWrap}>
                             <div
                                 className={classNames({
@@ -201,7 +201,7 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                                 <Input
                                     type='password'
                                     name='password'
-                                    placeholder='Установить пароль'
+                                    placeholder='Сменить пароль'
                                     showPass={showPass}
                                     setShowPass={setShowPass}
                                     className={styles.input}
@@ -232,8 +232,8 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
                     </div>
 
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                        <div className={styles.add} onClick={() => customizeSafe()}>Сохранить</div>
+                        <div className={styles.cancel} onClick={() => close()}>Отмена</div>
+                        <div className={styles.add} onClick={() => AddSafe()}>Добавить</div>
                     </div>
                 </div>
             </PopUp>
@@ -241,4 +241,4 @@ const CreateSafe = ({onCreate, setLoadingType}) => {
     )
 }
 
-export default CreateSafe
+export default CustomizeSafe

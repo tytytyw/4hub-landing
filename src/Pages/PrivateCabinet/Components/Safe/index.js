@@ -6,6 +6,7 @@ import SafeItem from "./SafeItem";
 import SafeIcon from "./SafeIcon";
 import WorkSpace from "./WorkSpace";
 import ShareSafe from "../ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe";
+import CustomizeSafe from "../ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import PreviewFile from "../PreviewFile";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -83,7 +84,7 @@ const Safe = ({
 	useEffect(() => {
 		dispatch(onExitSafe())
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedSafe]); 
+	}, [selectedSafe]);
 
 	const renderSafesList = () => {
 		if (!safes) return null;
@@ -113,7 +114,7 @@ const Safe = ({
 			callback: (list, index) => setAction(list[index]),
 		},
 		// TODO:
-		// {type: 'customize', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
+		{type: 'customizeSafe', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
 		// {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
 		// {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
 	];
@@ -377,7 +378,16 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 				/>
 			) : null}
-			
+			{action.type === "customizeSafe" ? (
+				<CustomizeSafe
+					safe={selectedSafe}
+					close={nullifyAction}
+					action_type={action.type}
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
+				/>
+			) : null}
 
 			{showSuccessMessage && (
 				<SuccessMessage

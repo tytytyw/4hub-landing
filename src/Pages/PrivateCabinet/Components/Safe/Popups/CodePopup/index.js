@@ -25,6 +25,7 @@ const CodePopup = ({
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
 	const [sendCode, showSendCode] = useState(false);
+	const [showPass, setShowPass] = useState('')
 
 	const dispatch = useDispatch();
 
@@ -87,6 +88,8 @@ const CodePopup = ({
 										value={password}
 										onChange={(event) => setPassword(event.target.value)}
 										type="password"
+										showPass={showPass}
+                                    	setShowPass={setShowPass}
 									/>
 									<span
 										className={styles.link}
