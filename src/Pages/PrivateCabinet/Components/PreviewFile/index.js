@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 
 import {previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
