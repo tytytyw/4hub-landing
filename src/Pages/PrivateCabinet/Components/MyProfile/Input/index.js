@@ -9,6 +9,7 @@ const Input = (
         isMistake = false, showPass = false, phone,
         setShowPass = () => {},
         onChange = () => {},
+        onKeyPress = () => {},
         ...props
     }
 ) => {
@@ -75,6 +76,7 @@ const Input = (
                     maxLength={phone ? 18 : props.maxLength}
 
                     onChange={onChangeHandler}
+                    onKeyPress={onKeyPress}
                     value={props.value}
                     name={props.name}
                     placeholder={props.placeholder}

@@ -1,0 +1,69 @@
+.wrapper
+  height: calc(100% - 72px)
+  overflow-y: auto
+  padding-bottom: 30px
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 3px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+
+  .itemWrap
+    &:first-child
+      border-top: 0.75px solid #F0F0F0
+
+  .itemSub
+    border-bottom: 0.75px solid #F0F0F0
+
+    &:hover
+      background: rgba(64, 134, 241, 0.1)
+      border-bottom: 0.75px solid #CFCFCF
+
+  .item.activePage
+    background: rgba(64, 134, 241, 0.1)
+  .item
+    cursor: pointer
+    height: 50px
+    padding: 0 18px
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .info
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
+      max-width: 80%
+      display: flex
+      align-items: center
+      .text
+        font-weight: 500
+        font-size: 13px
+        line-height: 16px
+        letter-spacing: -0.0599777px
+        color: #49494B
+      .icon
+        min-width: 20px
+        margin-right: 10px
+
+  .item.active
+    .icon path
+      fill: rgba(64, 134, 241, 1)
+    .arrow
+      transform: rotate(180deg)
+      path
+        fill: rgba(64, 134, 241, 1)
+
+
+  .subItems
+    height: 0
+    overflow: hidden
+
+
+  .subItems.active
+    height: auto
