@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Intro.module.sass';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/download-startPage.svg';
 
-const Intro = ({setPage}) => {
+const Intro = ({setPage, setOptions}) => {
     return (
         <div className={styles.main}>
             <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />
@@ -29,7 +29,7 @@ const Intro = ({setPage}) => {
                         его на 3 строкиможно больше можно меньше  сейчас делаю его
                         на 3 строки можно больше можно меньше
                     </span>
-                    <div onClick={() => setPage('develop')}>Перейти</div>
+                    <div onClick={() => {setOptions(state => ({...state, business: true})); if(false)setPage('develop')}}>Перейти</div>
                 </div>
             </div>
             <div className={styles.download} onClick={() => setPage('sendFile')}>

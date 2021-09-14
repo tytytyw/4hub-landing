@@ -51,7 +51,7 @@ const StartPage = ({setOptions}) => {
                 <div className={`${styles.registerButton} ${styles.listItem}`} onClick={() => setPage('register')}>Регистрация</div>
             </header>
             <main className={styles.main}>
-                {pageOption === 'init' && <Intro setPage={setPage} />}
+                {pageOption === 'init' && <Intro setPage={setPage} setOptions={setOptions} />}
                 {pageOption === 'sendFile' && <UploadFile setPage={setPage} />}
                 {pageOption === 'develop' && <div className={styles.main}>
                     <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />

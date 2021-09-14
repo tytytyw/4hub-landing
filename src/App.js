@@ -14,7 +14,7 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
-    const [options, setOptions] = useState({guest: false, business: true})
+    const [options, setOptions] = useState({guest: false, business: false})
 
     useEffect(() => {
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
@@ -22,11 +22,11 @@ function App() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        // options.business ? <BusinessCabinet/> :
         <>
-            {!uid && !options.guest ? <StartPage setOptions={setOptions} /> : null}
-            {!uid && options.guest ? <Guest/> : null}
-            {!options.guest && uid ? <PrivateCabinet/> : null}
+            {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} /> : null}
+            {!uid && options.guest && !options.business ? <Guest/> : null}
+            {!options.guest && uid && !options.business ? <PrivateCabinet/> : null}
+            {!options.guest && options.business ? <BusinessCabinet/> : null}
         </>
     );
 }
