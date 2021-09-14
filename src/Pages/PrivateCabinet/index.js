@@ -313,7 +313,7 @@ const PrivateCabinet = () => {
             </div>
             {loadingType ? <Loader
                 position='absolute'
-                zIndex={5}
+                zIndex={102}
                 containerType='bounceDots'
                 type='bounceDots'
             /> : null}
