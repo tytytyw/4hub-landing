@@ -37,7 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -54,7 +54,7 @@ const INITIAL_STATE = {
     view: 'bars',
     //SORT && FILTER
     fileCriterion: {
-        sorting: 'byDateCreated',
+        sorting: 'byDateCreated&sort_reverse=1',
         reverse: {byName: false},
         filters: {
             color: '',
@@ -177,6 +177,18 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_REVERSE_CRITERION: {
             return {...state, fileCriterion: {...state.fileCriterion, reverse: {...state.fileCriterion.reverse, [action.payload]: !state.fileCriterion.reverse[action.payload]}}}
+        }
+        case NULLIFY_FILTERS: {
+            return {
+                ...state,
+                fileCriterion: {sorting: 'byDateCreated&sort_reverse=1',
+                    reverse: {byName: false},
+                    filters: {
+                        color: '',
+                        emoji: '',
+                        figure: ''
+                    }}
+            }
         }
 
         // PROGRAMS
