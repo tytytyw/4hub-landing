@@ -52,7 +52,7 @@ const PrivateCabinet = () => {
 
     const stayOnline = (time) => {
         setTimeout(() => {
-            api.post(`ajax/user_alive?uid=${uid}`)
+            api.post(`ajax/user_alive.php?uid=${uid}`)
                 .finally(() => stayOnline(60000));
         }, time)
     }
