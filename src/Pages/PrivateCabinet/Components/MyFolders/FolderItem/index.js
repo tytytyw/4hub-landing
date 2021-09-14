@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './FolderItem.module.sass';
@@ -9,6 +9,7 @@ import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/
 import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/PrivateCabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
+import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -21,6 +22,7 @@ const FolderItem = ({
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const [filesQuantity, setFilesQuantity] = useState(0);
+    const file_amount_controller = useRef(null);
 
     const openFolder = async (e) => {
         let boolean = false;
@@ -76,7 +78,8 @@ const FolderItem = ({
                 if(res.data.ok === 1) {
                     setFilesQuantity(res.data.col)
                     if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount: res.data.col}))
-                }
+                    setStorageItem(`${uid}+${folder.path}`, res.data.col);
+                } else {console.error(`Couldn't get files quantity in ${folder.path}`)}
             })
             .catch(err => console.log(err));
     };
@@ -84,11 +87,18 @@ const FolderItem = ({
     //Open global/all Folder from the beginning
     useEffect(() => {
         if(chosen) dispatch(onChooseFolder(folder.folders, folder.path));
-        getQuantity();
+        const files_amount = getStorageItem(`${uid}+${folder.path}`);
+        if(files_amount) {
+            setFilesQuantity(files_amount);
+            if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount}))
+        } else {
+            getQuantity();
+        }
+        file_amount_controller.current = 1
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if(folderList?.path === folder?.path) getQuantity()
+        if(folderList?.path === folder?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
     const openMenu = (e) => {
