@@ -324,6 +324,7 @@ const WorkSpace = ({
             setFileAddCustomization={setFileAddCustomization}
             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
             setLoadingType={setLoadingType}
+            menuItem='myFolders'
         /> : null}
         {action.type === 'share' ? (
 				<ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
