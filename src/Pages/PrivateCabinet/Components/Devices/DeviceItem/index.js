@@ -24,6 +24,7 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCol
                             alt='icon'
                             className={styles.icon}
                         />
+                        {device.is_online ? <span className={styles.active}/> : null}
                     </div>
                     {!listCollapsed ? <div className={styles.deviceInfo}>
                         <span className={styles.title}>{device.name}</span>
