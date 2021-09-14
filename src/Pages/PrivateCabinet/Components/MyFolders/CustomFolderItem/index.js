@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
@@ -8,6 +8,7 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import api, {cancelRequest} from '../../../../../api';
+import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader
@@ -18,17 +19,31 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
     const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const dispatch = useDispatch();
+    const file_amount_controller = useRef(null);
 
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
-            .then(res => {if(res.data.ok === 1) setFilesQuantity(res.data.col)})
+            .then(res => {if(res.data.ok === 1) {
+                setFilesQuantity(res.data.col)
+                if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount: res.data.col}))
+                setStorageItem(`${uid}+${f.path}`, res.data.col);
+            }})
             .catch(err => console.log(err));
     };
 
-    useEffect(() => {getQuantity()}, []); // eslint-disable-line
+    useEffect(() => {
+        const files_amount = getStorageItem(`${uid}+${f.path}`);
+        if(files_amount) {
+            setFilesQuantity(files_amount);
+            if(chosen) setChosenFolder(chosenFolder => ({...chosenFolder, files_amount}))
+        } else {
+            getQuantity();
+        }
+        file_amount_controller.current = 1
+    }, []); // eslint-disable-line
 
     useEffect(() => {
-        if(folderList?.path === f?.path) getQuantity()
+        if(folderList?.path === f?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
     const openFolder = (e) => {

@@ -22,7 +22,7 @@ function App() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        options.business ? <BusinessCabinet/> :
+        // options.business ? <BusinessCabinet/> :
         <>
             {!uid && !options.guest ? <StartPage setOptions={setOptions} /> : null}
             {!uid && options.guest ? <Guest/> : null}
