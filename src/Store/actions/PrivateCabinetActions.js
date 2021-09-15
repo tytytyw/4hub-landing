@@ -40,7 +40,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -163,6 +163,12 @@ export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dis
         .catch(e => console.log(e))
         .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
+
+export const nullifyFilters = () => {
+    return {
+        type: NULLIFY_FILTERS,
+    }
+}
 
 export const onDeleteFile = (file) => {
     return {
@@ -573,7 +579,8 @@ export const onGetDevices = () => async (dispatch, getState) => {
                         name: device[1].data.browser,
                         os: device[1].data.platform,
                         device: device[1].data.device_type || 'unknown',
-                        last_visit: device[1]?.ut_last?.split(' ')[0] || ''
+                        last_visit: device[1]?.ut_last?.split(' ')[0] || '',
+                        is_online: device[1]?.is_online || 0
                     }
                     list.push(obj);
                 })

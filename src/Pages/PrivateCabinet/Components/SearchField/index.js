@@ -7,7 +7,8 @@ import {onChooseFiles, onChooseAllFiles, onSearch} from '../../../../Store/actio
 import Select from "../../../../generalComponents/Select/Select";
 
 
-const SearchField = ({setChosenFile, menuItem}) => {
+const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
+
 	const inputRef = useRef(null);
 	const path = useSelector(state => state.PrivateCabinet?.fileList?.path || state.PrivateCabinet?.folderList?.path);
 	const searchField = useSelector(state => state.PrivateCabinet?.search);
@@ -41,13 +42,14 @@ const SearchField = ({setChosenFile, menuItem}) => {
 				ref={inputRef}
 				onChange={handleChange}
 			/>
+			{selectable &&
 			<Select
 				placeholder={searchArea.filter(item => item.active)[0].text}
 				className={styles.select}
 				classNameSelect={styles.SearchType}
 				setSearhArea={setSearhArea}
 				data={searchArea}
-			/>
+			/>}
 			
 		</div>
 	);

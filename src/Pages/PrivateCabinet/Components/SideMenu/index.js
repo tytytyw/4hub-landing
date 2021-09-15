@@ -1,12 +1,11 @@
 import React from 'react';
 
 import styles from './SideMenu.module.sass';
-import { menu } from './listHelper';
 import {useHistory, useLocation} from "react-router";
 import {useSelector} from "react-redux";
 import {themes} from "./themes";
 
-const SideMenu = ({collapsed, setCollapsed}) => {
+const SideMenu = ({data = [], collapsed, setCollapsed}) => {
 
     const {pathname} = useLocation()
     const history = useHistory()
@@ -22,7 +21,7 @@ const SideMenu = ({collapsed, setCollapsed}) => {
     }
 
     const renderMenuItems = () => {
-      return menu.map(item => {
+      return data.map(item => {
 
           return <div
               className={`

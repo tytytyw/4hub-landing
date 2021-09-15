@@ -50,8 +50,8 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
 
     const getLink = (status) => {
         setUrl('Загрузка...')
-        let stat = '$&is_read=true'
-        if(status === 'write') stat = '$&is_read=false'
+        let stat = '$&is_read=1'
+        if(status === 'write') stat = '$&is_read=0'
         const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST${stat}`;
         api.get(url)
             .then(res => setUrl(res.data.link_shere_to_user))

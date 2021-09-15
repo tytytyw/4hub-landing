@@ -34,6 +34,8 @@ const CustomizeFile = ({
 }) => {
 	const uid = useSelector((state) => state.user.uid);
 	const path = useSelector((state) => state.PrivateCabinet?.fileList?.path);
+	const fileListAll = useSelector((state) => state.PrivateCabinet?.fileListAll);
+	const search = useSelector((state) => state.PrivateCabinet?.search);
 	const [name, setName] = useState(
 		file ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
 	);
@@ -126,8 +128,6 @@ const CustomizeFile = ({
 			is_pass: password && passwordRepeat ? 1 : 0,
 		};
 		if (filePick.customize) {
-			console.log(menuItem)
-
 			delete data.fName;
 			if (data.pass === "") delete data.pass;
 			api
@@ -140,8 +140,8 @@ const CustomizeFile = ({
 						else {
                             dispatch(onAddRecentFiles());
                             //TODO: add sort & filter params to dispatch
-                            if (menuItem === "MyFolders") dispatch(onChooseFiles(path));
-                            if (menuItem === "MyFiles")  dispatch(onChooseAllFiles(path));
+							if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
+							if (menuItem === 'myFolders') dispatch(onChooseFiles(path, search, 1, '', ''));
                         }
 					}
 				})

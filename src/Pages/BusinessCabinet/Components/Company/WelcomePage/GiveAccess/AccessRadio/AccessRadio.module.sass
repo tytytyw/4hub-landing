@@ -1,0 +1,39 @@
+.radio
+  display: flex
+  align-items: center
+  margin: 10px 0
+  &::before
+    content: ''
+    display: block
+    width: 18px
+    height: 18px
+    border-radius: 50%
+    border: 1px solid #E3E3E3
+    background: transparent
+
+  &.checked::before
+    background: rgba(64, 134, 241, 1)
+
+
+  input
+    display: none
+
+  label
+    line-height: 0
+    margin-left: 5px
+
+
+  label p
+    font-weight: normal
+    font-size: 10px
+    line-height: 12px
+    letter-spacing: -0.0629137px
+    color: #888888
+    margin: 0
+  label span
+    margin: 0
+    font-weight: normal
+    font-size: 7px
+    line-height: 12px
+    letter-spacing: -0.0629137px
+    color: #B0B0B0

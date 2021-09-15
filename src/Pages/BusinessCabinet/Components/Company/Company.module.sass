@@ -1,0 +1,32 @@
+.contentWrap
+  flex-grow: 1
+
+  .content
+    overflow-y: auto
+    height: calc(100% - 90px)
+    background: rgba(249, 249, 249, 1)
+    &::-webkit-scrollbar-track
+      background: #0A3AAB
+    &::-webkit-scrollbar-track
+      -webkit-box-shadow: none
+      background-color: #F5F5F5
+    &::-webkit-scrollbar
+      width: 12px
+      background-color: #FFFFFF
+    &::-webkit-scrollbar-thumb
+      background-color: #4086F1
+
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    height: 90px
+    border-bottom: 1px solid #e5e5e5
+    box-sizing: border-box
+    padding: 0 39px 0 17px
+    .infoHeader
+      display: flex
+      justify-content: space-between
+      align-items: center
+      .notifyWrapper
+        margin-right: 40px

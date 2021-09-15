@@ -25,6 +25,8 @@ import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
+import {menu} from "./Components/SideMenu/listHelper";
+import api from "../../api";
 
 const PrivateCabinet = () => {
 
@@ -49,6 +51,13 @@ const PrivateCabinet = () => {
         }
     })
 
+    const stayOnline = (time) => {
+        setTimeout(() => {
+            api.post(`ajax/user_alive.php?uid=${uid}`)
+                .finally(() => stayOnline(60000));
+        }, time)
+    }
+
     useEffect(() => {
 
         dispatch(onGetUserInfo());
@@ -60,6 +69,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
+        stayOnline(0);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //Loading multiple files info
@@ -91,6 +101,7 @@ const PrivateCabinet = () => {
             onDragOver={handleDragOver}
         >
             <SideMenu
+                data={menu}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
             <div
@@ -302,8 +313,9 @@ const PrivateCabinet = () => {
             </div>
             {loadingType ? <Loader
                 position='absolute'
-                zIndex={5}
+                zIndex={102}
                 containerType='bounceDots'
+                type='bounceDots'
             /> : null}
         </div>
     )

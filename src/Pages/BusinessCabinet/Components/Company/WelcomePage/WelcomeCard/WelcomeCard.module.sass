@@ -1,0 +1,97 @@
+.centeredWrapper
+  padding: 30px 0
+  display: flex
+  align-items: center
+  justify-content: center
+  min-height: 100%
+
+.wrapper
+  padding: 19px 15px 32px 15px
+  width: 500px
+  height: auto
+  background: #FFFFFF
+  border-radius: 6px
+  filter: drop-shadow(0px 2px 4px rgba(140, 140, 140, 0.5))
+
+  .header
+    text-align: center
+    p
+      margin: 0
+      font-weight: 500
+      font-size: 16px
+      line-height: 19px
+      letter-spacing: -0.0738187px
+      color: #2B353E
+    img
+      width: 40px
+      height: 40px
+      margin-bottom: 14px
+
+
+  .infoBlock
+    padding: 0 30px 15px 30px
+    border-bottom: 1px solid #E3E3E3
+    margin: 27px auto 15px auto
+    p
+      font-weight: normal
+      font-size: 12px
+      line-height: 18px
+      text-align: center
+      letter-spacing: -0.0629137px
+      color: #B0B0B0
+
+  .cards
+    display: flex
+    justify-content: space-between
+
+    .cardItem
+      flex-basis: calc(100% / 3 - 10px)
+
+    .card
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      height: 68px
+      background: #FFFFFF
+      box-shadow: 0px 2px 4px rgba(140, 140, 140, 0.5)
+      border-radius: 3.75px
+      background-repeat: no-repeat
+      background-position: right 5px center
+      transition: background 0.3s ease
+      p
+        position: absolute
+        z-index: 2
+        margin: 0
+        font-weight: normal
+        font-size: 10px
+        line-height: 12px
+        letter-spacing: -0.0640787px
+        color: #49494B
+        transition: all 0.3s ease
+      .bgImg
+        position: absolute
+        right: 5px
+        top: 4px
+        path
+          transition: all 0.3s ease
+
+    .card:hover
+      cursor: pointer
+      background-color: rgba(64, 134, 241, 1)
+      transition: all 0.3s ease
+      p
+        color: #fff
+        transition: all 0.3s ease
+      .bgImg path
+        fill: #4A8EF7
+        transition: all 0.3s ease
+
+    .cardText
+      margin: 12px 10px 0 10px
+      font-weight: normal
+      font-size: 7px
+      line-height: 12px
+      text-align: center
+      letter-spacing: -0.0629137px
+      color: #B0B0B0
