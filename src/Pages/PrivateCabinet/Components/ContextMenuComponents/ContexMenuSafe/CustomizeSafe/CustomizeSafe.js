@@ -54,7 +54,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
     
     const onAddSafe = (name, pass, tag, color, fig, emo, id_safe) => {
         setLoadingType('squarify')
-        api.get(`/ajax/safe_edit.php?uid=${uid}&id_safe=${id_safe}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
+        api.get(`/ajax/safe_edit.php?uid=${uid}&id_safe=${id_safe}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${sign}&emoji=${emo}`)
             .then((res) => {
                 if (res.data.ok) {
                     dispatch(onGetSafes())
