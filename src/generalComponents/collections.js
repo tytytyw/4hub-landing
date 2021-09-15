@@ -98,8 +98,7 @@ export const contextMenuProjects = {
 export const contextMenuFolderGeneral = {
     main: [
         // {name: 'Расшарить', img: 'resend'},
-        {name: 'Настроить доступ', img: 'shareFile'},
-        // {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Доступ и экспорт', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
@@ -109,8 +108,7 @@ export const contextMenuFolderGeneral = {
 export const contextMenuFolder = {
     main: [
         {name: 'Расшарить', img: 'resend'},
-        {name: 'Настроить доступ', img: 'shareFile'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
+        {name: 'Доступ и экспорт', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
