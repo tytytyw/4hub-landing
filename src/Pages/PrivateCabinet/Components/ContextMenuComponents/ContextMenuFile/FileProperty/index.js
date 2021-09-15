@@ -22,7 +22,7 @@ const FileProperty = ({close, file }) => {
                 <div
                     className={`${styles.inset} ${inset === 'security' ? styles.chosen : null}`}
                     onClick={() => setInset('security')}
-                >Безопасность</div>
+                >Доступы</div>
                 <div
                     className={`${styles.inset} ${inset === 'prev' ? styles.chosen : null}`}
                     onClick={() => setInset('prev')}
@@ -33,7 +33,7 @@ const FileProperty = ({close, file }) => {
             {inset === 'prev' ? <PrevVersions file={file} /> : null}
             <div className={styles.buttonsWrap}>
                 <div className={styles.cancel} onClick={close}>Отмена</div>
-                <div className={`${styles.add}`} onClick={close}>Оk</div>
+                <div className={`${styles.add}`} onClick={close}>Готово</div>
             </div>
         </div>
     </PopUp>)

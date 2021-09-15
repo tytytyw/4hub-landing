@@ -11,6 +11,7 @@ import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
 import PreviewFile from '../PreviewFile';
+import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
     contextMenuFolder,
@@ -278,6 +279,12 @@ const MyFolders = ({
             {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={'Удалить'}>
                 <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
             </ActionApproval> : null}
+            {action.type === 'propertiesFolder'
+            ? <FolderProperty
+                close={nullifyAction}
+                folder={chosenFolder}
+            />
+            : null}
             <Error error={error.isError} set={closeError} message={error.message} />
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
         </div>

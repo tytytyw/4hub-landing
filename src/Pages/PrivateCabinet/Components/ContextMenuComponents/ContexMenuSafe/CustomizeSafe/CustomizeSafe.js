@@ -6,24 +6,24 @@ import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import {colors, tags} from '../../../../../../generalComponents/collections'
-// import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
+import {onGetSafes} from '../../../../../../Store/actions/PrivateCabinetActions';
 import Input from '../../../MyProfile/Input'
 import SafeIcon from '../../../Safe/SafeIcon'
 import classNames from 'classnames'
-// import api from '../../../../../../api';
-// import {useSelector} from 'react-redux'
+import api from '../../../../../../api';
+import {useSelector, useDispatch} from 'react-redux'
 
 const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => {
 
-    // const dispatch = useDispatch()
-	// const uid = useSelector((state) => state.user.uid);
-    const [name, setName] = useState('')
+    const dispatch = useDispatch()
+	const uid = useSelector((state) => state.user.uid);
+    const [name, setName] = useState(safe.name)
     const [password, setPassword] = useState('')
-    const [passwordRepeat, setPasswordRepeat] = useState('')
-    const [tagOption, setTagOption] = useState({chosen: '', count: 30})
+    // const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [tagOption, setTagOption] = useState({chosen: safe.tags, count: 30})
     const [color, setColor] = useState(colors?.find(item => item.name === 'blue'))
-    const [sign, setSign] = useState('')
-    const [emoji, setEmoji] = useState('')
+    const [sign, setSign] = useState(safe.fig)
+    const [emoji, setEmoji] = useState(safe.emo)
     const [showPass, setShowPass] = useState('')
 
     const renderTags = () => {
@@ -40,32 +40,31 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
     const addErrors = () => {
         setErrors({
             name: !name,
-            passwordRepeat: password !== passwordRepeat
+            // passwordRepeat: password !== passwordRepeat
         })
     }
 
     const formIsValid = () => {
         addErrors()
-        return !!name && password === passwordRepeat
+        return !!name 
+        // && password === passwordRepeat
     }
 
     
     
-    const onAddSafe = (name, pass, tag, color, fig, emo) => {
-        //TODO: add api
-        // setLoadingType('squarify')
-        // api.get(`/ajax/safe_.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
-        //     .then((res) => {
-        //         if (res.data.ok) {
-        //             dispatch(onGetSafes())
-        //         } else {
-        //             console.log(res) 
-        //         }
-        //     })
-        //     .catch(error => console.log(error))
-        //     .finally(() => setLoadingType(''))
+    const onAddSafe = (name, pass, tag, color, fig, emo, id_safe) => {
+        setLoadingType('squarify')
+        api.get(`/ajax/safe_edit.php?uid=${uid}&id_safe=${id_safe}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`)
+            .then((res) => {
+                if (res.data.ok) {
+                    dispatch(onGetSafes())
+                } else {
+                    console.log(res) 
+                }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setLoadingType(''))
     };
-
     const AddSafe = () => {
 
         if (formIsValid()) {
@@ -74,11 +73,11 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                 password,
                 tag: tagOption?.chosen,
                 color: color?.name,
-                sign,
+                fig: sign,
                 emo: emoji,
+                id_safe: safe.id
             }
-
-            onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo)
+            onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo, safeObj.id_safe)
             close()
         }
 
@@ -201,7 +200,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                                 <Input
                                     type='password'
                                     name='password'
-                                    placeholder='Сменить пароль'
+                                    placeholder='Введите пароль'
                                     showPass={showPass}
                                     setShowPass={setShowPass}
                                     className={styles.input}
@@ -211,7 +210,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                                 />
                             </div>
 
-                            <div className={styles.inputWrap}>
+                            {/* <div className={styles.inputWrap}>
                                 <Input
                                     autocomplete="off"
                                     type='password'
@@ -224,7 +223,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                                     onChange={event => setPasswordRepeat(event.target.value)}
                                     isMistake={errors?.passwordRepeat}
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <Colors color={color} setColor={setColor}/>
                         <Signs sign={sign} setSign={setSign}/>
