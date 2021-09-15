@@ -86,7 +86,7 @@ export const contextMenuProjects = {
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
         {name: 'Все участники', img: 'all-users'},
-        {name: 'Свойства', img: 'property', margin: true},
+        {name: 'Свойства', img: 'property', margin: true, type: 'propertiesProject'},
 
     ],
     additional: [
