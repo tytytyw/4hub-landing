@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './CreateProject.module.sass'
 import api from '../../../../../api'
 import PopUp from '../../../../../generalComponents/PopUp'
@@ -127,7 +127,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                             placeholder='Участники (введите email или выбирите из списка)'
                         />
                         <img
-                            src={'./assets/PrivateCabinet/input-arrow.svg'}
+                            src={`${imageSrc}/assets/PrivateCabinet/input-arrow.svg`}
                             className={styles.arrowInput}
                             alt='Arrow Input'
                         />

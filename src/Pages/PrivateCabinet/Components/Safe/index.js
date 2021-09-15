@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from "./Safe.module.sass";
 import SafeItem from "./SafeItem";
 import SafeIcon from "./SafeIcon";
@@ -250,14 +250,14 @@ const Safe = ({
 							className={`${styles.playButton} ${
 								listCollapsed ? styles.playButtonReverse : undefined
 							}`}
-							src="./assets/PrivateCabinet/play-grey.svg"
+							src={`${imageSrc}/assets/PrivateCabinet/play-grey.svg`}
 							alt="play"
 							onClick={() => setListCollapsed(!listCollapsed)}
 						/>
 						<img
 							onClick={() => setCreateSafe(true)}
 							className={styles.icon}
-							src={`./assets/PrivateCabinet/add-safe.svg`}
+							src={`${imageSrc}/assets/PrivateCabinet/add-safe.svg`}
 							alt="icon"
 						/>
 					</div>
