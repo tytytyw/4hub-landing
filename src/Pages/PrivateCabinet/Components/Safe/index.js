@@ -21,6 +21,7 @@ import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/acti
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
+import SafeProperty from '../ContextMenuComponents/ContexMenuSafe/SafeProperty';
 
 const Safe = ({
 	menuItem,
@@ -113,10 +114,10 @@ const Safe = ({
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
-		// TODO:
 		{type: 'customizeSafe', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+		// TODO:
+		{type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
+		{type: 'propertiesSafe', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
 	];
 
 	const additionalMenuItems = [
@@ -388,7 +389,12 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 				/>
 			) : null}
-
+			{action.type === 'propertiesSafe'
+            ? <SafeProperty
+                close={nullifyAction}
+                safe={selectedSafe}
+            />
+            : null}
 			{showSuccessMessage && (
 				<SuccessMessage
 					showSuccessMessage={showSuccessMessage}

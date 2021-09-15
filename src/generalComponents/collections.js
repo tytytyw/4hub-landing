@@ -134,7 +134,7 @@ export const contextMenuSafeItem = {
         {name: 'Предоставить доступ', img: 'download-blue'},
         {name: 'Редактировать', img: 'edit', type: 'customizeSafe'},
         {name: 'Настроить', img: 'settings-work-tool'},
-        {name: 'Свойства', img: 'info'},
+        {name: 'Свойства', img: 'info', type: 'propertiesSafe'},
     ],
     additional: [
         {name: 'Удалить', img: 'garbage'}
