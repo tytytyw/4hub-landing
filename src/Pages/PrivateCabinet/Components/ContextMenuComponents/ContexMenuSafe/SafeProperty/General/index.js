@@ -9,7 +9,7 @@ const General = ({ safe }) => {
 		<div className={styles.generalWrap}>
 			<div className={styles.nameBlock}>
 				<div className={styles.safeWrap}>
-					<SafeIcon color={safe.id_color} />
+					<SafeIcon type={safe.id_color} />
 				</div>
 				<div className={styles.inputWrap}>
 					<InputField height="90%" placeholder={safe.name} disabled={true} />

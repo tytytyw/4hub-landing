@@ -9,7 +9,7 @@ const PrevVersions = ({ safe }) => {
 		<div className={styles.prevVersionsWrap}>
 			<div className={styles.nameBlock}>
 				<div className={styles.safeWrap}>
-					<SafeIcon color={safe.id_color} />
+					<SafeIcon type={safe.id_color} />
 				</div>
 				<div className={styles.inputWrap}>
 					<InputField height="90%" placeholder={safe.name} disabled={true} />
@@ -22,7 +22,7 @@ const PrevVersions = ({ safe }) => {
 				</div>
 				<div className={styles.prevFileBlock}>
 					<div className={styles.safeWrap}>
-						<SafeIcon color={safe.id_color} />
+						<SafeIcon type={safe.id_color} />
 					</div>
 					<div className={styles.infoFile}>
 						<span>{safe.name}</span>

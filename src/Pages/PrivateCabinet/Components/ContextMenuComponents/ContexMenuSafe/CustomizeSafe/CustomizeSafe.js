@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 
 import styles from './CustomizeSafe.module.sass'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
@@ -13,17 +13,17 @@ import classNames from 'classnames'
 import api from '../../../../../../api';
 import {useSelector, useDispatch} from 'react-redux'
 
-const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => {
+const CustomizeSafe = ({safe, close, setLoadingType}) => {
 
     const dispatch = useDispatch()
 	const uid = useSelector((state) => state.user.uid);
     const [name, setName] = useState(safe.name)
     const [password, setPassword] = useState('')
-    // const [passwordRepeat, setPasswordRepeat] = useState('')
     const [tagOption, setTagOption] = useState({chosen: safe.tags, count: 30})
-    const [color, setColor] = useState(colors?.find(item => item.name === 'blue'))
-    const [sign, setSign] = useState(safe.fig)
-    const [emoji, setEmoji] = useState(safe.emo)
+    const [color, setColor] = useState(colors?.find(item => item.name === safe.id_color))
+    const defaultColor = 'grey';
+    const [sign, setSign] = useState(safe.id_fig)
+    const [emoji, setEmoji] = useState(safe.id_emo)
     const [showPass, setShowPass] = useState('')
 
     const renderTags = () => {
@@ -40,17 +40,14 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
     const addErrors = () => {
         setErrors({
             name: !name,
-            // passwordRepeat: password !== passwordRepeat
         })
     }
 
     const formIsValid = () => {
         addErrors()
         return !!name 
-        // && password === passwordRepeat
     }
-
-    
+   
     
     const onAddSafe = (name, pass, tag, color, fig, emo, id_safe) => {
         setLoadingType('squarify')
@@ -72,7 +69,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                 name,
                 password,
                 tag: tagOption?.chosen,
-                color: color?.name,
+                color: color?.name || defaultColor,
                 fig: sign,
                 emo: emoji,
                 id_safe: safe.id
@@ -112,7 +109,7 @@ const CustomizeSafe = ({safe, close, setShowSuccessMessage, setLoadingType}) => 
                                 onClick={() => setColor(colors[0])}
                             >
                                 <SafeIcon
-                                    type={color?.name}
+                                    type={color?.name || defaultColor}
                                     className={styles.safeIcon}
                                 />
                             </div>
