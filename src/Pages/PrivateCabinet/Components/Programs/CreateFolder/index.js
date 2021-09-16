@@ -53,7 +53,7 @@ const CreateFolder = ({onCreate, title, info}) => {
                 params: {
                     uid,
                     dir_name: name,
-                    parent: info?.path ? info.path : 'other',
+                    parent: info?.path ? info.path : '',
                     tag: tagOption.chosen,
                     pass: passwordCoincide ? password : '',
                     color: color.color,
