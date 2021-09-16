@@ -323,55 +323,18 @@ export const onDeleteSafeFile = (file) => {
 // PROGRAMS
 
 export const onGetProgramFolders = () => async (dispatch, getState) => {
-    dispatch({
-        type: GET_PROGRAM_FOLDERS,
-        payload: [
-            {
-                id: 1,
-                icon: 'folder-5',
-                name: "office",
-                nameRu: "Офис",
-                path: "global/video"
-            },
-            {
-                id: 2,
-                icon: 'folder-4',
-                name: "design_program",
-                nameRu: "Программы для дизайна",
-                path: "global/video",
-                symbol: './assets/PrivateCabinet/locked.svg',
-                emo: 'happy'
-            },
-            {
-                id: 3,
-                icon: 'folder-4',
-                name: "montaj_program",
-                nameRu: "Программы для монтажа",
-                path: "global/video"
-            },
-            {
-                id: 4,
-                icon: 'folder-4',
-                name: "study_program",
-                nameRu: "Программы для обучения",
-                path: "global/video"
-            },
-            {
-                id: 5,
-                icon: 'folder-4',
-                name: "games",
-                nameRu: "Игры",
-                path: "global/video"
-            },
-            {
-                id: 6,
-                icon: 'folder-4',
-                name: "other",
-                nameRu: "Разное",
-                path: "global/video"
-            },
-        ]
-    })
+
+    const uid = getState().user.uid
+    api.get(`/ajax/app_folder_list.php?uid=${uid}`)
+        .then((res) => {
+            if (res.data.ok) {
+                dispatch({
+                    type: GET_PROGRAM_FOLDERS,
+                    payload: res.data.files
+                })
+            }
+        })
+        .catch(error => console.log(error))
 };
 
 export const onGetRecentPrograms = () => async (dispatch, getState) => {
