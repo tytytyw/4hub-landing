@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useRef, useState} from 'react'
 
 import styles from './CustomizeSafe.module.sass'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
