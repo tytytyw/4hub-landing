@@ -7,6 +7,7 @@ import CustomFolderItem from '../CustomFolderItem'
 import {useDispatch, useSelector} from 'react-redux'
 import {onGetProjectFolders} from '../../../../../Store/actions/PrivateCabinetActions'
 import CustomItem from '../CustomItem'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {ReactComponent as ClipboardIcon} from '../../../../../assets/PrivateCabinet/project/clipboard.svg'
 import {ReactComponent as CoworkingIcon} from '../../../../../assets/PrivateCabinet/project/coworking.svg'
 import {ReactComponent as LampIcon} from '../../../../../assets/PrivateCabinet/project/lamp.svg'
@@ -103,14 +104,14 @@ const ProjectItem = ({
                                 {project?.id_fig &&
                                 <img
                                     className={styles.symbols}
-                                    src={`./assets/PrivateCabinet/signs/${project.id_fig}.svg`}
+                                    src={`${imageSrc}/assets/PrivateCabinet/signs/${project.id_fig}.svg`}
                                     alt='emoji'
                                 />}
 
                                 {project?.id_emo &&
                                 <img
                                     className={classNames(styles.symbols, styles.smiles)}
-                                    src={`./assets/PrivateCabinet/smiles/${project.id_emo}.svg`}
+                                    src={`${imageSrc}/assets/PrivateCabinet/smiles/${project.id_emo}.svg`}
                                     alt='emoji'
                                 />}
 
@@ -149,15 +150,15 @@ const ProjectItem = ({
                         badge={project?.tasks}
                         item={{
                             name: 'Мои задачи в проете',
-                            img: './assets/PrivateCabinet/calendar.svg',
+                            img: `${imageSrc}/assets/PrivateCabinet/calendar.svg`,
                         }}
                     />
                     <CustomItem
                         listSize={size}
                         item={{
                             name: 'Создать новую папку',
-                            img: './assets/PrivateCabinet/folders/folder-grey.svg',
-                            symbol: './assets/PrivateCabinet/folders/add.svg'
+                            img: `${imageSrc}/assets/PrivateCabinet/folders/folder-grey.svg`,
+                            symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
                         }}
                     />
                     {renderFolders()}

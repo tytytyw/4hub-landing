@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import styles from './AddMember.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
 import RadioCheck from './RadioCheck/RadioCheck'
 import {useSelector} from 'react-redux'
@@ -168,7 +168,7 @@ const AddMember = ({set, selectedItem}) => {
                         >
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/email.svg'
+                                src={`${imageSrc}/assets/PrivateCabinet/email.svg`}
                                 alt='Email'
                             />
                             <p>Email</p>
@@ -193,7 +193,7 @@ const AddMember = ({set, selectedItem}) => {
                         <li className={styles.socialsItem}>
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/more.svg'
+                                src={`${imageSrc}/assets/PrivateCabinet/more.svg`}
                                 alt='Email'
                             />
                             <p>Ещё</p>

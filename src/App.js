@@ -22,11 +22,11 @@ function App() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        options.business ? <BusinessCabinet/> :
         <>
-            {!uid && !options.guest ? <StartPage setOptions={setOptions} /> : null}
-            {!uid && options.guest ? <Guest/> : null}
-            {!options.guest && uid ? <PrivateCabinet/> : null}
+            {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} /> : null}
+            {!uid && options.guest && !options.business ? <Guest/> : null}
+            {!options.guest && uid && !options.business ? <PrivateCabinet/> : null}
+            {!options.guest && options.business ? <BusinessCabinet/> : null}
         </>
     );
 }

@@ -11,6 +11,7 @@ import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
 import PreviewFile from '../PreviewFile';
+import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
     contextMenuFolder,
@@ -121,7 +122,6 @@ const MyFolders = ({
     const callbackArrMain = [
         // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        // {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
@@ -129,7 +129,7 @@ const MyFolders = ({
     const callbackArrOther = [
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
@@ -137,7 +137,7 @@ const MyFolders = ({
 
     const callbackArrSub = [
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])}
@@ -245,7 +245,7 @@ const MyFolders = ({
                     setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
-            {action.type === 'copyLink' ? <CopyLinkFolder
+            {action.type === 'setAccessFolder' ? <CopyLinkFolder
                 nullifyAction={nullifyAction}
                 folder={chosenFolder}
                 setShowSuccessMessage={setShowSuccessMessage}
@@ -268,6 +268,12 @@ const MyFolders = ({
             {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={'Удалить'}>
                 <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
             </ActionApproval> : null}
+            {action.type === 'propertiesFolder'
+            ? <FolderProperty
+                close={nullifyAction}
+                folder={chosenFolder}
+            />
+            : null}
             <Error error={error.isError} set={closeError} message={error.message} />
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
         </div>

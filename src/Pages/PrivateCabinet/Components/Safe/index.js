@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from "./Safe.module.sass";
 import SafeItem from "./SafeItem";
 import SafeIcon from "./SafeIcon";
@@ -21,6 +21,7 @@ import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/acti
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
+import SafeProperty from '../ContextMenuComponents/ContexMenuSafe/SafeProperty';
 
 const Safe = ({
 	menuItem,
@@ -113,10 +114,10 @@ const Safe = ({
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
-		// TODO:
 		{type: 'customizeSafe', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
+		// TODO:
+		{type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
+		{type: 'propertiesSafe', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
 	];
 
 	const additionalMenuItems = [
@@ -249,14 +250,14 @@ const Safe = ({
 							className={`${styles.playButton} ${
 								listCollapsed ? styles.playButtonReverse : undefined
 							}`}
-							src="./assets/PrivateCabinet/play-grey.svg"
+							src={`${imageSrc}/assets/PrivateCabinet/play-grey.svg`}
 							alt="play"
 							onClick={() => setListCollapsed(!listCollapsed)}
 						/>
 						<img
 							onClick={() => setCreateSafe(true)}
 							className={styles.icon}
-							src={`./assets/PrivateCabinet/add-safe.svg`}
+							src={`${imageSrc}/assets/PrivateCabinet/add-safe.svg`}
 							alt="icon"
 						/>
 					</div>
@@ -388,7 +389,12 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 				/>
 			) : null}
-
+			{action.type === 'propertiesSafe'
+            ? <SafeProperty
+                close={nullifyAction}
+                safe={selectedSafe}
+            />
+            : null}
 			{showSuccessMessage && (
 				<SuccessMessage
 					showSuccessMessage={showSuccessMessage}

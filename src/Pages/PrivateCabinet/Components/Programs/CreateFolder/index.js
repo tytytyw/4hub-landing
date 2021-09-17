@@ -2,19 +2,19 @@ import React, {useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
-import api from '../../../../api';
-import PopUp from '../../../../generalComponents/PopUp';
-import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
-import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
-import Error from '../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../Store/actions/PrivateCabinetActions';
-import Colors from '../../../../generalComponents/Elements/Colors';
-import '../../../../generalComponents/colors.sass';
-import Signs from '../../../../generalComponents/Elements/Signs';
-import Emoji from '../../../../generalComponents/Elements/Emoji';
+import api from '../../../../../api';
+import PopUp from '../../../../../generalComponents/PopUp';
+import {ReactComponent as FolderIcon} from '../../../../../assets/PrivateCabinet/folder-2.svg';
+import InputField from '../../../../../generalComponents/InputField';
+import {tags, colors} from '../../../../../generalComponents/collections';
+import Error from '../../../../../generalComponents/Error';
+import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions';
+import Colors from '../../../../../generalComponents/Elements/Colors';
+import '../../../../../generalComponents/colors.sass';
+import Signs from '../../../../../generalComponents/Elements/Signs';
+import Emoji from '../../../../../generalComponents/Elements/Emoji';
 
-const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
+const CreateFolder = ({onCreate, title, info}) => {
 
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.PrivateCabinet.folderList);
@@ -49,16 +49,27 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
 
     const onAddFolder = () => {
         if(name) {
-            const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
-            api.post(`/ajax/dir_add.php?${params}`)
-                .then(res => {if(res.data.ok === 1) {
-                    onCreate(false);
-                } else {setError(true)}
+            api.post(`/ajax/app_folder_add.php`, {}, {
+                params: {
+                    uid,
+                    dir_name: name,
+                    parent: info?.path ? info.path : '',
+                    tag: tagOption.chosen,
+                    pass: passwordCoincide ? password : '',
+                    color: color.color,
+                    symbol: sign,
+                    emoji
+                }
+            })
+                .then(res => {
+                    if(res.data.ok === 1) {
+                        dispatch(onGetFolders(folderList.path));
+                        onCreate(false);
+                    } else {
+                        setError(true)
+                    }
                 })
                 .catch(() => {setError(true)})
-                .finally(() => {
-                    dispatch(onGetFolders(folderList.path));
-                }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {
             setNoNameError(true)
         }

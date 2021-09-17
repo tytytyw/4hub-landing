@@ -53,7 +53,7 @@ const PrivateCabinet = () => {
 
     const stayOnline = (time) => {
         setTimeout(() => {
-            api.post(`ajax/user_alive?uid=${uid}`)
+            api.post(`ajax/user_alive.php?uid=${uid}`)
                 .finally(() => stayOnline(60000));
         }, time)
     }
@@ -313,7 +313,7 @@ const PrivateCabinet = () => {
             </div>
             {loadingType ? <Loader
                 position='absolute'
-                zIndex={5}
+                zIndex={102}
                 containerType='bounceDots'
                 type='bounceDots'
             /> : null}

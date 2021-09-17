@@ -51,7 +51,7 @@ export const contextMenuProfile = {
 export const contextMenuFilters = {
     main: [
         {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
-        {name: `По дате добавления/создания`, reverseName: 'По дате добавления/создания', img: '', ext: 'byDateCreated'},
+        {name: `По дате добавления/создания`, reverseName: 'По дате добавления/создания', img: '', ext: 'byDateCreated&sort_reverse=1'},
         {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged&sort_reverse=1'},
         {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
         {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize&sort_reverse=1'},
@@ -86,7 +86,7 @@ export const contextMenuProjects = {
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
         {name: 'Все участники', img: 'all-users'},
-        {name: 'Свойства', img: 'property', margin: true},
+        {name: 'Свойства', img: 'property', margin: true, type: 'propertiesProject'},
 
     ],
     additional: [
@@ -98,8 +98,7 @@ export const contextMenuProjects = {
 export const contextMenuFolderGeneral = {
     main: [
         // {name: 'Расшарить', img: 'resend'},
-        {name: 'Настроить доступ', img: 'shareFile'},
-        // {name: 'Скопировать сслылку', img: 'link-4'},
+        {name: 'Доступ и экспорт', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
@@ -109,8 +108,7 @@ export const contextMenuFolderGeneral = {
 export const contextMenuFolder = {
     main: [
         {name: 'Расшарить', img: 'resend'},
-        {name: 'Настроить доступ', img: 'shareFile'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
+        {name: 'Доступ и экспорт', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
@@ -134,7 +132,7 @@ export const contextMenuSafeItem = {
         {name: 'Предоставить доступ', img: 'download-blue'},
         {name: 'Редактировать', img: 'edit', type: 'customizeSafe'},
         {name: 'Настроить', img: 'settings-work-tool'},
-        {name: 'Свойства', img: 'info'},
+        {name: 'Свойства', img: 'info', type: 'propertiesSafe'},
     ],
     additional: [
         {name: 'Удалить', img: 'garbage'}

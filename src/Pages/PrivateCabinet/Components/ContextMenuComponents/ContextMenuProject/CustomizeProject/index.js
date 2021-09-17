@@ -21,7 +21,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
     const [members, setMembers] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
-    const [setPasswordCoincide] = useState(false);
+    const [passwordCoincide, setPasswordCoincide] = useState(false);
     const [showRepeat, setShowRepeat] = useState(false);
     const [noNameError, setNoNameError] = useState(false);
     const [tagOption, setTagOption] = useState({chosen: project.tags, count: 30});
@@ -45,7 +45,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
 
     const onCustomize = () => {
         if(!name) return setNoNameError(true);
-        if(password !== passwordRepeat) return setPasswordCoincide(false);
+        if(showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
         onCreate(false)
         setLoadingType('squarify')
         api.get(`/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
@@ -160,6 +160,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             visibility={visibility}
                             setVisibility={setVisibility}
                             comparePass={comparePass}
+                            mistake={!passwordCoincide}
                         />
                     </div>}
 

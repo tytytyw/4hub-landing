@@ -40,7 +40,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -163,6 +163,12 @@ export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dis
         .catch(e => console.log(e))
         .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
+
+export const nullifyFilters = () => {
+    return {
+        type: NULLIFY_FILTERS,
+    }
+}
 
 export const onDeleteFile = (file) => {
     return {
@@ -317,55 +323,18 @@ export const onDeleteSafeFile = (file) => {
 // PROGRAMS
 
 export const onGetProgramFolders = () => async (dispatch, getState) => {
-    dispatch({
-        type: GET_PROGRAM_FOLDERS,
-        payload: [
-            {
-                id: 1,
-                icon: 'folder-5',
-                name: "office",
-                nameRu: "Офис",
-                path: "global/video"
-            },
-            {
-                id: 2,
-                icon: 'folder-4',
-                name: "design_program",
-                nameRu: "Программы для дизайна",
-                path: "global/video",
-                symbol: './assets/PrivateCabinet/locked.svg',
-                emo: 'happy'
-            },
-            {
-                id: 3,
-                icon: 'folder-4',
-                name: "montaj_program",
-                nameRu: "Программы для монтажа",
-                path: "global/video"
-            },
-            {
-                id: 4,
-                icon: 'folder-4',
-                name: "study_program",
-                nameRu: "Программы для обучения",
-                path: "global/video"
-            },
-            {
-                id: 5,
-                icon: 'folder-4',
-                name: "games",
-                nameRu: "Игры",
-                path: "global/video"
-            },
-            {
-                id: 6,
-                icon: 'folder-4',
-                name: "other",
-                nameRu: "Разное",
-                path: "global/video"
-            },
-        ]
-    })
+
+    const uid = getState().user.uid
+    api.get(`/ajax/app_folder_list.php?uid=${uid}`)
+        .then((res) => {
+            if (res.data.ok) {
+                dispatch({
+                    type: GET_PROGRAM_FOLDERS,
+                    payload: res.data.files
+                })
+            }
+        })
+        .catch(error => console.log(error))
 };
 
 export const onGetRecentPrograms = () => async (dispatch, getState) => {
@@ -573,7 +542,8 @@ export const onGetDevices = () => async (dispatch, getState) => {
                         name: device[1].data.browser,
                         os: device[1].data.platform,
                         device: device[1].data.device_type || 'unknown',
-                        last_visit: device[1]?.ut_last?.split(' ')[0] || ''
+                        last_visit: device[1]?.ut_last?.split(' ')[0] || '',
+                        is_online: device[1]?.is_online || 0
                     }
                     list.push(obj);
                 })

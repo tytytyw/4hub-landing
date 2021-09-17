@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux'
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {onGetPrograms} from '../../../../../Store/actions/PrivateCabinetActions'
@@ -27,7 +27,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
 
                 <div className={styles.innerFolderName}>
                     <img
-                        src={`./assets/PrivateCabinet/folders/${folder.icon}.svg`}
+                        src={`${imageSrc}/assets/PrivateCabinet/folders/${folder.icon}.svg`}
                         alt='icon'
                         className={styles.innerFolderIcon}
                     />
@@ -49,7 +49,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
                     {folder.emo &&
                     <img
                         className={styles.symbols}
-                        src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
+                        src={`${imageSrc}/assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
                         alt='emoji'
                     />}
 

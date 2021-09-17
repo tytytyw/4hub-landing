@@ -6,7 +6,12 @@ import axios from 'axios';
 import styles from './FileLoader.module.sass';
 import LoadItem from './LoadItem';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
-import {onChooseFiles, onChooseAllFiles, onGetSafeFileList} from '../../../../Store/actions/PrivateCabinetActions';
+import {
+    onChooseFiles,
+    onChooseAllFiles,
+    onGetSafeFileList,
+    nullifyFilters
+} from '../../../../Store/actions/PrivateCabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 
@@ -142,6 +147,7 @@ const FileLoader = ({
                 setProcessing(0);
             }
         }else {console.log(res)}
+        dispatch(nullifyFilters())
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
         if (menuItem === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));

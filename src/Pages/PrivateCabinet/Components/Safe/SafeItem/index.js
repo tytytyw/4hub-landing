@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './SafeItem.module.sass'
 import classNames from 'classnames'
 import SafeIcon from '../SafeIcon'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe}) => {
 
@@ -30,14 +31,14 @@ const SafeItem = ({safe, chosen, setMouseParams, onClick, listSize, setSelectedS
                         {safe?.id_emo &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
+                            src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
                             alt='emoji'
                         />}
 
                         {safe?.id_fig &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
+                            src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
                             alt='emoji'
                         />}
                     </div>
