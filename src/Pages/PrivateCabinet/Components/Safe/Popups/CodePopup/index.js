@@ -37,7 +37,6 @@ const CodePopup = ({
 					`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
 				)
 				.then((res) => {
-					//TODO: check res.ok
 					if (res.data.f_pass) showSendCode(true)
 						else setErrPass('password');
 				})
