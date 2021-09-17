@@ -28,7 +28,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
     const [color, setColor] = useState({name: project.id_color});
     const [sign, setSign] = useState(project.id_fig);
     const [emoji, setEmoji] = useState(project.id_emo);
-    const [icon, setIcon] = useState(project.id_icon);
+    const [icon, setIcon] = useState(project.icon);
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
         if(showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
         onCreate(false)
         setLoadingType('squarify')
-        api.get(`/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
+        api.get(`/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon || 'clipboard'}&tag=${tagOption.chosen}&color=${color.name || 'grey'}&symbol=${sign}&emoji=${emoji}`)
             .then((res) => {
                 if (res.data.ok === 1) {
                     dispatch(onGetProjects())

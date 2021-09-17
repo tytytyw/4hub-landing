@@ -65,7 +65,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 				if (res.data.ok) {
 					onCreate(false);
 					dispatch(onGetSafes());
-				} else if ((res.data.error === "name exists2")) {
+				} else if ((res.data.error === "name exists")) {
 					setError("Сейф с таким именем уже существует");
                     setErrors({name: true});
 				} else {
