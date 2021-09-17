@@ -14,7 +14,7 @@ function App() {
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
-    const [options, setOptions] = useState({guest: false, business: true})
+    const [options, setOptions] = useState({guest: false, business: false})
 
     useEffect(() => {
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
