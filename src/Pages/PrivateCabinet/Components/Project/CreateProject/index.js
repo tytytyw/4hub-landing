@@ -60,7 +60,6 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                     setNoNameError(true)
 				} else {
 					setError("Что-то пошло не так. Повторите попытку позже");
-                    setNoNameError(true)
 				}
             })
             .catch(error => console.log(error))
