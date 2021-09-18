@@ -24,6 +24,7 @@ import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
+import classNames from "classnames";
 
 const WorkSpace = ({
 	menuItem,
@@ -209,13 +210,11 @@ const WorkSpace = ({
 	return (
 		<>
 			<div
-				className={`${styles.workSpaceWrap} ${
-					typeof listCollapsed === "boolean"
-						? listCollapsed
-							? styles.workSpaceWrapCollapsed
-							: styles.workSpaceWrapUncollapsed
-						: undefined
-				}`}
+				className={classNames({
+					[styles.workSpaceWrap]: true,
+					[styles.workSpaceWrapCollapsed]: !!listCollapsed,
+					[styles.workSpaceWrapUncollapsed]: !listCollapsed
+				})}
 			>
 				<div className={styles.header}>
 					<SearchField />
@@ -225,7 +224,7 @@ const WorkSpace = ({
 						<Profile />
 					</div>
 				</div>
-				{authorizedSafe && <ServePanel
+				{!authorizedSafe && <ServePanel
 					chosenFile={chosenFile}
 					setAction={setAction}
 					share={() => onActiveCallbackArrMain("share")}
