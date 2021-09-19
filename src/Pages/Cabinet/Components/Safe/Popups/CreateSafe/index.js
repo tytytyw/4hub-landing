@@ -7,6 +7,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import { colors, tags } from "../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
 import SafeIcon from "../../SafeIcon";
@@ -164,7 +165,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 											onClick={() => setSign("")}
 										>
 											<img
-												src={`./assets/PrivateCabinet/signs/${sign}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
 												alt="emoji"
 											/>
 										</div>
@@ -176,7 +177,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 											onClick={() => setEmoji("")}
 										>
 											<img
-												src={`./assets/PrivateCabinet/smiles/${emoji}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
 												alt="emoji"
 											/>
 										</div>

@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./ShareToMessengers.module.sass";
 import classNames from "classnames";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+
 
 const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
 	//TODO: add safe link
@@ -24,22 +26,22 @@ const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
 		{
 			label: "Email",
 			type: "email",
-			icon: "./assets/PrivateCabinet/socials/mail.svg",
+			icon: `${imageSrc}/assets/PrivateCabinet/socials/mail.svg`,
 		},
 		{
 			label: "Viber",
 			type: "viber",
-			icon: "./assets/PrivateCabinet/socials/viber.svg",
+			icon: `${imageSrc}/assets/PrivateCabinet/socials/viber.svg`,
 		},
 		{
 			label: "WhatsApp",
 			type: "whatsapp",
-			icon: "./assets/PrivateCabinet/socials/whatsapp.svg",
+			icon: `${imageSrc}/assets/PrivateCabinet/socials/whatsapp.svg`,
 		},
 		{
 			label: "Telegram",
 			type: "telegram",
-			icon: "./assets/PrivateCabinet/socials/telegram.svg",
+			icon: `${imageSrc}/assets/PrivateCabinet/socials/telegram.svg`,
 		},
         //TODO: skype, slack
 	];

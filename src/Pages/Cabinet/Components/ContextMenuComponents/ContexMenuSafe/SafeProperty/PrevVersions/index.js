@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./PrevVersions.module.sass";
 import SafeIcon from "../../../../Safe/SafeIcon";
 import InputField from "../../../../../../../generalComponents/InputField";
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const PrevVersions = ({ safe }) => {
 	return (
@@ -31,13 +32,13 @@ const PrevVersions = ({ safe }) => {
 								<div className={styles.signs}>
 									{safe.fig ? (
 										<img
-											src={`./assets/PrivateCabinet/signs/${safe.fig}.svg`}
+											src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.fig}.svg`}
 											alt="emoji"
 										/>
 									) : null}
 									{safe.emo ? (
 										<img
-											src={`./assets/PrivateCabinet/smiles/${safe.emo}.svg`}
+											src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.emo}.svg`}
 											alt="emoji"
 										/>
 									) : null}

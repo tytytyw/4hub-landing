@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
-// import File from "../../../../../../generalComponents/Files";
+import SafeIcon from "../../../../Components/Safe/SafeIcon";
 import classNames from "classnames";
 import styles from "./StoragePeriod.module.sass";
 import { ReactComponent as CalendarIco } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
 import { ReactComponent as EyeIco } from "../../../../../../assets/PrivateCabinet/clock.svg";
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function StoragePeriod({ safe, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue}) {
 	const curretDate = new Date().toLocaleDateString('ru-RU')
@@ -49,37 +50,28 @@ function StoragePeriod({ safe, setDisplayStotagePeriod, dateValue, setDateValue,
 		<div className={styles.wrap}>
 			<div className={classNames(styles.header, styles.border_bottom)}>
 				<div className={styles.innerFileWrap}>
-					{/* <File color={file.id_color} format={file.ext} />
-					{file.is_pass ? (
-						<img
-							className={styles.lock}
-							src="./assets/PrivateCabinet/locked.svg"
-							alt="lock"
-						/>
-					) : null} */}
-					safeIco
+					<SafeIcon type={safe.id_color} />
 				</div>
 				<div className={styles.descriptionWrap}>
 					<div className={styles.fileName}>
-						{safe.name.slice(0, safe.name.lastIndexOf("."))}
+						{safe.name}
 					</div>
-					{/* <div className={styles.innerFileInfo}>
-						<div className={styles.fileSize}>{file.size_now}</div>
+					<div className={styles.innerFileInfo}>
 						<div className={styles.descriptionGroup}>
-							{file.fig && (
+							{safe.id_fig && (
 								<img
-									src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
 									alt="sign"
 								/>
 							)}
-							{file.emo && (
+							{safe.id_emo && (
 								<img
-									src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
 									alt="emoji"
 								/>
 							)}
 						</div>
-					</div> */}
+					</div>
 				</div>
 				<div className={styles.buttons_wrap}>
 					<div

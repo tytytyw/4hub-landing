@@ -6,6 +6,7 @@ import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/Cabine
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
@@ -52,15 +53,15 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             <div className={styles.innerFolder} style={{padding}}>
                 <div className={styles.innerFolderName}>
                     <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
-                    {f.is_pass === 1 && <img className={styles.lock} src={`./assets/PrivateCabinet/locked.svg`} alt='emoji' />}
+                    {f.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}/assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     {!listCollapsed && <div className={styles.nameWrap}>
                         <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>(0)</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                     </div>}
                 </div>
                 <div className={styles.innerFolderMedia}>
-                    {!listCollapsed && f.emo && <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
-                    {!listCollapsed && f.fig && <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
+                    {!listCollapsed && f.emo && <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
+                    {!listCollapsed && f.fig && <img src={`${imageSrc}/assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
                     {!subFolder ?<PlayIcon
                         className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`}
                     /> : null}
