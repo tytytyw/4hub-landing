@@ -12,12 +12,12 @@ import '../../../../../../generalComponents/colors.sass';
 import Signs from '../../../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
-import {onChooseFiles} from '../../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles} from '../../../../../../Store/actions/CabinetActions';
 
 const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
 
     const uid = useSelector(state => state.user.uid);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [name, setName] = useState(file.fname.slice(0, file.fname.lastIndexOf('.')));
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');

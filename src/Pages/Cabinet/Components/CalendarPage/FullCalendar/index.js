@@ -13,7 +13,7 @@ import {useSelector} from 'react-redux'
 const FullCalendarTable = ({events}) => {
 
     const calendarRef = useRef()
-    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const renderEventContent = eventInfo => {
         return (

@@ -14,7 +14,7 @@ import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
-import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/CabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
@@ -26,7 +26,7 @@ const WorkSpace = ({chosenFile, setChosenFile,
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('preview');
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});

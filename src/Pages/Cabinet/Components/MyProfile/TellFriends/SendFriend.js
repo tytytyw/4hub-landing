@@ -14,7 +14,7 @@ import classNames from 'classnames'
 
 const SendFriend = ({set, selectedItem}) => {
 
-    const contacts = useSelector(state => state.PrivateCabinet.contactList)
+    const contacts = useSelector(state => state.Cabinet.contactList)
     const uid = useSelector(state => state.user.uid)
 
     const [to, setTo] = useState(null)

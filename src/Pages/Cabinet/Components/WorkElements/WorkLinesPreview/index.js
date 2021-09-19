@@ -5,16 +5,16 @@ import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
     //const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const search = useSelector(state => state.PrivateCabinet?.search);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const size = useSelector(state => state.Cabinet.size);
+    const search = useSelector(state => state.Cabinet?.search);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 

@@ -7,8 +7,8 @@ import File from '../../../../../../generalComponents/Files';
 const WorkBarsPreview = ({children, file}) => {
 
     const [f, setF] = useState(file);
-    const search = useSelector(state => state.PrivateCabinet?.search);
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const search = useSelector(state => state.Cabinet?.search);
+    const size = useSelector(state => state.Cabinet.size);
     useEffect(() => {setF(file); setPlay(false)}, [file]);
 
     const audioRef = useRef(null);

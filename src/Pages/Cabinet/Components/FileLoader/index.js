@@ -11,7 +11,7 @@ import {
     onChooseAllFiles,
     onGetSafeFileList,
     nullifyFilters
-} from '../../../../Store/actions/PrivateCabinetActions';
+} from '../../../../Store/actions/CabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 
@@ -28,14 +28,14 @@ const FileLoader = ({
     const [params, setParams] = useState({x: -1, y: -1, offsetX: 0, offsetY: 0, width: 0, height: 0});
     const [display, setDisplay] = useState('block');
     const uid = useSelector(state => state.user?.uid);
-    const search = useSelector(state => state.PrivateCabinet.search);
-    const path = useSelector(state => state.PrivateCabinet.fileList?.path);
+    const search = useSelector(state => state.Cabinet.search);
+    const path = useSelector(state => state.Cabinet.fileList?.path);
     const [response, setResponse] = useState(null);
     const dispatch = useDispatch();
     const fileLoaderRef = useRef(null);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
-    const authorizedSafe = useSelector(state => state.PrivateCabinet.authorizedSafe);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
+    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
 
     //Cancel Loading variables
     const CancelToken = axios.CancelToken;

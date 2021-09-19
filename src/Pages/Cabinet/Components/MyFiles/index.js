@@ -13,7 +13,7 @@ import {
 	onDeleteFile,
 	onAddRecentFiles,
 	onChooseAllFiles,
-} from "../../../../Store/actions/PrivateCabinetActions";
+} from "../../../../Store/actions/CabinetActions";
 import CreateSafePassword from "../CreateSafePassword";
 import PreviewFile from "../PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
@@ -42,8 +42,8 @@ const MyFiles = ({
 	const uid = useSelector((state) => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
-	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
-	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
+	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 	const [gLoader, setGLoader] = useState(false);
 

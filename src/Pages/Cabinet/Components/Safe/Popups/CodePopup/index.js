@@ -9,7 +9,7 @@ import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
-import { onGetSafeFileList } from "../../../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
 
 const CodePopup = ({
 	safe,

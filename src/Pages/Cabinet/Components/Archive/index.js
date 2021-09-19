@@ -20,10 +20,10 @@ import { months } from "../../../../generalComponents/CalendarHelper";
 
 const Archive = () => {
 
-    const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+    const workElementsView = useSelector((state) => state.Cabinet.view);
     
     const [search, setSearch] = useState(null)
-    const fileList = useSelector((state) => state.PrivateCabinet.fileList)
+    const fileList = useSelector((state) => state.Cabinet.fileList)
 
     const [year, setYear] = useState(null)
     const [month, setMonth] = useState(null)

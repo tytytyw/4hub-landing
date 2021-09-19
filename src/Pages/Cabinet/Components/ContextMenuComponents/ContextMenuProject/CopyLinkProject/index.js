@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as CopyIcon} from "../../../../../../assets/PrivateCabinet/copy.svg";
 import {ReactComponent as UserIcon} from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import {ReactComponent as WorldIcon} from "../../../../../../assets/PrivateCabinet/world.svg";
-import {onGetContacts} from "../../../../../../Store/actions/PrivateCabinetActions";
+import {onGetContacts} from "../../../../../../Store/actions/CabinetActions";
 import {imageSrc} from "../../../../../../generalComponents/globalVariables";
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
@@ -16,7 +16,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage }) {
 
     // const uid = useSelector(state => state.user.uid);
-    const contactList = useSelector(state => state.PrivateCabinet.contactList);
+    const contactList = useSelector(state => state.Cabinet.contactList);
     const [url, setUrl] = useState("Загрузка...");
     const [review, setReview] = useState({text: "Просмотр"});
     const [access, setAccess] = useState({text: "limited"});

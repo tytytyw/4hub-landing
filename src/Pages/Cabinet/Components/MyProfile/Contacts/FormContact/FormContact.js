@@ -14,7 +14,7 @@ import Button from '../../Button'
 
 import {messengersIcons, socialsIcons} from '../consts'
 import Input from '../../Input'
-import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
+import {onGetContacts} from '../../../../../../Store/actions/CabinetActions'
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
 

@@ -4,12 +4,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import styles from './Categories.module.sass'
 import classNames from 'classnames'
 import {categoryIcons} from '../consts'
-import {onGetPrograms} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
 
 const Categories = ({chosenCategory, setChosenCategory}) => {
 
     const dispatch = useDispatch()
-    const categories = useSelector(state => state.PrivateCabinet.categories)
+    const categories = useSelector(state => state.Cabinet.categories)
 
     const renderCategories = () => {
         if (!categories) return null

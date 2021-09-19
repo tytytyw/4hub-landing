@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 const WorkBars = ({children, shop}) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size)
+    const size = useSelector(state => state.Cabinet.size)
 
     return (
 

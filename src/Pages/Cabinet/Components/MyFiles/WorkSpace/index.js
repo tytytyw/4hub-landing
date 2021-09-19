@@ -64,8 +64,8 @@ const WorkSpace = ({
 	gLoader,
 	menuItem
 }) => {
-	const fileListAll = useSelector((state) => state.PrivateCabinet.fileListAll);
-	const recentFiles = useSelector((state) => state.PrivateCabinet.recentFiles);
+	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
+	const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
 	const fileRef = useRef(null);
 
 	useEffect(() => {

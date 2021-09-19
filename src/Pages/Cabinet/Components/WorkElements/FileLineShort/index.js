@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 
 const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const size = useSelector(state => state.Cabinet.size);
 
     const onPickFile = () => {
         if(filePick.show) {

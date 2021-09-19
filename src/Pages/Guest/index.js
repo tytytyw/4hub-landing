@@ -13,7 +13,7 @@ import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem
 import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {months} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
-import {onGetGuestSharedFiles} from "../../Store/actions/PrivateCabinetActions";
+import {onGetGuestSharedFiles} from "../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 
 const Guest = () => {

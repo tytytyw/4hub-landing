@@ -22,7 +22,7 @@ import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import api from '../../../../api';
-import {onChooseFiles, onGetFolders} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActions';
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
@@ -36,10 +36,10 @@ const MyFolders = ({
 }) => {
 
     const uid = useSelector(state => state.user.uid);
-    const global = useSelector(state => state.PrivateCabinet.global);
-    const other = useSelector(state => state.PrivateCabinet.other?.folders);
-    const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
-    const path = useSelector(state => state.PrivateCabinet.folderList?.path);
+    const global = useSelector(state => state.Cabinet.global);
+    const other = useSelector(state => state.Cabinet.other?.folders);
+    const recentFolders = useSelector(state => state.Cabinet.recentFolders);
+    const path = useSelector(state => state.Cabinet.folderList?.path);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});

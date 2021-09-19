@@ -18,7 +18,7 @@ import {emptyProfileImage, getContactName, messengersIcons, socialsIcons} from '
 import api from '../../../../../../api'
 
 import ActionApproval from '../../../../../../generalComponents/ActionApproval'
-import {onGetContacts} from '../../../../../../Store/actions/PrivateCabinetActions'
+import {onGetContacts} from '../../../../../../Store/actions/CabinetActions'
 import FormContact from '../FormContact/FormContact'
 import SendFriend from '../../TellFriends/SendFriend'
 

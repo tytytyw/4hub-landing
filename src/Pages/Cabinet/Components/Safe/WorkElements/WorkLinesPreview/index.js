@@ -7,7 +7,7 @@ import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 
 const WorkLinesPreview = ({ file, children, hideFileList }) => {
-	const size = useSelector((state) => state.PrivateCabinet.size);
+	const size = useSelector((state) => state.Cabinet.size);
 	const [color, setColor] = useState(null);
 	const [f, setF] = useState(file);
 	useEffect(() => {

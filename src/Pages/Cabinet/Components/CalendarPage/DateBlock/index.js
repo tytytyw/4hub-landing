@@ -4,11 +4,11 @@ import Select from '../../../../../generalComponents/Select/Select'
 import {getDays, getYears, months} from '../helper'
 import classNames from 'classnames'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCalendarDate} from '../../../../../Store/actions/PrivateCabinetActions'
+import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
 
 const DateBlock = ({setViewType}) => {
 
-    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
     const dispatch = useDispatch()
 
     const onChangeDay = day => {

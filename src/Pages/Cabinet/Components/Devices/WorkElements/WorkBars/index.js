@@ -6,7 +6,7 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 
 const WorkBars = ({children, fileSelect, filePick}) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles)
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles)
 
     return (
 

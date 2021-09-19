@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {getAllDays, getDays, getNextMonthDays, getPrevMonthDays} from './helper'
 import {months, weekDays} from '../helper'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCalendarDate} from '../../../../../Store/actions/PrivateCabinetActions'
+import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
 
 const ListCalendar = ({setViewType, collapsed = false}) => {
 

@@ -22,7 +22,7 @@ import {
     onGetRecentPrograms,
     onGetTopListPrograms,
     onGetProgramFolders
-} from '../../../../Store/actions/PrivateCabinetActions'
+} from '../../../../Store/actions/CabinetActions'
 import Shops from './Shops'
 
 const Programs = ({
@@ -33,9 +33,9 @@ const Programs = ({
                   }) => {
 
     const dispatch = useDispatch()
-    const folders = useSelector(state => state.PrivateCabinet.programFolders)
-    const size = useSelector(state => state.PrivateCabinet.size)
-    const recentPrograms = useSelector(state => state.PrivateCabinet.recentPrograms)
+    const folders = useSelector(state => state.Cabinet.programFolders)
+    const size = useSelector(state => state.Cabinet.size)
+    const recentPrograms = useSelector(state => state.Cabinet.recentPrograms)
 
     const [listCollapsed, setListCollapsed] = useState('')
     const [newFolder, setNewFolder] = useState(false)

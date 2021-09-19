@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {onChooseFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 // TODO - small loader doesn't represent itself correctly
@@ -13,11 +13,11 @@ const WorkBarsPreview = ({
     gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
-    const search = useSelector(state => state.PrivateCabinet?.search);
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const search = useSelector(state => state.Cabinet?.search);
+    const size = useSelector(state => state.Cabinet.size);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 

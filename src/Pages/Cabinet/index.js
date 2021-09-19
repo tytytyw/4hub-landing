@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 import { onGetUserInfo } from '../../Store/actions/startPageAction'
-import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/PrivateCabinetActions'
+import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
 import styles from './PrivateCabinet.module.sass'
 import SideMenu from './Components/SideMenu'
 import MyFolders from './Components/MyFolders'
@@ -25,16 +25,16 @@ import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
-import {menu} from "./Components/SideMenu/listHelper";
+import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
     const id_company = useSelector(state => state.user.id_company);
-    const path = useSelector(state => state.PrivateCabinet.fileList?.path);
+    const path = useSelector(state => state.Cabinet.fileList?.path);
     const dispatch = useDispatch();
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(false);
     //const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
@@ -103,7 +103,7 @@ const PrivateCabinet = () => {
             onDragOver={handleDragOver}
         >
             <SideMenu
-                data={menu}
+                data={id_company ? businessMenu : menu}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
             <div

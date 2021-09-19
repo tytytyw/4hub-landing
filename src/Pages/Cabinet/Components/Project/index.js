@@ -9,7 +9,7 @@ import api from "../../../../api";
 import {
 	onGetContacts,
 	onGetProjects,
-} from "../../../../Store/actions/PrivateCabinetActions";
+} from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {
@@ -35,9 +35,9 @@ import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet
 
 const Project = ({ setLoadingType }) => {
 	const dispatch = useDispatch();
-	const projects = useSelector((state) => state.PrivateCabinet.projects);
+	const projects = useSelector((state) => state.Cabinet.projects);
 	const uid = useSelector((state) => state.user.uid);
-	const size = useSelector((state) => state.PrivateCabinet.size);
+	const size = useSelector((state) => state.Cabinet.size);
 	const [chosenFolder, setChosenFolder] = useState(null);
 	const [mouseParams, setMouseParams] = useState(null);
 	const [contextMenu, setContextMenu] = useState(null);

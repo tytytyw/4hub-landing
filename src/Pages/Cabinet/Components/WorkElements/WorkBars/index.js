@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFiles, onChooseAllFiles} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseAllFiles} from '../../../../../Store/actions/CabinetActions';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import Loader from '../../../../../generalComponents/Loaders/4HUB';
 
@@ -12,11 +12,11 @@ const WorkBars = ({
           gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const search = useSelector(state => state.PrivateCabinet.search);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+    const size = useSelector(state => state.Cabinet.size);
+    const search = useSelector(state => state.Cabinet.search);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 

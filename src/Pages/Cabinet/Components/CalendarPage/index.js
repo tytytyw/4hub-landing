@@ -14,13 +14,13 @@ import SuccessCreated from './CreateTask/SuccessCreated'
 import BottomPanel from '../BottomPanel'
 import FullCalendarTable from './FullCalendar'
 import {useDispatch, useSelector} from 'react-redux'
-import {setCalendarEvents} from '../../../../Store/actions/PrivateCabinetActions'
+import {setCalendarEvents} from '../../../../Store/actions/CabinetActions'
 import SidebarTasks from "./SidebarTasks";
 
 const CalendarPage = () => {
 
     const dispatch = useDispatch()
-    const events = useSelector(state => state.PrivateCabinet.calendarEvents)
+    const events = useSelector(state => state.Cabinet.calendarEvents)
 
     const [viewType, setViewType] = useState('list')
     const [createTask, setCreateTask] = useState(false)

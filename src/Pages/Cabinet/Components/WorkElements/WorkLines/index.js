@@ -2,18 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkLines.module.sass';
-import {onChooseFiles, onChooseAllFiles} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onChooseFiles, onChooseAllFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const WorkLines = ({
        children, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet?.recentFiles);
-    const search = useSelector(state => state.PrivateCabinet?.search);
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const fileListAll = useSelector(state => state.PrivateCabinet.fileListAll);
+    const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
+    const search = useSelector(state => state.Cabinet?.search);
+    const size = useSelector(state => state.Cabinet.size);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 

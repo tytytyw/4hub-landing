@@ -1,5 +1,5 @@
 import api from '../api';
-import {onDeleteFile, onDeleteSafeFile} from '../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onDeleteSafeFile} from '../Store/actions/CabinetActions';
 
 export const fileDelete = (file, dispatch, uid, set, msg) => {
     api.post(`/ajax/file_del.php?uid=${uid}&dir=${file.gdir}&fid=${file.fid}`)

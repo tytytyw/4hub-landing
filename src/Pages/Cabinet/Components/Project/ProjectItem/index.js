@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg'
 import CustomFolderItem from '../CustomFolderItem'
 import {useDispatch, useSelector} from 'react-redux'
-import {onGetProjectFolders} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onGetProjectFolders} from '../../../../../Store/actions/CabinetActions'
 import CustomItem from '../CustomItem'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {ReactComponent as ClipboardIcon} from '../../../../../assets/PrivateCabinet/project/clipboard.svg'
@@ -22,7 +22,7 @@ const ProjectItem = ({
     }) => {
 
     const dispatch = useDispatch()
-    const folders = useSelector(state => state.PrivateCabinet.projectFolders)
+    const folders = useSelector(state => state.Cabinet.projectFolders)
     const [collapse, setCollapse] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

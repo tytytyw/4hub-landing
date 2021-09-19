@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
-import {onDeleteFile} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onDeleteFile} from '../../../../../Store/actions/CabinetActions'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
@@ -37,9 +37,9 @@ const WorkSpace = ({
     const dispatch = useDispatch();
 
     const [filePick] = useState({ show: false, files: [] });
-    const view = useSelector(state => state.PrivateCabinet.view);
-    const programs = useSelector(state => state.PrivateCabinet.programs);
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const view = useSelector(state => state.Cabinet.view);
+    const programs = useSelector(state => state.Cabinet.programs);
+    const size = useSelector(state => state.Cabinet.size);
 
     const [action, setAction] = useState({type: '', name: '', text: ''});
 

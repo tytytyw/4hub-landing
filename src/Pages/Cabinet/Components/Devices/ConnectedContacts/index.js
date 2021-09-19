@@ -8,7 +8,7 @@ import ContactItem from "../ContactItem";
 
 const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams, listSize}) => {
 
-    const connectedContacts = useSelector(state => state.PrivateCabinet.connectedContacts)
+    const connectedContacts = useSelector(state => state.Cabinet.connectedContacts)
 
     const [collapse, setCollapse] = useState(true)
 

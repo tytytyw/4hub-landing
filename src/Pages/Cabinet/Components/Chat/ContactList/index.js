@@ -2,11 +2,11 @@ import React, {useEffect} from "react";
 
 import styles from "./ContactList.module.sass";
 import {useDispatch, useSelector} from "react-redux";
-import {onGetContacts} from "../../../../../Store/actions/PrivateCabinetActions";
+import {onGetContacts} from "../../../../../Store/actions/CabinetActions";
 
 const ContactList = () => {
 
-    const contactList = useSelector(state => state.PrivateCabinet.contactList);
+    const contactList = useSelector(state => state.Cabinet.contactList);
     const dispatch = useDispatch();
 
     useEffect(() => {

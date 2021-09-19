@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 
-import {onGetContacts} from '../../../../Store/actions/PrivateCabinetActions'
+import {onGetContacts} from '../../../../Store/actions/CabinetActions'
 
 import styles from './MyProfile.module.sass'
 import {ReactComponent as UploadIcon} from '../../../../assets/PrivateCabinet/upload.svg'

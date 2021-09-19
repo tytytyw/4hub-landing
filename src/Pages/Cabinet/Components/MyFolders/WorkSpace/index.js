@@ -21,7 +21,7 @@ import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/CabinetActions';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
@@ -41,11 +41,11 @@ const WorkSpace = ({
 }) => {
 
     const dispatch = useDispatch();
-    const workElementsView = useSelector(state => state.PrivateCabinet.view);
+    const workElementsView = useSelector(state => state.Cabinet.view);
 
     const uid = useSelector(state => state?.user.uid);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});

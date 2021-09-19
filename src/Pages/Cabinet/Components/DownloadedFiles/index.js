@@ -21,7 +21,7 @@ const DownloadedFiles = () => {
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
     const [search, setSearch] = useState(null)
-    const fileList = useSelector((state) => state.PrivateCabinet.fileList)
+    const fileList = useSelector((state) => state.Cabinet.fileList)
 
     const [year, setYear] = useState(null)
     const [month, setMonth] = useState(null)

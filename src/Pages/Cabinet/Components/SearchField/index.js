@@ -3,15 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useDebounce} from '../../../../generalComponents/Hooks';
 
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onChooseAllFiles, onSearch} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseAllFiles, onSearch} from '../../../../Store/actions/CabinetActions';
 import Select from "../../../../generalComponents/Select/Select";
 
 
 const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 
 	const inputRef = useRef(null);
-	const path = useSelector(state => state.PrivateCabinet?.fileList?.path || state.PrivateCabinet?.folderList?.path);
-	const searchField = useSelector(state => state.PrivateCabinet?.search);
+	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
+	const searchField = useSelector(state => state.Cabinet?.search);
 	const dispatch = useDispatch();
 
 	const search = (query) => {

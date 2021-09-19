@@ -22,7 +22,7 @@ import {
 	onGetSharedFiles,
 	onDeleteFile,
 	onAddRecentFiles,
-} from "../../../../Store/actions/PrivateCabinetActions";
+} from "../../../../Store/actions/CabinetActions";
 import { previewFormats } from "../../../../generalComponents/collections";
 import api from "../../../../api";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
@@ -46,9 +46,9 @@ const SharedFiles = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 }) => {
-	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState(null);
-	const fileList = useSelector((state) => state.PrivateCabinet.sharedFiles);
+	const fileList = useSelector((state) => state.Cabinet.sharedFiles);
 	const user = useSelector((state) => state.user.userInfo);
 	const dispatch = useDispatch();
 

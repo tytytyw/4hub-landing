@@ -8,7 +8,7 @@ const WorkLinesPreview = ({
     children, chosenProgram, hideFileList, fileRef, gLoader
 }) => {
 
-    const search = useSelector(state => state.PrivateCabinet?.search);
+    const search = useSelector(state => state.Cabinet?.search);
     const [loadingFiles] = useState(false);
 
     return (

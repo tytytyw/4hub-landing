@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
 import {colors} from '../../../../../generalComponents/collections';
-import {onChooseFiles, onChooseFolder, onSetPath} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
@@ -16,8 +16,8 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
-    const folderList = useSelector(state => state.PrivateCabinet.folderList);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const folderList = useSelector(state => state.Cabinet.folderList);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
     const file_amount_controller = useRef(null);
 

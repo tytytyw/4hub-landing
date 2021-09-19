@@ -9,7 +9,7 @@ const File = ({format, color}) => {
         'ai', 'psd', 'mp4', 'mov', 'avi', 'xls', 'xlsx', 'pptx'
     ];
 
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const size = useSelector(state => state.Cabinet.size);
 
     const isFormat = () => formats.indexOf(format);
 

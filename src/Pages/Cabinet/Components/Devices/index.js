@@ -12,7 +12,7 @@ import PreviewFile from '../PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
-import {onGetConnectedContacts, onGetDevices} from "../../../../Store/actions/PrivateCabinetActions"
+import {onGetConnectedContacts, onGetDevices} from "../../../../Store/actions/CabinetActions"
 import ConnectedContacts from "./ConnectedContacts"
 
 const Devices = ({
@@ -21,8 +21,8 @@ const Devices = ({
 }) => {
 
     const dispatch = useDispatch()
-    const devices = useSelector(state => state.PrivateCabinet.devices)
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const devices = useSelector(state => state.Cabinet.devices)
+    const size = useSelector(state => state.Cabinet.size);
 
     const [chosenDevice, setChosenDevice] = useState(null)
     const [chosenContact, setChosenContact] = useState(null)

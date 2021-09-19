@@ -17,7 +17,7 @@ import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
-import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/actions/CabinetActions";
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
@@ -44,14 +44,14 @@ const Safe = ({
 }) => {
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
-	const path = useSelector((state) => state.PrivateCabinet.folderList?.path);
+	const path = useSelector((state) => state.Cabinet.folderList?.path);
 	const [chosenFile, setChosenFile] = useState(null);
 	const [mouseParams, setMouseParams] = useState(null);
 
-	const safes = useSelector((state) => state.PrivateCabinet.safes);
-	const fileList = useSelector((state) => state.PrivateCabinet.safeFileList);
-	const size = useSelector((state) => state.PrivateCabinet.size);
-	const authorizedSafe = useSelector(state => state.PrivateCabinet.authorizedSafe);
+	const safes = useSelector((state) => state.Cabinet.safes);
+	const fileList = useSelector((state) => state.Cabinet.safeFileList);
+	const size = useSelector((state) => state.Cabinet.size);
+	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
 	const [listCollapsed, setListCollapsed] = useState("");
 	const [selectedSafe, setSelectedSafe] = useState(null);
 	const [createSafe, setCreateSafe] = useState(false);

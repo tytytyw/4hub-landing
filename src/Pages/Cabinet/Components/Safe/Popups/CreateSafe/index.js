@@ -7,7 +7,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import { colors, tags } from "../../../../../../generalComponents/collections";
-import { onGetSafes } from "../../../../../../Store/actions/PrivateCabinetActions";
+import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
 import SafeIcon from "../../SafeIcon";
 import classNames from "classnames";

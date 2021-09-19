@@ -12,7 +12,7 @@ import {useSelector} from 'react-redux'
 
 const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview}) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size)
+    const size = useSelector(state => state.Cabinet.size)
 
     return (
         <div

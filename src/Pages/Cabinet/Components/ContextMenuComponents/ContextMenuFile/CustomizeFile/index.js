@@ -14,7 +14,7 @@ import {
 	onChooseFiles,
     onChooseAllFiles,
 	onGetSafeFileList,
-} from "../../../../../../Store/actions/PrivateCabinetActions";
+} from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
@@ -33,9 +33,9 @@ const CustomizeFile = ({
 	menuItem,
 }) => {
 	const uid = useSelector((state) => state.user.uid);
-	const path = useSelector((state) => state.PrivateCabinet?.fileList?.path);
-	const fileListAll = useSelector((state) => state.PrivateCabinet?.fileListAll);
-	const search = useSelector((state) => state.PrivateCabinet?.search);
+	const path = useSelector((state) => state.Cabinet?.fileList?.path);
+	const fileListAll = useSelector((state) => state.Cabinet?.fileListAll);
+	const search = useSelector((state) => state.Cabinet?.search);
 	const [name, setName] = useState(
 		file ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
 	);
@@ -62,7 +62,7 @@ const CustomizeFile = ({
 	const [error, setError] = useState(false);
 	const [visibility, setVisibility] = useState("password");
 	const authorizedSafeData = useSelector(
-		(state) => state.PrivateCabinet.authorizedSafe
+		(state) => state.Cabinet.authorizedSafe
 	);
 	const dispatch = useDispatch();
 

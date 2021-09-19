@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
-import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles, onChooseFolder} from '../../../../../Store/actions/CabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
@@ -10,7 +10,7 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
 
-    const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const folderList = useSelector(state => state.Cabinet.folderList);
     const dispatch = useDispatch();
 
     const openFolder = (e) => {

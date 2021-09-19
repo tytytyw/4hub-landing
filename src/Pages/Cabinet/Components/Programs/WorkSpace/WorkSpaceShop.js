@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
-import {onDeleteFile} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onDeleteFile} from '../../../../../Store/actions/CabinetActions'
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
@@ -33,7 +33,7 @@ const WorkSpaceShop = ({
                        }) => {
 
     const dispatch = useDispatch();
-    const programs = useSelector(state => state.PrivateCabinet.programs);
+    const programs = useSelector(state => state.Cabinet.programs);
 
     const [moreProgram, setMoreProgram] = useState(null);
     const [mouseParams, setMouseParams] = useState(null);

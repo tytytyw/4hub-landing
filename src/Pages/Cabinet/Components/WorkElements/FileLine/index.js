@@ -14,7 +14,7 @@ const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
           setFilePick, shareLink, callbackArrMain
 }) => {
-    const size = useSelector(state => state.PrivateCabinet.size)
+    const size = useSelector(state => state.Cabinet.size)
     const downloadFile = () => {
         setTimeout(() => {
             callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})

@@ -14,7 +14,7 @@ import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/
 const ChatBoard = ({inputRef, setCursorPosition}) => {
 
     //TODO - Need to change after chat is developed
-    const contactList = useSelector(state => state.PrivateCabinet.contactList)
+    const contactList = useSelector(state => state.Cabinet.contactList)
 
     const findCursorPosition = () => setCursorPosition(inputRef.current.selectionStart);
 

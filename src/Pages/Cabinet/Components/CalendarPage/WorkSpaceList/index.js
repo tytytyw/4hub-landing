@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 
 const WorkSpaceList = ({events}) => {
 
-    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const checkDateEvent = event => {
 

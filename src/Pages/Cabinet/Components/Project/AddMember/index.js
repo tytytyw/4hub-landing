@@ -20,7 +20,7 @@ import {isCorrectData} from '../../MyProfile/Input/validation'
 
 const AddMember = ({set, selectedItem}) => {
 
-    const contacts = useSelector(state => state.PrivateCabinet.contactList)
+    const contacts = useSelector(state => state.Cabinet.contactList)
 
     const [fields, setFields] = useState({})
 

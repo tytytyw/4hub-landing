@@ -11,7 +11,7 @@ import Colors from '../../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import ProjectIcons from '../../../Project/ProjectIcons/ProjectIcons'
-import {onGetProjects} from '../../../../../../Store/actions/PrivateCabinetActions'
+import {onGetProjects} from '../../../../../../Store/actions/CabinetActions'
 
 const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
 

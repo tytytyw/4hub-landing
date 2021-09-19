@@ -12,7 +12,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
-import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/PrivateCabinetActions";
+import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/CabinetActions";
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
@@ -20,8 +20,8 @@ const CreateFile = ({
 }) => {
 
     const uid = useSelector(state => state.user.uid);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
-    const search = useSelector(state => state.PrivateCabinet.search);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const search = useSelector(state => state.Cabinet.search);
     const [name, setName] = useState(blob?.options?.name ? blob.options.name.slice(0, blob.options.name.lastIndexOf('.')) : blob.file.name.slice(0, blob.file.name.lastIndexOf('.')));
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');

@@ -1,14 +1,14 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {onChooseRecentFile} from '../../../../Store/actions/PrivateCabinetActions';
+import {onChooseRecentFile} from '../../../../Store/actions/CabinetActions';
 import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 
 const RecentFiles = ({setFilePreview, filePreview}) => {
 
-    const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
-    const chosenRecentFile = useSelector(state => state.PrivateCabinet.chosenRecentFile);
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+    const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
     const dispatch = useDispatch();
 
     const renderRecentFiles = () => {

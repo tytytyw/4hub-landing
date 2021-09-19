@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 
 const SidebarTasks = ({data, listCollapsed}) => {
 
-    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const getEventsByDay = data => {
         return data.filter(event => {

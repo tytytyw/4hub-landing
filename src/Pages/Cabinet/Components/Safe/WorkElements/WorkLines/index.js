@@ -5,7 +5,7 @@ import styles from './WorkLines.module.sass';
 
 const WorkLines = ({children, filePick}) => {
 
-    const search = useSelector(state => state.PrivateCabinet?.search);
+    const search = useSelector(state => state.Cabinet?.search);
 
     return(
         <div

@@ -15,7 +15,7 @@ import ActionApproval from '../../../../generalComponents/ActionApproval'
 import File from '../../../../generalComponents/Files'
 import List from './List'
 import FolderItem from './FolderItem'
-import {onGetJournalFolders} from '../../../../Store/actions/PrivateCabinetActions'
+import {onGetJournalFolders} from '../../../../Store/actions/CabinetActions'
 import BottomPanel from "../BottomPanel";
 
 import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
@@ -24,12 +24,12 @@ import { months } from "../../../../generalComponents/CalendarHelper";
 
 const Journal = () => {
 
-    const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+    const workElementsView = useSelector((state) => state.Cabinet.view);
     const [search, setSearch] = useState(null)
 
     const dispatch = useDispatch()
-    const fileList = useSelector((state) => state.PrivateCabinet.fileList)
-    const journalFolders = useSelector((state) => state.PrivateCabinet.journalFolders)
+    const fileList = useSelector((state) => state.Cabinet.fileList)
+    const journalFolders = useSelector((state) => state.Cabinet.journalFolders)
 
     const [year, setYear] = useState(null)
 

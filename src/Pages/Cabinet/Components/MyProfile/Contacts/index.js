@@ -10,7 +10,7 @@ import ContactsFav from './ContactsFav'
 
 const Contacts = () => {
 
-    const contacts = useSelector(state => state.PrivateCabinet.contactList)
+    const contacts = useSelector(state => state.Cabinet.contactList)
 
     const [pageOption, setPageOption] = useState('ContactsAll')
     const [contactPopup, setContactPopup] = useState(false)

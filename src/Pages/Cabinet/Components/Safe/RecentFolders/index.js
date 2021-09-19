@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {onChooseFiles} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFiles} from '../../../../../Store/actions/CabinetActions';
 
 import styles from './RecentFolders.module.sass';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
@@ -8,7 +8,7 @@ import CustomFolderItem from "../CustomFolderItem";
 
 const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams}) => {
 
-    const recentFolders = useSelector(state => state.PrivateCabinet.recentFolders);
+    const recentFolders = useSelector(state => state.Cabinet.recentFolders);
     const dispatch = useDispatch();
 
     const renderInnerFolders = () => {

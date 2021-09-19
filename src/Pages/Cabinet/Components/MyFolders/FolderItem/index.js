@@ -6,7 +6,7 @@ import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/PrivateCabinetActions';
+import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";
@@ -17,8 +17,8 @@ const FolderItem = ({
         setGLoader
     }) => {
 
-    const folderList = useSelector(state => state.PrivateCabinet.folderList);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const folderList = useSelector(state => state.Cabinet.folderList);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const [filesQuantity, setFilesQuantity] = useState(0);

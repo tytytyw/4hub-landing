@@ -8,7 +8,7 @@ import {ReactComponent as FolderIcon} from '../../../../../assets/PrivateCabinet
 import InputField from '../../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../../generalComponents/collections';
 import Error from '../../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../../Store/actions/PrivateCabinetActions';
+import { onGetFolders } from '../../../../../Store/actions/CabinetActions';
 import Colors from '../../../../../generalComponents/Elements/Colors';
 import '../../../../../generalComponents/colors.sass';
 import Signs from '../../../../../generalComponents/Elements/Signs';
@@ -17,7 +17,7 @@ import Emoji from '../../../../../generalComponents/Elements/Emoji';
 const CreateFolder = ({onCreate, title, info}) => {
 
     const uid = useSelector(state => state.user.uid);
-    const folderList = useSelector(state => state.PrivateCabinet.folderList);
+    const folderList = useSelector(state => state.Cabinet.folderList);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');

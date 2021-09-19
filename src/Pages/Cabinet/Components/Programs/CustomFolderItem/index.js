@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
-import {onGetPrograms} from '../../../../../Store/actions/PrivateCabinetActions'
+import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
 
 const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
 
