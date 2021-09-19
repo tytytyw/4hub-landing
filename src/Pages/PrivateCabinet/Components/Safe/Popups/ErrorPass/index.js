@@ -4,7 +4,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './ErrorPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
-const ErrorPass = ({setErrPass, set, mistake}) => {
+const ErrorPass = ({setError, set, mistake}) => {
     
     const getTaregtString = () => {
         switch (mistake) {
@@ -14,7 +14,7 @@ const ErrorPass = ({setErrPass, set, mistake}) => {
     }
 
     return (
-        <PopUp setErrPass={setErrPass}>
+        <PopUp setError={setError}>
 
             <div className={styles.wrapper}>
 
@@ -23,7 +23,7 @@ const ErrorPass = ({setErrPass, set, mistake}) => {
                     <div className={styles.closeWrap}>
                         <div
                             className={styles.close}
-                            onClick={() => setErrPass(false)}
+                            onClick={() => setError(false)}
                         >
                             <span className={styles.times}/>
                         </div>
@@ -62,7 +62,7 @@ const ErrorPass = ({setErrPass, set, mistake}) => {
                         <Button
                             type='submit'
                             className={styles.submitBtn}
-                            onClick={() => setErrPass(false)}
+                            onClick={() => setError(false)}
                         >
                             Повторить
                         </Button>

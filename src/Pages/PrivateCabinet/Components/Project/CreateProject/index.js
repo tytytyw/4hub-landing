@@ -27,7 +27,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
-    const [icon, setIcon] = useState('');
+    const [icon, setIcon] = useState('lamp');
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const [noNameError, setNoNameError] = useState(false);
@@ -49,15 +49,18 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
     const onAddProject = () => {
         if(!name) return setNoNameError(true);
         if(showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
-        onCreate(false)
         setLoadingType('squarify')
         api.get(`/ajax/project_add.php/?uid=${uid}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`)
             .then((res) => {
                 if (res.data.ok === 1) {
                     dispatch(onGetProjects())
-                } else {
-                    console.log(res) 
-                }
+                    closeComponent()
+                } else if ((res.data.error === "name exists")) {
+					setError("Проект с таким именем уже существует");
+                    setNoNameError(true)
+				} else {
+					setError("Что-то пошло не так. Повторите попытку позже");
+				}
             })
             .catch(error => console.log(error))
             .finally(() => setLoadingType(''))
@@ -195,7 +198,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                 </div>
             </div>
         </PopUp>
-        {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
+        {error && <Error error={error} set={setError} message={error} />}
         </>
     )
 }
