@@ -44,7 +44,6 @@ const BusinessCabinet = () => {
 
                 <Switch>
                     <Route path='/company' component={Company}/>
-
                     <Redirect to='/company'/>
                 </Switch>
 

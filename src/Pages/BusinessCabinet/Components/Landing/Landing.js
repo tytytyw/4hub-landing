@@ -4,7 +4,6 @@ import Footer from './Footer/Footer'
 import React, { useEffect } from 'react'
 
 function Landing() {
-
   const scrollTop = () => window.scroll(0,0)
   useEffect(()=> {return (() => document.body.removeAttribute('style'))},[])
   

@@ -102,9 +102,10 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     <DownLoadIcon/>
                 </div>
 
+                {file?.ext !== 'ZIP' &&
                 <div className={styles.iconView}>
                     <PrintIcon/>
-                </div>
+                </div>}
 
                 <div className={classNames(styles.iconView, styles.iconSettings)}>
                     <SettingsIcon/>
