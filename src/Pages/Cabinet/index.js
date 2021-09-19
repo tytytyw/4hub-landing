@@ -31,6 +31,7 @@ import api from "../../api";
 const PrivateCabinet = () => {
 
     const uid = useSelector(state => state.user.uid);
+    const id_company = useSelector(state => state.user.id_company);
     const path = useSelector(state => state.PrivateCabinet.fileList?.path);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false)
@@ -69,6 +70,7 @@ const PrivateCabinet = () => {
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;
+        document.cookie = `id_company=${id_company};expires=${date}`;
         stayOnline(0);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
