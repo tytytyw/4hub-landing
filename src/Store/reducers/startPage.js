@@ -12,7 +12,8 @@ const INITIAL_STATE = {
 export default function startPage(state = INITIAL_STATE, action) {
     switch(action.type) {
         case LOG_DATA: {
-            return {...state, uid: action.payload.uid, id_company: JSON.parse(action.payload.id_company)};
+            const id = JSON.parse(action.payload.id_company);
+            return {...state, uid: action.payload.uid, id_company: id ?? ''};
         }
         case USER_INFO: {
             return {...state, userInfo: action.payload};
