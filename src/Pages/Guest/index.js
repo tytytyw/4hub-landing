@@ -10,7 +10,7 @@ import {contextMenuFile} from "../../generalComponents/collections";
 import ActionApproval from "../../generalComponents/ActionApproval";
 import File from "../../generalComponents/Files";
 import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem";
-import CopyLink from "../PrivateCabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
+import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {months} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
 import {onGetGuestSharedFiles} from "../../Store/actions/PrivateCabinetActions";

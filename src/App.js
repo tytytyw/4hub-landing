@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
-import PrivateCabinet from './Pages/PrivateCabinet';
+import PrivateCabinet from './Pages/Cabinet';
 import StartPage from "./Pages/StartPage";
 import Guest from "./Pages/Guest";
 

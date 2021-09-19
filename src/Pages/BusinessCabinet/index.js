@@ -4,10 +4,10 @@ import styles from './BusinessCabinet.module.sass'
 
 import {Switch, Route, useHistory, Redirect} from 'react-router'
 import {setPreviewTheme} from '../../Store/actions/main';
-import SideMenu from "../PrivateCabinet/Components/SideMenu";
+import SideMenu from "../Cabinet/Components/SideMenu";
 import {menu} from "./listHelper";
 import Company from "./Components/Company";
-import BottomPanel from "../PrivateCabinet/Components/BottomPanel";
+import BottomPanel from "../Cabinet/Components/BottomPanel";
 
 const BusinessCabinet = () => {
 

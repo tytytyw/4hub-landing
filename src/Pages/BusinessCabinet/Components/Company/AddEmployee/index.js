@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import styles from './AddEmployee.module.sass'
 import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg'
 import {ReactComponent as FileIcon} from '../../../../../assets/BusinessCabinet/WelcomePage/file.svg'
-import Input from '../../../../PrivateCabinet/Components/MyProfile/Input'
+import Input from '../../../../Cabinet/Components/MyProfile/Input'
 import SuccessPopup from "../../SuccessPopup";
 
 const AddEmployee = ({setPageOption}) => {

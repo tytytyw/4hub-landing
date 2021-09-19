@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import styles from "./Company.module.sass";
-import SearchField from "../../../PrivateCabinet/Components/SearchField";
-import Notifications from "../../../PrivateCabinet/Components/Notifications";
-import Profile from "../../../PrivateCabinet/Components/Profile";
+import SearchField from "../../../Cabinet/Components/SearchField";
+import Notifications from "../../../Cabinet/Components/Notifications";
+import Profile from "../../../Cabinet/Components/Profile";
 import SideList from "./SideList";
 import {ReactComponent as SettingsIcon} from "../../../../assets/BusinessCabinet/SideList/settings.svg";
 import {ReactComponent as InfoIcon} from "../../../../assets/BusinessCabinet/SideList/info.svg";
