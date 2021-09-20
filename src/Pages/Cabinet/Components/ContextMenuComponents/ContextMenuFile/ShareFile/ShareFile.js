@@ -155,7 +155,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
                             <p className={styles.input_title}>Может редактировать</p>
                             <input value='Все у кого есть эта ссылка, смогут изменять файл' type='button'></input>
                         </div>
-                        <span className={styles.set_btn}>Скопировать ссылку</span>
+                        <span onClick={() => setShowSuccessMessage('Ссылка скопирована')} className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
                     <div className={styles.row_item}>
                         <div className={styles.ico_wrap}>
@@ -165,7 +165,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
                             <p className={styles.input_title}>Может просматривать</p>
                             <input value='Все у кого есть эта ссылка, смогут просматривать файл' type='button'></input>
                         </div>
-                        <span className={styles.set_btn}>Скопировать ссылку</span>
+                        <span onClick={() => setShowSuccessMessage('Ссылка скопирована')} className={styles.set_btn}>Скопировать ссылку</span>
                     </div>
                 </div>}
                 <div className={styles.buttonsWrap}>
