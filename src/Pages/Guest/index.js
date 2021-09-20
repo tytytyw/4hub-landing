@@ -10,10 +10,10 @@ import {contextMenuFile} from "../../generalComponents/collections";
 import ActionApproval from "../../generalComponents/ActionApproval";
 import File from "../../generalComponents/Files";
 import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem";
-import CopyLink from "../PrivateCabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {getMonthByIndex} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
-import {onGetGuestFolderFiles} from "../../Store/actions/PrivateCabinetActions";
+import {onGetGuestFolderFiles} from "../../Store/actions/CabinetActions";
+import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {useDispatch, useSelector} from "react-redux";
 
 import moment from "moment";

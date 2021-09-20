@@ -36,7 +36,7 @@ const EnterProfile = ({setPage}) => {
             api.post(`/ajax/user_login.php?name=${info.login}&pass=${info.pass}`)
                 .then(res => {
                     if(res.data.ok === 1) {
-                        dispatch(onLog(res.data.uid))
+                        dispatch(onLog(res.data))
                     }
                 })
                 .catch(err => console.log(err));

@@ -4,10 +4,10 @@ import {
     USER_INFO,
 } from '../types';
 
-export const onLog = (log) => {
+export const onLog = (data) => {
     return {
         type: LOG_DATA,
-        payload: log
+        payload: data
     };
 };
 

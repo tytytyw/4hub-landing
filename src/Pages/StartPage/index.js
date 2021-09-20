@@ -12,6 +12,7 @@ import RegisterProfile from './Components/RegisterProfile';
 import ForgotPassword from './Components/ForgotPassword';
 import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'
+import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
 
 const StartPage = ({setOptions}) => {
@@ -32,13 +33,15 @@ const StartPage = ({setOptions}) => {
         }
         }, []);
 
+    const isLanding = () => pageOption === 'landing' || pageOption === 'business-landing'
+
     return (
         <div
-            className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap} ${pageOption === 'landing' && styles.longWrap}`}
+            className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap} ${isLanding() && styles.longWrap}`}
             style={{minHeight}}
         >
             <header className={styles.header}>
-                {pageOption === 'landing' &&
+                {isLanding() &&
                 <a className={styles.logo} href="./">
                     <img className={styles.logo_img} src='../../assets/StartPage/logo.svg' alt='4hub logo'></img>
                 </a>}
@@ -59,6 +62,7 @@ const StartPage = ({setOptions}) => {
                     <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
                 </div>}
                 {pageOption === 'landing' && <Landing />}
+                {pageOption === 'business-landing' && <BusinessLanding />}
                 {pageOption === 'info' && <Infopage setPage={setPage} />}
                 {pageOption === 'downloadFile' && <DownloadFile setPage={setPage} />}
                 {pageOption === 'downloadFolder' && <DownloadFolder setPage={setPage} setOptions={setOptions} loader={loader} setLoader={setLoader} />}

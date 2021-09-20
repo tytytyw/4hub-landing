@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
-import PrivateCabinet from './Pages/PrivateCabinet';
+import PrivateCabinet from './Pages/Cabinet';
 import StartPage from "./Pages/StartPage";
 import Guest from "./Pages/Guest";
 
-import BusinessCabinet from "./Pages/BusinessCabinet";
+import BusinessCabinet from "./Pages/Cabinet/Components/Business";
 
 function App() {
 
@@ -18,7 +18,11 @@ function App() {
 
     useEffect(() => {
         const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
-        if (!!uid) dispatch(onLog(uid[0].split('=')[1]));
+        const id_company = document.cookie.match(/id_company=[a-zA-Z0-9]*/g);
+        if (!!uid) {
+            const data = {uid: uid[0].split('=')[1], id_company: id_company[0].split('=')[1]}
+            dispatch(onLog(data));
+        }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (

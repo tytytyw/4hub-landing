@@ -12,7 +12,7 @@ import {
     onChangeFilterEmoji,
     onChangeFilterColor,
     onSetReverseCriterion
-} from '../../../Store/actions/PrivateCabinetActions';
+} from '../../../Store/actions/CabinetActions';
 import { ReactComponent as BarsIcon } from '../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../assets/PrivateCabinet/lines.svg';
 import { ReactComponent as PreviewIcon } from '../../../assets/PrivateCabinet/preview.svg';
@@ -27,7 +27,7 @@ import Colors from "../../../generalComponents/Elements/Colors";
 import Signs from "../../../generalComponents/Elements/Signs";
 import Emoji from "../../../generalComponents/Elements/Emoji";
 import ContextMenuItem from "../../../generalComponents/ContextMenu/ContextMenuItem";
-import {onSetWorkElementsView} from "../../../Store/actions/PrivateCabinetActions";
+import {onSetWorkElementsView} from "../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../generalComponents/ContextMenu";
 import {contextMenuCreateFile, contextMenuFilters} from "../../../generalComponents/collections";
 

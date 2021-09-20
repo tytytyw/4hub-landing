@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import startPage from './startPage';
-import PrivateCabinet from './PrivateCabinet';
+import Cabinet from './Cabinet';
 import main from "./main";
 
 export default combineReducers({
     main: main,
     user: startPage,
-    PrivateCabinet: PrivateCabinet,
+    Cabinet: Cabinet,
 })
