@@ -144,7 +144,7 @@ const ServePanel = ({
                     ><FileSize className={styles.iconSVG} /></div>
                     <div
                         ref={filterRef}
-                        className={styles.iconView}
+                        className={classNames(styles.iconView, styles.iconViewArrow)}
                         onClick={e => openContextMenu(e, 'filter')}
                     ><MenuIcon className={styles.iconSVG} /><div /></div>
                     <span
