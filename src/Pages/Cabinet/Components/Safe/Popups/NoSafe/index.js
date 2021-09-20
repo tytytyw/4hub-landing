@@ -1,5 +1,6 @@
 import React from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 import styles from './NoSafe.module.sass'
 import Button from '../../../MyProfile/Button'
@@ -33,7 +34,7 @@ const NoSafe = ({set, setCreateSafe}) => {
                     <div className={styles.imageWrap}>
                         <img
                             className={styles.image}
-                            src="./assets/PrivateCabinet/alerts/nosafe-pc.png"
+                            src={`${imageSrc}/assets/PrivateCabinet/alerts/nosafe-pc.png`}
                             alt="Warning PC"
                         />
                     </div>

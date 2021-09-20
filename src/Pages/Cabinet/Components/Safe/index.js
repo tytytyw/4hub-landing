@@ -269,7 +269,7 @@ const Safe = ({
 						<div className={styles.emptyBlock}>
 							<img
 								className={styles.emptyImg}
-								src="./assets/PrivateCabinet/create_arrow.svg"
+								src={`${imageSrc}/assets/PrivateCabinet/create_arrow.svg`}
 								alt="Create Arrow"
 							/>
 							<h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый СЕЙФ</h4>

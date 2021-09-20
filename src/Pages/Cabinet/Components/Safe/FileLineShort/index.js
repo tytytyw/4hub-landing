@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./FileLineShort.module.sass";
 import File from "../../../../../generalComponents/Files";
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FileLineShort = ({
 	file,
@@ -58,21 +59,21 @@ const FileLineShort = ({
 									{file.is_pass === 1 && (
 										<img
 											className={styles.locked}
-											src={`./assets/PrivateCabinet/locked.svg`}
+											src={`${imageSrc}/assets/PrivateCabinet/locked.svg`}
 											alt="lock"
 										/>
 									)}
 									{file.fig && (
 										<img
 											className={styles.sign}
-											src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+											src={`${imageSrc}/assets/PrivateCabinet/signs/${file.fig}.svg`}
 											alt="sign"
 										/>
 									)}
 									{file.emo && (
 										<img
 											className={styles.smile}
-											src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+											src={`${imageSrc}/assets/PrivateCabinet/smiles/${file.emo}.svg`}
 											alt="emoji"
 										/>
 									)}
@@ -86,21 +87,21 @@ const FileLineShort = ({
 							{file.is_pass === 1 && (
 								<img
 									className={styles.locked}
-									src={`./assets/PrivateCabinet/locked.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/locked.svg`}
 									alt="lock"
 								/>
 							)}
 							{file.fig && (
 								<img
 									className={styles.sign}
-									src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/signs/${file.fig}.svg`}
 									alt="sign"
 								/>
 							)}
 							{file.emo && (
 								<img
 									className={styles.smile}
-									src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/smiles/${file.emo}.svg`}
 									alt="emoji"
 								/>
 							)}

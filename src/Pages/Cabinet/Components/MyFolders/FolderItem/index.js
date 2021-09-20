@@ -26,7 +26,9 @@ const FolderItem = ({
 
     const openFolder = async (e) => {
         let boolean = false;
-        e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
+        e.target?.viewportElement 
+            ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
+            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
         if(boolean) {
             chosen ? setChosenFolder({...chosenFolder, path: folder.path, open: !chosenFolder.open, subPath: '', info: folder, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: folder.path, open: true, subPath: '', info: folder});
         } else {

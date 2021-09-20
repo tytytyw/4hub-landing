@@ -14,6 +14,7 @@ import Error from "../../../../../../generalComponents/Error";
 import classNames from "classnames";
 import api from "../../../../../../api";
 import { useSelector, useDispatch } from "react-redux";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 	const dispatch = useDispatch();
@@ -169,7 +170,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 											onClick={() => setSign("")}
 										>
 											<img
-												src={`./assets/PrivateCabinet/signs/${sign}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
 												alt="emoji"
 											/>
 										</div>
@@ -181,7 +182,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 											onClick={() => setEmoji("")}
 										>
 											<img
-												src={`./assets/PrivateCabinet/smiles/${emoji}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
 												alt="emoji"
 											/>
 										</div>
@@ -237,21 +238,6 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 									isMistake={errors?.password}
 								/>
 							</div>
-
-							{/* <div className={styles.inputWrap}>
-                                <Input
-                                    autocomplete="off"
-                                    type='password'
-                                    name='passwordRepeat'
-                                    placeholder='Введите повторно пароль'
-                                    showPass={showPass}
-                                    setShowPass={setShowPass}
-                                    className={styles.input}
-                                    value={passwordRepeat}
-                                    onChange={event => setPasswordRepeat(event.target.value)}
-                                    isMistake={errors?.passwordRepeat}
-                                />
-                            </div> */}
 						</div>
 						<Colors color={color} setColor={setColor} />
 						<Signs sign={sign} setSign={setSign} />
