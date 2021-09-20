@@ -8,6 +8,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
         if(!customClose) {
             setParams(null);
         } else {
+            setMenuIsUsed(true)
             const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
             if(isBackground) setParams(null);
         }
@@ -17,6 +18,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
     const contextMenuRef = useRef();
     const [top, setTop] = useState({menu: '', tooltip: ''});
     const [element, setElement] = useState(null);
+    const [menuIsUsed, setMenuIsUsed] = useState(false);
 
     useEffect(() => {
         if(itemRef) setElement(itemRef.current.getBoundingClientRect());
@@ -42,10 +44,13 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
         }
     }
 
+    const autoHide = () => {if (menuIsUsed) setParams(null)}
+
     return(
         <>
             <div
                 className={styles.contextMenuWrap}
+                onMouseLeave={autoHide}
                 ref={contextMenuRef}
                 style={{
                     top: element ? `${element.bottom}px` : top.menu,
