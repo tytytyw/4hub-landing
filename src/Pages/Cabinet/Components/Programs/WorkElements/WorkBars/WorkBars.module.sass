@@ -3,7 +3,7 @@
   overflow-x: hidden
   overflow-y: scroll
   box-sizing: border-box
-  padding: 10px 0 20px 20px
+  padding: 0
   &::-webkit-scrollbar-track
     background: #0A3AAB
   &::-webkit-scrollbar-track
@@ -22,9 +22,10 @@
   display: grid
   justify-content: center
   width: 100%
-.wrapper
-  grid-template-columns: repeat(auto-fill, 180px)
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr))
   grid-auto-rows: 160px
+  justify-items: center
+  align-items: center
 
   .textAddIcon
     margin: 30px 0 0 30px
@@ -36,7 +37,7 @@
 
 
 .wrapper_small
-  grid-template-columns: repeat(auto-fill, 130px)
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr))
   grid-auto-rows: 110px
 
   .textAddIcon
@@ -49,7 +50,7 @@
 
 
 .wrapper_big
-  grid-template-columns: repeat(auto-fill, 220px)
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr))
   grid-auto-rows: 200px
 
   .textAddIcon
