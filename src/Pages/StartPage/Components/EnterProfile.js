@@ -57,7 +57,8 @@ const EnterProfile = ({setPage}) => {
                     <input
                         className={classnames({
                             [styles.inputField]: true,
-                            [styles.redBorder]: compare.isLogin
+                            [styles.redBorder]: compare.isLogin,
+                            [styles.login]: true
                         })}
                         type='text'
                         id='login'
