@@ -76,7 +76,7 @@ const INITIAL_STATE = {
     //SAFE
     safeFileList: null,
     safes: null,
-    authorizedSafe: {id: null, code: null},
+    authorizedSafe: null,
 
     //PROJECT
     projects: [],

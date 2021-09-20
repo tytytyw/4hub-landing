@@ -224,7 +224,7 @@ const WorkSpace = ({
 						<Profile />
 					</div>
 				</div>
-				{!authorizedSafe && <ServePanel
+				{authorizedSafe && <ServePanel
 					chosenFile={chosenFile}
 					setAction={setAction}
 					share={() => onActiveCallbackArrMain("share")}
