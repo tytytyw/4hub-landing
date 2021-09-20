@@ -13,7 +13,7 @@ import MyFiles from './Components/MyFiles'
 import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
-import {Switch, Route, useHistory} from 'react-router'
+import {Switch, Route, useHistory, Redirect} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from './Components/Project';
 import SharedFiles from './Components/SharedFiles';
@@ -116,6 +116,7 @@ const PrivateCabinet = () => {
                 // }}
             >
 
+                {id_company ?
                 <Switch>
 
                     <Route
@@ -123,6 +124,12 @@ const PrivateCabinet = () => {
                         component={Company}
                         exact
                     />
+
+                    <Redirect to='/company'/>
+
+                </Switch> :
+
+                <Switch>
 
                     <Route
                         path='/personal-data'
@@ -238,7 +245,7 @@ const PrivateCabinet = () => {
                             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                             loadingType={loadingType}
                             setLoadingType={setLoadingType}
-                            
+
                         />}
                     />
 
@@ -298,7 +305,9 @@ const PrivateCabinet = () => {
                         />}
                     />
 
-                </Switch>
+                    <Redirect to='/'/>
+
+                </Switch>}
 
             </div>
             {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
