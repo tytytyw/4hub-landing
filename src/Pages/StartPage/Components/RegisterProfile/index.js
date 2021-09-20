@@ -1,18 +1,32 @@
 import React, {useState} from 'react';
 import classnames from 'classnames';
 
-import api from '../../../api';
+import api from '../../../../api';
 import styles from './RegisterProfile.module.sass';
-import RegistrationSuccess from './RegistrationSuccess';
-import Error from '../../../generalComponents/Error';
+import RegistrationSuccess from '../RegistrationSuccess';
+import Error from '../../../../generalComponents/Error';
 
 const RegisterProfile = ({setPage, pageOption}) => {
 
+    const regTypes = [
+        {name: 'Обычная версия'},
+        {name: 'Бизнес версия'}
+    ];
     const [visibility, setVisibility] = useState('password');
-    const [info, setInfo] = useState({login: '', pass: '', repeatPass: ''});
-    const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false});
+    const [info, setInfo] = useState({login: '', pass: '', repeatPass: '', company: '', regType: regTypes[0].name, openRegType: false});
+    const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false, isСompany: false});
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Упс.... что-то пошло не так. Попробуй еще раз!')
+
+    const renderRegTypes = () => (
+        regTypes.map((el, i) => (
+            <span
+                key={i}
+                className={`${styles.regTypeEl} ${el.name === info.regType ? styles.chosenReg : ''}`}
+                onClick={() => setInfo({...info, regType: el.name, openRegType: false})}
+            >{el.name}</span>
+        ))
+    );
 
     const setLogin = (val) => {
         let number;
@@ -49,12 +63,18 @@ const RegisterProfile = ({setPage, pageOption}) => {
         let boolean = false
         passRepeat.forEach((el, i) => {if(el !== pass[i]) boolean = true});
         setCompare({...compare, isCoincidePass: boolean});
+    };
+
+    const checkCompany = (input) => {
+        if(input.value === '') return setCompare({...compare, isСompany: true});
+        return setCompare({...compare, isСompany: false});
     }
 
     const sendRequest = (retry) => {
       if(!compare.isLogin && !compare.isPass && !compare.isCoincidePass && compare.isAgreed) {
           const login = info.login.indexOf('@') > -1 ? info.login : info.login.replace(/(\()*(\))*\s*-*/g, '');
-            api.post(`/ajax/user_reg.php?name=${login}&pass=${info.pass}${retry ? retry : ''}`)
+          const company = info.regType === "Бизнес версия" ? `&company=${info.company}` : '';
+            api.post(`/ajax/user_reg.php?name=${login}&pass=${info.pass}${retry ? retry : ''}${company}`)
                 .then(res => {
                     if(res.data.ok === 1) {
                         setPage('registerSuccess');
@@ -77,9 +97,38 @@ const RegisterProfile = ({setPage, pageOption}) => {
       <>
       {pageOption === 'register' && <div className={styles.main}>
           <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
-          <div className={styles.registerWrap}>
+          <div className={styles.registrationType}>
+              <span
+                  onClick={() => {setInfo({...info, openRegType: !info.openRegType})}}
+                  className={styles.fieldReg}
+              >{info.regType}</span>
+              <div
+                  style={{display: `${info.openRegType ? 'flex' : 'none'}`}}
+                  className={styles.regList}
+              >{renderRegTypes()}</div>
+          </div>
+          <div className={`${styles.registerWrap} ${info.regType === "Бизнес версия" ? styles.business : ''}`}>
               <span className={styles.cross} onClick={() => setPage('init')} />
               <span className={styles.title}>Регистрация</span>
+              {info.regType === "Бизнес версия" ? <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
+                  <label className={styles.inputName}>
+                      Имя компании
+                      {compare.isСompany && <span> Некорректный ввод данных</span>}
+                  </label>
+                  <input
+                      className={classnames({
+                          [styles.inputField]: true,
+                          [styles.redBorder]: compare.isСompany
+                      })}
+                      type='text'
+                      value={info.company}
+                      onChange={e => {
+                          setInfo({...info, company: e.target.value})
+                          checkCompany(e.target)
+                      }}
+                      onBlur={e => checkCompany(e.target)}
+                  />
+              </div> : null}
               <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                   <label className={styles.inputName}>
                       Email / Телефон
