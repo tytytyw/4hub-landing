@@ -60,10 +60,10 @@ const WorkBars = ({
                         : 'calc(100% - 90px - 55px)'
                     }`,
                 gridTemplateColumns: size === 'small'
-                    ? 'repeat(auto-fill, 118px)'
+                    ? 'repeat(auto-fill, minmax(118px, 1fr))'
                     : size === 'medium'
-                        ? 'repeat(auto-fill, 160px)'
-                        : 'repeat(auto-fill, 205px)',
+                        ? 'repeat(auto-fill, minmax(160px, 1fr))'
+                        : 'repeat(auto-fill, minmax(205px, 1fr))',
                 gridAutoRows: size === 'small'
                     ? '118px'
                     : size === 'medium'

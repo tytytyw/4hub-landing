@@ -23,6 +23,37 @@
     margin-block-start: 0
     margin: 30px 0 55px 0
     cursor: pointer
+  .registrationType
+    display: flex
+    margin: 0 0 25px 0
+    border: 1px solid white
+    box-sizing: border-box
+    padding: 5px 10px
+    border-radius: 5px
+    cursor: pointer
+    color: white
+    font-family: "SF Pro Regular", sans-serif
+    position: relative
+    min-width: 155px
+    width: 155px
+    justify-content: center
+    &:hover
+      background-color: rgba(0, 0, 0, 0.47)
+      transition: background-color 0.2s ease-in
+    .regList
+      display: flex
+      flex-direction: column
+      position: absolute
+      left: 0
+      top: 25px
+      z-index: 2
+      padding: 5px 0
+      .regTypeEl
+        padding: 5px 10px
+        box-sizing: border-box
+        background: rgba(0, 0, 0, 0.6)
+      .chosenReg
+        background: #1b1c6c
   .registerWrap
     width: 458px
     height: 498px
@@ -183,6 +214,9 @@
         cursor: pointer
       span:hover
         color: #518bf3
+  .business
+    width: 458px
+    height: 530px
 @media (max-width: 1420px)
   .main
     .hubIcon
