@@ -238,21 +238,6 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 									isMistake={errors?.password}
 								/>
 							</div>
-
-							{/* <div className={styles.inputWrap}>
-                                <Input
-                                    autocomplete="off"
-                                    type='password'
-                                    name='passwordRepeat'
-                                    placeholder='Введите повторно пароль'
-                                    showPass={showPass}
-                                    setShowPass={setShowPass}
-                                    className={styles.input}
-                                    value={passwordRepeat}
-                                    onChange={event => setPasswordRepeat(event.target.value)}
-                                    isMistake={errors?.passwordRepeat}
-                                />
-                            </div> */}
 						</div>
 						<Colors color={color} setColor={setColor} />
 						<Signs sign={sign} setSign={setSign} />
