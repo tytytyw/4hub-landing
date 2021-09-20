@@ -27,6 +27,7 @@ import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
 import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
+import Company from "./Components/Business/Company";
 
 const PrivateCabinet = () => {
 
@@ -116,6 +117,12 @@ const PrivateCabinet = () => {
             >
 
                 <Switch>
+
+                    <Route
+                        path='/company'
+                        component={Company}
+                        exact
+                    />
 
                     <Route
                         path='/personal-data'

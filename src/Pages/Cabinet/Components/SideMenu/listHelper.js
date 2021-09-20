@@ -63,7 +63,7 @@ export const menu = [
 export const businessMenu = [
     {
         name: 'Компания',
-        path: '/',
+        path: '/company',
         src: './assets/BusinessCabinet/menu-icons/company.svg'
     },
     {
@@ -78,7 +78,7 @@ export const businessMenu = [
     },
     {
         name: 'Мои папки',
-        path: '/',
+        path: '/folders',
         src: './assets/PrivateCabinet/folder.svg'
     },
     {
@@ -93,12 +93,12 @@ export const businessMenu = [
     },
     {
         name: 'Календарь',
-        path: '/devices',
+        path: '/calendar',
         src: './assets/BusinessCabinet/menu-icons/calendar.svg'
     },
     {
         name: 'Чат',
-        path: '/devices',
+        path: '/chat',
         src: './assets/BusinessCabinet/menu-icons/chat.svg'
     },
     {

@@ -40,7 +40,8 @@ const Company = () => {
     ]
 
     return (
-        <>
+        <div className={styles.wrapper}>
+
             <SideList
                 pageOption={pageOption}
                 setPageOption={setPageOption}
@@ -70,7 +71,7 @@ const Company = () => {
                 </div>
 
             </div>
-        </>
+        </div>
     );
 };
 
