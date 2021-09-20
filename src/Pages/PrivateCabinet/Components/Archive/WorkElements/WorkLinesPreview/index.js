@@ -8,22 +8,26 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../../Store/actions/PrivateCabinetActions";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
+      fileList, file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
 }) => {
 
     //const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
     const size = useSelector(state => state.PrivateCabinet.size);
     const search = useSelector(state => state.PrivateCabinet?.search);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
     const [color, setColor] = useState(null);
-    const [f, setF] = useState(file);
+    const [f, setF] = useState(null);
     useEffect(() => {
-        setF(file);
+        if (fileList.find(item => item?.fid === file?.fid)) {
+            setF(file);
+        } else {
+            setF(null)
+        }
         const newColor = colors.filter(c => c.color === file?.color)
         setColor(newColor[0]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
 
     const audioRef = useRef(null);

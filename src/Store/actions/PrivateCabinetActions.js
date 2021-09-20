@@ -831,14 +831,16 @@ export const onSetReverseCriterion = (value) => {
 }
 
 // GUEST MODE
-export const onGetGuestSharedFiles  = () => async (dispatch) => {
+export const onGetGuestFolderFiles  = (did, setLoading) => async (dispatch) => {
     try {
-        const res = await axios.get(`/ajax/file_share_get.php`)
+        const res = await axios.get(`/ajax/dir_access_list.php?did=${did}`)
         dispatch({
             type: CHOOSE_GUEST_SHARED_FILES,
             payload: res.data.data
         })
     } catch (e) {
         console.log(e);
+    } finally {
+        setLoading(false)
     }
 }

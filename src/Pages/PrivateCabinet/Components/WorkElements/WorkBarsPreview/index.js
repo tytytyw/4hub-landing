@@ -9,7 +9,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
 const WorkBarsPreview = ({
-    children, file, filePick, page, setPage, fileRef, chosenFolder,
+    fileList, children, file, filePick, page, setPage, fileRef, chosenFolder,
     gLoader
 }) => {
 
@@ -17,11 +17,18 @@ const WorkBarsPreview = ({
     const [f, setF] = useState(file);
     const search = useSelector(state => state.PrivateCabinet?.search);
     const size = useSelector(state => state.PrivateCabinet.size);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {setF(file); setPlay(false)}, [file]);
+    useEffect(() => {
+        if (fileList.find(item => item?.fid === file?.fid)) {
+            setF(file);
+        } else {
+            setF(null)
+        }
+        setPlay(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file]);
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
