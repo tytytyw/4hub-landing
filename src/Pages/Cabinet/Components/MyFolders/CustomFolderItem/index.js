@@ -76,7 +76,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     };
 
     const clickHandle = async (e) => {
-        if(fileList.path !== f.path) {
+        if (fileList.path !== f.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
@@ -93,8 +93,8 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 }, 0)
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
             })
-        }
-    };
+        } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
+    } 
 
     const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
 
