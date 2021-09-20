@@ -15,6 +15,13 @@ const WorkBarsPreview = ({children, file}) => {
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
+    const innerFilesHeight = () => {
+        switch(size) {
+            case 'small': return '106px';
+            case 'medium': return '149px';
+            default: return '177px'
+        }
+    }
 
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
@@ -47,6 +54,7 @@ const WorkBarsPreview = ({children, file}) => {
     return (<div
         className={styles.workBarsPreviewWrap}
         style={{
+            height: 'calc(100% - 90px - 55px)',
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'
@@ -59,7 +67,7 @@ const WorkBarsPreview = ({children, file}) => {
                     : '205px',
         }}
     >
-        <div className={styles.preview}>
+        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px)`}}>
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}

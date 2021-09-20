@@ -20,6 +20,13 @@ const WorkBarsPreview = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
+    const innerFilesHeight = () => {
+        switch(size) {
+            case 'small': return '106px';
+            case 'medium': return '149px';
+            default: return '177px'
+        }
+    }
 
     useEffect(() => {setF(file); setPlay(false)}, [file]);
 
@@ -99,7 +106,7 @@ const WorkBarsPreview = ({
                     : '205px',
         }}
     >
-        <div className={styles.preview}>
+        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px)`}}>
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
