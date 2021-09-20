@@ -4,8 +4,9 @@ import {useDispatch} from 'react-redux'
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
+import FolderIcon from "./FolderIcon";
 
-const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
+const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
 
     const dispatch = useDispatch();
 
@@ -28,14 +29,20 @@ const CustomFolderItem = ({folder, padding, chosenFolder, setChosenFolder, setMo
             })} >
 
                 <div className={styles.innerFolderName}>
-                    <img
-                        src={`./assets/PrivateCabinet/${folder.icon}.svg`}
-                        alt='icon'
-                        className={styles.innerFolderIcon}
-                    />
+                    {folder?.icon ?
+                        <img
+                            src={`./assets/PrivateCabinet/${folder.icon}.svg`}
+                            alt='icon'
+                            className={styles.innerFolderIcon}
+                        /> :
+                        <FolderIcon
+                            fill={folder?.color}
+                            className={styles.innerFolderIcon}
+                        />}
+
                     <div className={styles.nameWrap}>
                         <div className={styles.Name}>
-                            {!listCollapsed && <div className={styles.name}>{folder.nameRu}</div>}
+                            {!listCollapsed && <div className={styles.name}>{folder.name}</div>}
                         </div>
                     </div>
                 </div>

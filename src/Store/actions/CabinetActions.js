@@ -327,10 +327,10 @@ export const onGetProgramFolders = () => async (dispatch, getState) => {
     const uid = getState().user.uid
     api.get(`/ajax/app_folder_list.php?uid=${uid}`)
         .then((res) => {
-            if (res.data.ok) {
+            if (!!res.data.ok) {
                 dispatch({
                     type: GET_PROGRAM_FOLDERS,
-                    payload: res.data.files
+                    payload: res.data.app_folders
                 })
             }
         })
@@ -344,15 +344,13 @@ export const onGetRecentPrograms = () => async (dispatch, getState) => {
             {
                 id: 1,
                 icon: 'slack-2',
-                name: 'slack',
-                nameRu: 'Slack',
+                name: 'Slack',
                 path: "global/video"
             },
             {
                 id: 2,
                 icon: 'chrome',
-                name: 'chrome',
-                nameRu: 'Google Chrome',
+                name: 'Google Chrome',
                 path: "global/video",
             },
         ]

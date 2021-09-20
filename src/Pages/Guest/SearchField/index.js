@@ -7,8 +7,8 @@ import {useDebounce} from "../../../generalComponents/Hooks";
 
 const SearchField = ({setChosenFile}) => {
 	const inputRef = useRef(null);
-	const path = useSelector(state => state.PrivateCabinet?.fileList?.path || state.PrivateCabinet?.folderList?.path);
-	const searchField = useSelector(state => state.PrivateCabinet?.search);
+	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
+	const searchField = useSelector(state => state.Cabinet?.search);
 	const dispatch = useDispatch();
 
 	const search = (query) => dispatch(onChooseFiles(path, query));

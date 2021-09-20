@@ -27,7 +27,7 @@ function FilesGroup({
 	index
 }) {
 	const [collapse, setCollapse] = useState(index === 0);
-	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 	const renderFiles = (Type, shareLink) => {
 		if (!fileList || fileList.length === 0) return null;

@@ -14,9 +14,9 @@ const WorkBarsPreview = ({
 }) => {
 
     const [f, setF] = useState(file);
-    const search = useSelector(state => state.PrivateCabinet?.search);
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const search = useSelector(state => state.Cabinet?.search);
+    const size = useSelector(state => state.Cabinet.size);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 

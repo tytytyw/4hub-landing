@@ -10,7 +10,7 @@ import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
 const ListCalendar = ({setViewType, collapsed = false}) => {
 
     const dispatch = useDispatch()
-    const calendarDate = useSelector(state => state.PrivateCabinet.calendarDate)
+    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(calendarDate))
     const [days, setDays] = useState(getDays(calendarDate))

@@ -27,9 +27,13 @@ const getParam = param => {
 const Guest = () => {
 
     const dispatch = useDispatch()
-    const fileList = useSelector((state) => state.PrivateCabinet.guestSharedFiles);
+    const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
 
     const filteredList = useMemo(() => {
+
+        if (!fileList?.length) {
+            return []
+        }
 
         const result = []
         let files = []

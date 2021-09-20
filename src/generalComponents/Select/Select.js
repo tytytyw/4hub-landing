@@ -47,10 +47,12 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                     [styles.selected]: !!value
                 })}
             >
-                <span className={classNames({
-                    [styles.selectInput]: !props.classNameSelect,
-                    [props.classNameSelect]: !!props.classNameSelect
-                })}>{getValue()}</span>
+                <div className={styles.valueWrap}>
+                    <span className={classNames({
+                        [styles.selectInput]: !props.classNameSelect,
+                        [props.classNameSelect]: !!props.classNameSelect
+                    })}>{getValue()}</span>
+                </div>
                 <span className={classNames({
                     [styles.arrow]: true,
                     [styles.active]: !!open

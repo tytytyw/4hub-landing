@@ -11,7 +11,7 @@ const ProgramLine = ({
           program, chosenProgram, setChosenProgram, setMouseParams, setAction, shareLink
 }) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size)
+    const size = useSelector(state => state.Cabinet.size)
 
     return (
         <div
