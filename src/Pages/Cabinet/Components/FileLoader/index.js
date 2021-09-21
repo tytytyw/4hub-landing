@@ -17,8 +17,7 @@ import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/che
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem,
-        filesPage
+        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
 }) => {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -36,6 +35,7 @@ const FileLoader = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
 
     //Cancel Loading variables
     const CancelToken = axios.CancelToken;
@@ -232,7 +232,6 @@ const FileLoader = ({
     };
 
     useEffect(() => {onProgress(processing)}, [processing]);
-
     return (
         <>
         <div className={`${styles.loaderWrap} ${collapsed ? `${styles.loaderCollapsed} ${styles.wrapperCollapsed}` : styles.wrapperNotCollapsed}`}
@@ -243,6 +242,7 @@ const FileLoader = ({
              ref={fileLoaderRef}
              style={{
                  display: display,
+                 height: collapsed ? '' : sumFiles > 3 ? `280px` : sumFiles === 3 ? '234px' : sumFiles === 2 ? '183px' : '134px',
                  ...renderPosition()
              }}
         >
