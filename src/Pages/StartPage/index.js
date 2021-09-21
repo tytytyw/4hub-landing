@@ -15,7 +15,7 @@ import Landing from './Components/Landing/Landing'
 import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
 
-const StartPage = ({setOptions}) => {
+const StartPage = ({setOptions, setLoadingType}) => {
 
     const [pageOption, setPage] = useState('init');
     const [loader, setLoader] = useState(false);
@@ -31,7 +31,8 @@ const StartPage = ({setOptions}) => {
         if(/action=forder/.test(window.location.search)) {
             setPage('downloadFolder');
         }
-        }, []);
+        setLoadingType('');
+        }, []); //eslint-disable-line
 
     const isLanding = () => pageOption === 'landing' || pageOption === 'business-landing'
 

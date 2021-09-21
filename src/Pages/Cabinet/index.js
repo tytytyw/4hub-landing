@@ -23,13 +23,12 @@ import Archive from './Components/Archive';
 import Journal from './Components/Journal';
 import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
-import Loader from '../../generalComponents/Loaders/4HUB';
 import Chat from "./Components/Chat";
 import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 
-const PrivateCabinet = () => {
+const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
     const uid = useSelector(state => state.user.uid);
     const id_company = useSelector(state => state.user.id_company);
@@ -41,7 +40,6 @@ const PrivateCabinet = () => {
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
-    const [loadingType, setLoadingType] = useState('');
     const [filesPage, setFilesPage] = useState(1);
 
     const history = useHistory()
@@ -73,6 +71,7 @@ const PrivateCabinet = () => {
         document.cookie = `uid=${uid};expires=${date}`;
         document.cookie = `id_company=${id_company};expires=${date}`;
         stayOnline(0);
+        setLoadingType('');
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     //Loading multiple files info
@@ -329,12 +328,6 @@ const PrivateCabinet = () => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {loadingType ? <Loader
-                position='absolute'
-                zIndex={102}
-                containerType='bounceDots'
-                type='bounceDots'
-            /> : null}
         </div>
     )
 }
