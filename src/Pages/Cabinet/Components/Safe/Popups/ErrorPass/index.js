@@ -6,7 +6,6 @@ import styles from './ErrorPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
 const ErrorPass = ({setError, set, mistake}) => {
-    
     const getTaregtString = () => {
         switch (mistake) {
             case 'code': return 'код';
