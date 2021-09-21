@@ -5,6 +5,7 @@ import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
 import FolderIcon from "./FolderIcon";
+import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
 const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
 
@@ -31,7 +32,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams
                 <div className={styles.innerFolderName}>
                     {folder?.icon ?
                         <img
-                            src={`./assets/PrivateCabinet/${folder.icon}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/${folder.icon}.svg`}
                             alt='icon'
                             className={styles.innerFolderIcon}
                         /> :
@@ -43,6 +44,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams
                     <div className={styles.nameWrap}>
                         <div className={styles.Name}>
                             {!listCollapsed && <div className={styles.name}>{folder.name}</div>}
+                            {folder.tags ? <div className={styles.tag}>{folder.tags}</div> : null}
                         </div>
                     </div>
                 </div>
@@ -54,14 +56,14 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams
                         {folder.emo &&
                         <img
                             className={styles.symbols}
-                            src={`./assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
                             alt='emoji'
                         />}
 
-                        {folder.symbol &&
+                        {folder.fig &&
                         <img
                             className={styles.symbols}
-                            src={folder?.symbol}
+                            src={`${imageSrc}assets/PrivateCabinet/signs/${folder?.fig}.svg`}
                             alt='emoji'
                         />}
                     </>}
