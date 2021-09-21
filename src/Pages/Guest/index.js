@@ -17,6 +17,7 @@ import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFil
 import {useDispatch, useSelector} from "react-redux";
 
 import moment from "moment";
+import Loader from "../../generalComponents/Loaders/4HUB";
 
 const getParam = param => {
     const queryString = window.location.search;
@@ -28,6 +29,8 @@ const Guest = () => {
 
     const dispatch = useDispatch()
     const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
+
+
 
     const filteredList = useMemo(() => {
 
@@ -51,8 +54,6 @@ const Guest = () => {
 
     }, [fileList])
 
-    const [loading, setLoading] = useState(true)
-
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const [action, setAction] = useState({type: "", name: "", text: ""})
     const [mouseParams, setMouseParams] = useState(null)
@@ -60,11 +61,12 @@ const Guest = () => {
     const [chosenFile, setChosenFile] = useState(null)
 
     const [workElementsView, setWorkElementsView] = useState('workLinesPreview')
-
+    const [loadingType, setLoadingType] = useState('');
     const [showLinkCopy, setShowLinkCopy] = useState(false);
 
     useEffect(() => {
-        dispatch(onGetGuestFolderFiles(getParam('did'), setLoading));
+        setLoadingType("squarify")
+        dispatch(onGetGuestFolderFiles(getParam('did'), setLoadingType));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
@@ -182,7 +184,7 @@ const Guest = () => {
                         </div>
                         :
                         <div className={styles.centered}>
-                            <h3>{loading ? 'Загрузка...' : 'Нет файлов...'}</h3>
+                            <h3>{!loadingType && 'Нет файлов...'}</h3>
                         </div>}
 
                 </div>
@@ -225,6 +227,13 @@ const Guest = () => {
             {showLinkCopy && (
                 <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
             )}
+
+            {loadingType ? <Loader
+                position='absolute'
+                zIndex={102}
+                containerType='bounceDots'
+                type='bounceDots'
+            /> : null}
 
         </div>
     )
