@@ -50,6 +50,9 @@ const FileLoader = ({
         setCloseApprove(true);
     };
     const offCloseApprove = () => setCloseApprove(true);
+    const onCloseApprove = () => {
+        awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? setCloseApprove(false) : clearLoadFiles();
+    }
 
     // Actions on first render of the Loader
     const startLoading = (loadForce) => {
@@ -263,7 +266,7 @@ const FileLoader = ({
                         {collapsed && fileErrors.length > 0 && !processing ? <ErrorIcon className={styles.mark} /> : null}
                     </div>
                     <div className={`${collapsed ? styles.arrowUp : styles.arrowDown}`} onClick={() => setCollapsed(!collapsed)} />
-                    <span className={styles.cross} onClick={() => setCloseApprove(false)} />
+                    <span className={styles.cross} onClick={onCloseApprove} />
                 </div>
             </div>
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
