@@ -119,15 +119,15 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
-            // page > 1
-            //     ? dispatch({
-            //         type: LOAD_FILES,
-            //         payload: {files: files.data, }
-            //     })
-            //     : dispatch({
-            //         type: CHOOSE_FILES,
-            //         payload: {files: files.data, path}
-            //     })
+            page > 1
+                ? dispatch({
+                    type: LOAD_FILES,
+                    payload: {files: files.data, }
+                })
+                : dispatch({
+                    type: CHOOSE_FILES,
+                    payload: {files: files.data, path}
+                })
             if(set) set(files.data.length);
             if(setLoad) setLoad(false);
         })
