@@ -20,7 +20,7 @@ const CodePopup = ({
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
-	const [errPass, setErrPass] = useState(false);
+	const [error, setError] = useState(false);
 	const [recoverPass, setRecoverPass] = useState(false);
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
@@ -38,7 +38,7 @@ const CodePopup = ({
 				)
 				.then((res) => {
 					if (res.data.f_pass) showSendCode(true)
-						else setErrPass('password');
+						else setError('password');
 				})
 				.catch((error) => console.log(error))
 				.finally(() => setLoadingType(""));
@@ -46,7 +46,7 @@ const CodePopup = ({
 
 		if (code) {
 			setLoadingType("squarify");
-			dispatch(onGetSafeFileList(code, id_safe, set, setErrPass, setLoadingType))
+			dispatch(onGetSafeFileList(code, id_safe, set, setError, setLoadingType))
 		}
 	};
 
@@ -57,7 +57,7 @@ const CodePopup = ({
 
 	return (
 		<>
-			{!errPass && !recoverPass && (
+			{!error && !recoverPass && (
 				<PopUp set={set}>
 					<div className={styles.wrapper}>
 						<div className={styles.top}>
@@ -141,7 +141,7 @@ const CodePopup = ({
 					set={setRecoverPass}
 				/>
 			)}
-			{errPass && <ErrorPass setErrPass={setErrPass} mistake={errPass} set={set} />}
+			{error && <ErrorPass setError={setError} mistake={error} set={set} />}
 		</>
 	);
 };

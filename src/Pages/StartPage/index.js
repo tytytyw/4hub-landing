@@ -8,7 +8,7 @@ import UploadFile from './Components/UploadFile';
 import Infopage from './Components/InfoPage';
 import DownloadFile from './Components/DownloadFile';
 import EnterProfile from './Components/EnterProfile';
-import RegisterProfile from './Components/RegisterProfile';
+import RegisterProfile from './Components/RegisterProfile/index';
 import ForgotPassword from './Components/ForgotPassword';
 import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'

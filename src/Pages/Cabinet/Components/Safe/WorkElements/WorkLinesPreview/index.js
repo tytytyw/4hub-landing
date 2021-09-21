@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import styles from "./WorkLinesPreview.module.sass";
 import { colors } from "../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 
@@ -60,7 +61,7 @@ const WorkLinesPreview = ({ file, children, hideFileList }) => {
 						<div className={styles.audioPicWrap}>
 							<img
 								className={styles.audioPic}
-								src="./assets/PrivateCabinet/file-preview_audio.svg"
+								src={`${imageSrc}/assets/PrivateCabinet/file-preview_audio.svg`}
 								alt="audio"
 							/>
 							{!play ? (
@@ -77,7 +78,7 @@ const WorkLinesPreview = ({ file, children, hideFileList }) => {
 							{play ? (
 								<img
 									className={styles.audioSwitch}
-									src="./assets/PrivateCabinet/pause.svg"
+									src={`${imageSrc}/assets/PrivateCabinet/pause.svg`}
 									alt="pause"
 									onClick={() => {
 										!play ? audioRef.current.play() : audioRef.current.pause();
@@ -149,7 +150,7 @@ const WorkLinesPreview = ({ file, children, hideFileList }) => {
 							<span className={styles.itemName}>Знаки</span>
 							{f?.fig ? (
 								<img
-									src={`./assets/PrivateCabinet/signs/${f.fig}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/signs/${f.fig}.svg`}
 									alt="sign"
 								/>
 							) : (
@@ -160,7 +161,7 @@ const WorkLinesPreview = ({ file, children, hideFileList }) => {
 							<span className={styles.itemName}>Эмоджи</span>
 							{f?.emo ? (
 								<img
-									src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`}
+									src={`${imageSrc}/assets/PrivateCabinet/smiles/${f.emo}.svg`}
 									alt="sign"
 								/>
 							) : (

@@ -14,6 +14,7 @@ import { ReactComponent as Calendar } from "../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from "../../../../../../assets/PrivateCabinet/edit.svg";
 import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/eye.svg";
 import { ReactComponent as Download } from "../../../../../../assets/PrivateCabinet/download-2.svg";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 	const [error, setError] = useState(false);
@@ -111,13 +112,13 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 										</div>
 										{safe.id_fig && (
 											<img
-												src={`./assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
 												alt="sign"
 											/>
 										)}
 										{safe.id_emo && (
 											<img
-												src={`./assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
+												src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
 												alt="emoji"
 											/>
 										)}

@@ -3,6 +3,8 @@ import {useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../../generalComponents/Files';
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+
 
 const WorkBarsPreview = ({children, file}) => {
 
@@ -13,6 +15,13 @@ const WorkBarsPreview = ({children, file}) => {
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
+    const innerFilesHeight = () => {
+        switch(size) {
+            case 'small': return '106px';
+            case 'medium': return '149px';
+            default: return '177px'
+        }
+    }
 
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
@@ -30,9 +39,9 @@ const WorkBarsPreview = ({children, file}) => {
                         <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
                     </audio>
                     <div className={styles.audioPicWrap}>
-                        <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
-                        {!play ? <img className={styles.audioSwitchPlay} src='./assets/PrivateCabinet/play-black.svg' alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
-                        {play ? <img className={styles.audioSwitch} src='./assets/PrivateCabinet/pause.svg' alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        <img className={styles.audioPic} src={`${imageSrc}/assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
+                        {!play ? <img className={styles.audioSwitchPlay} src={`${imageSrc}/assets/PrivateCabinet/play-black.svg`} alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        {play ? <img className={styles.audioSwitch} src={`${imageSrc}/assets/PrivateCabinet/pause.svg`} alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
                     </div>
                 </>
             }
@@ -45,6 +54,7 @@ const WorkBarsPreview = ({children, file}) => {
     return (<div
         className={styles.workBarsPreviewWrap}
         style={{
+            height: 'calc(100% - 90px - 55px)',
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'
@@ -57,7 +67,7 @@ const WorkBarsPreview = ({children, file}) => {
                     : '205px',
         }}
     >
-        <div className={styles.preview}>
+        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px)`}}>
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}

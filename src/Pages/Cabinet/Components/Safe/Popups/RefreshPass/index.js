@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 import styles from './RefreshPass.module.sass'
 import Button from '../../../MyProfile/Button'
@@ -16,7 +17,7 @@ const RefreshPass = ({safe, set}) => {
     const [enable, setEnable] = useState(false)
     const [showInfo, setShowInfo] = useState(false)
 
-    const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
+    const getEyeImg = () => showPass ? `${imageSrc}/assets/StartPage/eye.svg` : `${imageSrc}/assets/StartPage/invisible.svg`
 
     const inputRef = useRef()
 

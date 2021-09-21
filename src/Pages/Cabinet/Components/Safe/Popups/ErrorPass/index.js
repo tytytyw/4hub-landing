@@ -1,11 +1,11 @@
 import React from 'react'
 import PopUp from '../../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 import styles from './ErrorPass.module.sass'
 import Button from '../../../MyProfile/Button'
 
 const ErrorPass = ({setError, set, mistake}) => {
-    
     const getTaregtString = () => {
         switch (mistake) {
             case 'code': return 'код';
@@ -40,7 +40,7 @@ const ErrorPass = ({setError, set, mistake}) => {
                     <div className={styles.imageWrap}>
                         <img
                             className={styles.image}
-                            src="./assets/PrivateCabinet/alerts/warning-pc.png"
+                            src={`${imageSrc}/assets/PrivateCabinet/alerts/warning-pc.png`}
                             alt="Warning PC"
                         />
                     </div>
