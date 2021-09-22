@@ -255,7 +255,7 @@ const CustomizeFile = ({
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавте #Тег'
+                                placeholder='Добавьте #Тег'
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}

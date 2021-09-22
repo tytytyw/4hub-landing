@@ -114,7 +114,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             model='text'
                             value={members}
                             set={setMembers}
-                            placeholder='Участники (введите email или выбирите из списка)'
+                            placeholder='Участники (введите email или из списка)'
                         />
                         <img
                             src={'./assets/PrivateCabinet/input-arrow.svg'}
@@ -128,7 +128,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                         <input
                             className={styles.inputField}
                             type='text'
-                            placeholder='Добавте #Тег'
+                            placeholder='Добавьте #Тег'
                             value={tagOption.chosen}
                             onChange={(e) => onChangeTag(e.target.value)}
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
