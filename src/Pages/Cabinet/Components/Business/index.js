@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import styles from './BusinessCabinet.module.sass'
 
 import {Switch, Route, useHistory, Redirect} from 'react-router'
-import {setPreviewTheme} from '../../Store/actions/main';
-import SideMenu from "../Cabinet/Components/SideMenu";
 import {menu} from "./listHelper";
-import Company from "./Components/Company";
-import BottomPanel from "../Cabinet/Components/BottomPanel";
+import {setPreviewTheme} from "../../../../Store/actions/main";
+import SideMenu from "../SideMenu";
+import Company from "./Company";
+import BottomPanel from "../BottomPanel";
 
 const BusinessCabinet = () => {
 

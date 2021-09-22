@@ -56,7 +56,7 @@ const UserForm = () => {
             reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
         } else {
-            fileInputRef.current.value  = null
+            fileInputRef.current.value = null
             setPreview(profileImage)
         }
 

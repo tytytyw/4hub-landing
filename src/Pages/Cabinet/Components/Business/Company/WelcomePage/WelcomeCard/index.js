@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from "./WelcomeCard.module.sass";
-import successImg from "../../../../../../assets/BusinessCabinet/WelcomePage/success.svg";
-import {ReactComponent as PencilImg} from "../../../../../../assets/BusinessCabinet/WelcomePage/pencil.svg";
-import {ReactComponent as KeyImg} from "../../../../../../assets/BusinessCabinet/WelcomePage/key.svg";
-import {ReactComponent as ArrowImg} from "../../../../../../assets/BusinessCabinet/WelcomePage/arrow.svg";
+import successImg from "../../../../../../../assets/BusinessCabinet/WelcomePage/success.svg";
+import {ReactComponent as PencilImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/pencil.svg";
+import {ReactComponent as KeyImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/key.svg";
+import {ReactComponent as ArrowImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/arrow.svg";
 
 const WelcomeCard = ({setPageOption}) => {
 

@@ -28,7 +28,11 @@ const WorkBarsPreview = ({
         }
     }
 
-    useEffect(() => {setF(file); setPlay(false)}, [file]);
+    useEffect(() => {
+        setF(file);
+        setPlay(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file]);
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);

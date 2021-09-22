@@ -15,6 +15,11 @@ export const months = (year) => [
     {id: 11, name: 'Декабрь', code: 6, days: 31}
 ];
 
+export const getMonthByIndex = index => {
+    const findMonth = months().find(item => item.id === index)
+    return findMonth.name
+}
+
 export const daysOfWeeks = {
   short: ['Пн', 'Вт', 'Ср', 'Чт', 'Пн', 'Сб', 'Вс',],
   code: [2, 3, 4, 5, 6, 0, 1,]

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import classNames from "classnames";
 
 function SideList({ children }) {
-	const size = useSelector((state) => state.PrivateCabinet.size);
+	const size = useSelector((state) => state.Cabinet.size);
 
 	return (
 		<div

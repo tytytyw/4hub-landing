@@ -11,7 +11,7 @@ const WorkLinesPreview = ({
       file, children, hideFileList, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
-    //const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    //const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const size = useSelector(state => state.Cabinet.size);
     const search = useSelector(state => state.Cabinet?.search);
     const fileList = useSelector(state => state.Cabinet.fileList);

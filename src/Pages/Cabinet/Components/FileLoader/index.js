@@ -17,8 +17,7 @@ import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/che
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem,
-        filesPage
+        setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
 }) => {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -36,6 +35,7 @@ const FileLoader = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
 
     //Cancel Loading variables
     const CancelToken = axios.CancelToken;
@@ -50,6 +50,9 @@ const FileLoader = ({
         setCloseApprove(true);
     };
     const offCloseApprove = () => setCloseApprove(true);
+    const onCloseApprove = () => {
+        awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? setCloseApprove(false) : clearLoadFiles();
+    }
 
     // Actions on first render of the Loader
     const startLoading = (loadForce) => {
@@ -232,7 +235,6 @@ const FileLoader = ({
     };
 
     useEffect(() => {onProgress(processing)}, [processing]);
-
     return (
         <>
         <div className={`${styles.loaderWrap} ${collapsed ? `${styles.loaderCollapsed} ${styles.wrapperCollapsed}` : styles.wrapperNotCollapsed}`}
@@ -243,6 +245,7 @@ const FileLoader = ({
              ref={fileLoaderRef}
              style={{
                  display: display,
+                 height: collapsed ? '' : sumFiles > 3 ? `280px` : sumFiles === 3 ? '234px' : sumFiles === 2 ? '183px' : '134px',
                  ...renderPosition()
              }}
         >
@@ -263,7 +266,7 @@ const FileLoader = ({
                         {collapsed && fileErrors.length > 0 && !processing ? <ErrorIcon className={styles.mark} /> : null}
                     </div>
                     <div className={`${collapsed ? styles.arrowUp : styles.arrowDown}`} onClick={() => setCollapsed(!collapsed)} />
-                    <span className={styles.cross} onClick={() => setCloseApprove(false)} />
+                    <span className={styles.cross} onClick={onCloseApprove} />
                 </div>
             </div>
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>

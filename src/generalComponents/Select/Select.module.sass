@@ -15,14 +15,24 @@
     cursor: pointer
     height: 100%
 
+    .valueWrap
+      height: 100%
+      display: flex
+      align-items: center
+
+      span
+        display: inline-block
+        white-space: nowrap
+        text-overflow: ellipsis
+        overflow: hidden
+        max-width: 85%
+        height: auto
+
     .selectInput
       font-size: 14px
       line-height: 18px
       color: #000
-      display: flex
-      align-items: center
       padding-left: 12px
-      height: 100%
 
   .arrow.active
     border-top: 6px solid #4086F1

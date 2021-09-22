@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 
 import styles from './GiveAccess.module.sass'
-import {ReactComponent as KeyImg} from '../../../../../../assets/BusinessCabinet/WelcomePage/key.svg'
+import {ReactComponent as KeyImg} from '../../../../../../../assets/BusinessCabinet/WelcomePage/key.svg'
 import AccessRadio from './AccessRadio'
-import Input from "../../../../../Cabinet/Components/MyProfile/Input";
+import Input from "../../../../MyProfile/Input";
 
 const GiveAccess = ({setPageOption}) => {
 

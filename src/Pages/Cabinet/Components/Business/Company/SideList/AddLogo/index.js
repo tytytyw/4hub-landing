@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from './AddLogo.module.sass'
-import logoImg from '../../../../../../assets/BusinessCabinet/logo.png'
-import {ReactComponent as ArrowIcon} from '../../../../../../assets/BusinessCabinet/SideList/arrow.svg'
+import logoImg from '../../../../../../../assets/BusinessCabinet/logo.png'
+import {ReactComponent as ArrowIcon} from '../../../../../../../assets/BusinessCabinet/SideList/arrow.svg'
 
 const AddLogo = () => {
 

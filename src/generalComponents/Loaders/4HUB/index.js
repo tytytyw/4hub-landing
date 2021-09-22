@@ -2,14 +2,18 @@
 
 import styles from './FourHUB.module.sass';
 
-const Loader = ({type, position, background, width, height, zIndex, containerType = ''}) => {
+const Loader = ({
+            type, position, background, width, height, zIndex, containerType = '',
+            animation = true,
+}) => {
     return (
         <div
             className={styles.loaderWrap}
             style={{
                 position: `${position ?? 'fixed'}`,
                 background: `${background ?? 'rgba(0, 0, 0, 0.95)'}`,
-                zIndex: `${zIndex ?? 10000}`
+                zIndex: `${zIndex ?? 10000}`,
+                animation: animation ? 'darkening 1s ease-in-out' : '',
             }}
         >
             <div

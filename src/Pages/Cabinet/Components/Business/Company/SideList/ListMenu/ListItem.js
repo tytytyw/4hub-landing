@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import styles from './ListMenu.module.sass'
-import {ReactComponent as ArrowIcon} from '../../../../../../assets/BusinessCabinet/SideList/arrow.svg'
+import {ReactComponent as ArrowIcon} from '../../../../../../../assets/BusinessCabinet/SideList/arrow.svg'
 import classNames from 'classnames'
 
 const ListItem = ({item, page, setPage, isSub, render}) => {

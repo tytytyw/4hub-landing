@@ -10,7 +10,7 @@ const ProgramLineShort = ({
 	setChosenProgram,
 	setMouseParams
 }) => {
-	const size = useSelector((state) => state.PrivateCabinet.size);
+	const size = useSelector((state) => state.Cabinet.size);
 
 	return (
 		<div

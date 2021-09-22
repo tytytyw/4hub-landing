@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Tariff.module.sass";
 import classNames from "classnames";
-import { ReactComponent as FolderIcon } from '../../../../../assets/StartPage/folder.svg';
-import { ReactComponent as PieChartIcon } from '../../../../../assets/StartPage/pie_chart.svg';
+import { ReactComponent as FolderIcon } from '../../../../../../assets/StartPage/folder.svg';
+import { ReactComponent as PieChartIcon } from '../../../../../../assets/StartPage/pie_chart.svg';
 
 
 function Tariff({ name, cost, currentPlan, promo, discont }) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './SuccessPopup.module.sass'
-import PopUp from '../../../../generalComponents/PopUp'
+import PopUp from "../../../../../generalComponents/PopUp";
 
 const SuccessPopup = ({set, title, children}) => {
 

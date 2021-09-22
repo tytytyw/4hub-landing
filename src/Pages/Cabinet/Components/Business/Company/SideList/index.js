@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './SideList.module.sass'
-import {ReactComponent as CompanyIcon} from '../../../../../assets/BusinessCabinet/SideList/company.svg'
+import {ReactComponent as CompanyIcon} from '../../../../../../assets/BusinessCabinet/SideList/company.svg'
 
 import ListMenu from './ListMenu'
 import AddLogo from "./AddLogo";

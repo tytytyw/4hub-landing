@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import styles from "./Company.module.sass";
-import SearchField from "../../../Cabinet/Components/SearchField";
-import Notifications from "../../../Cabinet/Components/Notifications";
-import Profile from "../../../Cabinet/Components/Profile";
 import SideList from "./SideList";
-import {ReactComponent as SettingsIcon} from "../../../../assets/BusinessCabinet/SideList/settings.svg";
-import {ReactComponent as InfoIcon} from "../../../../assets/BusinessCabinet/SideList/info.svg";
-import {ReactComponent as TeamIcon} from "../../../../assets/BusinessCabinet/SideList/team.svg";
-import {ReactComponent as OrgIcon} from "../../../../assets/BusinessCabinet/SideList/org.svg";
+import {ReactComponent as SettingsIcon} from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
+import {ReactComponent as InfoIcon} from "../../../../../assets/BusinessCabinet/SideList/info.svg";
+import {ReactComponent as TeamIcon} from "../../../../../assets/BusinessCabinet/SideList/team.svg";
+import {ReactComponent as OrgIcon} from "../../../../../assets/BusinessCabinet/SideList/org.svg";
 import WelcomeCard from "./WelcomePage/WelcomeCard";
 import GiveAccess from "./WelcomePage/GiveAccess";
 import SuccessSend from "./WelcomePage/SuccessSend";
 import AddEmployee from "./AddEmployee";
 import Standards from "./Standards";
+import SearchField from "../../SearchField";
+import Notifications from "../../Notifications";
+import Profile from "../../Profile";
 
 const Company = () => {
 
@@ -40,7 +40,8 @@ const Company = () => {
     ]
 
     return (
-        <>
+        <div className={styles.wrapper}>
+
             <SideList
                 pageOption={pageOption}
                 setPageOption={setPageOption}
@@ -70,7 +71,7 @@ const Company = () => {
                 </div>
 
             </div>
-        </>
+        </div>
     );
 };
 

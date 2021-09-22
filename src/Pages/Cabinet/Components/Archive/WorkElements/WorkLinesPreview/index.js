@@ -8,22 +8,26 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../../Store/actions/CabinetActions";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
+      fileList, file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
 }) => {
 
-    //const recentFiles = useSelector(state => state.PrivateCabinet.recentFiles);
+    //const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const size = useSelector(state => state.Cabinet.size);
     const search = useSelector(state => state.Cabinet?.search);
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
     const [color, setColor] = useState(null);
-    const [f, setF] = useState(file);
+    const [f, setF] = useState(null);
     useEffect(() => {
-        setF(file);
+        if (fileList.find(item => item?.fid === file?.fid)) {
+            setF(file);
+        } else {
+            setF(null)
+        }
         const newColor = colors.filter(c => c.color === file?.color)
         setColor(newColor[0]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
 
     const audioRef = useRef(null);
@@ -189,62 +193,6 @@ const WorkLinesPreview = ({
 
         </div>
 
-        {/* <div className={styles.previewFileWrap}>
-            {f ? <>
-                <div className={styles.preview}>
-                    {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
-                </div>
-                <div className={styles.previewInfo}>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Теги</span>
-                        {f.tag
-                            ? <span className={styles.tagName}>#{f.tag}</span>
-                            : <span className={styles.optionItem}>Добавить тег</span>}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Цвет</span>
-                        {f?.color
-                            ? <span className={styles.colorCircle} style={{background: color?.light, border: `1px solid ${color?.dark}`}}/>
-                            : <span className={styles.optionItem}>Добавить цвет</span>}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Знаки</span>
-                        {f?.fig
-                            ? <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='sign' />
-                            : <span className={styles.optionItem}>Добавить знаки</span>}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Эмоджи</span>
-                        {f?.emo
-                            ? <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign'/>
-                            : <span className={styles.optionItem}>Добавить эмоджи</span>}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Создан</span>
-                        {f?.ctime
-                            ? <span className={styles.description}>{f.mtime.split(' ')[0]}</span>
-                            : ''}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Изменен</span>
-                        {f?.mtime
-                            ? <span className={styles.description}>{f.ctime.split(' ')[0]}</span>
-                            : ''}
-                    </div>
-                    <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Размеры</span>
-                        {f?.size_now
-                            ? <span className={styles.description}>{f.size_now}</span>
-                            : ''}
-                    </div>
-                </div>
-            </>: null}
-            {children?.length === 0 && search.length !== 0
-                ? <div
-                    className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
-                : null}
-        </div> */}
     </div>)
 }
 

@@ -1,9 +1,9 @@
 import React from 'react'
 
 import styles from './Standards.module.sass'
-import logoImg from '../../../../../assets/BusinessCabinet/logo.png'
-import printerImg from '../../../../../assets/BusinessCabinet/print.svg'
-import pointerMenuImg from '../../../../../assets/BusinessCabinet/pointer-menu.svg'
+import logoImg from '../../../../../../assets/BusinessCabinet/logo.png'
+import printerImg from '../../../../../../assets/BusinessCabinet/print.svg'
+import pointerMenuImg from '../../../../../../assets/BusinessCabinet/pointer-menu.svg'
 
 const Standards = ({setPageOption}) => {
 

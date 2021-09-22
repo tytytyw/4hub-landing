@@ -40,11 +40,11 @@ const ServePanel = ({
     // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
     const filterRef = useRef();
     const createRef = useRef();
-    const size = useSelector(state => state.PrivateCabinet.size);
-    const view = useSelector(state => state.PrivateCabinet.view);
-    const search = useSelector(state => state.PrivateCabinet.search);
-    const fileCriterion = useSelector(state => state.PrivateCabinet.fileCriterion);
-    const fileList = useSelector(state => state.PrivateCabinet.fileList);
+    const size = useSelector(state => state.Cabinet.size);
+    const view = useSelector(state => state.Cabinet.view);
+    const search = useSelector(state => state.Cabinet.search);
+    const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
     const changeSize = (s) => {
         const sizes = ['small', 'medium', 'big'];

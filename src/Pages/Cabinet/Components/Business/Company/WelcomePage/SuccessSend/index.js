@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './SuccessSend.module.sass'
-import successImg from '../../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
+import successImg from '../../../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
 
 const SuccessSend = ({setPageOption}) => {
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 
 import styles from './Guest.module.sass'
 import SearchField from "./SearchField";
@@ -10,17 +10,48 @@ import {contextMenuFile} from "../../generalComponents/collections";
 import ActionApproval from "../../generalComponents/ActionApproval";
 import File from "../../generalComponents/Files";
 import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem";
-import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
-import {months} from "../../generalComponents/CalendarHelper";
+import {getMonthByIndex} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
-import {onGetGuestSharedFiles} from "../../Store/actions/CabinetActions";
+import {onGetGuestFolderFiles} from "../../Store/actions/CabinetActions";
+import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {useDispatch, useSelector} from "react-redux";
+
+import moment from "moment";
+
+const getParam = param => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(param) || false
+}
 
 const Guest = () => {
 
     const dispatch = useDispatch()
+    const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
 
-    const fileList = useSelector((state) => state.PrivateCabinet.guestSharedFiles);
+    const filteredList = useMemo(() => {
+
+        if (!fileList?.length) {
+            return []
+        }
+
+        const result = []
+        let files = []
+        fileList.forEach(file => {
+            const month = moment(file.ctime, 'DD.MM.YYYY').month()
+            const findGroup = result.find(item => item.group === month)
+            if (!findGroup) {
+                files = []
+                result.push({group: month, files})
+            }
+            files.push(file)
+        })
+
+        return result
+
+    }, [fileList])
+
+    const [loading, setLoading] = useState(true)
 
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const [action, setAction] = useState({type: "", name: "", text: ""})
@@ -33,7 +64,8 @@ const Guest = () => {
     const [showLinkCopy, setShowLinkCopy] = useState(false);
 
     useEffect(() => {
-        dispatch(onGetGuestSharedFiles());
+        dispatch(onGetGuestFolderFiles(getParam('did'), setLoading));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     const renderMenuItems = (target, type) => {
@@ -84,12 +116,12 @@ const Guest = () => {
     ];
 
 
-    const renderFilesGroup = (mounth, i) => {
+    const renderFilesGroup = (group, files, i) => {
         return (
             <FilesGroup
                 key={i}
                 index={i}
-                fileList={fileList}
+                fileList={files}
                 filePreview={filePreview}
                 setFilePreview={setFilePreview}
                 callbackArrMain={callbackArrMain}
@@ -97,7 +129,7 @@ const Guest = () => {
                 setChosenFile={setChosenFile}
                 filePick={filePick}
                 setFilePick={setFilePick}
-                mounthName={mounth}
+                mounthName={getMonthByIndex(group)}
                 setAction={setAction}
                 setMouseParams={setMouseParams}
             />
@@ -143,9 +175,15 @@ const Guest = () => {
 
                 <div className={styles.workSpaceWrap}>
 
-                    <div className={styles.FilesList}>
-                        {months().map((item, i) => renderFilesGroup(item.name, i))}
-                    </div>
+                    {filteredList?.length !== 0 
+                        ?
+                        <div className={styles.FilesList}>
+                            {filteredList.map((item, i) => renderFilesGroup(item.group, item.files, i))}
+                        </div>
+                        :
+                        <div className={styles.centered}>
+                            <h3>{loading ? 'Загрузка...' : 'Нет файлов...'}</h3>
+                        </div>}
 
                 </div>
 

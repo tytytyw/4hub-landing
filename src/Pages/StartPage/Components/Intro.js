@@ -29,7 +29,7 @@ const Intro = ({setPage, setOptions}) => {
                         его на 3 строкиможно больше можно меньше  сейчас делаю его
                         на 3 строки можно больше можно меньше
                     </span>
-                    <div onClick={() => {setOptions(state => ({...state, business: true})); if(false)setPage('develop')}}>Перейти</div>
+                    <div onClick={() => setPage('business-landing')}>Перейти</div>
                 </div>
             </div>
             <div className={styles.download} onClick={() => setPage('sendFile')}>

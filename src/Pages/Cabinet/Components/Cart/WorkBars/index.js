@@ -6,7 +6,7 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 
 const WorkBars = ({children, fileSelect}) => {
 
-    const size = useSelector(state => state.PrivateCabinet.size);
+    const size = useSelector(state => state.Cabinet.size);
 
     return (
 

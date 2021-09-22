@@ -13,21 +13,21 @@ import WorkLinesPreview from "../../../Cabinet/Components/Archive/WorkElements/W
 import FileLine from "../../../Cabinet/Components/Archive/WorkElements/FileLine";
 
 function FilesGroup({
-						fileList,
-						filePreview,
-						setFilePreview,
-						callbackArrMain,
-						chosenFile,
-						setChosenFile,
-						filePick,
-						setFilePick,
-						setAction,
-						setMouseParams,
-						mounthName,
-						index
-					}) {
+	fileList,
+	filePreview,
+	setFilePreview,
+	callbackArrMain,
+	chosenFile,
+	setChosenFile,
+	filePick,
+	setFilePick,
+	setAction,
+	setMouseParams,
+	mounthName,
+	index
+}) {
 	const [collapse, setCollapse] = useState(index === 0);
-	const workElementsView = useSelector((state) => state.PrivateCabinet.view);
+	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 	const renderFiles = (Type, shareLink) => {
 		if (!fileList || fileList.length === 0) return null;
@@ -107,6 +107,7 @@ function FilesGroup({
 				{workElementsView === "preview" && (
 					<div className={styles.workSpace}>
 						<WorkBarsPreview
+							fileList={fileList}
 							file={chosenFile}
 							filePick={filePick}
 						>
@@ -121,6 +122,7 @@ function FilesGroup({
 						</SideList>
 						<div className={styles.filePreviewWrap}>
 							<WorkLinesPreview
+								fileList={fileList}
 								file={chosenFile}
 								hideFileList={true}
 								filePick={filePick}
