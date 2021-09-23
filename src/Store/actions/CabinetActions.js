@@ -1,5 +1,6 @@
 import api from '../../api';
 import axios from 'axios';
+import {imageSrc} from '../../generalComponents/globalVariables';
 
 import {
     ADD_RECENT_FILES,
@@ -451,7 +452,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 1,
                 name: 'Sketch',
-                icon: './assets/PrivateCabinet/sketch.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/sketch.svg`,
                 category: 2,
                 site: 'Sketch.com',
                 price: 25,
@@ -463,7 +464,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 2,
                 name: 'Photoshop',
-                icon: './assets/PrivateCabinet/adobe.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/adobe.svg`,
                 category: 2,
                 site: 'Photoshop.com',
                 price: 30,
@@ -475,7 +476,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 3,
                 name: 'Ai',
-                icon: './assets/PrivateCabinet/ai.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/ai.svg`,
                 category: 2,
                 site: 'Ai.com',
                 price: 25,
@@ -487,7 +488,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 4,
                 name: 'Sketch',
-                icon: './assets/PrivateCabinet/adobe-2.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/adobe-2.svg`,
                 category: 2,
                 site: 'Sketch.com',
                 price: 25,
@@ -499,7 +500,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 5,
                 name: 'Acrobat',
-                icon: './assets/PrivateCabinet/acrobat.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/acrobat.svg`,
                 category: 2,
                 site: 'Acrobat.com',
                 price: 20,
@@ -511,7 +512,7 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
             {
                 id: 6,
                 name: 'Zeplin',
-                icon: './assets/PrivateCabinet/icZeplin.svg',
+                icon: `${imageSrc}assets/PrivateCabinet/icZeplin.svg`,
                 category: 2,
                 site: 'Zeplin.com',
                 price: 35,
@@ -563,25 +564,25 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
                 id: 1,
                 name: 'Алина Квиталина',
                 active: 1,
-                image: './assets/PrivateCabinet/avatars/a1.svg'
+                image: `${imageSrc}assets/PrivateCabinet/avatars/a1.svg`
             },
             {
                 id: 2,
                 name: 'Катерина',
                 active: 0,
-                image: './assets/PrivateCabinet/avatars/a2.svg'
+                image: `${imageSrc}assets/PrivateCabinet/avatars/a2.svg`
             },
             {
                 id: 3,
                 name: 'Антон Медведев',
                 active: 1,
-                image: './assets/PrivateCabinet/avatars/a3.svg'
+                image: `${imageSrc}assets/PrivateCabinet/avatars/a3.svg`
             },
             {
                 id: 4,
                 name: 'Коваленко Андрей',
                 active: 0,
-                image: './assets/PrivateCabinet/avatars/a4.svg'
+                image: `${imageSrc}assets/PrivateCabinet/avatars/a4.svg`
             }
         ]
     })
@@ -628,7 +629,7 @@ export const onGetProjectFolders = () => async (dispatch, getState) => {
             id: 1,
             icon: 'folder-blue',
             name: "Дизайн Файл",
-            symbol: './assets/PrivateCabinet/locked.svg',
+            symbol: `${imageSrc}assets/PrivateCabinet/locked.svg`,
             emo: 'happy',
             projectId: 1,
         },
