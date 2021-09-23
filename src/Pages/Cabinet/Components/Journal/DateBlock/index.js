@@ -3,7 +3,7 @@ import styles from './DateBlock.module.sass'
 import Select from '../../../../../generalComponents/Select/Select'
 import {getDays, getYears, months} from '../helper'
 import classNames from 'classnames'
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
+// import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const DateBlock = ({search, setSearch, month, setMonth}) => {
 
