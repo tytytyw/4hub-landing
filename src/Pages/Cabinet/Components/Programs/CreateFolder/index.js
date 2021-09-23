@@ -69,7 +69,9 @@ const CreateFolder = ({onCreate, title, info}) => {
                         setError(true)
                     }
                 })
-                .catch(() => {setError(true)})
+                .catch(() => {
+                    setError(true)
+                })
         } else {
             setNoNameError(true)
         }
