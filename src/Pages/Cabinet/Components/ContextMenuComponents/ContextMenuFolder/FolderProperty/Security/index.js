@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 
 import styles from './Security.module.sass';
 import InputField from '../../../../../../../generalComponents/InputField';
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const Security = ({folder}) => {
 
@@ -19,7 +20,7 @@ const Security = ({folder}) => {
     return (
         <div className={styles.securityWrap}>
             <div className={styles.infoWrap}>
-                <img src={userInfo.icon[0]} alt='' className={styles.icon}/>
+                <img src={userInfo.icon[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt='' className={styles.icon}/>
                 <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} /></div>
             </div>
             <div className={styles.accessWrap}>

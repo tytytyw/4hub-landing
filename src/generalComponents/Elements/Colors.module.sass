@@ -1,37 +1,15 @@
 .colorWrap
   display: flex
   flex-direction: column
-  width: 78%
+  width: calc(77% + 6px)
   margin: 0 0 15px 0
   .title
     font-size: 13px
-    margin: 0 0 8px 0
+    margin: 0 0 8px 3px
   div
     display: flex
     justify-content: space-between
-    width: 87%
-    .circleColorWrap
-      display: flex
-      justify-content: center
-      align-items: center
-      width: 30px
-      height: 30px
-      &:hover
-        background: rgba(1, 1, 1, 0.2)
-        border-radius: 50%
-    .circleColor
-.colorWrap
-  display: flex
-  flex-direction: column
-  width: 78%
-  margin: 0 0 15px 0
-  .title
-    font-size: 13px
-    margin: 0 0 8px 0
-  div
-    display: flex
-    justify-content: space-between
-    width: 87%
+    width: 100%
     .circleColorWrap
       display: flex
       justify-content: center
@@ -75,11 +53,13 @@
   .colorWrap
     div
       .circleColor
-        width: 15px
-        height: 15px
+        width: 16px
+        height: 16px
       .circleColorWrap
-        width: 21px
-        height: 21px
+        width: 24px
+        height: 24px
+        span
+          font-size: 12px
   .minify
     div
       .circleColor
@@ -89,17 +69,22 @@
         width: 15px
         height: 15px
 
-@media (max-height: 720px)
+@media (max-height: 820px)
   .colorWrap
     div
       .circleColor
-        width: 15px
-        height: 15px
+        width: 16px
+        height: 16px
       .circleColorWrap
-        width: 21px
-        height: 21px
+        width: 24px
+        height: 24px
+        span
+          font-size: 12px
   .minify
     div
+      .circleColor
+        width: 11px
+        height: 11px
       .circleColorWrap
         width: 15px
         height: 15px

@@ -16,7 +16,7 @@
     background: white
     opacity: 0
   99%
-    width: 530px
+    width: 480px
     height: 720px
     opacity: 0
 
@@ -44,14 +44,14 @@
   justify-content: flex-start
   align-items: center
   position: relative
-  width: 530px
+  width: 480px
   height: 720px
   animation: showPopup 0.2s ease-in-out
   cursor: default
   .cross
     position: absolute
     top: 20px
-    right: 15px
+    right: 11px
     width: 18px
     height: 2px
     background: #a7a4a4
@@ -93,7 +93,7 @@
     margin: 25px 0 15px 0
   .fileIconWrap
     display: flex
-    width: 78%
+    width: 77%
     margin: 0 0 28px 0
     .fileWrap
       position: relative
@@ -199,7 +199,7 @@
   .inputFieldsWrap
     display: flex
     flex-direction: column
-    width: 78%
+    width: 77%
     margin: 0 0 20px 0
     .inputWrap
       height: 40px
@@ -208,7 +208,7 @@
       margin-bottom: 10px
       display: flex
       align-items: center
-      width: 95%
+      width: 100%
       height: 40px
       position: relative
       border: 1px solid #E3E3E3
@@ -219,6 +219,9 @@
       font-size: 14px
       padding: 0 15px
       box-sizing: border-box
+      .count
+        position: absolute
+        right: 9px
       .inputField
         height: 90%
         width: 80%
@@ -279,7 +282,7 @@
     display: flex
     justify-content: flex-start
     align-items: center
-    width: 430px
+    width: 77%
     font-size: 10px
     margin: 5px 0
     .safe
@@ -369,7 +372,7 @@
       font-size: 15px
       margin: 15px 0
     .folderIconWrap
-      width: 78%
+      width: 77%
       margin: 0 0 18px 0
       .folderIcon
         width: 51px
@@ -425,7 +428,7 @@
             width: 100%
             height: 30px
     .safeWrap
-      width: 340px
+      width: 77%
       .safeText
         font-size: 12px
     .buttonsWrap
@@ -441,3 +444,91 @@
         cursor: pointer
         font-size: 11px
 
+@media (max-height: 820px)
+  .createFolderWrap
+    width: 430px
+    height: auto
+    animation: showPopup1420 0.2s ease-in-out
+    .addOpen
+      font-size: 13px
+      margin-bottom: 10px
+      width: 212px
+      height: 32px
+    .title
+      font-size: 15px
+      margin: 10px 0 10px 0
+    .titleCreate
+      font-size: 15px
+      margin: 15px 0
+    .folderIconWrap
+      width: 77%
+      margin: 0 0 18px 0
+      .folderIcon
+        width: 51px
+        height: 42px
+    .fileIconWrap
+      margin: 0 0 10px 0
+      .fileWrap
+        .file
+          width: 44px
+          height: 50px
+      .openFile
+        font-size: 12px
+      .picPreview
+        .format
+          font-size: 11px
+          margin: 0 0 2px 0
+        .name
+          font-size: 12px
+          margin: 0 0 2px 0
+        .minitagWrap
+          .minitag
+            font-size: 11px
+        div
+          img
+            width: 15px
+        .colorWrap
+          min-width: 15px
+          min-height: 15px
+          .circle
+            width: 15px
+            height: 15px
+        .lock
+          width: 12px
+    .inputFieldsWrap
+      margin: 0 0 5px 0
+      .inputWrap
+        height: 28px
+        margin-bottom: 5px
+      .tagPicker
+        height: 28px
+        font-size: 11px
+        margin-bottom: 5px
+        .inputField
+          font-size: 12px
+        .tagList
+          height: 110px
+          bottom: -108px
+          div
+            display: flex
+            align-items: center
+            position: relative
+            background: white
+            width: 100%
+            height: 30px
+    .safeWrap
+      width: 77%
+      .safeText
+        font-size: 12px
+    .buttonsWrap
+      width: 210px
+      margin-bottom: 5px
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100px
+        height: 29px
+        border-radius: 5px
+        cursor: pointer
+        font-size: 11px

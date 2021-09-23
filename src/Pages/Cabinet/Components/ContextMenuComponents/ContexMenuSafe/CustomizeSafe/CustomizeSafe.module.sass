@@ -16,7 +16,7 @@
     background: white
     opacity: 0
   99%
-    width: 530px
+    width: 480px
     height: 720px
     opacity: 0
 
@@ -34,7 +34,7 @@
 
 .createFolderWrap
   position: relative
-  width: 530px
+  width: 480px
   height: auto
   animation: showPopup 0.2s ease-in-out
   font-family: 'SF Pro Regular', sans-serif
@@ -49,7 +49,7 @@
   .cross
     position: absolute
     top: 0
-    right: 15px
+    right: 11px
     width: 18px
     height: 2px
     background: #a7a4a4
@@ -88,7 +88,7 @@
     margin: 11px 0 16px 0
   .folderIconWrap
     display: flex
-    width: 78%
+    width: 77%
     margin: 0 0 20px 0
     .folder
       position: relative
@@ -156,7 +156,7 @@
     display: flex
     flex-direction: column
     justify-content: space-between
-    width: 78%
+    width: 77%
 
     .inputWrap
       margin-bottom: 10px
@@ -179,7 +179,7 @@
     .tagPicker
       display: flex
       align-items: center
-      width: 95%
+      width: 100%
       height: 40px
       position: relative
       border: 1px solid #E3E3E3
@@ -191,7 +191,9 @@
       padding: 0 15px
       box-sizing: border-box
       margin-bottom: 15px
-
+      .count
+        position: absolute
+        right: 9px
       .inputField
         height: 90%
         width: 80%
@@ -346,3 +348,69 @@
         height: 32px
         font-size: 12px
 
+@media (max-height: 820px)
+  .createFolderWrap
+    width: 430px
+    animation: showPopup1420 0.2s ease-in-out
+    .content
+      margin: 0
+    .cross
+      top: 20px
+    .title
+      font-size: 15px
+      margin: 15px 0 10px 0
+    .folderIconWrap
+      margin-bottom: 10px
+      .picPreview
+        .minitag
+          font-size: 12px
+          margin: 0 10px 0 0
+        .folderName
+          font-size: 15px
+        .circle
+          width: 15px
+          height: 15px
+          margin: 0 10px 0 0
+        div
+          img
+            width: 17px  
+      .safeIcon
+        width: 50px
+        height: 35px
+    .inputFieldsWrap
+      .tagPicker
+        height: 30px
+        font-size: 12px
+        margin-bottom: 5px
+        .inputField
+          font-size: 12px
+        .tagList
+          height: 110px
+          bottom: -108px
+        .inputField::placeholder
+          font-size: 12px
+      .inputWrap
+        margin-bottom: 5px
+      .input
+        height: 30px
+        font-size: 12px
+        &::placeholder
+          font-size: 12px
+
+    .textWrap
+      display: none
+      max-width: 350px
+      padding: 0 10px
+      margin: 0 0 10px 0
+      .text
+        margin: 0
+        font-size: 11px
+        line-height: 18px
+
+    .buttonsWrap
+      width: 250px
+      margin-bottom: 12px
+      div
+        width: 120px
+        height: 32px
+        font-size: 12px

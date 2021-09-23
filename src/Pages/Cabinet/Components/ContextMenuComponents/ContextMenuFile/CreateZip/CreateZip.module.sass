@@ -16,7 +16,7 @@
     background: white
     opacity: 0
   99%
-    width: 530px
+    width: 480px
     height: 720px
     opacity: 0
 
@@ -44,14 +44,14 @@
   justify-content: flex-start
   align-items: center
   position: relative
-  width: 530px
+  width: 480px
   //height: 720px
   animation: showPopup 0.2s ease-in-out
   cursor: default
   .cross
     position: absolute
     top: 20px
-    right: 15px
+    right: 11px
     width: 18px
     height: 2px
     background: #a7a4a4
@@ -89,7 +89,7 @@
     margin: 40px 0 25px 0
   .fileIconWrap
     display: flex
-    width: 78%
+    width: 77%
     margin: 0 0 28px 0
     .fileWrap
       position: relative
@@ -186,7 +186,7 @@
     display: flex
     flex-direction: column
     justify-content: space-between
-    width: 78%
+    width: 77%
     margin: 10px 0
     .inputWrap
       height: 40px
@@ -206,6 +206,9 @@
       font-size: 14px
       padding: 0 15px
       box-sizing: border-box
+      .count
+        position: absolute
+        right: 9px
       .inputField
         height: 90%
         width: 80%
@@ -303,7 +306,78 @@
       font-size: 15px
       margin: 15px 0
     .folderIconWrap
-      width: 78%
+      width: 77%
+      margin: 0 0 18px 0
+      .folderIcon
+        width: 51px
+        height: 42px
+    .fileIconWrap
+      margin: 0 0 10px 0
+      .fileWrap
+        .file
+          width: 44px
+          height: 50px
+      .openFile
+        font-size: 12px
+      .picPreview
+        .format
+          font-size: 11px
+          margin: 0 0 2px 0
+        .name
+          font-size: 12px
+          margin: 0 0 2px 0
+        .minitag
+          font-size: 11px
+        div
+          img
+            width: 15px
+        .circle
+          width: 15px
+          height: 15px
+        .lock
+          width: 12px
+    .inputFieldsWrap
+      .inputWrap
+        height: 28px
+        margin-bottom: 5px
+      .tagPicker
+        margin-bottom: 5px
+        height: 28px
+        font-size: 12px
+        .inputField
+          font-size: 12px
+        .tagList
+          height: 110px
+          bottom: -108px
+          div
+            display: flex
+            align-items: center
+            position: relative
+            background: white
+            width: 100%
+            height: 30px
+    .buttonsWrap
+      margin-bottom: 12px
+      width: 210px
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100px
+        height: 29px
+        border-radius: 5px
+        cursor: pointer
+        font-size: 11px
+
+@media (max-height: 820px)
+  .createWrap
+    width: 430px
+    animation: showPopup1420 0.2s ease-in-out
+    .title
+      font-size: 15px
+      margin: 15px 0
+    .folderIconWrap
+      width: 77%
       margin: 0 0 18px 0
       .folderIcon
         width: 51px
