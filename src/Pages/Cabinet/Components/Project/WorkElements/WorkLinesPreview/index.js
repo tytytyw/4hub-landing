@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './WorkLinesPreview.module.sass';
 
 import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/edit-fill.svg'
+import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/camera.svg'
 import {ReactComponent as DotsMenu} from '../../../../../../assets/PrivateCabinet/dots-menu.svg'
 import {ReactComponent as InfoIcon} from '../../../../../../assets/PrivateCabinet/info.svg'
 import InfoPopover from '../InfoPopover';
@@ -13,7 +14,8 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
-import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
+import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
+import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
 
@@ -127,6 +129,20 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
         }
     }
 
+    //PrintScreen of the webPage
+    const imgRef = useRef(null);
+    const [showPrintScreen, setShowPrintScreen] = useState(false);
+    const [display, setDisplay] = useState('none');
+    const makePrintScreen = () => {
+        setShowPrintScreen(true);
+        setTimeout(() => {
+            htmlToCanvas(imgRef.current, setDisplay)
+        }, 500);
+        setTimeout(() => {
+            setShowPrintScreen(false);
+        }, 10500);
+    }
+
     return (
         <div
             className={styles.workLinesPreviewWrap}
@@ -144,6 +160,15 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                 <div className={styles.previewHeader}>
                     <h4 className={styles.previewTitle}>Дизайн мото сайта</h4>
                     <div className={styles.actionBlock}>
+
+                        <button
+                            onClick={makePrintScreen}
+                            className={classNames({
+                                [styles.actionBtn]: true,
+                            })}
+                        >
+                            <CameraIcon className={styles.cameraIcon} />
+                        </button>
 
                         <button
                             onClick={handleEditImage}
@@ -262,7 +287,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                 </div>
 
             </div>
-
+            {showPrintScreen ? <PrintScreen imgRef={imgRef} show={display} setShow={setDisplay} /> : null}
             {previewPopup &&
             <PopUp set={setPreviewPopup}>
                 <img
@@ -275,7 +300,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                     alt="Bitmap"
                 />
             </PopUp>}
-
         </div>)
 }
 
