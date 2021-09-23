@@ -59,7 +59,7 @@ export const handlePrintScreen = async (ref, set) => {
 }
 
 export const htmlToCanvas = (ref, set) => {
-    html2canvas(document.body).then(function(canvas) {
+    html2canvas(document.getElementById('root')).then(function(canvas) {
         const data = canvas.toDataURL('image/png');
         ref.setAttribute('src', data);
         if(set) set('block')
