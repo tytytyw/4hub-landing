@@ -14,7 +14,7 @@ import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'
 import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
-import {imageSrc} from '../../../generalComponents/globalVariables';
+import {imageSrc} from '../../generalComponents/globalVariables';
 
 const StartPage = ({setOptions, setLoadingType}) => {
 
