@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from "./SearchField.module.sass";
 import {onChooseFiles, onSearch} from "../../../Store/actions/CabinetActions";
 import {useDebounce} from "../../../generalComponents/Hooks";
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const SearchField = ({setChosenFile}) => {
 	const inputRef = useRef(null);
@@ -24,7 +25,7 @@ const SearchField = ({setChosenFile}) => {
 	return (
 		<div className={styles.searchWrap}>
 			<img
-				src="./assets/PrivateCabinet/magnifying-glass-2.svg"
+				src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
 				alt="magnify"
 				onClick={() => inputRef.current.focus()}
 			/>

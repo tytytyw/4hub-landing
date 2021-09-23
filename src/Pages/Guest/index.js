@@ -15,6 +15,7 @@ import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
 import {onGetGuestFolderFiles} from "../../Store/actions/CabinetActions";
 import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import {useDispatch, useSelector} from "react-redux";
+import {imageSrc} from '../../generalComponents/globalVariables';
 
 import moment from "moment";
 import Loader from "../../generalComponents/Loaders/4HUB";
@@ -83,7 +84,7 @@ const Guest = () => {
                             if (el.type === item.type) el.callback(type, index);
                         })
                     }
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
                 />
             );
         });
@@ -145,7 +146,7 @@ const Guest = () => {
 
                 <div className={styles.logoWrap}>
                     <div className={styles.logo}>
-                        <img className={styles.hubIcon} src={`./assets/PrivateCabinet/4Hub-min.svg`} alt='4HUB' />
+                        <img className={styles.hubIcon} src={`${imageSrc}assets/PrivateCabinet/4Hub-min.svg`} alt='4HUB' />
                         <p>4Hub</p>
                     </div>
                 </div>
@@ -171,7 +172,7 @@ const Guest = () => {
             <div className={styles.main}>
 
                 <div className={styles.topBlock}>
-                    <img src="./assets/PrivateCabinet/folder-5.svg" alt="Folder"/>
+                    <img src={`${imageSrc}assets/PrivateCabinet/folder-5.svg`} alt="Folder"/>
                     <p>Дизайн файлообменика</p>
                 </div>
 
