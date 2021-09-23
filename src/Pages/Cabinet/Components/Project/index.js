@@ -126,7 +126,7 @@ const Project = ({ setLoadingType }) => {
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 					callback={() =>
 						type.forEach((el, index) => {
 							if (el.name === item.name) el.callback(type, index);
@@ -150,7 +150,7 @@ const Project = ({ setLoadingType }) => {
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`./assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
 				/>
 			);
 		});

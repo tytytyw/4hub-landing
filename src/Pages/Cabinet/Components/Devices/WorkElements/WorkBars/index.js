@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const WorkBars = ({children, fileSelect, filePick}) => {
 
@@ -25,7 +26,7 @@ const WorkBars = ({children, fileSelect, filePick}) => {
                 <AddIcon className={styles.addIcon} />
                 <span>Перетащите файл или нажмите загрузить</span>
             </div>
-            {!children && <img src='./assets/PrivateCabinet/addPropose.png' alt='addFile' className={styles.textAddIcon} />}
+            {!children && <img src={imageSrc + 'assets/PrivateCabinet/addPropose.png'} alt='addFile' className={styles.textAddIcon} />}
             {children}
         </div>
     )

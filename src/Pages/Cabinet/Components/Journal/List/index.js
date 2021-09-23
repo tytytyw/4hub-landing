@@ -2,6 +2,7 @@ import React from 'react';
 
 import styles from './List.module.sass';
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children, onCreate, icon = true}) => {
 
@@ -17,7 +18,7 @@ const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children,
                 <div className={styles.imgWrap}>
                     <img
                         className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
-                        src='./assets/PrivateCabinet/play-grey.svg'
+                        src={imageSrc + 'assets/PrivateCabinet/play-grey.svg'}
                         alt='play'
                         onClick={() => setListCollapsed(!listCollapsed)}
                     />

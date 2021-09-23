@@ -7,6 +7,7 @@ import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue, size}) {
 	const curretDate = new Date().toLocaleDateString('ru-RU')
@@ -55,7 +56,7 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 					{folder?.info?.is_pass ? (
 						<img
 							className={styles.lock}
-							src="./assets/PrivateCabinet/locked.svg"
+							src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 							alt="lock"
 						/>
 					) : null}
@@ -69,13 +70,13 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 						<div className={styles.descriptionGroup}>
 							{folder?.info?.fig && (
 								<img
-									src={`./assets/PrivateCabinet/signs/${folder?.info?.fig}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/signs/${folder?.info?.fig}.svg`}
 									alt="sign"
 								/>
 							)}
 							{folder?.info?.emo && (
 								<img
-									src={`./assets/PrivateCabinet/smiles/${folder?.info?.emo}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/smiles/${folder?.info?.emo}.svg`}
 									alt="emoji"
 								/>
 							)}

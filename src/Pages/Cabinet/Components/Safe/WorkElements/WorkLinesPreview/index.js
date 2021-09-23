@@ -67,7 +67,7 @@ const WorkLinesPreview = ({ file, children, hideFileList }) => {
 							{!play ? (
 								<img
 									className={styles.audioSwitchPlay}
-									src="./assets/PrivateCabinet/play-black.svg"
+									src={`${imageSrc}assets/PrivateCabinet/play-black.svg`}
 									alt="play"
 									onClick={() => {
 										!play ? audioRef.current.play() : audioRef.current.pause();

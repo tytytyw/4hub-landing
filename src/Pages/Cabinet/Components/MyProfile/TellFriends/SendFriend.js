@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import styles from './SendFriend.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
 import ContactSearch from '../Contacts/ContactList/ContactSearch/ContactSearch'
 import RadioCheck from './RadioCheck/RadioCheck'
@@ -100,7 +100,7 @@ const SendFriend = ({set, selectedItem}) => {
                         >
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/email.svg'
+                                src={imageSrc + 'assets/PrivateCabinet/email.svg'}
                                 alt='Email'
                             />
                             <p>Email</p>
@@ -129,7 +129,7 @@ const SendFriend = ({set, selectedItem}) => {
                         <li className={styles.socialsItem}>
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/more.svg'
+                                src={imageSrc + 'assets/PrivateCabinet/more.svg'}
                                 alt='Email'
                             />
                             <p>Ещё</p>

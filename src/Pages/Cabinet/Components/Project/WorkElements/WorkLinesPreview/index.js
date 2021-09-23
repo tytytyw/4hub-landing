@@ -16,6 +16,7 @@ import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
 
@@ -101,9 +102,9 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             //             <source src={`https://fs2.mh.net.ua${chosenFile.preview}`} type={chosenFile.mime_type}/>
             //         </audio>
             //         <div className={styles.audioPicWrap}>
-            //             <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
-            //             {/*{!play ? <img className={styles.audioSwitchPlay} src='./assets/PrivateCabinet/play-black.svg' alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
-            //             {/*{play ? <img className={styles.audioSwitch} src='./assets/PrivateCabinet/pause.svg' alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
+            //             <img className={styles.audioPic} src={`${imageSrc}}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
+            //             {/*{!play ? <img className={styles.audioSwitchPlay} src={`${imageSrc}}assets/PrivateCabinet/play-black.svg`} alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
+            //             {/*{play ? <img className={styles.audioSwitch} src={`${imageSrc}}assets/PrivateCabinet/pause.svg' alt='pause`} onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
             //         </div>
             //     </>
             // }
@@ -223,7 +224,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                     <div className={styles.commentBlock}>
 
                         <div className={styles.addCommentBlock}>
-                            <img src='./assets/PrivateCabinet/avatars/a2.svg' alt='Comment Avatar'/>
+                            <img src={imageSrc + './assets/PrivateCabinet/avatars/a2.svg'} alt='Comment Avatar'/>
                             <Input
                                 placeholder='Комментировать'
                                 className={styles.commentInput}
@@ -235,7 +236,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -247,7 +248,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -259,7 +260,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -271,7 +272,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -296,7 +297,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                         height: '804px'
                     }}
                     className={styles.previewPopupImg}
-                    src="./assets/PrivateCabinet/Bitmap2.png"
+                    src={imageSrc + "./assets/PrivateCabinet/Bitmap2.png"}
                     alt="Bitmap"
                 />
             </PopUp>}

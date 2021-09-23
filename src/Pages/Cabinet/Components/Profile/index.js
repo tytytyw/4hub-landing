@@ -35,7 +35,7 @@ const Profile = () => {
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                imageSrc={`./assets/PrivateCabinet/ContextMenuProfile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/ContextMenuProfile/${item.img}.svg`}
                 callback={arr ? arr[i] : ''}
             />
         })

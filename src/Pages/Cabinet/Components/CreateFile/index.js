@@ -12,6 +12,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/CabinetActions";
 
 const CreateFile = ({
@@ -177,12 +178,12 @@ const CreateFile = ({
                                     <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
                                 </div>
                                 {sign && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setSign('')}>
-                                    <img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' />
+                                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' />
                                 </div>}
                                 {emoji && <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setEmoji('')}>
-                                    <img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
+                                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' />
                                 </div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' />}
                             </div>
                         </div>
                     </div>
@@ -254,7 +255,7 @@ const CreateFile = ({
                                     setIsSafe(!isSafe);
                                     onToggleSafePassword(!isSafe);
                                 }}
-                            >{isSafe && <img src='./assets/PrivateCabinet/tick-green.svg' alt='tick' />}</div>
+                            >{isSafe && <img src={`${imageSrc}assets/PrivateCabinet/tick-green.svg`} alt='tick' />}</div>
                         </div>
                         <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
                     </div>

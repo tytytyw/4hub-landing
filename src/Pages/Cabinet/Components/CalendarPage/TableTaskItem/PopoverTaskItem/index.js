@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './PopoverTaskItem.module.sass'
 import {hexToRgb, eventTypesColor} from '../../helper'
 import classNames from 'classnames'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
 
@@ -29,7 +30,7 @@ const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
                 <div className={styles.flexBlock}>
                     <div className={styles.leftBlock}>
                         <div className={styles.topIcons}>
-                            <img src="./assets/PrivateCabinet/suitcase.svg" alt="Suitcase"/>
+                            <img src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`} alt="Suitcase"/>
                             <span
                                 style={{
                                     background: `${color}`
@@ -39,7 +40,7 @@ const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
                         </div>
                         <img
                             className={styles.avatar}
-                            src={`./assets/PrivateCabinet/avatars/${task?.avatar}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/avatars/${task?.avatar}.svg`}
                             alt="Avatar 1"
                         />
                     </div>

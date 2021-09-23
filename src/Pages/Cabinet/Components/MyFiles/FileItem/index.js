@@ -5,6 +5,7 @@ import "../../../../../generalComponents/colors.sass";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import { contextMenuFile } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FileItem = ({
 	file,
@@ -54,7 +55,7 @@ const FileItem = ({
 						<div>
 							{file?.fig ? (
 								<img
-									src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
 									alt="fig"
 								/>
 							) : null}
@@ -62,14 +63,14 @@ const FileItem = ({
 						<div>
 							{file?.emo ? (
 								<img
-									src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
 									alt="emoji"
 								/>
 							) : null}
 						</div>
 						<div>
 							{file?.is_pass ? (
-								<img src="./assets/PrivateCabinet/locked.svg" alt="lock"></img>
+								<img src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock"></img>
 							) : null}
 						</div>
 					</>

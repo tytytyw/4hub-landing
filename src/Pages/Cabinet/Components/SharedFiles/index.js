@@ -32,6 +32,7 @@ import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty"
 import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
 import { months } from "../../../../generalComponents/CalendarHelper";
@@ -239,7 +240,7 @@ const SharedFiles = ({
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});

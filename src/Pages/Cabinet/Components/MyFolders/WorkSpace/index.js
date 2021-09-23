@@ -31,6 +31,7 @@ import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProper
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
 import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
@@ -153,7 +154,7 @@ const WorkSpace = ({
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type.forEach((el, index) => {if(el.type === item.type) el.callback(type, index)})}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }

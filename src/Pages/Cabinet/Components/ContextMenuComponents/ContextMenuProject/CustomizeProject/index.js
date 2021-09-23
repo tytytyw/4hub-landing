@@ -10,6 +10,7 @@ import Error from '../../../../../../generalComponents/Error'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../../generalComponents/Elements/Emoji'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import ProjectIcons from '../../../Project/ProjectIcons/ProjectIcons'
 import {onGetProjects} from '../../../../../../Store/actions/CabinetActions'
 
@@ -117,7 +118,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             placeholder='Участники (введите email или из списка)'
                         />
                         <img
-                            src={'./assets/PrivateCabinet/input-arrow.svg'}
+                            src={imageSrc + 'assets/PrivateCabinet/input-arrow.svg'}
                             className={styles.arrowInput}
                             alt='Arrow Input'
                         />

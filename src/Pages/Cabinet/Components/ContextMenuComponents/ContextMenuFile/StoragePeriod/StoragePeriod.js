@@ -6,6 +6,7 @@ import { ReactComponent as CalendarIco } from "../../../../../../assets/PrivateC
 import { ReactComponent as EyeIco } from "../../../../../../assets/PrivateCabinet/clock.svg";
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue}) {
 	const curretDate = new Date().toLocaleDateString('ru-RU')
@@ -53,7 +54,7 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 					{file.is_pass ? (
 						<img
 							className={styles.lock}
-							src="./assets/PrivateCabinet/locked.svg"
+							src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 							alt="lock"
 						/>
 					) : null}
@@ -67,13 +68,13 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 						<div className={styles.descriptionGroup}>
 							{file.fig && (
 								<img
-									src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
 									alt="sign"
 								/>
 							)}
 							{file.emo && (
 								<img
-									src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
 									alt="emoji"
 								/>
 							)}

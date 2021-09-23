@@ -6,6 +6,7 @@ import {colors} from '../../../../../../generalComponents/collections'
 import File from '../../../../../../generalComponents/Files';
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../../Store/actions/CabinetActions";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
@@ -45,9 +46,9 @@ const WorkLinesPreview = ({
                         <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
                     </audio>
                     <div className={styles.audioPicWrap}>
-                        <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
-                        {!play ? <img className={styles.audioSwitchPlay} src='./assets/PrivateCabinet/play-black.svg' alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
-                        {play ? <img className={styles.audioSwitch} src='./assets/PrivateCabinet/pause.svg' alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>
+                        {!play ? <img className={styles.audioSwitchPlay} src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        {play ? <img className={styles.audioSwitch} src={imageSrc + 'assets/PrivateCabinet/pause.svg'} alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
                     </div>
                 </>
             }
@@ -139,14 +140,14 @@ const WorkLinesPreview = ({
                     <div className={styles.infoFileItem}>
                         <span className={styles.itemName}>Эмоджи</span>
                         {f?.emo
-                            ? <img src={`./assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign'/>
+                            ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign'/>
                             : <span className={styles.optionItem}>Добавить эмоджи</span>}
                     </div>
 
                     <div className={styles.infoFileItem}>
                         <span className={styles.itemName}>Знаки</span>
                         {f?.fig
-                            ? <img src={`./assets/PrivateCabinet/signs/${f.fig}.svg`} alt='sign' />
+                            ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='sign' />
                             : <span className={styles.optionItem}>Добавить знаки</span>}
                     </div>
 

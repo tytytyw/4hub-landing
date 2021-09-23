@@ -2,21 +2,22 @@ import React from 'react'
 
 import styles from './Programs.module.sass'
 import ContactMenu from '../Contacts/ContactMenu/ContactMenu'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const menuData = [
     {
         id: 'all_contact',
-        icon: './assets/PrivateCabinet/idea-2.svg',
+        icon: `${imageSrc}assets/PrivateCabinet/idea-2.svg`,
         label: 'Все контакты'
     },
     {
         id: 'art',
-        icon: './assets/PrivateCabinet/brush.svg',
+        icon: `${imageSrc}assets/PrivateCabinet/brush.svg`,
         label: 'Творчество'
     },
     {
         id: 'office',
-        icon: './assets/PrivateCabinet/folder-2.svg',
+        icon: `${imageSrc}assets/PrivateCabinet/folder-2.svg`,
         label: 'Офис'
     },
 ]
@@ -41,7 +42,7 @@ const Programs = () => {
                         <li className={styles.programItem}>
                             <div className={styles.programImage}>
                                 <img
-                                    src="./assets/PrivateCabinet/sketch.svg"
+                                    src={`${imageSrc}assets/PrivateCabinet/sketch.svg`}
                                     alt="Sketch"
                                 />
                                 <p>Sketch</p>
@@ -54,7 +55,7 @@ const Programs = () => {
                         <li className={styles.programItem}>
                             <div className={styles.programImage}>
                                 <img
-                                    src="./assets/PrivateCabinet/icZeplin.svg"
+                                    src={`${imageSrc}assets/PrivateCabinet/icZeplin.svg`}
                                     alt="Sketch"
                                 />
                                 <p>Zeplin</p>
@@ -67,7 +68,7 @@ const Programs = () => {
                         <li className={styles.programItem}>
                             <div className={styles.programImage}>
                                 <img
-                                    src="./assets/PrivateCabinet/adobe-2.svg"
+                                    src={`${imageSrc}assets/PrivateCabinet/adobe-2.svg`}
                                     alt="Sketch"
                                 />
                                 <p>Sketch</p>
@@ -80,7 +81,7 @@ const Programs = () => {
                         <li className={styles.programItem}>
                             <div className={styles.programImage}>
                                 <img
-                                    src="./assets/PrivateCabinet/adobe.svg"
+                                    src={`${imageSrc}assets/PrivateCabinet/adobe.svg`}
                                     alt="Sketch"
                                 />
                                 <p>Photoshop</p>

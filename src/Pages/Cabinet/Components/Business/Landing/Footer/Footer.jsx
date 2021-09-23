@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Footer.module.sass";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function Footer() {
 	return (
@@ -7,7 +8,7 @@ function Footer() {
 			<nav className={styles.nav}>
                 <h5 className={styles.nav__title}>
                     <a href="./">
-                        <img src='./assets/StartPage/logo.svg' alt="4Hub"/>
+                        <img src={imageSrc + 'assets/StartPage/logo.svg'} alt="4Hub"/>
                     </a>
                 </h5>
 				<a className={styles.nav__link} href="./">Тарифный план</a>

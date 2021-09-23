@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './FileLineShort.module.sass'
 import classNames from 'classnames'
 import { useSelector } from 'react-redux'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const ProgramLineShort = ({
 	program,
@@ -48,21 +49,21 @@ const ProgramLineShort = ({
 									{program?.is_pass === 1 && (
 										<img
 											className={styles.locked}
-											src={`./assets/PrivateCabinet/locked.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 											alt="lock"
 										/>
 									)}
 									{program?.fig && (
 										<img
 											className={styles.sign}
-											src={`./assets/PrivateCabinet/signs/${program?.fig}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/signs/${program?.fig}.svg`}
 											alt="sign"
 										/>
 									)}
 									{program?.emo && (
 										<img
 											className={styles.smile}
-											src={`./assets/PrivateCabinet/smiles/${program?.emo}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/smiles/${program?.emo}.svg`}
 											alt="emoji"
 										/>
 									)}
@@ -76,21 +77,21 @@ const ProgramLineShort = ({
 							{program?.is_pass === 1 && (
 								<img
 									className={styles.locked}
-									src={`./assets/PrivateCabinet/locked.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 									alt="lock"
 								/>
 							)}
 							{program?.fig && (
 								<img
 									className={styles.sign}
-									src={`./assets/PrivateCabinet/signs/${program?.fig}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/signs/${program?.fig}.svg`}
 									alt="sign"
 								/>
 							)}
 							{program?.emo && (
 								<img
 									className={styles.smile}
-									src={`./assets/PrivateCabinet/smiles/${program?.emo}.svg`}
+									src={`${imageSrc}assets/PrivateCabinet/smiles/${program?.emo}.svg`}
 									alt="emoji"
 								/>
 							)}

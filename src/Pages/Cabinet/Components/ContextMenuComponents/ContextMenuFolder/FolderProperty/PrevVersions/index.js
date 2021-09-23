@@ -4,6 +4,7 @@ import styles from './PrevVersions.module.sass';
 import { ReactComponent as FolderIcon } from "../../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../../../generalComponents/collections";
 import InputField from "../../../../../../../generalComponents/InputField";
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const PrevVersions = ({folder}) => {
     return (<div className={styles.prevVersionsWrap}>
@@ -32,8 +33,8 @@ const PrevVersions = ({folder}) => {
                     <span>{folder.info.name.slice(0, folder.info.name.lastIndexOf('.'))}</span>
                     <div className={styles.folderInfo}>
                         {folder.fig || folder.emo ? <div className={styles.signs}>
-                            {folder.fig ? <img src={`./assets/PrivateCabinet/signs/${folder.fig}.svg`} alt='emoji' /> : null}
-                            {folder.emo ? <img src={`./assets/PrivateCabinet/smiles/${folder.emo}.svg`} alt='emoji' /> : null}
+                            {folder.fig ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${folder.fig}.svg`} alt='emoji' /> : null}
+                            {folder.emo ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${folder.emo}.svg`} alt='emoji' /> : null}
                         </div> : null}
                         <div className={styles.folderInfoText}>
                             <span className={styles.sizeNow}>{folder.size_now}</span>

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styles from './ContacSearch.module.sass'
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const ContactSearch = ({value, onChangeHandler = () => {}, placeholder='Введите имя'}) => {
 
@@ -13,7 +14,7 @@ const ContactSearch = ({value, onChangeHandler = () => {}, placeholder='Введ
                 className={styles.input}
                 placeholder={placeholder}
             />
-            <img className={styles.icon} src="./assets/PrivateCabinet/magnifying-glass-2.svg" alt="Search"/>
+            <img className={styles.icon} src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="Search"/>
         </div>
     )
 }

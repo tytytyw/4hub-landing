@@ -10,6 +10,7 @@ import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/act
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
@@ -121,7 +122,7 @@ const FolderItem = ({
         >
             <div className={styles.titleWrap}>
                 <img
-                    src={`./assets/PrivateCabinet/${folder.name}.svg`}
+                    src={`${imageSrc}assets/PrivateCabinet/${folder.name}.svg`}
                     alt='icon'
                     className={styles.icon}
                 />

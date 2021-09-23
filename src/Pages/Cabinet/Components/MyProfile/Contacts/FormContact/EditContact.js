@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import styles from './FormContact.module.sass'
 import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
 import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
-
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import AddSocials from './AddSocials'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import ProfileUpload from '../../UserForm/ProfileUpload'
@@ -178,7 +178,7 @@ const EditContact = ({set, contacts}) => {
                             >
                                 <img
                                     className={styles.infoImg}
-                                    src="./assets/PrivateCabinet/plus-3.svg"
+                                    src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
                                 <span className={styles.info}>Добавить номер телефона:</span>
@@ -217,7 +217,7 @@ const EditContact = ({set, contacts}) => {
                             >
                                 <img
                                     className={styles.infoImg}
-                                    src="./assets/PrivateCabinet/plus-3.svg"
+                                    src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
                                 <span className={styles.info}>Добавить @mail:</span>

@@ -18,6 +18,7 @@ import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/Cabin
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpace = ({chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
@@ -74,7 +75,7 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type[i]?.callback(type, i)}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }

@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import styles from './TableListTaskItem.module.sass'
 import {eventTypesColor} from '../helper'
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const TableListTaskItem = ({task}) => {
 
@@ -26,7 +27,7 @@ const TableListTaskItem = ({task}) => {
                 />
                     <img
                         className={styles.suitCase}
-                        src="./assets/PrivateCabinet/suitcase.svg"
+                        src={imageSrc + "./assets/PrivateCabinet/suitcase.svg"}
                         alt="Suitcase"
                     />
                 </div>
@@ -51,7 +52,7 @@ const TableListTaskItem = ({task}) => {
                     <div className={classNames(styles.infoItem, styles.infoItemSender)}>
                         <img
                             className={styles.avatarImg}
-                            src="./assets/PrivateCabinet/avatars/a1.svg"
+                            src={imageSrc + "./assets/PrivateCabinet/avatars/a1.svg"}
                             alt="Avatar"
                         />
                         <div>
@@ -65,12 +66,12 @@ const TableListTaskItem = ({task}) => {
                 <div className={styles.rightIcons}>
                     <img
                         className={styles.icon}
-                        src="./assets/PrivateCabinet/smiles/cool.svg"
+                        src={imageSrc + "./assets/PrivateCabinet/smiles/cool.svg"}
                         alt="Notification"
                     />
                     <img
                         className={styles.icon}
-                        src="./assets/PrivateCabinet/notification.svg"
+                        src={imageSrc + "./assets/PrivateCabinet/notification.svg"}
                         alt="Notification"
                     />
                 </div>

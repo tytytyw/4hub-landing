@@ -13,6 +13,7 @@ import {contextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import BottomPanel from "../BottomPanel";
 import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
 
@@ -68,7 +69,7 @@ const Archive = () => {
                     height={mouseParams.height}
                     text={item.name}
                     callback={() => type[i]?.callback(type, i)}
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
                 />
             )
         })

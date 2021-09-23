@@ -6,6 +6,7 @@ import {getAllDays, getDays, getNextMonthDays, getPrevMonthDays} from './helper'
 import {months, weekDays} from '../helper'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const ListCalendar = ({setViewType, collapsed = false}) => {
 
@@ -50,7 +51,7 @@ const ListCalendar = ({setViewType, collapsed = false}) => {
                     {getMonthName(calendarDate.getMonth())} {calendarDate.getFullYear()}
                 </p>
                 <img
-                    src="./assets/PrivateCabinet/calendar-9.svg"
+                    src={`${imageSrc}assets/PrivateCabinet/calendar-9.svg`}
                     className={styles.calendarIcon}
                     alt="Calendar"
                 />
