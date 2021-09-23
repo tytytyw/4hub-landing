@@ -14,7 +14,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
-import {imageToRatio, handlePrintScreen, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
+import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
