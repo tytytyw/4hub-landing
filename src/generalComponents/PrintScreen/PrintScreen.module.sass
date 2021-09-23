@@ -1,0 +1,23 @@
+@keyframes minimizeImage
+  0%
+    width: calc(100vw - 200px)
+    height: calc(100vh - 200px)
+    right: calc(50vw - (100vw - 200px) / 2)
+    bottom: calc(50vh - (100vh - 200px) / 2)
+  70%
+    width: calc(100vw - 200px)
+    height: calc(100vh - 200px)
+    right: calc(50vw - (100vw - 200px) / 2)
+    bottom: calc(50vh - (100vh - 200px) / 2)
+  100%
+    width: 200px
+    height: 110px
+    right: 50px
+    bottom: 50px
+.screenImage
+  position: fixed
+  right: 50px
+  bottom: 50px
+  cursor: pointer
+.minimize
+  animation: minimizeImage 1.5s ease-in-out
