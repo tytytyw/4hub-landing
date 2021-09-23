@@ -138,7 +138,7 @@ const Safe = ({
 					height={mouseParams.height}
 					text={item.name}
 					callback={() => type[i]?.callback(type, i)}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});

@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './SuccessCreated.module.sass'
 
 import PopUp from '../../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const SuccessCreated = ({set, event}) => {
 
@@ -24,13 +25,13 @@ const SuccessCreated = ({set, event}) => {
                                 {event?.sign &&
                                 <img
                                     className={styles.icon}
-                                    src={`./assets/PrivateCabinet/signs/${event.sign}.svg`}
+                                    src={`${imageSrc}assets/PrivateCabinet/signs/${event.sign}.svg`}
                                     alt="Sign"
                                 />}
                                 {event?.emoji &&
                                 <img
                                     className={styles.icon}
-                                    src={`./assets/PrivateCabinet/smiles/${event.emoji}.svg`}
+                                    src={`${imageSrc}assets/PrivateCabinet/smiles/${event.emoji}.svg`}
                                     alt="Emoji"
                                 />}
                                 {event?.color &&
@@ -64,7 +65,7 @@ const SuccessCreated = ({set, event}) => {
                         <div className={styles.infoWrap}>
                             <img
                                 className={styles.avatar}
-                                src="./assets/PrivateCabinet/avatars/a1.svg"
+                                src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`}
                                 alt="Avatar"
                             />
                             <p className={styles.value}>Мангуш Ирина Николаевна</p>

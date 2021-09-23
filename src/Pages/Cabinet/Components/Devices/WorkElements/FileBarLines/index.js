@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./FileBarLines.module.sass";
 import File from "../../../../../generalComponents/Files";
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import { ReactComponent as UploadIcon } from "../../../../../assets/PrivateCabinet/upload.svg";
 import { ReactComponent as PrintIcon } from "../../../../../assets/PrivateCabinet/print.svg";
 import { ReactComponent as SettingsIcon } from "../../../../../assets/PrivateCabinet/settings.svg";
@@ -35,7 +35,7 @@ const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePrev
 								<div>
 									{file?.is_pass ? (
 										<img
-											src="./assets/PrivateCabinet/locked.svg"
+											src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 											alt="lock"
 										/>
 									) : null}
@@ -43,7 +43,7 @@ const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePrev
 								<div>
 									{file?.fig ? (
 										<img
-											src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
 											alt="fig"
 										/>
 									) : null}
@@ -51,7 +51,7 @@ const FileBar = ({ file, isLoading, progress, chosen, setChosenFile, setFilePrev
 								<div>
 									{file?.emo ? (
 										<img
-											src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
 											alt="emoji"
 										/>
 									) : null}

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import styles from './SendFriend.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
-
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {ReactComponent as ChatIcon} from '../../../../../assets/PrivateCabinet/sms.svg'
 import Button from '../Button'
 import {useSelector} from 'react-redux'
@@ -90,7 +90,7 @@ const TellFriend = ({ set, contact }) => {
                 <div className={styles.header}>
                     <div className={styles.profileWrap}>
                         <img
-                            src='./assets/PrivateCabinet/logo.svg'
+                            src={imageSrc + 'assets/PrivateCabinet/logo.svg'}
                             alt='logo'
                         />
                         <span>Рассказать друзьям</span>
@@ -118,7 +118,7 @@ const TellFriend = ({ set, contact }) => {
                         >
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/email.svg'
+                                src={imageSrc + 'assets/PrivateCabinet/email.svg'}
                                 alt='Email'
                             />
                             <p>Email</p>
@@ -143,7 +143,7 @@ const TellFriend = ({ set, contact }) => {
                         <li className={styles.socialsItem}>
                             <img
                                 className={styles.socialIcon}
-                                src='./assets/PrivateCabinet/more.svg'
+                                src={imageSrc + 'assets/PrivateCabinet/more.svg'}
                                 alt='Email'
                             />
                             <p>Ещё</p>

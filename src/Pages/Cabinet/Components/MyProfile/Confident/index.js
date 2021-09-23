@@ -1,12 +1,13 @@
 import React from 'react'
 
 import styles from './Confident.module.sass'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Confident = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.logo}>
-                <img src="./assets/PrivateCabinet/logo.svg" alt="Logo"/>
+                <img src={imageSrc + "assets/PrivateCabinet/logo.svg"} alt="Logo"/>
             </div>
             <div className={styles.content}>
                 <p>Lorem Ipsum - это текст-"рыба",

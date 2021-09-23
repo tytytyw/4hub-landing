@@ -8,10 +8,10 @@ import {ReactComponent as CopyIcon} from "../../../../../../assets/PrivateCabine
 import {ReactComponent as UserIcon} from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import {ReactComponent as WorldIcon} from "../../../../../../assets/PrivateCabinet/world.svg";
 import {onGetContacts} from "../../../../../../Store/actions/CabinetActions";
-import {imageSrc} from "../../../../../../generalComponents/globalVariables";
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage }) {
 
@@ -164,7 +164,7 @@ function CopyLinkProject({ nullifyAction, project, setShowSuccessMessage }) {
                         className={styles.backbutton}
                         onClick={() => setSendAccess(false)}
                     >
-                        <img src='./assets/PrivateCabinet/arrow.svg' alt='img' />
+                        <img src={imageSrc + 'assets/PrivateCabinet/arrow.svg'} alt='img' />
                     </div>
                     <div className={styles.details}>
                         <div className={styles.title}>Предоставьте доступ пользователям и группам</div>

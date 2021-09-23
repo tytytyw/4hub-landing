@@ -6,6 +6,7 @@ import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCab
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
 import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
 
@@ -37,7 +38,7 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         <button key={index} className={styles.itemBtn}>
                             <img
                                 className={styles.figureImg}
-                                src={`./assets/PrivateCabinet/${item.figure}.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/${item.figure}.svg`}
                                 alt={item.figure}
                             />
                         </button>

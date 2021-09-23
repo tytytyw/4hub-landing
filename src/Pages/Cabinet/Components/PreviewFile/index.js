@@ -4,6 +4,7 @@ import {previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const PreviewFile = ({setFilePreview, file, filePreview}) => {
 
@@ -33,7 +34,7 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
             case 'audio': {
                 return <div className={styles.audioWrap}>
                     <div className={styles.audioPicWrap}>
-                        <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
+                        <img className={styles.audioPic} src={`${imageSrc}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
                     </div>
                     <audio controls src={`https://fs2.mh.net.ua${file.preview}`}>
                         <source src={`https://fs2.mh.net.ua${file.preview}`} type={file.mime_type}/>

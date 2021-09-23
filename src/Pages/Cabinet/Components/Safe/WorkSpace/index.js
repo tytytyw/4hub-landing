@@ -25,6 +25,7 @@ import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/Customize
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpace = ({
 	menuItem,
@@ -172,7 +173,7 @@ const WorkSpace = ({
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});

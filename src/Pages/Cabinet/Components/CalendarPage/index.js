@@ -16,6 +16,7 @@ import FullCalendarTable from './FullCalendar'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCalendarEvents} from '../../../../Store/actions/CabinetActions'
 import SidebarTasks from "./SidebarTasks";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const CalendarPage = () => {
 
@@ -59,7 +60,7 @@ const CalendarPage = () => {
                         <img
                             onClick={() => setCreateTask(true)}
                             className={styles.addTaskIcon}
-                            src='./assets/PrivateCabinet/folders/add.svg'
+                            src={imageSrc + './assets/PrivateCabinet/folders/add.svg'}
                             alt='Add Task Icon'
                         />
                     </div>

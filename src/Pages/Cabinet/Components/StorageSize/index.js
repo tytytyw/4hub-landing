@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from './StorageSize.module.sass';
 
 const StorageSize = () => {
@@ -19,7 +19,7 @@ const StorageSize = () => {
     return (
         <div className={styles.storageWrap}>
             <img
-                src='./assets/PrivateCabinet/pie-chart-5.svg'
+                src={imageSrc + 'assets/PrivateCabinet/pie-chart-5.svg'}
                 alt='pie-chart'
             />
             <div className={styles.storageInfo}>

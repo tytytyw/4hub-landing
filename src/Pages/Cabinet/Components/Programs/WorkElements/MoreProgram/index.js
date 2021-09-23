@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './MoreProgram.module.sass'
 import StarRating from '../StarRating'
 import {categories} from "../../consts";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const MoreProgram = ({program, ...props}) => {
     return (
@@ -42,8 +43,8 @@ const MoreProgram = ({program, ...props}) => {
             <div className={styles.content}>
 
                 <div className={styles.contentPreviews}>
-                    <img src="./assets/PrivateCabinet/program_preview_1.svg" alt="Preview 1"/>
-                    <img src="./assets/PrivateCabinet/program_preview_2.svg" alt="Preview 2"/>
+                    <img src={imageSrc + "assets/PrivateCabinet/program_preview_1.svg"} alt="Preview 1"/>
+                    <img src={imageSrc + "assets/PrivateCabinet/program_preview_2.svg"} alt="Preview 2"/>
                 </div>
 
                 <div className={styles.contentText}>

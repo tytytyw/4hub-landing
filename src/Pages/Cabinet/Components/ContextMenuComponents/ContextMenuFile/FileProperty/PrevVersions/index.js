@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './PrevVersions.module.sass';
 import File from "../../../../../../../generalComponents/Files";
 import InputField from "../../../../../../../generalComponents/InputField";
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const PrevVersions = ({file}) => {
     return (<div className={styles.prevVersionsWrap}>
@@ -21,8 +22,8 @@ const PrevVersions = ({file}) => {
                     <span>{file.fname.slice(0, file.fname.lastIndexOf('.'))}</span>
                     <div className={styles.fileInfo}>
                         {file.fig || file.emo ? <div className={styles.signs}>
-                            {file.fig ? <img src={`./assets/PrivateCabinet/signs/${file.fig}.svg`} alt='emoji' /> : null}
-                            {file.emo ? <img src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' /> : null}
+                            {file.fig ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt='emoji' /> : null}
+                            {file.emo ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' /> : null}
                         </div> : null}
                         <div className={styles.fileInfoText}>
                             <span className={styles.sizeNow}>{file.size_now}</span>

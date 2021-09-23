@@ -17,6 +17,7 @@ import {
 import CreateSafePassword from "../CreateSafePassword";
 import PreviewFile from "../PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFiles = ({
 	filePreview,
@@ -318,7 +319,7 @@ const MyFiles = ({
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});

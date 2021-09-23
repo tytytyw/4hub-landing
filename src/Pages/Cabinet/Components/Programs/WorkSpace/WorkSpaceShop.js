@@ -19,6 +19,7 @@ import {contextMenuFile} from '../../../../../generalComponents/collections'
 import Categories from '../Categories'
 import ProgramShop from '../WorkElements/ProgramShop'
 import MoreProgram from '../WorkElements/MoreProgram'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpaceShop = ({
                            setBlob, blob, fileLoading,
@@ -68,7 +69,7 @@ const WorkSpaceShop = ({
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }

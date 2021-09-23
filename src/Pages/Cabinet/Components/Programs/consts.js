@@ -1,3 +1,5 @@
+import {imageSrc} from '../../../../generalComponents/globalVariables';
+
 export const categories = {
     1: 'Все',
     2: 'Творчество',
@@ -9,20 +11,20 @@ export const categories = {
 }
 
 export const programIcons = {
-    premier_pro: './assets/PrivateCabinet/premier.svg',
-    adobe_xd: './assets/PrivateCabinet/adobe-3.svg',
-    slack: './assets/PrivateCabinet/slack.svg',
-    skype: './assets/PrivateCabinet/skype.svg',
-    media_encoder: './assets/PrivateCabinet/media-encoder.svg',
-    chrome: './assets/PrivateCabinet/google-chrome.svg',
+    premier_pro: `${imageSrc}assets/PrivateCabinet/premier.svg`,
+    adobe_xd: `${imageSrc}assets/PrivateCabinet/adobe-3.svg`,
+    slack: `${imageSrc}assets/PrivateCabinet/slack.svg`,
+    skype: `${imageSrc}assets/PrivateCabinet/skype.svg`,
+    media_encoder: `${imageSrc}assets/PrivateCabinet/media-encoder.svg`,
+    chrome: `${imageSrc}assets/PrivateCabinet/google-chrome.svg`,
 }
 
 export const categoryIcons = {
-    all: './assets/PrivateCabinet/rocket.svg',
-    art: './assets/PrivateCabinet/brush.svg',
-    programs: './assets/PrivateCabinet/computer.svg',
-    messengers: './assets/PrivateCabinet/facebook-2.svg',
-    office: './assets/PrivateCabinet/folder-simple.svg',
-    games: './assets/PrivateCabinet/games.svg',
-    other: './assets/PrivateCabinet/puzzle.svg',
+    all: `${imageSrc}assets/PrivateCabinet/rocket.svg`,
+    art: `${imageSrc}assets/PrivateCabinet/brush.svg`,
+    programs: `${imageSrc}assets/PrivateCabinet/computer.svg`,
+    messengers: `${imageSrc}assets/PrivateCabinet/facebook-2.svg`,
+    office: `${imageSrc}assets/PrivateCabinet/folder-simple.svg`,
+    games: `${imageSrc}assets/PrivateCabinet/games.svg`,
+    other: `${imageSrc}assets/PrivateCabinet/puzzle.svg`,
 }

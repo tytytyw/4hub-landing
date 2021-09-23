@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from './Programms.module.sass'
 import List from '../List'
 import WorkSpace from './WorkSpace'
@@ -124,7 +124,7 @@ const Programs = ({
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type[i]?.callback(type, i)}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     }
@@ -160,7 +160,7 @@ const Programs = ({
                             className={styles.createFolderImg}
                         >
                             <img
-                                src="./assets/PrivateCabinet/add-folder.svg"
+                                src={`${imageSrc}assets/PrivateCabinet/add-folder.svg`}
                                 alt="Create Folder"
                             />
                         </div>

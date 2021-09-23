@@ -14,6 +14,7 @@ import {
 } from '../../../../Store/actions/CabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -260,7 +261,7 @@ const FileLoader = ({
                                 <circle className={styles.load} cx="50" cy="50" r="45"/>
                                 <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
                             </svg>
-                            <img src='./assets/PrivateCabinet/download_arrow.svg' alt='' className={styles.downloadArrow} />
+                            <img src={imageSrc + 'assets/PrivateCabinet/download_arrow.svg'} alt='' className={styles.downloadArrow} />
                         </> : null}
                         {collapsed && !processing && fileErrors.length === 0 ? <CheckIcon className={styles.checkIcon} /> : null}
                         {collapsed && fileErrors.length > 0 && !processing ? <ErrorIcon className={styles.mark} /> : null}

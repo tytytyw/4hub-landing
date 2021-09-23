@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './ListTaskItem.module.sass'
 import {hexToRgb, eventTypesColor} from '../helper'
 import classNames from 'classnames'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const ListTaskItem = ({event, collapsed}) => {
 
@@ -32,7 +33,7 @@ const ListTaskItem = ({event, collapsed}) => {
                         />
                         <img
                             className={styles.avatar}
-                            src={`./assets/PrivateCabinet/avatars/${event.avatar}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/avatars/${event.avatar}.svg`}
                             alt="Avatar 1"
                         />
                     </div>
@@ -102,7 +103,7 @@ const ListTaskItem = ({event, collapsed}) => {
                     <div className={styles.bottomBlock}>
                         <img
                             className={styles.avatar}
-                            src={`./assets/PrivateCabinet/avatars/${event.avatar}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/avatars/${event.avatar}.svg`}
                             alt="Avatar 1"
                         />
                     </div>

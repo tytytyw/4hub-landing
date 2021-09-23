@@ -1,3 +1,4 @@
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 export const data = [
     {
         tariff: 'Free',
@@ -7,11 +8,11 @@ export const data = [
         dayOffer: false,
         options: [
             {
-                img: './assets/PrivateCabinet/pie-chart-5.svg',
+                img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
                 text: '2 000 ГБ места для безопасного хранения файлов'
             },
             {
-                img: './assets/PrivateCabinet/folder-3.svg',
+                img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
                 text: 'Простые инструменты для храннения и предоставления доступа и совместной работы'
             },
         ]
@@ -24,11 +25,11 @@ export const data = [
         dayOffer: false,
         options: [
             {
-                img: './assets/PrivateCabinet/pie-chart-5.svg',
+                img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
                 text: '2 000 ГБ места для безопасного хранения файлов'
             },
             {
-                img: './assets/PrivateCabinet/folder-3.svg',
+                img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
                 text: 'Простые инструменты для храннения и предоставления доступа и совместной работы'
             },
         ]
@@ -42,11 +43,11 @@ export const data = [
         dayOffer: true,
         options: [
             {
-                img: './assets/PrivateCabinet/pie-chart-5.svg',
+                img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
                 text: '2 000 ГБ места для безопасного хранения файлов'
             },
             {
-                img: './assets/PrivateCabinet/folder-3.svg',
+                img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
                 text: 'Простые инструменты для храннения и предоставления доступа и совместной работы'
             },
         ]
@@ -59,11 +60,11 @@ export const data = [
         dayOffer: false,
         options: [
             {
-                img: './assets/PrivateCabinet/pie-chart-5.svg',
+                img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
                 text: '2 000 ГБ места для безопасного хранения файлов'
             },
             {
-                img: './assets/PrivateCabinet/folder-3.svg',
+                img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
                 text: 'Простые инструменты для храннения и предоставления доступа и совместной работы'
             },
         ]
