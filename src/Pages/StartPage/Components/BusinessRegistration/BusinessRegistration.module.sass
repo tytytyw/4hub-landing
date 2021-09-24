@@ -1,0 +1,159 @@
+.wrapper
+  width: 100vw
+  height: 100vh
+  background: linear-gradient(180deg, rgba(69,71,246,1) 0%, rgba(18,59,180,1) 100%, rgba(255,255,255,1) 100%)
+  font-family: 'SF Pro Medium', sans-serif
+  color: white
+.longWrap
+  height: max-content
+  min-height: max-content
+.header
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  padding: 1.8vw 2.6vw 0 0
+  font-size: 0.94vw
+  letter-spacing: 0.1px
+  .logo
+    margin-right: auto
+    margin-left: 43px
+  .registerButton
+    border: 1px solid white
+    padding: 0.8vw 1.3vw
+    border-radius: 5px
+.arrow:hover
+  .arrowDown path
+    transition: fill 0.2s ease-in
+    fill: black
+  .lang
+    transition: color 0.2s ease-in
+    color: black
+.info:hover path, .info:hover circle
+  transition: fill 0.2s ease-in
+  fill: black
+.listItem:hover
+  color: black
+  transition: color 0.2s ease-in
+.listItem
+  margin: 0 2vw 0 0
+  cursor: pointer
+  font-family: "SF Pro Light",sans-serif
+  .lang
+    margin: 0 0.6vw 0 0
+.listItem:last-child
+  margin: 0 0 0 0
+.listItem:last-child:hover
+  background: darkblue
+  color: white
+  transition: background 0.2s ease-in
+.main
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: flex-start
+
+.mainTitle
+  display: flex
+  justify-content: center
+
+  .logoTitle
+    display: flex
+    align-items: center
+
+
+.formWrap
+  margin-top: 64px
+  padding: 39px 40px 30px 40px
+  width: 500px
+  background: #FFFFFF
+  border-radius: 6px
+
+  .formTitle
+    margin: 0 0 27px 0
+    text-align: center
+    font-weight: 500
+    font-size: 18.75px
+    line-height: 22px
+    letter-spacing: -0.0865063px
+    color: #2B353E
+
+  .agreementWrap
+    margin-top: 20px
+    display: flex
+    justify-content: flex-start
+    width: 92%
+    font-size: 10px
+    .agreement
+      display: flex
+      justify-content: center
+      align-items: center
+      width: 8%
+      div
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 20px
+        height: 20px
+        border: 1px solid #c4c2c2
+        border-radius: 5px
+        cursor: pointer
+      div img
+        width: 15px
+        animation: ticked 0.2s ease
+    .agreementsText
+      color: #4F555B
+      width: 91%
+      line-height: 16px
+      span
+        color: #477DE1
+        cursor: pointer
+      span:hover
+        color: #518bf3
+
+  .actionBlock
+    margin-top: 26px
+    display: flex
+    justify-content: center
+    .submitBtn
+      font-weight: 500
+      font-size: 12px
+      line-height: 14px
+      letter-spacing: -0.0768945px
+      color: #FFFFFF
+      height: 38px
+      width: 182px
+      background: #4086F1
+      border-radius: 3.75px
+
+  .formItem
+    margin-bottom: 11px
+
+    .label
+      display: block
+      font-size: 12px
+      line-height: 14px
+      letter-spacing: -0.0629137px
+      color: #20272E
+      margin-bottom: 6px
+
+
+    .input
+      padding: 0 10px
+      border: 0.810015px solid #CBCBCB
+
+    .selectWrap
+      height: 38px
+
+
+.buttonBack
+  background: #4086F1
+  color: white
+  font-size: 0.9vw
+  letter-spacing: 0.4px
+  padding: 0.6vw 3.7vw
+  border-radius: 5px
+  box-sizing: border-box
+  cursor: pointer
+.buttonBack:active
+  background: #2957a0
+  transition: background 0.2s ease
