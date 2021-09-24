@@ -51,7 +51,7 @@ const WorkSpace = ({
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	//const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
 
 	const [mouseParams, setMouseParams] = useState(null);
 

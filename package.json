@@ -69,6 +69,8 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sss|styl|sass)$": "<rootDir>/node_modules/jest-css-modules"
     },
-    "setupFilesAfterEnv": ["./src/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "./src/setupTests.js"
+    ]
   }
 }
