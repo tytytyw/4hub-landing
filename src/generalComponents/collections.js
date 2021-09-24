@@ -118,10 +118,9 @@ export const contextMenuFolder = {
 
 export const contextMenuSubFolder = {
     main: [
-        {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
-        {name: 'Свойства', img: 'info'},
-        {name: 'Удалить папку', img: 'garbage'}
+        {name: 'Доступ и экспорт', img: 'shareFile', type: "setAccessFolder"},
+        {name: 'Свойства', img: 'info', type: "propertiesFolder"},
+        {name: 'Удалить папку', img: 'garbage', type: 'deleteFolder'}
     ],
     additional: []
 }

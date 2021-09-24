@@ -609,48 +609,28 @@ export const onGetProjects = () => async (dispatch, getState) => {
                 console.log(res) 
             }
         })
-    // dispatch({
-    //     type: GET_PROJECTS,
-    //     payload: [
-    //         {id: 1, name: 'Название Проекта', tasks: 3, icon: 'coworking', color: 'red', tag: 'Тег', emo: 'angry', fig: 'triangle', blocked: false},
-    //         {id: 2, name: 'Дизайн проект', tasks: 0, icon: 'rocket', color: 'blue', tag: '', emo: '', fig: '', blocked: true},
-    //         {id: 3, name: 'Имя проекта', tasks: 1, icon: 'thunder', color: 'green', tag: '', emo: '', fig: '', blocked: false},
-    //         {id: 4, name: 'Проект 4', tasks: 0, icon: 'pen', color: 'pink', tag: '', emo: '', fig: '', blocked: false},
-    //         {id: 5, name: 'Проект 5', tasks: 1, icon: 'suitcase', color: 'orange', tag: '', emo: '', fig: '', blocked: false},
-    //         {id: 6, name: 'Проект 6', tasks: 1, icon: 'lamp', color: 'red', tag: '', emo: '', fig: '', blocked: false}
-    //     ]
-    // })
 }
 
-export const onGetProjectFolders = () => async (dispatch, getState) => {
+export const onGetProjectFolders = (projectId) => async (dispatch, getState) => {
 
-    const folders = [
-        {
-            id: 1,
-            icon: 'folder-blue',
-            name: "Дизайн Файл",
-            symbol: `${imageSrc}assets/PrivateCabinet/locked.svg`,
-            emo: 'happy',
-            projectId: 1,
-        },
-        {
-            id: 2,
-            icon: 'folder-yellow',
-            name: "Payment Design",
-            projectId: 2,
-        },
-        {
-            id: 3,
-            icon: 'folder-green',
-            name: "App Design",
-            projectId: 1,
-        },
-    ]
-
-    dispatch({
-        type: GET_PROJECT_FOLDER,
-        payload: folders
-    })
+    api.get(`/ajax/project_folders_list.php?uid=${getState().user.uid}&id_project=${projectId}`)
+        .then((res)=> {
+            if (res.data.ok) {
+                if (res.data.projects) {
+                    dispatch({
+                        type: GET_PROJECT_FOLDER,
+                        payload: folders
+                    })
+                } else {
+                    dispatch({
+                        type: GET_PROJECT_FOLDER,
+                        payload: []
+                    })
+                }
+            } else {
+                console.log(res) 
+            }
+        })
 }
 
 

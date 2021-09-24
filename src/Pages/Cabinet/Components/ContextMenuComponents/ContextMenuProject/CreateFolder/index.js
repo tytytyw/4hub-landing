@@ -1,23 +1,22 @@
 import React, {useState} from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './CreateFolder.module.sass';
-// import api from '../../../../../../api';
+import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import {ReactComponent as FolderIcon} from '../../../../../../assets/PrivateCabinet/folder-2.svg';
 import InputField from '../../../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../../../generalComponents/collections';
-import Error from '../../../../../../generalComponents/Error';
-// import { onGetFolders } from '../../../../../../Store/actions/PrivateCabinetActions';
+import { onGetProjectFolders } from '../../../../../../Store/actions/CabinetActions';
 import Colors from '../../../../../../generalComponents/Elements/Colors';
 import '../../../../../../generalComponents/colors.sass';
 import Signs from '../../../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
-const CreateFolder = ({onCreate, title}) => {
+const CreateFolder = ({onCreate, title, setError, projectId, parentFolder, setGLoader}) => {
 
-    // const uid = useSelector(state => state.user.uid);
+    const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -27,10 +26,9 @@ const CreateFolder = ({onCreate, title}) => {
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
-    const [error, setError] = useState(false);
     const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const onAddName = (name) => {
         setNoNameError(false);
@@ -48,8 +46,24 @@ const CreateFolder = ({onCreate, title}) => {
     };
 
     const onAddFolder = () => {
-        //TODO add api
-        onCreate(false)
+        if(name) {
+            setGLoader(true)
+            console.log(parentFolder)
+            //TODO: parent folder
+            const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+            api.post(`/ajax/project_folders_add.php?${params}`)
+                .then(res => {if(res.data.ok === 1) {
+                } else {setError('Папка не добавлена')}
+                })
+                .catch(() => {setError('Папка не добавлена')})
+                .finally(() => {
+                    setGLoader(false)
+                    dispatch(onGetProjectFolders(projectId));
+                });
+        } else {
+            setNoNameError(true)
+        }
+        onCreate(false);
     };
 
     const closeComponent = () => {
@@ -155,12 +169,11 @@ const CreateFolder = ({onCreate, title}) => {
                 <Signs sign={sign} setSign={setSign} />
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
+                    <div className={styles.cancel} onClick={() => closeComponent(false)}>Отмена</div>
                     <div className={styles.add} onClick={() => onAddFolder()}>Добавить</div>
                 </div>
             </div>
         </PopUp>
-        {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
         </>
     )
 }

@@ -18,7 +18,8 @@ import {ReactComponent as ThunderIcon} from '../../../../../assets/PrivateCabine
 
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
-        chosenFolder, setChosenFolder, setSelectedProject, chosen
+        chosenFolder, setChosenFolder, setSelectedProject, chosen,
+        setNewFolder
     }) => {
 
     const dispatch = useDispatch()
@@ -29,7 +30,7 @@ const ProjectItem = ({
     //useEffect(() => setChosenFolder(null), [collapse])
 
     useEffect(() => {
-        dispatch(onGetProjectFolders())
+        dispatch(onGetProjectFolders(project.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -155,6 +156,7 @@ const ProjectItem = ({
                     />
                     <CustomItem
                         listSize={size}
+                        onClick={() => setNewFolder(true)}
                         item={{
                             name: 'Создать новую папку',
                             img: `${imageSrc}/assets/PrivateCabinet/folders/folder-grey.svg`,
