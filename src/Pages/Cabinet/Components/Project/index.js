@@ -20,7 +20,7 @@ import {
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from "../ContextMenuComponents/ContextMenuProject/CreateFolder";
-import CopyLinkProject from "../ContextMenuComponents/ContextMenuProject/CopyLinkProject";
+import CopyLinkShare from "../ContextMenuComponents/CopyLinkShare";
 import CustomizeProject from "../ContextMenuComponents/ContextMenuProject/CustomizeProject";
 import FolderProperty from "../ContextMenuComponents/ContextMenuProject/FolderProperty";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
@@ -329,7 +329,7 @@ const Project = ({ setLoadingType }) => {
 				/>
 			)}
 			{action.type === "copyLink" ? (
-				<CopyLinkProject
+				<CopyLinkShare
 					nullifyAction={nullifyAction}
 					setShowSuccessMessage={setShowSuccessMessage}
 					project={selectedProject}
