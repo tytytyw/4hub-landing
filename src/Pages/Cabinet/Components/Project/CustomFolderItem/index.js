@@ -1,5 +1,7 @@
 import React from 'react';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
+import {colors} from '../../../../../generalComponents/collections';
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 
@@ -21,11 +23,8 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
             <div className={styles.innerFolder}>
 
                 <div className={styles.innerFolderName}>
-                    <img
-                        src={`${imageSrc}/assets/PrivateCabinet/folders/${folder.icon}.svg`}
-                        alt='icon'
-                        className={styles.innerFolderIcon}
-                    />
+                    <FolderIcon className={classNames(styles.innerFolderIcon, colors.filter(el => el.color === folder.color)[0]?.name)} />
+                    {folder.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     <div className={styles.nameWrap}>
                         <p className={styles.name}>{folder.name}</p>
                         <div
@@ -48,10 +47,10 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
                         alt='emoji'
                     />}
 
-                    {folder.symbol &&
+                    {folder.fig &&
                     <img
                         className={styles.symbols}
-                        src={folder?.symbol}
+                        src={`${imageSrc}assets/PrivateCabinet/signs/${folder.fig}.svg`}
                         alt='emoji'
                     />}
 

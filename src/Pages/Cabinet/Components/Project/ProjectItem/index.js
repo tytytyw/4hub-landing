@@ -36,8 +36,7 @@ const ProjectItem = ({
 
     const renderFolders = () => {
 
-        const projectFolders = folders.filter(item => item?.projectId === project.id)
-
+        const projectFolders = folders[project.id]
         return projectFolders?.map((folder, index) => {
             return <CustomFolderItem
                 key={index}

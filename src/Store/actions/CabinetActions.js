@@ -616,10 +616,11 @@ export const onGetProjectFolders = (projectId) => async (dispatch, getState) => 
     api.get(`/ajax/project_folders_list.php?uid=${getState().user.uid}&id_project=${projectId}`)
         .then((res)=> {
             if (res.data.ok) {
-                if (res.data.projects) {
+                if (res.data.project_folders ) {
+                    let projectFolders = res.data.project_folders
                     dispatch({
                         type: GET_PROJECT_FOLDER,
-                        payload: folders
+                        payload: {projectFolders, projectId}
                     })
                 } else {
                     dispatch({
