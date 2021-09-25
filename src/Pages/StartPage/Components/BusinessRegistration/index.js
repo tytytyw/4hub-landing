@@ -2,13 +2,16 @@ import React, {useState} from 'react';
 import styles from './BusinessRegistration.module.sass';
 import {ReactComponent as InfoIcon} from "../../../../assets/StartPage/info.svg";
 import {ReactComponent as ArrowIcon} from "../../../../assets/StartPage/arrow-point.svg";
-import FirstStep from "./FirstStep";
+import AdminForm from "./AdminForm";
+import MainForm from "./MainForm";
+import SuccessCreated from "./SuccessCreated";
 
 const BusinessRegistration = () => {
 
     const [page, setPage] = useState('init')
+    const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false, isСompany: false});
     const [mainFields, setMainFields] = useState({})
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState('complete')
 
     console.log(page)
 
@@ -36,8 +39,26 @@ const BusinessRegistration = () => {
 
                 </div>
 
-                {step === 1 &&
-                <FirstStep
+                {step === 'main' &&
+                <MainForm
+                    compare={compare}
+                    setCompare={setCompare}
+                    mainFields={mainFields}
+                    setMainFields={setMainFields}
+                    setStep={setStep}
+                />}
+
+                {step === 'admin' &&
+                <AdminForm
+                    compare={compare}
+                    setCompare={setCompare}
+                    mainFields={mainFields}
+                    setMainFields={setMainFields}
+                    setStep={setStep}
+                />}
+
+                {step === 'complete' &&
+                <SuccessCreated
                     mainFields={mainFields}
                     setMainFields={setMainFields}
                     setStep={setStep}

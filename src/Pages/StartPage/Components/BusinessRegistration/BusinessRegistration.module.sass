@@ -4,10 +4,14 @@
   background: linear-gradient(180deg, rgba(69,71,246,1) 0%, rgba(18,59,180,1) 100%, rgba(255,255,255,1) 100%)
   font-family: 'SF Pro Medium', sans-serif
   color: white
+  overflow-y: auto
+  padding-bottom: 20px
 .longWrap
   height: max-content
   min-height: max-content
 .header
+  //position: sticky
+  //top: 0
   display: flex
   justify-content: flex-end
   align-items: center
@@ -47,6 +51,7 @@
   color: white
   transition: background 0.2s ease-in
 .main
+  height: 100%
   display: flex
   flex-direction: column
   align-items: center
@@ -76,6 +81,13 @@
     line-height: 22px
     letter-spacing: -0.0865063px
     color: #2B353E
+
+  .row
+    display: flex
+    .formItem
+      margin-right: 8px
+      &:last-child
+        margin: 0
 
   .agreementWrap
     margin-top: 20px
@@ -114,6 +126,18 @@
     margin-top: 26px
     display: flex
     justify-content: center
+    position: relative
+
+    .roundBtn
+      position: absolute
+      left: 0
+      top: 0
+      bottom: 0
+      width: 33px
+      height: 33px
+      border-radius: 50%
+      border: 1px solid #CBCBCB
+
     .submitBtn
       font-weight: 500
       font-size: 12px
@@ -129,12 +153,18 @@
     margin-bottom: 11px
 
     .label
-      display: block
+      position: relative
+      display: inline-block
       font-size: 12px
       line-height: 14px
       letter-spacing: -0.0629137px
       color: #20272E
       margin-bottom: 6px
+      .required
+        position: absolute
+        top: 0
+        right: -7px
+        color: #EB2C20
 
 
     .input

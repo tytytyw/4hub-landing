@@ -19,13 +19,15 @@ export const useValidateForm = (initFields, requiredInputs = []) => {
     }
 
     const onChange = (value, name) => {
-        if (value?.length < 1) {
-            setErrors([...errors, name])
-        } else {
-            setErrors(errors.filter(item => item !== name))
+        if (requiredInputs.includes(name)) {
+            if (value?.length < 1) {
+                setErrors([...errors, name])
+            } else {
+                setErrors(errors.filter(item => item !== name))
+            }
         }
         setFields({...fields, [name]: value})
     }
 
-    return {onChange, errors, fields, checkErrors}
+    return {onChange, errors, fields, setFields, checkErrors}
 }

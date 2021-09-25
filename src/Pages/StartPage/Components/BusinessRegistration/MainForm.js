@@ -1,29 +1,35 @@
-import React, {useState} from 'react';
-import styles from "../BusinessRegistration.module.sass";
-import Input from "../../../../Cabinet/Components/MyProfile/Input";
-import Select from "../Select";
-import {useValidateForm} from "../validation";
+import React, {useEffect} from 'react';
+import styles from "./BusinessRegistration.module.sass";
+import Input from "../../../Cabinet/Components/MyProfile/Input";
+import Select from "./Select";
+import {useValidateForm} from "./validation";
 
 const requiredInputs = [
     'company_name'
 ]
 
-const FirstStep = ({mainFields, setMainFields, setStep}) => {
-
-    const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false, isСompany: false});
+const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => {
 
     const {
         fields,
+        setFields,
         errors,
         onChange,
         checkErrors
     } = useValidateForm({ emp_num: 2 }, requiredInputs)
 
+    useEffect(() => {
+        if (mainFields?.main) {
+            setFields(mainFields?.main)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     const onSubmit = event => {
         event.preventDefault()
 
         if (checkErrors()) {
-            console.log('success submit')
+            setMainFields({...mainFields, main: fields})
+            setStep('admin')
         }
     }
 
@@ -58,8 +64,6 @@ const FirstStep = ({mainFields, setMainFields, setStep}) => {
                                 {id: 2, text: 'Более 40'},
                                 {id: 3, text: 'Более 50'},
                             ]}
-                            className={styles.select}
-                            classNameSelect={styles.selectValue}
                             placeholder='Более 50'
                             initValue={getValue('emp_num')}
                             onChange={value => onChange(value, 'emp_num')}
@@ -103,4 +107,4 @@ const FirstStep = ({mainFields, setMainFields, setStep}) => {
     );
 };
 
-export default FirstStep;
+export default MainForm;
