@@ -6,6 +6,7 @@ import {ReactComponent as DownloadIcon} from "../../../../assets/StartPage/down-
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import Error from "../../../../generalComponents/Error";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
 
@@ -69,7 +70,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
     return (
         <>
             {folder && <form className={styles.main} name='fdownload' >
-                <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+                <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
                 {folder && <>
                     <div className={styles.downloadWrapFile}>
                         <FolderIcon className={styles.folder} />
@@ -93,13 +94,13 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
                             placeholder='Введите пароль указанный на почте'
                         />
                         {visibility === 'password' && <img
-                            src='./assets/StartPage/invisible.svg'
+                            src={imageSrc + 'assets/StartPage/invisible.svg'}
                             alt='eye'
                             className={styles.invisible}
                             onClick={() => setVisibility('text')}
                         />}
                         {visibility === 'text' && <img
-                            src='./assets/StartPage/eye.svg'
+                            src={imageSrc + 'assets/StartPage/eye.svg'}
                             alt='eye'
                             className={styles.eye}
                             onClick={() => setVisibility('password')}

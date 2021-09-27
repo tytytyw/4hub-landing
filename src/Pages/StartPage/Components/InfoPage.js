@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import info from './InfoPage.helper';
 import styles from './InfoPage.module.sass';
 import PopUp from '../../../generalComponents/PopUp';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const InfoPage = ({setPage}) => {
 
@@ -33,7 +34,7 @@ const InfoPage = ({setPage}) => {
   return (
       <>
       <div className={styles.infoWrap}>
-          <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+          <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
           <div className={styles.title}>Remote WorkSpace</div>
           <div className={styles.infos}>{renderInfos()}</div>
           <h2 className={styles.questions}>Остались вопросы?</h2>
@@ -71,19 +72,19 @@ const InfoPage = ({setPage}) => {
                     <span className={styles.cross} onClick={() => setSucсess(false)} />
                     <span className={styles.title}>Запрос успешно отправлен</span>
                     <div className={styles.imageWrap}>
-                        <img src='./assets/StartPage/success-file-send.svg'
+                        <img src={imageSrc + 'assets/StartPage/success-file-send.svg'}
                              alt='computer'
                              className={styles.computer}
                         />
-                        <img src='./assets/StartPage/envelope.svg'
+                        <img src={imageSrc + 'assets/StartPage/envelope.svg'}
                              alt='envelope'
                              className={styles.envelope}
                         />
-                        <img src='./assets/StartPage/paper-plane-left.svg'
+                        <img src={imageSrc + 'assets/StartPage/paper-plane-left.svg'}
                              alt='paper-plane'
                              className={styles.planeLeft}
                         />
-                        <img src='./assets/StartPage/paper-plane-right.svg'
+                        <img src={imageSrc + 'assets/StartPage/paper-plane-right.svg'}
                              alt='paper-plane'
                              className={styles.planeRight}
                         />

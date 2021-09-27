@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Main.module.sass";
 import Tariff from "../Tariff/Tariff";
 import classNames from "classnames";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 function Main({scrollTop}) {
 	const [count, setCount] = useState(null);
@@ -145,7 +146,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_1_1
 								)}
-								src="./assets/StartPage/slider_item_1_1.png"
+								src={imageSrc + "assets/StartPage/slider_item_1_1.png"}
 								alt="добавление файла"
 							/>
 							<img
@@ -153,7 +154,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_1_2
 								)}
-								src="./assets/StartPage/slider_item_1_2.png"
+								src={imageSrc + "assets/StartPage/slider_item_1_2.png"}
 								alt="добавление файла"
 							/>
 							<img
@@ -161,7 +162,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_1_3
 								)}
-								src="./assets/StartPage/slider_item_1_3.png"
+								src={imageSrc + "assets/StartPage/slider_item_1_3.png"}
 								alt="добавление файла"
 							/>
 						</div>
@@ -189,7 +190,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_2_1
 								)}
-								src="./assets/StartPage/slider_item_2_1.png"
+								src={imageSrc + "assets/StartPage/slider_item_2_1.png"}
 								alt="совместный проект"
 							/>
 							<img
@@ -197,7 +198,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_2_2
 								)}
-								src="./assets/StartPage/slider_item_2_2.png"
+								src={imageSrc + "assets/StartPage/slider_item_2_2.png"}
 								alt="совместный проект"
 							/>
 						</div>
@@ -219,7 +220,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_3_1
 								)}
-								src="./assets/StartPage/slider_item_3_1.png"
+								src={imageSrc + "assets/StartPage/slider_item_3_1.png"}
 								alt="добавление файла"
 							/>
 							<img
@@ -227,7 +228,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_3_2
 								)}
-								src="./assets/StartPage/slider_item_3_2.png"
+								src={imageSrc + "assets/StartPage/slider_item_3_2.png"}
 								alt="добавление файла"
 							/>
 							<img
@@ -235,7 +236,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_3_3
 								)}
-								src="./assets/StartPage/slider_item_3_3.png"
+								src={imageSrc + "assets/StartPage/slider_item_3_3.png"}
 								alt="добавление файла"
 							/>
 						</div>
@@ -259,7 +260,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4
 								)}
-								src="./assets/StartPage/slider_item_4.png"
+								src={imageSrc + "assets/StartPage/slider_item_4.png"}
 								alt="синхронизация"
 							/>
 							<img
@@ -267,7 +268,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_youtube
 								)}
-								src="./assets/StartPage/youtube.svg"
+								src={imageSrc + "assets/StartPage/youtube.svg"}
 								alt="youtube"
 							/>
 							<img
@@ -275,7 +276,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_telegram
 								)}
-								src="./assets/StartPage/telegram.svg"
+								src={imageSrc + "assets/StartPage/telegram.svg"}
 								alt="telegram"
 							/>
 							<img
@@ -283,7 +284,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_google_calendar
 								)}
-								src="./assets/StartPage/google_calendar.svg"
+								src={imageSrc + "assets/StartPage/google_calendar.svg"}
 								alt="google calendar"
 							/>
 							<img
@@ -291,7 +292,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_google_drive
 								)}
-								src="./assets/StartPage/google_drive.svg"
+								src={imageSrc + "assets/StartPage/google_drive.svg"}
 								alt="google drive"
 							/>
 							<img
@@ -299,7 +300,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_figma
 								)}
-								src="./assets/StartPage/figma.svg"
+								src={imageSrc + "assets/StartPage/figma.svg"}
 								alt="figma"
 							/>
 							<img
@@ -307,7 +308,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_viber
 								)}
-								src="./assets/StartPage/viber.svg"
+								src={imageSrc + "assets/StartPage/viber.svg"}
 								alt="viber"
 							/>
 							<img
@@ -315,7 +316,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_whatsapp
 								)}
-								src="./assets/StartPage/whatsapp.svg"
+								src={imageSrc + "assets/StartPage/whatsapp.svg"}
 								alt="whatsapp"
 							/>
 							<img
@@ -323,7 +324,7 @@ function Main({scrollTop}) {
 									styles.presentation__image,
 									styles.image_4_skype
 								)}
-								src="./assets/StartPage/skype.svg"
+								src={imageSrc + "assets/StartPage/skype.svg"}
 								alt="skype"
 							/>
 						</div>

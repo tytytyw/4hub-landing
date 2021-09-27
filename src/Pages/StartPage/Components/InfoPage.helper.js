@@ -1,7 +1,9 @@
+import {imageSrc} from '../../../generalComponents/globalVariables';
+
 const arr = [
     {
         name: 'О проекте',
-        image: './assets/StartPage/idea.svg',
+        image: `${imageSrc}assets/StartPage/idea.svg`,
         width: '30px',
         margin: '0 0 3vw 0',
         text: [
@@ -15,7 +17,7 @@ const arr = [
     },
     {
         name: 'Безопасность',
-        image: './assets/StartPage/safe.svg',
+        image: `${imageSrc}assets/StartPage/safe.svg`,
         width: '40px',
         margin: '0 0 3vw 0',
         text: [
@@ -29,7 +31,7 @@ const arr = [
     },
     {
         name: 'Хранилище',
-        image: './assets/StartPage/pie-chart-5.svg',
+        image: `${imageSrc}assets/StartPage/pie-chart-5.svg`,
         width: '40px',
         margin: '0 0 3vw 0',
         text: [

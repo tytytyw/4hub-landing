@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import {imageSrc} from '../../../generalComponents/globalVariables';
 import styles from './SavePeriodPicker.module.sass';
 
 const SavePeriodPicker = ({
@@ -39,14 +39,14 @@ const SavePeriodPicker = ({
         <div className={styles.wrapper}>
             <div className={styles.header}>
                 <div>
-                    <img src='./assets/StartPage/file-grey.svg' alt='file' />
+                    <img src={imageSrc + 'assets/StartPage/file-grey.svg'} alt='file' />
                     <span>Срок хранения файла</span>
                 </div>
                 <span className={styles.cross} onClick={() => set(false)}></span>
             </div>
             <div className={styles.main}>
                 <div className={styles.titleName}>
-                    <img src='./assets/StartPage/calendar-grey.svg' alt='calendar' />
+                    <img src={imageSrc + 'assets/StartPage/calendar-grey.svg'} alt='calendar' />
                     <span>Укажите даты хранения</span>
                 </div>
                 <div className={styles.inputDiv}>
@@ -57,7 +57,7 @@ const SavePeriodPicker = ({
                     <span onClick={() => setShowCalendar(true)}>Открыть календарь</span>
                 </div>
                 <div className={styles.titleName}>
-                    <img src='./assets/StartPage/clock.svg' alt='calendar' />
+                    <img src={imageSrc + 'assets/StartPage/clock.svg'} alt='calendar' />
                     <span>Укажите время хранения</span>
                 </div>
                 <div className={styles.inputHM}>

@@ -5,6 +5,7 @@ import styles from './WorkBarsPreview.module.sass';
 import {onChooseFiles} from "../../../../../../Store/actions/PrivateCabinetActions";
 import File from "../../../../../../generalComponents/Files";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
@@ -64,9 +65,9 @@ const WorkBarsPreview = ({
                         <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
                     </audio>
                     <div className={styles.audioPicWrap}>
-                        <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
-                        {!play ? <img className={styles.audioSwitchPlay} src='./assets/PrivateCabinet/play-black.svg' alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
-                        {play ? <img className={styles.audioSwitch} src='./assets/PrivateCabinet/pause.svg' alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>
+                        {!play ? <img className={styles.audioSwitchPlay} src={imageSrc + 'assets/PrivateCabinet/play-black.svg'} alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
+                        {play ? <img className={styles.audioSwitch} src={imageSrc + 'assets/PrivateCabinet/pause.svg'} alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}
                     </div>
                 </>
             }

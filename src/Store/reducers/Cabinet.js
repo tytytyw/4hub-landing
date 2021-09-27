@@ -80,7 +80,7 @@ const INITIAL_STATE = {
 
     //PROJECT
     projects: [],
-    projectFolders: [],
+    projectFolders: {},
 
     //DEVICES
     devices: [],
@@ -219,7 +219,9 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         //PROJECT
         case GET_PROJECT_FOLDER:
-            return {...state, projectFolders: action.payload}
+            const folderList = {...state.projectFolders};
+            folderList[action.payload.projectId] = [...action.payload.projectFolders]
+            return {...state, projectFolders: folderList}
         case GET_PROJECTS:
             return {...state, projects: action.payload}
 
