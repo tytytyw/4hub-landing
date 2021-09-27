@@ -52,7 +52,7 @@ const WorkSpace = ({
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	//const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
 
 	const [mouseParams, setMouseParams] = useState(null);
 
@@ -225,7 +225,7 @@ const WorkSpace = ({
 						<Profile />
 					</div>
 				</div>
-				{authorizedSafe && <ServePanel
+				<ServePanel
 					chosenFile={chosenFile}
 					setAction={setAction}
 					share={() => onActiveCallbackArrMain("share")}
@@ -238,7 +238,21 @@ const WorkSpace = ({
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
 					menuItem={menuItem}
-				/>}
+				/>
+				{/*{authorizedSafe && <ServePanel
+					chosenFile={chosenFile}
+					setAction={setAction}
+					share={() => onActiveCallbackArrMain("share")}
+					archive={() => onActiveCallbackArrMain('archive')}
+					chooseSeveral={() =>
+						setFilePick({ ...filePick, files: [], show: !filePick.show })
+					}
+					filePick={filePick}
+					fileAddCustomization={fileAddCustomization}
+					setFileAddCustomization={setFileAddCustomization}
+					addFile={fileSelect}
+					menuItem={menuItem}
+				/>}*/}
 
 				{workElementsView === "bars" && (
 					<WorkBars
