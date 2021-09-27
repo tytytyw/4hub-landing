@@ -7,6 +7,13 @@ import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
+import {
+    drawBrush,
+    mouseDownHandlerBrush,
+    mouseMoveHandlerBrush,
+    mouseUpHandlerBrush,
+    unDoPaintBrush
+} from "./paintHelpers";
 
 const PreviewFile = ({setFilePreview, file}) => {
 
@@ -45,10 +52,10 @@ const PreviewFile = ({setFilePreview, file}) => {
                     {edit.status === 'Сохранить' ? <MiniToolBar
                         direction="row"
                         right="130px"
-                        top="7px"
+                        top="12px"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
-                        unDoPaint={unDoPaint}
+                        unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
                     /> : null}
                     <span className={styles.edit} onClick={handleEdit}>{edit.status}</span>
                     <canvas
@@ -98,56 +105,20 @@ const PreviewFile = ({setFilePreview, file}) => {
             }
     }, []); //eslint-disable-line
 
-    const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0});
-    // const uid = useSelector(state => state.user.uid);
+    const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined"});
     const [undoList, setUndoList] = useState([]);
     const [mouse, setMouse] = useState({down: false});
 
     const mouseUpHandler = () => {
-        if(edit.status === 'Сохранить') {
-            setMouse(mouse => ({...mouse, down: false}));
-        }
+        if(drawParams.figure === "brush-outlined") mouseUpHandlerBrush(edit.status, setMouse)
     }
 
     const mouseDownHandler = e => {
-        const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-        if(edit.status === 'Сохранить' && ctx) {
-            setMouse(mouse => ({...mouse, down: true}));
-            ctx.beginPath();
-            ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-            setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
-        }
+        if(drawParams.figure === "brush-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList)
     }
 
     const mouseMoveHandler = e => {
-        if(edit.status === 'Сохранить' && mouse.down) {
-            draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
-        }
-    }
-
-    const draw = (x, y) => {
-        const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = drawParams.color;
-        ctx.lineWidth = drawParams.width;
-        ctx.stroke();
-    }
-
-    const unDoPaint = () => {
-        const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
-        if(undoList.length > 0) {
-            const dataUrl = undoList[undoList.length - 1];
-            let img = new Image();
-            img.src = dataUrl;
-            img.onload = () => {
-                const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, canvasRef.current.width, canvasRef.current.height);
-                ctx.drawImage(img, 0, 0, sizes.width, sizes.height);
-                let newUndoList = undoList;
-                newUndoList.pop();
-                setUndoList(() => ([...newUndoList]));
-            }
-        }
+        if(drawParams.figure === "brush-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef)
     }
 
     return (

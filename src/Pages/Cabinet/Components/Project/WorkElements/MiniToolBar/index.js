@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 import styles from './MiniToolBar.module.sass'
-import {ReactComponent as PencilIcon} from '../../../../../../assets/PrivateCabinet/watercolor.svg'
 import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCabinet/forward.svg'
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
@@ -47,7 +46,14 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column"
                     }}
                 >
                     {figuresPaint?.map((item, index) => (
-                        <button key={index} className={styles.itemBtn}>
+                        <button
+                            key={index}
+                            className={styles.itemBtn}
+                            onClick={() => {
+                                setDrawParams(drawParams => ({...drawParams, figure: item.figure}));
+                                setToolFigure(false);
+                            }}
+                        >
                             <img
                                 className={styles.figureImg}
                                 src={`${imageSrc}assets/PrivateCabinet/${item.figure}.svg`}
@@ -61,7 +67,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column"
                     onMouseEnter={() => setToolFigure(true)}
                     className={styles.itemBtn}
                 >
-                    <PencilIcon/>
+                    <img
+                        className={styles.figureImg}
+                        src={`${imageSrc}assets/PrivateCabinet/${drawParams.figure}.svg`}
+                        alt={drawParams.figure}
+                    />
                 </button>
             </div>
 
