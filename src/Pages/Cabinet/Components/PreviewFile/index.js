@@ -8,10 +8,10 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
-    drawBrush,
-    mouseDownHandlerBrush,
-    mouseMoveHandlerBrush,
-    mouseUpHandlerBrush,
+    drawBrush, drawSquare,
+    mouseDownHandlerBrush, mouseDownHandlerSquare,
+    mouseMoveHandlerBrush, mouseMoveHandlerSquare,
+    mouseUpHandlerBrush, mouseUpHandlerSquare,
     unDoPaintBrush
 } from "./paintHelpers";
 
@@ -107,18 +107,21 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined"});
     const [undoList, setUndoList] = useState([]);
-    const [mouse, setMouse] = useState({down: false});
+    const [mouse, setMouse] = useState({down: false, startX: 0, startY: 0, saved: null});
 
     const mouseUpHandler = () => {
-        if(drawParams.figure === "brush-outlined") mouseUpHandlerBrush(edit.status, setMouse)
+        if(drawParams.figure === "brush-outlined") mouseUpHandlerBrush(edit.status, setMouse);
+        if(drawParams.figure === "square-outlined") mouseUpHandlerSquare(edit.status, setMouse)
     }
 
     const mouseDownHandler = e => {
-        if(drawParams.figure === "brush-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList)
+        if(drawParams.figure === "brush-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList);
+        if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
     }
 
     const mouseMoveHandler = e => {
-        if(drawParams.figure === "brush-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef)
+        if(drawParams.figure === "brush-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef);
+        if(drawParams.figure === "square-outlined") mouseMoveHandlerSquare(e, drawSquare, edit.status, mouse, drawParams, canvasRef)
     }
 
     return (
