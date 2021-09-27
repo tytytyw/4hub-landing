@@ -96,7 +96,7 @@ const PreviewFile = ({setFilePreview, file}) => {
                 canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
             }
-    }, []);
+    }, []); //eslint-disable-line
 
     const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0});
     // const uid = useSelector(state => state.user.uid);
