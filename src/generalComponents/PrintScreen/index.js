@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from "./PrintScreen.module.sass";
 import {imageToRatio} from "../generalHelpers";
 
-const PrintScreen = ({imgRef, show, setShow}) => {
+const PrintScreen = ({imgRef, show, setShow, setFilePreview}) => {
 
     const [display, setDisplay] = useState('none');
     const [size, setSize] = useState({width: '200px', height: '150px'});
@@ -20,6 +20,12 @@ const PrintScreen = ({imgRef, show, setShow}) => {
         return () => {setDisplay('none'); setShow('none')}
     }, []) //eslint-disable-line
 
+    const handlePreview = (e) => {
+        setFilePreview({view: true, file: {preview: e.target.src, mime_type: 'image/png', ext: 'PNG', is_preview: 1}});
+        setDisplay('none');
+        setShow('none');
+    }
+
     return(
         <>
             <img
@@ -32,6 +38,7 @@ const PrintScreen = ({imgRef, show, setShow}) => {
                     width: display === 'block' ? `${size.width}px` : '',
                     height: display === 'block' ? `${size.height}px` : '',
                 }}
+                onClick={handlePreview}
             />
         </>
     )

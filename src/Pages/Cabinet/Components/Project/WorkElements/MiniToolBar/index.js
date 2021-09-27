@@ -8,7 +8,7 @@ import classNames from "classnames";
 import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
-const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
+const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column", top = "20px", right = "13px"}) => {
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
@@ -21,7 +21,14 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
     })*/
 
     return (
-        <div className={styles.wrapper}>
+        <div
+            className={styles.wrapper}
+            style={{
+                flexDirection: direction,
+                top,
+                right
+            }}
+        >
 
             <div
                 onMouseLeave={() => setToolFigure(false)}
@@ -33,6 +40,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolFigure
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {figuresPaint?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>
@@ -63,6 +75,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolDots
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column-reverse",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {dotsPaint?.map((item, index) => (
                         <button
@@ -108,6 +125,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolColors
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {colorsPaint?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>

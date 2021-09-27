@@ -1,4 +1,5 @@
 import html2canvas from "html2canvas";
+import {imageSrc} from "./globalVariables";
 
 //set image to requested size with maxWidth && maxHeight params
 export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
@@ -58,8 +59,8 @@ export const handlePrintScreen = async (ref, set) => {
         });
 }
 
-export const htmlToCanvas = (ref, set) => {
-    html2canvas(document.getElementById('root')).then(function(canvas) {
+export const htmlToCanvas = async (ref, set) => {
+    await html2canvas(document.getElementById('root'), {allowTaint: true, proxy: imageSrc}).then(function (canvas) {
         const data = canvas.toDataURL('image/png');
         ref.setAttribute('src', data);
         if(set) set('block')

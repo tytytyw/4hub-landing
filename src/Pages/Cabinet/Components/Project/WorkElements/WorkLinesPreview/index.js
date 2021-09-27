@@ -17,6 +17,7 @@ import File from "../../../../../../generalComponents/Files";
 import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import PreviewFile from "../../../PreviewFile";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
 
@@ -29,6 +30,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null
     const uid = useSelector(state => state.user.uid)
     const [undoList, setUndoList] = useState([]);
+    const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
 
     useEffect(() => {
         if(chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image') {
@@ -288,7 +290,8 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                 </div>
 
             </div>
-            {showPrintScreen ? <PrintScreen imgRef={imgRef} show={display} setShow={setDisplay} /> : null}
+            {showPrintScreen ? <PrintScreen imgRef={imgRef} show={display} setShow={setDisplay} setFilePreview={setFilePreview} /> : null}
+            {filePreview.view ? <PreviewFile filePreview={filePreview} setFilePreview={setFilePreview} file={filePreview?.file} /> : null}
             {previewPopup &&
             <PopUp set={setPreviewPopup}>
                 <img

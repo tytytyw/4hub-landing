@@ -1,16 +1,13 @@
 .wrapper
   display: flex
-  flex-direction: column
   align-items: flex-end
   position: absolute
-  right: 13px
-  top: 20px
   z-index: 5
   .item
     border-radius: 3px
-    box-shadow: 0 2px 4px #dedede
     margin-bottom: 6px
-
+    flex-direction: column-reverse
+    justify-content: flex-end
     display: flex
     align-items: center
 
@@ -19,6 +16,7 @@
       visibility: visible
       width: auto
       transition: all 0.3s ease
+      box-shadow: 0 2px 4px #dedede
 
     .toolBlock
       visibility: hidden
@@ -28,6 +26,7 @@
       align-items: center
       background: #FFFFFF
       border-radius: 3px
+      position: absolute
 
     .itemBtn
       background: #FFFFFF
