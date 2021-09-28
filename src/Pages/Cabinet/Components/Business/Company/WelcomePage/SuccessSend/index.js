@@ -10,23 +10,23 @@ const SuccessSend = ({setPageOption}) => {
 
             <div className={styles.wrapper}>
 
-            <div className={styles.header}>
-                <img src={successImg} alt="Success"/>
-                <p>Письмо отправлено на почту</p>
-            </div>
+                <div className={styles.header}>
+                    <img src={successImg} alt="Success"/>
+                    <p>Письмо отправлено на почту</p>
+                </div>
 
-            <div className={styles.infoBlock}>
-                <p>
-                    Письмо с правами доступа отправленно на указанный вами email
-                    mailgmail@gmail.com
-                </p>
-            </div>
+                <div className={styles.infoBlock}>
+                    <p>
+                        Письмо с правами доступа отправленно на указанный вами email
+                        mailgmail@gmail.com
+                    </p>
+                </div>
 
-            <div className={styles.actionBlock}>
-                <button onClick={() => setPageOption('welcome')}>Готово</button>
-            </div>
+                <div className={styles.actionBlock}>
+                    <button onClick={() => setPageOption('welcome')}>Готово</button>
+                </div>
 
-        </div>
+            </div>
 
         </div>
     )

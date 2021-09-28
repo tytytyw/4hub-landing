@@ -6,14 +6,16 @@ import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/succes
 
 const SuccessCreated = () => {
 
+    const toBusiness = () => {
 
+    }
 
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.contentWrapper}>
 
-                <img className={styles.close} src={timesImg} alt="Close"/>
+                <img onClick={toBusiness} className={styles.close} src={timesImg} alt="Close"/>
 
                 <div className={styles.header}>
                     <h4 className={styles.title}>Новая Компания успешно создана</h4>
@@ -38,6 +40,7 @@ const SuccessCreated = () => {
 
                     <div className={styles.actionBlock}>
                         <button
+                            onClick={toBusiness}
                             className={styles.completeBtn}
                         >
                             Готово
