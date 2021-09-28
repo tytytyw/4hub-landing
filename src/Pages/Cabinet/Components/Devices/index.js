@@ -13,7 +13,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
-import {onGetConnectedContacts, onGetDevices} from "../../../../Store/actions/CabinetActions"
+import {onGetConnectedContacts, onGetDevices, setSelectedDevice} from "../../../../Store/actions/CabinetActions"
 import ConnectedContacts from "./ConnectedContacts"
 
 const Devices = ({
@@ -25,7 +25,7 @@ const Devices = ({
     const devices = useSelector(state => state.Cabinet.devices)
     const size = useSelector(state => state.Cabinet.size);
 
-    const [chosenDevice, setChosenDevice] = useState(null)
+    const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
     const [chosenContact, setChosenContact] = useState(null)
 
     const [listCollapsed, setListCollapsed] = useState('')
@@ -53,9 +53,9 @@ const Devices = ({
                 key={i + dev.name}
                 device={dev}
                 listSize={size}
-                chosen={chosenDevice === dev.id}
+                chosen={selectedDevice?.id === dev.id}
                 setMouseParams={setMouseParams}
-                onClick={() => setChosenDevice(dev.id)}
+                onClick={() => dispatch(setSelectedDevice(dev))}
                 listCollapsed={listCollapsed}
             />
         })
