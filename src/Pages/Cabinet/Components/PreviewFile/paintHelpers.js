@@ -10,7 +10,6 @@ export const mouseUpHandlerBrush = (status, setMouse) => {
 export const mouseDownHandlerBrush = (e, canvasRef, status, setMouse, setUndoList) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
     if(status === 'Сохранить' && ctx) {
-        console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         setMouse(mouse => ({...mouse, down: true}));
         ctx.beginPath();
         ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -77,7 +76,6 @@ export const mouseDownHandlerCircle = (e, status, setMouse, canvasRef, setUndoLi
     if(status === 'Сохранить') {
         setMouse(mouse => ({...mouse, down: true, startX: e.nativeEvent.offsetX, startY: e.nativeEvent.offsetY, saved: canvasRef.current.toDataURL()}));
         setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
-
     }
 }
 

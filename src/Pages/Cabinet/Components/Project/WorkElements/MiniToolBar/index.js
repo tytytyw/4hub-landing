@@ -7,7 +7,10 @@ import classNames from "classnames";
 import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
-const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column", top = "20px", right = "13px"}) => {
+const MiniToolBar = ({
+         drawParams, setDrawParams, unDoPaint, direction = "column",
+         top = "20px", right = "13px", setTextDraw,
+}) => {
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
@@ -52,6 +55,7 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column"
                             onClick={() => {
                                 setDrawParams(drawParams => ({...drawParams, figure: item.figure}));
                                 setToolFigure(false);
+                                if(setTextDraw) setTextDraw(state => ({...state, edit: item.figure === 'font' ? true : false}));
                             }}
                         >
                             <img
