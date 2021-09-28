@@ -8,13 +8,12 @@ import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariable
 import {imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
-    drawBrush, drawCircle, drawSquare,
+    drawBrush, drawCircle, drawSquare, drawText,
     mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
     mouseMoveHandlerBrush, mouseMoveHandlerCircle, mouseMoveHandlerSquare,
     mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
     unDoPaintBrush
 } from "./paintHelpers";
-import canvasTxt from "canvas-txt";
 
 const PreviewFile = ({setFilePreview, file}) => {
 
@@ -76,6 +75,7 @@ const PreviewFile = ({setFilePreview, file}) => {
                             onMouseMove={handleSetBlockSize}
                             value={textDraw.text}
                             onChange={handleTextAreaChange}
+                            onKeyPress={handleKeyPress}
                             style={{
                                 color: drawParams.color,
                                 fontSize: `${drawParams.fontSize}px`,
@@ -129,25 +129,25 @@ const PreviewFile = ({setFilePreview, file}) => {
             }
     }, []); //eslint-disable-line
 
-    const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
+    const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
     const [undoList, setUndoList] = useState([]);
     const [mouse, setMouse] = useState({down: false, startX: 0, startY: 0, saved: null});
 
     const mouseDownHandler = e => {
-        if(drawParams.figure === "brush-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList);
+        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList);
         if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
         if(drawParams.figure === "circle-outlined") mouseDownHandlerCircle(e, edit.status, setMouse, canvasRef, setUndoList);
-        if(drawParams.figure === "font") drawText();
+        if(drawParams.figure === "font") drawText(canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw);
     }
 
     const mouseMoveHandler = e => {
-        if(drawParams.figure === "brush-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef);
+        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef);
         if(drawParams.figure === "square-outlined") mouseMoveHandlerSquare(e, drawSquare, edit.status, mouse, drawParams, canvasRef)
         if(drawParams.figure === "circle-outlined") mouseMoveHandlerCircle(e, drawCircle, edit.status, mouse, drawParams, canvasRef)
     }
 
     const mouseUpHandler = () => {
-        if(drawParams.figure === "brush-outlined") mouseUpHandlerBrush(edit.status, setMouse);
+        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseUpHandlerBrush(edit.status, setMouse);
         if(drawParams.figure === "square-outlined") mouseUpHandlerSquare(edit.status, setMouse)
         if(drawParams.figure === "circle-outlined") mouseUpHandlerCircle(edit.status, setMouse)
     }
@@ -167,22 +167,11 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     const handleTextAreaChange = e => setTextDraw(state => ({...state, text: e.target.value}))
 
-    function drawText() {
-        if(textDraw.edit) {
-            const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-            setUndoList(state => ([...state, canvasRef.current.toDataURL()]));
-            ctx.fillStyle = drawParams.color;
-            canvasTxt.fontSize = drawParams.fontSize;
-            canvasTxt.align = "left";
-            canvasTxt.vAlign = "top";
-            canvasTxt.font = drawParams.fontFamily;
-            canvasTxt.lineHeight = drawParams.lineHeight;
-            canvasTxt.fontSize = drawParams.fontSize;
-            console.log(canvasTxt);
-            canvasTxt.drawText(ctx, textBlockRef.current.value, textBlockRef.current.offsetLeft + 3, textBlockRef.current.offsetTop + 2, textBlockRef.current.clientWidth - 4, textBlockRef.current.clientHeight - 4)
-            setTextDraw(state => ({...state, edit: false}));
-            setDrawParams(state => ({...state, figure: "brush-outlined"}));
+    const handleKeyPress = () => {
+        if(textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
+            textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + 'px'
         }
+        // console.log(textBlockRef.current.offsetHeight, textBlockRef.current.scrollHeight)
     }
 
     return (

@@ -151,7 +151,7 @@ const MiniToolBar = ({
                                 style={{background: `${item?.color}`}}
                                 className={styles.circle}
                                 onClick={() => {
-                                    setDrawParams(drawParams => ({...drawParams, color: item.color}));
+                                    setDrawParams(drawParams => ({...drawParams, color: item.color, colorRGBA: item.colorRGBA}));
                                     setToolColors(false);
                                 }}
                             />
