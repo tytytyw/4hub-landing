@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
 import SearchField from '../../SearchField'
@@ -8,8 +8,6 @@ import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 import BottomPanel from '../../BottomPanel'
-import FileBar from '../WorkElements/FileBar'
-import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
@@ -26,7 +24,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
 
     const dispatch = useDispatch();
     const [workElementsView, setWorkElementsView] = useState('preview');
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -79,25 +76,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
         })
     }
 
-    // Types of Files view
-    const renderFiles = (Type) => {
-        if (!fileList?.files) return null
-        return fileList.files.map((file, i) => {
-            return <Type
-                key={i}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                setFilePreview={setFilePreview}
-                filePreview={filePreview}
-                filePick={filePick}
-                setFilePick={setFilePick}
-            />
-        })
-    }
-
     return (
         <>
             <div
@@ -119,29 +97,58 @@ const WorkSpace = ({chosenFile, setChosenFile,
                     fileSelect={fileSelect}
                 />
 
-                {/*{workElementsView === 'bars' &&
-                <WorkBars
-                    fileLoading={fileLoading}
-                    fileSelect={fileSelect}
-                    filePick={filePick}
-                >
-                    {renderFiles(FileBar)}
-                </WorkBars>}
 
-                {workElementsView === 'lines' &&
-                <WorkLines fileLoading={fileLoading}>
-                    {renderFiles(FileLine)}
-                </WorkLines>}*/}
+                <div className={styles.contentWrapper}>
 
-                {workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile}>
-                    {renderFiles(FileBar)}
-                </WorkBarsPreview>}
+                    <div className={styles.previewWrapper}>
+                        <img src="./assets/PrivateCabinet/devices/macbookpro.svg" alt="Macbook Pro"/>
+                    </div>
 
-                {/*{workElementsView === 'workLinesPreview' &&
-                <WorkLinesPreview file={chosenFile}>
-                    {renderFiles(FileLineShort)}
-                </WorkLinesPreview>}*/}
+                    <div className={styles.optionsWrapper}>
+                        <div className={styles.previewFileWrap}>
+                            <>
+                                <div className={styles.preview}>
+                                    <div className={styles.filePreviewWrap}>
+                                        <div className={styles.content}>
+                                            <img src="./assets/PrivateCabinet/devices/macbookpro.svg" alt="Macbook Pro"/>
+                                            <p className={styles.contentInfo}>Macbook pro</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Система</span>
+                                    <span className={styles.description}>Mac OS</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Браузер</span>
+                                    <span className={styles.description}>Safari</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Регион</span>
+                                    <span className={styles.description}>Украина</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Город</span>
+                                    <span className={styles.description}>Киев</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>iP адрес</span>
+                                    <span className={styles.description}>19.08.20.19.10</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Провайдер</span>
+                                    <span className={styles.description}>Sword</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Активность</span>
+                                    <span className={styles.description}>10.11.2021</span>
+                                </div>
+                            </>
+                        </div>
+                    </div>
+
+                </div>
+
 
                 {filePick.show ? <OptionButtomLine
                     filePick={filePick}

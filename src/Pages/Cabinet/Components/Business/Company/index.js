@@ -13,16 +13,13 @@ import Standards from "./Standards";
 import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
+import Verification from "./Verification";
 
 const Company = () => {
 
-    const [pageOption, setPageOption] = useState('welcome')
+    const [pageOption, setPageOption] = useState('init')
 
     const sideListData = [
-        {name: 'settings', label: 'Настройки', icon: <SettingsIcon/>, children: [
-            {name: 'add-employee', label: 'Добавить сотрудников'},
-            {name: 'settings_access', label: 'Настройки доступа'},
-        ]},
         {name: 'gen_info', label: 'Общие сведения', icon: <InfoIcon/>, children: [
             {name: 'standards', label: 'Стандарты компании'},
             {name: 'mission', label: 'Миссия компании'},
@@ -37,6 +34,10 @@ const Company = () => {
             {name: 'add-employee', label: 'Добавить сотрудников'},
             {name: 'settings_access', label: 'Настройки доступа'},
         ]},
+        {name: 'settings', label: 'Настройки', icon: <SettingsIcon/>, children: [
+            {name: 'add-employee', label: 'Добавить сотрудников'},
+            {name: 'settings_access', label: 'Настройки доступа'},
+        ]}
     ]
 
     return (
@@ -62,6 +63,7 @@ const Company = () => {
 
                 <div className={styles.content}>
 
+                    {pageOption === 'init' && <Verification setPageOption={setPageOption}/>}
                     {pageOption === 'welcome' && <WelcomeCard setPageOption={setPageOption}/>}
                     {pageOption === 'give-access' && <GiveAccess setPageOption={setPageOption}/>}
                     {pageOption === 'success-mail' && <SuccessSend setPageOption={setPageOption}/>}

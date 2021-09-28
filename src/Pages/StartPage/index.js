@@ -14,6 +14,7 @@ import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'
 import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
+import BusinessRegistration from "./Components/BusinessRegistration";
 
 const StartPage = ({setOptions}) => {
 
@@ -35,6 +36,14 @@ const StartPage = ({setOptions}) => {
 
     const isLanding = () => pageOption === 'landing' || pageOption === 'business-landing'
 
+    const onRegister = () => {
+        if (pageOption === 'business-landing') {
+            setPage('business-register')
+        } else {
+            setPage('register')
+        }
+    }
+
     return (
         <div
             className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap} ${isLanding() && styles.longWrap}`}
@@ -51,7 +60,7 @@ const StartPage = ({setOptions}) => {
                     <ArrowIcon className={styles.arrowDown} />
                 </div>
                 <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
-                <div className={`${styles.registerButton} ${styles.listItem}`} onClick={() => setPage('register')}>Регистрация</div>
+                <div className={`${styles.registerButton} ${styles.listItem}`} onClick={onRegister}>Регистрация</div>
             </header>
             <main className={styles.main}>
                 {pageOption === 'init' && <Intro setPage={setPage} setOptions={setOptions} />}
@@ -68,6 +77,7 @@ const StartPage = ({setOptions}) => {
                 {pageOption === 'downloadFolder' && <DownloadFolder setPage={setPage} setOptions={setOptions} loader={loader} setLoader={setLoader} />}
                 {pageOption === 'enter' && <EnterProfile setPage={setPage} />}
                 {(pageOption === 'register' || pageOption === 'registerSuccess') && <RegisterProfile setPage={setPage} pageOption={pageOption} />}
+                {(pageOption === 'business-register') && <BusinessRegistration setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}
                 {pageOption === 'renewPassword' && <RenewPassword setPage={setPage} />}
             </main>
