@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import styles from "./CreateFolder.module.sass";
+import styles from "./CustomizeFolder.module.sass";
 import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
@@ -14,32 +14,33 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
-const CreateFolder = ({
-	onCreate,
+const CustomizeFolder = ({
+	nullifyAction,
 	title,
 	setError,
 	projectId,
-	parentFolder,
+	folder,
 	setGLoader,
 }) => {
 	const uid = useSelector((state) => state.user.uid);
-	const [name, setName] = useState("");
+	const [name, setName] = useState(folder.name);
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
 	const [showRepeat, setShowRepeat] = useState(false);
-	const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
-	const [color, setColor] = useState(colors[0]);
-	const [sign, setSign] = useState("");
-	const [emoji, setEmoji] = useState("");
-	const [noNameError, setNoNameError] = useState(false);
+	const [tagOption, setTagOption] = useState({
+		chosen: folder.tags || '',
+		count: 30,
+	});
+	const [color, setColor] = useState(
+		colors?.filter((el) => el.name === folder?.color)[0]
+	);
+	const [fig, setFig] = useState(folder.fig || '');
+	const [emoji, setEmoji] = useState(folder.emo || '');
 	const [visibility, setVisibility] = useState("password");
+	const [errors, setErrors] = useState({});
 	const dispatch = useDispatch();
 
-	const onAddName = (name) => {
-		setNoNameError(false);
-		setName(name);
-	};
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 
 	const renderTags = () => {
@@ -52,39 +53,50 @@ const CreateFolder = ({
 		});
 	};
 
-	const onAddFolder = () => {
-		if (name) {
-			setGLoader(true);
-			console.log(parentFolder);
-			//TODO: parent folder
-			const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${
-				tagOption.chosen
-			}&pass=${passwordCoincide ? password : ""}&color=${
-				color?.name || "grey"
-			}&symbol=${sign}&emoji=${emoji}`;
-			api
-				.post(`/ajax/project_folders_add.php?${params}`)
-				.then((res) => {
-					if (res.data.ok === 1) {
-					} else {
-						setError("Папка не добавлена");
-					}
-				})
-				.catch(() => {
+	const addErrors = () => {
+		setErrors({
+			name: !name,
+		});
+	};
+
+	const formIsValid = () => {
+		if (passwordRepeat && !passwordCoincide) return false;
+		addErrors();
+		return !!name;
+	};
+
+	const onCustomizeFolder = () => {
+		if (formIsValid()) customizeFolder();
+	};
+
+	const customizeFolder = () => {
+		setGLoader(true);
+		//TODO: parent folder
+		const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&tag=${
+			tagOption.chosen
+		}&pass=${passwordCoincide ? password : ""}&color=${
+			color?.name || "grey"
+		}&symbol=${fig}&emoji=${emoji}`;
+		api
+			.post(`/ajax/project_folders_edit.php?${params}`)
+			.then((res) => {
+				if (res.data.ok === 1) {
+				} else {
 					setError("Папка не добавлена");
-				})
-				.finally(() => {
-					setGLoader(false);
-					dispatch(onGetProjectFolders(projectId));
-				});
-                onCreate(false);
-		} else {
-			setNoNameError(true);
-		}
+				}
+			})
+			.catch(() => {
+				setError("Папка не добавлена");
+			})
+			.finally(() => {
+				setGLoader(false);
+				dispatch(onGetProjectFolders(projectId));
+			});
+		nullifyAction();
 	};
 
 	const closeComponent = () => {
-		onCreate(false);
+		nullifyAction();
 		setError(false);
 	};
 
@@ -97,23 +109,25 @@ const CreateFolder = ({
 		const pass = password.split("");
 		const passRepeat = val.split("");
 		let boolean = true;
-		passRepeat.forEach((el, i) => {
-			if (el !== pass[i]) boolean = false;
-		});
+		if (pass.length === passRepeat.length) {
+			passRepeat.forEach((el, i) => {
+				if (el !== pass[i]) boolean = false;
+			});
+		} else boolean = false;
 		setPasswordCoincide(boolean);
 	};
 
 	return (
 		<>
-			<PopUp set={onCreate}>
+			<PopUp set={closeComponent}>
 				<div className={styles.createFolderWrap}>
-					<span className={styles.cross} onClick={() => onCreate(false)} />
+					<span className={styles.cross} onClick={() => nullifyAction()} />
 					<span className={styles.title}>{title}</span>
 					<div className={styles.folderIconWrap}>
 						<div className={`${styles.folder}`}>
 							<FolderIcon
 								className={`${styles.folderIcon} ${
-									colors.filter((el) => el.color === color.name)[0]?.name
+									colors.filter((el) => el.color === color.color)[0]?.name
 								}`}
 							/>
 						</div>
@@ -132,8 +146,8 @@ const CreateFolder = ({
 								)}
 								<div
 									className={`${styles.colorWrap} ${
-										color.name !== "grey" ? styles.colorWrapTap : ""
-									} ${color.name !== "grey" ? styles.redCross : ""}`}
+										color.color !== "grey" ? styles.colorWrapTap : ""
+									} ${color.color !== "grey" ? styles.redCross : ""}`}
 									onClick={() => setColor(colors[0])}
 								>
 									<div
@@ -144,10 +158,10 @@ const CreateFolder = ({
 										}}
 									/>
 								</div>
-								{sign && (
-									<div className={styles.redCross} onClick={() => setSign("")}>
+								{fig && (
+									<div className={styles.redCross} onClick={() => setFig("")}>
 										<img
-											src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/signs/${fig}.svg`}
 											alt="emoji"
 										/>
 									</div>
@@ -177,9 +191,9 @@ const CreateFolder = ({
 							<InputField
 								model="text"
 								value={name}
-								set={onAddName}
+								set={setName}
 								placeholder="Имя папки"
-								mistake={noNameError}
+								mistake={errors?.name}
 							/>
 						</div>
 						<div className={styles.tagPicker}>
@@ -221,12 +235,13 @@ const CreateFolder = ({
 									visibility={visibility}
 									setVisibility={setVisibility}
 									comparePass={comparePass}
+									mistake={!passwordCoincide}
 								/>
 							</div>
 						)}
 					</div>
 					<Colors color={color} setColor={setColor} />
-					<Signs sign={sign} setSign={setSign} />
+					<Signs sign={fig} setSign={setFig} />
 					<Emoji emoji={emoji} setEmoji={setEmoji} />
 					<div className={styles.buttonsWrap}>
 						<div
@@ -235,8 +250,8 @@ const CreateFolder = ({
 						>
 							Отмена
 						</div>
-						<div className={styles.add} onClick={() => onAddFolder()}>
-							Добавить
+						<div className={styles.add} onClick={() => onCustomizeFolder()}>
+							Сохранить
 						</div>
 					</div>
 				</div>
@@ -245,4 +260,4 @@ const CreateFolder = ({
 	);
 };
 
-export default CreateFolder;
+export default CustomizeFolder;

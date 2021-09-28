@@ -20,6 +20,7 @@ import {
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from "../ContextMenuComponents/ContextMenuProject/CreateFolder";
+import CustomizeFolder from "../ContextMenuComponents/ContextMenuProject/CustomizeFolder";
 import CopyLinkShare from "../ContextMenuComponents/CopyLinkShare";
 import CustomizeProject from "../ContextMenuComponents/ContextMenuProject/CustomizeProject";
 import FolderProperty from "../ContextMenuComponents/ContextMenuProject/FolderProperty";
@@ -116,6 +117,12 @@ const Project = ({ setLoadingType }) => {
 	];
 
 	const callbackArrSub = [
+		{
+			type: "customizeFolder",
+			name: "Редактирование папки",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
 		{
 			type: "setAccessFolder",
 			name: "Доступ и экспорт",
@@ -230,14 +237,13 @@ const Project = ({ setLoadingType }) => {
 
 	const deleteFolder = () => {
 		nullifyAction();
-		// TODO: check: backend is work
 		api
 			.post(
 				`/ajax/project_folders_del.php?uid=${uid}&id_project=${selectedProject.id}&dir_name=${chosenFolder.name}`
 			)
 			.then((res) => {	
 				if (res.data.ok === 1) {
-					dispatch(onGetProjectFolders());
+					dispatch(onGetProjectFolders(selectedProject.id));
 					setChosenFolder({ ...chosenFolder, open: false });
 				} else {
 					setError("Папка не удалена. Попробуйте еще раз!");
@@ -328,6 +334,16 @@ const Project = ({ setLoadingType }) => {
 					setGLoader={setGLoader}
 				/>
 			)}
+			{action.type === "customizeFolder" ? (
+				<CustomizeFolder
+					nullifyAction={nullifyAction}
+					setError={setError}
+					projectId={selectedProject.id}
+					folder={chosenFolder}
+					title="Редактировать папку"
+					setGLoader={setGLoader}
+				/>
+			) : null}
 			{action.type === "copyLink" ? (
 				<CopyLinkShare
 					nullifyAction={nullifyAction}

@@ -26,8 +26,6 @@ const ProjectItem = ({
     const folders = useSelector(state => state.Cabinet.projectFolders)
     const [collapse, setCollapse] = useState(false)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //useEffect(() => setChosenFolder(null), [collapse])
 
     useEffect(() => {
         dispatch(onGetProjectFolders(project.id))
