@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
 import SearchField from '../../SearchField'
@@ -17,12 +17,15 @@ import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
 
+
 const WorkSpace = ({chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
                        fileSelect, action, setAction
                    }) => {
 
     const dispatch = useDispatch();
+    const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
+
     const [workElementsView, setWorkElementsView] = useState('preview');
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
@@ -97,35 +100,35 @@ const WorkSpace = ({chosenFile, setChosenFile,
                     fileSelect={fileSelect}
                 />
 
-
                 <div className={styles.contentWrapper}>
 
                     <div className={styles.previewWrapper}>
-                        <img src="./assets/PrivateCabinet/devices/macbookpro.svg" alt="Macbook Pro"/>
+                        {selectedDevice && <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>}
                     </div>
 
                     <div className={styles.optionsWrapper}>
                         <div className={styles.previewFileWrap}>
+                            {selectedDevice &&
                             <>
                                 <div className={styles.preview}>
                                     <div className={styles.filePreviewWrap}>
                                         <div className={styles.content}>
-                                            <img src="./assets/PrivateCabinet/devices/macbookpro.svg" alt="Macbook Pro"/>
-                                            <p className={styles.contentInfo}>Macbook pro</p>
+                                            <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>
+                                            <p className={styles.contentInfo}>{selectedDevice.name}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Система</span>
-                                    <span className={styles.description}>Mac OS</span>
+                                    <span className={styles.description}>{selectedDevice?.platform}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Браузер</span>
-                                    <span className={styles.description}>Safari</span>
+                                    <span className={styles.description}>{selectedDevice?.browser}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Регион</span>
-                                    <span className={styles.description}>Украина</span>
+                                    <span className={styles.description}>{selectedDevice?.country}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Город</span>
@@ -133,17 +136,17 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>iP адрес</span>
-                                    <span className={styles.description}>19.08.20.19.10</span>
+                                    <span className={styles.description}>{selectedDevice?.ip}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Провайдер</span>
-                                    <span className={styles.description}>Sword</span>
+                                    <span className={styles.description}>{selectedDevice?.provider}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>Активность</span>
-                                    <span className={styles.description}>10.11.2021</span>
+                                    <span className={styles.description}>{selectedDevice?.last_visit}</span>
                                 </div>
-                            </>
+                            </>}
                         </div>
                     </div>
 

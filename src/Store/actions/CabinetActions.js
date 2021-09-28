@@ -41,6 +41,7 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
+    SET_SELECTED_DEVICE
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -528,6 +529,10 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 // DEVICES
 
+export const setSelectedDevice = id => ({
+    type: SET_SELECTED_DEVICE,
+    payload: id
+})
 
 export const onGetDevices = () => async (dispatch, getState) => {
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
@@ -537,6 +542,11 @@ export const onGetDevices = () => async (dispatch, getState) => {
                 Object.entries(res.data.devices).forEach(device => {
                     let obj = {
                         id: device[1].id,
+                        ip: device[1].ip,
+                        browser: device[1].data?.browser,
+                        country: device[1].country,
+                        platform: device[1].data?.platform,
+                        provider: device[1].provider,
                         name: device[1].data.browser,
                         os: device[1].data.platform,
                         device: device[1].data.device_type || 'unknown',

@@ -37,7 +37,7 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
+    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS, SET_SELECTED_DEVICE,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -84,6 +84,7 @@ const INITIAL_STATE = {
 
     //DEVICES
     devices: [],
+    selectedDevice: null,
     connectedContacts: [],
 
     // SHARED FILES
@@ -226,6 +227,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         //DEVICES
         case GET_DEVICES:
             return {...state, devices: action.payload}
+        case SET_SELECTED_DEVICE:
+            return {...state, selectedDevice: action.payload}
         case GET_CONNECTED_CONTACTS:
             return {...state, connectedContacts: action.payload}
 
