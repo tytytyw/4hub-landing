@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
 
 import styles from './MiniToolBar.module.sass'
-import {ReactComponent as PencilIcon} from '../../../../../../assets/PrivateCabinet/watercolor.svg'
 import {ReactComponent as ForwardIcon} from '../../../../../../assets/PrivateCabinet/forward.svg'
 import {ReactComponent as TrashIcon} from '../../../../../../assets/PrivateCabinet/trash.svg'
 import classNames from "classnames";
 import {figuresPaint, dotsPaint, colorsPaint} from "../../../../../../generalComponents/collections";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
-const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
+const MiniToolBar = ({drawParams, setDrawParams, unDoPaint, direction = "column", top = "20px", right = "13px"}) => {
 
     const [toolFigure, setToolFigure] = useState(false)
     const [toolDots, setToolDots] = useState(false)
@@ -21,7 +20,14 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
     })*/
 
     return (
-        <div className={styles.wrapper}>
+        <div
+            className={styles.wrapper}
+            style={{
+                flexDirection: direction,
+                top,
+                right
+            }}
+        >
 
             <div
                 onMouseLeave={() => setToolFigure(false)}
@@ -33,9 +39,21 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolFigure
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {figuresPaint?.map((item, index) => (
-                        <button key={index} className={styles.itemBtn}>
+                        <button
+                            key={index}
+                            className={styles.itemBtn}
+                            onClick={() => {
+                                setDrawParams(drawParams => ({...drawParams, figure: item.figure}));
+                                setToolFigure(false);
+                            }}
+                        >
                             <img
                                 className={styles.figureImg}
                                 src={`${imageSrc}assets/PrivateCabinet/${item.figure}.svg`}
@@ -49,7 +67,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                     onMouseEnter={() => setToolFigure(true)}
                     className={styles.itemBtn}
                 >
-                    <PencilIcon/>
+                    <img
+                        className={styles.figureImg}
+                        src={`${imageSrc}assets/PrivateCabinet/${drawParams.figure}.svg`}
+                        alt={drawParams.figure}
+                    />
                 </button>
             </div>
 
@@ -63,6 +85,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolDots
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column-reverse",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {dotsPaint?.map((item, index) => (
                         <button
@@ -108,6 +135,11 @@ const MiniToolBar = ({drawParams, setDrawParams, unDoPaint}) => {
                         [styles.toolBlock]: true,
                         [styles.active]: !!toolColors
                     })}
+                    style={{
+                        flexDirection: direction === "column" ? "row" : "column",
+                        right: direction === "column" ? "24px" : "",
+                        top: direction === "column" ? "" : "24px"
+                    }}
                 >
                     {colorsPaint?.map((item, index) => (
                         <button key={index} className={styles.itemBtn}>

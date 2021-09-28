@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {previewFormats} from '../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {imageToRatio} from "../../../../generalComponents/generalHelpers";
+import MiniToolBar from "../Project/WorkElements/MiniToolBar";
+import {
+    drawBrush, drawCircle, drawSquare,
+    mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
+    mouseMoveHandlerBrush, mouseMoveHandlerCircle, mouseMoveHandlerSquare,
+    mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
+    unDoPaintBrush
+} from "./paintHelpers";
 
-const PreviewFile = ({setFilePreview, file, filePreview}) => {
+const PreviewFile = ({setFilePreview, file}) => {
 
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
-    const set = () => setFilePreview({...filePreview, view: false, file: null});
+    const set = e => {
+        let close = true;
+        e.nativeEvent.path.forEach(el => {
+            if(el.className === styles.imagePreviewWrap) close = false;
+        })
+        if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+    }
 
     const renderOfficePreview = () => {
         const isFormat = previewFormats.filter(type => file.ext.toLowerCase().includes(type)).length > 0;
@@ -21,10 +36,36 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
         }
     }
 
+    const [edit, setEdit] = useState({status: 'Редактировать'});
+    const handleEdit = () => {
+        if(edit.status === 'Сохранить') {
+            const preview = canvasRef.current.toDataURL("image/png");
+            setFilePreview(state => ({...state, file: {...state.file, preview}}));
+        }
+        setEdit(state => ({...state, status: state.status === 'Редактировать' ? 'Сохранить' : 'Редактировать'}))
+    }
+    const canvasRef = useRef(null)
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={file.preview} alt='filePrieview' />
+                return <div className={styles.imagePreviewWrap}>
+                    {edit.status === 'Сохранить' ? <MiniToolBar
+                        direction="row"
+                        right="130px"
+                        top="12px"
+                        drawParams={drawParams}
+                        setDrawParams={setDrawParams}
+                        unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
+                    /> : null}
+                    <span className={styles.edit} onClick={handleEdit}>{edit.status}</span>
+                    <canvas
+                        ref={canvasRef}
+                        className={styles.canvas}
+                        onMouseDown={mouseDownHandler}
+                        onMouseMove={mouseMoveHandler}
+                        onMouseUp={mouseUpHandler}
+                    />
+                </div>
             }
             case 'video': {
                 return <video controls src={`https://fs2.mh.net.ua${file.preview}`} type={file.mime_type}>
@@ -50,9 +91,45 @@ const PreviewFile = ({setFilePreview, file, filePreview}) => {
         }
     }
 
+    useEffect(() => {
+            const canvas = canvasRef.current.getContext('2d');
+            const img = new Image();
+            img.src = file.preview;
+            img.onload = (e) => {
+                const sizes = imageToRatio(e.path[0].naturalWidth, e.path[0].naturalHeight, Number((e.path[0].naturalWidth * 0.84).toFixed()), Number((e.path[0].naturalHeight * 0.89).toFixed()));
+                canvasRef.current.width = sizes.width;
+                canvasRef.current.height = sizes.height;
+                canvas.clearRect(0, 0, e.path[0].naturalWidth, e.path[0].naturalHeight);
+                canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
+                setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
+            }
+    }, []); //eslint-disable-line
+
+    const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined"});
+    const [undoList, setUndoList] = useState([]);
+    const [mouse, setMouse] = useState({down: false, startX: 0, startY: 0, saved: null});
+
+    const mouseDownHandler = e => {
+        if(drawParams.figure === "brush-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList);
+        if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
+        if(drawParams.figure === "circle-outlined") mouseDownHandlerCircle(e, edit.status, setMouse, canvasRef, setUndoList);
+    }
+
+    const mouseMoveHandler = e => {
+        if(drawParams.figure === "brush-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef);
+        if(drawParams.figure === "square-outlined") mouseMoveHandlerSquare(e, drawSquare, edit.status, mouse, drawParams, canvasRef)
+        if(drawParams.figure === "circle-outlined") mouseMoveHandlerCircle(e, drawCircle, edit.status, mouse, drawParams, canvasRef)
+    }
+
+    const mouseUpHandler = () => {
+        if(drawParams.figure === "brush-outlined") mouseUpHandlerBrush(edit.status, setMouse);
+        if(drawParams.figure === "square-outlined") mouseUpHandlerSquare(edit.status, setMouse)
+        if(drawParams.figure === "circle-outlined") mouseUpHandlerCircle(edit.status, setMouse)
+    }
+
     return (
         <PopUp set={set} background={'none'}>
-            <div className={styles.preview} onClick={() => set()}>
+            <div className={styles.preview} onClick={set}>
                 {file ? file.is_preview === 1 ? renderFilePreview() : renderOfficePreview() : null}
             </div>
         </PopUp>

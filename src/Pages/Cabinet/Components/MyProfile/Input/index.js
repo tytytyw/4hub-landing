@@ -62,6 +62,7 @@ const Input = (
             {props.label &&
             <label className={styles.label} htmlFor={htmlFor}>
                 {props.label}
+                {props.required && <span className={styles.required}>*</span>}
             </label>}
 
             <div className={styles.inputWrap}>

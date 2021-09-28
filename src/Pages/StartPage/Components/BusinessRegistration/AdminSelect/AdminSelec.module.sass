@@ -1,0 +1,101 @@
+.wrapper
+  position: relative
+
+  .select
+    cursor: pointer
+    padding: 0 10px
+    position: relative
+    height: 38px
+    background: #ffffff
+    border: 0.810015px solid #CBCBCB
+    box-sizing: border-box
+    border-radius: 7px
+
+    .value
+      font-weight: normal
+      font-size: 12px
+      line-height: 15px
+      color: #303842
+
+    .arrow
+      position: absolute
+      top: calc(100% / 2 - 3px)
+      right: 10px
+      //border-top: 6px solid #4086F1
+      border-top: 6px solid #666
+      border-left: 5px solid transparent
+      border-right: 5px solid transparent
+
+      &:hover
+        border-top: 6px solid #4086F1
+
+
+  .list
+    visibility: hidden
+    padding: 0 19px
+    position: absolute
+    background: #ffffff
+    width: 100%
+    border: 0.810015px solid #CBCBCB
+    border-top: none
+    border-radius: 0 0 5px 5px
+    z-index: 9
+    margin: 0
+    list-style: none
+    .option
+      cursor: pointer
+      padding: 16px 0
+      display: flex
+      align-items: flex-start
+      border-bottom: 1px solid #CBCBCB
+      &:last-child
+        border: none
+
+    .content
+      .optionTitle
+        margin: 0
+        font-weight: normal
+        font-size: 12px
+        line-height: 14px
+        letter-spacing: -0.0629137px
+        color: #20272E
+      .optionText
+        margin-top: 13px
+        font-weight: normal
+        font-size: 10px
+        line-height: 14px
+        letter-spacing: -0.0582534px
+        color: #4F555B
+
+    .radioCheck
+      margin-right: 7px
+      .circle
+        display: block
+        width: 12px
+        height: 12px
+        border-radius: 50%
+        border: 1px solid #CBCBCB
+        box-sizing: border-box
+
+      img
+        width: 12px
+        height: 12px
+        border-radius: 50%
+        object-fit: cover
+
+
+  &.active
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2)
+    .list
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2)
+      visibility: visible
+    .select
+      border-radius: 7px 7px 0 0
+      background: #FAFAFA
+      .arrow
+        border-top: 6px solid #4086F1
+
+
+  &.error
+    .select
+      border: 1px solid red
