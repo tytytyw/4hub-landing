@@ -10,7 +10,7 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
     const onClickHandler = () => {
         setChosenFolder(folder)
     }
-
+    
     return (
         <div
             className={classNames({
@@ -21,19 +21,18 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, badge, setMous
             onClick={onClickHandler}
         >
             <div className={styles.innerFolder}>
-
                 <div className={styles.innerFolderName}>
-                    <FolderIcon className={classNames(styles.innerFolderIcon, colors.filter(el => el.color === folder.color)[0]?.name)} />
+                    <FolderIcon className={classNames(styles.innerFolderIcon, colors.filter(el => el.name === folder.color)[0]?.name)} />
                     {folder.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     <div className={styles.nameWrap}>
                         <p className={styles.name}>{folder.name}</p>
                         <div
                             className={classNames({
                                 [styles.tagBlock]: true,
-                                [styles.ftag]: !!folder?.tag
+                                [styles.ftag]: !!folder?.tags
                             })}
                         >
-                            {folder?.tag && `#${folder.tag}`}
+                            {folder?.tags && `#${folder.tags}`}
                         </div>
                     </div>
                 </div>
