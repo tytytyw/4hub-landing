@@ -33,10 +33,37 @@
       -khtml-user-select: none
       -moz-user-select: none
       -ms-user-select: none
-    img
-      max-width: 100%
-      max-height: 100%
-
+    .canvasWrap
+      position: relative
+      .textBlock
+        position: absolute
+        border: 1px solid black
+        padding: 10px
+        box-sizing: border-box
+        top: 100px
+        left: 100px
+        .resizerLeft
+          content: ''
+          position: absolute
+          top: calc(50% - 3.5px)
+          left: -4px
+          width: 7px
+          height: 7px
+          border-radius: 50%
+          background: blue
+          border: 1px solid black
+          cursor: ew-resize
+        .resizerRight
+          content: ''
+          position: absolute
+          top: calc(50% - 3.5px)
+          right: -4px
+          width: 7px
+          height: 7px
+          border-radius: 50%
+          background: blue
+          border: 1px solid black
+          cursor: ew-resize
   video
     max-width: 60%
     max-height: 75%

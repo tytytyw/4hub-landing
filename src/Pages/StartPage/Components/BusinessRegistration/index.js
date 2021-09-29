@@ -1,24 +1,19 @@
 import React, {useState} from 'react';
 import styles from './BusinessRegistration.module.sass';
-import {ReactComponent as InfoIcon} from "../../../../assets/StartPage/info.svg";
-import {ReactComponent as ArrowIcon} from "../../../../assets/StartPage/arrow-point.svg";
 import AdminForm from "./AdminForm";
 import MainForm from "./MainForm";
 import SuccessCreated from "./SuccessCreated";
 
 const BusinessRegistration = () => {
 
-    const [page, setPage] = useState('init')
     const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false, isСompany: false});
     const [mainFields, setMainFields] = useState({})
-    const [step, setStep] = useState('complete')
-
-    console.log(page)
+    const [step, setStep] = useState('main')
 
     return (
         <div className={styles.wrapper}>
 
-            <header className={styles.header}>
+            {/*<header className={styles.header}>
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
                 <div className={`${styles.listItem} ${styles.arrow}`}>
                     <span className={styles.lang}>RU</span>
@@ -26,7 +21,7 @@ const BusinessRegistration = () => {
                 </div>
                 <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
                 <div className={`${styles.registerButton} ${styles.listItem}`} onClick={() => setPage('register')}>Регистрация</div>
-            </header>
+            </header>*/}
 
             <main className={styles.main}>
 

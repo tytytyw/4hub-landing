@@ -1,6 +1,7 @@
-// paint brush
 import {imageToRatio} from "../../../../generalComponents/generalHelpers";
+import canvasTxt from "canvas-txt";
 
+// paint brush
 export const mouseUpHandlerBrush = (status, setMouse) => {
     if(status === 'Сохранить') {
         setMouse(mouse => ({...mouse, down: false}));
@@ -10,7 +11,6 @@ export const mouseUpHandlerBrush = (status, setMouse) => {
 export const mouseDownHandlerBrush = (e, canvasRef, status, setMouse, setUndoList) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
     if(status === 'Сохранить' && ctx) {
-        console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         setMouse(mouse => ({...mouse, down: true}));
         ctx.beginPath();
         ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -27,7 +27,8 @@ export const mouseMoveHandlerBrush = (e, drawBrush, status, mouse, drawParams, c
 export const drawBrush = (x, y, drawParams, canvasRef) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
     ctx.lineTo(x, y);
-    ctx.strokeStyle = drawParams.color;
+    ctx.strokeStyle = drawParams.figure === "pencil-outlined" ? drawParams.color : drawParams.colorRGBA;
+    ctx.globalAlpha = drawParams.figure === "pencil-outlined" ? 1 : 0.2;
     ctx.lineWidth = drawParams.width;
     ctx.stroke();
 }
@@ -37,7 +38,6 @@ export const mouseDownHandlerSquare = (e, status, setMouse, canvasRef, setUndoLi
     if(status === 'Сохранить') {
         setMouse(mouse => ({...mouse, down: true, startX: e.nativeEvent.offsetX, startY: e.nativeEvent.offsetY, saved: canvasRef.current.toDataURL()}));
         setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
-
     }
 }
 
@@ -77,7 +77,6 @@ export const mouseDownHandlerCircle = (e, status, setMouse, canvasRef, setUndoLi
     if(status === 'Сохранить') {
         setMouse(mouse => ({...mouse, down: true, startX: e.nativeEvent.offsetX, startY: e.nativeEvent.offsetY, saved: canvasRef.current.toDataURL()}));
         setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
-
     }
 }
 
@@ -110,6 +109,24 @@ export const drawCircle = (x, y, radius, canvasRef, mouse, drawParams) => {
         ctx.strokeStyle = drawParams.color;
         ctx.lineWidth = drawParams.width;
         ctx.stroke();
+    }
+}
+
+// Paint text
+export const drawText = (canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw) => {
+    if(textDraw.edit) {
+        const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
+        setUndoList(state => ([...state, canvasRef.current.toDataURL()]));
+        ctx.fillStyle = drawParams.color;
+        canvasTxt.fontSize = drawParams.fontSize;
+        canvasTxt.align = "left";
+        canvasTxt.vAlign = "top";
+        canvasTxt.font = drawParams.fontFamily;
+        canvasTxt.lineHeight = drawParams.lineHeight;
+        canvasTxt.fontSize = drawParams.fontSize;
+        canvasTxt.drawText(ctx, textBlockRef.current.value, textBlockRef.current.offsetLeft + 3, textBlockRef.current.offsetTop + 2, textBlockRef.current.clientWidth - 4, textBlockRef.current.clientHeight - 4)
+        setTextDraw(state => ({...state, edit: false, text: "Текст"}));
+        setDrawParams(state => ({...state, figure: "brush-outlined"}));
     }
 }
 

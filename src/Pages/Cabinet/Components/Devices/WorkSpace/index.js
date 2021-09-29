@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 import styles from './WorkSpace.module.sass'
 import SearchField from '../../SearchField'
@@ -8,8 +8,6 @@ import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 import BottomPanel from '../../BottomPanel'
-import FileBar from '../WorkElements/FileBar'
-import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem'
@@ -20,14 +18,16 @@ import File from '../../../../../generalComponents/Files'
 import OptionButtomLine from "../WorkElements/OptionButtomLine"
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
+
 const WorkSpace = ({chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,
                        fileSelect, action, setAction
                    }) => {
 
     const dispatch = useDispatch();
+    const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
+
     const [workElementsView, setWorkElementsView] = useState('preview');
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -80,25 +80,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
         })
     }
 
-    // Types of Files view
-    const renderFiles = (Type) => {
-        if (!fileList?.files) return null
-        return fileList.files.map((file, i) => {
-            return <Type
-                key={i}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                setFilePreview={setFilePreview}
-                filePreview={filePreview}
-                filePick={filePick}
-                setFilePick={setFilePick}
-            />
-        })
-    }
-
     return (
         <>
             <div
@@ -120,29 +101,58 @@ const WorkSpace = ({chosenFile, setChosenFile,
                     fileSelect={fileSelect}
                 />
 
-                {/*{workElementsView === 'bars' &&
-                <WorkBars
-                    fileLoading={fileLoading}
-                    fileSelect={fileSelect}
-                    filePick={filePick}
-                >
-                    {renderFiles(FileBar)}
-                </WorkBars>}
+                <div className={styles.contentWrapper}>
 
-                {workElementsView === 'lines' &&
-                <WorkLines fileLoading={fileLoading}>
-                    {renderFiles(FileLine)}
-                </WorkLines>}*/}
+                    <div className={styles.previewWrapper}>
+                        {selectedDevice && <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>}
+                    </div>
 
-                {workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile}>
-                    {renderFiles(FileBar)}
-                </WorkBarsPreview>}
+                    <div className={styles.optionsWrapper}>
+                        <div className={styles.previewFileWrap}>
+                            {selectedDevice &&
+                            <>
+                                <div className={styles.preview}>
+                                    <div className={styles.filePreviewWrap}>
+                                        <div className={styles.content}>
+                                            <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>
+                                            <p className={styles.contentInfo}>{selectedDevice.name}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Система</span>
+                                    <span className={styles.description}>{selectedDevice?.platform}</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Браузер</span>
+                                    <span className={styles.description}>{selectedDevice?.browser}</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Регион</span>
+                                    <span className={styles.description}>{selectedDevice?.country}</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Город</span>
+                                    <span className={styles.description}>Киев</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>iP адрес</span>
+                                    <span className={styles.description}>{selectedDevice?.ip}</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Провайдер</span>
+                                    <span className={styles.description}>{selectedDevice?.provider}</span>
+                                </div>
+                                <div className={styles.infoFileItem}>
+                                    <span className={styles.itemName}>Активность</span>
+                                    <span className={styles.description}>{selectedDevice?.last_visit}</span>
+                                </div>
+                            </>}
+                        </div>
+                    </div>
 
-                {/*{workElementsView === 'workLinesPreview' &&
-                <WorkLinesPreview file={chosenFile}>
-                    {renderFiles(FileLineShort)}
-                </WorkLinesPreview>}*/}
+                </div>
+
 
                 {filePick.show ? <OptionButtomLine
                     filePick={filePick}
