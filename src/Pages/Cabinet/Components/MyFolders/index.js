@@ -26,7 +26,7 @@ import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActi
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
+import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
@@ -243,7 +243,7 @@ const MyFolders = ({
                     setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
-            {action.type === 'setAccessFolder' ? <CopyLinkFolder
+            {action.type === 'setAccessFolder' ? <CopyLinkShare
                 nullifyAction={nullifyAction}
                 folder={chosenFolder}
                 setShowSuccessMessage={setShowSuccessMessage}
