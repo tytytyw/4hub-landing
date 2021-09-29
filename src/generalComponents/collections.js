@@ -81,7 +81,7 @@ export const contextMenuCreateFile = {
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
-        {name: 'Доступ и экспорт', img: 'perm-set', type: 'copyLink'},
+        {name: 'Скопировать ссылку и поделиться', img: 'perm-set', type: 'copyLink'},
         {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
@@ -98,7 +98,7 @@ export const contextMenuProjects = {
 export const contextMenuFolderGeneral = {
     main: [
         // {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
+        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
@@ -108,7 +108,7 @@ export const contextMenuFolderGeneral = {
 export const contextMenuFolder = {
     main: [
         {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
+        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}

@@ -77,7 +77,7 @@ const Project = ({ setLoadingType }) => {
 		},
 		{
 			type: "copyLink",
-			name: "Доступ и экспорт",
+			name: "Скопировать ссылку и поделиться",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},

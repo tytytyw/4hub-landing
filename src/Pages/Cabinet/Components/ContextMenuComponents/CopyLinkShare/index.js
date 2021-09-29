@@ -5,6 +5,7 @@ import styles from "./CopyLinkShare.module.sass";
 import PopUp from "../../../../../generalComponents/PopUp";
 import StoragePeriod from "./StoragePeriod/StoragePeriod";
 import SetPassword from "./SetPassword/SetPassword";
+import ShareToMessengers from "./ShareToMessengers/ShareToMessengers";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CopyIcon } from "../../../../../assets/PrivateCabinet/copy.svg";
 import { ReactComponent as UserIcon } from "../../../../../assets/PrivateCabinet/userIcon.svg";
@@ -16,7 +17,7 @@ import { onGetContacts } from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
-function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
+function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 	// const uid = useSelector(state => state.user.uid);
 	const contactList = useSelector((state) => state.Cabinet.contactList);
 	const [url, setUrl] = useState("Загрузка...");
@@ -32,7 +33,7 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 	// const [emptyField, setEmptyField] = useState(false);
 	const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
 	const [displaySetPassword, setDisplaySetPassword] = useState(false);
-	// const [displayMessengers, setDisplayMessengers] = useState(false);
+	const [displayMessengers, setDisplayMessengers] = useState(false);
 	const [dateValue, setDateValue] = useState("");
 	const [timeValue, setTimeValue] = useState({
 		hours: "",
@@ -127,7 +128,13 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 							index > -1 ? styles.radioContactChosen : ""
 						}`}
 					/>
-					<img src={imageSrc + contact.icon[0]} alt="img" />
+					<img
+						src={
+							imageSrc +
+							(contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")
+						}
+						alt="img"
+					/>
 					<div className={styles.contactInfo}>
 						<span>{contact.name}</span>
 						<span>{contact.email[0]}</span>
@@ -202,13 +209,34 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 	const rendercontactsSend = () => {
 		return contactList.map((contact, i) => (
 			<div key={i} className={styles.listItem} onClick={() => deleteContact(i)}>
-				<img src={imageSrc + contact.icon[0]} alt="img" />
+				<img src={imageSrc + (contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")} alt="img" />
 				<div className={styles.contactInfo}>
 					<span>{contact.email[0]}</span>
 				</div>
 			</div>
 		));
 	};
+
+	const [targets, setTrargets] = useState([])
+
+	const renderTargetsSend = () => {
+		return targets.map((target, i) => (
+			<div key={i} className={styles.listItem} onClick={(e) => deleteTarget(e.target.innerText)}>
+				<div className={styles.contactInfo}>
+					<span>{target}</span>
+				</div>
+			</div>	
+		));
+	};
+
+	const deleteTarget = (value) => {
+		const newTargetList = targets.filter(item => item !== value)
+		setTrargets(newTargetList)
+	}
+
+	const addTarget = (target) => {
+		if (target) setTrargets(state => [...state, target])
+	}
 
 	const sendProject = () => {
 		//TODO add api
@@ -268,13 +296,13 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 								/>
 							</div>
 							{/* <div className={`${styles.project}`}> */}
-								{/* <FolderIcon
+							{/* <FolderIcon
 									className={`${styles.projectIcon} ${
 										colors.filter((el) => el.color === project.info.color)[0]
 											?.name
 									}`}
 								/> */}
-								{/* <div className={styles.projectInfo}>{project.name}</div> */}
+							{/* <div className={styles.projectInfo}>{project.name}</div> */}
 							{/* </div> */}
 							<div className={styles.buttonsWrap}>
 								<div
@@ -337,14 +365,21 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 								{context === "addContacts" ? (
 									<div className={styles.contactsList}>
 										<div className={styles.contactsHeader}>
-											<img
-												src={
-													imageSrc +
-													"assets/PrivateCabinet/notebook-of-contacts.svg"
-												}
-												alt="img"
-											/>
-											<span>Контакты</span>
+											<div className={styles.target}>
+												<div className={styles.input_wrap}>
+													
+													<div className={styles.listWrap}>{renderTargetsSend()}</div>
+													<input
+														onBlur={e => {addTarget(e.target.value); e.target.value=''}}
+														onKeyPress={e => {if(e.code === 'Enter') {addTarget(e.target.value); e.target.value=''}}}
+														type="text"
+														placeholder="Введите имя или email"
+													/>
+												</div>	
+												<div className={styles.target__btn} onClick={()=> setDisplayMessengers(true)}>
+													<span>Отправить через мессенжер</span>
+												</div>		
+											</div>
 										</div>
 										<div className={styles.line} />
 										<div className={styles.contactsSearchBar}>
@@ -404,7 +439,11 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 						<div className={styles.storagePeriod}>
 							<div className={styles.infoWrap}>
 								<div className={styles.circle}>
-									<CalendarIcon width={'18px'} height={'18px'} className={styles.userIcon} />
+									<CalendarIcon
+										width={"18px"}
+										height={"18px"}
+										className={styles.userIcon}
+									/>
 								</div>
 								<div className={styles.details}>
 									<div className={styles.title}>Срок хранения файлов</div>
@@ -425,7 +464,11 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 						<div className={styles.setPassword}>
 							<div className={styles.infoWrap}>
 								<div className={styles.circle}>
-									<PasswordIcon  width={'15px'} height={'19px'} className={styles.userIcon} />
+									<PasswordIcon
+										width={"15px"}
+										height={"19px"}
+										className={styles.userIcon}
+									/>
 								</div>
 								<div className={styles.details}>
 									<div className={styles.title}>Установить пароль</div>
@@ -462,13 +505,12 @@ function CopyLinkShare({ nullifyAction, project, setShowSuccessMessage }) {
 					setTimeValue={setTimeValue}
 				/>
 			)}
-            {displaySetPassword && (
-				<SetPassword
-
-                    setDisplaySetPassword={setDisplaySetPassword}
-				/>
+			{displaySetPassword && (
+				<SetPassword setDisplaySetPassword={setDisplaySetPassword} />
 			)}
-            
+			{displayMessengers && (
+				<ShareToMessengers setDisplayMessengers={setDisplayMessengers} onShareFolder={() => console.log('TODO: add func get a link')} />
+			)}
 		</PopUp>
 	);
 }
