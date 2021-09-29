@@ -88,6 +88,11 @@ const PreviewFile = ({setFilePreview, file}) => {
                                 cursor: textDraw.move ? 'move' : 'text',
                             }}
                         /> : null}
+                        {drawParams.figure === "arrow-outlined" ? <div
+                            className={styles.arrowOutlined}
+                        >
+                            <span className={styles.line} style={{background: drawParams.color, height: drawParams.width}} />
+                        </div> : null}
                     </div>
                 </div>
             }
@@ -171,7 +176,6 @@ const PreviewFile = ({setFilePreview, file}) => {
         if(textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
             textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + 'px'
         }
-        // console.log(textBlockRef.current.offsetHeight, textBlockRef.current.scrollHeight)
     }
 
     return (
