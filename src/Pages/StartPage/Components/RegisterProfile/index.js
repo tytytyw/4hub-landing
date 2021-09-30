@@ -96,6 +96,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
   return (
       <>
+
       {pageOption === 'register' && <div className={styles.main}>
           <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
           <div className={styles.registrationType}>

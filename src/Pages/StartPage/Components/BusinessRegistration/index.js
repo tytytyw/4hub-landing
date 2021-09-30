@@ -13,26 +13,16 @@ const BusinessRegistration = () => {
     return (
         <div className={styles.wrapper}>
 
-            {/*<header className={styles.header}>
-                <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
-                <div className={`${styles.listItem} ${styles.arrow}`}>
-                    <span className={styles.lang}>RU</span>
-                    <ArrowIcon className={styles.arrowDown} />
-                </div>
-                <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
-                <div className={`${styles.registerButton} ${styles.listItem}`} onClick={() => setPage('register')}>Регистрация</div>
-            </header>*/}
-
             <main className={styles.main}>
 
-                <div className={styles.mainTitle}>
+                {/*<div className={styles.mainTitle}>
 
                     <div className={styles.logoTitle}>
                         <img src="../../assets/StartPage/logo.svg" alt=""/>
                         <span>(business)</span>
                     </div>
 
-                </div>
+                </div>*/}
 
                 {step === 'main' &&
                 <MainForm
