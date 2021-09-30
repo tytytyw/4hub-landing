@@ -5,6 +5,8 @@ import {useValidateForm} from "./validation";
 import AdminSelect from "./AdminSelect";
 
 import arrowImg from '../../../../assets/BusinessCabinet/arrow.svg'
+import {validateEmail} from "../../../Cabinet/Components/MyProfile/Input/validation";
+import api from "../../../../api";
 
 const requiredInputs = [
     'admin',
@@ -19,6 +21,9 @@ const requiredInputs = [
 
 const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => {
 
+    const [disableForm, setDisableForm] = useState(false)
+    const [checkPhone, setCheckPhone] = useState(true)
+    const [checkEmail, setCheckEmail] = useState(true)
     const [confirmPass, setConfirmPass] = useState(true)
     const [showPass, setShowPass] = useState(false)
 
@@ -27,7 +32,8 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
         setFields,
         errors,
         onChange,
-        checkErrors
+        checkErrors,
+        blurs,
     } = useValidateForm({ admin: 1 }, requiredInputs)
 
     useEffect(() => {
@@ -40,16 +46,24 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
     const onSubmit = event => {
         event.preventDefault()
 
-        if (checkErrors()) {
-            setMainFields({...mainFields, admin: fields})
-            setStep('complete')
+        if (checkErrors() && confirmPass && checkEmail && checkPhone) {
+            console.log('success submit')
+            setDisableForm(true)
+            setMainFields(prev => ({...prev, admin: fields}))
+            api.post('/ajax/user_reg.php', null, {
+                params: {
+                    name: getValue('email'),
+                    pass: getValue('password'),
+                    company: mainFields?.main?.['company_name']
+                }
+            }).then(response => {
+                if (response.data.ok === 1) {
+                    setStep('complete');
+                }
+            }).catch(err => {
+                console.log(err)
+            })
         }
-    }
-
-    const checkConfirmPass = event => {
-        const value = event.target.value
-        setConfirmPass(value === getValue('password'))
-        onChange(value, 'password_r')
     }
 
     const backStep = () => {
@@ -58,6 +72,10 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
     }
 
     const getValue = name => fields?.[name] || ''
+
+    const isPhone = () => (errors.includes('phone') || !checkPhone) && blurs.includes('phone')
+    const isEmail = () => (errors.includes('email') || !checkEmail) && blurs.includes('email')
+    const isConfirmPass = () => (errors.includes('password_r') || !confirmPass) && blurs.includes('email')
 
     return (
         <div className={styles.formWrap}>
@@ -143,26 +161,34 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
                     <Input
                         phone={true}
                         required={requiredInputs.includes('phone')}
-                        isMistake={errors.includes('phone')}
+                        isMistake={isPhone()}
                         className={styles.input}
                         label='Телефон'
                         placeholder='Телефон'
                         name='phone'
                         value={getValue('phone')}
-                        onChange={e => onChange(e.target.value, 'phone')}
+                        onChange={e => {
+                            const phone = e.target.value
+                            setCheckPhone(phone?.length === 18)
+                            onChange(phone, 'phone')
+                        }}
                     />
                 </div>
 
                 <div className={styles.formItem}>
                     <Input
                         required={requiredInputs.includes('email')}
-                        isMistake={errors.includes('email')}
+                        isMistake={isEmail()}
                         className={styles.input}
                         label='Email'
                         placeholder='Email'
                         name='email'
                         value={getValue('email')}
-                        onChange={e => onChange(e.target.value, 'email')}
+                        onChange={e => {
+                            const email = e.target.value
+                            setCheckEmail(validateEmail(email))
+                            onChange(email, 'email')
+                        }}
                     />
                 </div>
 
@@ -185,14 +211,18 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
                 <div className={styles.formItem}>
                     <Input
                         required={requiredInputs.includes('password_r')}
-                        isMistake={errors.includes('password_r') || !confirmPass}
+                        isMistake={isConfirmPass()}
                         className={styles.input}
                         label='Подтвердите пароль'
                         placeholder='Подтвердите пароль'
                         name='password_r'
                         type='password'
                         value={getValue('password_r')}
-                        onChange={checkConfirmPass}
+                        onChange={event => {
+                            const value = event.target.value
+                            setConfirmPass(value === getValue('password'))
+                            onChange(value, 'password_r')
+                        }}
                         showPass={showPass}
                         setShowPass={setShowPass}
                     />
@@ -219,7 +249,7 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
                     >
                         <img src={arrowImg} alt="Arrow"/>
                     </button>
-                    <button type='submit' className={styles.submitBtn}>
+                    <button disabled={disableForm} type='submit' className={styles.submitBtn}>
                         Сохранить и продолжить
                     </button>
                 </div>

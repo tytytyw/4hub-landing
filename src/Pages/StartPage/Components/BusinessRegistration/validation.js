@@ -2,10 +2,12 @@ import {useState} from "react";
 
 export const useValidateForm = (initFields, requiredInputs = []) => {
 
+    const [blurs, setBlurs] = useState([])
     const [errors, setErrors] = useState([])
     const [fields, setFields] = useState(initFields || {})
 
     const checkErrors = () => {
+        let blurs = []
         let invalids = []
         let valid = true
         requiredInputs.forEach(name => {
@@ -13,7 +15,9 @@ export const useValidateForm = (initFields, requiredInputs = []) => {
                 invalids.push(name)
                 valid = false
             }
+            blurs.push(name)
         })
+        setBlurs(blurs)
         setErrors(invalids)
         return valid
     }
@@ -26,8 +30,11 @@ export const useValidateForm = (initFields, requiredInputs = []) => {
                 setErrors(errors.filter(item => item !== name))
             }
         }
+        if (!blurs.includes(name)) {
+            setBlurs([...blurs, name])
+        }
         setFields({...fields, [name]: value})
     }
 
-    return {onChange, errors, fields, setFields, checkErrors}
+    return {onChange, errors, fields, setFields, blurs, checkErrors}
 }
