@@ -73,6 +73,7 @@ const Company = () => {
                 </div>
 
             </div>
+
         </div>
     );
 };
