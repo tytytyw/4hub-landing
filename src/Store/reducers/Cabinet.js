@@ -126,8 +126,9 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileListAll: {...action.payload}};
         }
         case FILE_DELETE: {
-            const files = state.fileList.files.filter(el => el.fid !== action.payload.fid)
-            return {...state, fileList: {...state.fileList, files}};
+            const files = state.fileList.files.filter(el => el.fid !== action.payload.fid);
+            const filesAll = state.fileListAll ? state.fileListAll.files.filter(el => el.fid !== action.payload.fid) : null;
+            return {...state, fileList: {...state.fileList, files}, fileListAll: state.fileListAll ? {...state.fileListAll, files: filesAll} : null};
         }
         case CONTACT_LIST:
             return {...state, contactList: action.payload}
