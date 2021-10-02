@@ -19,7 +19,7 @@ import BusinessRegistration from "./Components/BusinessRegistration";
 
 const StartPage = ({setOptions, setLoadingType}) => {
 
-    const [pageOption, setPage] = useState('init');
+    const [pageOption, setPage] = useState('registerSuccess');
     const [loader, setLoader] = useState(false);
     const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
