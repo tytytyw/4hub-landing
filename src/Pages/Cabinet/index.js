@@ -28,6 +28,7 @@ import Chat from "./Components/Chat";
 import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
+import BusinessPopup from "./Components/Business/BusinessPopup";
 
 const PrivateCabinet = () => {
 
@@ -43,6 +44,8 @@ const PrivateCabinet = () => {
     const [menuItem, setMenuItem] = useState('');
     const [loadingType, setLoadingType] = useState('');
     const [filesPage, setFilesPage] = useState(1);
+
+    const [businessPopup, setBusinessPopup] = useState(true)
 
     const history = useHistory()
 
@@ -117,17 +120,24 @@ const PrivateCabinet = () => {
             >
 
                 {id_company ?
-                <Switch>
+                <>
 
-                    <Route
-                        path='/company'
-                        component={Company}
-                        exact
-                    />
+                    {businessPopup &&
+                    <BusinessPopup set={setBusinessPopup}/>}
 
-                    <Redirect to='/company'/>
+                    <Switch>
 
-                </Switch> :
+                        <Route
+                            path='/company'
+                            component={Company}
+                            exact
+                        />
+
+                        <Redirect to='/company'/>
+
+                    </Switch>
+
+                </> :
 
                 <Switch>
 
