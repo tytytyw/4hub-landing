@@ -195,9 +195,9 @@ const PreviewFile = ({setFilePreview, file}) => {
             if(textDraw.sizeChange) {
                 const arrow = lineRef.current.getBoundingClientRect()
                 const arrowEndX = arrow.left + arrow.width;
-                const differenceX = e.pageX - arrowEndX;
-                const arrowEndY = arrow.top + arrow.width;
-                const differenceY = e.pageY - arrowEndY;
+                // const differenceX = e.pageX - arrowEndX;
+                // const arrowEndY = arrow.top + arrow.width;
+                // const differenceY = e.pageY - arrowEndY;
                 // canvasRef.current.style.cursor = "pointer";
                 lineRef.current.style.width = (arrow.width + e.pageX - arrowEndX - 3) + "px";
                 // lineRef.current.style.height = (arrow.height + e.pageY - arrowEndY - 3) + "px";
