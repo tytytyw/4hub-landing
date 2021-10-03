@@ -46,7 +46,8 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
     const canvasRef = useRef(null)
     const textBlockRef = useRef(null)
-    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0})
+    const lineRef = useRef(null)
+    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false})
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
@@ -61,7 +62,7 @@ const PreviewFile = ({setFilePreview, file}) => {
                         unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
                     /> : null}
                     <span className={styles.edit} onClick={handleEdit}>{edit.status}</span>
-                    <div className={styles.canvasWrap}>
+                    <div className={styles.canvasWrap} onMouseMove={handlePosition} onMouseUp={handleMouseUp}>
                         <canvas
                             ref={canvasRef}
                             className={styles.canvas}
@@ -72,7 +73,6 @@ const PreviewFile = ({setFilePreview, file}) => {
                         {textDraw.edit ? <textarea
                             ref={textBlockRef}
                             onMouseDown={handleMouseDown}
-                            onMouseMove={handleSetBlockSize}
                             value={textDraw.text}
                             onChange={handleTextAreaChange}
                             onKeyPress={handleKeyPress}
@@ -89,9 +89,17 @@ const PreviewFile = ({setFilePreview, file}) => {
                             }}
                         /> : null}
                         {drawParams.figure === "arrow-outlined" ? <div
+                            ref={lineRef}
                             className={styles.arrowOutlined}
+                            onMouseDown={handleMouseDown}
+                            style={{
+                                height: drawParams.width,
+                                background: `linear-gradient(90deg, ${drawParams.color} 0%, ${drawParams.color} 97%, rgba(0, 0, 0, 0) 97%)`
+                            }}
                         >
-                            <span className={styles.line} style={{background: drawParams.color, height: drawParams.width}} />
+                            <span className={styles.arrow} style={{border: `${drawParams.width + 9}px solid transparent`, borderLeft: `${drawParams.width + 9}px solid ${drawParams.color}`, right: -(drawParams.width + 9)}} />
+                            <span className={styles.dotRight} style={{height: 6, width: 6, left: -6}} />
+                            <span className={styles.dotLeft} style={{height: 6, width: 6, right: -6}} />
                         </div> : null}
                     </div>
                 </div>
@@ -158,15 +166,49 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
 
     const handleMouseDown = e => {
-        if(!(e.pageX + 18 > e.target.getBoundingClientRect().right) && !(e.pageY+ 18 > e.target.getBoundingClientRect().bottom)) {
-            setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
+        if(drawParams.figure === "font") {
+            if(!(e.pageX + 18 > e.target.getBoundingClientRect().right) && !(e.pageY + 18 > e.target.getBoundingClientRect().bottom)) {
+                setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
+            }
+        }
+        if(drawParams.figure === "arrow-outlined") {
+            let isCircle = false;
+            e.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
+            if(isCircle) {
+                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true}))
+            } else {
+                setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
+            }
         }
     }
 
-    const handleSetBlockSize = e => {
-        if(textDraw.move) {
+    const handlePosition = e => {
+        if(drawParams.figure === "font" && textDraw.move) {
             textBlockRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
             textBlockRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
+        }
+        if(drawParams.figure === "arrow-outlined") {
+            if(textDraw.move) {
+                lineRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
+                lineRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
+            }
+            if(textDraw.sizeChange) {
+                const arrow = lineRef.current.getBoundingClientRect()
+                const arrowEndX = arrow.left + arrow.width;
+                const differenceX = e.pageX - arrowEndX;
+                const arrowEndY = arrow.top + arrow.width;
+                const differenceY = e.pageY - arrowEndY;
+                // canvasRef.current.style.cursor = "pointer";
+                lineRef.current.style.width = (arrow.width + e.pageX - arrowEndX - 3) + "px";
+                // lineRef.current.style.height = (arrow.height + e.pageY - arrowEndY - 3) + "px";
+            }
+        }
+    }
+
+    const handleMouseUp = () => {
+        if(drawParams.figure === "arrow-outlined") {
+            setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0, sizeChange: false}));
+            // canvasRef.current.style.cursor = "";
         }
     }
 

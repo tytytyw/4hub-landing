@@ -130,6 +130,9 @@ export const drawText = (canvasRef, textBlockRef, setTextDraw, setDrawParams, se
     }
 }
 
+//paint arrow
+
+
 //general paint functions
 export const unDoPaintBrush = (canvasRef, undoList, setUndoList) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
