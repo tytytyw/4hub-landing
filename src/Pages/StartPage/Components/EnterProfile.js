@@ -13,6 +13,7 @@ const EnterProfile = ({setPage}) => {
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: ''});
     const [compare, setCompare] = useState({isLogin: false, isPass: false});
+    const [enterType, setEnterType] = useState('main')
 
     const checkLogin = (input) => {
         if(input.value[0] === '+') {
@@ -50,6 +51,24 @@ const EnterProfile = ({setPage}) => {
             <div className={styles.enterWrap}>
                 <span className={styles.cross} onClick={() => setPage('init')} />
                 <span className={styles.title}>Вход</span>
+
+                <div className={styles.buttonsGroup}>
+                    <button
+                        className={classnames({
+                            [styles.toggleBtn]: true,
+                            [styles.active]: enterType === 'main'
+                        })}
+                        onClick={() => setEnterType('main')}
+                    >4Hub</button>
+                    <button
+                        className={classnames({
+                            [styles.toggleBtn]: true,
+                            [styles.active]: enterType === 'business'
+                        })}
+                        onClick={() => setEnterType('business')}
+                    >4Hub (business)</button>
+                </div>
+
                 <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                     <label className={styles.inputName} htmlFor='login'>
                         Email / Телефон
