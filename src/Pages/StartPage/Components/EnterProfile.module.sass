@@ -17,8 +17,9 @@
     margin: 39px 0 55px 0
     cursor: pointer
   .enterWrap
+    padding-bottom: 20px
     width: 392px
-    height: 404px
+    height: auto
     background: white
     display: flex
     justify-content: flex-start
@@ -159,6 +160,29 @@
         cursor: pointer
       span:hover
         color: #518bf3
+
+.buttonsGroup
+  margin: 20px 0
+  display: flex
+  justify-content: center
+
+  .toggleBtn
+    margin: 0 5px
+    border: 1px solid #E1E1E1
+    border-radius: 3px
+    width: 128px
+    height: 33px
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 12px
+    line-height: 16px
+    color: #2B353E
+    &.active
+      background: #34C6A2
+      color: #FFFFFF
+      border: none
+
 @media (max-width: 1420px)
   .main
     .hubIcon
@@ -166,7 +190,7 @@
       margin: 0 0 18px 0
     .enterWrap
       width: 392px
-      height: 404px
+      //height: 404px
       .title
         font-size: 16px
         margin: 15px 0 13px 0

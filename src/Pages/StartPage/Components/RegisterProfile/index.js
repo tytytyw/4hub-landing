@@ -9,8 +9,8 @@ import Error from '../../../../generalComponents/Error';
 const RegisterProfile = ({setPage, pageOption}) => {
 
     const regTypes = [
-        {name: 'Обычная версия'},
-        {name: 'Бизнес версия'}
+        {title: '4Hub', name: 'Обычная версия'},
+        {title: '4Hub (business)', name: 'Бизнес версия'}
     ];
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: '', repeatPass: '', company: '', regType: regTypes[0].name, openRegType: false});
@@ -20,11 +20,19 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
     const renderRegTypes = () => (
         regTypes.map((el, i) => (
-            <span
+            /*<span
                 key={i}
                 className={`${styles.regTypeEl} ${el.name === info.regType ? styles.chosenReg : ''}`}
                 onClick={() => setInfo({...info, regType: el.name, openRegType: false})}
-            >{el.name}</span>
+            >{el.name}</span>*/
+            <button
+                key={i}
+                className={classnames({
+                    [styles.toggleBtn]: true,
+                    [styles.active]: el.name === info.regType
+                })}
+                onClick={() => setInfo({...info, regType: el.name})}
+            >{el.title}</button>
         ))
     );
 
@@ -98,7 +106,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
       {pageOption === 'register' && <div className={styles.main}>
           <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
-          <div className={styles.registrationType}>
+          {/*<div className={styles.registrationType}>
               <span
                   onClick={() => {setInfo({...info, openRegType: !info.openRegType})}}
                   className={styles.fieldReg}
@@ -107,10 +115,15 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   style={{display: `${info.openRegType ? 'flex' : 'none'}`}}
                   className={styles.regList}
               >{renderRegTypes()}</div>
-          </div>
+          </div>*/}
           <div className={`${styles.registerWrap} ${info.regType === "Бизнес версия" ? styles.business : ''}`}>
               <span className={styles.cross} onClick={() => setPage('init')} />
               <span className={styles.title}>Регистрация</span>
+
+              <div className={styles.buttonsGroup}>
+                  {renderRegTypes()}
+              </div>
+
               {info.regType === "Бизнес версия" ? <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                   <label className={styles.inputName}>
                       Имя компании
