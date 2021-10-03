@@ -40,6 +40,7 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 		minutes: "",
 		seconds: "",
 	});
+	const [compareLogin, setCompareLogin] = useState(true);
 	// const uid = useSelector((state) => state.user.uid);
 
 	const dispatch = useDispatch();
@@ -235,13 +236,28 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 	}
 
 	const addTarget = (target) => {
-		if (target) setTrargets(state => [...state, target])
+		const value = target.value
+		if (target) {
+			if (checkLogin(target))	{setTrargets(state => [...state, value]); target.value = ''}
+		}
 	}
 
 	const sendProject = () => {
 		//TODO add api
 		nullifyAction();
 	};
+
+	const checkLogin = (target) => {
+		let boolean = true;
+        if(target.value[0] === '+') {
+            const newVal = target.value.replace(/(\+)*(\()*(\))*\s*-*/g, '');
+            if(/\D/.test(newVal)) boolean = false;
+        } else {
+            if(target.value.indexOf('@') === -1) boolean = false;
+        }
+        setCompareLogin(boolean);
+		return boolean
+    };
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -369,12 +385,15 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 												<div className={styles.input_wrap}>
 													
 													<div className={styles.listWrap}>{renderTargetsSend()}</div>
-													<input
-														onBlur={e => {addTarget(e.target.value); e.target.value=''}}
-														onKeyPress={e => {if(e.code === 'Enter') {addTarget(e.target.value); e.target.value=''}}}
-														type="text"
-														placeholder="Введите имя или email"
-													/>
+													<span className={!compareLogin ? styles.loginError : ''}>
+														<input
+															onBlur={e => {addTarget(e.target)}}
+															onKeyPress={e => {if(e.code === 'Enter') {addTarget(e.target)}}}
+															onChange={() => setCompareLogin(true)}
+															type="text"
+															placeholder="Введите имя или email"
+														/>
+													</span>
 												</div>	
 												<div className={styles.target__btn} onClick={()=> setDisplayMessengers(true)}>
 													<span>Отправить через мессенжер</span>
