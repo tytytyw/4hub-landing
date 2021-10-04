@@ -5,13 +5,12 @@ import api from '../../../../api';
 import styles from './RegisterProfile.module.sass';
 import RegistrationSuccess from '../RegistrationSuccess';
 import Error from '../../../../generalComponents/Error';
-import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const RegisterProfile = ({setPage, pageOption}) => {
 
     const regTypes = [
-        {name: 'Обычная версия'},
-        {name: 'Бизнес версия'}
+        {title: '4Hub', name: 'Обычная версия'},
+        {title: '4Hub (business)', name: 'Бизнес версия'}
     ];
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: '', repeatPass: '', company: '', regType: regTypes[0].name, openRegType: false});
@@ -21,11 +20,19 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
     const renderRegTypes = () => (
         regTypes.map((el, i) => (
-            <span
+            /*<span
                 key={i}
                 className={`${styles.regTypeEl} ${el.name === info.regType ? styles.chosenReg : ''}`}
                 onClick={() => setInfo({...info, regType: el.name, openRegType: false})}
-            >{el.name}</span>
+            >{el.name}</span>*/
+            <button
+                key={i}
+                className={classnames({
+                    [styles.toggleBtn]: true,
+                    [styles.active]: el.name === info.regType
+                })}
+                onClick={() => setInfo({...info, regType: el.name})}
+            >{el.title}</button>
         ))
     );
 
@@ -98,8 +105,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
       <>
 
       {pageOption === 'register' && <div className={styles.main}>
-          <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
-          <div className={styles.registrationType}>
+          <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+          {/*<div className={styles.registrationType}>
               <span
                   onClick={() => {setInfo({...info, openRegType: !info.openRegType})}}
                   className={styles.fieldReg}
@@ -108,10 +115,15 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   style={{display: `${info.openRegType ? 'flex' : 'none'}`}}
                   className={styles.regList}
               >{renderRegTypes()}</div>
-          </div>
+          </div>*/}
           <div className={`${styles.registerWrap} ${info.regType === "Бизнес версия" ? styles.business : ''}`}>
               <span className={styles.cross} onClick={() => setPage('init')} />
               <span className={styles.title}>Регистрация</span>
+
+              <div className={styles.buttonsGroup}>
+                  {renderRegTypes()}
+              </div>
+
               {info.regType === "Бизнес версия" ? <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                   <label className={styles.inputName}>
                       Имя компании
@@ -165,13 +177,13 @@ const RegisterProfile = ({setPage, pageOption}) => {
                       }}
                   />
                   {visibility === 'password' && <img
-                      src={imageSrc + 'assets/StartPage/invisible.svg'}
+                      src='./assets/StartPage/invisible.svg'
                       alt='eye'
                       className={styles.invisible}
                       onClick={() => setVisibility('text')}
                   />}
                   {visibility === 'text' && <img
-                      src={imageSrc + 'assets/StartPage/eye.svg'}
+                      src='./assets/StartPage/eye.svg'
                       alt='eye'
                       className={styles.eye}
                       onClick={() => setVisibility('password')}
@@ -195,13 +207,13 @@ const RegisterProfile = ({setPage, pageOption}) => {
                       }}
                   />
                   {visibility === 'password' && <img
-                      src={imageSrc + 'assets/StartPage/invisible.svg'}
+                      src='./assets/StartPage/invisible.svg'
                       alt='eye'
                       className={styles.invisible}
                       onClick={() => setVisibility('text')}
                   />}
                   {visibility === 'text' && <img
-                      src={imageSrc + 'assets/StartPage/eye.svg'}
+                      src='./assets/StartPage/eye.svg'
                       alt='eye'
                       className={styles.eye}
                       onClick={() => setVisibility('password')}
@@ -211,7 +223,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   <div className={styles.agreement}>
                       <div
                           onClick={() => setCompare({...compare, isAgreed: !compare.isAgreed})}
-                      >{compare.isAgreed && <img src={imageSrc + 'assets/StartPage/tick.svg'} alt='tick' />}</div>
+                      >{compare.isAgreed && <img src='./assets/StartPage/tick.svg' alt='tick' />}</div>
                   </div>
                   <div className={styles.agreementsText}>
                       Я принимаю<span> Условия использования </span> 4Hub
@@ -222,12 +234,12 @@ const RegisterProfile = ({setPage, pageOption}) => {
               <div className={styles.button} onClick={() => sendRequest()}>Создать аккаунт</div>
               <span className={styles.orSpan}>или</span>
               <div className={styles.socialNetworks}>
-                  <div className={styles.linkedIn}><img src={imageSrc + 'assets/StartPage/linkedIn.svg'} alt='lIn' /></div>
-                  <div className={styles.facebook}><img src={imageSrc + 'assets/StartPage/fb.svg'} alt='fb' /></div>
-                  <div className={styles.twitter}><img src={imageSrc + 'assets/StartPage/twitter.svg'} alt='twit' /></div>
-                  <div className={styles.google}><img src={imageSrc + 'assets/StartPage/google.svg'} alt='goog' /></div>
-                  <div className={styles.pinterest}><img src={imageSrc + 'assets/StartPage/pinterest.svg'} alt='p' /></div>
-                  <div className={styles.vk}><img src={imageSrc + 'assets/StartPage/vk.svg'} alt='vk' /></div>
+                  <div className={styles.linkedIn}><img src='./assets/StartPage/linkedIn.svg' alt='lIn' /></div>
+                  <div className={styles.facebook}><img src='./assets/StartPage/fb.svg' alt='fb' /></div>
+                  <div className={styles.twitter}><img src='./assets/StartPage/twitter.svg' alt='twit' /></div>
+                  <div className={styles.google}><img src='./assets/StartPage/google.svg' alt='goog' /></div>
+                  <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
+                  <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
               </div>
               <div className={styles.registration}>У Вас уже есть аккаунт ?
                   <span onClick={() => setPage('enter')}> Вход</span>

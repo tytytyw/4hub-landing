@@ -121,8 +121,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 {id_company ?
                 <>
 
-                    {businessPopup &&
-                    <BusinessPopup set={setBusinessPopup}/>}
+                    {businessPopup && <BusinessPopup set={setBusinessPopup}/>}
 
                     <Switch>
 
