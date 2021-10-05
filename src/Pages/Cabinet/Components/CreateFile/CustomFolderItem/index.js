@@ -45,13 +45,13 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     }, [fileList?.files?.length]); // eslint-disable-line
 
     const openFolder = (e) => {
-        let boolean = false;
-        e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
-        if(boolean) {
+        // let boolean = false;
+        // e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
+        // if(boolean) {
             f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
-        } else {
-            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
-        }
+        // } else {
+        //     setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
+        // }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
@@ -80,7 +80,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             await cancel.then(() => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
                 dispatch(onSetPath(f.path));
-                dispatch(onChooseFiles(f.path, '', 1, '', ''));
+                // dispatch(onChooseFiles(f.path, '', 1, '', ''));
             })
         } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
     } 

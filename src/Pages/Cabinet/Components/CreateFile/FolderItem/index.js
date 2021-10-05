@@ -32,7 +32,7 @@ const FolderItem = ({
                 .then(() => {
                     dispatch(onChooseFolder(folder.folders, folder.path));
                     dispatch(onSetPath(folder.path));
-                    dispatch(onChooseFiles(folder.path, '', 1, '', ''));
+                    // dispatch(onChooseFiles(folder.path, '', 1, '', ''));
                 })
         }
     };

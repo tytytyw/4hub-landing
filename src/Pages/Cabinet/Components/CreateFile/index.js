@@ -37,6 +37,7 @@ const CreateFile = ({
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
+    const [path, setPath] = useState(fileList.path)
     
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
@@ -223,7 +224,8 @@ const CreateFile = ({
                         <div className={styles.inputWrap}>
                             <Select 
                                 className={styles.select}
-                                // data={global}
+                                path={path}
+                                setPath={setPath}
                             />
                         </div>
                         <div className={styles.inputWrap}>
