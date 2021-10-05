@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux'
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams}) => {
 
@@ -26,7 +27,7 @@ const FolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams}) => 
 
                 <div className={styles.innerFolderName}>
                     <img
-                        src={`./assets/PrivateCabinet/journal/${folder.icon}.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/journal/${folder.icon}.svg`}
                         alt='icon'
                         className={styles.innerFolderIcon}
                     />

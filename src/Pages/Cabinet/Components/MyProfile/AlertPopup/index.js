@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './AlertPopup.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Index = ({ set, text, title, setShowCodePopup }) => {
     return (
@@ -9,7 +10,7 @@ const Index = ({ set, text, title, setShowCodePopup }) => {
                 <span className={styles.cross} onClick={() => set(false)} />
                 <span className={styles.title}>{title}</span>
                 <div className={styles.imageWrap}>
-                    <img src='./assets/StartPage/success-password-edit.svg'
+                    <img src={imageSrc + 'assets/StartPage/success-password-edit.svg'}
                          alt='computer'
                          className={styles.computer}
                     />

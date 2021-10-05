@@ -4,6 +4,7 @@ import styles from './ProgramLine.module.sass'
 import {ReactComponent as SettingsIcon} from '../../../../../../assets/PrivateCabinet/settings.svg'
 import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../../assets/PrivateCabinet/share.svg'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
 
@@ -51,19 +52,19 @@ const ProgramLine = ({
                             {program?.is_pass === 1 &&
                             <img
                                 className={styles.locked}
-                                src={`./assets/PrivateCabinet/locked.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
                                 alt='lock'
                             />}
                             {program?.fig &&
                             <img
                                 className={styles.sign}
-                                src={`./assets/PrivateCabinet/signs/${program?.fig}.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/signs/${program?.fig}.svg`}
                                 alt='sign'
                             />}
                             {program?.emo &&
                             <img
                                 className={styles.smile}
-                                src={`./assets/PrivateCabinet/smiles/${program?.emo}.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/smiles/${program?.emo}.svg`}
                                 alt='emoji'
                             />}
                         </div>}
@@ -76,19 +77,19 @@ const ProgramLine = ({
                     {program?.is_pass === 1 &&
                     <img
                         className={styles.locked}
-                        src={`./assets/PrivateCabinet/locked.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
                         alt='lock'
                     />}
                     {program?.fig &&
                     <img
                         className={styles.sign}
-                        src={`./assets/PrivateCabinet/signs/${program?.fig}.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/signs/${program?.fig}.svg`}
                         alt='sign'
                     />}
                     {program?.emo &&
                     <img
                         className={styles.smile}
-                        src={`./assets/PrivateCabinet/smiles/${program?.emo}.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/smiles/${program?.emo}.svg`}
                         alt='emoji'
                     />}
                 </div>}

@@ -13,10 +13,11 @@ import RenewPassword from './Components/RenewPassword';
 import Landing from './Components/Landing/Landing'
 import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
+import {imageSrc} from '../../generalComponents/globalVariables';
 import BusinessRegistration from "./Components/BusinessRegistration";
 import LangPicker from "../../generalComponents/LangPicker";
 
-const StartPage = ({setOptions}) => {
+const StartPage = ({setOptions, setLoadingType}) => {
 
     const [pageOption, setPage] = useState('init');
     const [loader, setLoader] = useState(false);
@@ -32,7 +33,8 @@ const StartPage = ({setOptions}) => {
         if(/action=forder/.test(window.location.search)) {
             setPage('downloadFolder');
         }
-        }, []);
+        setLoadingType('');
+        }, []); //eslint-disable-line
 
     const isLanding = () => pageOption === 'landing' || pageOption === 'business-landing'
 
@@ -52,7 +54,7 @@ const StartPage = ({setOptions}) => {
             <header className={styles.header}>
                 {isLanding() &&
                 <a className={styles.logo} href="./">
-                    <img className={styles.logo_img} src='../../assets/StartPage/logo.svg' alt='4hub logo'></img>
+                    <img className={styles.logo_img} src={imageSrc + 'assets/StartPage/logo.svg'} alt='4hub logo'></img>
                 </a>}
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
                 <LangPicker/>
@@ -63,7 +65,7 @@ const StartPage = ({setOptions}) => {
                 {pageOption === 'init' && <Intro setPage={setPage} setOptions={setOptions} />}
                 {pageOption === 'sendFile' && <UploadFile setPage={setPage} />}
                 {pageOption === 'develop' && <div className={styles.main}>
-                    <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />
+                    <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' />
                     <div style={{fontSize: '5vw', margin: '3vw 0'}}>Cтраница в разработке</div>
                     <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
                 </div>}

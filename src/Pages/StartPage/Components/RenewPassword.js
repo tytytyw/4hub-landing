@@ -5,6 +5,7 @@ import api from '../../../api';
 import styles from './RenewPassword.module.sass';
 import Error from '../../../generalComponents/Error';
 import Success from '../../../generalComponents/Success';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const RenewPassword = ({setPage}) => {
 
@@ -65,7 +66,7 @@ const RenewPassword = ({setPage}) => {
     return (
         <>
             <div className={styles.main}>
-                <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+                <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
                 <div className={styles.renewWrap}>
                     <span className={styles.cross} onClick={() => setPage('init')} />
                     <span className={styles.title}>Обновите пароль</span>
@@ -87,13 +88,13 @@ const RenewPassword = ({setPage}) => {
                             }}
                         />
                         {visibility === 'password' && <img
-                            src='./assets/StartPage/invisible.svg'
+                            src={imageSrc + 'assets/StartPage/invisible.svg'}
                             alt='eye'
                             className={styles.invisible}
                             onClick={() => setVisibility('text')}
                         />}
                         {visibility === 'text' && <img
-                            src='./assets/StartPage/eye.svg'
+                            src={imageSrc + 'assets/StartPage/eye.svg'}
                             alt='eye'
                             className={styles.eye}
                             onClick={() => setVisibility('password')}
@@ -117,13 +118,13 @@ const RenewPassword = ({setPage}) => {
                             }}
                         />
                         {visibility === 'password' && <img
-                            src='./assets/StartPage/invisible.svg'
+                            src={imageSrc + 'assets/StartPage/invisible.svg'}
                             alt='eye'
                             className={styles.invisible}
                             onClick={() => setVisibility('text')}
                         />}
                         {visibility === 'text' && <img
-                            src='./assets/StartPage/eye.svg'
+                            src={imageSrc + 'assets/StartPage/eye.svg'}
                             alt='eye'
                             className={styles.eye}
                             onClick={() => setVisibility('password')}

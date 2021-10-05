@@ -4,6 +4,7 @@ import classnames from 'classnames'
 import styles from './Calendar.module.sass'
 import {areEqual, daysOfWeeks, generateCalendar, getDate, months} from '../../../generalComponents/CalendarHelper'
 import Select from '../../../generalComponents/Select/Select'
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 
@@ -98,7 +99,7 @@ const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
                 </div> :
                 <div className={styles.header}>
                     <div className={styles.calendarPic}>
-                        <img src='./assets/StartPage/Calendar.svg' alt='file'/>
+                        <img src={imageSrc + 'assets/StartPage/Calendar.svg'} alt='file'/>
                         <span>Календарь</span>
                     </div>
                     <div className={styles.yearPicker}>
@@ -111,9 +112,9 @@ const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 
             <div className={styles.main}>
                 <div className={styles.switcher}>
-                    <img src='./assets/StartPage/play-3.svg' alt='Previous' onClick={() => switchMonth(32)}/>
+                    <img src={imageSrc + 'assets/StartPage/play-3.svg'} alt='Previous' onClick={() => switchMonth(32)}/>
                     <div className={styles.month}>{months(date.year)[date.month - 1].name}</div>
-                    <img className={styles.switchReverse} src='./assets/StartPage/play-3.svg' alt='Next'
+                    <img className={styles.switchReverse} src={imageSrc + 'assets/StartPage/play-3.svg'} alt='Next'
                          onClick={() => switchMonth(0)}/>
                 </div>
                 <div className={styles.calendarBox}>

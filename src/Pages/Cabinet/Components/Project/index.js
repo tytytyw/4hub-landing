@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {imageSrc} from '../../../../generalComponents/globalVariables';
+import { imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./Project.module.sass";
 import List from "./List";
 import WorkSpace from "./WorkSpace";
@@ -9,6 +9,7 @@ import api from "../../../../api";
 import {
 	onGetContacts,
 	onGetProjects,
+	onGetProjectFolders,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -19,10 +20,14 @@ import {
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from "../ContextMenuComponents/ContextMenuProject/CreateFolder";
-import CopyLinkProject from "../ContextMenuComponents/ContextMenuProject/CopyLinkProject";
+import CustomizeFolder from "../ContextMenuComponents/ContextMenuProject/CustomizeFolder";
+import CopyLinkShare from "../ContextMenuComponents/CopyLinkShare";
 import CustomizeProject from "../ContextMenuComponents/ContextMenuProject/CustomizeProject";
+import FolderProperty from "../ContextMenuComponents/ContextMenuProject/FolderProperty";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
+import Error from "../../../../generalComponents/Error";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ConfigAccessFolder from "../ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder";
 import ProjectProperty from "../ContextMenuComponents/ContextMenuProject/ProjectProperty";
 import { ReactComponent as ClipboardIcon } from "../../../../assets/PrivateCabinet/project/clipboard.svg";
@@ -32,6 +37,7 @@ import { ReactComponent as PenIcon } from "../../../../assets/PrivateCabinet/pro
 import { ReactComponent as RocketIcon } from "../../../../assets/PrivateCabinet/project/rocket.svg";
 import { ReactComponent as SuitcaseIcon } from "../../../../assets/PrivateCabinet/project/suitcase.svg";
 import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet/project/thunder.svg";
+import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 
 const Project = ({ setLoadingType }) => {
 	const dispatch = useDispatch();
@@ -44,11 +50,12 @@ const Project = ({ setLoadingType }) => {
 	const [createProject, setCreateProject] = useState(false);
 	const [addMember, setAddMember] = useState(false);
 	const [newFolder, setNewFolder] = useState(false);
-
+	const [error, setError] = useState(false);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const [selectedProject, setSelectedProject] = useState(null);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [gLoader, setGLoader] = useState(false);
 
 	useEffect(() => {
 		dispatch(onGetProjects());
@@ -70,7 +77,7 @@ const Project = ({ setLoadingType }) => {
 		},
 		{
 			type: "copyLink",
-			name: "Доступ и экспорт",
+			name: "Скопировать ссылку и поделиться",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
@@ -86,8 +93,12 @@ const Project = ({ setLoadingType }) => {
 			text: `Вы действительно хотите архивировать проект ${selectedProject?.name}?`,
 			callback: (list, index) => setAction(list[index]),
 		},
-        {type: 'propertiesProject', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
-
+		{
+			type: "propertiesProject",
+			name: "Свойства",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
 	];
 
 	const additionalMenuItems = [
@@ -106,16 +117,30 @@ const Project = ({ setLoadingType }) => {
 	];
 
 	const callbackArrSub = [
-		// {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
+		{
+			type: "customizeFolder",
+			name: "Редактирование папки",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
 		{
 			type: "setAccessFolder",
 			name: "Доступ и экспорт",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
-		// {type: 'copyLink', name: 'Скопировать ссылку', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
-		// {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
+		{
+			type: "propertiesFolder",
+			name: "Свойства",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "deleteFolder",
+			name: "Удаление папки",
+			text: `Вы действительно хотите удалить выбранную папку?`,
+			callback: (list, index) => setAction(list[index]),
+		},
 	];
 
 	const renderMenuItems = (target, type) => {
@@ -126,10 +151,10 @@ const Project = ({ setLoadingType }) => {
 					width={mouseParams.width}
 					height={mouseParams.height}
 					text={item.name}
-					imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 					callback={() =>
 						type.forEach((el, index) => {
-							if (el.name === item.name) el.callback(type, index);
+							if (el.type === item.type) el.callback(type, index);
 						})
 					}
 				/>
@@ -150,7 +175,7 @@ const Project = ({ setLoadingType }) => {
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`./assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuProject/${item.img}.svg`}
 				/>
 			);
 		});
@@ -169,6 +194,7 @@ const Project = ({ setLoadingType }) => {
 				setContextMenu={setContextMenu}
 				setSelectedProject={setSelectedProject}
 				chosen={selectedProject?.id === project.id}
+				setNewFolder={setNewFolder}
 			/>
 		));
 	};
@@ -207,6 +233,23 @@ const Project = ({ setLoadingType }) => {
 				}
 			})
 			.catch((err) => console.log(err));
+	};
+
+	const deleteFolder = () => {
+		nullifyAction();
+		api
+			.post(
+				`/ajax/project_folders_del.php?uid=${uid}&id_project=${selectedProject.id}&dir_name=${chosenFolder.name}`
+			)
+			.then((res) => {	
+				if (res.data.ok === 1) {
+					dispatch(onGetProjectFolders(selectedProject.id));
+					setChosenFolder({ ...chosenFolder, open: false });
+				} else {
+					setError("Папка не удалена. Попробуйте еще раз!");
+				}
+			})
+			.catch(() => setError("Папка не удалена. Попробуйте еще раз!"));
 	};
 
 	return (
@@ -282,10 +325,27 @@ const Project = ({ setLoadingType }) => {
 				/>
 			)}
 			{newFolder && (
-				<CreateFolder onCreate={setNewFolder} title="Новая папка" />
+				<CreateFolder
+					onCreate={setNewFolder}
+					setError={setError}
+					projectId={selectedProject.id}
+					parentFolder={chosenFolder}
+					title="Новая папка"
+					setGLoader={setGLoader}
+				/>
 			)}
+			{action.type === "customizeFolder" ? (
+				<CustomizeFolder
+					nullifyAction={nullifyAction}
+					setError={setError}
+					projectId={selectedProject.id}
+					folder={chosenFolder}
+					title="Редактировать папку"
+					setGLoader={setGLoader}
+				/>
+			) : null}
 			{action.type === "copyLink" ? (
-				<CopyLinkProject
+				<CopyLinkShare
 					nullifyAction={nullifyAction}
 					setShowSuccessMessage={setShowSuccessMessage}
 					project={selectedProject}
@@ -351,8 +411,41 @@ const Project = ({ setLoadingType }) => {
 			) : null}
 
 			{action.type === "propertiesProject" ? (
-				<ProjectProperty close={nullifyAction} project={selectedProject} getIcon={getIcon} />
+				<ProjectProperty
+					close={nullifyAction}
+					project={selectedProject}
+					getIcon={getIcon}
+				/>
 			) : null}
+
+			{action.type === "deleteFolder" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={deleteFolder}
+					approve={"Удалить"}
+				>
+					<div className={styles.fileActionWrap}>
+						<FolderIcon className={styles.innerFolderIcon} />
+					</div>
+				</ActionApproval>
+			) : null}
+
+			{action.type === "propertiesFolder" ? (
+				<FolderProperty close={nullifyAction} folder={chosenFolder} />
+			) : null}
+
+			{error && <Error error={error} set={setError} message={error} />}
+			{gLoader && (
+				<Loader
+					type="bounceDots"
+					position="absolute"
+					background="rgba(255, 255, 255, 0.1)"
+					zIndex={11}
+					containerType="bounceDots"
+				/>
+			)}
 		</div>
 	);
 };

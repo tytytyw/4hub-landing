@@ -1,3 +1,7 @@
+import html2canvas from "html2canvas";
+import {imageSrc} from "./globalVariables";
+
+//set image to requested size with maxWidth && maxHeight params
 export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
     let ratio = 0;
 
@@ -19,4 +23,46 @@ export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
     }
 
     return {height, width}
+}
+
+// currently unused !!!!
+//make a printScreen of page with navigator
+export const handlePrintScreen = async (ref, set) => {
+    const video = document.createElement('video');
+    const options = { video: true, audio: false };
+    const width = window.innerWidth - 200;
+    const height = window.innerHeight - 200;
+    video.width = width;
+    video.height = height;
+
+    await navigator.mediaDevices.getDisplayMedia(options)
+        .then(stream => {
+            video.srcObject = stream;
+            video.play();
+
+            video.addEventListener('canplay', async () => {
+                setTimeout(() => {
+                    video.pause();
+                    const canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, width, height);
+                    const data = canvas.toDataURL('image/png');
+                    ref.setAttribute('src', data);
+                    if(set) set('block')
+                }, 500);
+            })
+        })
+        .catch(err => {
+            console.log("An error occurred: " + err);
+        });
+}
+
+export const htmlToCanvas = async (ref, set) => {
+    await html2canvas(document.getElementById('root'), {allowTaint: true, proxy: imageSrc}).then(function (canvas) {
+        const data = canvas.toDataURL('image/png');
+        ref.setAttribute('src', data);
+        if(set) set('block')
+    });
 }

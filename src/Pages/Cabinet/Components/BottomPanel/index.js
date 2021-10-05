@@ -4,6 +4,7 @@ import styles from "./BottomPanel.module.sass";
 import { themes } from "../SideMenu/themes";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const BottomPanel = () => {
 	const images = [
@@ -35,7 +36,7 @@ const BottomPanel = () => {
 			return (
 				<div className={styles.notificationsWrap} key={el}>
 					<img
-						src={`../assets/PrivateCabinet/${el}`}
+						src={`${imageSrc}assets/PrivateCabinet/${el}`}
 						alt="icon"
 						onClick={() => history.push(links?.[i])}
 					/>

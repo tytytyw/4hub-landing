@@ -10,6 +10,7 @@ import File from '../../../generalComponents/Files';
 import api from '../../../api';
 import { ReactComponent as EyeIcon } from '../../../assets/StartPage/eye.svg';
 import { ReactComponent as InvisibleIcon } from '../../../assets/StartPage/invisible.svg';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const UploadFile = ({ setPage }) => {
 
@@ -88,14 +89,14 @@ const UploadFile = ({ setPage }) => {
     return (
         <>
             <form className={styles.sendFile}>
-                <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+                <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
                 {!blob && <div className={styles.uploadWrap}>
                     <input
                         type='file'
                         className={styles.inputFile}
                         onChange={e => setBlob(e.target.files[0])}
                     />
-                    <img src='./assets/StartPage/down-arrow-2.svg' alt='Upload file' />
+                    <img src={imageSrc + 'assets/StartPage/down-arrow-2.svg'} alt='Upload file' />
                     <span>Перетащите Файл или Нажмите <span className={styles.download}>Загрузить</span></span>
                 </div>}
                 {blob && <div className={styles.uploadWrapFile}>
@@ -109,7 +110,7 @@ const UploadFile = ({ setPage }) => {
                         <span>Срок хранения</span>
                         <div className={`${styles.fields} ${styles.choose}`} onClick={() => setShowPeriod(!showPeriod)}>
                             <div>{renderExpireDate()}</div>
-                            <img src='./assets/StartPage/play-button.svg' alt='Open PopUp' />
+                            <img src={imageSrc + 'assets/StartPage/play-button.svg'} alt='Open PopUp' />
                         </div>
                     </div>
                     <div className={styles.fieldWrapper}>

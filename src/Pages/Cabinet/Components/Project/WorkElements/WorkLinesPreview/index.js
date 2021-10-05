@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from './WorkLinesPreview.module.sass';
 
 import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/edit-fill.svg'
+import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/camera.svg'
 import {ReactComponent as DotsMenu} from '../../../../../../assets/PrivateCabinet/dots-menu.svg'
 import {ReactComponent as InfoIcon} from '../../../../../../assets/PrivateCabinet/info.svg'
 import InfoPopover from '../InfoPopover';
@@ -13,7 +14,10 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
-import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
+import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
+import PrintScreen from "../../../../../../generalComponents/PrintScreen";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import PreviewFile from "../../../PreviewFile";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
 
@@ -26,6 +30,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null
     const uid = useSelector(state => state.user.uid)
     const [undoList, setUndoList] = useState([]);
+    const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
 
     useEffect(() => {
         if(chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image') {
@@ -99,9 +104,9 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             //             <source src={`https://fs2.mh.net.ua${chosenFile.preview}`} type={chosenFile.mime_type}/>
             //         </audio>
             //         <div className={styles.audioPicWrap}>
-            //             <img className={styles.audioPic} src='./assets/PrivateCabinet/file-preview_audio.svg' alt='audio'/>
-            //             {/*{!play ? <img className={styles.audioSwitchPlay} src='./assets/PrivateCabinet/play-black.svg' alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
-            //             {/*{play ? <img className={styles.audioSwitch} src='./assets/PrivateCabinet/pause.svg' alt='pause' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
+            //             <img className={styles.audioPic} src={`${imageSrc}}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
+            //             {/*{!play ? <img className={styles.audioSwitchPlay} src={`${imageSrc}}assets/PrivateCabinet/play-black.svg`} alt='play' onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
+            //             {/*{play ? <img className={styles.audioSwitch} src={`${imageSrc}}assets/PrivateCabinet/pause.svg' alt='pause`} onClick={() => {!play ? audioRef.current.play() : audioRef.current.pause(); setPlay(!play)}} /> : null}*/}
             //         </div>
             //     </>
             // }
@@ -127,6 +132,20 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
         }
     }
 
+    //PrintScreen of the webPage
+    const imgRef = useRef(null);
+    const [showPrintScreen, setShowPrintScreen] = useState(false);
+    const [display, setDisplay] = useState('none');
+    const makePrintScreen = () => {
+        setShowPrintScreen(true);
+        setTimeout(() => {
+            htmlToCanvas(imgRef.current, setDisplay)
+        }, 500);
+        setTimeout(() => {
+            setShowPrintScreen(false);
+        }, 10500);
+    }
+
     return (
         <div
             className={styles.workLinesPreviewWrap}
@@ -144,6 +163,15 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                 <div className={styles.previewHeader}>
                     <h4 className={styles.previewTitle}>Дизайн мото сайта</h4>
                     <div className={styles.actionBlock}>
+
+                        <button
+                            onClick={makePrintScreen}
+                            className={classNames({
+                                [styles.actionBtn]: true,
+                            })}
+                        >
+                            <CameraIcon className={styles.cameraIcon} />
+                        </button>
 
                         <button
                             onClick={handleEditImage}
@@ -198,7 +226,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                     <div className={styles.commentBlock}>
 
                         <div className={styles.addCommentBlock}>
-                            <img src='./assets/PrivateCabinet/avatars/a2.svg' alt='Comment Avatar'/>
+                            <img src={imageSrc + './assets/PrivateCabinet/avatars/a2.svg'} alt='Comment Avatar'/>
                             <Input
                                 placeholder='Комментировать'
                                 className={styles.commentInput}
@@ -210,7 +238,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -222,7 +250,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -234,7 +262,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -246,7 +274,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                             <div className={styles.commentItem}>
                                 <img
                                     className={styles.commentAvatar}
-                                    src='./assets/PrivateCabinet/avatars/a3.svg'
+                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
                                     alt='Comment Avatar'
                                 />
                                 <p className={styles.commentText}>
@@ -262,7 +290,8 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                 </div>
 
             </div>
-
+            {showPrintScreen ? <PrintScreen imgRef={imgRef} show={display} setShow={setDisplay} setFilePreview={setFilePreview} /> : null}
+            {filePreview.view ? <PreviewFile filePreview={filePreview} setFilePreview={setFilePreview} file={filePreview?.file} /> : null}
             {previewPopup &&
             <PopUp set={setPreviewPopup}>
                 <img
@@ -271,11 +300,10 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
                         height: '804px'
                     }}
                     className={styles.previewPopupImg}
-                    src="./assets/PrivateCabinet/Bitmap2.png"
+                    src={imageSrc + "./assets/PrivateCabinet/Bitmap2.png"}
                     alt="Bitmap"
                 />
             </PopUp>}
-
         </div>)
 }
 

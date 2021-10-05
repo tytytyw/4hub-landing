@@ -5,13 +5,14 @@ import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/p
 import classNames from 'classnames'
 import shoppingIcon from '../../../../../assets/PrivateCabinet/shopping-cart.svg'
 import ShopItem from "../ShopItem";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Shops = ({chosenShop, setChosenShop, collapseShop, setCollapseShop, setMouseParams, listSize, listCollapsed}) => {
 
     const shops = [
-        {id: 1, name: 'App Store', img: './assets/PrivateCabinet/shops/app-store.svg'},
-        {id: 2, name: 'Google Play', img: './assets/PrivateCabinet/shops/google-play.svg'},
-        {id: 3, name: 'Street Market', img: './assets/PrivateCabinet/shops/street-market.svg'},
+        {id: 1, name: 'App Store', img: `${imageSrc}assets/PrivateCabinet/shops/app-store.svg`},
+        {id: 2, name: 'Google Play', img: `${imageSrc}assets/PrivateCabinet/shops/google-play.svg`},
+        {id: 3, name: 'Street Market', img: `${imageSrc}assets/PrivateCabinet/shops/street-market.svg`},
     ]
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

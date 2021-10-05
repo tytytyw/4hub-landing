@@ -13,6 +13,7 @@ import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
 
@@ -113,9 +114,9 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                                 <div className={`${styles.colorWrap} ${color.color !== 'grey' ? styles.colorWrapTap : ''} ${color.color !== 'grey' ?  styles.redCross : ''}`} onClick={() => setColor(colors[0])}>
                                     <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
                                 </div>
-                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' />}
                             </div>
                         </div>
                     </div>
@@ -134,7 +135,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавте #Тег'
+                                placeholder='Добавьте #Тег'
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}

@@ -17,6 +17,7 @@ import List from './List'
 import FolderItem from './FolderItem'
 import {onGetJournalFolders} from '../../../../Store/actions/CabinetActions'
 import BottomPanel from "../BottomPanel";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
 
@@ -81,7 +82,7 @@ const Journal = () => {
                     height={mouseParams.height}
                     text={item.name}
                     callback={() => type[i]?.callback(type, i)}
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
                 />
             )
         })

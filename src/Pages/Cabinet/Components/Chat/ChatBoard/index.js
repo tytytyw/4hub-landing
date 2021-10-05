@@ -10,6 +10,7 @@ import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/ad
 import {ReactComponent as FileIcon} from "../../../../../assets/PrivateCabinet/file-4.svg";
 import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/photo-5.svg";
 import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/radio-3.svg";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const ChatBoard = ({inputRef, setCursorPosition}) => {
 
@@ -45,7 +46,7 @@ const ChatBoard = ({inputRef, setCursorPosition}) => {
                     <PictureIcon />
                 </div>
                 <div className={styles.textMessage}>
-                     <img src="./assets/PrivateCabinet/send.svg" alt="img" className={styles.messageImg} />
+                     <img src={imageSrc + "assets/PrivateCabinet/send.svg"} alt="img" className={styles.messageImg} />
                     <input
                         ref={inputRef}
                         type="text"

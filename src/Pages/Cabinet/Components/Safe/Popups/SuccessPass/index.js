@@ -3,6 +3,7 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 
 import styles from './SuccessPass.module.sass'
 import Button from '../../../MyProfile/Button'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const SuccessPass = ({set, complete}) => {
 
@@ -33,7 +34,7 @@ const SuccessPass = ({set, complete}) => {
                     <div className={styles.imageWrap}>
                         <img
                             className={styles.image}
-                            src="./assets/PrivateCabinet/alerts/success-pc.png"
+                            src={imageSrc + "assets/PrivateCabinet/alerts/success-pc.png"}
                             alt="Warning PC"
                         />
                     </div>

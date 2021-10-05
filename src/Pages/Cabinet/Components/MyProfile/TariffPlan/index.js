@@ -4,6 +4,7 @@ import styles from './TariffPlan.module.sass'
 import Button from '../Button'
 import TariffCard from './TariffCard'
 import {data} from "./consts";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
 
@@ -17,13 +18,13 @@ const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
                 </div>
                 <div className={styles.headerRight}>
                     <div className={styles.balance}>
-                        <img src="./assets/PrivateCabinet/credit-card-payment.svg" alt="Credit card"/>
+                        <img src={imageSrc + "assets/PrivateCabinet/credit-card-payment.svg"} alt="Credit card"/>
                         <p>Баланс:&nbsp;<span>{balance}$</span></p>
                     </div>
                     <div className={styles.addBalance}>
                         <Button className={styles.addBalanceBtn}>
                             Пополнить баланс
-                            <img src="./assets/PrivateCabinet/plus-3.svg" alt="Plus"/>
+                            <img src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="Plus"/>
                         </Button>
                     </div>
                 </div>

@@ -81,7 +81,7 @@ export const contextMenuCreateFile = {
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
-        {name: 'Доступ и экспорт', img: 'perm-set', type: 'copyLink'},
+        {name: 'Скопировать ссылку и поделиться', img: 'perm-set', type: 'copyLink'},
         {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
@@ -98,7 +98,7 @@ export const contextMenuProjects = {
 export const contextMenuFolderGeneral = {
     main: [
         // {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
+        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
@@ -107,8 +107,9 @@ export const contextMenuFolderGeneral = {
 
 export const contextMenuFolder = {
     main: [
+        {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
         {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
+        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
@@ -118,10 +119,10 @@ export const contextMenuFolder = {
 
 export const contextMenuSubFolder = {
     main: [
-        {name: 'Расшарить', img: 'resend'},
-        {name: 'Доступ и экспорт', img: 'shareFile'},
-        {name: 'Свойства', img: 'info'},
-        {name: 'Удалить папку', img: 'garbage'}
+        {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
+        {name: 'Доступ и экспорт', img: 'shareFile', type: "setAccessFolder"},
+        {name: 'Свойства', img: 'info', type: "propertiesFolder"},
+        {name: 'Удалить папку', img: 'garbage', type: 'deleteFolder'}
     ],
     additional: []
 }
@@ -184,15 +185,15 @@ export const figuresPaint = [
 ];
 
 export const colorsPaint = [
-    {id: 1, color: '#E0A512'},
-    {id: 2, color: '#9C0050'},
-    {id: 3, color: '#BEBEBE'},
-    {id: 4, color: '#CD0C21'},
-    {id: 5, color: '#000000'},
-    {id: 6, color: '#5026B8'},
-    {id: 7, color: '#04C6F4'},
-    {id: 8, color: '#6D3FD7'},
-    {id: 9, color: '#67AB3E'},
+    {id: 1, color: '#E0A512', colorRGBA: 'rgba(224,165,18,0.2)'},
+    {id: 2, color: '#9C0050', colorRGBA: 'rgba(156,0,80,0.2)'},
+    {id: 3, color: '#BEBEBE', colorRGBA: 'rgba(190,190,190,0.2)'},
+    {id: 4, color: '#CD0C21', colorRGBA: 'rgba(205,12,33,0.2)'},
+    {id: 5, color: '#000000', colorRGBA: 'rgba(0,0,0,0.2)'},
+    {id: 6, color: '#5026B8', colorRGBA: 'rgba(80,38,184,0.2)'},
+    {id: 7, color: '#04C6F4', colorRGBA: 'rgba(4,198,244,0.2)'},
+    {id: 8, color: '#6D3FD7', colorRGBA: 'rgba(109,63,215,0.2)'},
+    {id: 9, color: '#67AB3E', colorRGBA: 'rgba(103,171,62,0.2)'},
 ]
 
 export const dotsPaint = [

@@ -6,6 +6,7 @@ import styles from './ShareFile.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import StoragePeriod from '../StoragePeriod/StoragePeriod';
 import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
 import SetPassword from '../SetPassword/SetPassword'
@@ -71,7 +72,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
                 {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <File color={file.id_color} format={file.ext} />
-                        {file.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                        {file.is_pass ? <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
                     </div>
                     <div className={styles.descriptionWrap}>
                         <div className={styles.fileName}>{file.name}</div>
@@ -87,13 +88,13 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
                                 </div>
                                 {file.fig && (
                                     <img
-                                        src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+                                        src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
                                         alt="sign"
                                     />
                                 )}
                                 {file.emo && (
                                     <img
-                                        src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+                                        src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
                                         alt="emoji"
                                     />
                                 )}

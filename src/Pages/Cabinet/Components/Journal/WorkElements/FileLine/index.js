@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './FileLine.module.sass'
 import File from '../../../../../../generalComponents/Files'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {ReactComponent as DownLoadIcon} from '../../../../../../assets/PrivateCabinet/download.svg'
 import {ReactComponent as PrintIcon} from '../../../../../../assets/PrivateCabinet/print.svg'
 import {ReactComponent as SettingsIcon} from '../../../../../../assets/PrivateCabinet/settings.svg'
@@ -48,19 +49,19 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                             {file.is_pass === 1 &&
                             <img
                                 className={styles.locked}
-                                src={`./assets/PrivateCabinet/locked.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
                                 alt='lock'
                             />}
                             {file.fig &&
                             <img
                                 className={styles.sign}
-                                src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
                                 alt='sign'
                             />}
                             {file.emo &&
                             <img
                                 className={styles.smile}
-                                src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+                                src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
                                 alt='emoji'
                             />}
                             <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>
@@ -74,19 +75,19 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     {file.is_pass === 1 &&
                     <img
                         className={styles.locked}
-                        src={`./assets/PrivateCabinet/locked.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
                         alt='lock'
                     />}
                     {file.fig &&
                     <img
                         className={styles.sign}
-                        src={`./assets/PrivateCabinet/signs/${file.fig}.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
                         alt='sign'
                     />}
                     {file.emo &&
                     <img
                         className={styles.smile}
-                        src={`./assets/PrivateCabinet/smiles/${file.emo}.svg`}
+                        src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
                         alt='emoji'
                     />}
                     <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>

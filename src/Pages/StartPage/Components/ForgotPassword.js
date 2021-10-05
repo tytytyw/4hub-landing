@@ -5,6 +5,7 @@ import api from '../../../api';
 import styles from './ForgotPassword.module.sass';
 import Error from '../../../generalComponents/Error';
 import Success from '../../../generalComponents/Success';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const ForgotPassword = ({setPage}) => {
 
@@ -62,7 +63,7 @@ const ForgotPassword = ({setPage}) => {
     return (
         <>
         <div className={styles.main}>
-            <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+            <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
             <div className={styles.forgotWrap}>
                 <span className={styles.cross} onClick={() => setPage('init')} />
                 <span className={styles.title}>Восстановление пароля</span>

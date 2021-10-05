@@ -14,6 +14,7 @@ import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabine
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
     const [error, setError] = useState(false);
@@ -98,15 +99,15 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
                 <div className={classNames(styles.header, styles.border_bottom)}>
                     <div className={styles.innerFileWrap}>
                         <FolderIcon className={`${styles.folderIcon} ${folder?.info?.color ? colors.filter(el => el.color === folder.info.color)[0]?.name : folder.info?.nameRu ? styles.generalFolder : ''}`} />
-                        {folder?.info?.is_pass ? <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' /> : null}
+                        {folder?.info?.is_pass ? <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
                     </div>
                     <div className={styles.descriptionWrap}>
                         <div className={styles.fileName}>{folder?.info?.nameRu ?? folder?.info?.name}</div>
                         <div className={styles.innerFileInfo}>
                             <div className={styles.fileSize}>{size}</div>
                             <div className={styles.descriptionGroup}>
-                                {folder?.info?.fig && <img src={`./assets/PrivateCabinet/signs/${folder.info.fig}.svg`} alt='sign' />}
-                                {folder?.info?.emo && <img src={`./assets/PrivateCabinet/smiles/${folder.info.emo}.svg`} alt='emoji' />}
+                                {folder?.info?.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${folder.info.fig}.svg`} alt='sign' />}
+                                {folder?.info?.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${folder.info.emo}.svg`} alt='emoji' />}
                             </div>
                         </div>
                     </div>

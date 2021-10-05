@@ -3,12 +3,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import './App.sass';
 
 import {onLog} from './Store/actions/startPageAction';
-import PrivateCabinet from './Pages/Cabinet';
+import Cabinet from './Pages/Cabinet';
 import StartPage from "./Pages/StartPage";
 import Guest from "./Pages/Guest";
+import Loader from "./generalComponents/Loaders/4HUB";
 
 function App() {
 
+    const [loadingType, setLoadingType] = useState('bounceDots');
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
 
@@ -25,9 +27,17 @@ function App() {
 
     return (
         <>
-            {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} /> : null}
+            {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} setLoadingType={setLoadingType} /> : null}
             {!uid && options.guest && !options.business ? <Guest/> : null}
-            {!options.guest && uid && !options.business ? <PrivateCabinet/> : null}
+            {!options.guest && uid && !options.business ? <Cabinet loadingType={loadingType} setLoadingType={setLoadingType} /> : null}
+            {loadingType ? <Loader
+                position='absolute'
+                zIndex={10000}
+                containerType='bounceDots'
+                type='bounceDots'
+                background='white'
+                animation={false}
+            /> : null}
         </>
     );
 }

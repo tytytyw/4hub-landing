@@ -6,6 +6,7 @@ import api from '../../../api';
 import { getDate } from '../../../generalComponents/CalendarHelper';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/down-arrow.svg';
 import Error from "../../../generalComponents/Error";
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const DownloadFile = ({ setPage }) => {
 
@@ -68,7 +69,7 @@ const DownloadFile = ({ setPage }) => {
     return (
         <>
         {file && <form className={styles.main} name='fdownload' action='/ajax/download_start.php' method='post'>
-            <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+            <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
             {file && <>
             <div className={styles.downloadWrapFile}>
                 <div className={styles.fileWrap}><File format={setFormat().toLowerCase()} /></div>
@@ -91,13 +92,13 @@ const DownloadFile = ({ setPage }) => {
                     placeholder='Введите пароль указанный на почте'
                 />
                 {visibility === 'password' && <img
-                     src='./assets/StartPage/invisible.svg'
+                     src={imageSrc + 'assets/StartPage/invisible.svg'}
                      alt='eye'
                      className={styles.invisible}
                      onClick={() => setVisibility('text')}
                 />}
                 {visibility === 'text' && <img
-                     src='./assets/StartPage/eye.svg'
+                     src={imageSrc + 'assets/StartPage/eye.svg'}
                      alt='eye'
                      className={styles.eye}
                      onClick={() => setVisibility('password')}

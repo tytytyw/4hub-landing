@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './StarRating.module.sass'
 import {ReactComponent as StarIcon} from '../../../../../../assets/PrivateCabinet/star.svg'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import classNames from 'classnames'
 
 const StarRating = ({rating}) => {
@@ -15,7 +16,7 @@ const StarRating = ({rating}) => {
 
             result.push(
                 <StarIcon
-                    src="./assets/PrivateCabinet/star.svg"
+                    src={imageSrc + "assets/PrivateCabinet/star.svg"}
                     alt="Star"
                     className={classNames({
                         [styles.star]: true,

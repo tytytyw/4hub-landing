@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import classnames from 'classnames'
-
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import styles from './FormContact.module.sass'
 import arrowImage from '../../../../../../assets/PrivateCabinet/signs-2.svg'
 import calendarImage from '../../../../../../assets/PrivateCabinet/calendar-6.svg'
@@ -260,7 +260,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                             >
                                 <img
                                     className={styles.infoImg}
-                                    src="./assets/PrivateCabinet/plus-3.svg"
+                                    src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
                                 <span className={styles.info}>Добавить номер телефона:</span>
@@ -299,7 +299,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                             >
                                 <img
                                     className={styles.infoImg}
-                                    src="./assets/PrivateCabinet/plus-3.svg"
+                                    src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
                                 <span className={styles.info}>Добавить @mail:</span>

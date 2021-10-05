@@ -8,6 +8,7 @@ import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import Select from './Select/Select'
 import PopUp from '../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const events = [
     {id: 1, name: 'Задача', icon: 'task'},
@@ -106,7 +107,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                                 <div className={styles.eventIconWrap}>
                                                     <img
                                                         className={styles.eventIcon}
-                                                        src={`./assets/PrivateCabinet/events/${event.icon}.svg`}
+                                                        src={`${imageSrc}assets/PrivateCabinet/events/${event.icon}.svg`}
                                                         alt="Event Icon"
                                                     />
                                                 </div>
@@ -152,7 +153,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                     placeholder='Участники (введите email или выбирите из списка)'
                                 />
                                 <img
-                                    src={'./assets/PrivateCabinet/input-arrow.svg'}
+                                    src={`${imageSrc}assets/PrivateCabinet/input-arrow.svg`}
                                     className={styles.arrowInput}
                                     alt='Arrow Input'
                                 />

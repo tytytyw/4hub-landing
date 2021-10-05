@@ -4,6 +4,7 @@ import styles from './SideMenu.module.sass';
 import {useHistory, useLocation} from "react-router";
 import {useSelector} from "react-redux";
 import {themes} from "./themes";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const SideMenu = ({data = [], collapsed, setCollapsed}) => {
 
@@ -49,12 +50,12 @@ const SideMenu = ({data = [], collapsed, setCollapsed}) => {
                 background: getThemeBg()
             }}
         >
-            <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`./assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />
+            <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`${imageSrc}assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />
             <div className={`${styles.titleWrap} ${collapsed ? styles.titleWrapCollapsed : undefined}`}>
                 <span className={collapsed ? styles.hidden : undefined}>МЕНЮ</span>
                 <img
                     className={`${styles.collapseButton} ${collapsed ? styles.collapseButtonInvert : undefined}`}
-                    src='./assets/PrivateCabinet/signs-2.svg'
+                    src={`${imageSrc}assets/PrivateCabinet/signs-2.svg`}
                     alt='play'
                     onClick={() => setCollapsed(!collapsed)}
                 />

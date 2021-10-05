@@ -16,6 +16,7 @@ import File from "../../../../generalComponents/Files";
 import BottomPanel from "../BottomPanel";
 import {months} from "../../../../generalComponents/CalendarHelper";
 import FilesGroup from "../Archive/WorkElements/FilesGroup/FilesGroup";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const DownloadedFiles = () => {
 
@@ -65,7 +66,7 @@ const DownloadedFiles = () => {
                     height={mouseParams.height}
                     text={item.name}
                     callback={() => type[i]?.callback(type, i)}
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
                 />
             )
         })

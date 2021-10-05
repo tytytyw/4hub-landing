@@ -6,6 +6,7 @@ import List from '../List';
 import FolderItem from './FolderItem';
 import WorkSpace from './WorkSpace';
 import CreateFolder from '../CreateFolder';
+import CustomizeFolder from '../ContextMenuComponents/ContextMenuFolder/CustomizeFolder';
 import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
@@ -26,7 +27,7 @@ import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActi
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import CopyLinkFolder from '../ContextMenuComponents/ContextMenuFolder/CopyLinkFolder';
+import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 const MyFolders = ({
@@ -127,6 +128,7 @@ const MyFolders = ({
     ];
 
     const callbackArrOther = [
+        {type: "customizeFolder", name: "Редактирование папки", text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
@@ -135,6 +137,7 @@ const MyFolders = ({
     ];
 
     const callbackArrSub = [
+        {type: "customizeFolder", name: "Редактирование папки", text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
@@ -243,7 +246,7 @@ const MyFolders = ({
                     setShowSuccessMessage={setShowSuccessMessage}
                 />
             ) : null}
-            {action.type === 'setAccessFolder' ? <CopyLinkFolder
+            {action.type === 'setAccessFolder' ? <CopyLinkShare
                 nullifyAction={nullifyAction}
                 folder={chosenFolder}
                 setShowSuccessMessage={setShowSuccessMessage}
@@ -272,6 +275,16 @@ const MyFolders = ({
                 folder={chosenFolder}
             />
             : null}
+            {action.type === "customizeFolder" ? (
+				<CustomizeFolder
+					nullifyAction={nullifyAction}
+					setError={setError}
+					folder={chosenFolder}
+					title="Редактировать папку"
+					setGLoader={setGLoader}
+                    info={newFolderInfo}
+				/>
+			) : null}
             <Error error={error.isError} set={closeError} message={error.message} />
             {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
         </div>

@@ -9,6 +9,7 @@ import ContactList from "../ContactList";
 import BottomPanel from "../../BottomPanel";
 import ChatBoard from "../ChatBoard";
 import EmojiArea from "../EmojiArea";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpace = () => {
 
@@ -50,7 +51,7 @@ const WorkSpace = () => {
                 </div>
                 <div className={styles.searchField}>
                     <input placeholder='Введите имя пользователя' type='text'/>
-                    <img src='./assets/PrivateCabinet/magnifying-glass-2.svg' alt='search' className={styles.searchGlass} />
+                    <img src={imageSrc + 'assets/PrivateCabinet/magnifying-glass-2.svg'} alt='search' className={styles.searchGlass} />
                 </div>
                 <div className={styles.list}>
                     <ContactList />

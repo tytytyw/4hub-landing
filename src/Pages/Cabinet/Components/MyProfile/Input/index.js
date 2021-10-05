@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './Input.module.sass'
 import classnames from 'classnames'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Input = (
     {
@@ -26,7 +27,7 @@ const Input = (
         }
     }
 
-    const getEyeImg = () => showPass ? './assets/StartPage/eye.svg' : './assets/StartPage/invisible.svg'
+    const getEyeImg = () => showPass ? `${imageSrc}assets/StartPage/eye.svg` : `${imageSrc}assets/StartPage/invisible.svg`
 
     const maskPhoneNumber = (number) => {
         const tempValue = number.replace(/\D/gim, '')

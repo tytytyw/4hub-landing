@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './InfoPopover.module.sass'
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const InfoPopover = ({set}) => {
 
@@ -18,7 +19,7 @@ const InfoPopover = ({set}) => {
 
             <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>Эмоджи</span>
-                <img src={`./assets/PrivateCabinet/smiles/cool.svg`} alt='sign'/>
+                <img src={`${imageSrc}assets/PrivateCabinet/smiles/cool.svg`} alt='sign'/>
             </div>
 
             <div className={styles.infoFileItem}>
@@ -54,7 +55,7 @@ const InfoPopover = ({set}) => {
             <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>Добавил</span>
                 <span className={styles.itemBlock}>
-                            <img className={styles.itemImg} src="./assets/PrivateCabinet/avatars/a1.svg" alt="Avatar"/>
+                            <img className={styles.itemImg} src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`} alt="Avatar"/>
                             <p className={styles.description}>Недельский Дмитрий</p>
                         </span>
             </div>

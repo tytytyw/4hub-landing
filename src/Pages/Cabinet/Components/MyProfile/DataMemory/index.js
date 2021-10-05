@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './DataMemory.module.sass'
 import {Pie} from 'react-chartjs-2'
 import Button from "../Button";
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const DataMemory = ({setPageOption}) => {
 
@@ -54,7 +55,7 @@ const DataMemory = ({setPageOption}) => {
 
                     <div className={styles.sourceItem}>
                         <div className={styles.sourceImg}>
-                            <img src="./assets/PrivateCabinet/video-player.svg" alt="VideoPlay"/>
+                            <img src={imageSrc + "assets/PrivateCabinet/video-player.svg"} alt="VideoPlay"/>
                         </div>
                         <p className={styles.sourceName}>Фильмы</p>
                         <p className={styles.sourceSize}>12 ГБ</p>
@@ -62,7 +63,7 @@ const DataMemory = ({setPageOption}) => {
 
                     <div className={styles.sourceItem}>
                         <div className={styles.sourceImg}>
-                            <img src="./assets/PrivateCabinet/picture.svg" alt="PictureCart"/>
+                            <img src={imageSrc + "assets/PrivateCabinet/picture.svg"} alt="PictureCart"/>
                         </div>
                         <p className={styles.sourceName}>Изображения</p>
                         <p className={styles.sourceSize}>8 ГБ</p>
@@ -70,7 +71,7 @@ const DataMemory = ({setPageOption}) => {
 
                     <div className={styles.sourceItem}>
                         <div className={styles.sourceImg}>
-                            <img src="./assets/PrivateCabinet/music-player.svg" alt="MusicPlay"/>
+                            <img src={imageSrc + "assets/PrivateCabinet/music-player.svg"} alt="MusicPlay"/>
                         </div>
                         <p className={styles.sourceName}>Музыка</p>
                         <p className={styles.sourceSize}>500 МБ</p>
@@ -78,7 +79,7 @@ const DataMemory = ({setPageOption}) => {
 
                     <div className={styles.sourceItem}>
                         <div className={styles.sourceImg}>
-                            <img src="./assets/PrivateCabinet/document.svg" alt="DocumentRead"/>
+                            <img src={imageSrc + "assets/PrivateCabinet/document.svg"} alt="DocumentRead"/>
                         </div>
                         <p className={styles.sourceName}>Документы</p>
                         <p className={styles.sourceSize}>2 ГБ</p>

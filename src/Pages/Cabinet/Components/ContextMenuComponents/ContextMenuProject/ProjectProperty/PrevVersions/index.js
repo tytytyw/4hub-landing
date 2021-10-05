@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./PrevVersions.module.sass";
 import InputField from "../../../../../../../generalComponents/InputField";
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
 const PrevVersions = ({ project, getIcon }) => {
 	return (
@@ -26,13 +27,13 @@ const PrevVersions = ({ project, getIcon }) => {
 								<div className={styles.signs}>
 									{project.fig ? (
 										<img
-											src={`./assets/PrivateCabinet/signs/${project.fig}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/signs/${project.fig}.svg`}
 											alt="emoji"
 										/>
 									) : null}
 									{project.emo ? (
 										<img
-											src={`./assets/PrivateCabinet/smiles/${project.emo}.svg`}
+											src={`${imageSrc}assets/PrivateCabinet/smiles/${project.emo}.svg`}
 											alt="emoji"
 										/>
 									) : null}

@@ -10,6 +10,7 @@ import CreateFile from '../CreateFile'
 import CreateSafePassword from '../CreateSafePassword'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
 import {onGetConnectedContacts, onGetDevices, setSelectedDevice} from "../../../../Store/actions/CabinetActions"
@@ -70,7 +71,7 @@ const Devices = ({
                 height={mouseParams.height}
                 text={item.name}
                 // callback={() => setAction(type[i])}
-                imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
     };

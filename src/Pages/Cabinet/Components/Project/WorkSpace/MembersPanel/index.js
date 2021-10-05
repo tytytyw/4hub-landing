@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './MembersPanel.module.sass'
 import classNames from "classnames";
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const MembersPanel = ({setAddMember}) => {
 
@@ -24,7 +25,7 @@ const MembersPanel = ({setAddMember}) => {
                 >
                     <img
                         className={styles.icon}
-                        src="./assets/PrivateCabinet/add-member.svg"
+                        src={`${imageSrc}assets/PrivateCabinet/add-member.svg`}
                         alt="Add Member"
                     />
                 </li>
@@ -32,7 +33,7 @@ const MembersPanel = ({setAddMember}) => {
                     <li className={styles.item} key={index}>
                         <img
                             className={styles.itemImg}
-                            src={`./assets/PrivateCabinet/avatars/${member?.img}.svg`}
+                            src={`${imageSrc}assets/PrivateCabinet/avatars/${member?.img}.svg`}
                             alt={member?.user}
                         />
                         {member?.active && <span className={styles.active}/>}

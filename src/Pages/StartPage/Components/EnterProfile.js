@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import api from '../../../api';
 import { onLog } from '../../../Store/actions/startPageAction';
 import styles from './EnterProfile.module.sass';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const EnterProfile = ({setPage}) => {
 
@@ -46,7 +47,7 @@ const EnterProfile = ({setPage}) => {
 
     return (
         <div className={styles.main}>
-            <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' onClick={() => setPage('init')} />
+            <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
             <div className={styles.enterWrap}>
                 <span className={styles.cross} onClick={() => setPage('init')} />
                 <span className={styles.title}>Вход</span>
@@ -107,13 +108,13 @@ const EnterProfile = ({setPage}) => {
                         }}
                     />
                     {visibility === 'password' && <img
-                        src='./assets/StartPage/invisible.svg'
+                        src={imageSrc + 'assets/StartPage/invisible.svg'}
                         alt='eye'
                         className={styles.invisible}
                         onClick={() => setVisibility('text')}
                     />}
                     {visibility === 'text' && <img
-                        src='./assets/StartPage/eye.svg'
+                        src={imageSrc + 'assets/StartPage/eye.svg'}
                         alt='eye'
                         className={styles.eye}
                         onClick={() => setVisibility('password')}
@@ -126,12 +127,12 @@ const EnterProfile = ({setPage}) => {
                 <div className={styles.button} onClick={signIn}>Вход</div>
                 <span className={styles.orSpan}>или</span>
                 <div className={styles.socialNetworks}>
-                    <div className={styles.linkedIn}><img src='./assets/StartPage/linkedIn.svg' alt='lIn' /></div>
-                    <div className={styles.facebook}><img src='./assets/StartPage/fb.svg' alt='fb' /></div>
-                    <div className={styles.twitter}><img src='./assets/StartPage/twitter.svg' alt='twit' /></div>
-                    <div className={styles.google}><img src='./assets/StartPage/google.svg' alt='goog' /></div>
-                    <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
-                    <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
+                    <div className={styles.linkedIn}><img src={imageSrc + 'assets/StartPage/linkedIn.svg'} alt='lIn' /></div>
+                    <div className={styles.facebook}><img src={imageSrc + 'assets/StartPage/fb.svg'} alt='fb' /></div>
+                    <div className={styles.twitter}><img src={imageSrc + 'assets/StartPage/twitter.svg'} alt='twit' /></div>
+                    <div className={styles.google}><img src={imageSrc + 'assets/StartPage/google.svg'} alt='goog' /></div>
+                    <div className={styles.pinterest}><img src={imageSrc + 'assets/StartPage/pinterest.svg'} alt='p' /></div>
+                    <div className={styles.vk}><img src={imageSrc + 'assets/StartPage/vk.svg'} alt='vk' /></div>
                 </div>
                 <div className={styles.registration}>У Вас нет аккаунта ?
                     <span onClick={() => setPage('register')}> Регистрация</span>

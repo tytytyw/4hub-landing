@@ -2,11 +2,12 @@ import React from 'react';
 
 import styles from './Intro.module.sass';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/download-startPage.svg';
+import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const Intro = ({setPage, setOptions}) => {
     return (
         <div className={styles.main}>
-            <img className={styles.hubIcon} src='./assets/StartPage/4HUB.svg' alt='4HUB' />
+            <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' />
             <div className={styles.title}>Remote WorkSpace</div>
             <div className={styles.description}>
                 Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3

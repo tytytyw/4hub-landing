@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from './Notifications.module.sass';
 
 const Notifications = () => {
@@ -9,7 +9,7 @@ const Notifications = () => {
     return (
         <div className={styles.notificationsWrap}>
             <img
-                src='./assets/PrivateCabinet/notifications.svg'
+                src={`${imageSrc}assets/PrivateCabinet/notifications.svg`}
                 alt='pie-chart'
             />
             {count > 0 && <span className={styles.counter}>{count}</span>}

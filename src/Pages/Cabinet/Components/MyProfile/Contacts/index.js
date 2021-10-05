@@ -7,6 +7,7 @@ import ContactMenu from './ContactMenu/ContactMenu'
 import FormContact from './FormContact/FormContact'
 import ContactsAll from './ContactsAll'
 import ContactsFav from './ContactsFav'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Contacts = () => {
 
@@ -18,19 +19,19 @@ const Contacts = () => {
     const menuData = [
         {
             id: 'NewContact',
-            icon: './assets/PrivateCabinet/plus-3.svg',
+            icon: `${imageSrc}/assets/PrivateCabinet/plus-3.svg`,
             label: 'Добавить контакт',
             onClick: () => setContactPopup(true)
         },
         {
             id: 'ContactsFav',
-            icon: './assets/PrivateCabinet/star-2.svg',
+            icon: `${imageSrc}/assets/PrivateCabinet/star-2.svg`,
             label: 'Избранное',
             onClick: () => setPageOption('ContactsFav')
         },
         {
             id: 'ContactsAll',
-            icon: './assets/PrivateCabinet/contact-book.svg',
+            icon: `${imageSrc}/assets/PrivateCabinet/contact-book.svg`,
             label: 'Все контакты',
             onClick: () => setPageOption('ContactsAll')
         }

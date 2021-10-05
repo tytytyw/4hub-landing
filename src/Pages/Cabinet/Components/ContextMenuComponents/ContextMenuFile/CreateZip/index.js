@@ -12,6 +12,7 @@ import '../../../../../../generalComponents/colors.sass';
 import Signs from '../../../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
+import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {onChooseFiles} from '../../../../../../Store/actions/CabinetActions';
 
 const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
@@ -118,9 +119,9 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                                     <div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />
                                 </div>
                                 {/*<div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />*/}
-                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`./assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
-                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`./assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
-                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src='./assets/PrivateCabinet/locked.svg' alt='lock' />}
+                                {sign && <div className={styles.redCross} onClick={() => setSign('')}><img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt='emoji' /></div>}
+                                {emoji && <div className={styles.redCross} onClick={() => setEmoji('')}><img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt='emoji' /></div>}
+                                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' />}
                             </div>
                         </div>
                     </div>
@@ -138,7 +139,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавте #Тег'
+                                placeholder='Добавьте #Тег'
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}

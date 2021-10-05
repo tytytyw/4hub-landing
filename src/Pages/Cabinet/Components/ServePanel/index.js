@@ -14,6 +14,7 @@ import {
     onChangeFilterColor,
     onSetReverseCriterion
 } from '../../../../Store/actions/CabinetActions';
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onSetWorkElementsView} from '../../../../Store/actions/CabinetActions';
 import { ReactComponent as BarsIcon } from '../../../../assets/PrivateCabinet/bars.svg';
 import { ReactComponent as LinesIcon } from '../../../../assets/PrivateCabinet/lines.svg';
@@ -96,12 +97,12 @@ const ServePanel = ({
                 className={styles.contextSortingItem}
                 key={i}
             >
-                <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`/assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
+                <div className={styles.chosen}>{item.ext === fileCriterion.sorting ? <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt='check' /> : null}</div>
                 <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
                 {item.ext === 'byName' ? <div
                     className={styles.switch}
                     onClick={() => dispatch(onSetReverseCriterion(item.ext))}
-                ><img src={`/assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
+                ><img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt='img' /></div> : null}
             </div>
         })
     )
@@ -203,9 +204,9 @@ const ServePanel = ({
                 {typeContext === 'filter' ? <Colors color={fileCriterion.filters.color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
                 {typeContext === 'filter' ? <Signs sign={fileCriterion.filters.figure} setSign={setFigure} title='По значкам' editableClass='minify' /> : null}
                 {typeContext === 'filter' ? <Emoji emoji={fileCriterion.filters.emoji} setEmoji={setEmoji} title='По эмоджи' editableClass='minify' /> : null}
-                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
-                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
-                {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, '/assets/PrivateCabinet/contextMenuCreateFile/')}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}
+                {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}
             </ContextMenu> : null}
         </div>
     )

@@ -13,6 +13,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {contextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
+import {imageSrc} from '../../../../generalComponents/globalVariables';
 import BottomPanel from "../BottomPanel";
 import FilesGroup from '../Archive/WorkElements/FilesGroup/FilesGroup'
 
@@ -83,7 +84,7 @@ const Cart = () => {
                     height={mouseParams.height}
                     text={item.name}
                     callback={() => type[i]?.callback(type, i)}
-                    imageSrc={`./assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                    imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
                 />
             )
         })
