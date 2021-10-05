@@ -47,7 +47,7 @@ const PreviewFile = ({setFilePreview, file}) => {
     const canvasRef = useRef(null)
     const textBlockRef = useRef(null)
     const lineRef = useRef(null)
-    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialMouse: {x: 0, y: 0}})
+    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}})
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
@@ -175,7 +175,7 @@ const PreviewFile = ({setFilePreview, file}) => {
             let isCircle = false;
             e.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
             if(isCircle) {
-                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialMouse: {x: e.pageX, y: e.pageY}}))
+                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialParams: {x: e.pageX, y: state.initialParams.y === 0 ? e.pageY : state.initialParams.y}}))
             } else {
                 setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
             }
@@ -195,8 +195,8 @@ const PreviewFile = ({setFilePreview, file}) => {
             if(textDraw.sizeChange) {
                 const arrow = lineRef.current.getBoundingClientRect()
                 const arrowEndX = arrow.left + arrow.width;
-                const b = textDraw.initialMouse.y - e.pageY;
-                const c =  e.pageX - drawParams.fontSize/2 <= arrow.left ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
+                const b = textDraw.initialParams.y - e.pageY;
+                const c = e.pageX - drawParams.fontSize/2 <= arrow.left ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
                 const a = Math.round(Math.sqrt(b*b + c*c));
                 if(a !== 0 && b !== 0 && c !== 0) {
                     const degree = Math.round(Math.atan(c / b) * 180 / Math.PI);
@@ -210,10 +210,9 @@ const PreviewFile = ({setFilePreview, file}) => {
         }
     }
 
-    const handleMouseUp = () => {
+    const handleMouseUp = e => {
         if(drawParams.figure === "arrow-outlined") {
             setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0, sizeChange: false}));
-            // canvasRef.current.style.cursor = "";
         }
     }
 
