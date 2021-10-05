@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 
 import styles from './StartPage.module.sass';
 import { ReactComponent as InfoIcon } from '../../assets/StartPage/info.svg';
-import { ReactComponent as ArrowIcon } from '../../assets/StartPage/arrow-point.svg';
 import Intro from './Components/Intro';
 import UploadFile from './Components/UploadFile';
 import Infopage from './Components/InfoPage';
@@ -16,6 +15,7 @@ import BusinessLanding from '../Cabinet/Components/Business/Landing/Landing'
 import DownloadFolder from "./Components/DownloadFolder";
 import {imageSrc} from '../../generalComponents/globalVariables';
 import BusinessRegistration from "./Components/BusinessRegistration";
+import LangPicker from "../../generalComponents/LangPicker";
 
 const StartPage = ({setOptions, setLoadingType}) => {
 
@@ -57,10 +57,7 @@ const StartPage = ({setOptions, setLoadingType}) => {
                     <img className={styles.logo_img} src={imageSrc + 'assets/StartPage/logo.svg'} alt='4hub logo'></img>
                 </a>}
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
-                <div className={`${styles.listItem} ${styles.arrow}`}>
-                    <span className={styles.lang}>RU</span>
-                    <ArrowIcon className={styles.arrowDown} />
-                </div>
+                <LangPicker/>
                 <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
                 <div className={`${styles.registerButton} ${styles.listItem}`} onClick={onRegister}>Регистрация</div>
             </header>
