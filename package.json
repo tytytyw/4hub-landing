@@ -37,7 +37,7 @@
     "build": "react-scripts build",
     "test": "jest --watchAll",
     "eject": "react-scripts eject",
-    "deploy": "gulp deploy"
+    "deploy": "npm run build && gulp deploy"
   },
   "eslintConfig": {
     "extends": [
@@ -60,7 +60,10 @@
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "enzyme": "^3.11.0",
-    "jest-css-modules": "^2.1.0"
+    "jest-css-modules": "^2.1.0",
+    "gulp": "^4.0.2",
+    "gulp-git": "^2.10.1",
+    "del": "^6.0.0"
   },
   "jest": {
     "clearMocks": false,
