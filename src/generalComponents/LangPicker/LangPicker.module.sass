@@ -1,0 +1,56 @@
+.wrapper
+  margin-right: 20px
+
+.content
+  position: relative
+  box-sizing: border-box
+
+  .info
+    cursor: pointer
+    padding: 10px
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+  .lang
+    text-transform: uppercase
+    width: 32px
+    display: block
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    font-size: 13px
+    line-height: 18px
+    color: #ffffff
+    margin: 0
+
+  .list
+    width: 100%
+    background: #4347f3
+    display: none
+    position: absolute
+    left: 0
+    margin: 0
+    padding: 0 10px
+
+    .item
+      cursor: pointer
+      border-top: 1px solid #D8D8D8
+      padding: 6px 0
+      display: flex
+      align-items: center
+      justify-content: space-between
+
+
+.content.active
+
+  .info
+    box-shadow: 0 0 5px #2A2EC3
+    border-radius: 8px 8px 0 0
+
+  .list
+    border-radius: 0 0 8px 8px
+    display: block
+    box-shadow: 0 4px 5px #2A2EC3
+
+
