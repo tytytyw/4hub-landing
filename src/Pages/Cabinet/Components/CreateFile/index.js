@@ -5,6 +5,7 @@ import styles from './CreateFile.module.sass';
 import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
+import Select from './Select/Select';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
@@ -36,6 +37,8 @@ const CreateFile = ({
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
+    const [path, setPath] = useState(fileList.path)
+    
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -217,6 +220,13 @@ const CreateFile = ({
                             >
                                 {renderTags()}
                             </div>
+                        </div>
+                        <div className={styles.inputWrap}>
+                            <Select 
+                                className={styles.select}
+                                path={path}
+                                setPath={setPath}
+                            />
                         </div>
                         <div className={styles.inputWrap}>
                             <InputField
