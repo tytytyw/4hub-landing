@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
 import {colors} from '../../../../../generalComponents/collections';
-import {onChooseFiles, onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
+import {onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import api, {cancelRequest} from '../../../../../api';

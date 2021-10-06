@@ -15,7 +15,7 @@ const Select = ({initValue, path, setPath, onChange = () => {}, ...props}) => {
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});
     const ref = useRef()
 
-    useEffect(() => setPath(chosenFolder.subPath || chosenFolder.path), [chosenFolder])
+    useEffect(() => setPath(chosenFolder.subPath || chosenFolder.path), [chosenFolder]) //eslint-disable-line
 
     const renderStandardFolderList = () => {
         if(!global) return null;

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './FolderItem.module.sass';
 import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
-import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/CabinetActions';
+import {onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";

@@ -81,7 +81,7 @@ export const contextMenuCreateFile = {
 export const contextMenuProjects = {
     main: [
         {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
-        {name: 'Скопировать ссылку и поделиться', img: 'perm-set', type: 'copyLink'},
+        {name: 'Скопировать ссылку', img: 'perm-set', type: 'copyLink'},
         {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
         {name: 'Редактировать', img: 'rename', type: 'customize'},
         {name: 'Архивировать', img: 'archive', type: 'archive'},
@@ -107,7 +107,7 @@ export const contextMenuFolder = {
     main: [
         {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
         {name: 'Расшарить', img: 'resend'},
-        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
+        {name: 'Скопировать ссылку', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
         {name: 'Удалить папку', img: 'garbage'}
@@ -118,7 +118,8 @@ export const contextMenuFolder = {
 export const contextMenuSubFolder = {
     main: [
         {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
-        {name: 'Скопировать ссылку и поделиться', img: 'shareFile', type: "setAccessFolder"},
+        {name: 'Расшарить', img: 'resend'},
+        {name: 'Скопировать ссылку', img: 'shareFile', type: "setAccessFolder"},
         {name: 'Свойства', img: 'info', type: "propertiesFolder"},
         {name: 'Удалить папку', img: 'garbage', type: 'deleteFolder'}
     ],
