@@ -18,6 +18,8 @@ const OptionButtomLine = ({filePick, actionName, setAction, action, setFilePick,
         <div className={styles.optionBottomLine}>
             <div className={styles.cancel} onClick={nullifyFilePick}>Отмена</div>
             <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onAction}>{actionName}</div>
+            <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}>Расшарить</div>
+            <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}>Переместить в архив</div>
         </div>
     )
 }
