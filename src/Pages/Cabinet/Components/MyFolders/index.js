@@ -121,8 +121,6 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];

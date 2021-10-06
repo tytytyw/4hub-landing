@@ -97,8 +97,6 @@ export const contextMenuProjects = {
 
 export const contextMenuFolderGeneral = {
     main: [
-        // {name: 'Расшарить', img: 'resend'},
-        {name: 'Скопировать ссылку и поделиться', img: 'shareFile'},
         {name: 'Добавить папку', img: 'settings-work-tool'},
         {name: 'Свойства', img: 'info'},
     ],
