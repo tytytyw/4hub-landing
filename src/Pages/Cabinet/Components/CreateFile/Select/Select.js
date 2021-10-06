@@ -6,17 +6,17 @@ import classNames from 'classnames'
 import FolderItem from '../FolderItem';
 import CustomFolderItem from '../CustomFolderItem';
 
-const Select = ({initValue, path, setPath, onChange = () => {}, ...props}) => {
+const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value] = useState(initValue)
     const global = useSelector(state => state.Cabinet.global);
     const other = useSelector(state => state.Cabinet.other?.folders);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});
+    const [chosenFolder, setChosenFolder] = useState(initFolder);
     const ref = useRef()
 
     useEffect(() => setPath(chosenFolder.subPath || chosenFolder.path), [chosenFolder]) //eslint-disable-line
-
+useEffect(() => console.log(chosenFolder), [chosenFolder])
     const renderStandardFolderList = () => {
         if(!global) return null;
         return global.map((el, i) => {
