@@ -39,11 +39,12 @@ const StartPage = ({setOptions, setLoadingType}) => {
     const isLanding = () => pageOption === 'landing' || pageOption === 'business-landing'
 
     const onRegister = () => {
-        if (pageOption === 'business-landing') {
+        setPage('register')
+        /*if (pageOption === 'business-landing') {
             setPage('business-register')
         } else {
             setPage('register')
-        }
+        }*/
     }
 
     return (
