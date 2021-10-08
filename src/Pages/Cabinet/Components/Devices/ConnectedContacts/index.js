@@ -25,6 +25,7 @@ const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setM
               chosenContact={chosenContact}
               setChosenContact={setChosenContact}
               setMouseParams={setMouseParams}
+              listCollapsed={listCollapsed}
           />
       })
     }

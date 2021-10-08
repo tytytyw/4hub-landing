@@ -5,6 +5,7 @@
   cursor: pointer
   transition: background 0.5s ease-in-out
   width: 100%
+  padding-bottom: 50px
   .titleWrap:hover
     background: rgba(64, 134, 241, 0.1)
     transition: background 0.5s ease-in-out
@@ -21,6 +22,10 @@
     padding: 21px 11px 14px 26px
     box-sizing: border-box
     .title
+      width: 90%
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
       margin: 0 10px 0 0
       font-size: 15px
   .titleCollapsed
@@ -29,7 +34,7 @@
     transform: rotateZ(-90deg)
     cursor: pointer
     margin: 0 10px 0 0
-    width: 8px
+    //width: 13px
   .playButton:hover path
     fill: #477DE1
     transition: fill 0.2s ease
