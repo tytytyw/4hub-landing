@@ -25,7 +25,7 @@ import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/sa
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
-import { ReactComponent as AddFileIcon } from '../../../../assets/PrivateCabinet/add_file.svg';
+// import { ReactComponent as AddFileIcon } from '../../../../assets/PrivateCabinet/add_file.svg';
 import { ReactComponent as AddFolderIcon } from '../../../../assets/PrivateCabinet/add_folder.svg';
 import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -153,13 +153,13 @@ const ServePanel = ({
                         onClick={chooseSeveral}
                     >Выбрать</span>
 
-
+{/* 
                     {addFile && <div
                         onClick={() => addFile()}
                         className={classNames(styles.iconView, styles.addIcon)}
                     >
                         <AddFileIcon className={styles.iconSVG} />
-                    </div>}
+                    </div>} */}
 
                     {addFolder && <div
                         onClick={() => addFolder(true)}
