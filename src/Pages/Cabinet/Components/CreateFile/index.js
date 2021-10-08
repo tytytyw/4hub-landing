@@ -18,7 +18,7 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem, initFolder
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem, initFolder, showChoiceFolders
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -222,12 +222,12 @@ const CreateFile = ({
                             </div>
                         </div>
                         <div className={styles.inputWrap}>
-                            <Select 
+                            {showChoiceFolders && <Select 
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}
                                 initFolder={initFolder}
-                            />
+                            />}
                         </div>
                         <div className={styles.inputWrap}>
                             <InputField

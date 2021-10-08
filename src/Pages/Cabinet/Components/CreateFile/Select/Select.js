@@ -16,7 +16,7 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
     const ref = useRef()
 
     useEffect(() => setPath(chosenFolder.subPath || chosenFolder.path), [chosenFolder]) //eslint-disable-line
-useEffect(() => console.log(chosenFolder), [chosenFolder])
+
     const renderStandardFolderList = () => {
         if(!global) return null;
         return global.map((el, i) => {

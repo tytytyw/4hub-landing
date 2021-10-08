@@ -230,6 +230,7 @@ const MyFolders = ({
                 create={fileAddCustomization.create}
                 setGLoader={setGLoader}
                 initFolder={chosenFolder}
+                showChoiceFolders={true}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
