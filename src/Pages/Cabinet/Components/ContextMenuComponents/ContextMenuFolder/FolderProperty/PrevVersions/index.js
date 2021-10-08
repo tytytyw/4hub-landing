@@ -14,7 +14,7 @@ const PrevVersions = ({folder}) => {
 							colors.filter((el) => el.color === folder.info.color)[0]?.name
 						}`}
 					/></div>
-            <div className={styles.inputWrap}><InputField height='90%' placeholder={folder.info.name.slice(0, folder.info.name.lastIndexOf('.'))} disabled={true} /></div>
+            <div className={styles.inputWrap}><InputField height='90%' placeholder={folder.info.name} disabled={true} /></div>
         </div>
         <div className={styles.prevChanged}>
             <div className={styles.infoWrap}>
@@ -30,7 +30,7 @@ const PrevVersions = ({folder}) => {
 					/>
                 </div>
                 <div className={styles.infoFile}>
-                    <span>{folder.info.name.slice(0, folder.info.name.lastIndexOf('.'))}</span>
+                    <span>{folder.info.name}</span>
                     <div className={styles.folderInfo}>
                         {folder.fig || folder.emo ? <div className={styles.signs}>
                             {folder.fig ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${folder.fig}.svg`} alt='emoji' /> : null}

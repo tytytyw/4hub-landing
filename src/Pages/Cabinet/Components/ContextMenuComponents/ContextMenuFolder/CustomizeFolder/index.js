@@ -18,14 +18,15 @@ const CustomizeFolder = ({
 	nullifyAction,
 	title,
 	setError,
-	folder,
+	chosenFolder,
+	chosenSubFolder,
 	setGLoader,
-	info
 }) => {
 	const uid = useSelector((state) => state.user.uid);
 	const folderList = useSelector(state => state.Cabinet.folderList);
+	const folder = chosenSubFolder || chosenFolder
 
-	const [name, setName] = useState(folder.info.name);
+	const [name, setName] = useState(folder.info?.name);
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -74,7 +75,7 @@ const CustomizeFolder = ({
 	const customizeFolder = () => {
 		setGLoader(true);
 		//TODO: check api
-		const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
+		const params = `uid=${uid}&dir_name=${name}&parent=${chosenSubFolder ? chosenFolder.info.name : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
 		api.post(`/ajax/dir_edit.php?${params}`)
 		.then((res) => {
 				if (res.data.ok === 1) {

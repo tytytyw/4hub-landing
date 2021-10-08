@@ -49,7 +49,9 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
 
     const openFolder = (e) => {
         let boolean = false;
-        e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
+        e.target?.viewportElement 
+            ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
+            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
         if(boolean) {
             f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
         } else {
