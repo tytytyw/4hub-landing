@@ -261,6 +261,7 @@ const WorkSpace = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
+                hideUploadFile={fileList === null}
             >{renderFiles(FileBar)}</WorkBars> : null}
             {workElementsView === 'lines' ? <WorkLines
                 fileLoading={fileLoading}
