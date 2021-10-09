@@ -30,8 +30,10 @@ function FilesGroup({
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 	const renderFiles = (Type, shareLink) => {
+
 		if (!fileList || fileList.length === 0) return null;
 		return fileList.files?.map((file, index) => (
+			
 			<Type
 				key={index}
 				file={file}

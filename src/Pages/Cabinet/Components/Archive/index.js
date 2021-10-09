@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from './Archive.module.sass'
 import SearchField from '../SearchField'
@@ -6,7 +7,6 @@ import StorageSize from '../StorageSize'
 import Notifications from '../Notifications'
 import Profile from '../Profile'
 import ServePanel from '../ServePanel'
-import {useSelector} from 'react-redux'
 import DateBlock from '../Journal/DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../generalComponents/collections'
@@ -15,7 +15,8 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import BottomPanel from "../BottomPanel";
-import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
+import FilesGroup from './WorkElements/FilesGroup/FilesGroup';
+import {onGetArchiveFiles} from "../../../../Store/actions/CabinetActions";
 
 import { months } from "../../../../generalComponents/CalendarHelper";
 
@@ -24,7 +25,7 @@ const Archive = () => {
     const workElementsView = useSelector((state) => state.Cabinet.view);
     
     const [search, setSearch] = useState(null)
-    const fileList = useSelector((state) => state.Cabinet.fileList)
+    const fileList = useSelector((state) => state.Cabinet.arhiveFileList)
 
     const [year, setYear] = useState(null)
     const [month, setMonth] = useState(null)
@@ -37,6 +38,11 @@ const Archive = () => {
     const [filePreview, setFilePreview] = useState(null)
 
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+		dispatch(onGetArchiveFiles("", month));
+	}, [month]); // eslint-disable-line
 
     const callbackArrMain = [
         {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},

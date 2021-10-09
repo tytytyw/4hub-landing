@@ -42,7 +42,8 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE
+    SET_SELECTED_DEVICE,
+    CHOOSE_ARCHIVE_FILES,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -832,5 +833,18 @@ export const onGetGuestFolderFiles  = (did, setLoading) => async (dispatch) => {
         console.log(e);
     } finally {
         setLoading(false)
+    }
+}
+
+// ARCHIVE
+export const onGetArchiveFiles  = (day, mounth) => async (dispatch, getState) => {
+    try {
+        const res = await api.get(`/ajax/archive_list.php?uid=${getState().user.uid}`)
+        dispatch({
+            type: CHOOSE_ARCHIVE_FILES,
+            payload: res.data.files
+        })
+    } catch (e) {
+        console.log(e);
     }
 }
