@@ -52,7 +52,8 @@ const WorkSpace = ({
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
-	//const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	const uid = useSelector((state) => state.user.uid);
 
 	const [mouseParams, setMouseParams] = useState(null);
 
@@ -384,7 +385,7 @@ const WorkSpace = ({
 			<form
 				style={{ display: "none" }}
 				name="downloadFile"
-				action="/ajax/download.php"
+				action={`/ajax/safe_file_download.php?${uid}&id_safe=${authorizedSafe?.id_safe || ""}&pass=${authorizedSafe?.password || ""}&code=${authorizedSafe?.code || ""}`}
 				method="post"
 			>
 				<input
@@ -393,6 +394,7 @@ const WorkSpace = ({
 					value={chosenFile?.fid || ""}
 					readOnly
 				/>
+
 			</form>
 		</>
 	);
