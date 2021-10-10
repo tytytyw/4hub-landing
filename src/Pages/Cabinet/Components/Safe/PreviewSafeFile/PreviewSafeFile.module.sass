@@ -1,0 +1,62 @@
+.preview
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 100vw
+  height: 100vh
+  overflow: hidden
+  position: relative
+  img
+    max-width: 60%
+    max-height: 90%
+  video
+    max-width: 60%
+    max-height: 75%
+  iframe
+    width: 80%
+    height: 90%
+    border-radius: 10px
+  .audioWrap
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    background: #FFFFFF
+    width: 430px
+    height: 450px
+    box-sizing: border-box
+    padding: 15px
+    border-radius: 10px
+  .audioPicWrap
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
+    position: relative
+    .audioPic
+      max-width: 50%
+      max-height: 90%
+      height: 90%
+    .audioSwitchPlay
+      position: absolute
+      width: 3%
+      transform: rotateZ(180deg)
+      cursor: pointer
+    .audioSwitch
+      position: absolute
+      width: 5%
+      cursor: pointer
+  .filePreviewWrapWrap
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 10px
+    width: 20vw
+    height: 20vw
+    background: white
+    .filePreviewWrap
+      position: relative
+      width: 120px
+      height: 140px
