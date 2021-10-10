@@ -8,7 +8,7 @@ import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariable
 import {imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
-    drawBrush, drawCircle, drawSquare, drawText,
+    drawBrush, drawCircle, drawSquare, drawText, drawDiv,
     mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
     mouseMoveHandlerBrush, mouseMoveHandlerCircle, mouseMoveHandlerSquare,
     mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
@@ -46,8 +46,10 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
     const canvasRef = useRef(null)
     const textBlockRef = useRef(null)
+    const dotRightRef = useRef(null)
+    const dotLeftRef = useRef(null)
     const lineRef = useRef(null)
-    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}})
+    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
@@ -92,14 +94,15 @@ const PreviewFile = ({setFilePreview, file}) => {
                             ref={lineRef}
                             className={styles.arrowOutlined}
                             onMouseDown={handleMouseDown}
+                            draggable={false}
                             style={{
                                 height: drawParams.width,
                                 background: `linear-gradient(90deg, ${drawParams.color} 0%, ${drawParams.color} 99%, rgba(0, 0, 0, 0) 99%)`
                             }}
                         >
                             <span className={styles.arrow} style={{border: `${drawParams.width + 9}px solid transparent`, borderLeft: `${drawParams.width + 9}px solid ${drawParams.color}`, right: -(drawParams.width + 9)}} />
-                            <span className={styles.dotRight} style={{height: 6, width: 6, left: -6}} />
-                            <span className={styles.dotLeft} style={{height: 6, width: 6, right: -6}} />
+                            <span className={styles.dotRight} style={{height: 6, width: 6, right: -6}} ref={dotRightRef} draggable={false} />
+                            <span className={styles.dotLeft} style={{height: 6, width: 6, left: -6}} ref={dotLeftRef} draggable={false} />
                         </div> : null}
                     </div>
                 </div>
@@ -151,6 +154,7 @@ const PreviewFile = ({setFilePreview, file}) => {
         if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
         if(drawParams.figure === "circle-outlined") mouseDownHandlerCircle(e, edit.status, setMouse, canvasRef, setUndoList);
         if(drawParams.figure === "font") drawText(canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw);
+        if(drawParams.figure === "arrow-outlined") drawDiv(canvasRef, lineRef, setUndoList, setTextDraw, setDrawParams);
     }
 
     const mouseMoveHandler = e => {
@@ -172,10 +176,19 @@ const PreviewFile = ({setFilePreview, file}) => {
             }
         }
         if(drawParams.figure === "arrow-outlined") {
+            let axis = null;
+            if(e.target.className === styles.dotLeft) {
+                const params = dotRightRef.current.getBoundingClientRect();
+                axis = {y: params.top + params.height/2, x: params.left + params.width/2};
+            }
+            if(e.target.className === styles.dotRight) {
+                const params = dotLeftRef.current.getBoundingClientRect();
+                axis = {y: params.top + params.height/2, x: params.left + params.width/2};
+            }
             let isCircle = false;
             e.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
             if(isCircle) {
-                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialParams: {x: e.pageX, y: state.initialParams.y === 0 ? e.pageY : state.initialParams.y}}))
+                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialParams: {x: e.pageX, y: state.initialParams.y === 0 ? e.pageY : state.initialParams.y}, axis}))
             } else {
                 setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
             }
@@ -196,7 +209,7 @@ const PreviewFile = ({setFilePreview, file}) => {
                 const arrow = lineRef.current.getBoundingClientRect()
                 const arrowEndX = arrow.left + arrow.width;
                 const b = textDraw.initialParams.y - e.pageY;
-                const c = e.pageX - drawParams.fontSize/2 <= arrow.left ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
+                const c = e.pageX <= textDraw.axis.x ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
                 const a = Math.round(Math.sqrt(b*b + c*c));
                 if(a !== 0 && b !== 0 && c !== 0) {
                     const degree = Math.round(Math.atan(c / b) * 180 / Math.PI);
@@ -212,7 +225,7 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     const handleMouseUp = e => {
         if(drawParams.figure === "arrow-outlined") {
-            setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0, sizeChange: false}));
+            setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0, sizeChange: false, axis: null}));
         }
     }
 
