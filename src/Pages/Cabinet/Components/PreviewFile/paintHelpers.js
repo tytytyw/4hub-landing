@@ -115,10 +115,10 @@ export const drawCircle = (x, y, radius, canvasRef, mouse, drawParams) => {
 }
 
 // Paint text
-export const drawText = (canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw) => {
+export const drawText = async (canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw) => {
     if(textDraw.edit) {
+        await setUndoList(state => ([...state, canvasRef.current.toDataURL()]));
         const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-        setUndoList(state => ([...state, canvasRef.current.toDataURL()]));
         ctx.fillStyle = drawParams.color;
         canvasTxt.fontSize = drawParams.fontSize;
         canvasTxt.align = "left";
