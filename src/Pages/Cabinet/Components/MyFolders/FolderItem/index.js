@@ -47,10 +47,7 @@ const FolderItem = ({
                     dispatch(onSetPath(folder.path));
                     const ev = e;
                     setTimeout(() => {
-                        ev.nativeEvent.path.some(el => {
-                            if(el.className === styles.menuWrap) openMenu(ev);
-                            return el.className === styles.menuWrap;
-                        })
+                        if(ev.target.className === styles.menuWrap) openMenu(ev);
                     }, 0)
                     dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
                 })

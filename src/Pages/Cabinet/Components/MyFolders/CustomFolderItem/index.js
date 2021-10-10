@@ -89,10 +89,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 dispatch(onSetPath(f.path));
                 const ev = e;
                 setTimeout(() => {
-                    ev.nativeEvent.path.some(el => {
-                        if(el.className === styles.menuWrap) menuClick(ev);
-                        return el.className === styles.menuWrap;
-                    })
+                    if(ev.target.className === styles.menuWrap) menuClick(ev);
                 }, 0)
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
             })
