@@ -26,7 +26,7 @@ const WorkSpace = ({chosenFile, setChosenFile,
                    }) => {
 
     const dispatch = useDispatch();
-    //const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
+    const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
 
     const [workElementsView, setWorkElementsView] = useState('preview');
     const fileList = useSelector(state => state.Cabinet.fileList);
@@ -122,12 +122,13 @@ const WorkSpace = ({chosenFile, setChosenFile,
                     fileSelect={fileSelect}
                 />
 
-                {workElementsView === 'preview' &&
+                {!selectedDevice && workElementsView === 'preview' &&
                 <WorkBarsPreview file={chosenFile}>
                     {renderFiles(FileBar)}
                 </WorkBarsPreview>}
 
-                {/*<div className={styles.contentWrapper}>
+                {selectedDevice &&
+                <div className={styles.contentWrapper}>
 
                     <div className={styles.previewWrapper}>
                         {selectedDevice && <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>}
@@ -135,7 +136,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
 
                     <div className={styles.optionsWrapper}>
                         <div className={styles.previewFileWrap}>
-                            {selectedDevice &&
                             <>
                                 <div className={styles.preview}>
                                     <div className={styles.filePreviewWrap}>
@@ -173,11 +173,11 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                     <span className={styles.itemName}>Активность</span>
                                     <span className={styles.description}>{selectedDevice?.last_visit}</span>
                                 </div>
-                            </>}
+                            </>
                         </div>
                     </div>
 
-                </div>*/}
+                </div>}
 
                 {filePick.show ? <OptionButtomLine
                     filePick={filePick}

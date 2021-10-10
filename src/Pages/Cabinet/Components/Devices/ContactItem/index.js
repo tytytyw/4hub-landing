@@ -3,20 +3,26 @@ import React from 'react'
 import styles from './ContactItem.module.sass'
 import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
+import {setSelectedDevice, setSelectedUser} from "../../../../../Store/actions/CabinetActions";
+import {useDispatch, useSelector} from "react-redux";
 
-const ContactItem = ({ contact, chosenContact, setChosenContact, setMouseParams, listCollapsed, listSize }) => {
+const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
 
-    console.log(contact)
+    const dispatch = useDispatch()
+    const selectedUser = useSelector(state => state.Cabinet.selectedUser)
 
     return (
         <>
             <div
                 className={classNames({
                     [styles.wrapper]: true,
-                    [styles.wrapperChosen]: chosenContact === contact.id,
+                    [styles.wrapperChosen]: selectedUser?.id_user === contact.id_user,
                     [styles?.[`wrapper_${listSize}`]]: !!listSize
                 })}
-                onClick={() => setChosenContact(contact.id)}
+                onClick={() => {
+                    dispatch(setSelectedUser(contact))
+                    dispatch(setSelectedDevice(null))
+                }}
             >
                 <div className={styles.titleWrap}>
                     <div className={styles.imageWrap}>

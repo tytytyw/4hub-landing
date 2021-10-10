@@ -42,7 +42,7 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE
+    SET_SELECTED_DEVICE, SET_SELECTED_USER
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -530,8 +530,13 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 // DEVICES
 
-export const setSelectedDevice = id => ({
+export const setSelectedDevice = data => ({
     type: SET_SELECTED_DEVICE,
+    payload: data
+})
+
+export const setSelectedUser = id => ({
+    type: SET_SELECTED_USER,
     payload: id
 })
 

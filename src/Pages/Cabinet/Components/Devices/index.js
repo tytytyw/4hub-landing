@@ -13,7 +13,12 @@ import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {contextMenuDevice} from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
-import {onGetConnectedContacts, onGetDevices, setSelectedDevice} from "../../../../Store/actions/CabinetActions"
+import {
+    onGetConnectedContacts,
+    onGetDevices,
+    setSelectedDevice,
+    setSelectedUser
+} from "../../../../Store/actions/CabinetActions"
 import ConnectedContacts from "./ConnectedContacts"
 import SuccessPopup from "../Business/SuccessPopup";
 import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
@@ -60,7 +65,10 @@ const Devices = ({
                 listSize={size}
                 chosen={selectedDevice?.id === dev.id}
                 setMouseParams={setMouseParams}
-                onClick={() => dispatch(setSelectedDevice(dev))}
+                onClick={() => {
+                    dispatch(setSelectedUser(null))
+                    dispatch(setSelectedDevice(dev))
+                }}
                 listCollapsed={listCollapsed}
             />
         })
