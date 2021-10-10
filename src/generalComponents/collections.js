@@ -127,6 +127,14 @@ export const contextMenuSubFolder = {
     additional: []
 }
 
+export const contextMenuDevice = {
+    main: [
+        {name: 'Отключить устройство', img: 'edit', type: 'disconnectDevice'},
+        {name: 'Отключить все устройства', img: 'shareFile', type: "disconnectAllDevice"}
+    ],
+    additional: []
+}
+
 export const contextMenuSafeItem = {
     main: [
         {name: 'Предоставить доступ', img: 'download-blue'},

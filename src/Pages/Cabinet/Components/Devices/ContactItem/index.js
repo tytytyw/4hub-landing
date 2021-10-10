@@ -6,6 +6,8 @@ import classNames from 'classnames'
 
 const ContactItem = ({ contact, chosenContact, setChosenContact, setMouseParams, listCollapsed, listSize }) => {
 
+    console.log(contact)
+
     return (
         <>
             <div
@@ -25,7 +27,7 @@ const ContactItem = ({ contact, chosenContact, setChosenContact, setMouseParams,
                         />
                         {contact?.active === 1 && <span className={styles.active}/>}
                     </div>
-                    {!listCollapsed && <span className={styles.title}>{contact.name} </span>}
+                    {!listCollapsed && <span className={styles.title}>{contact?.user_name} </span>}
                 </div>
                 <div className={styles.functionWrap}>
                     <div

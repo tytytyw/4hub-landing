@@ -567,7 +567,18 @@ export const onGetDevices = () => async (dispatch, getState) => {
 
 
 export const onGetConnectedContacts = () => async (dispatch, getState) => {
-    dispatch({
+    try {
+        const res = await api.get(`/ajax/devices_users_list.php?uid=${getState().user.uid}}`)
+        if (!!res?.data?.ok) {
+            dispatch({
+                type: GET_CONNECTED_CONTACTS,
+                payload: res.data.users
+            })
+        }
+    } catch (e) {
+        console.log(e)
+    }
+    /*dispatch({
         type: GET_CONNECTED_CONTACTS,
         payload: [
             {
@@ -595,7 +606,7 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
                 image: `${imageSrc}assets/PrivateCabinet/avatars/a4.svg`
             }
         ]
-    })
+    })*/
 };
 
 // PROJECT

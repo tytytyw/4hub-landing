@@ -11,10 +11,13 @@ import CreateSafePassword from '../CreateSafePassword'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections"
+import {contextMenuDevice} from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
 import {onGetConnectedContacts, onGetDevices, setSelectedDevice} from "../../../../Store/actions/CabinetActions"
 import ConnectedContacts from "./ConnectedContacts"
+import SuccessPopup from "../Business/SuccessPopup";
+import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
+import api from "../../../../api";
 
 const Devices = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -38,6 +41,8 @@ const Devices = ({
     const [chosenFile, setChosenFile] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
+
+    const [successBlocked, setSuccessBlocked] = useState(false)
 
     //Clear action on change folder
     useEffect(() => {
@@ -63,6 +68,13 @@ const Devices = ({
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
+    const blockDevice = () => {
+        api.post(`/ajax/devices_block.php?id_device=${selectedDevice.id}`)
+            .then(res => {
+                setSuccessBlocked(true)
+            })
+    }
+
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
             return <ContextMenuItem
@@ -70,7 +82,7 @@ const Devices = ({
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                // callback={() => setAction(type[i])}
+                callback={blockDevice}
                 imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -146,8 +158,16 @@ const Devices = ({
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : contextMenuFolder.main, callbackArrMain)}</div>
+                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuDevice.main : contextMenuDevice.main, callbackArrMain)}</div>
             </ContextMenu> : null}
+
+            {successBlocked &&
+            <SuccessPopup
+                title='Устройство заблокировано'
+                set={setSuccessBlocked}
+            >
+                <img src={successImg} alt="Success"/>
+            </SuccessPopup>}
         </div>
     )
 }
