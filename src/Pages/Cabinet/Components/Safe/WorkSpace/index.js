@@ -274,13 +274,13 @@ const WorkSpace = ({
 				)}
 
 				{workElementsView === "preview" && (
-					<WorkBarsPreview file={chosenFile} filePick={filePick}>
+					<WorkBarsPreview file={chosenFile} filePick={filePick} setLoadingType={setLoadingType} > 
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
 				)}
 
 				{workElementsView === "workLinesPreview" && (
-					<WorkLinesPreview file={chosenFile} filePick={filePick}>
+					<WorkLinesPreview file={chosenFile} filePick={filePick} setLoadingType={setLoadingType}>
 						{renderFiles(FileLineShort)}
 					</WorkLinesPreview>
 				)}
