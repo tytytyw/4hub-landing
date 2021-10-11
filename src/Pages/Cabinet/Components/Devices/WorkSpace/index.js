@@ -17,8 +17,8 @@ import {fileDelete} from '../../../../../generalComponents/fileMenuHelper'
 import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/CabinetActions'
 import ActionApproval from '../../../../../generalComponents/ActionApproval'
 import File from '../../../../../generalComponents/Files'
-import OptionButtomLine from "../WorkElements/OptionButtomLine"
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 
 const WorkSpace = ({chosenFile, setChosenFile,
                        chosenFolder, listCollapsed, setItem, setFilePreview, filePreview,

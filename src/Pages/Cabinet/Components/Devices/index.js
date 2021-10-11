@@ -11,7 +11,7 @@ import CreateSafePassword from '../CreateSafePassword'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import {contextMenuDevice} from "../../../../generalComponents/collections"
+import {contextMenuDevice, contextMenuDeviceUser} from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
 import {
     onGetConnectedContacts,
@@ -34,6 +34,7 @@ const Devices = ({
     const size = useSelector(state => state.Cabinet.size);
 
     const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
+    const selectedUser = useSelector(state => state.Cabinet.selectedUser)
     const [chosenContact, setChosenContact] = useState(null)
 
     const [listCollapsed, setListCollapsed] = useState('')
@@ -76,21 +77,29 @@ const Devices = ({
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
-    const blockDevice = () => {
-        api.post(`/ajax/devices_block.php?id_device=${selectedDevice.id}`)
-            .then(res => {
-                setSuccessBlocked(true)
-            })
+    const blockItem = () => {
+        if (selectedDevice) {
+            api.post(`/ajax/devices_block.php?id_device=${selectedDevice.id}`)
+                .then(() => {
+                    setSuccessBlocked(true)
+                })
+        } else {
+            api.post(`/ajax/devices_users_del.php?id_user_to=${selectedUser.id_user}`)
+                .then(() => {
+                    setSuccessBlocked(true)
+                })
+        }
     }
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
+
             return <ContextMenuItem
                 key={i}
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                callback={blockDevice}
+                callback={item.type === 'disconnectItem' && blockItem}
                 imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -165,9 +174,12 @@ const Devices = ({
                 title='Создайте пароль для сейфа'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuDevice.main : contextMenuDevice.main, callbackArrMain)}</div>
-            </ContextMenu> : null}
+            {mouseParams !== null &&
+                <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+                <div className={styles.mainMenuItems}>
+                    {renderMenuItems(mouseParams.type === 'user' ? contextMenuDeviceUser.main : contextMenuDevice.main, callbackArrMain)}
+                </div>
+            </ContextMenu>}
 
             {successBlocked &&
             <SuccessPopup
