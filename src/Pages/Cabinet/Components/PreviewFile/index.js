@@ -21,7 +21,7 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     const set = e => {
         let close = false;
-        if(e.target.className === styles.preview) close = true;
+        if(e?.target?.className === styles.preview) close = true;
         if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
     }
 
@@ -130,17 +130,19 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
 
     useEffect(() => {
+        if(file.mime_type && file.mime_type.includes('image')) {
             const canvas = canvasRef.current.getContext('2d');
             const img = new Image();
             img.src = file.preview;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((e.target.naturalWidth * 0.84).toFixed()), Number((e.target.naturalHeight * 0.89).toFixed()));
+                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
                 canvasRef.current.width = sizes.width;
                 canvasRef.current.height = sizes.height;
                 canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
                 canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
             }
+        }
     }, []); //eslint-disable-line
 
     const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
