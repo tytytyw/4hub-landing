@@ -10,7 +10,10 @@ const PrintScreen = ({imgRef, show, setShow, setFilePreview}) => {
         setDisplay(show);
         if(show === 'block') {
             const audio = new Audio('./assets/audio/printScreen.mp3');
-            audio.play();
+            audio.addEventListener("canplaythrough", () => {
+                audio.play()
+            });
+
             const sizes = imageToRatio(imgRef.current.width, imgRef.current.height, 200, 200);
             setSize(size => ({...size, width: sizes.width, height: sizes.height}));
         }

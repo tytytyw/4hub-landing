@@ -21,9 +21,7 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     const set = e => {
         let close = true;
-        e.nativeEvent.path.forEach(el => {
-            if(el.className === styles.imagePreviewWrap) close = false;
-        })
+        if(e.target.className === styles.imagePreviewWrap) close = false;
         if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
     }
 
@@ -136,10 +134,10 @@ const PreviewFile = ({setFilePreview, file}) => {
             const img = new Image();
             img.src = file.preview;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.path[0].naturalWidth, e.path[0].naturalHeight, Number((e.path[0].naturalWidth * 0.84).toFixed()), Number((e.path[0].naturalHeight * 0.89).toFixed()));
+                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((e.target.naturalWidth * 0.84).toFixed()), Number((e.target.naturalHeight * 0.89).toFixed()));
                 canvasRef.current.width = sizes.width;
                 canvasRef.current.height = sizes.height;
-                canvas.clearRect(0, 0, e.path[0].naturalWidth, e.path[0].naturalHeight);
+                canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
                 canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
             }
