@@ -11,7 +11,7 @@ const ContextMenuItem = ({width, height, text, imageSrc, callback}) => {
         }}
     >
         {imageSrc ? <img src={imageSrc} alt='img' /> : <div style={{width: '10px'}} />}
-        <div>{text}</div>
+        <div className={styles.text}>{text}</div>
     </div>
 }
 

@@ -11,10 +11,18 @@ import CreateSafePassword from '../CreateSafePassword'
 import PreviewFile from '../PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import { contextMenuFolder, contextMenuSubFolder } from "../../../../generalComponents/collections"
+import {contextMenuDevice, contextMenuDeviceUser} from "../../../../generalComponents/collections"
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
-import {onGetConnectedContacts, onGetDevices, setSelectedDevice} from "../../../../Store/actions/CabinetActions"
+import {
+    onGetConnectedContacts,
+    onGetDevices,
+    setSelectedDevice,
+    setSelectedUser
+} from "../../../../Store/actions/CabinetActions"
 import ConnectedContacts from "./ConnectedContacts"
+import SuccessPopup from "../Business/SuccessPopup";
+import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
+import api from "../../../../api";
 
 const Devices = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -26,6 +34,7 @@ const Devices = ({
     const size = useSelector(state => state.Cabinet.size);
 
     const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
+    const selectedUser = useSelector(state => state.Cabinet.selectedUser)
     const [chosenContact, setChosenContact] = useState(null)
 
     const [listCollapsed, setListCollapsed] = useState('')
@@ -38,6 +47,8 @@ const Devices = ({
     const [chosenFile, setChosenFile] = useState(null)
     const [mouseParams, setMouseParams] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
+
+    const [successBlocked, setSuccessBlocked] = useState(false)
 
     //Clear action on change folder
     useEffect(() => {
@@ -55,7 +66,10 @@ const Devices = ({
                 listSize={size}
                 chosen={selectedDevice?.id === dev.id}
                 setMouseParams={setMouseParams}
-                onClick={() => dispatch(setSelectedDevice(dev))}
+                onClick={() => {
+                    dispatch(setSelectedUser(null))
+                    dispatch(setSelectedDevice(dev))
+                }}
                 listCollapsed={listCollapsed}
             />
         })
@@ -63,14 +77,29 @@ const Devices = ({
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
+    const blockItem = () => {
+        if (selectedDevice) {
+            api.post(`/ajax/devices_block.php?id_device=${selectedDevice.id}`)
+                .then(() => {
+                    setSuccessBlocked(true)
+                })
+        } else {
+            api.post(`/ajax/devices_users_del.php?id_user_to=${selectedUser.id_user}`)
+                .then(() => {
+                    setSuccessBlocked(true)
+                })
+        }
+    }
+
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
+
             return <ContextMenuItem
                 key={i}
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                // callback={() => setAction(type[i])}
+                callback={item.type === 'disconnectItem' && blockItem}
                 imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -145,9 +174,20 @@ const Devices = ({
                 title='Создайте пароль для сейфа'
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath ? contextMenuSubFolder.main : contextMenuFolder.main, callbackArrMain)}</div>
-            </ContextMenu> : null}
+            {mouseParams !== null &&
+                <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+                <div className={styles.mainMenuItems}>
+                    {renderMenuItems(mouseParams.type === 'user' ? contextMenuDeviceUser.main : contextMenuDevice.main, callbackArrMain)}
+                </div>
+            </ContextMenu>}
+
+            {successBlocked &&
+            <SuccessPopup
+                title='Устройство заблокировано'
+                set={setSuccessBlocked}
+            >
+                <img src={successImg} alt="Success"/>
+            </SuccessPopup>}
         </div>
     )
 }
