@@ -46,7 +46,7 @@ const Profile = () => {
         <div
             ref={profileRef}
             className={styles.profileWrap}
-            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}}
+            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 170, height: 25})}}
         >
             <img
                 className={styles.profileImg}
@@ -56,7 +56,7 @@ const Profile = () => {
             <span>{user?.name ? user.name : 'User'}</span>
             <div className={styles.arrowDown} />
         </div>
-        {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={profileRef}>
+        {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={profileRef} movehorizontal={window.innerWidth <= 1406 ? -30 : 0}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuProfile.main, mainCallBacks)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuProfile.additional, additionalCallBacks)}</div>
         </ContextMenu> : null}

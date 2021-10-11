@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0}) => {
 
     const closeContext = e => {
         if(!customClose) {
@@ -54,7 +54,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
                 ref={contextMenuRef}
                 style={{
                     top: element ? `${element.bottom}px` : top.menu,
-                    left: element ? `${element.left + (element.width/2) - params.width/2}px` :setMenuHorizontal()
+                    left: element ? `${element.left + (element.width/2) - params.width/2 + movehorizontal}px` : setMenuHorizontal()
                 }}
             >
                 <div className={styles.wrap}>
