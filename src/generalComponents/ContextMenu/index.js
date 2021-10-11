@@ -9,8 +9,11 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
             setParams(null);
         } else {
             setMenuIsUsed(true)
-            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
-            if(isBackground) setParams(null);
+            if(navigator.userAgent.includes('Chrome')) {
+                const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
+                if(isBackground) setParams(null);
+            }
+
         }
     };
     const screenWidth = window.innerWidth;
