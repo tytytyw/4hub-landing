@@ -21,7 +21,7 @@ const WorkLinesPreview = ({
     const [color, setColor] = useState(null);
     const [f, setF] = useState(null);
     useEffect(() => {
-        if (fileList.find(item => item?.fid === file?.fid)) {
+        if (fileList?.find(item => item?.fid === file?.fid)) {
             setF(file);
         } else {
             setF(null)

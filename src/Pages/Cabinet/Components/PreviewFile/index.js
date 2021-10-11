@@ -20,8 +20,8 @@ const PreviewFile = ({setFilePreview, file}) => {
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = e => {
-        let close = true;
-        if(e.target.className === styles.imagePreviewWrap) close = false;
+        let close = false;
+        if(e.target.className === styles.preview) close = true;
         if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
     }
 
