@@ -153,6 +153,7 @@ const WorkSpace = ({
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
 						filePick={filePick}
+						hideUploadFile={fileListAll === null}
 					>
 						{renderFiles(FileBar)}
 					</WorkBars>

@@ -5,6 +5,7 @@ import styles from './CreateFile.module.sass';
 import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
+import Select from './Select/Select';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
@@ -17,7 +18,7 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem, initFolder, showChoiceFolders
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -36,6 +37,8 @@ const CreateFile = ({
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
+    const [path, setPath] = useState(fileList.path)
+    
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -217,6 +220,14 @@ const CreateFile = ({
                             >
                                 {renderTags()}
                             </div>
+                        </div>
+                        <div className={styles.inputWrap}>
+                            {showChoiceFolders && <Select 
+                                className={styles.select}
+                                path={path}
+                                setPath={setPath}
+                                initFolder={initFolder}
+                            />}
                         </div>
                         <div className={styles.inputWrap}>
                             <InputField

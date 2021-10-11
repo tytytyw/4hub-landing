@@ -3,17 +3,14 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './CustomFolderItem.module.sass';
 import {colors} from '../../../../../generalComponents/collections';
-import {onChooseFiles, onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
+import {onChooseFolder, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
-import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader
-}) => {
+const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setMouseParams}) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
@@ -48,15 +45,13 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
     }, [fileList?.files?.length]); // eslint-disable-line
 
     const openFolder = (e) => {
-        let boolean = false;
-        e.target?.viewportElement 
-            ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
-            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
-        if(boolean) {
+        // let boolean = false;
+        // e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true});
+        // if(boolean) {
             f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
-        } else {
-            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
-        }
+        // } else {
+        //     setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
+        // }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
@@ -73,7 +68,6 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 chosen={f.path === chosenFolder.subPath}
                 subFolder={true}
                 setMouseParams={setMouseParams}
-                setGLoader={setGLoader}
             />
         })
     };
@@ -85,23 +79,11 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             })
             await cancel.then(() => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
-                setGLoader(true);
                 dispatch(onSetPath(f.path));
-                const ev = e;
-                setTimeout(() => {
-                    if(ev.target.className === styles.menuWrap) menuClick(ev);
-                }, 0)
-                dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
+                // dispatch(onChooseFiles(f.path, '', 1, '', ''));
             })
         } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
     } 
-
-    const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
-
-    const handleAddFolder = () => {
-        setNewFolderInfo({...newFolderInfo, path: f.path});
-        setNewFolder(true);
-    };
 
     return (<>
         <div
@@ -123,29 +105,12 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     {!subFolder ? <PlayIcon
                         className={`${styles.playButton} ${f.path === chosenFolder.path && chosenFolder.open ? styles.revert : undefined}`}
                     /> : null}
-                    <div
-                        className={styles.menuWrap}
-                        onClick={menuClick}
-                    ><span className={styles.menu} /></div>
                 </div>
             </div>
         </div>
         {!subFolder && <div
-            style={{
-                height: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`,
-                minHeight: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`
-            }}
             className={`${styles.innerFolders} ${f.path === chosenFolder.path && chosenFolder.open ? undefined : styles.hidden}`}
-        ><div
-                className={styles.addFolderToFolder}
-                onClick={handleAddFolder}
-            >
-                <div className={styles.addFolderName}>
-                    <FolderIcon style={{width: '17px'}} />
-                    {!listCollapsed && <span>Новая папка</span>}
-                </div>
-                <AddIcon className={styles.addFolderIcon} />
-            </div>
+        >
             {folderList ? renderInnerFolders() : null}
         </div>}
     </>)

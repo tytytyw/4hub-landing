@@ -2,15 +2,18 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0}) => {
 
     const closeContext = e => {
         if(!customClose) {
             setParams(null);
         } else {
             setMenuIsUsed(true)
-            const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
-            if(isBackground) setParams(null);
+            if(navigator.userAgent.includes('Chrome')) {
+                const isBackground = e.path.filter(el => {if(typeof el?.classList === 'object' && typeof el?.classList[0] === 'string') return el.classList[0].includes(styles.background)}).length > 0; //eslint-disable-line
+                if(isBackground) setParams(null);
+            }
+
         }
     };
     const screenWidth = window.innerWidth;
@@ -54,7 +57,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
                 ref={contextMenuRef}
                 style={{
                     top: element ? `${element.bottom}px` : top.menu,
-                    left: element ? `${element.left + (element.width/2) - params.width/2}px` :setMenuHorizontal()
+                    left: element ? `${element.left + (element.width/2) - params.width/2 + movehorizontal}px` : setMenuHorizontal()
                 }}
             >
                 <div className={styles.wrap}>

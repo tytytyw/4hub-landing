@@ -46,7 +46,7 @@ const CodePopup = ({
 
 		if (code) {
 			setLoadingType("squarify");
-			dispatch(onGetSafeFileList(code, id_safe, set, setError, setLoadingType))
+			dispatch(onGetSafeFileList(code, id_safe, password, set, setError, setLoadingType))
 		}
 	};
 

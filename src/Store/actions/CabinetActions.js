@@ -42,7 +42,8 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE, SET_SELECTED_USER
+    SET_SELECTED_DEVICE, SET_SELECTED_USER,
+    CHOOSE_ARCHIVE_FILES
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -272,11 +273,11 @@ export const onGetSafes = () => async (dispatch, getState) => {
         .catch(error => console.log(error))
 };
 
-export const onGetSafeFileList = (code, id_safe, set, setErrPass, setLoadingType) => async (dispatch, getState) => {
+export const onGetSafeFileList = (code, id_safe, password, set, setErrPass, setLoadingType) => async (dispatch, getState) => {
     api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
         .then((res) => {
             if (res.data.ok) {
-                dispatch(onAuthorizedSafe(id_safe, code))
+                dispatch(onAuthorizedSafe(id_safe, code, password))
                 dispatch({
                     type: GET_SAFE_FILELIST,
                     payload: res.data.files
@@ -290,10 +291,10 @@ export const onGetSafeFileList = (code, id_safe, set, setErrPass, setLoadingType
         .finally(() => setLoadingType ? setLoadingType(''): '')
 };
 
-export const onAuthorizedSafe = (id_safe, code) => async (dispatch) => {
+export const onAuthorizedSafe = (id_safe, code, password) => async (dispatch) => {
     dispatch({
         type: AUTHORIZED_SAFE,
-        payload: {id_safe, code}
+        payload: {id_safe, code, password}
     })
 };
 
@@ -848,5 +849,18 @@ export const onGetGuestFolderFiles  = (did, setLoading) => async (dispatch) => {
         console.log(e);
     } finally {
         setLoading(false)
+    }
+}
+
+// ARCHIVE
+export const onGetArchiveFiles  = (day, mounth) => async (dispatch, getState) => {
+    try {
+        const res = await api.get(`/ajax/archive_list.php?uid=${getState().user.uid}`)
+        dispatch({
+            type: CHOOSE_ARCHIVE_FILES,
+            payload: res.data.files
+        })
+    } catch (e) {
+        console.log(e);
     }
 }

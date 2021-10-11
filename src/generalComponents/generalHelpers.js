@@ -59,10 +59,12 @@ export const handlePrintScreen = async (ref, set) => {
         });
 }
 
-export const htmlToCanvas = async (ref, set) => {
-    await html2canvas(document.getElementById('root'), {allowTaint: true, proxy: imageSrc}).then(function (canvas) {
-        const data = canvas.toDataURL('image/png');
-        ref.setAttribute('src', data);
-        if(set) set('block')
-    });
+export const htmlToCanvas = async (element, ref, set) => {
+    await html2canvas(element, {allowTaint: true, proxy: imageSrc})
+        .then(function (canvas) {
+            const data = canvas.toDataURL('image/png');
+            ref.setAttribute('src', data);
+            if(set) set('block')
+        })
+        .catch(e => console.log(e));
 }

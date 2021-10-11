@@ -44,6 +44,7 @@ const MyFolders = ({
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
     const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});
+    const [chosenSubFolder, setChosenSubFolder] = useState(null);
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
@@ -121,8 +122,6 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        // {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
         {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
     ];
@@ -157,6 +156,17 @@ const MyFolders = ({
             }})
             .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
     };
+
+    useEffect(() => {
+        if (chosenFolder.subPath) {
+            const globalFolder = chosenFolder.path.includes('global');
+            setChosenSubFolder({info: globalFolder
+                ? chosenFolder.info?.folders.filter(f => f.path === chosenFolder.subPath)[0]
+                : chosenFolder.info?.folders.folders.filter(f => f.path === chosenFolder.subPath)[0]
+            })
+        } else setChosenSubFolder(null)
+        return () => setChosenSubFolder(null)
+    }, [chosenFolder.subPath]) //eslint-disable-line        
 
     return (
         <div className={styles.workAreaWrap}>
@@ -231,6 +241,8 @@ const MyFolders = ({
                 setLoadingFile={setLoadingFile}
                 create={fileAddCustomization.create}
                 setGLoader={setGLoader}
+                initFolder={chosenFolder}
+                showChoiceFolders={true}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
@@ -238,7 +250,7 @@ const MyFolders = ({
             />}
             {action.type === 'resendFolder' ? (
                 <ShareFolder
-                    folder={chosenFolder}
+                    folder={chosenSubFolder || chosenFolder}
                     files={{}}
                     close={nullifyAction}
                     action_type={action.type}
@@ -248,7 +260,7 @@ const MyFolders = ({
             ) : null}
             {action.type === 'setAccessFolder' ? <CopyLinkShare
                 nullifyAction={nullifyAction}
-                folder={chosenFolder}
+                folder={chosenSubFolder || chosenFolder}
                 setShowSuccessMessage={setShowSuccessMessage}
                 setLoadingType={setLoadingType}
             /> : null}
@@ -272,14 +284,15 @@ const MyFolders = ({
             {action.type === 'propertiesFolder'
             ? <FolderProperty
                 close={nullifyAction}
-                folder={chosenFolder}
+                folder={chosenSubFolder || chosenFolder}
             />
             : null}
             {action.type === "customizeFolder" ? (
 				<CustomizeFolder
 					nullifyAction={nullifyAction}
 					setError={setError}
-					folder={chosenFolder}
+					chosenFolder={chosenFolder}
+                    chosenSubFolder={chosenSubFolder}
 					title="Редактировать папку"
 					setGLoader={setGLoader}
                     info={newFolderInfo}

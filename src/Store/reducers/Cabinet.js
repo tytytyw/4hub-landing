@@ -32,6 +32,7 @@ import {
     SET_CALENDAR_EVENTS,
     SEARCH,
     CHOOSE_SHARED_FILES,
+    CHOOSE_ARCHIVE_FILES,
     SORT_FILES,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
@@ -90,6 +91,9 @@ const INITIAL_STATE = {
 
     // SHARED FILES
     sharedFiles: null,
+
+    // ARCHIVE
+    arhiveFileList: null,
 
     //JOURNAL
     journalFolders: [],
@@ -241,6 +245,11 @@ export default function startPage(state = INITIAL_STATE, action) {
         // SHARED FILES
         case CHOOSE_SHARED_FILES: {
             return {...state, sharedFiles: {...state.sharedFiles, files: action.payload}};
+        }
+
+        //ARCHIVE
+        case CHOOSE_ARCHIVE_FILES: {
+            return {...state, arhiveFileList: {...state.arhiveFileList, files: action.payload}};
         }
 
         //JOURNAL

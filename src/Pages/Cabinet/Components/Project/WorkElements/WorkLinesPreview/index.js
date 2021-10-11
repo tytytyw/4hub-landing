@@ -139,7 +139,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
     const makePrintScreen = () => {
         setShowPrintScreen(true);
         setTimeout(() => {
-            htmlToCanvas(imgRef.current, setDisplay)
+            htmlToCanvas(document.getElementById('root'), imgRef.current, setDisplay)
         }, 500);
         setTimeout(() => {
             setShowPrintScreen(false);

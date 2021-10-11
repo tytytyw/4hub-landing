@@ -410,6 +410,7 @@ const MyFiles = ({
 					loadingFile={loadingFile}
 					fileErrors={fileErrors}
 					setLoadingFile={setLoadingFile}
+					showChoiceFolders={true}
 				/>
 			)}
 			{safePassword.open && (

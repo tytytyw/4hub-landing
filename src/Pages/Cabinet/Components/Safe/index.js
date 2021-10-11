@@ -8,7 +8,8 @@ import WorkSpace from "./WorkSpace";
 import ShareSafe from "../ContextMenuComponents/ContexMenuSafe/ShareSafe/ShareSafe";
 import CustomizeSafe from "../ContextMenuComponents/ContexMenuSafe/CustomizeSafe/CustomizeSafe";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
-import PreviewFile from "../PreviewFile";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
+import PreviewSafeFile from "./PreviewSafeFile";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuSafeItem } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -28,7 +29,6 @@ const Safe = ({
 	filePreview,
 	setFilePreview,
 	fileSelect,
-	setLoadingType,
 	setMenuItem,
 	fileAddCustomization,
 	setFileAddCustomization,
@@ -64,6 +64,8 @@ const Safe = ({
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
 	const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+	const [loadingType, setLoadingType] = useState('');
 
 	useEffect(() => {
 		setLoadingType(safes === null ? "squarify" : "");
@@ -313,10 +315,11 @@ const Safe = ({
 			/>
 
 			{filePreview?.view && (
-				<PreviewFile
+				<PreviewSafeFile
 					setFilePreview={setFilePreview}
 					file={filePreview?.file}
 					filePreview={filePreview}
+					setLoadingType={setLoadingType}
 				/>
 			)}
 
@@ -417,6 +420,15 @@ const Safe = ({
 					menuItem={menuItem}
 				/>
 			)}
+
+			'{loadingType ? <Loader
+                position='absolute'
+                zIndex={10000}
+                containerType='bounceDots'
+                type='bounceDots'
+                background='white'
+                animation={false}
+            /> : null}
 		</div>
 	);
 };
