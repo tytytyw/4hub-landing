@@ -39,6 +39,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
                             src={getImage(contact.icon?.[0])}
                             alt='icon'
                             className={styles.icon}
+                            onError={e => e.target.setAttribute('src', emptyProfileImage)}
                         />
                         {contact?.active === 1 && <span className={styles.active}/>}
                     </div>
@@ -47,7 +48,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
                 <div className={styles.functionWrap}>
                     <div
                         className={styles.menuWrap}
-                        onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25, type: 'user'})}
+                        onClick={e  => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25, type: 'user'})}
                     ><span className={styles.menu}/></div>
                 </div>
             </div>
