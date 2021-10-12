@@ -5,11 +5,20 @@ import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 import {setSelectedDevice, setSelectedUser} from "../../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
+import {emptyProfileImage} from "../../MyProfile/Contacts/consts";
 
 const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
 
     const dispatch = useDispatch()
     const selectedUser = useSelector(state => state.Cabinet.selectedUser)
+
+    const getImage = str => {
+        const strLength = contact.icon?.[0].length
+        if (contact.icon?.[0].charAt(strLength - 1) === '.') {
+            return emptyProfileImage
+        }
+        return contact.icon?.[0]
+    }
 
     return (
         <>
@@ -27,7 +36,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
                 <div className={styles.titleWrap}>
                     <div className={styles.imageWrap}>
                         <img
-                            src={contact.icon?.[0]}
+                            src={getImage(contact.icon?.[0])}
                             alt='icon'
                             className={styles.icon}
                         />
