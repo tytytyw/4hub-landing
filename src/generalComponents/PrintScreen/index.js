@@ -24,7 +24,7 @@ const PrintScreen = ({imgRef, show, setShow, setFilePreview}) => {
     }, []) //eslint-disable-line
 
     const handlePreview = (e) => {
-        setFilePreview({view: true, file: {preview: e.target.src, mime_type: 'image/png', ext: 'PNG', is_preview: 1}});
+        setFilePreview({view: true, file: {preview: e.target.src, mime_type: 'image/png', ext: 'PNG', is_preview: 1, fid: 'printScreen'}});
         setDisplay('none');
         setShow('none');
     }
