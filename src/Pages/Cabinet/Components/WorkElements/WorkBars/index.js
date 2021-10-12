@@ -33,7 +33,6 @@ const WorkBars = ({
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-                
             } else if (window.location.pathname.includes('files')){
                 setLoadingFiles(true);
                 dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''))
@@ -42,7 +41,7 @@ const WorkBars = ({
     }
 
     const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+        if(fileRef?.current && fileRef?.current?.offsetHeight + 50 <= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
             loadFiles('', true);
         }
     }
