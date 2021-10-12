@@ -21,7 +21,7 @@ const WorkBars = ({
     const dispatch = useDispatch();
 
     // Loading files to full the filesPage
-    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
+    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount, fileList?.files?.length]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
@@ -41,7 +41,7 @@ const WorkBars = ({
     }
 
     const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight + 50 <= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
+        if(fileRef?.current && fileRef?.current?.offsetHeight + 50 >= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
             loadFiles('', true);
         }
     }
