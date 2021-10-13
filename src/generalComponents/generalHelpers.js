@@ -71,9 +71,11 @@ export const htmlToCanvas = async (element, ref, set) => {
 }
 
 export const replaceFile = async (uid, info, file) => {
+    const newFIle = file.replace("image/png", "image/octet-stream");
+    const blob = new Blob([newFIle], {type: 'image/png'});
     let data = new FormData();
     data.append('uid', uid);
-    data.append('myfile', file);
+    data.append('myfile', blob);
     data.append('fid', info.fid);
     data.append('dir', info.gdir);
     api.post(`/ajax/file_replace.php`, data)
@@ -82,6 +84,8 @@ export const replaceFile = async (uid, info, file) => {
 }
 
 export const sendFile = async (uid, file) => {
+    console.log(file);
+
     let data = new FormData();
     data.append('uid', uid);
     data.append('myfile', file);

@@ -137,7 +137,7 @@ const PreviewFile = ({setFilePreview, file}) => {
         if(file.mime_type && file.mime_type.includes('image')) {
             const canvas = canvasRef.current.getContext('2d');
             const img = new Image();
-            img.src = file.preview;
+            img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
                 const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
                 canvasRef.current.width = sizes.width;

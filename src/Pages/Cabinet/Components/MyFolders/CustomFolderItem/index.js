@@ -12,7 +12,7 @@ import {getStorageItem, setStorageItem} from "../../../../../generalComponents/S
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader
+                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage
 }) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
@@ -74,6 +74,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 subFolder={true}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
+                setFilesPage={setFilesPage}
             />
         })
     };
@@ -92,6 +93,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                     if(ev.target.className === styles.menuWrap) menuClick(ev);
                 }, 0)
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
+                setFilesPage(1)
             })
         } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
     } 

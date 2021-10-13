@@ -28,6 +28,10 @@ const WorkBars = ({
         result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
+    // useEffect(() => {
+    //     console.log(filesPage)
+    // }, [filesPage])
+
     const loadFiles = (e, access) => {
         if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
@@ -41,7 +45,8 @@ const WorkBars = ({
     }
 
     const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight + 50 >= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
+        console.log(fileRef?.current?.offsetHeight + 200, fileRef?.current?.scrollHeight, fileRef?.current?.offsetHeight + 200 >= fileRef?.current?.scrollHeight)
+        if(fileRef?.current && fileRef?.current?.offsetHeight + 200 >= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
             loadFiles('', true);
         }
     }
