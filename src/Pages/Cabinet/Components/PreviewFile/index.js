@@ -5,7 +5,7 @@ import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
-import {imageToRatio} from "../../../../generalComponents/generalHelpers";
+import {imageToRatio, replaceFile, sendFile} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
     drawBrush, drawCircle, drawSquare, drawText, drawDiv,
@@ -14,14 +14,16 @@ import {
     mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
     unDoPaintBrush
 } from "./paintHelpers";
+import {useSelector} from "react-redux";
 
 const PreviewFile = ({setFilePreview, file}) => {
 
+    const uid = useSelector(state => state.user.uid);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = e => {
         let close = false;
-        if(e.target.className === styles.preview) close = true;
+        if(e?.target?.className === styles.preview) close = true;
         if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
     }
 
@@ -39,6 +41,8 @@ const PreviewFile = ({setFilePreview, file}) => {
         if(edit.status === 'Сохранить') {
             const preview = canvasRef.current.toDataURL("image/png");
             setFilePreview(state => ({...state, file: {...state.file, preview}}));
+            if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
+            if(file.fid === 'printScreen') sendFile(uid, file);
         }
         setEdit(state => ({...state, status: state.status === 'Редактировать' ? 'Сохранить' : 'Редактировать'}))
     }
@@ -130,17 +134,19 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
 
     useEffect(() => {
+        if(file.mime_type && file.mime_type.includes('image')) {
             const canvas = canvasRef.current.getContext('2d');
             const img = new Image();
-            img.src = file.preview;
+            img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((e.target.naturalWidth * 0.84).toFixed()), Number((e.target.naturalHeight * 0.89).toFixed()));
+                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
                 canvasRef.current.width = sizes.width;
                 canvasRef.current.height = sizes.height;
                 canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
                 canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
             }
+        }
     }, []); //eslint-disable-line
 
     const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});

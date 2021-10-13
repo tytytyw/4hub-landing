@@ -42,8 +42,8 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE,
-    CHOOSE_ARCHIVE_FILES,
+    SET_SELECTED_DEVICE, SET_SELECTED_USER,
+    CHOOSE_ARCHIVE_FILES
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -531,8 +531,13 @@ export const onGetPrograms = (folderId) => async (dispatch, getState) => {
 
 // DEVICES
 
-export const setSelectedDevice = id => ({
+export const setSelectedDevice = data => ({
     type: SET_SELECTED_DEVICE,
+    payload: data
+})
+
+export const setSelectedUser = id => ({
+    type: SET_SELECTED_USER,
     payload: id
 })
 
@@ -568,7 +573,18 @@ export const onGetDevices = () => async (dispatch, getState) => {
 
 
 export const onGetConnectedContacts = () => async (dispatch, getState) => {
-    dispatch({
+    try {
+        const res = await api.get(`/ajax/devices_users_list.php?uid=${getState().user.uid}}`)
+        if (!!res?.data?.ok) {
+            dispatch({
+                type: GET_CONNECTED_CONTACTS,
+                payload: res.data.users
+            })
+        }
+    } catch (e) {
+        console.log(e)
+    }
+    /*dispatch({
         type: GET_CONNECTED_CONTACTS,
         payload: [
             {
@@ -596,7 +612,7 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
                 image: `${imageSrc}assets/PrivateCabinet/avatars/a4.svg`
             }
         ]
-    })
+    })*/
 };
 
 // PROJECT

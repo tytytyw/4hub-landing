@@ -15,7 +15,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
         setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams,
-        setGLoader
+        setGLoader, setFilesPage
     }) => {
 
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -50,6 +50,7 @@ const FolderItem = ({
                         if(ev.target.className === styles.menuWrap) openMenu(ev);
                     }, 0)
                     dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
+                    setFilesPage(1)
                 })
         }
     };
@@ -68,6 +69,7 @@ const FolderItem = ({
                 subFolder={true}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
+                setFilesPage={setFilesPage}
             />
         })
     };

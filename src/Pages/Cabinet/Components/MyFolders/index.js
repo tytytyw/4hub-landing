@@ -81,6 +81,7 @@ const MyFolders = ({
                 chosen={chosenFolder.path === el.path}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
+                setFilesPage={setFilesPage}
             />
         })
     };
@@ -102,6 +103,7 @@ const MyFolders = ({
                 subFolder={false}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
+                setFilesPage={setFilesPage}
             />
         })
     };

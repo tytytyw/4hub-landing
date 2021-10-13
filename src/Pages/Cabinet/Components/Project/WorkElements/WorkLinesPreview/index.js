@@ -39,7 +39,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             const img = new Image();
             img.src = chosenFile.preview;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.path[0].naturalWidth, e.path[0].naturalHeight, 350, 400);
+                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, 350, 400);
                 canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}))
             }

@@ -1,5 +1,6 @@
 import html2canvas from "html2canvas";
 import {imageSrc} from "./globalVariables";
+import api from "../api";
 
 //set image to requested size with maxWidth && maxHeight params
 export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
@@ -67,4 +68,35 @@ export const htmlToCanvas = async (element, ref, set) => {
             if(set) set('block')
         })
         .catch(e => console.log(e));
+}
+
+export const replaceFile = async (uid, info, file) => {
+    const newFIle = file.replace("image/png", "image/octet-stream");
+    const blob = new Blob([newFIle], {type: 'image/png'});
+    let data = new FormData();
+    data.append('uid', uid);
+    data.append('myfile', blob);
+    data.append('fid', info.fid);
+    data.append('dir', info.gdir);
+    api.post(`/ajax/file_replace.php`, data)
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+}
+
+export const sendFile = async (uid, file) => {
+    console.log(file);
+
+    let data = new FormData();
+    data.append('uid', uid);
+    data.append('myfile', file);
+    data.append('fileName', `Снимок экрана`);
+    data.append('tag', '');
+    data.append('pass', '');
+    data.append('color', '');
+    data.append('symbol', '');
+    data.append('emoji', '');
+
+    api.post(`ajax/project_file_add.php`, data)
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
 }

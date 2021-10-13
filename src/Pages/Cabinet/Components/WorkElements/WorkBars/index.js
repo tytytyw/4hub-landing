@@ -21,19 +21,22 @@ const WorkBars = ({
     const dispatch = useDispatch();
 
     // Loading files to full the filesPage
-    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
+    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount, fileList?.files?.length]) // eslint-disable-line
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
         result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
+    // useEffect(() => {
+    //     console.log(filesPage)
+    // }, [filesPage])
+
     const loadFiles = (e, access) => {
         if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
             if(chosenFolder?.files_amount > fileList?.files.length) {
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-                
             } else if (window.location.pathname.includes('files')){
                 setLoadingFiles(true);
                 dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''))
@@ -42,7 +45,8 @@ const WorkBars = ({
     }
 
     const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+        console.log(fileRef?.current?.offsetHeight + 200, fileRef?.current?.scrollHeight, fileRef?.current?.offsetHeight + 200 >= fileRef?.current?.scrollHeight)
+        if(fileRef?.current && fileRef?.current?.offsetHeight + 200 >= fileRef?.current?.scrollHeight && fileList?.path === chosenFolder?.path) {
             loadFiles('', true);
         }
     }

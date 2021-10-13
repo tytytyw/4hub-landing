@@ -9,7 +9,6 @@ import ContactItem from "../ContactItem";
 const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams, listSize}) => {
 
     const connectedContacts = useSelector(state => state.Cabinet.connectedContacts)
-
     const [collapse, setCollapse] = useState(true)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
