@@ -11,7 +11,7 @@ import {setStorageItem, getStorageItem} from "../../../../../generalComponents/S
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FolderItem = ({
-        folder, listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams,
+        folder, listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams, offDispatch
     }) => {
 
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -30,8 +30,8 @@ const FolderItem = ({
             })
             await cancel
                 .then(() => {
-                    dispatch(onChooseFolder(folder.folders, folder.path));
-                    dispatch(onSetPath(folder.path));
+                    offDispatch ? onChooseFolder(folder.folders, folder.path) : dispatch(onChooseFolder(folder.folders, folder.path));
+                    offDispatch ? onSetPath(folder.path) : dispatch(onSetPath(folder.path));
                     // dispatch(onChooseFiles(folder.path, '', 1, '', ''));
                 })
         }
@@ -68,7 +68,7 @@ const FolderItem = ({
 
     //Open global/all Folder from the beginning
     useEffect(() => {
-        if(chosen) dispatch(onChooseFolder(folder.folders, folder.path));
+        if(chosen) offDispatch ? onChooseFolder(folder.folders, folder.path) : dispatch(onChooseFolder(folder.folders, folder.path));
         const files_amount = getStorageItem(`${uid}+${folder.path}`);
         if(files_amount) {
             setFilesQuantity(files_amount);

@@ -221,14 +221,14 @@ const CreateFile = ({
                                 {renderTags()}
                             </div>
                         </div>
-                        <div className={styles.inputWrap}>
-                            {showChoiceFolders && <Select 
+                        {showChoiceFolders && <div className={styles.inputWrap}>
+                            <Select 
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}
                                 initFolder={initFolder}
-                            />}
-                        </div>
+                            />
+                        </div>}
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='password'
