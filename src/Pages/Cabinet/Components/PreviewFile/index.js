@@ -139,12 +139,14 @@ const PreviewFile = ({setFilePreview, file}) => {
             const img = new Image();
             img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
-                canvasRef.current.width = sizes.width;
-                canvasRef.current.height = sizes.height;
-                canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
-                canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
-                setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
+                if(canvasRef.current) {
+                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
+                    canvasRef.current.width = sizes.width;
+                    canvasRef.current.height = sizes.height;
+                    canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
+                    canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
+                    setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
+                }
             }
         }
     }, []); //eslint-disable-line

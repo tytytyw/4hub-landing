@@ -84,11 +84,11 @@ export const replaceFile = async (uid, info, file) => {
 }
 
 export const sendFile = async (uid, file) => {
-    console.log(file);
-
+    const newFIle = file.preview.replace("image/png", "image/octet-stream");
+    const blob = new Blob([newFIle], {type: 'image/png'});
     let data = new FormData();
     data.append('uid', uid);
-    data.append('myfile', file);
+    data.append('myfile', blob);
     data.append('fileName', `Снимок экрана`);
     data.append('tag', '');
     data.append('pass', '');
