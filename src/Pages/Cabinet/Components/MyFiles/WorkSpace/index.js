@@ -62,6 +62,7 @@ const WorkSpace = ({
 	filesPage,
 	setFilesPage,
 	gLoader,
+   setGLoader,
 	menuItem
 }) => {
 	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
@@ -149,6 +150,7 @@ const WorkSpace = ({
 						filesPage={filesPage}
 						setFilesPage={setFilesPage}
 						gLoader={gLoader}
+						setGLoader={setGLoader}
 						fileRef={fileRef}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}

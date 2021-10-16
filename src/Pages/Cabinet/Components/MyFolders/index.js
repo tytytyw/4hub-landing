@@ -60,7 +60,7 @@ const MyFolders = ({
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
     useEffect(() => {
-        setFilesPage(1)
+        setFilesPage(0)
         setMenuItem('myFolders')
         dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));
         return () => setMenuItem('')

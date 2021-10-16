@@ -326,7 +326,7 @@ const MyFiles = ({
 	};
 	useEffect(() => {
 		setMenuItem("myFiles");
-		setFilesPage(1);
+		setFilesPage(0);
 		dispatch(onChooseAllFiles("global/all", "", 1, "", setGLoader));
 		return () => setMenuItem("");
 	}, []); //eslint-disable-line
