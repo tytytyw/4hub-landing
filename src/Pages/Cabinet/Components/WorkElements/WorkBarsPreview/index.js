@@ -3,14 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
 const WorkBarsPreview = ({
-    children, file, filePick, page, setPage, fileRef, chosenFolder,
-    gLoader
+    children, file, filePick, fileRef,
+    gLoader, filesPage, setFilesPage
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -18,6 +19,7 @@ const WorkBarsPreview = ({
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
     const fileList = useSelector(state => state.Cabinet.fileList);
+    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
     const innerFilesHeight = () => {
@@ -31,34 +33,39 @@ const WorkBarsPreview = ({
     useEffect(() => {
         setF(file);
         setPlay(false)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [file]);
+    }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
 
-    // Loading files to full the page
-    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
-        result > 0 ? setPage(page => page + 1) : setPage(0);
+        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
-    const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
-            if(chosenFolder?.files_amount > fileList?.files.length) {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
-            }
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    }
+
+    const load = (entry) => {
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
+            setLoadingFiles(true);
+            dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
+        }
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+            setLoadingFiles(true);
+            dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
         }
     }
 
-    const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-            loadFiles('', true);
-        }
-    }
+    const [containerRef] = useScrollElementOnScreen(options, load);
 
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
@@ -123,23 +130,23 @@ const WorkBarsPreview = ({
             <div
                 ref={fileRef}
                 className={styles.innerFiles}
-                onScroll={loadFiles}
             >
                 {!gLoader && children}
-            </div>
-            <div
-                className={styles.bottomLine}
-                style={{width: loadingFiles ? '100px' : '40px'}}
-            >
-                {loadingFiles && !gLoader ? <Loader
-                    type='bounceDots'
-                    position='absolute'
-                    background='white'
-                    zIndex={5}
-                    width='100px'
-                    height='100px'
-                    containerType='bounceDots'
-                /> : null}
+                {!gLoader ? <div
+                    className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ''}`}
+                    style={{height: '100%'}}
+                    ref={containerRef}
+                >
+                    <Loader
+                        type='bounceDots'
+                        position='absolute'
+                        background='white'
+                        zIndex={5}
+                        width='100px'
+                        height='100px'
+                        containerType='bounceDots'
+                    />
+                </div> : null}
             </div>
         </div>
         {gLoader ? <Loader

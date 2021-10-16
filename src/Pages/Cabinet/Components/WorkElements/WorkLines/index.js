@@ -7,7 +7,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 
 const WorkLines = ({
-       children, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
+       children, filePick, filesPage, setFilesPage, fileRef, gLoader
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet?.recentFiles);

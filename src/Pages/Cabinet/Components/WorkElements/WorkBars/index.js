@@ -9,7 +9,7 @@ import Loader from '../../../../../generalComponents/Loaders/4HUB';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 
 const WorkBars = ({
-          children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef, chosenFolder,
+          children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef,
           gLoader
 }) => {
 
