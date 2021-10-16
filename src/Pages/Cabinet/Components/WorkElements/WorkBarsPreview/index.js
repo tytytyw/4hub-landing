@@ -7,8 +7,7 @@ import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/Cabi
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
-// TODO - small loader doesn't represent itself correctly
-// TODO - set vertical loading instead horizontal
+
 const WorkBarsPreview = ({
     children, file, filePick, fileRef,
     gLoader, filesPage, setFilesPage

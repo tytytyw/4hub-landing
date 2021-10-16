@@ -5,15 +5,13 @@ import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
-    //const recentFiles = useSelector(state => state.Cabinet.recentFiles);
-    const size = useSelector(state => state.Cabinet.size);
     const search = useSelector(state => state.Cabinet?.search);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
@@ -58,9 +56,6 @@ const WorkLinesPreview = ({
         }
     }
 
-    // Loading files to full the filesPage
-    // useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
-
     useEffect(() => {
         setLoadingFiles(false);
     }, [fileList?.path])
@@ -81,28 +76,9 @@ const WorkLinesPreview = ({
             setLoadingFiles(true);
             dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
         }
-        // if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
-        //     setLoadingFiles(true);
-        //     dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
-        // }
     }
 
     const [containerRef] = useScrollElementOnScreen(options, load);
-
-    // const loadFiles = (e, access) => {
-    //     if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
-    //         if(chosenFolder?.files_amount > fileList?.files.length) {
-    //             setLoadingFiles(true);
-    //             dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-    //         }
-    //     }
-    // }
-    //
-    // const onCheckFilesPerPage = () => {
-    //     if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-    //         loadFiles('', true);
-    //     }
-    // }
 
     return (
         <div
@@ -111,7 +87,6 @@ const WorkLinesPreview = ({
         {!hideFileList && <div
             className={styles.fileListWrap}
             ref={fileRef}
-            // onScroll={loadFiles}
         >
             {!gLoader && children}
             {!gLoader ? <div
