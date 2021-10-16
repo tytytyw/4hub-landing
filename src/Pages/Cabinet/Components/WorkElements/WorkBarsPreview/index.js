@@ -69,7 +69,7 @@ const WorkBarsPreview = ({
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={f.preview} alt='filePrieview' />
+                return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
             }
             case 'video': {
                 return <video controls src={`${projectSrc}${f.preview}`} type={f.mime_type}>
