@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
@@ -10,7 +10,7 @@ import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 
 const WorkBars = ({
           children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef, chosenFolder,
-          gLoader, setGLoader
+          gLoader
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);

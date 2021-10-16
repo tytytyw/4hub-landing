@@ -150,7 +150,6 @@ const WorkSpace = ({
 						filesPage={filesPage}
 						setFilesPage={setFilesPage}
 						gLoader={gLoader}
-						setGLoader={setGLoader}
 						fileRef={fileRef}
 						fileLoading={fileLoading}
 						fileSelect={fileSelect}
