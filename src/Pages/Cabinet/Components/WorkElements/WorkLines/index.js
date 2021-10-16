@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkLines.module.sass';
@@ -17,6 +17,10 @@ const WorkLines = ({
     const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);

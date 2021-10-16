@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './WorkBars.module.sass';
@@ -20,6 +20,10 @@ const WorkBars = ({
     const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
