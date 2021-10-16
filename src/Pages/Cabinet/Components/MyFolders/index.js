@@ -163,8 +163,8 @@ const MyFolders = ({
         if (chosenFolder.subPath) {
             const globalFolder = chosenFolder.path.includes('global');
             setChosenSubFolder({info: globalFolder
-                ? chosenFolder.info?.folders.filter(f => f.path === chosenFolder.subPath)[0]
-                : chosenFolder.info?.folders.folders.filter(f => f.path === chosenFolder.subPath)[0]
+                ? chosenFolder.info?.folders?.filter(f => f.path === chosenFolder.subPath)[0]
+                : chosenFolder.info?.folders?.folders?.filter(f => f.path === chosenFolder.subPath)[0]
             })
         } else setChosenSubFolder(null)
         return () => setChosenSubFolder(null)
