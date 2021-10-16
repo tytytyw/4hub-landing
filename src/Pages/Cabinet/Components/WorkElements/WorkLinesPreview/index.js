@@ -1,14 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
+      file, children, hideFileList, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
 }) => {
 
     //const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -35,14 +36,14 @@ const WorkLinesPreview = ({
                 return <img src={f.preview} alt='filePrieview' className={hideFileList ? styles.big_pic : ''}/>
             }
             case 'video': {
-                return <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
-                    <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                return <video controls src={`${projectSrc}${f.preview}`} type={f.mime_type}>
+                    <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
                 </video>
             }
             case 'audio': {
                 return <>
-                    <audio controls ref={audioRef} src={`https://fs2.mh.net.ua${f.preview}`}>
-                        <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                    <audio controls ref={audioRef} src={`${projectSrc}${f.preview}`}>
+                        <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
                     </audio>
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>
@@ -58,62 +59,66 @@ const WorkLinesPreview = ({
     }
 
     // Loading files to full the filesPage
-    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
+    // useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount]) // eslint-disable-line
+
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
         result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
-    const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
-            if(chosenFolder?.files_amount > fileList?.files.length) {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-            }
-        }
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
     }
 
-    const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-            loadFiles('', true);
+    const load = (entry) => {
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
+            setLoadingFiles(true);
+            dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
         }
+        // if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+        //     setLoadingFiles(true);
+        //     dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+        // }
     }
+
+    const [containerRef] = useScrollElementOnScreen(options, load);
+
+    // const loadFiles = (e, access) => {
+    //     if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
+    //         if(chosenFolder?.files_amount > fileList?.files.length) {
+    //             setLoadingFiles(true);
+    //             dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
+    //         }
+    //     }
+    // }
+    //
+    // const onCheckFilesPerPage = () => {
+    //     if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
+    //         loadFiles('', true);
+    //     }
+    // }
 
     return (
         <div
             className={styles.workLinesPreviewWrap}
-            // style={{height: `${recentFiles?.length > 0
-            //         ? filePick.show
-            //             ? 'calc(100% - 90px - 55px - 78px - 80px)'
-            //             : 'calc(100% - 90px - 55px - 78px)'
-            //         : filePick.show
-            //             ? 'calc(100% - 90px - 55px - 80px)'
-            //             : 'calc(100% - 90px - 55px)'
-            //     }`,
-            //     gridTemplateColumns: size === 'small'
-            //         ? 'repeat(auto-fill, 118px)'
-            //         : size === 'medium'
-            //             ? 'repeat(auto-fill, 160px)'
-            //             : 'repeat(auto-fill, 205px)',
-            //     gridAutoRows: size === 'small'
-            //         ? '118px'
-            //         : size === 'medium'
-            //             ? '160px'
-            //             : '205px',
-            // }}
         >
         {!hideFileList && <div
             className={styles.fileListWrap}
             ref={fileRef}
-            onScroll={loadFiles}
+            // onScroll={loadFiles}
         >
             {!gLoader && children}
-            <div
-                className={styles.bottomLine}
-                style={{height: loadingFiles ? '100px' : '40px'}}
+            {!gLoader ? <div
+                className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
+                ref={containerRef}
             >
-                {loadingFiles && !gLoader ? <Loader
+                <Loader
                     type='bounceDots'
                     position='absolute'
                     background='white'
@@ -121,8 +126,8 @@ const WorkLinesPreview = ({
                     width='100px'
                     height='100px'
                     containerType='bounceDots'
-                /> : null}
-            </div>
+                />
+            </div> : null}
         </div>}
         {gLoader && <Loader
             type='bounceDots'

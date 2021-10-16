@@ -5,7 +5,7 @@ import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
 import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
@@ -73,14 +73,14 @@ const WorkBarsPreview = ({
                 return <img src={f.preview} alt='filePrieview' />
             }
             case 'video': {
-                return <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
-                    <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                return <video controls src={`${projectSrc}${f.preview}`} type={f.mime_type}>
+                    <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
                 </video>
             }
             case 'audio': {
                 return <>
-                    <audio controls ref={audioRef} src={`https://fs2.mh.net.ua${f.preview}`}>
-                        <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                    <audio controls ref={audioRef} src={`${projectSrc}${f.preview}`}>
+                        <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
                     </audio>
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>

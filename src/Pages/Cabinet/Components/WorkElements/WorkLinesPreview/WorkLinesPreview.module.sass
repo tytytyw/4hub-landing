@@ -30,10 +30,11 @@
     &::-webkit-scrollbar-thumb
       background-color: #4086F1
     .bottomLine
-      grid-column: 1 / -1
       width: 100%
       position: relative
-      
+    .bottomLineHidden
+      width: 1px
+      transition: height 1s ease-in-out, width 1s ease-in-out
   .previewFileWrap
     display: flex
     flex-direction: column
@@ -149,10 +150,7 @@
     width: 120px
     height: 140px
 
-
-  
-
-@media (max-width: 1450px)
+@media (max-width: 1439px)
   .workLinesPreviewWrap
 
     .filePreviewWrap
