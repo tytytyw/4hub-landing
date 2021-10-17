@@ -7,6 +7,7 @@ import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
+import {getMedia} from "../../../../../generalComponents/generalHelpers";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
@@ -16,6 +17,9 @@ const WorkLinesPreview = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
+    const [audio, setAudio] = useState(null);
+    const [video, setVideo] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const [color, setColor] = useState(null);
     const [f, setF] = useState(file);
@@ -23,6 +27,16 @@ const WorkLinesPreview = ({
         setF(file);
         const newColor = colors.filter(c => c.color === file?.color)
         setColor(newColor[0]);
+        if(file) {
+            if(file?.mime_type && file.mime_type.includes('audio') && file.is_preview) {
+                setLoading(true);
+                getMedia(`${projectSrc}${file.preview}`, file.mime_type, setAudio, setLoading)
+            }
+            if(file?.mime_type && file.mime_type.includes('video') && file.is_preview) {
+                setLoading(true);
+                getMedia(`${projectSrc}${file.preview}`, file.mime_type, setVideo, setLoading)
+            }
+        }
     }, [file]);
 
     const audioRef = useRef(null);
@@ -34,14 +48,14 @@ const WorkLinesPreview = ({
                 return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' className={hideFileList ? styles.big_pic : ''}/>
             }
             case 'video': {
-                return <video controls src={`${projectSrc}${f.preview}`} type={f.mime_type}>
-                    <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
+                return <video controls src={video ? video : ''} type={f.mime_type} onError={e => console.log(e)}>
+                    <source src={video ? video : ''} type={f.mime_type}/>
                 </video>
             }
             case 'audio': {
                 return <>
-                    <audio controls ref={audioRef} src={`${projectSrc}${f.preview}`}>
-                        <source src={`${projectSrc}${f.preview}`} type={f.mime_type}/>
+                    <audio ref={audioRef} src={audio ? audio : ''} type={f.mime_type} controls onError={e => console.log(e)}>
+                        <source src={audio ? audio : ''} type={f.mime_type} />
                     </audio>
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>
@@ -112,7 +126,15 @@ const WorkLinesPreview = ({
             containerType='bounceDots'
         />}
         <div className={styles.previewFileWrap}>
-            {f ? <>
+            {loading
+                ? <Loader
+                    type='bounceDots'
+                    position='absolute'
+                    background='rgba(0, 0, 0, 0)'
+                    zIndex={5}
+                    containerType='bounceDots'
+                />
+                : f ? <>
                 <div className={styles.preview}>
                     {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
                 </div>
