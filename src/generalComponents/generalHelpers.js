@@ -2,6 +2,7 @@ import html2canvas from "html2canvas";
 import {imageSrc} from "./globalVariables";
 import api from "../api";
 import axios from "axios";
+import {setCookie} from "./StorageHelper";
 const CancelToken = axios.CancelToken;
 
 //set image to requested size with maxWidth && maxHeight params
@@ -117,3 +118,10 @@ export const getMedia = (url, type, set, setLoading) => {
             if(setLoading) setLoading(false);
         })
 }
+
+//Exit Profile
+export const exit = () => {
+    const cookies = document.cookie.split(';');
+    cookies.forEach(cookie => cookie.split('=')[0].trim() === 'uid' ? setCookie(cookie.split('=')[0].trim(), cookie.split('=')[1].trim(), 'Thu, 01 Jan 1970 00:00:00 GMT') : null);
+    window.location.reload();
+};
