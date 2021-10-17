@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import styles from './Profile.module.sass';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuProfile} from '../../../../generalComponents/collections';
-import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
 import {imageSrc} from "../../../../generalComponents/globalVariables";
