@@ -251,6 +251,7 @@ const WorkSpace = ({
                 fileAddCustomization={fileAddCustomization}
                 setFileAddCustomization={setFileAddCustomization}
                 menuItem={menuItem}
+                setGLoader={setGLoader}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}
