@@ -108,14 +108,17 @@ const CustomizeFile = ({
 		};
 
 		if (
-			!data.fName &&
+			!data.fileName &&
 			!data.tag &&
 			!data.color &&
 			!data.symbol &&
 			!data.emoji &&
 			!data.pass
 		)
-			return close();
+			{
+				setLoadingType("")
+				return close()
+			}
 
 		const newFile = {
 			...file,
