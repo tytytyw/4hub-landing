@@ -59,7 +59,7 @@ const ServePanel = ({
     }
     useEffect(() => {
         if(height <= 693 && size === 'big') dispatch(onSetFileSize('medium'))
-    }, [height])
+    }, [height]) //eslint-disable-line
 
     const openContextMenu = (e, type) => {
         const width = type === 'createFile' ? 215 : 180;
