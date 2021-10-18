@@ -62,6 +62,7 @@ const WorkSpace = ({
 	filesPage,
 	setFilesPage,
 	gLoader,
+    setGLoader,
 	menuItem
 }) => {
 	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
@@ -143,6 +144,7 @@ const WorkSpace = ({
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
 					menuItem={menuItem}
+					setGLoader={setGLoader}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars

@@ -5,7 +5,7 @@ import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
-import {imageToRatio, replaceFile, sendFile} from "../../../../generalComponents/generalHelpers";
+import {getMedia, imageToRatio, replaceFile, sendFile} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
     drawBrush, drawCircle, drawSquare, drawText, drawDiv,
@@ -15,9 +15,11 @@ import {
     unDoPaintBrush
 } from "./paintHelpers";
 import {useSelector} from "react-redux";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 const PreviewFile = ({setFilePreview, file}) => {
 
+    const [loading, setLoading] = useState(false)
     const uid = useSelector(state => state.user.uid);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
@@ -51,7 +53,10 @@ const PreviewFile = ({setFilePreview, file}) => {
     const dotRightRef = useRef(null)
     const dotLeftRef = useRef(null)
     const lineRef = useRef(null)
+    const audioRef = useRef(null);
     const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
+    const [audio, setAudio] = useState(null);
+    const [video, setVideo] = useState(null);
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
@@ -110,8 +115,8 @@ const PreviewFile = ({setFilePreview, file}) => {
                 </div>
             }
             case 'video': {
-                return <video controls src={`${projectSrc}${file.preview}`} type={file.mime_type}>
-                    <source src={`${projectSrc}${file.preview}`} type={file.mime_type}/>
+                return <video controls src={video ? video : ''} type={file.mime_type} onError={e => console.log(e)}>
+                    <source src={video ? video : ''} type={file.mime_type}/>
                 </video>
             }
             case 'audio': {
@@ -119,8 +124,8 @@ const PreviewFile = ({setFilePreview, file}) => {
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={`${imageSrc}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
                     </div>
-                    <audio controls src={`${projectSrc}${file.preview}`}>
-                        <source src={`${projectSrc}${file.preview}`} type={file.mime_type}/>
+                    <audio ref={audioRef} src={audio ? audio : ''} type={file.mime_type} controls onError={e => console.log(e)}>
+                        <source src={audio ? audio : ''} type={file.mime_type} />
                     </audio>
                 </div>
             }
@@ -139,13 +144,26 @@ const PreviewFile = ({setFilePreview, file}) => {
             const img = new Image();
             img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
-                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
-                canvasRef.current.width = sizes.width;
-                canvasRef.current.height = sizes.height;
-                canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
-                canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
-                setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
+                if(canvasRef.current) {
+                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
+                    canvasRef.current.width = sizes.width;
+                    canvasRef.current.height = sizes.height;
+                    canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
+                    canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
+                    setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
+                }
             }
+        }
+        if(file.mime_type && file.mime_type.includes('audio') && file.is_preview) {
+            setLoading(true);
+            getMedia(`${projectSrc}${file.preview}`, file.mime_type, setAudio, setLoading)
+        }
+        if(file.mime_type && file.mime_type.includes('video') && file.is_preview) {
+            setLoading(true);
+            getMedia(`${projectSrc}${file.preview}`, file.mime_type, setVideo, setLoading)
+        }
+        return () => {
+            if(window.cancelLoadMedia) window.cancelLoadMedia.cancel()
         }
     }, []); //eslint-disable-line
 
@@ -248,7 +266,19 @@ const PreviewFile = ({setFilePreview, file}) => {
                 onClick={set}
                 onMouseUp={() => setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0}))}
             >
-                {file ? file.is_preview === 1 ? renderFilePreview() : renderOfficePreview() : null}
+                {loading
+                    ? <Loader
+                        type='bounceDots'
+                        position='absolute'
+                        background='rgba(0, 0, 0, 0)'
+                        zIndex={5}
+                        containerType='bounceDots'
+                    />
+                    : file
+                        ? file.is_preview === 1
+                            ? renderFilePreview()
+                            : renderOfficePreview()
+                        : null}
             </div>
         </PopUp>
     );

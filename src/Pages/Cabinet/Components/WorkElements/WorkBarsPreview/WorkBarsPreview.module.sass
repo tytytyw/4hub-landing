@@ -25,6 +25,7 @@
     height: 62%
     min-height: 37vh
     overflow: hidden
+    position: relative
     .noSearchResults
       font-size: 14px
       font-family: "SF Pro Regular", sans-serif
@@ -101,11 +102,26 @@
     position: relative
     transform: scaleY(-1)
     -webkit-transform: scaleY(-1)
+    .rightLine
+      width: 100px
+      height: 100px
+      position: relative
+    .rightLineHidden
+      height: 0
+      width: 0
+      transition: height 1s ease-in-out, width 1s ease-in-out
   .filePreviewWrap
     position: relative
     width: 120px
     height: 140px
-
+.showFilePickWithRecentFiles
+  height: calc(100% - 90px - 55px - 78px - 80px)
+.hideFilePickWithRecentFiles
+  height: calc(100% - 90px - 55px - 78px)
+.showFilePick
+  height: calc(100% - 90px - 55px - 80px)
+.hideFilePick
+  height: calc(100% - 90px - 55px)
 
 @media (max-width: 1420px) 
   .workBarsPreviewWrap
@@ -128,3 +144,12 @@
     .contentImg
       min-width: 80px
       min-height: auto
+@media (max-height: 693px)
+  .showFilePickWithRecentFiles
+    height: calc(100% - 60px - 45px - 48px - 80px)
+  .hideFilePickWithRecentFiles
+    height: calc(100% - 60px - 45px - 48px)
+  .showFilePick
+    height: calc(100% - 60px - 45px - 80px)
+  .hideFilePick
+    height: calc(100% - 60px - 45px)

@@ -3,14 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
-// TODO - small loader doesn't represent itself correctly
-// TODO - set vertical loading instead horizontal
+import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
+import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
+import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
+
 const WorkBarsPreview = ({
-    children, file, filePick, page, setPage, fileRef, chosenFolder,
-    gLoader
+    children, file, filePick, fileRef,
+    gLoader, filesPage, setFilesPage
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -18,8 +19,12 @@ const WorkBarsPreview = ({
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
     const fileList = useSelector(state => state.Cabinet.fileList);
+    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
+    const [audio, setAudio] = useState(null);
+    const [video, setVideo] = useState(null);
+    const [loading, setLoading] = useState(false);
     const innerFilesHeight = () => {
         switch(size) {
             case 'small': return '106px';
@@ -31,49 +36,64 @@ const WorkBarsPreview = ({
     useEffect(() => {
         setF(file);
         setPlay(false)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [file]);
+        if(file) {
+            if(file?.mime_type && file.mime_type.includes('audio') && file.is_preview) {
+                setLoading(true);
+                getMedia(`${projectSrc}${file.preview}`, file.mime_type, setAudio, setLoading)
+            }
+            if(file?.mime_type && file.mime_type.includes('video') && file.is_preview) {
+                setLoading(true);
+                getMedia(`${projectSrc}${file.preview}`, file.mime_type, setVideo, setLoading)
+            }
+        }
+    }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
 
-    // Loading files to full the page
-    useEffect(() => {onCheckFilesPerPage()}, [size, page, chosenFolder?.files_amount]) // eslint-disable-line
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
-        result > 0 ? setPage(page => page + 1) : setPage(0);
+        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
-    const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && page > 0) {
-            if(chosenFolder?.files_amount > fileList?.files.length) {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ''));
-            }
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    }
+
+    const load = (entry) => {
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
+            setLoadingFiles(true);
+            dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
+        }
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+            setLoadingFiles(true);
+            dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
         }
     }
 
-    const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight === fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-            loadFiles('', true);
-        }
-    }
+    const [containerRef] = useScrollElementOnScreen(options, load);
 
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={f.preview} alt='filePrieview' />
+                return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
             }
             case 'video': {
-                return <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
-                    <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                return <video controls src={video ? video : ''} type={f.mime_type} onError={e => console.log(e)}>
+                    <source src={video ? video : ''} type={f.mime_type}/>
                 </video>
             }
             case 'audio': {
                 return <>
-                    <audio controls ref={audioRef} src={`https://fs2.mh.net.ua${f.preview}`}>
-                        <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}/>
+                    <audio ref={audioRef} src={audio ? audio : ''} type={f.mime_type} controls onError={e => console.log(e)}>
+                        <source src={audio ? audio : ''} type={f.mime_type} />
                     </audio>
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={imageSrc + 'assets/PrivateCabinet/file-preview_audio.svg'} alt='audio'/>
@@ -88,16 +108,24 @@ const WorkBarsPreview = ({
         }
     }
 
+
+    useEffect(() => {
+        return () => {
+            if(window.cancelLoadMedia) window.cancelLoadMedia.cancel()
+        }
+    }, [])
+
     return (<div
-        className={styles.workBarsPreviewWrap}
-        style={{height: `${recentFiles?.length > 0
-                ? filePick.show
-                    ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                    : 'calc(100% - 90px - 55px - 78px)'
-                : filePick.show
-                    ? 'calc(100% - 90px - 55px - 80px)'
-                    : 'calc(100% - 90px - 55px)'
-            }`,
+        className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+        style={{
+            // height: `${recentFiles?.length > 0
+            //     ? filePick.show
+            //         ? 'calc(100% - 90px - 55px - 78px - 80px)'
+            //         : 'calc(100% - 90px - 55px - 78px)'
+            //     : filePick.show
+            //         ? 'calc(100% - 90px - 55px - 80px)'
+            //         : 'calc(100% - 90px - 55px)'
+            // }`,
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'
@@ -116,30 +144,42 @@ const WorkBarsPreview = ({
                     className={styles.noSearchResults}
                 >Нет элементов удовлетворяющих условиям поиска</div>
                 : null}
-            {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
+            {loading
+                ? <Loader
+                    type='bounceDots'
+                    position='absolute'
+                    background='rgba(0, 0, 0, 0)'
+                    zIndex={5}
+                    containerType='bounceDots'
+                />
+                : f
+                    ? f.is_preview === 1
+                        ? renderFilePreview()
+                        : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div>
+                    : null}
         </div>
         
         <div className={styles.renderedFiles}>
             <div
                 ref={fileRef}
                 className={styles.innerFiles}
-                onScroll={loadFiles}
             >
                 {!gLoader && children}
-            </div>
-            <div
-                className={styles.bottomLine}
-                style={{width: loadingFiles ? '100px' : '40px'}}
-            >
-                {loadingFiles && !gLoader ? <Loader
-                    type='bounceDots'
-                    position='absolute'
-                    background='white'
-                    zIndex={5}
-                    width='100px'
-                    height='100px'
-                    containerType='bounceDots'
-                /> : null}
+                {!gLoader ? <div
+                    className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ''}`}
+                    style={{height: '100%'}}
+                    ref={containerRef}
+                >
+                    <Loader
+                        type='bounceDots'
+                        position='absolute'
+                        background='white'
+                        zIndex={5}
+                        width='100px'
+                        height='100px'
+                        containerType='bounceDots'
+                    />
+                </div> : null}
             </div>
         </div>
         {gLoader ? <Loader

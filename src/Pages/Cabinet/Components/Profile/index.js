@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import styles from './Profile.module.sass';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {contextMenuProfile} from '../../../../generalComponents/collections';
-import {setCookie} from '../../../../generalComponents/StorageHelper';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
 import {imageSrc} from "../../../../generalComponents/globalVariables";
+import {exit} from "../../../../generalComponents/generalHelpers";
 
 const Profile = () => {
 
@@ -14,12 +14,6 @@ const Profile = () => {
     const [mouseParams, setMouseParams] = useState(null);
     const profileRef = useRef();
     const history = useHistory();
-
-    const exit = () => {
-        const cookies = document.cookie.split(';');
-        cookies.forEach(cookie => cookie.split('=')[0].trim() === 'uid' ? setCookie(cookie.split('=')[0].trim(), cookie.split('=')[1].trim(), 'Thu, 01 Jan 1970 00:00:00 GMT') : null);
-        window.location.reload();
-    };
 
     const openProfile = () => history.replace('/personal-data');
     const openSupport = () => history.replace('/support');

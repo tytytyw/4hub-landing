@@ -35,8 +35,9 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const ServePanel = ({
-         chosenFile, setAction, archive, share, chooseSeveral, filePick,
-        setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile, menuItem
+        chosenFile, setAction, archive, share, chooseSeveral, filePick,
+        setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
+        addFolder, addFile, menuItem, setGLoader
 }) => {
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
@@ -63,9 +64,10 @@ const ServePanel = ({
     }
 
     const setFilter = (sorting) => {
+        if(setGLoader) setGLoader(true);
         dispatch(onSortFile(sorting));
-        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader))
+        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', setGLoader))
     };
 
     const createFile = (ext) => {

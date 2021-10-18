@@ -37,7 +37,7 @@ const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
-       setShowSuccessMessage, setLoadingType, gLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
+       setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
        setFilesPage, menuItem
 }) => {
 
@@ -251,6 +251,7 @@ const WorkSpace = ({
                 fileAddCustomization={fileAddCustomization}
                 setFileAddCustomization={setFileAddCustomization}
                 menuItem={menuItem}
+                setGLoader={setGLoader}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}

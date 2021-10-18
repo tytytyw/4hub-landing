@@ -4,9 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from './WorkLines.module.sass';
 import {onChooseFiles, onChooseAllFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
+import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkLines = ({
-       children, filePick, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
+       children, filePick, filesPage, setFilesPage, fileRef, gLoader
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
@@ -17,44 +19,39 @@ const WorkLines = ({
     const [loadingFiles, setLoadingFiles] = useState(false);
     const dispatch = useDispatch();
 
-    // Loading files to full the filesPage
-    useEffect(() => {onCheckFilesPerPage()}, [size, filesPage, chosenFolder?.files_amount, fileList?.files?.length]) // eslint-disable-line
+    useEffect(() => {
+        setLoadingFiles(false);
+    }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
         setLoadingFiles(false);
         result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
     }
 
-    const loadFiles = (e, access) => {
-        if(!loadingFiles && ((e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop) || access) && filesPage > 0) {
-            if(chosenFolder?.files_amount > fileList?.files.length) {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-            } else if (window.location.pathname.includes('files')){
-                setLoadingFiles(true);
-                dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''))
-            }
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    }
+
+    const load = (entry) => {
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
+            setLoadingFiles(true);
+            dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
+        }
+        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+            setLoadingFiles(true);
+            dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
         }
     }
 
-    const onCheckFilesPerPage = () => {
-        if(fileRef?.current && fileRef?.current?.offsetHeight + 50 >= fileRef?.current?.scrollHeight&& fileList?.path === chosenFolder?.path) {
-            loadFiles('', true);
-        }
-    }
+    const [containerRef] = useScrollElementOnScreen(options, load);
 
     return(
         <div
             ref={fileRef}
-            className={styles.workLinesWrap}
-            style={{height: `${recentFiles?.length > 0
-                    ? filePick.show
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick.show
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                }`,
+            className={`${styles.workLinesWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+            style={{
                 gridTemplateColumns: size === 'small'
                     ? 'repeat(auto-fill, 118px)'
                     : size === 'medium'
@@ -66,7 +63,6 @@ const WorkLines = ({
                         ? '160px'
                         : '205px',
             }}
-            onScroll={loadFiles}
         >
             {children?.length === 0 && search.length !== 0
                 ? <div
@@ -82,7 +78,8 @@ const WorkLines = ({
             /> : children}
             <div
                 className={styles.bottomLine}
-                style={{height: loadingFiles ? '100px' : '40px'}}
+                style={{height: '100px'}}
+                ref={containerRef}
             >
                 {loadingFiles && !gLoader ? <Loader
                     type='bounceDots'

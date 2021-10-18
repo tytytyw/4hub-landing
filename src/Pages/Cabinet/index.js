@@ -28,6 +28,7 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import BusinessPopup from "./Components/Business/BusinessPopup";
+import {exit} from "../../generalComponents/generalHelpers";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
@@ -57,6 +58,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const stayOnline = (time) => {
         setTimeout(() => {
             api.post(`ajax/user_alive.php?uid=${uid}`)
+                .then(res => {if(res.data?.is_block) exit()})
                 .finally(() => stayOnline(60000));
         }, time)
     }

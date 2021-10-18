@@ -18,6 +18,8 @@ import CreateSafePassword from "../CreateSafePassword";
 import PreviewFile from "../PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import Loader from "../../../../generalComponents/Loaders/4HUB";
+import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 
 const MyFiles = ({
 	filePreview,
@@ -45,6 +47,7 @@ const MyFiles = ({
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
+	const search = useSelector(state => state.Cabinet.search);
 
 	const [gLoader, setGLoader] = useState(false);
 
@@ -326,7 +329,7 @@ const MyFiles = ({
 	};
 	useEffect(() => {
 		setMenuItem("myFiles");
-		setFilesPage(1);
+		setFilesPage(0);
 		dispatch(onChooseAllFiles("global/all", "", 1, "", setGLoader));
 		return () => setMenuItem("");
 	}, []); //eslint-disable-line
@@ -344,6 +347,27 @@ const MyFiles = ({
 		nullifyAction();
 	};
 
+	const [loadingFilesLocal, setLoadingFilesLocal] = useState(false)
+	const onSuccessLoading = (result) => {
+		setLoadingFilesLocal(false);
+		result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+	}
+
+	const options = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0
+	}
+
+	const load = (entry) => {
+		if(entry.isIntersecting && !loadingFilesLocal && filesPage !== 0 && window.location.pathname.includes('files')){
+			setLoadingFilesLocal(true);
+			dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+		}
+	}
+
+	const [containerRef] = useScrollElementOnScreen(options, load);
+
 	return (
 		<div className={styles.workAreaWrap}>
 			{workElementsView === "workLinesPreview" && (
@@ -356,7 +380,24 @@ const MyFiles = ({
 					chosenFile={chosenFile}
 					setChosenFile={setChosenFile}
 				>
-					<div className={styles.folderListWrap}>{renderFileBar()}</div>
+					<div className={styles.folderListWrap}>
+						{renderFileBar()}
+						{!gLoader ? <div
+							className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
+							style={{height: '100px'}}
+							ref={containerRef}
+						>
+							<Loader
+								type='bounceDots'
+								position='absolute'
+								background='white'
+								zIndex={5}
+								width='100px'
+								height='100px'
+								containerType='bounceDots'
+							/>
+						</div> : null}
+					</div>
 				</List>
 			)}
 			<WorkSpace
