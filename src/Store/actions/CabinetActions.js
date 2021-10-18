@@ -41,9 +41,13 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE, SET_SELECTED_USER,
-    CHOOSE_ARCHIVE_FILES
+    SET_FILES_PATH,
+    CHOOSE_GUEST_SHARED_FILES,
+    NULLIFY_FILTERS,
+    SET_SELECTED_DEVICE,
+    SET_SELECTED_USER,
+    CHOOSE_ARCHIVE_FILES,
+    SET_DRAGGED
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -871,3 +875,10 @@ export const onGetArchiveFiles  = (day, mounth) => async (dispatch, getState) =>
         console.log(e);
     }
 }
+
+export const setDragged = (element) => {
+    return {
+        type: SET_DRAGGED,
+        payload: element
+    }
+};

@@ -1,14 +1,16 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
+import {setDragged} from "../../../../../Store/actions/CabinetActions";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
+    const dispatch = useDispatch();
 
     const onPickFile = () => {
         if(filePick.show) {
@@ -19,6 +21,10 @@ const FileBar = ({
     }
 
     const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file});
+
+    const handleDragStart = () => {
+        dispatch(setDragged(file));
+    }
 
     return (
         <>
@@ -31,6 +37,8 @@ const FileBar = ({
                 `}
                 onClick={onPickFile}
                 onDoubleClick={handleDoubleClick}
+                draggable={window.location.pathname === '/'}
+                onDragStart={handleDragStart}
             >
                 <div
                     className={styles.menu}

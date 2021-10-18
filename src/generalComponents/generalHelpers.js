@@ -136,3 +136,12 @@ export const renderHeight = (recentFiles, filePick, styles) => (
         ? styles.showFilePick
         : styles.hideFilePick
 )
+
+//Moves file to another folder
+export const moveFile = (folder, file, uid) => {
+    return api.post(`/ajax/file_move.php?uid=${uid}&fid=${file.fid}&dir=${folder.path}&parent=${file.gdir}`)
+        .then(res => {
+            return !!res.data.ok
+        })
+        .catch(() => false);
+}
