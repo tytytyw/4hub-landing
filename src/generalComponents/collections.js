@@ -158,7 +158,6 @@ export const contextMenuSafeItem = {
 // Programs
 export const contextProgramFolder = {
     main: [
-        {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
         {name: 'Скопировать ссылку', img: 'link-4'},
         {name: 'Редактировать файл', img: 'edit'},
@@ -166,7 +165,7 @@ export const contextProgramFolder = {
         {name: 'Свойства', img: 'info'},
     ],
     additional: [
-        {name: 'Удалить файл', img: 'garbage'}
+        {name: 'Удалить', img: 'garbage'}
     ]
 }
 
@@ -177,7 +176,7 @@ export const contextProgram = {
         {name: 'Скопировать ссылку', img: 'link-4'},
     ],
     additional: [
-        {name: 'Удалить файл', img: 'garbage'}
+        {name: 'Удалить', img: 'garbage'}
     ]
 }
 
