@@ -15,7 +15,7 @@ import {contextMenuDevice, contextMenuDeviceUser} from "../../../../generalCompo
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem"
 import {
     onGetConnectedContacts,
-    onGetDevices,
+    onGetDevices, setDevices,
     setSelectedDevice,
     setSelectedUser
 } from "../../../../Store/actions/CabinetActions"
@@ -23,6 +23,7 @@ import ConnectedContacts from "./ConnectedContacts"
 import SuccessPopup from "../Business/SuccessPopup";
 import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
 import api from "../../../../api";
+import OptionButtomLine from "./OptionButtomLine";
 
 const Devices = ({
                setItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -32,6 +33,7 @@ const Devices = ({
     const dispatch = useDispatch()
     const devices = useSelector(state => state.Cabinet.devices)
     const size = useSelector(state => state.Cabinet.size);
+    const uid = useSelector(state => state.user.uid);
 
     const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
     const selectedUser = useSelector(state => state.Cabinet.selectedUser)
@@ -49,6 +51,8 @@ const Devices = ({
     const [action, setAction] = useState({type: '', name: '', text: ''})
 
     const [successBlocked, setSuccessBlocked] = useState(false)
+    const [multiple, setMultiple] = useState(false)
+    const [selectedDevices, setSelectedDevices] = useState([])
 
     //Clear action on change folder
     useEffect(() => {
@@ -57,18 +61,35 @@ const Devices = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const multipleSelect = dev => {
+        if (selectedDevices.includes(dev.id)) {
+            setSelectedDevices(selectedDevices.filter(i => i !== dev.id))
+        } else {
+            setSelectedDevices([...selectedDevices, dev.id])
+        }
+    }
+
     const renderDevicesList = () => {
         if(!devices) return null;
         return devices.map((dev, i) => {
+            if (dev?.is_block === '1') {
+                return null
+            }
             return <DeviceItem
                 key={i + dev.name}
                 device={dev}
+                selectedDevices={selectedDevices}
                 listSize={size}
-                chosen={selectedDevice?.id === dev.id}
+                chosen={selectedDevice?.id === dev.id || selectedDevices.includes(dev.id)}
                 setMouseParams={setMouseParams}
                 onClick={() => {
-                    dispatch(setSelectedUser(null))
-                    dispatch(setSelectedDevice(dev))
+                    if (multiple) {
+                        multipleSelect(dev)
+                        dispatch(setSelectedDevice(null))
+                    } else {
+                        dispatch(setSelectedUser(null))
+                        dispatch(setSelectedDevice(dev))
+                    }
                 }}
                 listCollapsed={listCollapsed}
             />
@@ -77,18 +98,38 @@ const Devices = ({
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
+    const onMultipleBlock = () => {
+        const formData = new FormData()
+        formData.append('id_device', JSON.stringify(selectedDevices))
+        api.post(`/ajax/devices_block.php`, formData, {
+            params: {uid}
+        })
+            .then(() => {
+                setSuccessBlocked(true)
+                dispatch(setDevices(devices.filter(i => !selectedDevices.includes(i.id))))
+                setSelectedDevices([])
+            })
+    }
+
     const blockItem = () => {
         if (selectedDevice) {
-            api.post(`/ajax/devices_block.php?id_device=${selectedDevice.id}`)
+            const formData = new FormData()
+            formData.append('id_device', JSON.stringify([selectedDevice.id]))
+            api.post(`/ajax/devices_block.php`, formData, {
+                params: {uid}
+            })
                 .then(() => {
                     setSuccessBlocked(true)
+                    dispatch(setDevices(devices.filter(i => i.id !== selectedDevice.id)))
                 })
         } else {
             api.post(`/ajax/devices_users_del.php?id_user_to=${selectedUser.id_user}`)
                 .then(() => {
                     setSuccessBlocked(true)
+                    dispatch(onGetConnectedContacts())
                 })
         }
+
     }
 
     const renderMenuItems = (target, type) => {
@@ -99,7 +140,18 @@ const Devices = ({
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
-                callback={item.type === 'disconnectItem' && blockItem}
+                callback={() => {
+                    // eslint-disable-next-line default-case
+                    switch (item.type) {
+                        case 'disconnectItem':
+                            blockItem()
+                            break;
+                        case 'disconnectAllItem':
+                            setMultiple(true)
+                            setSelectedDevices([...selectedDevices, selectedDevice.id])
+                            break;
+                    }
+                }}
                 imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
             />
         })
@@ -134,6 +186,16 @@ const Devices = ({
                         setMouseParams={setMouseParams}
                     />
                 </div>
+                {multiple &&
+                <OptionButtomLine
+                    selectedDevices={selectedDevices}
+                    setSelectedDevices={setSelectedDevices}
+                    onCancel={() => {
+                        setSelectedDevices([])
+                        setMultiple(false)
+                    }}
+                    onSubmit={onMultipleBlock}
+                />}
             </List>
             <WorkSpace
                 chosenFolder={chosenFolder}
@@ -175,7 +237,7 @@ const Devices = ({
             />}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} /> : null}
             {mouseParams !== null &&
-                <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+            <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
                 <div className={styles.mainMenuItems}>
                     {renderMenuItems(mouseParams.type === 'user' ? contextMenuDeviceUser.main : contextMenuDevice.main, callbackArrMain)}
                 </div>
