@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import styles from './ServePanel.module.sass';
@@ -33,12 +33,14 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import Colors from "../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
+import {useWindowSize} from "../../../../generalComponents/Hooks";
 
 const ServePanel = ({
         chosenFile, setAction, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, menuItem, setGLoader
 }) => {
+    const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
     // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
@@ -51,10 +53,13 @@ const ServePanel = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
     const changeSize = (s) => {
-        const sizes = ['small', 'medium', 'big'];
+        const sizes = window.innerHeight > 693 ? ['small', 'medium', 'big'] : ['small', 'medium'];
         if(s === sizes[sizes.length - 1]) return sizes[0]
         return sizes[sizes.indexOf(s) + 1];
     }
+    useEffect(() => {
+        if(height <= 693 && size === 'big') dispatch(onSetFileSize('medium'))
+    }, [height])
 
     const openContextMenu = (e, type) => {
         const width = type === 'createFile' ? 215 : 180;
