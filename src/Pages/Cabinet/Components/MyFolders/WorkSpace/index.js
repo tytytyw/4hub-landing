@@ -30,7 +30,7 @@ import OptionButtomLine from '../../WorkElements/OptionButtomLine';
 import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProperty';
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
-import CopyLink from '../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink';
+import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const WorkSpace = ({
@@ -51,7 +51,6 @@ const WorkSpace = ({
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
-    const [showLinkCopy, setShowLinkCopy] = useState(false);
     const fileRef = useRef(null);
 
     useEffect(() => {
@@ -65,7 +64,7 @@ const WorkSpace = ({
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => setShowLinkCopy(true)},
+        {type: 'copyLink', name: '', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => setFilePick({...filePick, show: true})},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
@@ -376,7 +375,10 @@ const WorkSpace = ({
             scrolling='no'
             id='frame'
         />
-        {showLinkCopy && <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy}/>}
+        {action.type === 'copyLink' ? <CopyLinkShare
+                nullifyAction={nullifyAction}
+                setShowSuccessMessage={setShowSuccessMessage}
+            /> : null}
     </>)
 }
 

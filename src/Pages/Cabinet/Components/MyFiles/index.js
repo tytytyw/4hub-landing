@@ -60,7 +60,6 @@ const MyFiles = ({
 	const fileRef = useRef(null);
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
 	const [mouseParams, setMouseParams] = useState(null);
-	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -77,7 +76,7 @@ const MyFiles = ({
 			type: "copyLink",
 			name: "",
 			text: ``,
-			callback: () => setShowLinkCopy(true),
+			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
@@ -421,8 +420,6 @@ const MyFiles = ({
 				fileSelect={fileSelect}
 				filePick={filePick}
 				setFilePick={setFilePick}
-				setShowLinkCopy={setShowLinkCopy}
-				showLinkCopy={showLinkCopy}
 				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
 				cancelArchive={cancelArchive}
