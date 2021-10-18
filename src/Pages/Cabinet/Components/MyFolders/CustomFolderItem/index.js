@@ -10,13 +10,17 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {moveFile} from "../../../../../generalComponents/generalHelpers";
 
-const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
-                           setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage
+const CustomFolderItem = ({
+      f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setError,
+      setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
+
 }) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
+    const draggedFile = useSelector(state => state.Cabinet.dragged);
     const folderList = useSelector(state => state.Cabinet.folderList);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
@@ -75,6 +79,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
+                setError={setError}
             />
         })
     };
@@ -105,10 +110,18 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         setNewFolder(true);
     };
 
+    const handleDrop = async () => {
+        await moveFile(f, draggedFile, uid)
+            .then(result => {
+                if(!result) setError(state => ({...state, isError: true, message: 'Файл не был перемещен'}))
+            })
+    }
+
     return (<>
         <div
             className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path || f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
             onClick={clickHandle}
+            onDrop={handleDrop}
         >
             <div className={styles.innerFolder} style={{padding}}>
                 <div className={styles.innerFolderName}>

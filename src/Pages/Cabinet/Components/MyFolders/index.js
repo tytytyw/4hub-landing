@@ -105,6 +105,7 @@ const MyFolders = ({
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
+                setError={setError}
             />
         })
     };

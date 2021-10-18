@@ -6,7 +6,7 @@ import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFolder, onChooseFiles, onSetPath, setDragged} from '../../../../../Store/actions/CabinetActions';
+import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/CabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";
@@ -72,6 +72,7 @@ const FolderItem = ({
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
+                setError={setError}
             />
         })
     };
