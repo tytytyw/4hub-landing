@@ -6,7 +6,6 @@
   overflow: hidden
   box-sizing: border-box
   position: relative
-
   .fileListWrap
     display: flex
     align-items: center
@@ -42,6 +41,7 @@
     justify-content: center
     flex-grow: 1
     height: 100%
+    position: relative
     &::-webkit-scrollbar-track
       background: #0A3AAB
     &::-webkit-scrollbar-track
@@ -149,6 +149,14 @@
     position: relative
     width: 120px
     height: 140px
+.showFilePickWithRecentFiles
+  height: calc(100% - 90px - 55px - 78px - 80px)
+.hideFilePickWithRecentFiles
+  height: calc(100% - 90px - 55px - 78px)
+.showFilePick
+  height: calc(100% - 90px - 55px - 80px)
+.hideFilePick
+  height: calc(100% - 90px - 55px)
 
 @media (max-width: 1439px)
   .workLinesPreviewWrap
@@ -158,7 +166,7 @@
       height: 75px
     
     .previewFileWrap
-      display: block
+      display: flex
       box-sizing: border-box
       padding: 30px 0 20px 0
       flex-grow: 1
@@ -173,11 +181,29 @@
         .itemName
           font-size: 13px
         .description
-          font-size: 13px  
-
+          font-size: 13px
+@media (max-height: 693px)
+  .showFilePickWithRecentFiles
+    height: calc(100% - 60px - 45px - 48px - 80px)
+  .hideFilePickWithRecentFiles
+    height: calc(100% - 60px - 45px - 48px)
+  .showFilePick
+    height: calc(100% - 60px - 45px - 80px)
+  .hideFilePick
+    height: calc(100% - 60px - 45px)
 
 @media (max-height: 600px)
   .workLinesPreviewWrap
-
     .previewFileWrap
-      padding: 20px 0
+      padding: 0
+      .preview
+        video
+          max-width: 70%
+          max-height: 80%
+        .audioPicWrap
+          width: 80%
+          height: 80%
+          .audioPic
+            max-width: 50%
+            max-height: 90%
+            height: 90%

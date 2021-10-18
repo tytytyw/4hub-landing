@@ -1,6 +1,9 @@
 import html2canvas from "html2canvas";
 import {imageSrc} from "./globalVariables";
 import api from "../api";
+import axios from "axios";
+import {setCookie} from "./StorageHelper";
+const CancelToken = axios.CancelToken;
 
 //set image to requested size with maxWidth && maxHeight params
 export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
@@ -8,8 +11,6 @@ export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
 
     if(width > maxWidth){
         ratio = maxWidth / width;   // get ratio for scaling image
-        // $(this).css("width", maxWidth); // Set new width
-        // $(this).css("height", height * ratio);  // Scale height based on ratio
         height = height * ratio;    // Reset height to match scaled image
         width = width * ratio;    // Reset width to match scaled image
     }
@@ -17,8 +18,6 @@ export function imageToRatio(width, height, maxWidth = 100, maxHeight = 100) {
     // Check if current height is larger than max
     if(height > maxHeight){
         ratio = maxHeight / height; // get ratio for scaling image
-        // $(this).css("height", maxHeight);   // Set new height
-        // $(this).css("width", width * ratio);    // Scale width based on ratio
         width = width * ratio;    // Reset width to match scaled image
         height = height * ratio;    // Reset height to match scaled image
     }
@@ -100,3 +99,40 @@ export const sendFile = async (uid, file) => {
         .then(res => console.log(res))
         .catch(e => console.log(e))
 }
+
+//loading media to play (after problems with Safari)
+export const getMedia = (url, type, set, setLoading) => {
+    const cancelLoadMedia = CancelToken.source();
+    window.cancellationTokens = {cancelLoadMedia}
+    api.get(url, {
+        responseType: 'blob',
+        cancelToken: cancelLoadMedia.token
+    })
+        .then(res => {
+            const blob = new Blob([res.data], {type})
+            let objectURL = URL.createObjectURL(blob);
+            set(objectURL);
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+            if(setLoading) setLoading(false);
+        })
+}
+
+//Exit Profile
+export const exit = () => {
+    const cookies = document.cookie.split(';');
+    cookies.forEach(cookie => cookie.split('=')[0].trim() === 'uid' ? setCookie(cookie.split('=')[0].trim(), cookie.split('=')[1].trim(), 'Thu, 01 Jan 1970 00:00:00 GMT') : null);
+    window.location.reload();
+};
+
+//Count height of fields for files (WorkBars, WorkLines, WorkBarsPreview, WorkLinesPreview)
+export const renderHeight = (recentFiles, filePick, styles) => (
+    recentFiles?.length > 0
+        ? filePick.show
+        ? styles.showFilePickWithRecentFiles
+        : styles.hideFilePickWithRecentFiles
+        : filePick.show
+        ? styles.showFilePick
+        : styles.hideFilePick
+)

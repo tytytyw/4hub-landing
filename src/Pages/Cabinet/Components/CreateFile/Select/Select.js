@@ -15,7 +15,9 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
     const [chosenFolder, setChosenFolder] = useState(initFolder);
     const ref = useRef()
 
-    useEffect(() => setPath(chosenFolder.subPath || chosenFolder.path), [chosenFolder]) //eslint-disable-line
+    useEffect(() => {
+        setPath(chosenFolder.subPath || chosenFolder.path)
+    }, [chosenFolder]) //eslint-disable-line
 
     const renderStandardFolderList = () => {
         if(!global) return null;
@@ -27,6 +29,7 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === el.path}
                 disableAddFolder={true}
+                offDispatch={true}
             />
         })
     };
@@ -42,6 +45,7 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
                 chosen={chosenFolder.path === folder.path}
                 padding={'0px 10px 0px 26px'}
                 subFolder={false}
+                offDispatch={true}
             />
         })
     };
@@ -55,16 +59,6 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
         window.addEventListener('click', onClick)
         return () => window.removeEventListener('click', onClick)
     }, [])
-
-    // const getValue = () => {
-
-    //     if (!value) {
-    //         return props.placeholder
-    //     }
-
-    //     const valueItem = data.find(item => item?.id === value)
-    //     return valueItem?.text
-    // }
 
     return (
         <div

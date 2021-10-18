@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 export function useDebounce(callback, delay) {
     const timer = useRef();
@@ -36,4 +36,17 @@ export const useScrollElementOnScreen = (options, cb) => {
     }, [containerRef, options]) //eslint-disable-line
 
     return [containerRef, isVisible]
+}
+
+export const useWindowSize = () => {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        function updateSize() {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
 }

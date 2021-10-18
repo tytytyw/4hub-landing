@@ -7,6 +7,7 @@ import {onChooseFiles, onChooseAllFiles} from '../../../../../Store/actions/Cabi
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import Loader from '../../../../../generalComponents/Loaders/4HUB';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
+import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkBars = ({
           children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef,
@@ -52,15 +53,8 @@ const WorkBars = ({
     return (
         <div
             ref={fileRef}
-            className={styles.workBarsWrap}
-            style={{height: `${recentFiles?.length > 0 
-                    ? filePick.show 
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick.show 
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                    }`,
+            className={`${styles.workBarsWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+            style={{
                 gridTemplateColumns: size === 'small'
                     ? 'repeat(auto-fill, minmax(118px, 1fr))'
                     : size === 'medium'
