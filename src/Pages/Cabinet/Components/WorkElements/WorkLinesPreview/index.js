@@ -7,12 +7,13 @@ import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
-import {getMedia} from "../../../../../generalComponents/generalHelpers";
+import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filesPage, setFilesPage, fileRef, chosenFolder, gLoader
+      file, children, hideFileList, filesPage, setFilesPage, fileRef, filePick, gLoader
 }) => {
 
+    const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [loadingFiles, setLoadingFiles] = useState(false);
@@ -96,7 +97,7 @@ const WorkLinesPreview = ({
 
     return (
         <div
-            className={styles.workLinesPreviewWrap}
+            className={`${styles.workLinesPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
         >
         {!hideFileList && <div
             className={styles.fileListWrap}

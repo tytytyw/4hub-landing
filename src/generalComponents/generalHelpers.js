@@ -125,3 +125,14 @@ export const exit = () => {
     cookies.forEach(cookie => cookie.split('=')[0].trim() === 'uid' ? setCookie(cookie.split('=')[0].trim(), cookie.split('=')[1].trim(), 'Thu, 01 Jan 1970 00:00:00 GMT') : null);
     window.location.reload();
 };
+
+//Count height of fields for files (WorkBars, WorkLines, WorkBarsPreview, WorkLinesPreview)
+export const renderHeight = (recentFiles, filePick, styles) => (
+    recentFiles?.length > 0
+        ? filePick.show
+        ? styles.showFilePickWithRecentFiles
+        : styles.hideFilePickWithRecentFiles
+        : filePick.show
+        ? styles.showFilePick
+        : styles.hideFilePick
+)

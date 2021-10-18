@@ -7,7 +7,7 @@ import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/Cabi
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
-import {getMedia} from "../../../../../generalComponents/generalHelpers";
+import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef,
@@ -116,15 +116,16 @@ const WorkBarsPreview = ({
     }, [])
 
     return (<div
-        className={styles.workBarsPreviewWrap}
-        style={{height: `${recentFiles?.length > 0
-                ? filePick.show
-                    ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                    : 'calc(100% - 90px - 55px - 78px)'
-                : filePick.show
-                    ? 'calc(100% - 90px - 55px - 80px)'
-                    : 'calc(100% - 90px - 55px)'
-            }`,
+        className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+        style={{
+            // height: `${recentFiles?.length > 0
+            //     ? filePick.show
+            //         ? 'calc(100% - 90px - 55px - 78px - 80px)'
+            //         : 'calc(100% - 90px - 55px - 78px)'
+            //     : filePick.show
+            //         ? 'calc(100% - 90px - 55px - 80px)'
+            //         : 'calc(100% - 90px - 55px)'
+            // }`,
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'

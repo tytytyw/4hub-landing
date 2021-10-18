@@ -5,6 +5,7 @@ import styles from './WorkLines.module.sass';
 import {onChooseFiles, onChooseAllFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
+import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkLines = ({
        children, filePick, filesPage, setFilesPage, fileRef, gLoader
@@ -49,15 +50,8 @@ const WorkLines = ({
     return(
         <div
             ref={fileRef}
-            className={styles.workLinesWrap}
-            style={{height: `${recentFiles?.length > 0
-                    ? filePick.show
-                        ? 'calc(100% - 90px - 55px - 78px - 80px)'
-                        : 'calc(100% - 90px - 55px - 78px)'
-                    : filePick.show
-                        ? 'calc(100% - 90px - 55px - 80px)'
-                        : 'calc(100% - 90px - 55px)'
-                }`,
+            className={`${styles.workLinesWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+            style={{
                 gridTemplateColumns: size === 'small'
                     ? 'repeat(auto-fill, 118px)'
                     : size === 'medium'
