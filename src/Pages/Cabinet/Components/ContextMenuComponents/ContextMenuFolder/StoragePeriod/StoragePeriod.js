@@ -14,7 +14,6 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 	const [showCalendar, setShowCalendar] = useState(false);
 	const [hours, setHours] = useState(timeValue.hours);
     const [minutes, setMinutes] = useState(timeValue.minutes);
-	const [seconds, setSeconds] = useState(timeValue.seconds);
     const onTime = (val, set, limit) => {
         if(/[0-9]/.test(val) || val.length === 0) {
             if(val.length < 3) val < limit ? set(val) : set(val[0]);
@@ -22,10 +21,10 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
     };
 	useEffect(() => {
 		return(() => {
-			setTimeValue({hours, minutes, seconds})
+			setTimeValue({hours, minutes})
 			if (hours && !dateValue) setDateValue(new Date().toLocaleDateString('ru'))
 		})
-	}, [hours, minutes, seconds]) // eslint-disable-line react-hooks/exhaustive-deps
+	}, [hours, minutes]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const onDateChange = (e) => {
         let val = e.target.value.trim();
@@ -121,8 +120,6 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 					<input className={styles.time_count} type='text' placeholder='ЧЧ' value={hours} onChange={(e) => onTime(e.target.value, setHours, 24)} />
 					<span>:</span>
 					<input className={styles.time_count} type='text' placeholder='ММ' value={minutes} onChange={(e) => onTime(e.target.value, setMinutes, 60)} />
-					<span>:</span>
-					<input  className={styles.time_count} type='text' placeholder='СС' value={seconds} onChange={(e) => onTime(e.target.value, setSeconds, 60)} />
 				</div>
 			</div>
 			<p className={classNames(styles.hint, styles.border_bottom)}>

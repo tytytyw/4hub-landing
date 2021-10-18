@@ -57,23 +57,26 @@ const ShareToMessengers = ({setDisplayMessengers}) => {
                         <span className={styles.info}>Поделиться с помощью:</span>
                     </div>
                     <div className={styles.socials}>
-                        {messengersData.map((item, index) => (
-                            <li
-                                onClick={() => setSelectedSoc(item?.type)}
-                                className={classNames({
-                                    [styles.socialsItem]: true,
-                                    [styles.active]: selectedSoc === item?.type
-                                })}
-                                key={index}
-                            >
-                                <img
-                                    className={styles.socialIcon}
-                                    src={item.icon}
-                                    alt={item.label}
-                                />
-                                <p>{item.label}</p>
-                            </li>
-                        ))}
+                        {messengersData.map((item, index) => {
+                                if (item.type === "slack" || item.type === "skype")  return ''
+                                else return (
+                                    <li
+                                        onClick={() => setSelectedSoc(item?.type)}
+                                        className={classNames({
+                                            [styles.socialsItem]: true,
+                                            [styles.active]: selectedSoc === item?.type
+                                        })}
+                                        key={index}
+                                    >
+                                        <img
+                                            className={styles.socialIcon}
+                                            src={item.icon}
+                                            alt={item.label}
+                                        />
+                                        <p>{item.label}</p>
+                                    </li>
+                                )})
+                            }
                     </div>
                 </div>
 

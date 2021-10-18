@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import styles from "./SetPassword.module.sass";
-import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
 import Error from "../../../../../../generalComponents/Error";
-import { useSelector } from "react-redux";
 
-function SetPassword({ file, setDisplaySetPassword, setShowSuccessMessage }) {
-	const uid = useSelector((state) => state.user.uid);
-	const [password, setPassword] = useState("");
+function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
-	const [showRepeat, setShowRepeat] = useState(false);
+	const [showRepeat, setShowRepeat] = useState(true);
 	const [visibility, setVisibility] = useState("password");
 	const [error, setError] = useState(false);
 	const onSwitch = (boolean) => setShowRepeat(boolean);
@@ -28,23 +24,19 @@ function SetPassword({ file, setDisplaySetPassword, setShowSuccessMessage }) {
 
 	const onAddPass = () => {
 		if (password !== passwordRepeat) return setPasswordCoincide(false);
-
-		const data = {
-			uid,
-			fids: [file.fid],
-			pass: password === passwordRepeat ? `${password}` : "",
-		};
-
 		if (password) {
-			api
-				.post("/ajax/file_edit.php", data)
-				.then((res) => {
-					setShowSuccessMessage('пароль установлен');
-					closeComponent();
-				})
-				.catch((err) => {
-					setError(true);
-				});
+			setPassword(password)
+			closeComponent()
+			// api
+			// 	.post("/ajax/file_edit.php", data)
+			// 	.then((res) => {
+			// 		setShowSuccessMessage('пароль установлен');
+			// 		closeComponent();
+			// 	})
+			// 	.catch((err) => {
+			// 		setError(true);
+			// 	});
+
 		}
 	};
 

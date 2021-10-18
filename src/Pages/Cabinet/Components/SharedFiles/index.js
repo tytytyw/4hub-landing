@@ -29,7 +29,7 @@ import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFil
 import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
 import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
-import CopyLink from "../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
+import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
@@ -60,7 +60,6 @@ const SharedFiles = ({
 	const [mouseParams, setMouseParams] = useState(null);
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
-	const [showLinkCopy, setShowLinkCopy] = useState(false);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 
@@ -103,7 +102,7 @@ const SharedFiles = ({
 			type: "copyLink",
 			name: "",
 			text: ``,
-			callback: () => setShowLinkCopy(true),
+			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
@@ -604,9 +603,10 @@ const SharedFiles = ({
 			{action.type === "properties" ? (
 				<FileProperty close={nullifyAction} file={chosenFile} />
 			) : null}
-			{showLinkCopy && (
-				<CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
-			)}
+       		{action.type === 'copyLink' ? <CopyLinkShare
+                nullifyAction={nullifyAction}
+                setShowSuccessMessage={setShowSuccessMessage}
+            /> : null}
 
 			{showSuccessMessage && (
 				<SuccessMessage

@@ -12,7 +12,8 @@ import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
-import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import { imageSrc 
+} from "../../../../../../generalComponents/globalVariables";
 
 const CustomizeFolder = ({
 	nullifyAction,
@@ -36,7 +37,7 @@ const CustomizeFolder = ({
 		count: 30,
 	});
 	const [color, setColor] = useState(
-		colors?.filter((el) => el.color === folder?.info.color)[0]
+		colors?.filter((el) => el.color === folder?.info.color)[0] || colors[0]
 	);
 	const [sign, setSign] = useState(folder?.info.fig || '');
 	const [emoji, setEmoji] = useState(folder?.info.emo || '');
@@ -75,7 +76,7 @@ const CustomizeFolder = ({
 	const customizeFolder = () => {
 		setGLoader(true);
 		//TODO: check api
-		const params = `uid=${uid}&dir_name=${name}&parent=${chosenSubFolder ? chosenFolder.info.name : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
+		const params = `uid=${uid}&dir_name=${name}&parent=${chosenSubFolder ? chosenFolder.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
 		api.post(`/ajax/dir_edit.php?${params}`)
 		.then((res) => {
 				if (res.data.ok === 1) {

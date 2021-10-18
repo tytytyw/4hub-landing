@@ -21,7 +21,7 @@ import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
-import CopyLink from "../../ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
+import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 
@@ -47,8 +47,6 @@ const WorkSpace = ({
 	fileLoading,
 	filePick,
 	setFilePick,
-	showLinkCopy,
-	setShowLinkCopy,
 	archiveFile,
 	chosenFolder,
 	showSuccessMessage,
@@ -319,9 +317,10 @@ const WorkSpace = ({
 			{action.type === "properties" ? (
 				<FileProperty close={nullifyAction} file={chosenFile} />
 			) : null}
-			{showLinkCopy && (
-				<CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
-			)}
+			{action.type === 'copyLink' ? <CopyLinkShare
+                nullifyAction={nullifyAction}
+                setShowSuccessMessage={setShowSuccessMessage}
+            /> : null}
 		</>
 	);
 };

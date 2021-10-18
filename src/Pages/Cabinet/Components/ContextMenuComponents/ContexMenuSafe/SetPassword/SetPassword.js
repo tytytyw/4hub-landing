@@ -7,7 +7,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
-	const [showRepeat, setShowRepeat] = useState(false);
+	const [showRepeat, setShowRepeat] = useState(true);
 	const [visibility, setVisibility] = useState("password");
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 	const comparePass = (val) => {

@@ -1,104 +1,75 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./WorkLinesPreview.module.sass";
 import { colors } from "../../../../../../generalComponents/collections";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import api from '../../../../../../api';
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 
-const WorkLinesPreview = ({ file, children, hideFileList }) => {
+const WorkLinesPreview = ({ file, children, hideFileList, setLoadingType }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 	const [color, setColor] = useState(null);
 	const [f, setF] = useState(file);
+	const uid = useSelector(state => state.user.uid);
+    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const [previewReq, setPreviewReq] = useState({sent: false, data: null});
 	useEffect(() => {
 		setF(file);
 		const newColor = colors.filter((c) => c.color === file?.color);
 		setColor(newColor[0]);
 	}, [file]);
 
-	const audioRef = useRef(null);
-	const [play, setPlay] = useState(false);
-
 	const renderFilePreview = () => {
-		switch (f.mime_type.split("/")[0]) {
-			case "image": {
-				return (
-					<img
-						src={f.preview}
-						alt="filePrieview"
-						className={hideFileList ? styles.big_pic : ""}
-					/>
-				);
-			}
-			case "video": {
-				return (
-					<video
-						controls
-						src={`https://fs2.mh.net.ua${f.preview}`}
-						type={f.mime_type}
-					>
-						<source
-							src={`https://fs2.mh.net.ua${f.preview}`}
-							type={f.mime_type}
+		if (f?.mime_type) {
+			switch (f.mime_type.split("/")[0]) {
+				case "image": {
+					return (
+						<img
+							src={previewReq.data}
+							alt="filePrieview"
+							className={hideFileList ? styles.big_pic : ""}
 						/>
-					</video>
-				);
-			}
-			case "audio": {
-				return (
-					<>
-						<audio
-							controls
-							ref={audioRef}
-							src={`https://fs2.mh.net.ua${f.preview}`}
-						>
-							<source
-								src={`https://fs2.mh.net.ua${f.preview}`}
-								type={f.mime_type}
-							/>
-						</audio>
-						<div className={styles.audioPicWrap}>
-							<img
-								className={styles.audioPic}
-								src={`${imageSrc}/assets/PrivateCabinet/file-preview_audio.svg`}
-								alt="audio"
-							/>
-							{!play ? (
-								<img
-									className={styles.audioSwitchPlay}
-									src={`${imageSrc}assets/PrivateCabinet/play-black.svg`}
-									alt="play"
-									onClick={() => {
-										!play ? audioRef.current.play() : audioRef.current.pause();
-										setPlay(!play);
-									}}
-								/>
-							) : null}
-							{play ? (
-								<img
-									className={styles.audioSwitch}
-									src={`${imageSrc}/assets/PrivateCabinet/pause.svg`}
-									alt="pause"
-									onClick={() => {
-										!play ? audioRef.current.play() : audioRef.current.pause();
-										setPlay(!play);
-									}}
-								/>
-							) : null}
+					);
+				}
+				default: {
+					return (
+						<div className={styles.filePreviewWrap}>
+							<File format={f?.ext} color={f?.color} />
 						</div>
-					</>
-				);
-			}
-			default: {
-				return (
-					<div className={styles.filePreviewWrap}>
-						<File format={f?.ext} color={f?.color} />
-					</div>
-				);
+					);
+				}
 			}
 		}
 	};
+
+	//TODO: refactor: import getPreview
+	const getPreview = () => {
+        if(!previewReq.sent) {
+            setLoadingType('squarify')
+            setPreviewReq({...previewReq, sent: true});
+            api.get(`/ajax/safe_file_preview.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`, {
+                responseType: 'blob'
+            })
+                .then(res => {
+                    const blob = new Blob([res.data])
+                    let objectURL = URL.createObjectURL(blob);
+                    setPreviewReq({sent: false, data: objectURL})
+                })
+                .catch(err => console.log(err))
+                .finally(() => setLoadingType(false)) 
+        }
+    }
+
+	useEffect(() => {
+        if (file?.is_preview === 1) {
+            getPreview()
+        }
+        renderFilePreview()
+        setPreviewReq({sent: false, data: null})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file])
 
 	return (
 		<div className={styles.workLinesPreviewWrap}>

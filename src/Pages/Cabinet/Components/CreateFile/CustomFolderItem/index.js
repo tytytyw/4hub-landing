@@ -10,8 +10,7 @@ import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setMouseParams}) => {
-
+const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setMouseParams, offDispatch}) => {
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -52,7 +51,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
         // } else {
         //     setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
         // }
-        dispatch(onChooseFolder(f.folders.folders, f.path));
+        offDispatch ? onChooseFolder(f.folders.folders, f.path) : dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
     const renderInnerFolders = () => {
@@ -79,7 +78,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             })
             await cancel.then(() => {
                 subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
-                dispatch(onSetPath(f.path));
+                offDispatch ? onSetPath(f.path) : dispatch(onSetPath(f.path));
                 // dispatch(onChooseFiles(f.path, '', 1, '', ''));
             })
         } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
