@@ -6,9 +6,8 @@ import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
-import ServePanel from '../../ServePanel'
+import ServePanel from '../ServePanel'
 import BottomPanel from '../../BottomPanel'
-import FileBar from '../WorkElements/FileBar'
 import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
@@ -29,7 +28,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
     const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
 
     const [workElementsView, setWorkElementsView] = useState('preview');
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -82,25 +80,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
         })
     }
 
-    // Types of Files view
-    const renderFiles = (Type) => {
-        if (!fileList?.files) return null
-        return fileList.files.map((file, i) => {
-            return <Type
-                key={i}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                setFilePreview={setFilePreview}
-                filePreview={filePreview}
-                filePick={filePick}
-                setFilePick={setFilePick}
-            />
-        })
-    }
-
     return (
         <>
             <div
@@ -123,9 +102,7 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 />
 
                 {!selectedDevice && workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile}>
-                    {renderFiles(FileBar)}
-                </WorkBarsPreview>}
+                <WorkBarsPreview file={chosenFile}/>}
 
                 {selectedDevice &&
                 <div className={styles.contentWrapper}>

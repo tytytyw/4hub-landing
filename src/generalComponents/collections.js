@@ -128,16 +128,16 @@ export const contextMenuSubFolder = {
 
 export const contextMenuDevice = {
     main: [
-        {name: 'Отключить устройство', img: 'edit', type: 'disconnectItem'},
-        {name: 'Отключить все устройства', img: 'shareFile', type: "disconnectAllDevice"}
+        {name: 'Блокировать устройство', img: 'edit', type: 'disconnectItem'},
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"}
     ],
     additional: []
 }
 
 export const contextMenuDeviceUser = {
     main: [
-        {name: 'Отключить пользователя', img: 'edit', type: 'disconnectItem'},
-        {name: 'Отключить всех', img: 'shareFile', type: "disconnectAllDeviceUser"}
+        {name: 'Блокировать пользователя', img: 'edit', type: 'disconnectItem'},
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"}
     ],
     additional: []
 }

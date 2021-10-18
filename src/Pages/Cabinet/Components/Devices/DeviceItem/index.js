@@ -5,7 +5,7 @@ import '../../../../../generalComponents/colors.sass'
 import classNames from 'classnames'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCollapsed }) => {
+const DeviceItem = ({ device, chosen, selectedDevices = [], onClick, setMouseParams, listSize, listCollapsed }) => {
 
     return (
         <>
@@ -20,19 +20,21 @@ const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCol
                 <div className={styles.titleWrap}>
                     <div className={styles.titleImg}>
                         <img
-                            src={imageSrc + `/assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
+                            src={imageSrc + `assets/PrivateCabinet/devices/${device.device || 'unknown'}.svg`}
                             alt='icon'
                             className={styles.icon}
+                            onError={e => e.target.setAttribute('src', './assets/PrivateCabinet/devices/unknown.svg')}
                         />
                         {device.is_online ? <span className={styles.active}/> : null}
                     </div>
-                    {!listCollapsed ? <div className={styles.deviceInfo}>
+                    {!listCollapsed &&
+                    <div className={styles.deviceInfo}>
                         <span className={styles.title}>{device.name}</span>
                         <div className={styles.details}>
                             <span>OS: {device.os}</span>
                             <span>Last visited: {device.last_visit}</span>
                         </div>
-                    </div> : null}
+                    </div>}
                 </div>
                 <div className={styles.functionWrap}>
                     <div

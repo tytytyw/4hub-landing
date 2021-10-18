@@ -43,8 +43,12 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams
 
                     <div className={styles.nameWrap}>
                         <div className={styles.Name}>
-                            {!listCollapsed && <div className={styles.name}>{folder.name}</div>}
-                            {folder.tags ? <div className={styles.tag}>{folder.tags}</div> : null}
+                            {!listCollapsed &&
+                            <>
+                                <div className={styles.name}>{folder.name}</div>
+                                {folder.tags ? <div className={styles.tag}>{folder.tags}</div> : null}
+                            </>}
+
                         </div>
                     </div>
                 </div>

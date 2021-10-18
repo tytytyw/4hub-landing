@@ -541,6 +541,11 @@ export const setSelectedUser = id => ({
     payload: id
 })
 
+export const setDevices = data => ({
+    type: GET_DEVICES,
+    payload: data
+})
+
 export const onGetDevices = () => async (dispatch, getState) => {
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -550,6 +555,7 @@ export const onGetDevices = () => async (dispatch, getState) => {
                     let obj = {
                         id: device[1].id,
                         ip: device[1].ip,
+                        is_block: device[1].is_block,
                         browser: device[1].data?.browser,
                         country: device[1].country,
                         platform: device[1].data?.platform,
