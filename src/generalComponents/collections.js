@@ -137,7 +137,7 @@ export const contextMenuDevice = {
 export const contextMenuDeviceUser = {
     main: [
         {name: 'Блокировать пользователя', img: 'edit', type: 'disconnectItem'},
-        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"}
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllUser"}
     ],
     additional: []
 }

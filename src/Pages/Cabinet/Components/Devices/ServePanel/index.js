@@ -143,54 +143,38 @@ const ServePanel = ({
                             ${size === 'big' ? styles.bigSize : null} 
                         `}
                     ><FileSize className={styles.iconSVG} /></div>
-                    <div
+                    {/*<div
                         ref={filterRef}
                         className={classNames(styles.iconView, styles.iconViewArrow)}
                         onClick={e => openContextMenu(e, 'filter')}
-                    ><MenuIcon className={styles.iconSVG} /><div /></div>
+                    ><MenuIcon className={styles.iconSVG} /><div /></div>*/}
                     <span
                         className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
                     >Выбрать</span>
-
-{/* 
-                    {addFile && <div
-                        onClick={() => addFile()}
-                        className={classNames(styles.iconView, styles.addIcon)}
-                    >
-                        <AddFileIcon className={styles.iconSVG} />
-                    </div>} */}
-
-                    {addFolder && <div
-                        onClick={() => addFolder(true)}
-                        className={classNames(styles.iconView, styles.addIcon)}
-                    >
-                        <AddFolderIcon className={styles.iconSVG} />
-                    </div>}
-
 
                 </div>
 
             </div>
             
             <div className={styles.groupEnd}>
-                <div className={styles.buttons}>
+                {/*<div className={styles.buttons}>
                     <div
                         ref={createRef}
                         className={styles.createButton}
                         onClick={e => openContextMenu(e, 'createFile')}
                     ><span>Создать</span><div /></div>
-                    <label className={styles.downloadButton} onClick={() => addFile()}>Загрузить</label> {/*setBlob({...blob, show: true})*/}
-                </div>
+                    <label className={styles.downloadButton} onClick={() => addFile()}>Загрузить</label> setBlob({...blob, show: true})
+                </div>*/}
                 <div className={styles.iconButtons}>
-                    <div
+                    {/*<div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
                         onClick={() => {if(chosenFile) archive()}}
                     ><SafeIcon className={styles.iconSafe} /></div>
                     <div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
                         onClick={() => {if(chosenFile) share()}}
-                    ><ShareIcon className={styles.iconShare} /></div>
+                    ><ShareIcon className={styles.iconShare} /></div>*/}
                     <div
                         className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
                         onClick={() => {

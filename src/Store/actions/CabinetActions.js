@@ -555,6 +555,7 @@ export const onGetDevices = () => async (dispatch, getState) => {
                     let obj = {
                         id: device[1].id,
                         ip: device[1].ip,
+                        adr: device[1].adr,
                         is_block: device[1].is_block,
                         browser: device[1].data?.browser,
                         country: device[1].country,

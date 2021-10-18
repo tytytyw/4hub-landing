@@ -108,7 +108,12 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 <div className={styles.contentWrapper}>
 
                     <div className={styles.previewWrapper}>
-                        {selectedDevice && <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>}
+                        {selectedDevice &&
+                        <img
+                            src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`}
+                            onError={e => e.target.setAttribute('src', './assets/PrivateCabinet/devices/unknown.svg')}
+                            alt="Macbook Pro"
+                        />}
                     </div>
 
                     <div className={styles.optionsWrapper}>
@@ -117,7 +122,11 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                 <div className={styles.preview}>
                                     <div className={styles.filePreviewWrap}>
                                         <div className={styles.content}>
-                                            <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>
+                                            <img
+                                                src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`}
+                                                onError={e => e.target.setAttribute('src', './assets/PrivateCabinet/devices/unknown.svg')}
+                                                alt="Macbook Pro"
+                                            />
                                             <p className={styles.contentInfo}>{selectedDevice.name}</p>
                                         </div>
                                     </div>
@@ -135,8 +144,8 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                     <span className={styles.description}>{selectedDevice?.country}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
-                                    <span className={styles.itemName}>Город</span>
-                                    <span className={styles.description}>Киев</span>
+                                    <span className={styles.itemName}>Адрес</span>
+                                    <span className={styles.address}>{selectedDevice?.adr}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>iP адрес</span>
