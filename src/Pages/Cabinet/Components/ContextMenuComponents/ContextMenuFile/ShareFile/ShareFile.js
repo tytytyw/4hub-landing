@@ -23,6 +23,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
     const [displayMessengers, setDisplayMessengers] = useState(false);
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
+    const [password, setPassword] = useState("");
     const uid = useSelector(state => state.user.uid);
     const [data, setData] = useState(
         {
@@ -30,7 +31,8 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
             fids: files.length ? [...files] : [file.fid],
             user_to: '',
             prim: '',
-            deadline: ''
+            deadline: '',
+            password: ''
     })
     const setTime = (time, limit) => {
         return time < limit
@@ -47,6 +49,10 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
     useEffect(()=> {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
     },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(()=> {
+        setData(data => ({...data, pass: password}))
+    },[password]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
         setLoadingType('squarify')
@@ -176,7 +182,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
             {error && <Error error={error} set={close} message={error} />}
             {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
             {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
-            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} setShowSuccessMessage={setShowSuccessMessage} />}
+            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} password={password} setPassword={setPassword} />}
         </PopUp>
     )
 }
