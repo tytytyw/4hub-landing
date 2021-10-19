@@ -83,6 +83,7 @@ const MyFolders = ({
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
                 setError={setError}
+                setShowSuccessMessage={setShowSuccessMessage}
             />
         })
     };
@@ -106,6 +107,7 @@ const MyFolders = ({
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
                 setError={setError}
+                setShowSuccessMessage={setShowSuccessMessage}
             />
         })
     };

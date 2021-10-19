@@ -178,6 +178,7 @@ export const nullifyFilters = () => {
 }
 
 export const onDeleteFile = (file) => {
+    console.log(file.fid);
     return {
         type: FILE_DELETE,
         payload: file

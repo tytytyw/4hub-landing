@@ -6,7 +6,7 @@ import '../../../../../generalComponents/colors.sass';
 import { ReactComponent as PlayIcon } from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabinet/folder-2.svg';
 import { ReactComponent as AddIcon } from '../../../../../assets/PrivateCabinet/plus-3.svg';
-import {onChooseFolder, onChooseFiles, onSetPath} from '../../../../../Store/actions/CabinetActions';
+import {onChooseFolder, onChooseFiles, onSetPath, onDeleteFile} from '../../../../../Store/actions/CabinetActions';
 import CustomFolderItem from '../CustomFolderItem';
 import api, {cancelRequest} from '../../../../../api';
 import {setStorageItem, getStorageItem} from "../../../../../generalComponents/StorageHelper";
@@ -16,7 +16,7 @@ import {moveFile} from "../../../../../generalComponents/generalHelpers";
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
         setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams,
-        setGLoader, setFilesPage, setError
+        setGLoader, setFilesPage, setError, setShowSuccessMessage
     }) => {
 
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -73,6 +73,7 @@ const FolderItem = ({
                 setGLoader={setGLoader}
                 setFilesPage={setFilesPage}
                 setError={setError}
+                setShowSuccessMessage={setShowSuccessMessage}
             />
         })
     };
@@ -120,6 +121,10 @@ const FolderItem = ({
         await moveFile(folder, draggedFile, uid)
             .then(result => {
                 if(!result) setError(state => ({...state, isError: true, message: 'Файл не был перемещен'}))
+                if(result) {
+                    dispatch(onDeleteFile(draggedFile));
+                    setShowSuccessMessage('Файл перемещен');
+                }
             })
     }
 
