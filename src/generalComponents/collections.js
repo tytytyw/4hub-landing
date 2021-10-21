@@ -129,7 +129,9 @@ export const contextMenuSubFolder = {
 export const contextMenuDevice = {
     main: [
         {name: 'Блокировать устройство', img: 'edit', type: 'disconnectItem'},
-        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"}
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"},
+        {name: 'Отключить', img: 'shareFile', type: "offItem"},
+        {name: 'Отключить несколько', img: 'shareFile', type: "offAllItem"}
     ],
     additional: []
 }
@@ -160,7 +162,7 @@ export const contextProgramFolder = {
     main: [
         {name: 'Расшарить', img: 'shareFile'},
         {name: 'Скопировать ссылку', img: 'link-4'},
-        {name: 'Редактировать файл', img: 'edit'},
+        {name: 'Редактировать', img: 'edit'},
         {name: 'Переместить в архив', img: 'archive'},
         {name: 'Свойства', img: 'info'},
     ],
