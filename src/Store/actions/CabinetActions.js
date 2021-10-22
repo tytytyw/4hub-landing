@@ -41,9 +41,13 @@ import {
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
-    SET_FILES_PATH, CHOOSE_GUEST_SHARED_FILES, NULLIFY_FILTERS,
-    SET_SELECTED_DEVICE, SET_SELECTED_USER,
-    CHOOSE_ARCHIVE_FILES
+    SET_FILES_PATH,
+    CHOOSE_GUEST_SHARED_FILES,
+    NULLIFY_FILTERS,
+    SET_SELECTED_DEVICE,
+    SET_SELECTED_USER,
+    CHOOSE_ARCHIVE_FILES,
+    SET_DRAGGED
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -174,6 +178,7 @@ export const nullifyFilters = () => {
 }
 
 export const onDeleteFile = (file) => {
+    console.log(file.fid);
     return {
         type: FILE_DELETE,
         payload: file
@@ -541,6 +546,11 @@ export const setSelectedUser = id => ({
     payload: id
 })
 
+export const setDevices = data => ({
+    type: GET_DEVICES,
+    payload: data
+})
+
 export const onGetDevices = () => async (dispatch, getState) => {
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -550,6 +560,8 @@ export const onGetDevices = () => async (dispatch, getState) => {
                     let obj = {
                         id: device[1].id,
                         ip: device[1].ip,
+                        adr: device[1].adr,
+                        is_block: device[1].is_block,
                         browser: device[1].data?.browser,
                         country: device[1].country,
                         platform: device[1].data?.platform,
@@ -558,7 +570,7 @@ export const onGetDevices = () => async (dispatch, getState) => {
                         os: device[1].data.platform,
                         device: device[1].data.device_type || 'unknown',
                         last_visit: device[1]?.ut_last?.split(' ')[0] || '',
-                        is_online: device[1]?.is_online || 0
+                        is_online: device[1]?.is_online
                     }
                     list.push(obj);
                 })
@@ -864,3 +876,10 @@ export const onGetArchiveFiles  = (day, mounth) => async (dispatch, getState) =>
         console.log(e);
     }
 }
+
+export const setDragged = (element) => {
+    return {
+        type: SET_DRAGGED,
+        payload: element
+    }
+};

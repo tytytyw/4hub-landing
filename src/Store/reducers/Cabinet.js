@@ -43,6 +43,7 @@ import {
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
+    SET_DRAGGED,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -55,6 +56,7 @@ const INITIAL_STATE = {
     recentFolders: null,
     recentFiles: null,
     chosenRecentFile: null,
+    dragged: null,
     size: 'big',
     view: 'bars',
     //SORT && FILTER
@@ -202,6 +204,9 @@ export default function startPage(state = INITIAL_STATE, action) {
                         figure: ''
                     }}
             }
+        }
+        case SET_DRAGGED: {
+            return {...state, dragged: action.payload}
         }
 
         // PROGRAMS

@@ -128,16 +128,18 @@ export const contextMenuSubFolder = {
 
 export const contextMenuDevice = {
     main: [
-        {name: 'Отключить устройство', img: 'edit', type: 'disconnectItem'},
-        {name: 'Отключить все устройства', img: 'shareFile', type: "disconnectAllDevice"}
+        {name: 'Блокировать устройство', img: 'edit', type: 'disconnectItem'},
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"},
+        {name: 'Отключить', img: 'shareFile', type: "offItem"},
+        {name: 'Отключить несколько', img: 'shareFile', type: "offAllItem"}
     ],
     additional: []
 }
 
 export const contextMenuDeviceUser = {
     main: [
-        {name: 'Отключить пользователя', img: 'edit', type: 'disconnectItem'},
-        {name: 'Отключить всех', img: 'shareFile', type: "disconnectAllDeviceUser"}
+        {name: 'Блокировать пользователя', img: 'edit', type: 'disconnectItem'},
+        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllUser"}
     ],
     additional: []
 }
@@ -158,15 +160,14 @@ export const contextMenuSafeItem = {
 // Programs
 export const contextProgramFolder = {
     main: [
-        {name: 'Переслать', img: 'resend'},
         {name: 'Расшарить', img: 'shareFile'},
         {name: 'Скопировать ссылку', img: 'link-4'},
-        {name: 'Редактировать файл', img: 'edit'},
+        {name: 'Редактировать', img: 'edit'},
         {name: 'Переместить в архив', img: 'archive'},
         {name: 'Свойства', img: 'info'},
     ],
     additional: [
-        {name: 'Удалить файл', img: 'garbage'}
+        {name: 'Удалить', img: 'garbage'}
     ]
 }
 
@@ -177,7 +178,7 @@ export const contextProgram = {
         {name: 'Скопировать ссылку', img: 'link-4'},
     ],
     additional: [
-        {name: 'Удалить файл', img: 'garbage'}
+        {name: 'Удалить', img: 'garbage'}
     ]
 }
 

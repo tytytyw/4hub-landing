@@ -169,9 +169,7 @@ const Programs = ({
                     {renderProgramFolders()}
 
                     <div className={styles.recentPrograms}>
-                        {!listCollapsed ?
-                            <p>Недавние Программы</p> :
-                            <p>Недавние</p>}
+                        {!listCollapsed ? <p>Недавние Программы</p> : <p>Недавние</p>}
                     </div>
                     {renderRecentPrograms()}
                 </div>

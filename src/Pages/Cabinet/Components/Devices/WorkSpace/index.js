@@ -8,7 +8,6 @@ import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 import BottomPanel from '../../BottomPanel'
-import FileBar from '../WorkElements/FileBar'
 import WorkBarsPreview from '../WorkElements/WorkBarsPreview'
 import ContextMenu from '../../../../../generalComponents/ContextMenu'
 import {contextMenuFile} from '../../../../../generalComponents/collections'
@@ -29,7 +28,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
     const selectedDevice = useSelector(state => state.Cabinet.selectedDevice)
 
     const [workElementsView, setWorkElementsView] = useState('preview');
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
@@ -82,25 +80,6 @@ const WorkSpace = ({chosenFile, setChosenFile,
         })
     }
 
-    // Types of Files view
-    const renderFiles = (Type) => {
-        if (!fileList?.files) return null
-        return fileList.files.map((file, i) => {
-            return <Type
-                key={i}
-                file={file}
-                setChosenFile={setChosenFile}
-                chosen={chosenFile?.fid === file?.fid}
-                setMouseParams={setMouseParams}
-                setAction={setAction}
-                setFilePreview={setFilePreview}
-                filePreview={filePreview}
-                filePick={filePick}
-                setFilePick={setFilePick}
-            />
-        })
-    }
-
     return (
         <>
             <div
@@ -123,15 +102,18 @@ const WorkSpace = ({chosenFile, setChosenFile,
                 />
 
                 {!selectedDevice && workElementsView === 'preview' &&
-                <WorkBarsPreview file={chosenFile}>
-                    {renderFiles(FileBar)}
-                </WorkBarsPreview>}
+                <WorkBarsPreview file={chosenFile}/>}
 
                 {selectedDevice &&
                 <div className={styles.contentWrapper}>
 
                     <div className={styles.previewWrapper}>
-                        {selectedDevice && <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>}
+                        {selectedDevice &&
+                        <img
+                            src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`}
+                            onError={e => e.target.setAttribute('src', './assets/PrivateCabinet/devices/unknown.svg')}
+                            alt="Macbook Pro"
+                        />}
                     </div>
 
                     <div className={styles.optionsWrapper}>
@@ -140,7 +122,11 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                 <div className={styles.preview}>
                                     <div className={styles.filePreviewWrap}>
                                         <div className={styles.content}>
-                                            <img src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`} alt="Macbook Pro"/>
+                                            <img
+                                                src={`./assets/PrivateCabinet/devices/${selectedDevice.device || 'unknown'}.svg`}
+                                                onError={e => e.target.setAttribute('src', './assets/PrivateCabinet/devices/unknown.svg')}
+                                                alt="Macbook Pro"
+                                            />
                                             <p className={styles.contentInfo}>{selectedDevice.name}</p>
                                         </div>
                                     </div>
@@ -158,8 +144,8 @@ const WorkSpace = ({chosenFile, setChosenFile,
                                     <span className={styles.description}>{selectedDevice?.country}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
-                                    <span className={styles.itemName}>Город</span>
-                                    <span className={styles.description}>Киев</span>
+                                    <span className={styles.itemName}>Адрес</span>
+                                    <span className={styles.address}>{selectedDevice?.adr}</span>
                                 </div>
                                 <div className={styles.infoFileItem}>
                                     <span className={styles.itemName}>iP адрес</span>
