@@ -24,6 +24,7 @@ import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
+import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
@@ -49,6 +50,7 @@ const WorkSpace = ({
 	deleteFile,
     cancelArchive,
     archiveFile,
+	setShowSuccessMessage,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
@@ -82,7 +84,23 @@ const WorkSpace = ({
 			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
 			callback: (list, index) => setAction(list[index]),
 		},
-		{ type: "intoZip", name: "", text: ``, callback: "" },
+		{
+			type: "intoZip",
+			name: "Сжать в ZIP",
+			text: ``,
+			callback: (list, index) =>
+				setAction({
+					...action,
+					type: list[index].type,
+					name: list[index].name,
+				}),
+		},
+		{
+			type: "intoZipSeveral",
+			name: "Сжать в ZIP",
+			text: ``,
+			callback: () => setFilePick({ ...filePick, show: true, intoZip: true }),
+		},
 		{ type: "info", name: "", text: ``, callback: "" },
 		{
 			type: "download",
@@ -240,20 +258,6 @@ const WorkSpace = ({
 					addFile={fileSelect}
 					menuItem={menuItem}
 				/>
-				{/*{authorizedSafe && <ServePanel
-					chosenFile={chosenFile}
-					setAction={setAction}
-					share={() => onActiveCallbackArrMain("share")}
-					archive={() => onActiveCallbackArrMain('archive')}
-					chooseSeveral={() =>
-						setFilePick({ ...filePick, files: [], show: !filePick.show })
-					}
-					filePick={filePick}
-					fileAddCustomization={fileAddCustomization}
-					setFileAddCustomization={setFileAddCustomization}
-					addFile={fileSelect}
-					menuItem={menuItem}
-				/>}*/}
 
 				{workElementsView === "bars" && (
 					<WorkBars
@@ -380,6 +384,18 @@ const WorkSpace = ({
 
 			{action.type === "properties" ? (
 				<FileProperty close={nullifyAction} file={chosenFile} />
+			) : null}
+
+			{action.type === "intoZip" ? (
+				<CreateZip
+					close={nullifyAction}
+					file={chosenFile}
+					title={action.name}
+					filePick={filePick}
+					nullifyFilePick={nullifyFilePick}
+					setShowSuccessMessage={setShowSuccessMessage}
+					setLoadingType={setLoadingType}
+				/>
 			) : null}
 
 			<form

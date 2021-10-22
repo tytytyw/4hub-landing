@@ -312,6 +312,7 @@ const Safe = ({
 				deleteFile={deleteFile}
 				cancelArchive={cancelArchive}
 				archiveFile={archiveFile}
+				setShowSuccessMessage={setShowSuccessMessage}
 			/>
 
 			{filePreview?.view && (
