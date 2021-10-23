@@ -53,16 +53,20 @@ const MyFolders = ({
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
-    const [gLoader, setGLoader] = useState(false);
+    const [gLoader, setGLoader] = useState(true);
     const closeError = () => setError({isError: false, message: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
+    const successLoad = () => {
+        setFilesPage(2)
+        setGLoader(false)
+    }
     useEffect(() => {
         setFilesPage(0)
         setMenuItem('myFolders')
-        dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));
+        dispatch(onChooseFiles('global/all', '', 1, '', successLoad));
         return () => setMenuItem('')
     }, []); //eslint-disable-line
 

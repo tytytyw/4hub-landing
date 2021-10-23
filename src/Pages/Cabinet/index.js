@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 import { onGetUserInfo } from '../../Store/actions/startPageAction'
-import { onGetFolders, onChooseFiles, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
+import { onGetFolders, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
 import styles from './PrivateCabinet.module.sass'
 import SideMenu from './Components/SideMenu'
 import MyFolders from './Components/MyFolders'
@@ -67,7 +67,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
         dispatch(onGetUserInfo());
         dispatch(onGetFolders());
-        dispatch(onChooseFiles('global/all', '', 1));
         dispatch(onAddRecentFiles());
         dispatch(onAddRecentFolders());
 

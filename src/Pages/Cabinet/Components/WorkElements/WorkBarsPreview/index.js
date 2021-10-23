@@ -57,8 +57,10 @@ const WorkBarsPreview = ({
     }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
-        setLoadingFiles(false);
-        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+        setTimeout(() => {
+            result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+            setLoadingFiles(false);
+        }, 50) // 50ms needed to prevent recursion of ls_json requests
     }
 
     const options = {
@@ -68,13 +70,15 @@ const WorkBarsPreview = ({
     }
 
     const load = (entry) => {
-        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
-            setLoadingFiles(true);
-            dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-        }
-        if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
-            setLoadingFiles(true);
-            dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+        if(!gLoader) {
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
+                setLoadingFiles(true);
+                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
+            }
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+                setLoadingFiles(true);
+                dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+            }
         }
     }
 
@@ -118,14 +122,6 @@ const WorkBarsPreview = ({
     return (<div
         className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
         style={{
-            // height: `${recentFiles?.length > 0
-            //     ? filePick.show
-            //         ? 'calc(100% - 90px - 55px - 78px - 80px)'
-            //         : 'calc(100% - 90px - 55px - 78px)'
-            //     : filePick.show
-            //         ? 'calc(100% - 90px - 55px - 80px)'
-            //         : 'calc(100% - 90px - 55px)'
-            // }`,
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'

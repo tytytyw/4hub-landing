@@ -19,7 +19,7 @@ const PopUp = (props) => {
         <div
             id='popUp'
             style={{
-                padding: '20px 0',
+                padding: props.padding ?? '20px 0',
                 boxSizing: 'border-box',
                 display: 'flex',
                 justifyContent: 'center',
