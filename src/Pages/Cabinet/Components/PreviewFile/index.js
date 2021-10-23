@@ -5,7 +5,7 @@ import styles from './PreviewFile.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
-import {getMedia, imageToRatio, replaceFile, sendFile} from "../../../../generalComponents/generalHelpers";
+import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../Project/WorkElements/MiniToolBar";
 import {
     drawBrush, drawCircle, drawSquare, drawText, drawDiv,
@@ -14,13 +14,13 @@ import {
     mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
     unDoPaintBrush
 } from "./paintHelpers";
-import {useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 const PreviewFile = ({setFilePreview, file}) => {
 
     const [loading, setLoading] = useState(false)
-    const uid = useSelector(state => state.user.uid);
+    // const uid = useSelector(state => state.user.uid);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = e => {
@@ -38,16 +38,16 @@ const PreviewFile = ({setFilePreview, file}) => {
         }
     }
 
-    const [edit, setEdit] = useState({status: 'Редактировать'});
-    const handleEdit = () => {
-        if(edit.status === 'Сохранить') {
-            const preview = canvasRef.current.toDataURL("image/png");
-            setFilePreview(state => ({...state, file: {...state.file, preview}}));
-            if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
-            if(file.fid === 'printScreen') sendFile(uid, file);
-        }
-        setEdit(state => ({...state, status: state.status === 'Редактировать' ? 'Сохранить' : 'Редактировать'}))
-    }
+    const [edit, ] = useState({status: 'Редактировать'});
+    // const handleEdit = () => {
+    //     if(edit.status === 'Сохранить') {
+    //         const preview = canvasRef.current.toDataURL("image/png");
+    //         setFilePreview(state => ({...state, file: {...state.file, preview}}));
+    //         if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
+    //         if(file.fid === 'printScreen') sendFile(uid, file);
+    //     }
+    //     setEdit(state => ({...state, status: state.status === 'Редактировать' ? 'Сохранить' : 'Редактировать'}))
+    // }
     const canvasRef = useRef(null)
     const textBlockRef = useRef(null)
     const dotRightRef = useRef(null)
@@ -61,16 +61,14 @@ const PreviewFile = ({setFilePreview, file}) => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
                 return <div className={styles.imagePreviewWrap}>
-                    {edit.status === 'Сохранить' ? <MiniToolBar
+                    <MiniToolBar
+                        file={file}
                         setTextDraw={setTextDraw}
                         direction="row"
-                        right="130px"
-                        top="12px"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
                         unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
-                    /> : null}
-                    <span className={styles.edit} onClick={handleEdit}>{edit.status}</span>
+                    />
                     <div className={styles.canvasWrap} onMouseMove={handlePosition} onMouseUp={handleMouseUp}>
                         <canvas
                             ref={canvasRef}
@@ -260,7 +258,7 @@ const PreviewFile = ({setFilePreview, file}) => {
     }
 
     return (
-        <PopUp set={set} background={'none'}>
+        <PopUp set={set} background={'none'} padding='0'>
             <div
                 className={styles.preview}
                 onClick={set}
