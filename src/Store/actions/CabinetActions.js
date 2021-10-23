@@ -135,7 +135,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
                     type: CHOOSE_FILES,
                     payload: {files: files.data, path}
                 })
-            if(set) set(files.data.length);
+            if(typeof set === 'function') set(files.data.length);
             if(setLoad) setLoad(false);
         })
             .catch(e => console.log(e))

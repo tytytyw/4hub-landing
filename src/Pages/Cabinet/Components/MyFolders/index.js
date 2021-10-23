@@ -53,7 +53,7 @@ const MyFolders = ({
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const dispatch = useDispatch();
     const [error, setError] = useState({isError: false, message: ''});
-    const [gLoader, setGLoader] = useState(false);
+    const [gLoader, setGLoader] = useState(true);
     const closeError = () => setError({isError: false, message: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
