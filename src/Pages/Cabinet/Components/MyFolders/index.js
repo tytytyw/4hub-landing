@@ -59,10 +59,14 @@ const MyFolders = ({
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
+    const successLoad = () => {
+        setFilesPage(2)
+        setGLoader(false)
+    }
     useEffect(() => {
         setFilesPage(0)
         setMenuItem('myFolders')
-        dispatch(onChooseFiles('global/all', '', 1, '', setGLoader));
+        dispatch(onChooseFiles('global/all', '', 1, '', successLoad));
         return () => setMenuItem('')
     }, []); //eslint-disable-line
 

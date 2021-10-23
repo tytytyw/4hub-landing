@@ -122,7 +122,7 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
     const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${10}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
@@ -151,7 +151,7 @@ export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dis
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
 
-    const url = `/ajax/file_list_all.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${10}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+    const url = `/ajax/file_list_all.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
     await api.get(url,{
         cancelToken: cancelChooseFiles.token
     }).then(files => {

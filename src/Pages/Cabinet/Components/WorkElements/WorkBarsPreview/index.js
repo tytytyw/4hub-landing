@@ -122,14 +122,6 @@ const WorkBarsPreview = ({
     return (<div
         className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
         style={{
-            // height: `${recentFiles?.length > 0
-            //     ? filePick.show
-            //         ? 'calc(100% - 90px - 55px - 78px - 80px)'
-            //         : 'calc(100% - 90px - 55px - 78px)'
-            //     : filePick.show
-            //         ? 'calc(100% - 90px - 55px - 80px)'
-            //         : 'calc(100% - 90px - 55px)'
-            // }`,
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'
                 : size === 'medium'
