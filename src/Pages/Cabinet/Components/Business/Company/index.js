@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import {ReactComponent as SettingsIcon} from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -14,10 +14,11 @@ import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import Verification from "./Verification";
+import OrgStructure from './OrgStructure'
 
 const Company = () => {
 
-    const [pageOption, setPageOption] = useState('init')
+    const [pageOption, setPageOption] = useState('org_structure')
 
     const sideListData = [
         {name: 'gen_info', label: 'Общие сведения', icon: <InfoIcon/>, children: [
@@ -39,6 +40,8 @@ const Company = () => {
             {name: 'settings_access', label: 'Настройки доступа'},
         ]}
     ]
+
+    useEffect(() => console.log(pageOption), [pageOption])
 
     return (
         <div className={styles.wrapper}>
@@ -69,6 +72,8 @@ const Company = () => {
                     {pageOption === 'success-mail' && <SuccessSend setPageOption={setPageOption}/>}
                     {pageOption === 'add-employee' && <AddEmployee setPageOption={setPageOption}/>}
                     {pageOption === 'standards' && <Standards setPageOption={setPageOption}/>}
+
+                    {pageOption === 'org_structure' && <OrgStructure />}
 
                 </div>
 

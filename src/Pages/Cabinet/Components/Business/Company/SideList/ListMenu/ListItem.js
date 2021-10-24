@@ -13,9 +13,11 @@ const ListItem = ({item, page, setPage, isSub, render}) => {
     const onClickHandler = () => {
         if (hasChild) {
             setCollapse(!collapse)
-        } else {
             setPage(item.name)
+        } else {
+            // setPage(item.name)
         }
+        
     }
 
     return (
