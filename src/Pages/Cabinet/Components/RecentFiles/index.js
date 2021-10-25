@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {onChooseRecentFile} from '../../../../Store/actions/CabinetActions';
 import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {useWindowSize} from "../../../../generalComponents/Hooks";
 
 const RecentFiles = ({setFilePreview, filePreview}) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
     const dispatch = useDispatch();
+    const containerRef = useRef();
+    const [width] = useWindowSize();
+    const [pageParams, setPageParams] = useState({width: 0});
+
+    useEffect(() => {
+        setPageParams(state => ({...state, width: containerRef?.current?.parentNode?.offsetWidth - 20}))
+    }, [width])
 
     const renderRecentFiles = () => {
         if(!recentFiles) return null;
@@ -41,7 +49,7 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
     };
 
     return(
-        <div className={styles.wrap}>
+        <div className={styles.wrap} ref={containerRef} style={{width: pageParams.width}}>
             <div className={styles.recentFilesWrap}>
                 {renderRecentFiles()}
             </div>

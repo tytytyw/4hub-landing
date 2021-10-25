@@ -289,6 +289,25 @@ const ServePanel = ({
         </>
     )
 
+    const renderInProject = () => (
+        <>
+            <div className={styles.groupStart}>
+                {tempTabs()}
+                <div className={styles.filterPanel}>
+                    {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+                </div>
+            </div>
+            <div className={styles.groupEnd}>
+                <div className={styles.buttons}>
+                    {tempCreate()} {tempDownload()}
+                </div>
+                <div className={styles.iconButtons}>
+                    {tempArchive()} {tempShare()} {tempDelete()}
+                </div>
+            </div>
+        </>
+    )
+
     return (
         <div className={styles.servePanelWrap}>
 
@@ -297,6 +316,7 @@ const ServePanel = ({
             {pathname === '/devices' && renderInDevices()}
             {pathname === '/programs' && renderInPrograms()}
             {pathname === '/safe' && renderInSafe()}
+            {pathname === '/project' && renderInProject()}
 
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
