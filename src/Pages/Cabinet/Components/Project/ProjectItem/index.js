@@ -146,9 +146,11 @@ const ProjectItem = ({
                     <CustomItem
                         listSize={size}
                         badge={project?.tasks}
+                        onClick={() => {}}
                         item={{
-                            name: 'Мои задачи в проете',
-                            img: `${imageSrc}/assets/PrivateCabinet/calendar.svg`,
+                            name: 'Создать лист',
+                            img: `${imageSrc}assets/PrivateCabinet/documentGrey.svg`,
+                            symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
                         }}
                     />
                     <CustomItem
