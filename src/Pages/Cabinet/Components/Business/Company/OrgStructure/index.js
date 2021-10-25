@@ -6,42 +6,54 @@ import ReactFlow, {
 	addEdge,
 	Controls,
 } from "react-flow-renderer";
-import CustomNodeComponent from './CustomNodeComponent'
+import CustomNodeComponent from "./CustomNodeComponent";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuPerson } from "../../../../../../generalComponents/collections";
+import AddEmployee from "../AddEmployee";
 
-
-
-function OrgStructure({mouseParams, setMouseParams, renderMenuItems}) {
+function OrgStructure({
+	mouseParams,
+	setMouseParams,
+	renderMenuItems,
+	setAction,
+    nullifyAction,
+    setPageOption,
+    action
+}) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
-        console.dir(e.target)
-        if (e.target.tagName !== "path" && e.target.className.includes("menu")) setMouseParams({x: e.clientX, y: e.clientY, width: 190, height: 25})
-        
+		console.dir(e.target);
+		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [20, 20];
 	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
 
-    const callbackArr = [
+	const callbackArr = [
 		{
-			type: "share",
-			name: "",
+			type: "add-employee",
+			name: "Добавить сотрудника",
 			text: ``,
-			callback: (list, index) => '',
+			callback: () =>
+				setAction({
+					type: "add-employee",
+					name: "Добавить сотрудника",
+					text: "",
+				}),
 		},
 		{
 			type: "copyLink",
 			name: "",
 			text: ``,
-			callback: (list, index) => '',
+			callback: (list, index) => "",
 		},
 		{
 			type: "customize",
 			name: "Редактирование файла",
 			text: ``,
-			callback: (list, index) => '',
+			callback: (list, index) => "",
 		},
 	];
 
@@ -50,40 +62,44 @@ function OrgStructure({mouseParams, setMouseParams, renderMenuItems}) {
 			{
 				id: "1",
 				type: "special",
-				data: { position:'Руководитель компании', name: "Андрей Петрович", inner: true},
+				data: {
+					position: "Руководитель компании",
+					name: "Андрей Петрович",
+					inner: true,
+				},
 				position: { x: 0, y: 0 },
-                setMouseParams: setMouseParams
+				setMouseParams: setMouseParams,
 			},
 
 			{
 				id: "2-1",
 				type: "special",
-				data: { position:'консультант', name: "Константин Петрович" },
+				data: { position: "консультант", name: "Константин Петрович" },
 				position: { x: 300, y: 60 },
 			},
-            {
+			{
 				id: "2-2",
 				type: "special",
-				data: { position:'консультант', name: "Алина Викторовна" },
+				data: { position: "консультант", name: "Алина Викторовна" },
 				position: { x: 300, y: 150 },
 			},
-            {
+			{
 				id: "2-3",
 				type: "special",
-				data: { position:'консультант', name: "Наталья Ивановна" },
+				data: { position: "консультант", name: "Наталья Ивановна" },
 				position: { x: 300, y: 240 },
 			},
 
 			{
 				id: "3",
 				type: "special",
-				data: { position:'карп', name: "Алексей Владимирович" },
+				data: { position: "карп", name: "Алексей Владимирович" },
 				position: { x: 650, y: 325 },
 			},
 			{
 				id: "4",
 				type: "special",
-				data: { position:'уборщица', name: "Анастасия Георгиевна" },
+				data: { position: "уборщица", name: "Анастасия Георгиевна" },
 				position: { x: 650, y: 700 },
 			},
 
@@ -143,7 +159,11 @@ function OrgStructure({mouseParams, setMouseParams, renderMenuItems}) {
 		special: CustomNodeComponent,
 	};
 
+	useEffect(() => {
+		console.log(elements);
+	}, [elements]);
 
+	const addPerson = () => {};
 
 	return (
 		<div className={styles.wrapper}>
@@ -163,19 +183,26 @@ function OrgStructure({mouseParams, setMouseParams, renderMenuItems}) {
 				<Controls />
 			</ReactFlow>
 
-            {mouseParams !== null ? (
-                <ContextMenu
-                    params={mouseParams}
-                    setParams={setMouseParams}
-                    tooltip={true}
-                    customClose={true}
-                    disableAutohide={true}
-                >
-                    <div className={styles.mainMenuItems}>
-                        {renderMenuItems(contextMenuPerson, callbackArr)}
-                    </div>
-                </ContextMenu>
-            ) : null}
+			{mouseParams !== null ? (
+				<ContextMenu
+					params={mouseParams}
+					setParams={setMouseParams}
+					tooltip={true}
+					customClose={true}
+					disableAutohide={true}
+				>
+					<div className={styles.mainMenuItems}>
+						{renderMenuItems(contextMenuPerson, callbackArr)}
+					</div>
+				</ContextMenu>
+			) : null}
+
+			{action.type === "add-employee" ? (
+				<AddEmployee
+					nullifyAction={nullifyAction}
+					setPageOption={setPageOption}
+				/>
+			) : null}
 		</div>
 	);
 }

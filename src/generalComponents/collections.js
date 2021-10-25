@@ -226,7 +226,7 @@ export const dotsPaint = [
 // org structure
 
 export const contextMenuPerson = [
-    {name: 'Добавить сотрудника', img: 'plus-3', type: 'download'},
-    {name: 'Редактировать файл', img: 'edit', type: 'customize'},
+    {name: 'Добавить сотрудника', img: 'plus-3', type: 'add-employee'},
+    {name: 'Редактировать', img: 'edit', type: 'customize'},
     {name: 'Удалить', img: 'garbage', type: 'delete'}
     ]
