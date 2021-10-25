@@ -1,8 +1,11 @@
 .wrap
+  display: flex
+  box-sizing: border-box
   max-width: 100%
+  width: 100%
   margin: 10px
   box-shadow: 0 1px 3px #DEDEDE
-  overflow-x: auto
+  overflow-x: scroll
   scrollbar-width: thin
   scrollbar-color: #4086F1 #F5F5F5
   &::-webkit-scrollbar-track
@@ -15,26 +18,18 @@
     background-color: #FFFFFF
   &::-webkit-scrollbar-thumb
     background-color: #4086F1
-  
-.recentFilesWrap
-  display: flex
-  align-items: center
-  height: 58px
+  .recentFilesWrap
+    display: flex
+    align-items: center
+    height: 58px
+    width: max-content
+    max-width: max-content
+    min-width: max-content
 
 
 .chosen
   background: rgba(64, 134, 241, 0.1)
 .chosen .innerFileWrap:after
-  content: ''
-  position: absolute
-  top: 0
-  right: 0
-  width: 7px
-  height: 7px
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
-.fileWrap:hover
-  background: rgba(64, 134, 241, 0.1)
-.fileWrap:hover .innerFileWrap:after
   content: ''
   position: absolute
   top: 0
@@ -51,6 +46,16 @@
   padding: 10px 5px
   box-sizing: border-box
   min-width: max-content
+  &:hover
+    background: rgba(64, 134, 241, 0.1)
+  &:hover .innerFileWrap:after
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 7px
+    height: 7px
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
   .innerFileWrap
     position: relative
     width: 27px
