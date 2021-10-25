@@ -31,7 +31,7 @@ export const contextMenuFile = {
         {name: 'Сжать в Zip', img: 'zip', type: 'intoZip'},
         {name: 'Сжать несколько файлов в Zip', img: 'severalZip', type: 'intoZipSeveral'},
         {name: 'Свойства', img: 'info', type: 'properties'},
-        {name: 'Загрузить', img: 'download-blue', type: 'download'},
+        {name: 'Скачать', img: 'download-blue', type: 'download'},
         {name: 'Печать', img: 'print-2', type: 'print'},
     ],
     additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
@@ -222,3 +222,11 @@ export const dotsPaint = [
     {id: 7, width: 5},
     {id: 8, width: 2},
 ]
+
+// org structure
+
+export const contextMenuPerson = [
+    {name: 'Добавить сотрудника', img: 'plus-3', type: 'add-employee'},
+    {name: 'Редактировать', img: 'edit', type: 'customize'},
+    {name: 'Удалить', img: 'garbage', type: 'delete'}
+    ]

@@ -52,6 +52,7 @@ const ServePanel = ({
     const search = useSelector(state => state.Cabinet.search);
     const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
     const fileList = useSelector(state => state.Cabinet.fileList);
+    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
     const dispatch = useDispatch();
 
     const {pathname} = useLocation()
@@ -236,6 +237,31 @@ const ServePanel = ({
         </>
     )
 
+	const renderInSafe = () => {
+		return authorizedSafe ? (
+			<>
+				<div className={styles.groupStart}>
+					{tempTabs()}
+					<div className={styles.filterPanel}>
+						{tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+					</div>
+				</div>
+				<div className={styles.groupEnd}>
+					<div className={styles.buttons}>
+						{tempCreate()} {tempDownload()}
+					</div>
+					<div className={styles.iconButtons}>
+						{tempArchive()} {tempShare()} {tempDelete()}
+					</div>
+				</div>
+			</>
+		) : (
+			<div className={styles.groupStart}>
+				<div className={styles.filterPanel}>{tempSize()}</div>
+			</div>
+		);
+	};
+
     const renderInDevices = () => (
         <>
             <div className={styles.groupStart}>
@@ -289,6 +315,7 @@ const ServePanel = ({
             {pathname === '/files' && renderInFolders()}
             {pathname === '/devices' && renderInDevices()}
             {pathname === '/programs' && renderInPrograms()}
+            {pathname === '/safe' && renderInSafe()}
             {pathname === '/project' && renderInProject()}
 
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>

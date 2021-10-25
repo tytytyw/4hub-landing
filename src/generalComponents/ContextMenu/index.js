@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0, disableAutohide = false}) => {
 
     const closeContext = e => {
         if(!customClose) {
@@ -47,7 +47,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
         }
     }
 
-    const autoHide = () => {if (menuIsUsed) setParams(null)}
+    const autoHide = () => {if (menuIsUsed && !disableAutohide) setParams(null)}
 
     return(
         <>

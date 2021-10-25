@@ -32,7 +32,7 @@ function ShareFile({file, files, close, action_type, setShowSuccessMessage, setL
             user_to: '',
             prim: '',
             deadline: '',
-            password: ''
+            pass: ''
     })
     const setTime = (time, limit) => {
         return time < limit

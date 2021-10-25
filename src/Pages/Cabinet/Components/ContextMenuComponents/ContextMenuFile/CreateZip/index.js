@@ -13,7 +13,8 @@ import Signs from '../../../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-import {onChooseFiles} from '../../../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onGetSafeFileList} from '../../../../../../Store/actions/CabinetActions';
+import {useLocation} from "react-router";
 
 const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
 
@@ -31,6 +32,8 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
     const [error, setError] = useState(false);
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
+    const {pathname} = useLocation()
+    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -47,7 +50,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
 
         const data = {
             uid,
-            dir: fileList.path,
+            dir: pathname === '/safe' ? '' : fileList.path,
             zip_name: name ? name : '',
             tag: tagOption.chosen ? tagOption.chosen : '',
             pass: password && passwordCoincide ? password : '',
@@ -58,9 +61,9 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
         }
         setLoadingType('squarify')
 
-            api.post('/ajax/file_zip.php', data)
+            api.post(`/ajax/${pathname === '/safe' ? 'safe_' : ''}file_zip.php`, data)
                 .then(() => {
-                    dispatch(onChooseFiles(fileList.path));
+                    dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType) : onChooseFiles(fileList.path));
                     setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     onCancel();
                 })
