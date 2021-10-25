@@ -23,12 +23,18 @@ import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import api from '../../../../api';
-import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActions';
+import {
+    onAddRecentFiles,
+    onAddRecentFolders,
+    onChooseFiles,
+    onGetFolders
+} from '../../../../Store/actions/CabinetActions';
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 
 const MyFolders = ({
                setItem, menuItem, setMenuItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -66,6 +72,10 @@ const MyFolders = ({
     useEffect(() => {
         setFilesPage(0)
         setMenuItem('myFolders')
+        dispatch(onGetUserInfo());
+        dispatch(onGetFolders());
+        dispatch(onAddRecentFiles());
+        dispatch(onAddRecentFolders());
         dispatch(onChooseFiles('global/all', '', 1, '', successLoad));
         return () => setMenuItem('')
     }, []); //eslint-disable-line

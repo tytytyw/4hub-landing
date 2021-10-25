@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
-import { onGetUserInfo } from '../../Store/actions/startPageAction'
-import { onGetFolders, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
+// import { onGetUserInfo } from '../../Store/actions/startPageAction'
+// import { onGetFolders, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
 import styles from './PrivateCabinet.module.sass'
 import SideMenu from './Components/SideMenu'
 import MyFolders from './Components/MyFolders'
@@ -64,12 +64,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     }
 
     useEffect(() => {
-
-        dispatch(onGetUserInfo());
-        dispatch(onGetFolders());
-        dispatch(onAddRecentFiles());
-        dispatch(onAddRecentFolders());
-
         let date = new Date();
         date.setHours(date.getHours() + 1);
         document.cookie = `uid=${uid};expires=${date}`;

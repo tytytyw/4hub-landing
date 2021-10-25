@@ -41,7 +41,7 @@ import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/
 
 const Project = ({ setLoadingType }) => {
 	const dispatch = useDispatch();
-	const projects = useSelector((state) => state.Cabinet.projects);
+	const projects = useSelector((state) => state.Cabinet.project.projects);
 	const uid = useSelector((state) => state.user.uid);
 	const size = useSelector((state) => state.Cabinet.size);
 	const [chosenFolder, setChosenFolder] = useState(null);

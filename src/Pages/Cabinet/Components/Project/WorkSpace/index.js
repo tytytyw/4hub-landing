@@ -6,7 +6,7 @@ import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
-import MembersPanel from './MembersPanel'
+// import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 import FileLineShort from '../WorkElements/FileLineShort'
@@ -62,10 +62,9 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
                 disableWorkElementsView={true}
             />
 
-            <MembersPanel
-                setAddMember={setAddMember}
-            />
-            <BottomPanel />
+            {/*<MembersPanel*/}
+            {/*    setAddMember={setAddMember}*/}
+            {/*/>*/}
 
             <WorkLinesPreview
                 recentFiles={recentFiles}
@@ -78,7 +77,7 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
             <AddMember
                 set={setAddMember}
             />}
-
+            <BottomPanel />
         </div>
     )
 }

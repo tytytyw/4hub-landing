@@ -23,7 +23,7 @@ const ProjectItem = ({
     }) => {
 
     const dispatch = useDispatch()
-    const folders = useSelector(state => state.Cabinet.projectFolders)
+    const folders = useSelector(state => state.Cabinet.project.projectFolders)
     const [collapse, setCollapse] = useState(false)
 
 
@@ -33,8 +33,7 @@ const ProjectItem = ({
     }, [])
 
     const renderFolders = () => {
-
-        const projectFolders = folders[project.id]
+        const projectFolders = folders[project.id];
         return projectFolders?.map((folder, index) => {
             return <CustomFolderItem
                 key={index}
@@ -43,6 +42,7 @@ const ProjectItem = ({
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
                 setMouseParams={setMouseParams}
+                project={project}
             />
         })
     }
