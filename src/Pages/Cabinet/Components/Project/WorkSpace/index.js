@@ -16,7 +16,7 @@ import BottomPanel from "../../BottomPanel";
 
 const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
 
-    const fileList = useSelector(state => state.Cabinet.fileList)
+    const files = useSelector(state => state.Cabinet.project.files)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
     const [workElementsView, setWorkElementsView] = useState('')
@@ -24,8 +24,8 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
     const [action, setAction] = useState({type: '', name: '', text: ''})
 
     const renderFiles = (Type) => {
-        if(!fileList?.files) return null
-        return fileList.files.map((file, i) => {
+        if(!files?.files) return null
+        return files.files.map((file, i) => {
             return <Type
                 key={i}
                 file={file}
