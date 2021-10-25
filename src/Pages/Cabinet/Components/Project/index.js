@@ -39,7 +39,7 @@ import { ReactComponent as SuitcaseIcon } from "../../../../assets/PrivateCabine
 import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet/project/thunder.svg";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 
-const Project = ({ setLoadingType }) => {
+const Project = ({ setLoadingType, setMenuItem }) => {
 	const dispatch = useDispatch();
 	const projects = useSelector((state) => state.Cabinet.project.projects);
 	const uid = useSelector((state) => state.user.uid);
@@ -60,6 +60,7 @@ const Project = ({ setLoadingType }) => {
 	useEffect(() => {
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
+		setMenuItem("project");
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [

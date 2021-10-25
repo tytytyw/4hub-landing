@@ -15,6 +15,7 @@ import {
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {loadDest} from "../../../../generalComponents/collections";
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -93,14 +94,17 @@ const FileLoader = ({
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
 
-            if(menuItem === 'Safe') {
+            if(file.options.destination === 'Safe') {
                 data.append('dir', '');
                 data.append('id_safe', authorizedSafe.id_safe);
                 data.append('code', authorizedSafe.code);
-            } else data.append('dir', path ? path : 'global/all');
+            }
+            if(file.options.destination === 'myFolders' || file.options.destination === 'myFiles') {
+                data.append('dir', path ? path : 'global/all');
+            }
 
-
-            await api.post(`/ajax/${menuItem === 'Safe' ? 'safe_': ""}file_add.php`,
+            // await api.post(`/ajax/${menuItem === 'Safe' ? 'safe_': ""}file_add.php`,
+            await api.post(`/ajax/${loadDest[file.options.destination] ?? ''}file_add.php`,
                 data,
                 {
                     onUploadProgress: e => {
@@ -152,9 +156,9 @@ const FileLoader = ({
             }
         }else {console.log(res)}
         dispatch(nullifyFilters())
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
-        if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
-        if (menuItem === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
+        if (menuItem === 'myFiles' && file.options.destination === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
+        if (menuItem === 'myFolders' && file.options.destination === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
+        if (menuItem === 'Safe' && file.options.destination === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps

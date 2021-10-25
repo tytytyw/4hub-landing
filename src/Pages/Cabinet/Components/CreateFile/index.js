@@ -18,7 +18,8 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
-                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem, initFolder, showChoiceFolders
+                awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem,
+                initFolder, showChoiceFolders
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -37,7 +38,7 @@ const CreateFile = ({
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
-    const [path, setPath] = useState(fileList.path)
+    const [path, setPath] = useState(fileList?.path)
     
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
@@ -58,7 +59,8 @@ const CreateFile = ({
             pass: passwordCoincide ? password : '',
             color: color.color,
             symbol: sign,
-            emoji: emoji
+            emoji: emoji,
+            destination: menuItem,
         };
 
         if(blob.file.fid) {

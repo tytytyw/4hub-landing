@@ -242,7 +242,6 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_PROJECT_FOLDER:
             const projectFolders = {...state.project.projectFolders};
             projectFolders[action.payload.projectId] = [...action.payload.projectFolders]
-            console.log(projectFolders)
             return {...state, project: {...state.project, projectFolders}}
         case GET_PROJECTS:
             return {...state, project: {...state.project, projects: action.payload}}

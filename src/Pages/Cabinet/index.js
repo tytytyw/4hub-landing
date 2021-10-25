@@ -233,7 +233,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
                     <Route
                         path='/project'
-                        render={() => <Project setLoadingType={setLoadingType} />}
+                        render={() => <Project setLoadingType={setLoadingType} setMenuItem={setMenuItem} />}
                     />
 
                     <Route
