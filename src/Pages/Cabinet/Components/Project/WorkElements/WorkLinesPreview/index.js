@@ -150,7 +150,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
         <div
             className={styles.workLinesPreviewWrap}
             style={{
-                height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px - 60px)' : 'calc(100% - 90px - 55px - 60px)'}`
+                height: `${recentFiles?.length > 0 ? 'calc(100% - 90px - 55px - 78px)' : 'calc(100% - 90px - 55px)'}`
             }}
         >
 
