@@ -449,6 +449,7 @@ const MyFiles = ({
 					fileErrors={fileErrors}
 					setLoadingFile={setLoadingFile}
 					showChoiceFolders={true}
+					menuItem={menuItem}
 				/>
 			)}
 			{safePassword.open && (

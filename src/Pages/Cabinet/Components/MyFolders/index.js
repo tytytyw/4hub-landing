@@ -263,6 +263,7 @@ const MyFolders = ({
                 setGLoader={setGLoader}
                 initFolder={chosenFolder}
                 showChoiceFolders={true}
+                menuItem={menuItem}
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
