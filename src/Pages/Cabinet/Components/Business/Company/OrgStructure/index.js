@@ -1,22 +1,49 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./OrgStructure.module.sass";
 import ReactFlow, {
-	isEdge,
+	// isEdge,
 	removeElements,
 	addEdge,
 	Controls,
 } from "react-flow-renderer";
 import CustomNodeComponent from './CustomNodeComponent'
+import ContextMenu from "../../../../../../generalComponents/ContextMenu";
+import { contextMenuPerson } from "../../../../../../generalComponents/collections";
 
-function OrgStructure() {
+
+
+function OrgStructure({mouseParams, setMouseParams, renderMenuItems}) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
-	const onElementClick = (event, element) => {
-		console.log("click", element);
+	const onElementClick = (e, element) => {
+        console.dir(e.target)
+        if (e.target.tagName !== "path" && e.target.className.includes("menu")) setMouseParams({x: e.clientX, y: e.clientY, width: 190, height: 25})
+        
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [20, 20];
 	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
+
+    const callbackArr = [
+		{
+			type: "share",
+			name: "",
+			text: ``,
+			callback: (list, index) => '',
+		},
+		{
+			type: "copyLink",
+			name: "",
+			text: ``,
+			callback: (list, index) => '',
+		},
+		{
+			type: "customize",
+			name: "Редактирование файла",
+			text: ``,
+			callback: (list, index) => '',
+		},
+	];
 
 	useEffect(() => {
 		setElements([
@@ -25,6 +52,7 @@ function OrgStructure() {
 				type: "special",
 				data: { position:'Руководитель компании', name: "Андрей Петрович", inner: true},
 				position: { x: 0, y: 0 },
+                setMouseParams: setMouseParams
 			},
 
 			{
@@ -50,13 +78,13 @@ function OrgStructure() {
 				id: "3",
 				type: "special",
 				data: { position:'карп', name: "Алексей Владимирович" },
-				position: { x: 650, y: 25 },
+				position: { x: 650, y: 325 },
 			},
 			{
 				id: "4",
 				type: "special",
 				data: { position:'уборщица', name: "Анастасия Георгиевна" },
-				position: { x: 650, y: 100 },
+				position: { x: 650, y: 700 },
 			},
 
 			// {
@@ -80,7 +108,7 @@ function OrgStructure() {
 			// 	sourceHandle: "b",
 			// },
 		]);
-	}, []);
+	}, []); //eslint-disable-line
 
 	useEffect(() => {
 		if (reactflowInstance && elements.length > 0) {
@@ -115,6 +143,8 @@ function OrgStructure() {
 		special: CustomNodeComponent,
 	};
 
+
+
 	return (
 		<div className={styles.wrapper}>
 			<ReactFlow
@@ -132,6 +162,20 @@ function OrgStructure() {
 			>
 				<Controls />
 			</ReactFlow>
+
+            {mouseParams !== null ? (
+                <ContextMenu
+                    params={mouseParams}
+                    setParams={setMouseParams}
+                    tooltip={true}
+                    customClose={true}
+                    disableAutohide={true}
+                >
+                    <div className={styles.mainMenuItems}>
+                        {renderMenuItems(contextMenuPerson, callbackArr)}
+                    </div>
+                </ContextMenu>
+            ) : null}
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import {ReactComponent as SettingsIcon} from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -15,10 +15,15 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import Verification from "./Verification";
 import OrgStructure from './OrgStructure'
+import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
+
 
 const Company = () => {
 
-    const [pageOption, setPageOption] = useState('org_structure')
+    const [pageOption, setPageOption] = useState('org_structure');
+    const [mouseParams, setMouseParams] = useState(null);
+
 
     const sideListData = [
         {name: 'gen_info', label: 'Общие сведения', icon: <InfoIcon/>, children: [
@@ -39,9 +44,26 @@ const Company = () => {
             {name: 'add-employee', label: 'Добавить сотрудников'},
             {name: 'settings_access', label: 'Настройки доступа'},
         ]}
-    ]
+    ];
 
-    useEffect(() => console.log(pageOption), [pageOption])
+	const renderMenuItems = (target, type) => {
+		return target.map((item, i) => {
+			return (
+				<ContextMenuItem
+					key={i}
+					width={mouseParams.width}
+					height={mouseParams.height}
+					text={item.name}
+					callback={() =>
+						type.forEach((el, index) => {
+							if (el.type === item.type) el.callback(type, index);
+						})
+					}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/${item.img}.svg`}
+				/>
+			);
+		});
+	};
 
     return (
         <div className={styles.wrapper}>
@@ -72,8 +94,7 @@ const Company = () => {
                     {pageOption === 'success-mail' && <SuccessSend setPageOption={setPageOption}/>}
                     {pageOption === 'add-employee' && <AddEmployee setPageOption={setPageOption}/>}
                     {pageOption === 'standards' && <Standards setPageOption={setPageOption}/>}
-
-                    {pageOption === 'org_structure' && <OrgStructure />}
+                    {pageOption === 'org_structure' && <OrgStructure mouseParams={mouseParams} setMouseParams={setMouseParams} renderMenuItems={renderMenuItems} />}
 
                 </div>
 

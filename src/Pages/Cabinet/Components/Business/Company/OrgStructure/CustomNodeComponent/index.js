@@ -9,10 +9,10 @@ function CustomNodeComponent({ data }) {
 	return (
 		<div className={classNames({[styles.node]: true, [styles.inner]: data.inner})}>
 			{!data.inner &&
-			<Handle type="target" position="left" style={{ width: 8, height: 8, borderRadius: 50, background: '#4086F1' }} />}
+			<Handle type="target" position="left" style={{ width: 10, height: 10, borderRadius: 50, background: '#4086F1' }} />}
 			<div className={styles.person}>
 				<div className={styles.avatar}>
-					<img src={`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt='' className={styles.icon}/>
+					<img src={`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt='avatar' className={styles.icon}/>
 				</div>
 				<div className={styles.text}>
 					<p className={styles.name}>{data.name}</p>
@@ -22,7 +22,7 @@ function CustomNodeComponent({ data }) {
 					<span className={styles.menu} />
 				</div>
 			</div>
-			<Handle type="source" position="right" style={{ width: 8, height: 8, borderRadius: 50, background: '#4086F1'  }} />
+			<Handle type="source" position={data.inner ? "bottom" : "right"} style={{ width: 10, height: 10, borderRadius: 50, background: '#4086F1'  }} />
 		</div>
 	);
 }

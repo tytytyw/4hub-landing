@@ -222,3 +222,11 @@ export const dotsPaint = [
     {id: 7, width: 5},
     {id: 8, width: 2},
 ]
+
+// org structure
+
+export const contextMenuPerson = [
+    {name: 'Добавить сотрудника', img: 'plus-3', type: 'download'},
+    {name: 'Редактировать файл', img: 'edit', type: 'customize'},
+    {name: 'Удалить', img: 'garbage', type: 'delete'}
+    ]
