@@ -163,7 +163,7 @@ function OrgStructure({
 		console.log(elements);
 	}, [elements]);
 
-	const addPerson = () => {};
+	// const addPerson = () => {};
 
 	return (
 		<div className={styles.wrapper}>
