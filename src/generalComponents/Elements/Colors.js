@@ -3,12 +3,13 @@ import React from 'react';
 import styles from './Colors.module.sass';
 import { colors } from '../collections';
 
-const Colors = ({ color, setColor, title = 'Выберите цвет', editableClass }) => {
+const Colors = ({ color, setColor, title = 'Выберите цвет', editableClass, customColors }) => {
 
     const set = (el) => color === el ? setColor('') : setColor(el);
 
     const renderColors = () => {
-        return colors.map((el, i) => {
+        if (!customColors) customColors = colors
+        return customColors.map((el, i) => {
             return <div
                 className={`
                     ${styles.circleColorWrap} 

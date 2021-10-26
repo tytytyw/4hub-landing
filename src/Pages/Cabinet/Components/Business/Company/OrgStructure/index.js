@@ -22,6 +22,7 @@ function OrgStructure({
 }) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
+        console.log(element)
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};

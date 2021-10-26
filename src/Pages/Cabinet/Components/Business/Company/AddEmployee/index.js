@@ -5,14 +5,31 @@ import successImg from "../../../../../../assets/BusinessCabinet/WelcomePage/mai
 import SuccessPopup from "../../SuccessPopup";
 import Input from "../../../MyProfile/Input";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import {ReactComponent as Avatar} from '../../../../../../assets/BusinessCabinet/noPhoto.svg';
+import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabinet/noPhoto.svg";
 import classNames from "classnames";
+import Colors from "../../../../../../generalComponents/Elements/Colors";
 
 const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const [success, setSuccess] = useState(false);
-    const [name, setName] = useState('')
-    const [position, setPosition] = useState('')
-    const [middleName, setMiddleName] = useState('')
+	const [name, setName] = useState("");
+	const [position, setPosition] = useState("");
+	const [middleName, setMiddleName] = useState("");
+    const [color, setColor] = useState({ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" })
+	const PersonColorsVariables = [
+		{ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
+		{
+			dark: "#27967a",
+			light: "rgb(52, 198, 162)",
+			color: "rgb(52, 198, 162)",
+			name: "green",
+		},
+		{
+			dark: "#992928",
+			light: "rgb(194, 52, 51)",
+			color: "rgb(194, 52, 51)",
+			name: "red",
+		},
+	];
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -22,11 +39,21 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 				</div>
 
 				<div className={styles.uploadBlock}>
-                    <Avatar className={styles.avatar} />
-					<label className={styles.uploadLabel} htmlFor="upload_avatar">
-                    <span>Загрузить</span> аватар
-						<input type="file" id="upload_avatar" />
-					</label>
+					<div className={styles.avatarWrapper}>
+						<Avatar className={styles.avatar} />
+						<label className={styles.uploadLabel} htmlFor="upload_avatar">
+							<span>Загрузить</span> аватар
+							<input type="file" id="upload_avatar" />
+						</label>
+					</div>
+					<div className={classNames(styles.field, styles.contacts)}>
+						<Colors
+							color={color}
+                            setColor={setColor}
+							customColors={PersonColorsVariables}
+							editableClass={"flex_row"}
+						/>
+					</div>
 				</div>
 
 				<div className={styles.formWrap}>
@@ -35,13 +62,24 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<label className={styles.label} htmlFor="family">
 								Фамилия
 							</label>
-							<Input id="family" name="email" placeholder="Введите фамилию" />
+							<Input
+								id="family"
+								name="email"
+								placeholder="Введите фамилию"
+								isName={true}
+							/>
 						</div>
 						<div className={styles.field}>
 							<label className={styles.label} htmlFor="name">
 								Имя
 							</label>
-							<Input id="name" name="name" placeholder="Введите имя" onChange={e => setName(e.target.value)} />
+							<Input
+								id="name"
+								name="name"
+								placeholder="Введите имя"
+								onChange={(e) => setName(e.target.value)}
+								isName={true}
+							/>
 						</div>
 						<div className={styles.field}>
 							<label className={styles.label} htmlFor="middle_name">
@@ -51,7 +89,8 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="surname"
 								name="middle_name"
 								placeholder="Введите отчество"
-                                onChange={e => setMiddleName(e.target.value)}
+								onChange={(e) => setMiddleName(e.target.value)}
+								isName={true}
 							/>
 						</div>
 					</div>
@@ -64,7 +103,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="position"
 								name="position"
 								placeholder="Введите должность"
-                                onChange={e => setPosition(e.target.value)}
+								onChange={(e) => setPosition(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -73,7 +112,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<label className={styles.label} htmlFor="phone">
 								Телефон
 							</label>
-							<Input id="phone" name="phone" placeholder="+38" />
+							<Input id="phone" name="phone" placeholder="+38" phone={true} />
 						</div>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="phone2">
@@ -83,6 +122,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="phone2"
 								name="phone2"
 								placeholder="Дополнительный телефон"
+								phone={true}
 							/>
 						</div>
 					</div>
@@ -114,7 +154,14 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 					>
 						Отмена
 					</button>
-					<button onClick={() => {setSuccess(true); addPerson({name, middleName, position})}}>Добавить</button>
+					<button
+						onClick={() => {
+							setSuccess(true);
+							addPerson({ name, middleName, position, color });
+						}}
+					>
+						Добавить
+					</button>
 				</div>
 			</div>
 
