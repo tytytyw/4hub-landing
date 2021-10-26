@@ -14,7 +14,12 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const [name, setName] = useState("");
 	const [position, setPosition] = useState("");
 	const [middleName, setMiddleName] = useState("");
-    const [color, setColor] = useState({ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" })
+	const [color, setColor] = useState({
+		dark: "#E3E3E3",
+		light: "#fff",
+		color: "#fff",
+		name: "white",
+	});
 	const PersonColorsVariables = [
 		{ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
 		{
@@ -49,7 +54,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 					<div className={classNames(styles.field, styles.contacts)}>
 						<Colors
 							color={color}
-                            setColor={setColor}
+							setColor={setColor}
 							customColors={PersonColorsVariables}
 							editableClass={"flex_row"}
 						/>
