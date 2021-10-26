@@ -17,8 +17,8 @@ function App() {
     const [options, setOptions] = useState({guest: false})
 
     useEffect(() => {
-        const uid = document.cookie.match(/uid=[a-zA-Z0-9]*/g);
-        const id_company = document.cookie.match(/id_company=[a-zA-Z0-9]*/g);
+        const uid = document?.cookie.match(/uid=[a-zA-Z0-9]*/g);
+        const id_company = document?.cookie.match(/id_company=[a-zA-Z0-9]*/g);
         if (!!uid) {
             const data = {uid: uid[0].split('=')[1], id_company: id_company[0].split('=')[1]}
             dispatch(onLog(data));

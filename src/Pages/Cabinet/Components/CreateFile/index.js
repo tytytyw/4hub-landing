@@ -51,7 +51,7 @@ const CreateFile = ({
             >{tag}</div>;
         })
     };
-console.log(info)
+
     const onAddFile = (open) => {
         let options = {
             name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
@@ -65,7 +65,7 @@ console.log(info)
                 ? path
                     ? path
                     : 'global/all'
-                : info.dir ?? '',
+                : info?.dir ?? '',
         };
         if(menuItem === 'project') options['id_project'] = info.id;
 

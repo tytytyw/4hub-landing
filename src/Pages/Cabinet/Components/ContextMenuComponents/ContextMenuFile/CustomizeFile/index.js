@@ -32,6 +32,7 @@ const CustomizeFile = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 	menuItem,
+   info
 }) => {
 	const uid = useSelector((state) => state.user.uid);
 	const path = useSelector((state) => state.Cabinet?.fileList?.path);
@@ -45,20 +46,20 @@ const CustomizeFile = ({
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
 	const [showRepeat, setShowRepeat] = useState(false);
 	const [color, setColor] = useState(
-		filePick.customize || fileAddCustomization.several
+		filePick?.customize || fileAddCustomization?.several
 			? colors[0]
 			: colors.find((c) => c.color === file.color) ?? colors[0]
 	);
 	const [tagOption, setTagOption] = useState({
 		chosen:
-			filePick.customize || fileAddCustomization.several ? "" : file.tag || "",
+			filePick?.customize || fileAddCustomization?.several ? "" : file?.tag || "",
 		count: 30,
 	});
 	const [sign, setSign] = useState(
-		filePick.customize || fileAddCustomization.several ? "" : file.fig
+		filePick?.customize || fileAddCustomization?.several ? "" : file?.fig
 	);
 	const [emoji, setEmoji] = useState(
-		filePick.customize || fileAddCustomization.several ? "" : file.emo
+		filePick?.customize || fileAddCustomization?.several ? "" : file?.emo
 	);
 	const [error, setError] = useState(false);
 	const [visibility, setVisibility] = useState("password");
@@ -88,7 +89,6 @@ const CustomizeFile = ({
 			);
 		});
 	};
-
 	const onAddFile = () => {
 		if (password !== passwordRepeat) return setPasswordCoincide(false);
 		setLoadingType("squarify");
@@ -204,7 +204,15 @@ const CustomizeFile = ({
 			color: color?.color === file?.color ? "" : `${color?.color}`,
 			symbol: sign === file?.fig ? "" : `${sign}`,
 			emoji: emoji === file?.emo ? "" : `${emoji}`,
+			destination: menuItem,
+			dir: menuItem === 'myFolders' || menuItem === 'myFiles'
+				? path
+					? path
+					: 'global/all'
+				: info?.dir ?? '',
 		};
+		if(menuItem === 'project') options['id_project'] = info.id;
+		console.log(options);
 		saveCustomizeSeveralFiles(options);
 	};
 
@@ -217,7 +225,7 @@ const CustomizeFile = ({
                 >
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
-                    {filePick.customize || fileAddCustomization?.several ? null :
+                    {filePick?.customize || fileAddCustomization?.several ? null :
                         <div className={styles.fileIconWrap}>
                             <div className={`${styles.fileWrap}`}>
                                 <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
@@ -245,7 +253,7 @@ const CustomizeFile = ({
                         </div>}
                     <div className={`${styles.inputFieldsWrap}`}>
                         <div className={styles.inputWrap}>
-                            {filePick.customize || fileAddCustomization.several ? null :
+                            {filePick?.customize || fileAddCustomization?.several ? null :
                                 <InputField
                                     model='text'
                                     
@@ -260,7 +268,7 @@ const CustomizeFile = ({
                                 className={styles.inputField}
                                 type='text'
                                 placeholder='Добавьте #Тег'
-                                value={tagOption.chosen}
+                                value={tagOption?.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
                             />
@@ -305,10 +313,10 @@ const CustomizeFile = ({
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={close}>Отмена</div>
                         <div
-                            className={`${file || fileAddCustomization.several ? styles.add : styles.buttonDisabled}`}
+                            className={`${file || fileAddCustomization?.several ? styles.add : styles.buttonDisabled}`}
                             onClick={() => {
                                 if(file) onAddFile();
-                                if(fileAddCustomization.several) addToAwaitingFiles();
+                                if(fileAddCustomization?.several) addToAwaitingFiles();
                             }}
                         >Сохранить</div>
                     </div>
