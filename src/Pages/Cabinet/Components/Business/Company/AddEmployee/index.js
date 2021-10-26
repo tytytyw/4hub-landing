@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import styles from "./AddEmployee.module.sass";
-import successImg from "../../../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
 import SuccessPopup from "../../SuccessPopup";
 import Input from "../../../MyProfile/Input";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabinet/noPhoto.svg";
+import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessCabinet/checked.svg";
 import classNames from "classnames";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 
@@ -171,8 +171,12 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 			</div>
 
 			{success && (
-				<SuccessPopup title="Сотрудник успешно добавлен" set={nullifyAction}>
-					<img src={successImg} alt="Success" />
+				<SuccessPopup
+					title="Сотрудник успешно добавлен"
+					text="Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
+					set={nullifyAction}
+				>
+					<SuccessImg width={40} height={40} />
 				</SuccessPopup>
 			)}
 		</PopUp>
