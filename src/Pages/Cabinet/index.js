@@ -233,7 +233,21 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
                     <Route
                         path='/project'
-                        render={() => <Project setLoadingType={setLoadingType} setMenuItem={setMenuItem} />}
+                        render={() => <Project
+                            setLoadingType={setLoadingType}
+                            menuItem={menuItem}
+                            setMenuItem={setMenuItem}
+                            fileAddCustomization={fileAddCustomization}
+                            setFileAddCustomization={setFileAddCustomization}
+                            awaitingFiles={awaitingFiles}
+                            setAwaitingFiles={setAwaitingFiles}
+                            loaded={loaded}
+                            setLoaded={setLoaded}
+                            loadingFile={loadingFile}
+                            fileErrors={fileErrors}
+                            setLoadingFile={setLoadingFile}
+                            fileSelect={fileSelect}
+                        />}
                     />
 
                     <Route

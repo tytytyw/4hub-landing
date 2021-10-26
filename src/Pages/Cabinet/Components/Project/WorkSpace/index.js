@@ -14,7 +14,9 @@ import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
 
-const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
+const WorkSpace = ({
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder
+}) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
     // const fileList = useSelector(state => state.Cabinet.fileList)
@@ -60,19 +62,20 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
             />}
 
             <ServePanel
-                disableWorkElementsView={true}
+                disableWorkElementsView={!!chosenFolder?.name}
+                addFile={fileSelect}
             />
 
             {/*<MembersPanel*/}
             {/*    setAddMember={setAddMember}*/}
             {/*/>*/}
 
-            <WorkLinesPreview
+            {!!chosenFolder?.name ? <WorkLinesPreview
                 recentFiles={recentFiles}
                 chosenFile={chosenFile}
             >
                 {renderFiles(FileLineShort)}
-            </WorkLinesPreview>
+            </WorkLinesPreview> : null}
 
             {addMember &&
             <AddMember

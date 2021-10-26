@@ -93,17 +93,17 @@ const FileLoader = ({
             data.append('color', file?.options?.color ? file.options.color : '');
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
+            data.append('dir', file?.options?.dir);
 
             if(file.options.destination === 'Safe') {
-                data.append('dir', '');
                 data.append('id_safe', authorizedSafe.id_safe);
                 data.append('code', authorizedSafe.code);
             }
-            if(file.options.destination === 'myFolders' || file.options.destination === 'myFiles') {
-                data.append('dir', path ? path : 'global/all');
+            if(file.options.destination === 'project') {
+                data.append('id_project', file?.options?.id_project);
             }
 
-            // await api.post(`/ajax/${menuItem === 'Safe' ? 'safe_': ""}file_add.php`,
+            // TODO need to delete this line after check - old version - await api.post(`/ajax/${menuItem === 'Safe' ? 'safe_': ""}file_add.php`,
             await api.post(`/ajax/${loadDest[file.options.destination] ?? ''}file_add.php`,
                 data,
                 {

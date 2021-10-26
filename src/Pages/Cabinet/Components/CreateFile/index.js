@@ -19,7 +19,7 @@ import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Stor
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
                 awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem,
-                initFolder, showChoiceFolders
+                initFolder, showChoiceFolders, info
 }) => {
 
     const uid = useSelector(state => state.user.uid);
@@ -51,7 +51,7 @@ const CreateFile = ({
             >{tag}</div>;
         })
     };
-
+console.log(info)
     const onAddFile = (open) => {
         let options = {
             name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
@@ -61,7 +61,13 @@ const CreateFile = ({
             symbol: sign,
             emoji: emoji,
             destination: menuItem,
+            dir: menuItem === 'myFolders' || menuItem === 'myFiles'
+                ? path
+                    ? path
+                    : 'global/all'
+                : info.dir ?? '',
         };
+        if(menuItem === 'project') options['id_project'] = info.id;
 
         if(blob.file.fid) {
             if(password !== passwordRepeat) return setPasswordCoincide(false);
