@@ -19,7 +19,7 @@ import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import PreviewFile from "../../../PreviewFile";
 
-const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
+const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) => {
 
     const [previewPopup, setPreviewPopup] = useState(false)
     const [infoPopover, setInfoPopover] = useState(false)
@@ -154,7 +154,12 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile}) => {
             }}
         >
 
-            <div className={styles.fileListWrap}>
+            <div
+                className={styles.fileListWrap}
+                style={{
+                    minWidth: fileCollapsed ? 110 : ''
+                }}
+            >
                 {children}
             </div>
 

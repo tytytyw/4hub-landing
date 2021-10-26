@@ -13,6 +13,7 @@ import FileLineShort from '../WorkElements/FileLineShort'
 import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
+import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
    setMouseParams, addMember, setAddMember, fileSelect, chosenFolder
@@ -25,10 +26,11 @@ const WorkSpace = ({
     const [workElementsView, setWorkElementsView] = useState('')
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
+    const [fileCollapsed, setFileCollapsed] = useState(false);
 
     const renderFiles = (Type) => {
-        if(!files?.files) return null
-        return files.files.map((file, i) => {
+        if(!files) return null
+        return files.map((file, i) => {
             return <Type
                 key={i}
                 file={file}
@@ -40,6 +42,7 @@ const WorkSpace = ({
                 filePick={filePick}
                 setFilePick={setFilePick}
                 action={action}
+                fileCollapsed={fileCollapsed}
             />
         })
     }
@@ -73,7 +76,17 @@ const WorkSpace = ({
             {!!chosenFolder?.name ? <WorkLinesPreview
                 recentFiles={recentFiles}
                 chosenFile={chosenFile}
+                fileCollapsed={fileCollapsed}
             >
+                <div className={styles.fileListHeader}>
+                    <span>{fileCollapsed ? 'Файлы' : 'Файлы проекта'}</span>
+                    <img
+                        className={styles.icon}
+                        src={`${imageSrc}assets/PrivateCabinet/${fileCollapsed ? 'play-blue.svg' : 'play-grey.svg'}`}
+                        alt='icon'
+                        onClick={() => setFileCollapsed(!fileCollapsed)}
+                    />
+                </div>
                 {renderFiles(FileLineShort)}
             </WorkLinesPreview> : null}
 

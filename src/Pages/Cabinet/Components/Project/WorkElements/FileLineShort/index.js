@@ -15,6 +15,7 @@ const FileLineShort = ({
                            filePreview,
                            filePick,
                            setFilePick,
+                           fileCollapsed
                        }) => {
     const size = useSelector((state) => state.Cabinet.size);
 
@@ -52,7 +53,7 @@ const FileLineShort = ({
                     <File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />
                 </div>
 
-                <div className={styles.infoWrap}>
+                {!fileCollapsed ? <div className={styles.infoWrap}>
 
                     <div className={styles.fileName}>
                         {getFileName(file)}
@@ -94,7 +95,7 @@ const FileLineShort = ({
                         </div>
                     )}
 
-                </div>
+                </div> : null}
 
                 {size === "small" && (
                     <div className={styles.symbols}>
