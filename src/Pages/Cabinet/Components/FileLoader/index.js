@@ -10,7 +10,8 @@ import {
     onChooseFiles,
     onChooseAllFiles,
     onGetSafeFileList,
-    nullifyFilters
+    nullifyFilters,
+    onChooseProjectFiles,
 } from '../../../../Store/actions/CabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
@@ -159,6 +160,7 @@ const FileLoader = ({
         if (menuItem === 'myFiles' && file.options.destination === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
         if (menuItem === 'myFolders' && file.options.destination === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
         if (menuItem === 'Safe' && file.options.destination === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
+        if (menuItem === 'project' && file.options.destination === 'project') dispatch(onChooseProjectFiles({name: file.options.dir}, {id: file.options.id_project}, 1)); //TODO - Need to finish after added pagination && filters
     };
     let firstRenderFixer = useRef(0)
     useEffect(() => {if(loadingFile.length > 0) sendFile(loadingFile[0])}, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps

@@ -246,7 +246,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_PROJECTS:
             return {...state, project: {...state.project, projects: action.payload}}
         case LOAD_PROJECT_FILES: {
-            return {...state}
+            return {...state, project: {...state.project, files: action.payload}}
         }
 
         //DEVICES

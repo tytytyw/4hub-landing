@@ -673,7 +673,7 @@ export const onGetProjectFolders = (projectId) => async (dispatch, getState) => 
         })
 }
 
-export const onChooseProjectFolder = (folder, project) => async (dispatch, getState) => {
+export const onChooseProjectFiles = (folder, project, page) => async (dispatch, getState) => {
     const url = `ajax/project_file_list.php?uid=${getState().user.uid}&id_project=${project.id}&dir=${folder.name}`;
     api.get(url)
         .then(res => {if(res.data.ok === 1){
