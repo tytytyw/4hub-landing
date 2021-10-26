@@ -44,6 +44,7 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     SET_DRAGGED,
+    LOAD_PROJECT_FILES,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -86,8 +87,12 @@ const INITIAL_STATE = {
     authorizedSafe: null,
 
     //PROJECT
-    projects: [],
-    projectFolders: {},
+    project: {
+        projects: [],
+        projectFolders: {},
+        files: []
+    },
+
 
     //DEVICES
     devices: [],
@@ -235,11 +240,14 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         //PROJECT
         case GET_PROJECT_FOLDER:
-            const folderList = {...state.projectFolders};
-            folderList[action.payload.projectId] = [...action.payload.projectFolders]
-            return {...state, projectFolders: folderList}
+            const projectFolders = {...state.project.projectFolders};
+            projectFolders[action.payload.projectId] = [...action.payload.projectFolders]
+            return {...state, project: {...state.project, projectFolders}}
         case GET_PROJECTS:
-            return {...state, projects: action.payload}
+            return {...state, project: {...state.project, projects: action.payload}}
+        case LOAD_PROJECT_FILES: {
+            return {...state, project: {...state.project, files: action.payload}}
+        }
 
         //DEVICES
         case GET_DEVICES:

@@ -38,10 +38,15 @@ import { ReactComponent as RocketIcon } from "../../../../assets/PrivateCabinet/
 import { ReactComponent as SuitcaseIcon } from "../../../../assets/PrivateCabinet/project/suitcase.svg";
 import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet/project/thunder.svg";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
+import CreateFile from "../CreateFile";
+import CreateSafePassword from "../CreateSafePassword";
 
-const Project = ({ setLoadingType }) => {
+const Project = ({
+		 setLoadingType, setMenuItem, fileAddCustomization, setFileAddCustomization, awaitingFiles, setAwaitingFiles,
+		 loaded, setLoaded, loadingFile, fileErrors, setLoadingFile, menuItem, fileSelect
+}) => {
 	const dispatch = useDispatch();
-	const projects = useSelector((state) => state.Cabinet.projects);
+	const projects = useSelector((state) => state.Cabinet.project.projects);
 	const uid = useSelector((state) => state.user.uid);
 	const size = useSelector((state) => state.Cabinet.size);
 	const [chosenFolder, setChosenFolder] = useState(null);
@@ -56,10 +61,12 @@ const Project = ({ setLoadingType }) => {
 	const [selectedProject, setSelectedProject] = useState(null);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [gLoader, setGLoader] = useState(false);
+	const [safePassword, setSafePassword] = useState({open: false});
 
 	useEffect(() => {
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
+		setMenuItem("project");
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [
@@ -252,6 +259,8 @@ const Project = ({ setLoadingType }) => {
 			.catch(() => setError("Папка не удалена. Попробуйте еще раз!"));
 	};
 
+	const onSafePassword = (boolean) => setSafePassword(state => ({...state, open: boolean}));
+
 	return (
 		<div className={styles.workAreaWrap}>
 			<List
@@ -278,6 +287,8 @@ const Project = ({ setLoadingType }) => {
 				setMouseParams={setMouseParams}
 				addMember={addMember}
 				setAddMember={setAddMember}
+				fileSelect={fileSelect}
+				chosenFolder={chosenFolder}
 			/>
 
 			{mouseParams?.type === "menu" && (
@@ -435,6 +446,30 @@ const Project = ({ setLoadingType }) => {
 			{action.type === "propertiesFolder" ? (
 				<FolderProperty close={nullifyAction} folder={chosenFolder} />
 			) : null}
+
+			{fileAddCustomization.show && (
+				<CreateFile
+					title={fileAddCustomization.create ? "Создать файл" : "Добавить файл"}
+					info={{...selectedProject, dir: chosenFolder.name}}
+					blob={fileAddCustomization.file}
+					setBlob={setFileAddCustomization}
+					onToggleSafePassword={onSafePassword}
+					awaitingFiles={awaitingFiles}
+					setAwaitingFiles={setAwaitingFiles}
+					loaded={loaded}
+					setLoaded={setLoaded}
+					loadingFile={loadingFile}
+					fileErrors={fileErrors}
+					setLoadingFile={setLoadingFile}
+					showChoiceFolders={false}
+					menuItem={menuItem}
+				/>
+			)}
+
+			{safePassword.open && <CreateSafePassword
+				onToggle={onSafePassword}
+				title='Создайте пароль для сейфа'
+			/>}
 
 			{error && <Error error={error} set={setError} message={error} />}
 			{gLoader && (

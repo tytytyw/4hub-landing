@@ -16,7 +16,7 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
     const ref = useRef()
 
     useEffect(() => {
-        setPath(chosenFolder.subPath || chosenFolder.path)
+        setPath(chosenFolder?.subPath || chosenFolder?.path)
     }, [chosenFolder]) //eslint-disable-line
 
     const renderStandardFolderList = () => {

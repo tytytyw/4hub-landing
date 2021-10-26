@@ -47,7 +47,7 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     CHOOSE_ARCHIVE_FILES,
-    SET_DRAGGED
+    SET_DRAGGED, LOAD_PROJECT_FILES
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -671,6 +671,18 @@ export const onGetProjectFolders = (projectId) => async (dispatch, getState) => 
                 console.log(res) 
             }
         })
+}
+
+export const onChooseProjectFiles = (folder, project, page) => async (dispatch, getState) => {
+    const url = `ajax/project_file_list.php?uid=${getState().user.uid}&id_project=${project.id}&dir=${folder.name}`;
+    api.get(url)
+        .then(res => {if(res.data.ok === 1){
+            dispatch({
+                type: LOAD_PROJECT_FILES,
+                payload: res.data.files
+            })
+        }})
+        .catch(err => console.log(err))
 }
 
 

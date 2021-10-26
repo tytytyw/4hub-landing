@@ -229,4 +229,12 @@ export const contextMenuPerson = [
     {name: 'Добавить сотрудника', img: 'plus-3', type: 'add-employee'},
     {name: 'Редактировать', img: 'edit', type: 'customize'},
     {name: 'Удалить', img: 'garbage', type: 'delete'}
-    ]
+]
+
+// FileLoader
+export const loadDest = {
+    'myFolders': '',
+    'Safe': 'safe_',
+    'myFiles': '',
+    'project': 'project_',
+}

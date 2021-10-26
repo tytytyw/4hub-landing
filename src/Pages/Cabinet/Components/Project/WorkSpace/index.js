@@ -6,26 +6,31 @@ import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
-import MembersPanel from './MembersPanel'
+// import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
 import FileLineShort from '../WorkElements/FileLineShort'
 import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
+import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
-const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
+const WorkSpace = ({
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder
+}) => {
 
-    const fileList = useSelector(state => state.Cabinet.fileList)
+    const files = useSelector(state => state.Cabinet.project.files)
+    // const fileList = useSelector(state => state.Cabinet.fileList)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
     const [workElementsView, setWorkElementsView] = useState('')
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
+    const [fileCollapsed, setFileCollapsed] = useState(false);
 
     const renderFiles = (Type) => {
-        if(!fileList?.files) return null
-        return fileList.files.map((file, i) => {
+        if(!files) return null
+        return files.map((file, i) => {
             return <Type
                 key={i}
                 file={file}
@@ -37,6 +42,7 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
                 filePick={filePick}
                 setFilePick={setFilePick}
                 action={action}
+                fileCollapsed={fileCollapsed}
             />
         })
     }
@@ -59,26 +65,36 @@ const WorkSpace = ({setMouseParams, addMember, setAddMember}) => {
             />}
 
             <ServePanel
-                disableWorkElementsView={true}
+                disableWorkElementsView={!!chosenFolder?.name}
+                addFile={fileSelect}
             />
 
-            <MembersPanel
-                setAddMember={setAddMember}
-            />
-            <BottomPanel />
+            {/*<MembersPanel*/}
+            {/*    setAddMember={setAddMember}*/}
+            {/*/>*/}
 
-            <WorkLinesPreview
+            {!!chosenFolder?.name ? <WorkLinesPreview
                 recentFiles={recentFiles}
                 chosenFile={chosenFile}
+                fileCollapsed={fileCollapsed}
             >
+                <div className={styles.fileListHeader}>
+                    <span>{fileCollapsed ? 'Файлы' : 'Файлы проекта'}</span>
+                    <img
+                        className={styles.icon}
+                        src={`${imageSrc}assets/PrivateCabinet/${fileCollapsed ? 'play-blue.svg' : 'play-grey.svg'}`}
+                        alt='icon'
+                        onClick={() => setFileCollapsed(!fileCollapsed)}
+                    />
+                </div>
                 {renderFiles(FileLineShort)}
-            </WorkLinesPreview>
+            </WorkLinesPreview> : null}
 
             {addMember &&
             <AddMember
                 set={setAddMember}
             />}
-
+            <BottomPanel />
         </div>
     )
 }

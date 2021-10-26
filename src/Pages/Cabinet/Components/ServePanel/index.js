@@ -151,7 +151,7 @@ const ServePanel = ({
     )
 
     const tempDownload = () => (
-        <label className={styles.downloadButton} onClick={() => addFile()}>Загрузить</label>
+        <label className={styles.downloadButton} onClick={addFile}>Загрузить</label>
     )
 
     const tempTabs = () => (
@@ -292,19 +292,19 @@ const ServePanel = ({
     const renderInProject = () => (
         <>
             <div className={styles.groupStart}>
-                {tempTabs()}
+                {/*{tempTabs()}*/}
                 <div className={styles.filterPanel}>
-                    {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+                    {tempSize()} {disableWorkElementsView ? tempFilter() : null} {disableWorkElementsView ? tempChoose() : null} {disableWorkElementsView ? tempAdd() : null}
                 </div>
             </div>
-            <div className={styles.groupEnd}>
+            {disableWorkElementsView ? <div className={styles.groupEnd}>
                 <div className={styles.buttons}>
                     {tempCreate()} {tempDownload()}
                 </div>
                 <div className={styles.iconButtons}>
                     {tempArchive()} {tempShare()} {tempDelete()}
                 </div>
-            </div>
+            </div> : null}
         </>
     )
 
