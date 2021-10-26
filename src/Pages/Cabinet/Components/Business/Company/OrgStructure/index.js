@@ -22,7 +22,7 @@ function OrgStructure({
 }) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
-		console.dir(e.target);
+        console.log(element)
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};
@@ -66,40 +66,41 @@ function OrgStructure({
 					position: "Руководитель компании",
 					name: "Андрей Петрович",
 					inner: true,
+                    color : { dark: "#E3E3E3", light: "red", color: "#red", name: "red" },
 				},
 				position: { x: 0, y: 0 },
-				setMouseParams: setMouseParams,
 			},
 
 			{
 				id: "2-1",
 				type: "special",
-				data: { position: "консультант", name: "Константин Петрович" },
+				data: { position: "консультант", name: "Константин Петрович", color: { dark: "#E3E3E3", light: "#fff", color: "green", name: "green" } },
 				position: { x: 300, y: 60 },
 			},
 			{
 				id: "2-2",
 				type: "special",
-				data: { position: "консультант", name: "Алина Викторовна" },
+				data: { position: "консультант", name: "Алина Викторовна", color: { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
 				position: { x: 300, y: 150 },
 			},
 			{
 				id: "2-3",
 				type: "special",
-				data: { position: "консультант", name: "Наталья Ивановна" },
+				data: { position: "консультант", name: "Наталья Ивановна", color: { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
 				position: { x: 300, y: 240 },
 			},
 
 			{
 				id: "3",
 				type: "special",
-				data: { position: "карп", name: "Алексей Владимирович" },
+				data: { position: "карп", name: "Алексей Владимирович", color : { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
+            },
 				position: { x: 650, y: 325 },
 			},
 			{
 				id: "4",
 				type: "special",
-				data: { position: "уборщица", name: "Анастасия Георгиевна" },
+				data: { position: "уборщица", name: "Анастасия Георгиевна",  color : { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
 				position: { x: 650, y: 700 },
 			},
 
@@ -159,11 +160,20 @@ function OrgStructure({
 		special: CustomNodeComponent,
 	};
 
-	useEffect(() => {
-		console.log(elements);
-	}, [elements]);
+	// useEffect(() => {
+	// 	console.log(elements);
+	// }, [elements]);
 
-	// const addPerson = () => {};
+	const addPerson = (info) => {
+        const newPerson = {
+            //TODO: change id
+            id: elements.length + 1 + '',
+            type: "special",
+            data: { position: info.position, name: info.name + " " + info.middleName, color: info.color },
+            position: { x:  600, y: 600 },
+        }
+        setElements(state => [...state, newPerson])
+    };
 
 	return (
 		<div className={styles.wrapper}>
@@ -201,6 +211,7 @@ function OrgStructure({
 				<AddEmployee
 					nullifyAction={nullifyAction}
 					setPageOption={setPageOption}
+                    addPerson={addPerson}
 				/>
 			) : null}
 		</div>

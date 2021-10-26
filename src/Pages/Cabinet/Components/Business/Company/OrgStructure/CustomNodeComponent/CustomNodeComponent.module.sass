@@ -1,3 +1,7 @@
+.node.red
+    background: red
+.node.green
+    background: green
 .node
     background: #fff
     padding: 11px 20px 11px 5px
@@ -55,15 +59,26 @@
         .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
             background: #477DE1
             transition: background 0.2s ease
-.node.inner
-    width: 280px
-    background: #4086F1
+.red
+    background: red
+.green
+    background: green
+.green, .red
     color: #fff
     .person
         .menuWrap
-            .menu
+            .menu, .menu::before, .menu::after
                 background: #fff
-            .menu::before, .menu::after
-                background: #fff
-        .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
-            background: blue
+
+//.node.inner
+//    width: 280px
+//    background: #4086F1
+//    color: #fff
+//    .person
+//        .menuWrap
+//            .menu
+//                background: #fff
+//            .menu::before, .menu::after
+//                background: #fff
+//        .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
+//            background: blue

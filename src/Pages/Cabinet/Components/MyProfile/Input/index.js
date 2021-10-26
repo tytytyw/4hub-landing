@@ -7,7 +7,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 const Input = (
     {
         type, disabled, className, custom = false,
-        isMistake = false, showPass = false, phone,
+        isMistake = false, showPass = false, phone, isName,
         setShowPass = () => {},
         onChange = () => {},
         onKeyPress = () => {},
@@ -53,6 +53,9 @@ const Input = (
         let {value} = event.target
         if (phone) {
             event.target.value = maskPhoneNumber(value)
+        }
+        if (isName && event.target.value) {
+            event.target.value = event.target.value[0].toUpperCase() + event.target.value.slice(1)
         }
         onChange(event)
     }

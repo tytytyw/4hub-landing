@@ -74,8 +74,6 @@ const Company = () => {
 					text={item.name}
 					callback={() =>
 						type.forEach((el, index) => {
-                            console.log(el.type, item.type, el.callback)
-
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}

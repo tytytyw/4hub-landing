@@ -1,15 +1,40 @@
 import React, { useState } from "react";
 
 import styles from "./AddEmployee.module.sass";
-import successImg from "../../../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
 import SuccessPopup from "../../SuccessPopup";
 import Input from "../../../MyProfile/Input";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import {ReactComponent as Avatar} from '../../../../../../assets/BusinessCabinet/noPhoto.svg';
+import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabinet/noPhoto.svg";
+import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessCabinet/checked.svg";
 import classNames from "classnames";
+import Colors from "../../../../../../generalComponents/Elements/Colors";
 
-const AddEmployee = ({ nullifyAction, setPageOption }) => {
+const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const [success, setSuccess] = useState(false);
+	const [name, setName] = useState("");
+	const [position, setPosition] = useState("");
+	const [middleName, setMiddleName] = useState("");
+	const [color, setColor] = useState({
+		dark: "#E3E3E3",
+		light: "#fff",
+		color: "#fff",
+		name: "white",
+	});
+	const PersonColorsVariables = [
+		{ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
+		{
+			dark: "#27967a",
+			light: "rgb(52, 198, 162)",
+			color: "rgb(52, 198, 162)",
+			name: "green",
+		},
+		{
+			dark: "#992928",
+			light: "rgb(194, 52, 51)",
+			color: "rgb(194, 52, 51)",
+			name: "red",
+		},
+	];
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -19,11 +44,21 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 				</div>
 
 				<div className={styles.uploadBlock}>
-                    <Avatar className={styles.avatar} />
-					<label className={styles.uploadLabel} htmlFor="upload_avatar">
-                    <span>Загрузить</span> аватар
-						<input type="file" id="upload_avatar" />
-					</label>
+					<div className={styles.avatarWrapper}>
+						<Avatar className={styles.avatar} />
+						<label className={styles.uploadLabel} htmlFor="upload_avatar">
+							<span>Загрузить</span> аватар
+							<input type="file" id="upload_avatar" />
+						</label>
+					</div>
+					<div className={classNames(styles.field, styles.contacts)}>
+						<Colors
+							color={color}
+							setColor={setColor}
+							customColors={PersonColorsVariables}
+							editableClass={"flex_row"}
+						/>
+					</div>
 				</div>
 
 				<div className={styles.formWrap}>
@@ -32,22 +67,35 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 							<label className={styles.label} htmlFor="family">
 								Фамилия
 							</label>
-							<Input id="family" name="email" placeholder="Введите фамилию" />
+							<Input
+								id="family"
+								name="email"
+								placeholder="Введите фамилию"
+								isName={true}
+							/>
 						</div>
 						<div className={styles.field}>
 							<label className={styles.label} htmlFor="name">
 								Имя
 							</label>
-							<Input id="name" name="name" placeholder="Введите имя" />
+							<Input
+								id="name"
+								name="name"
+								placeholder="Введите имя"
+								onChange={(e) => setName(e.target.value)}
+								isName={true}
+							/>
 						</div>
 						<div className={styles.field}>
-							<label className={styles.label} htmlFor="surname">
+							<label className={styles.label} htmlFor="middle_name">
 								Отчество
 							</label>
 							<Input
 								id="surname"
-								name="surname"
+								name="middle_name"
 								placeholder="Введите отчество"
+								onChange={(e) => setMiddleName(e.target.value)}
+								isName={true}
 							/>
 						</div>
 					</div>
@@ -60,6 +108,7 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 								id="position"
 								name="position"
 								placeholder="Введите должность"
+								onChange={(e) => setPosition(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -68,7 +117,7 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 							<label className={styles.label} htmlFor="phone">
 								Телефон
 							</label>
-							<Input id="phone" name="phone" placeholder="+38" />
+							<Input id="phone" name="phone" placeholder="+38" phone={true} />
 						</div>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="phone2">
@@ -78,6 +127,7 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 								id="phone2"
 								name="phone2"
 								placeholder="Дополнительный телефон"
+								phone={true}
 							/>
 						</div>
 					</div>
@@ -109,13 +159,24 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 					>
 						Отмена
 					</button>
-					<button onClick={() => setSuccess(true)}>Добавить</button>
+					<button
+						onClick={() => {
+							setSuccess(true);
+							addPerson({ name, middleName, position, color });
+						}}
+					>
+						Добавить
+					</button>
 				</div>
 			</div>
 
 			{success && (
-				<SuccessPopup title="Сотрудник успешно добавлен" set={setSuccess}>
-					<img src={successImg} alt="Success" />
+				<SuccessPopup
+					title="Сотрудник успешно добавлен"
+					text="Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
+					set={nullifyAction}
+				>
+					<SuccessImg width={40} height={40} />
 				</SuccessPopup>
 			)}
 		</PopUp>
