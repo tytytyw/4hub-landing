@@ -8,8 +8,11 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import {ReactComponent as Avatar} from '../../../../../../assets/BusinessCabinet/noPhoto.svg';
 import classNames from "classnames";
 
-const AddEmployee = ({ nullifyAction, setPageOption }) => {
+const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const [success, setSuccess] = useState(false);
+    const [name, setName] = useState('')
+    const [position, setPosition] = useState('')
+    const [middleName, setMiddleName] = useState('')
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -38,16 +41,17 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 							<label className={styles.label} htmlFor="name">
 								Имя
 							</label>
-							<Input id="name" name="name" placeholder="Введите имя" />
+							<Input id="name" name="name" placeholder="Введите имя" onChange={e => setName(e.target.value)} />
 						</div>
 						<div className={styles.field}>
-							<label className={styles.label} htmlFor="surname">
+							<label className={styles.label} htmlFor="middle_name">
 								Отчество
 							</label>
 							<Input
 								id="surname"
-								name="surname"
+								name="middle_name"
 								placeholder="Введите отчество"
+                                onChange={e => setMiddleName(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -60,6 +64,7 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 								id="position"
 								name="position"
 								placeholder="Введите должность"
+                                onChange={e => setPosition(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -109,12 +114,12 @@ const AddEmployee = ({ nullifyAction, setPageOption }) => {
 					>
 						Отмена
 					</button>
-					<button onClick={() => setSuccess(true)}>Добавить</button>
+					<button onClick={() => {setSuccess(true); addPerson({name, middleName, position})}}>Добавить</button>
 				</div>
 			</div>
 
 			{success && (
-				<SuccessPopup title="Сотрудник успешно добавлен" set={setSuccess}>
+				<SuccessPopup title="Сотрудник успешно добавлен" set={nullifyAction}>
 					<img src={successImg} alt="Success" />
 				</SuccessPopup>
 			)}

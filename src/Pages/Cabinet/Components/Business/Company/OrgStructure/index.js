@@ -22,7 +22,6 @@ function OrgStructure({
 }) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
-		console.dir(e.target);
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};
@@ -159,11 +158,19 @@ function OrgStructure({
 		special: CustomNodeComponent,
 	};
 
-	useEffect(() => {
-		console.log(elements);
-	}, [elements]);
+	// useEffect(() => {
+	// 	console.log(elements);
+	// }, [elements]);
 
-	const addPerson = () => {};
+	const addPerson = (info) => {
+        const newPerson = {
+            id: elements.length + 1 + '',
+				type: "special",
+				data: { position: info.position, name: info.name + " " + info.middleName },
+				position: { x:  600, y: 600 },
+        }
+        setElements(state => [...state, newPerson])
+    };
 
 	return (
 		<div className={styles.wrapper}>
@@ -201,6 +208,7 @@ function OrgStructure({
 				<AddEmployee
 					nullifyAction={nullifyAction}
 					setPageOption={setPageOption}
+                    addPerson={addPerson}
 				/>
 			) : null}
 		</div>
