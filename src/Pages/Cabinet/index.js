@@ -247,6 +247,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                             fileErrors={fileErrors}
                             setLoadingFile={setLoadingFile}
                             fileSelect={fileSelect}
+                            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                         />}
                     />
 

@@ -40,10 +40,11 @@ import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 import CreateFile from "../CreateFile";
 import CreateSafePassword from "../CreateSafePassword";
+import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 
 const Project = ({
 		 setLoadingType, setMenuItem, fileAddCustomization, setFileAddCustomization, awaitingFiles, setAwaitingFiles,
-		 loaded, setLoaded, loadingFile, fileErrors, setLoadingFile, menuItem, fileSelect
+		 loaded, setLoaded, loadingFile, fileErrors, setLoadingFile, menuItem, fileSelect, saveCustomizeSeveralFiles
 }) => {
 	const dispatch = useDispatch();
 	const projects = useSelector((state) => state.Cabinet.project.projects);
@@ -465,6 +466,15 @@ const Project = ({
 					menuItem={menuItem}
 				/>
 			)}
+			{fileAddCustomization.several ? <CustomizeFile
+				title={`Редактировать выбранные файлы` }
+				info={{...selectedProject, dir: chosenFolder.name}}
+				fileAddCustomization={fileAddCustomization}
+				setFileAddCustomization={setFileAddCustomization}
+				saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+				setLoadingType={setLoadingType}
+				menuItem={menuItem}
+			/> : null}
 
 			{safePassword.open && <CreateSafePassword
 				onToggle={onSafePassword}
