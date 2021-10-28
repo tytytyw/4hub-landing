@@ -4,13 +4,14 @@ import styles from './ListMenu.module.sass'
 import {ReactComponent as ArrowIcon} from '../../../../../../../assets/BusinessCabinet/SideList/arrow.svg'
 import classNames from 'classnames'
 
-const ListItem = ({item, page, setPage, isSub, render}) => {
+const ListItem = ({item, page, setPage, isSub, render, setPageOption}) => {
 
     const [collapse, setCollapse] = useState(false)
 
     const hasChild = item.children?.length
 
     const onClickHandler = () => {
+        setPageOption(item.name)
         if (hasChild) {
             setCollapse(!collapse)
             setPage(item.name)
