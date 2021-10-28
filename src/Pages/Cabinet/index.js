@@ -35,6 +35,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const uid = useSelector(state => state.user.uid);
     const id_company = useSelector(state => state.user.id_company);
     const path = useSelector(state => state.Cabinet.fileList?.path);
+    const projectFolder = useSelector(state => state.Cabinet.project?.chosenFolder);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
     //const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
@@ -78,7 +79,12 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const [loadingFile, setLoadingFile] = useState([]);
     const [loaded, setLoaded] = useState([]);
     const onInputFiles = (e) => {
-        const files = [...e.target.files].map(file => {return {file, options: {filePath: path}}});
+        const dir = menuItem === 'myFolders' || menuItem === 'myFiles'
+            ? path
+                ? path
+                : 'global/all'
+            : projectFolder ?? '';
+        const files = [...e.target.files].map(file => {return {file, options: {filePath: path, destination: menuItem, dir}}});
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
