@@ -47,7 +47,9 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     CHOOSE_ARCHIVE_FILES,
-    SET_DRAGGED, LOAD_PROJECT_FILES
+    SET_DRAGGED,
+    LOAD_PROJECT_FILES,
+    SET_CHOSEN_FOLDER,
 } from '../types';
 
 const CancelToken = axios.CancelToken;
@@ -683,6 +685,13 @@ export const onChooseProjectFiles = (folder, project, page) => async (dispatch, 
             })
         }})
         .catch(err => console.log(err))
+}
+
+export const setChosenFolderProject = (folder) => {
+    return {
+        type: SET_CHOSEN_FOLDER,
+        payload: folder
+    }
 }
 
 
