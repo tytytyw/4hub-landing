@@ -26,7 +26,8 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import classNames from "classnames";
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import api from "../../../../../api";
+import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
 	menuItem,
@@ -48,13 +49,13 @@ const WorkSpace = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType,
 	deleteFile,
-    cancelArchive,
-    archiveFile,
+	cancelArchive,
+	archiveFile,
 	setShowSuccessMessage,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
 	const uid = useSelector((state) => state.user.uid);
 
 	const [mouseParams, setMouseParams] = useState(null);
@@ -115,7 +116,12 @@ const WorkSpace = ({
 			callback: () =>
 				setAction({ ...action, type: "properties", name: "Свойства" }),
 		},
-		{ type: "print", name: "", text: ``, callback: "" },
+		{
+			type: "print",
+			name: "Распечатать файл",
+			text: ``,
+			callback: () => checkMimeTypes(),
+		},
 	];
 
 	const additionalMenuItems = [
@@ -198,7 +204,6 @@ const WorkSpace = ({
 		});
 	};
 
-
 	// Types of Files view
 	const renderFiles = (Type) => {
 		if (!fileList) return null;
@@ -227,13 +232,51 @@ const WorkSpace = ({
 		});
 	};
 
+	const checkMimeTypes = () => {
+		const mType = chosenFile?.mime_type;
+		const isFormat = previewFormats.filter(format => chosenFile.ext.toLowerCase().includes(format)).length > 0;
+
+		setLoadingType("bounceDot");
+		api
+			.get(
+				`/ajax/safe_file_preview.php?uid=${uid}&fid=${chosenFile.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
+				{
+					responseType: "blob",
+				}
+			)
+
+			.then(res => {
+				const blob = new Blob([res.data]);
+				const objectURL = URL.createObjectURL(blob);
+				if (mType === 'application/pdf' || (mType && mType?.includes('image'))) {
+					setLoadingType('bounceDot')
+					printFile(objectURL, true)
+				} else if (isFormat) printFile(objectURL)
+			})
+			.catch((err) => console.log(err))
+			.finally(() => setLoadingType(""))
+	};
+
+	const printFile = (path, isPicture) => {
+		let pri = document.getElementById("frame");
+		pri.src = '';
+		pri.srcdoc = '';
+		if (isPicture) pri.srcdoc=`<img src='${path}'/>`
+		else pri.src = path;
+
+		setTimeout(() => {
+			pri.contentWindow.focus();
+			pri.contentWindow.print();
+		}, 1000);
+	};
+
 	return (
 		<>
 			<div
 				className={classNames({
 					[styles.workSpaceWrap]: true,
 					[styles.workSpaceWrapCollapsed]: !!listCollapsed,
-					[styles.workSpaceWrapUncollapsed]: !listCollapsed
+					[styles.workSpaceWrapUncollapsed]: !listCollapsed,
 				})}
 			>
 				<div className={styles.header}>
@@ -248,7 +291,7 @@ const WorkSpace = ({
 					chosenFile={chosenFile}
 					setAction={setAction}
 					share={() => onActiveCallbackArrMain("share")}
-					archive={() => onActiveCallbackArrMain('archive')}
+					archive={() => onActiveCallbackArrMain("archive")}
 					chooseSeveral={() =>
 						setFilePick({ ...filePick, files: [], show: !filePick.show })
 					}
@@ -260,31 +303,33 @@ const WorkSpace = ({
 				/>
 
 				{workElementsView === "bars" && (
-					<WorkBars
-						file={chosenFile}
-						filePick={filePick}
-					>
+					<WorkBars file={chosenFile} filePick={filePick}>
 						{renderFiles(FileBar)}
 					</WorkBars>
 				)}
 
 				{workElementsView === "lines" && (
-					<WorkLines
-						file={chosenFile}
-						filePick={filePick}
-					>
+					<WorkLines file={chosenFile} filePick={filePick}>
 						{renderFiles(FileLine)}
 					</WorkLines>
 				)}
 
 				{workElementsView === "preview" && (
-					<WorkBarsPreview file={chosenFile} filePick={filePick} setLoadingType={setLoadingType} > 
+					<WorkBarsPreview
+						file={chosenFile}
+						filePick={filePick}
+						setLoadingType={setLoadingType}
+					>
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
 				)}
 
 				{workElementsView === "workLinesPreview" && (
-					<WorkLinesPreview file={chosenFile} filePick={filePick} setLoadingType={setLoadingType}>
+					<WorkLinesPreview
+						file={chosenFile}
+						filePick={filePick}
+						setLoadingType={setLoadingType}
+					>
 						{renderFiles(FileLineShort)}
 					</WorkLinesPreview>
 				)}
@@ -320,7 +365,6 @@ const WorkSpace = ({
 			) : null}
 
 			{action.type === "delete" ? (
-                
 				<ActionApproval
 					name={filePick.show ? "Удаление файлов" : action.name}
 					text={
@@ -368,16 +412,23 @@ const WorkSpace = ({
 				/>
 			) : null}
 
-            {action.type === "archive" ? (
+			{action.type === "archive" ? (
 				<ActionApproval
-					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
-					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
+					name={filePick.show ? "Архивировать выбранные файлы" : action.name}
+					text={
+						filePick.show
+							? " Вы действительно хотите переместить в архив выбранные файлы?"
+							: action.text
+					}
 					set={cancelArchive}
 					callback={archiveFile}
-					approve={'Архивировать'}
+					approve={"Архивировать"}
 				>
 					<div className={styles.fileActionWrap}>
-						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
+						<File
+							format={filePick.show ? "FILES" : chosenFile?.ext}
+							color={chosenFile?.color}
+						/>
 					</div>
 				</ActionApproval>
 			) : null}
@@ -401,7 +452,11 @@ const WorkSpace = ({
 			<form
 				style={{ display: "none" }}
 				name="downloadFile"
-				action={`/ajax/safe_file_download.php?${uid}&id_safe=${authorizedSafe?.id_safe || ""}&pass=${authorizedSafe?.password || ""}&code=${authorizedSafe?.code || ""}`}
+				action={`/ajax/safe_file_download.php?${uid}&id_safe=${
+					authorizedSafe?.id_safe || ""
+				}&pass=${authorizedSafe?.password || ""}&code=${
+					authorizedSafe?.code || ""
+				}`}
 				method="post"
 			>
 				<input
@@ -410,8 +465,14 @@ const WorkSpace = ({
 					value={chosenFile?.fid || ""}
 					readOnly
 				/>
-
 			</form>
+			<iframe
+				style={{ display: "none" }}
+				title={"print"}
+				frameBorder="0"
+				scrolling="no"
+				id="frame"
+			/>
 		</>
 	);
 };

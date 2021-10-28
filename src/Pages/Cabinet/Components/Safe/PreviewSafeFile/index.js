@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import api from '../../../../../api';
-// import {previewTypes, previewFormats} from '../../../../../generalComponents/collections';
+import {previewFormats} from '../../../../../generalComponents/collections';
 import styles from './PreviewSafeFile.module.sass';
 import PopUp from '../../../../../generalComponents/PopUp';
 import File from "../../../../../generalComponents/Files";
@@ -35,12 +35,12 @@ const PreviewSafeFile = ({setFilePreview, file, filePreview, setLoadingType}) =>
     }
 
     const renderOfficePreview = () => {
-        // const isFormat = previewFormats.filter(type => file.ext.toLowerCase().includes(type)).length > 0;
-        // if(isFormat && file.edit_url) {
-        //     return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />
-        // } else {
+        const isFormat = previewFormats.filter(type => file.ext.toLowerCase().includes(type)).length > 0;
+        if(isFormat && file.edit_url) {
+            return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />
+        } else {
             return standardPrev;
-        // }
+        }
     }
 
     const renderFilePreview = () => {
