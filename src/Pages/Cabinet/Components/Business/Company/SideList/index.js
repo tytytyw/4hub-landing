@@ -24,6 +24,7 @@ const SideList = ({data = [], pageOption, setPageOption}) => {
                 page={pageOption}
                 setPage={setPageOption}
                 menuData={data}
+                setPageOption={setPageOption}
             />
 
         </div>
