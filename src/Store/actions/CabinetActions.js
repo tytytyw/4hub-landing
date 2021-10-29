@@ -21,7 +21,8 @@ import {
     GET_CATEGORIES,
     GET_PROGRAMS,
     GET_SAFES,
-    GET_SAFE_FILELIST,
+    CHOOSE_SAFE_FILELIST,
+    LOAD_SAFE_FILELIST,
     AUTHORIZED_SAFE,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
@@ -278,22 +279,48 @@ export const onGetSafes = () => async (dispatch, getState) => {
         .catch(error => console.log(error))
 };
 
-export const onGetSafeFileList = (code, id_safe, password, set, setErrPass, setLoadingType) => async (dispatch, getState) => {
-    api.get(`/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}`)
-        .then((res) => {
+export const onGetSafeFileList = (code, id_safe, password, set, setErrPass, setLoadingType, search, page, setLoad) => async (dispatch, getState) => {
+    const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
+    const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
+    const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
+    const searched = search ? `&search=${search}` : '';
+    const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = {cancelChooseFiles}
+
+    const url = `/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}${searched}&page=${page}&per_page=${5}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+
+    await api.get(url,{
+        cancelToken: cancelChooseFiles.token
+    }).then((res) => {
             if (res.data.ok) {
                 dispatch(onAuthorizedSafe(id_safe, code, password))
-                dispatch({
-                    type: GET_SAFE_FILELIST,
-                    payload: res.data.files
+                page > 1
+                ? dispatch({
+                    type: LOAD_SAFE_FILELIST,
+                    payload: {files: res.data.files}
                 })
+                : dispatch({
+                    type: CHOOSE_SAFE_FILELIST,
+                    payload: {files: res.data.files}
+                })
+                // dispatch({
+                //     type: GET_SAFE_FILELIST,
+                //     payload: res.data.files
+                // })
                 if (set) set()
             } else {
                 setErrPass('code')
             }
+            if(set) set(res.data?.files?.length);
+            if(setLoad) setLoad(false);
         })
         .catch(error => console.log(error))
-        .finally(() => setLoadingType ? setLoadingType(''): '')
+        .finally(() => {
+            if (setLoadingType) setLoadingType('')
+            delete window.cancellationTokens.cancelChooseFiles
+        })
+        // .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
 
 export const onAuthorizedSafe = (id_safe, code, password) => async (dispatch) => {
@@ -305,7 +332,7 @@ export const onAuthorizedSafe = (id_safe, code, password) => async (dispatch) =>
 
 export const onExitSafe = () => async (dispatch) => {
     dispatch({
-        type: GET_SAFE_FILELIST,
+        type: CHOOSE_SAFE_FILELIST,
         payload: null
     })
     dispatch({

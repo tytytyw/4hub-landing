@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
@@ -52,6 +52,10 @@ const WorkSpace = ({
 	cancelArchive,
 	archiveFile,
 	setShowSuccessMessage,
+	filesPage,
+	setFilesPage,
+	loadingFiles,
+	setLoadingFiles,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
@@ -61,6 +65,8 @@ const WorkSpace = ({
 	const [mouseParams, setMouseParams] = useState(null);
 
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+	const fileRef = useRef(null);
 
 	const callbackArrMain = [
 		{ type: "resend", name: "", text: ``, callback: "" },
@@ -206,8 +212,8 @@ const WorkSpace = ({
 
 	// Types of Files view
 	const renderFiles = (Type) => {
-		if (!fileList) return null;
-		return fileList.map((file, i) => {
+		if (!fileList?.files) return null;
+		return fileList.files.map((file, i) => {
 			return (
 				<Type
 					key={i}
@@ -234,7 +240,10 @@ const WorkSpace = ({
 
 	const checkMimeTypes = () => {
 		const mType = chosenFile?.mime_type;
-		const isFormat = previewFormats.filter(format => chosenFile.ext.toLowerCase().includes(format)).length > 0;
+		const isFormat =
+			previewFormats.filter((format) =>
+				chosenFile.ext.toLowerCase().includes(format)
+			).length > 0;
 
 		setLoadingType("bounceDot");
 		api
@@ -245,23 +254,26 @@ const WorkSpace = ({
 				}
 			)
 
-			.then(res => {
+			.then((res) => {
 				const blob = new Blob([res.data]);
 				const objectURL = URL.createObjectURL(blob);
-				if (mType === 'application/pdf' || (mType && mType?.includes('image'))) {
-					setLoadingType('bounceDot')
-					printFile(objectURL, true)
-				} else if (isFormat) printFile(objectURL)
+				if (
+					mType === "application/pdf" ||
+					(mType && mType?.includes("image"))
+				) {
+					setLoadingType("bounceDot");
+					printFile(objectURL, true);
+				} else if (isFormat) printFile(objectURL);
 			})
 			.catch((err) => console.log(err))
-			.finally(() => setLoadingType(""))
+			.finally(() => setLoadingType(""));
 	};
 
 	const printFile = (path, isPicture) => {
 		let pri = document.getElementById("frame");
-		pri.src = '';
-		pri.srcdoc = '';
-		if (isPicture) pri.srcdoc=`<img src='${path}'/>`
+		pri.src = "";
+		pri.srcdoc = "";
+		if (isPicture) pri.srcdoc = `<img src='${path}'/>`;
 		else pri.src = path;
 
 		setTimeout(() => {
@@ -269,6 +281,15 @@ const WorkSpace = ({
 			pri.contentWindow.print();
 		}, 1000);
 	};
+
+	useEffect(() => {
+        if(fileList?.files.length <= 5) {
+            setFilesPage(2);
+            if(fileRef.current) {
+                fileRef.current.scrollTop = 0;
+            }
+        }
+    }, [fileList?.files]); //eslint-disable-line
 
 	return (
 		<>
@@ -303,13 +324,27 @@ const WorkSpace = ({
 				/>
 
 				{workElementsView === "bars" && (
-					<WorkBars file={chosenFile} filePick={filePick}>
+					<WorkBars
+						file={chosenFile}
+						filePick={filePick}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
+						loadingFiles={loadingFiles}
+						setLoadingFiles={setLoadingFiles}
+					>
 						{renderFiles(FileBar)}
 					</WorkBars>
 				)}
 
 				{workElementsView === "lines" && (
-					<WorkLines file={chosenFile} filePick={filePick}>
+					<WorkLines
+						file={chosenFile}
+						filePick={filePick}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
+						loadingFiles={loadingFiles}
+						setLoadingFiles={setLoadingFiles}
+					>
 						{renderFiles(FileLine)}
 					</WorkLines>
 				)}
@@ -319,6 +354,10 @@ const WorkSpace = ({
 						file={chosenFile}
 						filePick={filePick}
 						setLoadingType={setLoadingType}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
+						loadingFiles={loadingFiles}
+						setLoadingFiles={setLoadingFiles}
 					>
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
@@ -329,6 +368,10 @@ const WorkSpace = ({
 						file={chosenFile}
 						filePick={filePick}
 						setLoadingType={setLoadingType}
+						filesPage={filesPage}
+						setFilesPage={setFilesPage}
+						loadingFiles={loadingFiles}
+						setLoadingFiles={setLoadingFiles}
 					>
 						{renderFiles(FileLineShort)}
 					</WorkLinesPreview>

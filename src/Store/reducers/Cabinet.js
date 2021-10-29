@@ -20,7 +20,8 @@ import {
     GET_CATEGORIES,
     GET_SAFES,
     AUTHORIZED_SAFE,
-    GET_SAFE_FILELIST,
+    CHOOSE_SAFE_FILELIST,
+    LOAD_SAFE_FILELIST,
     GET_DEVICES,
     GET_CONNECTED_CONTACTS,
     SET_SIZE,
@@ -231,8 +232,12 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, safes: action.payload}
         case AUTHORIZED_SAFE:
             return {...state, authorizedSafe: action.payload}
-        case GET_SAFE_FILELIST:
-            return {...state, safeFileList: action?.payload?.length ? [...action.payload] : null}
+        case CHOOSE_SAFE_FILELIST:
+            // return {...state, safeFileList: action?.payload?.length ? [...action.payload] : null}
+            return {...state, safeFileList: {...action.payload}};
+        case LOAD_SAFE_FILELIST:
+            // return {...state, safeFileList: [state.safeFileList, ...action.payload]}
+            return {...state, safeFileList: {...state.safeFileList, files: [...state.safeFileList?.files, ...action.payload]}};
         case SAFE_FILE_DELETE: {
             const files = state.safeFileList.filter(el => el.fid !== action.payload)
             return {...state, safeFileList: files};

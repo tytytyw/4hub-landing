@@ -17,6 +17,9 @@ const CodePopup = ({
 	refreshPass,
 	setRefreshPass,
 	setLoadingType,
+	filesPage,
+	onSuccessLoading,
+	
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
@@ -25,7 +28,8 @@ const CodePopup = ({
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
 	const [sendCode, showSendCode] = useState(false);
-	const [showPass, setShowPass] = useState('')
+	const [showPass, setShowPass] = useState("");
+	const search = useSelector((state) => state.Cabinet.search);
 
 	const dispatch = useDispatch();
 
@@ -37,8 +41,8 @@ const CodePopup = ({
 					`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
 				)
 				.then((res) => {
-					if (res.data.f_pass) showSendCode(true)
-						else setError('password');
+					if (res.data.f_pass) showSendCode(true);
+					else setError("password");
 				})
 				.catch((error) => console.log(error))
 				.finally(() => setLoadingType(""));
@@ -46,14 +50,25 @@ const CodePopup = ({
 
 		if (code) {
 			setLoadingType("squarify");
-			dispatch(onGetSafeFileList(code, id_safe, password, set, setError, setLoadingType))
+			dispatch(
+				onGetSafeFileList(
+					code,
+					id_safe,
+					password,
+					onSuccessLoading,
+					setError,
+					setLoadingType,
+					search,
+					filesPage,
+					set
+				)
+			);
 		}
 	};
 
 	useEffect(() => {
 		setErrors({ password: false, code: false });
 	}, [password, code]);
-
 
 	return (
 		<>
@@ -88,7 +103,7 @@ const CodePopup = ({
 										onChange={(event) => setPassword(event.target.value)}
 										type="password"
 										showPass={showPass}
-                                    	setShowPass={setShowPass}
+										setShowPass={setShowPass}
 									/>
 									<span
 										className={styles.link}
