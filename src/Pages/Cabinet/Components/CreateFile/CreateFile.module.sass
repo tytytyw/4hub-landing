@@ -44,7 +44,7 @@
   justify-content: flex-start
   align-items: center
   position: relative
-  width: 480px
+  width: 420px
   height: max-content
   animation: showPopup 0.2s ease-in-out
   cursor: default
@@ -84,17 +84,17 @@
   .redCross:after
     transform: rotate(-45deg)
   .title
-    font-size: 19px
+    font-size: 18px
     font-family: "SF Pro Medium", sans-serif
-    margin: 40px 0 25px 0
+    margin: 20px 0 20px 0
   .titleCreate
-    font-size: 19px
+    font-size: 18px
     font-family: "SF Pro Medium", sans-serif
     margin: 25px 0 15px 0
   .fileIconWrap
     display: flex
-    width: 77%
-    margin: 0 0 28px 0
+    width: 85%
+    margin: 0 0 18px 0
     .fileWrap
       position: relative
       .file
@@ -128,18 +128,18 @@
     .picPreview
       display: flex
       flex-direction: column
-      padding: 0 0 0 20px
+      padding: 0 0 0 30px
       width: 100%
       .format
         font-size: 13px
         color: grey
-        margin: 0 0 5px 0
+        margin: 0 0 10px 0
       .name
         display: block
         color: black
-        font-size: 15px
-        width: 100%
-        max-width: 100%
+        font-size: 13.5px
+        width: calc(98% - 1px)
+        max-width: calc(98% - 1px)
         max-height: 20px
         white-space: nowrap
         overflow: hidden
@@ -199,10 +199,10 @@
   .inputFieldsWrap
     display: flex
     flex-direction: column
-    width: 77%
-    margin: 0 0 20px 0
+    width: 87%
+    margin: 0
     .inputWrap
-      height: 40px
+      height: 45px
       margin-bottom: 10px
       .select
         box-shadow: none
@@ -213,11 +213,12 @@
           color: #606060
           opacity: 0.7
     .tagPicker
-      margin-bottom: 10px
+      margin-bottom: 15px
       display: flex
       align-items: center
       width: 100%
-      height: 40px
+      min-width: 100%
+      height: 45px
       position: relative
       border: 1px solid #E3E3E3
       border-radius: 5px
@@ -244,15 +245,15 @@
         font-size: 14px
         color: #bab8b8
       .tagList::-webkit-scrollbar
-        width: 0
+        width: 2px
       .tagList
         display: none
         position: absolute
         z-index: 2
         left: -1px
-        bottom: -137px
+        bottom: -278px
         width: 100%
-        height: 140px
+        height: 280px
         background: white
         overflow-x: hidden
         overflow-y: scroll
@@ -261,6 +262,16 @@
         border-bottom-left-radius: 5px
         border-bottom-right-radius: 5px
         cursor: pointer
+        &::-webkit-scrollbar-track
+          background: #0A3AAB
+        &::-webkit-scrollbar-track
+          -webkit-box-shadow: none
+          background-color: #F5F5F5
+        &::-webkit-scrollbar
+          width: 5px
+          background-color: #FFFFFF
+        &::-webkit-scrollbar-thumb
+          background-color: #4086F1
         div
           display: flex
           align-items: center
@@ -290,9 +301,9 @@
     display: flex
     justify-content: flex-start
     align-items: center
-    width: 77%
+    width: 87%
     font-size: 10px
-    margin: 5px 0
+    margin: 10px 0
     .safe
       display: flex
       justify-content: center

@@ -278,7 +278,7 @@ const CreateFile = ({
                         </div>
                         <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
                     </div>
-                    <Colors color={color} setColor={setColor} />
+                    <Colors title='Выберите цвет файла' color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? 'create' : ''} />
                     <div className={styles.buttonsWrap}>

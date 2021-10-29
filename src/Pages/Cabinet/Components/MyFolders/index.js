@@ -247,7 +247,7 @@ const MyFolders = ({
                 setChosenFolder={setChosenFolder}
             />}
             {fileAddCustomization.show ? <CreateFile
-                title={fileAddCustomization.create ? 'Создать файл' : 'Добавить файл'}
+                title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
                 setBlob={setFileAddCustomization}
