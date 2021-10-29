@@ -59,6 +59,8 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
             symbol: sign ? sign : '',
             fids: filePick.show ? filePick.files : [file.fid]
         }
+        if (pathname === '/safe') data.id_safe = authorizedSafe.id_safe
+
         setLoadingType('squarify')
 
             api.post(`/ajax/${pathname === '/safe' ? 'safe_' : ''}file_zip.php`, data)
