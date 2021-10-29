@@ -11,10 +11,18 @@ export const menu = [
         path: '/files',
         src: `${imageSrc}assets/PrivateCabinet/file.svg`
     },
-    // {
-    //     name: 'Мой профиль',
-    //     src: `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-    // },
+    {
+        name: 'Чат',
+        src: `${imageSrc}assets/PrivateCabinet/sms.svg`
+    },
+    {
+        name: 'Календарь',
+        src: `${imageSrc}assets/PrivateCabinet/calendar-5.svg`
+    },
+    {
+        name: 'Мои задачи',
+        src: `${imageSrc}assets/PrivateCabinet/calendar-4.svg`
+    },
     {
         name: 'Программы',
         path: '/programs',
@@ -49,6 +57,11 @@ export const menu = [
         name: 'Архив',
         path: '/archive',
         src: `${imageSrc}assets/PrivateCabinet/archive.svg`
+    },
+    {
+        name: 'Библиотека',
+        path: '/archive',
+        src: `${imageSrc}assets/PrivateCabinet/book-1.svg`
     },
     {
         name: 'Журнал',
