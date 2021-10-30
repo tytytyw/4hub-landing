@@ -51,16 +51,9 @@ import {
     LOAD_PROJECT_FILES,
     SET_CHOSEN_FOLDER,
 } from '../types';
+import {folders} from "../../generalComponents/collections";
 
 const CancelToken = axios.CancelToken;
-
-const folders = [
-    {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
-    {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
-    {name: 'music', nameRu: 'Музыка', path: 'global/music'},
-    {name: 'images', nameRu: 'Изображения', path: 'global/images'},
-    {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
-];
 
 export const onGetFolders = (path) => async (dispatch, getState) => {
     // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
