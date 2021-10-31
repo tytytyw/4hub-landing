@@ -73,6 +73,10 @@
     -webkit-transform: scaleY(-1)
     scrollbar-width: thin
     scrollbar-color: #4086F1 #F5F5F5
+    .bottomLine
+      grid-column: 1 / -1
+      height: 100%
+      position: relative
   .innerFiles
     display: flex
     align-items: center
@@ -86,6 +90,14 @@
     -webkit-transform: scaleY(-1)
     margin: 0 10px
     padding: 18px 28px
+    .rightLine
+      min-width: 100px
+      height: 100px
+      position: relative
+    .rightLineHidden
+      height: 0
+      min-width: 0
+      transition: height 1s ease-in-out, width 1s ease-in-out
   .filePreviewWrap
     position: relative
     width: 120px
