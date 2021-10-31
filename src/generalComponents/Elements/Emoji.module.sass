@@ -1,8 +1,8 @@
 .emojiWrap
   display: flex
   flex-direction: column
-  width: 77%
-  margin: 0 0 20px 0
+  width: 87%
+  margin: 0 0 15px 0
   .title
     font-size: 13px
     margin: 0 0 8px 0
@@ -17,14 +17,23 @@
       justify-content: center
       cursor: pointer
       border: 1px solid white
-      width: 23px
+      width: 30px
+      height: 30px
       margin-bottom: 10px
+      img
+        width: 20px
     .emoji:hover
-      background: rgba(1, 1, 1, 0.2)
-      border-radius: 5px
+      width: 30px
+      height: 30px
+      background: #EEEEEE
+      border-radius: 50%
+      border: 1px solid #4086F1
     .emojiChosen
-      border: 1px solid grey
-      border-radius: 5px
+      width: 30px
+      height: 30px
+      background: #EEEEEE
+      border-radius: 50%
+      border: 1px solid #4086F1
 
 .minify // for filter context menu
   width: 190px
@@ -71,7 +80,7 @@
   .create
     margin: 0 0 10px 0
 
-@media (max-height: 820px)
+@media (max-height: 720px)
   .emojiWrap
     margin: 0 0 10px 0
     div

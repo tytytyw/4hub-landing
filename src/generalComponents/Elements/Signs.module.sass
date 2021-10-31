@@ -1,8 +1,8 @@
 .signsWrap
   display: flex
   flex-direction: column
-  width: 77%
-  margin: 0 0 25px 0
+  width: 87%
+  margin: 0 0 10px 0
   .title
     font-size: 13px
     margin: 0 0 8px 0
@@ -11,33 +11,38 @@
     justify-content: space-between
     width: 100%
     .sign
-      width: 22px
-      height: 22px
+      width: 30px
+      height: 30px
       display: flex
       align-items: center
       justify-content: center
       cursor: pointer
       border: 1px solid white
-      position: relative
       img
         width: 20px
         height: 20px
+        position: relative
+        z-index: 2
     .sign:hover:before
       content: ''
       position: absolute
-      width: 22px
-      height: 22px
-      background: rgba(1, 1, 1, 0.2)
-      border-radius: 5px
+      width: 30px
+      height: 30px
+      background: #EEEEEE
+      border-radius: 50%
+      border: 1px solid #4086F1
+      z-index: 1
     .signChosen
       position: relative
     .signChosen:before
       content: ''
       position: absolute
-      width: 22px
-      height: 22px
-      border: 1px solid grey
-      border-radius: 5px
+      width: 29px
+      height: 29px
+      border: 1px solid #4086F1
+      border-radius: 50%
+      background: #EEEEEE
+      z-index: 0
 .minify // for filter context menu
   width: 190px
   height: 40px
@@ -74,19 +79,20 @@
       .sign:hover:before
         content: ''
         position: absolute
-        width: 18px
-        height: 18px
-        background: rgba(1, 1, 1, 0.2)
-        border-radius: 5px
+        width: 20px
+        height: 20px
+        background: #EEEEEE
+        border-radius: 50%
+        border: 1px solid #4086F1
       .signChosen
         position: relative
       .signChosen:before
         content: ''
         position: absolute
-        width: 18px
-        height: 18px
-        border: 1px solid grey
-        border-radius: 5px
+        width: 20px
+        height: 20px
+        border: 1px solid #4086F1
+        border-radius: 50%
         .sign:hover:before
           width: 14px
           height: 14px
@@ -109,32 +115,34 @@
         width: 14px
         height: 14px
 
-@media (max-height: 820px)
+@media (max-height: 720px)
   .signsWrap
     margin: 0 0 15px 0
     div
       .sign
         width: 16px
         height: 16px
+        position: relative
         img
           width: 16px
           height: 16px
       .sign:hover:before
         content: ''
         position: absolute
-        width: 18px
-        height: 18px
-        background: rgba(1, 1, 1, 0.2)
-        border-radius: 5px
+        width: 20px
+        height: 20px
+        background: #EEEEEE
+        border-radius: 50%
+        border: 1px solid #4086F1
       .signChosen
         position: relative
       .signChosen:before
         content: ''
         position: absolute
-        width: 18px
-        height: 18px
-        border: 1px solid grey
-        border-radius: 5px
+        width: 20px
+        height: 20px
+        border: 1px solid #4086F1
+        border-radius: 50%
         .sign:hover:before
           width: 15px
           height: 15px

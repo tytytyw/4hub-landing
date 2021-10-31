@@ -39,7 +39,6 @@ const CreateFile = ({
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
     const [path, setPath] = useState(fileList?.path)
-    
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -162,7 +161,6 @@ const CreateFile = ({
         tagRef.current.style.display = 'none';
         setTimeout(() => {tagRef.current.style.display = ''}, 0);
     }
-
     return (
         <div style={{display: `block`}}>
             <PopUp set={onCloseTab}>
@@ -278,7 +276,7 @@ const CreateFile = ({
                         </div>
                         <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
                     </div>
-                    <Colors color={color} setColor={setColor} />
+                    <Colors title='Выберите цвет файла' color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? 'create' : ''} />
                     <div className={styles.buttonsWrap}>

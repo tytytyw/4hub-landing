@@ -14,8 +14,9 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import Select from "../CreateFile/Select/Select";
 
-const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) => {
+const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder}) => {
 
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -31,7 +32,10 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     const [error, setError] = useState(false);
     const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
+    const [path, setPath] = useState(chosenFolder?.path)
     const dispatch = useDispatch();
+
+    console.log(chosenFolder)
 
     const onAddName = (name) => {
         setNoNameError(false);
@@ -50,7 +54,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
 
     const onAddFolder = () => {
         if(name) {
-            const params = `uid=${uid}&dir_name=${name}&parent=${info.path ? info.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+            const params = `uid=${uid}&dir_name=${name}&parent=${path}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
             api.post(`/ajax/dir_add.php?${params}`)
                 .then(res => {if(res.data.ok === 1) {
                     onCreate(false);
@@ -93,7 +97,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
     return (
         <>
             <PopUp set={onCreate}>
-                <div className={styles.createFolderWrap}>
+                <div className={`${styles.createFolderWrap} ${showRepeat ? '' : styles.crateFolderMin}`}>
                     <span className={styles.cross} onClick={() => onCreate(false)} />
                     <span className={styles.title}>{title}</span>
                     <div className={styles.folderIconWrap}>
@@ -149,6 +153,14 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                                 {renderTags()}
                             </div>
                         </div>
+                        {showChoiceFolders && <div className={styles.inputWrap}>
+                            <Select
+                                className={styles.select}
+                                path={path}
+                                setPath={setPath}
+                                initFolder={chosenFolder}
+                            />
+                        </div>}
                         <div className={styles.inputWrap}>
                             <InputField
                                 isPass={showRepeat}
@@ -160,6 +172,7 @@ const CreateFolder = ({onCreate, title, info, setChosenFolder, chosenFolder}) =>
                                 onSwitch={onSwitch}
                                 visibility={visibility}
                                 setVisibility={setVisibility}
+                                disabled={!showRepeat}
                             />
                         </div>
                         {showRepeat && <div className={styles.inputWrap}>

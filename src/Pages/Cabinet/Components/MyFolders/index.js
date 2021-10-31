@@ -241,13 +241,13 @@ const MyFolders = ({
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
-                title='Новая папка'
+                title='Создать папку'
                 info={newFolderInfo}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
             />}
             {fileAddCustomization.show ? <CreateFile
-                title={fileAddCustomization.create ? 'Создать файл' : 'Добавить файл'}
+                title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
                 setBlob={setFileAddCustomization}

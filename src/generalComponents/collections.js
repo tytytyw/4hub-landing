@@ -1,4 +1,13 @@
-export const tags = ['Фото', 'Видео', 'Музыка', 'Документы', 'Другое'];
+// global folders
+export const folders = [
+    {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
+    {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
+    {name: 'music', nameRu: 'Музыка', path: 'global/music'},
+    {name: 'images', nameRu: 'Изображения', path: 'global/images'},
+    {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
+];
+
+export const tags = ['Фото', 'Видео', 'Музыка', 'Работа', 'Спорт', 'Развлечения', 'Игры', 'Документы', 'Другое'];
 
 export const colors = [
     {dark: '#efeeee', light: '#efeeee', color: 'grey', name: 'grey'},

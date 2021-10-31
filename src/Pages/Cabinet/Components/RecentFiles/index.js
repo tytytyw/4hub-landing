@@ -17,7 +17,7 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
     const [pageParams, setPageParams] = useState({width: 0});
 
     useEffect(() => {
-        setPageParams(state => ({...state, width: containerRef?.current?.parentNode?.offsetWidth - 20}))
+        setPageParams(state => ({...state, width: containerRef?.current?.parentNode?.offsetWidth - 27}))
     }, [width])
 
     const renderRecentFiles = () => {

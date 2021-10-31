@@ -10,8 +10,8 @@
 .colorWrap
   display: flex
   flex-direction: column
-  width: calc(77% + 6px)
-  margin: 0 0 15px 0
+  width: calc(87% + 6px)
+  margin: 0 0 5px 0
   .title
     font-size: 13px
     margin: 0 0 8px 3px
@@ -26,8 +26,9 @@
       width: 30px
       height: 30px
       &:hover
-        background: rgba(1, 1, 1, 0.2)
+        background: #EEEEEE
         border-radius: 50%
+        border: 1px solid #4086F1
     .circleColor
       position: relative
       display: flex
@@ -39,8 +40,9 @@
       cursor: pointer
       z-index: 2
     .chosenColorWrap
-      background: rgba(1, 1, 1, 0.2)
+      background: #EEEEEE
       border-radius: 50%
+      border: 1px solid #4086F1
 .minify // for filter context menu
   width: 190px
   height: 40px
@@ -78,7 +80,7 @@
         width: 15px
         height: 15px
 
-@media (max-height: 820px)
+@media (max-height: 720px)
   .colorWrap
     div
       .circleColor

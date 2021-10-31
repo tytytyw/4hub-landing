@@ -20,7 +20,7 @@ function App() {
         const uid = document?.cookie.match(/uid=[a-zA-Z0-9]*/g);
         const id_company = document?.cookie.match(/id_company=[a-zA-Z0-9]*/g);
         if (!!uid) {
-            const data = {uid: uid[0].split('=')[1], id_company: id_company[0].split('=')[1]}
+            const data = {uid: uid?.[0].split('=')[1], id_company: id_company?.[0].split('=')[1]}
             dispatch(onLog(data));
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps

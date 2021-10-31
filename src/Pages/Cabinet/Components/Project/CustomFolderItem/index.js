@@ -4,7 +4,7 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import {colors} from '../../../../../generalComponents/collections';
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
-import {onChooseProjectFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseProjectFiles, setChosenFolderProject} from "../../../../../Store/actions/CabinetActions";
 import {useDispatch} from "react-redux";
 
 const CustomFolderItem = ({
@@ -16,6 +16,7 @@ const CustomFolderItem = ({
     const onClickHandler = () => {
         setChosenFolder(folder)
         dispatch(onChooseProjectFiles(folder, project));
+        dispatch(setChosenFolderProject(folder.name));
     }
     
     return (
