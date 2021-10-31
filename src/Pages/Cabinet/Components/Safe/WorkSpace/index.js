@@ -348,6 +348,9 @@ const WorkSpace = ({
 						setFilesPage={setFilesPage}
 						loadingFiles={loadingFiles}
 						setLoadingFiles={setLoadingFiles}
+						onSuccessLoading={onSuccessLoading}
+						fileRef={fileRef}
+						gLoader={gLoader}
 					>
 						{renderFiles(FileLine)}
 					</WorkLines>
@@ -362,6 +365,9 @@ const WorkSpace = ({
 						setFilesPage={setFilesPage}
 						loadingFiles={loadingFiles}
 						setLoadingFiles={setLoadingFiles}
+						onSuccessLoading={onSuccessLoading}
+						fileRef={fileRef}
+						gLoader={gLoader}
 					>
 						{renderFiles(FileBar)}
 					</WorkBarsPreview>
@@ -376,6 +382,9 @@ const WorkSpace = ({
 						setFilesPage={setFilesPage}
 						loadingFiles={loadingFiles}
 						setLoadingFiles={setLoadingFiles}
+						onSuccessLoading={onSuccessLoading}
+						fileRef={fileRef}
+						gLoader={gLoader}
 					>
 						{renderFiles(FileLineShort)}
 					</WorkLinesPreview>
