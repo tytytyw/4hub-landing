@@ -38,14 +38,15 @@ const LoadItem = ({
             <div className={styles.fileWrap}><File format={ext} color={color} /></div>
             <span className={styles.name}>{name}</span>
         </div>
-        <div className={styles.settingsWrap}>
-            {!processing ? <SettingsIcon
-                className={styles.settings}
-                onClick={() => {
-                    setFileAddCustomization({show: true, file: list[index]});
-                    if(!list[index]?.file?.loaded) deleteItem();
-                }} /> : null}
-        </div>
+        {/*commented icon that allows adjust files in loading list*/}
+        {/*<div className={styles.settingsWrap}>*/}
+        {/*    {!processing ? <SettingsIcon*/}
+        {/*        className={styles.settings}*/}
+        {/*        onClick={() => {*/}
+        {/*            setFileAddCustomization({show: true, file: list[index]});*/}
+        {/*            if(!list[index]?.file?.loaded) deleteItem();*/}
+        {/*        }} /> : null}*/}
+        {/*</div>*/}
         <div className={styles.optionsItemWrap}>
             {loaded && !error ? <span className={styles.loadedItemWrap}>
                 <CheckIcon className={styles.checkIcon} />
@@ -53,7 +54,7 @@ const LoadItem = ({
             </span> : null}
             {!loaded && !processing && !error ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
             {processing && !error ? <div className={styles.progress}>
-                <svg viewBox="0 0 100 100" width="30px" className={styles.progressBar}>
+                <svg viewBox="0 0 100 100" width="20px" className={styles.progressBar}>
                   <circle className={styles.load} cx="50" cy="50" r="45"/>
                   <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
                 </svg>

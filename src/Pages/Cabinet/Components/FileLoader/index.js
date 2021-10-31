@@ -219,7 +219,7 @@ const FileLoader = ({
 
     const renderPosition = () => {
         const position = {top: '', left: '', right: '', bottom: ''};
-        if(params.x === -1 && params.y === -1) return {...position, right: '50px', bottom: '50px'};
+        if(params.x === -1 && params.y === -1) return {...position, right: '30px', bottom: '70px'};
         window.innerWidth / 2 >= params.x
             ? position.left = (params.x - params.offsetX) > 50 ? `${params.x - params.offsetX}px` : `${50}px`
             : position.left = (params.x + (params.width - params.offsetX)) < (window.innerWidth - 50) ? `${params.x - params.offsetX}px` : `${window.innerWidth - 50 - params.width}px`;
