@@ -134,7 +134,7 @@ const WorkBarsPreview = ({
                     : '205px',
         }}
     >
-        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px)`}}>
+        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}>
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
