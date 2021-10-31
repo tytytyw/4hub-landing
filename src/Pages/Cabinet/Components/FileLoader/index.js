@@ -95,7 +95,7 @@ const FileLoader = ({
             data.append('symbol', file?.options?.symbol ? file.options.symbol : '');
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
             data.append('dir', file?.options?.dir ?? '');
-            console.log(file)
+
             if(file.options.destination === 'Safe') {
                 data.append('id_safe', authorizedSafe.id_safe);
                 data.append('code', authorizedSafe.code);
@@ -193,6 +193,7 @@ const FileLoader = ({
                 setAwaitingFiles={setAwaitingFiles}
                 loadingFile={loadingFile}
                 setLoadingFile={setLoadingFile}
+                collapsed={collapsed}
             />
       });
     };

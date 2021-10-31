@@ -4,14 +4,15 @@ import styles from './LoadItem.module.sass';
 import File from '../../../../../generalComponents/Files';
 import {ReactComponent as CheckIcon} from '../../../../../assets/PrivateCabinet/check.svg';
 import {ReactComponent as CrossIcon} from '../../../../../assets/PrivateCabinet/remove.svg';
-import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabinet/settings.svg';
+// import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabinet/settings.svg';
 import {ReactComponent as ErrorIcon} from '../../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as ReloadIcon} from '../../../../../assets/PrivateCabinet/reload.svg';
+import {ReactComponent as UploadArrowIcon} from '../../../../../assets/PrivateCabinet/uploadArrow.svg';
 
 const LoadItem = ({
               list, index, set, loaded, processing, name, ext, color, options, startLoading,
               setProcessing, setFileAddCustomization, error, fileErrors, setFileErrors,
-              awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile,
+              awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, collapsed,
 }) => {
 
     const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
@@ -58,6 +59,7 @@ const LoadItem = ({
                   <circle className={styles.load} cx="50" cy="50" r="45"/>
                   <circle className={styles.loaded} cx="50" cy="50" r="45" ref={circleRef} strokeDasharray={data.strokeDasharray} strokeDashoffset={data.strokeDashoffset} />
                 </svg>
+                {collapsed ? <UploadArrowIcon className={styles.uploadIcon} /> : null}
                 <span className={styles.crossUpload}>
                     <CrossIcon className={styles.cross} onClick={() => {
                         setFileErrors([...fileErrors, list[index]]);
