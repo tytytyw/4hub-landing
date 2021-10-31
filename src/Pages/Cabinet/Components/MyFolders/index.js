@@ -241,7 +241,7 @@ const MyFolders = ({
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
-                title='Новая папка'
+                title='Создать папку'
                 info={newFolderInfo}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}

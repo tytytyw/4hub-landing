@@ -61,7 +61,7 @@ const InputField = ({
             />}
             {switcher && <div
                 className={isPassword ? styles.switcherActive : styles.switcher}
-                onClick={() => switchOn()}
+                onClick={switchOn}
             ><div className={isPassword ? styles.switchActive : styles.switch} /></div>}
         </div>
     )

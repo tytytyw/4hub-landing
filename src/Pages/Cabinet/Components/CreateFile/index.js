@@ -39,7 +39,6 @@ const CreateFile = ({
     const dispatch = useDispatch();
     const [isSafe, setIsSafe] = useState(false)
     const [path, setPath] = useState(fileList?.path)
-    
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -162,7 +161,6 @@ const CreateFile = ({
         tagRef.current.style.display = 'none';
         setTimeout(() => {tagRef.current.style.display = ''}, 0);
     }
-
     return (
         <div style={{display: `block`}}>
             <PopUp set={onCloseTab}>
