@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+
+import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
+import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../../generalComponents/Files';
@@ -7,13 +11,23 @@ import api from '../../../../../../api';
 // import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 
-const WorkBarsPreview = ({children, file, setLoadingType}) => {
+const WorkBarsPreview = ({
+    children,
+    file,
+    setLoadingType,
+    fileRef,
+	gLoader,
+	filesPage,
+	onSuccessLoading,
+	loadingFiles,
+	setLoadingFiles,}) => {
 
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
     const uid = useSelector(state => state.user.uid);
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
     const [previewReq, setPreviewReq] = useState({sent: false, data: null});
+    const dispatch = useDispatch();
     
     const innerFilesHeight = () => {
         switch(size) {
@@ -62,6 +76,39 @@ const WorkBarsPreview = ({children, file, setLoadingType}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file])
 
+    const load = (entry) => {
+		if (!gLoader && authorizedSafe) {
+
+			if (entry.isIntersecting && !loadingFiles && filesPage !==0) {
+				setLoadingFiles(true);
+				dispatch(
+					onGetSafeFileList(
+						authorizedSafe.code,
+						authorizedSafe.id_safe,
+						authorizedSafe.password,
+						onSuccessLoading,
+						"",
+						"",
+						search,
+						filesPage,
+						''
+					)
+				);
+			}
+		}
+	};
+
+	const options = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0,
+	};
+
+	const [containerRef] = useScrollElementOnScreen(options, load);
+
+	useEffect(() => {
+        setLoadingFiles(false);
+    }, []) //eslint-disable-line
 
     return (<div
         className={styles.workBarsPreviewWrap}
@@ -87,9 +134,26 @@ const WorkBarsPreview = ({children, file, setLoadingType}) => {
                 : null}
             {file ? file.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div> : null}
         </div>
-        <div className={styles.renderedFiles}>
-            <div className={styles.innerFiles}>{children}</div>
-        </div>
+        {authorizedSafe && <div className={styles.renderedFiles}>
+            <div ref={fileRef} className={styles.innerFiles}>
+            {!gLoader && children}
+                {!gLoader ? <div
+                    className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ''}`}
+                    style={{height: '100%'}}
+                    ref={containerRef}
+                >
+                    <Loader
+                        type='bounceDots'
+                        position='absolute'
+                        background='white'
+                        zIndex={5}
+                        width='100px'
+                        height='100px'
+                        containerType='bounceDots'
+                    />
+                </div> : null}
+            </div>
+        </div>}
     </div>)
 }
 

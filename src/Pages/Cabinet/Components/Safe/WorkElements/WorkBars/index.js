@@ -1,45 +1,64 @@
-import React, { useState } from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./WorkBars.module.sass";
 import { ReactComponent as AddIcon } from "../../../../../../assets/PrivateCabinet/plus-3.svg";
-import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
+import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 
 const WorkBars = ({
 	children,
 	fileSelect,
 	hideUploadFile,
-	page,
-	setPage,
 	fileRef,
-	chosenFolder,
 	gLoader,
-    filePick,
+	filePick,
+	filesPage,
+	onSuccessLoading,
+	loadingFiles,
+	setLoadingFiles,
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 	const search = useSelector((state) => state.Cabinet.search);
 	const fileList = useSelector((state) => state.Cabinet.fileList);
-	const [loadingFiles, setLoadingFiles] = useState(false);
 	const dispatch = useDispatch();
+	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
 
-	const onSuccessLoading = () => {
-		setLoadingFiles(false);
-		setPage((page) => page + 1);
-	};
+	const load = (entry) => {
+		if (!gLoader && authorizedSafe) {
 
-	const loadFiles = (e) => {
-		if (
-			!loadingFiles &&
-			e.target.scrollHeight - e.target.offsetHeight - 200 < e.target.scrollTop
-		) {
-			if (chosenFolder?.files_amount > fileList.files.length) {
+			if (entry.isIntersecting && !loadingFiles && filesPage !==0) {
 				setLoadingFiles(true);
-				dispatch(onChooseFiles(fileList.path, search, page, onSuccessLoading));
+				dispatch(
+					onGetSafeFileList(
+						authorizedSafe.code,
+						authorizedSafe.id_safe,
+						authorizedSafe.password,
+						onSuccessLoading,
+						"",
+						"",
+						search,
+						filesPage,
+						''
+					)
+				);
 			}
 		}
 	};
+
+	const options = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0,
+	};
+
+	const [containerRef] = useScrollElementOnScreen(options, load);
+
+	useEffect(() => {
+        setLoadingFiles(false);
+    }, []) //eslint-disable-line
 
 	return (
 		<div
@@ -60,7 +79,6 @@ const WorkBars = ({
 				gridAutoRows:
 					size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
 			}}
-			onScroll={loadFiles}
 		>
 			{fileList?.length === 0 ? (
 				<div
@@ -107,29 +125,34 @@ const WorkBars = ({
 			) : null}
 			{gLoader ? (
 				<Loader
-					type="squarify"
-					position="absolute"
-					background="rgba(255, 255, 255, 0.75)"
+					type='bounceDots'
+					position='absolute'
+					background='rgba(255, 255, 255, 0.75)'
 					zIndex={5}
+					containerType='bounceDots'
 				/>
 			) : (
 				children
 			)}
-			<div
-				className={styles.bottomLine}
-				style={{ height: loadingFiles ? "100px" : "40px" }}
-			>
-				{loadingFiles && !gLoader ? (
-					<Loader
-						type="switch"
+			{!gLoader ? (
+				<div
+					className={`${styles.bottomLine} ${
+						filesPage === 0 ? styles.bottomLineHidden : ""
+					}`}
+					style={{ height: "100%" }}
+					ref={containerRef}
+				>
+					{loadingFiles && <Loader
+						type="bounceDots"
 						position="absolute"
 						background="white"
 						zIndex={5}
 						width="100px"
 						height="100px"
-					/>
-				) : null}
-			</div>
+						containerType="bounceDots"
+					/>}
+				</div>
+			) : null}
 		</div>
 	);
 };

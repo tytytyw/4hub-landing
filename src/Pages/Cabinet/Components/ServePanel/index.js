@@ -12,7 +12,8 @@ import {
     onChangeFilterFigure,
     onChangeFilterEmoji,
     onChangeFilterColor,
-    onSetReverseCriterion
+    onSetReverseCriterion,
+    onGetSafeFileList,
 } from '../../../../Store/actions/CabinetActions';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onSetWorkElementsView} from '../../../../Store/actions/CabinetActions';
@@ -78,6 +79,18 @@ const ServePanel = ({
         dispatch(onSortFile(sorting));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', setGLoader))
+        if (menuItem === 'safe') dispatch(
+            onGetSafeFileList(
+                authorizedSafe.code,
+                authorizedSafe.id_safe,
+                authorizedSafe.password,
+                '',
+                '',
+                '',
+                search,
+                1,
+                ''
+        ))
     };
 
     const createFile = (ext) => {
@@ -123,16 +136,52 @@ const ServePanel = ({
         dispatch(onChangeFilterFigure(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'safe') dispatch(
+            onGetSafeFileList(
+                authorizedSafe.code,
+                authorizedSafe.id_safe,
+                authorizedSafe.password,
+                '',
+                '',
+                '',
+                search,
+                1,
+                ''
+        ))
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'safe') dispatch(
+            onGetSafeFileList(
+                authorizedSafe.code,
+                authorizedSafe.id_safe,
+                authorizedSafe.password,
+                '',
+                '',
+                '',
+                search,
+                1,
+                ''
+        ))
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'safe') dispatch(
+            onGetSafeFileList(
+                authorizedSafe.code,
+                authorizedSafe.id_safe,
+                authorizedSafe.password,
+                '',
+                '',
+                '',
+                search,
+                1,
+                ''
+        ))
     }
 
     const tempChoose = () => (

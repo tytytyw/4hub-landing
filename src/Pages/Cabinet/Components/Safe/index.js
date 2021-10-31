@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {imageSrc} from '../../../../generalComponents/globalVariables';
+import { imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./Safe.module.sass";
 import SafeItem from "./SafeItem";
 import SafeIcon from "./SafeIcon";
@@ -18,11 +18,15 @@ import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
-import { onGetSafes, onExitSafe, onDeleteSafeFile } from "../../../../Store/actions/CabinetActions";
+import {
+	onGetSafes,
+	onExitSafe,
+	onDeleteSafeFile,
+} from "../../../../Store/actions/CabinetActions";
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
-import SafeProperty from '../ContextMenuComponents/ContexMenuSafe/SafeProperty';
+import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
 
 const Safe = ({
 	menuItem,
@@ -51,7 +55,7 @@ const Safe = ({
 	const safes = useSelector((state) => state.Cabinet.safes);
 	const fileList = useSelector((state) => state.Cabinet.safeFileList);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
 	const [listCollapsed, setListCollapsed] = useState("");
 	const [selectedSafe, setSelectedSafe] = useState(null);
 	const [createSafe, setCreateSafe] = useState(false);
@@ -62,10 +66,13 @@ const Safe = ({
 	const [safePassword, setSafePassword] = useState({ open: false });
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [filePick, setFilePick] = useState({ show: false, files: [] });
-	const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false });
+	const nullifyFilePick = () =>
+		setFilePick({ show: false, files: [], customize: false });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-
-	const [loadingType, setLoadingType] = useState('');
+	const [filesPage, setFilesPage] = useState(1);
+	const [loadingFiles, setLoadingFiles] = useState(false);
+	const [loadingType, setLoadingType] = useState("");
+	const [gLoader, setGLoader] = useState(false);
 
 	useEffect(() => {
 		setLoadingType(safes === null ? "squarify" : "");
@@ -75,7 +82,8 @@ const Safe = ({
 
 	useEffect(() => {
 		dispatch(onGetSafes());
-		setMenuItem("Safe");
+		setMenuItem("safe");
+		return () => setMenuItem('')
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -85,7 +93,7 @@ const Safe = ({
 	}, [path]);
 
 	useEffect(() => {
-		dispatch(onExitSafe())
+		dispatch(onExitSafe());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedSafe]);
 
@@ -116,10 +124,25 @@ const Safe = ({
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
-		{type: 'customizeSafe', name: 'Редактировать', text: ``, callback: (list, index) => setAction(list[index])},
+		{
+			type: "customizeSafe",
+			name: "Редактировать",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
 		// TODO:
-		{type: 'settings', name: 'Настроить', text: ``, callback: (list, index) => setAction(list[index])},
-		{type: 'propertiesSafe', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
+		{
+			type: "settings",
+			name: "Настроить",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "propertiesSafe",
+			name: "Свойства",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
 	];
 
 	const additionalMenuItems = [
@@ -171,18 +194,16 @@ const Safe = ({
 
 	const deleteFile = () => {
 		if (filePick.show) {
-			filePick.files.forEach((fid, i, arr) =>
-			{
-			safeFileDelete(
+			filePick.files.forEach((fid, i, arr) => {
+				safeFileDelete(
 					authorizedSafe.id_safe,
 					fid,
 					dispatch,
 					uid,
 					i === arr.length - 1 ? setShowSuccessMessage : "",
 					"Файлы перемещено в корзину"
-				)
-			}
-			);
+				);
+			});
 			setFilePick({ ...filePick, files: [], show: false });
 		} else {
 			safeFileDelete(
@@ -201,7 +222,9 @@ const Safe = ({
 	const addToArchive = (uid, fid, file, options) => {
 		setLoadingType("squarify");
 		api
-			.post(`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid}&id_safe=${authorizedSafe.id_safe}`)
+			.post(
+				`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid}&id_safe=${authorizedSafe.id_safe}`
+			)
 			.then((res) => {
 				if (res.data.ok === 1) {
 					dispatch(onDeleteSafeFile(fid));
@@ -235,6 +258,18 @@ const Safe = ({
 			});
 		}
 	};
+	
+	const onSuccessLoading = (result) => {
+		setTimeout(() => {
+			result > 0 ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
+			setLoadingFiles(false);
+		}, 50); // 50ms needed to prevent recursion of ls_json requests
+	};
+
+	const successLoad = () => {
+        setFilesPage(2)
+        setGLoader(false)
+    }
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -281,7 +316,8 @@ const Safe = ({
 							className={classNames({
 								[styles.folderListWrap]: true,
 								[styles?.[`folderListWrap_${size}`]]: !!size,
-								[styles?.[`folderListWrapCollapsed_${size}`]]: !!listCollapsed && !!size
+								[styles?.[`folderListWrapCollapsed_${size}`]]:
+									!!listCollapsed && !!size,
 							})}
 						>
 							{renderSafesList()}
@@ -289,7 +325,6 @@ const Safe = ({
 					)}
 				</div>
 			</div>
-
 			<WorkSpace
 				menuItem={menuItem}
 				listCollapsed={listCollapsed}
@@ -313,8 +348,14 @@ const Safe = ({
 				cancelArchive={cancelArchive}
 				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
+				filesPage={filesPage}
+				setFilesPage={setFilesPage}
+				onSuccessLoading={onSuccessLoading}
+				loadingFiles={loadingFiles}
+				setLoadingFiles={setLoadingFiles}
+				gLoader={gLoader}
+				setGLoader={setGLoader}
 			/>
-
 			{filePreview?.view && (
 				<PreviewSafeFile
 					setFilePreview={setFilePreview}
@@ -323,7 +364,6 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 				/>
 			)}
-
 			{mouseParams !== null && (
 				<ContextMenu
 					params={mouseParams}
@@ -341,11 +381,9 @@ const Safe = ({
 					</div>
 				</ContextMenu>
 			)}
-
 			{noSafePopup && (
 				<NoSafe setCreateSafe={setCreateSafe} set={setNoSafePopup} />
 			)}
-
 			{codePopup && (
 				<CodePopup
 					refreshPass={refreshPass}
@@ -353,13 +391,14 @@ const Safe = ({
 					safe={selectedSafe}
 					set={setCodePopup}
 					setLoadingType={setLoadingType}
+					filesPage={filesPage}
+					setFilesPage={setFilesPage}
+					successLoad={successLoad}
 				/>
 			)}
-
 			{createSafe && (
 				<CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />
 			)}
-
 			{action.type === "deleteSafe" ? (
 				<ActionApproval
 					name={action.name}
@@ -393,12 +432,9 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 				/>
 			) : null}
-			{action.type === 'propertiesSafe'
-            ? <SafeProperty
-                close={nullifyAction}
-                safe={selectedSafe}
-            />
-            : null}
+			{action.type === "propertiesSafe" ? (
+				<SafeProperty close={nullifyAction} safe={selectedSafe} />
+			) : null}
 			{showSuccessMessage && (
 				<SuccessMessage
 					showSuccessMessage={showSuccessMessage}
@@ -421,15 +457,17 @@ const Safe = ({
 					menuItem={menuItem}
 				/>
 			)}
-
-			'{loadingType ? <Loader
-                position='absolute'
-                zIndex={10000}
-                containerType='bounceDots'
-                type='bounceDots'
-                background='white'
-                animation={false}
-            /> : null}
+			'
+			{loadingType ? (
+				<Loader
+					position="absolute"
+					zIndex={10000}
+					containerType="bounceDots"
+					type="bounceDots"
+					background="white"
+					animation={false}
+				/>
+			) : null}
 		</div>
 	);
 };
