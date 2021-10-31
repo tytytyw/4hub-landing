@@ -233,11 +233,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         case AUTHORIZED_SAFE:
             return {...state, authorizedSafe: action.payload}
         case CHOOSE_SAFE_FILELIST:
-            // return {...state, safeFileList: action?.payload?.length ? [...action.payload] : null}
             return {...state, safeFileList: {...action.payload}};
         case LOAD_SAFE_FILELIST:
-            // return {...state, safeFileList: [state.safeFileList, ...action.payload]}
-            return {...state, safeFileList: {...state.safeFileList, files: [...state.safeFileList?.files, ...action.payload]}};
+            return {...state, safeFileList: {...state.safeFileList, files: [...state.safeFileList?.files, ...action.payload.files]}};
         case SAFE_FILE_DELETE: {
             const files = state.safeFileList.filter(el => el.fid !== action.payload)
             return {...state, safeFileList: files};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./WorkBars.module.sass";
@@ -28,7 +28,8 @@ const WorkBars = ({
 
 	const load = (entry) => {
 		if (!gLoader && authorizedSafe) {
-			if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
+
+			if (entry.isIntersecting && !loadingFiles && filesPage !==0) {
 				setLoadingFiles(true);
 				dispatch(
 					onGetSafeFileList(
@@ -40,7 +41,7 @@ const WorkBars = ({
 						"",
 						search,
 						filesPage,
-						onSuccessLoading
+						''
 					)
 				);
 			}
@@ -54,6 +55,10 @@ const WorkBars = ({
 	};
 
 	const [containerRef] = useScrollElementOnScreen(options, load);
+
+	useEffect(() => {
+        setLoadingFiles(false);
+    }, []) //eslint-disable-line
 
 	return (
 		<div
@@ -120,10 +125,11 @@ const WorkBars = ({
 			) : null}
 			{gLoader ? (
 				<Loader
-					type="squarify"
-					position="absolute"
-					background="rgba(255, 255, 255, 0.75)"
+					type='bounceDots'
+					position='absolute'
+					background='rgba(255, 255, 255, 0.75)'
 					zIndex={5}
+					containerType='bounceDots'
 				/>
 			) : (
 				children
@@ -136,7 +142,7 @@ const WorkBars = ({
 					style={{ height: "100%" }}
 					ref={containerRef}
 				>
-					<Loader
+					{loadingFiles && <Loader
 						type="bounceDots"
 						position="absolute"
 						background="white"
@@ -144,7 +150,7 @@ const WorkBars = ({
 						width="100px"
 						height="100px"
 						containerType="bounceDots"
-					/>
+					/>}
 				</div>
 			) : null}
 		</div>

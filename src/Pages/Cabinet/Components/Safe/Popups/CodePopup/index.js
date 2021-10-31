@@ -18,7 +18,7 @@ const CodePopup = ({
 	setRefreshPass,
 	setLoadingType,
 	filesPage,
-	onSuccessLoading,
+	successLoad
 	
 }) => {
 	const [password, setPassword] = useState("");
@@ -55,7 +55,7 @@ const CodePopup = ({
 					code,
 					id_safe,
 					password,
-					onSuccessLoading,
+					successLoad,
 					setError,
 					setLoadingType,
 					search,

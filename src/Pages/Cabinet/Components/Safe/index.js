@@ -72,6 +72,7 @@ const Safe = ({
 	const [filesPage, setFilesPage] = useState(1);
 	const [loadingFiles, setLoadingFiles] = useState(false);
 	const [loadingType, setLoadingType] = useState("");
+	const [gLoader, setGLoader] = useState(false);
 
 	useEffect(() => {
 		setLoadingType(safes === null ? "squarify" : "");
@@ -257,7 +258,6 @@ const Safe = ({
 			});
 		}
 	};
-
 	
 	const onSuccessLoading = (result) => {
 		setTimeout(() => {
@@ -266,9 +266,10 @@ const Safe = ({
 		}, 50); // 50ms needed to prevent recursion of ls_json requests
 	};
 
-	useEffect(() => {
-		console.log(fileList)
-	}, [fileList])
+	const successLoad = () => {
+        setFilesPage(2)
+        setGLoader(false)
+    }
 
 	return (
 		<div className={styles.workAreaWrap}>
@@ -352,6 +353,8 @@ const Safe = ({
 				onSuccessLoading={onSuccessLoading}
 				loadingFiles={loadingFiles}
 				setLoadingFiles={setLoadingFiles}
+				gLoader={gLoader}
+				setGLoader={setGLoader}
 			/>
 			{filePreview?.view && (
 				<PreviewSafeFile
@@ -390,7 +393,7 @@ const Safe = ({
 					setLoadingType={setLoadingType}
 					filesPage={filesPage}
 					setFilesPage={setFilesPage}
-					onSuccessLoading={onSuccessLoading}
+					successLoad={successLoad}
 				/>
 			)}
 			{createSafe && (

@@ -56,6 +56,8 @@ const WorkSpace = ({
 	setFilesPage,
 	loadingFiles,
 	setLoadingFiles,
+	onSuccessLoading,
+	gLoader
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
@@ -283,7 +285,7 @@ const WorkSpace = ({
 	};
 
 	useEffect(() => {
-        if(fileList?.files.length <= 5) {
+        if(fileList?.files?.length <= 10) {
             setFilesPage(2);
             if(fileRef.current) {
                 fileRef.current.scrollTop = 0;
@@ -328,9 +330,11 @@ const WorkSpace = ({
 						file={chosenFile}
 						filePick={filePick}
 						filesPage={filesPage}
-						setFilesPage={setFilesPage}
 						loadingFiles={loadingFiles}
 						setLoadingFiles={setLoadingFiles}
+						onSuccessLoading={onSuccessLoading}
+						fileRef={fileRef}
+						gLoader={gLoader}
 					>
 						{renderFiles(FileBar)}
 					</WorkBars>
