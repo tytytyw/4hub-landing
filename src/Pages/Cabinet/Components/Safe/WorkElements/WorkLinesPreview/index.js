@@ -1,20 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./WorkLinesPreview.module.sass";
 import { colors } from "../../../../../../generalComponents/collections";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-import api from '../../../../../../api';
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
+import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
+import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
-const WorkLinesPreview = ({ file, children, hideFileList, setLoadingType }) => {
+const WorkLinesPreview = ({
+	file,
+	children,
+	hideFileList,
+	setLoadingType,
+	fileRef,
+	gLoader,
+	filesPage,
+	onSuccessLoading,
+	loadingFiles,
+	setLoadingFiles,
+	filePick
+}) => {
 	const size = useSelector((state) => state.Cabinet.size);
+	const search = useSelector((state) => state.Cabinet?.search);
+
 	const [color, setColor] = useState(null);
 	const [f, setF] = useState(file);
-	const uid = useSelector(state => state.user.uid);
-    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
-    const [previewReq, setPreviewReq] = useState({sent: false, data: null});
+	const uid = useSelector((state) => state.user.uid);
+	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+	const [previewReq, setPreviewReq] = useState({ sent: false, data: null });
+    const dispatch = useDispatch();
+
+
 	useEffect(() => {
 		setF(file);
 		const newColor = colors.filter((c) => c.color === file?.color);
@@ -46,39 +66,114 @@ const WorkLinesPreview = ({ file, children, hideFileList, setLoadingType }) => {
 
 	//TODO: refactor: import getPreview
 	const getPreview = () => {
-        if(!previewReq.sent) {
-            setLoadingType('squarify')
-            setPreviewReq({...previewReq, sent: true});
-            api.get(`/ajax/safe_file_preview.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`, {
-                responseType: 'blob'
-            })
-                .then(res => {
-                    const blob = new Blob([res.data])
-                    let objectURL = URL.createObjectURL(blob);
-                    setPreviewReq({sent: false, data: objectURL})
-                })
-                .catch(err => console.log(err))
-                .finally(() => setLoadingType(false)) 
-        }
-    }
+		if (!previewReq.sent) {
+			setLoadingType("squarify");
+			setPreviewReq({ ...previewReq, sent: true });
+			api
+				.get(
+					`/ajax/safe_file_preview.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
+					{
+						responseType: "blob",
+					}
+				)
+				.then((res) => {
+					const blob = new Blob([res.data]);
+					let objectURL = URL.createObjectURL(blob);
+					setPreviewReq({ sent: false, data: objectURL });
+				})
+				.catch((err) => console.log(err))
+				.finally(() => setLoadingType(false));
+		}
+	};
 
 	useEffect(() => {
-        if (file?.is_preview === 1) {
-            getPreview()
-        }
-        renderFilePreview()
-        setPreviewReq({sent: false, data: null})
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [file])
+		if (file?.is_preview === 1) {
+			getPreview();
+		}
+		renderFilePreview();
+		setPreviewReq({ sent: false, data: null });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [file]);
+
+	const load = (entry) => {
+		if (!gLoader && authorizedSafe) {
+			if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
+				setLoadingFiles(true);
+				dispatch(
+					onGetSafeFileList(
+						authorizedSafe.code,
+						authorizedSafe.id_safe,
+						authorizedSafe.password,
+						onSuccessLoading,
+						"",
+						"",
+						search,
+						filesPage,
+						""
+					)
+				);
+			}
+		}
+	};
+
+	const options = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0,
+	};
+
+	const [containerRef] = useScrollElementOnScreen(options, load);
+
+	useEffect(() => {
+		setLoadingFiles(false);
+	}, []); //eslint-disable-line
 
 	return (
 		<div className={styles.workLinesPreviewWrap}>
-			{!hideFileList && (
-				<div className={classNames(styles.fileListWrap, styles[`fileListWrap_${size}`])}>
-					{children}
+			{!hideFileList && authorizedSafe && (
+				<div
+					className={classNames(
+						styles.fileListWrap,
+						styles[`fileListWrap_${size}`]
+					)}
+					style={{
+						height: `${
+							filePick.show
+								? "calc(100% - 90px - 55px - 90px)"
+								: "calc(100% - 90px - 55px)"
+						}`,
+						gridTemplateColumns:
+							size === "small"
+								? "repeat(auto-fill, 118px)"
+								: size === "medium"
+								? "repeat(auto-fill, 160px)"
+								: "repeat(auto-fill, 205px)",
+						gridAutoRows:
+							size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
+					}}
+				>
+					{!gLoader && children}
+					{!gLoader ? (
+						<div
+							className={`${styles.bottomLine} ${
+								filesPage === 0 ? styles.bottomLineHidden : ""
+							}`}
+							ref={containerRef}
+						>
+							<Loader
+								type="bounceDots"
+								position="absolute"
+								background="white"
+								zIndex={5}
+								width="100px"
+								height="100px"
+								containerType="bounceDots"
+							/>
+						</div>
+					) : null}
 				</div>
 			)}
-			<div className={(styles.previewFileWrap)}>
+			{authorizedSafe && <div className={styles.previewFileWrap} ref={fileRef}>
 				{f ? (
 					<>
 						<div className={styles.preview}>
@@ -169,7 +264,7 @@ const WorkLinesPreview = ({ file, children, hideFileList, setLoadingType }) => {
 						</div>
 					</>
 				) : null}
-			</div>
+			</div>}
 		</div>
 	);
 };
