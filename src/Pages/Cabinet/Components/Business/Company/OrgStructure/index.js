@@ -28,7 +28,7 @@ function OrgStructure({
 		console.log(element);
 		setChosenPerson(element);
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
-			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 220, height: 25 });
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [20, 20];
@@ -293,6 +293,14 @@ function OrgStructure({
 					nullifyAction={nullifyAction}
 					person={chosenPerson}
 					editPerson={editPerson}
+				/>
+			) : null}
+			{action.type === "info" ? (
+				<EditPerson
+					nullifyAction={nullifyAction}
+					person={chosenPerson}
+					editPerson={editPerson}
+					disableСhanges={true}
 				/>
 			) : null}
 			{action.type === "delete" ? (

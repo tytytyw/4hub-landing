@@ -5,9 +5,9 @@ import {
 	personStatus,
 	personPositions,
 } from "../../../../../../../generalComponents/collections";
-import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
+import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 
-const Select = ({ selectFor, value, setValue }) => {
+const Select = ({ selectFor, value, setValue, disableСhanges }) => {
 	const [open, setOpen] = useState(false);
 	const ref = useRef();
 
@@ -19,7 +19,7 @@ const Select = ({ selectFor, value, setValue }) => {
 			if (item.text === value) return null;
 			return (
 				<div
-					className={styles.option}
+					className={classNames({[styles.option]: true, [styles.disabled]: disableСhanges})}
 					key={index}
 					onClick={() => {
 						setValue(personStatus.filter((i) => i.text === item.text)[0]);
@@ -40,10 +40,10 @@ const Select = ({ selectFor, value, setValue }) => {
 		return (
 			<div className={styles.positionWrap}>
 				<div className={styles.searchWrap}>
-                    <img
-                    src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
-                    alt="magnify"
-                    />
+					<img
+						src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
+						alt="magnify"
+					/>
 					<input
 						placeholder="введите название должности"
 						className={styles.searchInput}
@@ -56,22 +56,22 @@ const Select = ({ selectFor, value, setValue }) => {
 						}
 					/>
 				</div>
-                <div className={styles.optionsWrap}>
-                    {filtredPositions.map((item, index) => {
-                        return (
-                            <div
-                                className={styles.option}
-                                key={item + index}
-                                onClick={() => {
-                                    setValue(item);
-                                    setOpen(false);
-                                }}
-                            >
-                                <span>{item}</span>
-                            </div>
-                        );
-                    })}
-                </div>
+				<div className={styles.optionsWrap}>
+					{filtredPositions.map((item, index) => {
+						return (
+							<div
+								className={styles.option}
+								key={item + index}
+								onClick={() => {
+									setValue(item);
+									setOpen(false);
+								}}
+							>
+								<span>{item}</span>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		);
 	};
@@ -95,9 +95,12 @@ const Select = ({ selectFor, value, setValue }) => {
 			})}
 		>
 			<div
-				onClick={() => setOpen(!open)}
+				onClick={() => {
+					if (!disableСhanges) setOpen(!open);
+				}}
 				className={classNames({
 					[styles.select]: true,
+                    [styles.disabled]: disableСhanges,
 				})}
 			>
 				<div className={styles.valueWrap}>
@@ -122,26 +125,36 @@ const Select = ({ selectFor, value, setValue }) => {
 						) : (
 							<input
 								className={styles.positionInput}
-								placeholder="Выберите из списка или введите вручную"
+								placeholder={!disableСhanges ? "Выберите из списка или введите вручную" : "не указана"}
 								value={value}
-								onChange={(e) => setValue(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : '')}
+                                disabled={disableСhanges}
+								onChange={(e) =>
+									setValue(
+										e.target.value
+											? e.target.value[0].toUpperCase() +
+													e.target.value.slice(1)
+											: ""
+									)
+								}
 							/>
 						)}
 					</span>
 				</div>
-				<span
-					className={classNames({
-						[styles.arrow]: true,
-						[styles.active]: !!open,
-					})}
-				/>
+				{!disableСhanges && (
+					<span
+						className={classNames({
+							[styles.arrow]: true,
+							[styles.active]: !!open,
+						})}
+					/>
+				)}
 			</div>
 
 			<div
 				className={classNames({
 					[styles.contentWrap]: true,
 					[styles.active]: !!open,
-                    [styles.position]: selectFor === 'position'
+					[styles.position]: selectFor === "position",
 				})}
 			>
 				{open && selectFor === "status" ? renderStatus() : renderPositions()}
