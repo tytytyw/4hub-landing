@@ -8,7 +8,7 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {useWindowSize} from "../../../../generalComponents/Hooks";
 import {getIcon} from "../Project/helpers";
 
-const RecentFiles = ({setFilePreview, filePreview, menuItem}) => {
+const RecentFiles = ({setFilePreview, filePreview, menuItem, onDoubleClickCallback}) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
@@ -26,14 +26,28 @@ const RecentFiles = ({setFilePreview, filePreview, menuItem}) => {
         return <File color={file.id_color} format={file.ext} />
     }
 
+    const handleDoubleClick = (file) => {
+        if(menuItem === 'project') return onDoubleClickCallback(file)
+        return setFilePreview({...filePreview, view: true, file})
+    }
+
     const renderRecent = () => {
       if(!recentFiles) return null;
       return  recentFiles.map((file, i) => {
           return <div
-              className={`${styles.fileWrap} ${chosenRecentFile?.fid === file?.fid ? styles.chosen : ''}`}
+              className={`
+                ${styles.fileWrap} 
+                ${file?.fid 
+                  ? chosenRecentFile?.fid === file?.fid 
+                      ? styles.chosen 
+                      : '' 
+                  : chosenRecentFile?.id === file?.id 
+                      ? styles.chosen 
+                      : ''}
+              `}
               key={i}
               onClick={() => dispatch(onChooseRecentFile(file))}
-              onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
+              onDoubleClick={() => handleDoubleClick(file)}
           >
               <div className={styles.innerFileWrap}>
                   {renderIcon(file)}

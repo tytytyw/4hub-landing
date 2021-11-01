@@ -16,7 +16,7 @@ import BottomPanel from "../../BottomPanel";
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
-   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject
 }) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
@@ -47,6 +47,11 @@ const WorkSpace = ({
         })
     }
 
+    const chooseProjectFromRecent = (project) => {
+        setSelectedProject(project);
+        setParams(state => ({...state, fromRecent: true}))
+    }
+
     return (
         <div className={styles.wrapper}>
 
@@ -63,6 +68,7 @@ const WorkSpace = ({
                 setView={setWorkElementsView}
                 view={workElementsView}
                 menuItem={menuItem}
+                onDoubleClickCallback={chooseProjectFromRecent}
             />}
 
             <ServePanel

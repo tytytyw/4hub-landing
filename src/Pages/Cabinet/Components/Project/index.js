@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./Project.module.sass";
 import List from "./List";
@@ -59,6 +59,8 @@ const Project = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [gLoader, setGLoader] = useState(false);
 	const [safePassword, setSafePassword] = useState({open: false});
+	const [params, setParams] = useState({fromRecent: false});
+	const listRef = useRef(null);
 
 	useEffect(() => {
 		dispatch(onGetProjects());
@@ -203,6 +205,9 @@ const Project = ({
 				setSelectedProject={setSelectedProject}
 				chosen={selectedProject?.id === project.id}
 				setNewFolder={setNewFolder}
+				setParams={setParams}
+				params={params}
+				listRef={listRef}
 			/>
 		));
 	};
@@ -248,6 +253,7 @@ const Project = ({
 				src="add_project.svg"
 				className={styles.listWrap}
 				onCreate={setCreateProject}
+				ref={listRef}
 			>
 				{projects?.length < 1 ? (
 					<div className={styles.emptyBlock}>
@@ -270,6 +276,8 @@ const Project = ({
 				fileSelect={fileSelect}
 				chosenFolder={chosenFolder}
 				menuItem={menuItem}
+				setParams={setParams}
+				setSelectedProject={setSelectedProject}
 			/>
 
 			{mouseParams?.type === "menu" && (
