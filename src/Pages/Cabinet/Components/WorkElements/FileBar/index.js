@@ -4,6 +4,8 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
 import {setDragged} from "../../../../../Store/actions/CabinetActions";
+import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick
@@ -20,7 +22,13 @@ const FileBar = ({
         if(!isLoading) setChosenFile(file);
     }
 
-    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file});
+    const handleDoubleClick = () => {
+        if(file?.is_dir) {
+
+        } else {
+            setFilePreview({...filePreview, view: true, file});
+        }
+    }
 
     const handleDragStart = () => {
         dispatch(setDragged(file));
@@ -37,7 +45,7 @@ const FileBar = ({
                 `}
                 onClick={onPickFile}
                 onDoubleClick={handleDoubleClick}
-                draggable={window.location.pathname === '/'}
+                draggable={window.location.pathname === '/' && file?.is_dir === 0}
                 onDragStart={handleDragStart}
             >
                 <div
@@ -48,9 +56,9 @@ const FileBar = ({
                     <div>{file?.fig && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt='fig' /> : null}</div>
                     <div>{file?.emo && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' /> : null}</div>
                 </div>
-                <div className={styles.file}>
+                <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ''}`}>
                     {file?.is_dir
-                        ? null
+                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
                         : <File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} className={styles.mainFile}/>
                     }
                     {file?.is_pass && !isLoading ? <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}

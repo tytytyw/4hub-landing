@@ -8,6 +8,8 @@
   right: 0
   position: absolute
   background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+.fileLineShortWrap:hover .fileFolder:after
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(235, 242, 255, 1) 41%)
 .fileChosen
   background: rgba(64, 134, 241, .1)
 .fileLineShortWrap
@@ -27,6 +29,8 @@
     right: 0
     position: absolute
     background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+  .fileChosenTriangle .fileFolder:after
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(235, 242, 255, 1) 41%)
   .infoWrap
     display: flex
     align-items: center
@@ -39,6 +43,11 @@
       width: 22px
       min-width: 22px
       margin: 0 15px 0 15px
+      .folderIcon
+        position: relative
+        z-index: 1
+        width: 90%
+        height: 90%
     .fileName
       font-size: 12px
       width: calc(100% - 22px - 30px)
@@ -100,6 +109,9 @@
     width: 17px
     height: 17px
     background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(64, 134, 241, .1) 41%)
+  &:hover .fileFolder:after,
+  .fileChosenTriangle .fileFolder:after
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 41%, rgba(235, 242, 255, 1) 41%)
   .infoWrap
     .fileWrap
       height: 75px

@@ -10,6 +10,8 @@ import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
+import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
@@ -48,7 +50,13 @@ const FileLine = ({
         setChosenFile(file)
     }
 
-    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file})
+    const handleDoubleClick = () => {
+        if(file?.is_dir) {
+
+        } else {
+            setFilePreview({...filePreview, view: true, file});
+        }
+    }
 
     return (
         <div
@@ -62,8 +70,12 @@ const FileLine = ({
         >
             <div className={styles.fileAbout}>
 
-                <div className={styles.file}>
-                    <File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />
+                <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ''}`}>
+                    {file?.is_dir
+                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                        : <File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} className={styles.mainFile}/>
+                    }
+                    {/*<File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />*/}
                 </div>
 
                 <div className={styles.infoWrap}>
