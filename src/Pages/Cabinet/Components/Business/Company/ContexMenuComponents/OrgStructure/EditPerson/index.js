@@ -6,6 +6,7 @@ import PopUp from "../../../../../../../../generalComponents/PopUp";
 import { ReactComponent as Avatar } from "../../../../../../../../assets/BusinessCabinet/noPhoto.svg";
 import classNames from "classnames";
 import Select from "../../../AddEmployee/Select/Select";
+import { personStatus } from "../../../../../../../../generalComponents/collections";
 
 const EditPerson = ({ person, nullifyAction, editPerson }) => {
 	const [name, setName] = useState(person.data.info.name);
@@ -120,7 +121,7 @@ const EditPerson = ({ person, nullifyAction, editPerson }) => {
 								selectFor={"status"}
 								value={status.text}
 								setValue={setStatus}
-								options={person.dataStatus}
+								options={personStatus}
 							/>
 						</div>
 					</div>
