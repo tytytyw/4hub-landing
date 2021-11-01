@@ -11,7 +11,6 @@ import {
 	onGetProjects,
 	onGetProjectFolders,
 	onAddRecentFiles,
-	clearRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -67,9 +66,6 @@ const Project = ({
 		dispatch(onGetContacts());
 		setMenuItem("project");
 		dispatch(onAddRecentFiles('history_projects'));
-		return () => {
-			dispatch(clearRecentFiles());
-		}
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [
