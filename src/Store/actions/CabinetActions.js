@@ -223,9 +223,11 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
         .catch(err => console.log(err))
 };
 
-export const onAddRecentFiles = () => async (dispatch, getState) => {
+export const onAddRecentFiles = (url) => async (dispatch, getState) => {
 
-    api.get(`/ajax/history_files.php?uid=${getState().user.uid}`)
+    const uri = url ?? 'history_files'
+
+    api.get(`/ajax/${uri}.php?uid=${getState().user.uid}`)
         .then(res => {
             dispatch({
                 type: ADD_RECENT_FILES,
@@ -234,6 +236,12 @@ export const onAddRecentFiles = () => async (dispatch, getState) => {
         })
         .catch(err => console.log(err));
 };
+export const clearRecentFiles = () => {
+    return {
+        type: ADD_RECENT_FILES,
+        payload: null
+    }
+}
 
 export const onChooseRecentFile = (file) => {
     return{

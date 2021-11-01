@@ -10,6 +10,8 @@ import {
 	onGetContacts,
 	onGetProjects,
 	onGetProjectFolders,
+	onAddRecentFiles,
+	clearRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -68,6 +70,10 @@ const Project = ({
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
 		setMenuItem("project");
+		// dispatch(onAddRecentFiles('history_project'));
+		return () => {
+			dispatch(clearRecentFiles());
+		}
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [
@@ -290,6 +296,7 @@ const Project = ({
 				setAddMember={setAddMember}
 				fileSelect={fileSelect}
 				chosenFolder={chosenFolder}
+				menuItem={menuItem}
 			/>
 
 			{mouseParams?.type === "menu" && (
