@@ -8,6 +8,8 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
+import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../generalComponents/collections";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef,
@@ -107,11 +109,15 @@ const WorkBarsPreview = ({
                 </>
             }
             default: {
-                return <div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div>
+                return <div className={styles.filePreviewWrap}>
+                    {f?.is_dir
+                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                        : <File format={f?.ext} color={f?.color} />
+                    }
+                </div>
             }
         }
     }
-
 
     useEffect(() => {
         return () => {
@@ -151,7 +157,12 @@ const WorkBarsPreview = ({
                 : f
                     ? f.is_preview === 1
                         ? renderFilePreview()
-                        : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div>
+                        : <div><div className={styles.filePreviewWrap}>
+                            {f?.is_dir
+                                ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                                : <File format={f?.ext} color={f?.color} />
+                            }
+                        </div></div>
                     : null}
         </div>
         

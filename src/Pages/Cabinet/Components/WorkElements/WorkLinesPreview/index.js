@@ -8,6 +8,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
+import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, setFilesPage, fileRef, filePick, gLoader
@@ -66,7 +67,12 @@ const WorkLinesPreview = ({
                 </>
             }
             default: {
-                return <div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div>
+                return <div className={styles.filePreviewWrap}>
+                    {f?.is_dir
+                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                        : <File format={f?.ext} color={f?.color} />
+                    }
+                </div>
             }
         }
     }
@@ -141,7 +147,12 @@ const WorkLinesPreview = ({
                 />
                 : f ? <>
                 <div className={styles.preview}>
-                    {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
+                    {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}>
+                        {f?.is_dir
+                            ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                            : <File format={f?.ext} color={f?.color} />
+                        }
+                    </div></div> : null}
                 </div>
                 <p className={styles.fileName}>{f.name}</p>
                 <div className={styles.infoFileItem}>
