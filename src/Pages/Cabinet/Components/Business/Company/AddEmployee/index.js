@@ -77,12 +77,8 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<label className={styles.label} htmlFor="position">
 								Должность
 							</label>
-							<Input
-								id="position"
-								name="position"
-								placeholder="Введите должность"
-								onChange={(e) => setPosition(e.target.value)}
-							/>
+							
+							<Select selectFor={'position'} value={position} setValue={setPosition} />
 						</div>
 					</div>
 					<div className={styles.row}>
@@ -90,12 +86,6 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<label className={styles.label} htmlFor="status">
 								Статус
 							</label>
-							{/* <Input
-								id="status"
-								name="status"
-								placeholder=""
-								// onChange={(e) => setPosition(e.target.value)}
-							/> */}
 							<Select selectFor={'status'} value={color.text} setValue={setColor} options={personStatus} />
 						</div>
 					</div>

@@ -1,21 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Select.module.sass";
 import classNames from "classnames";
+import {
+	personStatus,
+	personPositions,
+} from "../../../../../../../generalComponents/collections";
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 
-const Select = ({ selectFor, value, setValue, options }) => {
+const Select = ({ selectFor, value, setValue }) => {
 	const [open, setOpen] = useState(false);
 	const ref = useRef();
 
+	const [filtredPositions, setFiltredPositions] = useState(personPositions);
+
 	const renderStatus = () => {
-		if (!options) return null;
-		return options.map((item, index) => {
+		if (!personStatus) return null;
+		return personStatus.map((item, index) => {
 			if (item.text === value) return null;
 			return (
 				<div
 					className={styles.option}
 					key={index}
 					onClick={() => {
-						setValue(options.filter((i) => i.text === item.text)[0]);
+						setValue(personStatus.filter((i) => i.text === item.text)[0]);
 						setOpen(false);
 					}}
 				>
@@ -26,6 +33,47 @@ const Select = ({ selectFor, value, setValue, options }) => {
 				</div>
 			);
 		});
+	};
+
+	const renderPositions = () => {
+		if (!filtredPositions) return null;
+		return (
+			<div className={styles.positionWrap}>
+				<div className={styles.searchWrap}>
+                    <img
+                    src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
+                    alt="magnify"
+                    />
+					<input
+						placeholder="введите название должности"
+						className={styles.searchInput}
+						onChange={(e) =>
+							setFiltredPositions(
+								personPositions.filter((position) =>
+									position.toLowerCase().includes(e.target.value.toLowerCase())
+								)
+							)
+						}
+					/>
+				</div>
+                <div className={styles.optionsWrap}>
+                    {filtredPositions.map((item, index) => {
+                        return (
+                            <div
+                                className={styles.option}
+                                key={item + index}
+                                onClick={() => {
+                                    setValue(item);
+                                    setOpen(false);
+                                }}
+                            >
+                                <span>{item}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+			</div>
+		);
 	};
 
 	useEffect(() => {
@@ -63,13 +111,22 @@ const Select = ({ selectFor, value, setValue, options }) => {
 								<div
 									style={{
 										background: `${
-											options.filter((i) => i.text === value)[0].color
+											personStatus.filter((i) => i.text === value)[0].color
 										}`,
 									}}
 								></div>
 							</div>
 						)}
-						{value}
+						{selectFor === "status" ? (
+							value
+						) : (
+							<input
+								className={styles.positionInput}
+								placeholder="Выберите из списка или введите вручную"
+								value={value}
+								onChange={(e) => setValue(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : '')}
+							/>
+						)}
 					</span>
 				</div>
 				<span
@@ -84,9 +141,10 @@ const Select = ({ selectFor, value, setValue, options }) => {
 				className={classNames({
 					[styles.contentWrap]: true,
 					[styles.active]: !!open,
+                    [styles.position]: selectFor === 'position'
 				})}
 			>
-				{open && selectFor === "status" ? renderStatus() : ''}
+				{open && selectFor === "status" ? renderStatus() : renderPositions()}
 			</div>
 		</div>
 	);

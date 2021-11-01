@@ -22,6 +22,13 @@
       color: #000
       color: #777777
       display: flex
+      width: 95%
+      .positionInput
+        border: none
+        outline: none
+        width: max-content
+        min-width: 70%
+        color: #777777
 
   .arrow.active
     border-top: 6px solid #4086F1
@@ -41,34 +48,67 @@
 
   .contentWrap.active
     max-height: 300px
+  .contentWrap.position
+    z-index: 9
+    .option
+      &:first-child
+        &::before
+          height: 0
+          background: #B0B0B0
 
   .contentWrap
+    z-index: 8
     position: absolute
     top: 95%
     left: 0
     right: 0
-    z-index: 9
     overflow: hidden
-    overflow-y: auto
+    overflow-y: hidden
     width: 100%
     max-height: 0
     background: #fff
     border-radius: 0 0 5px 5px
     box-shadow: 0 4px 5px rgba(151, 151, 151, 0.5)
+    .positionWrap
+      z-index: 10
+      .optionsWrap
+        overflow-y: scroll
+        height: 270px
+        scrollbar-width: thin
+        scrollbar-color: #4086F1 #F5F5F5
+        &::-webkit-scrollbar-track
+          background: #0A3AAB
+        &::-webkit-scrollbar-track
+          -webkit-box-shadow: none
+          background-color: #F5F5F5
+        &::-webkit-scrollbar
+          width: 5px
+          background-color: #FFFFFF
+        &::-webkit-scrollbar-thumb
+          background-color: #4086F1
 
-    &::-webkit-scrollbar-track
-      background: #0A3AAB
-    &::-webkit-scrollbar-track
-      -webkit-box-shadow: none
-      background-color: #F5F5F5
-    &::-webkit-scrollbar
-      width: 5px
-      background-color: #FFFFFF
-    &::-webkit-scrollbar-thumb
-      background-color: #4086F1
     .option.active
       background: #ffffff
-
+    .searchWrap
+      display: flex
+      align-items: center
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15)
+      border-radius: 100px
+      width: 96%
+      height: 30px
+      padding: 0 10px
+      margin: 0 auto
+      img
+        margin-right: 10px
+        width: 14px
+        height: 14px
+      .searchInput
+        width: 70%
+        height: 100%
+        border: none
+        outline: none
+        color: #777777
+        font-size: 10px
     .option
       display: flex
       font-size: 12px
