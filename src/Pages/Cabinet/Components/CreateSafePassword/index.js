@@ -11,7 +11,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 
-const CreateSafePassword = ({onToggle, title}) => {
+const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => {
 
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -35,7 +35,7 @@ const CreateSafePassword = ({onToggle, title}) => {
         if(width >= 1440) {
             return {
               height: '160px',
-              marginBottom: '10px'
+              marginBottom: '15px'
           }
       } else {
           return {
@@ -75,9 +75,13 @@ const CreateSafePassword = ({onToggle, title}) => {
                     <div className={styles.picPreview}>
                         <div className={styles.folderName}>{name === '' ? 'Пароли' : name}</div>
                         {tagOption.chosen && <div
-                            className={`${styles.minitag} ${styles.redCross}`}
+                            className={`${styles.minitagWrap} ${styles.redCross}`}
                             onClick={() => setTagOption({...tagOption, chosen: ''})}
-                        ># {tagOption.chosen}</div>}
+                        >
+                            <div
+                                className={`${styles.minitag}`}
+                            >#{tagOption.chosen}</div>
+                        </div>}
                     </div>
                 </div>
                 <div style={generateInputWrap()}

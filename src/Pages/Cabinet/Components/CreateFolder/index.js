@@ -35,8 +35,6 @@ const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChose
     const [path, setPath] = useState(chosenFolder?.path)
     const dispatch = useDispatch();
 
-    console.log(chosenFolder)
-
     const onAddName = (name) => {
         setNoNameError(false);
         setName(name);

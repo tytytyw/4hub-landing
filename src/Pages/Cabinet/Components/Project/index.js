@@ -10,6 +10,8 @@ import {
 	onGetContacts,
 	onGetProjects,
 	onGetProjectFolders,
+	// onAddRecentFiles,
+	clearRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -30,17 +32,11 @@ import Error from "../../../../generalComponents/Error";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ConfigAccessFolder from "../ContextMenuComponents/ContextMenuProject/ConfigAccessFolder/ConfigAccessFolder";
 import ProjectProperty from "../ContextMenuComponents/ContextMenuProject/ProjectProperty";
-import { ReactComponent as ClipboardIcon } from "../../../../assets/PrivateCabinet/project/clipboard.svg";
-import { ReactComponent as CoworkingIcon } from "../../../../assets/PrivateCabinet/project/coworking.svg";
-import { ReactComponent as LampIcon } from "../../../../assets/PrivateCabinet/project/lamp.svg";
-import { ReactComponent as PenIcon } from "../../../../assets/PrivateCabinet/project/pen.svg";
-import { ReactComponent as RocketIcon } from "../../../../assets/PrivateCabinet/project/rocket.svg";
-import { ReactComponent as SuitcaseIcon } from "../../../../assets/PrivateCabinet/project/suitcase.svg";
-import { ReactComponent as ThunderIcon } from "../../../../assets/PrivateCabinet/project/thunder.svg";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 import CreateFile from "../CreateFile";
 import CreateSafePassword from "../CreateSafePassword";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
+import {getIcon} from "./helpers";
 
 const Project = ({
 		 setLoadingType, setMenuItem, fileAddCustomization, setFileAddCustomization, awaitingFiles, setAwaitingFiles,
@@ -68,6 +64,10 @@ const Project = ({
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
 		setMenuItem("project");
+		// dispatch(onAddRecentFiles('history_project'));
+		return () => {
+			dispatch(clearRecentFiles());
+		}
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [
@@ -207,27 +207,6 @@ const Project = ({
 		));
 	};
 
-	const getIcon = (project) => {
-		switch (project.icon) {
-			case "clipboard":
-				return <ClipboardIcon className={project.id_color} alt="icon" />;
-			case "coworking":
-				return <CoworkingIcon className={project.id_color} alt="icon" />;
-			case "lamp":
-				return <LampIcon className={project.id_color} alt="icon" />;
-			case "pen":
-				return <PenIcon className={project.id_color} alt="icon" />;
-			case "rocket":
-				return <RocketIcon className={project.id_color} alt="icon" />;
-			case "suitcase":
-				return <SuitcaseIcon className={project.id_color} alt="icon" />;
-			case "thunder":
-				return <ThunderIcon className={project.id_color} alt="icon" />;
-			default:
-				return <ClipboardIcon className={project.id_color} alt="icon" />;
-		}
-	};
-
 	const deleteProject = () => {
 		nullifyAction();
 		api
@@ -290,6 +269,7 @@ const Project = ({
 				setAddMember={setAddMember}
 				fileSelect={fileSelect}
 				chosenFolder={chosenFolder}
+				menuItem={menuItem}
 			/>
 
 			{mouseParams?.type === "menu" && (

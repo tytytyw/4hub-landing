@@ -6,8 +6,9 @@ import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {useWindowSize} from "../../../../generalComponents/Hooks";
+import {getIcon} from "../Project/helpers";
 
-const RecentFiles = ({setFilePreview, filePreview}) => {
+const RecentFiles = ({setFilePreview, filePreview, menuItem}) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
@@ -20,8 +21,13 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
         setPageParams(state => ({...state, width: containerRef?.current?.parentNode?.offsetWidth - 27}))
     }, [width])
 
-    const renderRecentFiles = () => {
-        if(!recentFiles) return null;
+    const renderIcon = (file) => {
+        if(menuItem === 'project') return getIcon(file)
+        return <File color={file.id_color} format={file.ext} />
+    }
+
+    const renderRecent = () => {
+      if(!recentFiles) return null;
       return  recentFiles.map((file, i) => {
           return <div
               className={`${styles.fileWrap} ${chosenRecentFile?.fid === file?.fid ? styles.chosen : ''}`}
@@ -30,7 +36,7 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
               onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
           >
               <div className={styles.innerFileWrap}>
-                  <File color={file.id_color} format={file.ext} />
+                  {renderIcon(file)}
                   {file.is_pass ? <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
               </div>
               <div className={styles.descriptionWrap}>
@@ -51,7 +57,7 @@ const RecentFiles = ({setFilePreview, filePreview}) => {
     return(
         <div className={styles.wrap} ref={containerRef} style={{width: pageParams.width}}>
             <div className={styles.recentFilesWrap}>
-                {renderRecentFiles()}
+                {renderRecent()}
             </div>
         </div>
     )

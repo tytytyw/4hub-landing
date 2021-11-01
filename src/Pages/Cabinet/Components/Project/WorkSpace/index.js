@@ -16,7 +16,7 @@ import BottomPanel from "../../BottomPanel";
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
 const WorkSpace = ({
-   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem
 }) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
@@ -62,6 +62,7 @@ const WorkSpace = ({
             {recentFiles?.length > 0 && <RecentFiles
                 setView={setWorkElementsView}
                 view={workElementsView}
+                menuItem={menuItem}
             />}
 
             <ServePanel
