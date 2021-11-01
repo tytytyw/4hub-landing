@@ -32,7 +32,7 @@ const ProjectItem = ({
             if(chosen) {
                 setCollapse(true)
                 listRef.current.scrollTo({
-                    top: projectRef.current.getBoundingClientRect().y,
+                    top: projectRef.current.offsetTop,
                     behavior: 'smooth'
                 })
             } else {

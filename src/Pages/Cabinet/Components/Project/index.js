@@ -10,7 +10,7 @@ import {
 	onGetContacts,
 	onGetProjects,
 	onGetProjectFolders,
-	// onAddRecentFiles,
+	onAddRecentFiles,
 	clearRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -66,7 +66,7 @@ const Project = ({
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
 		setMenuItem("project");
-		// dispatch(onAddRecentFiles('history_project'));
+		dispatch(onAddRecentFiles('history_projects'));
 		return () => {
 			dispatch(clearRecentFiles());
 		}
