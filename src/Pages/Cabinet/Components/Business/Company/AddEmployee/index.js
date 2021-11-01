@@ -7,46 +7,15 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabinet/noPhoto.svg";
 import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessCabinet/checked.svg";
 import classNames from "classnames";
-import Colors from "../../../../../../generalComponents/Elements/Colors";
+import Select from "./Select/Select";
+import { personStatus } from "../../../../../../generalComponents/collections"
 
 const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const [success, setSuccess] = useState(false);
 	const [name, setName] = useState("");
 	const [position, setPosition] = useState("");
 	const [middleName, setMiddleName] = useState("");
-	const [color, setColor] = useState({
-		dark: "#E3E3E3",
-		light: "#fff",
-		color: "#fff",
-		name: "white",
-	});
-	const PersonColorsVariables = [
-		{ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
-		{
-			dark: "#20C8D2",
-			light: "#20C8D2",
-			color: "rgba(32, 200, 210, 1)",
-			name: "aqua",
-		},
-		{
-			dark: "#39B31E",
-			light: "#39B31E",
-			color: "rgba(57, 179, 30, 1)",
-			name: "green",
-		},
-		{
-			dark: "#F4A862",
-			light: "#F4A862",
-			color: "rgba(244, 168, 98, 1)",
-			name: "orange",
-		},
-		{
-			dark: "#A30BEB",
-			light: "#A30BEB",
-			color: "rgba(163, 11, 235, 1)",
-			name: "violet",
-		},
-	];
+	const [color, setColor] = useState(personStatus[0]);
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -62,14 +31,6 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<span>Загрузить</span> аватар
 							<input type="file" id="upload_avatar" />
 						</label>
-					</div>
-					<div className={classNames(styles.field, styles.contacts)}>
-						<Colors
-							color={color}
-							setColor={setColor}
-							customColors={PersonColorsVariables}
-							editableClass={"flex_row"}
-						/>
 					</div>
 				</div>
 
@@ -122,6 +83,20 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								placeholder="Введите должность"
 								onChange={(e) => setPosition(e.target.value)}
 							/>
+						</div>
+					</div>
+					<div className={styles.row}>
+						<div className={classNames(styles.field, styles.status)}>
+							<label className={styles.label} htmlFor="status">
+								Статус
+							</label>
+							{/* <Input
+								id="status"
+								name="status"
+								placeholder=""
+								// onChange={(e) => setPosition(e.target.value)}
+							/> */}
+							<Select selectFor={'status'} value={color.text} setValue={setColor} options={personStatus} />
 						</div>
 					</div>
 					<div className={styles.row}>

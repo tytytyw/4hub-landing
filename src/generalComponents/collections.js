@@ -240,6 +240,14 @@ export const contextMenuPerson = [
     {name: 'Удалить', img: 'garbage', type: 'delete'}
 ]
 
+export const personStatus = [
+    { color: "#fff", name: "white", text: "Без статуса" },
+    { color: "#20C8D2", name: "aqua", text: "Отпуск" },
+    { color: "#39B31E", name: "green", text: "Декретный отпуск" },
+    { color: "#F4A862", name: "orange", text: "Открытая вакансия" },
+    { color: "#A30BEB", name: "violet", text: "Испытательный срок" },
+]
+
 // FileLoader
 export const loadDest = {
     'myFolders': '',
