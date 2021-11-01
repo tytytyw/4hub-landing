@@ -23,16 +23,28 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 	const PersonColorsVariables = [
 		{ dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
 		{
-			dark: "#27967a",
-			light: "rgb(52, 198, 162)",
-			color: "rgb(52, 198, 162)",
+			dark: "#20C8D2",
+			light: "#20C8D2",
+			color: "rgba(32, 200, 210, 1)",
+			name: "aqua",
+		},
+		{
+			dark: "#39B31E",
+			light: "#39B31E",
+			color: "rgba(57, 179, 30, 1)",
 			name: "green",
 		},
 		{
-			dark: "#992928",
-			light: "rgb(194, 52, 51)",
-			color: "rgb(194, 52, 51)",
-			name: "red",
+			dark: "#F4A862",
+			light: "#F4A862",
+			color: "rgba(244, 168, 98, 1)",
+			name: "orange",
+		},
+		{
+			dark: "#A30BEB",
+			light: "#A30BEB",
+			color: "rgba(163, 11, 235, 1)",
+			name: "violet",
 		},
 	];
 

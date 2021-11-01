@@ -10,6 +10,7 @@ import CustomNodeComponent from "./CustomNodeComponent";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuPerson } from "../../../../../../generalComponents/collections";
 import AddEmployee from "../AddEmployee";
+import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 
 function OrgStructure({
 	mouseParams,
@@ -23,6 +24,7 @@ function OrgStructure({
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
         console.log(element)
+		setChosenPerson(element)
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};
@@ -30,6 +32,7 @@ function OrgStructure({
 	const snapGrid = [20, 20];
 	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
+	const [chosenPerson, setChosenPerson] = useState(null);
 
 	const callbackArr = [
 		{
@@ -44,10 +47,10 @@ function OrgStructure({
 				}),
 		},
 		{
-			type: "copyLink",
-			name: "",
-			text: ``,
-			callback: (list, index) => "",
+			type: "delete",
+			name: "Удаление сотрудника",
+			text: `Вы действительно хотите удалить сотрудника ${chosenPerson?.data.name}?`,
+			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
@@ -160,10 +163,6 @@ function OrgStructure({
 		special: CustomNodeComponent,
 	};
 
-	// useEffect(() => {
-	// 	console.log(elements);
-	// }, [elements]);
-
 	const addPerson = (info) => {
         const newPerson = {
             //TODO: change id
@@ -173,6 +172,11 @@ function OrgStructure({
             position: { x:  600, y: 600 },
         }
         setElements(state => [...state, newPerson])
+    };
+
+	const deletePerson = () => {
+        setElements(state => state.filter(item => chosenPerson?.id !== item.id))
+		nullifyAction()
     };
 
 	return (
@@ -213,6 +217,16 @@ function OrgStructure({
 					setPageOption={setPageOption}
                     addPerson={addPerson}
 				/>
+			) : null}
+			{action.type === "delete" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={deletePerson}
+					approve={'Удалить'}
+				>
+				</ActionApproval>
 			) : null}
 		</div>
 	);
