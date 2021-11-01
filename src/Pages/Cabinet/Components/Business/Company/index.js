@@ -20,7 +20,7 @@ import ContextMenuItem from "../../../../../generalComponents/ContextMenu/Contex
 const Company = () => {
 	const [pageOption, setPageOption] = useState("org_structure");
 	const [mouseParams, setMouseParams] = useState(null);
-	const [action, setAction] = useState({ type: "add-employee", name: "", text: "" });
+	const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
 	const sideListData = [

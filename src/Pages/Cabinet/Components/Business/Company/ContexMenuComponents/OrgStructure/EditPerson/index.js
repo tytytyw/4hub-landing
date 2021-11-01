@@ -1,33 +1,28 @@
 import React, { useState } from "react";
 
-import styles from "./AddEmployee.module.sass";
-import SuccessPopup from "../../SuccessPopup";
-import Input from "../../../MyProfile/Input";
-import PopUp from "../../../../../../generalComponents/PopUp";
-import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabinet/noPhoto.svg";
-import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessCabinet/checked.svg";
+import styles from "./EditPerson.module.sass";
+import Input from "../../../../../MyProfile/Input";
+import PopUp from "../../../../../../../../generalComponents/PopUp";
+import { ReactComponent as Avatar } from "../../../../../../../../assets/BusinessCabinet/noPhoto.svg";
 import classNames from "classnames";
-import Select from "./Select/Select";
-import { personStatus } from "../../../../../../generalComponents/collections";
+import Select from "../../../AddEmployee/Select/Select";
 
-const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
-	const [success, setSuccess] = useState(false);
-
-	const [name, setName] = useState("");
-	const [surname, setSurname] = useState("");
-	const [middleName, setMiddleName] = useState("");
-	const [position, setPosition] = useState("");
-	const [status, setStatus] = useState(personStatus[0]);
-	const [phone, setPhone] = useState("");
-	const [phone2, setPhone2] = useState("");
-	const [email, setEmail] = useState("");
-	const [email2, setEmail2] = useState("");
+const EditPerson = ({ person, nullifyAction, editPerson }) => {
+	const [name, setName] = useState(person.data.info.name);
+	const [surname, setSurname] = useState(person.data.info.surname);
+	const [middleName, setMiddleName] = useState(person.data.info.middleName);
+	const [position, setPosition] = useState(person.data.info.position);
+	const [status, setStatus] = useState(person.data.info.status);
+	const [phone, setPhone] = useState(person.data.info.phone);
+	const [phone2, setPhone2] = useState(person.data.info.phone2);
+	const [email, setEmail] = useState(person.data.info.email);
+	const [email2, setEmail2] = useState(person.data.info.email2);
 
 	return (
 		<PopUp set={nullifyAction}>
 			<div className={styles.wrapper}>
 				<div className={styles.header}>
-					<p>Добавить сотрудника</p>
+					<p>Редактировать сотрудника</p>
 				</div>
 
 				<div className={styles.uploadBlock}>
@@ -51,6 +46,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								name="email"
 								placeholder="Введите фамилию"
 								isName={true}
+								value={surname}
 								onChange={(e) =>
 									setSurname(
 										e.target.value
@@ -69,6 +65,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="name"
 								name="name"
 								placeholder="Введите имя"
+								value={name}
 								onChange={(e) =>
 									setName(
 										e.target.value
@@ -85,9 +82,10 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								Отчество
 							</label>
 							<Input
-								id="surname"
+								id="middle_name"
 								name="middle_name"
 								placeholder="Введите отчество"
+								value={middleName}
 								onChange={(e) =>
 									setMiddleName(
 										e.target.value
@@ -122,7 +120,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								selectFor={"status"}
 								value={status.text}
 								setValue={setStatus}
-								options={personStatus}
+								options={person.dataStatus}
 							/>
 						</div>
 					</div>
@@ -136,6 +134,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								name="phone"
 								placeholder="+38"
 								phone={true}
+								value={phone}
 								onChange={(e) => setPhone(e.target.value)}
 							/>
 						</div>
@@ -148,6 +147,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								name="phone2"
 								placeholder="Дополнительный телефон"
 								phone={true}
+								value={phone2}
 								onChange={(e) => setPhone2(e.target.value)}
 							/>
 						</div>
@@ -162,6 +162,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="email"
 								name="email"
 								placeholder="Введите email"
+								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
@@ -173,6 +174,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 								id="email2"
 								name="email2"
 								placeholder="Введите запасной email"
+								value={email2}
 								onChange={(e) => setEmail2(e.target.value)}
 							/>
 						</div>
@@ -185,36 +187,28 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 					</button>
 					<button
 						onClick={() => {
-							setSuccess(true);
-							addPerson({
-								name,
-								middleName,
-								surname,
-								position,
-								status,
-								phone,
-								phone2,
-								email,
-								email2,
+							editPerson({
+								person,
+								newInfo: {
+									name,
+									middleName,
+									surname,
+									position,
+									status,
+									phone,
+									phone2,
+									email,
+									email2,
+								},
 							});
 						}}
 					>
-						Добавить
+						Сохранить
 					</button>
 				</div>
 			</div>
-
-			{success && (
-				<SuccessPopup
-					title="Сотрудник успешно добавлен"
-					text="Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
-					set={nullifyAction}
-				>
-					<SuccessImg width={40} height={40} />
-				</SuccessPopup>
-			)}
 		</PopUp>
 	);
 };
 
-export default AddEmployee;
+export default EditPerson;

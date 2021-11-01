@@ -237,6 +237,7 @@ export const dotsPaint = [
 export const contextMenuPerson = [
     {name: 'Добавить сотрудника', img: 'plus-3', type: 'add-employee'},
     {name: 'Редактировать', img: 'edit', type: 'customize'},
+    {name: 'Информация о сотруднике', img: 'info', type: 'info'},
     {name: 'Удалить', img: 'garbage', type: 'delete'}
 ]
 

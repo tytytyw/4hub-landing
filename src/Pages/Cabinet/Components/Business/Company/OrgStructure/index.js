@@ -11,20 +11,22 @@ import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuPerson } from "../../../../../../generalComponents/collections";
 import AddEmployee from "../AddEmployee";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import EditPerson from "../ContexMenuComponents/OrgStructure/EditPerson";
 
 function OrgStructure({
 	mouseParams,
 	setMouseParams,
 	renderMenuItems,
 	setAction,
-    nullifyAction,
-    setPageOption,
-    action
+	nullifyAction,
+	setPageOption,
+	action,
 }) {
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
-        console.log(element)
-		setChosenPerson(element)
+		console.log(element);
+		setChosenPerson(element);
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
 	};
@@ -49,14 +51,20 @@ function OrgStructure({
 		{
 			type: "delete",
 			name: "Удаление сотрудника",
-			text: `Вы действительно хотите удалить сотрудника ${chosenPerson?.data.name}?`,
+			text: `Вы действительно хотите удалить пользователя ${chosenPerson?.data.name} из орг структуры компании?`,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "info",
+			name: "Информация о сотруднике",
+			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
-			name: "Редактирование файла",
+			name: "Редактирование сотрудника",
 			text: ``,
-			callback: (list, index) => "",
+			callback: (list, index) => setAction(list[index]),
 		},
 	];
 
@@ -66,10 +74,13 @@ function OrgStructure({
 				id: "1",
 				type: "special",
 				data: {
-					position: "Руководитель компании",
-					name: "Андрей Петрович",
-					inner: true,
-                    color : { dark: "#E3E3E3", light: "red", color: "#red", name: "red" },
+					info: {
+						position: "Руководитель компании",
+						name: "Андрей",
+						middleName: "Петрович",
+						inner: true,
+						status: { color: "#fff", name: "white", text: "Без статуса" },
+					},
 				},
 				position: { x: 0, y: 0 },
 			},
@@ -77,33 +88,78 @@ function OrgStructure({
 			{
 				id: "2-1",
 				type: "special",
-				data: { position: "консультант", name: "Константин Петрович", color: { dark: "#E3E3E3", light: "#fff", color: "green", name: "green" } },
+				data: {
+					info: {
+						position: "консультант",
+						name: "Константин",
+						middleName: "Петрович",
+						status: {
+							color: "#F4A862",
+							name: "orange",
+							text: "Открытая вакансия",
+						},
+					},
+				},
 				position: { x: 300, y: 60 },
 			},
 			{
 				id: "2-2",
 				type: "special",
-				data: { position: "консультант", name: "Алина Викторовна", color: { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
+				data: {
+					info: {
+						position: "консультант",
+						name: "Алина",
+						middleName: "Викторовна",
+						status: { color: "#fff", name: "white", text: "Без статуса" },
+					},
+				},
 				position: { x: 300, y: 150 },
 			},
 			{
 				id: "2-3",
 				type: "special",
-				data: { position: "консультант", name: "Наталья Ивановна", color: { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
+				data: {
+					info: {
+						position: "консультант",
+						name: "Наталья",
+						middleName: "Ивановна", 
+						status: { color: "#20C8D2", name: "aqua", text: "Отпуск" },
+					},
+				},
 				position: { x: 300, y: 240 },
 			},
-
 			{
 				id: "3",
 				type: "special",
-				data: { position: "карп", name: "Алексей Владимирович", color : { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" },
-            },
+				data: {
+					info: {
+						position: "карп",
+						name: "Алексей",
+						middleName: "Владимирович",
+						status: {
+							color: "#39B31E",
+							name: "green",
+							text: "Декретный отпуск",
+						},
+					},
+				},
 				position: { x: 650, y: 325 },
 			},
 			{
 				id: "4",
 				type: "special",
-				data: { position: "уборщица", name: "Анастасия Георгиевна",  color : { dark: "#E3E3E3", light: "#fff", color: "#fff", name: "white" } },
+				data: {
+					info: {
+						position: "уборщица",
+						name: "Анастасия",
+						middleName: "Георгиевна",
+						status: {
+							color: "#A30BEB",
+							name: "violet",
+							text: "Испытательный срок",
+						},
+					},
+				},
 				position: { x: 650, y: 700 },
 			},
 
@@ -164,20 +220,34 @@ function OrgStructure({
 	};
 
 	const addPerson = (info) => {
-        const newPerson = {
-            //TODO: change id
-            id: elements.length + 1 + '',
-            type: "special",
-            data: { position: info.position, name: info.name + " " + info.middleName, color: info.color },
-            position: { x:  600, y: 600 },
-        }
-        setElements(state => [...state, newPerson])
-    };
+		// name, middleName, surname, position, status, phone, phone2, email, email2
+		const newPerson = {
+			//TODO: change id
+			id: elements.length + 1 + "",
+			type: "special",
+			data: { info },
+			position: { x: 600, y: 600 },
+		};
+		setElements((state) => [...state, newPerson]);
+	};
 
 	const deletePerson = () => {
-        setElements(state => state.filter(item => chosenPerson?.id !== item.id))
+		setElements((state) =>
+			state.filter((item) => chosenPerson?.id !== item.id)
+		);
+		nullifyAction();
+	};
+
+	const editPerson = (newData) => {
+		const newItem = {
+			id: newData.person.id,
+			type: newData.person.type,
+			data: {info: newData.newInfo},
+			position: newData.person.position,
+		};
+		setElements(elements => elements.map(item => item.id === newItem.id ? newItem : item))
 		nullifyAction()
-    };
+	};
 
 	return (
 		<div className={styles.wrapper}>
@@ -215,7 +285,14 @@ function OrgStructure({
 				<AddEmployee
 					nullifyAction={nullifyAction}
 					setPageOption={setPageOption}
-                    addPerson={addPerson}
+					addPerson={addPerson}
+				/>
+			) : null}
+			{action.type === "customize" ? (
+				<EditPerson
+					nullifyAction={nullifyAction}
+					person={chosenPerson}
+					editPerson={editPerson}
 				/>
 			) : null}
 			{action.type === "delete" ? (
@@ -224,8 +301,14 @@ function OrgStructure({
 					text={action.text}
 					set={nullifyAction}
 					callback={deletePerson}
-					approve={'Удалить'}
+					approve={"Удалить"}
 				>
+					{/* TODO: past actual avatar */}
+					<img
+						src={`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+						alt="avatar"
+						className={styles.icon}
+					/>
 				</ActionApproval>
 			) : null}
 		</div>
