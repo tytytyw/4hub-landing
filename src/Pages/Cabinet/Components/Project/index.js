@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./Project.module.sass";
 import List from "./List";
@@ -10,8 +10,7 @@ import {
 	onGetContacts,
 	onGetProjects,
 	onGetProjectFolders,
-	// onAddRecentFiles,
-	clearRecentFiles,
+	onAddRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -59,15 +58,14 @@ const Project = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [gLoader, setGLoader] = useState(false);
 	const [safePassword, setSafePassword] = useState({open: false});
+	const [params, setParams] = useState({fromRecent: false});
+	const listRef = useRef(null);
 
 	useEffect(() => {
 		dispatch(onGetProjects());
 		dispatch(onGetContacts());
 		setMenuItem("project");
-		// dispatch(onAddRecentFiles('history_project'));
-		return () => {
-			dispatch(clearRecentFiles());
-		}
+		dispatch(onAddRecentFiles('history_projects'));
 	}, []); // eslint-disable-line
 
 	const callbackArrMain = [
@@ -203,6 +201,9 @@ const Project = ({
 				setSelectedProject={setSelectedProject}
 				chosen={selectedProject?.id === project.id}
 				setNewFolder={setNewFolder}
+				setParams={setParams}
+				params={params}
+				listRef={listRef}
 			/>
 		));
 	};
@@ -248,6 +249,7 @@ const Project = ({
 				src="add_project.svg"
 				className={styles.listWrap}
 				onCreate={setCreateProject}
+				ref={listRef}
 			>
 				{projects?.length < 1 ? (
 					<div className={styles.emptyBlock}>
@@ -270,6 +272,8 @@ const Project = ({
 				fileSelect={fileSelect}
 				chosenFolder={chosenFolder}
 				menuItem={menuItem}
+				setParams={setParams}
+				setSelectedProject={setSelectedProject}
 			/>
 
 			{mouseParams?.type === "menu" && (

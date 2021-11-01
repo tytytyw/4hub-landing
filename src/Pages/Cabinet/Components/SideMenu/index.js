@@ -2,9 +2,10 @@ import React from 'react';
 
 import styles from './SideMenu.module.sass';
 import {useHistory, useLocation} from "react-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {themes} from "./themes";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {clearRecentFiles} from "../../../../Store/actions/CabinetActions";
 
 const SideMenu = ({data = [], collapsed, setCollapsed}) => {
 
@@ -13,6 +14,7 @@ const SideMenu = ({data = [], collapsed, setCollapsed}) => {
 
     const personalSettings = useSelector(state => state.main.personalSettings)
     const previewTheme = useSelector(state => state.main.previewTheme)
+    const dispatch = useDispatch();
 
     const getThemeBg = () => {
         if (previewTheme) {
@@ -31,7 +33,10 @@ const SideMenu = ({data = [], collapsed, setCollapsed}) => {
                 ${collapsed ? styles.menuItemCollapsed : undefined}
               `}
               key={item.name}
-              onClick={() => history.push(item.path)}
+              onClick={() => {
+                  history.push(item.path)
+                  dispatch(clearRecentFiles())
+              }}
           >
               <img
                   className={`${styles.icons} ${collapsed ? styles.iconsCollapsed : undefined}`}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 import styles from './ProjectItem.module.sass'
 import classNames from "classnames";
@@ -13,18 +13,35 @@ import {getIcon} from "../helpers";
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
         chosenFolder, setChosenFolder, setSelectedProject, chosen,
-        setNewFolder
+        setNewFolder, params, setParams, listRef
     }) => {
 
     const dispatch = useDispatch()
     const folders = useSelector(state => state.Cabinet.project.projectFolders)
     const [collapse, setCollapse] = useState(false)
+    const projectRef = useRef(null)
 
 
     useEffect(() => {
         dispatch(onGetProjectFolders(project.id))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if(params.fromRecent) {
+            if(chosen) {
+                setCollapse(true)
+                listRef.current.scrollTo({
+                    top: projectRef.current.offsetTop,
+                    behavior: 'smooth'
+                })
+            } else {
+                setCollapse(false)
+            }
+            setSelectedProject(project)
+            setParams(state => ({...state, fromRecent: false}))
+        }
+    }, [params.fromRecent]) //eslint-disable-line
 
     const renderFolders = () => {
         const projectFolders = folders[project.id];
@@ -42,7 +59,11 @@ const ProjectItem = ({
     }
 
     return (
-        <div onClick={() => setSelectedProject(project)} className={styles.parentWrap}>
+        <div
+            onClick={() => setSelectedProject(project)}
+            className={styles.parentWrap}
+            ref={projectRef}
+        >
 
             <div className={classNames({
                 [styles.wrapper]: true,

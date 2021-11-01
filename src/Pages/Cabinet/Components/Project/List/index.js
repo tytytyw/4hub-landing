@@ -4,7 +4,7 @@ import styles from './List.module.sass'
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true, className}) => {
+const List = React.forwardRef(({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true, className}, ref) => {
 
     return (
         <div
@@ -13,6 +13,7 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
                 [className]: true,
                 [styles.listWrapCollapsed]: !!listCollapsed
              })}
+            ref={ref ?? null}
         >
             <div className={styles.header}>
                 {!listCollapsed && <span>{title}</span>}
@@ -37,6 +38,6 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
             </div>
         </div>
     )
-}
+})
 
 export default List
