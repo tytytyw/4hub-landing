@@ -10,7 +10,7 @@ import {
 	onGetContacts,
 	onGetProjects,
 	onGetProjectFolders,
-	onAddRecentFiles,
+	// onAddRecentFiles,
 	clearRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
