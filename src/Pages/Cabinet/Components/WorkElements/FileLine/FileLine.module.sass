@@ -8,6 +8,8 @@
     position: absolute
     top: 0
     right: 0
+  .fileFolder:after
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 52%, rgba(235, 242, 255, 1) 52%)
 .notEdit
   filter: grayscale(100%)
 
@@ -32,6 +34,8 @@
       position: absolute
       top: 0
       right: 0
+    .fileFolder:after
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 52%, rgba(235, 242, 255, 1) 52%)
   .fileAbout
     margin-right: 40px
     flex-grow: 1
@@ -57,6 +61,11 @@
     height: 40px
     position: relative
     margin: 0 20px 0 0
+    .folderIcon
+      position: relative
+      z-index: 1
+      width: 90%
+      height: 90%
   .infoWrap
     display: flex
     flex-direction: column

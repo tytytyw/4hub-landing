@@ -3,6 +3,8 @@ import React from 'react';
 import styles from './FileLineShort.module.sass';
 import File from '../../../../../generalComponents/Files';
 import {useSelector} from "react-redux";
+import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
+import {colors} from "../../../../../generalComponents/collections";
 
 const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
 
@@ -16,7 +18,13 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
         setChosenFile(file);
     }
 
-    const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file})
+    const handleDoubleClick = () => {
+        if(file?.is_dir) {
+
+        } else {
+            setFilePreview({...filePreview, view: true, file});
+        }
+    }
 
     return (<div
         className={`
@@ -29,7 +37,12 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
         onDoubleClick={handleDoubleClick}
     >
         <div className={`${styles.infoWrap} ${chosen ? styles.fileChosenTriangle : ''}`}>
-            <div className={styles.fileWrap}><File format={file.ext} color={file.color} /></div>
+            <div className={`${styles.fileWrap} ${file?.is_dir ? styles.fileFolder : ''}`}>
+                {file?.is_dir
+                    ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                    : <File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} className={styles.mainFile}/>
+                }
+            </div>
             <div className={styles.fileName}>{file.name}</div>
         </div>
         <div
