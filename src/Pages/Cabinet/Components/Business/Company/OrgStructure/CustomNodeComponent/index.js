@@ -10,10 +10,8 @@ function CustomNodeComponent({ data }) {
 			className={classNames(
 				styles.node,
 				styles[data?.info?.status?.name]
-				// [styles.inner]: data.inner,
 			)}
 		>
-			{/* {!data.inner && */}
 			<Handle
 				type="target"
 				position="left"
@@ -28,6 +26,7 @@ function CustomNodeComponent({ data }) {
 			<div className={styles.person}>
 				<div className={styles.avatar}>
 					<img
+						draggable={false}
 						src={`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
 						alt="avatar"
 						className={styles.icon}
@@ -43,7 +42,6 @@ function CustomNodeComponent({ data }) {
 			</div>
 			<Handle
 				type="source"
-				// position={data.inner ? "bottom" : "right"}
 				position="right"
 				style={{
 					width: 10,
