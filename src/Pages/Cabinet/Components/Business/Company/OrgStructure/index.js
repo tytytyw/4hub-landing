@@ -70,7 +70,13 @@ function OrgStructure({
 		{
 			type: "delete",
 			name: "Удаление сотрудника",
-			text: `Вы действительно хотите удалить пользователя ${chosenPerson?.data.name} из орг структуры компании?`,
+			text: `Вы действительно хотите удалить пользователя ${
+				chosenPerson?.data.info.surname +
+				" " +
+				chosenPerson?.data.info.name +
+				" " +
+				chosenPerson?.data.info.middleName
+			} из орг структуры компании?`,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
@@ -209,11 +215,9 @@ function OrgStructure({
 		}
 	}, [reactflowInstance, elements.length]);
 
-	const onElementsRemove = useCallback(
-		(elementsToRemove) =>
-			setElements((els) => removeElements(elementsToRemove, els)),
-		[]
-	);
+	const onElementsRemove = useCallback((elementsToRemove) => {
+		setElements((els) => removeElements(elementsToRemove, els));
+	}, []);
 	const onConnect = useCallback(
 		(params) =>
 			setElements((els) =>
@@ -267,19 +271,19 @@ function OrgStructure({
 	};
 
 	const deletePerson = () => {
-		setElements((state) =>
-			state.filter(
-				(item) =>
-					chosenPerson?.id !== item.id &&
-					chosenPerson?.id !== item.source &&
-					chosenPerson?.id !== item.target
-			)
+		const elementsToRemove = elements.filter(
+			(el) =>
+				chosenPerson?.id === el.id ||
+				chosenPerson?.id === el.source ||
+				chosenPerson?.id === el.target
 		);
+		onElementsRemove(elementsToRemove);
 		nullifyAction();
 	};
 
 	const deleteLine = () => {
-		setElements((state) => state.filter((item) => chosenLine?.id !== item.id));
+		const elementsToRemove = elements.filter(el => chosenLine?.id === el.id);
+		onElementsRemove(elementsToRemove)
 		nullifyAction();
 	};
 
@@ -310,6 +314,8 @@ function OrgStructure({
 				snapGrid={snapGrid}
 				defaultZoom={1}
 				nodeTypes={nodeTypes}
+				zoomOnDoubleClick={false}
+				// paneMoveable={false}
 			>
 				<Controls />
 				{!elements.length && (
