@@ -13,7 +13,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef,
-    gLoader, filesPage, setFilesPage
+    gLoader, filesPage, setFilesPage, width = '100%'
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -170,6 +170,7 @@ const WorkBarsPreview = ({
             <div
                 ref={fileRef}
                 className={styles.innerFiles}
+                style={{width}}
             >
                 {!gLoader && children}
                 {!gLoader ? <div

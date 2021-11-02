@@ -32,6 +32,7 @@ import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
 import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useElementResize} from "../../../../../generalComponents/Hooks";
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
@@ -52,6 +53,7 @@ const WorkSpace = ({
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const nullifyFilePick = () => setFilePick({show: false, files: [], customize: false, intoZip: false});
     const fileRef = useRef(null);
+    const [containerRef, width] = useElementResize();
 
     useEffect(() => {
         if(fileList?.files.length <= 10 && chosenFolder?.path === fileList?.path) {
@@ -222,7 +224,17 @@ const WorkSpace = ({
     }
 
     return (<>
-        <div className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}>
+        <div
+            className={`${
+                styles.workSpaceWrap} 
+                ${typeof listCollapsed === 'boolean' 
+                    ? listCollapsed 
+                        ? styles.workSpaceWrapCollapsed 
+                        : styles.workSpaceWrapUncollapsed 
+                    : undefined
+            }`}
+            ref={containerRef}
+        >
             
             <div className={styles.header}>
                 <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
@@ -235,6 +247,7 @@ const WorkSpace = ({
             {recentFiles?.length > 0 && <RecentFiles
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
+                width={width}
             />}
             <ServePanel
                 view={workElementsView}
@@ -280,6 +293,7 @@ const WorkSpace = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
+                width={width}
             >{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}

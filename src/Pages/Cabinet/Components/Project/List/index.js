@@ -16,7 +16,7 @@ const List = React.forwardRef(({title, src, setListCollapsed, listCollapsed, chi
             ref={ref ?? null}
         >
             <div className={styles.header}>
-                {!listCollapsed && <span>{title}</span>}
+                {!listCollapsed && <span className={styles.title}>{title}</span>}
                 <div className={styles.imgWrap}>
                     <img
                         className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}

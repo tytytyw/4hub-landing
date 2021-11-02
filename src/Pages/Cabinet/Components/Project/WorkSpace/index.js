@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
+import {useElementResize} from "../../../../../generalComponents/Hooks";
 
 const WorkSpace = ({
    setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject
@@ -27,6 +28,7 @@ const WorkSpace = ({
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
     const [fileCollapsed, setFileCollapsed] = useState(false);
+    const [containerRef, width] = useElementResize();
 
     const renderFiles = (Type) => {
         if(!files) return null
@@ -53,7 +55,7 @@ const WorkSpace = ({
     }
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} ref={containerRef}>
 
             <div className={styles.header}>
                 <SearchField />
@@ -68,6 +70,7 @@ const WorkSpace = ({
                 setView={setWorkElementsView}
                 view={workElementsView}
                 menuItem={menuItem}
+                width={width}
                 onDoubleClickCallback={chooseProjectFromRecent}
             />}
 
