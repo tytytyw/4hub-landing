@@ -30,11 +30,13 @@ const ProjectItem = ({
     useEffect(() => {
         if(params.fromRecent) {
             if(chosen) {
-                setCollapse(true)
-                listRef.current.scrollTo({
-                    top: projectRef.current.offsetTop,
-                    behavior: 'smooth'
-                })
+                setTimeout(() => {
+                    setCollapse(true)
+                    listRef.current.scrollTo({
+                        top: projectRef.current.offsetTop - 67, // minus height of the header in the list
+                        behavior: 'smooth'
+                    })
+                }, 0)
             } else {
                 setCollapse(false)
             }
