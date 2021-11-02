@@ -2,13 +2,13 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import styles from './WorkLinesPreview.module.sass';
 
-import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/edit-fill.svg'
-import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/camera.svg'
-import {ReactComponent as DotsMenu} from '../../../../../../assets/PrivateCabinet/dots-menu.svg'
-import {ReactComponent as InfoIcon} from '../../../../../../assets/PrivateCabinet/info.svg'
-import InfoPopover from '../InfoPopover';
-import classNames from 'classnames';
-import Input from '../../../MyProfile/Input';
+// import {ReactComponent as EditIcon} from '../../../../../../assets/PrivateCabinet/edit-fill.svg'
+// import {ReactComponent as CameraIcon} from '../../../../../../assets/PrivateCabinet/camera.svg'
+// import {ReactComponent as DotsMenu} from '../../../../../../assets/PrivateCabinet/dots-menu.svg'
+// import {ReactComponent as InfoIcon} from '../../../../../../assets/PrivateCabinet/info.svg'
+// import InfoPopover from '../InfoPopover';
+// import classNames from 'classnames';
+// import Input from '../../../MyProfile/Input';
 import MiniToolBar from "../MiniToolBar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
@@ -16,37 +16,46 @@ import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {projectSrc, imageSrc} from '../../../../../../generalComponents/globalVariables';
 import PreviewFile from "../../../PreviewFile";
+import {useElementSize} from "../../../../../../generalComponents/Hooks";
+// import {unDoPaintBrush} from "../../../PreviewFile/paintHelpers";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) => {
 
     const [previewPopup, setPreviewPopup] = useState(false)
-    const [infoPopover, setInfoPopover] = useState(false)
-    const [toolBar, setToolBar] = useState(false)
+    // const [infoPopover, setInfoPopover] = useState(false)
+    const [toolBar, ] = useState(false)
     const canvasRef = useRef()
+    const previewRef = useRef()
     const [mouse, setMouse] = useState({down: false})
     const [drawParams, setDrawParams] = useState({color: 'black', width: 2, imgWidth: 0, imgHeight: 0})
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null
     const uid = useSelector(state => state.user.uid)
-    const [undoList, setUndoList] = useState([]);
+    const [, setUndoList] = useState([]);
     const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
+    // const { width, height } = useElementSize(previewRef)
+    //
+    // useEffect(() => {
+    //     console.log(width, height)
+    // }, [width, height])
 
     useEffect(() => {
         if(chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image') {
             const canvas = canvasRef.current.getContext('2d');
-            canvas.clearRect(0, 0, 350, 400);
+            canvas.clearRect(0, 0, 0, 0);
             const img = new Image();
             img.src = chosenFile.preview;
-            img.onload = (e) => {
-                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, 350, 400);
-                canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
-                setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}))
+            img.onload = async (e) => {
+                const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, previewRef.current?.offsetWidth - 60, previewRef.current?.offsetHeight - 50);
+                await setDrawParams(state => ({...state, imgWidth: sizes.width.toFixed(), imgHeight: sizes.height.toFixed()}))
+                canvas.drawImage(img, 0, 0, sizes.width.toFixed(), sizes.height.toFixed());
             }
+            img.onerror = e => console.log(e)
         }
-    }, [chosenFile])
+    }, [chosenFile, fileCollapsed]) //eslint-disable-line
 
-    const handleEditImage = () => setToolBar(!toolBar)
+    // const handleEditImage = () => setToolBar(!toolBar)
 
     const mouseUpHandler = () => {
         if(toolBar) {
@@ -87,6 +96,8 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
             case 'image': {
                 return <canvas
                     ref={canvasRef}
+                    width={drawParams.imgWidth}
+                    height={drawParams.imgHeight}
                     className={styles.canvas}
                     onMouseDown={mouseDownHandler}
                     onMouseMove={mouseMoveHandler}
@@ -94,8 +105,8 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
                 />
             }
             case 'video': {
-                return <video controls src={`https://fs2.mh.net.ua${chosenFile.preview}`} type={chosenFile.mime_type}>
-                    <source src={`https://fs2.mh.net.ua${chosenFile.preview}`} type={chosenFile.mime_type}/>
+                return <video controls src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type}>
+                    <source src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type}/>
                 </video>
             }
             // case 'audio': {
@@ -116,21 +127,21 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
         }
     }
 
-    const unDoPaint = () => {
-        ctx.clearRect(0, 0, ctx.width, ctx.height)
-        if(undoList.length > 0) {
-            const dataUrl = undoList[undoList.length - 1];
-            let img = new Image();
-            img.src = dataUrl;
-            img.onload = () => {
-                const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, 350, 400);
-                ctx.drawImage(img, 0, 0, sizes.width, sizes.height);
-                let newUndoList = undoList;
-                newUndoList.pop();
-                setUndoList(() => ([...newUndoList]));
-            }
-        }
-    }
+    // const unDoPaint = () => {
+    //     ctx.clearRect(0, 0, ctx.width, ctx.height)
+    //     if(undoList.length > 0) {
+    //         const dataUrl = undoList[undoList.length - 1];
+    //         let img = new Image();
+    //         img.src = dataUrl;
+    //         img.onload = () => {
+    //             const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, 350, 400);
+    //             ctx.drawImage(img, 0, 0, sizes.width, sizes.height);
+    //             let newUndoList = undoList;
+    //             newUndoList.pop();
+    //             setUndoList(() => ([...newUndoList]));
+    //         }
+    //     }
+    // }
 
     //PrintScreen of the webPage
     const imgRef = useRef(null);
@@ -165,132 +176,140 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
 
             <div className={styles.previewFileWrap}>
 
-                <div className={styles.previewHeader}>
-                    <h4 className={styles.previewTitle}>Дизайн мото сайта</h4>
-                    <div className={styles.actionBlock}>
+                {/*<div className={styles.previewHeader}>*/}
+                {/*    <h4 className={styles.previewTitle}>Дизайн мото сайта</h4>*/}
+                {/*    <div className={styles.actionBlock}>*/}
 
-                        <button
-                            onClick={makePrintScreen}
-                            className={classNames({
-                                [styles.actionBtn]: true,
-                            })}
-                        >
-                            <CameraIcon className={styles.cameraIcon} />
-                        </button>
+                {/*        <button*/}
+                {/*            onClick={makePrintScreen}*/}
+                {/*            className={classNames({*/}
+                {/*                [styles.actionBtn]: true,*/}
+                {/*            })}*/}
+                {/*        >*/}
+                {/*            <CameraIcon className={styles.cameraIcon} />*/}
+                {/*        </button>*/}
 
-                        <button
-                            onClick={handleEditImage}
-                            className={classNames({
-                                [styles.actionBtn]: true,
-                                [styles.activeBtn]: toolBar
-                            })}
-                        >
-                            <EditIcon/>
-                        </button>
+                {/*        <button*/}
+                {/*            onClick={handleEditImage}*/}
+                {/*            className={classNames({*/}
+                {/*                [styles.actionBtn]: true,*/}
+                {/*                [styles.activeBtn]: toolBar*/}
+                {/*            })}*/}
+                {/*        >*/}
+                {/*            <EditIcon/>*/}
+                {/*        </button>*/}
 
-                        <button
-                            className={classNames({
-                                [styles.actionBtn]: true,
-                            })}
-                        >
-                            <DotsMenu/>
-                        </button>
+                {/*        <button*/}
+                {/*            className={classNames({*/}
+                {/*                [styles.actionBtn]: true,*/}
+                {/*            })}*/}
+                {/*        >*/}
+                {/*            <DotsMenu/>*/}
+                {/*        </button>*/}
 
-                        <button
-                            onMouseEnter={() => setInfoPopover(true)}
-                            onMouseLeave={() => setInfoPopover(false)}
-                            className={classNames({
-                                [styles.actionBtn]: true,
-                                [styles.activeBtn]: infoPopover
-                            })}
-                        >
-                            <InfoIcon/>
-                        </button>
+                {/*        <button*/}
+                {/*            onMouseEnter={() => setInfoPopover(true)}*/}
+                {/*            onMouseLeave={() => setInfoPopover(false)}*/}
+                {/*            className={classNames({*/}
+                {/*                [styles.actionBtn]: true,*/}
+                {/*                [styles.activeBtn]: infoPopover*/}
+                {/*            })}*/}
+                {/*        >*/}
+                {/*            <InfoIcon/>*/}
+                {/*        </button>*/}
 
-                    </div>
-                </div>
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <div className={styles.previewContent}>
 
-                    {infoPopover &&
-                    <InfoPopover
-                        set={setInfoPopover}
-                    />}
+                    {/*{infoPopover &&*/}
+                    {/*<InfoPopover*/}
+                    {/*    set={setInfoPopover}*/}
+                    {/*/>}*/}
 
-                    {toolBar &&
                     <MiniToolBar
+                        // file={file}
+                        // setTextDraw={setTextDraw}
+                        direction="row"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
-                        unDoPaint={unDoPaint}
-                    />}
+                        toolBarType={'previewFile'}
+                        prointScreen={makePrintScreen}
+                        // unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
 
-                    <div className={styles.previewImg}>
+                        // drawParams={drawParams}
+                        // setDrawParams={setDrawParams}
+                        // unDoPaint={unDoPaint}
+                    />
+
+                    <div className={styles.previewImg} ref={previewRef}>
                         {chosenFile ? chosenFile.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div></div> : null}
                     </div>
 
-                    <div className={styles.commentBlock}>
+                    {/*<div className={styles.commentBlock}>*/}
 
-                        <div className={styles.addCommentBlock}>
-                            <img src={imageSrc + './assets/PrivateCabinet/avatars/a2.svg'} alt='Comment Avatar'/>
-                            <Input
-                                placeholder='Комментировать'
-                                className={styles.commentInput}
-                            />
-                        </div>
+                        {/*<div className={styles.addCommentBlock}>*/}
+                        {/*    <img src={imageSrc + './assets/PrivateCabinet/avatars/a2.svg'} alt='Comment Avatar'/>*/}
+                        {/*    <Input*/}
+                        {/*        placeholder='Комментировать'*/}
+                        {/*        className={styles.commentInput}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
 
-                        <div className={styles.commentContent}>
+                        {/*<div className={styles.commentContent}>*/}
 
-                            <div className={styles.commentItem}>
-                                <img
-                                    className={styles.commentAvatar}
-                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
-                                    alt='Comment Avatar'
-                                />
-                                <p className={styles.commentText}>
-                                    Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее
-                                    время, программы электронной вёрстки типа
-                                </p>
-                            </div>
+                        {/*    <div className={styles.commentItem}>*/}
+                        {/*        <img*/}
+                        {/*            className={styles.commentAvatar}*/}
+                        {/*            src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}*/}
+                        {/*            alt='Comment Avatar'*/}
+                        {/*        />*/}
+                        {/*        <p className={styles.commentText}>*/}
+                        {/*            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее*/}
+                        {/*            время, программы электронной вёрстки типа*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
 
-                            <div className={styles.commentItem}>
-                                <img
-                                    className={styles.commentAvatar}
-                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
-                                    alt='Comment Avatar'
-                                />
-                                <p className={styles.commentText}>
-                                    Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее
-                                    время, программы электронной вёрстки типа
-                                </p>
-                            </div>
+                        {/*    <div className={styles.commentItem}>*/}
+                        {/*        <img*/}
+                        {/*            className={styles.commentAvatar}*/}
+                        {/*            src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}*/}
+                        {/*            alt='Comment Avatar'*/}
+                        {/*        />*/}
+                        {/*        <p className={styles.commentText}>*/}
+                        {/*            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее*/}
+                        {/*            время, программы электронной вёрстки типа*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
 
-                            <div className={styles.commentItem}>
-                                <img
-                                    className={styles.commentAvatar}
-                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
-                                    alt='Comment Avatar'
-                                />
-                                <p className={styles.commentText}>
-                                    Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее
-                                    время, программы электронной вёрстки типа
-                                </p>
-                            </div>
+                        {/*    <div className={styles.commentItem}>*/}
+                        {/*        <img*/}
+                        {/*            className={styles.commentAvatar}*/}
+                        {/*            src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}*/}
+                        {/*            alt='Comment Avatar'*/}
+                        {/*        />*/}
+                        {/*        <p className={styles.commentText}>*/}
+                        {/*            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее*/}
+                        {/*            время, программы электронной вёрстки типа*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
 
-                            <div className={styles.commentItem}>
-                                <img
-                                    className={styles.commentAvatar}
-                                    src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}
-                                    alt='Comment Avatar'
-                                />
-                                <p className={styles.commentText}>
-                                    Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее
-                                    время, программы электронной вёрстки типа
-                                </p>
-                            </div>
+                        {/*    <div className={styles.commentItem}>*/}
+                        {/*        <img*/}
+                        {/*            className={styles.commentAvatar}*/}
+                        {/*            src={imageSrc + './assets/PrivateCabinet/avatars/a3.svg'}*/}
+                        {/*            alt='Comment Avatar'*/}
+                        {/*        />*/}
+                        {/*        <p className={styles.commentText}>*/}
+                        {/*            Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее*/}
+                        {/*            время, программы электронной вёрстки типа*/}
+                        {/*        </p>*/}
+                        {/*    </div>*/}
 
-                        </div>
+                        {/*</div>*/}
 
-                    </div>
+                    {/*</div>*/}
 
                 </div>
 

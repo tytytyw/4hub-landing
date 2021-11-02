@@ -18,7 +18,7 @@ import {ReactComponent as Photo} from '../../../../../../assets/PrivateCabinet/m
 
 const MiniToolBar = ({
          drawParams, setDrawParams, unDoPaint, direction = "column", file,
-         setTextDraw, toolBarType = 'general', width = '100%'
+         setTextDraw, toolBarType = 'general', width = '100%',
 }) => {
 
     // const [toolFigure, setToolFigure] = useState(false)
@@ -74,9 +74,26 @@ const MiniToolBar = ({
         </div>
     )
 
+    const setPreviewFileProject = () => (
+        <div
+            className={styles.previewFileToolbar}
+            style={{
+                width
+            }}
+        >
+            <div className={styles.leftPart}>
+                {standardEditToolBar()}
+            </div>
+            <div className={styles.rightPart}>
+                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><Photo /><Photo /></div>)}</div>
+            </div>
+        </div>
+    )
+
     return (
         <>
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
+            {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
             {/*<div*/}
             {/*    onMouseLeave={() => setToolFigure(false)}*/}
             {/*    className={styles.item}*/}
