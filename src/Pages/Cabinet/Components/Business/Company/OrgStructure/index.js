@@ -50,7 +50,7 @@ function OrgStructure({
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [10, 10];
-	const [reactflowInstance, setReactflowInstance] = useState(null);
+	// const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
 	const [chosenPerson, setChosenPerson] = useState(null);
 	const [chosenLine, setChosenLine] = useState(null);
@@ -209,11 +209,11 @@ function OrgStructure({
 		]);
 	}, []); //eslint-disable-line
 
-	useEffect(() => {
-		if (reactflowInstance && elements.length > 0) {
-			reactflowInstance.fitView();
-		}
-	}, [reactflowInstance, elements.length]);
+	// useEffect(() => {
+	// 	if (reactflowInstance && elements.length > 0) {
+	// 		reactflowInstance.fitView();
+	// 	}
+	// }, [reactflowInstance, elements.length]);
 
 	const onElementsRemove = useCallback((elementsToRemove) => {
 		setElements((els) => removeElements(elementsToRemove, els));
