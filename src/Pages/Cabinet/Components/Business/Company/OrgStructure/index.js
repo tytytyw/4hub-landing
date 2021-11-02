@@ -28,7 +28,7 @@ function OrgStructure({
 		console.log(element);
 		setChosenPerson(element);
 		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
-			setMouseParams({ x: e.clientX, y: e.clientY, width: 190, height: 25 });
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 220, height: 25 });
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [20, 20];
@@ -122,7 +122,7 @@ function OrgStructure({
 					info: {
 						position: "консультант",
 						name: "Наталья",
-						middleName: "Ивановна", 
+						middleName: "Ивановна",
 						status: { color: "#20C8D2", name: "aqua", text: "Отпуск" },
 					},
 				},
@@ -220,13 +220,21 @@ function OrgStructure({
 	};
 
 	const addPerson = (info) => {
-		// name, middleName, surname, position, status, phone, phone2, email, email2
 		const newPerson = {
 			//TODO: change id
-			id: elements.length + 1 + "",
+			id: elements.length + 1 + info.middleName + info.surname,
 			type: "special",
 			data: { info },
-			position: { x: 600, y: 600 },
+			position: {
+				x:
+					typeof chosenPerson?.position.x === "number"
+						? chosenPerson?.position.x + 300
+						: 0,
+				y:
+					typeof chosenPerson?.position.y === "number"
+						? chosenPerson?.position.y
+						: 0,
+			},
 		};
 		setElements((state) => [...state, newPerson]);
 	};
@@ -242,11 +250,13 @@ function OrgStructure({
 		const newItem = {
 			id: newData.person.id,
 			type: newData.person.type,
-			data: {info: newData.newInfo},
+			data: { info: newData.newInfo },
 			position: newData.person.position,
 		};
-		setElements(elements => elements.map(item => item.id === newItem.id ? newItem : item))
-		nullifyAction()
+		setElements((elements) =>
+			elements.map((item) => (item.id === newItem.id ? newItem : item))
+		);
+		nullifyAction();
 	};
 
 	return (
@@ -293,6 +303,14 @@ function OrgStructure({
 					nullifyAction={nullifyAction}
 					person={chosenPerson}
 					editPerson={editPerson}
+				/>
+			) : null}
+			{action.type === "info" ? (
+				<EditPerson
+					nullifyAction={nullifyAction}
+					person={chosenPerson}
+					editPerson={editPerson}
+					disableСhanges={true}
 				/>
 			) : null}
 			{action.type === "delete" ? (
