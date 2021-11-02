@@ -279,7 +279,7 @@ const CreateFile = ({
                     <Colors title='Выберите цвет файла' color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? 'create' : ''} />
-                    <div className={styles.buttonsWrap}>
+                    <div className={`${styles.buttonsWrap} ${create ? '' : styles.buttonsWrapSmall}`}>
                         <div className={`${styles.cancel} ${create ? styles.onCreate : ''}`} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
                         <div className={`${styles.add} ${create ? styles.onCreate : ''}`} onClick={onAddFile}>{create ? 'Создать' : 'Добавить'}</div>
                         {create ? <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>Создать и открыть в редакторе</div> : null}
