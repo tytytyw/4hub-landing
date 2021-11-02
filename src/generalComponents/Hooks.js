@@ -51,63 +51,27 @@ export const useWindowSize = () => {
     return size;
 }
 
-export function useEventListener(eventName, handler, element) {
-    // Create a ref that stores handler
-    const savedHandler = useRef()
+export const useElementResize = () => {
+    const containerRef = useRef(null);
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+
+    const callback = entries => {
+        const [entry] = entries;
+        setWidth(entry.contentRect.width)
+        setHeight(entry.contentRect.height)
+    }
+
+    const resizeObserver = new ResizeObserver(callback);
 
     useEffect(() => {
-        // Define the listening target
-        const targetElement = element?.current || window
-        if (!(targetElement && targetElement.addEventListener)) {
-            return
-        }
-
-        // Update saved handler if necessary
-        if (savedHandler.current !== handler) {
-            savedHandler.current = handler
-        }
-
-        // Create event listener that calls handler function stored in ref
-        const eventListener = (event) => {
-            // eslint-disable-next-line no-extra-boolean-cast
-            if (!!savedHandler?.current) {
-                savedHandler.current(event)
-            }
-        }
-
-        targetElement.addEventListener(eventName, eventListener)
-
-        // Remove event listener on cleanup
+        const ref = containerRef?.current
+        if(ref) resizeObserver.observe(ref)
         return () => {
-            targetElement.removeEventListener(eventName, eventListener)
+            if(ref) resizeObserver.unobserve(ref)
         }
-    }, [eventName, element, handler])
+    }, [containerRef]) //eslint-disable-line
+
+    return [containerRef, width, height]
 }
 
-export const useElementSize = (elementRef = null) => {
-    const [size, setSize] = useState({
-        width: 0,
-        height: 0,
-    })
-
-    // Prevent too many rendering using useCallback
-    const updateSize = useCallback(() => {
-        const node = elementRef?.current
-        if (node) {
-            setSize({
-                width: node.offsetWidth || 0,
-                height: node.offsetHeight || 0,
-            })
-        }
-    }, [elementRef])
-
-    // Initial size on mount
-    useLayoutEffect(() => {
-        updateSize()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEventListener('resize', updateSize)
-
-    return size
-}
