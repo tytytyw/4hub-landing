@@ -31,7 +31,7 @@ function OrgStructure({
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 220, height: 25 });
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
-	const snapGrid = [20, 20];
+	const snapGrid = [10, 10];
 	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
 	const [chosenPerson, setChosenPerson] = useState(null);
@@ -163,26 +163,26 @@ function OrgStructure({
 				position: { x: 650, y: 700 },
 			},
 
-			// {
-			// 	id: "e1-2",
-			//  type: "step",
-			// 	source: "1",
-			// 	target: "2",
-			// },
-			// {
-			// 	id: "e2a-3",
-			// 	type: "step",
-			// 	source: "2",
-			// 	target: "3",
-			// 	sourceHandle: "a",
-			// },
-			// {
-			// 	id: "e2b-4",
-			// 	type: "step",
-			// 	source: "2",
-			// 	target: "4",
-			// 	sourceHandle: "b",
-			// },
+			{
+				id: "e1-2",
+				type: "step",
+				source: "1",
+				target: "2-1",
+			},
+			{
+				id: "e2a-3",
+				type: "step",
+				source: "1",
+				target: "2-2",
+				sourceHandle: "a",
+			},
+			{
+				id: "e2b-4",
+				type: "step",
+				source: "1",
+				target: "2-3",
+				sourceHandle: "b",
+			},
 		]);
 	}, []); //eslint-disable-line
 
@@ -236,12 +236,23 @@ function OrgStructure({
 						: 0,
 			},
 		};
-		setElements((state) => [...state, newPerson]);
+		const newLine = {
+			id: chosenPerson?.id + "line" + elements.length,
+			type: "step",
+			source: chosenPerson?.id,
+			target: elements.length + 1 + info.middleName + info.surname,
+		};
+		setElements((state) => [...state, newPerson, newLine]);
 	};
 
 	const deletePerson = () => {
 		setElements((state) =>
-			state.filter((item) => chosenPerson?.id !== item.id)
+			state.filter(
+				(item) =>
+					chosenPerson?.id !== item.id &&
+					chosenPerson?.id !== item.source &&
+					chosenPerson?.id !== item.target
+			)
 		);
 		nullifyAction();
 	};
