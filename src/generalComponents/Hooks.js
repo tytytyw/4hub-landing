@@ -1,4 +1,3 @@
-import React from 'react';
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 export function useDebounce(callback, delay) {

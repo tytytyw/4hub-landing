@@ -18,7 +18,7 @@ import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/ge
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 import {projectSrc, imageSrc} from '../../../../../../generalComponents/globalVariables';
 import PreviewFile from "../../../PreviewFile";
-import {useElementSize} from "../../../../../../generalComponents/Hooks";
+// import {useElementSize} from "../../../../../../generalComponents/Hooks";
 // import {unDoPaintBrush} from "../../../PreviewFile/paintHelpers";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) => {
