@@ -1,25 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 import {onChooseRecentFile} from '../../../../Store/actions/CabinetActions';
 import styles from './RecentFiles.module.sass';
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import {useWindowSize} from "../../../../generalComponents/Hooks";
 import {getIcon} from "../Project/helpers";
 
-const RecentFiles = ({setFilePreview, filePreview, menuItem, onDoubleClickCallback}) => {
+const RecentFiles = ({setFilePreview, filePreview, menuItem, onDoubleClickCallback, width = 0}) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
     const dispatch = useDispatch();
     const containerRef = useRef();
-    const [width] = useWindowSize();
-    const [pageParams, setPageParams] = useState({width: 0});
-
-    useEffect(() => {
-        setPageParams(state => ({...state, width: containerRef?.current?.parentNode?.offsetWidth - 27}))
-    }, [width])
 
     const renderIcon = (file) => {
         if(menuItem === 'project') return getIcon(file)
@@ -69,7 +62,7 @@ const RecentFiles = ({setFilePreview, filePreview, menuItem, onDoubleClickCallba
     };
 
     return(
-        <div className={styles.wrap} ref={containerRef} style={{width: pageParams.width}}>
+        <div className={styles.wrap} ref={containerRef} style={{width: width - 27}}>
             <div className={styles.recentFilesWrap}>
                 {renderRecent()}
             </div>
