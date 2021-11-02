@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from "./OrgStructure.module.sass";
 import ReactFlow, {
-	// isEdge,
+	isEdge,
 	removeElements,
 	addEdge,
 	Controls,
@@ -24,7 +24,7 @@ function OrgStructure({
 	setPageOption,
 	action,
 }) {
-	const onNodeDragStop = (event, node) => console.log("drag stop", node);
+	const onNodeDragStop = (e, node) => {changeNodeCoorditates(node)};
 	const onElementClick = (e, element) => {
 		console.log(element);
 		if (element.type === "special") {
@@ -37,7 +37,7 @@ function OrgStructure({
 					width: 220,
 					height: 25,
 				});
-		} else if (element.type === "step") {
+		} else if (isEdge(element)) {
 			setChosenLine(element);
 			setMouseParams({
 				type: "deleteLine",
@@ -221,7 +221,7 @@ function OrgStructure({
 	const onConnect = useCallback(
 		(params) =>
 			setElements((els) =>
-				addEdge({ ...params, type: "step", style: { stroke: "#b1b1b7" } }, els)
+				addEdge({ ...params, type: "step", style: { stroke: "#b1b1b7", strokeWidth: 2 } }, els)
 			),
 		[]
 	);
@@ -261,6 +261,7 @@ function OrgStructure({
 		const newLine = {
 			id: chosenPerson?.id + "line" + elements.length,
 			type: "step",
+			style: {strokeWidth: 2},
 			source: chosenPerson?.id,
 			target: elements.length + 1 + info.middleName + info.surname,
 		};
@@ -301,6 +302,15 @@ function OrgStructure({
 		nullifyAction();
 	};
 
+	const changeNodeCoorditates = (node) => {
+		const checkCordinates = (position) => position < 0 ? 0 : position
+		const newItem = {...node, position:{x: checkCordinates(node.position.x), y:checkCordinates(node.position.y)}}
+
+		setElements((elements) =>
+			elements.map((item) => (item.id === newItem.id ? newItem : item))
+		);
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<ReactFlow
@@ -318,6 +328,7 @@ function OrgStructure({
 				zoomOnDoubleClick={false}
 				translateExtent={[[0, 0], [Infinity, Infinity]]}
 				// paneMoveable={false}
+				minZoom={0.1}
 			>
 				<Controls />
 				{!elements.length && (
