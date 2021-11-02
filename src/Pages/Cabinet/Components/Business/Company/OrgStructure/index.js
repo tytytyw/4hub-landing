@@ -26,15 +26,33 @@ function OrgStructure({
 	const onNodeDragStop = (event, node) => console.log("drag stop", node);
 	const onElementClick = (e, element) => {
 		console.log(element);
-		setChosenPerson(element);
-		if (e.target.tagName !== "path" && e.target.className.includes("menu"))
-			setMouseParams({ x: e.clientX, y: e.clientY, width: 220, height: 25 });
+		if (element.type === "special") {
+			setChosenPerson(element);
+			if (e.target.tagName !== "path" && e.target.className.includes("menu"))
+				setMouseParams({
+					type: "contextMenu",
+					x: e.clientX,
+					y: e.clientY,
+					width: 220,
+					height: 25,
+				});
+		} else if (element.type === "step") {
+			setChosenLine(element);
+			setMouseParams({
+				type: "deleteLine",
+				x: e.clientX,
+				y: e.clientY,
+				width: 16,
+				height: 19,
+			});
+		}
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [10, 10];
 	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
 	const [chosenPerson, setChosenPerson] = useState(null);
+	const [chosenLine, setChosenLine] = useState(null);
 
 	const callbackArr = [
 		{
@@ -257,6 +275,11 @@ function OrgStructure({
 		nullifyAction();
 	};
 
+	const deleteLine = () => {
+		setElements((state) => state.filter((item) => chosenLine?.id !== item.id));
+		nullifyAction();
+	};
+
 	const editPerson = (newData) => {
 		const newItem = {
 			id: newData.person.id,
@@ -288,7 +311,7 @@ function OrgStructure({
 				<Controls />
 			</ReactFlow>
 
-			{mouseParams !== null ? (
+			{mouseParams !== null && mouseParams.type === "contextMenu" ? (
 				<ContextMenu
 					params={mouseParams}
 					setParams={setMouseParams}
@@ -299,6 +322,22 @@ function OrgStructure({
 					<div className={styles.mainMenuItems}>
 						{renderMenuItems(contextMenuPerson, callbackArr)}
 					</div>
+				</ContextMenu>
+			) : null}
+
+			{mouseParams !== null && mouseParams.type === "deleteLine" ? (
+				<ContextMenu
+					params={mouseParams}
+					setParams={setMouseParams}
+					tooltip={false}
+					customClose={true}
+					disableAutohide={true}
+				>
+					<div
+						className={styles.menuLine}
+						onClick={() => deleteLine(chosenLine)}
+						title="удалить линию"
+					/>
 				</ContextMenu>
 			) : null}
 

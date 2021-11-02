@@ -2,3 +2,29 @@
     height: 100%
     .mainMenuItems
         margin: 15px 0
+    .menuLine
+        width: 15px
+        height: 15px
+        border-radius: 50%
+        position: relative
+        &::before
+            content: ''
+            position: absolute
+            top: 6px
+            left: 0
+            width: 15px
+            height: 2px
+            background: #b1b1b7
+            transform: rotate(45deg)
+        &::after
+            content: ''
+            position: absolute
+            top: 6px
+            left: 0
+            width: 15px
+            height: 2px
+            background: #b1b1b7
+            transform: rotate(-45deg)
+        &:hover
+            &::before,&::after
+                background: red
