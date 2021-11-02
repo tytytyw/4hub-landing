@@ -293,6 +293,7 @@ const WorkSpace = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
+                width={width}
             >{renderFiles(FileBar)}</WorkBarsPreview> : null}
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
