@@ -24,7 +24,9 @@ function OrgStructure({
 	setPageOption,
 	action,
 }) {
-	const onNodeDragStop = (e, node) => {changeNodeCoorditates(node)};
+	const onNodeDragStop = (e, node) => {
+		changeNodeCoorditates(node);
+	};
 	const onElementClick = (e, element) => {
 		console.log(element);
 		if (element.type === "special") {
@@ -221,14 +223,21 @@ function OrgStructure({
 	const onConnect = useCallback(
 		(params) =>
 			setElements((els) =>
-				addEdge({ ...params, type: "step", style: { stroke: "#b1b1b7", strokeWidth: 2 } }, els)
+				addEdge(
+					{
+						...params,
+						type: "step",
+						style: { stroke: "#b1b1b7", strokeWidth: 2 },
+					},
+					els
+				)
 			),
 		[]
 	);
 
 	const onLoad = useCallback(
 		(rfi) => {
-			console.log(reactflowInstance)
+			console.log(reactflowInstance);
 			if (!reactflowInstance) {
 				setReactflowInstance(rfi);
 				console.log("flow loaded:", rfi);
@@ -261,14 +270,30 @@ function OrgStructure({
 		const newLine = {
 			id: chosenPerson?.id + "line" + elements.length,
 			type: "step",
-			style: {strokeWidth: 2},
+			style: { strokeWidth: 2 },
 			source: chosenPerson?.id,
 			target: elements.length + 1 + info.middleName + info.surname,
 		};
+
+		const newElements = elements.map((el) => {
+			if (el.position) {
+				if (
+					el.position.x > newPerson.position.x - 100 &&
+					el.position.x < newPerson.position.x + 100 &&
+					el.position.y > newPerson.position.y - 10
+				) {
+					const newEl = {
+						...el,
+						position: { x: el.position.x, y: el.position.y + 75 },
+					};
+					return newEl;
+				}
+				return el;
+			}
+			return el;
+		});
 		setElements(
-			chosenPerson
-				? (state) => [...state, newPerson, newLine]
-				: () => [newPerson]
+			chosenPerson ? [...newElements, newPerson, newLine] : [newPerson]
 		);
 	};
 
@@ -284,8 +309,8 @@ function OrgStructure({
 	};
 
 	const deleteLine = () => {
-		const elementsToRemove = elements.filter(el => chosenLine?.id === el.id);
-		onElementsRemove(elementsToRemove)
+		const elementsToRemove = elements.filter((el) => chosenLine?.id === el.id);
+		onElementsRemove(elementsToRemove);
 		nullifyAction();
 	};
 
@@ -303,14 +328,20 @@ function OrgStructure({
 	};
 
 	const changeNodeCoorditates = (node) => {
-		const checkCordinates = (position) => position < 0 ? 0 : position
-		const newItem = {...node, position:{x: checkCordinates(node.position.x), y:checkCordinates(node.position.y)}}
-		console.log(node.position, newItem.position)
+		const checkCordinates = (position) => (position < 0 ? 0 : position);
+		const newItem = {
+			...node,
+			position: {
+				x: checkCordinates(node.position.x),
+				y: checkCordinates(node.position.y),
+			},
+		};
 		setElements((elements) =>
 			elements.map((item) => (item.id === newItem.id ? newItem : item))
 		);
-		if (node.position.x < 0 || node.position.y < 0) setTimeout(() => reactflowInstance.fitView(), 100)
-	}
+		if (node.position.x < 0 || node.position.y < 0)
+			setTimeout(() => reactflowInstance.fitView(), 100);
+	};
 
 	return (
 		<div className={styles.wrapper}>
@@ -327,7 +358,10 @@ function OrgStructure({
 				defaultZoom={1}
 				nodeTypes={nodeTypes}
 				zoomOnDoubleClick={false}
-				translateExtent={[[0, 0], [Infinity, Infinity]]}
+				translateExtent={[
+					[0, 0],
+					[Infinity, Infinity],
+				]}
 				// paneMoveable={false}
 				minZoom={0.1}
 			>
