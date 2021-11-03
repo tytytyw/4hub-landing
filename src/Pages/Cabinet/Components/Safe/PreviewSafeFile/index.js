@@ -19,13 +19,14 @@ const PreviewSafeFile = ({setFilePreview, file, filePreview, setLoadingType}) =>
 
     const getPreview = () => {
         if(!previewReq.sent) {
+            const mType = file?.mime_type;
             setLoadingType('squarify')
             setPreviewReq({...previewReq, sent: true});
-            api.get(`/ajax/safe_file_preview.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`, {
+            api.get(`/ajax/safe_file_download.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`, {
                 responseType: 'blob'
             })
                 .then(res => {
-                    const blob = new Blob([res.data])
+                    const blob = new Blob([res.data], {type : mType})
                     let objectURL = URL.createObjectURL(blob);
                     setPreviewReq({sent: true, data: objectURL})
                 })
@@ -63,9 +64,9 @@ const PreviewSafeFile = ({setFilePreview, file, filePreview, setLoadingType}) =>
             //         </audio>
             //     </div>
             // }
-            // case 'application': {
-            //         return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />
-            // }
+            case 'application': {
+                    return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />
+            }
             default: {
                 return standardPrev
             }

@@ -57,7 +57,7 @@ const WorkSpace = ({
 	loadingFiles,
 	setLoadingFiles,
 	onSuccessLoading,
-	gLoader
+	gLoader,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
@@ -250,33 +250,28 @@ const WorkSpace = ({
 		setLoadingType("bounceDot");
 		api
 			.get(
-				`/ajax/safe_file_preview.php?uid=${uid}&fid=${chosenFile.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
+				`/ajax/safe_file_download.php?uid=${uid}&fid=${chosenFile.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
 				{
 					responseType: "blob",
 				}
 			)
 
 			.then((res) => {
-				const blob = new Blob([res.data]);
+				const blob = new Blob([res.data], {type : mType});
 				const objectURL = URL.createObjectURL(blob);
-				if (
-					mType === "application/pdf" ||
-					(mType && mType?.includes("image"))
-				) {
+				
+				if(mType === 'application/pdf' || (mType && mType?.includes('image'))) {
 					setLoadingType("bounceDot");
-					printFile(objectURL, true);
+					printFile(objectURL);
 				} else if (isFormat) printFile(objectURL);
 			})
 			.catch((err) => console.log(err))
 			.finally(() => setLoadingType(""));
 	};
 
-	const printFile = (path, isPicture) => {
+	const printFile = (path) => {
 		let pri = document.getElementById("frame");
-		pri.src = "";
-		pri.srcdoc = "";
-		if (isPicture) pri.srcdoc = `<img src='${path}'/>`;
-		else pri.src = path;
+		pri.src = path;
 
 		setTimeout(() => {
 			pri.contentWindow.focus();
@@ -285,13 +280,13 @@ const WorkSpace = ({
 	};
 
 	useEffect(() => {
-        if(fileList?.files?.length <= 10) {
-            setFilesPage(2);
-            if(fileRef.current) {
-                fileRef.current.scrollTop = 0;
-            }
-        }
-    }, [fileList?.files]); //eslint-disable-line
+		if (fileList?.files?.length <= 10) {
+			setFilesPage(2);
+			if (fileRef.current) {
+				fileRef.current.scrollTop = 0;
+			}
+		}
+	}, [fileList?.files]); //eslint-disable-line
 
 	return (
 		<>
