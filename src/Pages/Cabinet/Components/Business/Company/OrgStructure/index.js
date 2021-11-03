@@ -107,122 +107,6 @@ function OrgStructure({
 	];
 
 	useEffect(() => {
-		setElements([
-			{
-				id: "1",
-				type: "special",
-				data: {
-					info: {
-						position: "Руководитель компании",
-						name: "Андрей",
-						middleName: "Петрович",
-						inner: true,
-						status: { color: "#fff", name: "white", text: "Без статуса" },
-					},
-				},
-				position: { x: 10, y: 10 },
-			},
-			{
-				id: "2-1",
-				type: "special",
-				data: {
-					info: {
-						position: "консультант",
-						name: "Константин",
-						middleName: "Петрович",
-						status: {
-							color: "#F4A862",
-							name: "orange",
-							text: "Открытая вакансия",
-						},
-					},
-				},
-				position: { x: 300, y: 60 },
-			},
-			{
-				id: "2-2",
-				type: "special",
-				data: {
-					info: {
-						position: "консультант",
-						name: "Алина",
-						middleName: "Викторовна",
-						status: { color: "#fff", name: "white", text: "Без статуса" },
-					},
-				},
-				position: { x: 300, y: 150 },
-			},
-			{
-				id: "2-3",
-				type: "special",
-				data: {
-					info: {
-						position: "консультант",
-						name: "Наталья",
-						middleName: "Ивановна",
-						status: { color: "#20C8D2", name: "aqua", text: "Отпуск" },
-					},
-				},
-				position: { x: 300, y: 240 },
-			},
-			{
-				id: "3",
-				type: "special",
-				data: {
-					info: {
-						position: "карп",
-						name: "Алексей",
-						middleName: "Владимирович",
-						status: {
-							color: "#39B31E",
-							name: "green",
-							text: "Декретный отпуск",
-						},
-					},
-				},
-				position: { x: 650, y: 325 },
-			},
-			{
-				id: "4",
-				type: "special",
-				data: {
-					info: {
-						position: "уборщица",
-						name: "Анастасия",
-						middleName: "Георгиевна",
-						status: {
-							color: "#A30BEB",
-							name: "violet",
-							text: "Испытательный срок",
-						},
-					},
-				},
-				position: { x: 650, y: 700 },
-			},
-			{
-				id: "e1-2",
-				type: "step",
-				source: "1",
-				target: "2-1",
-			},
-			{
-				id: "e2a-3",
-				type: "step",
-				source: "1",
-				target: "2-2",
-				sourceHandle: "a",
-			},
-			{
-				id: "e2b-4",
-				type: "step",
-				source: "1",
-				target: "2-3",
-				sourceHandle: "b",
-			},
-		]);
-	}, []); //eslint-disable-line
-
-	useEffect(() => {
 		if (reactflowInstance && elements.length > 0) {
 			setTimeout(() => reactflowInstance.fitView(), 100);
 		}
@@ -248,7 +132,6 @@ function OrgStructure({
 
 	const onLoad = useCallback(
 		(rfi) => {
-			console.log(reactflowInstance);
 			if (!reactflowInstance) {
 				setReactflowInstance(rfi);
 				console.log("flow loaded:", rfi);
@@ -274,7 +157,7 @@ function OrgStructure({
 						: 10,
 				y:
 					typeof chosenPerson?.position.y === "number"
-						? chosenPerson?.position.y
+						? chosenPerson?.position.y + 34
 						: 10,
 			},
 		};
@@ -292,6 +175,17 @@ function OrgStructure({
 					el.position.x > newPerson.position.x - 100 &&
 					el.position.x < newPerson.position.x + 100 &&
 					el.position.y > newPerson.position.y - 10
+				) {
+					const newEl = {
+						...el,
+						position: { x: el.position.x, y: el.position.y + 75 },
+					};
+					return newEl;
+				}
+				if (
+					el.position.x > newPerson.position.x - 400 &&
+					el.position.x < newPerson.position.x - 200 &&
+					el.position.y > newPerson.position.y
 				) {
 					const newEl = {
 						...el,
