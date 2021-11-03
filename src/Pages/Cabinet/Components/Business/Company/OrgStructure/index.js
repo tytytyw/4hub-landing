@@ -50,7 +50,7 @@ function OrgStructure({
 	};
 	const connectionLineStyle = { stroke: "#b1b1b7" };
 	const snapGrid = [10, 10];
-	// const [reactflowInstance, setReactflowInstance] = useState(null);
+	const [reactflowInstance, setReactflowInstance] = useState(null);
 	const [elements, setElements] = useState([]);
 	const [chosenPerson, setChosenPerson] = useState(null);
 	const [chosenLine, setChosenLine] = useState(null);
@@ -94,126 +94,126 @@ function OrgStructure({
 	];
 
 	useEffect(() => {
-		// setElements([
-		// 	{
-		// 		id: "1",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "Руководитель компании",
-		// 				name: "Андрей",
-		// 				middleName: "Петрович",
-		// 				inner: true,
-		// 				status: { color: "#fff", name: "white", text: "Без статуса" },
-		// 			},
-		// 		},
-		// 		position: { x: 10, y: 10 },
-		// 	},
-		// 	{
-		// 		id: "2-1",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "консультант",
-		// 				name: "Константин",
-		// 				middleName: "Петрович",
-		// 				status: {
-		// 					color: "#F4A862",
-		// 					name: "orange",
-		// 					text: "Открытая вакансия",
-		// 				},
-		// 			},
-		// 		},
-		// 		position: { x: 300, y: 60 },
-		// 	},
-		// 	{
-		// 		id: "2-2",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "консультант",
-		// 				name: "Алина",
-		// 				middleName: "Викторовна",
-		// 				status: { color: "#fff", name: "white", text: "Без статуса" },
-		// 			},
-		// 		},
-		// 		position: { x: 300, y: 150 },
-		// 	},
-		// 	{
-		// 		id: "2-3",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "консультант",
-		// 				name: "Наталья",
-		// 				middleName: "Ивановна",
-		// 				status: { color: "#20C8D2", name: "aqua", text: "Отпуск" },
-		// 			},
-		// 		},
-		// 		position: { x: 300, y: 240 },
-		// 	},
-		// 	{
-		// 		id: "3",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "карп",
-		// 				name: "Алексей",
-		// 				middleName: "Владимирович",
-		// 				status: {
-		// 					color: "#39B31E",
-		// 					name: "green",
-		// 					text: "Декретный отпуск",
-		// 				},
-		// 			},
-		// 		},
-		// 		position: { x: 650, y: 325 },
-		// 	},
-		// 	{
-		// 		id: "4",
-		// 		type: "special",
-		// 		data: {
-		// 			info: {
-		// 				position: "уборщица",
-		// 				name: "Анастасия",
-		// 				middleName: "Георгиевна",
-		// 				status: {
-		// 					color: "#A30BEB",
-		// 					name: "violet",
-		// 					text: "Испытательный срок",
-		// 				},
-		// 			},
-		// 		},
-		// 		position: { x: 650, y: 700 },
-		// 	},
-		// 	{
-		// 		id: "e1-2",
-		// 		type: "step",
-		// 		source: "1",
-		// 		target: "2-1",
-		// 	},
-		// 	{
-		// 		id: "e2a-3",
-		// 		type: "step",
-		// 		source: "1",
-		// 		target: "2-2",
-		// 		sourceHandle: "a",
-		// 	},
-		// 	{
-		// 		id: "e2b-4",
-		// 		type: "step",
-		// 		source: "1",
-		// 		target: "2-3",
-		// 		sourceHandle: "b",
-		// 	},
-		// ]);
+		setElements([
+			{
+				id: "1",
+				type: "special",
+				data: {
+					info: {
+						position: "Руководитель компании",
+						name: "Андрей",
+						middleName: "Петрович",
+						inner: true,
+						status: { color: "#fff", name: "white", text: "Без статуса" },
+					},
+				},
+				position: { x: 10, y: 10 },
+			},
+			{
+				id: "2-1",
+				type: "special",
+				data: {
+					info: {
+						position: "консультант",
+						name: "Константин",
+						middleName: "Петрович",
+						status: {
+							color: "#F4A862",
+							name: "orange",
+							text: "Открытая вакансия",
+						},
+					},
+				},
+				position: { x: 300, y: 60 },
+			},
+			{
+				id: "2-2",
+				type: "special",
+				data: {
+					info: {
+						position: "консультант",
+						name: "Алина",
+						middleName: "Викторовна",
+						status: { color: "#fff", name: "white", text: "Без статуса" },
+					},
+				},
+				position: { x: 300, y: 150 },
+			},
+			{
+				id: "2-3",
+				type: "special",
+				data: {
+					info: {
+						position: "консультант",
+						name: "Наталья",
+						middleName: "Ивановна",
+						status: { color: "#20C8D2", name: "aqua", text: "Отпуск" },
+					},
+				},
+				position: { x: 300, y: 240 },
+			},
+			{
+				id: "3",
+				type: "special",
+				data: {
+					info: {
+						position: "карп",
+						name: "Алексей",
+						middleName: "Владимирович",
+						status: {
+							color: "#39B31E",
+							name: "green",
+							text: "Декретный отпуск",
+						},
+					},
+				},
+				position: { x: 650, y: 325 },
+			},
+			{
+				id: "4",
+				type: "special",
+				data: {
+					info: {
+						position: "уборщица",
+						name: "Анастасия",
+						middleName: "Георгиевна",
+						status: {
+							color: "#A30BEB",
+							name: "violet",
+							text: "Испытательный срок",
+						},
+					},
+				},
+				position: { x: 650, y: 700 },
+			},
+			{
+				id: "e1-2",
+				type: "step",
+				source: "1",
+				target: "2-1",
+			},
+			{
+				id: "e2a-3",
+				type: "step",
+				source: "1",
+				target: "2-2",
+				sourceHandle: "a",
+			},
+			{
+				id: "e2b-4",
+				type: "step",
+				source: "1",
+				target: "2-3",
+				sourceHandle: "b",
+			},
+		]);
 	}, []); //eslint-disable-line
 
-	// useEffect(() => {
-	// 	if (reactflowInstance && elements.length > 0) {
-	// 		reactflowInstance.fitView();
-	// 	}
-	// }, [reactflowInstance, elements.length]);
+	useEffect(() => {
+		if (reactflowInstance && elements.length > 0) {
+			setTimeout(() => reactflowInstance.fitView(), 100);
+		}
+	}, [reactflowInstance, elements.length]);
 
 	const onElementsRemove = useCallback((elementsToRemove) => {
 		setElements((els) => removeElements(elementsToRemove, els));
@@ -226,23 +226,22 @@ function OrgStructure({
 		[]
 	);
 
-	// const onLoad = useCallback(
-	// 	(rfi) => {
-	// 		console.log(reactflowInstance)
-	// 		if (!reactflowInstance) {
-	// 			setReactflowInstance(rfi);
-	// 			console.log("flow loaded:", rfi);
-	// 		}
-	// 	},
-	// 	[reactflowInstance]
-	// );
+	const onLoad = useCallback(
+		(rfi) => {
+			console.log(reactflowInstance)
+			if (!reactflowInstance) {
+				setReactflowInstance(rfi);
+				console.log("flow loaded:", rfi);
+			}
+		},
+		[reactflowInstance]
+	);
 
 	const nodeTypes = {
 		special: CustomNodeComponent,
 	};
 
 	const addPerson = (info) => {
-		console.log(chosenPerson?.position)
 		const newPerson = {
 			//TODO: change id
 			id: elements.length + 1 + info.middleName + info.surname,
@@ -268,7 +267,7 @@ function OrgStructure({
 		};
 		setElements(
 			chosenPerson
-				? (state) => [...state, newPerson, chosenPerson && newLine]
+				? (state) => [...state, newPerson, newLine]
 				: () => [newPerson]
 		);
 	};
@@ -306,10 +305,11 @@ function OrgStructure({
 	const changeNodeCoorditates = (node) => {
 		const checkCordinates = (position) => position < 0 ? 0 : position
 		const newItem = {...node, position:{x: checkCordinates(node.position.x), y:checkCordinates(node.position.y)}}
-
+		console.log(node.position, newItem.position)
 		setElements((elements) =>
 			elements.map((item) => (item.id === newItem.id ? newItem : item))
 		);
+		if (node.position.x < 0 || node.position.y < 0) setTimeout(() => reactflowInstance.fitView(), 100)
 	}
 
 	return (
@@ -320,7 +320,7 @@ function OrgStructure({
 				onElementsRemove={onElementsRemove}
 				onConnect={onConnect}
 				onNodeDragStop={onNodeDragStop}
-				// onLoad={onLoad}
+				onLoad={onLoad}
 				connectionLineStyle={connectionLineStyle}
 				snapToGrid={true}
 				snapGrid={snapGrid}
