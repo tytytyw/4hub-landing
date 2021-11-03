@@ -3,8 +3,10 @@ import styles from "./CustomNodeComponent.module.sass";
 import { Handle } from "react-flow-renderer";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
+import { ReactComponent as Plus } from "../../../../../../../assets/PrivateCabinet/plus-3.svg";
 
-function CustomNodeComponent({ data }) {
+
+function CustomNodeComponent({ data, props }) {
 	return (
 		<div
 			className={classNames(
@@ -48,8 +50,16 @@ function CustomNodeComponent({ data }) {
 					height: 10,
 					borderRadius: 50,
 					background: "#4086F1",
+					zIndex: 2
 				}}
 			/>
+			<div className={styles.addButtonWrap}>
+				<span className={styles.line}></span>
+
+				<div className={styles.iconWrap}>
+					<Plus className={styles.plusIcon} />
+				</div>
+			</div>
 		</div>
 	);
 }

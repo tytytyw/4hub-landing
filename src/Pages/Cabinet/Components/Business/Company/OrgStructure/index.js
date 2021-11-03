@@ -28,16 +28,27 @@ function OrgStructure({
 		changeNodeCoorditates(node);
 	};
 	const onElementClick = (e, element) => {
-		console.log(element);
 		if (element.type === "special") {
 			setChosenPerson(element);
-			if (e.target.tagName !== "path" && e.target.className.includes("menu"))
+			if (
+				e.target.tagName !== "path" &&
+				e.target.className.toString().includes("menu")
+			)
 				setMouseParams({
 					type: "contextMenu",
 					x: e.clientX,
 					y: e.clientY,
 					width: 220,
 					height: 25,
+				});
+			if (
+				e.target.tagName === "path" &&
+				e.target.viewportElement.classList.value.includes("plusIcon")
+			)
+				setAction({
+					type: "add-employee",
+					name: "Добавить сотрудника",
+					text: "",
 				});
 		} else if (isEdge(element)) {
 			setChosenLine(element);
