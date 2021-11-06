@@ -195,7 +195,7 @@ const MyFolders = ({
                 src='add-folder.svg'
                 listCollapsed={listCollapsed}
                 setListCollapsed={setListCollapsed}
-                onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: ''})}}
+                onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
                 <div className={styles.folderListWrap}>
                     {renderStandardFolderList()}
@@ -246,6 +246,7 @@ const MyFolders = ({
                 info={newFolderInfo}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
+                newFolderInfo={newFolderInfo}
             />}
             {fileAddCustomization.show ? <CreateFile
                 title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}

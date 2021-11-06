@@ -16,7 +16,7 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Select from "../CreateFile/Select/Select";
 
-const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder}) => {
+const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {}}) => {
 
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -32,7 +32,7 @@ const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChose
     const [error, setError] = useState(false);
     const [noNameError, setNoNameError] = useState(false);
     const [visibility, setVisibility] = useState('password');
-    const [path, setPath] = useState(chosenFolder?.path)
+    const [path, setPath] = useState(newFolderInfo?.path ?? chosenFolder?.path)
     const dispatch = useDispatch();
 
     const onAddName = (name) => {
@@ -156,7 +156,7 @@ const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChose
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}
-                                initFolder={chosenFolder}
+                                initFolder={newFolderInfo?.path ? newFolderInfo : chosenFolder}
                             />
                         </div>}
                         <div className={styles.inputWrap}>
