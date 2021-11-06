@@ -50,7 +50,7 @@ import {
     CHOOSE_ARCHIVE_FILES,
     SET_DRAGGED,
     LOAD_PROJECT_FILES,
-    SET_CHOSEN_FOLDER,
+    SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -713,6 +713,13 @@ export const setChosenFolderProject = (folder) => {
     return {
         type: SET_CHOSEN_FOLDER,
         payload: folder
+    }
+}
+
+export const onChooseProject = (project) => {
+    return {
+        type: SET_CHOSEN_PROJECT,
+        payload: project
     }
 }
 

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg'
 import CustomFolderItem from '../CustomFolderItem'
 import {useDispatch, useSelector} from 'react-redux'
-import {onGetProjectFolders} from '../../../../../Store/actions/CabinetActions'
+import {onChooseProject, onGetProjectFolders} from '../../../../../Store/actions/CabinetActions'
 import CustomItem from '../CustomItem'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {getIcon} from "../helpers";
@@ -62,7 +62,10 @@ const ProjectItem = ({
 
     return (
         <div
-            onClick={() => setSelectedProject(project)}
+            onClick={() => {
+                dispatch(onChooseProject(project))
+                setSelectedProject(project)
+            }}
             className={styles.parentWrap}
             ref={projectRef}
         >

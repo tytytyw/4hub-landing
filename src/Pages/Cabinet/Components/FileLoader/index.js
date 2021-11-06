@@ -85,6 +85,9 @@ const FileLoader = ({
 
     const sendFile = async (file) => {
         if(file) {
+            console.log(file.options)
+            console.log(loadDest)
+            console.log(loadDest[file.options.destination])
             let data = new FormData();
             data.append('uid', uid);
             data.append('myfile', file.file);

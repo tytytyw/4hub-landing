@@ -45,7 +45,7 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     SET_DRAGGED,
-    LOAD_PROJECT_FILES, SET_CHOSEN_FOLDER,
+    LOAD_PROJECT_FILES, SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -92,7 +92,8 @@ const INITIAL_STATE = {
         projects: [],
         projectFolders: {},
         files: [],
-        chosenFolder: ''
+        chosenFolder: '',
+        chosenProject: null
     },
 
 
@@ -254,6 +255,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_CHOSEN_FOLDER: {
             return {...state, project: {...state.project, chosenFolder: action.payload}}
+        }
+        case SET_CHOSEN_PROJECT: {
+            return {...state, project: {...state.project, chosenProject: action.payload}}
         }
 
         //DEVICES
