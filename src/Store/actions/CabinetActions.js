@@ -291,7 +291,7 @@ export const onGetSafeFileList = (code, id_safe, password, set, setErrPass, setL
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
 
-    const url = `/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}${searched}&page=${page}&per_page=${10}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+    const url = `/ajax/safe_file_list.php?uid=${getState().user.uid}&code=${code}&id_safe=${id_safe}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
 
     await api.get(url,{
         cancelToken: cancelChooseFiles.token

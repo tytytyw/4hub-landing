@@ -96,7 +96,7 @@ const FileLoader = ({
             data.append('emoji', file?.options?.emoji ? file.options.emoji : '');
             data.append('dir', file?.options?.dir ?? '');
 
-            if(file.options.destination === 'Safe') {
+            if(file.options.destination === 'safe') {
                 data.append('id_safe', authorizedSafe.id_safe);
                 data.append('code', authorizedSafe.code);
             }
@@ -104,7 +104,7 @@ const FileLoader = ({
                 data.append('id_project', file?.options?.id_project);
             }
 
-            // TODO need to delete this line after check - old version - await api.post(`/ajax/${menuItem === 'Safe' ? 'safe_': ""}file_add.php`,
+            // TODO need to delete this line after check - old version - await api.post(`/ajax/${menuItem === 'safe' ? 'safe_': ""}file_add.php`,
             await api.post(`/ajax/${loadDest[file.options.destination] ?? ''}file_add.php`,
                 data,
                 {
@@ -159,7 +159,7 @@ const FileLoader = ({
         dispatch(nullifyFilters())
         if (menuItem === 'myFiles' && file.options.destination === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
         if (menuItem === 'myFolders' && file.options.destination === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
-        if (menuItem === 'Safe' && file.options.destination === 'Safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, '', '', ''));
+        if (menuItem === 'safe' && file.options.destination === 'safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe,authorizedSafe.pass, '', '', '', search, '', ''));
         if (menuItem === 'project' && file.options.destination === 'project') dispatch(onChooseProjectFiles({name: file.options.dir}, {id: file.options.id_project}, 1)); //TODO - Need to finish after added pagination && filters
     };
     let firstRenderFixer = useRef(0)

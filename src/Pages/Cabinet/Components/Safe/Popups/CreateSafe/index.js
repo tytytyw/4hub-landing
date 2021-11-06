@@ -27,6 +27,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 		colors?.find((item) => item.name === "blue")
 	);
 	const [sign, setSign] = useState("");
+	const [tel, setTel] = useState("");
 	const [emoji, setEmoji] = useState("");
 	const [showPass, setShowPass] = useState("");
 	const [error, setError] = useState(false);
@@ -48,19 +49,20 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 			name: !name,
 			password: !password,
 			passwordRepeat: password !== passwordRepeat,
+			tel: !tel
 		});
 	};
 
 	const formIsValid = () => {
 		addErrors();
-		return name && password && password === passwordRepeat;
+		return name && password && password === passwordRepeat && tel;
 	};
 
 	const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
 		setLoadingType("squarify");
 		api
 			.get(
-				`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}`
+				`/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}&tel=${tel}`
 			)
 			.then((res) => {
 				if (res.data.ok) {
@@ -151,14 +153,6 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 										</div>
 									)}
 
-									<div
-										className={styles.circle}
-										style={{
-											background: color.light,
-											border: `1px solid ${color.dark}`,
-										}}
-									/>
-
 									{sign && (
 										<div
 											className={styles.redCross}
@@ -248,6 +242,21 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 									isMistake={errors?.passwordRepeat}
 								/>
 							</div>
+
+							<div className={styles.inputWrap}>
+								<Input
+									autocomplete="off"
+									type="phone"
+									phone={1}
+									name="tel"
+									placeholder="Введите Ваш номер телефона"
+									className={styles.input}
+									value={tel}
+									onChange={(event) => setTel(event.target.value)}
+									isMistake={errors?.tel}
+								/>
+								<p className={styles.inputNote}>Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу</p>
+							</div>
 						</div>
 						<Colors color={color} setColor={setColor} />
 						<Signs sign={sign} setSign={setSign} />
@@ -259,7 +268,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 							Отмена
 						</div>
 						<div className={styles.add} onClick={() => customizeSafe()}>
-							Сохранить
+							Добавить
 						</div>
 					</div>
 				</div>
