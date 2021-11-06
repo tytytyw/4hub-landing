@@ -324,7 +324,7 @@ export const personPositions = [
 // FileLoader
 export const loadDest = {
     'myFolders': '',
-    'Safe': 'safe_',
+    'safe': 'safe_',
     'myFiles': '',
     'project': 'project_',
 }

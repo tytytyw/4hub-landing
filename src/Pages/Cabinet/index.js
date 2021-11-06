@@ -85,7 +85,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 ? path
                 : 'global/all'
             : projectFolder ?? '';
-        console.log(project)
         const files = [...e.target.files].map(file => ({
             file,
             options: {filePath: path, destination: menuItem, dir, id_project: project?.id ?? ''}
