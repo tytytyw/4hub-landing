@@ -33,13 +33,14 @@ import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/Sha
 import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
+import FolderPath from "../FolderPath";
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
        setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
-       setFilesPage, menuItem
+       setFilesPage, menuItem, setChosenFolder
 }) => {
 
     const dispatch = useDispatch();
@@ -235,7 +236,6 @@ const WorkSpace = ({
             }`}
             ref={containerRef}
         >
-            
             <div className={styles.header}>
                 <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
                 <div className={styles.infoHeader}>
@@ -264,6 +264,12 @@ const WorkSpace = ({
                 setFileAddCustomization={setFileAddCustomization}
                 menuItem={menuItem}
                 setGLoader={setGLoader}
+            />
+            <FolderPath
+                width={width}
+                setFilesPage={setFilesPage}
+                setGLoader={setGLoader}
+                setChosenFolder={setChosenFolder}
             />
             {workElementsView === 'bars' ? <WorkBars
                 fileLoading={fileLoading}
