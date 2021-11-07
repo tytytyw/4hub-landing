@@ -71,8 +71,8 @@
   .redCross:hover:after
     content: ''
     position: absolute
-    top: 3px
-    right: 0
+    top: 0px
+    right: -4px
     width: 8px
     height: 1px
     background: red
@@ -80,6 +80,18 @@
     transform: rotate(45deg)
   .redCross:after
     transform: rotate(-45deg)
+  .minitagWrap.redCross:hover:before,
+  .minitagWrap.redCross:hover:after
+    top: -1px
+    right: -4px
+  .sign.redCross:hover:before,
+  .sign.redCross:hover:after
+    top: 0px
+    right: 3px
+  .emodji.redCross:hover:before,
+  .emodji.redCross:hover:after
+    top: 0px
+    right: 3px
   .title
     font-size: 18px
     line-height: 24px
@@ -116,19 +128,25 @@
       .folderOptions
         display: flex
         align-items: center
-      .minitag
-        display: block
-        color: #477DE1
-        font-family: "SF Pro Medium", sans-serif
-        font-size: 16px
-        min-width: 20%
-        max-width: 40%
-        height: max-content
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        cursor: pointer
-        margin: 0 10px 0 0
+        .minitagWrap
+            display: block
+            min-width: 20%
+            max-width: 40%
+            margin: 0 10px 0 0
+
+            .minitag
+              width: 100%
+              color: #fff
+              font-family: "SF Pro Medium", sans-serif
+              font-size: 16px
+              height: max-content
+              overflow: hidden
+              white-space: nowrap
+              text-overflow: ellipsis
+              cursor: pointer
+              background: #34C6A2
+              border-radius: 14px
+              padding: 2px 8px
       div
         display: flex
         img

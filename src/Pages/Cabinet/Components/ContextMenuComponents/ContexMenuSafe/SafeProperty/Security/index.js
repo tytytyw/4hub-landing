@@ -8,7 +8,6 @@ import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 const Security = ({safe}) => {
 
     const userInfo = useSelector(state => state.user.userInfo);
-
     const userList = ['Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
     const userListRestriction = ['Коваленко Артем', 'Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
     const renderUsers = (userList) => {
@@ -20,8 +19,8 @@ const Security = ({safe}) => {
     return (
         <div className={styles.securityWrap}>
             <div className={styles.infoWrap}>
-                <img src={userInfo.icon[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt='' className={styles.icon}/>
-                <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} /></div>
+                <img src={userInfo?.icon[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt='' className={styles.icon}/>
+                <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo?.name} ${userInfo?.sname}`} disabled={true} /></div>
             </div>
             <div className={styles.accessWrap}>
                 <span>Список пользователей, которым предоставлен доступ с возможностью изменить разрешение</span>
