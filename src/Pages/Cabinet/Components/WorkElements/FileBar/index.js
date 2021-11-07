@@ -8,7 +8,8 @@ import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet
 import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
-         file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick
+         file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
+         folderSelect
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -24,7 +25,7 @@ const FileBar = ({
 
     const handleDoubleClick = () => {
         if(file?.is_dir) {
-
+            folderSelect(file)
         } else {
             setFilePreview({...filePreview, view: true, file});
         }

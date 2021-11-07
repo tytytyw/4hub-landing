@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
 
-const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick}) => {
+const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick, folderSelect}) => {
 
     const size = useSelector(state => state.Cabinet.size);
 
@@ -20,7 +20,7 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
 
     const handleDoubleClick = () => {
         if(file?.is_dir) {
-
+            folderSelect(file)
         } else {
             setFilePreview({...filePreview, view: true, file});
         }

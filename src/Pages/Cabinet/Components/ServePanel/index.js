@@ -40,7 +40,7 @@ import {useWindowSize} from "../../../../generalComponents/Hooks";
 const ServePanel = ({
         chosenFile, setAction, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
-        addFolder, addFile, menuItem, setGLoader
+        addFolder, addFile, menuItem, setGLoader, setNewFolderInfo
 }) => {
     const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
@@ -237,7 +237,10 @@ const ServePanel = ({
     const tempAdd = () => (
         addFolder &&
         <div
-            onClick={() => addFolder(true)}
+            onClick={() => {
+                addFolder(true);
+                if(setNewFolderInfo) setNewFolderInfo(s => ({...s, path: fileList?.path}))
+            }}
             className={classNames(styles.iconView, styles.addIcon)}
         >
             <AddFolderIcon className={styles.iconSVG} />

@@ -15,7 +15,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
-          setFilePick, shareLink, callbackArrMain
+          setFilePick, shareLink, callbackArrMain, folderSelect
 }) => {
     const size = useSelector(state => state.Cabinet.size)
     const downloadFile = () => {
@@ -52,7 +52,7 @@ const FileLine = ({
 
     const handleDoubleClick = () => {
         if(file?.is_dir) {
-
+            folderSelect(file)
         } else {
             setFilePreview({...filePreview, view: true, file});
         }
@@ -75,7 +75,6 @@ const FileLine = ({
                         ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
                         : <File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} className={styles.mainFile}/>
                     }
-                    {/*<File format={file.ext} color={file.is_write === '0' ? '#C1C1C1' : file.color} />*/}
                 </div>
 
                 <div className={styles.infoWrap}>

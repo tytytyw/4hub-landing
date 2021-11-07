@@ -21,7 +21,13 @@ import ContextMenu from '../../../../../generalComponents/ContextMenu';
 import {contextMenuFile} from '../../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {fileDelete} from '../../../../../generalComponents/fileMenuHelper';
-import {onDeleteFile, onAddRecentFiles} from '../../../../../Store/actions/CabinetActions';
+import {
+    onDeleteFile,
+    onAddRecentFiles,
+    onChooseFolder,
+    onSetPath,
+    onChooseFiles
+} from '../../../../../Store/actions/CabinetActions';
 import ActionApproval from '../../../../../generalComponents/ActionApproval';
 import File from '../../../../../generalComponents/Files';
 import RecentFiles from '../../RecentFiles';
@@ -48,6 +54,7 @@ const WorkSpace = ({
 
     const uid = useSelector(state => state?.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
+    const folderList = useSelector(state => state.Cabinet.folderList);
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
@@ -193,6 +200,18 @@ const WorkSpace = ({
 
     useEffect(() => setChosenFile(null), [chosenFolder.path, chosenFolder.subPath]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const folderSelect = (folder) => {
+        const path = fileList.path + `/${folder.name}` //TODO - need to be folder.path
+            setGLoader(true)
+            dispatch(onChooseFiles(path, '', 1, '', setGLoader))
+            setFilesPage(1)
+        if(path.split("/").length === 3) {
+            dispatch(onChooseFolder(folderList?.folders, path));
+            dispatch(onSetPath(path));
+            setChosenFolder(state => ({...state, open: true, subPath: path}))
+        }
+    }
+
     // Types of Files view
     const renderFiles = (Type) => {
         if(!fileList?.files) return null;
@@ -209,6 +228,7 @@ const WorkSpace = ({
                 filePick={filePick}
                 setFilePick={setFilePick}
                 callbackArrMain={callbackArrMain}
+                folderSelect={folderSelect}
             />
         });
     }
@@ -264,6 +284,7 @@ const WorkSpace = ({
                 setFileAddCustomization={setFileAddCustomization}
                 menuItem={menuItem}
                 setGLoader={setGLoader}
+                setNewFolderInfo={setNewFolderInfo}
             />
             <FolderPath
                 width={width}
