@@ -85,6 +85,7 @@ const Input = (
                     value={props.value}
                     name={props.name}
                     placeholder={props.placeholder}
+                    autocomplete="new-password"
                     //{...props}
                 />
                 {type === 'password' && <img
