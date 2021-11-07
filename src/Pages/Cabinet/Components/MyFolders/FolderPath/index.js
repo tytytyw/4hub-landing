@@ -23,7 +23,7 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
     const chooseFolder = (i) => {
         const newPath = path.split("/").slice(0, i + 1).join("/");
         if(newPath !== path) {
-            if(newPath.split("/").length === 2 && newPath === folderList?.path) {
+            if(newPath.split("/").length === 2 && newPath !== folderList?.path) {
                 dispatch(onChooseFolder(folderList?.folders, newPath));
                 dispatch(onSetPath(newPath));
                 const folder = [...globalFolders, ...otherFolders].filter(f => f.path === newPath)

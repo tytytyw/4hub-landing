@@ -8,7 +8,7 @@ import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/fo
 import InputField from '../../../../generalComponents/InputField';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
-import { onGetFolders } from '../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
@@ -16,10 +16,15 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Select from "../CreateFile/Select/Select";
 
-const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {}}) => {
+const CreateFolder = ({
+    onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {},
+    setGLoader
+}) => {
 
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.Cabinet.folderList);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const search = useSelector(state => state.Cabinet.search);
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -61,6 +66,7 @@ const CreateFolder = ({onCreate, title, info, showChoiceFolders = true, setChose
                 .catch(() => {setError(true)})
                 .finally(() => {
                     dispatch(onGetFolders(folderList.path));
+                    dispatch(onChooseFiles(fileList?.path, search, 1, '', setGLoader));
                 }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {
             setNoNameError(true)
