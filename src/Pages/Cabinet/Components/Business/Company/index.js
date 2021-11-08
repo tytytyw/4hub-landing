@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useSelector} from 'react-redux'
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import { ReactComponent as SettingsIcon } from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -14,14 +15,19 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
+import BusinessPopup from "../BusinessPopup";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
 
+
 const Company = () => {
-	const [pageOption, setPageOption] = useState("org_structure");
+	const [pageOption, setPageOption] = useState("init");
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+	const [businessPopup, setBusinessPopup] = useState(true)
+	const id_company = useSelector(state => state.user.id_company);
+
 
 	const sideListData = [
 		{
@@ -90,6 +96,9 @@ const Company = () => {
 
 	return (
 		<div className={styles.wrapper}>
+
+			{id_company && businessPopup ? <BusinessPopup set={setBusinessPopup}/> : null}
+
 			<SideList
 				pageOption={pageOption}
 				setPageOption={setPageOption}

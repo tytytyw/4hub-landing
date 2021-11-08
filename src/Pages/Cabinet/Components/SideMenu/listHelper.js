@@ -3,7 +3,7 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 export const menu = [
     {
         name: 'Мои папки',
-        path: '/',
+        path: '/folders',
         src: `${imageSrc}assets/PrivateCabinet/folder.svg`
     },
     {
@@ -13,14 +13,17 @@ export const menu = [
     },
     {
         name: 'Чат',
+        path: '/chat',
         src: `${imageSrc}assets/PrivateCabinet/sms.svg`
     },
     {
         name: 'Календарь',
+        path: '/calendar',
         src: `${imageSrc}assets/PrivateCabinet/calendar-5.svg`
     },
     {
         name: 'Мои задачи',
+        path: '/tasks',
         src: `${imageSrc}assets/PrivateCabinet/calendar-4.svg`
     },
     {
@@ -60,7 +63,7 @@ export const menu = [
     },
     {
         name: 'Библиотека',
-        path: '/archive',
+        path: '/libary',
         src: `${imageSrc}assets/PrivateCabinet/book-1.svg`
     },
     {
@@ -83,12 +86,12 @@ export const businessMenu = [
     },
     {
         name: 'Мой отдел',
-        path: '/files',
+        path: '/department',
         src: `${imageSrc}assets/BusinessCabinet/menu-icons/my-department.svg`
     },
     {
         name: 'Совместный проект',
-        path: '/safe',
+        path: '/project',
         src: `${imageSrc}assets/BusinessCabinet/menu-icons/joined-project.svg`
     },
     {
@@ -135,6 +138,11 @@ export const businessMenu = [
         name: 'Архив',
         path: '/archive',
         src: `${imageSrc}assets/PrivateCabinet/archive.svg`
+    },
+    {
+        name: 'Библиотека',
+        path: '/library',
+        src: `${imageSrc}assets/PrivateCabinet/book-1.svg`
     },
     {
         name: 'Журнал',
