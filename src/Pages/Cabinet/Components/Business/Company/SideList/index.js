@@ -1,23 +1,20 @@
 import React from 'react';
-
 import styles from './SideList.module.sass'
-import {ReactComponent as CompanyIcon} from '../../../../../../assets/BusinessCabinet/SideList/company.svg'
 
 import ListMenu from './ListMenu'
 import AddLogo from "./AddLogo";
 
-const SideList = ({data = [], pageOption, setPageOption}) => {
+const SideList = ({data = [], pageOption, setPageOption, mouseParams, setMouseParams, renderMenuItems}) => {
 
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.topHeader}>
-                <AddLogo/>
-            </div>
-
-            <div className={styles.header}>
-                <CompanyIcon className={styles.icon}/>
-                <p className={styles.text}>Компания</p>
+                <AddLogo
+                    mouseParams={mouseParams}
+                    setMouseParams={setMouseParams}
+                    renderMenuItems={renderMenuItems}
+                />
             </div>
 
             <ListMenu

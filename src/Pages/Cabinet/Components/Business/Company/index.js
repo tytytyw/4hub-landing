@@ -82,7 +82,7 @@ const Company = () => {
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`${imageSrc}assets/PrivateCabinet/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});
@@ -102,6 +102,9 @@ const Company = () => {
 				pageOption={pageOption}
 				setPageOption={setPageOption}
 				data={sideListData}
+				mouseParams={mouseParams}
+				setMouseParams={setMouseParams}
+				renderMenuItems={renderMenuItems}
 			/>
 
 			<div className={styles.contentWrap}>
