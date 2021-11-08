@@ -259,7 +259,6 @@ const WorkSpace = ({
                 fileSelect={fileSelect}
                 filesPage={filesPage}
                 setFilesPage={setFilesPage}
-                fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
                 renderFiles={renderFiles}

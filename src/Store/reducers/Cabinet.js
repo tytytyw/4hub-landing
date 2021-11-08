@@ -207,7 +207,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         case NULLIFY_FILTERS: {
             return {
                 ...state,
-                fileCriterion: {sorting: 'byDateCreated&sort_reverse=1',
+                fileCriterion: {sorting: 'byDateCreated&sort_reverse=1&group=ctime',
                     reverse: {byName: false},
                     filters: {
                         color: '',
