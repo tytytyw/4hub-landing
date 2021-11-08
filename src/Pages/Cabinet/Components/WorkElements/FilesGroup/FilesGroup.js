@@ -28,7 +28,7 @@ function FilesGroup({
 			>
 				<p className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ''}`}>{title}</p>
 				<div className={styles.buttonsWrap}>
-					<button className={styles.collapseBtn}>
+					<button className={`${styles.collapseBtn} ${workElementsView === "workLinesPreview" ? styles.collapseBtnShort : ''}`}>
 						{fileList.length ?? 0} объектов
 					</button>
 					<div
