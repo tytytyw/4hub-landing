@@ -57,7 +57,7 @@ const WorkBars = ({
     return (
         <div
             ref={fileRef}
-            className={`${styles.workBarsWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+            className={`${styles.workBarsWrap} ${hideUploadFile ? styles.workBarsWrapNoScroll : renderHeight(recentFiles, filePick, styles)}`}
             style={{
                 gridTemplateColumns: size === 'small'
                     ? 'repeat(auto-fill, minmax(118px, 1fr))'
@@ -113,7 +113,7 @@ const WorkBars = ({
                 zIndex={5}
                 containerType='bounceDots'
             /> : children}
-            {!gLoader ? <div
+            {hideUploadFile ? null : !gLoader ? <div
                 className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
                 style={{height: '100%'}}
                 ref={containerRef}
