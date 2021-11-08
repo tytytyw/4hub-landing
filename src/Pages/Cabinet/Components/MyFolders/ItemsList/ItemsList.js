@@ -101,7 +101,7 @@ const ItemsList = ({
     }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
-        if(Array.isArray(result)) {
+        if(typeof result === 'number') {
             setTimeout(() => {
                 result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
                 setLoadingFiles(false);
@@ -156,7 +156,7 @@ const ItemsList = ({
                     hideUploadFile={fileList === null}
                 >{renderFiles(FileBar, fileList?.files)}</WorkBars>
                 : null}
-            {!Array.isArray(fileList?.files) ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
+            {!Array.isArray(fileList?.files) && workElementsView !== 'workLinesPreview' ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
                     {renderGroups(FileBar, fileList?.files)}
                     {!gLoader ? <div
                         className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
@@ -194,7 +194,7 @@ const ItemsList = ({
                 gLoader={gLoader}
                 width={width}
             >{renderFiles(FileBar, fileList?.files)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' && Array.isArray(fileList?.files) ? <WorkLinesPreview
+            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
                 filesPage={filesPage}
@@ -202,7 +202,9 @@ const ItemsList = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
-            >{renderFiles(FileLineShort, fileList?.files)}</WorkLinesPreview> : null}
+                load={load}
+                options={options}
+            >{Array.isArray(fileList?.files) ? renderFiles(FileLineShort, fileList?.files) : renderGroups(FileLineShort, fileList?.files)}</WorkLinesPreview> : null}
         </>
     )
 }

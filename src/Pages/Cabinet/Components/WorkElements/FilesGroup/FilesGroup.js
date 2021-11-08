@@ -6,6 +6,7 @@ import FileBar from "../FileBar";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import FileLine from "../FileLine";
+import FileLineShort from "../FileLineShort";
 
 function FilesGroup({
 	fileList, filePick, index, fileLoading, fileSelect,
@@ -25,7 +26,7 @@ function FilesGroup({
 				}}
 				className={styles.collapseHeader}
 			>
-				<p className={styles.dateName}>{title}</p>
+				<p className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ''}`}>{title}</p>
 				<div className={styles.buttonsWrap}>
 					<button className={styles.collapseBtn}>
 						{fileList.length ?? 0} объектов
@@ -64,6 +65,11 @@ function FilesGroup({
 				{workElementsView === "lines" && (
 					<div className={styles.collapseContent}>
 						{renderFiles(FileLine, fileList)}
+					</div>
+				)}
+				{workElementsView === "workLinesPreview" && (
+					<div className={styles.collapseContentShort}>
+						{renderFiles(FileLineShort, fileList)}
 					</div>
 				)}
 			</>}
