@@ -32,6 +32,8 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 	const [showPass, setShowPass] = useState("");
 	const [error, setError] = useState(false);
 
+	const codeToTel = useSelector((state) => state.Cabinet.safeCodeToTel);
+
 	const renderTags = () => {
 		return tags.map((tag, i) => {
 			return (
@@ -49,13 +51,13 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 			name: !name,
 			password: !password,
 			passwordRepeat: password !== passwordRepeat,
-			tel: !tel,
+			tel: !tel && !codeToTel,
 		});
 	};
 
 	const formIsValid = () => {
 		addErrors();
-		return name && password && password === passwordRepeat && tel;
+		return name && password && password === passwordRepeat && (tel || codeToTel);
 	};
 
 	const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
@@ -252,7 +254,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 								/>
 							</div>
 
-							<div className={styles.inputWrap}>
+							{!codeToTel && <div className={styles.inputWrap}>
 								<Input
 									autocomplete="off"
 									type="phone"
@@ -268,7 +270,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 									Примечание: на указанный контактный номер телефона будет
 									отправлено код-пароль для доступа к сейфу
 								</p>
-							</div>
+							</div>}
 						</div>
 						<Colors color={color} setColor={setColor} />
 						<Signs sign={sign} setSign={setSign} />

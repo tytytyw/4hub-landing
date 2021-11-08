@@ -21,6 +21,7 @@ import {
     GET_CATEGORIES,
     GET_PROGRAMS,
     GET_SAFES,
+    CODE_TEL,
     CHOOSE_SAFE_FILELIST,
     LOAD_SAFE_FILELIST,
     AUTHORIZED_SAFE,
@@ -264,6 +265,10 @@ export const onGetSafes = () => async (dispatch, getState) => {
     api.get(`/ajax/safe_list.php?uid=${getState().user.uid}`)
         .then((res) => {
             if (res.data.ok) {
+                dispatch({
+                    type: CODE_TEL,
+                    payload: res.data.tel
+                })
                 if (res.data.safes) {
                     dispatch({
                         type: GET_SAFES,
