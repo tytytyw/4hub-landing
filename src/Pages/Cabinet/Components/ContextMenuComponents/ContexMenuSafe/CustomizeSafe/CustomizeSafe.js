@@ -14,7 +14,7 @@ import Error from "../../../../../../generalComponents/Error";
 import classNames from "classnames";
 import api from "../../../../../../api";
 import { useSelector, useDispatch } from "react-redux";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 	const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 					if (res.data.error === "pass error") {
 						setError("password");
 						setErrors({ password: true });
-					} else { 
+					} else {
 						setError(
 							res.data.error === "user not owener of safe or safe not found"
 								? "Пользователь не владелец сейфа или сейф не найден"
@@ -148,25 +148,35 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 								<div className={styles.folderName}>{name}</div>
 								<div className={styles.folderOptions}>
 									{tagOption.chosen && (
-										<div
-											className={`${styles.minitag} ${styles.redCross}`}
-											onClick={() => setTagOption({ ...tagOption, chosen: "" })}
-										>
-											# {tagOption.chosen}
+										<div className={classNames(styles.minitagWrap, styles.redCross)}>
+											<div
+												className={styles.minitag}
+												onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+											>
+												# {tagOption.chosen}
+											</div>
 										</div>
 									)}
 
 									<div
-										className={styles.circle}
-										style={{
-											background: color.light,
-											border: `1px solid ${color.dark}`,
-										}}
-									/>
+										className={classNames({
+											[styles.circleWrap]: true,
+											[styles.redCross]: color.color !== "grey",
+										})}
+										onClick={() => setColor(colors[0])}
+									>
+										<div
+											className={styles.circle}
+											style={{
+												background: color.light,
+												border: `1px solid ${color.dark}`,
+											}}
+										/>
+									</div>
 
 									{sign && (
 										<div
-											className={styles.redCross}
+											className={classNames(styles.sign, styles.redCross)}
 											onClick={() => setSign("")}
 										>
 											<img
@@ -178,7 +188,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 
 									{emoji && (
 										<div
-											className={styles.redCross}
+											className={classNames(styles.redCross, styles.emodji)}
 											onClick={() => setEmoji("")}
 										>
 											<img

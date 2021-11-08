@@ -27,7 +27,6 @@ import Chat from "./Components/Chat";
 import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
-import BusinessPopup from "./Components/Business/BusinessPopup";
 import {exit} from "../../generalComponents/generalHelpers";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
@@ -45,8 +44,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
     const [filesPage, setFilesPage] = useState(1);
-
-    const [businessPopup, setBusinessPopup] = useState(true)
 
     const history = useHistory()
 
@@ -122,32 +119,23 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 //     minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
                 // }}
             >
-
-                {id_company ?
-                <>
-
-                    {businessPopup && <BusinessPopup set={setBusinessPopup}/>}
-
-                    <Switch>
-
-                        <Route
-                            path='/company'
-                            component={Company}
-                            exact
-                        />
-
-                        <Redirect to='/company'/>
-
-                    </Switch>
-
-                </> :
-
                 <Switch>
+                    <Redirect exact from='/' to={id_company ? '/company' : '/folders'}/>
+                    
+                    <Route
+                        path='/company'
+                        component={Company}
+                    />
+                    
+                    <Route
+                        path='/department'
+                        component={''}
+                    />
+
 
                     <Route
                         path='/personal-data'
                         component={MyProfile}
-                        exact
                     />
 
                     <Route
@@ -303,13 +291,17 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                     />
 
                     <Route
+                        path='/tasks'
+                        render={() => ''}
+                    />
+
+                    <Route
                         path='/chat'
                         render={() => <Chat />}
                     />
 
                     <Route
-                        exact
-                        path='/'
+                        path='/folders'
                         render={() => <MyFolders
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
@@ -333,9 +325,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                         />}
                     />
 
-                    <Redirect to='/'/>
-
-                </Switch>}
+                </Switch>
 
             </div>
             {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0

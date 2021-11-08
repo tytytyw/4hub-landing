@@ -19,6 +19,7 @@ import {
     GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_SAFES,
+    CODE_TEL,
     AUTHORIZED_SAFE,
     CHOOSE_SAFE_FILELIST,
     LOAD_SAFE_FILELIST,
@@ -86,6 +87,7 @@ const INITIAL_STATE = {
     safeFileList: null,
     safes: null,
     authorizedSafe: null,
+    safeCodeToTel: '',
 
     //PROJECT
     project: {
@@ -240,6 +242,8 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, categories: action.payload}
 
         //SAFE
+        case CODE_TEL:
+            return {...state, safeCodeToTel: action.payload}
         case GET_SAFES:
             return {...state, safes: action.payload}
         case AUTHORIZED_SAFE:

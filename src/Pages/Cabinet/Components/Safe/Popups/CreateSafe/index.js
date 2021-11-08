@@ -7,7 +7,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import { colors, tags } from "../../../../../../generalComponents/collections";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
 import SafeIcon from "../../SafeIcon";
@@ -32,6 +32,8 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 	const [showPass, setShowPass] = useState("");
 	const [error, setError] = useState(false);
 
+	const codeToTel = useSelector((state) => state.Cabinet.safeCodeToTel);
+
 	const renderTags = () => {
 		return tags.map((tag, i) => {
 			return (
@@ -49,13 +51,13 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 			name: !name,
 			password: !password,
 			passwordRepeat: password !== passwordRepeat,
-			tel: !tel
+			tel: !tel && !codeToTel,
 		});
 	};
 
 	const formIsValid = () => {
 		addErrors();
-		return name && password && password === passwordRepeat && tel;
+		return name && password && password === passwordRepeat && (tel || codeToTel);
 	};
 
 	const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
@@ -68,16 +70,16 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 				if (res.data.ok) {
 					onCreate(false);
 					dispatch(onGetSafes());
-				} else if ((res.data.error === "name exists")) {
+				} else if (res.data.error === "name exists") {
 					setError("Сейф с таким именем уже существует");
-                    setErrors({name: true});
+					setErrors({ name: true });
 				} else {
 					setError("Что-то пошло не так. Повторите попытку позже");
 				}
 			})
 			.catch((error) => {
 				console.log(error);
-                setError("Что-то пошло не так. Повторите попытку позже")
+				setError("Что-то пошло не так. Повторите попытку позже");
 			})
 			.finally(() => setLoadingType(""));
 	};
@@ -118,7 +120,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 		}, 0);
 	};
 
-    useEffect(() => {
+	useEffect(() => {
 		if (name) setErrors({ name: false });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [name]);
@@ -146,16 +148,25 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 								<div className={styles.folderOptions}>
 									{tagOption.chosen && (
 										<div
-											className={`${styles.minitag} ${styles.redCross}`}
-											onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+											className={classNames(
+												styles.minitagWrap,
+												styles.redCross
+											)}
 										>
-											# {tagOption.chosen}
+											<div
+												className={styles.minitag}
+												onClick={() =>
+													setTagOption({ ...tagOption, chosen: "" })
+												}
+											>
+												# {tagOption.chosen}
+											</div>
 										</div>
 									)}
 
 									{sign && (
 										<div
-											className={styles.redCross}
+											className={classNames(styles.sign, styles.redCross)}
 											onClick={() => setSign("")}
 										>
 											<img
@@ -167,7 +178,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 
 									{emoji && (
 										<div
-											className={styles.redCross}
+											className={classNames(styles.redCross, styles.emodji)}
 											onClick={() => setEmoji("")}
 										>
 											<img
@@ -243,7 +254,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 								/>
 							</div>
 
-							<div className={styles.inputWrap}>
+							{!codeToTel && <div className={styles.inputWrap}>
 								<Input
 									autocomplete="off"
 									type="phone"
@@ -255,8 +266,11 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 									onChange={(event) => setTel(event.target.value)}
 									isMistake={errors?.tel}
 								/>
-								<p className={styles.inputNote}>Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу</p>
-							</div>
+								<p className={styles.inputNote}>
+									Примечание: на указанный контактный номер телефона будет
+									отправлено код-пароль для доступа к сейфу
+								</p>
+							</div>}
 						</div>
 						<Colors color={color} setColor={setColor} />
 						<Signs sign={sign} setSign={setSign} />

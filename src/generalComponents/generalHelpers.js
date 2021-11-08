@@ -123,7 +123,7 @@ export const getMedia = (url, type, set, setLoading) => {
 export const exit = () => {
     const cookies = document.cookie.split(';');
     cookies.forEach(cookie => cookie.split('=')[0].trim() === 'uid' ? setCookie(cookie.split('=')[0].trim(), cookie.split('=')[1].trim(), 'Thu, 01 Jan 1970 00:00:00 GMT') : null);
-    window.location.reload();
+    window.location.pathname = '';
 };
 
 //Count height of fields for files (WorkBars, WorkLines, WorkBarsPreview, WorkLinesPreview)
