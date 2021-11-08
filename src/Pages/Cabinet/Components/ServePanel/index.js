@@ -363,7 +363,7 @@ const ServePanel = ({
     return (
         <div className={styles.servePanelWrap}>
 
-            {pathname === '/' && renderInFolders()}
+            {pathname === '/folders' && renderInFolders()}
             {pathname === '/files' && renderInFolders()}
             {pathname === '/devices' && renderInDevices()}
             {pathname === '/programs' && renderInPrograms()}
