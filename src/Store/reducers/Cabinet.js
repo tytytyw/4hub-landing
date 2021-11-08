@@ -133,9 +133,16 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileList: {...action.payload}};
         }
         case LOAD_FILES: {
+            const addFiles = () => {
+                let f = {...state.fileList.files}
+                for(let key in f) {
+                    f[key] = [...f[key], ...action.payload.files[key]];
+                }
+                return f;
+            }
             const files = Array.isArray(action.payload.files)
                 ? [...state.fileList.files, ...action.payload.files]
-                : {...state.fileList.files, ...action.payload.files}
+                : addFiles()
             return {...state, fileList: {...state.fileList, files}};
         }
         case SET_FILES_PATH: {

@@ -5,6 +5,7 @@ import WorkBars from "../WorkBars";
 import FileBar from "../FileBar";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
+import FileLine from "../FileLine";
 
 function FilesGroup({
 	fileList, filePick, index, fileLoading, fileSelect,
@@ -12,7 +13,7 @@ function FilesGroup({
 	fileRef, chosenFolder, gLoader, renderFiles
 }) {
 
-	const [collapse, setCollapse] = useState(index === 0);
+	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 
@@ -59,6 +60,11 @@ function FilesGroup({
 						gLoader={gLoader}
 						hideUploadFile={true}
 					>{renderFiles(FileBar, fileList)}</WorkBars>
+				)}
+				{workElementsView === "lines" && (
+					<div className={styles.collapseContent}>
+						{renderFiles(FileLine, fileList)}
+					</div>
 				)}
 			</>}
 		</div>

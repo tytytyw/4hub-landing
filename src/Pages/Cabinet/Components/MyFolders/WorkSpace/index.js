@@ -286,10 +286,23 @@ const WorkSpace = ({
     }, [fileList?.path])
 
     const onSuccessLoading = (result) => {
-        setTimeout(() => {
-            result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-            setLoadingFiles(false);
-        }, 50) // 50ms needed to prevent recursion of ls_json requests
+        if(Array.isArray(result)) {
+            setTimeout(() => {
+                result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+                setLoadingFiles(false);
+            }, 50) // 50ms needed to prevent recursion of ls_json requests
+        } else if(typeof result === 'object') {
+            let moreElements = false;
+            for(let key in result) {
+                if(result[key].length > 0) moreElements = true;
+            }
+            setTimeout(() => {
+                moreElements ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+                setLoadingFiles(false);
+            }, 500)
+        } else {
+            setTimeout(() => {setFilesPage(0); setLoadingFiles(false)}, 500);
+        }
     }
 
     const options = {
@@ -361,39 +374,39 @@ const WorkSpace = ({
                 setGLoader={setGLoader}
                 setChosenFolder={setChosenFolder}
             />
-            {workElementsView === 'bars' ?
-                Array.isArray(fileList?.files)
-                    ? <WorkBars
-                          fileLoading={fileLoading}
-                          fileSelect={fileSelect}
-                          filePick={filePick}
-                          filesPage={filesPage}
-                          setFilesPage={setFilesPage}
-                          fileRef={fileRef}
-                          chosenFolder={chosenFolder}
-                          gLoader={gLoader}
-                          hideUploadFile={fileList === null}
-                      >{renderFiles(FileBar, fileList?.files)}</WorkBars>
-                    : <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
-                        {renderGroups(FileBar, fileList?.files)}
-                        {!gLoader ? <div
-                            className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
-                            style={{height: '100%'}}
-                            ref={scrollRef}
-                        >
-                            <Loader
-                                type='bounceDots'
-                                position='absolute'
-                                background='white'
-                                zIndex={5}
-                                width='100px'
-                                height='100px'
-                                containerType='bounceDots'
-                            />
-                        </div> : null}
-                    </div>
-                    : null}
-            {workElementsView === 'lines' ? <WorkLines
+            {workElementsView === 'bars' && Array.isArray(fileList?.files) ?
+                <WorkBars
+                      fileLoading={fileLoading}
+                      fileSelect={fileSelect}
+                      filePick={filePick}
+                      filesPage={filesPage}
+                      setFilesPage={setFilesPage}
+                      fileRef={fileRef}
+                      chosenFolder={chosenFolder}
+                      gLoader={gLoader}
+                      hideUploadFile={fileList === null}
+                  >{renderFiles(FileBar, fileList?.files)}</WorkBars>
+            : null}
+            {!Array.isArray(fileList?.files) ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
+                {renderGroups(FileBar, fileList?.files)}
+                {!gLoader ? <div
+                    className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
+                    style={{height: '100%'}}
+                    ref={scrollRef}
+                >
+                    <Loader
+                        type='bounceDots'
+                        position='absolute'
+                        background='white'
+                        zIndex={5}
+                        width='100px'
+                        height='100px'
+                        containerType='bounceDots'
+                    />
+                </div> : null}
+                </div>
+            : null}
+            {workElementsView === 'lines' && Array.isArray(fileList?.files) ? <WorkLines
                 fileLoading={fileLoading}
                 filePick={filePick}
                 filesPage={filesPage}
@@ -402,7 +415,7 @@ const WorkSpace = ({
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
             >{renderFiles(FileLine, fileList?.files)}</WorkLines> : null}
-            {workElementsView === 'preview' ? <WorkBarsPreview
+            {workElementsView === 'preview' && Array.isArray(fileList?.files) ? <WorkBarsPreview
                 file={chosenFile}
                 filePick={filePick}
                 filesPage={filesPage}
@@ -412,7 +425,7 @@ const WorkSpace = ({
                 gLoader={gLoader}
                 width={width}
             >{renderFiles(FileBar, fileList?.files)}</WorkBarsPreview> : null}
-            {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
+            {workElementsView === 'workLinesPreview' && Array.isArray(fileList?.files) ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
                 filesPage={filesPage}
