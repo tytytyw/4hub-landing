@@ -15,12 +15,15 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
             const isPicked = filePick.files.filter(el => el === file.fid);
             isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
+        if(file.is_dir) {
+
+        }
         setChosenFile(file);
     }
 
     const handleDoubleClick = () => {
         if(file?.is_dir) {
-            folderSelect(file)
+            // folderSelect(file)
         } else {
             setFilePreview({...filePreview, view: true, file});
         }
