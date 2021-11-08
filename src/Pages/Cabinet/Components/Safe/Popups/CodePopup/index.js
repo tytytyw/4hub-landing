@@ -30,6 +30,7 @@ const CodePopup = ({
 	const [sendCode, showSendCode] = useState(false);
 	const [showPass, setShowPass] = useState("");
 	const search = useSelector((state) => state.Cabinet.search);
+	const codeSentTo = useSelector((state) => state.Cabinet.safeCodeToTel);
 
 	const dispatch = useDispatch();
 
@@ -118,7 +119,7 @@ const CodePopup = ({
 								<>
 									<div className={styles.inputWrap}>
 										<p className={styles.orItem}>
-											на ваш контактный номер телефона отправлен код-пароль для
+											на номер {codeSentTo} отправлен код-пароль для
 											доступа к сейфу
 										</p>
 										<Input
