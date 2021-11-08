@@ -64,7 +64,7 @@ const INITIAL_STATE = {
     view: 'bars',
     //SORT && FILTER
     fileCriterion: {
-        sorting: 'byDateCreated&sort_reverse=1',
+        sorting: 'byDateCreated&sort_reverse=1&group=ctime',
         reverse: {byName: false},
         filters: {
             color: '',
@@ -135,7 +135,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileList: {...action.payload}};
         }
         case LOAD_FILES: {
-            return {...state, fileList: {...state.fileList, files: [...state.fileList.files, ...action.payload.files]}};
+            const files = Array.isArray(action.payload.files)
+                ? [...state.fileList.files, ...action.payload.files]
+                : {...state.fileList.files, ...action.payload.files}
+            return {...state, fileList: {...state.fileList, files}};
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};
@@ -206,7 +209,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         case NULLIFY_FILTERS: {
             return {
                 ...state,
-                fileCriterion: {sorting: 'byDateCreated&sort_reverse=1',
+                fileCriterion: {sorting: 'byDateCreated&sort_reverse=1&group=ctime',
                     reverse: {byName: false},
                     filters: {
                         color: '',
