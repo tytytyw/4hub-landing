@@ -125,11 +125,6 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 									</div>
 								</div>
 							</div>
-							<div className={styles.buttons_wrap}>
-								<div className={styles.close_wrap} onClick={close}>
-									<span className={styles.close} />
-								</div>
-							</div>
 						</div>
 					}
 					<div className={classNames(styles.recipient, styles.border_bottom)}>
@@ -170,7 +165,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					</div>
 					<div className={classNames(styles.row_item, styles.border_bottom)}>
 						<div className={styles.ico_wrap}>
-							<Password className={styles.row_ico} />
+							<Password width={16} height={20} className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
 							<p className={styles.input_title}>Временный пароль</p>
@@ -187,7 +182,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					</div>
 					<div className={classNames(styles.row_item, styles.border_bottom)}>
 						<div className={styles.ico_wrap}>
-							<Calendar className={styles.row_ico} />
+							<Calendar width={17} height={17}  className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
 							<p className={styles.input_title}>Срок доступа к сейфу</p>
@@ -202,13 +197,13 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							Установить
 						</span>
 					</div>
-					<div className={styles.share_link}>
+					<div className={classNames(styles.share_link, styles.border_bottom)}>
 						<h5 className={styles.share_link_title}>
 							Взаимодействие с информацией в сейфе
 						</h5>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
-								<Pensil className={styles.row_ico} />
+								<Pensil width={17} height={17}  className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
 								<p className={styles.input_title}>Редактирование</p>
@@ -234,7 +229,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						</div>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
-								<Eye className={styles.row_ico} />
+								<Eye width={21} height={14}  className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
 								<p className={styles.input_title}>Просмотр</p>
@@ -260,7 +255,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						</div>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
-								<Download className={styles.row_ico} />
+								<Download width={21} height={21}  className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
 								<p className={styles.input_title}>Скачивание</p>
