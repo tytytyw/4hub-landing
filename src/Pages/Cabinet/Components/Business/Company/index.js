@@ -15,17 +15,16 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
-import BusinessPopup from "../BusinessPopup";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
-
+import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState("init");
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-	const [businessPopup, setBusinessPopup] = useState(true)
+	const [businessRegistration, setBusinessRegistration] = useState(true)
 	const id_company = useSelector(state => state.user.id_company);
 
 
@@ -97,7 +96,7 @@ const Company = () => {
 	return (
 		<div className={styles.wrapper}>
 
-			{id_company && businessPopup ? <BusinessPopup set={setBusinessPopup}/> : null}
+			{id_company && businessRegistration ? <BusinessRegistration setBusinessRegistration={setBusinessRegistration}/> : null}
 
 			<SideList
 				pageOption={pageOption}
