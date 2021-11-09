@@ -4,26 +4,26 @@ import logoImg from "../../../../../../../assets/BusinessCabinet/logo.png";
 import { ReactComponent as ArrowIcon } from "../../../../../../../assets/BusinessCabinet/SideList/arrow.svg";
 import ContextMenu from "../../../../../../../generalComponents/ContextMenu";
 
-const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems }) => {
+const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction }) => {
 	const [image] = useState(0);
 
 	const contextMenuLogo = [
-		{ name: "Загрузить Лого", img: "download-blue", type: "downloadLogo" },
+		{ name: "Загрузить Лого", img: "download-blue", type: "uploadLogo" },
 		{ name: "Переименовать", img: "edit", type: "reName" },
 	];
 
 	const callbackArrMain = [
 		{
-			type: "downloadLogo",
+			type: "uploadLogo",
 			name: "Загрузить Лого",
 			text: ``,
-			callback: (list, index) => "",
+			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "reName",
 			name: "Переименовать",
 			text: ``,
-			callback: (list, index) => "",
+			callback: (list, index) => setAction(list[index]),
 		},
 	];
 
