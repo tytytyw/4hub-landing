@@ -1,53 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkLines.module.sass';
-import {onChooseFiles, onChooseAllFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 
 const WorkLines = ({
-       children, filePick, filesPage, setFilesPage, fileRef, gLoader
+       children, filePick, fileRef, gLoader, load, options
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
-    const fileList = useSelector(state => state.Cabinet.fileList);
-    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
-    const [loadingFiles, setLoadingFiles] = useState(false);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        setLoadingFiles(false);
-    }, [fileList?.path])
-
-    const onSuccessLoading = (result) => {
-        setTimeout(() => {
-            result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-            setLoadingFiles(false);
-        }, 50) // 50ms needed to prevent recursion of ls_json requests
-    }
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0
-    }
-
-    const load = (entry) => {
-        if(!gLoader) {
-            if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/') {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-            }
-            if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')) {
-                setLoadingFiles(true);
-                dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
-            }
-        }
-    }
 
     const [containerRef] = useScrollElementOnScreen(options, load);
 
@@ -80,12 +45,12 @@ const WorkLines = ({
                 zIndex={5}
                 containerType='bounceDots'
             /> : children}
-            <div
+            {!gLoader ? <div
                 className={styles.bottomLine}
                 style={{height: '100px'}}
                 ref={containerRef}
             >
-                {loadingFiles && !gLoader ? <Loader
+                <Loader
                     type='bounceDots'
                     position='absolute'
                     background='white'
@@ -93,8 +58,8 @@ const WorkLines = ({
                     width='100px'
                     height='100px'
                     containerType='bounceDots'
-                /> : null}
-            </div>
+                />
+            </div> : null}
         </div>)
 }
 

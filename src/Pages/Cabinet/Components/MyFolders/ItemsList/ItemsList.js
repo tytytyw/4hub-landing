@@ -154,6 +154,8 @@ const ItemsList = ({
                     chosenFolder={chosenFolder}
                     gLoader={gLoader}
                     hideUploadFile={fileList === null}
+                    load={load}
+                    options={options}
                 >{renderFiles(FileBar, fileList?.files)}</WorkBars>
                 : null}
             {!Array.isArray(fileList?.files) && workElementsView !== 'workLinesPreview' ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
@@ -183,6 +185,8 @@ const ItemsList = ({
                 fileRef={fileRef}
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
+                load={load}
+                options={options}
             >{renderFiles(FileLine, fileList?.files)}</WorkLines> : null}
             {workElementsView === 'preview' && Array.isArray(fileList?.files) ? <WorkBarsPreview
                 file={chosenFile}

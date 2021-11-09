@@ -91,7 +91,7 @@ const ServePanel = ({
                 1,
                 ''
         ))}
-        setFilesPage(2)
+        if(setFilesPage) setFilesPage(2)
     };
 
     const createFile = (ext) => {
@@ -149,7 +149,7 @@ const ServePanel = ({
                 1,
                 ''
         ))}
-        setFilesPage(2)
+        if(setFilesPage) setFilesPage(2)
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
@@ -167,7 +167,7 @@ const ServePanel = ({
                 1,
                 ''
         ))}
-        setFilesPage(2)
+        if(setFilesPage) setFilesPage(2)
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
@@ -185,7 +185,7 @@ const ServePanel = ({
                 1,
                 ''
         ))}
-        setFilesPage(2)
+        if(setFilesPage) setFilesPage(2)
     }
 
     const tempChoose = () => (
