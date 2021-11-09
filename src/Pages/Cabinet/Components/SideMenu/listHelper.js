@@ -125,6 +125,11 @@ export const businessMenu = [
         src: `${imageSrc}assets/PrivateCabinet/programs.svg`
     },
     {
+        name: 'Сейф',
+        path: '/safe',
+        src: `${imageSrc}assets/PrivateCabinet/safe.svg`
+    },
+    {
         name: 'Расшаренные файлы',
         path: '/shared-files',
         src: `${imageSrc}assets/PrivateCabinet/sharedFiles.svg`
