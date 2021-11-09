@@ -40,7 +40,7 @@ import {useWindowSize} from "../../../../generalComponents/Hooks";
 const ServePanel = ({
         chosenFile, setAction, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
-        addFolder, addFile, menuItem, setGLoader, setNewFolderInfo
+        addFolder, addFile, menuItem, setGLoader, setNewFolderInfo, setFilesPage
 }) => {
     const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
@@ -79,7 +79,7 @@ const ServePanel = ({
         dispatch(onSortFile(sorting));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', setGLoader))
-        if (menuItem === 'safe') dispatch(
+        if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
                 authorizedSafe.id_safe,
@@ -90,7 +90,8 @@ const ServePanel = ({
                 search,
                 1,
                 ''
-        ))
+        ))}
+        setFilesPage(2)
     };
 
     const createFile = (ext) => {
@@ -136,7 +137,7 @@ const ServePanel = ({
         dispatch(onChangeFilterFigure(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'safe') dispatch(
+        if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
                 authorizedSafe.id_safe,
@@ -147,13 +148,14 @@ const ServePanel = ({
                 search,
                 1,
                 ''
-        ))
+        ))}
+        setFilesPage(2)
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'safe') dispatch(
+        if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
                 authorizedSafe.id_safe,
@@ -164,13 +166,14 @@ const ServePanel = ({
                 search,
                 1,
                 ''
-        ))
+        ))}
+        setFilesPage(2)
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
         if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'safe') dispatch(
+        if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
                 authorizedSafe.id_safe,
@@ -181,7 +184,8 @@ const ServePanel = ({
                 search,
                 1,
                 ''
-        ))
+        ))}
+        setFilesPage(2)
     }
 
     const tempChoose = () => (

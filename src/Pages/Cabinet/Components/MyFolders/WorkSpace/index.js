@@ -242,6 +242,7 @@ const WorkSpace = ({
                 menuItem={menuItem}
                 setGLoader={setGLoader}
                 setNewFolderInfo={setNewFolderInfo}
+                setFilesPage={setFilesPage}
             />
             <FolderPath
                 width={width}
