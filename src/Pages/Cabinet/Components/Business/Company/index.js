@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import { ReactComponent as SettingsIcon } from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -15,19 +15,19 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
-import BusinessPopup from "../BusinessPopup";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
-
+import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
+import UploadLogo from "./UploadLogo/UploadLogo";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState("init");
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
-    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-	const [businessPopup, setBusinessPopup] = useState(true)
-	const id_company = useSelector(state => state.user.id_company);
-
+	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+	const [businessRegistration, setBusinessRegistration] = useState(true);
+	const id_company = useSelector((state) => state.user.id_company);
+	const [companyName, setCompanyName] = useState("");
 
 	const sideListData = [
 		{
@@ -83,26 +83,32 @@ const Company = () => {
 							if (el.type === item.type) el.callback(type, index);
 						})
 					}
-					imageSrc={`${imageSrc}assets/PrivateCabinet/${item.img}.svg`}
+					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
 				/>
 			);
 		});
 	};
 
-    useEffect(() => {
-        setMouseParams(null)
-
-    }, [action, pageOption])
+	useEffect(() => {
+		setMouseParams(null);
+	}, [action, pageOption]);
 
 	return (
 		<div className={styles.wrapper}>
-
-			{id_company && businessPopup ? <BusinessPopup set={setBusinessPopup}/> : null}
+			{id_company && businessRegistration ? (
+				<BusinessRegistration
+					setBusinessRegistration={setBusinessRegistration}
+				/>
+			) : null}
 
 			<SideList
 				pageOption={pageOption}
 				setPageOption={setPageOption}
 				data={sideListData}
+				mouseParams={mouseParams}
+				setMouseParams={setMouseParams}
+				renderMenuItems={renderMenuItems}
+				setAction={setAction}
 			/>
 
 			<div className={styles.contentWrap}>
@@ -138,12 +144,19 @@ const Company = () => {
 							setMouseParams={setMouseParams}
 							renderMenuItems={renderMenuItems}
 							setAction={setAction}
-                            nullifyAction={nullifyAction}
-                            setPageOption={setPageOption}
-                            action={action}
+							nullifyAction={nullifyAction}
+							setPageOption={setPageOption}
+							action={action}
 						/>
 					)}
 
+					{action.type === "uploadLogo" ? (
+						<UploadLogo
+							nullifyAction={nullifyAction}
+							companyName={companyName}
+							setCompanyName={setCompanyName}
+						/>
+					) : null}
 				</div>
 			</div>
 		</div>
