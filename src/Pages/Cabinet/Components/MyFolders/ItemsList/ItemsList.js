@@ -58,6 +58,7 @@ const ItemsList = ({
                 setFilePick={setFilePick}
                 callbackArrMain={callbackArrMain}
                 folderSelect={folderSelect}
+                setGLoader={setGLoader}
             />
         });
     }
@@ -92,7 +93,6 @@ const ItemsList = ({
         ))
     }
 
-    //For groupFiles TODO - need to extract to new component
     const [loadingFiles, setLoadingFiles] = useState(false);
     const search = useSelector(state => state.Cabinet.search);
 
@@ -208,6 +208,7 @@ const ItemsList = ({
                 gLoader={gLoader}
                 load={load}
                 options={options}
+                renderFiles={renderFiles}
             >{Array.isArray(fileList?.files) ? renderFiles(FileLineShort, fileList?.files) : renderGroups(FileLineShort, fileList?.files)}</WorkLinesPreview> : null}
         </>
     )
