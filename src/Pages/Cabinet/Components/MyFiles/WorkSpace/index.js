@@ -143,6 +143,7 @@ const WorkSpace = ({
 					addFile={fileSelect}
 					menuItem={menuItem}
 					setGLoader={setGLoader}
+					setFilesPage={setFilesPage}
 				/>
 				{workElementsView === "bars" ? (
 					<WorkBars

@@ -5,6 +5,8 @@ import WorkBars from "../WorkBars";
 import FileBar from "../FileBar";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
+import FileLine from "../FileLine";
+import FileLineShort from "../FileLineShort";
 
 function FilesGroup({
 	fileList, filePick, index, fileLoading, fileSelect,
@@ -12,7 +14,7 @@ function FilesGroup({
 	fileRef, chosenFolder, gLoader, renderFiles
 }) {
 
-	const [collapse, setCollapse] = useState(index === 0);
+	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 
@@ -24,9 +26,9 @@ function FilesGroup({
 				}}
 				className={styles.collapseHeader}
 			>
-				<p className={styles.dateName}>{title}</p>
+				<p className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ''}`}>{title}</p>
 				<div className={styles.buttonsWrap}>
-					<button className={styles.collapseBtn}>
+					<button className={`${styles.collapseBtn} ${workElementsView === "workLinesPreview" ? styles.collapseBtnShort : ''}`}>
 						{fileList.length ?? 0} объектов
 					</button>
 					<div
@@ -59,6 +61,16 @@ function FilesGroup({
 						gLoader={gLoader}
 						hideUploadFile={true}
 					>{renderFiles(FileBar, fileList)}</WorkBars>
+				)}
+				{workElementsView === "lines" && (
+					<div className={styles.collapseContent}>
+						{renderFiles(FileLine, fileList)}
+					</div>
+				)}
+				{workElementsView === "workLinesPreview" && (
+					<div className={styles.collapseContentShort}>
+						{renderFiles(FileLineShort, fileList)}
+					</div>
 				)}
 			</>}
 		</div>

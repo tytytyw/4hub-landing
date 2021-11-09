@@ -1,24 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
 import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 
 const WorkLinesPreview = ({
-      file, children, hideFileList, filesPage, setFilesPage, fileRef, filePick, gLoader
+      file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
+      load, options
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
-    const fileList = useSelector(state => state.Cabinet.fileList);
-    const [loadingFiles, setLoadingFiles] = useState(false);
-    const dispatch = useDispatch();
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -77,32 +74,6 @@ const WorkLinesPreview = ({
         }
     }
 
-    useEffect(() => {
-        setLoadingFiles(false);
-    }, [fileList?.path])
-
-    const onSuccessLoading = (result) => {
-        setTimeout(() => {
-            result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-            setLoadingFiles(false);
-        }, 50) // 50ms needed to prevent recursion of ls_json requests
-    }
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0
-    }
-
-    const load = (entry) => {
-        if(!gLoader) {
-            if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/') {
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-            }
-        }
-    }
-
     const [containerRef] = useScrollElementOnScreen(options, load);
 
     return (
@@ -145,7 +116,7 @@ const WorkLinesPreview = ({
                     zIndex={5}
                     containerType='bounceDots'
                 />
-                : f ? <>
+                : f && f.is_dir === 0 ? <>
                 <div className={styles.preview}>
                     {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}>
                         {f?.is_dir

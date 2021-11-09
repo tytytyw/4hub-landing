@@ -13,7 +13,8 @@
 
 .collapseHeader
   cursor: pointer
-  padding: 10px
+  box-sizing: border-box
+  padding: 10px 10px 10px 17px
   display: flex
   align-items: center
   justify-content: flex-start
@@ -28,6 +29,8 @@
     justify-content: space-between
 .fileWrap
     border-bottom: 1px solid #CFCFCF
+    width: 100%
+    max-width: 100%
 
 .search
   position: relative
@@ -63,6 +66,8 @@
     font-size: 14px
     line-height: 17px
     color: #606060
+.dateNameShort
+  font-size: 12px
 
 .arrowFile
   width: 30px
@@ -79,7 +84,6 @@
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
-
     cursor: pointer
     width: 121px
     height: 32px
@@ -93,10 +97,18 @@
     line-height: 16px
     box-shadow: 0 2px 4px #dedede
     transition: background-color 0.2s ease-in-out
-
-
+.collapseBtnShort
+  width: 101px
 .collapseContent
   padding: 0 20px
+.collapseContentShort
+  display: flex
+  flex-direction: column
+  padding: 0
+  align-items: center
+  width: 100%
+  max-width: 100%
+  margin: 0
 
 .fileDate
   border-top: 1px solid #CFCFCF
