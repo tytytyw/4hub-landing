@@ -23,14 +23,16 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
     const chooseFolder = (i) => {
         const newPath = path.split("/").slice(0, i + 1).join("/");
         if(newPath !== path) {
-            if(newPath.split("/").length === 2 && newPath !== folderList?.path) {
+            if(newPath.split("/").length === 2 && newPath === folderList?.path) {
                 dispatch(onChooseFolder(folderList?.folders, newPath));
                 dispatch(onSetPath(newPath));
                 const folder = [...globalFolders, ...otherFolders].filter(f => f.path === newPath)
                 setChosenFolder(state => ({...state, path: newPath, open: false, subPath: '', info: folder[0] ?? null}))
             }
             setGLoader(true)
-            dispatch(onChooseFiles(newPath, '', 1, '', setGLoader))
+            setTimeout(() => {
+                dispatch(onChooseFiles(newPath, '', 1, '', setGLoader))
+            }, 0)
             setFilesPage(1)
         }
     }
@@ -38,7 +40,7 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
     const renderPath = () => (
         path.split("/").map((el, i) => (
             <div
-                className={`${styles.pathEl} ${i === 0 && (el === "global" || el === "others") ? styles.hide : ''}`}
+                className={`${styles.pathEl} ${i === 0 && (el === "global" || el === "other") ? styles.hide : ''}`}
                 key={i}
             >
                 {i !== 1 ? <span className={styles.arrowNext}>&gt;</span> : null}

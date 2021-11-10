@@ -46,7 +46,7 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     SET_DRAGGED,
-    LOAD_PROJECT_FILES, SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT,
+    LOAD_PROJECT_FILES, SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT, LOAD_FILES_NEXT, CHOOSE_FILES_NEXT,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -134,6 +134,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         case CHOOSE_FILES: {
             return {...state, fileList: {...action.payload}};
         }
+        case CHOOSE_FILES_NEXT: {
+            return {...state, fileList: {...state.fileList, filesNext: [...action.payload]}};
+        }
         case LOAD_FILES: {
             const addFiles = () => {
                 let f = {...state.fileList.files}
@@ -146,6 +149,19 @@ export default function startPage(state = INITIAL_STATE, action) {
                 ? [...state.fileList.files, ...action.payload.files]
                 : addFiles()
             return {...state, fileList: {...state.fileList, files}};
+        }
+        case LOAD_FILES_NEXT: {
+            const addFiles = () => {
+                let f = {...state.fileList.files}
+                for(let key in f) {
+                    f[key] = [...f[key], ...action.payload.files[key]];
+                }
+                return f;
+            }
+            const files = Array.isArray(action.payload.files)
+                ? [...state.fileList.files, ...action.payload.files]
+                : addFiles()
+            return {...state, fileList: {...state.fileList, filesNext: files}};
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};

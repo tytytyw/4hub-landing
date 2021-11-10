@@ -8,14 +8,16 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
+import FileLineShort from "../FileLineShort";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
-      load, options
+      load, options, renderFiles, setGLoader
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
+    const fileList = useSelector(state => state.Cabinet?.fileList);
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -75,6 +77,7 @@ const WorkLinesPreview = ({
     }
 
     const [containerRef] = useScrollElementOnScreen(options, load);
+    const [containerNextRef] = useScrollElementOnScreen(options, load);
 
     return (
         <div
@@ -100,6 +103,26 @@ const WorkLinesPreview = ({
                 />
             </div> : null}
         </div>}
+        {file?.is_dir ? <div
+            className={styles.fileListWrap}
+            ref={fileRef}
+        >
+            {!gLoader && renderFiles(FileLineShort, fileList?.filesNext)}
+            {!gLoader ? <div
+                className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
+                ref={containerNextRef}
+            >
+                <Loader
+                    type='bounceDots'
+                    position='absolute'
+                    background='white'
+                    zIndex={5}
+                    width='100px'
+                    height='100px'
+                    containerType='bounceDots'
+                />
+            </div> : null}
+        </div> : null}
         {gLoader && <Loader
             type='bounceDots'
             position='absolute'

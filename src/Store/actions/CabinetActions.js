@@ -51,7 +51,7 @@ import {
     CHOOSE_ARCHIVE_FILES,
     SET_DRAGGED,
     LOAD_PROJECT_FILES,
-    SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT,
+    SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT, LOAD_FILES_NEXT, CHOOSE_FILES_NEXT,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -111,7 +111,7 @@ export const onSetPath = (path) => {
         }
 }
 
-export const onChooseFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType) => async (dispatch, getState) => {
     const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
     const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
@@ -123,15 +123,27 @@ export const onChooseFiles = (path, search, page, set, setLoad) => async (dispat
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
-            page > 1
-                ? dispatch({
-                    type: LOAD_FILES,
-                    payload: {files: files.data, }
-                })
-                : dispatch({
-                    type: CHOOSE_FILES,
-                    payload: {files: files.data, path}
-                })
+            if(loadedFilesType === 'next') {
+                page > 1
+                    ? dispatch({
+                        type: LOAD_FILES_NEXT,
+                        payload: {files: files.data}
+                    })
+                    : dispatch({
+                        type: CHOOSE_FILES_NEXT,
+                        payload: files.data
+                    })
+            } else {
+                page > 1
+                    ? dispatch({
+                        type: LOAD_FILES,
+                        payload: {files: files.data, }
+                    })
+                    : dispatch({
+                        type: CHOOSE_FILES,
+                        payload: {files: files.data, path}
+                    })
+            }
             if(typeof set === 'function') set(files.data.length ?? files.data);
             if(setLoad) setLoad(false);
         })

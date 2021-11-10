@@ -2,13 +2,19 @@ import React from 'react';
 
 import styles from './FileLineShort.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
+import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
-const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick, folderSelect}) => {
+const FileLineShort = ({
+       file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
+       setGLoader, folderSelect
+}) => {
 
     const size = useSelector(state => state.Cabinet.size);
+    const fileList = useSelector(state => state.Cabinet.fileList);
+    const dispatch = useDispatch();
 
     const onPickFile = () => {
         if(filePick.show) {
@@ -16,7 +22,8 @@ const FileLineShort = ({file, setChosenFile, chosen, setMouseParams, setFilePrev
             isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
         }
         if(file.is_dir) {
-
+            const path = fileList.path + `/${file.name}` //TODO - need to be folder.path
+            dispatch(onChooseFiles(path, '', 1, '', setGLoader, 'next'))
         }
         setChosenFile(file);
     }
