@@ -1,138 +1,151 @@
-import React, {useRef, useState} from 'react'
-import PopUp from '../../../../../../generalComponents/PopUp'
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-import styles from './RefreshPass.module.sass'
-import Button from '../../../MyProfile/Button'
-import PassInfo from './PassInfo'
-import SuccessPass from "../SuccessPass";
+import PopUp from "../../../../../../generalComponents/PopUp";
+import api from "../../../../../../api";
+import styles from "./RefreshPass.module.sass";
+import Input from "../../../MyProfile/Input";
+import Button from "../../../MyProfile/Button";
+import ErrorPass from "../ErrorPass";
+// import PassInfo from "./PassInfo";
 
-const RefreshPass = ({safe, set}) => {
+const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
+	const [password, setPassword] = useState("");
+	const [oldPassword, setOldPassword] = useState("");
+	const [passwordRepeat, setPasswordRepeat] = useState("");
+	const [showPass, setShowPass] = useState(false);
+	// const [showInfo, setShowInfo] = useState(false);
+	const uid = useSelector((state) => state.user.uid);
+	const [errors, setErrors] = useState({});
+	const [displayErrorPass, setDisplayErrorPass] = useState(false);
 
-    const [password, setPassword] = useState('')
-    const [passwordRepeat, setPasswordRepeat] = useState('')
-    const [showPass, setShowPass] = useState(false)
+	const onSubmit = () => {
+		if (passIsValid()) {
+			setLoadingType("squarify");
+			api
+				.post(
+					`/ajax/safe_pass_change.php?uid=${uid}&pass=${oldPassword}&pass_new=${passwordRepeat}&id_safe=${safe.id}`
+				)
+				.then((res) => {
+					if (res.data.ok === 1) {
+						setShowSuccessMessage(`Пароль для сейфа обновлен`);
+						set();
+					} else {
+						if (!res.data.f_pass) {
+							setErrors({ oldPassword: true });
+							setDisplayErrorPass(true);
+						}
+						console.log(res);
+					}
+				})
+				.catch((err) => console.log(err))
+				.finally(() => setLoadingType(""));
+		}
+	};
 
-    const [success, setSuccess] = useState(false)
-    const [enable, setEnable] = useState(false)
-    const [showInfo, setShowInfo] = useState(false)
+	const passIsValid = () => {
+		addErrors();
+		return password === passwordRepeat && passwordRepeat && password;
+	};
 
-    const getEyeImg = () => showPass ? `${imageSrc}/assets/StartPage/eye.svg` : `${imageSrc}/assets/StartPage/invisible.svg`
+	const addErrors = () => {
+		setErrors({
+			password: !password,
+			oldPassword: !oldPassword,
+			passwordRepeat: password !== passwordRepeat,
+		});
+	};
 
-    const inputRef = useRef()
+	return (
+		<PopUp set={set}>
+			<div className={styles.wrapper}>
+				<div className={styles.top}>
+					<div className={styles.closeWrap}>
+						<div className={styles.close} onClick={() => set(false)}>
+							<span className={styles.times} />
+						</div>
+					</div>
+				</div>
 
-    const onSubmit = () => {
-        if (enable) {
-            setSuccess(true)
-        }
-    }
+				<div className={styles.content}>
+					<div className={styles.titleWrap}>
+						<h4 className={styles.title}>Обновите пароль</h4>
+					</div>
 
-    return (
-        <PopUp set={set}>
+					<div className={styles.formItem}>
+						<label htmlFor={styles.inputWrap} className={styles.label}>
+							Старый пароль
+						</label>
+						<div className={styles.inputWrap}>
+							<Input
+								type="password"
+								className={styles.passInput}
+								value={oldPassword}
+								onChange={(event) => setOldPassword(event.target.value)}
+								isMistake={errors?.oldPassword}
+								showPass={showPass}
+								setShowPass={setShowPass}
+							/>
+						</div>
+					</div>
 
-            <div className={styles.wrapper}>
+					<div className={styles.formItem}>
+						<label htmlFor={styles.passInput} className={styles.label}>
+							Новый пароль
+						</label>
 
-                <div className={styles.top}>
+						<div className={styles.inputWrap}>
+							<Input
+								id={styles.passInput}
+								type="password"
+								className={styles.passInput}
+								value={password}
+								onChange={(event) => setPassword(event.target.value)}
+								isMistake={errors?.password}
+								showPass={showPass}
+								setShowPass={setShowPass}
+								showEye={false}
+							/>
+						</div>
+					</div>
 
-                    <div className={styles.closeWrap}>
-                        <div
-                            className={styles.close}
-                            onClick={() => set(false)}
-                        >
-                            <span className={styles.times}/>
-                        </div>
-                    </div>
+					<div className={styles.formItem}>
+						<label htmlFor={styles.inputWrap} className={styles.label}>
+							Повторить пароль
+						</label>
 
-                </div>
+						<div className={styles.inputWrap}>
+							<Input
+								id={styles.inputWrap}
+								type="password"
+								className={styles.passInput}
+								value={passwordRepeat}
+								onChange={(event) => setPasswordRepeat(event.target.value)}
+								isMistake={errors?.passwordRepeat}
+								showPass={showPass}
+								setShowPass={setShowPass}
+								showEye={false}
+							/>
+						</div>
+					</div>
 
-                <div className={styles.content}>
+					<div className={styles.actionBlock}>
+						<Button
+							type="submit"
+							className={styles.actionBtn}
+							onClick={onSubmit}
+						>
+							Готово
+						</Button>
+					</div>
+				</div>
+			</div>
 
-                    <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Обновите пароль</h4>
-                    </div>
+			{displayErrorPass && (
+				<ErrorPass setError={setDisplayErrorPass} set={set} />
+			)}
+		</PopUp>
+	);
+};
 
-                    <div className={styles.formItem}>
-
-                        <label
-                            htmlFor={styles.passInput}
-                            className={styles.label}
-                        >
-                            Новый пароль
-                        </label>
-
-                        <div className={styles.inputWrap}>
-                            <input
-                                ref={inputRef}
-                                onFocus={() => setShowInfo(true)}
-                                id={styles.passInput}
-                                type={showPass ? 'text' : 'password'}
-                                className={styles.passInput}
-                                value={password}
-                                onChange={event => setPassword(event.target.value)}
-                            />
-
-                            {showInfo &&
-                            <PassInfo
-                                setEnable={setEnable}
-                                value={password}
-                                inputRef={inputRef}
-                                visible={showInfo}
-                                setVisible={setShowInfo}
-                            />}
-
-                            <img
-                                src={getEyeImg()}
-                                alt='eye'
-                                className={styles.eye}
-                                onClick={() => setShowPass(!showPass)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className={styles.formItem}>
-
-                        <label
-                            htmlFor={styles.inputWrap}
-                            className={styles.label}
-                        >
-                            Повторить пароль
-                        </label>
-
-                        <div className={styles.inputWrap}>
-                            <input
-                                id={styles.inputWrap}
-                                type={showPass ? 'text' : 'password'}
-                                className={styles.passInput}
-                                value={passwordRepeat}
-                                onChange={event => setPasswordRepeat(event.target.value)}
-                            />
-                            <img
-                                src={getEyeImg()}
-                                alt='eye'
-                                className={styles.eye}
-                                onClick={() => setShowPass(!showPass)}
-                            />
-                        </div>
-                    </div>
-
-                    <div className={styles.actionBlock}>
-                        <Button
-                            type='submit'
-                            className={styles.actionBtn}
-                            onClick={onSubmit}
-                        >
-                            Готово
-                        </Button>
-                    </div>
-
-                </div>
-            </div>
-
-            {success && <SuccessPass complete={() => set(false)} set={setSuccess}/>}
-
-        </PopUp>
-    )
-
-}
-
-export default RefreshPass
+export default RefreshPass;

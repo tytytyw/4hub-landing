@@ -6,7 +6,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const Input = (
     {
-        type, disabled, className, custom = false,
+        type, disabled, className, custom = false, showEye = true,
         isMistake = false, showPass = false, phone, isName,
         setShowPass = () => {},
         onChange = () => {},
@@ -88,7 +88,7 @@ const Input = (
                     autoComplete="new-password"
                     //{...props}
                 />
-                {type === 'password' && <img
+                {type === 'password' && showEye && <img
                     src={getEyeImg()}
                     alt='eye'
                     className={styles.eye}

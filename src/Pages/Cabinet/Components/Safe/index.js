@@ -16,6 +16,7 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import { safeFileDelete } from "../../../../generalComponents/fileMenuHelper";
 import classNames from "classnames";
 import CodePopup from "./Popups/CodePopup";
+import RefreshPass from "./Popups/RefreshPass";
 import NoSafe from "./Popups/NoSafe";
 import CreateSafe from "./Popups/CreateSafe";
 import {
@@ -130,10 +131,9 @@ const Safe = ({
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
-		// TODO:
 		{
-			type: "settings",
-			name: "Настроить",
+			type: "changePass",
+			name: "Сменить пароль",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
@@ -434,6 +434,9 @@ const Safe = ({
 			) : null}
 			{action.type === "propertiesSafe" ? (
 				<SafeProperty close={nullifyAction} safe={selectedSafe} />
+			) : null}
+			{action.type === "changePass" ? (
+				<RefreshPass safe={selectedSafe} set={nullifyAction} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType}  />
 			) : null}
 			{showSuccessMessage && (
 				<SuccessMessage
