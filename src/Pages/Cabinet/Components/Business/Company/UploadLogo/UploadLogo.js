@@ -7,7 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
 import classNames from "classnames";
 
-const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
+const UploadLogo = ({ nullifyAction }) => {
 	const [blob, setBlob] = useState("");
 	// const [response, setResponse] = useState('');
 	const [setError] = useState(false);
@@ -48,6 +48,7 @@ const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
 							type="file"
 							className={styles.inputFile}
 							onChange={(e) => setBlob(e.target.files[0])}
+							accept=".png,.jpeg"
 						/>
 						<FileIco />
 
@@ -59,9 +60,9 @@ const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
 						</span>
 					</div>
 				</form>
-                <div className={styles.textLogo_container}>
+                {/* <div className={styles.textLogo_container}>
                     <input value={companyName} className={styles.textLogo} type='text' onChange={(e) => setCompanyName(e.target.value)}/>
-                </div>
+                </div> */}
                 {blob && <div className={styles.picArea}>
                     <div className={styles.cropArea} draggable={true}>
                         <div className={classNames(styles.dot, styles.dotLT)}></div>

@@ -4,7 +4,7 @@ import styles from './SideList.module.sass'
 import ListMenu from './ListMenu'
 import AddLogo from "./AddLogo";
 
-const SideList = ({data = [], pageOption, setPageOption, mouseParams, setMouseParams, renderMenuItems, setAction}) => {
+const SideList = ({data = [], pageOption, setPageOption, mouseParams, setMouseParams, renderMenuItems, setAction, companyName, setCompanyName}) => {
 
     return (
         <div className={styles.wrapper}>
@@ -15,6 +15,8 @@ const SideList = ({data = [], pageOption, setPageOption, mouseParams, setMousePa
                     setMouseParams={setMouseParams}
                     renderMenuItems={renderMenuItems}
                     setAction={setAction}
+                    companyName={companyName}
+                    setCompanyName={setCompanyName}
                 />
             </div>
 

@@ -4,8 +4,9 @@ import logoImg from "../../../../../../../assets/BusinessCabinet/logo.png";
 import { ReactComponent as ArrowIcon } from "../../../../../../../assets/BusinessCabinet/SideList/arrow.svg";
 import ContextMenu from "../../../../../../../generalComponents/ContextMenu";
 
-const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction }) => {
+const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction, companyName, setCompanyName }) => {
 	const [image] = useState(0);
+	const [defaultTitle] = useState("Добавить лого компании")
 
 	const contextMenuLogo = [
 		{ name: "Загрузить Лого", img: "download-blue", type: "uploadLogo" },
@@ -32,7 +33,7 @@ const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction }) =>
 			{image ? (
 				<img src={logoImg} alt="Logo" />
 			) : (
-				<p className={styles.title}>Добавить лого компании</p>
+				<input type="text" placeholder={defaultTitle} value={companyName} className={styles.title} onChange={e => setCompanyName(e.target.value)} />
 			)}
 			<ArrowIcon
 				className={styles.arrow}

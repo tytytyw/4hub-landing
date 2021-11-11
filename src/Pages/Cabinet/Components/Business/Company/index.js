@@ -109,6 +109,8 @@ const Company = () => {
 				setMouseParams={setMouseParams}
 				renderMenuItems={renderMenuItems}
 				setAction={setAction}
+				companyName={companyName}
+				setCompanyName={setCompanyName}
 			/>
 
 			<div className={styles.contentWrap}>
@@ -153,8 +155,6 @@ const Company = () => {
 					{action.type === "uploadLogo" ? (
 						<UploadLogo
 							nullifyAction={nullifyAction}
-							companyName={companyName}
-							setCompanyName={setCompanyName}
 						/>
 					) : null}
 				</div>
