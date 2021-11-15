@@ -205,6 +205,8 @@ const ItemsList = ({
                 width={width}
                 grouped={!Array.isArray(fileList?.files)}
                 chosenFile={chosenFile}
+                load={load}
+                options={options}
             >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
 
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
