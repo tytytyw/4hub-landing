@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux'
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import { ReactComponent as SettingsIcon } from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -19,6 +19,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
 import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 import UploadLogo from "./UploadLogo/UploadLogo";
+import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState("init");
@@ -29,6 +30,7 @@ const Company = () => {
 	const id_company = useSelector((state) => state.user.id_company);
 	const [companyName, setCompanyName] = useState("");
 	const [companyLogo, setCompanyLogo] = useState(null)
+	const dispatch = useDispatch();
 
 	const sideListData = [
 		{
@@ -93,6 +95,10 @@ const Company = () => {
 	useEffect(() => {
 		setMouseParams(null);
 	}, [action, pageOption]);
+
+	useEffect(() => {
+		dispatch(onGetUserInfo());
+	}, [])
 
 	return (
 		<div className={styles.wrapper}>
