@@ -106,6 +106,8 @@ const ItemsList = ({
                 renderFiles={renderFiles}
                 //WorkLinesPreview
                 params={params}
+                //WorkBarsPreview
+                setChosenFolder={setChosenFolder}
             /> : null
         ))
     }

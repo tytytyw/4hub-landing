@@ -114,10 +114,10 @@ const WorkBarsPreview = ({
             {grouped ? <div
                 className={styles.collapseHeader}
             >
-                <p className={`${styles.dateName}`}>{chosenFolder.group.title}</p>
+                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? 'Выберите группу'}</p>
                 <div className={styles.buttonsWrap}>
                     <button className={`${styles.collapseBtn}`}>
-                        {chosenFolder.group.amount} объектов
+                        {chosenFolder.group?.amount ?? 0} объектов
                     </button>
                     <div
                         className={classNames({
