@@ -13,7 +13,6 @@ const FileLineShort = ({
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
-    // const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
 
     const onPickFile = () => {
