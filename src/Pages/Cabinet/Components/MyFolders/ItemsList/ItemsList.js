@@ -203,6 +203,7 @@ const ItemsList = ({
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
                 width={width}
+                grouped={!Array.isArray(fileList?.files)}
             >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
 
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview

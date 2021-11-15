@@ -10,9 +10,10 @@ import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
+import classNames from "classnames";
 
 const WorkBarsPreview = ({
-    children, file, filePick, fileRef,
+    children, file, filePick, fileRef, grouped,
     gLoader, filesPage, setFilesPage, width = '100%'
 }) => {
 
@@ -27,6 +28,8 @@ const WorkBarsPreview = ({
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
+    const previewRef = useRef(null);
+    const imageRef = useRef(null);
     const innerFilesHeight = () => {
         switch(size) {
             case 'small': return '106px';
@@ -89,7 +92,7 @@ const WorkBarsPreview = ({
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
+                    return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' ref={imageRef} />
             }
             case 'video': {
                 return <video controls src={video ? video : ''} type={f.mime_type} onError={e => console.log(e)}>
@@ -140,7 +143,27 @@ const WorkBarsPreview = ({
                     : '205px',
         }}
     >
-        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}>
+        <div
+            className={`${styles.preview} ${grouped ? styles.groupedPreview : ''}`}
+            style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}
+            ref={previewRef}
+        >
+            {grouped ? <div
+                className={styles.collapseHeader}
+            >
+                <p className={`${styles.dateName}`}>Сегодня</p>
+                <div className={styles.buttonsWrap}>
+                    <button className={`${styles.collapseBtn}`}>
+                        {fileList.length ?? 0} объектов
+                    </button>
+                    <div
+                        className={classNames({
+                            [styles.arrowFile]: true,
+                        })}
+                    >
+                    </div>
+                </div>
+            </div> : null}
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
@@ -156,7 +179,7 @@ const WorkBarsPreview = ({
                 />
                 : f
                     ? f.is_preview === 1
-                        ? renderFilePreview()
+                        ? <div className={styles.innerPreview}>{renderFilePreview()}</div>
                         : <div><div className={styles.filePreviewWrap}>
                             {f?.is_dir
                                 ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
