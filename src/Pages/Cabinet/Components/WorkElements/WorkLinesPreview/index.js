@@ -115,9 +115,11 @@ const WorkLinesPreview = ({
             className={styles.fileListWrap}
             ref={fileRef}
         >
-            {checkFiles(filesNext?.files)
-                ? !gLoader && Array.isArray(fileList?.filesNext?.files) ? renderFiles(FileLineShort, fileList?.filesNext?.files) : renderGroups(FileLineShort, fileList?.filesNext?.files, {next: true, scrollTop: 0})
-                : <div className={styles.emptyFolder}>Папка пустая</div>}
+            {!gLoader && checkFiles(filesNext?.files)
+                ? Array.isArray(fileList?.filesNext?.files) ? renderFiles(FileLineShort, fileList?.filesNext?.files) : renderGroups(FileLineShort, fileList?.filesNext?.files, {next: true, scrollTop: 0})
+                : loading
+                    ? null
+                    : <div className={styles.emptyFolder}>Папка пустая</div>}
             {!gLoader ? <div
                 className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
                 ref={containerNextRef}
