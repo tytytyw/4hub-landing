@@ -5,7 +5,7 @@ import File from '../../../../../generalComponents/Files';
 import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
-import {onChooseFiles, onSetNextFilesToPrevious} from "../../../../../Store/actions/CabinetActions";
+import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
        file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,

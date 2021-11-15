@@ -13,13 +13,12 @@ import classNames from "classnames";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef, grouped, chosenFile, load, options,
-    gLoader, filesPage, setFilesPage, width = '100%'
+    gLoader, filesPage, chosenFolder, width = '100%'
 }) => {
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
-    const fileList = useSelector(state => state.Cabinet.fileList);
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -115,10 +114,10 @@ const WorkBarsPreview = ({
             {grouped ? <div
                 className={styles.collapseHeader}
             >
-                <p className={`${styles.dateName}`}>Сегодня</p>
+                <p className={`${styles.dateName}`}>{chosenFolder.group.title}</p>
                 <div className={styles.buttonsWrap}>
                     <button className={`${styles.collapseBtn}`}>
-                        {fileList.length ?? 0} объектов
+                        {chosenFolder.group.amount} объектов
                     </button>
                     <div
                         className={classNames({
