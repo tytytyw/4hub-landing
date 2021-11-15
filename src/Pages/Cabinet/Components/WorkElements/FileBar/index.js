@@ -25,7 +25,8 @@ const FileBar = ({
 
     const handleDoubleClick = () => {
         if(file?.is_dir) {
-            folderSelect(file)
+            folderSelect(file);
+            setChosenFile(null);
         } else {
             setFilePreview({...filePreview, view: true, file});
         }
