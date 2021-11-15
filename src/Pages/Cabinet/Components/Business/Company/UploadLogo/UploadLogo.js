@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import styles from "./UploadLogo.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 // import api from '../../../../../../api';
 // import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
-import classNames from "classnames";
+import CropImage from "./CropImage/CropImage";
 
-const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
+const UploadLogo = ({ nullifyAction, setCompanyLogo }) => {
 	const [blob, setBlob] = useState("");
 	// const [response, setResponse] = useState('');
 	const [setError] = useState(false);
-    const [blobUrl, setBlobUrl] = useState('')
+	const [cropParams, setCropParams] = useState(null);
+	const [picParams, setPicParams] = useState(null);
 
 	const sendFile = () => {
 		if (blob) {
@@ -35,7 +36,34 @@ const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
 		}
 	};
 
-    useEffect(() => blob ? setBlobUrl(URL.createObjectURL(blob)) : null, [blob])
+
+	const createNewImage = () => {
+		const canvas = document.querySelector("#canvas");
+		const context = canvas.getContext("2d");
+		canvas.width = cropParams.offsetWidth;
+		canvas.height = cropParams.offsetHeight;
+		const scaleX = picParams.naturalWidth / picParams.width;
+		const scaleY = picParams.naturalHeight / picParams.height;
+		context.drawImage(
+			picParams,
+			cropParams.offsetLeft * scaleX,
+			cropParams.offsetTop * scaleY,
+			canvas.width * scaleX,
+			canvas.height * scaleY,
+			0,
+			0,
+			canvas.width,
+			canvas.height
+		);
+		const newImageUrl = canvas
+			.toDataURL("image/png")
+			.replace("image/png", "image/octet-stream");
+		const newImage = new Image();
+		newImage.src = newImageUrl;
+		setCompanyLogo(newImage);
+
+		nullifyAction();
+	};
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -48,6 +76,8 @@ const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
 							type="file"
 							className={styles.inputFile}
 							onChange={(e) => setBlob(e.target.files[0])}
+							accept=".png,.jpeg,.jpg"
+							draggable={false}
 						/>
 						<FileIco />
 
@@ -59,27 +89,24 @@ const UploadLogo = ({ nullifyAction, companyName, setCompanyName }) => {
 						</span>
 					</div>
 				</form>
-                <div className={styles.textLogo_container}>
-                    <input value={companyName} className={styles.textLogo} type='text' onChange={(e) => setCompanyName(e.target.value)}/>
-                </div>
-                {blob && <div className={styles.picArea}>
-                    <div className={styles.cropArea} draggable={true}>
-                        <div className={classNames(styles.dot, styles.dotLT)}></div>
-                        <div className={classNames(styles.dot, styles.dotRT)}></div>
-                        <div className={classNames(styles.dot, styles.dotLB)}></div>
-                        <div className={classNames(styles.dot, styles.dotRB)}></div>
-                        <img resize id='canvas' draggable={false} src={blobUrl} alt='crop_logo'></img>
-                    </div>
-                </div>}
-                <div className={styles.buttonsWrap}>
-                <div className={styles.cancel} onClick={nullifyAction}>Отмена</div>
-                <div className={styles.action}>Сохранить</div>
-            </div>
 
-				{/* <div
-                        className={styles.submitButton}
-                        onClick={sendFile}
-                    >Отправить</div> */}
+				{blob && (
+					<CropImage
+						setCompanyLogo={setCompanyLogo}
+						blob={blob}
+						setCropParams={setCropParams}
+						setPicParams={setPicParams}
+					/>
+				)}
+
+				<div className={styles.buttonsWrap}>
+					<div className={styles.cancel} onClick={nullifyAction}>
+						Отмена
+					</div>
+					<div className={styles.action} onClick={createNewImage}>
+						Сохранить
+					</div>
+				</div>
 			</div>
 		</PopUp>
 	);

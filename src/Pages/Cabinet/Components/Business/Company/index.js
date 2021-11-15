@@ -28,6 +28,7 @@ const Company = () => {
 	const [businessRegistration, setBusinessRegistration] = useState(true);
 	const id_company = useSelector((state) => state.user.id_company);
 	const [companyName, setCompanyName] = useState("");
+	const [companyLogo, setCompanyLogo] = useState(null)
 
 	const sideListData = [
 		{
@@ -109,6 +110,9 @@ const Company = () => {
 				setMouseParams={setMouseParams}
 				renderMenuItems={renderMenuItems}
 				setAction={setAction}
+				companyName={companyName}
+				setCompanyName={setCompanyName}
+				companyLogo={companyLogo}
 			/>
 
 			<div className={styles.contentWrap}>
@@ -153,8 +157,7 @@ const Company = () => {
 					{action.type === "uploadLogo" ? (
 						<UploadLogo
 							nullifyAction={nullifyAction}
-							companyName={companyName}
-							setCompanyName={setCompanyName}
+							setCompanyLogo={setCompanyLogo}
 						/>
 					) : null}
 				</div>

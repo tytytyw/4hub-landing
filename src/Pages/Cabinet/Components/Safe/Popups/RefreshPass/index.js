@@ -7,14 +7,12 @@ import styles from "./RefreshPass.module.sass";
 import Input from "../../../MyProfile/Input";
 import Button from "../../../MyProfile/Button";
 import ErrorPass from "../ErrorPass";
-// import PassInfo from "./PassInfo";
 
-const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
+const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass=false }) => {
 	const [password, setPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [showPass, setShowPass] = useState(false);
-	// const [showInfo, setShowInfo] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 	const [errors, setErrors] = useState({});
 	const [displayErrorPass, setDisplayErrorPass] = useState(false);
@@ -22,7 +20,8 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
 	const onSubmit = () => {
 		if (passIsValid()) {
 			setLoadingType("squarify");
-			api
+			if (!recoverPass) {
+				api
 				.post(
 					`/ajax/safe_pass_change.php?uid=${uid}&pass=${oldPassword}&pass_new=${passwordRepeat}&id_safe=${safe.id}`
 				)
@@ -39,7 +38,23 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
 					}
 				})
 				.catch((err) => console.log(err))
-				.finally(() => setLoadingType(""));
+				.finally(() => setLoadingType(""))
+			} else {
+				api
+				.get(
+					`/ajax/safe_pass_restore2.php?uid=${uid}&pass=${passwordRepeat}&id_safe=${safe.id}&code=${recoverPass}`
+				)
+				.then((res) => {
+					if (res.data.ok) {
+						setShowSuccessMessage(`Пароль для сейфа обновлен`);
+						set(false);
+					} else {
+						console.log(res);
+					}
+				})
+				.catch((err) => console.log(err))
+				.finally(() => setLoadingType(""))
+			}
 		}
 	};
 
@@ -51,7 +66,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
 	const addErrors = () => {
 		setErrors({
 			password: !password,
-			oldPassword: !oldPassword,
+			oldPassword: !oldPassword && !recoverPass,
 			passwordRepeat: password !== passwordRepeat,
 		});
 	};
@@ -72,7 +87,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
 						<h4 className={styles.title}>Обновите пароль</h4>
 					</div>
 
-					<div className={styles.formItem}>
+					{!recoverPass && <div className={styles.formItem}>
 						<label htmlFor={styles.inputWrap} className={styles.label}>
 							Старый пароль
 						</label>
@@ -87,7 +102,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType }) => {
 								setShowPass={setShowPass}
 							/>
 						</div>
-					</div>
+					</div>}
 
 					<div className={styles.formItem}>
 						<label htmlFor={styles.passInput} className={styles.label}>

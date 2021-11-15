@@ -6,7 +6,7 @@ import classNames from 'classnames'
 const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(initValue)
+    const [value, setValue] = useState('')
 
     const ref = useRef()
 
@@ -65,7 +65,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
             })}>
 
                 <ul className={styles.content}>
-                    {data.map((item, index) => (
+                    {data.length > 1 ? data.map((item, index) => (
                         <li
                             key={index}
                             onClick={() => {
@@ -78,7 +78,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                                 [styles.active]: value === item.id
                             })}
                         >{item.text}</li>
-                    ))}
+                    )) : null}
                 </ul>
 
             </div>
