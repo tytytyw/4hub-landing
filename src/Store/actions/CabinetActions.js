@@ -134,7 +134,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType)
                     })
                     : dispatch({
                         type: CHOOSE_FILES_NEXT,
-                        payload: {files: files.data}
+                        payload: {files: files.data, path}
                     })
             } else {
                 page > 1

@@ -8,6 +8,7 @@ import {onChooseFiles, onChooseFolder, onSetPath} from "../../../../../Store/act
 const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
 
     const path = useSelector(state => state.Cabinet.fileList?.path)
+    const filesNextPath = useSelector(state => state.Cabinet.fileList?.filesNext?.path)
     const folderList = useSelector(state => state.Cabinet?.folderList)
     const globalFolders = useSelector(state => state.Cabinet?.global)
     const otherFolders = useSelector(state => state.Cabinet?.other?.folders)
@@ -37,8 +38,9 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
         }
     }
 
-    const renderPath = () => (
-        path.split("/").map((el, i) => (
+    const renderPath = () => {
+        const newPath = filesNextPath ? filesNextPath : path;
+        return newPath.split("/").map((el, i) => (
             <div
                 className={`${styles.pathEl} ${i === 0 && (el === "global" || el === "other") ? styles.hide : ''}`}
                 key={i}
@@ -47,10 +49,10 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
                 <div
                     className={styles.pathEl}
                     onClick={() => chooseFolder(i)}
-                >{ i === 1 ? filterEl(el) : el}</div>
+                >{i === 1 ? filterEl(el) : el}</div>
             </div>
         ))
-    )
+    }
 
     return(
         <>
