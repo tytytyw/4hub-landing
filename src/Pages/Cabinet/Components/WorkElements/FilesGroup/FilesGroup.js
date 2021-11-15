@@ -19,61 +19,65 @@ function FilesGroup({
 
 
 	return (
-		<div className={styles.fileWrap}>
-			{fileList.length > 0 && <div
-				onClick={() => {
-					setCollapse(!collapse);
-				}}
-				className={styles.collapseHeader}
-			>
-				<p className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ''}`}>{title}</p>
-				<div className={styles.buttonsWrap}>
-					<button className={`${styles.collapseBtn} ${workElementsView === "workLinesPreview" ? styles.collapseBtnShort : ''}`}>
-						{fileList.length ?? 0} объектов
-					</button>
-					<div
-						className={classNames({
-							[styles.arrowFile]: true,
-							[styles.active]: !!collapse,
-						})}
-					>
-						<PlayIcon
+		<>
+			{workElementsView === "preview"
+				? <>{renderFiles(FileBar, fileList)}</>
+				: <div className={styles.fileWrap}>
+				{fileList.length > 0 && <div
+					onClick={() => {
+						setCollapse(!collapse);
+					}}
+					className={styles.collapseHeader}
+				>
+					<p className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ''}`}>{title}</p>
+					<div className={styles.buttonsWrap}>
+						<button className={`${styles.collapseBtn} ${workElementsView === "workLinesPreview" ? styles.collapseBtnShort : ''}`}>
+							{fileList.length ?? 0} объектов
+						</button>
+						<div
 							className={classNames({
-								[styles.playButton]: true,
-								[styles.revert]: !!collapse,
+								[styles.arrowFile]: true,
+								[styles.active]: !!collapse,
 							})}
-						/>
+						>
+							<PlayIcon
+								className={classNames({
+									[styles.playButton]: true,
+									[styles.revert]: !!collapse,
+								})}
+							/>
+						</div>
 					</div>
-				</div>
-			</div>}
+				</div>}
 
-			{collapse &&
-			<>
-				{workElementsView === "bars" && (
-					<WorkBars
-						filePick={filePick}
-						fileLoading={fileLoading}
-						fileSelect={fileSelect}
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						fileRef={fileRef}
-						chosenFolder={chosenFolder}
-						gLoader={gLoader}
-						hideUploadFile={true}
-					>{renderFiles(FileBar, fileList)}</WorkBars>
-				)}
-				{workElementsView === "lines" && (
-					<div className={styles.collapseContent}>
-						{renderFiles(FileLine, fileList)}
-					</div>
-				)}
-				{workElementsView === "workLinesPreview" && (
-					<div className={styles.collapseContentShort}>
-						{renderFiles(FileLineShort, fileList, params)}
-					</div>
-				)}
-			</>}
-		</div>
+				{collapse &&
+				<>
+					{workElementsView === "bars" && (
+						<WorkBars
+							filePick={filePick}
+							fileLoading={fileLoading}
+							fileSelect={fileSelect}
+							filesPage={filesPage}
+							setFilesPage={setFilesPage}
+							fileRef={fileRef}
+							chosenFolder={chosenFolder}
+							gLoader={gLoader}
+							hideUploadFile={true}
+						>{renderFiles(FileBar, fileList)}</WorkBars>
+					)}
+					{workElementsView === "lines" && (
+						<div className={styles.collapseContent}>
+							{renderFiles(FileLine, fileList)}
+						</div>
+					)}
+					{workElementsView === "workLinesPreview" && (
+						<div className={styles.collapseContentShort}>
+							{renderFiles(FileLineShort, fileList, params)}
+						</div>
+					)}
+				</>}
+			</div>}
+		</>
 	);
 }
 

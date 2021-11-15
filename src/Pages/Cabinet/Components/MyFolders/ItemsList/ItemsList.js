@@ -161,7 +161,8 @@ const ItemsList = ({
                     options={options}
                 >{renderFiles(FileBar, fileList?.files)}</WorkBars>
                 : null}
-            {!Array.isArray(fileList?.files) && workElementsView !== 'workLinesPreview' ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
+
+            {!Array.isArray(fileList?.files) && workElementsView !== 'workLinesPreview' && workElementsView !== 'preview' ? <div className={`${styles.FilesList} ${renderHeight(recentFiles, filePick, styles)}`}>
                     {renderGroups(FileBar, fileList?.files)}
                     {!gLoader ? <div
                         className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
@@ -180,6 +181,7 @@ const ItemsList = ({
                     </div> : null}
                 </div>
                 : null}
+
             {workElementsView === 'lines' && Array.isArray(fileList?.files) ? <WorkLines
                 fileLoading={fileLoading}
                 filePick={filePick}
@@ -191,7 +193,8 @@ const ItemsList = ({
                 load={load}
                 options={options}
             >{renderFiles(FileLine, fileList?.files)}</WorkLines> : null}
-            {workElementsView === 'preview' && Array.isArray(fileList?.files) ? <WorkBarsPreview
+
+            {workElementsView === 'preview' ? <WorkBarsPreview
                 file={chosenFile}
                 filePick={filePick}
                 filesPage={filesPage}
@@ -200,7 +203,8 @@ const ItemsList = ({
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
                 width={width}
-            >{renderFiles(FileBar, fileList?.files)}</WorkBarsPreview> : null}
+            >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
+
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview
                 file={chosenFile}
                 filePick={filePick}
