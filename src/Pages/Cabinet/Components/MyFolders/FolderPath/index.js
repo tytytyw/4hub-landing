@@ -33,6 +33,7 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
             if(newPath.split("/").length === 2 && newPath === folderList?.path) {
                 dispatch(onChooseFolder(folderList?.folders, newPath));
                 dispatch(onSetPath(newPath));
+                //TODO - Needed to delete after added built-in folders
                 // const folder = [...globalFolders, ...otherFolders].filter(f => f.path === newPath)
                 // setChosenFolder(state => ({...state, path: newPath, open: false, subPath: '', info: folder[0] ?? null}))
             } else {
