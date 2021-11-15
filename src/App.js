@@ -23,7 +23,6 @@ function App() {
             const data = {uid: uid?.[0].split('=')[1], id_company: id_company?.[0].split('=')[1]}
             dispatch(onLog(data));
         }
-        console.log(process.env)
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
