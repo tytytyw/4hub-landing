@@ -246,6 +246,7 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 menuItem={menuItem}
                 setChosenFolder={setChosenFolder}
+                openMenu={openMenu}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}

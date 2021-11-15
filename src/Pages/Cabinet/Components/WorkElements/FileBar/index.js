@@ -9,7 +9,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-         folderSelect
+         folderSelect, openMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -52,7 +52,11 @@ const FileBar = ({
             >
                 <div
                     className={styles.menu}
-                    onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})}}
+                    onClick={e => {
+                        file.is_dir
+                            ? openMenu(e, file)
+                            : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
+                    }}
                 ><span/></div>
                 <div className={styles.symbols}>
                     <div>{file?.fig && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt='fig' /> : null}</div>
