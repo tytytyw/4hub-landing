@@ -24,10 +24,10 @@ const CodePopup = ({
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
 	const [error, setError] = useState(false);
-	const [recoverPass, setRecoverPass] = useState(false);
+	const [recoverPass, setRecoverPass] = useState({show: false, active: false});
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
-	const [sendCode, showSendCode] = useState(false);
+	const [showSendCode, setShowSendCode] = useState(false);
 	const [showPass, setShowPass] = useState("");
 	const search = useSelector((state) => state.Cabinet.search);
 	const codeSentTo = useSelector((state) => state.Cabinet.safeCodeToTel);
@@ -42,7 +42,7 @@ const CodePopup = ({
 					`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
 				)
 				.then((res) => {
-					if (res.data.f_pass) showSendCode(true);
+					if (res.data.f_pass) setShowSendCode(true);
 					else setError("password");
 				})
 				.catch((error) => console.log(error))
@@ -67,13 +67,35 @@ const CodePopup = ({
 		}
 	};
 
+	const recoverStage2 = () => {
+		// setLoadingType("squarify");
+		api
+			.get(
+				`/ajax/safe_pass_restore2.php?uid=${uid}&id_safe=${safe.id}&code=${code}`
+			)
+			.then((res) => {
+
+				if (res.data.ok) {
+					// setShowSendCode(true)
+					// set({show: false, active: true})
+				} else {
+					setError(true)
+				}
+			})
+			.catch((error) => console.log(error))
+		}
+	const onSubmit = () => {
+		if (!recoverPass.active) onGetSafeAccess(password, safe.id, code)
+		else {recoverStage2()}
+	}
+
 	useEffect(() => {
 		setErrors({ password: false, code: false });
 	}, [password, code]);
 
 	return (
 		<>
-			{!error && !recoverPass && (
+			{!error && !recoverPass.show && (
 				<PopUp set={set}>
 					<div className={styles.wrapper}>
 						<div className={styles.top}>
@@ -90,7 +112,7 @@ const CodePopup = ({
 								<h4 className={styles.title}>{safe?.name}</h4>
 							</div>
 
-							{!sendCode && (
+							{!showSendCode && (
 								<div className={styles.inputWrap}>
 									<input
 										type="text"
@@ -108,14 +130,14 @@ const CodePopup = ({
 									/>
 									<span
 										className={styles.link}
-										onClick={() => setRecoverPass(true)}
+										onClick={() => setRecoverPass({show: true, active: true})}
 									>
 										Забыли пароль?
 									</span>
 								</div>
 							)}
 
-							{sendCode && (
+							{showSendCode && (
 								<>
 									<div className={styles.inputWrap}>
 										<p className={styles.orItem}>
@@ -139,9 +161,9 @@ const CodePopup = ({
 								<Button
 									type="submit"
 									className={styles.actionBtn}
-									onClick={() => onGetSafeAccess(password, safe.id, code)}
+									onClick={onSubmit}
 								>
-									{sendCode ? "Войти" : "Далее"}
+									{showSendCode ? "Войти" : "Далее"}
 								</Button>
 							</div>
 						</div>
@@ -149,12 +171,14 @@ const CodePopup = ({
 				</PopUp>
 			)}
 
-			{recoverPass && (
+			{recoverPass.show && (
 				<RecoverPass
 					refreshPass={refreshPass}
 					setRefreshPass={setRefreshPass}
 					safe={safe}
 					set={setRecoverPass}
+					setShowSendCode={setShowSendCode}
+					setError={setError}
 				/>
 			)}
 			{error && <ErrorPass setError={setError} mistake={error} set={set} />}
