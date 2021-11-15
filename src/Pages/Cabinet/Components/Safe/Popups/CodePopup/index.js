@@ -7,6 +7,8 @@ import Button from "../../../MyProfile/Button";
 import SafeIcon from "../../SafeIcon";
 import ErrorPass from "../ErrorPass";
 import RecoverPass from "../RecoverPass";
+import RefreshPass from "../RefreshPass";
+
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
@@ -14,17 +16,21 @@ import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetAction
 const CodePopup = ({
 	safe,
 	set,
-	refreshPass,
-	setRefreshPass,
+	// refreshPass,
+	// setRefreshPass,
 	setLoadingType,
 	filesPage,
-	successLoad
-	
+	successLoad,
+	setShowSuccessMessage,
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
 	const [error, setError] = useState(false);
-	const [recoverPass, setRecoverPass] = useState({show: false, active: false});
+	const [recoverPass, setRecoverPass] = useState({
+		show: false,
+		active: false,
+	});
+	const [refreshPass, setRefreshPass] = useState(false);
 	const [errors, setErrors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
 	const [showSendCode, setShowSendCode] = useState(false);
@@ -68,26 +74,29 @@ const CodePopup = ({
 	};
 
 	const recoverStage2 = () => {
-		// setLoadingType("squarify");
+		setLoadingType("squarify");
 		api
 			.get(
 				`/ajax/safe_pass_restore2.php?uid=${uid}&id_safe=${safe.id}&code=${code}`
 			)
 			.then((res) => {
-
 				if (res.data.ok) {
-					// setShowSendCode(true)
-					// set({show: false, active: true})
+					setShowSendCode(false);
+					// setRecoverPass({show: false, active: false})
+					setRefreshPass(true);
 				} else {
-					setError(true)
+					setError("code");
 				}
 			})
 			.catch((error) => console.log(error))
-		}
+			.finally(() => setLoadingType(""));
+	};
 	const onSubmit = () => {
-		if (!recoverPass.active) onGetSafeAccess(password, safe.id, code)
-		else {recoverStage2()}
-	}
+		if (!recoverPass.active) onGetSafeAccess(password, safe.id, code);
+		else {
+			recoverStage2();
+		}
+	};
 
 	useEffect(() => {
 		setErrors({ password: false, code: false });
@@ -130,7 +139,7 @@ const CodePopup = ({
 									/>
 									<span
 										className={styles.link}
-										onClick={() => setRecoverPass({show: true, active: true})}
+										onClick={() => setRecoverPass({ show: true, active: true })}
 									>
 										Забыли пароль?
 									</span>
@@ -140,10 +149,12 @@ const CodePopup = ({
 							{showSendCode && (
 								<>
 									<div className={styles.inputWrap}>
-										<p className={styles.orItem}>
-											на номер {codeSentTo} отправлен код-пароль для
-											доступа к сейфу
-										</p>
+										{!recoverPass.active ? (
+											<p className={styles.orItem}>
+												на номер {codeSentTo} отправлен код-пароль для доступа к
+												сейфу
+											</p>
+										) : null}
 										<Input
 											placeholder="Введите код"
 											label={false}
@@ -163,7 +174,7 @@ const CodePopup = ({
 									className={styles.actionBtn}
 									onClick={onSubmit}
 								>
-									{showSendCode ? "Войти" : "Далее"}
+									{showSendCode && !recoverPass.active ? "Войти" : "Далее"}
 								</Button>
 							</div>
 						</div>
@@ -179,8 +190,16 @@ const CodePopup = ({
 					set={setRecoverPass}
 					setShowSendCode={setShowSendCode}
 					setError={setError}
+					setLoadingType={setLoadingType}
 				/>
 			)}
+			{refreshPass && <RefreshPass
+				recoverPass={code}
+				safe={safe}
+				setLoadingType={setLoadingType}
+				setShowSuccessMessage={setShowSuccessMessage}
+				set={set}
+			/>}
 			{error && <ErrorPass setError={setError} mistake={error} set={set} />}
 		</>
 	);

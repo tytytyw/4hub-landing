@@ -6,7 +6,7 @@ import classNames from 'classnames'
 const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState(initValue)
+    const [value, setValue] = useState('')
 
     const ref = useRef()
 

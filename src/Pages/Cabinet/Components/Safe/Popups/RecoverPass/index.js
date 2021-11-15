@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import PopUp from "../../../../../../generalComponents/PopUp";
-
+// import ErrorPopup from '../../../../../../generalComponents/Error'
 import styles from "./RecoverPass.module.sass";
 import Button from "../../../MyProfile/Button";
 import RefreshPass from "../RefreshPass";
@@ -9,13 +9,14 @@ import Select from "../../../../../../generalComponents/Select/Select";
 import api from "../../../../../../api";
 
 
-const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setError }) => {
+const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setError, setLoadingType }) => {
 	const [sentCodeto, setSentCodeto] = useState("email");
     const uid = useSelector((state) => state.user.uid);
     const [searchArea, setSearhArea] = useState([{text: 'Email', id:'email'}, {text: 'Телефон', id:'tel'}])
+    // const [showError, setShowError] = useState(false);
 
     const recoverStage1 = () => {
-			// setLoadingType("squarify");
+			setLoadingType("squarify");
 			api
 				.get(
 					`/ajax/safe_pass_restore1.php?uid=${uid}&id_safe=${safe.id}&send_to=${sentCodeto}`
@@ -26,10 +27,11 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
                         setShowSendCode(true)
                         set({show: false, active: true})
                     } else {
-                        setError(true)
+                        // setShowError(true)
                     }
 				})
 				.catch((error) => console.log(error))
+                .finally(() => setLoadingType(''))
     }
 	return (
 		<>
@@ -62,17 +64,12 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 								</label>
 
 								<div className={styles.inputWrap}>
-									{/* <input
-										id={styles.inputWrap}
-										className={styles.input}
-										value={email}
-										onChange={(event) => setEmail(event.target.value)}
-									/> */}
                                     <Select
                                         setSearhArea={setSearhArea}
                                         data={searchArea}
                                         initValue={sentCodeto}
                                         onChange={value => setSentCodeto(value)}
+                                        placeholder={searchArea.filter(item => item.id === sentCodeto)[0].text}
                                     />
 								</div>
 							</div>
@@ -81,7 +78,6 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 								<Button
 									type="submit"
 									className={styles.submitBtn}
-									// onClick={() => setRefreshPass(true)}
                                     onClick={recoverStage1}
 								>
 									Отправить

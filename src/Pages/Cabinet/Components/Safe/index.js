@@ -394,6 +394,8 @@ const Safe = ({
 					filesPage={filesPage}
 					setFilesPage={setFilesPage}
 					successLoad={successLoad}
+					setAction={setAction}
+					setShowSuccessMessage={setShowSuccessMessage}
 				/>
 			)}
 			{createSafe && (
