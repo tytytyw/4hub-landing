@@ -54,7 +54,7 @@ import {
     SET_CHOSEN_FOLDER,
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
-    CHOOSE_FILES_NEXT,
+    CHOOSE_FILES_NEXT, SET_NEXT_FILES_TO_PREVIOUS,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -153,6 +153,16 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType)
             .catch(e => console.log(e))
             .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 };
+
+export const onSetNextFilesToPrevious = (path, isDir) => (dispatch) => {
+    dispatch({
+        type: SET_NEXT_FILES_TO_PREVIOUS,
+        payload: path
+    })
+    if(isDir) {
+        dispatch(onChooseFiles(path, '', 1, '', '', 'next'))
+    }
+}
 
 export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
     const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';

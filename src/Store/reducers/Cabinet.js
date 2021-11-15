@@ -50,7 +50,7 @@ import {
     SET_CHOSEN_FOLDER,
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
-    CHOOSE_FILES_NEXT,
+    CHOOSE_FILES_NEXT, SET_NEXT_FILES_TO_PREVIOUS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -166,6 +166,16 @@ export default function startPage(state = INITIAL_STATE, action) {
                 ? [...state.fileList.files, ...action.payload.files]
                 : addFiles()
             return {...state, fileList: {...state.fileList, filesNext: files}};
+        }
+        case SET_NEXT_FILES_TO_PREVIOUS: {
+            return {
+                ...state,
+                fileList: {
+                    files: state.fileList.filesNext.files,
+                    path: action.payload,
+                    filesNext: null
+                }
+            }
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};
