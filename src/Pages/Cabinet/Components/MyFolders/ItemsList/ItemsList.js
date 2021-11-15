@@ -42,7 +42,7 @@ const ItemsList = ({
     }
 
     // Types of Files view
-    const renderFiles = (Type, files) => {
+    const renderFiles = (Type, files, params) => {
         if(!files) return null;
         return files.map((file, i) => {
             return <Type
@@ -59,11 +59,12 @@ const ItemsList = ({
                 callbackArrMain={callbackArrMain}
                 folderSelect={folderSelect}
                 setGLoader={setGLoader}
+                params={params}
             />
         });
     }
 
-    const renderGroups = (Type, list) => {
+    const renderGroups = (Type, list, params) => {
         if(!list) return null;
         const keys = Object.keys(list);
         return keys.map((k, i) => (
@@ -89,6 +90,8 @@ const ItemsList = ({
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
                 renderFiles={renderFiles}
+                //WorkLinesPreview
+                params={params}
             /> : null
         ))
     }
@@ -209,6 +212,7 @@ const ItemsList = ({
                 load={load}
                 options={options}
                 renderFiles={renderFiles}
+                renderGroups={renderGroups}
             >{Array.isArray(fileList?.files) ? renderFiles(FileLineShort, fileList?.files) : renderGroups(FileLineShort, fileList?.files)}</WorkLinesPreview> : null}
         </>
     )

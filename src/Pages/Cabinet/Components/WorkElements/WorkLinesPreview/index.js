@@ -12,12 +12,13 @@ import FileLineShort from "../FileLineShort";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
-      load, options, renderFiles, setGLoader
+      load, options, renderFiles, renderGroups,
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
     const fileList = useSelector(state => state.Cabinet?.fileList);
+    const filesNext = useSelector(state => state.Cabinet?.fileList?.filesNext);
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -79,6 +80,13 @@ const WorkLinesPreview = ({
     const [containerRef] = useScrollElementOnScreen(options, load);
     const [containerNextRef] = useScrollElementOnScreen(options, load);
 
+    const checkFiles = (obj) => {
+        for (let key in obj) {
+             if(obj[key].length > 0) return true;
+        }
+        return false;
+    }
+
     return (
         <div
             className={`${styles.workLinesPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
@@ -107,7 +115,9 @@ const WorkLinesPreview = ({
             className={styles.fileListWrap}
             ref={fileRef}
         >
-            {!gLoader && renderFiles(FileLineShort, fileList?.filesNext)}
+            {checkFiles(filesNext?.files)
+                ? !gLoader && Array.isArray(fileList?.filesNext?.files) ? renderFiles(FileLineShort, fileList?.filesNext?.files) : renderGroups(FileLineShort, fileList?.filesNext?.files, {next: true, scrollTop: 0})
+                : <div className={styles.emptyFolder}>Папка пустая</div>}
             {!gLoader ? <div
                 className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
                 ref={containerNextRef}

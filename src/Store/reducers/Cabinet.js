@@ -46,7 +46,11 @@ import {
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
     SET_DRAGGED,
-    LOAD_PROJECT_FILES, SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT, LOAD_FILES_NEXT, CHOOSE_FILES_NEXT,
+    LOAD_PROJECT_FILES,
+    SET_CHOSEN_FOLDER,
+    SET_CHOSEN_PROJECT,
+    LOAD_FILES_NEXT,
+    CHOOSE_FILES_NEXT, SET_NEXT_FILES_TO_PREVIOUS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -135,13 +139,13 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileList: {...action.payload}};
         }
         case CHOOSE_FILES_NEXT: {
-            return {...state, fileList: {...state.fileList, filesNext: [...action.payload]}};
+            return {...state, fileList: {...state.fileList, filesNext: action.payload}};
         }
         case LOAD_FILES: {
             const addFiles = () => {
                 let f = {...state.fileList.files}
                 for(let key in f) {
-                    f[key] = [...f[key], ...action.payload.files[key]];
+                    if(action.payload.files[key]) f[key] = [...f[key], ...action.payload.files[key]];
                 }
                 return f;
             }
@@ -154,7 +158,7 @@ export default function startPage(state = INITIAL_STATE, action) {
             const addFiles = () => {
                 let f = {...state.fileList.files}
                 for(let key in f) {
-                    f[key] = [...f[key], ...action.payload.files[key]];
+                    if(action.payload.files[key]) f[key] = [...f[key], ...action.payload.files[key]];
                 }
                 return f;
             }
@@ -162,6 +166,16 @@ export default function startPage(state = INITIAL_STATE, action) {
                 ? [...state.fileList.files, ...action.payload.files]
                 : addFiles()
             return {...state, fileList: {...state.fileList, filesNext: files}};
+        }
+        case SET_NEXT_FILES_TO_PREVIOUS: {
+            return {
+                ...state,
+                fileList: {
+                    files: state.fileList.filesNext.files,
+                    path: action.payload,
+                    filesNext: null
+                }
+            }
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};

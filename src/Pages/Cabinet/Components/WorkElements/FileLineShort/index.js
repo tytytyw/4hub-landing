@@ -5,25 +5,30 @@ import File from '../../../../../generalComponents/Files';
 import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseFiles, onSetNextFilesToPrevious} from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
        file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-       setGLoader, folderSelect
+       setGLoader, folderSelect,  params = null,
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
-    const fileList = useSelector(state => state.Cabinet.fileList);
+    // const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
 
     const onPickFile = () => {
-        if(filePick.show) {
-            const isPicked = filePick.files.filter(el => el === file.fid);
-            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
-        }
-        if(file.is_dir) {
-            const path = fileList.path + `/${file.name}` //TODO - need to be folder.path
-            dispatch(onChooseFiles(path, '', 1, '', setGLoader, 'next'))
+        if(params?.next) {
+            file.is_dir
+                ? dispatch(onSetNextFilesToPrevious(file.path, true))
+                : dispatch(onSetNextFilesToPrevious(file.path, false))
+        } else {
+            if(filePick.show) {
+                const isPicked = filePick.files.filter(el => el === file.fid);
+                isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+            }
+            if(file.is_dir) {
+                dispatch(onChooseFiles(file.path, '', 1, '', setGLoader, 'next'))
+            }
         }
         setChosenFile(file);
     }

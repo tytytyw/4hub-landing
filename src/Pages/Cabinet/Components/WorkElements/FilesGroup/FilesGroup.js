@@ -11,7 +11,7 @@ import FileLineShort from "../FileLineShort";
 function FilesGroup({
 	fileList, filePick, index, fileLoading, fileSelect,
 	filesPage, setFilesPage, title,
-	fileRef, chosenFolder, gLoader, renderFiles
+	fileRef, chosenFolder, gLoader, renderFiles, params = null
 }) {
 
 	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
@@ -69,7 +69,7 @@ function FilesGroup({
 				)}
 				{workElementsView === "workLinesPreview" && (
 					<div className={styles.collapseContentShort}>
-						{renderFiles(FileLineShort, fileList)}
+						{renderFiles(FileLineShort, fileList, params)}
 					</div>
 				)}
 			</>}
