@@ -38,7 +38,7 @@ const FolderItem = ({
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder, files_amount: filesQuantity});
         }
         // if(folderList.path !== folder.path || chosenFolder.subPath) {
-        if(fileList.path !== folder.path) {
+        if(fileList?.path !== folder?.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
