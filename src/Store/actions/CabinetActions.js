@@ -51,7 +51,10 @@ import {
     CHOOSE_ARCHIVE_FILES,
     SET_DRAGGED,
     LOAD_PROJECT_FILES,
-    SET_CHOSEN_FOLDER, SET_CHOSEN_PROJECT, LOAD_FILES_NEXT, CHOOSE_FILES_NEXT,
+    SET_CHOSEN_FOLDER,
+    SET_CHOSEN_PROJECT,
+    LOAD_FILES_NEXT,
+    CHOOSE_FILES_NEXT,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -131,7 +134,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType)
                     })
                     : dispatch({
                         type: CHOOSE_FILES_NEXT,
-                        payload: files.data
+                        payload: {files: files.data}
                     })
             } else {
                 page > 1

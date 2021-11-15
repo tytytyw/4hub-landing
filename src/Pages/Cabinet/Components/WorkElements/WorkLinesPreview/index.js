@@ -12,7 +12,7 @@ import FileLineShort from "../FileLineShort";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
-      load, options, renderFiles, setGLoader
+      load, options, renderFiles, renderGroups,
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -107,7 +107,7 @@ const WorkLinesPreview = ({
             className={styles.fileListWrap}
             ref={fileRef}
         >
-            {!gLoader && renderFiles(FileLineShort, fileList?.filesNext)}
+            {!gLoader && Array.isArray(fileList?.filesNext?.files) ? renderFiles(FileLineShort, fileList?.filesNext?.files) : renderGroups(FileLineShort, fileList?.filesNext?.files, {next: true, scrollTop: 0})}
             {!gLoader ? <div
                 className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
                 ref={containerNextRef}
