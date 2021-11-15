@@ -9,8 +9,8 @@ const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction, comp
 
 	const contextMenuLogo = [
 		{ name: "Загрузить Лого", img: "download-blue", type: "uploadLogo" },
-		{ name: "Переименовать", img: "edit", type: "reName" },
-	];
+		{ name: "Редактировать", img: "edit", type: "editLogo" },
+	].filter(menuItem => companyLogo ? true : menuItem.type !== 'editLogo') ;
 
 	const callbackArrMain = [
 		{
@@ -20,8 +20,8 @@ const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction, comp
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
-			type: "reName",
-			name: "Переименовать",
+			type: "editLogo",
+			name: "Редактировать",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},

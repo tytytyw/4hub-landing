@@ -31,6 +31,7 @@ const Company = () => {
 	const [companyName, setCompanyName] = useState("");
 	const [companyLogo, setCompanyLogo] = useState(null)
 	const dispatch = useDispatch();
+	const [blob, setBlob] = useState("");
 
 	const sideListData = [
 		{
@@ -98,7 +99,7 @@ const Company = () => {
 
 	useEffect(() => {
 		dispatch(onGetUserInfo());
-	}, [])
+	}, []) //eslint-disable-line
 
 	return (
 		<div className={styles.wrapper}>
@@ -160,10 +161,12 @@ const Company = () => {
 						/>
 					)}
 
-					{action.type === "uploadLogo" ? (
+					{action.type === "uploadLogo" || action.type === "editLogo" ? (
 						<UploadLogo
 							nullifyAction={nullifyAction}
 							setCompanyLogo={setCompanyLogo}
+							blob={blob}
+							setBlob={setBlob}
 						/>
 					) : null}
 				</div>
