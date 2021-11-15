@@ -13,10 +13,9 @@ import {colors} from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 
 const WorkBarsPreview = ({
-    children, file, filePick, fileRef, grouped,
+    children, file, filePick, fileRef, grouped, chosenFile,
     gLoader, filesPage, setFilesPage, width = '100%'
 }) => {
-
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.Cabinet?.search);
@@ -29,7 +28,6 @@ const WorkBarsPreview = ({
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
     const previewRef = useRef(null);
-    const imageRef = useRef(null);
     const innerFilesHeight = () => {
         switch(size) {
             case 'small': return '106px';
@@ -92,7 +90,7 @@ const WorkBarsPreview = ({
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                    return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' ref={imageRef} />
+                    return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
             }
             case 'video': {
                 return <video controls src={video ? video : ''} type={f.mime_type} onError={e => console.log(e)}>
@@ -144,7 +142,7 @@ const WorkBarsPreview = ({
         }}
     >
         <div
-            className={`${styles.preview} ${grouped ? styles.groupedPreview : ''}`}
+            className={`${styles.preview} ${grouped ? styles.groupedPreview : ''} ${chosenFile?.name ? '' : styles.noFile}`}
             style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}
             ref={previewRef}
         >
@@ -180,20 +178,22 @@ const WorkBarsPreview = ({
                 : f
                     ? f.is_preview === 1
                         ? <div className={styles.innerPreview}>{renderFilePreview()}</div>
-                        : <div><div className={styles.filePreviewWrap}>
+                        : <div className={styles.innerNoPreview}><div className={styles.filePreviewWrap}>
                             {f?.is_dir
-                                ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                                ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el?.color === file?.color)[0]?.name}`} />
                                 : <File format={f?.ext} color={f?.color} />
                             }
                         </div></div>
                     : null}
         </div>
         
-        <div className={styles.renderedFiles}>
+        <div
+            className={styles.renderedFiles}
+            style={{width, maxWidth: width}}
+        >
             <div
                 ref={fileRef}
                 className={styles.innerFiles}
-                style={{width}}
             >
                 {!gLoader && children}
                 {!gLoader ? <div
