@@ -98,6 +98,7 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
@@ -122,11 +123,17 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+
+    const openMenu = (e, folder) => {
+        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
+        if(folder) setNewFolderInfo({...newFolderInfo, path: folder.path})
+    };
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {

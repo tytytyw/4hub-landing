@@ -54,7 +54,8 @@ import {
     SET_CHOSEN_FOLDER,
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
-    CHOOSE_FILES_NEXT, SET_NEXT_FILES_TO_PREVIOUS,
+    CHOOSE_FILES_NEXT,
+    SET_NEXT_FILES_TO_PREVIOUS,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 

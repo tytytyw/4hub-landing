@@ -15,7 +15,7 @@ import {moveFile} from "../../../../../generalComponents/generalHelpers";
 const CustomFolderItem = ({
       f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setError,
       setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
-      setShowSuccessMessage
+      setShowSuccessMessage, openMenu
 }) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
@@ -81,6 +81,7 @@ const CustomFolderItem = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
@@ -96,7 +97,7 @@ const CustomFolderItem = ({
                 dispatch(onSetPath(f.path));
                 const ev = e;
                 setTimeout(() => {
-                    if(ev.target.className === styles.menuWrap) menuClick(ev);
+                    if(ev.target.className === styles.menuWrap) openMenu(ev);
                 }, 0)
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
                 setFilesPage(1)
@@ -104,7 +105,7 @@ const CustomFolderItem = ({
         } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
     } 
 
-    const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
+    // const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
 
     const handleAddFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: f.path});
@@ -145,7 +146,7 @@ const CustomFolderItem = ({
                     /> : null}
                     <div
                         className={styles.menuWrap}
-                        onClick={menuClick}
+                        onClick={openMenu}
                     ><span className={styles.menu} /></div>
                 </div>
             </div>
