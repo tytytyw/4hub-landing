@@ -9,7 +9,7 @@ import {onChooseFiles, onSetNextFilesToPrevious} from "../../../../../Store/acti
 
 const FileLineShort = ({
        file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-       setGLoader, folderSelect,  params = null,
+       setGLoader, folderSelect,  params = null, chooseItemNext
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -17,9 +17,7 @@ const FileLineShort = ({
 
     const onPickFile = () => {
         if(params?.next) {
-            file.is_dir
-                ? dispatch(onSetNextFilesToPrevious(file.path, true))
-                : dispatch(onSetNextFilesToPrevious(file.path, false))
+            chooseItemNext(file)
         } else {
             if(filePick.show) {
                 const isPicked = filePick.files.filter(el => el === file.fid);

@@ -11,7 +11,12 @@ import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
 import WorkLinesPreview from "../../WorkElements/WorkLinesPreview";
 import FileLineShort from "../../WorkElements/FileLineShort";
 import {useDispatch, useSelector} from "react-redux";
-import {onChooseFiles, onChooseFolder, onSetPath} from "../../../../../Store/actions/CabinetActions";
+import {
+    onChooseFiles,
+    onChooseFolder,
+    onSetNextFilesToPrevious,
+    onSetPath
+} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../../WorkElements/FilesGroup/FilesGroup";
 import {periods} from "../../../../../generalComponents/collections";
@@ -41,6 +46,14 @@ const ItemsList = ({
         }
     }
 
+    //To render FilePath properly after fileNext is destroyed
+    const chooseItemNext = (item) => {
+        const f = {...item};
+        f.is_dir
+            ? dispatch(onSetNextFilesToPrevious(f.path, true))
+            : dispatch(onSetNextFilesToPrevious(f.gdir, false))
+    }
+
     // Types of Files view
     const renderFiles = (Type, files, params) => {
         if(!files) return null;
@@ -60,6 +73,7 @@ const ItemsList = ({
                 folderSelect={folderSelect}
                 setGLoader={setGLoader}
                 params={params}
+                chooseItemNext={chooseItemNext}
             />
         });
     }
