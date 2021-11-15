@@ -7,14 +7,12 @@ import styles from "./RefreshPass.module.sass";
 import Input from "../../../MyProfile/Input";
 import Button from "../../../MyProfile/Button";
 import ErrorPass from "../ErrorPass";
-// import PassInfo from "./PassInfo";
 
 const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass=false }) => {
 	const [password, setPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [showPass, setShowPass] = useState(false);
-	// const [showInfo, setShowInfo] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 	const [errors, setErrors] = useState({});
 	const [displayErrorPass, setDisplayErrorPass] = useState(false);

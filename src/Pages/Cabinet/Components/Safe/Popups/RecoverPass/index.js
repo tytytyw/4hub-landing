@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import PopUp from "../../../../../../generalComponents/PopUp";
-// import ErrorPopup from '../../../../../../generalComponents/Error'
 import styles from "./RecoverPass.module.sass";
 import Button from "../../../MyProfile/Button";
 import RefreshPass from "../RefreshPass";
 import Select from "../../../../../../generalComponents/Select/Select";
 import api from "../../../../../../api";
 
-
-const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setError, setLoadingType }) => {
-	const [sentCodeto, setSentCodeto] = useState("email");
+const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setLoadingType }) => {
     const uid = useSelector((state) => state.user.uid);
-    const [searchArea, setSearhArea] = useState([{text: 'Email', id:'email'}, {text: 'Телефон', id:'tel'}])
-    // const [showError, setShowError] = useState(false);
+    const userInfo = useSelector((state) => state.user.userInfo);
+    const [selectData, setSelectData] = useState([])
+    const [sentCodeto, setSentCodeto] = useState(selectData[0]);
+    useEffect(() => {
+        if (userInfo?.email) setSelectData(data => [...data, {text: 'Email', id:'email'}])
+        if (userInfo?.tel) setSelectData(data => [...data, {text: 'Телефон', id:'tel'}])
+    }, [userInfo])
 
     const recoverStage1 = () => {
 			setLoadingType("squarify");
@@ -26,8 +28,6 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
                     if (res.data.ok) {
                         setShowSendCode(true)
                         set({show: false, active: true})
-                    } else {
-                        // setShowError(true)
                     }
 				})
 				.catch((error) => console.log(error))
@@ -65,11 +65,11 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 
 								<div className={styles.inputWrap}>
                                     <Select
-                                        setSearhArea={setSearhArea}
-                                        data={searchArea}
+                                        setSelectData={setSelectData}
+                                        data={selectData}
                                         initValue={sentCodeto}
                                         onChange={value => setSentCodeto(value)}
-                                        placeholder={searchArea.filter(item => item.id === sentCodeto)[0].text}
+                                        placeholder={selectData[0]?.text}
                                     />
 								</div>
 							</div>

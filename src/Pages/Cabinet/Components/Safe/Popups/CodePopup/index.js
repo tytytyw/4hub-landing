@@ -16,8 +16,6 @@ import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetAction
 const CodePopup = ({
 	safe,
 	set,
-	// refreshPass,
-	// setRefreshPass,
 	setLoadingType,
 	filesPage,
 	successLoad,
@@ -82,7 +80,6 @@ const CodePopup = ({
 			.then((res) => {
 				if (res.data.ok) {
 					setShowSendCode(false);
-					// setRecoverPass({show: false, active: false})
 					setRefreshPass(true);
 				} else {
 					setError("code");
