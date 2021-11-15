@@ -28,6 +28,7 @@ import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import CreateFile from "../CreateFile";
 import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
+import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 
 const Safe = ({
 	menuItem,
@@ -84,6 +85,7 @@ const Safe = ({
 	useEffect(() => {
 		dispatch(onGetSafes());
 		setMenuItem("safe");
+		dispatch(onGetUserInfo());
 		return () => setMenuItem('')
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

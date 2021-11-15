@@ -7,8 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
 import CropImage from "./CropImage/CropImage";
 
-const UploadLogo = ({ nullifyAction, setCompanyLogo }) => {
-	const [blob, setBlob] = useState("");
+const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 	// const [response, setResponse] = useState('');
 	const [setError] = useState(false);
 	const [cropParams, setCropParams] = useState(null);
