@@ -12,7 +12,6 @@ import RefreshPass from "../RefreshPass";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
-import { action } from "commander";
 
 const CodePopup = ({
 	safe,
