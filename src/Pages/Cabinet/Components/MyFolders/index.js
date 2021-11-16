@@ -288,7 +288,7 @@ const MyFolders = ({
             />}
             {action.type === 'resendFolder' ? (
                 <ShareFolder
-                    folder={chosenSubFolder || chosenFolder}
+                    folder={chosenSubFolder || chosenFolder} // TODO - Needed to delete chosensubfolder after left list menu is changed
                     files={{}}
                     close={nullifyAction}
                     action_type={action.type}
