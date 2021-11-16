@@ -122,7 +122,8 @@ const Safe = ({
 
 	const callbackArrMain = [
 		{
-			type: "share",
+			targetType: "share",
+			type: "requestPassword",
 			name: "Предоставить доступ",
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
@@ -149,7 +150,8 @@ const Safe = ({
 
 	const additionalMenuItems = [
 		{
-			type: "deleteSafe",
+			targetType: "deleteSafe",
+			type: "requestPassword",
 			name: "Удаление сейфа",
 			text: `Вы действительно хотите удалить сейф ${selectedSafe?.name}?`,
 			callback: (list, index) => setAction(list[index]),
@@ -403,6 +405,15 @@ const Safe = ({
 			{createSafe && (
 				<CreateSafe onCreate={setCreateSafe} setLoadingType={setLoadingType} />
 			)}
+			{action.type === "requestPassword" ? (
+				<CodePopup
+					safe={selectedSafe}
+					set={nullifyAction}
+					setLoadingType={setLoadingType}
+					action={action}
+					setAction={setAction}
+				/>
+			) : null}
 			{action.type === "deleteSafe" ? (
 				<ActionApproval
 					name={action.name}

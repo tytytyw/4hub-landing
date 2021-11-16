@@ -12,6 +12,7 @@ import RefreshPass from "../RefreshPass";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
+import { action } from "commander";
 
 const CodePopup = ({
 	safe,
@@ -20,6 +21,8 @@ const CodePopup = ({
 	filesPage,
 	successLoad,
 	setShowSuccessMessage,
+	action,
+	setAction
 }) => {
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
@@ -88,7 +91,22 @@ const CodePopup = ({
 			.catch((error) => console.log(error))
 			.finally(() => setLoadingType(""));
 	};
+
+	const requestPassword = () => {
+		setLoadingType("squarify");
+		api
+			.get(
+				`/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}`
+			)
+			.then((res) => {
+				if (res.data.ok) setAction({...action, type: action.targetType})
+				else setError("password");
+			})
+			.catch((error) => console.log(error))
+			.finally(() => setLoadingType(""));
+	}
 	const onSubmit = () => {
+		if (action.type === 'requestPassword') return requestPassword()
 		if (!recoverPass.active) onGetSafeAccess(password, safe.id, code);
 		else {
 			recoverStage2();
