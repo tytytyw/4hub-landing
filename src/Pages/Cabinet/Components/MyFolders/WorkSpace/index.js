@@ -37,7 +37,7 @@ const WorkSpace = ({
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
        setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
-       setFilesPage, menuItem, setChosenFolder
+       setFilesPage, menuItem, setChosenFolder, openMenu
 }) => {
 
     const dispatch = useDispatch();
@@ -270,6 +270,7 @@ const WorkSpace = ({
                 gLoader={gLoader}
                 fileRef={fileRef}
                 width={width}
+                openMenu={openMenu}
             />
             {filePick.show ? <OptionButtomLine
                 callbackArrMain={callbackArrMain}

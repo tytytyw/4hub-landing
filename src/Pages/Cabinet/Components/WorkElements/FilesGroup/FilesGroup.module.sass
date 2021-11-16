@@ -14,7 +14,7 @@
 .collapseHeader
   cursor: pointer
   box-sizing: border-box
-  padding: 10px 10px 10px 17px
+  padding: 10px 17px 10px 17px
   display: flex
   align-items: center
   justify-content: flex-start
@@ -33,7 +33,18 @@
     max-width: 100%
     box-sizing: border-box
     padding: 0 0 16px 0
-
+.group
+  display: flex
+  align-items: center
+  white-space: nowrap
+  -webkit-column-gap: 25px
+  column-gap: 25px
+  box-sizing: border-box
+  position: relative
+  border-right: 1px solid #CFCFCF
+  padding: 0 25px 0 0
+  &:last-child
+    border-right: none
 .search
   position: relative
   width: 284px

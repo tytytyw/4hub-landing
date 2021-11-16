@@ -47,9 +47,10 @@ const MyFolders = ({
     const other = useSelector(state => state.Cabinet.other?.folders);
     const recentFolders = useSelector(state => state.Cabinet.recentFolders);
     const path = useSelector(state => state.Cabinet.folderList?.path);
+    const fileList = useSelector(state => state.Cabinet.fileList);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0});
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0, group: null, contextMenuFolder: null});
     const [chosenSubFolder, setChosenSubFolder] = useState(null);
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
@@ -98,6 +99,7 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
@@ -122,11 +124,23 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+
+    const openMenu = (e, folder) => {
+        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
+        setChosenFolder(state => ({...state, info: folder, contextMenuFolder: folder}))
+        if(folder) setNewFolderInfo(state =>({...state, path: folder.path}))
+    };
+
+    const closeContextMenu = () => {
+        setMouseParams(null);
+        setChosenFolder(state => ({...state, contextMenuFolder: null}));
+    }
 
     const renderMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -165,12 +179,12 @@ const MyFolders = ({
 
     const deleteFolder = () => {
         nullifyAction();
-        api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.subPath ? chosenFolder.subPath : chosenFolder.path}`)
+        api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onGetFolders());
-                dispatch(onChooseFiles('global/all', '', 1));
+                dispatch(onChooseFiles(fileList?.path, '', 1));
                 //TODO - Need to fix bug to disappear subfolder after deletion - React Component doesn't see changes
-                setChosenFolder({...chosenFolder, open: false});
+                setChosenFolder(state =>({...state, info: null}));
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
             }})
@@ -239,6 +253,7 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 menuItem={menuItem}
                 setChosenFolder={setChosenFolder}
+                openMenu={openMenu}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -273,7 +288,7 @@ const MyFolders = ({
             />}
             {action.type === 'resendFolder' ? (
                 <ShareFolder
-                    folder={chosenSubFolder || chosenFolder}
+                    folder={chosenSubFolder || chosenFolder} // TODO - Needed to delete chosensubfolder after left list menu is changed
                     files={{}}
                     close={nullifyAction}
                     action_type={action.type}
@@ -288,15 +303,15 @@ const MyFolders = ({
                 setLoadingType={setLoadingType}
             /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.subPath
+            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
+                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.contextMenuFolder?.path.split('/').length > 2
                     ? contextMenuSubFolder.main
-                    : chosenFolder.path.indexOf('global') >= 0
+                    : chosenFolder.contextMenuFolder?.path.indexOf('global') >= 0
                         ? contextMenuFolderGeneral.main
                         : contextMenuFolder.main,
-            chosenFolder.subPath
+            chosenFolder.contextMenuFolder?.path.split('/').length > 2
                     ? callbackArrSub
-                    : chosenFolder.path.indexOf('global') >= 0
+                    : chosenFolder.contextMenuFolder?.path.indexOf('global') >= 0
                         ? callbackArrMain
                         : callbackArrOther
                 )}</div>

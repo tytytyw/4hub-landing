@@ -12,7 +12,7 @@ import FileLineShort from "../FileLineShort";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
-      load, options, renderFiles, renderGroups,
+      load, options, renderFiles, renderGroups
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);

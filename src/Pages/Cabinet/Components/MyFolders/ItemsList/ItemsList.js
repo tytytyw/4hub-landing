@@ -11,7 +11,12 @@ import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
 import WorkLinesPreview from "../../WorkElements/WorkLinesPreview";
 import FileLineShort from "../../WorkElements/FileLineShort";
 import {useDispatch, useSelector} from "react-redux";
-import {onChooseFiles, onChooseFolder, onSetPath} from "../../../../../Store/actions/CabinetActions";
+import {
+    onChooseFiles,
+    onChooseFolder,
+    onSetNextFilesToPrevious,
+    onSetPath
+} from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../../WorkElements/FilesGroup/FilesGroup";
 import {periods} from "../../../../../generalComponents/collections";
@@ -19,7 +24,7 @@ import {periods} from "../../../../../generalComponents/collections";
 const ItemsList = ({
        setGLoader, setFilesPage, setChosenFolder, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
-       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width
+       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openMenu
 }) => {
 
     // const uid = useSelector(state => state?.user.uid);
@@ -41,6 +46,14 @@ const ItemsList = ({
         }
     }
 
+    //To render FilePath properly after fileNext is destroyed
+    const chooseItemNext = (item) => {
+        const f = {...item};
+        f.is_dir
+            ? dispatch(onSetNextFilesToPrevious(f.path, true))
+            : dispatch(onSetNextFilesToPrevious(f.gdir, false))
+    }
+
     // Types of Files view
     const renderFiles = (Type, files, params) => {
         if(!files) return null;
@@ -60,6 +73,8 @@ const ItemsList = ({
                 folderSelect={folderSelect}
                 setGLoader={setGLoader}
                 params={params}
+                chooseItemNext={chooseItemNext}
+                openMenu={openMenu}
             />
         });
     }
@@ -92,6 +107,8 @@ const ItemsList = ({
                 renderFiles={renderFiles}
                 //WorkLinesPreview
                 params={params}
+                //WorkBarsPreview
+                setChosenFolder={setChosenFolder}
             /> : null
         ))
     }
@@ -203,6 +220,10 @@ const ItemsList = ({
                 chosenFolder={chosenFolder}
                 gLoader={gLoader}
                 width={width}
+                grouped={!Array.isArray(fileList?.files)}
+                chosenFile={chosenFile}
+                load={load}
+                options={options}
             >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
 
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview

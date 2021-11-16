@@ -52,10 +52,12 @@ function ShareFolder({folder, close, action_type, setShowSuccessMessage}) {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
     },[dateValue, timeValue]) // eslint-disable-line react-hooks/exhaustive-deps
 
+    //TODO - Needed to fix share folders on left List; dir is undefined
     const onShareFolder = async (forAll, isRead) => { // "$GUEST$" to give access to every user that has a link
         const email = forAll ?? data.email;
         const is_read = isRead ?? data['is_read'];
-        const url = `/ajax/dir_access_add.php?uid=${data.uid}&dir=${data.dir}&email=${email}&is_read=${is_read}&prim=${data.prim}&deadline=${data.deadline}`;
+        const dir = folder?.info?.path;
+        const url = `/ajax/dir_access_add.php?uid=${data.uid}&dir=${dir}&email=${email}&is_read=${is_read}&prim=${data.prim}&deadline=${data.deadline}`;
         try {
             const res = await api.get(url);
             if(res.data.ok === 1) {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../WorkBars";
@@ -10,18 +10,26 @@ import FileLineShort from "../FileLineShort";
 
 function FilesGroup({
 	fileList, filePick, index, fileLoading, fileSelect,
-	filesPage, setFilesPage, title,
+	filesPage, setFilesPage, title, setChosenFolder,
 	fileRef, chosenFolder, gLoader, renderFiles, params = null
 }) {
 
 	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
 	const workElementsView = useSelector((state) => state.Cabinet.view);
+	const workBarsPreviewGroupRef = useRef(null);
 
+	const handleChangeGroup = () => {
+		setChosenFolder(state => ({...state, group: {title, amount: fileList?.length}}))
+	}
 
 	return (
 		<>
 			{workElementsView === "preview"
-				? <>{renderFiles(FileBar, fileList)}</>
+				? <div
+					className={styles.group}
+					ref={workBarsPreviewGroupRef}
+					onClick={handleChangeGroup}
+				>{renderFiles(FileBar, fileList)}</div>
 				: <div className={styles.fileWrap}>
 				{fileList.length > 0 && <div
 					onClick={() => {

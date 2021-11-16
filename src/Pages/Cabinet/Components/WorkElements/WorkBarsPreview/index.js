@@ -1,32 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {onChooseAllFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {getMedia, renderHeight} from "../../../../../generalComponents/generalHelpers";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
+import classNames from "classnames";
 
 const WorkBarsPreview = ({
-    children, file, filePick, fileRef,
-    gLoader, filesPage, setFilesPage, width = '100%'
+    children, file, filePick, fileRef, grouped, chosenFile, load, options,
+    gLoader, filesPage, chosenFolder, width = '100%'
 }) => {
-
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
-    const fileList = useSelector(state => state.Cabinet.fileList);
-    const fileListAll = useSelector(state => state.Cabinet.fileListAll);
-    const [loadingFiles, setLoadingFiles] = useState(false);
-    const dispatch = useDispatch();
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
+    const previewRef = useRef(null);
     const innerFilesHeight = () => {
         switch(size) {
             case 'small': return '106px';
@@ -54,42 +50,12 @@ const WorkBarsPreview = ({
     const audioRef = useRef(null);
     const [play, setPlay] = useState(false);
 
-    useEffect(() => {
-        setLoadingFiles(false);
-    }, [fileList?.path])
-
-    const onSuccessLoading = (result) => {
-        setTimeout(() => {
-            result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-            setLoadingFiles(false);
-        }, 50) // 50ms needed to prevent recursion of ls_json requests
-    }
-
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0
-    }
-
-    const load = (entry) => {
-        if(!gLoader) {
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/'){
-                setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-            }
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
-                setLoadingFiles(true);
-                dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
-            }
-        }
-    }
-
     const [containerRef] = useScrollElementOnScreen(options, load);
 
     const renderFilePreview = () => {
         switch (f.mime_type.split('/')[0]) {
             case 'image': {
-                return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
+                    return <img src={`${f.preview}?${new Date()}`} alt='filePrieview' />
             }
             case 'video': {
                 return <video controls src={video ? video : ''} type={f.mime_type} onError={e => console.log(e)}>
@@ -140,7 +106,27 @@ const WorkBarsPreview = ({
                     : '205px',
         }}
     >
-        <div className={styles.preview} style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}>
+        <div
+            className={`${styles.preview} ${grouped ? styles.groupedPreview : ''} ${chosenFile?.name ? '' : styles.noFile}`}
+            style={{height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)`}}
+            ref={previewRef}
+        >
+            {grouped ? <div
+                className={styles.collapseHeader}
+            >
+                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? 'Выберите группу'}</p>
+                <div className={styles.buttonsWrap}>
+                    <button className={`${styles.collapseBtn}`}>
+                        {chosenFolder.group?.amount ?? 0} объектов
+                    </button>
+                    <div
+                        className={classNames({
+                            [styles.arrowFile]: true,
+                        })}
+                    >
+                    </div>
+                </div>
+            </div> : null}
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
@@ -156,21 +142,23 @@ const WorkBarsPreview = ({
                 />
                 : f
                     ? f.is_preview === 1
-                        ? renderFilePreview()
-                        : <div><div className={styles.filePreviewWrap}>
+                        ? <div className={styles.innerPreview}>{renderFilePreview()}</div>
+                        : <div className={styles.innerNoPreview}><div className={styles.filePreviewWrap}>
                             {f?.is_dir
-                                ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                                ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el?.color === file?.color)[0]?.name}`} />
                                 : <File format={f?.ext} color={f?.color} />
                             }
                         </div></div>
                     : null}
         </div>
         
-        <div className={styles.renderedFiles}>
+        <div
+            className={styles.renderedFiles}
+            style={{width, maxWidth: width}}
+        >
             <div
                 ref={fileRef}
                 className={styles.innerFiles}
-                style={{width}}
             >
                 {!gLoader && children}
                 {!gLoader ? <div

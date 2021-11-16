@@ -16,7 +16,7 @@ import {moveFile} from "../../../../../generalComponents/generalHelpers";
 const FolderItem = ({
         folder, listCollapsed, newFolderInfo, setNewFolderInfo,
         setNewFolder, chosenFolder, setChosenFolder, chosen, setMouseParams,
-        setGLoader, setFilesPage, setError, setShowSuccessMessage
+        setGLoader, setFilesPage, setError, setShowSuccessMessage, openMenu
     }) => {
 
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -38,7 +38,7 @@ const FolderItem = ({
             setChosenFolder({...chosenFolder, path: folder.path, open: false, subPath: '', info: folder, files_amount: filesQuantity});
         }
         // if(folderList.path !== folder.path || chosenFolder.subPath) {
-        if(fileList.path !== folder.path) {
+        if(fileList?.path !== folder?.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
@@ -49,7 +49,7 @@ const FolderItem = ({
                     dispatch(onSetPath(folder.path));
                     const ev = e;
                     setTimeout(() => {
-                        if(ev.target.className === styles.menuWrap) openMenu(ev);
+                        if(ev.target.className === styles.menuWrap) openMenu(ev, folder);
                     }, 0)
                     dispatch(onChooseFiles(folder.path, '', 1, '', setGLoader));
                     setFilesPage(1)
@@ -74,6 +74,7 @@ const FolderItem = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
+                openMenu={openMenu}
             />
         })
     };
@@ -106,11 +107,6 @@ const FolderItem = ({
     useEffect(() => {
         if(folderList?.path === folder?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
-
-    const openMenu = (e) => {
-        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
-        setNewFolderInfo({...newFolderInfo, path: folder.path})
-    };
 
     const addFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: folder.path});
