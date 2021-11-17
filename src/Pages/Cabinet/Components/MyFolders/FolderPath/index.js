@@ -27,7 +27,7 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
             //TODO - require changes from backend
             const f = path.split("/").slice(1, i + 1).reduce((folders, path, index) => {
                 if(index === 0) return folders.filter(folder => folder.name === path)[0]
-                if(index === 1) return folders.folders.filter(folder => folder.name === path)[0]
+                if(index === 1 && path.includes('global')) return folders.folders.filter(folder => folder.name === path)[0]
                 return folders.folders.folders.filter(folder => folder.name === path)[0]
             }, [...globalFolders, ...otherFolders])
             setChosenFolder(state => ({...state, path: newPath, open: i === 2, subPath: '', info: f ?? null}))
