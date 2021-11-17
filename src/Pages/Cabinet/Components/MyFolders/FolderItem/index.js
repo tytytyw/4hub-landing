@@ -61,7 +61,8 @@ const FolderItem = ({
         if((!folderList || chosenFolder.path !== folder.path) && !chosenFolder.open) return null;
         return folderList.folders.map((f, i) => {
             return <CustomFolderItem
-                key={i}
+                key={i + f?.name}
+                index={i}
                 f={f}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}

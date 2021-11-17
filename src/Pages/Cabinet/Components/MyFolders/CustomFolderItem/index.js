@@ -25,6 +25,7 @@ const CustomFolderItem = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
     const file_amount_controller = useRef(null);
+    const [folderParams, setFolderParams] = useState({open: false})
 
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
@@ -51,22 +52,30 @@ const CustomFolderItem = ({
         if(folderList?.path === f?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
-    const openFolder = (e) => {
+    const openFolder = (e, currentPath) => {
         let boolean = false;
         e.target?.viewportElement 
             ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
             : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
+        console.log(boolean)
         if(boolean) {
-            f.path === chosenFolder.path ? setChosenFolder({...chosenFolder, path: f.path, open: !chosenFolder.open, subPath: '', info: f, files_amount: filesQuantity}) : setChosenFolder({...chosenFolder, path: f.path, open: true, subPath: '', info: f});
-        } else {
-            setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
+            setFolderParams(state => ({...state, open: !state.open}))
+            setChosenFolder(state => ({...state, info: f}))
+            // f.path === chosenFolder.path
+            //     ? setChosenFolder({...chosenFolder, path: f.path, subPath: '', info: f, files_amount: filesQuantity})
+            //     : setChosenFolder({...chosenFolder, path: f.path, subPath: '', info: f});
         }
+        // else {
+        //     setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
+        // }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
     const renderInnerFolders = () => {
-        if((!folderList || chosenFolder.path !== f.path) && !chosenFolder.open) return null;
-        return folderList.folders.map((f, i) => {
+        const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
+        if(currentPath !== f.path || !folderParams.open) return null;
+        const folders = f.folders.folders;
+        return folders.map((f, i) => {
             return <CustomFolderItem
                 key={i}
                 f={f}
@@ -74,7 +83,7 @@ const CustomFolderItem = ({
                 chosenFolder={chosenFolder}
                 listCollapsed={listCollapsed}
                 padding={'0 15px 0 50px'}
-                chosen={f.path === chosenFolder.subPath}
+                chosen={fileList?.path.includes(f.path)}
                 subFolder={true}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
@@ -87,12 +96,14 @@ const CustomFolderItem = ({
     };
 
     const clickHandle = async (e) => {
-        if (fileList.path !== f.path) {
+        const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
+        openFolder(e, currentPath);
+
+        if (!fileList?.path.includes(f.path)) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
             await cancel.then(() => {
-                subFolder ? setChosenFolder({...chosenFolder, subPath: f.path, files_amount: filesQuantity}) : openFolder(e);
                 setGLoader(true);
                 dispatch(onSetPath(f.path));
                 const ev = e;
@@ -102,10 +113,9 @@ const CustomFolderItem = ({
                 dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
                 setFilesPage(1)
             })
-        } else setChosenFolder({...chosenFolder, open: !chosenFolder.open})
-    } 
+        }
+    }
 
-    // const menuClick = (e) => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
 
     const handleAddFolder = () => {
         setNewFolderInfo({...newFolderInfo, path: f.path});
@@ -141,9 +151,9 @@ const CustomFolderItem = ({
                 <div className={styles.innerFolderMedia}>
                     {!listCollapsed && f.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
-                    {!subFolder ? <PlayIcon
-                        className={`${styles.playButton} ${f.path === chosenFolder.path && chosenFolder.open ? styles.revert : undefined}`}
-                    /> : null}
+                    <PlayIcon
+                        className={`${styles.playButton} ${f.path === chosenFolder.path && folderParams.open ? styles.revert : undefined}`}
+                    />
                     <div
                         className={styles.menuWrap}
                         onClick={openMenu}
@@ -151,12 +161,12 @@ const CustomFolderItem = ({
                 </div>
             </div>
         </div>
-        {!subFolder && <div
+        <div
             style={{
-                height: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`,
-                minHeight: `${f.path === chosenFolder.path && chosenFolder.open ? (f.folders.folders.length * 50 + 50) : 0}px`
+                height: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
+                minHeight: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`
             }}
-            className={`${styles.innerFolders} ${f.path === chosenFolder.path && chosenFolder.open ? undefined : styles.hidden}`}
+            className={`${styles.innerFolders} ${fileList?.path.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
         ><div
                 className={styles.addFolderToFolder}
                 onClick={handleAddFolder}
@@ -167,8 +177,8 @@ const CustomFolderItem = ({
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
             </div>
-            {folderList ? renderInnerFolders() : null}
-        </div>}
+            {renderInnerFolders()}
+        </div>
     </>)
 }
 
