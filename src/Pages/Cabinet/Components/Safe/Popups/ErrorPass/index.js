@@ -14,7 +14,7 @@ const ErrorPass = ({setError, set, mistake}) => {
     }
 
     return (
-        <PopUp setError={setError}>
+        <PopUp set={set} setError={setError}>
 
             <div className={styles.wrapper}>
 

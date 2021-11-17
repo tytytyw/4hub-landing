@@ -95,17 +95,17 @@ const CodePopup = ({
 		setLoadingType("squarify");
 		api
 			.get(
-				`/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}`
+				`/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}&verify_only=1`
 			)
 			.then((res) => {
-				if (res.data.ok) setAction({...action, type: action.targetType})
+				if (res.data.f_pass === 1) setAction({...action, type: action.targetType})
 				else setError("password");
 			})
 			.catch((error) => console.log(error))
 			.finally(() => setLoadingType(""));
 	}
 	const onSubmit = () => {
-		if (action.type === 'requestPassword') return requestPassword()
+		if (action?.type === 'requestPassword') return requestPassword()
 		if (!recoverPass.active) onGetSafeAccess(password, safe.id, code);
 		else {
 			recoverStage2();
