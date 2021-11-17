@@ -6,7 +6,6 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 // import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
 import CropImage from "./CropImage/CropImage";
-import { style } from "dom-helpers";
 import classNames from "classnames";
 
 const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
