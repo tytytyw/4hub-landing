@@ -22,10 +22,10 @@ const ChatBoard = ({inputRef, setCursorPosition}) => {
     return (
         <div className={styles.chatBoardWrap}>
             <header className={styles.chatBoardHeader}>
-                {contactList ? <div className={styles.groupName}>
+                {contactList?.length > 0 ? <div className={styles.groupName}>
                     <img src={contactList?.[0]?.icon?.[0]} alt="img" className={styles.avatar} />
                     <div className={styles.info}>
-                        <div className={styles.name}>{`${contactList[0].sname} ${contactList?.[0]?.name}`}</div>
+                        <div className={styles.name}>{`${contactList?.[0]?.sname} ${contactList?.[0]?.name}`}</div>
                         <div className={styles.status}>в сети 29 мин. назад</div>
                     </div>
                 </div> : null}
