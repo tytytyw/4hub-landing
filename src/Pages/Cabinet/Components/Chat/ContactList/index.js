@@ -17,9 +17,9 @@ const ContactList = () => {
         contactList.map((contact, i) => (
             <div className={styles.item} key={i}>
                 <div className={styles.groupName}>
-                    <img src={contact.icon[0]} alt="img" className={styles.avatar} />
+                    <img src={contact?.icon?.[0]} alt="img" className={styles.avatar} />
                     <div className={styles.info}>
-                        <div className={styles.name}>{`${contact.sname} ${contact.name}`}</div>
+                        <div className={styles.name}>{`${contact?.sname} ${contact?.name}`}</div>
                         <div className={styles.status}>в сети 29 мин. назад</div>
                     </div>
                 </div>
