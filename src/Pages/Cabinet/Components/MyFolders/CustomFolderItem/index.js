@@ -13,7 +13,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {moveFile} from "../../../../../generalComponents/generalHelpers";
 
 const CustomFolderItem = ({
-      f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setError,
+      f, setChosenFolder, chosenFolder, listCollapsed, p = 25, chosen, subFolder, setError,
       setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
       setShowSuccessMessage, openMenu
 }) => {
@@ -25,7 +25,12 @@ const CustomFolderItem = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const dispatch = useDispatch();
     const file_amount_controller = useRef(null);
-    const [folderParams, setFolderParams] = useState({open: false})
+    const [folderParams, setFolderParams] = useState({
+        open: false,
+        isGlobal: f.path.split('/').length === 2 && f.path.includes('global')
+    });
+    // const wrapRef = useRef(null);
+    // const previousPath = useRef('');
 
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
@@ -52,37 +57,40 @@ const CustomFolderItem = ({
         if(folderList?.path === f?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
+    useEffect(() => {
+        setTimeout(() => {
+            if(fileList?.path === f?.path) {
+                console.log(310 + (folderParams.open ? p * (f.path.split("/").length) : 0))
+                const folderWidth = 310 + (folderParams.open ? p * (f.path.split("/").length - 1) : 0);
+                setChosenFolder(state => ({...state, folderWidth}));
+            }
+        }, 0)
+    }, [folderParams.open]); // eslint-disable-line
+
     const openFolder = (e, currentPath) => {
         let boolean = false;
         e.target?.viewportElement 
             ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
             : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
-        console.log(boolean)
         if(boolean) {
             setFolderParams(state => ({...state, open: !state.open}))
             setChosenFolder(state => ({...state, info: f}))
-            // f.path === chosenFolder.path
-            //     ? setChosenFolder({...chosenFolder, path: f.path, subPath: '', info: f, files_amount: filesQuantity})
-            //     : setChosenFolder({...chosenFolder, path: f.path, subPath: '', info: f});
         }
-        // else {
-        //     setChosenFolder({...chosenFolder, path: f.path, open: false, subPath: '', info: f, files_amount: filesQuantity});
-        // }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
     const renderInnerFolders = () => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
         if(currentPath !== f.path || !folderParams.open) return null;
-        const folders = f.folders.folders;
-        return folders.map((f, i) => {
+        const folders = () => f.path.split('/').length === 2 && folderParams.isGlobal ? f.folders : f.folders.folders;
+        return folders().map((f, i) => {
             return <CustomFolderItem
                 key={i}
                 f={f}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 listCollapsed={listCollapsed}
-                padding={'0 15px 0 50px'}
+                // padding={padding}
                 chosen={fileList?.path.includes(f.path)}
                 subFolder={true}
                 setMouseParams={setMouseParams}
@@ -91,6 +99,8 @@ const CustomFolderItem = ({
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
                 openMenu={openMenu}
+                setNewFolderInfo={setNewFolderInfo}
+                setNewFolder={setNewFolder}
             />
         })
     };
@@ -99,7 +109,7 @@ const CustomFolderItem = ({
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
         openFolder(e, currentPath);
 
-        if (!fileList?.path.includes(f.path)) {
+        if (!fileList?.path !== f.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
@@ -132,19 +142,34 @@ const CustomFolderItem = ({
                 }
             })
     }
-
     return (<>
         <div
-            className={`${styles.innerFolderWrap} ${f.path === chosenFolder.path || f.path === chosenFolder.subPath ? styles.chosenSubFolderWrap : undefined}`}
+            className={`${styles.innerFolderWrap} ${fileList?.path.includes(f.path) ? styles.chosenSubFolderWrap : undefined}`}
             onClick={clickHandle}
             onDrop={handleDrop}
+            style={{
+                width: chosenFolder.folderWidth,
+                minWidth: chosenFolder.folderWidth
+            }}
         >
-            <div className={styles.innerFolder} style={{padding}}>
+            <div
+                className={styles.innerFolder}
+                style={{padding: `0 15px 0 ${p * (f.path.split("/").length - 1) ?? 0}px`}}
+            >
                 <div className={styles.innerFolderName}>
-                    <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
+                    {folderParams.isGlobal
+                        ? <img
+                            src={`${imageSrc}assets/PrivateCabinet/${f.name}.svg`}
+                            alt='icon'
+                            className={styles.innerFolderIcon}
+                            // className={styles.icon}
+                        />
+                        : <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
+
+                    }
                     {f.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='emoji' />}
                     {!listCollapsed && <div className={styles.nameWrap}>
-                        <div className={styles.Name}><div className={styles.name}>{f.name}</div><span>({filesQuantity})</span></div>
+                        <div className={styles.Name}><div className={styles.name}>{folderParams.isGlobal ? f?.nameRu : f?.name}</div><span>({filesQuantity})</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
                     </div>}
                 </div>
@@ -152,11 +177,10 @@ const CustomFolderItem = ({
                     {!listCollapsed && f.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
                     <PlayIcon
-                        className={`${styles.playButton} ${f.path === chosenFolder.path && folderParams.open ? styles.revert : undefined}`}
+                        className={`${styles.playButton} ${fileList?.path.includes(f.path) && folderParams.open ? styles.revert : undefined}`}
                     />
                     <div
                         className={styles.menuWrap}
-                        onClick={openMenu}
                     ><span className={styles.menu} /></div>
                 </div>
             </div>
@@ -169,6 +193,11 @@ const CustomFolderItem = ({
             className={`${styles.innerFolders} ${fileList?.path.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
         ><div
                 className={styles.addFolderToFolder}
+                style={{
+                    padding: `0 15px 0 ${p * (f.path.split("/").length) ?? 0}px`,
+                    width: chosenFolder.folderWidth,
+                    minWidth: chosenFolder.folderWidth
+                }}
                 onClick={handleAddFolder}
             >
                 <div className={styles.addFolderName}>

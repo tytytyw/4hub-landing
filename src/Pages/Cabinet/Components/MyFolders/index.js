@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './MyFolders.module.sass';
 import List from '../List';
-import FolderItem from './FolderItem';
 import WorkSpace from './WorkSpace';
 import CreateFolder from '../CreateFolder';
 import CustomizeFolder from '../ContextMenuComponents/ContextMenuFolder/CustomizeFolder';
@@ -50,8 +49,8 @@ const MyFolders = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0, group: null, contextMenuFolder: null});
-    const [chosenSubFolder, setChosenSubFolder] = useState(null);
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0, group: null, contextMenuFolder: null, folderWidth: 310});
+    const [chosenSubFolder, ] = useState(null);
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
     const [chosenFile, setChosenFile] = useState(null);
@@ -81,32 +80,9 @@ const MyFolders = ({
         return () => setMenuItem('')
     }, []); //eslint-disable-line
 
-    const renderStandardFolderList = () => {
-        if(!global) return null;
-        return global.map((el, i) => {
-            return <FolderItem
-                key={i + el.name}
-                folder={el}
-                listCollapsed={listCollapsed}
-                setNewFolderInfo={setNewFolderInfo}
-                newFolderInfo={newFolderInfo}
-                setNewFolder={setNewFolder}
-                setChosenFolder={setChosenFolder}
-                chosenFolder={chosenFolder}
-                chosen={chosenFolder.path === el.path}
-                setMouseParams={setMouseParams}
-                setGLoader={setGLoader}
-                setFilesPage={setFilesPage}
-                setError={setError}
-                setShowSuccessMessage={setShowSuccessMessage}
-                openMenu={openMenu}
-            />
-        })
-    };
-
-    const renderOtherFolderList = () => {
+    const renderOtherFolderList = (root) => {
         if(!other) return null;
-        return other.map((folder, i) => {
+        return root.map((folder, i) => {
             return <CustomFolderItem
                 key={i + folder.name}
                 f={folder}
@@ -117,7 +93,7 @@ const MyFolders = ({
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === folder.path}
-                padding={'0px 10px 0px 26px'}
+                p={25}
                 subFolder={false}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
@@ -191,17 +167,6 @@ const MyFolders = ({
             .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
     };
 
-    useEffect(() => {
-        if (chosenFolder.subPath) {
-            const globalFolder = chosenFolder.path.includes('global');
-            setChosenSubFolder({info: globalFolder
-                ? chosenFolder.info?.folders?.filter(f => f.path === chosenFolder.subPath)[0]
-                : chosenFolder.info?.folders?.folders?.filter(f => f.path === chosenFolder.subPath)[0]
-            })
-        } else setChosenSubFolder(null)
-        return () => setChosenSubFolder(null)
-    }, [chosenFolder.subPath]) //eslint-disable-line        
-
     return (
         <div className={styles.workAreaWrap}>
             <List
@@ -212,8 +177,8 @@ const MyFolders = ({
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
                 <div className={styles.folderListWrap}>
-                    {renderStandardFolderList()}
-                    {renderOtherFolderList()}
+                    {renderOtherFolderList(global)}
+                    {renderOtherFolderList(other)}
                     {recentFolders?.length > 0 && <RecentFolders
                         listCollapsed={listCollapsed}
                         setListCollapsed={setListCollapsed}

@@ -1,18 +1,18 @@
 .innerFolders
   display: flex
   flex-direction: column
-  width: 100%
+  width: max-content
+  min-width: max-content
   min-height: max-content
   opacity: 1
   border-bottom: 1px solid grey
-  transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
+  //transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
   .addFolderToFolder
     display: flex
     align-items: center
     justify-content: space-between
     box-sizing: border-box
-    padding: 0 15px 0 30px
-    width: 100%
+    //padding: 0 10px 0 30px
     height: 50px
     font-size: 12px
     border-bottom: 1px solid grey
@@ -33,13 +33,17 @@
   display: flex
   flex-direction: column
   width: 100%
+  min-width: 100%
   .innerFolder
     display: flex
     align-items: center
     justify-content: space-between
     box-sizing: border-box
+    padding: 0 0 0 20px
     width: 100%
+    min-width: 100%
     height: 50px
+    min-width: max-content
     font-size: 12px
     cursor: pointer
     .innerFolderName
@@ -47,6 +51,8 @@
       align-items: center
       position: relative
       height: 100%
+      //margin: 0 100px 0 0
+      .icon
       .innerFolderIcon
         margin: 0 10px 0 0
       .lock
@@ -106,6 +112,9 @@
       .revert
         transform: rotateZ(90deg)
 .chosenSubFolderWrap
+  //position: relative
+  min-width: max-content
+  //border: 1px solid red
   background: rgba(71, 125, 225, 0.1)
 .menuWrap
   display: flex
@@ -142,3 +151,8 @@
   min-height: 0
   width: 0
   transition: height 0.2s ease-in-out, width 0.2s ease-in-out, opacity 0.2s ease-in-out
+.root
+.notRoot
+  box-sizing: border-box
+  padding: 0 0 0 10px
+  border-bottom: none
