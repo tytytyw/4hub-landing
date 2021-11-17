@@ -6,10 +6,11 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 // import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
 import CropImage from "./CropImage/CropImage";
+import classNames from "classnames";
 
 const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 	// const [response, setResponse] = useState('');
-	const [setError] = useState(false);
+	const [error, setError] = useState(false);
 	const [cropParams, setCropParams] = useState(null);
 	const [picParams, setPicParams] = useState(null);
 
@@ -31,12 +32,13 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 			//         setError(true);
 			//     })
 		} else {
-			setError(true);
+			// setError(true);
 		}
 	};
 
 
 	const createNewImage = () => {
+		if (!blob) return false;
 		const canvas = document.querySelector("#canvas");
 		const context = canvas.getContext("2d");
 		canvas.width = cropParams.offsetWidth;
@@ -64,17 +66,30 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 		nullifyAction();
 	};
 
+	const onAddFile = (e) => {
+		const validateFile = file => {
+			return file.size < 5252000 && file.type.includes('image/')
+		}
+		if(validateFile(e.target.files[0])) {
+			setError(false)
+			setBlob(e.target.files[0])
+		} else {
+			setBlob(null)
+			setError(true)
+		}
+	}
+
 	return (
 		<PopUp set={nullifyAction}>
 			<div className={styles.wrapper}>
 				<span className={styles.cross} onClick={nullifyAction} />
 				<p className={styles.title}>Логотип компании</p>
-				<form className={styles.sendFile}>
+				<form onClick={() => setError(false)} className={styles.sendFile}>
 					<div className={styles.uploadWrap}>
 						<input
 							type="file"
 							className={styles.inputFile}
-							onChange={(e) => setBlob(e.target.files[0])}
+							onChange={onAddFile}
 							accept=".png,.jpeg,.jpg"
 							draggable={false}
 						/>
@@ -87,6 +102,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 							</span>
 						</span>
 					</div>
+					{error ? <p className={styles.fileError}> необходимо загрузить изображение менее 5мб</p> : null}
 				</form>
 
 				{blob && (
@@ -102,7 +118,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 					<div className={styles.cancel} onClick={nullifyAction}>
 						Отмена
 					</div>
-					<div className={styles.action} onClick={createNewImage}>
+					<div className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})} onClick={createNewImage}>
 						Сохранить
 					</div>
 				</div>

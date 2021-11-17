@@ -56,6 +56,13 @@
                 top: 0
                 opacity: 0
                 cursor: pointer
+        .fileError
+            font-size: 10px
+            color: red
+            text-align: center
+            margin: 0
+            position: absolute
+            width: 100%
 
     .buttonsWrap
         display: flex
@@ -84,3 +91,11 @@
             color: white
         .action:hover
             background: #3b6dcb
+        .action.disableBtn
+            opacity: 0.5
+            color: grey
+            background: #e3e3e3
+            border: none
+            cursor: default
+            &:hover
+                background: #e3e3e3 
