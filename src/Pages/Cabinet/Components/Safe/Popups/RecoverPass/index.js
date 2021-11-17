@@ -11,11 +11,14 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
     const uid = useSelector((state) => state.user.uid);
     const userInfo = useSelector((state) => state.user.userInfo);
     const [selectData, setSelectData] = useState([])
-    const [sentCodeto, setSentCodeto] = useState(selectData[0]);
+    const [sentCodeto, setSentCodeto] = useState(selectData[0]?.id);
     useEffect(() => {
         if (userInfo?.email) setSelectData(data => [...data, {text: 'Email', id:'email'}])
         if (userInfo?.tel) setSelectData(data => [...data, {text: 'Телефон', id:'tel'}])
     }, [userInfo])
+	useEffect(() => {
+		setSentCodeto(selectData[0]?.id)
+    }, [selectData])
 
     const recoverStage1 = () => {
 			setLoadingType("squarify");
