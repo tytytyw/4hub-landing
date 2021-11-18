@@ -11,7 +11,7 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
     const filesNextPath = useSelector(state => state.Cabinet.fileList?.filesNext?.path)
     const folderList = useSelector(state => state.Cabinet?.folderList)
     const globalFolders = useSelector(state => state.Cabinet?.global)
-    const otherFolders = useSelector(state => state.Cabinet?.other?.folders)
+    const otherFolders = useSelector(state => state.Cabinet?.other)
     const dispatch = useDispatch()
 
     const filterEl = (el) => {
@@ -24,11 +24,10 @@ const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
     const chooseFolder = (i) => {
         const newPath = path.split("/").slice(0, i + 1).join("/");
         if(newPath !== path) {
-            //TODO - require changes from backend
             const f = path.split("/").slice(1, i + 1).reduce((folders, path, index) => {
-                if(index === 0) return folders.filter(folder => folder.name === path)[0]
-                if(index === 1 && path.includes('global')) return folders.folders.filter(folder => folder.name === path)[0]
-                return folders.folders.folders.filter(folder => folder.name === path)[0]
+                return index === 0
+                    ? folders.filter(folder => folder.name === path)[0]
+                    : folders.folders.filter(folder => folder.name === path)[0]
             }, [...globalFolders, ...otherFolders])
             setChosenFolder(state => ({...state, path: newPath, open: i === 2, subPath: '', info: f ?? null}))
             if(newPath.split("/").length === 2 && newPath === folderList?.path) {
