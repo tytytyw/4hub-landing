@@ -29,8 +29,6 @@ const CustomFolderItem = ({
         open: false,
         isGlobal: f.path.split('/').length === 2 && f.path.includes('global')
     });
-    // const wrapRef = useRef(null);
-    // const previousPath = useRef('');
 
     const getQuantity = () => {
         api.post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
@@ -60,7 +58,6 @@ const CustomFolderItem = ({
     useEffect(() => {
         setTimeout(() => {
             if(fileList?.path === f?.path) {
-                console.log(310 + (folderParams.open ? p * (f.path.split("/").length) : 0))
                 const folderWidth = 310 + (folderParams.open ? p * (f.path.split("/").length - 1) : 0);
                 setChosenFolder(state => ({...state, folderWidth}));
             }
@@ -82,15 +79,13 @@ const CustomFolderItem = ({
     const renderInnerFolders = () => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
         if(currentPath !== f.path || !folderParams.open) return null;
-        const folders = () => f.path.split('/').length === 2 && folderParams.isGlobal ? f.folders : f.folders.folders;
-        return folders().map((f, i) => {
+        return f.folders.map((f, i) => {
             return <CustomFolderItem
                 key={i}
                 f={f}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 listCollapsed={listCollapsed}
-                // padding={padding}
                 chosen={fileList?.path.includes(f.path)}
                 subFolder={true}
                 setMouseParams={setMouseParams}
@@ -162,7 +157,6 @@ const CustomFolderItem = ({
                             src={`${imageSrc}assets/PrivateCabinet/${f.name}.svg`}
                             alt='icon'
                             className={styles.innerFolderIcon}
-                            // className={styles.icon}
                         />
                         : <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
 

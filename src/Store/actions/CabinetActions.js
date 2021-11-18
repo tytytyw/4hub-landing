@@ -72,9 +72,7 @@ export const onGetFolders = (path) => async (dispatch, getState) => {
                         name: el.name,
                         nameRu: el.nameRu,
                         path: el.path,
-                        folders: res.data.global[el.name].folders,
-                        files: res.data.global[el.name].files,
-                        files_count: res.data.global[el.name].files_count
+                        folders: res.data.global[el.name],
                     }
                 });
             }

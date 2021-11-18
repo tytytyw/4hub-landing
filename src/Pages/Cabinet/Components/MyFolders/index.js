@@ -43,7 +43,7 @@ const MyFolders = ({
 
     const uid = useSelector(state => state.user.uid);
     const global = useSelector(state => state.Cabinet.global);
-    const other = useSelector(state => state.Cabinet.other?.folders);
+    const other = useSelector(state => state.Cabinet.other);
     const recentFolders = useSelector(state => state.Cabinet.recentFolders);
     const path = useSelector(state => state.Cabinet.folderList?.path);
     const fileList = useSelector(state => state.Cabinet.fileList);
@@ -81,7 +81,7 @@ const MyFolders = ({
     }, []); //eslint-disable-line
 
     const renderOtherFolderList = (root) => {
-        if(!other) return null;
+        if(!Array.isArray(root)) return null;
         return root.map((folder, i) => {
             return <CustomFolderItem
                 key={i + folder.name}
