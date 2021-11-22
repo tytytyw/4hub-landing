@@ -143,7 +143,10 @@ const CustomFolderItem = ({
         >
             <div
                 className={styles.innerFolder}
-                style={{padding: `0 15px 0 ${p * (f.path.split("/").length - 1) ?? 0}px`}}
+                style={{
+                    padding: `0 15px 0 ${p * (f.path.split("/").length - 1) ?? 0}px`,
+                    maxWidth: chosenFolder.folderWidth
+                }}
             >
                 <div className={styles.innerFolderName}>
                     {folderParams.isGlobal

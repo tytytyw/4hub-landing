@@ -177,22 +177,17 @@ const MyFolders = ({
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
                 <div className={styles.folderListWrap}>
-                    <div className={styles.topScroll}>
-                        <div className={styles.fakeScroll} />
-                    </div>
-                    <div className={styles.innerFolderListWrap}>
-                        {renderFolderList(global)}
-                        {renderFolderList(other)}
-                        {recentFolders?.length > 0 && <RecentFolders
-                            listCollapsed={listCollapsed}
-                            setListCollapsed={setListCollapsed}
-                            chosen={chosenFolder.path === 'recent'}
-                            chosenFolder={chosenFolder}
-                            setChosenFolder={setChosenFolder}
-                            setMouseParams={setMouseParams}
-                            setGLoader={setGLoader}
-                        />}
-                    </div>
+                    {renderFolderList(global)}
+                    {renderFolderList(other)}
+                    {recentFolders?.length > 0 && <RecentFolders
+                        listCollapsed={listCollapsed}
+                        setListCollapsed={setListCollapsed}
+                        chosen={chosenFolder.path === 'recent'}
+                        chosenFolder={chosenFolder}
+                        setChosenFolder={setChosenFolder}
+                        setMouseParams={setMouseParams}
+                        setGLoader={setGLoader}
+                    />}
                 </div>
             </List>
             <WorkSpace
