@@ -80,7 +80,7 @@ const MyFolders = ({
         return () => setMenuItem('')
     }, []); //eslint-disable-line
 
-    const renderOtherFolderList = (root) => {
+    const renderFolderList = (root) => {
         if(!Array.isArray(root)) return null;
         return root.map((folder, i) => {
             return <CustomFolderItem
@@ -177,17 +177,19 @@ const MyFolders = ({
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
                 <div className={styles.folderListWrap}>
-                    {renderOtherFolderList(global)}
-                    {renderOtherFolderList(other)}
-                    {recentFolders?.length > 0 && <RecentFolders
-                        listCollapsed={listCollapsed}
-                        setListCollapsed={setListCollapsed}
-                        chosen={chosenFolder.path === 'recent'}
-                        chosenFolder={chosenFolder}
-                        setChosenFolder={setChosenFolder}
-                        setMouseParams={setMouseParams}
-                        setGLoader={setGLoader}
-                    />}
+                    <div className={styles.innerFolderListWrap}>
+                        {renderFolderList(global)}
+                        {renderFolderList(other)}
+                        {recentFolders?.length > 0 && <RecentFolders
+                            listCollapsed={listCollapsed}
+                            setListCollapsed={setListCollapsed}
+                            chosen={chosenFolder.path === 'recent'}
+                            chosenFolder={chosenFolder}
+                            setChosenFolder={setChosenFolder}
+                            setMouseParams={setMouseParams}
+                            setGLoader={setGLoader}
+                        />}
+                    </div>
                 </div>
             </List>
             <WorkSpace
