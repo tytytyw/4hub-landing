@@ -177,6 +177,9 @@ const MyFolders = ({
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
                 <div className={styles.folderListWrap}>
+                    <div className={styles.topScroll}>
+                        <div className={styles.fakeScroll} />
+                    </div>
                     <div className={styles.innerFolderListWrap}>
                         {renderFolderList(global)}
                         {renderFolderList(other)}
