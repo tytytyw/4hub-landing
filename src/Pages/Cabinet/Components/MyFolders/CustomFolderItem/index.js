@@ -175,7 +175,8 @@ const CustomFolderItem = ({
         <div
             style={{
                 height: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
-                minHeight: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`
+                minHeight: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
+                maxWidth: chosenFolder.folderWidth
             }}
             className={`${styles.innerFolders} ${fileList?.path.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
         ><div
