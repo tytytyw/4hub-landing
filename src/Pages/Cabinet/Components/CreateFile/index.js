@@ -5,7 +5,7 @@ import styles from './CreateFile.module.sass';
 import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
-import Select from './Select/Select';
+import Select from '../../../../generalComponents/SelectFolder/Select';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';

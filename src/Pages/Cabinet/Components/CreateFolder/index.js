@@ -14,7 +14,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import Select from "../CreateFile/Select/Select";
+import Select from "../../../../generalComponents/SelectFolder/Select";
 
 const CreateFolder = ({
     onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {},

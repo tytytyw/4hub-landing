@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import styles from './Select.module.sass'
 import classNames from 'classnames'
-import FolderItem from '../FolderItem';
-import CustomFolderItem from '../CustomFolderItem';
+import FolderItem from '../../Pages/Cabinet/Components/CreateFile/FolderItem';
+import CustomFolderItem from '../../Pages/Cabinet/Components/CreateFile/CustomFolderItem';
 
 const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
 
