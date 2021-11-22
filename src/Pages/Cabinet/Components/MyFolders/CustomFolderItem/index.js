@@ -15,7 +15,7 @@ import {moveFile} from "../../../../../generalComponents/generalHelpers";
 const CustomFolderItem = ({
       f, setChosenFolder, chosenFolder, listCollapsed, p = 25, chosen, subFolder, setError,
       setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
-      setShowSuccessMessage, openMenu
+      setShowSuccessMessage, openMenu, isRecent
 }) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
@@ -95,7 +95,7 @@ const CustomFolderItem = ({
 
     const clickHandle = async (e) => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
-        openFolder(e, currentPath);
+        if(!isRecent) openFolder(e, currentPath);
 
         if (!fileList?.path !== f.path) {
             const cancel = new Promise(resolve => {
@@ -144,7 +144,7 @@ const CustomFolderItem = ({
             <div
                 className={styles.innerFolder}
                 style={{
-                    padding: `0 15px 0 ${p * (f.path.split("/").length - 1) ?? 0}px`,
+                    padding: `0 15px 0 ${isRecent ? p : p * (f.path.split("/").length - 1) ?? 0}px`,
                     maxWidth: chosenFolder.folderWidth
                 }}
             >
@@ -167,9 +167,9 @@ const CustomFolderItem = ({
                 <div className={styles.innerFolderMedia}>
                     {!listCollapsed && f.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
-                    <PlayIcon
+                    {!isRecent ? <PlayIcon
                         className={`${styles.playButton} ${fileList?.path.includes(f.path) && folderParams.open ? styles.revert : undefined}`}
-                    />
+                    /> : null}
                     <div
                         className={styles.menuWrap}
                     ><span className={styles.menu} /></div>

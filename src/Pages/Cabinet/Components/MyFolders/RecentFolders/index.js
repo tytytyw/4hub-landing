@@ -4,29 +4,11 @@ import {onChooseFiles} from '../../../../../Store/actions/CabinetActions';
 
 import styles from './RecentFolders.module.sass';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
-import CustomFolderItem from "../CustomFolderItem";
 
-const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams, setGLoader}) => {
+const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, renderFolderList}) => {
 
     const recentFolders = useSelector(state => state.Cabinet.recentFolders);
     const dispatch = useDispatch();
-
-    const renderInnerFolders = () => {
-      return recentFolders.map((folder, i) => {
-          return <CustomFolderItem
-              key={i}
-              f={folder}
-              setChosenFolder={setChosenFolder}
-              chosenFolder={chosenFolder}
-              listCollapsed={listCollapsed}
-              padding={'0 15px 0 50px'}
-              chosen={folder.path === chosenFolder.subPath}
-              subFolder={true}
-              setMouseParams={setMouseParams}
-              setGLoader={setGLoader}
-          />
-      })
-    };
 
     return (
         <div className={styles.wrapper}>
@@ -48,7 +30,7 @@ const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, se
             }}
                  className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}
             >
-                {renderInnerFolders()}
+                {renderFolderList(recentFolders, true)}
             </div>
         </div>
     )

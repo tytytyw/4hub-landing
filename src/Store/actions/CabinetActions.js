@@ -236,7 +236,7 @@ export const onAddRecentFolders = () => async (dispatch, getState) => {
             const newFolders = res.data.map(folder => {
                 if(folder.path.split('/')[0] === 'global' && folder.path.split('/').length === 2) {
                     const newFolder = folder;
-                    folders.forEach(f => f.path === folder.path ? newFolder.name = f.nameRu : undefined);
+                    folders.forEach(f => f.path === folder.path ? newFolder.nameRu = f.nameRu : undefined);
                     return newFolder
                 } else {return folder}
             });
