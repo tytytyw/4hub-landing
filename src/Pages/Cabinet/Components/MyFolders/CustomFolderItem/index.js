@@ -72,7 +72,7 @@ const CustomFolderItem = ({
     const open = (isOpen) => {
         const open = typeof isOpen === "boolean" ? true : !folderParams.open;
         setFolderParams(state => ({...state, open: typeof isOpen === "boolean" ? true : !state.open}))
-        const folderWidth = 310 + (open ? p * (f.path.split("/").length - 1) : 0)
+        const folderWidth = (offDispatch ? 360 : 310) + (open ? p * (f.path.split("/").length - 1) : 0)
         setChosenFolder(state => ({...state, info: f, folderWidth}))
     }
 
