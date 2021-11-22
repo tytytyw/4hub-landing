@@ -13,7 +13,7 @@ const SelectFolder = ({initValue, initFolder, onChange = () => {}, ...props}) =>
     const global = useSelector(state => state.Cabinet.global);
     const other = useSelector(state => state.Cabinet.other);
     const [chosenFolder, setChosenFolder] = useState(initFolder);
-    const path = useSelector(state => state.Cabinet.folderList?.path);
+    const path = useSelector(state => state.Cabinet.fileList?.path);
     const ref = useRef()
 
     const renderFolderList = (root) => {

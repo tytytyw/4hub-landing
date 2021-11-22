@@ -49,7 +49,12 @@ const CustomFolderItem = ({
             getQuantity();
         }
         file_amount_controller.current = 1
+        if(fileList?.path.includes(f?.path) && !folderParams.open) open(false);
     }, []); // eslint-disable-line
+
+    useEffect(() => {
+        if(fileList?.path.includes(f?.path) && !folderParams.open) open(false);
+    }, [fileList?.path]) // eslint-disable-line
 
     useEffect(() => {
         if(folderList?.path === f?.path && file_amount_controller.current) getQuantity()
@@ -60,19 +65,21 @@ const CustomFolderItem = ({
         e.target?.viewportElement 
             ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
             : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true})
-        if(boolean) {
-            const open = !folderParams.open;
-            setFolderParams(state => ({...state, open: !state.open}))
-            const folderWidth = 310 + (open ? p * (f.path.split("/").length - 1) : 0)
-            setChosenFolder(state => ({...state, info: f, folderWidth}))
-        }
+        if(boolean) open()
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
 
+    const open = (isOpen) => {
+        const open = typeof isOpen === "boolean" ? true : !folderParams.open;
+        setFolderParams(state => ({...state, open: typeof isOpen === "boolean" ? true : !state.open}))
+        const folderWidth = 310 + (open ? p * (f.path.split("/").length - 1) : 0)
+        setChosenFolder(state => ({...state, info: f, folderWidth}))
+    }
+
     const renderInnerFolders = () => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
-        if(currentPath !== f.path || !folderParams.open) return null;
-        return f.folders.map((f, i) => {
+        if(currentPath !== f.path || !folderParams.open || !f?.folders) return null;
+        return f?.folders.map((f, i) => {
             return <CustomFolderItem
                 key={i}
                 f={f}
