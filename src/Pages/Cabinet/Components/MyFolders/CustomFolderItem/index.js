@@ -55,23 +55,16 @@ const CustomFolderItem = ({
         if(folderList?.path === f?.path && file_amount_controller.current) getQuantity()
     }, [fileList?.files?.length]); // eslint-disable-line
 
-    useEffect(() => {
-        setTimeout(() => {
-            if(fileList?.path === f?.path) {
-                const folderWidth = 310 + (folderParams.open ? p * (f.path.split("/").length - 1) : 0);
-                setChosenFolder(state => ({...state, folderWidth}));
-            }
-        }, 0)
-    }, [folderParams.open]); // eslint-disable-line
-
-    const openFolder = (e, currentPath) => {
+    const openFolder = (e) => {
         let boolean = false;
         e.target?.viewportElement 
             ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
-            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true});
+            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true})
         if(boolean) {
+            const open = !folderParams.open;
             setFolderParams(state => ({...state, open: !state.open}))
-            setChosenFolder(state => ({...state, info: f}))
+            const folderWidth = 310 + (open ? p * (f.path.split("/").length - 1) : 0)
+            setChosenFolder(state => ({...state, info: f, folderWidth}))
         }
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
