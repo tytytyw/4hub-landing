@@ -29,6 +29,9 @@
     background: rgba(71, 125, 225, 0.1)
   .innerFolderWrap:hover
     background: rgba(71, 125, 225, 0.1)
+    .innerFolder
+      .innerFolderMedia
+        background: linear-gradient(90deg, rgba(235, 241, 253, 0.6) 0%, rgba(235, 241, 253, 1) 100%)
 .innerFolderWrap
   display: flex
   flex-direction: column
@@ -41,7 +44,7 @@
     box-sizing: border-box
     padding: 0 0 0 20px
     width: 100%
-    min-width: 100%
+    //min-width: 100%
     height: 50px
     min-width: max-content
     font-size: 12px
@@ -96,6 +99,12 @@
           animation: showText 0.2s ease-in-out
     .innerFolderMedia
       display: flex
+      height: 100%
+      align-items: center
+      position: sticky
+      right: 15px
+      //border: 1px solid red
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, white 100%)
       img
         margin: 0 5px 0 0
         width: 20px
@@ -114,8 +123,11 @@
 .chosenSubFolderWrap
   //position: relative
   min-width: max-content
-  //border: 1px solid red
-  background: rgba(71, 125, 225, 0.1)
+  //background: rgba(71, 125, 225, 0.1)
+  background: rgba(235, 241, 253, 1)
+  .innerFolder
+    .innerFolderMedia
+      background: linear-gradient(90deg, rgba(235, 241, 253, 0.5) 0%, rgba(235, 241, 253, 1) 100%)
 .menuWrap
   display: flex
   width: 20px

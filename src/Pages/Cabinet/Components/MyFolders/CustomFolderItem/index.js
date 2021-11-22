@@ -137,7 +137,8 @@ const CustomFolderItem = ({
             onDrop={handleDrop}
             style={{
                 width: chosenFolder.folderWidth,
-                minWidth: chosenFolder.folderWidth
+                minWidth: chosenFolder.folderWidth,
+                maxWidth: chosenFolder.folderWidth
             }}
         >
             <div
