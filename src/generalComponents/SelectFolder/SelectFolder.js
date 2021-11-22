@@ -1,49 +1,32 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { useSelector } from 'react-redux';
 
-import styles from './Select.module.sass'
+import styles from './SelectFolder.module.sass'
 import classNames from 'classnames'
-import FolderItem from '../../Pages/Cabinet/Components/CreateFile/FolderItem';
-import CustomFolderItem from '../../Pages/Cabinet/Components/CreateFile/CustomFolderItem';
+import CustomFolderItem from '../../Pages/Cabinet/Components/MyFolders/CustomFolderItem';
 
-const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
+const SelectFolder = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value] = useState(initValue)
     const global = useSelector(state => state.Cabinet.global);
-    const other = useSelector(state => state.Cabinet.other?.folders);
+    const other = useSelector(state => state.Cabinet.other);
     const [chosenFolder, setChosenFolder] = useState(initFolder);
     const ref = useRef()
 
-    useEffect(() => {
-        setPath(chosenFolder?.subPath || chosenFolder?.path)
-    }, [chosenFolder]) //eslint-disable-line
-
-    const renderStandardFolderList = () => {
-        if(!global) return null;
-        return global.map((el, i) => {
-            return <FolderItem
-                key={i + el.name}
-                folder={el}
-                setChosenFolder={setChosenFolder}
-                chosenFolder={chosenFolder}
-                chosen={chosenFolder.path === el.path}
-                disableAddFolder={true}
-                offDispatch={true}
-            />
-        })
-    };
-
-    const renderOtherFolderList = () => {
-        if(!other) return null;
-        return other.map((folder, i) => {
+    const renderFolderList = (root) => {
+        if(!Array.isArray(root)) return null;
+        return root.map((folder, i) => {
             return <CustomFolderItem
                 key={i + folder.name}
                 f={folder}
+                listCollapsed={false}
+                isSelectFolder={true}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === folder.path}
-                padding={'0px 10px 0px 26px'}
+                p={25}
+                isRecent={false}
                 subFolder={false}
                 offDispatch={true}
             />
@@ -93,12 +76,14 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
                 [styles.contentWrap]: true,
                 [styles.active]: !!open
             })}>
-                {open && renderStandardFolderList()}
-                {open && renderOtherFolderList()}
+                <div className={styles.folderListWrap}>
+                    {open && renderFolderList(global)}
+                    {open && renderFolderList(other)}
+                </div>
             </div>
 
         </div>
     )
 }
 
-export default Select
+export default SelectFolder

@@ -15,7 +15,7 @@ import {moveFile} from "../../../../../generalComponents/generalHelpers";
 const CustomFolderItem = ({
       f, setChosenFolder, chosenFolder, listCollapsed, p = 25, chosen, subFolder, setError,
       setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
-      setShowSuccessMessage, openMenu, isRecent
+      setShowSuccessMessage, openMenu, isRecent, offDispatch
 }) => {
 
     const [filesQuantity, setFilesQuantity] = useState(0);
@@ -89,27 +89,28 @@ const CustomFolderItem = ({
                 openMenu={openMenu}
                 setNewFolderInfo={setNewFolderInfo}
                 setNewFolder={setNewFolder}
+                offDispatch={offDispatch}
             />
         })
     };
 
     const clickHandle = async (e) => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
-        if(!isRecent) openFolder(e, currentPath);
+        if(!isRecent || !offDispatch) openFolder(e, currentPath);
 
         if (!fileList?.path !== f.path) {
             const cancel = new Promise(resolve => {
                 resolve(cancelRequest('cancelChooseFiles'));
             })
             await cancel.then(() => {
-                setGLoader(true);
+                if(!offDispatch) setGLoader(true);
                 dispatch(onSetPath(f.path));
                 const ev = e;
                 setTimeout(() => {
                     if(ev.target.className === styles.menuWrap) openMenu(ev);
                 }, 0)
-                dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
-                setFilesPage(1)
+                if(!offDispatch) dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
+                if(!offDispatch) setFilesPage(1)
             })
         }
     }

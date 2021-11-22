@@ -10,7 +10,9 @@ import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setMouseParams, offDispatch}) => {
+const CustomFolderItem = ({
+      f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder, setMouseParams, offDispatch,
+}) => {
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
     const folderList = useSelector(state => state.Cabinet.folderList);

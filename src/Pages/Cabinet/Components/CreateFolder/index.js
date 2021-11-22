@@ -14,7 +14,7 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import Select from "../../../../generalComponents/SelectFolder/Select";
+import SelectFolder from "../../../../generalComponents/SelectFolder/SelectFolder";
 
 const CreateFolder = ({
     onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {},
@@ -158,7 +158,7 @@ const CreateFolder = ({
                             </div>
                         </div>
                         {showChoiceFolders && <div className={styles.inputWrap}>
-                            <Select
+                            <SelectFolder
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}
