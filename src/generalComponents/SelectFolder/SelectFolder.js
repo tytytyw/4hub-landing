@@ -4,14 +4,16 @@ import { useSelector } from 'react-redux';
 import styles from './SelectFolder.module.sass'
 import classNames from 'classnames'
 import CustomFolderItem from '../../Pages/Cabinet/Components/MyFolders/CustomFolderItem';
+import {folders} from "../collections";
 
-const SelectFolder = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
+const SelectFolder = ({initValue, initFolder, onChange = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value] = useState(initValue)
     const global = useSelector(state => state.Cabinet.global);
     const other = useSelector(state => state.Cabinet.other);
     const [chosenFolder, setChosenFolder] = useState(initFolder);
+    const path = useSelector(state => state.Cabinet.folderList?.path);
     const ref = useRef()
 
     const renderFolderList = (root) => {
@@ -32,6 +34,20 @@ const SelectFolder = ({initValue, path, setPath, initFolder, onChange = () => {}
             />
         })
     };
+
+    const renderPath = () => {
+        let newPath = path;
+        if(newPath.includes('global') && newPath.indexOf('global') === 0) {
+            folders.forEach(el => {
+                newPath = newPath.replace(el.path, '/' + el.nameRu)
+            })
+        }
+        if(newPath.indexOf('other') === 0) {
+            newPath = newPath.substr(5)
+            console.log(newPath)
+        }
+        return newPath
+    }
 
     useEffect(() => {
         const onClick = (event) => {
@@ -64,7 +80,7 @@ const SelectFolder = ({initValue, path, setPath, initFolder, onChange = () => {}
                     <span className={classNames({
                         [styles.selectInput]: !props.classNameSelect,
                         [props.classNameSelect]: !!props.classNameSelect
-                    })}>{path}</span>
+                    })}>{renderPath()}</span>
                 </div>
                 <span className={classNames({
                     [styles.arrow]: true,
