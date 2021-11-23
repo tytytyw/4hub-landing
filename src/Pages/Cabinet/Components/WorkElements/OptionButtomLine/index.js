@@ -2,7 +2,9 @@ import React from 'react';
 
 import styles from './OptionButtomLine.module.sass';
 
-const OptionButtomLine = ({filePick, setAction, action, setFilePick, callbackArrMain, nullifyFilePick}) => {
+const OptionButtomLine = ({
+      filePick, setAction, action, setFilePick, callbackArrMain, nullifyFilePick, share, chosenFile, archive
+}) => {
 
     const onZip = () => {
         if(filePick.files.length > 0) {
@@ -14,13 +16,9 @@ const OptionButtomLine = ({filePick, setAction, action, setFilePick, callbackArr
 
     const onEdit = () => filePick.files.length > 0 ? setFilePick({...filePick, customize: true}) : null;
 
-    const onShare = () => {
+    const onShare = () => chosenFile ? share() : null;
 
-    }
-
-    const onMoveToArchive = () => {
-
-    }
+    const onMoveToArchive = () => chosenFile ? archive() : null;
 
     return (
         <div className={styles.optionBottomLine}>

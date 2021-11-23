@@ -280,6 +280,9 @@ const WorkSpace = ({
                 setAction={setAction}
                 action={action}
                 nullifyFilePick={nullifyFilePick}
+                archive={() => onActiveCallbackArrMain('archive')}
+                share={() => onActiveCallbackArrMain('share')}
+                chosenFile={chosenFile}
             /> : null}
             <BottomPanel />
         </div>
