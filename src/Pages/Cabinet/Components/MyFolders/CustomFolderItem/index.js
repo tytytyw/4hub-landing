@@ -175,12 +175,12 @@ const CustomFolderItem = ({
                 <div className={styles.innerFolderMedia}>
                     {!listCollapsed && f.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
-                    {!isRecent ? <PlayIcon
+                    {isRecent ? null : <PlayIcon
                         className={`${styles.playButton} ${fileList?.path.includes(f.path) && folderParams.open ? styles.revert : undefined}`}
-                    /> : null}
-                    <div
+                    />}
+                    {offDispatch ? null : <div
                         className={styles.menuWrap}
-                    ><span className={styles.menu} /></div>
+                    ><span className={styles.menu} /></div>}
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@ const CustomFolderItem = ({
             }}
             className={`${styles.innerFolders} ${fileList?.path.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
         >
-            {!offDispatch ? <div
+            {offDispatch ? null : <div
                 className={styles.addFolderToFolder}
                 style={{
                     padding: `0 15px 0 ${p * (f.path.split("/").length) ?? 0}px`,
@@ -206,7 +206,7 @@ const CustomFolderItem = ({
                     {!listCollapsed && <span>Новая папка</span>}
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
-            </div> : null}
+            </div>}
             {renderInnerFolders()}
         </div>}
     </>)
