@@ -103,7 +103,7 @@ const CustomFolderItem = ({
 
     const clickHandle = async (e) => {
         const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
-        if(!isRecent || !offDispatch) openFolder(e, currentPath);
+        if(!isRecent && !offDispatch) openFolder(e, currentPath);
 
         if (!fileList?.path !== f.path) {
             const cancel = new Promise(resolve => {
@@ -184,7 +184,7 @@ const CustomFolderItem = ({
                 </div>
             </div>
         </div>
-        <div
+        {isRecent ? null : <div
             style={{
                 height: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
                 minHeight: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
@@ -208,7 +208,7 @@ const CustomFolderItem = ({
                 <AddIcon className={styles.addFolderIcon} />
             </div> : null}
             {renderInnerFolders()}
-        </div>
+        </div>}
     </>)
 }
 
