@@ -2,24 +2,45 @@ import React from 'react';
 
 import styles from './OptionButtomLine.module.sass';
 
-const OptionButtomLine = ({filePick, actionName, setAction, action, setFilePick, callbackArrMain, nullifyFilePick}) => {
+const OptionButtomLine = ({filePick, setAction, action, setFilePick, callbackArrMain, nullifyFilePick}) => {
 
-    const onAction = () => {
+    const onZip = () => {
         if(filePick.files.length > 0) {
-            if(filePick.intoZip) {
                 callbackArrMain.forEach((el, index, list) => {
-                    if(el.type === 'intoZip') setAction({...action, type: list[index].type, name: list[index].name})
+                    if(el.type === 'intoZip') setAction({...action, type: list[index].type, name: list[index].name});
                 })
-            } else {setFilePick({...filePick, customize: true})}
         }
+    }
+
+    const onEdit = () => filePick.files.length > 0 ? setFilePick({...filePick, customize: true}) : null;
+
+    const onShare = () => {
+
+    }
+
+    const onMoveToArchive = () => {
+
     }
 
     return (
         <div className={styles.optionBottomLine}>
             <div className={styles.cancel} onClick={nullifyFilePick}>Отмена</div>
-            <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}>Расшарить</div>
-            <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}>Пер. в архив</div>
-            <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onAction}>{actionName}</div>
+            <div
+                className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
+                onClick={onZip}
+            >Сжать в ZIP</div>
+            <div
+                className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
+                onClick={onShare}
+            >Расшарить</div>
+            <div
+                className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
+                onClick={onMoveToArchive}
+            >Пер. в архив</div>
+            <div
+                className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
+                onClick={onEdit}
+            >Редактировать</div>
         </div>
     )
 }

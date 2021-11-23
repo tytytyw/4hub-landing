@@ -15,7 +15,6 @@ import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderPro
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
     contextMenuFolder,
-    contextMenuSubFolder,
     contextMenuFolderGeneral
 } from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
@@ -146,14 +145,6 @@ const MyFolders = ({
         {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
     ];
 
-    const callbackArrSub = [
-        {type: "customizeFolder", name: "Редактирование папки", text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Доступ и экспорт', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])}
-    ];
-
     const deleteFolder = () => {
         nullifyAction();
         api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
@@ -268,14 +259,11 @@ const MyFolders = ({
             /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(chosenFolder.contextMenuFolder?.path.split('/').length > 2
-                    ? contextMenuSubFolder.main
-                    : chosenFolder.contextMenuFolder?.path.indexOf('global') >= 0
+                <div className={styles.mainMenuItems}>{renderMenuItems(
+                    chosenFolder.contextMenuFolder?.path.indexOf('global') === 0
                         ? contextMenuFolderGeneral.main
                         : contextMenuFolder.main,
-            chosenFolder.contextMenuFolder?.path.split('/').length > 2
-                    ? callbackArrSub
-                    : chosenFolder.contextMenuFolder?.path.indexOf('global') >= 0
+            chosenFolder.contextMenuFolder?.path.indexOf('global') === 0
                         ? callbackArrMain
                         : callbackArrOther
                 )}</div>
