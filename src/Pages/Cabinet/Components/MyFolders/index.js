@@ -260,10 +260,10 @@ const MyFolders = ({
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(
-                    chosenFolder.contextMenuFolder?.path.indexOf('global') === 0
+                fileList?.path.indexOf('global') === 0 && fileList?.path.split('/').length === 2
                         ? contextMenuFolderGeneral.main
                         : contextMenuFolder.main,
-            chosenFolder.contextMenuFolder?.path.indexOf('global') === 0
+                 fileList?.path.indexOf('global') === 0 && fileList?.path.split('/').length === 2
                         ? callbackArrMain
                         : callbackArrOther
                 )}</div>
