@@ -47,7 +47,7 @@ const FileBar = ({
                 `}
                 onClick={onPickFile}
                 onDoubleClick={handleDoubleClick}
-                draggable={window.location.pathname === '/' && file?.is_dir === 0}
+                draggable={window.location.pathname === '/folders' && file?.is_dir === 0}
                 onDragStart={handleDragStart}
             >
                 <div
