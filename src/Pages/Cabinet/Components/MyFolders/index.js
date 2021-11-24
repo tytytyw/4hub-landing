@@ -100,14 +100,15 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 setError={setError}
                 setShowSuccessMessage={setShowSuccessMessage}
-                openMenu={openMenu}
+                openMenu={openFolderMenu}
             />
         })
     };
 
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
-    const openMenu = (e, folder) => {
+    const openFolderMenu = (e, folder) => {
+        console.log(folder)
         setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
         setChosenFolder(state => ({...state, info: folder, contextMenuFolder: folder}))
         if(folder) setNewFolderInfo(state =>({...state, path: folder.path}))
@@ -208,7 +209,7 @@ const MyFolders = ({
                 setFilesPage={setFilesPage}
                 menuItem={menuItem}
                 setChosenFolder={setChosenFolder}
-                openMenu={openMenu}
+                openFolderMenu={openFolderMenu}
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
@@ -260,10 +261,10 @@ const MyFolders = ({
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(
-                fileList?.path.indexOf('global') === 0 && fileList?.path.split('/').length === 2
+                chosenFolder?.contextMenuFolder?.path.indexOf('global') === 0 && chosenFolder?.contextMenuFolder?.path.split('/').length === 2
                         ? contextMenuFolderGeneral.main
                         : contextMenuFolder.main,
-                 fileList?.path.indexOf('global') === 0 && fileList?.path.split('/').length === 2
+                chosenFolder?.contextMenuFolder?.path.indexOf('global') === 0 && chosenFolder?.contextMenuFolder?.path.split('/').length === 2
                         ? callbackArrMain
                         : callbackArrOther
                 )}</div>

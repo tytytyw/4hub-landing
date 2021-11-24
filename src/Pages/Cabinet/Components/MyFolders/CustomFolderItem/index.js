@@ -114,7 +114,7 @@ const CustomFolderItem = ({
                 dispatch(onSetPath(f.path));
                 const ev = e;
                 setTimeout(() => {
-                    if(ev.target.className === styles.menuWrap) openMenu(ev);
+                    if(ev.target.className === styles.menuWrap) openMenu(ev, f);
                 }, 0)
                 if(!offDispatch) dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
                 if(!offDispatch) setFilesPage(1)

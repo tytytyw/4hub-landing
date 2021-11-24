@@ -9,7 +9,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-         folderSelect, openMenu
+         folderSelect, openFolderMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -54,7 +54,7 @@ const FileBar = ({
                     className={styles.menu}
                     onClick={e => {
                         file.is_dir
-                            ? openMenu(e, file)
+                            ? openFolderMenu(e, file)
                             : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
                     }}
                 ><span/></div>
