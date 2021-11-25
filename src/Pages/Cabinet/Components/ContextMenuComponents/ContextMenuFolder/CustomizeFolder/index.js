@@ -7,7 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
 import { tags, colors } from "../../../../../../generalComponents/collections";
-import { onGetFolders } from "../../../../../../Store/actions/CabinetActions";
+import {onChooseFiles, onGetFolders} from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
@@ -22,9 +22,11 @@ const CustomizeFolder = ({
 	chosenFolder,
 	chosenSubFolder,
 	setGLoader,
+ 	successLoad,
 }) => {
 	const uid = useSelector((state) => state.user.uid);
 	const folderList = useSelector(state => state.Cabinet.folderList);
+	const fileList = useSelector(state => state.Cabinet.fileList);
 	const folder = chosenSubFolder || chosenFolder
 
 	const [name, setName] = useState(folder.info?.name);
@@ -76,7 +78,7 @@ const CustomizeFolder = ({
 	const customizeFolder = () => {
 		setGLoader(true);
 		//TODO: check api
-		const params = `uid=${uid}&dir_name=${name}&parent=${chosenSubFolder ? chosenFolder.path : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
+		const params = `uid=${uid}&dir_name=${name}&parent=${chosenFolder?.info?.path ? chosenFolder?.info.path.slice(0, chosenFolder?.info.path.lastIndexOf('/')) : 'other'}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color?.color}&symbol=${sign}&emoji=${emoji}`;
 		api.post(`/ajax/dir_edit.php?${params}`)
 		.then((res) => {
 				if (res.data.ok === 1) {
@@ -90,6 +92,8 @@ const CustomizeFolder = ({
 			.finally(() => {
 				setGLoader(false);
 				dispatch(onGetFolders(folderList.path));
+				if(fileList.path !== chosenFolder?.info?.path)dispatch(onChooseFiles(fileList.path, '', 1, '', successLoad));
+
 			});
 		nullifyAction();
 	};

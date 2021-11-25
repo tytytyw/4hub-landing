@@ -110,7 +110,6 @@ const MyFolders = ({
     const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
 
     const openFolderMenu = (e, folder) => {
-        console.log(folder)
         setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
         setChosenFolder(state => ({...state, info: folder, contextMenuFolder: folder}))
         if(folder) setNewFolderInfo(state =>({...state, path: folder.path}))
@@ -303,6 +302,7 @@ const MyFolders = ({
 					title="Редактировать папку"
 					setGLoader={setGLoader}
                     info={newFolderInfo}
+                    successLoad={successLoad}
 				/>
 			) : null}
             <Error error={error.isError} set={closeError} message={error.message} />
