@@ -15,7 +15,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
-          setFilePick, shareLink, callbackArrMain, folderSelect, openMenu
+          setFilePick, shareLink, callbackArrMain, folderSelect, openFolderMenu
 }) => {
     const size = useSelector(state => state.Cabinet.size)
     const downloadFile = () => {
@@ -188,7 +188,7 @@ const FileLine = ({
                     className={styles.menuWrap}
                     onClick={e => {
                         file.is_dir
-                            ? openMenu(e, file)
+                            ? openFolderMenu(e, file)
                             : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
                     }}
                 >

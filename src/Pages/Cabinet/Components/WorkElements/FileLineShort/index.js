@@ -9,7 +9,7 @@ import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
        file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-       setGLoader, folderSelect,  params = null, chooseItemNext
+       setGLoader, folderSelect,  params = null, chooseItemNext, openFolderMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -59,7 +59,11 @@ const FileLineShort = ({
         </div>
         <div
             className={styles.menuWrap}
-            onClick={e => {setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})}}
+            onClick={e => {
+                file.is_dir
+                    ? openFolderMenu(e, file)
+                    : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
+            }}
         ><span className={styles.menu} /></div>
     </div>)
 }
