@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './MyFolders.module.sass';
@@ -152,13 +152,15 @@ const MyFolders = ({
             .then(res => {if(res.data.ok === 1) {
                 dispatch(onGetFolders());
                 dispatch(onChooseFiles(fileList?.path, '', 1));
-                //TODO - Need to fix bug to disappear subfolder after deletion - React Component doesn't see changes
                 setChosenFolder(state =>({...state, info: null}));
             } else {
                 setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
             }})
             .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
     };
+
+    const folderListWrapRef = useRef(null);
+    const fakeScrollRef = useRef(null);
 
     return (
         <div className={styles.workAreaWrap}>
@@ -169,7 +171,22 @@ const MyFolders = ({
                 setListCollapsed={setListCollapsed}
                 onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
             >
-                <div className={styles.folderListWrap}>
+                <div
+                    className={styles.topScroll}
+                    ref={fakeScrollRef}
+                    onScroll={() => {
+                        if(folderListWrapRef.current && fakeScrollRef.current) folderListWrapRef.current.scrollLeft = fakeScrollRef.current.scrollLeft
+                    }}
+                >
+                    <div style={{width: chosenFolder.folderWidth, minWidth: chosenFolder.folderWidth}} />
+                </div>
+                <div
+                    className={styles.folderListWrap}
+                    ref={folderListWrapRef}
+                    onScroll={() => {
+                        if(folderListWrapRef.current && fakeScrollRef.current) fakeScrollRef.current.scrollLeft = folderListWrapRef.current.scrollLeft;
+                    }}
+                >
                     {renderFolderList(global, false)}
                     {renderFolderList(other, false)}
                     {recentFolders?.length > 0 && <RecentFolders
