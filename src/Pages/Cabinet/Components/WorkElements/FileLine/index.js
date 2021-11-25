@@ -15,13 +15,16 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileLine = ({
           file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
-          setFilePick, shareLink, callbackArrMain, folderSelect
+          setFilePick, shareLink, callbackArrMain, folderSelect, openMenu
 }) => {
     const size = useSelector(state => state.Cabinet.size)
     const downloadFile = () => {
-        setTimeout(() => {
-            callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})
-        }, 0)
+        // TODO - api for downloading folder
+        if(file?.is_dir === 0) {
+            setTimeout(() => {
+                callbackArrMain.forEach(item => {if(item.type === 'download') item.callback()})
+            }, 0)
+        }
     }
 
     const printFile = () => {
@@ -151,7 +154,7 @@ const FileLine = ({
                     />
                 </div>
 
-                {file?.ext !== 'ZIP' && 
+                {file?.ext !== 'ZIP' && file?.is_dir !== 1 &&
                 <div className={styles.iconView}>
                     <PrintIcon 
                         onClick={printFile}
@@ -184,7 +187,9 @@ const FileLine = ({
                 <div
                     className={styles.menuWrap}
                     onClick={e => {
-                        setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
+                        file.is_dir
+                            ? openMenu(e, file)
+                            : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
                     }}
                 >
                     <span className={styles.menu}/>
