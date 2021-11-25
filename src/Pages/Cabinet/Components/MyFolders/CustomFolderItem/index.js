@@ -161,16 +161,18 @@ const CustomFolderItem = ({
                         width: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0,
                         minWidth: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0
                     }}/>
-                    {folderParams.isGlobal
-                        ? <img
-                            src={`${imageSrc}assets/PrivateCabinet/${f.name}.svg`}
-                            alt='icon'
-                            className={styles.innerFolderIcon}
-                        />
-                        : <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
+                    <div className={styles.folderIconWrap}>
+                        {folderParams.isGlobal
+                            ? <img
+                                src={`${imageSrc}assets/PrivateCabinet/${f.name}.svg`}
+                                alt='icon'
+                                className={styles.innerFolderIcon}
+                            />
+                            : <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name}`} />
 
-                    }
-                    {f.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='emoji' />}
+                        }
+                        {f.is_pass === 1 && <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='emoji' />}
+                    </div>
                     {!listCollapsed && <div className={styles.nameWrap}>
                         <div className={styles.Name}><div className={styles.name}>{folderParams.isGlobal ? f?.nameRu : f?.name}</div><span>({filesQuantity})</span></div>
                         {f.tags && <span className={styles.tag}>#{f.tags}</span>}
