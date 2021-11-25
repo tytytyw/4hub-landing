@@ -61,6 +61,8 @@ const MyFolders = ({
     const [gLoader, setGLoader] = useState(true);
     const closeError = () => setError({isError: false, message: ''});
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
+    const folderListWrapRef = useRef(null);
+    const fakeScrollRef = useRef(null);
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
@@ -158,9 +160,6 @@ const MyFolders = ({
             }})
             .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
     };
-
-    const folderListWrapRef = useRef(null);
-    const fakeScrollRef = useRef(null);
 
     return (
         <div className={styles.workAreaWrap}>
