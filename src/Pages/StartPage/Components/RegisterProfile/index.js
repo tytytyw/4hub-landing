@@ -154,6 +154,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                           [styles.redBorder]: compare.isLogin
                       })}
                       type='text'
+                      autocomplete="new-password"
                       value={info.login}
                       onChange={e => setLogin(e.target.value)}
                       onBlur={e => checkLogin(e.target)}
@@ -170,6 +171,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                           [styles.redBorder]: compare.isPass
                       })}
                       type={visibility}
+                      autocomplete="new-password"
                       value={info.pass}
                       onChange={(e) => {
                           setInfo({...info, pass: e.target.value});
@@ -200,24 +202,13 @@ const RegisterProfile = ({setPage, pageOption}) => {
                           [styles.redBorder]: compare.isCoincidePass
                       })}
                       type={visibility}
+                      autocomplete="new-password"
                       value={info.repeatPass}
                       onChange={(e) => {
                           setInfo({...info, repeatPass: e.target.value});
                           comparePass(e.target.value);
                       }}
                   />
-                  {visibility === 'password' && <img
-                      src='./assets/StartPage/invisible.svg'
-                      alt='eye'
-                      className={styles.invisible}
-                      onClick={() => setVisibility('text')}
-                  />}
-                  {visibility === 'text' && <img
-                      src='./assets/StartPage/eye.svg'
-                      alt='eye'
-                      className={styles.eye}
-                      onClick={() => setVisibility('password')}
-                  />}
               </div>
               <div className={styles.agreementWrap}>
                   <div className={styles.agreement}>

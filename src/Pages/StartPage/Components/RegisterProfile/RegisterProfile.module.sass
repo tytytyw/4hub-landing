@@ -14,14 +14,15 @@
   display: flex
   flex-direction: column
   align-items: center
-  color: #777777
+  color: #2B353E
   animation: show 0.3s linear
+  letter-spacing: -0.06px
   .hubIcon
     min-width: 165px
     width: 166px
     max-width: 233px
     margin-block-start: 0
-    margin: 30px 0 25px 0
+    margin-bottom: 70px
     cursor: pointer
   .registrationType
     display: flex
@@ -63,7 +64,7 @@
     justify-content: flex-start
     align-items: center
     flex-direction: column
-    border-radius: 5px
+    border-radius: 6px
     position: relative
     .cross
       position: absolute
@@ -84,38 +85,40 @@
       background: #a7a4a4
       transform: rotate(90deg)
     .title
-      font-size: 19px
-      margin: 25px 0 18px 0
+      font-size: 18px
+      margin: 30px 0 24px 0
     .inputWrap
       display: flex
       flex-direction: column
       width: 91%
       position: relative
-      margin: 0 0 12px 0
+      margin-bottom: 17px
       .inputName
-        font-size: 11px
-        letter-spacing: 0.4px
-        margin: 0 0 10px 0
+        font-size: 12px
+        margin-bottom: 6px
         span
           color: red
       .inputField
-        border: 1px solid #bfbfbf
-        height: 29px
-        border-radius: 5px
-        background: #FAFAFA
+        border: 1px solid #E3E3E3
+        height: 36px
+        border-radius: 6px
+        background: #fff
         padding: 0 40px 0 18px
+        font-size: 18px
+        font-family: inherit
+        color: inherit
       .redBorder
         border: 1px solid red
       .eye
         position: absolute
-        right: 15px
-        top: 30px
+        right: 14px
+        bottom: 8px
         cursor: pointer
         width: 18px
       .invisible
         position: absolute
-        right: 15px
-        top: 30px
+        right: 14px
+        bottom: 8px
         cursor: pointer
         width: 18px
     .agreementWrap
@@ -128,6 +131,7 @@
         justify-content: center
         align-items: center
         width: 8%
+        align-self: flex-start
         div
           display: flex
           justify-content: center
@@ -157,20 +161,21 @@
       width: 127px
       height: 35px
       color: white
-      font-size: 12px
+      font-size: 11px
       cursor: pointer
       transition: background 0.2s ease
-      margin: 23px 0 0 0
+      margin: 28px 0 0 0
     .button:hover
       background: #3979db
       transition: background 0.2s ease
     .orSpan
-      margin: 13px 0 10px 0
+      margin: 16px 0 11px 0
+      font-size: 12px
     .socialNetworks
       display: flex
       align-items: center
       justify-content: center
-      margin: 0 0 15px 0
+      margin: 0 0 30px 0
       div
         display: flex
         justify-content: center
@@ -178,7 +183,7 @@
         background: black
         width: 35px
         height: 35px
-        margin: 0 8px 7px 0
+        margin: 0 10px 7px 0
         border-radius: 50%
         cursor: pointer
       div:last-child
@@ -208,8 +213,7 @@
       .pinterest:hover
         background: #ba1d24
     .registration
-      font-size: 11px
-      letter-spacing: 0.3px
+      font-size: 12px
       span
         color: #477DE1
         cursor: pointer
@@ -220,7 +224,7 @@
     height: auto
 
 .buttonsGroup
-  margin: 20px 0
+  margin-bottom: 20px
   display: flex
   justify-content: center
 
@@ -241,7 +245,12 @@
       color: #FFFFFF
       border: none
 
-@media (max-width: 1420px)
+
+@media (max-height: 900px)
+  .main
+    .hubIcon
+      margin-bottom: 30px
+@media (max-height: 820px)
   .main
     .hubIcon
       min-width: 145px
@@ -249,7 +258,6 @@
       margin: 0 0 15px 0
     .registerWrap
       width: 398px
-      //height: 435px
       .title
         font-size: 15px
         margin: 15px 0 10px 0
@@ -276,9 +284,13 @@
       .orSpan
         font-size: 9px
         margin: 8px 0 8px 0
-
-
-@media (max-height: 625px)
+@media (max-height: 715px)
+    .main
+      .registerWrap
+        width: 400px
+        .socialNetworks
+          margin: 0 0 8px 0
+@media (max-height: 690px)
   .main
     .hubIcon
       margin: 0 0 10px 0
@@ -313,5 +325,8 @@
           cursor: pointer
         .invisible
           top: 22px
-      
+@media (max-height: 600px)
+  .main
+    position: absolute
+    top: 20px
   
