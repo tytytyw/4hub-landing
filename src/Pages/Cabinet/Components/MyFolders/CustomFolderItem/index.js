@@ -152,11 +152,15 @@ const CustomFolderItem = ({
             <div
                 className={styles.innerFolder}
                 style={{
-                    padding: `0 15px 0 ${isRecent ? p : p * (f.path.split("/").length - 1) ?? 0}px`,
+                    padding: `0 15px 0 0`,
                     maxWidth: chosenFolder.folderWidth
                 }}
             >
                 <div className={styles.innerFolderName}>
+                    <div style={{
+                        width: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0,
+                        minWidth: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0
+                    }}/>
                     {folderParams.isGlobal
                         ? <img
                             src={`${imageSrc}assets/PrivateCabinet/${f.name}.svg`}
