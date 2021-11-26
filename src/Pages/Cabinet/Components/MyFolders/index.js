@@ -48,7 +48,8 @@ const MyFolders = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', open: false, subPath: '', info: null, files_amount: 0, group: null, contextMenuFolder: null, folderWidth: 310});
+    //TODO - Need to check object keys and delete useless
+    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', info: null, files_amount: 0, group: null, contextMenuFolder: null, folderWidth: 310});
     const [chosenSubFolder, ] = useState(null);
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const [safePassword, setSafePassword] = useState({open: false});
@@ -167,7 +168,7 @@ const MyFolders = ({
                 src='add-folder.svg'
                 listCollapsed={listCollapsed}
                 setListCollapsed={setListCollapsed}
-                onCreate={(boolean) => {setNewFolder(boolean); setNewFolderInfo({...newFolderInfo, path: 'other'})}}
+                onCreate={(boolean) => {setNewFolderInfo(state =>({...state, path: 'other/'})); setNewFolder(boolean);}}
             >
                 <div
                     className={styles.topScroll}
@@ -233,6 +234,7 @@ const MyFolders = ({
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
                 newFolderInfo={newFolderInfo}
+                seetNewFolderInfo={setNewFolderInfo}
             />}
             {fileAddCustomization.show ? <CreateFile
                 title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}

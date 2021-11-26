@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import CustomFolderItem from '../../Pages/Cabinet/Components/MyFolders/CustomFolderItem';
 import {folders} from "../collections";
 
-const SelectFolder = ({initValue, initFolder, onChange = () => {}, ...props}) => {
+const SelectFolder = ({initValue, initFolder = '', onChange = () => {}, setNewFolderInfo = null,  ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value] = useState(initValue)
@@ -31,12 +31,13 @@ const SelectFolder = ({initValue, initFolder, onChange = () => {}, ...props}) =>
                 isRecent={false}
                 subFolder={false}
                 offDispatch={true}
+                setNewFolderInfo={setNewFolderInfo}
             />
         })
     };
 
     const renderPath = () => {
-        let newPath = path;
+        let newPath = initFolder ?? path;
         if(newPath.includes('global') && newPath.indexOf('global') === 0) {
             folders.forEach(el => {
                 newPath = newPath.replace(el.path, '/' + el.nameRu)
