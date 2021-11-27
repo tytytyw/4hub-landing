@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./StoragePeriod.module.sass";
-import { ReactComponent as CalendarIco } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
-import { ReactComponent as EyeIco } from "../../../../../../assets/PrivateCabinet/clock.svg";
-import Calendar from "../../../../../StartPage/Components/Calendar";
-import PopUp from "../../../../../../generalComponents/PopUp";
+import { ReactComponent as CalendarIco } from "../../../../../../../assets/PrivateCabinet/calendar-6.svg";
+import { ReactComponent as EyeIco } from "../../../../../../../assets/PrivateCabinet/clock.svg";
+import Calendar from "../../../../../../StartPage/Components/Calendar";
+import PopUp from "../../../../../../../generalComponents/PopUp";
 
 function StoragePeriod({
 	file,

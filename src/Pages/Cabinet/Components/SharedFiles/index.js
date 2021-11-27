@@ -29,7 +29,7 @@ import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFil
 import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
 import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
-import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
+import CopyLinkShare from '../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import {imageSrc} from '../../../../generalComponents/globalVariables';

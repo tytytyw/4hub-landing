@@ -30,7 +30,7 @@ import {
 import Error from '../../../../generalComponents/Error';
 import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import CopyLinkShare from '../ContextMenuComponents/CopyLinkShare';
+import CopyLinkShare from '../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 

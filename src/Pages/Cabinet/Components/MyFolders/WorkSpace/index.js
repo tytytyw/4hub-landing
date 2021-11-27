@@ -26,7 +26,7 @@ import OptionButtomLine from '../../WorkElements/OptionButtomLine';
 import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProperty';
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
-import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
+import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import FolderPath from "../FolderPath";

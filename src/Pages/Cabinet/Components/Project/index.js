@@ -22,7 +22,7 @@ import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from "../ContextMenuComponents/ContextMenuProject/CreateFolder";
 import CustomizeFolder from "../ContextMenuComponents/ContextMenuProject/CustomizeFolder";
-import CopyLinkShare from "../ContextMenuComponents/CopyLinkShare";
+import CopyLinkShare from "../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare";
 import CustomizeProject from "../ContextMenuComponents/ContextMenuProject/CustomizeProject";
 import FolderProperty from "../ContextMenuComponents/ContextMenuProject/FolderProperty";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
