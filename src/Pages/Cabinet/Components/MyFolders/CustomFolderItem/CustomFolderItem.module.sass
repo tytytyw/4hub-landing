@@ -1,18 +1,18 @@
 .innerFolders
   display: flex
   flex-direction: column
-  width: 100%
+  width: max-content
+  min-width: max-content
   min-height: max-content
   opacity: 1
-  border-bottom: 1px solid grey
-  transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
+  //border-bottom: 1px solid grey
+  //transition: height 0.2s ease-in-out, opacity 0.2s ease-in-out
   .addFolderToFolder
     display: flex
     align-items: center
     justify-content: space-between
     box-sizing: border-box
-    padding: 0 15px 0 30px
-    width: 100%
+    //padding: 0 10px 0 30px
     height: 50px
     font-size: 12px
     border-bottom: 1px solid grey
@@ -29,17 +29,24 @@
     background: rgba(71, 125, 225, 0.1)
   .innerFolderWrap:hover
     background: rgba(71, 125, 225, 0.1)
+    .innerFolder
+      .innerFolderMedia
+        background: linear-gradient(90deg, rgba(235, 241, 253, 0.6) 0%, rgba(235, 241, 253, 1) 100%)
 .innerFolderWrap
   display: flex
   flex-direction: column
   width: 100%
+  min-width: 100%
   .innerFolder
     display: flex
     align-items: center
     justify-content: space-between
     box-sizing: border-box
+    padding: 0 0 0 20px
     width: 100%
+    //min-width: 100%
     height: 50px
+    min-width: max-content
     font-size: 12px
     cursor: pointer
     .innerFolderName
@@ -47,13 +54,17 @@
       align-items: center
       position: relative
       height: 100%
-      .innerFolderIcon
-        margin: 0 10px 0 0
-      .lock
-        position: absolute
-        top: 23px
-        left: -9px
-        width: 15px
+      //margin: 0 100px 0 0
+      .icon
+      .folderIconWrap
+        position: relative
+        .innerFolderIcon
+          margin: 0 10px 0 0
+        .lock
+          position: absolute
+          top: 10px
+          left: -9px
+          width: 15px
       .nameWrap
         display: flex
         flex-direction: column
@@ -90,6 +101,12 @@
           animation: showText 0.2s ease-in-out
     .innerFolderMedia
       display: flex
+      height: 100%
+      align-items: center
+      position: sticky
+      right: 15px
+      //border: 1px solid red
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, white 100%)
       img
         margin: 0 5px 0 0
         width: 20px
@@ -106,7 +123,13 @@
       .revert
         transform: rotateZ(90deg)
 .chosenSubFolderWrap
-  background: rgba(71, 125, 225, 0.1)
+  //position: relative
+  min-width: max-content
+  //background: rgba(71, 125, 225, 0.1)
+  background: rgba(235, 241, 253, 1)
+  .innerFolder
+    .innerFolderMedia
+      background: linear-gradient(90deg, rgba(235, 241, 253, 0.5) 0%, rgba(235, 241, 253, 1) 100%)
 .menuWrap
   display: flex
   width: 20px
@@ -142,3 +165,8 @@
   min-height: 0
   width: 0
   transition: height 0.2s ease-in-out, width 0.2s ease-in-out, opacity 0.2s ease-in-out
+.root
+.notRoot
+  box-sizing: border-box
+  padding: 0 0 0 10px
+  border-bottom: none

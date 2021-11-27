@@ -9,7 +9,7 @@ import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
          file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
-         folderSelect, openMenu
+         folderSelect, openFolderMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
@@ -47,15 +47,15 @@ const FileBar = ({
                 `}
                 onClick={onPickFile}
                 onDoubleClick={handleDoubleClick}
-                draggable={window.location.pathname === '/' && file?.is_dir === 0}
+                draggable={window.location.pathname === '/folders' && file?.is_dir === 0}
                 onDragStart={handleDragStart}
             >
                 <div
                     className={styles.menu}
                     onClick={e => {
                         file.is_dir
-                            ? openMenu(e, file)
-                            : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
+                            ? openFolderMenu(e, file)
+                            : setMouseParams({x: e.clientX, y: e.clientY, width: 240, height: 25})
                     }}
                 ><span/></div>
                 <div className={styles.symbols}>

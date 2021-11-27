@@ -21,7 +21,7 @@ import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
-import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
+import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 

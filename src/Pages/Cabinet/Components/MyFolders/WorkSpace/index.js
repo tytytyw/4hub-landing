@@ -26,7 +26,7 @@ import OptionButtomLine from '../../WorkElements/OptionButtomLine';
 import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProperty';
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
 import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
-import CopyLinkShare from '../../ContextMenuComponents/CopyLinkShare';
+import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import FolderPath from "../FolderPath";
@@ -37,7 +37,7 @@ const WorkSpace = ({
        chosenFolder, listCollapsed, setFilePreview, filePreview, saveCustomizeSeveralFiles,
        fileSelect, action, setAction, fileAddCustomization, setFileAddCustomization, showSuccessMessage,
        setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
-       setFilesPage, menuItem, setChosenFolder, openMenu
+       setFilesPage, menuItem, setChosenFolder, openFolderMenu
 }) => {
 
     const dispatch = useDispatch();
@@ -270,7 +270,7 @@ const WorkSpace = ({
                 gLoader={gLoader}
                 fileRef={fileRef}
                 width={width}
-                openMenu={openMenu}
+                openFolderMenu={openFolderMenu}
             />
             {filePick.show ? <OptionButtomLine
                 callbackArrMain={callbackArrMain}
@@ -280,6 +280,9 @@ const WorkSpace = ({
                 setAction={setAction}
                 action={action}
                 nullifyFilePick={nullifyFilePick}
+                archive={() => onActiveCallbackArrMain('archive')}
+                share={() => onActiveCallbackArrMain('share')}
+                chosenFile={chosenFile}
             /> : null}
             <BottomPanel />
         </div>

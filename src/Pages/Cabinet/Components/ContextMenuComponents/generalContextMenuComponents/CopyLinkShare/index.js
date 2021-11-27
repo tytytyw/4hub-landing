@@ -2,20 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 
 // import api from "../../../../../../api";
 import styles from "./CopyLinkShare.module.sass";
-import PopUp from "../../../../../generalComponents/PopUp";
+import PopUp from "../../../../../../generalComponents/PopUp";
 import StoragePeriod from "./StoragePeriod/StoragePeriod";
 import SetPassword from "./SetPassword/SetPassword";
 import ShareToMessengers from "./ShareToMessengers/ShareToMessengers";
 import { useDispatch, useSelector } from "react-redux";
-import { ReactComponent as CopyIcon } from "../../../../../assets/PrivateCabinet/copy.svg";
-import { ReactComponent as UserIcon } from "../../../../../assets/PrivateCabinet/userIcon.svg";
-import { ReactComponent as WorldIcon } from "../../../../../assets/PrivateCabinet/world.svg";
-import { ReactComponent as CalendarIcon } from "../../../../../assets/PrivateCabinet/calendar-6.svg";
-import { ReactComponent as PasswordIcon } from "../../../../../assets/PrivateCabinet/password.svg";
+import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
+import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
+import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
+import { ReactComponent as CalendarIcon } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
+import { ReactComponent as PasswordIcon } from "../../../../../../assets/PrivateCabinet/password.svg";
 // import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
-import { onGetContacts } from "../../../../../Store/actions/CabinetActions";
-import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { onGetContacts } from "../../../../../../Store/actions/CabinetActions";
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 	// const uid = useSelector(state => state.user.uid);

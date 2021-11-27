@@ -14,15 +14,14 @@ import '../../../../generalComponents/colors.sass';
 import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-import Select from "../CreateFile/Select/Select";
+import SelectFolder from "../../../../generalComponents/SelectFolder/SelectFolder";
 
 const CreateFolder = ({
-    onCreate, title, info, showChoiceFolders = true, setChosenFolder, chosenFolder, newFolderInfo = {},
-    setGLoader
+    onCreate, title, showChoiceFolders = true, chosenFolder, newFolderInfo = {},
+    setGLoader, setNewFolderInfo
 }) => {
 
     const uid = useSelector(state => state.user.uid);
-    const folderList = useSelector(state => state.Cabinet.folderList);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const search = useSelector(state => state.Cabinet.search);
     const [name, setName] = useState('');
@@ -57,7 +56,8 @@ const CreateFolder = ({
 
     const onAddFolder = () => {
         if(name) {
-            const params = `uid=${uid}&dir_name=${name}&parent=${path}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
+            const modifiedPath = path.split('/').length === 2 && path.split('/')[1] === '' ? path.slice(0, path.indexOf('/')) : path;
+            const params = `uid=${uid}&dir_name=${name}&parent=${modifiedPath}&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ''}&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
             api.post(`/ajax/dir_add.php?${params}`)
                 .then(res => {if(res.data.ok === 1) {
                     onCreate(false);
@@ -65,7 +65,7 @@ const CreateFolder = ({
                 })
                 .catch(() => {setError(true)})
                 .finally(() => {
-                    dispatch(onGetFolders(folderList.path));
+                    dispatch(onGetFolders(fileList?.path));
                     dispatch(onChooseFiles(fileList?.path, search, 1, '', setGLoader));
                 }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {
@@ -158,11 +158,12 @@ const CreateFolder = ({
                             </div>
                         </div>
                         {showChoiceFolders && <div className={styles.inputWrap}>
-                            <Select
+                            <SelectFolder
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}
-                                initFolder={newFolderInfo?.path ? newFolderInfo : chosenFolder}
+                                initFolder={newFolderInfo?.path}
+                                setNewFolderInfo={setNewFolderInfo}
                             />
                         </div>}
                         <div className={styles.inputWrap}>

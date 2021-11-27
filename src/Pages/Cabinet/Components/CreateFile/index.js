@@ -5,7 +5,7 @@ import styles from './CreateFile.module.sass';
 import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
-import Select from './Select/Select';
+import SelectFolder from '../../../../generalComponents/SelectFolder/SelectFolder';
 import {tags, colors} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
@@ -228,7 +228,7 @@ const CreateFile = ({
                             </div>
                         </div>
                         {showChoiceFolders && <div className={styles.inputWrap}>
-                            <Select 
+                            <SelectFolder
                                 className={styles.select}
                                 path={path}
                                 setPath={setPath}

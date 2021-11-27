@@ -24,7 +24,7 @@ import {periods} from "../../../../../generalComponents/collections";
 const ItemsList = ({
        setGLoader, setFilesPage, setChosenFolder, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
-       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openMenu
+       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu
 }) => {
 
     // const uid = useSelector(state => state?.user.uid);
@@ -74,7 +74,7 @@ const ItemsList = ({
                 setGLoader={setGLoader}
                 params={params}
                 chooseItemNext={chooseItemNext}
-                openMenu={openMenu}
+                openFolderMenu={openFolderMenu}
             />
         });
     }

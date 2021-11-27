@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./SetPassword.module.sass";
-import PopUp from "../../../../../../generalComponents/PopUp";
-import InputField from "../../../../../../generalComponents/InputField";
-import Error from "../../../../../../generalComponents/Error";
+import PopUp from "../../../../../../../generalComponents/PopUp";
+import InputField from "../../../../../../../generalComponents/InputField";
+import Error from "../../../../../../../generalComponents/Error";
 
 function SetPassword({ setDisplaySetPassword }) {
 	const [password, setPassword] = useState("");

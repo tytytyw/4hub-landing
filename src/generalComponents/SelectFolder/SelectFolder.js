@@ -1,54 +1,54 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { useSelector } from 'react-redux';
 
-import styles from './Select.module.sass'
+import styles from './SelectFolder.module.sass'
 import classNames from 'classnames'
-import FolderItem from '../FolderItem';
-import CustomFolderItem from '../CustomFolderItem';
+import CustomFolderItem from '../../Pages/Cabinet/Components/MyFolders/CustomFolderItem';
+import {folders} from "../collections";
 
-const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...props}) => {
+const SelectFolder = ({initValue, initFolder = '', onChange = () => {}, setNewFolderInfo = null,  ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value] = useState(initValue)
     const global = useSelector(state => state.Cabinet.global);
-    const other = useSelector(state => state.Cabinet.other?.folders);
+    const other = useSelector(state => state.Cabinet.other);
     const [chosenFolder, setChosenFolder] = useState(initFolder);
+    const path = useSelector(state => state.Cabinet.fileList?.path);
     const ref = useRef()
 
-    useEffect(() => {
-        setPath(chosenFolder?.subPath || chosenFolder?.path)
-    }, [chosenFolder]) //eslint-disable-line
-
-    const renderStandardFolderList = () => {
-        if(!global) return null;
-        return global.map((el, i) => {
-            return <FolderItem
-                key={i + el.name}
-                folder={el}
-                setChosenFolder={setChosenFolder}
-                chosenFolder={chosenFolder}
-                chosen={chosenFolder.path === el.path}
-                disableAddFolder={true}
-                offDispatch={true}
-            />
-        })
-    };
-
-    const renderOtherFolderList = () => {
-        if(!other) return null;
-        return other.map((folder, i) => {
+    const renderFolderList = (root) => {
+        if(!Array.isArray(root)) return null;
+        return root.map((folder, i) => {
             return <CustomFolderItem
                 key={i + folder.name}
                 f={folder}
+                listCollapsed={false}
+                isSelectFolder={true}
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 chosen={chosenFolder.path === folder.path}
-                padding={'0px 10px 0px 26px'}
+                p={25}
+                isRecent={false}
                 subFolder={false}
                 offDispatch={true}
+                setNewFolderInfo={setNewFolderInfo}
             />
         })
     };
+
+    const renderPath = () => {
+        let newPath = initFolder ?? path;
+        if(newPath.includes('global') && newPath.indexOf('global') === 0) {
+            folders.forEach(el => {
+                newPath = newPath.replace(el.path, '/' + el.nameRu)
+            })
+        }
+        if(newPath.indexOf('other') === 0) {
+            newPath = newPath.substr(5)
+            console.log(newPath)
+        }
+        return newPath
+    }
 
     useEffect(() => {
         const onClick = (event) => {
@@ -81,7 +81,7 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
                     <span className={classNames({
                         [styles.selectInput]: !props.classNameSelect,
                         [props.classNameSelect]: !!props.classNameSelect
-                    })}>{path}</span>
+                    })}>{renderPath()}</span>
                 </div>
                 <span className={classNames({
                     [styles.arrow]: true,
@@ -93,12 +93,14 @@ const Select = ({initValue, path, setPath, initFolder, onChange = () => {}, ...p
                 [styles.contentWrap]: true,
                 [styles.active]: !!open
             })}>
-                {open && renderStandardFolderList()}
-                {open && renderOtherFolderList()}
+                <div className={styles.folderListWrap}>
+                    {open && renderFolderList(global)}
+                    {open && renderFolderList(other)}
+                </div>
             </div>
 
         </div>
     )
 }
 
-export default Select
+export default SelectFolder

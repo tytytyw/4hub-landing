@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import styles from './ShareToMessengers.module.sass'
-import PopUp from '../../../../../../generalComponents/PopUp'
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabinet/sms.svg'
-import Button from '../../../MyProfile/Button'
-import {messengersData} from '../../../MyProfile/Contacts/consts'
+import PopUp from '../../../../../../../generalComponents/PopUp'
+import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
+import {ReactComponent as ChatIcon} from '../../../../../../../assets/PrivateCabinet/sms.svg'
+import Button from '../../../../MyProfile/Button'
+import {messengersData} from '../../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 
 const ShareToMessengers = ({setDisplayMessengers}) => {
