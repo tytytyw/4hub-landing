@@ -12,8 +12,6 @@ import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
 import SetPassword from '../SetPassword/SetPassword'
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
-import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
-import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
 function Share({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
