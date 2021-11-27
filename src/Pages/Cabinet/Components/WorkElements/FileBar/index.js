@@ -55,7 +55,7 @@ const FileBar = ({
                     onClick={e => {
                         file.is_dir
                             ? openFolderMenu(e, file)
-                            : setMouseParams({x: e.clientX, y: e.clientY, width: 260, height: 25})
+                            : setMouseParams({x: e.clientX, y: e.clientY, width: 240, height: 25})
                     }}
                 ><span/></div>
                 <div className={styles.symbols}>
