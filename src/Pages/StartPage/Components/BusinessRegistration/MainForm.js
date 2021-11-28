@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useSelector} from 'react-redux'
 import styles from "./BusinessRegistration.module.sass";
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import Select from "./Select";
@@ -9,6 +10,7 @@ const requiredInputs = [
 ]
 
 const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => {
+    const userInfo = useSelector(state => state.user.userInfo)
 
     const {
         fields,
@@ -16,7 +18,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
         errors,
         onChange,
         checkErrors
-    } = useValidateForm({ emp_num: 2 }, requiredInputs)
+    } = useValidateForm({ emp_num: 100 }, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.main) {
@@ -24,6 +26,11 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    useEffect(() => {
+        if (userInfo) onChange(userInfo.id_company, 'company_name')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userInfo])
+
     const onSubmit = event => {
         event.preventDefault()
 
@@ -60,11 +67,11 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
                     <div className={styles.selectWrap}>
                         <Select
                             data={[
-                                {id: 1, text: 'Более 30'},
-                                {id: 2, text: 'Более 40'},
-                                {id: 3, text: 'Более 50'},
+                                {id: 10, text: 'менее 10'},
+                                {id: 50, text: 'менее 50'},
+                                {id: 100, text: 'менее 100'},
                             ]}
-                            placeholder='Более 50'
+                            placeholder='менее 50'
                             initValue={getValue('emp_num')}
                             onChange={value => onChange(value, 'emp_num')}
                         />

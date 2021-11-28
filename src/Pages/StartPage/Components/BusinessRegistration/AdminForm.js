@@ -3,6 +3,7 @@ import styles from "./BusinessRegistration.module.sass";
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import {useValidateForm} from "./validation";
 import AdminSelect from "./AdminSelect";
+import {useSelector} from 'react-redux'
 
 import arrowImg from '../../../../assets/BusinessCabinet/arrow.svg'
 import {validateEmail} from "../../../Cabinet/Components/MyProfile/Input/validation";
@@ -20,6 +21,7 @@ const requiredInputs = [
 ]
 
 const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => {
+    const userInfo = useSelector(state => state.user.userInfo)
 
     const [disableForm, setDisableForm] = useState(false)
     const [checkPhone, setCheckPhone] = useState(true)
@@ -34,11 +36,18 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
         onChange,
         checkErrors,
         blurs,
-    } = useValidateForm({ admin: 1 }, requiredInputs)
+    } = useValidateForm({ admin: 1, phone: userInfo.tel, email: userInfo.email}, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.admin) {
             setFields(mainFields?.admin)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        if (userInfo) {
+            // setFields(mainFields?.admin)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -164,7 +173,7 @@ const AdminForm = ({mainFields, setMainFields, setStep, compare, setCompare}) =>
                         isMistake={isPhone()}
                         className={styles.input}
                         label='Телефон'
-                        placeholder='Телефон'
+                        placeholder={userInfo.tel || 'Телефон'}
                         name='phone'
                         value={getValue('phone')}
                         onChange={e => {
