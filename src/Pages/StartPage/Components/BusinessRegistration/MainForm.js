@@ -18,7 +18,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
         errors,
         onChange,
         checkErrors
-    } = useValidateForm({ emp_num: 100 }, requiredInputs)
+    } = useValidateForm({ emp_num: 100, activity_field: '' }, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.main) {
