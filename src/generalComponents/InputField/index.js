@@ -4,7 +4,7 @@ import styles from './InputField.module.sass';
 import classnames from 'classnames';
 
 const InputField = ({
-        value, set, model, mistake = false, switcher = false, isPass = false,
+        value, set, model, mistake = false, switcher = false, isPass = false, height = '',
         placeholder = '', onSwitch, visibility, setVisibility, comparePass, phone, disabled = false
 }) => {
 
@@ -29,6 +29,7 @@ const InputField = ({
                     [styles.inputField]: true,
                     [styles.isPassword]: model === 'password',
                 })}
+                style={{height}}
                 type={model === 'password' ? visibility : 'text'}
                 autoComplete='off'
                 readOnly={true}
