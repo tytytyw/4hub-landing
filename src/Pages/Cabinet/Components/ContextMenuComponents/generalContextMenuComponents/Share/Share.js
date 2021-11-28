@@ -71,7 +71,7 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
 
     return (
         <PopUp set={close}>
-            {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
+            {!displayStotagePeriod && !displayMessengers && !displaySetPassword && <div className={styles.ShareFile_wrap}>
                 {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
                     <FileInfo file={file}/>
                     <div className={styles.buttons_wrap}>
