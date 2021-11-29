@@ -18,7 +18,7 @@ const SuccessCreated = ({set}) => {
                 <img onClick={toBusiness} className={styles.close} src={timesImg} alt="Close"/>
 
                 <div className={styles.header}>
-                    <h4 className={styles.title}>Новая Компания успешно создана</h4>
+                    <h4 className={styles.title}>Регистрация прошла успешно</h4>
                 </div>
 
                 <div className={styles.content}>
@@ -28,14 +28,13 @@ const SuccessCreated = ({set}) => {
                     </div>
 
                     <p className={styles.text}>
-                        Новая Компания успешно создана и добавлена в базу.
-                        <br/>
-                        На ваш E-Mail отправлено письмо с ссылкой для потвержения
+                        Письмо подтверждения регистрации отправлено на Ваш email. 
+                        Будьте добры перейти по ссылке для завершения<br/> процесса регистрации
                     </p>
 
                     <p className={styles.info}>
                         Не пришло письмо ?
-                        <span className={styles.resend}>Отправить заново</span>
+                        <span className={styles.resend}> Отправить заново</span>
                     </p>
 
                     <div className={styles.actionBlock}>
