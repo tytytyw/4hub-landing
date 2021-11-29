@@ -6,6 +6,7 @@ import Error from "../../../../../../generalComponents/Error";
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import classNames from "classnames";
 import {ReactComponent as Password} from "../../../../../../assets/PrivateCabinet/password.svg";
+import Success from "../../../../../../generalComponents/Success";
 
 function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 	const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -13,6 +14,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 	const [showRepeat, setShowRepeat] = useState(true);
 	const [visibility, setVisibility] = useState("password");
 	const [error, setError] = useState(false);
+	const [success, setSuccess] = useState(false);
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 	const comparePass = (val) => {
 		const pass = password.split("");
@@ -28,17 +30,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 		if (password !== passwordRepeat) return setPasswordCoincide(false);
 		if (password) {
 			setPassword(password)
-			closeComponent()
-			// api
-			// 	.post("/ajax/file_edit.php", data)
-			// 	.then((res) => {
-			// 		setShowSuccessMessage('пароль установлен');
-			// 		closeComponent();
-			// 	})
-			// 	.catch((err) => {
-			// 		setError(true);
-			// 	});
-
+			setSuccess(true);
 		}
 	};
 
@@ -49,7 +41,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 
 	return (
 		<div style={{ display: `block` }}>
-			<PopUp set={setDisplaySetPassword}>
+			{!error && !success ? <PopUp set={setDisplaySetPassword}>
 				<div className={styles.wrap}>
 					<div className={styles.header}>
 						<FileInfo file={file}/>
@@ -117,7 +109,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 						</div>
 					</div>
 				</div>
-			</PopUp>
+			</PopUp> : null}
 			{error && (
 				<Error
 					error={error}
@@ -125,6 +117,12 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 					message="Пароль не добавлен"
 				/>
 			)}
+			{success && (<Success
+					set={closeComponent}
+					message='Пароль на файл успешно установлен при передаче файла, на email получателя прийдет указанный Вами пароль'
+					title='Пароль успешно установлен'
+					success={success}
+			/>)}
 		</div>
 	);
 }
