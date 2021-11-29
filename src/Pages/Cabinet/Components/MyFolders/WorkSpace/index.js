@@ -25,7 +25,7 @@ import CustomizeFile from '../../ContextMenuComponents/ContextMenuFile/Customize
 import OptionButtomLine from '../../WorkElements/OptionButtomLine';
 import FileProperty from '../../ContextMenuComponents/ContextMenuFile/FileProperty';
 import CreateZip from '../../ContextMenuComponents/ContextMenuFile/CreateZip';
-import ShareFile from '../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile';
+import Share from '../../ContextMenuComponents/generalContextMenuComponents/Share/Share';
 import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
@@ -314,10 +314,10 @@ const WorkSpace = ({
             menuItem='myFolders'
         /> : null}
         {action.type === 'share' ? (
-				<ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
+				<Share file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
 			) : null}
         {action.type === 'resend' ? (
-            <ShareFile file={chosenFile} files={filePick.files} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
+            <Share file={chosenFile} files={filePick.files} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
         ) : null}
         {action.type === 'properties'
             ? <FileProperty

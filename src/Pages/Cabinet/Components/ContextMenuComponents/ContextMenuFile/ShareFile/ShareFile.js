@@ -15,6 +15,7 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
+//TODO - NEEDS to be deprecated - search for imports and change for SHARE in generalContextMenu
 function ShareFile({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
