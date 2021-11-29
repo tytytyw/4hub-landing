@@ -4,10 +4,10 @@ import styles from './SuccessCreated.module.sass'
 import timesImg from '../../../../../assets/BusinessCabinet/times.svg'
 import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
 
-const SuccessCreated = () => {
+const SuccessCreated = ({set}) => {
 
     const toBusiness = () => {
-
+        set(false)
     }
 
     return (

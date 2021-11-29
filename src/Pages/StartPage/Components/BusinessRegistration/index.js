@@ -17,7 +17,7 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 	const [step, setStep] = useState("main");
 
 	return (
-		<PopUp set={setBusinessRegistration}>
+		<PopUp set={() => {}}>
 			<div className={styles.wrapper}>
 				<main className={styles.main}>
 					{step === "main" && (
@@ -45,6 +45,7 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 							mainFields={mainFields}
 							setMainFields={setMainFields}
 							setStep={setStep}
+							set={setBusinessRegistration}
 						/>
 					)}
 				</main>

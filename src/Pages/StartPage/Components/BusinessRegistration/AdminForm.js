@@ -48,11 +48,9 @@ const AdminForm = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	useEffect(() => {
-		setDisablePass(!!fields.admin);
-		!!fields.admin
-			? (requiredInputs = requiredInputs.filter(
-					(item) => !item.includes("password")
-			  ))
+		setDisablePass(!fields.admin);
+		!fields.admin
+			? (requiredInputs = requiredInputs.filter(item => !item.includes("password")))
 			: requiredInputs.push("password", "password_r");
 	}, [fields.admin]);
 
@@ -73,16 +71,13 @@ const AdminForm = ({
 				)
 				.then((response) => {
 					if (response.data.ok) {
-						const id_copmany = response.data.id_company;
+						const id_company = response.data.id_company;
+                        const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
 						api
 							.get(
-								`/ajax/org_user_reg.php?id_copmany=${id_copmany}&name=${getValue(
-									"name"
-								)}&email=${getValue("email")}&tel=${getValue(
-									"phone"
-								)}&pass=${getValue("password")}&is_admin=${
-									fields.admin
-								}&sname=${getValue("surname")}&pname=${getValue("middle_name")}`
+								`/ajax/org_user_reg.php?company=${id_company}&name=${getValue("name")}&email=${getValue("email")}
+                                &tel=${getValue("phone")}&is_admin=${fields.admin}&sname=${getValue("surname")}
+                                &pname=${getValue("middle_name")}${sentPass()}`
 							)
 							.then((res) => {
 								if (res.data.ok === 1) {
