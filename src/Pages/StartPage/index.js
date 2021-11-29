@@ -16,6 +16,7 @@ import DownloadFolder from "./Components/DownloadFolder";
 import {imageSrc} from '../../generalComponents/globalVariables';
 import BusinessRegistration from "./Components/BusinessRegistration";
 import LangPicker from "../../generalComponents/LangPicker";
+import Error from '../../generalComponents/Error';
 
 const StartPage = ({setOptions, setLoadingType}) => {
 
@@ -80,6 +81,8 @@ const StartPage = ({setOptions, setLoadingType}) => {
                 {(pageOption === 'business-register') && <BusinessRegistration setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}
                 {pageOption === 'renewPassword' && <RenewPassword setPage={setPage} />}
+                {pageOption === 'errorEnter' && <Error error={true} message={'Неверный логин или пароль'} set={() => setPage('enter')} />}
+
             </main>
         </div>
     )

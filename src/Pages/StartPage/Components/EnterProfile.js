@@ -38,7 +38,7 @@ const EnterProfile = ({setPage}) => {
                 .then(res => {
                     if(res.data.ok === 1) {
                         dispatch(onLog(res.data))
-                    }
+                    } else setPage('errorEnter')
                 })
                 .catch(err => console.log(err));
         }
