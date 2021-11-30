@@ -3,14 +3,12 @@ import styles from "./BusinessRegistration.module.sass";
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import { useValidateForm } from "./validation";
 import AdminSelect from "./AdminSelect";
-import { useSelector } from "react-redux";
 
 import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
 
 let requiredInputs = [
-	// 'admin',
 	"surname",
 	"name",
 	"middle_name",
@@ -27,7 +25,6 @@ const AdminForm = ({
 	compare,
 	setCompare,
 }) => {
-	const userInfo = useSelector((state) => state.user.userInfo);
 
 	const [checkPhone, setCheckPhone] = useState(true);
 	const [checkEmail, setCheckEmail] = useState(true);
@@ -37,7 +34,7 @@ const AdminForm = ({
 
 	const { fields, setFields, errors, onChange, checkErrors, blurs } =
 		useValidateForm(
-			{ admin: 1, phone: userInfo.tel, email: userInfo.email },
+			{ admin: 1 },
 			requiredInputs
 		);
 
@@ -56,7 +53,6 @@ const AdminForm = ({
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-
 		if (
 			checkErrors() &&
 			(confirmPass || disablePass) &&
@@ -65,30 +61,22 @@ const AdminForm = ({
 		) {
 			console.log("success submit");
 			setMainFields((prev) => ({ ...prev, admin: fields }));
-			api
-				.get(
-					`/ajax/org_reg.php?company=${mainFields.main.company_name}&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}`
-				)
-				.then((response) => {
-					if (response.data.ok) {
-						const id_company = response.data.id_company;
-                        const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
-						api
-							.get(
-								`/ajax/org_user_reg.php?company=${id_company}&name=${getValue("name")}&email=${getValue("email")}
-                                &tel=${getValue("phone")}&is_admin=${fields.admin}&sname=${getValue("surname")}
-                                &pname=${getValue("middle_name")}${sentPass()}`
-							)
-							.then((res) => {
-								if (res.data.ok === 1) {
-									setStep("complete");
-								}
-							});
-					}
-				})
-				.catch((err) => {
+			const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
+			api.get(
+				`/ajax/org_user_reg.php?company=${mainFields.main.company_name}
+				&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}
+				&name=${getValue("name")}&email=${getValue("email")}&tel=${getValue("phone")}
+				&is_admin=${fields.admin}&sname=${getValue("surname")}&pname=${getValue("middle_name")}
+				${sentPass()}`
+			)
+			.then((res) => {
+				if (res.data.ok === 1) {
+					setStep("complete");
+				}
+			})
+			.catch((err) => {
 					console.log(err);
-				});
+			});
 		}
 	};
 

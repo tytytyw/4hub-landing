@@ -26,8 +26,8 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
             return props.placeholder
         }
 
-        const valueItem = data.find(item => item?.id === value)
-        return valueItem?.text
+        const valueItem = data.find(item => item === value)
+        return valueItem
     }
 
     return (
@@ -68,14 +68,14 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                             key={index}
                             onClick={() => {
                                 setOpen(false)
-                                setValue(item.id)
-                                onChange(item.id)
+                                setValue(item)
+                                onChange(item)
                             }}
                             className={classNames({
                                 [styles.option]: true,
-                                [styles.active]: value === item.id
+                                [styles.active]: value === item
                             })}
-                        >{item.text}</li>
+                        >{item}</li>
                     ))}
                 </ul>
 

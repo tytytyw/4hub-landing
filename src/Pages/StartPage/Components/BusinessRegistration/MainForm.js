@@ -18,7 +18,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
         errors,
         onChange,
         checkErrors
-    } = useValidateForm({ emp_num: 100, activity_field: '' }, requiredInputs)
+    } = useValidateForm({ emp_num: 'более 50', activity_field: '' }, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.main) {
@@ -67,11 +67,11 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
                     <div className={styles.selectWrap}>
                         <Select
                             data={[
-                                {id: 10, text: 'менее 10'},
-                                {id: 50, text: 'менее 50'},
-                                {id: 100, text: 'менее 100'},
+                                'более 10',
+                                'более 50',
+                                'более 100',
                             ]}
-                            placeholder='менее 50'
+                            placeholder='более 50'
                             initValue={getValue('emp_num')}
                             onChange={value => onChange(value, 'emp_num')}
                         />
