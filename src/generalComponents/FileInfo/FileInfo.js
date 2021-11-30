@@ -3,13 +3,17 @@ import styles from './FileInfo.module.sass'
 import classNames from "classnames";
 import File from "../Files";
 import {imageSrc} from "../globalVariables";
+import {colors} from "../collections";
+import {ReactComponent as FolderIcon} from "../../assets/PrivateCabinet/folder-2.svg";
 
 function FileInfo({file = {}}) {
     return(
         <>
             {file === {} ? null : <div className={styles.wrap}>
             <div className={styles.innerFileWrap}>
-                <File color={file?.id_color} format={file?.ext ?? 'FILE'} />
+                {file.is_dir || !!file?.folders
+                    ? <FolderIcon className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
+                    : <File color={file?.id_color} format={file?.ext ?? 'FILE'} />}
                 {file?.is_pass ? <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
             </div>
             <div className={styles.descriptionWrap}>
