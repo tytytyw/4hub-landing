@@ -6,7 +6,7 @@ import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 
-const ShareToMessengers = ({setDisplayMessengers, close, fid, file, data}) => {
+const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
 
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [hrefSoc, setHrefSoc] = useState(null)
@@ -35,7 +35,7 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid, file, data}) => {
                 className={styles.wrapper}
             >
                 <div className={styles.header}>
-                    {data.fids.length > 1 ? null : <FileInfo file={file} />}
+                    <FileInfo file={file} />
                 </div>
                 <div className={styles.border}/>
                 <div className={styles.blockTitle}>
