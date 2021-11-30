@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import styles from './ShareToMessengers.module.sass'
 import PopUp from '../../../../../../generalComponents/PopUp'
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-import {ReactComponent as ChatIcon} from '../../../../../../assets/PrivateCabinet/sms.svg'
 import Button from '../../../MyProfile/Button'
 import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
+import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 
-const ShareToMessengers = ({setDisplayMessengers, close, fid}) => {
+const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
 
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [hrefSoc, setHrefSoc] = useState(null)
@@ -36,27 +35,15 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid}) => {
                 className={styles.wrapper}
             >
                 <div className={styles.header}>
-                    <div className={styles.profileWrap}>
-                        <img
-                            className={styles.profileImg}
-                            src={imageSrc + './assets/PrivateCabinet/logo.svg'}
-                            alt='logo'
-                        />
-                    </div>
-                    <span
-                        className={styles.close}
-                        onClick={() => setDisplayMessengers(false)}
-                    >
-                        <span className={styles.times}/>
-                    </span>
+                    <FileInfo file={file} />
                 </div>
-
-                <div className={styles.share}>
-                    <div className={styles.blockTitle}>
-                        <span className={styles.titleIcon}><ChatIcon/></span>
-                        <span className={styles.info}>Поделиться с помощью:</span>
-                    </div>
-                    <div className={styles.socials}>
+                <div className={styles.border}/>
+                <div className={styles.blockTitle}>
+                    <span className={styles.info}>Выберите мессенджер</span>
+                </div>
+                <div className={styles.border}/>
+                <span className={styles.aboutInfo}>При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве</span>
+                <div className={styles.socials}>
                         {messengersData.map((item, index) => {
                             if (item.type === "slack" || item.type === "skype")  return ''
                             else return (
@@ -78,9 +65,11 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid}) => {
                             )})
                         }
                     </div>
-                </div>
 
                 <div className={styles.actionBlock}>
+                    <Button onClick={() => setDisplayMessengers(false)} className={styles.backBtn}>
+                        Назад
+                    </Button>
                     <a target='_blanck' href={hrefSoc}>
                         <Button onClick={() => close()} className={styles.actionBtn}>
                             Отправить

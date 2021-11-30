@@ -313,11 +313,16 @@ const WorkSpace = ({
             setLoadingType={setLoadingType}
             menuItem='myFolders'
         /> : null}
-        {action.type === 'share' ? (
-				<Share file={chosenFile} files={filePick.files} close={nullifyAction} action_type={action.type} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
-			) : null}
-        {action.type === 'resend' ? (
-            <Share file={chosenFile} files={filePick.files} close={nullifyAction} action_type={'send'} showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} setLoadingType={setLoadingType} />
+        {action.type === 'share' || action.type === 'resendFolder' ? (
+            <Share
+                file={action.type === 'resendFolder' ? chosenFolder.info : chosenFile}
+                files={action.type === 'resendFolder' ? [] : filePick.files}
+                close={nullifyAction}
+                action_type={action.type === 'resendFolder' ? 'dir_access_add' : 'file_share'}
+                showSuccessMessage={showSuccessMessage}
+                setShowSuccessMessage={setShowSuccessMessage}
+                setLoadingType={setLoadingType}
+            />
         ) : null}
         {action.type === 'properties'
             ? <FileProperty

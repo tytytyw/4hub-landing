@@ -1,20 +1,26 @@
 .wrapper
-  height: 285px
+  display: flex
+  flex-direction: column
+  height: 345px
+  width: 660px
 
 .header
   display: flex
   align-items: center
   justify-content: space-between
   padding: 20px
-  border-bottom: 1px solid #DFDFDF
-
 .block
   height: 60px
   display: flex
   align-items: center
   padding: 0 20px
-  border-bottom: 1px solid #DFDFDF
-
+.border
+  width: 95%
+  min-width: 80%
+  height: 1px
+  min-height: 1px
+  background: #DFDFDF
+  align-self: center
   .input
     font-size: 12px
     line-height: 15px
@@ -29,47 +35,45 @@
       color: #9E9E9E
       font-family: 'SF Pro Light'
 
+.titleIcon
+  margin-right: 10px
 
-.share
-  padding: 20px
-  border-bottom: 1px solid #DFDFDF
+.socials
+  display: flex
+  align-items: center
+  list-style: none
+  overflow-x: auto
+  overflow-y: hidden
+  padding: 0
+  margin: 0 0 10px 20px
 
-  .titleIcon
-    margin-right: 10px
+  .socialsItem.active
+    background: #EBF2FD
+    border-radius: 5px
 
-  .socials
+  .socialsItem
+    cursor: pointer
+    text-align: center
     display: flex
     align-items: center
-    list-style: none
-    overflow-x: auto
-    overflow-y: hidden
-    padding: 0
-
-    .socialsItem.active
+    padding: 10px 10px
+    box-sizing: border-box
+    margin: 0 10px 0 0
+    border-radius: 10px
+    &:hover
       background: #EBF2FD
-      border-radius: 5px
 
-    .socialsItem
-      cursor: pointer
-      text-align: center
-      display: block
-      width: 75px
-      padding: 10px 0
-      box-sizing: border-box
+    p
+      margin: 0 0 0 10px
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 12px
+      line-height: 16px
+      color: rgba(43, 53, 62, 1)
 
-      &:hover
-        background: #EBF2FD
-
-      p
-        margin: 0
-        font-size: 12px
-        line-height: 16px
-        color: #606060
-
-      img
-        width: 35px
-        height: 35px
-        border-radius: 50%
+    img
+      width: 50px
+      height: 50px
+      border-radius: 50%
 
 
 .contacts
@@ -108,27 +112,43 @@
   display: flex
   justify-content: center
   align-items: center
-  margin-top: 15px
+  margin-top: 20px
+
+.backBtn
+  width: 135px
+  border-radius: 3px
+  background: rgba(245, 245, 245, 1)
+  font-size: 13px
+  line-height: 16px
+  color: rgba(119, 119, 119, 1)
+  box-shadow: 0 2px 4px #DFDFDF
+  margin: 0 10px 0 0
 
 .actionBtn
+  width: 135px
   border-radius: 3px
   background: #4086F1
   font-size: 13px
-  line-height: 18px
+  line-height: 16px
   color: #fff
   box-shadow: 0 2px 4px #DFDFDF
 
 .blockTitle
   display: flex
   align-items: center
-  margin-bottom: 18px
-
-.info
+  padding: 18px 0 18px 25px
+  .info
+    font-size: 12px
+    line-height: 15px
+    color: #606060
+    margin-right: 10px
+    font-family: "SF Pro Regular", sans-serif
+.aboutInfo
   font-size: 12px
   line-height: 15px
-  color: #606060
-  margin-right: 10px
-
+  padding: 18px 0 12px 30px
+  font-family: "SF Pro Regular", sans-serif
+  color: rgba(129, 129, 129, 1)
 .info.errorInfo
   color: red
 

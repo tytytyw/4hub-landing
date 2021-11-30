@@ -1,0 +1,77 @@
+.wrap
+  display: flex
+  .innerFileWrap
+    width: 47px
+    height: 50px
+    position: relative
+    display: flex
+    margin: 0 15px 0 0
+    .innerFolderIcon
+      width: 100%
+      height: 100%
+    .lock
+      position: absolute
+      width: 12px
+      top: 3px
+      left: calc(50% - 6px)
+  .descriptionWrap
+    margin: 8px 0 0 0
+    .fileName
+      display: block
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      color: #606060
+      width: max-content
+      max-width: 400px
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 16px
+      margin-bottom: 3px
+    .innerFileInfo
+      display: flex
+      align-items: center
+      justify-content: space-between
+    .fileSize
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 10px
+      color: #8B8B8B
+      white-space: nowrap
+      margin: 0 5px 0 0
+    .descriptionGroup
+      display: flex
+      .tagBlock
+        height: 14px
+      .ftag
+        padding: 1px 5px
+        margin-right: 9px
+        width: max-content
+        font-size: 10px
+        color: #fff
+        background: #34C6A2
+        border-radius: 10px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+      .fileTag
+        display: block
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        max-width: 30px
+        font-family: "SF Pro Regular", sans-serif
+        font-size: 8px
+        color: #FFFFFF
+        background: rgb(0, 203, 165)
+        padding: 0 5px
+        border-radius: 5px
+        margin: 0 5px 0 0
+      img
+        width: 13px
+        margin: 0 5px 0 0
+        object-fit: contain
+  .severalChosen
+    display: flex
+    align-items: center
+    font-family: "SF Pro Regular", sans-serif
+    font-size: 12px
+    color: #8B8B8B

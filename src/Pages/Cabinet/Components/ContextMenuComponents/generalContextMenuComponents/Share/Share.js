@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import File from '../../../../../../generalComponents/Files';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import styles from './Share.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import Error from '../../../../../../generalComponents/Error';
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import StoragePeriod from '../StoragePeriod/StoragePeriod';
 import ShareToMessengers from '../ShareToMessengers/ShareToMessengers';
 import SetPassword from '../SetPassword/SetPassword'
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
+import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 
 function Share({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
@@ -26,23 +25,18 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     const [data, setData] = useState(
         {
             uid,
-            fids: files.length ? [...files] : [file.fid],
+            fids: file.is_dir || !!file?.folders ? '' : files.length ? [...files] : [file.fid],
             user_to: '',
             prim: '',
             deadline: '',
-            pass: ''
+            pass: '',
+            is_write: 0,
     })
     const setTime = (time, limit) => {
         return time < limit
         ? time < 10 ? `0${time}` : time
         : time[0];
     }
-
-    useEffect(()=> {
-        if (action_type === 'share') {
-            setData(data => ({...data, is_write: 0, dir: file.gdir}))
-        }
-    },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(()=> {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
@@ -54,9 +48,12 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
 
     const onShareFile = () => {
         setLoadingType('squarify')
-        api.post(`/ajax/file_${action_type}.php`, data)
+        const newData = action_type === 'dir_access_add'
+            ? `uid=${data.uid}&email=${data.user_to}&deadline=${data.deadline}&is_read=${data?.is_write}&pass=${data.pass}&dir=${file?.is_dir || file?.folders ? file.path : ''}&prim=${data.prim}`
+            : `uid=${data.uid}&user_to=${data.user_to}&deadline=${data.deadline}&fids=${data.fids}&is_write=${data?.is_write}&pass=${data.pass}&prim=${data.prim}`
+        api.post(`/ajax/${action_type}.php?${newData}`)
             .then(res => {
-                if(res.data.ok === true) {
+                if(!!res.data.ok) {
                     setShowSuccessMessage('Отправлено')
                     close()
                 } else if (res.data.error) {
@@ -72,46 +69,15 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
 
     return (
         <PopUp set={close}>
-            {!displayStotagePeriod && !displayMessengers && <div className={styles.ShareFile_wrap}>
-                {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
-                    <div className={styles.innerFileWrap}>
-                        <File color={file.id_color} format={file.ext} />
-                        {file.is_pass ? <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
-                    </div>
-                    <div className={styles.descriptionWrap}>
-                        <div className={styles.fileName}>{file.name}</div>
-                        <div className={styles.innerFileInfo}>
-                            <div className={styles.fileSize}>{file?.size_now}</div>
-                            <div className={styles.descriptionGroup}>
-                                <div
-                                    className={classNames({
-                                        [styles.tagBlock]: true,
-                                        [styles.ftag]: !!file?.tag,
-                                    })}
-                                >
-                                    {file?.tag && `#${file.tag}`}
-                                </div>
-                                {file.fig && (
-                                    <img
-                                        src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                                        alt="sign"
-                                    />
-                                )}
-                                {file.emo && (
-                                    <img
-                                        src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-                                        alt="emoji"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
+            {!displayStotagePeriod && !displayMessengers && !displaySetPassword && <div className={styles.ShareFile_wrap}>
+                <div className={classNames(styles.header, styles.border_bottom)}>
+                    <FileInfo file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}/>
                     <div className={styles.buttons_wrap}>
                         <div className={styles.close_wrap}  onClick={close}>
                             <span className={styles.close} />
                         </div>
                     </div>
-                </div>}
+                </div>
                 <div className={styles.border}/>
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
@@ -178,9 +144,27 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
                 </div>
             </div>}
             {error && <Error error={error} set={close} message={error} />}
-            {displayStotagePeriod && <StoragePeriod file={file} setDisplayStotagePeriod={setDisplayStotagePeriod} dateValue={dateValue} setDateValue={setDateValue} timeValue={timeValue} setTimeValue={setTimeValue} />}
-            {displayMessengers && <ShareToMessengers setDisplayMessengers={setDisplayMessengers} close={close} fid={file.fid}/>}
-            {displaySetPassword && <SetPassword file={file} setDisplaySetPassword={setDisplaySetPassword} password={password} setPassword={setPassword} />}
+            {displayStotagePeriod && <StoragePeriod
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                setDisplayStotagePeriod={setDisplayStotagePeriod}
+                dateValue={dateValue}
+                setDateValue={setDateValue}
+                timeValue={timeValue}
+                setTimeValue={setTimeValue}
+            />}
+            {displayMessengers && <ShareToMessengers
+                setDisplayMessengers={setDisplayMessengers}
+                close={close}
+                fid={file.fid}
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                data={data}
+            />}
+            {displaySetPassword && <SetPassword
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                setDisplaySetPassword={setDisplaySetPassword}
+                password={password}
+                setPassword={setPassword}
+            />}
         </PopUp>
     )
 }

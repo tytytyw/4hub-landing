@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
-import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 import styles from "./StoragePeriod.module.sass";
-import { ReactComponent as CalendarIco } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
-import { ReactComponent as EyeIco } from "../../../../../../assets/PrivateCabinet/clock.svg";
+import { ReactComponent as CalendarIcon } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 
 function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue}) {
 	const curretDate = new Date().toLocaleDateString('ru-RU')
@@ -48,57 +46,30 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 	return (
 		<div className={styles.wrap}>
 			<div className={classNames(styles.header, styles.border_bottom)}>
-				<div className={styles.innerFileWrap}>
-					<File color={file.id_color} format={file.ext} />
-					{file.is_pass ? (
-						<img
-							className={styles.lock}
-							src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-							alt="lock"
-						/>
-					) : null}
+				<FileInfo file={file} />
+			</div>
+			<div className={styles.border}/>
+			<div className={classNames(styles.row_item)}>
+				<div className={styles.ico_wrap}>
+					<CalendarIcon className={styles.row_ico} />
 				</div>
-				<div className={styles.descriptionWrap}>
-					<div className={styles.fileName}>
-						{file.name.slice(0, file.name.lastIndexOf("."))}
-					</div>
-					<div className={styles.innerFileInfo}>
-						<div className={styles.fileSize}>{file.size_now}</div>
-						<div className={styles.descriptionGroup}>
-							{file.fig && (
-								<img
-									src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-									alt="sign"
-								/>
-							)}
-							{file.emo && (
-								<img
-									src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-									alt="emoji"
-								/>
-							)}
-						</div>
-					</div>
-				</div>
-				<div className={styles.buttons_wrap}>
-					<div
-						className={styles.close_wrap}
-						onClick={() => setDisplayStotagePeriod(false)}
-					>
-						<span className={styles.close} />
-					</div>
+				<div className={styles.input_wrap}>
+					<p className={styles.input_title}>Срок хранения файла/папки</p>
+					<input value='Установите срок хранения файла (после завершения файл будет удален)' type='button'></input>
 				</div>
 			</div>
+			<div className={styles.border}/>
 			<div className={styles.date_wrap}>
 				<div className={styles.title_wrap}>
-					<CalendarIco />
-					<h5 className={styles.title}>Укажите даты хранения</h5>
+					<h5 className={styles.title}>Укажите дату хранения</h5>
 				</div>
 				<div className={styles.inputs_wrap}>
-					<span className={styles.from}>C</span>
-					<input className={styles.date} value={curretDate} type="text" disabled></input>
-					<span className={styles.to}>До</span>
-					<input className={styles.date} type="text" value={dateValue} placeholder='_ _._ _._ _ _ _'  onChange={(e) => onDateChange(e)} />
+					<div className={styles.tables_wrap}>
+						<span className={styles.from}>C</span>
+						<input className={styles.date} value={curretDate} type="text" disabled></input>
+						<span className={styles.to}>До</span>
+						<input className={styles.date} type="text" value={dateValue} placeholder='_ _._ _._ _ _ _'  onChange={(e) => onDateChange(e)} />
+					</div>
 					<span
 						className={styles.open_calendar}
 						onClick={() => setShowCalendar(true)}
@@ -107,9 +78,9 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 					</span>
 				</div>
 			</div>
+			<div className={styles.border}/>
 			<div className={styles.time_wrap}>
 				<div className={styles.title_wrap}>
-					<EyeIco />
 					<h5 className={styles.title}>Укажите время хранения</h5>
 				</div>
 				<div
@@ -125,6 +96,12 @@ function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue,
 				недоступна
 			</p>
 			<div className={styles.buttonsWrap}>
+				<div
+					onClick={() => setDisplayStotagePeriod(false)}
+					className={styles.cancel}
+				>
+					Отмена
+				</div>
 				<div
 					onClick={() => setDisplayStotagePeriod(false)}
 					className={styles.add}

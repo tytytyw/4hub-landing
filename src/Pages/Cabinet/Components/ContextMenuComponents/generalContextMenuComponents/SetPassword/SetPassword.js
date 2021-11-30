@@ -3,6 +3,10 @@ import styles from "./SetPassword.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
 import Error from "../../../../../../generalComponents/Error";
+import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
+import classNames from "classnames";
+import {ReactComponent as Password} from "../../../../../../assets/PrivateCabinet/password.svg";
+import Success from "../../../../../../generalComponents/Success";
 
 function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 	const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -10,6 +14,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 	const [showRepeat, setShowRepeat] = useState(true);
 	const [visibility, setVisibility] = useState("password");
 	const [error, setError] = useState(false);
+	const [success, setSuccess] = useState(false);
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 	const comparePass = (val) => {
 		const pass = password.split("");
@@ -20,23 +25,12 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 		});
 		setPasswordCoincide(boolean);
 	};
-	const width = window.innerWidth;
 
 	const onAddPass = () => {
 		if (password !== passwordRepeat) return setPasswordCoincide(false);
 		if (password) {
 			setPassword(password)
-			closeComponent()
-			// api
-			// 	.post("/ajax/file_edit.php", data)
-			// 	.then((res) => {
-			// 		setShowSuccessMessage('пароль установлен');
-			// 		closeComponent();
-			// 	})
-			// 	.catch((err) => {
-			// 		setError(true);
-			// 	});
-
+			setSuccess(true);
 		}
 	};
 
@@ -47,40 +41,56 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 
 	return (
 		<div style={{ display: `block` }}>
-			<PopUp set={setDisplaySetPassword}>
+			{!error && !success ? <PopUp set={setDisplaySetPassword}>
 				<div className={styles.wrap}>
-					<span
-						className={styles.cross}
-						onClick={() => setDisplaySetPassword(false)}
-					/>
-					<span className={styles.title}>Установить пароль</span>
+					<div className={styles.header}>
+						<FileInfo file={file}/>
+					</div>
+					<div className={styles.border}/>
+					<div className={classNames(styles.row_item, styles.border_bottom)}>
+						<div className={styles.ico_wrap}>
+							<Password className={styles.row_ico} />
+						</div>
+						<div className={styles.input_wrap}>
+							<p className={styles.input_title}>Пароль</p>
+							<input id={'input_pass'} value='Вы можете установить пароль на данный файл' type='button' />
+						</div>
+					</div>
+					<div className={styles.border}/>
 					<div className={styles.inputFieldsWrap}>
-						<InputField
-							model="password"
-							switcher={false}
-							height={width >= 1440 ? "40px" : "30px"}
-							value={password}
-							set={setPassword}
-							placeholder="Пароль"
-							onSwitch={onSwitch}
-							visibility={visibility}
-							setVisibility={setVisibility}
-							disabled={!showRepeat}
-						/>
-						{showRepeat && (
+						<div className={styles.inputWrapInfo}>
+							<span>Придумайте пароль для файла</span>
 							<InputField
 								model="password"
+								isPass={true}
 								switcher={false}
-								height={width >= 1440 ? "40px" : "30px"}
-								value={passwordRepeat}
-								set={setPasswordRepeat}
-								placeholder="Повторите пароль"
+								height={"35px"}
+								value={password}
+								set={setPassword}
+								placeholder="Пароль"
+								onSwitch={onSwitch}
 								visibility={visibility}
 								setVisibility={setVisibility}
-								comparePass={comparePass}
-								mistake={!passwordCoincide}
+								disabled={!showRepeat}
 							/>
-						)}
+						</div>
+						<div className={styles.inputWrapInfo}>
+							<span>Повторите пароль</span>
+							{showRepeat && (
+								<InputField
+									model="password"
+									switcher={false}
+									height={"35px"}
+									value={passwordRepeat}
+									set={setPasswordRepeat}
+									placeholder="Повторите пароль"
+									visibility={visibility}
+									setVisibility={setVisibility}
+									comparePass={comparePass}
+									mistake={!passwordCoincide}
+								/>
+							)}
+						</div>
 					</div>
 					<div className={styles.buttonsWrap}>
 						<div
@@ -99,7 +109,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 						</div>
 					</div>
 				</div>
-			</PopUp>
+			</PopUp> : null}
 			{error && (
 				<Error
 					error={error}
@@ -107,6 +117,12 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 					message="Пароль не добавлен"
 				/>
 			)}
+			{success && (<Success
+					set={closeComponent}
+					message='Пароль на файл успешно установлен при передаче файла, на email получателя прийдет указанный Вами пароль'
+					title='Пароль успешно установлен'
+					success={success}
+			/>)}
 		</div>
 	);
 }
