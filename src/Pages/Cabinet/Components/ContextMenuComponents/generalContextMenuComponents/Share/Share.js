@@ -25,23 +25,18 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     const [data, setData] = useState(
         {
             uid,
-            fids: files.length ? [...files] : [file.fid],
+            fids: file.is_dir || !!file?.folders ? '' : files.length ? [...files] : [file.fid],
             user_to: '',
             prim: '',
             deadline: '',
-            pass: ''
+            pass: '',
+            is_write: 0,
     })
     const setTime = (time, limit) => {
         return time < limit
         ? time < 10 ? `0${time}` : time
         : time[0];
     }
-
-    useEffect(()=> {
-        if (action_type === 'share') {
-            setData(data => ({...data, is_write: 0, dir: file.gdir}))
-        }
-    },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(()=> {
         setData(data => ({...data, deadline: dateValue ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '23'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '59'}` : ''}))
@@ -53,9 +48,12 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
 
     const onShareFile = () => {
         setLoadingType('squarify')
-        api.post(`/ajax/file_${action_type}.php`, data)
+        const newData = action_type === 'dir_access_add'
+            ? `uid=${data.uid}&email=${data.user_to}&deadline=${data.deadline}&is_read=${data?.is_write}&pass=${data.pass}&dir=${file?.is_dir || file?.folders ? file.path : ''}&prim=${data.prim}`
+            : `uid=${data.uid}&user_to=${data.user_to}&deadline=${data.deadline}&fids=${data.fids}&is_write=${data?.is_write}&pass=${data.pass}&prim=${data.prim}`
+        api.post(`/ajax/${action_type}.php?${newData}`)
             .then(res => {
-                if(res.data.ok === true) {
+                if(!!res.data.ok) {
                     setShowSuccessMessage('Отправлено')
                     close()
                 } else if (res.data.error) {

@@ -28,7 +28,6 @@ import {
     onGetFolders
 } from '../../../../Store/actions/CabinetActions';
 import Error from '../../../../generalComponents/Error';
-import ShareFolder from '../ContextMenuComponents/ContextMenuFolder/ShareFolder/ShareFolder';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import CopyLinkShare from '../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
@@ -259,16 +258,6 @@ const MyFolders = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-            {action.type === 'resendFolder' ? (
-                <ShareFolder
-                    folder={chosenSubFolder || chosenFolder} // TODO - Needed to delete chosensubfolder after left list menu is changed
-                    files={{}}
-                    close={nullifyAction}
-                    action_type={action.type}
-                    showSuccessMessage={showSuccessMessage}
-                    setShowSuccessMessage={setShowSuccessMessage}
-                />
-            ) : null}
             {action.type === 'setAccessFolder' ? <CopyLinkShare
                 nullifyAction={nullifyAction}
                 folder={chosenSubFolder || chosenFolder}
