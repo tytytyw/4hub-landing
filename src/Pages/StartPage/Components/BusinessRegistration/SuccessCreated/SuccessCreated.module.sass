@@ -3,12 +3,14 @@
   display: flex
   align-items: center
   justify-content: center
+  letter-spacing: -0.06px
+  color: #2B353E
 
 .contentWrapper
   width: 458px
-  padding: 30px 40px
+  padding: 30px 20px 10px
   background: #FFFFFF
-  border-radius: 4.95px
+  border-radius: 7px
   position: relative
 
   .close
@@ -27,7 +29,6 @@
       font-size: 18px
       line-height: 21px
       letter-spacing: -0.0593186px
-      color: #2B353E
 
   .content
     display: flex
@@ -46,17 +47,21 @@
       font-size: 12px
       line-height: 21px
       text-align: center
-      letter-spacing: -0.0571942px
       color: #4F555B
+      margin: 0
 
     .info
-      margin: 23px 0 37px 0
+      margin: 16px 0 23px
     .info, .resend
       font-weight: 500
       font-size: 12px
       line-height: 14px
-      letter-spacing: -0.0629137px
-      color: #2B353E
+
+    .resend
+        cursor: pointer
+        color: #4086F1
+        &:hover
+          color: #3b6dcb
 
     .actionBlock
       display: flex
@@ -66,11 +71,12 @@
         font-weight: 500
         font-size: 12px
         line-height: 14px
-        letter-spacing: -0.0768945px
         color: #FFFFFF
-
+        transition: background .2s ease
         width: 145px
         height: 38px
         border: none
         background: #4086F1
         border-radius: 3.75px
+        &:hover
+          background: #3b6dcb

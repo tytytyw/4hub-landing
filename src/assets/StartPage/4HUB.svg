@@ -1,19 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="153px" height="46px" viewBox="0 0 153 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Group</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="1-Стартовая-страница-вар-2-" transform="translate(-638.000000, -144.000000)">
-            <g id="Group" transform="translate(638.000000, 144.000000)">
-                <text id="4Hub" font-family="Futura-Medium, Futura" font-size="30" font-weight="400" letter-spacing="-0.119999997" fill="#FFFFFF">
-                    <tspan x="59" y="38">4</tspan>
-                    <tspan x="77.395625" y="38" font-family="Helvetica" font-weight="normal">Hu</tspan>
-                    <tspan x="115.505234" y="38" font-family="Helvetica" font-weight="normal" letter-spacing="-0.1245691">b</tspan>
-                </text>
-                <rect id="Rectangle" fill="#EED328" x="26.2852323" y="26.2852323" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
-                <rect id="Rectangle" fill="#EED328" x="26.2852323" y="5.63254978" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
-                <rect id="Rectangle" fill="#34C6A2" x="-2.06057393e-13" y="-2.06057393e-13" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
-                <rect id="Rectangle" fill="#EED328" x="5.63254978" y="26.2852323" width="18.7751659" height="18.7751659" rx="1.87751659"></rect>
-            </g>
-        </g>
-    </g>
+<svg width="153" height="46" viewBox="0 0 153 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_22)">
+<path d="M73.7949 32.6865H76.1973V35.792H73.7949V39H70.3818V35.792H59.2783L73.7949 14.6982V32.6865ZM70.3818 32.6865V25.1133L65.167 32.6865H70.3818ZM84.1456 28.5V39H80.3956V14.25H84.1456V24.75H96.8956V14.25H100.646V39H96.8956V28.5H84.1456ZM120.776 32.94V19.5H124.526V39.03H120.776V38.25C119.236 39.25 117.486 39.75 115.526 39.75C112.826 39.75 110.526 38.8 108.626 36.9C106.726 35 105.776 32.7 105.776 30V19.5H109.526V30C109.526 31.66 110.106 33.08 111.266 34.26C112.446 35.42 113.866 36 115.526 36C117.186 36 118.596 35.42 119.756 34.26C120.176 33.84 120.516 33.4 120.776 32.94ZM134.15 39H130.4V14.25H134.15V20.61C135.89 19.37 137.89 18.75 140.15 18.75C143.05 18.75 145.52 19.78 147.56 21.84C149.62 23.88 150.65 26.35 150.65 29.25C150.65 32.15 149.62 34.63 147.56 36.69C145.52 38.73 143.05 39.75 140.15 39.75C137.89 39.75 135.89 39.13 134.15 37.89V39ZM134.15 32.37C134.47 32.97 134.88 33.52 135.38 34.02C136.7 35.34 138.29 36 140.15 36C142.01 36 143.6 35.34 144.92 34.02C146.24 32.7 146.9 31.11 146.9 29.25C146.9 27.39 146.24 25.8 144.92 24.48C143.6 23.16 142.01 22.5 140.15 22.5C138.29 22.5 136.7 23.16 135.38 24.48C134.88 24.98 134.47 25.53 134.15 26.13V32.37Z" fill="white"/>
+<rect x="26.2852" y="26.2852" width="18.7752" height="18.7752" rx="1.87752" fill="#EED328"/>
+<rect x="26.2852" y="5.63257" width="18.7752" height="18.7752" rx="1.87752" fill="#EED328"/>
+<rect width="18.7752" height="18.7752" rx="1.87752" fill="#34C6A2"/>
+<rect x="5.63257" y="26.2852" width="18.7752" height="18.7752" rx="1.87752" fill="#EED328"/>
+</g>
+<defs>
+<clipPath id="clip0_2_22">
+<rect width="153" height="46" fill="white"/>
+</clipPath>
+</defs>
 </svg>

@@ -23,8 +23,7 @@ const AdminSelect = ({data = [], initValue, error = false, onSelect = () => {}, 
     }, [])
 
     const getValue = () => {
-
-        if (!value) {
+        if (!value && value !== 0) {
             return props.placeholder
         }
 

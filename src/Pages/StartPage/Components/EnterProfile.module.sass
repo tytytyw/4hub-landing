@@ -8,13 +8,17 @@
   display: flex
   flex-direction: column
   align-items: center
-  color: #777777
+  color: #2B353E
   animation: show 0.3s linear
+  position: absolute
+  top: calc(50% - 60px)
+  left: 50%
+  transform: translate(-50%, -50%)
   .hubIcon
     min-width: 165px
     width: 166px
     max-width: 233px
-    margin: 39px 0 55px 0
+    margin-bottom: 70px
     cursor: pointer
   .enterWrap
     padding-bottom: 20px
@@ -46,51 +50,53 @@
       background: #a7a4a4
       transform: rotate(90deg)
     .title
-      font-size: 19px
-      margin: 25px 0px 18px 0
+      font-size: 18px
+      margin: 30px 0
     .inputWrap
       display: flex
       flex-direction: column
       width: 91%
       position: relative
       .inputName
-        font-size: 11px
-        letter-spacing: 0.4px
-        margin: 0 0 12px 0
+        font-size: 12px
+        letter-spacing: -0.06px
+        margin: 0 0 7px 0
         span
           color: red
       .inputField
-        border: 1px solid #bfbfbf
-        height: 29px
-        border-radius: 5px
-        background: #FAFAFA
+        border: 1px solid #E1E1E1
+        height: 36px
+        border-radius: 8px
         padding: 0 40px 0 18px
+        font-size: 18px
+        font-family: inherit
+        color: inherit
       .inputField.login
         padding-right: 5px
       .redBorder
         border: 1px solid red
       .eye
         position: absolute
-        right: 5px
-        top: 32px
+        right: 14px
+        bottom: 8px
         cursor: pointer
         width: 18px
       .invisible
         position: absolute
-        right: 5px
-        top: 32px
+        right: 14px
+        bottom: 8px
         cursor: pointer
         width: 18px
     .marginWrap
-      margin: 0 0 15px 0
+      margin: 0 0 13px 0
     .remindPassword
       display: flex
       justify-content: flex-end
-      color: #b5b5b5
+      color: #B4B4B4
       font-size: 10px
       letter-spacing: 0.1px
       width: 91%
-      margin: 10px 0 19px 0
+      margin: 8px 0 19px 0
       cursor: pointer
     .remindPassword:hover
       color: #518bf3
@@ -99,7 +105,7 @@
       justify-content: center
       align-items: center
       background: #4086F1
-      border-radius: 5px
+      border-radius: 3px
       width: 127px
       height: 35px
       color: white
@@ -110,7 +116,8 @@
       background: #3979db
       transition: background 0.2s ease
     .orSpan
-      margin: 9px 0 10px 0
+      margin: 16px 0
+      font-size: 12px
     .socialNetworks
       display: flex
       width: 64%
@@ -153,8 +160,8 @@
       .pinterest:hover
         background: #ba1d24
     .registration
-      font-size: 11px
-      letter-spacing: 0.2px
+      font-size: 12px
+      letter-spacing: -0.06px
       span
         color: #477DE1
         cursor: pointer
@@ -183,19 +190,15 @@
       color: #FFFFFF
       border: none
 
-@media (max-width: 1420px)
+@media (max-height: 820px)
   .main
-    .hubIcon
-      width: 135px
-      margin: 0 0 18px 0
+    top: calc(50% - 40px)
     .enterWrap
-      width: 392px
-      //height: 404px
-      .title
-        font-size: 16px
-        margin: 15px 0 13px 0
-    .enterWrap
-      .remindPassword
-        margin: 14px 0 13px 0
       .socialNetworks
         margin: 0 0 5px 0
+@media (max-height: 660px)
+  .main
+    top: 50%
+    .hubIcon
+      width: 135px
+      margin: 0 0 20px 0
