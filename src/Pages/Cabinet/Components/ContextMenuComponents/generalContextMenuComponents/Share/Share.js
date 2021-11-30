@@ -72,14 +72,14 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     return (
         <PopUp set={close}>
             {!displayStotagePeriod && !displayMessengers && !displaySetPassword && <div className={styles.ShareFile_wrap}>
-                {data.fids.length > 1 ? null : <div className={classNames(styles.header, styles.border_bottom)}>
-                    <FileInfo file={file}/>
+                <div className={classNames(styles.header, styles.border_bottom)}>
+                    <FileInfo file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}/>
                     <div className={styles.buttons_wrap}>
                         <div className={styles.close_wrap}  onClick={close}>
                             <span className={styles.close} />
                         </div>
                     </div>
-                </div>}
+                </div>
                 <div className={styles.border}/>
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
@@ -147,7 +147,7 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
             </div>}
             {error && <Error error={error} set={close} message={error} />}
             {displayStotagePeriod && <StoragePeriod
-                file={file}
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
                 setDisplayStotagePeriod={setDisplayStotagePeriod}
                 dateValue={dateValue}
                 setDateValue={setDateValue}
@@ -158,11 +158,11 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
                 setDisplayMessengers={setDisplayMessengers}
                 close={close}
                 fid={file.fid}
-                file={file}
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
                 data={data}
             />}
             {displaySetPassword && <SetPassword
-                file={file}
+                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
                 setDisplaySetPassword={setDisplaySetPassword}
                 password={password}
                 setPassword={setPassword}
