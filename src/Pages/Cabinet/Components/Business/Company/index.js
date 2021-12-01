@@ -26,8 +26,9 @@ const Company = () => {
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-	const [businessRegistration, setBusinessRegistration] = useState(true);
+	const [businessRegistration, setBusinessRegistration] = useState(false);
 	const id_company = useSelector((state) => state.user.id_company);
+	const col_admins = useSelector(state => state.user.userInfo?.col_admins);
 	const [companyName, setCompanyName] = useState("");
 	const [companyLogo, setCompanyLogo] = useState(null)
 	const dispatch = useDispatch();
@@ -99,6 +100,7 @@ const Company = () => {
 
 	useEffect(() => {
 		dispatch(onGetUserInfo());
+		setBusinessRegistration(col_admins === 1)
 	}, []) //eslint-disable-line
 
 	return (

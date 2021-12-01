@@ -3,7 +3,7 @@ import styles from "./BusinessRegistration.module.sass";
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import { useValidateForm } from "./validation";
 import AdminSelect from "./AdminSelect";
-
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
@@ -31,6 +31,7 @@ const AdminForm = ({
 	const [confirmPass, setConfirmPass] = useState(true);
 	const [showPass, setShowPass] = useState(false);
 	const [disablePass, setDisablePass] = useState(false);
+	const [loadingType, setLoadingType] = useState("");
 
 	const { fields, setFields, errors, onChange, checkErrors, blurs } =
 		useValidateForm(
@@ -59,7 +60,7 @@ const AdminForm = ({
 			checkEmail &&
 			checkPhone
 		) {
-			console.log("success submit");
+			setLoadingType("squarify")
 			setMainFields((prev) => ({ ...prev, admin: fields }));
 			const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
 			api.get(
@@ -76,7 +77,8 @@ const AdminForm = ({
 			})
 			.catch((err) => {
 					console.log(err);
-			});
+			})
+			.finally(() => setLoadingType(""))
 		}
 	};
 
@@ -280,6 +282,16 @@ const AdminForm = ({
 					</button>
 				</div>
 			</form>
+			{loadingType ? (
+				<Loader
+					position="absolute"
+					zIndex={10000}
+					containerType="bounceDots"
+					type="bounceDots"
+					background="white"
+					animation={false}
+				/>
+			) : null}
 		</div>
 	);
 };
