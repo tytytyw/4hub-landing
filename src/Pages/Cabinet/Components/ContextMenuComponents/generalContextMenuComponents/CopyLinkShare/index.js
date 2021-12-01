@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 
-// import api from "../../../../../../api";
 import styles from "./CopyLinkShare.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
-// import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { onGetContacts } from "../../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import api from "../../../../../../api";
+import Error from "../../../../../../generalComponents/Error";
 
-function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
-	// const uid = useSelector(state => state.user.uid);
+function CopyLinkShare({ item, nullifyAction, setShowSuccessMessage }) {
+	const uid = useSelector(state => state.user.uid);
 	const contactList = useSelector((state) => state.Cabinet.contactList);
 	const [url, setUrl] = useState("Загрузка...");
 	const [review, setReview] = useState({ text: "Просмотр" });
@@ -23,11 +23,8 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 	const [sendAccess, setSendAccess] = useState(false);
 	const [notify, setNotify] = useState(false);
 	const [prim, setPrim] = useState("");
-
-	// const [error, setError] = useState(false);
-	// const [emptyField, setEmptyField] = useState(false);
-	// const uid = useSelector((state) => state.user.uid);
-
+	const [error, setError] = useState({error: false, message: 'Request Error'});
+	const closeError = () => {setError(state => ({...state, error: false, message: 'Request Error'}))}
 	const dispatch = useDispatch();
 
 	const saveChanges = () => {
@@ -61,8 +58,20 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 		}
 	};
 
-	const getLink = () => {
-		setUrl("some url");
+	const getLink = (status) => {
+		setUrl('Загрузка...')
+		let stat = '$&is_read=1'
+		if(status === 'write') stat = '$&is_read=0'
+		const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
+		api.get(url)
+			.then(res => {
+				if(!!res.data.ok) {
+					setUrl(res.data.link_shere_to_user)
+				} else {
+					setError(state => ({...state, error: true, message: `${res?.data?.error ?? error.message}`}))
+				}
+			})
+			.catch(err => setError(state => ({...state, error: true, message: `${err}`})));
 	};
 
 	useEffect(() => {
@@ -399,6 +408,7 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 				</div>
 			) : null}
 			<input ref={linkRef} type="text" style={{ display: "none" }} />
+			{error.error && <Error error={error.error} set={closeError} message={error.message} />}
 		</PopUp>
 	);
 }
