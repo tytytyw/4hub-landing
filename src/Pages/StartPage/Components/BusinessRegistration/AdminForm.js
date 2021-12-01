@@ -66,7 +66,7 @@ const AdminForm = ({
 				`/ajax/org_user_reg.php?company=${mainFields.main.company_name}
 				&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}
 				&name=${getValue("name")}&email=${getValue("email")}&tel=${getValue("phone")}
-				&is_admin=${fields.admin}&sname=${getValue("surname")}&pname=${getValue("middle_name")}
+				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}
 				${sentPass()}`
 			)
 			.then((res) => {
