@@ -12,7 +12,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../api";
 import Error from "../../../../../../generalComponents/Error";
 
-function CopyLinkShare({ item, nullifyAction, setShowSuccessMessage }) {
+function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action_type = '' }) {
 	const uid = useSelector(state => state.user.uid);
 	const contactList = useSelector((state) => state.Cabinet.contactList);
 	const [url, setUrl] = useState("Загрузка...");
@@ -62,7 +62,7 @@ function CopyLinkShare({ item, nullifyAction, setShowSuccessMessage }) {
 		setUrl('Загрузка...')
 		let stat = '$&is_read=1'
 		if(status === 'write') stat = '$&is_read=0'
-		const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
+		const url = `/ajax/${action_type}.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
 		api.get(url)
 			.then(res => {
 				if(!!res.data.ok) {
