@@ -365,9 +365,11 @@ const WorkSpace = ({
             scrolling='no'
             id='frame'
         />
-        {action.type === 'copyLink' ? <CopyLinkShare
+        {action.type === 'copyLink' || action.type === 'setAccessFolder' ? <CopyLinkShare
                 nullifyAction={nullifyAction}
                 setShowSuccessMessage={setShowSuccessMessage}
+                item={action.type === 'copyLink' ? chosenFile : chosenFolder.info}
+                action_type={action.type === 'copyLink' ? 'file_share' : 'dir_access_add'}
             /> : null}
     </>)
 }

@@ -10,7 +10,7 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
 
-
+//TODO - CHECK - needs to be deprecated
 function ConfigAccessFolder({folder, close, setShowSuccessMessage}) {
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
     const [displaySetPassword, setDisplaySetPassword] = useState(false);

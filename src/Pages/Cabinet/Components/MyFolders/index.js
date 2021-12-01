@@ -29,7 +29,6 @@ import {
 } from '../../../../Store/actions/CabinetActions';
 import Error from '../../../../generalComponents/Error';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import CopyLinkShare from '../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 
@@ -258,12 +257,6 @@ const MyFolders = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-            {action.type === 'setAccessFolder' ? <CopyLinkShare
-                nullifyAction={nullifyAction}
-                folder={chosenSubFolder || chosenFolder}
-                setShowSuccessMessage={setShowSuccessMessage}
-                setLoadingType={setLoadingType}
-            /> : null}
             {filePreview?.view ? <PreviewFile setFilePreview={setFilePreview} file={filePreview?.file} filePreview={filePreview} setLoadingType={setLoadingType} /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(
