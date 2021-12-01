@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './SuccessCreated.module.sass'
+import {useDispatch} from 'react-redux'
+import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
 
 import timesImg from '../../../../../assets/BusinessCabinet/times.svg'
 import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
@@ -9,6 +11,12 @@ const SuccessCreated = ({set}) => {
     const toBusiness = () => {
         set(false)
     }
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return () => {
+            dispatch(onGetUserInfo())
+        }
+    }, [])//eslint-disable-line
 
     return (
         <div className={styles.wrapper}>

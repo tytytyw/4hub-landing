@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./BusinessRegistration.module.sass";
+import {useSelector} from 'react-redux'
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import { useValidateForm } from "./validation";
 import AdminSelect from "./AdminSelect";
@@ -32,6 +33,7 @@ const AdminForm = ({
 	const [showPass, setShowPass] = useState(false);
 	const [disablePass, setDisablePass] = useState(false);
 	const [loadingType, setLoadingType] = useState("");
+	const id_company = useSelector(state => state.user.userInfo.id_company)
 
 	const { fields, setFields, errors, onChange, checkErrors, blurs } =
 		useValidateForm(
@@ -64,7 +66,7 @@ const AdminForm = ({
 			setMainFields((prev) => ({ ...prev, admin: fields }));
 			const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
 			api.get(
-				`/ajax/org_user_reg.php?company=${mainFields.main.company_name}
+				`/ajax/org_user_reg.php?id_company=${id_company}&company=${mainFields.main.company_name}
 				&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}
 				&name=${getValue("name")}&email=${getValue("email")}&tel=${getValue("phone")}
 				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}

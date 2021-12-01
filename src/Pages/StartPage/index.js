@@ -22,7 +22,6 @@ const StartPage = ({setOptions, setLoadingType}) => {
 
     const [pageOption, setPage] = useState('init');
     const [loader, setLoader] = useState(false);
-    //const minHeight = window.outerWidth >= 1440 ? window.outerHeight * 0.85 : window.outerHeight * 0.75;
 
     useEffect(() => {
         if(/action=download&fid/.test(window.location.search)) {
@@ -41,17 +40,11 @@ const StartPage = ({setOptions, setLoadingType}) => {
 
     const onRegister = () => {
         setPage('register')
-        /*if (pageOption === 'business-landing') {
-            setPage('business-register')
-        } else {
-            setPage('register')
-        }*/
     }
 
     return (
         <div
             className={`${styles.wrapper} ${pageOption === 'info' && styles.longWrap} ${isLanding() && styles.longWrap}`}
-            //style={{minHeight}}
         >
             <header className={styles.header}>
                 {isLanding() &&

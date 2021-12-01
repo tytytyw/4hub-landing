@@ -101,7 +101,7 @@ const Company = () => {
 	useEffect(() => {
 		dispatch(onGetUserInfo());
 		setBusinessRegistration(col_admins === 1)
-	}, []) //eslint-disable-line
+	}, [col_admins]) //eslint-disable-line
 
 	return (
 		<div className={styles.wrapper}>
