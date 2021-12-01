@@ -66,7 +66,7 @@ const AdminForm = ({
 			setMainFields((prev) => ({ ...prev, admin: fields }));
 			const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
 			api.get(
-				`/ajax/org_user_reg.php?id_company=${id_company}&company=${mainFields.main.company_name}
+				`/ajax/org_user_reg.php?id_company=${id_company}
 				&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}
 				&name=${getValue("name")}&email=${getValue("email")}&tel=${getValue("phone")}
 				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}
