@@ -3,15 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 // import api from "../../../../../../api";
 import styles from "./CopyLinkShare.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import StoragePeriod from "./StoragePeriod/StoragePeriod";
-import SetPassword from "./SetPassword/SetPassword";
-import ShareToMessengers from "./ShareToMessengers/ShareToMessengers";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
-import { ReactComponent as CalendarIcon } from "../../../../../../assets/PrivateCabinet/calendar-6.svg";
-import { ReactComponent as PasswordIcon } from "../../../../../../assets/PrivateCabinet/password.svg";
 // import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { onGetContacts } from "../../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
@@ -31,16 +26,6 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 
 	// const [error, setError] = useState(false);
 	// const [emptyField, setEmptyField] = useState(false);
-	const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
-	const [displaySetPassword, setDisplaySetPassword] = useState(false);
-	const [displayMessengers, setDisplayMessengers] = useState(false);
-	const [dateValue, setDateValue] = useState("");
-	const [timeValue, setTimeValue] = useState({
-		hours: "",
-		minutes: "",
-		seconds: "",
-	});
-	const [compareLogin, setCompareLogin] = useState(true);
 	// const uid = useSelector((state) => state.user.uid);
 
 	const dispatch = useDispatch();
@@ -218,46 +203,10 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 		));
 	};
 
-	const [targets, setTrargets] = useState([])
-
-	const renderTargetsSend = () => {
-		return targets.map((target, i) => (
-			<div key={i} className={styles.listItem} onClick={(e) => deleteTarget(e.target.innerText)}>
-				<div className={styles.contactInfo}>
-					<span>{target}</span>
-				</div>
-			</div>	
-		));
-	};
-
-	const deleteTarget = (value) => {
-		const newTargetList = targets.filter(item => item !== value)
-		setTrargets(newTargetList)
-	}
-
-	const addTarget = (target) => {
-		const value = target.value
-		if (target) {
-			if (checkLogin(target))	{setTrargets(state => [...state, value]); target.value = ''}
-		}
-	}
-
 	const sendProject = () => {
 		//TODO add api
 		nullifyAction();
 	};
-
-	const checkLogin = (target) => {
-		let boolean = true;
-        if(target.value[0] === '+') {
-            const newVal = target.value.replace(/(\+)*(\()*(\))*\s*-*/g, '');
-            if(/\D/.test(newVal)) boolean = false;
-        } else {
-            if(target.value.indexOf('@') === -1) boolean = false;
-        }
-        setCompareLogin(boolean);
-		return boolean
-    };
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -335,7 +284,7 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 					</main>
 				</div>
 			) : null}
-			{!sendAccess && !displaySetPassword && !displayStotagePeriod ? (
+			{!sendAccess ? (
 				<div className={styles.copyLinkWrap} onClick={checkContextMenu}>
 					<header>
 						<div className={styles.circle}>
@@ -380,25 +329,9 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 								/>
 								{context === "addContacts" ? (
 									<div className={styles.contactsList}>
-										<div className={styles.contactsHeader}>
-											<div className={styles.target}>
-												<div className={styles.input_wrap}>
-													
-													<div className={styles.listWrap}>{renderTargetsSend()}</div>
-													<span className={!compareLogin ? styles.loginError : ''}>
-														<input
-															onBlur={e => {addTarget(e.target)}}
-															onKeyPress={e => {if(e.code === 'Enter') {addTarget(e.target)}}}
-															onChange={() => setCompareLogin(true)}
-															type="text"
-															placeholder="Введите имя или email"
-														/>
-													</span>
-												</div>	
-												<div className={styles.target__btn} onClick={()=> setDisplayMessengers(true)}>
-													<span>Отправить через мессенжер</span>
-												</div>		
-											</div>
+										<div className={styles.contactTitleWrap}>
+											<img  className={styles.notebookIcon} src={`${imageSrc}assets/PrivateCabinet/notebook-of-contacts.svg`} alt="img" />
+											<span>Контакты</span>
 										</div>
 										<div className={styles.line} />
 										<div className={styles.contactsSearchBar}>
@@ -454,55 +387,6 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 							</div>
 						</div>
 						<div className={styles.line} />
-
-						<div className={styles.storagePeriod}>
-							<div className={styles.infoWrap}>
-								<div className={styles.circle}>
-									<CalendarIcon
-										width={"18px"}
-										height={"18px"}
-										className={styles.userIcon}
-									/>
-								</div>
-								<div className={styles.details}>
-									<div className={styles.title}>Срок хранения файлов</div>
-									<div className={styles.description}>
-										Установите период на который ссылка будет активна
-									</div>
-								</div>
-							</div>
-							<div
-								className={styles.btn}
-								onClick={() => setDisplayStotagePeriod(true)}
-							>
-								<span>Установить</span>
-							</div>
-						</div>
-						<div className={styles.line} />
-
-						<div className={styles.setPassword}>
-							<div className={styles.infoWrap}>
-								<div className={styles.circle}>
-									<PasswordIcon
-										width={"15px"}
-										height={"19px"}
-										className={styles.userIcon}
-									/>
-								</div>
-								<div className={styles.details}>
-									<div className={styles.title}>Установить пароль</div>
-									<div className={styles.description}>
-										Вы можете установить пароль
-									</div>
-								</div>
-							</div>
-							<div
-								className={styles.btn}
-								onClick={() => setDisplaySetPassword(true)}
-							>
-								<span>Установить</span>
-							</div>
-						</div>
 					</main>
 					<div className={styles.buttonsWrap}>
 						<div className={styles.cancel} onClick={nullifyAction}>
@@ -515,21 +399,6 @@ function CopyLinkShare({ nullifyAction, setShowSuccessMessage }) {
 				</div>
 			) : null}
 			<input ref={linkRef} type="text" style={{ display: "none" }} />
-			{displayStotagePeriod && (
-				<StoragePeriod
-					setDisplayStotagePeriod={setDisplayStotagePeriod}
-					dateValue={dateValue}
-					setDateValue={setDateValue}
-					timeValue={timeValue}
-					setTimeValue={setTimeValue}
-				/>
-			)}
-			{displaySetPassword && (
-				<SetPassword setDisplaySetPassword={setDisplaySetPassword} />
-			)}
-			{displayMessengers && (
-				<ShareToMessengers setDisplayMessengers={setDisplayMessengers} onShareFolder={() => console.log('TODO: add func get a link')} />
-			)}
 		</PopUp>
 	);
 }
