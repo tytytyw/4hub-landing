@@ -9,6 +9,7 @@ import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabi
 import {colors} from "../../../../../../generalComponents/collections";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
+//TODO - CHECK - needs to be deprecated (look in generalContextMenuComponents)
 function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue, size}) {
 	const curretDate = new Date().toLocaleDateString('ru-RU')
 	const [showCalendar, setShowCalendar] = useState(false);
