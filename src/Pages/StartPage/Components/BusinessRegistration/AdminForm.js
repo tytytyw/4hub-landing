@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux'
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import { useValidateForm } from "./validation";
 import AdminSelect from "./AdminSelect";
-import Loader from "../../../../generalComponents/Loaders/4HUB";
 import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
@@ -25,6 +24,7 @@ const AdminForm = ({
 	setStep,
 	compare,
 	setCompare,
+	setLoadingType
 }) => {
 
 	const [checkPhone, setCheckPhone] = useState(true);
@@ -32,7 +32,6 @@ const AdminForm = ({
 	const [confirmPass, setConfirmPass] = useState(true);
 	const [showPass, setShowPass] = useState(false);
 	const [disablePass, setDisablePass] = useState(false);
-	const [loadingType, setLoadingType] = useState("");
 	const id_company = useSelector(state => state.user.userInfo.id_company)
 
 	const { fields, setFields, errors, onChange, checkErrors, blurs } =
@@ -65,9 +64,9 @@ const AdminForm = ({
 			setLoadingType("squarify")
 			setMainFields((prev) => ({ ...prev, admin: fields }));
 			const sentPass = () => disablePass ? '' : `&pass=${getValue("password")}`
+
 			api.get(
 				`/ajax/org_user_reg.php?id_company=${id_company}
-				&col=${mainFields.main.emp_num}&type=${mainFields.main.activity_field}
 				&name=${getValue("name")}&email=${getValue("email")}&tel=${getValue("phone")}
 				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}
 				${sentPass()}`
@@ -284,16 +283,7 @@ const AdminForm = ({
 					</button>
 				</div>
 			</form>
-			{loadingType ? (
-				<Loader
-					position="absolute"
-					zIndex={10000}
-					containerType="bounceDots"
-					type="bounceDots"
-					background="white"
-					animation={false}
-				/>
-			) : null}
+
 		</div>
 	);
 };

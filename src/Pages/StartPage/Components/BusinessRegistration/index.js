@@ -4,6 +4,7 @@ import AdminForm from "./AdminForm";
 import MainForm from "./MainForm";
 import SuccessCreated from "./SuccessCreated";
 import PopUp from "../../../../generalComponents/PopUp";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 const BusinessRegistration = ({setBusinessRegistration}) => {
 	const [compare, setCompare] = useState({
@@ -15,6 +16,7 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 	});
 	const [mainFields, setMainFields] = useState({});
 	const [step, setStep] = useState("main");
+	const [loadingType, setLoadingType] = useState("");
 
 	return (
 		<PopUp set={() => {}}>
@@ -27,6 +29,7 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 							mainFields={mainFields}
 							setMainFields={setMainFields}
 							setStep={setStep}
+							setLoadingType={setLoadingType}
 						/>
 					)}
 
@@ -37,6 +40,7 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 							mainFields={mainFields}
 							setMainFields={setMainFields}
 							setStep={setStep}
+							setLoadingType={setLoadingType}
 						/>
 					)}
 
@@ -50,6 +54,16 @@ const BusinessRegistration = ({setBusinessRegistration}) => {
 					)}
 				</main>
 			</div>
+			{loadingType ? (
+				<Loader
+					position="absolute"
+					zIndex={10000}
+					containerType="bounceDots"
+					type="bounceDots"
+					background="white"
+					animation={false}
+				/>
+			) : null}
 		</PopUp>
 	);
 };

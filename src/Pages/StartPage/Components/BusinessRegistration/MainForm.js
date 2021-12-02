@@ -4,12 +4,13 @@ import styles from "./BusinessRegistration.module.sass";
 import Input from "../../../Cabinet/Components/MyProfile/Input";
 import Select from "./Select";
 import {useValidateForm} from "./validation";
+import api from "../../../../api";
 
 const requiredInputs = [
     'company_name'
 ]
 
-const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => {
+const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setLoadingType}) => {
     const userInfo = useSelector(state => state.user.userInfo)
 
     const {
@@ -35,8 +36,22 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare}) => 
         event.preventDefault()
 
         if (checkErrors()) {
-            setMainFields({...mainFields, main: fields})
-            setStep('admin')
+            setLoadingType("squarify")
+            api.get(`/ajax/org_edit.php?id_company=${userInfo.id_company}
+                &company=${getValue('company_name')}&col=${getValue('emp_num')}&type=${getValue('activity_field')}`)
+			// .then((res) => {
+			// 	if (res.data.ok === 1) {
+                    
+			// 	}
+			// })
+			.catch((err) => {
+                console.log(err);
+			})
+			.finally(() => {
+                setLoadingType("")
+                setMainFields({...mainFields, main: fields})
+                setStep('admin')
+            })
         }
     }
 
