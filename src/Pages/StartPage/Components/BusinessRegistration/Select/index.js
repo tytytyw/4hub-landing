@@ -73,7 +73,6 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
                             }}
                             className={classNames({
                                 [styles.option]: true,
-                                [styles.active]: value === item
                             })}
                         >{item}</li>
                     ))}

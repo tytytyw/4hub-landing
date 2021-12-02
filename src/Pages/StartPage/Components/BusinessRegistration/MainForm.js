@@ -19,7 +19,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
         errors,
         onChange,
         checkErrors
-    } = useValidateForm({ emp_num: 'более 50', activity_field: '' }, requiredInputs)
+    } = useValidateForm({ emp_num: mainFields?.main?.emp_num || 'более 50', activity_field: '' }, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.main) {
@@ -28,7 +28,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useEffect(() => {
-        if (userInfo) onChange(userInfo.id_company, 'company_name')
+        if (userInfo && !mainFields.main?.company_name) onChange(userInfo.id_company, 'company_name')
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userInfo])
 
@@ -56,7 +56,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
     }
 
     const getValue = name => fields?.[name] || ''
-
+console.log(mainFields)
     return (
         <div className={styles.formWrap}>
 
@@ -87,7 +87,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
                                 'более 100',
                             ]}
                             placeholder='более 50'
-                            initValue={getValue('emp_num')}
+                            initValue={getValue('emp_num') || mainFields?.main?.emp_num}
                             onChange={value => onChange(value, 'emp_num')}
                         />
                     </div>
