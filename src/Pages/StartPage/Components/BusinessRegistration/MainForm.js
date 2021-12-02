@@ -55,8 +55,8 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
         }
     }
 
-    const getValue = name => fields?.[name] || ''
-console.log(mainFields)
+    const getValue = name => fields?.[name] || '';
+
     return (
         <div className={styles.formWrap}>
 
