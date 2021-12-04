@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import styles from "../UploadFile/UploadFile.module.sass";
 
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
+import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
+import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
 import classNames from "classnames";
 
-const UploadFile = ({title, setBlob, blob, setLoadingType, setPageOption}) => {
+const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption, setPreviewFile}) => {
     const [formatError, setFormatError] = useState(false);
+
+    const renderIcon = () => {
+        switch(pageOption.name) {
+            case 'standards': return <CaseIcon />
+            case 'mission': return <MissionIco />
+            case 'viziya': return <VisionIco />
+            default: return 'file'
+        }
+    }
 
     const onAddFile = (e) => {
         const validateFile = file => {
@@ -19,11 +30,12 @@ const UploadFile = ({title, setBlob, blob, setLoadingType, setPageOption}) => {
 			setFormatError(true)
 		}
     }
+
     const sendFile = () => {
 		if (blob) {
             setLoadingType("squarify")
             // TODO: add api
-            setTimeout(() => setLoadingType(''), 2000)
+            setTimeout(() => {setLoadingType(''); setPreviewFile(true)}, 2000)
 			// let form = new FormData();
 			// form.append("file", blob);
 			// api.post('', form)
@@ -39,13 +51,13 @@ const UploadFile = ({title, setBlob, blob, setLoadingType, setPageOption}) => {
 		<div className={styles.centeredWrapper}>
 			<div className={styles.wrapper}>
 				<div className={styles.header}>
-					<CaseIcon className={styles.icon} />
-					<p className={styles.title} >{title}</p>
+                    {renderIcon()}
+					<p className={styles.title} >{pageOption.label}</p>
 				</div>
 
 				<div className={styles.infoBlock}>
 					<p className={styles.labelText}>
-						Добавьте документ {title.toLowerCase()}
+						Добавьте документ {pageOption.label.toLowerCase()}
 					</p>
 					<div className={styles.uploadBlock}>
 						<p

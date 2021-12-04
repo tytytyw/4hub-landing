@@ -3,21 +3,21 @@ import ViewStandarts from "./view";
 import UploadFile from "../UploadFile/UploadFile";
 
 const DocPreview = ({ pageOption, setPageOption, setLoadingType }) => {
-	// {setPageOption} , setSuccess
-	const [success] = useState(false);
+	const [previewFile, setPreviewFile] = useState(false);
 	const [blob, setBlob] = useState("");
 
 	return (
 		<>
-			{success ? (
+			{previewFile ? (
 				<ViewStandarts />
 			) : (
 				<UploadFile
 					blob={blob}
 					setBlob={setBlob}
-					title={pageOption.label}
+					pageOption={pageOption}
 					setLoadingType={setLoadingType}
 					setPageOption={setPageOption}
+                    setPreviewFile={setPreviewFile}
 				/>
 			)}
 		</>
