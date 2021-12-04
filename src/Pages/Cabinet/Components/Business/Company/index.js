@@ -20,6 +20,7 @@ import ContextMenuItem from "../../../../../generalComponents/ContextMenu/Contex
 import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 import UploadLogo from "./UploadLogo/UploadLogo";
 import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState({name: "init"});
@@ -33,6 +34,7 @@ const Company = () => {
 	const [companyLogo, setCompanyLogo] = useState(null)
 	const dispatch = useDispatch();
 	const [blob, setBlob] = useState("");
+	const [loadingType, setLoadingType] = useState("");
 
 	const sideListData = [
 		{
@@ -149,13 +151,13 @@ const Company = () => {
 						<SuccessSend setPageOption={setPageOption} />
 					)}
 					{pageOption.name === "standards" && (
-						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} setLoadingType={setLoadingType} />
 					)}
 					{pageOption.name === "mission" && (
-						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} setLoadingType={setLoadingType} />
 					)}
 					{pageOption.name === "viziya" && (
-						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} setLoadingType={setLoadingType} />
 					)}
 					{pageOption.name === "org_structure" && (
 						<OrgStructure
@@ -178,6 +180,16 @@ const Company = () => {
 						/>
 					) : null}
 				</div>
+				{loadingType ? (
+				<Loader
+					position="absolute"
+					zIndex={10000}
+					containerType="bounceDots"
+					type="bounceDots"
+					background="white"
+					animation={false}
+				/>
+			) : null}
 			</div>
 		</div>
 	);

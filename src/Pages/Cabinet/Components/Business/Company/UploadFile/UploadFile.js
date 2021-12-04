@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../UploadFile/UploadFile.module.sass";
 
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import classNames from "classnames";
 
-const UploadFile = ({title, setBlob, blob}) => {
-
+const UploadFile = ({title, setBlob, blob, setLoadingType, setPageOption}) => {
+    const [formatError, setFormatError] = useState(false);
 
     const onAddFile = (e) => {
-        setBlob(e.target.files[0])
+        const validateFile = file => {
+            return file.name.slice(file.name.lastIndexOf('.')) === '.doc' || file.name.slice(file.name.lastIndexOf('.')) === '.docx'
+		}
+		if(validateFile(e.target.files[0])) {
+			setFormatError(false)
+			setBlob(e.target.files[0])
+		} else {
+			setBlob(null)
+			setFormatError(true)
+		}
     }
+    const sendFile = () => {
+		if (blob) {
+            setLoadingType("squarify")
+            // TODO: add api
+            setTimeout(() => setLoadingType(''), 2000)
+			// let form = new FormData();
+			// form.append("file", blob);
+			// api.post('', form)
+			//     .then(res => {
+			//     })
+			//     .catch(err => {
+			//         console.log(err);
+			//     })
+		}
+	};
 
 	return (
 		<div className={styles.centeredWrapper}>
@@ -37,10 +61,10 @@ const UploadFile = ({title, setBlob, blob}) => {
 						<input onChange={onAddFile} id="Verification-upload" type="file" />
 					</div>
 				</div>
-
+                {formatError ? <p className={styles.fileError}> необходимо загрузить файл с раширением .doc или .docx</p> : null}
 				<div className={styles.actionBlock}>
-					<button className={styles.cancelBtn}>Отмена</button>
-					<button className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})} >Подтвердить</button>
+					<button onClick={() => {setPageOption({name: 'init'})}} className={styles.cancelBtn}>Отмена</button>
+					<button onClick={sendFile} className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})} >Подтвердить</button>
 				</div>
 			</div>
 		</div>
