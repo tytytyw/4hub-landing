@@ -11,7 +11,7 @@ const ListItem = ({item, page, setPage, isSub, render}) => {
     const hasChild = item.children?.length
 
     const onClickHandler = () => {
-        setPage(item.name === 'get_info' && !collapse ? item.children[0].name : item.name)
+        setPage(item.name === 'get_info' && !collapse ? item.children[0] : item)
         if (hasChild) setCollapse(!collapse)
     }
 
@@ -24,7 +24,7 @@ const ListItem = ({item, page, setPage, isSub, render}) => {
                 className={classNames({
                     [styles.item]: true,
                     [styles.active]: collapse,
-                    [styles.activePage]: page === item.name,
+                    [styles.activePage]: page.name === item.name,
                     [styles.itemSub]: isSub
                 })}
             >

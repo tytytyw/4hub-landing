@@ -9,11 +9,11 @@ import { ReactComponent as OrgIcon } from "../../../../../assets/BusinessCabinet
 import WelcomeCard from "./WelcomePage/WelcomeCard";
 import GiveAccess from "./WelcomePage/GiveAccess";
 import SuccessSend from "./WelcomePage/SuccessSend";
-import Standards from "./Standards";
+import DocPreview from "./DocPreview";
 import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
-import Verification from "./Verification";
+// import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -22,7 +22,7 @@ import UploadLogo from "./UploadLogo/UploadLogo";
 import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
 
 const Company = () => {
-	const [pageOption, setPageOption] = useState("init");
+	const [pageOption, setPageOption] = useState({name: "init"});
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -136,22 +136,28 @@ const Company = () => {
 				</div>
 
 				<div className={styles.content}>
-					{pageOption === "init" && (
+					{/* {pageOption.name === "init" && (
 						<Verification setPageOption={setPageOption} />
-					)}
-					{pageOption === "welcome" && (
+					)} */}
+					{pageOption.name === "welcome" && (
 						<WelcomeCard setPageOption={setPageOption} />
 					)}
-					{pageOption === "give-access" && (
+					{pageOption.name === "give-access" && (
 						<GiveAccess setPageOption={setPageOption} />
 					)}
-					{pageOption === "success-mail" && (
+					{pageOption.name === "success-mail" && (
 						<SuccessSend setPageOption={setPageOption} />
 					)}
-					{pageOption === "standards" && (
-						<Standards setPageOption={setPageOption} />
+					{pageOption.name === "standards" && (
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
 					)}
-					{pageOption === "org_structure" && (
+					{pageOption.name === "mission" && (
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
+					)}
+					{pageOption.name === "viziya" && (
+						<DocPreview setPageOption={setPageOption} pageOption={pageOption} />
+					)}
+					{pageOption.name === "org_structure" && (
 						<OrgStructure
 							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}

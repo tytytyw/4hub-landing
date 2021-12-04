@@ -1,14 +1,11 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "../UploadFile/UploadFile.module.sass";
 
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import classNames from "classnames";
 
 const UploadFile = ({title, setBlob, blob}) => {
-	const labelRef = useRef();
-	const upload = () => {
-		labelRef.current.click();
-	};
+
 
     const onAddFile = (e) => {
         setBlob(e.target.files[0])
@@ -26,13 +23,13 @@ const UploadFile = ({title, setBlob, blob}) => {
 					<p className={styles.labelText}>
 						Добавьте документ {title.toLowerCase()}
 					</p>
-					<div onClick={upload} className={styles.uploadBlock}>
+					<div className={styles.uploadBlock}>
 						<p
 							onClick={(e) => e.stopPropagation()}
 							className={styles.uploadText}
 						>
 							Перетащите сюда файл или
-							<label ref={labelRef} htmlFor="Verification-upload">
+							<label htmlFor="Verification-upload">
 								{" "}
 								Загрузите
 							</label>
