@@ -36,7 +36,7 @@ const Company = () => {
 
 	const sideListData = [
 		{
-			name: "gen_info",
+			name: "get_info",
 			label: "Общие сведения",
 			icon: <InfoIcon />,
 			children: [
