@@ -9,7 +9,7 @@ const DocPreview = ({ pageOption, setPageOption, setLoadingType }) => {
 	return (
 		<>
 			{previewFile ? (
-				<ViewStandarts />
+				<ViewStandarts pageOption={pageOption} />
 			) : (
 				<UploadFile
 					blob={blob}

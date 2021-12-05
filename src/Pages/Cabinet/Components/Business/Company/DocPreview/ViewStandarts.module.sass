@@ -13,15 +13,23 @@
     right: 28px
 
     .printBtn
+      display: flex
+      align-items: center
+      justify-content: center
       margin-bottom: 10px
       width: 41px
       height: 24px
       background: #FFFFFF
       box-shadow: 0 2px 4px #DEDEDE
       border-radius: 2.25px
+
       &:last-child
         margin-bottom: 0
 
+      &:hover svg
+        path, rect
+          fill: #4086F1
+      
 
   .content
     width: 680px

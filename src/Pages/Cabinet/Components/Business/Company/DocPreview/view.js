@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from "./ViewStandarts.module.sass";
-import printerImg from "../../../../../../assets/BusinessCabinet/print.svg";
-import pointerMenuImg from "../../../../../../assets/BusinessCabinet/pointer-menu.svg";
+import { ReactComponent as PrinterImg } from "../../../../../../assets/BusinessCabinet/print.svg";
+import { ReactComponent as PointerMenuImg } from "../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import logoImg from "../../../../../../assets/BusinessCabinet/logo.png";
 
-const ViewStandarts = () => {
+const ViewStandarts = ({pageOption}) => {
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.printWrapper}>
                 <button className={styles.printBtn}>
-                    <img src={printerImg} alt="Print"/>
+                    <PrinterImg />
                 </button>
                 <button className={styles.printBtn}>
-                    <img src={pointerMenuImg} alt="Options"/>
+                    <PointerMenuImg />
                 </button>
             </div>
 
@@ -22,7 +22,7 @@ const ViewStandarts = () => {
                     <img className={styles.logoImg} src={logoImg} alt=""/>
                 </div>
 
-                <h2 className={styles.title}>Стандарты компании</h2>
+                <h2 className={styles.title}>{pageOption.label}</h2>
                 <p className={styles.text}>
                     Это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.
                     <br/>
