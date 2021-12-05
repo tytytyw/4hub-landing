@@ -232,6 +232,13 @@ export const dotsPaint = [
     {id: 8, width: 2},
 ]
 
+// Company
+
+export const contextMenuDocFile = [
+    {name: 'Редактировать', img: 'edit', type: 'customize'},
+    {name: 'Удалить', img: 'garbage', type: 'delete'}
+]
+
 // org structure
 
 export const contextMenuPerson = [
