@@ -85,8 +85,13 @@ const WorkSpace = ({
 	return (
 		<>
 			<div
-				className={`${styles.workSpaceWrap} ${
-					listCollapsed ? styles.workSpaceWrapCollapsed : undefined
+				className={`
+					${styles.workSpaceWrap} 
+					${typeof listCollapsed === 'boolean'
+						? listCollapsed
+							? styles.workSpaceWrapCollapsed
+							: styles.workSpaceWrapShort
+						: undefined
 				}`}
 				ref={containerRef}
 			>
