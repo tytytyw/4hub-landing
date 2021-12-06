@@ -154,7 +154,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                           [styles.redBorder]: compare.isLogin
                       })}
                       type='text'
-                      autocomplete="new-password"
+                      autoСomplete="new-password"
                       value={info.login}
                       onChange={e => setLogin(e.target.value)}
                       onBlur={e => checkLogin(e.target)}
@@ -171,7 +171,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                           [styles.redBorder]: compare.isPass
                       })}
                       type={visibility}
-                      autocomplete="new-password"
+                      autoСomplete="new-password"
                       value={info.pass}
                       onChange={(e) => {
                           setInfo({...info, pass: e.target.value});

@@ -42,10 +42,11 @@ const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction, comp
 						y: e.clientY,
 						width: 158,
 						height: 38,
+						type: 'contextMenuLogo'
 					});
 				}}
 			/>
-			{mouseParams !== null ? (
+			{mouseParams !== null && mouseParams.type === "contextMenuLogo" ? (
 				<ContextMenu
 					params={mouseParams}
 					setParams={setMouseParams}

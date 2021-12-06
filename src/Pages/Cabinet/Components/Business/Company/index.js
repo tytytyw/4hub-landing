@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Company.module.sass";
 import SideList from "./SideList";
 import { ReactComponent as SettingsIcon } from "../../../../../assets/BusinessCabinet/SideList/settings.svg";
@@ -9,34 +9,37 @@ import { ReactComponent as OrgIcon } from "../../../../../assets/BusinessCabinet
 import WelcomeCard from "./WelcomePage/WelcomeCard";
 import GiveAccess from "./WelcomePage/GiveAccess";
 import SuccessSend from "./WelcomePage/SuccessSend";
-import Standards from "./Standards";
+import DocPreview from "./DocPreview";
+import Contacts from "./Contacts";
 import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
-import Verification from "./Verification";
+// import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
 import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 import UploadLogo from "./UploadLogo/UploadLogo";
-import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
+import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const Company = () => {
-	const [pageOption, setPageOption] = useState("init");
+	const [pageOption, setPageOption] = useState({ name: "init" });
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const [businessRegistration, setBusinessRegistration] = useState(false);
 	const id_company = useSelector((state) => state.user.id_company);
-	const col_admins = useSelector(state => state.user.userInfo?.col_admins);
+	const col_admins = useSelector((state) => state.user.userInfo?.col_admins);
 	const [companyName, setCompanyName] = useState("");
-	const [companyLogo, setCompanyLogo] = useState(null)
+	const [companyLogo, setCompanyLogo] = useState(null);
 	const dispatch = useDispatch();
 	const [blob, setBlob] = useState("");
+	const [loadingType, setLoadingType] = useState("");
 
 	const sideListData = [
 		{
-			name: "gen_info",
+			name: "get_info",
 			label: "Общие сведения",
 			icon: <InfoIcon />,
 			children: [
@@ -100,8 +103,8 @@ const Company = () => {
 
 	useEffect(() => {
 		dispatch(onGetUserInfo());
-		setBusinessRegistration(col_admins === 1)
-	}, [col_admins]) //eslint-disable-line
+		setBusinessRegistration(col_admins === 1);
+	}, [col_admins]); //eslint-disable-line
 
 	return (
 		<div className={styles.wrapper}>
@@ -136,22 +139,59 @@ const Company = () => {
 				</div>
 
 				<div className={styles.content}>
-					{pageOption === "init" && (
+					{/* {pageOption.name === "init" && (
 						<Verification setPageOption={setPageOption} />
-					)}
-					{pageOption === "welcome" && (
+					)} */}
+					{pageOption.name === "welcome" && (
 						<WelcomeCard setPageOption={setPageOption} />
 					)}
-					{pageOption === "give-access" && (
+					{pageOption.name === "give-access" && (
 						<GiveAccess setPageOption={setPageOption} />
 					)}
-					{pageOption === "success-mail" && (
+					{pageOption.name === "success-mail" && (
 						<SuccessSend setPageOption={setPageOption} />
 					)}
-					{pageOption === "standards" && (
-						<Standards setPageOption={setPageOption} />
+					{pageOption.name === "standards" && (
+						<DocPreview
+							setPageOption={setPageOption}
+							pageOption={pageOption}
+							setLoadingType={setLoadingType}
+							mouseParams={mouseParams}
+							setMouseParams={setMouseParams}
+							renderMenuItems={renderMenuItems}
+						/>
 					)}
-					{pageOption === "org_structure" && (
+					{pageOption.name === "mission" && (
+						<DocPreview
+							setPageOption={setPageOption}
+							pageOption={pageOption}
+							setLoadingType={setLoadingType}
+							mouseParams={mouseParams}
+							setMouseParams={setMouseParams}
+							renderMenuItems={renderMenuItems}
+						/>
+					)}
+					{pageOption.name === "viziya" && (
+						<DocPreview
+							setPageOption={setPageOption}
+							pageOption={pageOption}
+							setLoadingType={setLoadingType}
+							mouseParams={mouseParams}
+							setMouseParams={setMouseParams}
+							renderMenuItems={renderMenuItems}
+						/>
+					)}
+					{pageOption.name === "contacts" && (
+						<Contacts
+							// setPageOption={setPageOption}
+							// pageOption={pageOption}
+							// setLoadingType={setLoadingType}
+							// mouseParams={mouseParams}
+							// setMouseParams={setMouseParams}
+							// renderMenuItems={renderMenuItems}
+						/>
+					)}
+					{pageOption.name === "org_structure" && (
 						<OrgStructure
 							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}
@@ -172,6 +212,16 @@ const Company = () => {
 						/>
 					) : null}
 				</div>
+				{loadingType ? (
+					<Loader
+						position="absolute"
+						zIndex={10000}
+						containerType="bounceDots"
+						type="bounceDots"
+						background="white"
+						animation={false}
+					/>
+				) : null}
 			</div>
 		</div>
 	);
