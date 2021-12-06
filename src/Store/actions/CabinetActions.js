@@ -6,7 +6,7 @@ import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
     CHOOSE_FILES,
-    CHOOSE_ALL_FILES,
+    // CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
     CONTACT_LIST,
     FILE_DELETE,
@@ -38,7 +38,7 @@ import {
     SET_CALENDAR_EVENTS,
     SORT_FILES,
     LOAD_FILES,
-    LOAD_FILES_ALL,
+    // LOAD_FILES_ALL,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
@@ -113,7 +113,7 @@ export const onSetPath = (path) => {
         }
 }
 
-export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType) => async (dispatch, getState) => {
+export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType, allFiles) => async (dispatch, getState) => {
     const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
     const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
@@ -121,7 +121,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType)
     const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/lsjson.php?uid=${getState().user.uid}&dir=${path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+        const url = `/ajax/${allFiles ?? 'lsjson'}.php?uid=${getState().user.uid}&dir=${allFiles ? '' : path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
@@ -162,35 +162,6 @@ export const onSetNextFilesToPrevious = (path, isDir) => (dispatch) => {
         dispatch(onChooseFiles(path, '', 1, '', '', 'next'))
     }
 }
-
-export const onChooseAllFiles = (path, search, page, set, setLoad) => async (dispatch, getState) => {
-    const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
-    const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
-    const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
-    const searched = search ? `&search=${search}` : '';
-    const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
-    const cancelChooseFiles = CancelToken.source();
-    window.cancellationTokens = {cancelChooseFiles}
-
-    const url = `/ajax/file_list_all.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
-    await api.get(url,{
-        cancelToken: cancelChooseFiles.token
-    }).then(files => {
-        page > 1
-            ? dispatch({
-                type: LOAD_FILES_ALL,
-                payload: {files: files.data, path: 'global/all'}
-            })
-            : dispatch({
-                type: CHOOSE_ALL_FILES,
-                payload: {files: files.data, path: 'global/all'}
-            })
-        if(set) set(files.data.length);
-        if(setLoad) setLoad(false);
-    })
-        .catch(e => console.log(e))
-        .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
-};
 
 export const nullifyFilters = () => {
     return {

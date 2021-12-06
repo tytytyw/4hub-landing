@@ -6,7 +6,6 @@ import classNames from "classnames";
 
 import {
     onChooseFiles,
-    onChooseAllFiles,
     onSetFileSize,
     onSortFile,
     onChangeFilterFigure,
@@ -78,7 +77,7 @@ const ServePanel = ({
         if(setGLoader) setGLoader(true);
         dispatch(onSortFile(sorting));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader))
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', setGLoader))
+        if (menuItem === 'myFiles') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader, '', 'file_list_all'))
         if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -136,7 +135,7 @@ const ServePanel = ({
     const setFigure = (value) => {
         dispatch(onChangeFilterFigure(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
         if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -154,7 +153,7 @@ const ServePanel = ({
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
         if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -172,7 +171,7 @@ const ServePanel = ({
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
         if (menuItem === 'myFolders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileList.path, search, 1, '', ''))
+        if (menuItem === 'myFiles') dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
         if (menuItem === 'safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,

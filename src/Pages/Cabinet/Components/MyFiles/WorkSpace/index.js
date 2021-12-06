@@ -73,7 +73,7 @@ const WorkSpace = ({
 		setGLoader(true)
 		dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
-		dispatch(onChooseFiles('global/video', '', 1, '', successLoad))
+		dispatch(onChooseFiles('global/video', '', 1, '', successLoad, '', 'file_list_all'))
 	}, []); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {

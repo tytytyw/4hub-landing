@@ -150,13 +150,13 @@ const ItemsList = ({
 
     const load = (entry) => {
         if(!gLoader) {
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/folders'){
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname === '/folders'){
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
             }
             if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', ''));
+                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
             }
         }
     }

@@ -12,7 +12,6 @@ import {
 	onCustomizeSafeFile,
 	onAddRecentFiles,
 	onChooseFiles,
-    onChooseAllFiles,
 	onGetSafeFileList,
 } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
@@ -144,7 +143,7 @@ const CustomizeFile = ({
 						else {
                             dispatch(onAddRecentFiles());
                             //TODO: add sort & filter params to dispatch
-							if (menuItem === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
+							if (menuItem === 'myFiles') dispatch(onChooseFiles(fileListAll?.path, search, 1, '', '', '', 'file_list_all'));
 							if (menuItem === 'myFolders') dispatch(onChooseFiles(path, search, 1, '', ''));
                         }
 					}

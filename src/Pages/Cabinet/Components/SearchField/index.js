@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useDebounce} from '../../../../generalComponents/Hooks';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onChooseAllFiles, onSearch, onGetSafeFileList} from '../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onSearch, onGetSafeFileList} from '../../../../Store/actions/CabinetActions';
 import Select from "../../../../generalComponents/Select/Select";
 
 
@@ -17,7 +17,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 
 	const search = (query) => {
 		if (menuItem === 'myFolders') dispatch(onChooseFiles(path, query, 1))
-		if (menuItem === 'myFiles') dispatch(onChooseAllFiles('', query, 1))
+		if (menuItem === 'myFiles') dispatch(onChooseFiles('', query, 1, '', '', '', 'file_list_all'))
 		if (menuItem === 'safe') dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
