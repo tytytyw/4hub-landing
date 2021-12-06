@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from "../../../../api";
-import { previewFormats } from "../../../../generalComponents/collections";
+import {contextMenuFile, previewFormats} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -18,6 +18,7 @@ import PreviewFile from "../PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
 // import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 
 const MyFiles = ({
@@ -44,7 +45,7 @@ const MyFiles = ({
 	const uid = useSelector((state) => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
-	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
+	const fileList = useSelector((state) => state.Cabinet.fileList);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	// const search = useSelector(state => state.Cabinet.search);
 
@@ -171,8 +172,8 @@ const MyFiles = ({
 
 	const [safePassword, setSafePassword] = useState({ open: false });
 	const renderFileBar = () => {
-		if (!fileListAll?.files) return null;
-		return fileListAll.files.map((file, i) => {
+		if (!fileList?.files) return null;
+		return fileList.files.map((file, i) => {
 			return (
 				<FileItem
 					chosenFile={chosenFile}
@@ -205,7 +206,7 @@ const MyFiles = ({
 
 	const deleteFile = () => {
 		if (filePick.show) {
-			const gdir = fileListAll.path;
+			const gdir = fileList.path;
 			filePick.files.forEach((fid, i, arr) =>
 				fileDelete(
 					{ gdir, fid },
@@ -328,14 +329,6 @@ const MyFiles = ({
 		setMenuItem("myFiles");
 		return () => setMenuItem("");
 	}, []); //eslint-disable-line
-	// useEffect(() => {
-	// 	if (fileListAll?.files.length <= 10) {
-	// 		setFilesPage(2);
-	// 		if (fileRef.current) {
-	// 			fileRef.current.scrollTop = 0;
-	// 		}
-	// 	}
-	// }, [fileListAll?.files]); //eslint-disable-line
 
 	const cancelArchive = () => {
 		nullifyFilePick();
@@ -357,13 +350,14 @@ const MyFiles = ({
 	// const load = (entry) => {
 	// 	if(entry.isIntersecting && !loadingFilesLocal && filesPage !== 0 && window.location.pathname.includes('files')){
 	// 		setLoadingFilesLocal(true);
-	// 		dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+	// 		dispatch(onChooseAllFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
 	// 	}
 	// }
 	//
 	// const [containerRef] = useScrollElementOnScreen(options, load);
 
 	return (
+		<>
 		<div className={styles.workAreaWrap}>
 			{workElementsView === "workLinesPreview" && (
 				<List
@@ -469,6 +463,21 @@ const MyFiles = ({
 				/>
 			)}
 		</div>
+		{mouseParams !== null ? (
+			<ContextMenu
+				params={mouseParams}
+				setParams={setMouseParams}
+				tooltip={true}
+			>
+				<div className={styles.mainMenuItems}>
+					{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+				</div>
+				<div className={styles.additionalMenuItems}>
+					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+				</div>
+			</ContextMenu>
+		) : null}
+		</>
 	);
 };
 

@@ -7,8 +7,6 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
-import ContextMenu from "../../../../../generalComponents/ContextMenu";
-import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
@@ -27,15 +25,12 @@ const WorkSpace = ({
 	setChosenFile,
 	listCollapsed,
 	setItem,
-	renderMenuItems,
-	mouseParams,
 	setMouseParams,
 	action,
 	setAction,
 	nullifyAction,
 	nullifyFilePick,
 	callbackArrMain,
-	additionalMenuItems,
 	deleteFile,
 	setFilePreview,
 	filePreview,
@@ -160,20 +155,6 @@ const WorkSpace = ({
 				) : null}
 				<BottomPanel />
 			</div>
-			{mouseParams !== null ? (
-				<ContextMenu
-					params={mouseParams}
-					setParams={setMouseParams}
-					tooltip={true}
-				>
-					<div className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuFile.main, callbackArrMain)}
-					</div>
-					<div className={styles.additionalMenuItems}>
-						{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-					</div>
-				</ContextMenu>
-			) : null}
 			{action.type === "delete" ? (
 				<ActionApproval
 					name={filePick.show ? 'Удаление файлов' : action.name}
