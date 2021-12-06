@@ -10,6 +10,7 @@ import WelcomeCard from "./WelcomePage/WelcomeCard";
 import GiveAccess from "./WelcomePage/GiveAccess";
 import SuccessSend from "./WelcomePage/SuccessSend";
 import DocPreview from "./DocPreview";
+import Contacts from "./Contacts";
 import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
@@ -23,7 +24,7 @@ import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const Company = () => {
-	const [pageOption, setPageOption] = useState({ name: "init" });
+	const [pageOption, setPageOption] = useState({ name: "contacts" });
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -178,6 +179,16 @@ const Company = () => {
 							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}
 							renderMenuItems={renderMenuItems}
+						/>
+					)}
+					{pageOption.name === "contacts" && (
+						<Contacts
+							// setPageOption={setPageOption}
+							// pageOption={pageOption}
+							// setLoadingType={setLoadingType}
+							// mouseParams={mouseParams}
+							// setMouseParams={setMouseParams}
+							// renderMenuItems={renderMenuItems}
 						/>
 					)}
 					{pageOption.name === "org_structure" && (
