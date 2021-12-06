@@ -21,10 +21,12 @@ import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../../WorkElements/FilesGroup/FilesGroup";
 import {periods} from "../../../../../generalComponents/collections";
 
+const mock = () => {}
+
 const ItemsList = ({
-       setGLoader, setFilesPage, setChosenFolder, setChosenFile, filePick, setMouseParams,
+       setGLoader, setFilesPage, setChosenFolder = mock, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
-       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu
+       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock
 }) => {
 
     // const uid = useSelector(state => state?.user.uid);
@@ -148,13 +150,13 @@ const ItemsList = ({
 
     const load = (entry) => {
         if(!gLoader) {
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname === '/folders'){
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname === '/folders'){
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
             }
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location.pathname.includes('files')){
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
                 setLoadingFiles(true);
-                // dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
+                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
             }
         }
     }

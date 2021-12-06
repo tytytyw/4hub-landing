@@ -3,8 +3,6 @@ import {
     CHOOSE_FOLDER,
     CHOOSE_FILES,
     LOAD_FILES,
-    LOAD_FILES_ALL,
-    CHOOSE_ALL_FILES,
     FILE_DELETE,
     SAFE_FILE_DELETE,
     CONTACT_LIST,
@@ -50,7 +48,8 @@ import {
     SET_CHOSEN_FOLDER,
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
-    CHOOSE_FILES_NEXT, SET_NEXT_FILES_TO_PREVIOUS,
+    CHOOSE_FILES_NEXT,
+    SET_NEXT_FILES_TO_PREVIOUS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -58,7 +57,6 @@ const INITIAL_STATE = {
     other: null,
     folderList: null,
     fileList: null,
-    fileListAll: null,
     contactList: null,
     recentFolders: null,
     recentFiles: null,
@@ -179,12 +177,6 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};
-        }
-        case LOAD_FILES_ALL: {
-            return {...state, fileListAll: {...state.fileListAll, files: [...state.fileListAll.files, ...action.payload.files]}};
-        }
-        case CHOOSE_ALL_FILES: {
-            return {...state, fileListAll: {...action.payload}};
         }
         case FILE_DELETE: {
             const files = state.fileList.files.filter(el => el.fid !== action.payload.fid);

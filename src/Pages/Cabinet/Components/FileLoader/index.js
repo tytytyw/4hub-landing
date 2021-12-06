@@ -8,7 +8,6 @@ import LoadItem from './LoadItem';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
 import {
     onChooseFiles,
-    onChooseAllFiles,
     onGetSafeFileList,
     nullifyFilters,
     onChooseProjectFiles,
@@ -157,7 +156,7 @@ const FileLoader = ({
             }
         }else {console.log(res)}
         dispatch(nullifyFilters())
-        if (menuItem === 'myFiles' && file.options.destination === 'myFiles') dispatch(onChooseAllFiles(fileListAll?.path, search, 1, '', ''));
+        if (menuItem === 'myFiles' && file.options.destination === 'myFiles') dispatch(onChooseFiles(fileListAll?.path, search, 1, '', '', 'file_list_all'));
         if (menuItem === 'myFolders' && file.options.destination === 'myFolders') dispatch(onChooseFiles(fileList?.path, search, 1, '', ''));
         if (menuItem === 'safe' && file.options.destination === 'safe') dispatch(onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe,authorizedSafe.pass, '', '', '', search, '', ''));
         if (menuItem === 'project' && file.options.destination === 'project') dispatch(onChooseProjectFiles({name: file.options.dir}, {id: file.options.id_project}, 1)); //TODO - Need to finish after added pagination && filters

@@ -1,18 +1,12 @@
 import React, {useEffect, useRef} from 'react';
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
-import WorkBars from "../../WorkElements/WorkBars";
 import BottomPanel from "../../BottomPanel";
-import FileBar from "../../WorkElements/FileBar";
-import WorkLines from "../../WorkElements/WorkLines";
-import FileLine from "../../WorkElements/FileLine";
-import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
-import WorkLinesPreview from "../../WorkElements/WorkLinesPreview";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
@@ -24,13 +18,15 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
+import ItemsList from "../../MyFolders/ItemsList/ItemsList";
+import {useElementResize} from "../../../../../generalComponents/Hooks";
+import {onAddRecentFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
 	chosenFile,
 	setChosenFile,
 	listCollapsed,
 	setItem,
-	workElementsView,
 	renderMenuItems,
 	mouseParams,
 	setMouseParams,
@@ -63,45 +59,22 @@ const WorkSpace = ({
     setGLoader,
 	menuItem
 }) => {
-	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
 	const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
 	const fileRef = useRef(null);
+	const dispatch = useDispatch();
+	const [containerRef, width] = useElementResize();
 
+	const successLoad = () => {
+		setFilesPage(2)
+		setGLoader(false)
+	}
 	useEffect(() => {
-        if(fileListAll?.files.length <= 10) {
-            setFilesPage(2);
-            if(fileRef.current) {
-                fileRef.current.scrollTop = 0;
-            }
-        }
-    }, [fileListAll?.files, fileListAll?.path]); //eslint-disable-line
-
-	// Types of Files view
-	const renderFiles = (Type) => {
-		
-        if(!fileListAll?.files) return null;
-		return fileListAll.files.map((file, i) => {
-			return (
-				<Type
-					key={i}
-					file={file}
-					setChosenFile={setChosenFile}
-					chosen={
-						filePick.show
-							? filePick.files.findIndex((el) => el === file.fid) >= 0
-							: chosenFile?.fid === file?.fid
-					}
-					setMouseParams={setMouseParams}
-					setAction={setAction}
-					filePreview={filePreview}
-					setFilePreview={setFilePreview}
-					setFilePick={setFilePick}
-					filePick={filePick}
-					callbackArrMain={callbackArrMain}
-				/>
-			);
-		});
-	};
+		setFilesPage(0)
+		setGLoader(true)
+		dispatch(onAddRecentFiles())
+		//TODO - Need to change request after server changes
+		dispatch(onChooseFiles('global/video', '', 1, '', successLoad, '', 'file_list_all'))
+	}, []); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
         let index;
@@ -115,6 +88,7 @@ const WorkSpace = ({
 				className={`${styles.workSpaceWrap} ${
 					listCollapsed ? styles.workSpaceWrapCollapsed : undefined
 				}`}
+				ref={containerRef}
 			>
 				<div className={styles.header}>
 					<SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
@@ -145,55 +119,26 @@ const WorkSpace = ({
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
 				/>
-				{workElementsView === "bars" ? (
-					<WorkBars
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						gLoader={gLoader}
-						fileRef={fileRef}
-						fileLoading={fileLoading}
-						fileSelect={fileSelect}
-						filePick={filePick}
-						hideUploadFile={fileListAll === null}
-					>
-						{renderFiles(FileBar)}
-					</WorkBars>
-				) : null}
-				{workElementsView === "lines" ? (
-					<WorkLines
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						gLoader={gLoader}
-						fileRef={fileRef}
-						fileLoading={fileLoading}
-						filePick={filePick}
-					>
-						{renderFiles(FileLine)}
-					</WorkLines>
-				) : null}
-				{workElementsView === "preview" ? (
-					<WorkBarsPreview
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						gLoader={gLoader}
-						fileRef={fileRef}
-						file={chosenFile}
-						filePick={filePick}
-					>
-						{renderFiles(FileBar)}
-					</WorkBarsPreview>
-				) : null}
-				{workElementsView === "workLinesPreview" ? (
-					<WorkLinesPreview
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						gLoader={gLoader}
-						fileRef={fileRef}
-						file={chosenFile}
-						hideFileList={true}
-						filePick={filePick}
-					/>
-				) : null}
+				<ItemsList
+					setGLoader={setGLoader}
+					setFilesPage={setFilesPage}
+					setChosenFile={setChosenFile}
+					filePick={filePick}
+					setMouseParams={setMouseParams}
+					setAction={setAction}
+					setFilePreview={setFilePreview}
+					filePreview={filePreview}
+					setFilePick={setFilePick}
+					callbackArrMain={callbackArrMain}
+					chosenFile={chosenFile}
+					fileLoading={fileLoading}
+					fileSelect={fileSelect}
+					filesPage={filesPage}
+					chosenFolder={chosenFolder}
+					gLoader={gLoader}
+					fileRef={fileRef}
+					width={width}
+				/>
 
 				{filePick.show ? (
 					<OptionButtomLine
