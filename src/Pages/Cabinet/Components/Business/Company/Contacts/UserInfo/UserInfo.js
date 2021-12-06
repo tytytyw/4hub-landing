@@ -68,26 +68,6 @@ function UserInfo({ selectedItem }) {
 			<p className={styles.name}>
 				{`${selectedItem?.name} ${selectedItem?.sname}`}
 			</p>
-
-			{/* //TODO: рендер несольких номеров */}
-			{/* mes:[link: '',type: 'viber'] */}
-			{/* soc:[link: '',type: 'vk'] */}
-			{/* <div className={styles.inputWrap}>
-            <img className={styles.icon} src={`${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`} alt='icon' />
-                <input className={styles.input} value={selectedItem?.tel[0]} />
-            </div>
-            <div className={styles.inputWrap}>
-            <img className={styles.icon} src={`${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`} alt='icon' />
-                <input className={styles.input} value={selectedItem?.email[0]} />
-            </div>
-            <div className={styles.inputWrap}>
-                <img className={styles.icon} src={`${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`} alt='icon' />
-                <input className={styles.input} value={'+38 095 11 774'} />
-            </div>
-            <div className={styles.inputWrap}>
-                <img className={styles.icon} src={`${imageSrc}assets/PrivateCabinet/socials/facebook.svg`} alt='icon' />
-                <input className={styles.input} value={'+38 095 11 774'} />
-            </div> */}
 			{renderContactItem(selectedItem?.tel, "phone")}
             {renderContactItem(selectedItem?.email, "mail")}
             {renderSocialItem(selectedItem?.mes)}
