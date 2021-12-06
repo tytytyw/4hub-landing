@@ -11,7 +11,7 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 import {
 	onDeleteFile,
-	onAddRecentFiles,
+	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
 import CreateSafePassword from "../CreateSafePassword";
 import PreviewFile from "../PreviewFile";
@@ -19,6 +19,7 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
+import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 // import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 
 const MyFiles = ({
@@ -47,7 +48,8 @@ const MyFiles = ({
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.Cabinet.fileList);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
-	// const search = useSelector(state => state.Cabinet.search);
+	const search = useSelector(state => state.Cabinet.search);
+	const [loadingFiles, setLoadingFiles] = useState(false);
 
 	const [gLoader, setGLoader] = useState(false);
 
@@ -335,26 +337,42 @@ const MyFiles = ({
 		nullifyAction();
 	};
 
-	// const [loadingFilesLocal, setLoadingFilesLocal] = useState(false)
-	// const onSuccessLoading = (result) => {
-	// 	setLoadingFilesLocal(false);
-	// 	result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-	// }
-	//
-	// const options = {
-	// 	root: null,
-	// 	rootMargin: '0px',
-	// 	threshold: 0
-	// }
-	//
-	// const load = (entry) => {
-	// 	if(entry.isIntersecting && !loadingFilesLocal && filesPage !== 0 && window.location.pathname.includes('files')){
-	// 		setLoadingFilesLocal(true);
-	// 		dispatch(onChooseAllFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
-	// 	}
-	// }
-	//
-	// const [containerRef] = useScrollElementOnScreen(options, load);
+	const onSuccessLoading = (result) => {
+		if(typeof result === 'number') {
+			setTimeout(() => {
+				result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+				setLoadingFiles(false);
+			}, 50) // 50ms needed to prevent recursion of ls_json requests
+		} else if(typeof result === 'object') {
+			let moreElements = false;
+			for(let key in result) {
+				if(result[key].length > 0) moreElements = true;
+			}
+			setTimeout(() => {
+				moreElements ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+				setLoadingFiles(false);
+			}, 500)
+		} else {
+			setTimeout(() => {setFilesPage(0); setLoadingFiles(false)}, 500);
+		}
+	}
+
+	const options = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0
+	}
+
+	const load = (entry) => {
+		if(!gLoader) {
+			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
+				setLoadingFiles(true);
+				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+			}
+		}
+	}
+
+	const [scrollRef] = useScrollElementOnScreen(options, load);
 
 	return (
 		<>
@@ -374,7 +392,7 @@ const MyFiles = ({
 						{!gLoader ? <div
 							className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
 							style={{height: '100px'}}
-							// ref={containerRef}
+							ref={scrollRef}
 						>
 							<Loader
 								type='bounceDots'
