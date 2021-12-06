@@ -139,6 +139,7 @@ const WorkSpace = ({
 					gLoader={gLoader}
 					fileRef={fileRef}
 					width={width}
+					menuItem={menuItem}
 				/>
 
 				{filePick.show ? (

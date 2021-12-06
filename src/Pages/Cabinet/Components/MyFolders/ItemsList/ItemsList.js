@@ -26,7 +26,7 @@ const mock = () => {}
 const ItemsList = ({
        setGLoader, setFilesPage, setChosenFolder = mock, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
-       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock
+       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock, menuItem
 }) => {
 
     // const uid = useSelector(state => state?.user.uid);
@@ -240,6 +240,7 @@ const ItemsList = ({
                 options={options}
                 renderFiles={renderFiles}
                 renderGroups={renderGroups}
+                menuItem={menuItem}
             >{Array.isArray(fileList?.files) ? renderFiles(FileLineShort, fileList?.files) : renderGroups(FileLineShort, fileList?.files)}</WorkLinesPreview> : null}
         </>
     )

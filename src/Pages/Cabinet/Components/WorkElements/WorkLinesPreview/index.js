@@ -12,7 +12,7 @@ import FileLineShort from "../FileLineShort";
 
 const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
-      load, options, renderFiles, renderGroups
+      load, options, renderFiles, renderGroups, menuItem
 }) => {
 
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
@@ -91,7 +91,7 @@ const WorkLinesPreview = ({
         <div
             className={`${styles.workLinesPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
         >
-        {!hideFileList && <div
+        {!hideFileList && menuItem !== 'myFiles'&& <div
             className={styles.fileListWrap}
             ref={fileRef}
         >
