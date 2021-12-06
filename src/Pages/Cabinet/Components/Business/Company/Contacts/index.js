@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 import styles from "./Contacts.module.sass";
 import ContactList from "./ContactList/ContactList";
 import UserInfo from "./UserInfo/UserInfo";
-
+import AddContact from "./AddContact/AddContact";
 
 const Contacts = () => {
 	// const contacts = useSelector(state => state.Cabinet.companyContactList)
     const [selectedItem, setSelectedItem] = useState(null);
+    const [action, setAction] = useState({ type: "", name: "", text: "" });
+    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+    useEffect(() => selectedItem ? nullifyAction() : '', [selectedItem])
 
 	const data = [
 		{
@@ -109,9 +113,16 @@ const Contacts = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<ContactList data={data} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+			<ContactList
+                data={data}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                action={action.type}
+                setAction={setAction} 
+            />
             <div className={styles.content}>
                 {selectedItem && <UserInfo  selectedItem={selectedItem} />}
+                {action.type === 'addContact' ? <AddContact /> : null}
             </div>
 		</div>
 	);

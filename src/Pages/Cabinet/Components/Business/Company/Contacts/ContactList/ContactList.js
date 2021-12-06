@@ -4,8 +4,9 @@ import styles from "./ContacList.module.sass";
 import ContactSearch from "./ContactSearch/ContactSearch";
 import SearchList from "./SearchList/SearchList";
 import { ReactComponent as AddContactIcon } from "../../../../../../../assets/PrivateCabinet/addContact.svg";
+import classNames from "classnames";
 
-const ContactList = ({ data = [], selectedItem, setSelectedItem }) => {
+const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction }) => {
 	const [search, setSearch] = useState("");
 	const [contactList, setContactList] = useState("");
 
@@ -28,6 +29,11 @@ const ContactList = ({ data = [], selectedItem, setSelectedItem }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [search]);
 
+    const onAddContact = () => {
+        setSelectedItem(null)
+        setAction({type: 'addContact'})
+    }
+
 	return (
 		<div className={styles.sideBar}>
 			<div className={styles.search}>
@@ -37,7 +43,7 @@ const ContactList = ({ data = [], selectedItem, setSelectedItem }) => {
 				/>
 			</div>
 
-			<div className={styles.addContact}>
+			<div className={classNames({[styles.addContact]: true, [styles.active]: action === 'addContact'})} onClick={onAddContact}>
 				<div className={styles.iconWrap}>
 					<AddContactIcon width={12} height={14} />
 				</div>
