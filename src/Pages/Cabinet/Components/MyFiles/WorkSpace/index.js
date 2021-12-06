@@ -102,6 +102,7 @@ const WorkSpace = ({
 					<RecentFiles
 						setFilePreview={setFilePreview}
 						filePreview={filePreview}
+						width={width}
 					/>
 				)}
 				<ServePanel
