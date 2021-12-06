@@ -24,7 +24,7 @@ import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const Company = () => {
-	const [pageOption, setPageOption] = useState({ name: "contacts" });
+	const [pageOption, setPageOption] = useState({ name: "init" });
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });

@@ -1,0 +1,93 @@
+.wrapper
+    padding: 21px 30px
+    color: #49494B
+    .header
+        display: flex
+        align-items: center
+        justify-content: space-between
+        margin-bottom: 16px
+
+        .emptyBlock
+            width: 40px
+
+        .avatar
+            .picture
+                object-fit: cover
+                width: 90px
+                height: 90px
+                border-radius: 50%
+        .buttons
+            display: flex
+            justify-content: space-between
+            align-items: center
+            flex-direction: column
+            align-self: stretch
+
+            .filledIcon
+                background: #4086F1
+                .iconStar path
+                    fill: #FFFFFF
+
+            .iconView
+                display: flex
+                align-items: center
+                justify-content: center
+                border-radius: 3px
+                width: 40px
+                height: 27px
+                overflow: hidden
+                cursor: pointer
+                transition: background 0.2s ease-in-out
+                box-shadow: 0 2px 4px #dedede
+
+                svg path
+                    transition: all 0.2s ease-in-out
+
+                .iconShare path
+                    fill: #B0B0B0
+                .iconTrash path
+                    fill: #EB4545
+
+                &:hover
+                    background: #4086F1
+
+                    svg path
+                        fill: #ffffff
+    .name
+        text-align: center
+        font-size: 18px
+        padding-bottom: 16px
+        border-bottom: 1px solid #CFCFCF
+        margin: 0
+    
+    .inputWrap
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        border-bottom: 1px solid #CFCFCF
+        padding: 9px 0
+
+        .iconWrap
+            display: flex
+            align-items: center
+            justify-content: center
+            margin-right: 10px
+            width: 30px
+            height: 30px
+            border-radius: 50%
+            background: #4086F1
+
+            svg
+                path
+                    fill: #fff
+        .iconWrap_soc
+            background: transparent
+
+        .input
+            width: 80%
+            border: none
+            outline: none
+            font-family: inherit
+            font-size: inherit
+            color: inherit
+            background: inherit

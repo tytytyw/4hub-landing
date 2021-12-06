@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // import { useSelector } from "react-redux";
 import styles from "./Contacts.module.sass";
 import ContactList from "./ContactList/ContactList";
+import UserInfo from "./UserInfo/UserInfo";
+
 
 const Contacts = () => {
 	// const contacts = useSelector(state => state.Cabinet.companyContactList)
@@ -39,26 +41,23 @@ const Contacts = () => {
 			id: "1",
 			name: "Alina",
 			tel: ["+38(065) 123 55 33", "+38(073) 656 56 55"],
-			email: ["ravshandavlatov@gmail.com"],
-			id_user: "60",
+			email: ["m@gmail.com"],
 			soc: [
-				{ type: "twitter", link: "twitterlink" },
-				{ type: "linkedin", link: "linkedinlink" },
-				{ type: "facebook", link: "fgfacebookhfglink" },
-				{ type: "skype", link: "skypelink" },
-				{ type: "instagram", link: "instagramlink" },
-				{ type: "vk", link: "vklink" },
+				{ type: "twitter", link: "qwerty" },
+				{ type: "linkedin", link: "qwerty" },
+				{ type: "facebook", link: "qwerty" },
+				{ type: "instagram", link: "qwerty" },
+				{ type: "vk", link: "qwerty" },
 			],
 			sname: "Surname",
 			mes: [
 				{ type: "viber", link: "+38(073) 333 97 73" },
 				{ type: "whatsapp", link: "+38(056) 162 15 52" },
-				{ type: "telegram", link: "+42(626) 562 62 32" },
-				{ type: "skype", link: "+45(262) 652 35 55" },
-				{ type: "slack", link: "+45(215) 552 63 55" },
+				{ type: "telegram", link: "qwerty" },
+				{ type: "skype", link: "qwerty" },
 			],
 			icon: [
-				"",
+				"upload/782c79eaffc94cb0173679494daf82f5/_contacts_/60/Без названия.jpg",
 			],
 		},
         {
@@ -66,12 +65,10 @@ const Contacts = () => {
 			name: "Alina",
 			tel: ["+38(065) 123 55 33", "+38(073) 656 56 55"],
 			email: ["ravshandavlatov@gmail.com"],
-			id_user: "60",
 			soc: [
 				{ type: "twitter", link: "twitterlink" },
 				{ type: "linkedin", link: "linkedinlink" },
 				{ type: "facebook", link: "fgfacebookhfglink" },
-				{ type: "skype", link: "skypelink" },
 				{ type: "instagram", link: "instagramlink" },
 				{ type: "vk", link: "vklink" },
 			],
@@ -87,21 +84,21 @@ const Contacts = () => {
 				"",
 			],
 		},
-        {id: "3",name: "Alina",id_user: "57",sname: "Surname"},
-        {id: "4",name: "Boris",id_user: "57",sname: "Borisovic"},
-        {id: "5",name: "Name",id_user: "57",sname: "Surname"},
-        {id: "6",name: "Mame",id_user: "57",sname: "Surname"},
-        {id: "7",name: "Name",id_user: "57",sname: "Surname"},
-        {id: "8",name: "Name",id_user: "57",sname: "Surname"},
-        {id: "9",name: "Plina",id_user: "57",sname: "Surname"},
-        {id: "11",name: "Polina",id_user: "57",sname: "Surname"},
-        {id: "12",name: "PAlina",id_user: "57",sname: "Surname"},
-        {id: "13",name: "PAlino",id_user: "57",sname: "Surname"},
-        {id: "14",name: "Wlina",id_user: "57",sname: "Surname"},
-        {id: "15",name: "Mlina",id_user: "57",sname: "Surname"},
-        {id: "16",name: "Nlina",id_user: "57",sname: "Surname"},
-        {id: "17",name: "Qalina",id_user: "57",sname: "Surname"},
-        {id: "18",name: "Alina",id_user: "57",sname: "Surname"},
+        {id: "3",name: "Alina", sname: "Surname"},
+        {id: "4",name: "Boris", sname: "Borisovic"},
+        {id: "5",name: "Name", sname: "Surname"},
+        {id: "6",name: "Mame", sname: "Surname"},
+        {id: "7",name: "Name", sname: "Surname"},
+        {id: "8",name: "Name", sname: "Surname"},
+        {id: "9",name: "Plina", sname: "Surname"},
+        {id: "11",name: "Polina", sname: "Surname"},
+        {id: "12",name: "PAlina", sname: "Surname"},
+        {id: "13",name: "PAlino", sname: "Surname"},
+        {id: "14",name: "Wlina", sname: "Surname"},
+        {id: "15",name: "Mlina", sname: "Surname"},
+        {id: "16",name: "Nlina", sname: "Surname"},
+        {id: "17",name: "Qalina", sname: "Surname"},
+        {id: "18",name: "Alina", sname: "Surname"},
         
         
 	];
@@ -113,8 +110,8 @@ const Contacts = () => {
 	return (
 		<div className={styles.wrapper}>
 			<ContactList data={data} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
-            <div>
-
+            <div className={styles.content}>
+                {selectedItem && <UserInfo  selectedItem={selectedItem} />}
             </div>
 		</div>
 	);
