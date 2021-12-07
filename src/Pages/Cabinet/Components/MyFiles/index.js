@@ -21,7 +21,6 @@ import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
-// import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 
 const MyFiles = ({
 	filePreview,

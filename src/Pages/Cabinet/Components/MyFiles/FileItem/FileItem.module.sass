@@ -3,7 +3,8 @@
   height: 30px
   position: relative
   flex: 0 0 25px
-  div div {font-size: 6px}
+  div div
+    font-size: 6px
 
 .chosen
   background: rgba(64, 134, 241, 0.1)
@@ -32,11 +33,15 @@
 
 .file_wrap
   display: flex
+  width: 100%
+  min-width: 100%
+  max-width: 100%
   font-size: .85rem
   justify-content: space-between
   align-items: center
   padding:  .75rem .25rem .75rem .75rem
-  color: #606060  
+  color: #606060
+  cursor: default
   
 .file_wrap:hover
   background: rgba(64, 134, 241, 0.1)
@@ -45,7 +50,7 @@
   align-self: flex-start
   padding: 0 .5em
   width: 50%
-
+  cursor: default
 
 .file_date, .file_size
   font-size: .7em

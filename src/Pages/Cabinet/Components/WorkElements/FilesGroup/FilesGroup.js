@@ -82,7 +82,7 @@ function FilesGroup({
 					)}
 					{workElementsView === "workLinesPreview"
 					? menuItem === 'myFiles'
-						? <div className={styles.collapseContentShort}>
+						? <div className={styles.collapseContentFileItem}>
 							{renderFileItem(FileItem, fileList)}
 					      </div>
 						: <div className={styles.collapseContentShort}>
