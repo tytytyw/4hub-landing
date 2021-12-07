@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./AddContact.module.sass";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { ReactComponent as PhoneIcon } from "../../../../../../../assets/PrivateCabinet/phone-3.svg";
@@ -7,6 +7,7 @@ import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateC
 import classNames from "classnames";
 import ProfileUpload from "../../../../MyProfile/UserForm/ProfileUpload";
 import api from "../../../../../../../api";
+import { onGetCompanyContacts }  from "../../../../../../../Store/actions/CabinetActions";
 
 const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 	const [userData, setUserData] = useState({name: '', sname: '', pname: ''})
@@ -15,6 +16,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 	const [requiredError, setRequiredError] = useState(false)
 	const id_company = useSelector((state) => state.user.id_company);
 	const uid = useSelector((state) => state.user.uid);
+	const dispatch = useDispatch();
 	
 	const messengers = ['viber', 'whatsapp', 'telegram', 'skype']
 	const socials = ['twitter', 'linkedin', 'facebook', 'instagram', 'vk']
@@ -99,7 +101,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 			if (userData.mail) formData.append('mail', JSON.stringify([userData.mail]))
 			api.post(`/ajax/org_contacts_add.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${userData.sname}&pname=${userData.pname}`, formData)
                 .then(() => {
-					setShowSuccessMessage('Контакт добавлен')
+					dispatch(onGetCompanyContacts(setShowSuccessMessage, 'Контакт добавлен'))
 					nullifyAction()
                 })
 				.catch(err => {

@@ -24,7 +24,6 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
         api.get(`/ajax/org_contacts_del.php?uid=${uid}&id_company=${id_company}&id=${selectedItem.id}`)
         .then(() => {
             dispatch(onGetCompanyContacts(setShowSuccessMessage, 'Контакт удален'))
-            // setShowSuccessMessage('Контакт удален')
             setSelectedItem(null)
         })
         .catch(err => {
