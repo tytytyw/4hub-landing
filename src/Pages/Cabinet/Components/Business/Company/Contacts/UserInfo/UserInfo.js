@@ -56,7 +56,10 @@ function UserInfo({ selectedItem, setAction }) {
 						<ShareIcon className={styles.iconShare} />
 					</div>
 
-					<div className={styles.iconView}>
+					<div
+						className={styles.iconView}
+						onClick={() => setAction({type: 'editContact', name: '', text: ''})}
+					>
 						<EditIcon className={styles.iconShare} />
 					</div>
 

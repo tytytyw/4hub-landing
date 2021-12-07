@@ -32,7 +32,9 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
     }
 
     useEffect(() => selectedItem ? nullifyAction() : '', [selectedItem])
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => contactList && selectedItem ? setSelectedItem(contactList.filter(item => item.id === selectedItem.id)[0]) : '', [contactList])
+    
 	return (
 		<div className={styles.wrapper}>
 			<ContactList
@@ -43,9 +45,24 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
                 setAction={setAction} 
             />
             <div className={styles.content}>
-                {selectedItem && <UserInfo  selectedItem={selectedItem} setAction={setAction} />}
+                {selectedItem && action.type !== 'editContact' &&
+                    <UserInfo  selectedItem={selectedItem} setAction={setAction} />}
                 {action.type === 'addContact'
-                    ? <AddContact nullifyAction={nullifyAction} setLoadingType={setLoadingType} setShowSuccessMessage={setShowSuccessMessage} />
+                    ? <AddContact
+                        nullifyAction={nullifyAction}
+                        setLoadingType={setLoadingType}
+                        setShowSuccessMessage={setShowSuccessMessage}
+                        type='add'
+                    />
+                    : null}
+                {action.type === 'editContact'
+                    ? <AddContact
+                        nullifyAction={nullifyAction}
+                        setLoadingType={setLoadingType}
+                        setShowSuccessMessage={setShowSuccessMessage}
+                        selectedItem={selectedItem}
+                        type='edit'
+                    />
                     : null}
             </div>
             {action.type === "deleteContact" ? (

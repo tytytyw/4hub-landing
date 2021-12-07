@@ -9,7 +9,7 @@ import ProfileUpload from "../../../../MyProfile/UserForm/ProfileUpload";
 import api from "../../../../../../../api";
 import { onGetCompanyContacts }  from "../../../../../../../Store/actions/CabinetActions";
 
-const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
+const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selectedItem, type}) => {
 	const [userData, setUserData] = useState({name: '', sname: '', pname: ''})
 	const [image, setImage] = useState(null)
 	const [preview, setPreview] = useState(null)
@@ -27,7 +27,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 		if (value && (key === 'name' || key === 'sname' || key === 'pname')) {
 			value = value[0].toUpperCase() + value.slice(1)
 		}
-		if (key === 'phone') {
+		if (key === 'tel') {
 			value = value.replace(/\D/gim, '')
 			const number = value.replace(/(\+)*(\()*(\))*\s*(-)*/g, '');
 			const length = number.length;
@@ -46,7 +46,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 			return (
 				<div className={styles.inputWrap} key={type + index}>
 					<div className={styles.iconWrap}>
-						{type === "phone" ? <PhoneIcon /> : <MailIcon />}
+						{type === "tel" ? <PhoneIcon /> : <MailIcon />}
 					</div>
 					<input
 						className={styles.input}
@@ -96,12 +96,13 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
             if (image) formData.append('file', image)
 			if (userData.soc) formData.append('soc', createSocialPatams(userData.soc))
 			if (userData.mes) formData.append('mes', createSocialPatams(userData.mes))
-			//TODO: refactor when use additional phones/emails
-			if (userData.phone) formData.append('tel', JSON.stringify([userData.phone]))
-			if (userData.mail) formData.append('email', JSON.stringify([userData.mail]))
-			api.post(`/ajax/org_contacts_add.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${userData.sname}&pname=${userData.pname}`, formData)
+			//TODO: refactor when use additional tels/eemails
+			if (userData.tel) formData.append('tel', JSON.stringify([userData.tel]))
+			if (userData.email.length) formData.append('email', JSON.stringify([userData.email]))
+			const addContactId = () => {return type === 'edit' ? `&id=${selectedItem.id}` : ''}
+			api.post(`/ajax/org_contacts_${type}.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${userData.sname}&pname=${userData.pname}${addContactId()}`, formData)
                 .then(() => {
-					dispatch(onGetCompanyContacts(setShowSuccessMessage, 'Контакт добавлен'))
+					dispatch(onGetCompanyContacts(setShowSuccessMessage, type === 'add' ? 'Контакт добавлен' : 'Контакт обновлен'))
 					nullifyAction()
                 })
 				.catch(err => {
@@ -126,11 +127,28 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
             reader.onloadend = () => setPreview(reader.result)
             reader.readAsDataURL(image)
         }
-		// return () => onExit()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [image])
 
-	useEffect(() => {return () => onExit()}, [])
+	useEffect(() => {
+		if (selectedItem && type === 'edit') {
+			const data = {...selectedItem};
+			const normalizeParams = (group) => {
+				const newObj = {};
+				selectedItem[group].forEach(social => {
+					newObj[social.type] = social.link
+					data[group] = newObj
+				})
+			}
+			if (selectedItem.soc.length) normalizeParams('soc')
+			if (selectedItem.mes.length) normalizeParams('mes')
+			setUserData(data)
+			if (selectedItem.icon) setPreview(selectedItem.icon[0])
+		}
+		return () => onExit()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
 
 	return (
 		<div className={styles.wrapper}>
@@ -171,8 +189,8 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 						onChange={(e) => onChange('pname', e.target.value)}
 					/>
 				</div>
-				{renderContactItem(['Введите номер телефона'], "phone")}
-				{renderContactItem(['Введите email'], "mail")}
+				{renderContactItem(['Введите номер телефона'], "tel")}
+				{renderContactItem(['Введите email'], "email")}
 				{renderSocialItem(socials, 'soc')}
 				{renderSocialItem(messengers, 'mes')}
 			</div>
