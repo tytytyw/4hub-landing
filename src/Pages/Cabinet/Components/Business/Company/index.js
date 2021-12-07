@@ -22,6 +22,7 @@ import BusinessRegistration from "../../../../StartPage/Components/BusinessRegis
 import UploadLogo from "./UploadLogo/UploadLogo";
 import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import SuccessMessage from "../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState({ name: "init" });
@@ -36,6 +37,7 @@ const Company = () => {
 	const dispatch = useDispatch();
 	const [blob, setBlob] = useState("");
 	const [loadingType, setLoadingType] = useState("");
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const sideListData = [
 		{
@@ -185,7 +187,8 @@ const Company = () => {
 						<Contacts
 							// setPageOption={setPageOption}
 							// pageOption={pageOption}
-							// setLoadingType={setLoadingType}
+							setLoadingType={setLoadingType}
+							setShowSuccessMessage={setShowSuccessMessage}
 							// mouseParams={mouseParams}
 							// setMouseParams={setMouseParams}
 							// renderMenuItems={renderMenuItems}
@@ -223,6 +226,12 @@ const Company = () => {
 					/>
 				) : null}
 			</div>
+			{showSuccessMessage && (
+				<SuccessMessage
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+				/>
+			)}
 		</div>
 	);
 };

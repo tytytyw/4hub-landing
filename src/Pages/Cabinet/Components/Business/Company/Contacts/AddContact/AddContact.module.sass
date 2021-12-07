@@ -1,6 +1,7 @@
 .wrapper
-    padding: 21px 30px
+    padding: 21px 0px 21px 30px
     color: #49494B
+    height: 100%
     .header
         display: flex
         align-items: center
@@ -16,7 +17,6 @@
     .label
         text-align: center
         padding-bottom: 16px
-        border-bottom: 1px solid #CFCFCF
         margin: 0
 
         .text
@@ -24,37 +24,96 @@
             font-size: 14px
             line-height: 14px
             display: inline-block
+    .scrollArea
+        padding-right: 30px
+        height: calc(100% - 98px - 30px - 68px)
+        overflow-y: scroll
+        scrollbar-width: behavor
+        scrollbar-color: #4086F1 #F5F5F5
+        &::-webkit-scrollbar-track
+            background: #0A3AAB
+        &::-webkit-scrollbar-track
+            -webkit-box-shadow: none
+            background-color: #F5F5F5
+        &::-webkit-scrollbar
+            width: 12px
+            background-color: #FFFFFF
+        &::-webkit-scrollbar-thumb
+            background-color: #4086F1
+        .inputWrap:first-child
+            border-top: 1px solid #CFCFCF
 
-    .inputWrap
-        display: flex
-        align-items: center
-        justify-content: flex-start
-        border-bottom: 1px solid #CFCFCF
-        padding: 9px 0
-
-        .iconWrap
+        .inputWrap
             display: flex
             align-items: center
+            justify-content: flex-start
+            border-bottom: 1px solid #CFCFCF
+            padding: 9px 0
+
+            .iconWrap
+                display: flex
+                align-items: center
+                justify-content: center
+                margin-right: 10px
+                width: 30px
+                height: 30px
+                border-radius: 50%
+                background: #4086F1
+
+                svg
+                    path
+                        fill: #fff
+            .iconWrap_soc
+                background: transparent
+
+            .input
+                width: 80%
+                line-height: 28px
+                font-size: 13px
+                border: none
+                outline: none
+                font-family: inherit
+                font-size: inherit
+                color: inherit
+                background: inherit
+                &::placeholder
+                    opacity: .8
+                    font-size: 13px
+            .requiredInpit
+                &::placeholder
+                    color: red
+    .buttonsWrap
+        display: flex
+        width: 290px
+        justify-content: space-between
+        margin: 20px auto
+        div
+            display: flex
             justify-content: center
-            margin-right: 10px
-            width: 30px
-            height: 30px
-            border-radius: 50%
-            background: #4086F1
-
-            svg
-                path
-                    fill: #fff
-        .iconWrap_soc
-            background: transparent
-
-        .input
-            width: 80%
+            align-items: center
+            width: 140px
+            height: 39px
+            border-radius: 5px
+            cursor: pointer
+            font-size: 14px
+        .cancel
+            background: #e3e3e3
+            border: 1px solid #e9e9e9
+            color: grey
+        .cancel:hover
+            background: #fc7a7a
+            color: white
+        .action
+            background: #477DE1
+            border: 1px solid #477DE1
+            color: white
+        .action:hover
+            background: #3b6dcb
+        .action.disableBtn
+            opacity: 0.5
+            color: grey
+            background: #e3e3e3
             border: none
-            outline: none
-            font-family: inherit
-            font-size: inherit
-            color: inherit
-            background: inherit
-            &::placeholder
-                opacity: .8
+            cursor: default
+            &:hover
+                background: #e3e3e3 

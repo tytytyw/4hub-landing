@@ -5,7 +5,7 @@ import ContactList from "./ContactList/ContactList";
 import UserInfo from "./UserInfo/UserInfo";
 import AddContact from "./AddContact/AddContact";
 
-const Contacts = () => {
+const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
 	// const contacts = useSelector(state => state.Cabinet.companyContactList)
     const [selectedItem, setSelectedItem] = useState(null);
     const [action, setAction] = useState({ type: "", name: "", text: "" });
@@ -122,7 +122,9 @@ const Contacts = () => {
             />
             <div className={styles.content}>
                 {selectedItem && <UserInfo  selectedItem={selectedItem} />}
-                {action.type === 'addContact' ? <AddContact /> : null}
+                {action.type === 'addContact'
+                    ? <AddContact nullifyAction={nullifyAction} setLoadingType={setLoadingType} setShowSuccessMessage={setShowSuccessMessage} />
+                    : null}
             </div>
 		</div>
 	);

@@ -68,10 +68,12 @@ function UserInfo({ selectedItem }) {
 			<p className={styles.name}>
 				{`${selectedItem?.name} ${selectedItem?.sname}`}
 			</p>
-			{renderContactItem(selectedItem?.tel, "phone")}
-            {renderContactItem(selectedItem?.email, "mail")}
-            {renderSocialItem(selectedItem?.mes)}
-            {renderSocialItem(selectedItem?.soc)}
+            <div className={styles.scrollArea}>
+                {renderContactItem(selectedItem?.tel, "phone")}
+                {renderContactItem(selectedItem?.email, "mail")}
+                {renderSocialItem(selectedItem?.mes)}
+                {renderSocialItem(selectedItem?.soc)}
+            </div>
 		</div>
 	);
 }
