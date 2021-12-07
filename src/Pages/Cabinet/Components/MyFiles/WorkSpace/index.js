@@ -7,8 +7,6 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
-import ContextMenu from "../../../../../generalComponents/ContextMenu";
-import { contextMenuFile } from "../../../../../generalComponents/collections";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
@@ -27,15 +25,12 @@ const WorkSpace = ({
 	setChosenFile,
 	listCollapsed,
 	setItem,
-	renderMenuItems,
-	mouseParams,
 	setMouseParams,
 	action,
 	setAction,
 	nullifyAction,
 	nullifyFilePick,
 	callbackArrMain,
-	additionalMenuItems,
 	deleteFile,
 	setFilePreview,
 	filePreview,
@@ -73,7 +68,7 @@ const WorkSpace = ({
 		setGLoader(true)
 		dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
-		dispatch(onChooseFiles('global/video', '', 1, '', successLoad, '', 'file_list_all'))
+		dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
 	}, []); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
@@ -85,8 +80,13 @@ const WorkSpace = ({
 	return (
 		<>
 			<div
-				className={`${styles.workSpaceWrap} ${
-					listCollapsed ? styles.workSpaceWrapCollapsed : undefined
+				className={`
+					${styles.workSpaceWrap} 
+					${typeof listCollapsed === 'boolean'
+						? listCollapsed
+							? styles.workSpaceWrapCollapsed
+							: styles.workSpaceWrapShort
+						: undefined
 				}`}
 				ref={containerRef}
 			>
@@ -102,6 +102,7 @@ const WorkSpace = ({
 					<RecentFiles
 						setFilePreview={setFilePreview}
 						filePreview={filePreview}
+						width={width}
 					/>
 				)}
 				<ServePanel
@@ -138,6 +139,7 @@ const WorkSpace = ({
 					gLoader={gLoader}
 					fileRef={fileRef}
 					width={width}
+					menuItem={menuItem}
 				/>
 
 				{filePick.show ? (
@@ -153,20 +155,6 @@ const WorkSpace = ({
 				) : null}
 				<BottomPanel />
 			</div>
-			{mouseParams !== null ? (
-				<ContextMenu
-					params={mouseParams}
-					setParams={setMouseParams}
-					tooltip={true}
-				>
-					<div className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuFile.main, callbackArrMain)}
-					</div>
-					<div className={styles.additionalMenuItems}>
-						{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-					</div>
-				</ContextMenu>
-			) : null}
 			{action.type === "delete" ? (
 				<ActionApproval
 					name={filePick.show ? 'Удаление файлов' : action.name}

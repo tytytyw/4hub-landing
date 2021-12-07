@@ -2,20 +2,15 @@ import React from "react";
 import File from "../../../../../generalComponents/Files";
 import styles from "./FileItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
-import ContextMenu from "../../../../../generalComponents/ContextMenu";
-import { contextMenuFile } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FileItem = ({
 	file,
 	listCollapsed,
-	renderMenuItems,
 	mouseParams,
 	setMouseParams,
 	setChosenFile,
-	callbackArrMain,
-	additionalMenuItems,
 	setFilePreview,
 	filePreview,
 	chosen,
@@ -90,20 +85,6 @@ const FileItem = ({
 					<span className={styles.dots}></span>
 				</div>
 			</div>
-			{mouseParams !== null ? (
-				<ContextMenu
-					params={mouseParams}
-					setParams={setMouseParams}
-					tooltip={true}
-				>
-					<div className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuFile.main, callbackArrMain)}
-					</div>
-					<div className={styles.additionalMenuItems}>
-						{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-					</div>
-				</ContextMenu>
-			) : null}
 		</div>
 	);
 };

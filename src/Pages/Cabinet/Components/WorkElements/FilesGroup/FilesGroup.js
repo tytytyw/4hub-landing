@@ -7,11 +7,13 @@ import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
+import FileItem from "../../MyFiles/FileItem";
 
 function FilesGroup({
-	fileList, filePick, index, fileLoading, fileSelect,
+	fileList, filePick, fileLoading, fileSelect,
 	filesPage, setFilesPage, title, setChosenFolder,
-	fileRef, chosenFolder, gLoader, renderFiles, params = null
+	fileRef, chosenFolder, gLoader, renderFiles, params = null,
+	menuItem = '', renderFileItem = () => {}
 }) {
 
 	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
@@ -78,11 +80,15 @@ function FilesGroup({
 							{renderFiles(FileLine, fileList)}
 						</div>
 					)}
-					{workElementsView === "workLinesPreview" && (
-						<div className={styles.collapseContentShort}>
+					{workElementsView === "workLinesPreview"
+					? menuItem === 'myFiles'
+						? <div className={styles.collapseContentFileItem}>
+							{renderFileItem(FileItem, fileList)}
+					      </div>
+						: <div className={styles.collapseContentShort}>
 							{renderFiles(FileLineShort, fileList, params)}
-						</div>
-					)}
+					      </div>
+					: null}
 				</>}
 			</div>}
 		</>

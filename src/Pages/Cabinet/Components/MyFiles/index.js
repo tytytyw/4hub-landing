@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from "../../../../api";
-import { previewFormats } from "../../../../generalComponents/collections";
+import {contextMenuFile, periods, previewFormats} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -11,14 +11,16 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
 import {
 	onDeleteFile,
-	onAddRecentFiles,
+	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
 import CreateSafePassword from "../CreateSafePassword";
 import PreviewFile from "../PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
-// import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
+import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
+import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
 
 const MyFiles = ({
 	filePreview,
@@ -44,9 +46,10 @@ const MyFiles = ({
 	const uid = useSelector((state) => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
-	const fileListAll = useSelector((state) => state.Cabinet.fileListAll);
+	const fileList = useSelector((state) => state.Cabinet.fileList);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
-	// const search = useSelector(state => state.Cabinet.search);
+	const search = useSelector(state => state.Cabinet.search);
+	const [loadingFiles, setLoadingFiles] = useState(false);
 
 	const [gLoader, setGLoader] = useState(false);
 
@@ -170,11 +173,11 @@ const MyFiles = ({
 	};
 
 	const [safePassword, setSafePassword] = useState({ open: false });
-	const renderFileBar = () => {
-		if (!fileListAll?.files) return null;
-		return fileListAll.files.map((file, i) => {
+	const renderFileItem = (Type, list) => {
+		if (!list) return null;
+		return list.map((file, i) => {
 			return (
-				<FileItem
+				<Type
 					chosenFile={chosenFile}
 					setChosenFile={setChosenFile}
 					key={i}
@@ -186,7 +189,6 @@ const MyFiles = ({
 					}
 					listCollapsed={listCollapsed}
 					renderMenuItems={renderMenuItems}
-					mouseParams={mouseParams}
 					setMouseParams={setMouseParams}
 					action={action}
 					setAction={setAction}
@@ -203,9 +205,35 @@ const MyFiles = ({
 		});
 	};
 
+	const renderGroups = (Type, list, params) => {
+		if(!list) return null;
+		const keys = Object.keys(list);
+		return keys.map((k, i) => (
+			list[k].length > 0 ? <FilesGroup
+				key={i}
+				index={i}
+				fileList={list[k]}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				title={periods[k] ?? "Более года назад"}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+				//WorkLinesPreview
+				params={params}
+				menuItem={menuItem}
+				renderFileItem={renderFileItem}
+			/> : null
+		))
+	}
+
 	const deleteFile = () => {
 		if (filePick.show) {
-			const gdir = fileListAll.path;
+			const gdir = fileList.path;
 			filePick.files.forEach((fid, i, arr) =>
 				fileDelete(
 					{ gdir, fid },
@@ -328,42 +356,51 @@ const MyFiles = ({
 		setMenuItem("myFiles");
 		return () => setMenuItem("");
 	}, []); //eslint-disable-line
-	// useEffect(() => {
-	// 	if (fileListAll?.files.length <= 10) {
-	// 		setFilesPage(2);
-	// 		if (fileRef.current) {
-	// 			fileRef.current.scrollTop = 0;
-	// 		}
-	// 	}
-	// }, [fileListAll?.files]); //eslint-disable-line
 
 	const cancelArchive = () => {
 		nullifyFilePick();
 		nullifyAction();
 	};
 
-	// const [loadingFilesLocal, setLoadingFilesLocal] = useState(false)
-	// const onSuccessLoading = (result) => {
-	// 	setLoadingFilesLocal(false);
-	// 	result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
-	// }
-	//
-	// const options = {
-	// 	root: null,
-	// 	rootMargin: '0px',
-	// 	threshold: 0
-	// }
-	//
-	// const load = (entry) => {
-	// 	if(entry.isIntersecting && !loadingFilesLocal && filesPage !== 0 && window.location.pathname.includes('files')){
-	// 		setLoadingFilesLocal(true);
-	// 		dispatch(onChooseAllFiles(fileListAll?.path, search, filesPage, onSuccessLoading, ''));
-	// 	}
-	// }
-	//
-	// const [containerRef] = useScrollElementOnScreen(options, load);
+	const onSuccessLoading = (result) => {
+		if(typeof result === 'number') {
+			setTimeout(() => {
+				result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+				setLoadingFiles(false);
+			}, 50) // 50ms needed to prevent recursion of ls_json requests
+		} else if(typeof result === 'object') {
+			let moreElements = false;
+			for(let key in result) {
+				if(result[key].length > 0) moreElements = true;
+			}
+			setTimeout(() => {
+				moreElements ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+				setLoadingFiles(false);
+			}, 500)
+		} else {
+			setTimeout(() => {setFilesPage(0); setLoadingFiles(false)}, 500);
+		}
+	}
+
+	const options = {
+		root: null,
+		rootMargin: '0px',
+		threshold: 0
+	}
+
+	const load = (entry) => {
+		if(!gLoader) {
+			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
+				setLoadingFiles(true);
+				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+			}
+		}
+	}
+
+	const [scrollRef] = useScrollElementOnScreen(options, load);
 
 	return (
+		<>
 		<div className={styles.workAreaWrap}>
 			{workElementsView === "workLinesPreview" && (
 				<List
@@ -376,11 +413,11 @@ const MyFiles = ({
 					setChosenFile={setChosenFile}
 				>
 					<div className={styles.folderListWrap}>
-						{renderFileBar()}
+						{Array.isArray(fileList?.files) ? renderFileItem(FileItem, fileList?.files) : renderGroups(FileItem, fileList?.files)}
 						{!gLoader ? <div
 							className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
 							style={{height: '100px'}}
-							// ref={containerRef}
+							ref={scrollRef}
 						>
 							<Loader
 								type='bounceDots'
@@ -469,6 +506,21 @@ const MyFiles = ({
 				/>
 			)}
 		</div>
+		{mouseParams !== null ? (
+			<ContextMenu
+				params={mouseParams}
+				setParams={setMouseParams}
+				tooltip={true}
+			>
+				<div className={styles.mainMenuItems}>
+					{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+				</div>
+				<div className={styles.additionalMenuItems}>
+					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+				</div>
+			</ContextMenu>
+		) : null}
+		</>
 	);
 };
 
