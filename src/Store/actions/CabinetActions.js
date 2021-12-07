@@ -9,6 +9,7 @@ import {
     // CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
     CONTACT_LIST,
+    COMPANY_CONTACT_LIST,
     FILE_DELETE,
     SAFE_FILE_DELETE,
     GET_FOLDERS,
@@ -932,4 +933,30 @@ export const setDragged = (element) => {
         type: SET_DRAGGED,
         payload: element
     }
+};
+
+// COMPANY
+export const onGetCompanyContacts = (setShowSuccessMessage, message) => async (dispatch, getState) => {
+
+    const uid = getState().user.uid
+    const id_company = getState().user.id_company
+
+    api.get(`/ajax/org_contacts_list.php?uid=${uid}&id_company=${id_company}`)
+        .then(response => {
+            const data = response.data?.data
+
+            const newData = []
+            for (const key in data) {
+                newData.push(data[key])
+            }
+
+            dispatch({
+                type: COMPANY_CONTACT_LIST,
+                payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
+            })
+            if (setShowSuccessMessage) setShowSuccessMessage(message)
+        }).catch(error => {
+            console.log(error)
+        })
+
 };

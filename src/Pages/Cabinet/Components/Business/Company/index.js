@@ -21,6 +21,7 @@ import ContextMenuItem from "../../../../../generalComponents/ContextMenu/Contex
 import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 import UploadLogo from "./UploadLogo/UploadLogo";
 import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
+import { onGetCompanyContacts }  from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import SuccessMessage from "../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 
@@ -107,6 +108,10 @@ const Company = () => {
 		dispatch(onGetUserInfo());
 		setBusinessRegistration(col_admins === 1);
 	}, [col_admins]); //eslint-disable-line
+
+	useEffect(() => {
+        dispatch(onGetCompanyContacts())
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={styles.wrapper}>

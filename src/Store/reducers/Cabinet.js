@@ -6,6 +6,7 @@ import {
     FILE_DELETE,
     SAFE_FILE_DELETE,
     CONTACT_LIST,
+    COMPANY_CONTACT_LIST,
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
     CHOOSE_RECENT_FILES,
@@ -58,6 +59,7 @@ const INITIAL_STATE = {
     folderList: null,
     fileList: null,
     contactList: null,
+    companyContactList: null,
     recentFolders: null,
     recentFiles: null,
     chosenRecentFile: null,
@@ -185,6 +187,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CONTACT_LIST:
             return {...state, contactList: action.payload}
+        case COMPANY_CONTACT_LIST:
+            return {...state, companyContactList: action.payload}
         case ADD_RECENT_FOLDERS:
             return {...state, recentFolders: action.payload}
         case ADD_RECENT_FILES:
