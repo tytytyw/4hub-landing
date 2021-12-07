@@ -97,8 +97,8 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 			if (userData.soc) formData.append('soc', createSocialPatams(userData.soc))
 			if (userData.mes) formData.append('mes', createSocialPatams(userData.mes))
 			//TODO: refactor when use additional phones/emails
-			if (userData.phone) formData.append('phone', JSON.stringify([userData.phone]))
-			if (userData.mail) formData.append('mail', JSON.stringify([userData.mail]))
+			if (userData.phone) formData.append('tel', JSON.stringify([userData.phone]))
+			if (userData.mail) formData.append('email', JSON.stringify([userData.mail]))
 			api.post(`/ajax/org_contacts_add.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${userData.sname}&pname=${userData.pname}`, formData)
                 .then(() => {
 					dispatch(onGetCompanyContacts(setShowSuccessMessage, 'Контакт добавлен'))
