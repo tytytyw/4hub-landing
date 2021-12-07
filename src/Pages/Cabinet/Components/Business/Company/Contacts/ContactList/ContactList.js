@@ -6,7 +6,7 @@ import SearchList from "./SearchList/SearchList";
 import { ReactComponent as AddContactIcon } from "../../../../../../../assets/PrivateCabinet/addContact.svg";
 import classNames from "classnames";
 
-const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction }) => {
+const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
 	const [search, setSearch] = useState("");
 	const [contactList, setContactList] = useState("");
 
@@ -60,6 +60,7 @@ const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setActi
 								selectedItem={selectedItem}
 								setSelectedItem={setSelectedItem}
 								getContactName={getContactName}
+								setMouseParams={setMouseParams}
 							/>
 						</li>
 					))}

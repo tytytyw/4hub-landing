@@ -8,8 +8,9 @@ import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import api from "../../../../../../api";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetCompanyContacts }  from "../../../../../../Store/actions/CabinetActions";
+import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 
-const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
+const Contacts = ({setLoadingType, setShowSuccessMessage, mouseParams, setMouseParams, renderMenuItems}) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -31,6 +32,26 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
         })
     }
 
+    const contextMenuContact = [
+		{ name: "Поделиться", img: "share", type: "shareContact" },
+		{ name: "Редактировать", img: "edit", type: "editContact" },
+        { name: "Удалить", img: "garbage", type: "deleteContact" },
+    ]
+    const callbackArrMain = [
+		{
+			type: "deleteContact",
+			name: "Удаление контакта",
+			text: `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`,
+			callback: (list, index) => setAction(list[index]),
+		},
+		{
+			type: "editContact",
+			name: "Редактировать",
+			text: ``,
+			callback: (list, index) => setAction(list[index]),
+		},
+	];
+
     useEffect(() => selectedItem ? nullifyAction() : '', [selectedItem])
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => contactList && selectedItem ? setSelectedItem(contactList.filter(item => item.id === selectedItem.id)[0]) : '', [contactList])
@@ -43,6 +64,7 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
                 setSelectedItem={setSelectedItem}
                 action={action.type}
                 setAction={setAction} 
+                setMouseParams={setMouseParams}
             />
             <div className={styles.content}>
                 {selectedItem && action.type !== 'editContact' &&
@@ -82,6 +104,17 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
 						alt="avatar"
 					/>
                 </ActionApproval>
+			) : null}
+            {mouseParams !== null && mouseParams.type === "contextMenuContact" ? (
+				<ContextMenu
+					params={mouseParams}
+					setParams={setMouseParams}
+					tooltip={false}
+				>
+					<div className={styles.mainMenuItems}>
+						{renderMenuItems(contextMenuContact, callbackArrMain)}
+					</div>
+				</ContextMenu>
 			) : null}
 		</div>
 	);

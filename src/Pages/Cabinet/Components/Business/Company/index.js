@@ -194,9 +194,9 @@ const Company = () => {
 							// pageOption={pageOption}
 							setLoadingType={setLoadingType}
 							setShowSuccessMessage={setShowSuccessMessage}
-							// mouseParams={mouseParams}
-							// setMouseParams={setMouseParams}
-							// renderMenuItems={renderMenuItems}
+							mouseParams={mouseParams}
+							setMouseParams={setMouseParams}
+							renderMenuItems={renderMenuItems}
 						/>
 					)}
 					{pageOption.name === "org_structure" && (
