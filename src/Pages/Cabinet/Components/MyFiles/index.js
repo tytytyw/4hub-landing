@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from "../../../../api";
-import {contextMenuFile, previewFormats} from "../../../../generalComponents/collections";
+import {contextMenuFile, periods, previewFormats} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -20,6 +20,7 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
+import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
 // import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 
 const MyFiles = ({
@@ -173,11 +174,11 @@ const MyFiles = ({
 	};
 
 	const [safePassword, setSafePassword] = useState({ open: false });
-	const renderFileBar = () => {
-		if (!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
+	const renderFileItem = (Type, list) => {
+		if (!list) return null;
+		return list.map((file, i) => {
 			return (
-				<FileItem
+				<Type
 					chosenFile={chosenFile}
 					setChosenFile={setChosenFile}
 					key={i}
@@ -189,7 +190,6 @@ const MyFiles = ({
 					}
 					listCollapsed={listCollapsed}
 					renderMenuItems={renderMenuItems}
-					mouseParams={mouseParams}
 					setMouseParams={setMouseParams}
 					action={action}
 					setAction={setAction}
@@ -205,6 +205,32 @@ const MyFiles = ({
 			);
 		});
 	};
+
+	const renderGroups = (Type, list, params) => {
+		if(!list) return null;
+		const keys = Object.keys(list);
+		return keys.map((k, i) => (
+			list[k].length > 0 ? <FilesGroup
+				key={i}
+				index={i}
+				fileList={list[k]}
+				filePreview={filePreview}
+				setFilePreview={setFilePreview}
+				callbackArrMain={callbackArrMain}
+				chosenFile={chosenFile}
+				setChosenFile={setChosenFile}
+				filePick={filePick}
+				setFilePick={setFilePick}
+				title={periods[k] ?? "Более года назад"}
+				setAction={setAction}
+				setMouseParams={setMouseParams}
+				//WorkLinesPreview
+				params={params}
+				menuItem={menuItem}
+				renderFileItem={renderFileItem}
+			/> : null
+		))
+	}
 
 	const deleteFile = () => {
 		if (filePick.show) {
@@ -388,7 +414,7 @@ const MyFiles = ({
 					setChosenFile={setChosenFile}
 				>
 					<div className={styles.folderListWrap}>
-						{renderFileBar()}
+						{Array.isArray(fileList?.files) ? renderFileItem(FileItem, fileList?.files) : renderGroups(FileItem, fileList?.files)}
 						{!gLoader ? <div
 							className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ''}`}
 							style={{height: '100px'}}
