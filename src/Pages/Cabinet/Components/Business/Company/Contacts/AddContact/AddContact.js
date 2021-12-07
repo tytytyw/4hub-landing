@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./AddContact.module.sass";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { ReactComponent as PhoneIcon } from "../../../../../../../assets/PrivateCabinet/phone-3.svg";
@@ -111,7 +111,6 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage}) => {
 
 	const uploadImage = event => {
         const file = event.target.files[0] ?? null
-		console.log(file.type.substr(0, 5) === 'image')
         if (file && file.type.substr(0, 5) === 'image') {
             setImage(file)
         } else {

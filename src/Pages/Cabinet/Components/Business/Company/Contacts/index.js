@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./Contacts.module.sass";
 import ContactList from "./ContactList/ContactList";
 import UserInfo from "./UserInfo/UserInfo";
 import AddContact from "./AddContact/AddContact";
+import ActionApproval from "../../../../../../generalComponents/ActionApproval";
+import api from "../../../../../../api";
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
 	// const contacts = useSelector(state => state.Cabinet.companyContactList)
     const [selectedItem, setSelectedItem] = useState(null);
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+
+    const id_company = useSelector((state) => state.user.id_company);
+	const uid = useSelector((state) => state.user.uid);
+
+    const deleteContact = () => {
+        nullifyAction()
+        api.get(`/ajax/org_contacts_del.php?uid=${uid}&id_company=${id_company}&id=${selectedItem.id}`)
+        .then(() => {
+            setShowSuccessMessage('Контакт удален')
+            setSelectedItem(null)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     useEffect(() => selectedItem ? nullifyAction() : '', [selectedItem])
 
@@ -121,11 +139,29 @@ const Contacts = ({setLoadingType, setShowSuccessMessage}) => {
                 setAction={setAction} 
             />
             <div className={styles.content}>
-                {selectedItem && <UserInfo  selectedItem={selectedItem} />}
+                {selectedItem && <UserInfo  selectedItem={selectedItem} setAction={setAction} />}
                 {action.type === 'addContact'
                     ? <AddContact nullifyAction={nullifyAction} setLoadingType={setLoadingType} setShowSuccessMessage={setShowSuccessMessage} />
                     : null}
             </div>
+            {action.type === "deleteContact" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={deleteContact}
+					approve={'Удалить'}
+				>
+                    <img
+						className={styles.avatar}
+						src={
+							selectedItem?.icon?.[0] ||
+							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+						}
+						alt="avatar"
+					/>
+                </ActionApproval>
+			) : null}
 		</div>
 	);
 };

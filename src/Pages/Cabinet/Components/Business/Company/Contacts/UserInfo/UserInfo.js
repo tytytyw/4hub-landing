@@ -8,7 +8,7 @@ import { ReactComponent as PhoneIcon } from "../../../../../../../assets/Private
 import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateCabinet/mail-3.svg";
 import classNames from "classnames";
 
-function UserInfo({ selectedItem }) {
+function UserInfo({ selectedItem, setAction }) {
 	const renderContactItem = (array, type) => {
 		if (!array) return null;
 		return array.map((value, index) => {
@@ -60,7 +60,10 @@ function UserInfo({ selectedItem }) {
 						<EditIcon className={styles.iconShare} />
 					</div>
 
-					<div className={styles.iconView}>
+					<div
+                        className={styles.iconView}
+                        onClick={() => setAction({type: 'deleteContact', name: 'Удаление контакта', text: `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`})}
+                    >
 						<DeleteIcon height={17} className={styles.iconTrash} />
 					</div>
 				</div>
