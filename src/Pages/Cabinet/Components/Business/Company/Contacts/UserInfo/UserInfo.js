@@ -72,7 +72,9 @@ function UserInfo({ selectedItem, setAction }) {
 				</div>
 			</div>
 			<p className={styles.name}>
-				{`${selectedItem?.name} ${selectedItem?.sname}`}
+				<span>{selectedItem?.name} </span>
+				<span>{selectedItem?.pname} </span>
+				<span>{selectedItem?.sname}</span>
 			</p>
             <div className={styles.scrollArea}>
                 {renderContactItem(selectedItem?.tel, "phone")}
