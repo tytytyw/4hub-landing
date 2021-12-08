@@ -35,6 +35,7 @@ const ItemsList = ({
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const workElementsView = useSelector(state => state.Cabinet.view);
     const dispatch = useDispatch();
+    const [groupInfo, setGroupInfo] = useState({amount: 0, title: ''});
 
     const folderSelect = (folder) => {
         const path = fileList.path + `/${folder.name}` //TODO - need to be folder.path
@@ -111,6 +112,7 @@ const ItemsList = ({
                 params={params}
                 //WorkBarsPreview
                 setChosenFolder={setChosenFolder}
+                setGroupInfo={setGroupInfo}
             /> : null
         ))
     }
@@ -226,6 +228,7 @@ const ItemsList = ({
                 chosenFile={chosenFile}
                 load={load}
                 options={options}
+                groupInfo={groupInfo}
             >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
 
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview

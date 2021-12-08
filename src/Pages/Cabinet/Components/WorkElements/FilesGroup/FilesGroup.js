@@ -13,7 +13,7 @@ function FilesGroup({
 	fileList, filePick, fileLoading, fileSelect,
 	filesPage, setFilesPage, title, setChosenFolder,
 	fileRef, chosenFolder, gLoader, renderFiles, params = null,
-	menuItem = '', renderFileItem = () => {}
+	menuItem = '', renderFileItem = () => {}, setGroupInfo = () => {}
 }) {
 
 	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
@@ -22,6 +22,7 @@ function FilesGroup({
 
 	const handleChangeGroup = () => {
 		setChosenFolder(state => ({...state, group: {title, amount: fileList?.length}}))
+		setGroupInfo(state => ({...state, title, amount: fileList?.length}))
 	}
 
 	return (

@@ -13,7 +13,7 @@ import classNames from "classnames";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef, grouped, chosenFile, load, options,
-    gLoader, filesPage, chosenFolder, width = '100%'
+    gLoader, filesPage, chosenFolder, width = '100%', groupInfo
 }) => {
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
@@ -114,10 +114,10 @@ const WorkBarsPreview = ({
             {grouped ? <div
                 className={styles.collapseHeader}
             >
-                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? 'Выберите группу'}</p>
+                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? groupInfo.title ?? 'Выберите группу'}</p>
                 <div className={styles.buttonsWrap}>
                     <button className={`${styles.collapseBtn}`}>
-                        {chosenFolder.group?.amount ?? 0} объектов
+                        {chosenFolder.group?.amount ?? groupInfo.amount ?? 0} объектов
                     </button>
                     <div
                         className={classNames({
