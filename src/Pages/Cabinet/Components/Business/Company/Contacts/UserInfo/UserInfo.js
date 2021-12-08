@@ -8,7 +8,7 @@ import { ReactComponent as PhoneIcon } from "../../../../../../../assets/Private
 import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateCabinet/mail-3.svg";
 import classNames from "classnames";
 
-function UserInfo({ selectedItem }) {
+function UserInfo({ selectedItem, setAction }) {
 	const renderContactItem = (array, type) => {
 		if (!array) return null;
 		return array.map((value, index) => {
@@ -56,22 +56,32 @@ function UserInfo({ selectedItem }) {
 						<ShareIcon className={styles.iconShare} />
 					</div>
 
-					<div className={styles.iconView}>
+					<div
+						className={styles.iconView}
+						onClick={() => setAction({type: 'editContact', name: '', text: ''})}
+					>
 						<EditIcon className={styles.iconShare} />
 					</div>
 
-					<div className={styles.iconView}>
+					<div
+                        className={styles.iconView}
+                        onClick={() => setAction({type: 'deleteContact', name: 'Удаление контакта', text: `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`})}
+                    >
 						<DeleteIcon height={17} className={styles.iconTrash} />
 					</div>
 				</div>
 			</div>
 			<p className={styles.name}>
-				{`${selectedItem?.name} ${selectedItem?.sname}`}
+				<span>{selectedItem?.name} </span>
+				<span>{selectedItem?.pname} </span>
+				<span>{selectedItem?.sname}</span>
 			</p>
-			{renderContactItem(selectedItem?.tel, "phone")}
-            {renderContactItem(selectedItem?.email, "mail")}
-            {renderSocialItem(selectedItem?.mes)}
-            {renderSocialItem(selectedItem?.soc)}
+            <div className={styles.scrollArea}>
+                {renderContactItem(selectedItem?.tel, "phone")}
+                {renderContactItem(selectedItem?.email, "mail")}
+                {renderSocialItem(selectedItem?.mes)}
+                {renderSocialItem(selectedItem?.soc)}
+            </div>
 		</div>
 	);
 }

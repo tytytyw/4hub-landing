@@ -1,6 +1,7 @@
 .wrapper
-    padding: 21px 30px
+    padding: 21px 0px 21px 30px
     color: #49494B
+    height: 100%
     .header
         display: flex
         align-items: center
@@ -22,6 +23,7 @@
             align-items: center
             flex-direction: column
             align-self: stretch
+            padding-right: 40px
 
             .filledIcon
                 background: #4086F1
@@ -57,37 +59,54 @@
         text-align: center
         font-size: 18px
         padding-bottom: 16px
-        border-bottom: 1px solid #CFCFCF
+        padding-right: 40px
         margin: 0
-    
-    .inputWrap
-        display: flex
-        align-items: center
-        justify-content: flex-start
-        border-bottom: 1px solid #CFCFCF
-        padding: 9px 0
-
-        .iconWrap
+    .scrollArea
+        padding-right: 30px
+        height: calc(100% - 94px - 16px - 21px - 17px)
+        overflow-y: scroll
+        scrollbar-width: behavor
+        scrollbar-color: #4086F1 #F5F5F5
+        &::-webkit-scrollbar-track
+            background: #0A3AAB
+        &::-webkit-scrollbar-track
+            -webkit-box-shadow: none
+            background-color: #F5F5F5
+        &::-webkit-scrollbar
+            width: 12px
+            background-color: #FFFFFF
+        &::-webkit-scrollbar-thumb
+            background-color: #4086F1
+        .inputWrap:first-child
+            border-top: 1px solid #CFCFCF
+        .inputWrap
             display: flex
             align-items: center
-            justify-content: center
-            margin-right: 10px
-            width: 30px
-            height: 30px
-            border-radius: 50%
-            background: #4086F1
+            justify-content: flex-start
+            border-bottom: 1px solid #CFCFCF
+            padding: 9px 0
 
-            svg
-                path
-                    fill: #fff
-        .iconWrap_soc
-            background: transparent
+            .iconWrap
+                display: flex
+                align-items: center
+                justify-content: center
+                margin-right: 10px
+                width: 30px
+                height: 30px
+                border-radius: 50%
+                background: #4086F1
 
-        .input
-            width: 80%
-            border: none
-            outline: none
-            font-family: inherit
-            font-size: inherit
-            color: inherit
-            background: inherit
+                svg
+                    path
+                        fill: #fff
+            .iconWrap_soc
+                background: transparent
+
+            .input
+                width: 80%
+                border: none
+                outline: none
+                font-family: inherit
+                font-size: inherit
+                color: inherit
+                background: inherit

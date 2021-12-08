@@ -21,7 +21,9 @@ import ContextMenuItem from "../../../../../generalComponents/ContextMenu/Contex
 import BusinessRegistration from "../../../../StartPage/Components/BusinessRegistration";
 import UploadLogo from "./UploadLogo/UploadLogo";
 import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
+import { onGetCompanyContacts }  from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import SuccessMessage from "../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 
 const Company = () => {
 	const [pageOption, setPageOption] = useState({ name: "init" });
@@ -36,6 +38,7 @@ const Company = () => {
 	const dispatch = useDispatch();
 	const [blob, setBlob] = useState("");
 	const [loadingType, setLoadingType] = useState("");
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const sideListData = [
 		{
@@ -105,6 +108,10 @@ const Company = () => {
 		dispatch(onGetUserInfo());
 		setBusinessRegistration(col_admins === 1);
 	}, [col_admins]); //eslint-disable-line
+
+	useEffect(() => {
+        dispatch(onGetCompanyContacts())
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={styles.wrapper}>
@@ -185,10 +192,11 @@ const Company = () => {
 						<Contacts
 							// setPageOption={setPageOption}
 							// pageOption={pageOption}
-							// setLoadingType={setLoadingType}
-							// mouseParams={mouseParams}
-							// setMouseParams={setMouseParams}
-							// renderMenuItems={renderMenuItems}
+							setLoadingType={setLoadingType}
+							setShowSuccessMessage={setShowSuccessMessage}
+							mouseParams={mouseParams}
+							setMouseParams={setMouseParams}
+							renderMenuItems={renderMenuItems}
 						/>
 					)}
 					{pageOption.name === "org_structure" && (
@@ -223,6 +231,12 @@ const Company = () => {
 					/>
 				) : null}
 			</div>
+			{showSuccessMessage && (
+				<SuccessMessage
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+				/>
+			)}
 		</div>
 	);
 };

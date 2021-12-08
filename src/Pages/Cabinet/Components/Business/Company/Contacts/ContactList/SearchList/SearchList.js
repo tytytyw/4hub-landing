@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { ReactComponent as PointerMenuImg } from "../../../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import {imageSrc} from '../../../../../../../../generalComponents/globalVariables';
 
-const SearchList = ({ data, selectedItem, setSelectedItem, getContactName }) => {
+const SearchList = ({ data, selectedItem, setSelectedItem, getContactName, setMouseParams }) => {
     
 	return (
 		<ul className={styles.menuList}>
@@ -24,7 +24,10 @@ const SearchList = ({ data, selectedItem, setSelectedItem, getContactName }) => 
 						</span>
 						<p>{getContactName(item)}</p>
 					</div>
-					<PointerMenuImg className={styles.contextMenuIcon} />
+					<PointerMenuImg
+						className={styles.contextMenuIcon}
+						onClick={(e) => setMouseParams({x: e.clientX, y: e.clientY, width: 158, height: 38, type: 'contextMenuContact'})}
+					/>
 				</li>
 			))}
 		</ul>
