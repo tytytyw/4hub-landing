@@ -13,7 +13,7 @@ import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem
 import {getMonthByIndex} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
 import {onGetGuestFolderFiles} from "../../Store/actions/CabinetActions";
-import CopyLink from "../Cabinet/Components/ContextMenuComponents/ContextMenuFile/CopyLink/CopyLink";
+import CopyLinkShare from "../Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare";
 import {useDispatch, useSelector} from "react-redux";
 import {imageSrc} from '../../generalComponents/globalVariables';
 
@@ -226,7 +226,7 @@ const Guest = () => {
             ) : null}
 
             {showLinkCopy && (
-                <CopyLink fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
+                <CopyLinkShare fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />
             )}
 
             {loadingType ? <Loader
