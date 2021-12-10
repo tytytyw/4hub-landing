@@ -10,17 +10,19 @@ const DocPreview = ({
 	setMouseParams,
 	renderMenuItems,
 }) => {
-	const [previewFile, setPreviewFile] = useState(false);
+	const [previewFileSrc, setPreviewFileSrc] = useState(null);
+	const [fileSrc, setFileSrc] = useState(null);
 	const [blob, setBlob] = useState("");
 
 	return (
 		<>
-			{previewFile ? (
+			{previewFileSrc ? (
 				<FileView
 					pageOption={pageOption}
 					mouseParams={mouseParams}
 					setMouseParams={setMouseParams}
 					renderMenuItems={renderMenuItems}
+					fileSrc={fileSrc}
 				/>
 			) : (
 				<UploadFile
@@ -29,7 +31,8 @@ const DocPreview = ({
 					pageOption={pageOption}
 					setLoadingType={setLoadingType}
 					setPageOption={setPageOption}
-					setPreviewFile={setPreviewFile}
+					setPreviewFile={setPreviewFileSrc}
+					setFileSrc={setFileSrc}
 				/>
 			)}
 		</>
