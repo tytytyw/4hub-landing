@@ -7,6 +7,7 @@ import {
     SAFE_FILE_DELETE,
     CONTACT_LIST,
     COMPANY_CONTACT_LIST,
+    COMPANY_DOCUMENTS,
     ADD_RECENT_FOLDERS,
     ADD_RECENT_FILES,
     CHOOSE_RECENT_FILES,
@@ -124,7 +125,17 @@ const INITIAL_STATE = {
 
 
     // GUEST MODE
-    guestSharedFiles: []
+    guestSharedFiles: [],
+    
+    //COMPANY
+    company: {
+        documents: {
+            standards: {file: null, preview: null},
+            mission: {file: null, preview: null},
+            viziya: {file: null, preview: null},
+        }
+    }
+    
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -338,5 +349,9 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         default:
             return state;
+
+        //COMPANY
+        case COMPANY_DOCUMENTS:
+            return {...state, company: {...state.company, documents: {...state.company.documents, [action.payload.type] : action.payload}}}
     }
 }

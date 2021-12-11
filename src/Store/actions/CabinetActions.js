@@ -10,6 +10,7 @@ import {
     CHOOSE_FOLDER,
     CONTACT_LIST,
     COMPANY_CONTACT_LIST,
+    COMPANY_DOCUMENTS,
     FILE_DELETE,
     SAFE_FILE_DELETE,
     GET_FOLDERS,
@@ -955,6 +956,28 @@ export const onGetCompanyContacts = (setShowSuccessMessage, message) => async (d
                 payload: newData.sort((a, b) => a.name?.localeCompare(b.name))
             })
             if (setShowSuccessMessage) setShowSuccessMessage(message)
+        }).catch(error => {
+            console.log(error)
+        })
+
+};
+
+export const onGetCompanyDocument = (type) => async (dispatch, getState) => {
+
+    const uid = getState().user.uid
+    const id_company = getState().user.id_company
+
+    api.get(`/ajax/org_file_get.php?uid=${uid}&id_company=${id_company}&type=${type} `)
+        .then(res => {
+            const data = {
+                type,
+                file: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')).includes('doc'))[0] || null,
+                preview: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')) === 'pdf')[0] || null
+            }
+            dispatch({
+                type: COMPANY_DOCUMENTS,
+                payload: data
+            })
         }).catch(error => {
             console.log(error)
         })
