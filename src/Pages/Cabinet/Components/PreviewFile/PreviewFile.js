@@ -143,7 +143,7 @@ const PreviewFile = ({setFilePreview, file}) => {
             img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
                 if(canvasRef.current) {
-                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
+                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.79).toFixed()));
                     canvasRef.current.width = sizes.width;
                     canvasRef.current.height = sizes.height;
                     canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
