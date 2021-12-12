@@ -14,7 +14,7 @@ import {
 	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
 import CreateSafePassword from "../CreateSafePassword";
-import PreviewFile from "../PreviewFile";
+import PreviewFile from "../PreviewFile/PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";

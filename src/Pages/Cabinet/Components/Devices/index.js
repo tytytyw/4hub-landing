@@ -8,7 +8,7 @@ import WorkSpace from './WorkSpace'
 import CreateFolder from '../CreateFolder'
 import CreateFile from '../CreateFile'
 import CreateSafePassword from '../CreateSafePassword'
-import PreviewFile from '../PreviewFile'
+import PreviewFile from '../PreviewFile/PreviewFile'
 import ContextMenu from "../../../../generalComponents/ContextMenu"
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {contextMenuDevice, contextMenuDeviceUser} from "../../../../generalComponents/collections"

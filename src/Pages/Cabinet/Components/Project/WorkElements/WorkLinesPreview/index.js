@@ -17,7 +17,7 @@ import File from "../../../../../../generalComponents/Files";
 import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 import {projectSrc, imageSrc} from '../../../../../../generalComponents/globalVariables';
-import PreviewFile from "../../../PreviewFile";
+import PreviewFile from "../../../PreviewFile/PreviewFile";
 // import {useElementSize} from "../../../../../../generalComponents/Hooks";
 // import {unDoPaintBrush} from "../../../PreviewFile/paintHelpers";
 

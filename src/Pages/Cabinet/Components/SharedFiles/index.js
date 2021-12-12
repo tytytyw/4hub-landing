@@ -16,7 +16,7 @@ import { contextMenuFile } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
-import PreviewFile from "../PreviewFile";
+import PreviewFile from "../PreviewFile/PreviewFile";
 import BottomPanel from "../BottomPanel";
 import {
 	onGetSharedFiles,
