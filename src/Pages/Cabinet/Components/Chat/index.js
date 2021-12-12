@@ -14,7 +14,7 @@ import WorkSpace from "./WorkSpace";
 const Chat = () => {
 
     const [boardOption, setBoardOption] = useState('contacts');
-
+    const [search, setSearch] = useState('');
 
     return(
         <div className={styles.chatComponent}>
@@ -45,11 +45,19 @@ const Chat = () => {
                     />
                 </div>
                 <div className={styles.searchField}>
-                    <input placeholder='Введите имя пользователя' type='text'/>
-                    <img src={imageSrc + 'assets/PrivateCabinet/magnifying-glass-2.svg'} alt='search' className={styles.searchGlass} />
+                    <input
+                        placeholder='Введите имя пользователя' type='text'
+                        onChange={e => setSearch(e.target.value)}
+                        value={search}
+                    />
+                    <img
+                        src={imageSrc + `assets/PrivateCabinet/${search ? 'garbage.svg' : 'magnifying-glass-2.svg'}`}
+                        alt='search' className={styles.searchGlass}
+                        onClick={() => setSearch('')}
+                    />
                 </div>
                 <div className={styles.list}>
-                    {boardOption === 'contacts' ? <ContactList /> : null}
+                    {boardOption === 'contacts' ? <ContactList search={search} /> : null}
                 </div>
             </div>
             <WorkSpace />
