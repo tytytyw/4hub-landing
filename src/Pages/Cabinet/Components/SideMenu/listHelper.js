@@ -117,7 +117,7 @@ export const businessMenu = [
     {
         name: 'Чат',
         path: '/chat',
-        src: `${imageSrc}assets/BusinessCabinet/menu-icons/chat.svg`
+        src: `${imageSrc}assets/PrivateCabinet/sms.svg`
     },
     {
         name: 'Программы',

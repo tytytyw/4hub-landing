@@ -1,20 +1,77 @@
 .chatComponent
-  width: calc(100%)
-  max-width: calc(100%)
   overflow: hidden
   height: 100%
-  .header
+  display: flex
+  .sideMenu
     display: flex
-    align-items: center
-    justify-content: space-between
-    height: 90px
-    border-bottom: 1px solid #e5e5e5
-    box-sizing: border-box
-    padding: 0 39px 0 17px
-    .infoHeader
+    flex-direction: column
+    height: 100%
+    border-right: 1px solid rgb(174, 174, 174)
+    background-color: #fff
+    .header
       display: flex
-      justify-content: space-between
       align-items: center
-      min-width: 340px
-      width: 400px
-      max-width: 400px
+      justify-content: space-between
+      box-sizing: border-box
+      padding: 0 15px
+      width: 309px
+      min-height: 68px
+      .headerName
+        display: flex
+        align-items: center
+        justify-content: space-between
+        color: #49494B
+        font-family: "SF Pro Bold", sans-serif
+        font-size: 15px
+      #headerIcon
+        margin-right: 9px
+      #headerIcon path
+        fill: #4086F1
+      #headerArrow path
+        cursor: pointer
+      #headerArrow:hover path
+        fill: #4086F1
+    .boardOptions
+      display: flex
+      align-items: center
+      justify-content: space-around
+      min-height: 68px
+      background-color: #FCFCFE
+      border-bottom: 1px solid #DFDFDF
+      border-top: 1px solid #DFDFDF
+      .option
+        cursor: pointer
+        path
+          fill: rgb(186, 186, 186)
+          transition: fill 0.2s ease-in-out
+      .selected path
+        fill: rgb(64, 134, 241)
+        transition: fill 0.2s ease-in-out
+        cursor: pointer
+    .searchField
+      display: flex
+      align-items: center
+      justify-content: center
+      min-height: 60px
+      position: relative
+      input
+        width: 284px
+        height: 41px
+        border-radius: 30px
+        padding: 0 40px 0 15px
+        box-sizing: border-box
+        background: rgb(247, 247, 247)
+        border: none
+        font-family: "SF Pro Regular", sans-serif
+        font-size: 12px
+      input::placeholder
+        color: rgb(174, 174, 174)
+      .searchGlass
+        position: absolute
+        top: calc(50% - 10px)
+        right: 25px
+    .list
+      height: calc(100% - 68px - 68px - 60px)
+      overflow-x: hidden
+      overflow-y: scroll
+

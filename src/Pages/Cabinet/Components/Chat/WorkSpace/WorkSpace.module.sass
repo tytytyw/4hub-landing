@@ -1,76 +1,27 @@
 .chatWorkSpaceWrap
-  display: flex
-  width: 100%
-  min-width: 100%
-  height: calc(100% - 91px)
-  min-height: calc(100% - 91px)
-  max-height: calc(100% - 91px)
-  .contactsBoard
+  // width: 100%
+  // min-width: 100%
+  // height: calc(100% - 91px)
+  // min-height: calc(100% - 91px)
+  // max-height: calc(100% - 91px)
+  flex-grow: 1
+  .header
     display: flex
-    flex-direction: column
-    max-width: 300px
-    height: 100%
-    border-right: 1px solid rgb(174, 174, 174)
-    .header
+    align-items: center
+    justify-content: space-between
+    height: 90px
+    border-bottom: 1px solid #e5e5e5
+    box-sizing: border-box
+    padding: 0 39px 0 17px
+    .infoHeader
       display: flex
-      align-items: center
       justify-content: space-between
-      box-sizing: border-box
-      padding: 0 15px
-      width: 300px
-      height: 60px
-      background: rgb(64, 134, 241)
-      .headerName
-        display: flex
-        align-items: center
-        justify-content: space-between
-        width: 70px
-        color: #FFFFFF
-        font-family: "SF Pro Regular", sans-serif
-      #headerArrow path
-        fill: #FFFFFF
-        cursor: pointer
-    .boardOptions
-      display: flex
       align-items: center
-      justify-content: space-around
-      width: 300px
-      height: 68px
-      .option path
-        fill: rgb(186, 186, 186)
-        transition: fill 0.2s ease-in-out
-        cursor: pointer
-      .selected path
-        fill: rgb(64, 134, 241)
-        transition: fill 0.2s ease-in-out
-        cursor: pointer
-    .searchField
-      display: flex
-      align-items: center
-      justify-content: center
-      width: 300px
-      height: 60px
-      position: relative
-      input
-        width: 284px
-        height: 41px
-        border-radius: 30px
-        padding: 0 40px 0 15px
-        box-sizing: border-box
-        background: rgb(247, 247, 247)
-        border: none
-        font-family: "SF Pro Regular", sans-serif
-        font-size: 12px
-      input::placeholder
-        color: rgb(174, 174, 174)
-      .searchGlass
-        position: absolute
-        top: calc(50% - 10px)
-        right: 25px
-    .list
-      display: flex
-      width: 300px
-      height: calc(100% - 60px - 68px - 60px)
-      max-height: calc(100% - 60px - 68px - 60px)
-      min-height: calc(100% - 60px - 68px - 60px)
-      box-sizing: border-box
+      min-width: 340px
+      width: 400px
+      max-width: 400px
+  .main
+    display: flex
+    align-items: center
+    height: 100%
+  
