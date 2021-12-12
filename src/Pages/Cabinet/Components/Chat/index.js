@@ -10,21 +10,24 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 import ContactList from "./ContactList";
 import WorkSpace from "./WorkSpace";
+import classNames from "classnames";
 
 const Chat = () => {
 
     const [boardOption, setBoardOption] = useState('contacts');
     const [search, setSearch] = useState('');
+    const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
+    const [selectedContact, setSelectedContact] = useState(null);
 
     return(
         <div className={styles.chatComponent}>
-            <div className={styles.sideMenu}>
+            <div className={classNames({[styles.sideMenu]: true, [styles.sideMenuCollapsed]: sideMenuCollapsed })}>
                 <div className={styles.header}>
                     <div className={styles.headerName}>
                         <ChatIcon id={styles.headerIcon} />
-                        <span>Чат</span>
+                        {sideMenuCollapsed ? null : <span>Чат</span>}
                     </div>
-                    <FolderIcon id={styles.headerArrow} />
+                    <FolderIcon onClick={() => setSideMenuCollapsed(value => !value)} id={styles.headerArrow} />
                 </div>
                 <div className={styles.boardOptions}>
                     <ContactsIcon
@@ -44,23 +47,33 @@ const Chat = () => {
                         onClick={() => setBoardOption('settings')}
                     />
                 </div>
-                <div className={styles.searchField}>
-                    <input
-                        placeholder='Введите имя пользователя' type='text'
-                        onChange={e => setSearch(e.target.value)}
-                        value={search}
+                {sideMenuCollapsed
+                    ? null
+                    : <div className={styles.searchField}>
+                            <input
+                                placeholder='Введите имя пользователя' type='text'
+                                onChange={e => setSearch(e.target.value)}
+                                value={search}
+                            />
+                            <img
+                                src={imageSrc + `assets/PrivateCabinet/${search ? 'garbage.svg' : 'magnifying-glass-2.svg'}`}
+                                alt='search' className={styles.searchGlass}
+                                onClick={() => setSearch('')}
+                            />
+                    </div>
+                }
+                <div className={styles.list} style={{height: `calc(100% - 68px - 68px - ${sideMenuCollapsed ? '0' :'60'}px)`}}>
+                    {boardOption === 'contacts'
+                    ? <ContactList
+                        search={search}
+                        sideMenuCollapsed={sideMenuCollapsed}
+                        selectedContact={selectedContact}
+                        setSelectedContact={setSelectedContact}
                     />
-                    <img
-                        src={imageSrc + `assets/PrivateCabinet/${search ? 'garbage.svg' : 'magnifying-glass-2.svg'}`}
-                        alt='search' className={styles.searchGlass}
-                        onClick={() => setSearch('')}
-                    />
-                </div>
-                <div className={styles.list}>
-                    {boardOption === 'contacts' ? <ContactList search={search} /> : null}
+                    : null}
                 </div>
             </div>
-            <WorkSpace />
+            <WorkSpace selectedContact={selectedContact} />
         </div>
     )
 }

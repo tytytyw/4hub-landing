@@ -10,7 +10,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 
-const WorkSpace = () => {
+const WorkSpace = ({selectedContact}) => {
 
     const [cursorPosition, setCursorPosition] = useState(0);
     const inputRef = useRef();
@@ -34,7 +34,7 @@ const WorkSpace = () => {
                 </div>
             </div>
             <div className={styles.main}>
-                <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} />
+                <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} selectedContact={selectedContact} />
                 <EmojiArea insertToInput={insertToInput} />
             </div>
 
