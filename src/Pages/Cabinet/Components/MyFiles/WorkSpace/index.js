@@ -16,7 +16,7 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
-import ItemsList from "../../MyFolders/ItemsList/ItemsList";
+import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 

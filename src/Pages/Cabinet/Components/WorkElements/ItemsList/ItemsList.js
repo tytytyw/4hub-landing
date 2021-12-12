@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react"
 
 import styles from "./ItemsList.module.sass"
-import WorkBars from "../../WorkElements/WorkBars";
-import FileBar from "../../WorkElements/FileBar";
+import WorkBars from "../WorkBars";
+import FileBar from "../FileBar";
 import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import WorkLines from "../../WorkElements/WorkLines";
-import FileLine from "../../WorkElements/FileLine";
-import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
-import WorkLinesPreview from "../../WorkElements/WorkLinesPreview";
-import FileLineShort from "../../WorkElements/FileLineShort";
+import WorkLines from "../WorkLines";
+import FileLine from "../FileLine";
+import WorkBarsPreview from "../WorkBarsPreview";
+import WorkLinesPreview from "../WorkLinesPreview";
+import FileLineShort from "../FileLineShort";
 import {useDispatch, useSelector} from "react-redux";
 import {
     onChooseFiles,
@@ -18,7 +18,7 @@ import {
     onSetPath
 } from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
-import FilesGroup from "../../WorkElements/FilesGroup/FilesGroup";
+import FilesGroup from "../FilesGroup/FilesGroup";
 import {periods} from "../../../../../generalComponents/collections";
 
 const mock = () => {}
