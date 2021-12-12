@@ -12,28 +12,25 @@ const DocPreview = ({
 	setMouseParams,
 	renderMenuItems,
 }) => {
-	const [previewFileSrc, setPreviewFileSrc] = useState(null);
-	const [fileSrc, setFileSrc] = useState(null);
 	const [blob, setBlob] = useState("");
 	const companyDocuments = useSelector((state) => state.Cabinet.company.documents);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(onGetCompanyDocument(pageOption.name))
+		dispatch(onGetCompanyDocument(pageOption.name , setLoadingType))
 	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-	console.log(companyDocuments)
 
 	return (
 		<>
-			{previewFileSrc ? (
+			{companyDocuments[pageOption.name]?.preview ? (
 				<FileView
 					pageOption={pageOption}
 					mouseParams={mouseParams}
 					setMouseParams={setMouseParams}
 					renderMenuItems={renderMenuItems}
-					fileSrc={fileSrc}
+					previewSrc={companyDocuments[pageOption.name]?.preview}
 				/>
 			) : (
 				<UploadFile
@@ -42,8 +39,6 @@ const DocPreview = ({
 					pageOption={pageOption}
 					setLoadingType={setLoadingType}
 					setPageOption={setPageOption}
-					setPreviewFile={setPreviewFileSrc}
-					setFileSrc={setFileSrc}
 				/>
 			)}
 		</>

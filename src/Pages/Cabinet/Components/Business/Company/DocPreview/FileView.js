@@ -2,15 +2,16 @@ import React from "react";
 import styles from "./FileView.module.sass";
 import { ReactComponent as PrinterImg } from "../../../../../../assets/BusinessCabinet/print.svg";
 import { ReactComponent as PointerMenuImg } from "../../../../../../assets/BusinessCabinet/pointer-menu.svg";
-import logoImg from "../../../../../../assets/BusinessCabinet/logo.png";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuDocFile } from "../../../../../../generalComponents/collections";
+import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 
 const FileView = ({
 	pageOption,
 	mouseParams,
 	setMouseParams,
 	renderMenuItems,
+	previewSrc
 }) => {
 	const onContextClick = (e) => {
 		setMouseParams({
@@ -50,57 +51,15 @@ const FileView = ({
 			</div>
 
 			<div className={styles.content}>
-				<div className={styles.header}>
-					<img className={styles.logoImg} src={logoImg} alt="" />
-				</div>
 
-				<h2 className={styles.title}>{pageOption.label}</h2>
-				<p className={styles.text}>
-					Это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem
-					Ipsum является стандартной "рыбой" для текстов на латинице с начала
-					XVI века.
-					<br />
-					<br />
-					В то время некий безымянный печатник создал большую коллекцию размеров
-					и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem
-					Ipsum не только успешно пережил без заметных изменений пять веков, но
-					и перешагнул в электронный дизайн. Его популяризации в новое время
-					послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х
-					годах и, в более недавнее время, программы электронной вёрстки типа
-					Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-					<br />
-					<br />
-					часто используемый в печати и вэб-дизайне. Lorem Ipsum является
-					стандартной "рыбой" для текстов на латинице с начала XVI века.
-					<br />
-					<br />
-					В то время некий безымянный печатник создал большую коллекцию размеров
-					и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem
-					Ipsum не только успешно пережил без заметных изменений пять веков, но
-					и перешагнул в электронный дизайн. Его популяризации в новое время
-					послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х
-					годах и, в более недавнее время, программы электронной вёрстки типа
-					Aldus PageMaker, в шаблонах которых используется Lorem Ipsum. часто
-					используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной
-					"рыбой" для текстов на латинице с начала XVI века.
-					<br />
-					<br />
-					часто используемый в печати и вэб-дизайне. Lorem Ipsum является
-					стандартной "рыбой" для текстов на латинице с начала XVI века.
-					<br />
-					<br />В то время некий безымянный печатник создал большую коллекцию
-					размеров и форм шрифтов, используя Lorem Ipsum для распечатки
-					образцов. Lorem Ipsum не только успешно пережил без заметных изменений
-					пять веков, но и перешагнул в электронный дизайн. Его популяризации в
-					новое время послужили публикация листов Letraset с образцами Lorem
-					Ipsum в 60-х годах и, в более недавнее время,
-				</p>
+				<embed style={{height: "100%", width: "100%"}}  type="application/pdf"  src={projectSrc + previewSrc}></embed>
+				
 			</div>
 			{mouseParams !== null && mouseParams.type === "contextMenuFile" ? (
 				<ContextMenu
 					params={mouseParams}
 					setParams={setMouseParams}
-					tooltip={true}
+					tooltip={false}
 					customClose={true}
 					disableAutohide={true}
 				>

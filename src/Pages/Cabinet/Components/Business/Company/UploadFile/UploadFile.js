@@ -8,7 +8,7 @@ import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessC
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
 import classNames from "classnames";
 
-const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption, setFileSrc, setPreviewFileSrc}) => {
+const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) => {
 	const id_company = useSelector((state) => state.user.id_company);
 	const uid = useSelector((state) => state.user.uid);
 
@@ -42,13 +42,6 @@ const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption, s
 			let file = new FormData();
 			file.append("file", blob);
 			api.post(`/ajax/org_file_upload.php?uid=${uid}&id_company=${id_company}&type=${pageOption.name}`, file)
-				.then(res => {
-					setFileSrc(true)
-					setPreviewFileSrc(true)
-				})
-				.catch(err => {
-					console.log(err);
-				})
 				.finally(() => setLoadingType(''))
 			}
 	};

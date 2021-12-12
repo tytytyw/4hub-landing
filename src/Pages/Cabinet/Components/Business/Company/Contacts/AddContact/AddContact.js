@@ -30,8 +30,8 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 		if (key === 'tel') {
 			value = value.replace(/\D/gim, '')
 			const number = value.replace(/(\+)*(\()*(\))*\s*(-)*/g, '');
-			const length = number.length;
-			value = `${value && '+'}${number.substring(0, 2)}${length > 2 ? ' (' + number.substring(2, 5) : number.substring(2, 5)}${ length > 5 ? ') ' + number.substring(5, 8) : number.substring(5, 8)}${ length > 8 ? '-' + number.substring(8, 10) : number.substring(8, 10)}${length > 10 ? '-' + number.substring(10, number.length) : number.substring(10, number.length)}`;
+			const length = number?.length;
+			value = `${value && '+'}${number?.substring(0, 2)}${length > 2 ? ' (' + number?.substring(2, 5) : number.substring(2, 5)}${ length > 5 ? ') ' + number?.substring(5, 8) : number?.substring(5, 8)}${ length > 8 ? '-' + number?.substring(8, 10) : number?.substring(8, 10)}${length > 10 ? '-' + number?.substring(10, number?.length) : number?.substring(10, number?.length)}`;
 		}
 		
 
@@ -98,7 +98,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 			if (userData.mes) formData.append('mes', createSocialPatams(userData.mes))
 			//TODO: refactor when use additional tels/eemails
 			if (userData.tel) formData.append('tel', JSON.stringify([userData.tel]))
-			if (userData.email.length) formData.append('email', JSON.stringify([userData.email]))
+			if (userData.email?.length) formData.append('email', JSON.stringify([userData.email]))
 			const addContactId = () => {return type === 'edit' ? `&id=${selectedItem.id}` : ''}
 			api.post(`/ajax/org_contacts_${type}.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${userData.sname}&pname=${userData.pname}${addContactId()}`, formData)
                 .then(() => {
@@ -140,8 +140,8 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 					data[group] = newObj
 				})
 			}
-			if (selectedItem.soc.length) normalizeParams('soc')
-			if (selectedItem.mes.length) normalizeParams('mes')
+			if (selectedItem.soc?.length) normalizeParams('soc')
+			if (selectedItem.mes?.length) normalizeParams('mes')
 			setUserData(data)
 			if (selectedItem.icon) setPreview(selectedItem.icon[0])
 		}

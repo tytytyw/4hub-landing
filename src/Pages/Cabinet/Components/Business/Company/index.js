@@ -145,7 +145,7 @@ const Company = () => {
 					</div>
 				</div>
 
-				<div className={styles.content}>
+				<div style={{position: loadingType ? 'relative' : ''}} className={styles.content}>
 					{/* {pageOption.name === "init" && (
 						<Verification setPageOption={setPageOption} />
 					)} */}
@@ -219,8 +219,7 @@ const Company = () => {
 							setBlob={setBlob}
 						/>
 					) : null}
-				</div>
-				{loadingType ? (
+					{loadingType ? (
 					<Loader
 						position="absolute"
 						zIndex={10000}
@@ -228,8 +227,11 @@ const Company = () => {
 						type="bounceDots"
 						background="white"
 						animation={false}
+						width='100px'
+						height='100px'
 					/>
 				) : null}
+				</div>
 			</div>
 			{showSuccessMessage && (
 				<SuccessMessage

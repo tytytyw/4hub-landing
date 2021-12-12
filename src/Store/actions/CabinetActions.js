@@ -962,17 +962,18 @@ export const onGetCompanyContacts = (setShowSuccessMessage, message) => async (d
 
 };
 
-export const onGetCompanyDocument = (type) => async (dispatch, getState) => {
+export const onGetCompanyDocument = (type, loader) => async (dispatch, getState) => {
 
     const uid = getState().user.uid
     const id_company = getState().user.id_company
-
+    const preview = getState().Cabinet.company.documents[type].preview
+    if (loader && !preview) loader('true')
     api.get(`/ajax/org_file_get.php?uid=${uid}&id_company=${id_company}&type=${type} `)
         .then(res => {
             const data = {
                 type,
                 file: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')).includes('doc'))[0] || null,
-                preview: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')) === 'pdf')[0] || null
+                preview: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')) === '.pdf')[0] || null
             }
             dispatch({
                 type: COMPANY_DOCUMENTS,
@@ -980,6 +981,6 @@ export const onGetCompanyDocument = (type) => async (dispatch, getState) => {
             })
         }).catch(error => {
             console.log(error)
-        })
+        }).finally(() => loader ? loader('') : null)
 
 };
