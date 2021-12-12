@@ -78,7 +78,7 @@ const PreviewFile = ({setFilePreview, file}) => {
                             zIndex={5}
                             containerType='bounceDots'
                             width='60%'
-                            height='70%'
+                            height='80%'
                         /> : null}
                         <canvas
                             ref={canvasRef}
