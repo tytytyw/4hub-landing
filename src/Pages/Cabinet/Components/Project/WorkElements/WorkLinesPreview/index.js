@@ -9,7 +9,7 @@ import styles from './WorkLinesPreview.module.sass';
 // import InfoPopover from '../InfoPopover';
 // import classNames from 'classnames';
 // import Input from '../../../MyProfile/Input';
-import MiniToolBar from "../MiniToolBar";
+import MiniToolBar from "../../../WorkElements/MiniToolBar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
