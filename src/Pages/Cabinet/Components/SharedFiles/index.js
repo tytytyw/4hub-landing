@@ -16,7 +16,7 @@ import { contextMenuFile } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
-import PreviewFile from "../PreviewFile";
+import PreviewFile from "../PreviewFile/PreviewFile";
 import BottomPanel from "../BottomPanel";
 import {
 	onGetSharedFiles,
@@ -27,7 +27,7 @@ import { previewFormats } from "../../../../generalComponents/collections";
 import api from "../../../../api";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
-import ShareFile from "../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
+import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
 import CopyLinkShare from '../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
@@ -558,23 +558,12 @@ const SharedFiles = ({
 				scrolling="no"
 				id="frame"
 			/>
-			{action.type === "share" ? (
-				<ShareFile
+			{action.type === "share" || action.type === "resend" ? (
+				<Share
 					file={chosenFile}
 					files={filePick.files}
 					close={nullifyAction}
 					action_type={action.type}
-					showSuccessMessage={showSuccessMessage}
-					setShowSuccessMessage={setShowSuccessMessage}
-					setLoadingType={setLoadingType}
-				/>
-			) : null}
-			{action.type === "resend" ? (
-				<ShareFile
-					file={chosenFile}
-					files={filePick.files}
-					close={nullifyAction}
-					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
 					setLoadingType={setLoadingType}

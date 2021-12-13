@@ -4,6 +4,7 @@ import styles from "./FileItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useSelector} from "react-redux";
 
 const FileItem = ({
 	file,
@@ -18,6 +19,7 @@ const FileItem = ({
 	setFilePick
 }) => {
 
+	const size = useSelector(state => state.Cabinet.size);
 	const onPickFile = () => {
 		if(filePick.show) {
 			const isPicked = filePick.files.filter(el => el === file.fid);
@@ -26,9 +28,46 @@ const FileItem = ({
 		setChosenFile(file);
 	}
 
+	const renderEmoji = () => (
+		<div>
+			{file?.emo ? (
+				<img
+					src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
+					alt="emoji"
+				/>
+			) : null}
+		</div>
+	)
+
+	const renderSign = () => (
+		<div>
+			{file?.fig ? (
+				<img
+					src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
+					alt="fig"
+				/>
+			) : null}
+		</div>
+	)
+
+	const renderLock = () => (
+		<div>
+			{file?.is_pass ? (
+				<img src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock"></img>
+			) : null}
+		</div>
+	)
+
+	const renderTag = () => (file?.tag ? <div className={styles.file_tag}>#{file?.tag}</div> : null)
+
 	return (
 		<div
-			className={classNames({[styles.file_wrap]: true, [styles.chosen]:chosen})}
+			className={classNames({
+				[styles.file_wrap]: true,
+				[styles.chosen]: chosen,
+				[styles.mediumSize]: size === 'medium',
+				[styles.bigSize]: size === 'big'
+			})}
 			onClick={onPickFile}
 			onDoubleClick={() => setFilePreview({...filePreview, view: true, file})}
 		>
@@ -42,33 +81,14 @@ const FileItem = ({
 						<span className={styles.file_date}>{file.ctime.split(" ")[0]}</span>
 						<span className={styles.file_size}>{file.size_now}</span>
 					</div>
+					{size !== 'small' ? <div className={styles.file_details}>{renderSign()}{renderEmoji()}{renderLock()}{renderTag()}</div> : null}
 				</div>
 			)}
 			<div className={styles.symbols}>
 				{!listCollapsed && (
-					<>
-						<div>
-							{file?.fig ? (
-								<img
-									src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-									alt="fig"
-								/>
-							) : null}
-						</div>
-						<div>
-							{file?.emo ? (
-								<img
-									src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-									alt="emoji"
-								/>
-							) : null}
-						</div>
-						<div>
-							{file?.is_pass ? (
-								<img src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock"></img>
-							) : null}
-						</div>
-					</>
+					size === 'small' ? <>
+						{renderSign()}{renderEmoji()}{renderLock()}
+					</> : null
 				)}
 
 				<div
@@ -82,11 +102,11 @@ const FileItem = ({
 						});
 					}}
 				>
-					<span className={styles.dots}></span>
+					<span className={styles.dots}/>
 				</div>
 			</div>
 		</div>
 	);
-};
+}
 
 export default FileItem;

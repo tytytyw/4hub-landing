@@ -30,7 +30,7 @@ import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuCompone
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import FolderPath from "../FolderPath";
-import ItemsList from "../ItemsList/ItemsList";
+import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,

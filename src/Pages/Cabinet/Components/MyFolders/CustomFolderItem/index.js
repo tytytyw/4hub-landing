@@ -118,7 +118,7 @@ const CustomFolderItem = ({
                 }, 0)
                 if(!offDispatch) dispatch(onChooseFiles(f.path, '', 1, '', setGLoader));
                 if(!offDispatch) setFilesPage(1)
-                if(offDispatch && newFolderInfo.path) setNewFolderInfo(state => ({...state, path: ''}))
+                if(offDispatch && newFolderInfo?.path) setNewFolderInfo(state => ({...state, path: ''}))
             })
         }
     }

@@ -6,7 +6,7 @@ import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
 import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
-import MiniToolBar from "../Project/WorkElements/MiniToolBar";
+import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
 import {
     drawBrush, drawCircle, drawSquare, drawText, drawDiv,
     mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
@@ -57,6 +57,7 @@ const PreviewFile = ({setFilePreview, file}) => {
     const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
@@ -70,6 +71,15 @@ const PreviewFile = ({setFilePreview, file}) => {
                         unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
                     />
                     <div className={styles.canvasWrap} onMouseMove={handlePosition} onMouseUp={handleMouseUp}>
+                        {isLoading ? <Loader
+                            type='bounceDots'
+                            position='absolute'
+                            background='rgba(255, 255, 255, 0)'
+                            zIndex={5}
+                            containerType='bounceDots'
+                            width='60%'
+                            height='80%'
+                        /> : null}
                         <canvas
                             ref={canvasRef}
                             className={styles.canvas}
@@ -138,12 +148,14 @@ const PreviewFile = ({setFilePreview, file}) => {
 
     useEffect(() => {
         if(file.mime_type && file.mime_type.includes('image')) {
+            setIsLoading(true);
             const canvas = canvasRef.current.getContext('2d');
             const img = new Image();
             img.src = `${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`;
             img.onload = (e) => {
                 if(canvasRef.current) {
-                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.89).toFixed()));
+                    setIsLoading(false);
+                    const sizes = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.79).toFixed()));
                     canvasRef.current.width = sizes.width;
                     canvasRef.current.height = sizes.height;
                     canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);

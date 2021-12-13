@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react"
 
 import styles from "./ItemsList.module.sass"
-import WorkBars from "../../WorkElements/WorkBars";
-import FileBar from "../../WorkElements/FileBar";
+import WorkBars from "../WorkBars";
+import FileBar from "../FileBar";
 import {renderHeight} from "../../../../../generalComponents/generalHelpers";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import WorkLines from "../../WorkElements/WorkLines";
-import FileLine from "../../WorkElements/FileLine";
-import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
-import WorkLinesPreview from "../../WorkElements/WorkLinesPreview";
-import FileLineShort from "../../WorkElements/FileLineShort";
+import WorkLines from "../WorkLines";
+import FileLine from "../FileLine";
+import WorkBarsPreview from "../WorkBarsPreview";
+import WorkLinesPreview from "../WorkLinesPreview";
+import FileLineShort from "../FileLineShort";
 import {useDispatch, useSelector} from "react-redux";
 import {
     onChooseFiles,
@@ -18,7 +18,7 @@ import {
     onSetPath
 } from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
-import FilesGroup from "../../WorkElements/FilesGroup/FilesGroup";
+import FilesGroup from "../FilesGroup/FilesGroup";
 import {periods} from "../../../../../generalComponents/collections";
 
 const mock = () => {}
@@ -35,6 +35,7 @@ const ItemsList = ({
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const workElementsView = useSelector(state => state.Cabinet.view);
     const dispatch = useDispatch();
+    const [groupInfo, setGroupInfo] = useState({amount: 0, title: ''});
 
     const folderSelect = (folder) => {
         const path = fileList.path + `/${folder.name}` //TODO - need to be folder.path
@@ -111,6 +112,7 @@ const ItemsList = ({
                 params={params}
                 //WorkBarsPreview
                 setChosenFolder={setChosenFolder}
+                setGroupInfo={setGroupInfo}
             /> : null
         ))
     }
@@ -226,6 +228,7 @@ const ItemsList = ({
                 chosenFile={chosenFile}
                 load={load}
                 options={options}
+                groupInfo={groupInfo}
             >{Array.isArray(fileList?.files) ? renderFiles(FileBar, fileList?.files) : renderGroups(FileBar, fileList?.files)}</WorkBarsPreview> : null}
 
             {workElementsView === 'workLinesPreview' ? <WorkLinesPreview

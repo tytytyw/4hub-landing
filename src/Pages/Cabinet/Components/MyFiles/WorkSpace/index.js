@@ -11,12 +11,12 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
-import ShareFile from "../../ContextMenuComponents/ContextMenuFile/ShareFile/ShareFile";
+import Share from "../../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
 import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
-import ItemsList from "../../MyFolders/ItemsList/ItemsList";
+import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
 
@@ -213,23 +213,12 @@ const WorkSpace = ({
 				scrolling="no"
 				id="frame"
 			/>
-			{action.type === "share" ? (
-				<ShareFile
+			{action.type === "share" || action.type === "resend" ? (
+				<Share
 					file={chosenFile}
 					files={filePick.files}
 					close={nullifyAction}
 					action_type={action.type}
-					showSuccessMessage={showSuccessMessage}
-					setShowSuccessMessage={setShowSuccessMessage}
-					setLoadingType={setLoadingType}
-				/>
-			) : null}
-			{action.type === "resend" ? (
-				<ShareFile
-					file={chosenFile}
-					files={filePick.files}
-					close={nullifyAction}
-					action_type={"send"}
 					showSuccessMessage={showSuccessMessage}
 					setShowSuccessMessage={setShowSuccessMessage}
 					setLoadingType={setLoadingType}

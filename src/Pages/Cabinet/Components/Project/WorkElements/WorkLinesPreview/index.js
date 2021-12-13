@@ -9,7 +9,7 @@ import styles from './WorkLinesPreview.module.sass';
 // import InfoPopover from '../InfoPopover';
 // import classNames from 'classnames';
 // import Input from '../../../MyProfile/Input';
-import MiniToolBar from "../MiniToolBar";
+import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {useSelector} from "react-redux";
 import api from "../../../../../../api";
@@ -17,7 +17,7 @@ import File from "../../../../../../generalComponents/Files";
 import {imageToRatio, htmlToCanvas} from "../../../../../../generalComponents/generalHelpers";
 import PrintScreen from "../../../../../../generalComponents/PrintScreen";
 import {projectSrc, imageSrc} from '../../../../../../generalComponents/globalVariables';
-import PreviewFile from "../../../PreviewFile";
+import PreviewFile from "../../../PreviewFile/PreviewFile";
 // import {useElementSize} from "../../../../../../generalComponents/Hooks";
 // import {unDoPaintBrush} from "../../../PreviewFile/paintHelpers";
 

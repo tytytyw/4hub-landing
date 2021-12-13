@@ -9,7 +9,7 @@ import CreateFolder from './CreateFolder'
 import CreateFile from '../CreateFile'
 import CustomFolderItem from './CustomFolderItem'
 import CreateSafePassword from '../CreateSafePassword'
-import PreviewFile from '../PreviewFile'
+import PreviewFile from '../PreviewFile/PreviewFile'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {
     contextProgram,
