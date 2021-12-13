@@ -1,0 +1,73 @@
+.chatBoardHeader
+  display: flex
+  align-items: center
+  justify-content: space-between
+  width: 100%
+  height: 68px
+  box-sizing: border-box
+  padding: 0 20px
+  border-bottom: 1px solid #DFDFDF
+  .groupName
+    display: flex
+    .avatar
+      width: 36px
+      height: 36px
+      border-radius: 50%
+      margin: 0 10px 0 0
+    .info
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-start
+      font-family: "SF Pro Regular", sans-serif
+      .name
+        font-size: 13px
+        color: rgb(73, 73, 73)
+      .status
+        font-size: 8px
+        color: rgb(133, 133, 133)
+  .headerOptions
+    display: flex
+    align-items: center
+    .separating
+      width: 1px
+      height: 30px
+      background: #DFDFDF
+      margin: 0 15px
+    .iconView
+      display: flex
+      align-items: center
+      justify-content: space-around
+      position: relative
+      border-radius: 3px
+      width: 40px
+      height: 24px
+      overflow: hidden
+      cursor: pointer
+      transition: background 0.2s ease-in-out
+      box-shadow: 0 2px 4px #dedede
+      margin: 0 5px
+      svg
+        height: 16px
+        path, polygon
+          fill: #BABABA
+      &:hover
+        background: #4086F1
+        path, polygon
+          fill: #fff
+      .addContactIcon
+        path:last-child:not(:nth-child(4))
+          fill: #fff
+      &:hover
+        .addContactIcon
+          path:last-child:not(:nth-child(4))
+            fill: #4086F1
+    .PicInPicIcon
+      width: 54px
+      padding: 0 3px
+      svg
+        width: 17px
+      .line
+        width: 1px
+        height: 18px
+        background: #DFDFDF
