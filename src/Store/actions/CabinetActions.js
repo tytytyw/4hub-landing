@@ -972,8 +972,8 @@ export const onGetCompanyDocument = (type, loader) => async (dispatch, getState)
         .then(res => {
             const data = {
                 type,
-                file: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')).includes('doc'))[0] || null,
-                preview: res.data.icon.filter(src => src.slice(src.lastIndexOf('.')) === '.pdf')[0] || null
+                file: res.data.icon?.filter(src => src.slice(src.lastIndexOf('.')).includes('doc'))[0] || null,
+                preview: res.data.icon?.filter(src => src.slice(src.lastIndexOf('.')) === '.pdf')[0] || null
             }
             dispatch({
                 type: COMPANY_DOCUMENTS,
@@ -983,4 +983,25 @@ export const onGetCompanyDocument = (type, loader) => async (dispatch, getState)
             console.log(error)
         }).finally(() => loader ? loader('') : null)
 
+};
+
+export const onDeleteCompanyDocument = (type, success, msg) => async (dispatch, getState) => {
+    const uid = getState().user.uid
+    const id_company = getState().user.id_company
+    api.get(`/ajax/org_file_del.php?uid=${uid}&id_company=${id_company}&type=${type} `)
+        .then(res => {
+            if (res.data.ok) {
+                const data = {
+                    type,
+                    file: null,
+                    preview: null
+                }
+                dispatch({
+                    type: COMPANY_DOCUMENTS,
+                    payload: data
+                })
+        }
+        }).catch(error => {
+            console.log(error)
+        }).finally(() => success ? success(msg) : null)
 };

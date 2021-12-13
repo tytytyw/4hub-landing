@@ -158,7 +158,7 @@ const Company = () => {
 					{pageOption.name === "success-mail" && (
 						<SuccessSend setPageOption={setPageOption} />
 					)}
-					{pageOption.name === "standards" && (
+					{(pageOption.name === "standards" || pageOption.name === "mission" || pageOption.name === "viziya") && (
 						<DocPreview
 							setPageOption={setPageOption}
 							pageOption={pageOption}
@@ -166,26 +166,10 @@ const Company = () => {
 							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}
 							renderMenuItems={renderMenuItems}
-						/>
-					)}
-					{pageOption.name === "mission" && (
-						<DocPreview
-							setPageOption={setPageOption}
-							pageOption={pageOption}
-							setLoadingType={setLoadingType}
-							mouseParams={mouseParams}
-							setMouseParams={setMouseParams}
-							renderMenuItems={renderMenuItems}
-						/>
-					)}
-					{pageOption.name === "viziya" && (
-						<DocPreview
-							setPageOption={setPageOption}
-							pageOption={pageOption}
-							setLoadingType={setLoadingType}
-							mouseParams={mouseParams}
-							setMouseParams={setMouseParams}
-							renderMenuItems={renderMenuItems}
+							action={action}
+							setAction={setAction}
+							nullifyAction={nullifyAction}
+							setShowSuccessMessage={setShowSuccessMessage}
 						/>
 					)}
 					{pageOption.name === "contacts" && (

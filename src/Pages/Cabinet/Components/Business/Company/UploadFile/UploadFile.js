@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "../UploadFile/UploadFile.module.sass";
 import api from "../../../../../../api";
+import { onGetCompanyDocument }  from "../../../../../../Store/actions/CabinetActions";
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
@@ -11,7 +12,7 @@ import classNames from "classnames";
 const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) => {
 	const id_company = useSelector((state) => state.user.id_company);
 	const uid = useSelector((state) => state.user.uid);
-
+	const dispatch = useDispatch()
     const [formatError, setFormatError] = useState(false);
 
     const renderIcon = () => {
@@ -42,6 +43,7 @@ const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) 
 			let file = new FormData();
 			file.append("file", blob);
 			api.post(`/ajax/org_file_upload.php?uid=${uid}&id_company=${id_company}&type=${pageOption.name}`, file)
+				.then(res => res.data.ok ? dispatch(onGetCompanyDocument(pageOption.name, setLoadingType)) : '')
 				.finally(() => setLoadingType(''))
 			}
 	};

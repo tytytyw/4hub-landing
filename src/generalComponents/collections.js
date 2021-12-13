@@ -235,8 +235,8 @@ export const dotsPaint = [
 // Company
 
 export const contextMenuDocFile = [
-    {name: 'Редактировать', img: 'edit', type: 'customize'},
-    {name: 'Удалить', img: 'garbage', type: 'delete'}
+    {name: 'Редактировать', img: 'edit', type: 'customizeFile'},
+    {name: 'Удалить', img: 'garbage', type: 'deleteFile'}
 ]
 
 // org structure
