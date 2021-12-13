@@ -4,7 +4,6 @@ import styles from "./WorkSpace.module.sass";
 
 import BottomPanel from "../../BottomPanel";
 import ChatBoard from "../ChatBoard";
-import EmojiArea from "../EmojiArea";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
@@ -34,8 +33,7 @@ const WorkSpace = ({selectedContact}) => {
                 </div>
             </div>
             <div className={styles.main}>
-                <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} selectedContact={selectedContact} />
-                <EmojiArea insertToInput={insertToInput} />
+                <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} selectedContact={selectedContact} insertToInput={insertToInput} />
             </div>
 
             <BottomPanel />

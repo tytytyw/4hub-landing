@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./ChatBoard.module.sass";
 import {ReactComponent as AddContactIcon} from "../../../../../assets/PrivateCabinet/addContact.svg";
@@ -6,12 +6,14 @@ import {ReactComponent as PhoneIcon} from "../../../../../assets/PrivateCabinet/
 import {ReactComponent as CameraIcon} from "../../../../../assets/PrivateCabinet/film.svg";
 import {ReactComponent as InfoIcon} from "../../../../../assets/PrivateCabinet/info-2.svg";
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/add-2.svg";
-import {ReactComponent as FileIcon} from "../../../../../assets/PrivateCabinet/file-4.svg";
-import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/photo-5.svg";
+import {ReactComponent as SmileIcon} from "../../../../../assets/PrivateCabinet/smile.svg";
 import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/radio-3.svg";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import EmojiArea from "../EmojiArea";
 
-const ChatBoard = ({inputRef, setCursorPosition, selectedContact}) => {
+
+const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput}) => {
+    const [rightPanel, setRightPanel] = useState('')
 
     //TODO - Need to change after chat is developed
 
@@ -35,13 +37,14 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact}) => {
                 </div> : null}
             </header>
             <main className={styles.chatBoardMessageList}>
-
+                <div className={styles.chatArea}></div>
+                <div className={styles.rightPanel}>
+                    {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}
+                </div>
             </main>
             <footer className={styles.chatBoardFooter}>
                 <div className={styles.downloadOptions}>
                     <AddIcon />
-                    <FileIcon />
-                    <PictureIcon />
                 </div>
                 <div className={styles.textMessage}>
                     <img src={imageSrc + "assets/PrivateCabinet/send.svg"} alt="img" className={styles.messageImg} />
@@ -57,6 +60,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact}) => {
                 <div className={styles.sendOptions}>
                     <div className={styles.button}><RadioIcon /></div>
                     <div className={`${styles.button} ${styles.triangle}`}/>
+                    <div className={styles.button} onClick={() => setRightPanel(state => state ==='emo' ? '' : 'emo')} ><SmileIcon /></div>
                 </div>
             </footer>
         </div>

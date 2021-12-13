@@ -42,13 +42,17 @@
     display: flex
     width: 100%
     height: calc(100% - 68px - 78px - 90px)
+    .chatArea
+      width: calc(100% - 200px)
+    .rightPanel
+      width: 200px
   .chatBoardFooter
     display: flex
     align-items: flex-start
     justify-content: space-between
     width: 100%
     height: 78px
-    border-top: 1px solid rgb(174, 174, 174)
+    border-top: 1px solid #DFDFDF
     box-sizing: border-box
     padding: 0 10px
     .downloadOptions
@@ -56,6 +60,7 @@
       align-items: center
       position: relative
       height: 80%
+      padding: 0 10px
       &:after
         content: ""
         position: absolute
@@ -63,19 +68,19 @@
         height: 60%
         top: 20%
         right: 0
-        background: rgb(174, 174, 174)
+        background: #DFDFDF
       svg
         width: 25px
         min-height: 20px
-        margin: 0 15px 0 0
+        margin: 0 10px 0 0
         cursor: pointer
     .textMessage
       display: flex
       height: 80%
       align-items: center
-      width: 60%
+      width: 80%
       .messageImg
-        margin: 0 5px 0 0
+        margin: 0 15px 0 0
         width: 22px
       .textInput
         width: 87%
@@ -95,11 +100,10 @@
         height: 34px
         border-radius: 50%
         background: rgb(63, 134, 241)
-        margin: 0 10px 0 0
+        margin: 0 15px 0 0
         cursor: pointer
       .triangle
         position: relative
-        margin: 0 5px 0 0
         &:after
           content: ""
           position: absolute
