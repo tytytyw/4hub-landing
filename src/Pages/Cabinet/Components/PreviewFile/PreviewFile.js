@@ -6,7 +6,7 @@ import PopUp from '../../../../generalComponents/PopUp';
 import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
 import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
-import MiniToolBar from "../WorkElements/MiniToolBar";
+import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
 import {
     drawBrush, drawCircle, drawSquare, drawText, drawDiv,
     mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
