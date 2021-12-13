@@ -34,6 +34,7 @@ const DocPreview = ({
 					setMouseParams={setMouseParams}
 					renderMenuItems={renderMenuItems}
 					previewSrc={companyDocuments[pageOption.name]?.preview}
+					editSrc={companyDocuments[pageOption.name]?.edit}
 					action={action}
 					setAction={setAction}
 					nullifyAction={nullifyAction}

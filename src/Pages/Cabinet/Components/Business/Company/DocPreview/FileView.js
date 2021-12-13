@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./FileView.module.sass";
 import { ReactComponent as PrinterImg } from "../../../../../../assets/BusinessCabinet/print.svg";
@@ -7,10 +7,11 @@ import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuDocFile } from "../../../../../../generalComponents/collections";
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
-import { onDeleteCompanyDocument }  from "../../../../../../Store/actions/CabinetActions";
+import { onDeleteCompanyDocument, onGetCompanyDocument }  from "../../../../../../Store/actions/CabinetActions";
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
+import PopUp from "../../../../../../generalComponents/PopUp";
 
 const FileView = ({
 	pageOption,
@@ -18,12 +19,14 @@ const FileView = ({
 	setMouseParams,
 	renderMenuItems,
 	previewSrc,
+	editSrc,
 	action,
 	setAction,
 	nullifyAction,
 	setShowSuccessMessage
 }) => {
 	const dispatch = useDispatch();
+	const [editFile, setEditFile] = useState(false)
 
 	const onContextClick = (e) => {
 		setMouseParams({
@@ -36,11 +39,10 @@ const FileView = ({
 	};
 	const callbackArr = [
 		{
-			type: "customize",
+			type: "editFile",
 			name: "Редактировать файл",
 			text: ``,
-			// callback: (list, index) => setAction(list[index]),
-            callback: () => {},
+            callback: () => openFileEditor(),
 		},
 		{
 			type: "deleteFile",
@@ -53,6 +55,14 @@ const FileView = ({
 	const deleteFile = () => {
 		nullifyAction()
 		dispatch(onDeleteCompanyDocument(pageOption.name, setShowSuccessMessage, 'документ удален'))
+	}
+	const openFileEditor = () => {
+		nullifyAction()
+		setEditFile(true)
+	}
+	const onCloseFileEditor = () => {
+		setEditFile(false)
+		setTimeout(() => dispatch(onGetCompanyDocument(pageOption.name)), 3000)
 	}
 	const renderIcon = () => {
         switch(pageOption.name) {
@@ -103,6 +113,9 @@ const FileView = ({
                     {renderIcon()}
                 </ActionApproval>
 			) : null}
+			{editFile
+			? <PopUp set={onCloseFileEditor}><div className={styles.editFile}><iframe title={pageOption.name} frameBorder="0" src={editSrc}></iframe></div></PopUp>
+			: null}
 		</div>
 	);
 };

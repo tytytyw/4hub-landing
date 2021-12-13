@@ -973,7 +973,8 @@ export const onGetCompanyDocument = (type, loader) => async (dispatch, getState)
             const data = {
                 type,
                 file: res.data.icon?.filter(src => src.slice(src.lastIndexOf('.')).includes('doc'))[0] || null,
-                preview: res.data.icon?.filter(src => src.slice(src.lastIndexOf('.')) === '.pdf')[0] || null
+                preview: res.data.icon?.filter(src => src.slice(src.lastIndexOf('.')) === '.pdf')[0] || null,
+                edit: res.data.edit?.[0] || null
             }
             dispatch({
                 type: COMPANY_DOCUMENTS,
