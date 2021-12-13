@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import styles from "./ServePanel.module.sass";
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
