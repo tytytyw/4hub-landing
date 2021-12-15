@@ -31,6 +31,7 @@ import Error from '../../../../generalComponents/Error';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
+import {checkBrowser} from '../../../../generalComponents/generalHelpers';
 
 const MyFolders = ({
                setItem, menuItem, setMenuItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
@@ -173,6 +174,9 @@ const MyFolders = ({
                     ref={fakeScrollRef}
                     onScroll={() => {
                         if(folderListWrapRef.current && fakeScrollRef.current) folderListWrapRef.current.scrollLeft = fakeScrollRef.current.scrollLeft
+                    }}
+                    style={{
+                        display: checkBrowser('safari') ? 'none' : 'flex'
                     }}
                 >
                     <div style={{width: chosenFolder.folderWidth, minWidth: chosenFolder.folderWidth}} />

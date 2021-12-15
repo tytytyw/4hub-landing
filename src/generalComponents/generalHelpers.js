@@ -145,3 +145,11 @@ export const moveFile = (folder, file, uid) => {
         })
         .catch(() => false);
 }
+
+export function checkBrowser(name) {
+    if(window.navigator.userAgent) {
+        return navigator.userAgent.toLowerCase().includes(name.toLowerCase());
+    } else {
+        return false;
+    }
+}
