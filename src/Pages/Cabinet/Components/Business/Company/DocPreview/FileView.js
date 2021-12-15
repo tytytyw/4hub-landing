@@ -89,7 +89,7 @@ const FileView = ({
 				</button>
 			</div>
 			<div className={classNames(styles.btnWrapper, styles.downloadBtn)}>
-				<button onClick={() => downloadFile()} className={styles.contextBtn}>
+				<button title='Download' onClick={() => downloadFile()} className={styles.contextBtn}>
 					<DownloadIco />
 				</button>
 			</div>
