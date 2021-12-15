@@ -24,7 +24,8 @@ const FileView = ({
 	action,
 	setAction,
 	nullifyAction,
-	setShowSuccessMessage
+	setShowSuccessMessage,
+	downloadFileSrc
 }) => {
 	const dispatch = useDispatch();
 	const [editFile, setEditFile] = useState(false)
@@ -73,6 +74,12 @@ const FileView = ({
             default: return 'file'
         }
     }
+	const downloadFile = () => {
+		const link = document.createElement('a')
+		link.href = projectSrc + downloadFileSrc
+		link.download = pageOption.name
+		link.click()
+	}
 
 	return (
 		<div className={styles.wrapper}>
@@ -82,7 +89,7 @@ const FileView = ({
 				</button>
 			</div>
 			<div className={classNames(styles.btnWrapper, styles.downloadBtn)}>
-				<button onClick={() => document.downloadFile.submit()} className={styles.contextBtn}>
+				<button onClick={() => downloadFile()} className={styles.contextBtn}>
 					<DownloadIco />
 				</button>
 			</div>
