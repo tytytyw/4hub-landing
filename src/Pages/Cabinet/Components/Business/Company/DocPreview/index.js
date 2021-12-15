@@ -35,6 +35,7 @@ const DocPreview = ({
 					renderMenuItems={renderMenuItems}
 					previewSrc={companyDocuments[pageOption.name]?.preview}
 					editSrc={companyDocuments[pageOption.name]?.edit}
+					downloadFileSrc={companyDocuments[pageOption.name]?.file}
 					action={action}
 					setAction={setAction}
 					nullifyAction={nullifyAction}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styles from "./FileView.module.sass";
-import { ReactComponent as PrinterImg } from "../../../../../../assets/BusinessCabinet/print.svg";
+import { ReactComponent as DownloadIco } from "../../../../../../assets/PrivateCabinet/download.svg";
 import { ReactComponent as PointerMenuImg } from "../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { contextMenuDocFile } from "../../../../../../generalComponents/collections";
@@ -12,6 +12,7 @@ import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCab
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
 import PopUp from "../../../../../../generalComponents/PopUp";
+import classNames from 'classnames'
 
 const FileView = ({
 	pageOption,
@@ -23,7 +24,8 @@ const FileView = ({
 	action,
 	setAction,
 	nullifyAction,
-	setShowSuccessMessage
+	setShowSuccessMessage,
+	downloadFileSrc
 }) => {
 	const dispatch = useDispatch();
 	const [editFile, setEditFile] = useState(false)
@@ -72,22 +74,28 @@ const FileView = ({
             default: return 'file'
         }
     }
+	const downloadFile = () => {
+		const link = document.createElement('a')
+		link.href = projectSrc + downloadFileSrc
+		link.download = pageOption.name
+		link.click()
+	}
 
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.printWrapper}>
-				<button className={styles.printBtn}>
-					<PrinterImg />
+			<div className={styles.btnWrapper}>
+				<button onClick={onContextClick} className={styles.contextBtn}>
+					<PointerMenuImg />
 				</button>
-				<button onClick={onContextClick} className={styles.printBtn}>
-					<PointerMenuImg/>
+			</div>
+			<div className={classNames(styles.btnWrapper, styles.downloadBtn)}>
+				<button title='Download' onClick={() => downloadFile()} className={styles.contextBtn}>
+					<DownloadIco title='Download' />
 				</button>
 			</div>
 
 			<div className={styles.content}>
-
 				<embed style={{height: "100%", width: "100%"}}  type="application/pdf"  src={projectSrc + previewSrc}></embed>
-				
 			</div>
 			{mouseParams !== null && mouseParams?.type === "contextMenuFile" ? (
 				<ContextMenu
