@@ -28,6 +28,7 @@ const MiniToolBar = ({
     const handleSaveImage = () => {
         if(params.edit) {
             console.log(file)
+            // const preview = canvasRef.current.toDataURL("image/png");
             // if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
             // if(file.fid === 'printScreen') sendFile(uid, file);
         }
