@@ -60,18 +60,22 @@ function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action
 
 	const getLink = (status) => {
 		setUrl('Загрузка...')
-		let stat = '$&is_read=1'
-		if(status === 'write') stat = '$&is_read=0'
-		const url = `/ajax/${action_type}.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
-		api.get(url)
-			.then(res => {
-				if(!!res.data.ok) {
-					setUrl(res.data.link_shere_to_user)
-				} else {
-					setError(state => ({...state, error: true, message: `${res?.data?.error ?? error.message}`}))
-				}
-			})
-			.catch(err => setError(state => ({...state, error: true, message: `${err}`})));
+		if(item?.is_dir === 0) {
+			item?.file_link ? setUrl(item.file_link) : setError(state => ({...state, error: true, message: `Ссылка на файл не найдена. Попробуйте еще раз`}));
+		} else {
+			let stat = '$&is_read=1'
+			if(status === 'write') stat = '$&is_read=0'
+			const url = `/ajax/${action_type}.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
+			api.get(url)
+				.then(res => {
+					if(!!res.data.ok) {
+						setUrl(res.data.link_shere_to_user)
+					} else {
+						setError(state => ({...state, error: true, message: `${res?.data?.error ?? error.message}`}))
+					}
+				})
+				.catch(err => setError(state => ({...state, error: true, message: `${err}`})));
+		}
 	};
 
 	useEffect(() => {
