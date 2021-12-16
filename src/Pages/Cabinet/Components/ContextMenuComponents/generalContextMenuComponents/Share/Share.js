@@ -11,6 +11,7 @@ import SetPassword from '../SetPassword/SetPassword'
 import { ReactComponent as Password } from '../../../../../../assets/PrivateCabinet/password.svg';
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
+import { arrayForPhpRequest } from "../../../../../../generalComponents/generalHelpers";
 
 function Share({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
@@ -50,8 +51,8 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
         setLoadingType('squarify')
         const newData = action_type === 'dir_access_add'
             ? `uid=${data.uid}&email=${data.user_to}&deadline=${data.deadline}&is_read=${data?.is_write}&pass=${data.pass}&dir=${file?.is_dir || file?.folders ? file.path : ''}&prim=${data.prim}`
-            : `uid=${data.uid}&user_to=${data.user_to}&deadline=${data.deadline}&fids=${data.fids}&is_write=${data?.is_write}&pass=${data.pass}&prim=${data.prim}`
-        api.post(`/ajax/${action_type}.php?${newData}`)
+            : `uid=${data.uid}&user_to=${data.user_to}&deadline=${data.deadline}${arrayForPhpRequest('fids', data.fids)}&is_write=${data?.is_write}&pass=${data.pass}&prim=${data.prim}`
+            api.post(`/ajax/${action_type}.php?${newData}`)
             .then(res => {
                 if(!!res.data.ok) {
                     setShowSuccessMessage('Отправлено')

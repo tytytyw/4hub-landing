@@ -18,7 +18,7 @@ const Security = ({file}) => {
     // const userListRestriction = ['Коваленко Артем', 'Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
     const renderUsers = (userList) => {
         return userList.map(user => {
-            return <span className={styles.user}>{user?.user_name}</span>
+            return <span className={styles.user}>{user?.name}</span>
         })
     };
 
