@@ -26,10 +26,9 @@ const Security = ({folder}) => {
         async function fetchUsers() {
             return await api.get(`/ajax/dir_access_info.php?uid=${uid}&dir=${folder.info.path}`);
         }
-        console.log(folder)
         fetchUsers()
             .then(res => {
-                if(!!res.data.ok) {
+                if(!!res.data.ok && res?.data?.access) {
                     setUserList(res.data.access);
                     setUserListRestriction(res.data.access);
                 }
