@@ -146,6 +146,15 @@ export const moveFile = (folder, file, uid) => {
         .catch(() => false);
 }
 
+//Moves folder to another folder
+export const moveFolder = (folder, folderToMove, uid) => {
+    return api.post(`/ajax/file_move.php?uid=${uid}&fid=${folderToMove.fid}&dir=${folder.path}`)
+        .then(res => {
+            return !!res.data.ok
+        })
+        .catch(() => false);
+}
+
 export function checkBrowser(name) {
     if(window.navigator.userAgent) {
         return navigator.userAgent.toLowerCase().includes(name.toLowerCase());

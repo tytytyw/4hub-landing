@@ -10,7 +10,7 @@ import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/pl
 import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
-import {moveFile} from "../../../../../generalComponents/generalHelpers";
+import {moveFile, moveFolder} from "../../../../../generalComponents/generalHelpers";
 
 const CustomFolderItem = ({
       f, setChosenFolder, chosenFolder, listCollapsed, p = 25, chosen, subFolder, setError,
@@ -130,7 +130,17 @@ const CustomFolderItem = ({
     };
 
     const handleDrop = async () => {
-        await moveFile(f, draggedFile, uid)
+        if(draggedFile.is_dir === 1) {
+            await moveFolder(f, draggedFile, uid)
+            .then(result => {
+                if(!result) setError(state => ({...state, isError: true, message: 'Папка не была перемещена'}))
+                if(result) {
+                    dispatch(onDeleteFile(draggedFile));
+                    setShowSuccessMessage('Папка перемещена');
+                }
+            })
+        } else {
+            await moveFile(f, draggedFile, uid)
             .then(result => {
                 if(!result) setError(state => ({...state, isError: true, message: 'Файл не был перемещен'}))
                 if(result) {
@@ -138,6 +148,7 @@ const CustomFolderItem = ({
                     setShowSuccessMessage('Файл перемещен');
                 }
             })
+        }
     }
     return (<>
         <div
