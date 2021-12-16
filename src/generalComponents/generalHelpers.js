@@ -162,3 +162,10 @@ export function checkBrowser(name) {
         return false;
     }
 }
+
+//Create an array for php request
+export function arrayForPhpRequest(key, array) {
+    return array.reduce((acc, item, i) => {
+        return acc += `&${key}[${i}]=${item}`
+    }, '')
+}
