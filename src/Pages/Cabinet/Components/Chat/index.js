@@ -6,8 +6,8 @@ import {ReactComponent as ChatIcon} from "../../../../assets/PrivateCabinet/chat
 import {ReactComponent as ContactsIcon} from "../../../../assets/PrivateCabinet/men.svg";
 import {ReactComponent as SettingsIcon} from "../../../../assets/PrivateCabinet/gear-6.svg";
 import {ReactComponent as PhoneIcon} from "../../../../assets/PrivateCabinet/phone-5.svg";
+import AddContact from './AddContact'
 import {imageSrc} from '../../../../generalComponents/globalVariables';
-
 import ContactList from "./ContactList";
 import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
@@ -18,6 +18,8 @@ const Chat = () => {
     const [search, setSearch] = useState('');
     const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
     const [selectedContact, setSelectedContact] = useState(null);
+    const [action, setAction] = useState({ type: "", name: "", text: "" });
+    const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
     return(
         <div className={styles.chatComponent}>
@@ -69,11 +71,15 @@ const Chat = () => {
                         sideMenuCollapsed={sideMenuCollapsed}
                         selectedContact={selectedContact}
                         setSelectedContact={setSelectedContact}
+                        setAction={setAction}
                     />
                     : null}
                 </div>
             </div>
             <WorkSpace selectedContact={selectedContact} />
+            {action.type === "addContact" ? (
+                <AddContact action={action} nullifyAction={nullifyAction} />
+			) : null}
         </div>
     )
 }

@@ -5,8 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {onGetContacts, onGetCompanyContacts} from "../../../../../Store/actions/CabinetActions";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import classNames from "classnames";
+import { ReactComponent as AddContactIcon } from "../../../../../assets/PrivateCabinet/addContact-2.svg";
 
-const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedContact}) => {
+const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedContact, setAction}) => {
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
     const dispatch = useDispatch();
@@ -47,6 +48,15 @@ const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedCon
 
     return (
         <div className={styles.listWrap}>
+            <div
+                className={classNames({[styles.item]: true, [styles.active]: false, [styles.addContact]: true})}
+                onClick={() => setAction({type: 'addContact', name: "Добавить контакт", text: ""})}
+            >
+				<div className={styles.iconWrap}>
+					<AddContactIcon width={19} height={22} />
+				</div>
+				<span className={styles.text}>Добавить контакт</span>
+			</div>
             {contactList ? renderContactList() : null}
         </div>
     )
