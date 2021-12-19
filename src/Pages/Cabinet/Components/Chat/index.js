@@ -11,6 +11,7 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 import ContactList from "./ContactList";
 import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
+import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 
 const Chat = () => {
 
@@ -20,6 +21,7 @@ const Chat = () => {
     const [selectedContact, setSelectedContact] = useState(null);
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     return(
         <div className={styles.chatComponent}>
@@ -78,8 +80,14 @@ const Chat = () => {
             </div>
             <WorkSpace selectedContact={selectedContact} />
             {action.type === "addContact" ? (
-                <AddContact action={action} nullifyAction={nullifyAction} />
+                <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
+            {showSuccessMessage && (
+				<SuccessMessage
+					showSuccessMessage={showSuccessMessage}
+					setShowSuccessMessage={setShowSuccessMessage}
+				/>
+			)}
         </div>
     )
 }
