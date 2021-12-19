@@ -24,7 +24,7 @@ const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedCon
                     className={classNames({[styles.item]: true, [styles.active]: selectedContact?.id === contact.id})}
                     key={i}
                     onClick={() => setSelectedContact(contact)}
-                    title={`${contact?.sname} ${contact?.name}`}
+                    title={sideMenuCollapsed ? `${contact?.sname} ${contact?.name}` : ''}
                 >
                     <div className={styles.groupName}>
                         <img src={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt="img" className={styles.avatar} />
@@ -51,11 +51,12 @@ const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedCon
             <div
                 className={classNames({[styles.item]: true, [styles.active]: false, [styles.addContact]: true})}
                 onClick={() => setAction({type: 'addContact', name: "Добавить контакт", text: ""})}
+                title='Добавить контакт'
             >
 				<div className={styles.iconWrap}>
 					<AddContactIcon width={19} height={22} />
 				</div>
-				<span className={styles.text}>Добавить контакт</span>
+				{sideMenuCollapsed ? '' : <span className={styles.text}>Добавить контакт</span>}
 			</div>
             {contactList ? renderContactList() : null}
         </div>

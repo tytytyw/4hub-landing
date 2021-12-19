@@ -7,10 +7,15 @@ import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
+import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
+import {useSelector} from "react-redux";
+import classNames from "classnames";
 
 
-const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput}) => {
+const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput, sideMenuCollapsed, boardOption}) => {
     const [rightPanel, setRightPanel] = useState('')
+    const id_company = useSelector(state => state.user.id_company)
+    const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
 
     //TODO - Need to change after chat is developed
 
@@ -21,7 +26,9 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput}
 
             <ServePanel selectedContact={selectedContact}></ServePanel>
             <main className={styles.chatBoardMessageList}>
-                <div className={styles.chatArea}></div>
+                <div className={styles.chatArea}>
+                    {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
+                </div>
                 <div className={styles.rightPanel}>
                     {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}
                 </div>

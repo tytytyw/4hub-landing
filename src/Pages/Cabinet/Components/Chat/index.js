@@ -28,27 +28,34 @@ const Chat = () => {
             <div className={classNames({[styles.sideMenu]: true, [styles.sideMenuCollapsed]: sideMenuCollapsed })}>
                 <div className={styles.header}>
                     <div className={styles.headerName}>
-                        <ChatIcon id={styles.headerIcon} />
+                        <ChatIcon id={styles.headerIcon} title="" />
                         {sideMenuCollapsed ? null : <span>Чат</span>}
                     </div>
-                    <FolderIcon onClick={() => setSideMenuCollapsed(value => !value)} id={styles.headerArrow} />
+                    <FolderIcon
+                        onClick={() => setSideMenuCollapsed(value => !value)}
+                        id={styles.headerArrow}
+                        title={sideMenuCollapsed ? 'развернуть' : 'свернуть'} />
                 </div>
                 <div className={styles.boardOptions}>
                     <ContactsIcon
                         className={`${styles.option} ${boardOption === 'contacts' ? styles.selected : ''}`}
                         onClick={() => setBoardOption('contacts')}
+                        title="Контакты"
                     />
                     <PhoneIcon
                         className={`${styles.option} ${boardOption === 'calls' ? styles.selected : ''}`}
                         onClick={() => setBoardOption('calls')}
+                        title="Недавние звонки"
                     />
                     <ChatIcon
                         className={`${styles.option} ${boardOption === 'chats' ? styles.selected : ''}`}
                         onClick={() => setBoardOption('chats')}
+                        title="Чаты"
                     />
                     <SettingsIcon
                         className={`${styles.option} ${boardOption === 'settings' ? styles.selected : ''}`}
                         onClick={() => setBoardOption('settings')}
+                        title="Настройки"
                     />
                 </div>
                 {sideMenuCollapsed
@@ -78,7 +85,7 @@ const Chat = () => {
                     : null}
                 </div>
             </div>
-            <WorkSpace selectedContact={selectedContact} />
+            <WorkSpace boardOption={boardOption} selectedContact={selectedContact} sideMenuCollapsed={sideMenuCollapsed} />
             {action.type === "addContact" ? (
                 <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessMessage={setShowSuccessMessage} />
 			) : null}
