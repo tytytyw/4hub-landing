@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-
+import React, {useState, useEffect} from "react";
+import {useDispatch} from "react-redux";
 import styles from "./Chat.module.sass";
 import {ReactComponent as FolderIcon} from "../../../../assets/PrivateCabinet/play-grey.svg";
 import {ReactComponent as ChatIcon} from "../../../../assets/PrivateCabinet/chat-2.svg";
@@ -12,8 +12,9 @@ import ContactList from "./ContactList";
 import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
+import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 
-const Chat = () => {
+const Chat = ({setMenuItem}) => {
 
     const [boardOption, setBoardOption] = useState('contacts');
     const [search, setSearch] = useState('');
@@ -22,6 +23,13 @@ const Chat = () => {
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setMenuItem('Chat')
+        dispatch(onGetUserInfo());
+        return () => setMenuItem('')
+    }, []); //eslint-disable-line
 
     return(
         <div className={styles.chatComponent}>
