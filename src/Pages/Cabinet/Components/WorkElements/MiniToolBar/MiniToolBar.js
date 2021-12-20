@@ -15,6 +15,7 @@ import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
 import PenThin from "./Tools/PenThin";
 import PenThick from "./Tools/PenThick";
+import Marker from "./Tools/Marker";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null
@@ -58,7 +59,7 @@ const MiniToolBar = ({
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil)}</div>
-            <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
             <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />, "penThick", PenThick)}</div>
             <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />, "penThin", PenThin)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />)}</div>

@@ -13,7 +13,7 @@ class Tool extends Component {
         penThin: 1,
         penThick: 1.5,
         eraser: 10,
-        marker: 5,
+        marker: 7,
         brush: 10,
     };
 
