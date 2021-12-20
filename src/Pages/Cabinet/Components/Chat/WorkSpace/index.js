@@ -9,7 +9,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 
-const WorkSpace = ({selectedContact}) => {
+const WorkSpace = ({selectedContact, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
 
     const [cursorPosition, setCursorPosition] = useState(0);
     const inputRef = useRef();
@@ -33,7 +33,14 @@ const WorkSpace = ({selectedContact}) => {
                 </div>
             </div>
             <div className={styles.main}>
-                <ChatBoard inputRef={inputRef} setCursorPosition={setCursorPosition} selectedContact={selectedContact} insertToInput={insertToInput} />
+                <ChatBoard
+                    inputRef={inputRef} setCursorPosition={setCursorPosition}
+                    selectedContact={selectedContact}
+                    insertToInput={insertToInput}
+                    sideMenuCollapsed={sideMenuCollapsed}
+                    boardOption={boardOption}
+                    setShowSuccessPopup={setShowSuccessPopup}
+                />
             </div>
 
             <BottomPanel />

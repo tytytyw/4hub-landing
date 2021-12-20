@@ -70,7 +70,7 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
                     <Button onClick={() => setDisplayMessengers(false)} className={styles.backBtn}>
                         Назад
                     </Button>
-                    <a target='_blanck' href={hrefSoc}>
+                    <a target='_blank' rel='noreferrer' href={hrefSoc}>
                         <Button onClick={() => close()} className={styles.actionBtn}>
                             Отправить
                         </Button>

@@ -39,12 +39,13 @@ const InputField = ({
                 onChange={(e) => {
                     let newVal = e.target.value;
                     if(comparePass) comparePass(e.target.value);
-                    if(e.target.value[0] === '+' && phone) {
+                    if(phone) {
+                        newVal = newVal.replace(/\D/gim, '')
                         const number = newVal.replace(/(\+)*(\()*(\))*\s*(-)*/g, '');
                         const length = number.length;
                         newVal = `+${number.substring(0, 2)}${length > 2 ? ' (' + number.substring(2, 5) : number.substring(2, 5)}${ length > 5 ? ') ' + number.substring(5, 8) : number.substring(5, 8)}${ length > 8 ? '-' + number.substring(8, 10) : number.substring(8, 10)}${length > 10 ? '-' + number.substring(10, number.length) : number.substring(10, number.length)}`;
                     }
-                    set(newVal)}
+                    set(e.target.value !== "+" ? newVal : '')}
                 }
                 disabled={disabled}
             />
