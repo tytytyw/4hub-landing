@@ -31,7 +31,7 @@ const SuccessPopup = ({title = '', text = '', buttonText = 'Готово', set})
                     </div>
                 </div>
             </div>
-            </Popup>
+        </Popup>
     );
 };
 

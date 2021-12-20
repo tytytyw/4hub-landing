@@ -10,6 +10,7 @@ import ServePanel from "../ServePanel";
 import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
 import {useSelector} from "react-redux";
 import classNames from "classnames";
+import InviteUser from './InviteUser'
 
 
 const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput, sideMenuCollapsed, boardOption}) => {
@@ -20,7 +21,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     //TODO - Need to change after chat is developed
 
     const findCursorPosition = () => setCursorPosition(inputRef.current.selectionStart);
-
+    
     return (
         <div className={styles.chatBoardWrap}>
 
@@ -28,6 +29,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
             <main className={styles.chatBoardMessageList}>
                 <div className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
+                    {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} /> : ''}
                 </div>
                 <div className={styles.rightPanel}>
                     {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}
