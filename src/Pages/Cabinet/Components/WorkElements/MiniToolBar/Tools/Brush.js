@@ -6,6 +6,8 @@ class Brush extends Tool {
         this.listen();
     }
 
+    name = 'brush';
+
     listen() {
         this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
         this.canvas.onmousedown = this.mouseDownHandler.bind(this);

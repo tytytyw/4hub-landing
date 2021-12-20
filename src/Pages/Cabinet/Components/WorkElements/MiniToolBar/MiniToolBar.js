@@ -9,7 +9,7 @@ import {ReactComponent as BrushIcon} from '../../../../../assets/PrivateCabinet/
 import {ReactComponent as Eraser} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
 import {ReactComponent as Add} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
 import {ReactComponent as Photo} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import Brush from "./Tools/Brush";
 
@@ -18,12 +18,15 @@ const MiniToolBar = ({
 }) => {
 
     const [params, setParams] = useState({edit: false});
+    const tool = useSelector(state => state.Cabinet.paint.tool);
     const dispatch = useDispatch();
 
-    const addButton = (icon, callback) => (
+    const addButton = (icon, name = '', toolName = null) => (
         <div
-            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive}`}
-            onClick={callback ? callback : null}
+            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === tool?.name && styles.chosen}`}
+            onClick={toolName ? () => {
+                dispatch(onSetPaint('tool', new toolName(canvasRef?.current)))
+            } : null}
         >
             {icon}
         </div>
@@ -51,7 +54,7 @@ const MiniToolBar = ({
 
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
-            <div className={styles.customWrap}>{addButton(<Pencil className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<Pencil className={`${!params.edit && styles.inActive}`} />, "brush", Brush)}</div>
             <div className={styles.customWrap}>{addButton(<Marker className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<PenThick className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<PenThin className={`${!params.edit && styles.inActive}`} />)}</div>
