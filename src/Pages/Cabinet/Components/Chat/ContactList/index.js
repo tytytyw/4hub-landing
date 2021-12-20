@@ -13,7 +13,7 @@ const ContactList = ({search, sideMenuCollapsed, selectedContact, setSelectedCon
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!contactList) dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
+        dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
     }, []) //eslint-disable-line
 
     const renderContactList = () => (

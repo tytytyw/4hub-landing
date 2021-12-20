@@ -23,8 +23,11 @@ function AddContact({action, nullifyAction, setShowSuccessMessage}) {
     const onSubmit = () => {
 		if (name && (tel?.length > 8 || checkEmail(email))) {
 			const addCompanyParams = () => id_company ? `&id_company=${id_company}` : ''
-            nullifyAction()
-			api.get(`/ajax/${id_company ? 'org_' : ''}contacts_add.php?uid=${uid}&name=${name}&sname=${sname}${addCompanyParams()}`)
+            setTimeout(() => nullifyAction(), 100)
+			const formData = new FormData()
+            formData.append('tel', createContactArray(tel))
+            formData.append('email', createContactArray(email))
+			api.post(`/ajax/${id_company ? 'org_' : ''}contacts_add.php?uid=${uid}&name=${name}&sname=${sname}${addCompanyParams()}`, formData)
                 .then(() => {
 					dispatch(id_company ? onGetCompanyContacts(setShowSuccessMessage, 'Контакт добавлен') : onGetContacts(setShowSuccessMessage, 'Контакт добавлен'))
                 })
@@ -32,6 +35,12 @@ function AddContact({action, nullifyAction, setShowSuccessMessage}) {
                     console.log(err)
                 })
         } else setRequiredInputError(true)
+    }
+
+	const createContactArray = value => {
+        const result = [];
+		result.push(value);
+        return JSON.stringify(result)
     }
     
     const checkEmail = email => email?.includes('@') && email?.length > 2
