@@ -57,7 +57,7 @@ import {
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
     CHOOSE_FILES_NEXT,
-    SET_NEXT_FILES_TO_PREVIOUS,
+    SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -1006,3 +1006,10 @@ export const onDeleteCompanyDocument = (type, success, msg) => async (dispatch, 
             console.log(error)
         }).finally(() => success ? success(msg) : null)
 };
+
+export const onSetPaint = (key, value) => {
+    return {
+        type: SET_PAINT,
+        payload: {key, value}
+    }
+}
