@@ -9,7 +9,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 
-const WorkSpace = ({selectedContact, sideMenuCollapsed, boardOption}) => {
+const WorkSpace = ({selectedContact, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
 
     const [cursorPosition, setCursorPosition] = useState(0);
     const inputRef = useRef();
@@ -39,6 +39,7 @@ const WorkSpace = ({selectedContact, sideMenuCollapsed, boardOption}) => {
                     insertToInput={insertToInput}
                     sideMenuCollapsed={sideMenuCollapsed}
                     boardOption={boardOption}
+                    setShowSuccessPopup={setShowSuccessPopup}
                 />
             </div>
 

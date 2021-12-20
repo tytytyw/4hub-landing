@@ -95,7 +95,12 @@ const Chat = ({setMenuItem}) => {
                     : null}
                 </div>
             </div>
-            <WorkSpace boardOption={boardOption} selectedContact={selectedContact} sideMenuCollapsed={sideMenuCollapsed} />
+            <WorkSpace
+                boardOption={boardOption}
+                selectedContact={selectedContact}
+                sideMenuCollapsed={sideMenuCollapsed}
+                setShowSuccessPopup={setShowSuccessPopup}
+            />
             {action.type === "addContact" ? (
                 <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessPopup={setShowSuccessPopup} />
 			) : null}

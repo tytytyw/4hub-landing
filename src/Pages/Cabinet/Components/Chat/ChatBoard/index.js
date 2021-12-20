@@ -13,7 +13,7 @@ import classNames from "classnames";
 import InviteUser from './InviteUser'
 
 
-const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput, sideMenuCollapsed, boardOption}) => {
+const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
     const [rightPanel, setRightPanel] = useState('')
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
@@ -29,7 +29,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
             <main className={styles.chatBoardMessageList}>
                 <div className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
-                    {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} /> : ''}
+                    {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} /> : ''}
                 </div>
                 <div className={styles.rightPanel}>
                     {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}

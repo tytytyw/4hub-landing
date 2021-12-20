@@ -1,25 +1,47 @@
 import React, {useState, useEffect} from 'react'
+import { useSelector } from "react-redux";
 import styles from "./InviteUser.module.sass";
 import Popup from '../../../../../../generalComponents/PopUp'
 import timesImg from '../../../../../../assets/BusinessCabinet/times.svg'
 import classNames from 'classnames'
 import {messengersData} from './consts'
+import api from "../../../../../../api";
 
-function InviteUser({contact}) {
+function InviteUser({contact, setShowSuccessPopup}) {
     const [sentInvite, setSentInvite] = useState(false)
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [messengers, setMessengers] = useState([])
+    const uid = useSelector((state) => state.user.uid);
 
     const onSendInvite = () => {
-        if (selectedSoc) {
-            console.log(selectedSoc)
+        if (selectedSoc === 'email' || selectedSoc === 'tel') {
+            setSentInvite(false)
+            api.get(`/ajax/user_invite.php?uid=${uid}&${selectedSoc}=${contact[selectedSoc][0]}`)
+                .then((res) => {
+                    if (res.data.ok) {
+                        setShowSuccessPopup({
+                            title: 'Приглашение успешно отправлено',
+                            text: `${contact.sname} ${contact.name} получил(а) приглашение на добавление в сеть 4Hub`
+                        })
+                    }
+                })
+				.catch(err => {
+                    console.log(err)
+                })
+        } else if (selectedSoc) {
+            const link = document.createElement('a')
+            link.target = '_blank'
+            link.rel = 'noreferrer'
+            link.setAttribute('href', messengers.filter(soc => soc.type === selectedSoc)[0].link)
+            link.click()
+            setSentInvite(false)
         }
     }
 
     useEffect(() => {
         setMessengers(messengersData)
-        if (!contact?.email?.length) setMessengers(messengersData => messengersData.filter(item => item.type !== 'email'))
-        if (!contact?.tel?.length) setMessengers(messengersData => messengersData.filter(item => item.type !== "tel"))
+        if (!contact?.email?.length || !contact?.email[0]?.length) setMessengers(messengersData => messengersData.filter(item => item.type !== 'email'))
+        if (!contact?.tel?.length || !contact?.tel[0]?.length) setMessengers(messengersData => messengersData.filter(item => item.type !== "tel"))
     }, [contact]) //eslint-disable-line
 
     return (
