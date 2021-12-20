@@ -17,6 +17,7 @@ import PenThin from "./Tools/PenThin";
 import PenThick from "./Tools/PenThick";
 import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
+import Brush from "./Tools/Brush";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null
@@ -63,7 +64,7 @@ const MiniToolBar = ({
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
             <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />, "penThick", PenThick)}</div>
             <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />, "penThin", PenThin)}</div>
-            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush)}</div>
             <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
             <div className={styles.customWrap}>{addButton(!params.edit ? <div className={styles.inactiveColor} /> : <img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} />, "colorPicker")}</div>
             <div className={styles.customWrap}>{addButton(<AddIcon className={`${!params.edit && styles.inActive}`} />)}</div>
