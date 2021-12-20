@@ -13,6 +13,7 @@ import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
+import SuccessPopup from "./SuccessPopup";
 
 const Chat = ({setMenuItem}) => {
 
@@ -23,6 +24,7 @@ const Chat = ({setMenuItem}) => {
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -95,7 +97,7 @@ const Chat = ({setMenuItem}) => {
             </div>
             <WorkSpace boardOption={boardOption} selectedContact={selectedContact} sideMenuCollapsed={sideMenuCollapsed} />
             {action.type === "addContact" ? (
-                <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessMessage={setShowSuccessMessage} />
+                <AddContact action={action} nullifyAction={nullifyAction} setShowSuccessPopup={setShowSuccessPopup} />
 			) : null}
             {showSuccessMessage && (
 				<SuccessMessage
@@ -103,6 +105,7 @@ const Chat = ({setMenuItem}) => {
 					setShowSuccessMessage={setShowSuccessMessage}
 				/>
 			)}
+            {showSuccessPopup ? <SuccessPopup title={showSuccessPopup?.title} text={showSuccessPopup?.text} set={() => setShowSuccessPopup(false)} /> : ''}
         </div>
     )
 }

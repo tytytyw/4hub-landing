@@ -9,7 +9,7 @@ import classNames from "classnames";
 import { onGetCompanyContacts, onGetContacts }  from "../../../../../Store/actions/CabinetActions";
 
 
-function AddContact({action, nullifyAction, setShowSuccessMessage}) {
+function AddContact({action, nullifyAction, setShowSuccessPopup}) {
     const [name, setName] = useState('')
     const [sname, setSname] = useState('')
     const [tel, setTel] = useState('')
@@ -29,7 +29,8 @@ function AddContact({action, nullifyAction, setShowSuccessMessage}) {
             formData.append('email', createContactArray(email))
 			api.post(`/ajax/${id_company ? 'org_' : ''}contacts_add.php?uid=${uid}&name=${name}&sname=${sname}${addCompanyParams()}`, formData)
                 .then(() => {
-					dispatch(id_company ? onGetCompanyContacts(setShowSuccessMessage, 'Контакт добавлен') : onGetContacts(setShowSuccessMessage, 'Контакт добавлен'))
+					dispatch(id_company ? onGetCompanyContacts() : onGetContacts())
+					setShowSuccessPopup({title: 'База контактов успешно добавлена', text: 'База контактов успешно добавлен в Вашу книгу контактов'})
                 })
 				.catch(err => {
                     console.log(err)
