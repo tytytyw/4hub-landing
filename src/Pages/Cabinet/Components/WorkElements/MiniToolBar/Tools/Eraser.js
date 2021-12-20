@@ -1,12 +1,12 @@
 import Tool from "./Tool";
 
-class Brush extends Tool {
+class Eraser extends Tool {
     constructor(canvas) {
         super(canvas);
         this.listen();
     }
 
-    name = 'brush';
+    name = 'eraser';
 
     listen() {
         this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
@@ -33,7 +33,8 @@ class Brush extends Tool {
     draw(x, y) {
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
+        this.ctx.strokeStyle = 'white';
     }
 }
 
-export default Brush;
+export default Eraser;
