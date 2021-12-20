@@ -9,12 +9,12 @@ class Tool extends Component {
     }
 
     width = {
-        pencil: '1px',
-        pen: '2px',
-        eraser: '5px',
-        marker: '5px',
-        brush: '5px',
-        pointer: '1px'
+        pencil: 1,
+        penThin: 1,
+        penThick: 1.5,
+        eraser: 10,
+        marker: 5,
+        brush: 10,
     };
 
     destroyEvents() {

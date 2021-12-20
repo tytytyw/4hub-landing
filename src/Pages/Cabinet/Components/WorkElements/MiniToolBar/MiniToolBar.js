@@ -13,6 +13,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
+import PenThin from "./Tools/PenThin";
+import PenThick from "./Tools/PenThick";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null
@@ -57,8 +59,8 @@ const MiniToolBar = ({
         <div className={styles.standardToolBarWrap}>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil)}</div>
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />, "penThick", PenThick)}</div>
+            <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />, "penThin", PenThin)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
             <div className={styles.customWrap}>{addButton(!params.edit ? <div className={styles.inactiveColor} /> : <img src='./assets/PrivateCabinet/Oval.png' alt='palette' />)}</div>

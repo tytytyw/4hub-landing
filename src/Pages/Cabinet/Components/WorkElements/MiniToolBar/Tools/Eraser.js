@@ -31,9 +31,11 @@ class Eraser extends Tool {
     }
 
     draw(x, y) {
+        console.log(this.width[this.name])
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
         this.ctx.strokeStyle = 'white';
+        this.ctx.lineWidth = this.width[this.name];
     }
 }
 

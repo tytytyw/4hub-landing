@@ -1,12 +1,12 @@
 import Tool from "./Tool";
 
-class PenThin extends Tool {
+class PenThick extends Tool {
     constructor(canvas) {
         super(canvas);
         this.listen();
     }
 
-    name = 'penThin';
+    name = 'penThick';
 
     listen() {
         this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
@@ -34,8 +34,8 @@ class PenThin extends Tool {
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
         this.ctx.lineWidth = this.width[this.name];
-        this.ctx.globalAlpha = 0.5;
+        this.ctx.globalAlpha = 1;
     }
 }
 
-export default PenThin;
+export default PenThick;
