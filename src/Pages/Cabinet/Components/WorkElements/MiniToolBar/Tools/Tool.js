@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 
 class Tool extends Component {
     constructor(canvas) {
@@ -7,6 +7,15 @@ class Tool extends Component {
         this.ctx = canvas.getContext("2d");
         this.destroyEvents();
     }
+
+    width = {
+        pencil: 1,
+        penThin: 1,
+        penThick: 1.5,
+        eraser: 10,
+        marker: 7,
+        brush: 10,
+    };
 
     destroyEvents() {
         this.canvas.onmousemove = null;

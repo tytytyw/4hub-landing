@@ -1,50 +1,71 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './MiniToolBar.module.sass'
-import {ReactComponent as Pencil} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
-import {ReactComponent as Marker} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
-import {ReactComponent as PenThick} from '../../../../../assets/PrivateCabinet/minitoolbar/penThick.svg'
-import {ReactComponent as PenThin} from '../../../../../assets/PrivateCabinet/minitoolbar/penThin.svg'
-import {ReactComponent as Brush} from '../../../../../assets/PrivateCabinet/minitoolbar/brush.svg'
-import {ReactComponent as Eraser} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
-import {ReactComponent as Add} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
-import {ReactComponent as Photo} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
+import {ReactComponent as PencilIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
+import {ReactComponent as MarkerIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
+import {ReactComponent as PenThickIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/penThick.svg'
+import {ReactComponent as PenThinIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/penThin.svg'
+import {ReactComponent as BrushIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/brush.svg'
+import {ReactComponent as EraserIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
+import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
+import {ReactComponent as PhotoIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
+import {useDispatch, useSelector} from "react-redux";
+import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
+import Pencil from "./Tools/Pencil";
+import Eraser from "./Tools/Eraser";
+import PenThin from "./Tools/PenThin";
+import PenThick from "./Tools/PenThick";
+import Marker from "./Tools/Marker";
 
 const MiniToolBar = ({
-         file, toolBarType = 'general', width = '100%'
+         file, toolBarType = 'general', width = '100%', canvasRef = null
 }) => {
 
     const [params, setParams] = useState({edit: false});
+    const tool = useSelector(state => state.Cabinet.paint.tool);
+    const dispatch = useDispatch();
 
-    const addButton = (icon, callback) => (
+    const addButton = (icon, name = '', toolName = null) => (
         <div
-            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive}`}
-            onClick={callback ? callback : null}
+            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === tool?.name && styles.chosen}`}
+            onClick={toolName ? () => {
+                dispatch(onSetPaint('tool', new toolName(canvasRef?.current)))
+            } : null}
         >
             {icon}
         </div>
     )
 
+    useEffect(() => {
+
+    }, []) //eslint-disable-line
+
     const handleSaveImage = () => {
         if(params.edit) {
+            canvasRef.current.onmousemove = null;
+            canvasRef.current.onmousedown = null;
+            canvasRef.current.onmouseup = null;
+            dispatch(onSetPaint('tool', undefined));
             console.log(file)
             // const preview = canvasRef.current.toDataURL("image/png");
             // if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
             // if(file.fid === 'printScreen') sendFile(uid, file);
+        } else {
+            dispatch(onSetPaint('tool', new Pencil(canvasRef?.current)));
         }
         setParams(state => ({...state, edit: !state.edit}));
     }
 
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
-            <div className={styles.customWrap}>{addButton(<Pencil className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<Marker className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThick className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThin className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<Brush className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<Eraser className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil)}</div>
+            <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
+            <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />, "penThick", PenThick)}</div>
+            <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />, "penThin", PenThin)}</div>
+            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
             <div className={styles.customWrap}>{addButton(!params.edit ? <div className={styles.inactiveColor} /> : <img src='./assets/PrivateCabinet/Oval.png' alt='palette' />)}</div>
-            <div className={styles.customWrap}>{addButton(<Add className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<AddIcon className={`${!params.edit && styles.inActive}`} />)}</div>
         </div>
     )
 
@@ -66,7 +87,7 @@ const MiniToolBar = ({
                 {standardEditToolBar()}
             </div>
             <div className={styles.rightPart}>
-                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><Photo className={`${!params.edit && styles.inActive}`} /><Photo className={`${!params.edit && styles.inActive}`} /></div>)}</div>
+                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Cохранить" : "Редактировать"}</span>
@@ -86,7 +107,7 @@ const MiniToolBar = ({
                 {standardEditToolBar()}
             </div>
             <div className={styles.rightPart}>
-                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><Photo /><Photo /></div>)}</div>
+                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
             </div>
         </div>
     )

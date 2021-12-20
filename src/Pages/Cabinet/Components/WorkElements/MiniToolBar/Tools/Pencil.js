@@ -1,10 +1,12 @@
 import Tool from "./Tool";
 
-class Brush extends Tool {
+class Pencil extends Tool {
     constructor(canvas) {
         super(canvas);
         this.listen();
     }
+
+    name = 'pencil';
 
     listen() {
         this.canvas.onmousemove = this.mouseMoveHandler.bind(this);
@@ -18,17 +20,22 @@ class Brush extends Tool {
 
     mouseDownHandler(e) {
         this.mouseDown = true;
+        this.ctx.beginPath();
+        this.ctx.moveTo(e.layerX, e.layerY);
     }
 
     mouseMoveHandler(e) {
         if(this.mouseDown) {
-            this.draw();
+            this.draw(e.layerX, e.layerY);
         }
     }
 
-    draw() {
-
+    draw(x, y) {
+        this.ctx.lineTo(x, y);
+        this.ctx.stroke();
+        this.ctx.lineWidth = this.width[this.name];
+        this.ctx.globalAlpha = 0.1;
     }
 }
 
-export default Brush;
+export default Pencil;

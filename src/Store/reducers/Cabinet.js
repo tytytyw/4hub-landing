@@ -51,7 +51,7 @@ import {
     SET_CHOSEN_PROJECT,
     LOAD_FILES_NEXT,
     CHOOSE_FILES_NEXT,
-    SET_NEXT_FILES_TO_PREVIOUS,
+    SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -134,8 +134,14 @@ const INITIAL_STATE = {
             mission: {file: null, preview: null},
             viziya: {file: null, preview: null},
         }
+    },
+
+    //PAINT
+    paint: {
+        tool: undefined,
+        color: undefined,
     }
-    
+
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -353,5 +359,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         //COMPANY
         case COMPANY_DOCUMENTS:
             return {...state, company: {...state.company, documents: {...state.company.documents, [action.payload.type] : action.payload}}}
+
+        //PAINT
+        case SET_PAINT: {
+            return {...state, paint: {...state.paint, [action.payload.key]: action.payload.value}}
+        }
     }
 }
