@@ -18,16 +18,19 @@ class Brush extends Tool {
 
     mouseDownHandler(e) {
         this.mouseDown = true;
+        this.ctx.beginPath();
+        this.ctx.moveTo(e.layerX, e.layerY);
     }
 
     mouseMoveHandler(e) {
         if(this.mouseDown) {
-            this.draw();
+            this.draw(e.layerX, e.layerY);
         }
     }
 
-    draw() {
-
+    draw(x, y) {
+        this.ctx.lineTo(x, y);
+        this.ctx.stroke();
     }
 }
 

@@ -63,6 +63,7 @@ const PreviewFile = ({setFilePreview, file}) => {
             case 'image': {
                 return <div className={styles.imagePreviewWrap}>
                     <MiniToolBar
+                        canvasRef={canvasRef}
                         file={file}
                         setTextDraw={setTextDraw}
                         direction="row"

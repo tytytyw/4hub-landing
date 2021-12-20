@@ -1,20 +1,24 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import styles from './MiniToolBar.module.sass'
 import {ReactComponent as Pencil} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
 import {ReactComponent as Marker} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
 import {ReactComponent as PenThick} from '../../../../../assets/PrivateCabinet/minitoolbar/penThick.svg'
 import {ReactComponent as PenThin} from '../../../../../assets/PrivateCabinet/minitoolbar/penThin.svg'
-import {ReactComponent as Brush} from '../../../../../assets/PrivateCabinet/minitoolbar/brush.svg'
+import {ReactComponent as BrushIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/brush.svg'
 import {ReactComponent as Eraser} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
 import {ReactComponent as Add} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
 import {ReactComponent as Photo} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
+import {useDispatch} from "react-redux";
+import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
+import Brush from "./Tools/Brush";
 
 const MiniToolBar = ({
-         file, toolBarType = 'general', width = '100%'
+         file, toolBarType = 'general', width = '100%', canvasRef = null
 }) => {
 
     const [params, setParams] = useState({edit: false});
+    const dispatch = useDispatch();
 
     const addButton = (icon, callback) => (
         <div
@@ -25,12 +29,22 @@ const MiniToolBar = ({
         </div>
     )
 
+    useEffect(() => {
+
+    }, []) //eslint-disable-line
+
     const handleSaveImage = () => {
         if(params.edit) {
+            canvasRef.current.onmousemove = null;
+            canvasRef.current.onmousedown = null;
+            canvasRef.current.onmouseup = null;
+            dispatch(onSetPaint('tool', undefined));
             console.log(file)
             // const preview = canvasRef.current.toDataURL("image/png");
             // if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
             // if(file.fid === 'printScreen') sendFile(uid, file);
+        } else {
+            dispatch(onSetPaint('tool', new Brush(canvasRef?.current)));
         }
         setParams(state => ({...state, edit: !state.edit}));
     }
@@ -41,7 +55,7 @@ const MiniToolBar = ({
             <div className={styles.customWrap}>{addButton(<Marker className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<PenThick className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<PenThin className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<Brush className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(<Eraser className={`${!params.edit && styles.inActive}`} />)}</div>
             <div className={styles.customWrap}>{addButton(!params.edit ? <div className={styles.inactiveColor} /> : <img src='./assets/PrivateCabinet/Oval.png' alt='palette' />)}</div>
             <div className={styles.customWrap}>{addButton(<Add className={`${!params.edit && styles.inActive}`} />)}</div>
