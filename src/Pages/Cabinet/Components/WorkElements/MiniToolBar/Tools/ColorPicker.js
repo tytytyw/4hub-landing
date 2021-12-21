@@ -9,6 +9,7 @@ function ColorPicker({colorPickerRef}) {
 
     const setStrokeColorOpacity = (value) => {
         if(tool.name === "pencil") return tool.strokeStyle = `rgba(${hexToRgbA(value)},1)`;
+        if(tool.name === "marker") return tool.strokeStyle = `rgba(${hexToRgbA(value)},0.2)`;
         return tool.strokeStyle = value;
     }
     const setColor = value => {
