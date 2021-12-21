@@ -23,7 +23,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         {text: 'большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'}
     ])
     const renderMessages = () => {
-        if (!messages?.length) return null
+        if (!messages?.length || !selectedContact) return null
         return (
             messages.map((msg, index) => {
                 return (
