@@ -23,7 +23,7 @@ function ColorPicker({colorPickerRef}) {
 
     return(
             <input
-                style={{position: 'absolute', visibility: 'hidden'}}
+                style={{position: 'absolute', visibility: 'hidden', left: -12, bottom: 0}}
                 ref={colorPickerRef}
                 type="color"
                 onChange={handleChangeColor}
