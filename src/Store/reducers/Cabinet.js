@@ -139,7 +139,6 @@ const INITIAL_STATE = {
     //PAINT
     paint: {
         tool: undefined,
-        color: undefined,
     }
 
 }
