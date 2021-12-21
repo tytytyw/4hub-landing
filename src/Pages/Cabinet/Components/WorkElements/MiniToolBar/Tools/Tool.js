@@ -17,6 +17,10 @@ class Tool extends Component {
         brush: 10,
     };
 
+    set strokeStyle(color) {
+        this.ctx.strokeStyle = color;
+    }
+
     destroyEvents() {
         this.canvas.onmousemove = null;
         this.canvas.onmousedown = null;
