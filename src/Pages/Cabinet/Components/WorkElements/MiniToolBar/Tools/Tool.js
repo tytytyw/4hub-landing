@@ -25,6 +25,7 @@ class Tool extends Component {
         this.canvas.onmousemove = null;
         this.canvas.onmousedown = null;
         this.canvas.onmouseup = null;
+        this.ctx.shadowBlur = 0;
     }
 }
 
