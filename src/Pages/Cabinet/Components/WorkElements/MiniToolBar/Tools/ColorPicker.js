@@ -1,13 +1,16 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useDebounce} from "../../../../../../generalComponents/Hooks";
 import {hexToRgbA} from "../../../../../../generalComponents/generalHelpers";
+import {onSetPaint} from "../../../../../../Store/actions/CabinetActions";
 
 function ColorPicker({colorPickerRef}) {
 
+    const dispatch = useDispatch();
     const tool = useSelector(state => state.Cabinet.paint.tool)
 
     const setStrokeColorOpacity = (value) => {
+        dispatch(onSetPaint('color', `rgba(${hexToRgbA(value)},1)`));
         if(tool.name === "pencil") return tool.strokeStyle = `rgba(${hexToRgbA(value)},1)`;
         if(tool.name === "marker") return tool.strokeStyle = `rgba(${hexToRgbA(value)},0.2)`;
         return tool.strokeStyle = value;

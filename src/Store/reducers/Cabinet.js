@@ -139,6 +139,7 @@ const INITIAL_STATE = {
     //PAINT
     paint: {
         tool: undefined,
+        color: 'rgba(0,0,0,1)',
     }
 
 }

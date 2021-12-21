@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Pencil extends Tool {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
         this.listen();
     }
 
@@ -34,7 +34,6 @@ class Pencil extends Tool {
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
         this.ctx.lineWidth = this.width[this.name];
-        this.ctx.globalAlpha = 0.1;
     }
 }
 

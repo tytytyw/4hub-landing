@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Brush extends Tool {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
         this.listen();
     }
 

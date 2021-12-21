@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Marker extends Tool {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
         this.listen();
     }
 
@@ -32,9 +32,9 @@ class Marker extends Tool {
 
     draw(x, y) {
         this.ctx.lineTo(x, y);
-        this.ctx.globalAlpha = 0.2;
         this.ctx.lineWidth = this.width[this.name];
         this.ctx.stroke();
+        this.ctx.globalAlpha = 0.05;
     }
 }
 

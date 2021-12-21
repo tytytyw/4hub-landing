@@ -1,8 +1,9 @@
 import {Component} from 'react';
 
 class Tool extends Component {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
+        this.color = color;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.destroyEvents();
@@ -26,6 +27,9 @@ class Tool extends Component {
         this.canvas.onmousedown = null;
         this.canvas.onmouseup = null;
         this.ctx.shadowBlur = 0;
+        this.ctx.globalAlpha = 1;
+        this.ctx.strokeStyle = this.color;
+        console.log(this.color);
     }
 }
 
