@@ -11,7 +11,7 @@ class Tool extends Component {
     width = {
         pencil: 1,
         penThin: 1,
-        penThick: 1.5,
+        penThick: 2.5,
         eraser: 10,
         marker: 7,
         brush: 10,
