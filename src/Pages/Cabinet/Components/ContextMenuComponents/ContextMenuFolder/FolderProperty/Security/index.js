@@ -12,7 +12,6 @@ const Security = ({folder}) => {
     const uid = useSelector(state => state.user.uid);
 
     const [userList, setUserList] = useState([]);
-    const [userListRestriction, setUserListRestriction] = useState([]);
 
     const renderUsers = (userList) => {
         return userList.map(user => {
@@ -30,7 +29,6 @@ const Security = ({folder}) => {
             .then(res => {
                 if(!!res.data.ok && res?.data?.access) {
                     setUserList(res.data.access);
-                    setUserListRestriction(res.data.access);
                 }
             })
             .catch(err => console.error(err))
@@ -46,12 +44,6 @@ const Security = ({folder}) => {
                 <span>Список пользователей, которым предоставлен доступ с возможностью изменить разрешение</span>
                 <div className={styles.users}>
                     {userList.length > 0 ? renderUsers(userList) : noUsers}
-                </div>
-            </div>
-            <div className={styles.limitationWrap}>
-                <span>Дополнительные настройки взаимодействия с файлом (разрешение/запрет на изменение, чтение и тд) с возможностью изменить:</span>
-                <div className={styles.users}>
-                    {userListRestriction.length > 0 ? renderUsers(userListRestriction) : noUsers}
                 </div>
             </div>
         </div>
