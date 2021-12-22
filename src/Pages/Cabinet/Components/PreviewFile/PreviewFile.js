@@ -17,7 +17,7 @@ import {
 // import {useSelector} from "react-redux";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 
-const PreviewFile = ({setFilePreview, file}) => {
+const PreviewFile = ({setFilePreview, file, share}) => {
 
     const [loading, setLoading] = useState(false)
     // const uid = useSelector(state => state.user.uid);
@@ -66,6 +66,8 @@ const PreviewFile = ({setFilePreview, file}) => {
                         canvasRef={canvasRef}
                         file={file}
                         setTextDraw={setTextDraw}
+                        setFilePreview={setFilePreview}
+                        share={share}
                         direction="row"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}

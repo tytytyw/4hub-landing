@@ -16,7 +16,8 @@ import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 
 const MiniToolBar = ({
-         file, toolBarType = 'general', width = '100%', canvasRef = null
+         file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
+         setFilePreview
 }) => {
 
     const [params, setParams] = useState({edit: false});
@@ -91,8 +92,14 @@ const MiniToolBar = ({
             <div className={styles.rightPart}>
                 <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Cохранить" : "Редактировать"}</span>
+                    {share !== null ? <span
+                        className={`${styles.button} ${styles.send}`}
+                        onClick={() => {
+                            setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+                            share({type: 'share', name: '', text: ``})
+                    }}>Отправить</span> : null}
                 </div>
             </div>
         </div>

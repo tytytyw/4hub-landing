@@ -9,6 +9,7 @@ class Tool extends Component {
         this.destroyEvents();
     }
 
+    //TODO - check and delete
     width = {
         pencil: 1,
         penThin: 1,
