@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {dotsPaint} from "../../../../../../generalComponents/collections";
 import {useDispatch, useSelector} from "react-redux";
 import {onSetPaint} from "../../../../../../Store/actions/CabinetActions";
-import {hexToRgbA} from "../../../../../../generalComponents/generalHelpers";
 
 const buttonStyles = {
     background: "white",
