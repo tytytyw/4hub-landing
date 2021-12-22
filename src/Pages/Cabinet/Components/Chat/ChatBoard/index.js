@@ -34,13 +34,25 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     }
     const addMessage = (text) => {
         const newMessage = {text, type: 'outbox'}
-        setMessages(messages => [...messages, newMessage])
-        inputRef.current.value = ''
+        if (text) setMessages(messages => [...messages, newMessage])
+        setTimeout(() => {
+            inputRef.current.value = '';
+            inputRef.current.style.height = '25px'
+        })
     }
 
     //TODO - Need to change after chat is developed
-
     const findCursorPosition = () => setCursorPosition(inputRef.current.selectionStart);
+
+    const keyPress = (e) => {
+        findCursorPosition()
+        if (e.keyCode === 13 && !e.shiftKey) addMessage(inputRef.current.value)
+    }
+
+    const onTextAreaChange = (e) => {
+        e.target.style.height = 'auto'
+        e.target.style.height = e.target.value ? e.target.scrollHeight + 'px': '25px'
+    }
     
     return (
         <div className={styles.chatBoardWrap}>
@@ -61,18 +73,20 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
                 </div>
                 <div className={styles.textMessage}>
                     <img src={imageSrc + "assets/PrivateCabinet/send.svg"} alt="img" className={styles.messageImg} />
-                    <input
+                    <textarea
                         ref={inputRef}
                         type="text"
                         placeholder="Введите текст сообщения"
                         className={styles.textInput}
                         onClick={findCursorPosition}
-                        onChange={findCursorPosition}
+                        rows={1}
+                        onKeyDown={keyPress}
+                        onChange={onTextAreaChange}
                     />
                 </div>
                 <div className={styles.sendOptions}>
                     <div className={styles.button}><RadioIcon /></div>
-                    <div className={`${styles.button} ${styles.triangle}`} onClick={() => addMessage(inputRef.current.value)} />
+                    <div className={`${styles.button} ${styles.triangle}`} />
                     <div className={styles.button} onClick={() => setRightPanel(state => state ==='emo' ? '' : 'emo')} ><SmileIcon /></div>
                 </div>
             </footer>
