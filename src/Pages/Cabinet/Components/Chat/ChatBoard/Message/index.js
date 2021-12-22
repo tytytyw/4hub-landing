@@ -4,6 +4,7 @@ import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function Message({ message, selectedContact }) {
+    const text = message.text.split('\n')
 	return (
 		<div className={classNames(styles.wrapper, styles[message.type])}>
 			{message.type === "inbox" ? (
@@ -19,7 +20,7 @@ function Message({ message, selectedContact }) {
 				""
 			)}
 			<div className={classNames(styles.content)}>
-				<p className={styles.text}>{message.text}</p>
+                {text.map((item, index) => <p key={index} className={styles.text}>{item}</p>)}
 			</div>
 		</div>
 	);

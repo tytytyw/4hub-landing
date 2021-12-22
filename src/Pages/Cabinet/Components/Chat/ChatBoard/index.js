@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styles from "./ChatBoard.module.sass";
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/add-2.svg";
@@ -18,10 +18,13 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
 
+    const endMessagesRef = useRef();
+
     const [messages, setMessages] = useState([
         {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
-        {text: 'большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'}
+        {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
     ])
+    
     const renderMessages = () => {
         if (!messages?.length || !selectedContact) return null
         return (
@@ -34,13 +37,29 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     }
     const addMessage = (text) => {
         const newMessage = {text, type: 'outbox'}
-        setMessages(messages => [...messages, newMessage])
-        inputRef.current.value = ''
+        if (text) setMessages(messages => [...messages, newMessage])
+        setTimeout(() => {
+            inputRef.current.value = '';
+            inputRef.current.style.height = '25px'
+        })
     }
 
     //TODO - Need to change after chat is developed
-
     const findCursorPosition = () => setCursorPosition(inputRef.current.selectionStart);
+
+    const keyPress = (e) => {
+        findCursorPosition()
+        if (e.keyCode === 13 && !e.shiftKey) addMessage(inputRef.current.value)
+    }
+
+    const onTextAreaChange = (e) => {
+        e.target.style.height = 'auto'
+        e.target.style.height = e.target.value ? e.target.scrollHeight + 'px': '25px'
+    }
+    const scrollToBottom = () => {
+        endMessagesRef?.current.scrollIntoView()
+    }
+    useEffect(() => scrollToBottom, [messages, selectedContact])
     
     return (
         <div className={styles.chatBoardWrap}>
@@ -50,6 +69,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
                 <div style={{width: rightPanel ? 'calc(100% - 200px)' : '100%'}} className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
                     {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} /> : renderMessages()}
+                    <div ref={endMessagesRef} />
                 </div>
                 <div className={styles.rightPanel}>
                     {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}
@@ -61,18 +81,20 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
                 </div>
                 <div className={styles.textMessage}>
                     <img src={imageSrc + "assets/PrivateCabinet/send.svg"} alt="img" className={styles.messageImg} />
-                    <input
+                    <textarea
                         ref={inputRef}
                         type="text"
                         placeholder="Введите текст сообщения"
                         className={styles.textInput}
                         onClick={findCursorPosition}
-                        onChange={findCursorPosition}
+                        rows={1}
+                        onKeyDown={keyPress}
+                        onChange={onTextAreaChange}
                     />
                 </div>
                 <div className={styles.sendOptions}>
                     <div className={styles.button}><RadioIcon /></div>
-                    <div className={`${styles.button} ${styles.triangle}`} onClick={() => addMessage(inputRef.current.value)} />
+                    <div className={`${styles.button} ${styles.triangle}`} />
                     <div className={styles.button} onClick={() => setRightPanel(state => state ==='emo' ? '' : 'emo')} ><SmileIcon /></div>
                 </div>
             </footer>

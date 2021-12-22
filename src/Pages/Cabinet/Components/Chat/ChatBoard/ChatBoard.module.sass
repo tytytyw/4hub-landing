@@ -3,66 +3,74 @@
   flex-direction: column
   height: 100%
   width: 100%
+  justify-content: space-between
   
   .chatBoardMessageList
     display: flex
     width: 100%
-    height: calc(100% - 68px - 78px - 90px)
+    flex-grow: 1
+    overflow-y: hidden
     .chatArea
       width: calc(100% - 200px)
+      overflow: scroll
       .addFirstContactIcon
         margin: 45px 0 0 8px
       .collapsedMenu
         margin-top: -20px
-    .rightPanel
-      //width: 200px
+
   .chatBoardFooter
     display: flex
-    align-items: flex-start
+    align-items: flex-end
     justify-content: space-between
     width: 100%
-    height: 78px
     border-top: 1px solid #DFDFDF
     box-sizing: border-box
-    padding: 0 10px
+    padding: 15px 15px 35px
     .downloadOptions
       display: flex
-      align-items: center
+      align-items: flex-end
+      align-self: stretch
       position: relative
-      height: 80%
-      padding: 0 10px
+      padding: 8px 10px
+      justify-content: center
       &:after
         content: ""
         position: absolute
         width: 1px
-        height: 60%
-        top: 20%
+        height: 44px
+        bottom: -5px
         right: 0
         background: #DFDFDF
       svg
-        width: 25px
+        width: 20px
         min-height: 20px
         margin: 0 10px 0 0
         cursor: pointer
     .textMessage
       display: flex
-      height: 80%
-      align-items: center
+      align-items: flex-end
+      align-self: stretch
       width: 80%
-      padding-left: 20px
+      padding: 4px 20px
       .messageImg
         margin: 0 15px 0 0
         width: 22px
+        padding: 3px 0
       .textInput
         width: 87%
-        height: 25px
         font-size: 15px
         font-family: "SF Pro Regular", sans-serif
         border: none
+        outline: none
+        resize: none
+        height: 25px
+        line-height: 20px
+        max-height: 400px
+        overflow-y: scroll
+        overflow-x: hidden
     .sendOptions
       display: flex
-      height: 80%
-      align-items: center
+      align-items: flex-end
       .button
         display: flex
         justify-content: center
