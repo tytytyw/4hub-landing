@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styles from "./ChatBoard.module.sass";
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/add-2.svg";
@@ -18,10 +18,13 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
 
+    const endMessagesRef = useRef();
+
     const [messages, setMessages] = useState([
         {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
-        {text: 'большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'}
+        {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
     ])
+    
     const renderMessages = () => {
         if (!messages?.length || !selectedContact) return null
         return (
@@ -53,6 +56,10 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         e.target.style.height = 'auto'
         e.target.style.height = e.target.value ? e.target.scrollHeight + 'px': '25px'
     }
+    const scrollToBottom = () => {
+        endMessagesRef?.current.scrollIntoView()
+    }
+    useEffect(() => scrollToBottom, [messages, selectedContact])
     
     return (
         <div className={styles.chatBoardWrap}>
@@ -62,6 +69,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
                 <div style={{width: rightPanel ? 'calc(100% - 200px)' : '100%'}} className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
                     {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} /> : renderMessages()}
+                    <div ref={endMessagesRef} />
                 </div>
                 <div className={styles.rightPanel}>
                     {rightPanel === 'emo' ? <EmojiArea insertToInput={insertToInput} /> : null}
