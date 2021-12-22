@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Eraser extends Tool {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
         this.listen();
     }
 
@@ -31,7 +31,6 @@ class Eraser extends Tool {
     }
 
     draw(x, y) {
-        console.log(this.width[this.name])
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
         this.ctx.strokeStyle = 'white';

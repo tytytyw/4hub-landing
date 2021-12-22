@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Brush extends Tool {
-    constructor(canvas) {
-        super(canvas);
+    constructor(canvas, color) {
+        super(canvas, color);
         this.listen();
     }
 
@@ -33,15 +33,10 @@ class Brush extends Tool {
     draw(x, y) {
         this.ctx.lineTo(x, y);
         this.ctx.globalAlpha = 1;
-        this.ctx.strokeStyle = 'rgba(226,9,9,0.1)';
         this.ctx.lineWidth = this.width[this.name];
         this.ctx.stroke();
-        this.ctx.fillStyle = 'red';
-        this.ctx.shadowColor = '#b6b6b6';
-        this.ctx.shadowBlur = 1;
-        // this.ctx.shadowOffsetX = 15;
-        // this.ctx.shadowOffsetY = 15;
-        // this.ctx.fill();
+        this.ctx.shadowColor = this.ctx.strokeStyle;
+        this.ctx.shadowBlur = 5;
     }
 }
 

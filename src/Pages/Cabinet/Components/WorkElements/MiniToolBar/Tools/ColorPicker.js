@@ -1,20 +1,33 @@
 import React from 'react';
-import PopUp from "../../../../../../generalComponents/PopUp";
+import {useDispatch, useSelector} from "react-redux";
+import {useDebounce} from "../../../../../../generalComponents/Hooks";
+import {hexToRgbA} from "../../../../../../generalComponents/generalHelpers";
 import {onSetPaint} from "../../../../../../Store/actions/CabinetActions";
-import {useDispatch} from "react-redux";
 
-function ColorPicker() {
+function ColorPicker({colorPickerRef}) {
 
     const dispatch = useDispatch();
+    const tool = useSelector(state => state.Cabinet.paint.tool)
 
-    const close = () => {
-        dispatch(onSetPaint('tool', undefined));
+    const setStrokeColorOpacity = (value) => {
+        dispatch(onSetPaint('color', `rgba(${hexToRgbA(value)},1)`));
+        if(tool.name === "pencil") return tool.strokeStyle = `rgba(${hexToRgbA(value)},1)`;
+        if(tool.name === "marker") return tool.strokeStyle = `rgba(${hexToRgbA(value)},0.2)`;
+        return tool.strokeStyle = value;
     }
+    const setColor = value => {
+        setStrokeColorOpacity(value)
+    }
+    const debounceCallback = useDebounce(setColor, 200);
+    const handleChangeColor = e => debounceCallback(e.target.value);
 
     return(
-        <PopUp set={close}>
-            <input type="color" onChange={e => console.log(e)}/>
-        </PopUp>
+            <input
+                style={{position: 'absolute', visibility: 'hidden', left: -12, bottom: 0}}
+                ref={colorPickerRef}
+                type="color"
+                onChange={handleChangeColor}
+            />
     )
 }
 

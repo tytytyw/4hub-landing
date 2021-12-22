@@ -1,20 +1,15 @@
-import React, {useState} from 'react'
-
+import React, {useRef, useState} from 'react'
+import {useDispatch, useSelector} from "react-redux";
+import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import styles from './MiniToolBar.module.sass'
 import {ReactComponent as PencilIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
 import {ReactComponent as MarkerIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
-import {ReactComponent as PenThickIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/penThick.svg'
-import {ReactComponent as PenThinIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/penThin.svg'
 import {ReactComponent as BrushIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/brush.svg'
 import {ReactComponent as EraserIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
 import {ReactComponent as PhotoIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
-import {useDispatch, useSelector} from "react-redux";
-import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
-import PenThin from "./Tools/PenThin";
-import PenThick from "./Tools/PenThick";
 import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
@@ -26,12 +21,13 @@ const MiniToolBar = ({
     const [params, setParams] = useState({edit: false});
     const paint = useSelector(state => state.Cabinet.paint);
     const dispatch = useDispatch();
+    const colorPickerRef = useRef();
 
     const addButton = (icon, name = '', toolName = null) => (
         <div
             className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen}`}
             onClick={toolName ? () => {
-                dispatch(onSetPaint('tool', new toolName(canvasRef?.current)))
+                dispatch(onSetPaint('tool', new toolName(canvasRef?.current, paint.color)))
             } : null}
         >
             {icon}
@@ -39,7 +35,7 @@ const MiniToolBar = ({
     )
 
     const chooseColor = () => {
-        dispatch(onSetPaint('tool', {name: "colorPicker"}));
+        colorPickerRef.current.click();
     }
 
     const handleSaveImage = () => {
@@ -62,11 +58,13 @@ const MiniToolBar = ({
         <div className={styles.standardToolBarWrap}>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil)}</div>
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThickIcon className={`${!params.edit && styles.inActive}`} />, "penThick", PenThick)}</div>
-            <div className={styles.customWrap}>{addButton(<PenThinIcon className={`${!params.edit && styles.inActive}`} />, "penThin", PenThin)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush)}</div>
             <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
-            <div className={styles.customWrap}>{addButton(!params.edit ? <div className={styles.inactiveColor} /> : <img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} />, "colorPicker")}</div>
+            <div className={styles.customWrap}>{addButton(!params.edit
+                ? <div className={styles.inactiveColor} />
+                : <div style={{position: 'relative'}}><img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} /><ColorPicker colorPickerRef={colorPickerRef} /></div>
+                , "colorPicker")}
+            </div>
             <div className={styles.customWrap}>{addButton(<AddIcon className={`${!params.edit && styles.inActive}`} />)}</div>
         </div>
     )
@@ -118,8 +116,6 @@ const MiniToolBar = ({
         <>
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
-
-            {paint.tool?.name === "colorPicker" && <ColorPicker />}
         </>
     )
 }

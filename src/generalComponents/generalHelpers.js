@@ -169,3 +169,19 @@ export function arrayForPhpRequest(key, array) {
         return acc += `&${key}[${i}]=${item}`
     }, '')
 }
+
+//HEX to RGBA color - full(e.g. - rgba(1, 1, 1, 1) ) or short - e.g. 255, 255, 255
+export function hexToRgbA(hex, type){
+    let c;
+    if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+        c = hex.substring(1).split('');
+        if(c.length === 3){
+            c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+        }
+        c = '0x'+c.join('');
+        return type === 'full'
+            ? 'rgba(' + [(c>>16)&255, (c>>8)&255, c&255].join(',') + ',1)'
+            : `${[(c>>16)&255, (c>>8)&255, c&255].join(',')}`;
+    }
+    throw new Error('Bad Hex');
+}
