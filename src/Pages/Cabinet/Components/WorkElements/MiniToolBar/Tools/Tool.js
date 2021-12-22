@@ -22,6 +22,10 @@ class Tool extends Component {
         this.ctx.strokeStyle = color;
     }
 
+    set lineWidth(width) {
+        this.ctx.lineWidth = width;
+    }
+
     destroyEvents() {
         this.canvas.onmousemove = null;
         this.canvas.onmousedown = null;
@@ -29,7 +33,6 @@ class Tool extends Component {
         this.ctx.shadowBlur = 0;
         this.ctx.globalAlpha = 1;
         this.ctx.strokeStyle = this.color;
-        console.log(this.color);
     }
 }
 

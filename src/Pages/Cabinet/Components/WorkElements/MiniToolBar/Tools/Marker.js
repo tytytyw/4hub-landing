@@ -32,7 +32,6 @@ class Marker extends Tool {
 
     draw(x, y) {
         this.ctx.lineTo(x, y);
-        this.ctx.lineWidth = this.width[this.name];
         this.ctx.stroke();
         this.ctx.globalAlpha = 0.05;
     }

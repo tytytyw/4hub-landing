@@ -13,6 +13,7 @@ import Eraser from "./Tools/Eraser";
 import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
+import SizePicker from "./Tools/SizePicker";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null
@@ -60,6 +61,7 @@ const MiniToolBar = ({
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush)}</div>
             <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
+            <div className={styles.customWrap}>{addButton(<SizePicker />, "colorPicker")}</div>
             <div className={styles.customWrap}>{addButton(!params.edit
                 ? <div className={styles.inactiveColor} />
                 : <div style={{position: 'relative'}}><img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} /><ColorPicker colorPickerRef={colorPickerRef} /></div>

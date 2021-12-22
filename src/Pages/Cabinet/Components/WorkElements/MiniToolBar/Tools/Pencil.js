@@ -33,7 +33,6 @@ class Pencil extends Tool {
     draw(x, y) {
         this.ctx.lineTo(x, y);
         this.ctx.stroke();
-        this.ctx.lineWidth = this.width[this.name];
     }
 }
 

@@ -33,7 +33,6 @@ class Brush extends Tool {
     draw(x, y) {
         this.ctx.lineTo(x, y);
         this.ctx.globalAlpha = 1;
-        this.ctx.lineWidth = this.width[this.name];
         this.ctx.stroke();
         this.ctx.shadowColor = this.ctx.strokeStyle;
         this.ctx.shadowBlur = 5;
