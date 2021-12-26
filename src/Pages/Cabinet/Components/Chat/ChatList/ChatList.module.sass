@@ -7,6 +7,8 @@
     height: 100%
     font-family: "SF Pro Light", sans-serif
     letter-spacing: -0.06px
+    .membersList
+        border-bottom: 1px solid #DFDFDF
     .item
         display: flex
         align-items: center
@@ -17,51 +19,6 @@
         width: 100%
         &:hover, &.active
             background-color: #EBF1FD
-        .groupName
-            display: flex
-        .avatar
-            width: 30px
-            height: 30px
-            border-radius: 50%
-            margin: 0 10px 0 0
-        .info
-            display: flex
-            flex-direction: column
-            justify-content: center
-            align-items: flex-start
-            .name
-                font-size: 16px
-                color: rgb(73, 73, 73)
-            .status
-                font-size: 11px
-                color: rgb(133, 133, 133)
-        .menuWrap
-            display: flex
-            width: 20px
-            height: 20px
-            justify-content: center
-            align-items: center
-            cursor: pointer
-        .menu
-            position: relative
-            width: 3px
-            height: 3px
-            background: #c1c0c0
-            transition: background 0.2s ease
-        .menu::before, .menu::after
-            content: ''
-            position: absolute
-            width: 3px
-            height: 3px
-            background: #c1c0c0
-            transition: background 0.2s ease
-        .menu::before
-            transform: translateY(8px)
-        .menu::after
-            transform: translateY(-8px)
-        .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
-            background: #477DE1
-            transition: background 0.2s ease
     .addChat
         justify-content: flex-start
         cursor: pointer
@@ -77,6 +34,9 @@
             .iconWrap
                 margin-right: 0
                 width: 100%
+                display: flex
+                align-items: center
+                justify-content: center
                 .text
                     font-size: 10px
                     margin-right: 5px
@@ -90,12 +50,10 @@
         align-items: center
         .item
             justify-content: center
-            background: #F7F7F7
+            // background: #F7F7F7
             padding: 13px 0
-            &:hover
-                background-color: #EBF1FD
             &.active
-                background-color: #fff
+                background: #F7F7F7
                 cursor: default
         .item:first-child
             border-right: 1px solid #DFDFDF

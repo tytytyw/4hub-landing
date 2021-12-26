@@ -17,51 +17,6 @@
     width: 100%
     &:hover, &.active
       background-color: #EBF1FD
-    .groupName
-      display: flex
-      .avatar
-        width: 30px
-        height: 30px
-        border-radius: 50%
-        margin: 0 10px 0 0
-      .info
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: flex-start
-        .name
-          font-size: 16px
-          color: rgb(73, 73, 73)
-        .status
-          font-size: 11px
-          color: rgb(133, 133, 133)
-    .menuWrap
-      display: flex
-      width: 20px
-      height: 20px
-      justify-content: center
-      align-items: center
-      cursor: pointer
-      .menu
-        position: relative
-        width: 3px
-        height: 3px
-        background: #c1c0c0
-        transition: background 0.2s ease
-      .menu::before, .menu::after
-        content: ''
-        position: absolute
-        width: 3px
-        height: 3px
-        background: #c1c0c0
-        transition: background 0.2s ease
-      .menu::before
-        transform: translateY(8px)
-      .menu::after
-        transform: translateY(-8px)
-    .menuWrap:hover .menu, .menuWrap:hover .menu::before, .menuWrap:hover .menu::after
-      background: #477DE1
-      transition: background 0.2s ease
   .addContact
     justify-content: flex-start
     cursor: pointer

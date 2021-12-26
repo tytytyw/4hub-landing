@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 import styles from "./ChatList.module.sass";
-import { useDispatch, useSelector } from "react-redux";
-// import {onGetContacts, onGetCompanyContacts} from "../../../../../Store/actions/CabinetActions";
+import { useSelector } from "react-redux";
+import CustomChatItem from "../CustomChatItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
 
 const ChatList = ({
-	// search,
+	search,
 	sideMenuCollapsed,
 	selectedContact,
 	setSelectedContact,
@@ -17,59 +17,86 @@ const ChatList = ({
 }) => {
 	// const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
+    const [collapseMembersList, setCollapseMembersList] = useState(false);
 
-	//TODO Chats list
-	const chatList = useSelector((state) => state.Cabinet.contactList);
+
+	//TODO: Chats list
+	const chatList = useSelector((state) => state.Cabinet.contactList) || [];
+    const groupsList= [{name: '1hub', members: [...chatList], id:'chat_1'}, {name: '2hub', members: [...chatList], id:'chat_2'}, {name: '3hub', members: [chatList[2]], id:'chat_3'}]
 
 	useEffect(() => {
 		// dispatch(chatList());
-	}, []); //eslint-disable-line\
+	}, []); //eslint-disable-line
 
-	const renderChatsList = () => {
+	const renderChatsList = (chatList) => {
 		if (!chatList) return null;
 
 		return chatList.map((chat, i) => {
-			// if (!(chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null
+			if (!(chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null
 			return (
-				<div
-					className={classNames({
-						[styles.item]: true,
-						[styles.active]: selectedContact?.id === chat.id,
-					})}
-					key={i}
-					onClick={() => setSelectedContact(chat)}
-					title={sideMenuCollapsed ? `${chat?.sname} ${chat?.name}` : ""}
-				>
-					<div className={styles.groupName}>
-						<img
-							src={
-								chat?.icon?.[0] ||
-								`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-							}
-							alt="img"
-							className={styles.avatar}
-						/>
-						{sideMenuCollapsed ? null : (
-							<div className={styles.info}>
-								<div
-									className={styles.name}
-								>{`${chat?.sname} ${chat?.name}`}</div>
-								<div className={styles.status}>в сети 29 мин. назад</div>
-							</div>
-						)}
-					</div>
-					<div className={styles.functionWrap}>
-						<div
-							className={styles.menuWrap}
-							// onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}
-						>
-							<span className={styles.menu} />
-						</div>
-					</div>
-				</div>
+                <CustomChatItem
+					selectedContact={selectedContact}
+					setSelectedContact={setSelectedContact}
+					sideMenuCollapsed={sideMenuCollapsed}
+					chatItem={chat}
+					key={chat.id}
+                    title={`${chat?.sname} ${chat?.name}`}
+                    subtitle={'в сети 29 мин. назад'}
+                    avatar={chat?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+				/>
 			);
 		});
 	};
+
+    const renderMembersList = (members, chatId) => {
+        if (!members) return null;
+		return members.map((member, i) => {
+			return (
+                <CustomChatItem
+                    selectedContact={selectedContact}
+                    setSelectedContact={() => {}}
+                    sideMenuCollapsed={sideMenuCollapsed}
+                    chatItem={member}
+                    key={chatId + '_user_' + member.id}
+                    title={member?.name}
+                    subtitle={'в сети 30 мин. назад'}
+                    avatar={member?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+                    isSubList={true}
+                />
+			);
+		});
+    }
+
+    const renderGroupsList = () => {
+        if (!groupsList) return null;
+		return groupsList.map((group, i) => {
+			if (!(group?.name?.toLowerCase().includes(search.toLowerCase()) || group?.sname?.toLowerCase().includes(search.toLowerCase()))) return null
+			return (
+                <>
+                    <CustomChatItem
+                        selectedContact={selectedContact}
+                        setSelectedContact={setSelectedContact}
+                        sideMenuCollapsed={sideMenuCollapsed}
+                        chatItem={group}
+                        key={group.id}
+                        title={group?.name}
+                        subtitle={'last message'}
+                        avatar={group?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+                        setCollapseMembersList={setCollapseMembersList}
+                    >
+                    </CustomChatItem>
+                    {selectedContact?.id === group.id && !collapseMembersList ? <div className={styles.membersList}>{renderMembersList(group?.members, group.id)}</div> : null}
+                </>
+			);
+		});
+    }
+    
+    useEffect(() => {
+        setSelectedContact(null)
+    }, [chatsType, setSelectedContact])
+    useEffect(() => {
+        setCollapseMembersList(false)
+    }, [selectedContact])
 
 	return (
 		<div className={styles.listWrap}>
@@ -89,7 +116,7 @@ const ChatList = ({
 				}
 				title={
 					sideMenuCollapsed
-						? `Создать ${chatsType === "chats" ? "групповой" : "секретный"} чат`
+						? `Создать ${chatsType === "chats" ? "секретный" : "групповой"} чат`
 						: ""
 				}
 			>
@@ -109,7 +136,7 @@ const ChatList = ({
 
 				{!sideMenuCollapsed ? (
 					<span className={styles.text}>
-						Создать {chatsType === "chats" ? "групповой" : "секретный"} чат
+						Создать {chatsType === "chats" ? "секретный" : "групповой"} чат
 					</span>
 				) : (
 					""
@@ -146,7 +173,8 @@ const ChatList = ({
 				</div>
 			</div>
 
-			{ChatList ? renderChatsList() : null}
+			{chatsType === 'chats' ? renderChatsList(chatList) : ""}
+            {chatsType === 'groups' ? renderGroupsList() : ""}
 		</div>
 	);
 };

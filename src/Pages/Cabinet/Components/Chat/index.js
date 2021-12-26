@@ -33,6 +33,10 @@ const Chat = ({ setMenuItem }) => {
 		return () => setMenuItem("");
 	}, []); //eslint-disable-line
 
+    useEffect(() => {
+		setSelectedContact(null)
+	}, [boardOption]); //eslint-disable-line
+    
 	return (
 		<div className={styles.chatComponent}>
 			<div

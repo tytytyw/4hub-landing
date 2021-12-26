@@ -24,7 +24,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
         {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
     ])
-    
+
     const renderMessages = () => {
         if (!messages?.length || !selectedContact) return null
         return (
@@ -57,7 +57,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         e.target.style.height = e.target.value ? e.target.scrollHeight + 'px': '25px'
     }
     const scrollToBottom = () => {
-        endMessagesRef?.current.scrollIntoView()
+        endMessagesRef?.current?.scrollIntoView()
     }
     useEffect(() => scrollToBottom, [messages, selectedContact])
     
