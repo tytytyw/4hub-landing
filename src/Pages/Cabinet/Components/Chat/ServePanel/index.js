@@ -26,8 +26,8 @@ const ServePanel = ({selectedContact}) => {
 					<div className={styles.info}>
 						<div
 							className={styles.name}
-						>{`${selectedContact?.sname} ${selectedContact?.name}`}</div>
-						<div className={styles.status}>в сети 29 мин. назад</div>
+						>{`${selectedContact?.sname || ''} ${selectedContact?.name || ''}`}</div>
+						<div className={styles.status}>{selectedContact?.status || ''}</div>
 					</div>
 				</div>
 			) : null}

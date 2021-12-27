@@ -1,0 +1,75 @@
+.listWrap
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    box-sizing: border-box
+    width: 100%
+    height: 100%
+    font-family: "SF Pro Light", sans-serif
+    letter-spacing: -0.06px
+    .membersList
+        border-bottom: 1px solid #DFDFDF
+    .item
+        display: flex
+        align-items: center
+        justify-content: space-between
+        box-sizing: border-box
+        padding: 20px 15px
+        border-bottom: 1px solid #DFDFDF
+        width: 100%
+        &:hover, &.active
+            background-color: #EBF1FD
+    .addChat
+        justify-content: flex-start
+        cursor: pointer
+        color: #49494B
+        position: relative
+        .iconWrap
+            font-size: 16.5px
+            margin-right: 10px
+            width: 30px
+            text-align: center
+        &.collapsed
+            padding: 7px
+            .iconWrap
+                margin-right: 0
+                width: 100%
+                display: flex
+                align-items: center
+                justify-content: center
+                .text
+                    font-size: 10px
+                    margin-right: 5px
+        &:hover
+            .iconWrap
+                svg
+                    path
+                        fill: #4086F1
+    .chatsSwitcher
+        display: flex
+        align-items: center
+        .item
+            justify-content: center
+            // background: #F7F7F7
+            padding: 13px 0
+            &.active
+                background: #F7F7F7
+                cursor: default
+        .item:first-child
+            border-right: 1px solid #DFDFDF
+        &.collapsed
+            .item
+                .text
+                    font-size: 11px
+@media (max-width: 1440px)
+    .listWrap
+        .item
+        .groupName
+            .avatar
+            .info
+            .name
+                font-size: 14px
+            .status
+                font-size: 10px
+        .addChat
+            font-size: 14.5px
