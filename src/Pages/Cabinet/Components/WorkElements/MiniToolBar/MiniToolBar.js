@@ -59,19 +59,19 @@ const MiniToolBar = ({
 
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&larr;</div>)}</div>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&rarr;</div>)}</div>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil, addTool)}</div>
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker, addTool)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush, addTool)}</div>
             <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser, addTool)}</div>
-            <div className={styles.customWrap}>{addButton(<SizePicker />, "colorPicker")}</div>
+            <div className={styles.customWrap}>{addButton(<SizePicker isEdit={params.edit} />, "colorPicker")}</div>
             <div className={styles.customWrap}>{addButton(!params.edit
                 ? <div className={styles.inactiveColor} />
                 : <div style={{position: 'relative'}}><img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} /><ColorPicker colorPickerRef={colorPickerRef} /></div>
                 , "colorPicker")}
             </div>
             <div className={styles.customWrap}>{addButton(<AddIcon className={`${!params.edit && styles.inActive}`} />)}</div>
-            <div className={styles.customWrap}>{addButton(<div>&larr;</div>)}</div>
-            <div className={styles.customWrap}>&rarr;</div>
         </div>
     )
 
