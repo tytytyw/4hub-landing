@@ -3,38 +3,6 @@ import canvasTxt from "canvas-txt";
 import html2canvas from "html2canvas";
 import styles from "./PreviewFile.module.sass";
 
-// paint brush
-export const mouseUpHandlerBrush = (status, setMouse) => {
-    if(status === 'Сохранить') {
-        setMouse(mouse => ({...mouse, down: false}));
-    }
-}
-
-export const mouseDownHandlerBrush = (e, canvasRef, status, setMouse, setUndoList) => {
-    const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-    if(status === 'Сохранить' && ctx) {
-        setMouse(mouse => ({...mouse, down: true}));
-        ctx.beginPath();
-        ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-        setUndoList(state => ([...state, canvasRef.current.toDataURL()]))
-    }
-}
-
-export const mouseMoveHandlerBrush = (e, drawBrush, status, mouse, drawParams, canvasRef) => {
-    if(status === 'Сохранить' && mouse.down) {
-        drawBrush(e.nativeEvent.offsetX, e.nativeEvent.offsetY, drawParams, canvasRef)
-    }
-}
-
-export const drawBrush = (x, y, drawParams, canvasRef) => {
-    const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null;
-    ctx.lineTo(x, y);
-    ctx.strokeStyle = drawParams.figure === "pencil-outlined" ? drawParams.color : drawParams.colorRGBA;
-    ctx.globalAlpha = drawParams.figure === "pencil-outlined" ? 1 : 0.2;
-    ctx.lineWidth = drawParams.width;
-    ctx.stroke();
-}
-
 //Square paint
 export const mouseDownHandlerSquare = (e, status, setMouse, canvasRef, setUndoList) => {
     if(status === 'Сохранить') {
@@ -175,5 +143,18 @@ export const unDoPaintBrush = (canvasRef, undoList, setUndoList) => {
             newUndoList.pop();
             setUndoList(() => ([...newUndoList]));
         }
+    }
+}
+
+//draw image on canvas
+export function drawCanvas(canvas, image, callback = null, next, previous) {
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let img = new Image();
+    img.src = image;
+    img.onload = () => {
+        const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, sizes.width, sizes.height);
+        if(callback) callback(next, previous);
     }
 }

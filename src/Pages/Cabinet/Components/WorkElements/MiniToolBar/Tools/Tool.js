@@ -1,9 +1,10 @@
 import {Component} from 'react';
 
 class Tool extends Component {
-    constructor(canvas, color) {
-        super(canvas, color);
-        this.color = color;
+    constructor(canvas, options) {
+        super(canvas, options);
+        this.color = options.color;
+        this.pushInDrawHistory = options.pushInDrawHistory;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.destroyEvents();

@@ -15,19 +15,42 @@ import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
+import {drawCanvas} from "../../PreviewFile/paintHelpers";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
          setFilePreview
 }) => {
 
-    const [params, setParams] = useState({edit: false});
+    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}});
     const paint = useSelector(state => state.Cabinet.paint);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
-    const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, paint.color)))
+    const onFinishDraw = (image) => setParams(s => ({...s, history: {...s.history, previous: [...s.history.previous, image], next: []}}));
+    const imageNavigation = (next, previous) => setParams(s => ({...s, history: {previous, next}}));
+
+    const previousImage = () => {
+        if(params.history.previous.length > 0) {
+            let previous = [...params.history.previous];
+            const image = previous.pop();
+            const next = [...params.history.next, canvasRef.current.toDataURL()];
+            drawCanvas(canvasRef.current, image, imageNavigation, next, previous);
+        }
+    };
+
+    const nextImage = () => {
+        if(params.history.next.length > 0) {
+            let next = [...params.history.next];
+            const image = next.pop();
+            const previous = [...params.history.previous, canvasRef.current.toDataURL()];
+            drawCanvas(canvasRef.current, image, imageNavigation, next, previous);
+        }
+    };
+
+
+    const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
 
     const addButton = (icon, name = '', options = null, callback = null) => (
         <div
@@ -52,15 +75,15 @@ const MiniToolBar = ({
             if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
             if(file.fid === 'printScreen') sendFile(uid, file);
         } else {
-            dispatch(onSetPaint('tool', new Pencil(canvasRef?.current)));
+            addTool(Pencil);
         }
         setParams(state => ({...state, edit: !state.edit}));
     }
 
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
-            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&larr;</div>)}</div>
-            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&rarr;</div>)}</div>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit || params.history.previous.length === 0 ? styles.inActive : ''}`}>&larr;</div>, 'previous', true, previousImage)}</div>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit || params.history.next.length === 0 ? styles.inActive : ''}`}>&rarr;</div>, 'next', true, nextImage)}</div>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil, addTool)}</div>
             <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker, addTool)}</div>
             <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush, addTool)}</div>

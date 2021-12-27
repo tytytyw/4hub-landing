@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Marker extends Tool {
-    constructor(canvas, color) {
-        super(canvas, color);
+    constructor(canvas, options) {
+        super(canvas, options);
         this.listen();
     }
 
