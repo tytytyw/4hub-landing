@@ -17,12 +17,15 @@ const ChatList = ({
 }) => {
 	// const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
-    const [collapseMembersList, setCollapseMembersList] = useState(false);
-
+	const [collapseMembersList, setCollapseMembersList] = useState(false);
 
 	//TODO: Chats list
 	const chatList = useSelector((state) => state.Cabinet.contactList) || [];
-    const groupsList= [{name: '1hub', members: [...chatList], id:'chat_1'}, {name: '2hub', members: [...chatList], id:'chat_2'}, {name: '3hub', members: [chatList[2]], id:'chat_3'}]
+	const groupsList = [
+		{ name: "1hub", members: [...chatList], id: "chat_1" },
+		{ name: "2hub", members: [...chatList], id: "chat_2" },
+		{ name: "3hub", members: [chatList[2]], id: "chat_3" },
+	];
 
 	useEffect(() => {
 		// dispatch(chatList());
@@ -32,71 +35,99 @@ const ChatList = ({
 		if (!chatList) return null;
 
 		return chatList.map((chat, i) => {
-			if (!(chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null
+			if (
+				!(
+					chat?.name?.toLowerCase().includes(search.toLowerCase()) ||
+					chat?.sname?.toLowerCase().includes(search.toLowerCase())
+				)
+			)
+				return null;
 			return (
-                <CustomChatItem
+				<CustomChatItem
 					selectedContact={selectedContact}
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={chat}
 					key={chat.id}
-                    title={`${chat?.sname} ${chat?.name}`}
-                    subtitle={'в сети 29 мин. назад'}
-                    avatar={chat?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+					title={`${chat?.sname} ${chat?.name}`}
+					subtitle={"в сети 29 мин. назад"}
+					status={"в сети 29 мин. назад"}
+					avatar={
+						chat?.icon?.[0] ||
+						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+					}
 				/>
 			);
 		});
 	};
 
-    const renderMembersList = (members, chatId) => {
-        if (!members) return null;
+	const renderMembersList = (members, chatId) => {
+		if (!members) return null;
 		return members.map((member, i) => {
 			return (
-                <CustomChatItem
-                    selectedContact={selectedContact}
-                    setSelectedContact={() => {}}
-                    sideMenuCollapsed={sideMenuCollapsed}
-                    chatItem={member}
-                    key={chatId + '_user_' + member.id}
-                    title={member?.name}
-                    subtitle={'в сети 30 мин. назад'}
-                    avatar={member?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
-                    isSubList={true}
-                />
+				<CustomChatItem
+					selectedContact={selectedContact}
+					setSelectedContact={() => {}}
+					sideMenuCollapsed={sideMenuCollapsed}
+					chatItem={member}
+					key={chatId + "_user_" + member.id}
+					title={member?.name}
+					subtitle={"в сети 30 мин. назад"}
+					avatar={
+						member?.icon?.[0] ||
+						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+					}
+					isSubList={true}
+				/>
 			);
 		});
-    }
+	};
 
-    const renderGroupsList = () => {
-        if (!groupsList) return null;
+	const renderGroupsList = () => {
+		if (!groupsList) return null;
 		return groupsList.map((group, i) => {
-			if (!(group?.name?.toLowerCase().includes(search.toLowerCase()) || group?.sname?.toLowerCase().includes(search.toLowerCase()))) return null
+			if (
+				!(
+					group?.name?.toLowerCase().includes(search.toLowerCase()) ||
+					group?.sname?.toLowerCase().includes(search.toLowerCase())
+				)
+			)
+				return null;
 			return (
-                <>
-                    <CustomChatItem
-                        selectedContact={selectedContact}
-                        setSelectedContact={setSelectedContact}
-                        sideMenuCollapsed={sideMenuCollapsed}
-                        chatItem={group}
-                        key={group.id}
-                        title={group?.name}
-                        subtitle={'last message'}
-                        avatar={group?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
-                        setCollapseMembersList={setCollapseMembersList}
-                    >
-                    </CustomChatItem>
-                    {selectedContact?.id === group.id && !collapseMembersList ? <div className={styles.membersList}>{renderMembersList(group?.members, group.id)}</div> : null}
-                </>
+				<div key={"wrap_" + group.id}>
+					<CustomChatItem
+						selectedContact={selectedContact}
+						setSelectedContact={setSelectedContact}
+						sideMenuCollapsed={sideMenuCollapsed}
+						chatItem={group}
+						key={group.id}
+						title={group?.name}
+						subtitle={"last message"}
+						avatar={
+							group?.icon?.[0] ||
+							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+						}
+						setCollapseMembersList={setCollapseMembersList}
+						status={`${
+							group?.members?.length
+						} участников группы ( ${0} онлайн )`}
+					/>
+					{selectedContact?.id === group.id && !collapseMembersList ? (
+						<div key={"member_wrap" + group.id} className={styles.membersList}>
+							{renderMembersList(group?.members, group.id)}
+						</div>
+					) : null}
+				</div>
 			);
 		});
-    }
-    
-    useEffect(() => {
-        setSelectedContact(null)
-    }, [chatsType, setSelectedContact])
-    useEffect(() => {
-        setCollapseMembersList(false)
-    }, [selectedContact])
+	};
+
+	useEffect(() => {
+		setSelectedContact(null);
+	}, [chatsType, setSelectedContact]);
+	useEffect(() => {
+		setCollapseMembersList(false);
+	}, [selectedContact]);
 
 	return (
 		<div className={styles.listWrap}>
@@ -173,8 +204,8 @@ const ChatList = ({
 				</div>
 			</div>
 
-			{chatsType === 'chats' ? renderChatsList(chatList) : ""}
-            {chatsType === 'groups' ? renderGroupsList() : ""}
+			{chatsType === "chats" ? renderChatsList(chatList) : ""}
+			{chatsType === "groups" ? renderGroupsList() : ""}
 		</div>
 	);
 };

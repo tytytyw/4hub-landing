@@ -46,6 +46,7 @@ const ContactList = ({
 					key={i}
                     title={`${contact?.sname} ${contact?.name}`}
                     subtitle={'в сети 29 мин. назад'}
+					status={'в сети 29 мин. назад'}
                     avatar={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
 				/>
 			);

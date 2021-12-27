@@ -11,11 +11,12 @@ const CustomChatItem = ({
 	subtitle,
 	avatar,
 	isSubList = false,
-	setCollapseMembersList
+	setCollapseMembersList,
+	status
 }) => {
     const onChatItemClick = () => {
         if (chatItem?.id === selectedContact?.id && setCollapseMembersList) setCollapseMembersList(state => !state)
-		else setSelectedContact(chatItem)
+		else setSelectedContact({...chatItem, status})
     }
 	return (
 		<div
