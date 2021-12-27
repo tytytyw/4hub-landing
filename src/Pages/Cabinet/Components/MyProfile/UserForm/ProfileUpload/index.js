@@ -4,11 +4,11 @@ import styles from './ProfileUpload.module.sass'
 import avatarImg from '../../../../../../assets/PrivateCabinet/avatar2.svg'
 import classnames from 'classnames'
 
-const Index = ({ name = 'file', disabled, onChange = () => {}, preview, ...props }) => {
+const Index = ({ name = 'file', disabled, onChange = () => {}, preview, background={avatarImg}, ...props }) => {
 
     const inputId = `userPhoto-${Math.random()}`
 
-    const getImage = () => preview ?? avatarImg
+    const getImage = () => preview ?? background
 
     return (
         <div className={styles.upload}>

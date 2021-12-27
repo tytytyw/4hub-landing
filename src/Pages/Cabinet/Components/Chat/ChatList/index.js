@@ -105,7 +105,7 @@ const ChatList = ({
 						subtitle={"last message"}
 						avatar={
 							group?.icon?.[0] ||
-							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+							`${imageSrc}assets/PrivateCabinet/chatGroup.svg`
 						}
 						setCollapseMembersList={setCollapseMembersList}
 						status={`${

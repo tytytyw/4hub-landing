@@ -13,7 +13,8 @@ const CustomChatItem = ({
 	isSubList = false,
 	setCollapseMembersList,
 	status,
-	contextMenu='contextMenu'
+	contextMenu = 'contextMenu',
+	disableHover = false
 }) => {
     const onChatItemClick = () => {
         if (chatItem?.id === selectedContact?.id && setCollapseMembersList) setCollapseMembersList(state => !state)
@@ -26,6 +27,7 @@ const CustomChatItem = ({
 				[styles.item]: true,
 				[styles.sublist]: isSubList,
 				[styles.active]: selectedContact && selectedContact?.id === chatItem.id,
+				[styles.disableHover]: disableHover,
 			})}
 			onClick={onChatItemClick}
 			title={sideMenuCollapsed ? title : ""}
