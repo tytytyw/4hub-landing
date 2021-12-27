@@ -19,6 +19,7 @@ class Eraser extends Tool {
     }
 
     mouseDownHandler(e) {
+        this.pushInDrawHistory(this.canvas.toDataURL());
         this.mouseDown = true;
         this.ctx.beginPath();
         this.ctx.moveTo(e.layerX, e.layerY);
