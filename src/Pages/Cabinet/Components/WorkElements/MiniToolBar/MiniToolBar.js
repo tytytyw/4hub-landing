@@ -14,6 +14,7 @@ import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
+import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
@@ -22,6 +23,7 @@ const MiniToolBar = ({
 
     const [params, setParams] = useState({edit: false});
     const paint = useSelector(state => state.Cabinet.paint);
+    const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
@@ -46,10 +48,9 @@ const MiniToolBar = ({
             canvasRef.current.onmousedown = null;
             canvasRef.current.onmouseup = null;
             dispatch(onSetPaint('tool', undefined));
-            console.log(file)
-            // const preview = canvasRef.current.toDataURL("image/png");
-            // if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
-            // if(file.fid === 'printScreen') sendFile(uid, file);
+            const preview = canvasRef.current.toDataURL("image/png");
+            if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
+            if(file.fid === 'printScreen') sendFile(uid, file);
         } else {
             dispatch(onSetPaint('tool', new Pencil(canvasRef?.current)));
         }
