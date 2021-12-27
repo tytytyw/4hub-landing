@@ -14,6 +14,7 @@ import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
+import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
@@ -22,15 +23,16 @@ const MiniToolBar = ({
 
     const [params, setParams] = useState({edit: false});
     const paint = useSelector(state => state.Cabinet.paint);
+    const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
-    const addButton = (icon, name = '', toolName = null) => (
+    const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, paint.color)))
+
+    const addButton = (icon, name = '', options = null, callback = null) => (
         <div
             className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen}`}
-            onClick={toolName ? () => {
-                dispatch(onSetPaint('tool', new toolName(canvasRef?.current, paint.color)))
-            } : null}
+            onClick={options && callback && params.edit ? () => {callback(options)} : null}
         >
             {icon}
         </div>
@@ -46,10 +48,9 @@ const MiniToolBar = ({
             canvasRef.current.onmousedown = null;
             canvasRef.current.onmouseup = null;
             dispatch(onSetPaint('tool', undefined));
-            console.log(file)
-            // const preview = canvasRef.current.toDataURL("image/png");
-            // if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
-            // if(file.fid === 'printScreen') sendFile(uid, file);
+            const preview = canvasRef.current.toDataURL("image/png");
+            if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
+            if(file.fid === 'printScreen') sendFile(uid, file);
         } else {
             dispatch(onSetPaint('tool', new Pencil(canvasRef?.current)));
         }
@@ -58,11 +59,13 @@ const MiniToolBar = ({
 
     const standardEditToolBar = () => (
         <div className={styles.standardToolBarWrap}>
-            <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil)}</div>
-            <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker)}</div>
-            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush)}</div>
-            <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser)}</div>
-            <div className={styles.customWrap}>{addButton(<SizePicker />, "colorPicker")}</div>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&larr;</div>)}</div>
+            <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit && styles.inActive}`}>&rarr;</div>)}</div>
+            <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil, addTool)}</div>
+            <div className={styles.customWrap}>{addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker, addTool)}</div>
+            <div className={styles.customWrap}>{addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush, addTool)}</div>
+            <div className={styles.customWrap}>{addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser, addTool)}</div>
+            <div className={styles.customWrap}>{addButton(<SizePicker isEdit={params.edit} />, "colorPicker")}</div>
             <div className={styles.customWrap}>{addButton(!params.edit
                 ? <div className={styles.inactiveColor} />
                 : <div style={{position: 'relative'}}><img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} /><ColorPicker colorPickerRef={colorPickerRef} /></div>
@@ -93,7 +96,7 @@ const MiniToolBar = ({
                 <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
-                    <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Cохранить" : "Редактировать"}</span>
+                    <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
                     {share !== null ? <span
                         className={`${styles.button} ${styles.send}`}
                         onClick={() => {

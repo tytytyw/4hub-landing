@@ -15,7 +15,7 @@ const buttonStyles = {
     padding: 0
 }
 
-function SizePicker() {
+function SizePicker({isEdit}) {
 
     const paint = useSelector(state => state.Cabinet.paint);
     const [params, setParams] = useState({open: false});
@@ -24,7 +24,7 @@ function SizePicker() {
     return(
         <>
             {params.open && <div
-                onMouseEnter={() => {setParams(state => ({...state, open: true}))}}
+                onMouseEnter={() => {if(isEdit) setParams(state => ({...state, open: true}))}}
                 onMouseLeave={() => {setParams(state => ({...state, open: false}))}}
                 style={{
                     display: "flex",
@@ -53,7 +53,7 @@ function SizePicker() {
                                 style={{
                                     width: `${item?.width}px`,
                                     height: `${item?.width}px`,
-                                    background: paint.color,
+                                    background: isEdit ? paint.color : 'grey',
                                     borderRadius: '50%'
                                 }}
                             />
@@ -62,17 +62,16 @@ function SizePicker() {
             </div>}
 
             <button
-                style={{...buttonStyles}}
-                onMouseEnter={() => {setParams(state => ({...state, open: true}))}}
+                style={{...buttonStyles, cursor: isEdit ? 'pointer' : 'default'}}
+                onMouseEnter={() => {if(isEdit)setParams(state => ({...state, open: true}))}}
                 onMouseLeave={() => {setParams(state => ({...state, open: false}))}}
             >
                 <span
                     style={{
-                        background: paint.color,
+                        background: isEdit ? paint.color : 'grey',
                         borderRadius: '50%',
                         width: `${paint.size}px`,
                         height: `${paint.size}px`
-
                     }}
                 />
             </button>
