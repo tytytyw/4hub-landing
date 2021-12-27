@@ -43,7 +43,7 @@ const ContactList = ({
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={contact}
-					key={i}
+					key={'contact_'+contact.id}
                     title={`${contact?.sname} ${contact?.name}`}
                     subtitle={'в сети 29 мин. назад'}
 					status={'в сети 29 мин. назад'}
@@ -60,8 +60,10 @@ const ContactList = ({
 					[styles.active]: false,
 					[styles.addContact]: true,
 				})}
-				onClick={() =>
+				onClick={() => {
 					setAction({ type: "addContact", name: "Добавить контакт", text: "" })
+					setSelectedContact(null)
+					}
 				}
 				title="Добавить контакт"
 			>

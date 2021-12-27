@@ -12,11 +12,13 @@ const CustomChatItem = ({
 	avatar,
 	isSubList = false,
 	setCollapseMembersList,
-	status
+	status,
+	contextMenu='contextMenu'
 }) => {
     const onChatItemClick = () => {
         if (chatItem?.id === selectedContact?.id && setCollapseMembersList) setCollapseMembersList(state => !state)
-		else setSelectedContact({...chatItem, status})
+			// else if (contextMenu==='checkBox') setSelectedContact(state => state.filter(contact => contact !== chatItem?.id))
+				else setSelectedContact({...chatItem, status})
     }
 	return (
 		<div
@@ -38,12 +40,13 @@ const CustomChatItem = ({
 				)}
 			</div>
 			<div className={styles.functionWrap}>
-				<div
-					className={styles.menuWrap}
-					// onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}
+				{contextMenu === 'contextMenu' ? <div className={styles.menuWrap} // onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}
 				>
 					<span className={styles.menu} />
-				</div>
+				</div> : null}
+				{contextMenu === 'checkBox' ?
+					<div className={classNames({[styles.radioContact]: true, [styles.radioContactChosen]: selectedContact?.filter(c => c.id === chatItem.id).length})} />
+				: null}
 			</div>
 		</div>
 	);

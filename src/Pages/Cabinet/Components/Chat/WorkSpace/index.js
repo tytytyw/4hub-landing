@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 
 import styles from "./WorkSpace.module.sass";
-
+import CreateChat from "../CreateChat"
 import BottomPanel from "../../BottomPanel";
 import ChatBoard from "../ChatBoard";
 import SearchField from "../../SearchField";
@@ -33,14 +33,14 @@ const WorkSpace = ({selectedContact, sideMenuCollapsed, boardOption, setShowSucc
                 </div>
             </div>
             <div className={styles.main}>
-                <ChatBoard
+                {selectedContact ? <ChatBoard
                     inputRef={inputRef} setCursorPosition={setCursorPosition}
                     selectedContact={selectedContact}
                     insertToInput={insertToInput}
                     sideMenuCollapsed={sideMenuCollapsed}
                     boardOption={boardOption}
                     setShowSuccessPopup={setShowSuccessPopup}
-                />
+                /> : <CreateChat />}
             </div>
 
             <BottomPanel />

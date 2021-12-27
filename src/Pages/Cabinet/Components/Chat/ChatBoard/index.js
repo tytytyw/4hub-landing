@@ -64,7 +64,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
     return (
         <div className={styles.chatBoardWrap}>
 
-            <ServePanel selectedContact={selectedContact}></ServePanel>
+            {selectedContact ? <ServePanel selectedContact={selectedContact} /> : ''}
             <main className={styles.chatBoardMessageList}>
                 <div style={{width: rightPanel ? 'calc(100% - 200px)' : '100%'}} className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
