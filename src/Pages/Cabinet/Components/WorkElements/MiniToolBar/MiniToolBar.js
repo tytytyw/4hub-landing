@@ -8,6 +8,13 @@ import {ReactComponent as BrushIcon} from '../../../../../assets/PrivateCabinet/
 import {ReactComponent as EraserIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/eraser.svg'
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/add.svg'
 import {ReactComponent as PhotoIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/photo.svg'
+import {ReactComponent as LineIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/line.svg'
+import {ReactComponent as SquareIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/rectangle1.svg'
+import {ReactComponent as Square1Icon} from '../../../../../assets/PrivateCabinet/minitoolbar/rectangle2.svg'
+import {ReactComponent as Square3Icon} from '../../../../../assets/PrivateCabinet/minitoolbar/rectangle3.svg'
+import {ReactComponent as SearchIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/search.svg'
+import {ReactComponent as TextIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/text.svg'
+import {ReactComponent as VectorIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/vector-1.svg'
 import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
 import Marker from "./Tools/Marker";
@@ -22,7 +29,7 @@ const MiniToolBar = ({
          setFilePreview
 }) => {
 
-    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}});
+    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: true});
     const paint = useSelector(state => state.Cabinet.paint);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
@@ -49,13 +56,27 @@ const MiniToolBar = ({
         }
     };
 
+    const toggleContextMenu = (values, e) => {
+        console.log(e)
+        setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
+    }
+
+    const renderAdditionalTools = () => (
+        <>
+            {params.showAdditionalTools ? <div className={styles.additionalTools}>
+                <div className={styles.line}><TextIcon className={styles.iconTool} />Текст</div>
+                <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
+                <div className={`${styles.line} ${styles.lineIcons}`}><Square1Icon /> <SquareIcon /> <Square3Icon /> <VectorIcon /><LineIcon /></div>
+            </div> : null}
+        </>
+    )
 
     const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
 
     const addButton = (icon, name = '', options = null, callback = null) => (
         <div
             className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen}`}
-            onClick={options && callback && params.edit ? () => {callback(options)} : null}
+            onClick={options && callback && params.edit ? (e) => {callback(options, e)} : null}
         >
             {icon}
         </div>
@@ -94,7 +115,7 @@ const MiniToolBar = ({
                 : <div style={{position: 'relative'}}><img src='./assets/PrivateCabinet/Oval.png' alt='palette' onClick={chooseColor} /><ColorPicker colorPickerRef={colorPickerRef} /></div>
                 , "colorPicker")}
             </div>
-            <div className={styles.customWrap}>{addButton(<AddIcon className={`${!params.edit && styles.inActive}`} />)}</div>
+            <div className={styles.customWrap}>{addButton(<div className={styles.additionalToolsWrap}><AddIcon className={`${!params.edit && styles.inActive}`} />{renderAdditionalTools()}</div>, 'add', true, toggleContextMenu)}</div>
         </div>
     )
 
