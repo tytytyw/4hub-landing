@@ -8,19 +8,17 @@ import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariable
 import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
 import {
-    drawBrush, drawCircle, drawSquare, drawText, drawDiv,
-    mouseDownHandlerBrush, mouseDownHandlerCircle, mouseDownHandlerSquare,
-    mouseMoveHandlerBrush, mouseMoveHandlerCircle, mouseMoveHandlerSquare,
-    mouseUpHandlerBrush, mouseUpHandlerCircle, mouseUpHandlerSquare,
+    drawCircle, drawSquare, drawText, drawDiv,
+    mouseDownHandlerCircle, mouseDownHandlerSquare,
+    mouseMoveHandlerCircle, mouseMoveHandlerSquare,
+    mouseUpHandlerCircle, mouseUpHandlerSquare,
     unDoPaintBrush
 } from "./paintHelpers";
-// import {useSelector} from "react-redux";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 const PreviewFile = ({setFilePreview, file, share}) => {
 
     const [loading, setLoading] = useState(false)
-    // const uid = useSelector(state => state.user.uid);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 
     const set = e => {
@@ -39,15 +37,6 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     }
 
     const [edit, ] = useState({status: 'Редактировать'});
-    // const handleEdit = () => {
-    //     if(edit.status === 'Сохранить') {
-    //         const preview = canvasRef.current.toDataURL("image/png");
-    //         setFilePreview(state => ({...state, file: {...state.file, preview}}));
-    //         if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
-    //         if(file.fid === 'printScreen') sendFile(uid, file);
-    //     }
-    //     setEdit(state => ({...state, status: state.status === 'Редактировать' ? 'Сохранить' : 'Редактировать'}))
-    // }
     const canvasRef = useRef(null)
     const textBlockRef = useRef(null)
     const dotRightRef = useRef(null)
@@ -185,7 +174,6 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     const [mouse, setMouse] = useState({down: false, startX: 0, startY: 0, saved: null});
 
     const mouseDownHandler = e => {
-        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseDownHandlerBrush(e, canvasRef, edit.status, setMouse, setUndoList);
         if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
         if(drawParams.figure === "circle-outlined") mouseDownHandlerCircle(e, edit.status, setMouse, canvasRef, setUndoList);
         if(drawParams.figure === "font") drawText(canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw);
@@ -193,13 +181,11 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     }
 
     const mouseMoveHandler = e => {
-        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseMoveHandlerBrush(e, drawBrush, edit.status, mouse, drawParams, canvasRef);
         if(drawParams.figure === "square-outlined") mouseMoveHandlerSquare(e, drawSquare, edit.status, mouse, drawParams, canvasRef)
         if(drawParams.figure === "circle-outlined") mouseMoveHandlerCircle(e, drawCircle, edit.status, mouse, drawParams, canvasRef)
     }
 
     const mouseUpHandler = () => {
-        if(drawParams.figure === "brush-outlined" || drawParams.figure === "pencil-outlined") mouseUpHandlerBrush(edit.status, setMouse);
         if(drawParams.figure === "square-outlined") mouseUpHandlerSquare(edit.status, setMouse)
         if(drawParams.figure === "circle-outlined") mouseUpHandlerCircle(edit.status, setMouse)
     }

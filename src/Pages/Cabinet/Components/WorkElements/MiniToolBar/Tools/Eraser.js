@@ -1,8 +1,8 @@
 import Tool from "./Tool";
 
 class Eraser extends Tool {
-    constructor(canvas, color) {
-        super(canvas, color);
+    constructor(canvas, options) {
+        super(canvas, options);
         this.listen();
     }
 
@@ -19,6 +19,7 @@ class Eraser extends Tool {
     }
 
     mouseDownHandler(e) {
+        this.pushInDrawHistory(this.canvas.toDataURL());
         this.mouseDown = true;
         this.ctx.beginPath();
         this.ctx.moveTo(e.layerX, e.layerY);
