@@ -85,3 +85,6 @@ export const COMPANY_DOCUMENTS = 'COMPANY_DOCUMENTS'
 
 //PAINT
 export const SET_PAINT = 'SET_PAINT'
+
+//CHAT
+export const CHAT_GROUPS_LIST = 'CHAT_GROUPS_LIST'

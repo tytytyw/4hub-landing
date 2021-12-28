@@ -10,7 +10,7 @@ import {ReactComponent as InfoIcon} from "../../../../../assets/PrivateCabinet/i
 import {ReactComponent as CopyLinkIcon} from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/picture-2.svg";
 
-const ServePanel = ({selectedContact}) => {
+const ServePanel = ({selectedContact, isGroup = false}) => {
 	return (
 		<div className={styles.chatBoardHeader}>
 			{selectedContact ? (
@@ -18,7 +18,7 @@ const ServePanel = ({selectedContact}) => {
 					<img
 						src={
 							selectedContact?.icon?.[0] ||
-							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+							`${imageSrc}assets/PrivateCabinet/${isGroup? 'profile-noPhoto' : 'chatGroup'}.svg`
 						}
 						alt="img"
 						className={styles.avatar}

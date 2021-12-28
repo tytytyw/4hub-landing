@@ -58,6 +58,7 @@ import {
     LOAD_FILES_NEXT,
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
+    CHAT_GROUPS_LIST
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -934,6 +935,30 @@ export const setDragged = (element) => {
         type: SET_DRAGGED,
         payload: element
     }
+};
+
+// Chat
+export const onGetChatGroups = () => async (dispatch, getState) => {
+
+    const uid = getState().user.uid
+
+    api.get(`/ajax/chat_group_list.php?uid=${uid}`)
+        .then(response => {
+            const data = response.data?.chat_groups
+
+            const newData = []
+            for (const key in data) {
+                newData.push(data[key])
+            }
+
+            dispatch({
+                type: CHAT_GROUPS_LIST,
+                payload: newData
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+
 };
 
 // COMPANY

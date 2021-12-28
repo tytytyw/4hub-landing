@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import styles from "./ChatList.module.sass";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CustomChatItem from "../CustomChatItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
+import {onGetChatGroups} from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
 	search,
@@ -15,20 +16,16 @@ const ChatList = ({
 	setSelectedContact,
 	setAction,
 }) => {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
 	const [collapseMembersList, setCollapseMembersList] = useState(false);
 
 	//TODO: Chats list
 	const chatList = useSelector((state) => state.Cabinet.contactList) || [];
-	const groupsList = [
-		{ name: "1hub", members: [...chatList], id: "chat_1" },
-		{ name: "2hub", members: [...chatList], id: "chat_2" },
-		{ name: "3hub", members: [chatList[2]], id: "chat_3" },
-	];
+    const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
 
 	useEffect(() => {
-		// dispatch(chatList());
+		dispatch(onGetChatGroups());
 	}, []); //eslint-disable-line
 
 	const renderChatsList = (chatList) => {
@@ -109,7 +106,7 @@ const ChatList = ({
 						}
 						setCollapseMembersList={setCollapseMembersList}
 						status={`${
-							group?.members?.length
+							group?.members?.length || 0
 						} участников группы ( ${0} онлайн )`}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (

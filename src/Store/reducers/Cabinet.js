@@ -52,6 +52,7 @@ import {
     LOAD_FILES_NEXT,
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
+    CHAT_GROUPS_LIST
 } from '../types'
 
 const INITIAL_STATE = {
@@ -141,7 +142,12 @@ const INITIAL_STATE = {
         tool: undefined,
         color: 'rgba(0,0,0,1)',
         size: 2
-    }
+    },
+
+    //CHAT
+    chat: {
+        groupsList: [],
+    },
 
 }
 
@@ -240,6 +246,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         //SEARCH
         case SEARCH: {
             return {...state, search: action.payload}
+        }
+        //CHAT
+        case CHAT_GROUPS_LIST: {
+            return {...state, chat: {...state.chat, groupsList: action.payload}}
         }
         //SORT FILES
         case SORT_FILES: {
