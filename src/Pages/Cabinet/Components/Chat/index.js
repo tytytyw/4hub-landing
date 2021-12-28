@@ -140,6 +140,8 @@ const Chat = ({ setMenuItem }) => {
 				selectedContact={selectedContact}
 				sideMenuCollapsed={sideMenuCollapsed}
 				setShowSuccessPopup={setShowSuccessPopup}
+                nullifyAction={nullifyAction}
+                action={action}
 			/>
 			{action.type === "addContact" ? (
 				<AddContact

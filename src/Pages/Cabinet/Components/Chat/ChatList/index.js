@@ -138,13 +138,14 @@ const ChatList = ({
 					[styles.addChat]: true,
 					[styles.collapsed]: sideMenuCollapsed,
 				})}
-				onClick={() =>
+				onClick={() => {
 					setAction({
-						type: "addChat",
+						type: "addGroup",
 						name: "Создать групповой чат",
 						text: "",
 					})
-				}
+                    setSelectedContact(null)
+				}}
 				title={
 					sideMenuCollapsed
 						? `Создать ${chatsType === "chats" ? "секретный" : "групповой"} чат`

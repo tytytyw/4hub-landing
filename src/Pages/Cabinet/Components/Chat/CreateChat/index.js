@@ -7,12 +7,13 @@ import CustomChatItem from "../CustomChatItem";
 import ProfileUpload from "../../../Components/MyProfile/UserForm/ProfileUpload";
 import AvatarBackground from '../../../../../assets/PrivateCabinet/circle.svg'
 
-const CreateChat = ({ title = "Новая группа" }) => {
+const CreateChat = ({ title = "Новая группа", maxCountUsers=200000, nullifyAction }) => {
 	const [search, setSearch] = useState("");
 	const [selectedContacts, setSelectedContact] = useState([]);
 	const [step, setStep] = useState("one");
     const [previewAvatar, setPreviewAvatar] = useState(null)
     const [image, setImage] = useState(null)
+    const [groupName, setGroupName] = useState('')
 
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
@@ -56,6 +57,12 @@ const CreateChat = ({ title = "Новая группа" }) => {
         setImage((file && file.type.substr(0, 5) === 'image') ? file : null)
     }
 
+    const onExit = () => {
+        setPreviewAvatar(null)
+        setImage(null)
+        nullifyAction()
+    }
+
 	useEffect(() => {
 		setSearch("");
 	}, [selectedContacts]);
@@ -70,11 +77,12 @@ const CreateChat = ({ title = "Новая группа" }) => {
     }, [image])
 
     useEffect(() => {
-        return () => {
-            setPreviewAvatar(null)
-            setImage(null)
-        }
-    }, [])
+        return () => onExit()
+    }, []) //eslint-disable-line
+
+    useEffect(() => {
+        if (step === 'exit') onExit() 
+    }, [step]) //eslint-disable-line
 
 	const renderContactList = (contactList) =>
 		contactList?.map((contact, i) => {
@@ -107,26 +115,37 @@ const CreateChat = ({ title = "Новая группа" }) => {
 			);
 		});
 
+        const stepHandler = (direction) => {
+            // for create group
+            if (maxCountUsers > 1) {
+                if (direction === 'forward' && selectedContacts.length) setStep("two")
+                if (direction === 'back') {
+                    setStep(step => step === "two" ? 'one' : 'exit')
+                }
+            }
+        }
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<div
-					className={classNames(styles.backBtn, styles.button)}
-					onClick={() => setStep("one")}
-				>
+				<div className={classNames(styles.backBtn, styles.button)} onClick={() => stepHandler('back')}>
 					<div className={styles.arrow}></div>
 					Назад
 				</div>
-				<div className={styles.title}>{title}</div>
+				<div className={styles.title}>
+                    {maxCountUsers > 1 && step === 'one' ? `Выберите пользователей ${selectedContacts.length}/${new Intl.NumberFormat('ru-RU').format(maxCountUsers)}` : ''}
+                    {step === 'two'? title : ''}
+                </div>
 				<div
 					className={classNames({
 						[styles.forwardBtn]: true,
 						[styles.button]: true,
-						[styles.disable]: !selectedContacts.length,
+						[styles.disable]: !selectedContacts.length || (step === "two" && !groupName),
 					})}
-					onClick={() => (selectedContacts.length ? setStep("two") : null)}
+					onClick={() => stepHandler('forward')}
 				>
-					Далее
+					{step === "one" ? 'Далее' : ''}
+                    {step === "two" ? 'Создать' : ''}
 				</div>
 			</div>
 			<div className={styles.main}>
@@ -151,7 +170,7 @@ const CreateChat = ({ title = "Новая группа" }) => {
                                 background={AvatarBackground}
 							/>
 						</div>
-                        <input className={styles.name} placeholder="Введите имя группы" />
+                        <input value={groupName} onChange={e => setGroupName(e.target.value)} className={styles.name} placeholder="Введите имя группы" />
 					</div>
 				)}
 				<div className={styles.contactsList}>
