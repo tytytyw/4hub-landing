@@ -124,7 +124,8 @@ const ChatList = ({
 
 	useEffect(() => {
 		setSelectedContact(null);
-	}, [chatsType, setSelectedContact]);
+        setAction({ type: "", name: "", text: "" })
+	}, [chatsType, setSelectedContact]); //eslint-disable-line
 	useEffect(() => {
 		setCollapseMembersList(false);
 	}, [selectedContact]);
@@ -140,9 +141,10 @@ const ChatList = ({
 				})}
 				onClick={() => {
 					setAction({
-						type: "addGroup",
-						name: "Создать групповой чат",
+						type: "addChat",
+						name: `${chatsType === "chats" ? "Cекретный чат" : "Новая группа"} `,
 						text: "",
+                        chatsType
 					})
                     setSelectedContact(null)
 				}}

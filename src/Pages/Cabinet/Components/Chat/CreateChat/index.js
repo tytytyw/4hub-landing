@@ -5,15 +5,22 @@ import { useSelector } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import CustomChatItem from "../CustomChatItem";
 import ProfileUpload from "../../../Components/MyProfile/UserForm/ProfileUpload";
-import AvatarBackground from '../../../../../assets/PrivateCabinet/circle.svg'
+import AvatarBackground from "../../../../../assets/PrivateCabinet/circle.svg";
+import ActionApproval from "../../../../../generalComponents/ActionApproval";
 
-const CreateChat = ({ title = "Новая группа", maxCountUsers=200000, nullifyAction }) => {
+const CreateChat = ({
+	title,
+	maxCountUsers = 1000,
+	nullifyAction,
+	setShowSuccessPopup,
+}) => {
 	const [search, setSearch] = useState("");
 	const [selectedContacts, setSelectedContact] = useState([]);
 	const [step, setStep] = useState("one");
-    const [previewAvatar, setPreviewAvatar] = useState(null)
-    const [image, setImage] = useState(null)
-    const [groupName, setGroupName] = useState('')
+	const [previewAvatar, setPreviewAvatar] = useState(null);
+	const [image, setImage] = useState(null);
+	const [groupName, setGroupName] = useState("");
+	const [showActionApproval, setShowActionApproval] = useState(false);
 
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
@@ -52,37 +59,38 @@ const CreateChat = ({ title = "Новая группа", maxCountUsers=200000, n
 		});
 	};
 
-    const uploadImage = event => {
-        const file = event.target.files[0] ?? null
-        setImage((file && file.type.substr(0, 5) === 'image') ? file : null)
-    }
+	const uploadImage = (event) => {
+		const file = event.target.files[0] ?? null;
+		setImage(file && file.type.substr(0, 5) === "image" ? file : null);
+	};
 
-    const onExit = () => {
-        setPreviewAvatar(null)
-        setImage(null)
-        nullifyAction()
-    }
+	const onExit = () => {
+		setPreviewAvatar(null);
+		setImage(null);
+		nullifyAction();
+	};
 
 	useEffect(() => {
 		setSearch("");
-	}, [selectedContacts]);
+        if(selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
+	}, [selectedContacts, maxCountUsers]);
 
-    useEffect(() => {
-        if (image) {
-            const reader = new FileReader()
-            reader.onloadend = () => setPreviewAvatar(reader.result)
-            reader.readAsDataURL(image)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [image])
+	useEffect(() => {
+		if (image) {
+			const reader = new FileReader();
+			reader.onloadend = () => setPreviewAvatar(reader.result);
+			reader.readAsDataURL(image);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [image]);
 
-    useEffect(() => {
-        return () => onExit()
-    }, []) //eslint-disable-line
+	useEffect(() => {
+		return () => onExit();
+	}, []); //eslint-disable-line
 
-    useEffect(() => {
-        if (step === 'exit') onExit() 
-    }, [step]) //eslint-disable-line
+	useEffect(() => {
+		if (step === "exit") onExit();
+	}, [step]); //eslint-disable-line
 
 	const renderContactList = (contactList) =>
 		contactList?.map((contact, i) => {
@@ -115,38 +123,56 @@ const CreateChat = ({ title = "Новая группа", maxCountUsers=200000, n
 			);
 		});
 
-        const stepHandler = (direction) => {
-            // for create group
-            if (maxCountUsers > 1) {
-                if (direction === 'forward' && selectedContacts.length) setStep("two")
-                if (direction === 'back') {
-                    setStep(step => step === "two" ? 'one' : 'exit')
-                }
-            }
-        }
+	const stepHandler = (direction) => {
+		// for create group
+		if (maxCountUsers > 1) {
+			if (direction === "forward" && selectedContacts.length) {
+				if (step === "one") setStep("two");
+				else if (step === "two") onSubmit();
+			}
+			if (direction === "back") {
+				setStep((step) => (step === "two" ? "one" : "exit"));
+			}
+        // for create secret chat
+		} else if (maxCountUsers === 1 && direction === "back") onExit()
+	};
+
+	const onSubmit = () => {
+		setShowSuccessPopup({ title: "Новая группа успешно создана", text: "" });
+		onExit();
+	};
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>
-				<div className={classNames(styles.backBtn, styles.button)} onClick={() => stepHandler('back')}>
+				<div
+					className={classNames(styles.backBtn, styles.button)}
+					onClick={() => stepHandler("back")}
+				>
 					<div className={styles.arrow}></div>
 					Назад
 				</div>
 				<div className={styles.title}>
-                    {maxCountUsers > 1 && step === 'one' ? `Выберите пользователей ${selectedContacts.length}/${new Intl.NumberFormat('ru-RU').format(maxCountUsers)}` : ''}
-                    {step === 'two'? title : ''}
-                </div>
-				<div
+					{maxCountUsers > 1 && step === "one"
+						? `Выберите пользователей ${
+								selectedContacts.length
+						}/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
+						: ""}
+					{maxCountUsers === 1 ? title : ""}
+					{step === "two" ? title : ""}
+				</div>
+				{maxCountUsers > 1 ? <div
 					className={classNames({
 						[styles.forwardBtn]: true,
 						[styles.button]: true,
-						[styles.disable]: !selectedContacts.length || (step === "two" && !groupName),
+						[styles.disable]:
+							!selectedContacts.length || (step === "two" && !groupName),
 					})}
-					onClick={() => stepHandler('forward')}
+					onClick={() => stepHandler("forward")}
 				>
-					{step === "one" ? 'Далее' : ''}
-                    {step === "two" ? 'Создать' : ''}
-				</div>
+					{step === "one" ? "Далее" : ""}
+					{step === "two" ? "Создать" : ""}
+				</div> : <div />}
 			</div>
 			<div className={styles.main}>
 				{step === "one" ? (
@@ -167,16 +193,39 @@ const CreateChat = ({ title = "Новая группа", maxCountUsers=200000, n
 								name="profileImg"
 								preview={previewAvatar}
 								onChange={uploadImage}
-                                background={AvatarBackground}
+								background={AvatarBackground}
 							/>
 						</div>
-                        <input value={groupName} onChange={e => setGroupName(e.target.value)} className={styles.name} placeholder="Введите имя группы" />
+						<input
+							value={groupName}
+							onChange={(e) => setGroupName(e.target.value)}
+							className={styles.name}
+							placeholder="Введите имя группы"
+						/>
 					</div>
 				)}
 				<div className={styles.contactsList}>
 					{renderContactList(step === "one" ? contactList : selectedContacts)}
 				</div>
 			</div>
+			{showActionApproval ? (
+				<ActionApproval
+                    name={'Начать секретный чат'}
+                    text={`Вы действительно хотите создать секртеный чат с ${selectedContacts[0].name || ''} ${selectedContacts[0].sname || ''}?`}
+                    set={() => {setShowActionApproval(false); setSelectedContact([])}}
+                    // callback={deleteContact}
+                    approve={'Создать'}
+                >
+					<img
+						className={styles.avatar}
+						src={
+							selectedContacts[0]?.icon?.[0] ||
+							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+						}
+						alt="avatar"
+					/>
+				</ActionApproval>
+			) : null}
 		</div>
 	);
 };
