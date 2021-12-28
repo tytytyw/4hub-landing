@@ -31,7 +31,7 @@ const MiniToolBar = ({
          setFilePreview
 }) => {
 
-    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: true});
+    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false});
     const paint = useSelector(state => state.Cabinet.paint);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
