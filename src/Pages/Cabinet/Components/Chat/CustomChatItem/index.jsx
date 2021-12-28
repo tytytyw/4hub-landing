@@ -26,6 +26,7 @@ const CustomChatItem = ({
 			className={classNames({
 				[styles.item]: true,
 				[styles.sublist]: isSubList,
+				[styles.sideMenuCollapsed]: sideMenuCollapsed,
 				[styles.active]: selectedContact && selectedContact?.id === chatItem.id,
 				[styles.disableHover]: disableHover,
 			})}
