@@ -1,12 +1,18 @@
 import classNames from "classnames";
 import React, { useState, useEffect } from "react";
 import styles from "./CreateChat.module.sass";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import CustomChatItem from "../CustomChatItem";
 import ProfileUpload from "../../../Components/MyProfile/UserForm/ProfileUpload";
 import AvatarBackground from "../../../../../assets/PrivateCabinet/circle.svg";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {
+	onGetChatGroups,
+	onGetChatGroupsMembers,
+} from "../../../../../Store/actions/CabinetActions";
+import api from "../../../../../api";
 
 const CreateChat = ({
 	title,
@@ -21,7 +27,10 @@ const CreateChat = ({
 	const [image, setImage] = useState(null);
 	const [groupName, setGroupName] = useState("");
 	const [showActionApproval, setShowActionApproval] = useState(false);
+	const [loadingType, setLoadingType] = useState("");
+	const dispatch = useDispatch();
 
+	const uid = useSelector((state) => state.user.uid);
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
@@ -72,7 +81,8 @@ const CreateChat = ({
 
 	useEffect(() => {
 		setSearch("");
-        if(selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
+		if (selectedContacts.length && maxCountUsers === 1)
+			setShowActionApproval(true);
 	}, [selectedContacts, maxCountUsers]);
 
 	useEffect(() => {
@@ -133,13 +143,38 @@ const CreateChat = ({
 			if (direction === "back") {
 				setStep((step) => (step === "two" ? "one" : "exit"));
 			}
-        // for create secret chat
-		} else if (maxCountUsers === 1 && direction === "back") onExit()
+			// for create secret chat
+		} else if (maxCountUsers === 1 && direction === "back") onExit();
 	};
 
 	const onSubmit = () => {
-		setShowSuccessPopup({ title: "Новая группа успешно создана", text: "" });
-		onExit();
+		setLoadingType("squarify")
+		//for create group
+		if (maxCountUsers > 1) {
+			const formData = new FormData();
+			if (image) formData.append("file", image);
+			formData.append(
+				"id_user_to",
+				JSON.stringify(selectedContacts.map((item) => item.id))
+			);
+			api
+				.post(`/ajax/chat_group_add.php?uid=${uid}&name=${groupName}`, formData)
+				.then((res) => {
+					if (res.data.ok) {
+						dispatch(onGetChatGroups());
+						dispatch(onGetChatGroupsMembers(res.data.id_group));
+						setShowSuccessPopup({
+							title: "Новая группа успешно создана",
+							text: "",
+						});
+						onExit();
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+				.finally(() => setLoadingType(""));
+		}
 	};
 
 	return (
@@ -161,18 +196,22 @@ const CreateChat = ({
 					{maxCountUsers === 1 ? title : ""}
 					{step === "two" ? title : ""}
 				</div>
-				{maxCountUsers > 1 ? <div
-					className={classNames({
-						[styles.forwardBtn]: true,
-						[styles.button]: true,
-						[styles.disable]:
-							!selectedContacts.length || (step === "two" && !groupName),
-					})}
-					onClick={() => stepHandler("forward")}
-				>
-					{step === "one" ? "Далее" : ""}
-					{step === "two" ? "Создать" : ""}
-				</div> : <div />}
+				{maxCountUsers > 1 ? (
+					<div
+						className={classNames({
+							[styles.forwardBtn]: true,
+							[styles.button]: true,
+							[styles.disable]:
+								!selectedContacts.length || (step === "two" && !groupName),
+						})}
+						onClick={() => stepHandler("forward")}
+					>
+						{step === "one" ? "Далее" : ""}
+						{step === "two" ? "Создать" : ""}
+					</div>
+				) : (
+					<div />
+				)}
 			</div>
 			<div className={styles.main}>
 				{step === "one" ? (
@@ -210,12 +249,17 @@ const CreateChat = ({
 			</div>
 			{showActionApproval ? (
 				<ActionApproval
-                    name={'Начать секретный чат'}
-                    text={`Вы действительно хотите создать секртеный чат с ${selectedContacts[0].name || ''} ${selectedContacts[0].sname || ''}?`}
-                    set={() => {setShowActionApproval(false); setSelectedContact([])}}
-                    // callback={deleteContact}
-                    approve={'Создать'}
-                >
+					name={"Начать секретный чат"}
+					text={`Вы действительно хотите создать секртеный чат с ${
+						selectedContacts[0].name || ""
+					} ${selectedContacts[0].sname || ""}?`}
+					set={() => {
+						setShowActionApproval(false);
+						setSelectedContact([]);
+					}}
+					// callback={deleteContact}
+					approve={"Создать"}
+				>
 					<img
 						className={styles.avatar}
 						src={
@@ -225,6 +269,18 @@ const CreateChat = ({
 						alt="avatar"
 					/>
 				</ActionApproval>
+			) : null}
+			{loadingType ? (
+				<Loader
+					position="absolute"
+					zIndex={10000}
+					containerType="bounceDots"
+					type="bounceDots"
+					background="white"
+					animation={false}
+					width="100px"
+					height="100px"
+				/>
 			) : null}
 		</div>
 	);

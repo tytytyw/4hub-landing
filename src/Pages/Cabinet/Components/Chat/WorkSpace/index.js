@@ -57,7 +57,7 @@ const WorkSpace = ({
 					action.type === "addChat" && (
 						<CreateChat
                             title={action.name}
-							maxCountUsers={action?.chatsType === "groups" ? 200000 : 1}
+							maxCountUsers={action?.chatsType === "groups" ? 200 : 1}
 							nullifyAction={nullifyAction}
 							setShowSuccessPopup={setShowSuccessPopup}
 						/>
