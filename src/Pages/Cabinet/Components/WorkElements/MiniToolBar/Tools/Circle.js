@@ -1,12 +1,12 @@
 import Tool from "./Tool";
 
-class Square extends Tool {
+class Circle extends Tool {
     constructor(canvas, options) {
         super(canvas, options);
         this.listen();
     }
 
-    name = 'square';
+    name = 'circle';
     startX = undefined;
     startY = undefined;
     defaultImage = '';
@@ -38,21 +38,22 @@ class Square extends Tool {
             const currentY = e.offsetY;
             const width = currentX - this.startX;
             const height = currentY - this.startY;
-            this.draw(this.startX, this.startY, width, height)
+            const radius = Math.sqrt(width**2 + height**2)
+            this.draw(this.startX, this.startY, radius)
         }
     }
 
-    draw(x, y, width, height) {
+    draw(x, y, radius) {
         const img = new Image();
         img.src = this.defaultImage;
         img.onload = () => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
-            this.ctx.rect(x, y, width, height);
+            this.ctx.arc(x, y, radius, 0, 2*Math.PI);
             this.ctx.stroke();
         }
     }
 }
 
-export default Square;
+export default Circle;

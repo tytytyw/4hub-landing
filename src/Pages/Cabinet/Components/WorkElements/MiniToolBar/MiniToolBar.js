@@ -22,6 +22,7 @@ import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
+import Circle from "./Tools/Circle";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
 
@@ -65,7 +66,7 @@ const MiniToolBar = ({
                 <div className={styles.line}><TextIcon className={styles.iconTool} />Текст</div>
                 <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
+                    <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
                     <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
                     <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
                     <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
