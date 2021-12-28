@@ -21,6 +21,7 @@ import Marker from "./Tools/Marker";
 import ColorPicker from "./Tools/ColorPicker";
 import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
+import Square from "./Tools/Square";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
 
@@ -56,17 +57,20 @@ const MiniToolBar = ({
         }
     };
 
-    const toggleContextMenu = (values, e) => {
-        console.log(e)
-        setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
-    }
+    const toggleContextMenu = () => setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
 
     const renderAdditionalTools = () => (
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
                 <div className={styles.line}><TextIcon className={styles.iconTool} />Текст</div>
                 <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
-                <div className={`${styles.line} ${styles.lineIcons}`}><Square1Icon /> <SquareIcon /> <Square3Icon /> <VectorIcon /><LineIcon /></div>
+                <div className={`${styles.line} ${styles.lineIcons}`}>
+                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
+                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
+                    <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
+                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
+                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
+                </div>
             </div> : null}
         </>
     )
@@ -76,7 +80,7 @@ const MiniToolBar = ({
     const addButton = (icon, name = '', options = null, callback = null) => (
         <div
             className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen}`}
-            onClick={options && callback && params.edit ? (e) => {callback(options, e)} : null}
+            onClick={options && callback && params.edit ? () => {callback(options)} : null}
         >
             {icon}
         </div>
