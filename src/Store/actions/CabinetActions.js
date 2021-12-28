@@ -58,7 +58,8 @@ import {
     LOAD_FILES_NEXT,
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
-    CHAT_GROUPS_LIST
+    CHAT_GROUPS_LIST,
+    CHAT_GROUPS_MEMBERS,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -946,14 +947,36 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
         .then(response => {
             const data = response.data?.chat_groups
 
+            for (const key in data) {
+                data[key].isGroup = true
+            }
+
+            dispatch({
+                type: CHAT_GROUPS_LIST,
+                payload: data
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+
+};
+
+export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
+
+    const uid = getState().user.uid
+
+    api.get(`/ajax/chat_group_user_list.php?uid=${uid}&id_group=${id}`)
+        .then(response => {
+            const data = response.data?.data
+
             const newData = []
             for (const key in data) {
                 newData.push(data[key])
             }
 
             dispatch({
-                type: CHAT_GROUPS_LIST,
-                payload: newData
+                type: CHAT_GROUPS_MEMBERS,
+                payload: {id, data: newData}
             })
         }).catch(error => {
             console.log(error)

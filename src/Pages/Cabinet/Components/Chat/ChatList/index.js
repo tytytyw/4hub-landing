@@ -7,7 +7,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
-import {onGetChatGroups} from "../../../../../Store/actions/CabinetActions";
+import { onGetChatGroups, onGetChatGroupsMembers } from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
 	search,
@@ -27,6 +27,9 @@ const ChatList = ({
 	useEffect(() => {
 		dispatch(onGetChatGroups());
 	}, []); //eslint-disable-line
+    useEffect(() => {
+		if (selectedContact?.isGroup) dispatch(onGetChatGroupsMembers(selectedContact.id))
+	}, [selectedContact]); //eslint-disable-line
 
 	const renderChatsList = (chatList) => {
 		if (!chatList) return null;
@@ -82,7 +85,7 @@ const ChatList = ({
 
 	const renderGroupsList = () => {
 		if (!groupsList) return null;
-		return groupsList.map((group, i) => {
+		return Object.values(groupsList).map((group, i) => {
 			if (
 				!(
 					group?.name?.toLowerCase().includes(search.toLowerCase()) ||
