@@ -206,9 +206,10 @@ const ChatList = ({
 					<span className={styles.text}>Группы</span>
 				</div>
 			</div>
-
-			{chatsType === "chats" ? renderChatsList(chatList) : ""}
-			{chatsType === "groups" ? renderGroupsList() : ""}
+			<div className={styles.list}>
+				{chatsType === "chats" ? renderChatsList(chatList) : ""}
+				{chatsType === "groups" ? renderGroupsList() : ""}
+			</div>
 		</div>
 	);
 };

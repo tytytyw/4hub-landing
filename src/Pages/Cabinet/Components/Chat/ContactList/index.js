@@ -76,7 +76,7 @@ const ContactList = ({
 					<span className={styles.text}>Добавить контакт</span>
 				)}
 			</div>
-			{contactList ? renderContactList() : null}
+			{contactList ? <div className={styles.list}>{renderContactList()}</div> : null}
 		</div>
 	);
 };

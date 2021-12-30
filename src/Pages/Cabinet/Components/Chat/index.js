@@ -108,7 +108,6 @@ const Chat = ({ setMenuItem }) => {
 					</div>
 				)}
 				<div
-					className={styles.list}
 					style={{
 						height: `calc(100% - 68px - 68px - ${
 							sideMenuCollapsed ? "0" : "60"

@@ -7,6 +7,23 @@
   height: 100%
   font-family: "SF Pro Light", sans-serif
   letter-spacing: -0.06px
+  .list
+    overflow-x: hidden
+    overflow-y: scroll
+    scrollbar-width: thin
+    scrollbar-color: #4086F1 #F5F5F5
+    padding-bottom: 20px
+    &::-webkit-scrollbar-track
+      background: #0A3AAB
+    &::-webkit-scrollbar-track
+      -webkit-box-shadow: none
+      background-color: #F5F5F5
+    &::-webkit-scrollbar
+      height: 0
+      width: 3px
+      background-color: #FFFFFF
+    &::-webkit-scrollbar-thumb
+      background-color: #4086F1
   .item
     display: flex
     align-items: center
@@ -27,6 +44,7 @@
       margin-right: 10px
       width: 30px
       text-align: center
+      height: 22px
 
 @media (max-width: 1440px)
   .listWrap
