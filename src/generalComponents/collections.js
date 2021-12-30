@@ -239,6 +239,13 @@ export const contextMenuDocFile = [
     {name: 'Удалить', img: 'garbage', type: 'deleteFile'}
 ]
 
+// Chat
+
+export const contextMenuChatGroup = [
+    {name: 'Редактировать', img: 'edit', type: 'editChatGroup'},
+    {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
+]
+
 // org structure
 
 export const contextMenuPerson = [

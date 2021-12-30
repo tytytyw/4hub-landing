@@ -15,6 +15,7 @@ const ChatList = ({
 	selectedContact,
 	setSelectedContact,
 	setAction,
+	setMouseParams,
 }) => {
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
@@ -111,6 +112,7 @@ const ChatList = ({
 						status={`${
 							group?.members?.length || 0
 						} участников группы ( ${0} онлайн )`}
+						setMouseParams={setMouseParams}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>

@@ -15,6 +15,9 @@ import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import SuccessPopup from "./SuccessPopup";
+import ContextMenu from '../../../../generalComponents/ContextMenu';
+import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import { contextMenuChatGroup } from '../../../../generalComponents/collections';
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
@@ -26,6 +29,30 @@ const Chat = ({ setMenuItem }) => {
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 	const dispatch = useDispatch();
+	const [mouseParams, setMouseParams] = useState(null);
+
+	const closeContextMenu = () => {
+        setMouseParams(null);
+    }
+
+    const renderContextMenuItems = (target, type) => {
+        return target.map((item, i) => {
+            return <ContextMenuItem
+                key={i}
+                width={mouseParams.width}
+                height={mouseParams.height}
+                text={item.name}
+                callback={() => type[i]?.callback(type, i)}
+                imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+            />
+        })
+    };
+	const callbackArrMainGroup = [
+		{type: 'editChatGroup', name: 'Редактировать', text: ``, //callback: (list, index) => setAction(list[index])
+		},
+        {type: 'deleteChatGroup', name: 'Удалить', text: ``, //callback: () => {}},
+		},
+	]
 
 	useEffect(() => {
 		setMenuItem("Chat");
@@ -130,6 +157,7 @@ const Chat = ({ setMenuItem }) => {
 							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
+							setMouseParams={setMouseParams}
 						/>
 					) : null}
 				</div>
@@ -164,6 +192,9 @@ const Chat = ({ setMenuItem }) => {
 			) : (
 				""
 			)}
+			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
+                <div className={styles.mainMenuItems}>{renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup)}</div>
+            </ContextMenu> : null}
 		</div>
 	);
 };
