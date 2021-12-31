@@ -54,6 +54,7 @@ import {
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
     CHAT_GROUPS_MEMBERS,
+    CHAT_GROUP_DELETE,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -147,7 +148,7 @@ const INITIAL_STATE = {
 
     //CHAT
     chat: {
-        groupsList: {},
+        groupsList: [],
     },
 
 }
@@ -254,6 +255,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case CHAT_GROUPS_MEMBERS: {
             return {...state, chat: {...state.chat, groupsList: {...state.chat.groupsList, [action.payload.id]: {...state.chat.groupsList[action.payload.id], members: action.payload.data}}}}
+        }
+        case CHAT_GROUP_DELETE: {
+            const groups = state.chat.groupsList.filter(gr => gr.id !== action.payload.id)
+            return {...state, chat: {...state.chat, groupsList: groups}}
         }
         //SORT FILES
         case SORT_FILES: {

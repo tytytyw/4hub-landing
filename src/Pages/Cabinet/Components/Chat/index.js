@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Chat.module.sass";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
 import { ReactComponent as ChatIcon } from "../../../../assets/PrivateCabinet/chat-2.svg";
@@ -17,7 +17,9 @@ import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
+import ActionApproval from "../../../../generalComponents/ActionApproval";
 import { contextMenuChatGroup } from '../../../../generalComponents/collections';
+import { groupDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
@@ -30,9 +32,11 @@ const Chat = ({ setMenuItem }) => {
 	const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 	const dispatch = useDispatch();
 	const [mouseParams, setMouseParams] = useState(null);
+	const uid = useSelector((state) => state.user.uid);
 
 	const closeContextMenu = () => {
         setMouseParams(null);
+		nullifyAction()
     }
 
     const renderContextMenuItems = (target, type) => {
@@ -48,11 +52,37 @@ const Chat = ({ setMenuItem }) => {
         })
     };
 	const callbackArrMainGroup = [
-		{type: 'editChatGroup', name: 'Редактировать', text: ``, //callback: (list, index) => setAction(list[index])
+		{
+			type: 'editChatGroup',
+			name: 'Редактировать',
+			text: ``, 
+			callback: (list, index) => setAction(list[index])
 		},
-        {type: 'deleteChatGroup', name: 'Удалить', text: ``, //callback: () => {}},
+        {
+			type: 'deleteChatGroup',
+			name: 'Удалить',
+			text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+			callback: (list, index) =>
+			setAction({
+				text: list[index].text,
+				type: list[index].type,
+				name: list[index].name,
+			})
 		},
 	]
+
+	const deleteChatGroup = () => {
+		//TODO: add is_admin validation
+		groupDelete(
+			selectedContact,
+			dispatch,
+			uid,
+			setShowSuccessMessage,
+			"Группа удалена"
+		);
+		nullifyAction();
+		setSelectedContact(null);
+	}
 
 	useEffect(() => {
 		setMenuItem("Chat");
@@ -158,6 +188,9 @@ const Chat = ({ setMenuItem }) => {
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
 							setMouseParams={setMouseParams}
+							action={action}
+							closeContextMenu={closeContextMenu}
+							deleteChatGroup={deleteChatGroup}
 						/>
 					) : null}
 				</div>
@@ -192,9 +225,22 @@ const Chat = ({ setMenuItem }) => {
 			) : (
 				""
 			)}
-			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup)}</div>
+			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+                <div className={styles.ContextMenuItems}>{renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup)}</div>
             </ContextMenu> : null}
+			{action.type === "deleteChatGroup" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={closeContextMenu}
+					callback={deleteChatGroup}
+					approve={'Удалить'}
+				>
+					<div className={styles.groupLogoWrap}>
+						<img className={styles.groupLogo} src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`} alt='group logo' />
+					</div>
+				</ActionApproval>
+			) : null}
 		</div>
 	);
 };

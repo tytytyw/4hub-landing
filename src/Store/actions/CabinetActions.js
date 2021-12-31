@@ -60,6 +60,7 @@ import {
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
     CHAT_GROUPS_MEMBERS,
+    CHAT_GROUP_DELETE
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -947,13 +948,14 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
         .then(response => {
             const data = response.data?.chat_groups
 
+            const newData = []
             for (const key in data) {
-                data[key].isGroup = true
+                newData.push({...data[key], isGroup: true})
             }
 
             dispatch({
                 type: CHAT_GROUPS_LIST,
-                payload: data
+                payload: newData
             })
         }).catch(error => {
             console.log(error)
@@ -982,6 +984,13 @@ export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
             console.log(error)
         })
 
+};
+
+export const onDeleteChatGroup = (group) => {
+    return {
+        type: CHAT_GROUP_DELETE,
+        payload: group
+    }
 };
 
 // COMPANY

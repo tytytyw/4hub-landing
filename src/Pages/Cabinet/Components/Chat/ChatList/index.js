@@ -7,7 +7,10 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
-import { onGetChatGroups, onGetChatGroupsMembers } from "../../../../../Store/actions/CabinetActions";
+import {
+	onGetChatGroups,
+	// onGetChatGroupsMembers
+} from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
 	search,
@@ -29,7 +32,7 @@ const ChatList = ({
 		dispatch(onGetChatGroups());
 	}, []); //eslint-disable-line
     useEffect(() => {
-		if (selectedContact?.isGroup) dispatch(onGetChatGroupsMembers(selectedContact.id))
+		// if (selectedContact?.isGroup) dispatch(onGetChatGroupsMembers(selectedContact.id))
 	}, [selectedContact]); //eslint-disable-line
 
 	const renderChatsList = (chatList) => {
@@ -86,7 +89,7 @@ const ChatList = ({
 
 	const renderGroupsList = () => {
 		if (!groupsList) return null;
-		return Object.values(groupsList).map((group, i) => {
+		return groupsList.map((group, i) => {
 			if (
 				!(
 					group?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -116,7 +119,7 @@ const ChatList = ({
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>
-							{renderMembersList(group?.members, group.id)}
+							{renderMembersList(Object.values(group?.users), group.id)}
 						</div>
 					) : null}
 				</div>
