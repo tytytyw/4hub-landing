@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./CreateChat.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
@@ -31,6 +31,8 @@ const CreateChat = ({
 	const [showActionApproval, setShowActionApproval] = useState(false);
 	const [loadingType, setLoadingType] = useState("");
 	const dispatch = useDispatch();
+	const inputWrapRef = useRef();
+	const [inputWrapHeight, setInputWrapHeight] = useState(0);
 
 	const uid = useSelector((state) => state.user.uid);
 	const id_company = useSelector((state) => state.user.id_company);
@@ -45,7 +47,7 @@ const CreateChat = ({
 		setSelectedContact((state) =>
 			isSelected
 				? state.filter((item) => item.id !== contact.id)
-				: [...state, contact]
+				: [contact, ...state]
 		);
 	};
 
@@ -83,6 +85,7 @@ const CreateChat = ({
 
 	useEffect(() => {
 		setSearch("");
+		setInputWrapHeight(inputWrapRef.current.offsetHeight)
 		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
 	}, [selectedContacts, maxCountUsers]);
 
@@ -221,14 +224,17 @@ const CreateChat = ({
 			</div>
 			<div className={styles.main}>
 				{step === "one" ? (
-					<div className={styles.inputAreaWrap}>
+					<div className={styles.inputAreaWrap} ref={inputWrapRef}>
 						<div className={styles.inputArea}>
-							<input
-								className={styles.input}
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
-							/>
-							{renderSelectedContacts()}
+							<div className={styles.scrollContainer}>
+								<input
+									className={styles.input}
+									value={search}
+									onChange={(e) => setSearch(e.target.value)}
+									placeholder="Введите имя пользователя"
+								/>
+								{renderSelectedContacts()}
+							</div>
 						</div>
 					</div>
 				) : (
@@ -249,7 +255,7 @@ const CreateChat = ({
 						/>
 					</div>
 				)}
-				<div className={styles.contactsList}>
+				<div className={styles.contactsList} style={{height: `calc(100vh - ${inputWrapHeight}px - 68px - 90px)`}}>
 					{renderContactList(step === "one" ? contactList : selectedContacts)}
 				</div>
 			</div>
@@ -263,7 +269,7 @@ const CreateChat = ({
 						setShowActionApproval(false);
 						setSelectedContact([]);
 					}}
-					// callback={deleteContact}
+					// callback={}
 					approve={"Создать"}
 				>
 					<img
