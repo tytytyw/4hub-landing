@@ -10,7 +10,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
 	onGetChatGroups,
-	onGetChatGroupsMembers,
+	// onGetChatGroupsMembers,
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 
@@ -19,6 +19,8 @@ const CreateChat = ({
 	maxCountUsers = 1000,
 	nullifyAction,
 	setShowSuccessPopup,
+	selectedContact,
+	componentType,
 }) => {
 	const [search, setSearch] = useState("");
 	const [selectedContacts, setSelectedContact] = useState([]);
@@ -81,8 +83,7 @@ const CreateChat = ({
 
 	useEffect(() => {
 		setSearch("");
-		if (selectedContacts.length && maxCountUsers === 1)
-			setShowActionApproval(true);
+		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
 	}, [selectedContacts, maxCountUsers]);
 
 	useEffect(() => {
@@ -95,7 +96,11 @@ const CreateChat = ({
 	}, [image]);
 
 	useEffect(() => {
-		return () => onExit();
+		if (componentType === 'edit') {
+			setSelectedContact(Object.values(selectedContact?.users))
+			setGroupName(selectedContact?.name)
+		}
+		return () => onExit()
 	}, []); //eslint-disable-line
 
 	useEffect(() => {
@@ -157,13 +162,14 @@ const CreateChat = ({
 				"id_user_to",
 				JSON.stringify(selectedContacts.map((item) => item.id))
 			);
-			api
-				.post(`/ajax/chat_group_add.php?uid=${uid}&name=${groupName}`, formData)
+			if (componentType === 'edit') formData.append("id_group", selectedContact.id);
+			api					     //_ add or edit
+				.post(`/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`, formData)
 				.then((res) => {
 					if (res.data.ok) {
 						dispatch(onGetChatGroups());
-						dispatch(onGetChatGroupsMembers(res.data.id_group));
-						setShowSuccessPopup({
+						// dispatch(onGetChatGroupsMembers(res.data.id_group));
+						if (componentType === 'add') setShowSuccessPopup({
 							title: "Новая группа успешно создана",
 							text: "",
 						});
@@ -207,7 +213,7 @@ const CreateChat = ({
 						onClick={() => stepHandler("forward")}
 					>
 						{step === "one" ? "Далее" : ""}
-						{step === "two" ? "Создать" : ""}
+						{step === "two" ? `${componentType === 'add' ? 'Создать' : 'Сохранить'}` : ""}
 					</div>
 				) : (
 					<div />

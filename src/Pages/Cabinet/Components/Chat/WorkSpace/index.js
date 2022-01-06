@@ -43,7 +43,7 @@ const WorkSpace = ({
 				</div>
 			</div>
 			<div className={styles.main}>
-				{selectedContact ? (
+				{selectedContact && !action.type ? (
 					<ChatBoard
 						inputRef={inputRef}
 						setCursorPosition={setCursorPosition}
@@ -54,15 +54,27 @@ const WorkSpace = ({
 						setShowSuccessPopup={setShowSuccessPopup}
 					/>
 				) : (
-					action.type === "addChat" && (
-						<CreateChat
-                            title={action.name}
-							maxCountUsers={action?.chatsType === "groups" ? 200 : 1}
-							nullifyAction={nullifyAction}
-							setShowSuccessPopup={setShowSuccessPopup}
-						/>
-					)
+					""
 				)}
+				{action.type === "addChat" ? (
+					<CreateChat
+						title={action.name}
+						maxCountUsers={action?.chatsType === "groups" ? 200 : 1}
+						nullifyAction={nullifyAction}
+						setShowSuccessPopup={setShowSuccessPopup}
+						componentType={'add'}
+					/>
+				) : ''}
+				{action.type === "editChatGroup" ? (
+					<CreateChat
+						title={action.name}
+						maxCountUsers={200}
+						nullifyAction={nullifyAction}
+						setShowSuccessPopup={setShowSuccessPopup}
+						selectedContact={selectedContact}
+						componentType={'edit'}
+					/>
+				) : ''}
 			</div>
 
 			<BottomPanel />
