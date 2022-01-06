@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./CreateChat.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
@@ -10,7 +10,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
 	onGetChatGroups,
-	onGetChatGroupsMembers,
+	// onGetChatGroupsMembers,
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 
@@ -19,6 +19,8 @@ const CreateChat = ({
 	maxCountUsers = 1000,
 	nullifyAction,
 	setShowSuccessPopup,
+	selectedContact,
+	componentType,
 }) => {
 	const [search, setSearch] = useState("");
 	const [selectedContacts, setSelectedContact] = useState([]);
@@ -29,6 +31,8 @@ const CreateChat = ({
 	const [showActionApproval, setShowActionApproval] = useState(false);
 	const [loadingType, setLoadingType] = useState("");
 	const dispatch = useDispatch();
+	const inputWrapRef = useRef();
+	const [inputWrapHeight, setInputWrapHeight] = useState(0);
 
 	const uid = useSelector((state) => state.user.uid);
 	const id_company = useSelector((state) => state.user.id_company);
@@ -43,7 +47,7 @@ const CreateChat = ({
 		setSelectedContact((state) =>
 			isSelected
 				? state.filter((item) => item.id !== contact.id)
-				: [...state, contact]
+				: [contact, ...state]
 		);
 	};
 
@@ -81,8 +85,8 @@ const CreateChat = ({
 
 	useEffect(() => {
 		setSearch("");
-		if (selectedContacts.length && maxCountUsers === 1)
-			setShowActionApproval(true);
+		setInputWrapHeight(inputWrapRef.current.offsetHeight)
+		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
 	}, [selectedContacts, maxCountUsers]);
 
 	useEffect(() => {
@@ -95,7 +99,11 @@ const CreateChat = ({
 	}, [image]);
 
 	useEffect(() => {
-		return () => onExit();
+		if (componentType === 'edit') {
+			setSelectedContact(Object.values(selectedContact?.users))
+			setGroupName(selectedContact?.name)
+		}
+		return () => onExit()
 	}, []); //eslint-disable-line
 
 	useEffect(() => {
@@ -157,13 +165,14 @@ const CreateChat = ({
 				"id_user_to",
 				JSON.stringify(selectedContacts.map((item) => item.id))
 			);
-			api
-				.post(`/ajax/chat_group_add.php?uid=${uid}&name=${groupName}`, formData)
+			if (componentType === 'edit') formData.append("id_group", selectedContact.id);
+			api					     //_ add or edit
+				.post(`/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`, formData)
 				.then((res) => {
 					if (res.data.ok) {
 						dispatch(onGetChatGroups());
-						dispatch(onGetChatGroupsMembers(res.data.id_group));
-						setShowSuccessPopup({
+						// dispatch(onGetChatGroupsMembers(res.data.id_group));
+						if (componentType === 'add') setShowSuccessPopup({
 							title: "Новая группа успешно создана",
 							text: "",
 						});
@@ -207,7 +216,7 @@ const CreateChat = ({
 						onClick={() => stepHandler("forward")}
 					>
 						{step === "one" ? "Далее" : ""}
-						{step === "two" ? "Создать" : ""}
+						{step === "two" ? `${componentType === 'add' ? 'Создать' : 'Сохранить'}` : ""}
 					</div>
 				) : (
 					<div />
@@ -215,14 +224,17 @@ const CreateChat = ({
 			</div>
 			<div className={styles.main}>
 				{step === "one" ? (
-					<div className={styles.inputAreaWrap}>
+					<div className={styles.inputAreaWrap} ref={inputWrapRef}>
 						<div className={styles.inputArea}>
-							<input
-								className={styles.input}
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
-							/>
-							{renderSelectedContacts()}
+							<div className={styles.scrollContainer}>
+								<input
+									className={styles.input}
+									value={search}
+									onChange={(e) => setSearch(e.target.value)}
+									placeholder="Введите имя пользователя"
+								/>
+								{renderSelectedContacts()}
+							</div>
 						</div>
 					</div>
 				) : (
@@ -243,7 +255,7 @@ const CreateChat = ({
 						/>
 					</div>
 				)}
-				<div className={styles.contactsList}>
+				<div className={styles.contactsList} style={{height: `calc(100vh - ${inputWrapHeight}px - 68px - 90px)`}}>
 					{renderContactList(step === "one" ? contactList : selectedContacts)}
 				</div>
 			</div>
@@ -257,7 +269,7 @@ const CreateChat = ({
 						setShowActionApproval(false);
 						setSelectedContact([]);
 					}}
-					// callback={deleteContact}
+					// callback={}
 					approve={"Создать"}
 				>
 					<img

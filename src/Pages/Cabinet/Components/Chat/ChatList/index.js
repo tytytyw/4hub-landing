@@ -18,11 +18,12 @@ const ChatList = ({
 	selectedContact,
 	setSelectedContact,
 	setAction,
+	mouseParams,
 	setMouseParams,
 }) => {
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
-	const [collapseMembersList, setCollapseMembersList] = useState(false);
+	const [collapseMembersList, setCollapseMembersList] = useState(true);
 
 	//TODO: Chats list
 	const chatList = useSelector((state) => state.Cabinet.contactList) || [];
@@ -132,8 +133,8 @@ const ChatList = ({
         setAction({ type: "", name: "", text: "" })
 	}, [chatsType, setSelectedContact]); //eslint-disable-line
 	useEffect(() => {
-		setCollapseMembersList(false);
-	}, [selectedContact]);
+		setCollapseMembersList(mouseParams ? true : false);
+	}, [selectedContact]); //eslint-disable-line
 
 	return (
 		<div className={styles.listWrap}>

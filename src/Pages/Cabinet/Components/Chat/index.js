@@ -187,6 +187,7 @@ const Chat = ({ setMenuItem }) => {
 							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
+							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}
 							action={action}
 							closeContextMenu={closeContextMenu}
@@ -225,7 +226,7 @@ const Chat = ({ setMenuItem }) => {
 			) : (
 				""
 			)}
-			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
                 <div className={styles.ContextMenuItems}>{renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup)}</div>
             </ContextMenu> : null}
 			{action.type === "deleteChatGroup" ? (
