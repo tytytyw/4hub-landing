@@ -3,7 +3,7 @@ import Tool from "./Tool";
 class Marker extends Tool {
     constructor(canvas, options) {
         super(canvas, options);
-        this.listen();
+        setTimeout(() => this.listen(), 0);
     }
 
     name = 'marker';

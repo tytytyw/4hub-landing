@@ -25,13 +25,14 @@ import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
+import TextDraw from "./Tools/TextDraw";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
          setFilePreview
 }) => {
 
-    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false});
+    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
     const paint = useSelector(state => state.Cabinet.paint);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
@@ -58,12 +59,16 @@ const MiniToolBar = ({
         }
     };
 
+    const chooseDrawText = () => {
+        dispatch(onSetPaint('tool', {name: 'text'}))
+    }
+
     const toggleContextMenu = () => setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
 
     const renderAdditionalTools = () => (
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
-                <div className={styles.line}><TextIcon className={styles.iconTool} />Текст</div>
+                <div onClick={chooseDrawText} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
                 <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
@@ -76,7 +81,9 @@ const MiniToolBar = ({
         </>
     )
 
-    const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
+    const addTool = (toolName) => {
+        dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
+    }
 
     const addButton = (icon, name = '', options = null, callback = null) => (
         <div
@@ -177,6 +184,12 @@ const MiniToolBar = ({
         <>
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
+
+            {params.edit && paint.tool?.name === 'text' ? <TextDraw
+                canvas={canvasRef?.current}
+                onFinishDraw={onFinishDraw}
+                addTool={addTool}
+            /> : null}
         </>
     )
 }

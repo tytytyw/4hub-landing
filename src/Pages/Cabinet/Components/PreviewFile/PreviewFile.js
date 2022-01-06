@@ -8,11 +8,7 @@ import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariable
 import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
 import {
-    drawCircle, drawSquare, drawText, drawDiv,
-    mouseDownHandlerCircle, mouseDownHandlerSquare,
-    mouseMoveHandlerCircle, mouseMoveHandlerSquare,
-    mouseUpHandlerCircle, mouseUpHandlerSquare,
-    unDoPaintBrush
+    drawDiv, unDoPaintBrush
 } from "./paintHelpers";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 
@@ -36,9 +32,9 @@ const PreviewFile = ({setFilePreview, file, share}) => {
         }
     }
 
-    const [edit, ] = useState({status: 'Редактировать'});
     const canvasRef = useRef(null)
-    const textBlockRef = useRef(null)
+    // const canvasWrapRef = useRef(null)
+    // const textBlockRef = useRef(null)
     const dotRightRef = useRef(null)
     const dotLeftRef = useRef(null)
     const lineRef = useRef(null)
@@ -53,6 +49,7 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                 return <div className={styles.imagePreviewWrap}>
                     <MiniToolBar
                         canvasRef={canvasRef}
+                        // canvasWrapRef={canvasWrapRef}
                         file={file}
                         setTextDraw={setTextDraw}
                         setFilePreview={setFilePreview}
@@ -76,27 +73,25 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                             ref={canvasRef}
                             className={styles.canvas}
                             onMouseDown={mouseDownHandler}
-                            onMouseMove={mouseMoveHandler}
-                            onMouseUp={mouseUpHandler}
                         />
-                        {textDraw.edit ? <textarea
-                            ref={textBlockRef}
-                            onMouseDown={handleMouseDown}
-                            value={textDraw.text}
-                            onChange={handleTextAreaChange}
-                            onKeyPress={handleKeyPress}
-                            style={{
-                                color: drawParams.color,
-                                fontSize: `${drawParams.fontSize}px`,
-                                lineHeight: `${drawParams.lineHeight}px`,
-                                background: 'none',
-                                position: "absolute",
-                                top: 50,
-                                fontFamily: drawParams.fontFamily,
-                                left: '50%',
-                                cursor: textDraw.move ? 'move' : 'text',
-                            }}
-                        /> : null}
+                        {/*{textDraw.edit ? <textarea*/}
+                        {/*    ref={textBlockRef}*/}
+                        {/*    onMouseDown={handleMouseDown}*/}
+                        {/*    value={textDraw.text}*/}
+                        {/*    onChange={handleTextAreaChange}*/}
+                        {/*    onKeyPress={handleKeyPress}*/}
+                        {/*    style={{*/}
+                        {/*        color: drawParams.color,*/}
+                        {/*        fontSize: `${drawParams.fontSize}px`,*/}
+                        {/*        lineHeight: `${drawParams.lineHeight}px`,*/}
+                        {/*        background: 'none',*/}
+                        {/*        position: "absolute",*/}
+                        {/*        top: 50,*/}
+                        {/*        fontFamily: drawParams.fontFamily,*/}
+                        {/*        left: '50%',*/}
+                        {/*        cursor: textDraw.move ? 'move' : 'text',*/}
+                        {/*    }}*/}
+                        {/*/> : null}*/}
                         {drawParams.figure === "arrow-outlined" ? <div
                             ref={lineRef}
                             className={styles.arrowOutlined}
@@ -171,31 +166,18 @@ const PreviewFile = ({setFilePreview, file, share}) => {
 
     const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
     const [undoList, setUndoList] = useState([]);
-    const [mouse, setMouse] = useState({down: false, startX: 0, startY: 0, saved: null});
 
     const mouseDownHandler = e => {
-        if(drawParams.figure === "square-outlined") mouseDownHandlerSquare(e, edit.status, setMouse, canvasRef, setUndoList);
-        if(drawParams.figure === "circle-outlined") mouseDownHandlerCircle(e, edit.status, setMouse, canvasRef, setUndoList);
-        if(drawParams.figure === "font") drawText(canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw);
+        // if(drawParams.figure === "font" ) drawText(canvasRef, textBlockRef, setTextDraw, setDrawParams, setUndoList, drawParams, textDraw);
         if(drawParams.figure === "arrow-outlined") drawDiv(canvasRef, lineRef, setUndoList, setTextDraw, setDrawParams);
     }
 
-    const mouseMoveHandler = e => {
-        if(drawParams.figure === "square-outlined") mouseMoveHandlerSquare(e, drawSquare, edit.status, mouse, drawParams, canvasRef)
-        if(drawParams.figure === "circle-outlined") mouseMoveHandlerCircle(e, drawCircle, edit.status, mouse, drawParams, canvasRef)
-    }
-
-    const mouseUpHandler = () => {
-        if(drawParams.figure === "square-outlined") mouseUpHandlerSquare(edit.status, setMouse)
-        if(drawParams.figure === "circle-outlined") mouseUpHandlerCircle(edit.status, setMouse)
-    }
-
     const handleMouseDown = e => {
-        if(drawParams.figure === "font") {
-            if(!(e.pageX + 18 > e.target.getBoundingClientRect().right) && !(e.pageY + 18 > e.target.getBoundingClientRect().bottom)) {
-                setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
-            }
-        }
+        // if(drawParams.figure === "font") {
+        //     if(!(e.pageX + 18 > e.target.getBoundingClientRect().right) && !(e.pageY + 18 > e.target.getBoundingClientRect().bottom)) {
+        //         setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
+        //     }
+        // }
         if(drawParams.figure === "arrow-outlined") {
             let axis = null;
             if(e.target.className === styles.dotLeft) {
@@ -217,10 +199,10 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     }
 
     const handlePosition = e => {
-        if(drawParams.figure === "font" && textDraw.move) {
-            textBlockRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
-            textBlockRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
-        }
+        // if(drawParams.figure === "font" && textDraw.move) {
+        //     textBlockRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
+        //     textBlockRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
+        // }
         if(drawParams.figure === "arrow-outlined") {
             if(textDraw.move) {
                 lineRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
@@ -250,13 +232,13 @@ const PreviewFile = ({setFilePreview, file, share}) => {
         }
     }
 
-    const handleTextAreaChange = e => setTextDraw(state => ({...state, text: e.target.value}))
+    // const handleTextAreaChange = e => setTextDraw(state => ({...state, text: e.target.value}))
 
-    const handleKeyPress = () => {
-        if(textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
-            textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + 'px'
-        }
-    }
+    // const handleKeyPress = () => {
+    //     if(textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
+    //         textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + 'px'
+    //     }
+    // }
 
     return (
         <PopUp set={set} background={'none'} padding='0'>

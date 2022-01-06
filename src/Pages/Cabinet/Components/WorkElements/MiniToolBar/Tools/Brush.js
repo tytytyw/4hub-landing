@@ -3,7 +3,7 @@ import Tool from "./Tool";
 class Brush extends Tool {
     constructor(canvas, options) {
         super(canvas, options);
-        this.listen();
+        setTimeout(() => this.listen(), 0);
     }
 
     name = 'brush';
