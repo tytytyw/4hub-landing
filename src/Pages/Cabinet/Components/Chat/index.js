@@ -187,6 +187,7 @@ const Chat = ({ setMenuItem }) => {
 							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
+							mouseParams={mouseParams}
 							setMouseParams={setMouseParams}
 							action={action}
 							closeContextMenu={closeContextMenu}

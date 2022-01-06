@@ -17,8 +17,12 @@ const CustomChatItem = ({
 	disableHover = false,
 	setMouseParams = () => {}
 }) => {
-    const onChatItemClick = () => {
-        if (chatItem?.id === selectedContact?.id && setCollapseMembersList) setCollapseMembersList(state => !state)
+    const onChatItemClick = (e, isMenu) => {
+		if (isMenu) setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
+
+        if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
+			setCollapseMembersList(state => !state)
+		}
 			else setSelectedContact({...chatItem, status})
     }
 	return (
@@ -43,7 +47,7 @@ const CustomChatItem = ({
 				)}
 			</div>
 			<div className={styles.functionWrap}>
-				{contextMenu === 'contextMenu' ? <div className={styles.menuWrap} onClick={e => setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})}
+				{contextMenu === 'contextMenu' ? <div className={styles.menuWrap} onClick={e => onChatItemClick(e, true)}
 				>
 					<span className={styles.menu} />
 				</div> : null}
