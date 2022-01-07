@@ -194,11 +194,12 @@ const MiniToolBar = ({
                 onFinishDraw={onFinishDraw}
                 addTool={addTool}
             /> : null}
-            {params.edit && paint.tool?.name === 'arrow' ? <LineDraw
+            {params.edit && (paint.tool?.name === 'arrow' || paint.tool?.name === 'line') ? <LineDraw
                 canvas={canvasRef?.current}
                 onFinishDraw={onFinishDraw}
                 addTool={addTool}
                 canvasWrapRef={canvasWrapRef}
+                isArrow={paint.tool?.name === 'arrow'}
             /> : null}
         </>
     )

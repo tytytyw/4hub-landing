@@ -4,7 +4,7 @@ import Pencil from "../Pencil";
 import styles from "./LineDraw.module.sass";
 import html2canvas from "html2canvas";
 
-function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
+function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true}) {
 
     const dotRightRef = useRef(null);
     const dotLeftRef = useRef(null);
@@ -111,7 +111,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
                 background: `linear-gradient(90deg, ${paint.color} 0%, ${paint.color} 99%, rgba(0, 0, 0, 0) 99%)`
             }}
         >
-            <span
+            {isArrow ? <span
                 className={styles.arrow}
                 style={{
                     border: `${paint.size + 9}px solid transparent`,
@@ -120,7 +120,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
                 }}
                 draggable={false}
                 onDragStart={preventDrag}
-            />
+            /> : null}
             <span
                 className={styles.dotRight}
                 style={{
