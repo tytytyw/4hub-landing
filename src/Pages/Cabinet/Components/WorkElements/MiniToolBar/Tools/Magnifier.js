@@ -5,7 +5,7 @@ function Magnifier({canvas}) {
 
     const squareRef = useRef();
     const magnifierRef = useRef();
-    const [params, setParams] = useState({x: 0, y: 0, displayPreview: true});
+    const [params, setParams] = useState({x: 0, y: 0, displayPreview: false});
 
     const handleMove = (e) => {
         const square = squareRef.current;
@@ -16,12 +16,18 @@ function Magnifier({canvas}) {
 
             if(canvasInfo.left < (e.pageX - squareInfo.width/2) && canvasInfo.right > (e.pageX - squareInfo.width/2)) {
                 square.style.left = e.pageX - (canvasInfo.width * 0.2)/2 + 'px';
-                setParams(s => ({...s, x: e.pageX + squareInfo.width/2}));
+                const x = e.pageX + squareInfo.width/2 + magnifierRef.current.getBoundingClientRect().width > window.innerWidth
+                    ? e.pageX - squareInfo.width/2 - magnifierRef.current.getBoundingClientRect().width
+                    : e.pageX + squareInfo.width/2;
+                setParams(s => ({...s, x}));
                 drawMagnifier();
             }
             if(canvasInfo.top < (e.pageY - squareInfo.height/2) && canvasInfo.bottom > (e.pageY - squareInfo.height/2)) {
                 square.style.top = e.pageY - (canvasInfo.height * 0.2)/2 + 'px';
-                setParams(s => ({...s, y: e.pageY + squareInfo.height/2}));
+                const y = e.pageY + squareInfo.height/2 + magnifierRef.current.getBoundingClientRect().height > window.innerHeight
+                    ? e.pageY - squareInfo.height/2 - magnifierRef.current.getBoundingClientRect().height
+                    : e.pageY + squareInfo.height/2;
+                setParams(s => ({...s, y}));
                 drawMagnifier();
             }
 
@@ -85,7 +91,7 @@ function Magnifier({canvas}) {
             style={{
                 background: 'rgba(232,228,162,0.42)',
                 position: 'fixed',
-                zIndex: 3,
+                zIndex: 2,
                 width: canvas?.getBoundingClientRect().width * 0.2 || 0,
                 height: canvas?.getBoundingClientRect().height * 0.2 || 0,
             }}
@@ -97,7 +103,7 @@ function Magnifier({canvas}) {
                     position: 'fixed',
                     top: params.y,
                     left: params.x,
-                    zIndex: 4,
+                    zIndex: 2,
                     border: '1px solid black',
                     width: squareRef.current?.getBoundingClientRect().width * 2,
                     height: squareRef.current?.getBoundingClientRect().height * 2,

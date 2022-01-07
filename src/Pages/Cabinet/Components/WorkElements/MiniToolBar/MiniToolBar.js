@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import styles from './MiniToolBar.module.sass'
@@ -75,7 +75,7 @@ const MiniToolBar = ({
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
                 <div onClick={() => chooseAdditionalTool('text')} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
-                <div onClick={() => chooseAdditionalTool('magnifier')} className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
+                <div onClick={() => chooseAdditionalTool('magnifier')} className={`${styles.line} ${'magnifier' === paint.tool?.name && styles.chosen}`}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
                     <div onClick={() => addTool(Triangle)} className={`${styles.toolWrap} ${'triangle' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
@@ -185,6 +185,12 @@ const MiniToolBar = ({
             </div>
         </div>
     )
+
+    useEffect(() => {
+        return () => {
+            chooseAdditionalTool({});
+        }
+    }, []) //eslint-disable-line
 
     return (
         <>
