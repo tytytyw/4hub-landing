@@ -7,9 +7,6 @@ import File from "../../../../generalComponents/Files";
 import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
 import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
-import {
-    drawDiv, unDoPaintBrush
-} from "./paintHelpers";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 const PreviewFile = ({setFilePreview, file, share}) => {
@@ -36,9 +33,9 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     const canvasWrapRef = useRef(null)
     // const dotRightRef = useRef(null)
     // const dotLeftRef = useRef(null)
-    const lineRef = useRef(null)
+    // const lineRef = useRef(null)
     const audioRef = useRef(null);
-    const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
+    // const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,13 +47,13 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         canvasRef={canvasRef}
                         canvasWrapRef={canvasWrapRef}
                         file={file}
-                        setTextDraw={setTextDraw}
+                        // setTextDraw={setTextDraw}
                         setFilePreview={setFilePreview}
                         share={share}
                         direction="row"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
-                        unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
+                        // unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
                     />
                     <div className={styles.canvasWrap}>
                         {isLoading ? <Loader
@@ -71,7 +68,7 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         <canvas
                             ref={canvasRef}
                             className={styles.canvas}
-                            onMouseDown={mouseDownHandler}
+                            // onMouseDown={mouseDownHandler}
                         />
                         {/*{drawParams.figure === "arrow-outlined" ? <div*/}
                         {/*    ref={lineRef}*/}
@@ -146,11 +143,11 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     }, []); //eslint-disable-line
 
     const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
-    const [undoList, setUndoList] = useState([]);
+    // const [undoList, setUndoList] = useState([]);
 
-    const mouseDownHandler = e => {
-        if(drawParams.figure === "arrow-outlined") drawDiv(canvasRef, lineRef, setUndoList, setTextDraw, setDrawParams);
-    }
+    // const mouseDownHandler = e => {
+    //     if(drawParams.figure === "arrow-outlined") drawDiv(canvasRef, lineRef, setUndoList, setTextDraw, setDrawParams);
+    // }
 
     // const handleMouseDown = e => {
         // if(drawParams.figure === "arrow-outlined") {
@@ -202,7 +199,7 @@ const PreviewFile = ({setFilePreview, file, share}) => {
             <div
                 className={styles.preview}
                 onClick={set}
-                onMouseUp={() => setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0}))}
+                // onMouseUp={() => setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0}))}
             >
                 {loading
                     ? <Loader

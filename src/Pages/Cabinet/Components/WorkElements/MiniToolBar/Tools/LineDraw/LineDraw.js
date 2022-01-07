@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from "react-redux";
-// import Pencil from "../Pencil";
+import Pencil from "../Pencil";
 import styles from "./LineDraw.module.sass";
+import html2canvas from "html2canvas";
 
 function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
 
@@ -61,21 +62,42 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
         };
     }
 
+    const drawDiv = async (canvasRef, lineRef) => {
+        const params = lineRef.current.getBoundingClientRect();
+        const paramsParent = canvasRef.getBoundingClientRect();
+        let img = new Image();
+
+        return await html2canvas(lineRef.current, {
+            backgroundColor: null,
+            y: -lineRef.current.scrollHeight,
+            height: lineRef.current.scrollHeight * 20,
+            width: lineRef.current.scrollWidth * 20,
+            ignoreElements: (el) => el.className === styles.dotRight || el.className === styles.dotLeft
+        })
+            .then(canvas => {
+                const data = canvas.toDataURL('image/png');
+                img.setAttribute('src', data);
+                img.onload = () => {
+                    const ctx = canvasRef.getContext('2d')
+                    ctx.drawImage(img, params.left - paramsParent.left, params.top - paramsParent.top - lineRef.current.scrollHeight)
+                }
+            })
+            .catch(e => console.log(e));
+    }
+
     useEffect(() => {
-        // canvas.onmousedown = async () => {
-        //     await onFinishDraw(canvas.toDataURL());
-        //     await drawText(canvas, textBlockRef);
-        //     addTool(Pencil);
-        // }
-        // return () => {
-        //     canvas.onmousedown = null;
-        // }
+        canvas.onmousedown = async () => {
+            await onFinishDraw(canvas.toDataURL());
+            await drawDiv(canvas, lineRef).then((res) => {
+                setTimeout(() => {addTool(Pencil)}, 0)
+            });
+        }
+        return () => {
+            canvas.onmousedown = null;
+        }
     }, [paint]) //eslint-disable-line
 
-    const preventDrag = e => {
-        console.log(e);
-        e.preventDefault();
-    }
+    const preventDrag = e => e.preventDefault();
 
     return(
         <div
@@ -83,6 +105,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
             className={styles.arrowOutlined}
             onMouseDown={handleMouseDown}
             draggable={false}
+            onDragStart={preventDrag}
             style={{
                 height: paint.size,
                 background: `linear-gradient(90deg, ${paint.color} 0%, ${paint.color} 99%, rgba(0, 0, 0, 0) 99%)`
@@ -96,6 +119,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
                     right: - (paint.size + 9)
                 }}
                 draggable={false}
+                onDragStart={preventDrag}
             />
             <span
                 className={styles.dotRight}
@@ -117,6 +141,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
                 }}
                 ref={dotLeftRef}
                 draggable={false}
+                onDragStart={preventDrag}
             />
         </div>
     )
