@@ -41,7 +41,7 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true}
 
         window.onmousemove = e => {
             if(status === 'move') {
-                lineRef.current.style.left = e.pageX - canvas.getBoundingClientRect().x - widthDif + "px";
+                lineRef.current.style.left = e.pageX - canvasWrapRef.current.getBoundingClientRect().x + "px";
                 lineRef.current.style.top = e.pageY - canvasWrapRef.current.getBoundingClientRect().y + "px";
             }
             if(status === 'resize') {
