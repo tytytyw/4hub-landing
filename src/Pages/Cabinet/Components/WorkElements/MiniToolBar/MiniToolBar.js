@@ -26,6 +26,7 @@ import Circle from "./Tools/Circle";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
+import LineDraw from "./Tools/LineDraw/LineDraw";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
@@ -59,9 +60,8 @@ const MiniToolBar = ({
         }
     };
 
-    const chooseDrawText = () => {
-        dispatch(onSetPaint('tool', {name: 'text'}))
-    }
+    const chooseDrawText = () => {dispatch(onSetPaint('tool', {name: 'text'}))}
+    const chooseDrawArrow = () => {dispatch(onSetPaint('tool', {name: 'arrow'}))}
 
     const toggleContextMenu = () => setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
 
@@ -74,7 +74,7 @@ const MiniToolBar = ({
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
                     <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
                     <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
+                    <div onClick={chooseDrawArrow} className={`${styles.toolWrap} ${'arrow' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
                     <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
                 </div>
             </div> : null}
@@ -186,6 +186,11 @@ const MiniToolBar = ({
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
 
             {params.edit && paint.tool?.name === 'text' ? <TextDraw
+                canvas={canvasRef?.current}
+                onFinishDraw={onFinishDraw}
+                addTool={addTool}
+            /> : null}
+            {params.edit && paint.tool?.name === 'arrow' ? <LineDraw
                 canvas={canvasRef?.current}
                 onFinishDraw={onFinishDraw}
                 addTool={addTool}
