@@ -28,6 +28,7 @@ import {drawCanvas} from "../../PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
 import Triangle from "./Tools/Triangle";
+import Magnifier from "./Tools/Magnifier";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
@@ -74,7 +75,7 @@ const MiniToolBar = ({
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
                 <div onClick={() => chooseAdditionalTool('text')} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
-                <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
+                <div onClick={() => chooseAdditionalTool('magnifier')} className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
                     <div onClick={() => addTool(Triangle)} className={`${styles.toolWrap} ${'triangle' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
@@ -202,6 +203,7 @@ const MiniToolBar = ({
                 canvasWrapRef={canvasWrapRef}
                 isArrow={paint.tool?.name === 'arrow'}
             /> : null}
+            {paint.tool?.name === 'magnifier' ? <Magnifier canvas={canvasRef?.current}/> : null}
         </>
     )
 }
