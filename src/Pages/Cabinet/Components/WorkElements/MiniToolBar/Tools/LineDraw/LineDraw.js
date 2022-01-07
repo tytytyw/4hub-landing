@@ -3,40 +3,62 @@ import {useSelector} from "react-redux";
 // import Pencil from "../Pencil";
 import styles from "./LineDraw.module.sass";
 
-function LineDraw({canvas, onFinishDraw, addTool}) {
+function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool}) {
 
     const dotRightRef = useRef(null);
     const dotLeftRef = useRef(null);
     const lineRef = useRef(null);
 
-    const [, setParams] = useState({text: 'Text', move: false, widthDif: 0, heightDif: 0, sizeChange: false, positionX: '50%', positionY: '50%'});
+    const [params, setParams] = useState({move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
+
     const paint = useSelector(s => s.Cabinet.paint);
 
-    // const handleTextAreaChange = e => setParams(s => ({...s, text: e.target.value}))
-    //
-    // const handleKeyPress = () => {
-    //     if(textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
-    //         textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + 'px'
-    //     }
-    // }
+    const handleMouseDown = ev => {
+        let axis = null;
+        const widthDif = ev.nativeEvent.layerX;
+        const initialParams = {x: ev.pageX, y: params.initialParams.y === 0 ? ev.pageY : params.initialParams.y}
 
-    const handleMouseDown = e => {
-        if(!(e.pageX + 18 > e.target.getBoundingClientRect().right) && !(e.pageY + 18 > e.target.getBoundingClientRect().bottom)) {
-            const widthDif = e.pageX - e.target.getBoundingClientRect().x;
-            const heightDif = e.pageY - e.target.getBoundingClientRect().y;
-
-            window.onmousemove = e => {
-                setParams(s => ({
-                    ...s,
-                    positionX: e.pageX - widthDif,
-                    positionY: e.pageY - heightDif,
-                }))
-            };
-            window.onmouseup = () => {
-                window.onmousemove = null;
-                window.onmouseup = null;
-            };
+        if(ev.target.className === styles.dotLeft) {
+            const params = dotRightRef.current.getBoundingClientRect();
+            axis = {y: params.top + params.height/2, x: params.left + params.width/2};
         }
+        if(ev.target.className === styles.dotRight) {
+            const params = dotLeftRef.current.getBoundingClientRect();
+            axis = {y: params.top + params.height/2, x: params.left + params.width/2};
+        }
+
+        let isCircle = false;
+        ev.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
+
+        let status = isCircle ? 'resize' : 'move';
+        if(status === 'resize') {setParams(s => ({...s, initialParams: {...s.initialParams, x: ev.pageX, y: s.initialParams.y === 0 ? ev.pageY : s.initialParams.y}}))}
+
+        window.onmouseup = () => {
+            window.onmouseup = null;
+            window.onmousemove = null;
+        };
+
+        window.onmousemove = e => {
+            if(status === 'move') {
+                lineRef.current.style.left = e.pageX - canvas.getBoundingClientRect().x - widthDif + "px";
+                lineRef.current.style.top = e.pageY - canvasWrapRef.current.getBoundingClientRect().y + "px";
+            }
+            if(status === 'resize') {
+                const arrow = lineRef.current.getBoundingClientRect()
+                const arrowEndX = arrow.left + arrow.width;
+                const b = initialParams.y - e.pageY;
+                const c = e.pageX <= axis.x ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
+                const a = Math.round(Math.sqrt(b*b + c*c));
+                if(a !== 0 && b !== 0 && c !== 0) {
+                    const degree = Math.round(Math.atan(c / b) * 180 / Math.PI);
+                    lineRef.current.style.transformOrigin = `center left`;
+                    lineRef.current.style.transform = `rotate(${b > 0 ? degree - 90 : degree + 90}deg)`;
+                    lineRef.current.style.width = (a - 3) + "px";
+                } else {
+                    lineRef.current.style.width = (arrow.width + e.pageX - arrowEndX - 3) + "px";
+                }
+            }
+        };
     }
 
     useEffect(() => {
@@ -50,6 +72,11 @@ function LineDraw({canvas, onFinishDraw, addTool}) {
         // }
     }, [paint]) //eslint-disable-line
 
+    const preventDrag = e => {
+        console.log(e);
+        e.preventDefault();
+    }
+
     return(
         <div
             ref={lineRef}
@@ -57,14 +84,6 @@ function LineDraw({canvas, onFinishDraw, addTool}) {
             onMouseDown={handleMouseDown}
             draggable={false}
             style={{
-                // display: 'flex',
-                // alignItems: 'center',
-                // width: '100px',
-                // position: 'fixed',
-                // top: '50%',
-                // left: '50%',
-                // cursor: 'move',
-                // borderRadius: '50%',
                 height: paint.size,
                 background: `linear-gradient(90deg, ${paint.color} 0%, ${paint.color} 99%, rgba(0, 0, 0, 0) 99%)`
             }}
@@ -76,6 +95,7 @@ function LineDraw({canvas, onFinishDraw, addTool}) {
                     borderLeft: `${paint.size + 9}px solid ${paint.color}`,
                     right: - (paint.size + 9)
                 }}
+                draggable={false}
             />
             <span
                 className={styles.dotRight}
@@ -86,6 +106,7 @@ function LineDraw({canvas, onFinishDraw, addTool}) {
                 }}
                 ref={dotRightRef}
                 draggable={false}
+                onDragStart={preventDrag}
             />
             <span
                 className={styles.dotLeft}

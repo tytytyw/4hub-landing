@@ -30,7 +30,7 @@ import LineDraw from "./Tools/LineDraw/LineDraw";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview
+         setFilePreview, canvasWrapRef
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
@@ -60,22 +60,26 @@ const MiniToolBar = ({
         }
     };
 
-    const chooseDrawText = () => {dispatch(onSetPaint('tool', {name: 'text'}))}
-    const chooseDrawArrow = () => {dispatch(onSetPaint('tool', {name: 'arrow'}))}
+    const chooseAdditionalTool = (name) => {
+        canvasRef.current.onmousemove = null;
+        canvasRef.current.onmousedown = null;
+        canvasRef.current.onmouseup = null;
+        dispatch(onSetPaint('tool', {name}));
+    }
 
     const toggleContextMenu = () => setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
 
     const renderAdditionalTools = () => (
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
-                <div onClick={chooseDrawText} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
+                <div onClick={() => chooseAdditionalTool('text')} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
                 <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
                     <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
                     <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
-                    <div onClick={chooseDrawArrow} className={`${styles.toolWrap} ${'arrow' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
+                    <div onClick={() => chooseAdditionalTool('arrow')} className={`${styles.toolWrap} ${'arrow' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
+                    <div onClick={() => chooseAdditionalTool('line')} className={`${styles.toolWrap} ${'line' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
                 </div>
             </div> : null}
         </>
@@ -194,6 +198,7 @@ const MiniToolBar = ({
                 canvas={canvasRef?.current}
                 onFinishDraw={onFinishDraw}
                 addTool={addTool}
+                canvasWrapRef={canvasWrapRef}
             /> : null}
         </>
     )

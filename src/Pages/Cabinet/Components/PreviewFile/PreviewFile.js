@@ -33,8 +33,9 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     }
 
     const canvasRef = useRef(null)
-    const dotRightRef = useRef(null)
-    const dotLeftRef = useRef(null)
+    const canvasWrapRef = useRef(null)
+    // const dotRightRef = useRef(null)
+    // const dotLeftRef = useRef(null)
     const lineRef = useRef(null)
     const audioRef = useRef(null);
     const [textDraw, setTextDraw] = useState({edit: false, text: 'Текст', move: false, widthDif: 0, heightDif: 0, sizeChange: false, initialParams: {x: 0, y: 0, b: 0, c: 0}, axis: null})
@@ -44,9 +45,10 @@ const PreviewFile = ({setFilePreview, file, share}) => {
     const renderFilePreview = () => {
         switch (file.mime_type.split('/')[0]) {
             case 'image': {
-                return <div className={styles.imagePreviewWrap}>
+                return <div className={styles.imagePreviewWrap} ref={canvasWrapRef}>
                     <MiniToolBar
                         canvasRef={canvasRef}
+                        canvasWrapRef={canvasWrapRef}
                         file={file}
                         setTextDraw={setTextDraw}
                         setFilePreview={setFilePreview}
@@ -56,7 +58,7 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         setDrawParams={setDrawParams}
                         unDoPaint={() => unDoPaintBrush(canvasRef, undoList, setUndoList)}
                     />
-                    <div className={styles.canvasWrap} onMouseMove={handlePosition} onMouseUp={handleMouseUp}>
+                    <div className={styles.canvasWrap}>
                         {isLoading ? <Loader
                             type='bounceDots'
                             position='absolute'
@@ -71,20 +73,20 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                             className={styles.canvas}
                             onMouseDown={mouseDownHandler}
                         />
-                        {drawParams.figure === "arrow-outlined" ? <div
-                            ref={lineRef}
-                            className={styles.arrowOutlined}
-                            onMouseDown={handleMouseDown}
-                            draggable={false}
-                            style={{
-                                height: drawParams.width,
-                                background: `linear-gradient(90deg, ${drawParams.color} 0%, ${drawParams.color} 99%, rgba(0, 0, 0, 0) 99%)`
-                            }}
-                        >
-                            <span className={styles.arrow} style={{border: `${drawParams.width + 9}px solid transparent`, borderLeft: `${drawParams.width + 9}px solid ${drawParams.color}`, right: -(drawParams.width + 9)}} />
-                            <span className={styles.dotRight} style={{height: 6, width: 6, right: -6}} ref={dotRightRef} draggable={false} />
-                            <span className={styles.dotLeft} style={{height: 6, width: 6, left: -6}} ref={dotLeftRef} draggable={false} />
-                        </div> : null}
+                        {/*{drawParams.figure === "arrow-outlined" ? <div*/}
+                        {/*    ref={lineRef}*/}
+                        {/*    className={styles.arrowOutlined}*/}
+                        {/*    onMouseDown={handleMouseDown}*/}
+                        {/*    draggable={false}*/}
+                        {/*    style={{*/}
+                        {/*        height: drawParams.width,*/}
+                        {/*        background: `linear-gradient(90deg, ${drawParams.color} 0%, ${drawParams.color} 99%, rgba(0, 0, 0, 0) 99%)`*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    <span className={styles.arrow} style={{border: `${drawParams.width + 9}px solid transparent`, borderLeft: `${drawParams.width + 9}px solid ${drawParams.color}`, right: -(drawParams.width + 9)}} />*/}
+                        {/*    <span className={styles.dotRight} style={{height: 6, width: 6, right: -6}} ref={dotRightRef} draggable={false} />*/}
+                        {/*    <span className={styles.dotLeft} style={{height: 6, width: 6, left: -6}} ref={dotLeftRef} draggable={false} />*/}
+                        {/*</div> : null}*/}
                     </div>
                 </div>
             }
@@ -150,56 +152,50 @@ const PreviewFile = ({setFilePreview, file, share}) => {
         if(drawParams.figure === "arrow-outlined") drawDiv(canvasRef, lineRef, setUndoList, setTextDraw, setDrawParams);
     }
 
-    const handleMouseDown = e => {
-        if(drawParams.figure === "arrow-outlined") {
-            let axis = null;
-            if(e.target.className === styles.dotLeft) {
-                const params = dotRightRef.current.getBoundingClientRect();
-                axis = {y: params.top + params.height/2, x: params.left + params.width/2};
-            }
-            if(e.target.className === styles.dotRight) {
-                const params = dotLeftRef.current.getBoundingClientRect();
-                axis = {y: params.top + params.height/2, x: params.left + params.width/2};
-            }
-            let isCircle = false;
-            e.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
-            if(isCircle) {
-                setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialParams: {x: e.pageX, y: state.initialParams.y === 0 ? e.pageY : state.initialParams.y}, axis}))
-            } else {
-                setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
-            }
-        }
-    }
+    // const handleMouseDown = e => {
+        // if(drawParams.figure === "arrow-outlined") {
+        //     let axis = null;
+        //     if(e.target.className === styles.dotLeft) {
+        //         const params = dotRightRef.current.getBoundingClientRect();
+        //         axis = {y: params.top + params.height/2, x: params.left + params.width/2};
+        //     }
+        //     if(e.target.className === styles.dotRight) {
+        //         const params = dotLeftRef.current.getBoundingClientRect();
+        //         axis = {y: params.top + params.height/2, x: params.left + params.width/2};
+        //     }
+        //     let isCircle = false;
+        //     e.nativeEvent.path.forEach(el => {if(el.className && el.className.includes('dot')) isCircle = true})
+        //     if(isCircle) {
+        //         setTextDraw(state => ({...state, move: false, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY, sizeChange: true, initialParams: {x: e.pageX, y: state.initialParams.y === 0 ? e.pageY : state.initialParams.y}, axis}))
+        //     } else {
+        //         setTextDraw(state => ({...state, move: true, widthDif: e.nativeEvent.layerX, heightDif: e.nativeEvent.layerY}))
+        //     }
+        // }
+    // }
 
-    const handlePosition = e => {
-        if(drawParams.figure === "arrow-outlined") {
-            if(textDraw.move) {
-                lineRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
-                lineRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
-            }
-            if(textDraw.sizeChange) {
-                const arrow = lineRef.current.getBoundingClientRect()
-                const arrowEndX = arrow.left + arrow.width;
-                const b = textDraw.initialParams.y - e.pageY;
-                const c = e.pageX <= textDraw.axis.x ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
-                const a = Math.round(Math.sqrt(b*b + c*c));
-                if(a !== 0 && b !== 0 && c !== 0) {
-                    const degree = Math.round(Math.atan(c / b) * 180 / Math.PI);
-                    lineRef.current.style.transformOrigin = `center left`;
-                    lineRef.current.style.transform = `rotate(${b > 0 ? degree - 90 : degree + 90}deg)`;
-                    lineRef.current.style.width = (a - 3) + "px";
-                } else {
-                    lineRef.current.style.width = (arrow.width + e.pageX - arrowEndX - 3) + "px";
-                }
-            }
-        }
-    }
-
-    const handleMouseUp = e => {
-        if(drawParams.figure === "arrow-outlined") {
-            setTextDraw(state => ({...state, move: false, widthDif: 0, heightDif: 0, sizeChange: false, axis: null}));
-        }
-    }
+    // const handlePosition = e => {
+        // if(drawParams.figure === "arrow-outlined") {
+        //     if(textDraw.move) {
+        //         lineRef.current.style.left = e.pageX - canvasRef.current.getBoundingClientRect().x - textDraw.widthDif + "px";
+        //         lineRef.current.style.top = e.pageY - canvasRef.current.getBoundingClientRect().y - textDraw.heightDif + "px";
+        //     }
+        //     if(textDraw.sizeChange) {
+        //         const arrow = lineRef.current.getBoundingClientRect()
+        //         const arrowEndX = arrow.left + arrow.width;
+        //         const b = textDraw.initialParams.y - e.pageY;
+        //         const c = e.pageX <= textDraw.axis.x ? -((arrow.left + arrow.width) - e.pageX) : e.pageX - arrow.left;
+        //         const a = Math.round(Math.sqrt(b*b + c*c));
+        //         if(a !== 0 && b !== 0 && c !== 0) {
+        //             const degree = Math.round(Math.atan(c / b) * 180 / Math.PI);
+        //             lineRef.current.style.transformOrigin = `center left`;
+        //             lineRef.current.style.transform = `rotate(${b > 0 ? degree - 90 : degree + 90}deg)`;
+        //             lineRef.current.style.width = (a - 3) + "px";
+        //         } else {
+        //             lineRef.current.style.width = (arrow.width + e.pageX - arrowEndX - 3) + "px";
+        //         }
+        //     }
+        // }
+    // }
 
     return (
         <PopUp set={set} background={'none'} padding='0'>
