@@ -1,20 +1,28 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 
 function Magnifier({canvas}) {
 
     const squareRef = useRef();
+    const magnifierRef = useRef();
+    const [params, setParams] = useState({x: 0, y: 0, displayPreview: true});
 
     const handleMove = (e) => {
         const square = squareRef.current;
-        const canvasInfo = canvas.getBoundingClientRect();
-        const squareInfo = square.getBoundingClientRect();
 
         if(canvas && square) {
+            const canvasInfo = canvas.getBoundingClientRect();
+            const squareInfo = square.getBoundingClientRect();
+
             if(canvasInfo.left < (e.pageX - squareInfo.width/2) && canvasInfo.right > (e.pageX - squareInfo.width/2)) {
                 square.style.left = e.pageX - (canvasInfo.width * 0.2)/2 + 'px';
+                setParams(s => ({...s, x: e.pageX + squareInfo.width/2}));
+                drawMagnifier();
             }
             if(canvasInfo.top < (e.pageY - squareInfo.height/2) && canvasInfo.bottom > (e.pageY - squareInfo.height/2)) {
                 square.style.top = e.pageY - (canvasInfo.height * 0.2)/2 + 'px';
+                setParams(s => ({...s, y: e.pageY + squareInfo.height/2}));
+                drawMagnifier();
             }
 
             //Fixed edge points for square
@@ -30,20 +38,40 @@ function Magnifier({canvas}) {
             if(canvasInfo.bottom <= e.pageY + squareInfo.height/2) {
                 square.style.top = (canvasInfo.bottom - squareInfo.height) + 'px';
             }
+        }
+    }
 
-            // set display squareBlock
-            // if(e.pageX > canvasInfo.left && e.pageX < canvasInfo.right && e.pageY > canvasInfo.top && e.pageY < canvasInfo.bottom) {
-            //     console.log('in')
-            //     setParams(s => ({...s, display: true}))
-            // } else {
-            //     console.log('out')
-            //     setParams(s => ({...s, display: false}))
-            // }
+    const drawMagnifier = () => {
+        let image = new Image();
+        image.src = canvas.toDataURL();
+        image.onload = (e) => {
+            const {height, width} = imageToRatio(e.target.naturalWidth, e.target.naturalHeight, Number((window.innerWidth * 0.84).toFixed()), Number((window.innerHeight * 0.79).toFixed()));
+            e.target.width = width;
+            e.target.height = height;
+            const ctx = magnifierRef.current.getContext('2d');
+            ctx.drawImage(
+                e.target,
+                //get image
+                squareRef.current.getBoundingClientRect().left - canvas?.getBoundingClientRect().left,
+                squareRef.current.getBoundingClientRect().top - canvas?.getBoundingClientRect().top,
+                squareRef.current.getBoundingClientRect().width * 1.3, squareRef.current.getBoundingClientRect().height * 1.7,
+                //draw image
+                0, 0,
+                magnifierRef.current.getBoundingClientRect().width, magnifierRef.current.getBoundingClientRect().height
+            );
         }
     }
 
     useEffect(() => {
         window.onmousemove = handleMove;
+
+        squareRef.current.onmouseenter = () => {
+            setParams(s => ({...s, displayPreview: true}))
+        }
+
+        squareRef.current.onmouseleave = () => {
+            setParams(s => ({...s, displayPreview: false}))
+        }
 
         return () => {
             window.onmousemove = null;
@@ -51,6 +79,7 @@ function Magnifier({canvas}) {
     }, []) //eslint-disable-line
 
     return(
+        <>
         <div
             ref={squareRef}
             style={{
@@ -61,6 +90,20 @@ function Magnifier({canvas}) {
                 height: canvas?.getBoundingClientRect().height * 0.2 || 0,
             }}
         />
+            <canvas
+                ref={magnifierRef}
+                style={{
+                    display: params.displayPreview ? 'block' : 'none',
+                    position: 'fixed',
+                    top: params.y,
+                    left: params.x,
+                    zIndex: 4,
+                    border: '1px solid black',
+                    width: squareRef.current?.getBoundingClientRect().width * 2,
+                    height: squareRef.current?.getBoundingClientRect().height * 2,
+                }}
+            />
+        </>
     )
 }
 
