@@ -27,6 +27,7 @@ import {replaceFile, sendFile} from "../../../../../generalComponents/generalHel
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
+import Triangle from "./Tools/Triangle";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
@@ -76,7 +77,7 @@ const MiniToolBar = ({
                 <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
+                    <div onClick={() => addTool(Triangle)} className={`${styles.toolWrap} ${'triangle' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
                     <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
                     <div onClick={() => chooseAdditionalTool('arrow')} className={`${styles.toolWrap} ${'arrow' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
                     <div onClick={() => chooseAdditionalTool('line')} className={`${styles.toolWrap} ${'line' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
