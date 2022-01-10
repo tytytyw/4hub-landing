@@ -16,7 +16,6 @@ function LineDraw({canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true}
 
     const handleMouseDown = ev => {
         let axis = null;
-        const widthDif = ev.nativeEvent.layerX;
         const initialParams = {x: ev.pageX, y: params.initialParams.y === 0 ? ev.pageY : params.initialParams.y}
 
         if(ev.target.className === styles.dotLeft) {
