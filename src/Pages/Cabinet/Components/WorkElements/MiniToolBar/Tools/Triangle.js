@@ -1,12 +1,12 @@
 import Tool from "./Tool";
 
-class Circle extends Tool {
+class Triangle extends Tool {
     constructor(canvas, options) {
         super(canvas, options);
         setTimeout(() => this.listen(), 0);
     }
 
-    name = 'circle';
+    name = 'triangle';
     startX = undefined;
     startY = undefined;
     defaultImage = '';
@@ -38,22 +38,24 @@ class Circle extends Tool {
             const currentY = e.offsetY;
             const width = currentX - this.startX;
             const height = currentY - this.startY;
-            const radius = Math.sqrt(width**2 + height**2)
-            this.draw(this.startX, this.startY, radius)
+            this.draw(this.startX, this.startY, width, height)
         }
     }
 
-    draw(x, y, radius) {
+    draw(x, y, width, height) {
         const img = new Image();
         img.src = this.defaultImage;
         img.onload = () => {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
-            this.ctx.arc(x, y, radius, 0, 2*Math.PI);
+            this.ctx.moveTo(x, y + height);
+            this.ctx.lineTo(x + width, y + height);
+            this.ctx.lineTo(x + width/2, y);
+            this.ctx.lineTo(x, y + height);
             this.ctx.stroke();
         }
     }
 }
 
-export default Circle;
+export default Triangle;

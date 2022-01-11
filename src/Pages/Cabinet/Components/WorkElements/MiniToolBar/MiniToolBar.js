@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import styles from './MiniToolBar.module.sass'
@@ -25,13 +25,17 @@ import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../PreviewFile/paintHelpers";
+import TextDraw from "./Tools/TextDraw";
+import LineDraw from "./Tools/LineDraw/LineDraw";
+import Triangle from "./Tools/Triangle";
+import Magnifier from "./Tools/Magnifier";
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview
+         setFilePreview, canvasWrapRef
 }) => {
 
-    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false});
+    const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
     const paint = useSelector(state => state.Cabinet.paint);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
@@ -58,25 +62,34 @@ const MiniToolBar = ({
         }
     };
 
+    const chooseAdditionalTool = (name) => {
+        canvasRef.current.onmousemove = null;
+        canvasRef.current.onmousedown = null;
+        canvasRef.current.onmouseup = null;
+        dispatch(onSetPaint('tool', {name}));
+    }
+
     const toggleContextMenu = () => setParams(s => ({...s, showAdditionalTools: !s.showAdditionalTools}));
 
     const renderAdditionalTools = () => (
         <>
             {params.showAdditionalTools ? <div className={styles.additionalTools}>
-                <div className={styles.line}><TextIcon className={styles.iconTool} />Текст</div>
-                <div className={styles.line}><SearchIcon className={styles.iconTool} />Лупа</div>
+                <div onClick={() => chooseAdditionalTool('text')} className={`${styles.line} ${'text' === paint.tool?.name && styles.chosen}`}><TextIcon className={styles.iconTool} />Текст</div>
+                <div onClick={() => chooseAdditionalTool('magnifier')} className={`${styles.line} ${'magnifier' === paint.tool?.name && styles.chosen}`}><SearchIcon className={styles.iconTool} />Лупа</div>
                 <div className={`${styles.line} ${styles.lineIcons}`}>
                     <div onClick={() => addTool(Circle)} className={`${styles.toolWrap} ${'circle' === paint.tool?.name && styles.chosen}`}><Square1Icon /></div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
+                    <div onClick={() => addTool(Triangle)} className={`${styles.toolWrap} ${'triangle' === paint.tool?.name && styles.chosen}`}><SquareIcon /></div>
                     <div onClick={() => addTool(Square)} className={`${styles.toolWrap} ${'square' === paint.tool?.name && styles.chosen}`}><Square3Icon /> </div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
-                    <div className={`${styles.toolWrap} ${'123' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
+                    <div onClick={() => chooseAdditionalTool('arrow')} className={`${styles.toolWrap} ${'arrow' === paint.tool?.name && styles.chosen}`}><VectorIcon /></div>
+                    <div onClick={() => chooseAdditionalTool('line')} className={`${styles.toolWrap} ${'line' === paint.tool?.name && styles.chosen}`}><LineIcon /></div>
                 </div>
             </div> : null}
         </>
     )
 
-    const addTool = (toolName) => dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
+    const addTool = (toolName) => {
+        dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
+    }
 
     const addButton = (icon, name = '', options = null, callback = null) => (
         <div
@@ -173,10 +186,30 @@ const MiniToolBar = ({
         </div>
     )
 
+    useEffect(() => {
+        return () => {
+            chooseAdditionalTool({});
+        }
+    }, []) //eslint-disable-line
+
     return (
         <>
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
+
+            {params.edit && paint.tool?.name === 'text' ? <TextDraw
+                canvas={canvasRef?.current}
+                onFinishDraw={onFinishDraw}
+                addTool={addTool}
+            /> : null}
+            {params.edit && (paint.tool?.name === 'arrow' || paint.tool?.name === 'line') ? <LineDraw
+                canvas={canvasRef?.current}
+                onFinishDraw={onFinishDraw}
+                addTool={addTool}
+                canvasWrapRef={canvasWrapRef}
+                isArrow={paint.tool?.name === 'arrow'}
+            /> : null}
+            {paint.tool?.name === 'magnifier' ? <Magnifier canvas={canvasRef?.current}/> : null}
         </>
     )
 }
