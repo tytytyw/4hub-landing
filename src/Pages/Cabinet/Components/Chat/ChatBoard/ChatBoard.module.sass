@@ -50,14 +50,31 @@
       display: flex
       align-items: flex-end
       align-self: stretch
+      justify-content: space-between
       width: 80%
-      padding: 4px 20px
+      padding: 4px 30px 4px 20px
+      position: relative
+      &:after
+        content: ""
+        position: absolute
+        width: 1px
+        height: 44px
+        bottom: -5px
+        right: 30px
+        background: #DFDFDF
       .messageImg
-        margin: 0 15px 0 0
+        margin: 0 30px 0 0
         width: 22px
-        padding: 3px 0
+        height: 22px
+        padding: 2px 0
+        path
+          fill: #DCDCDC
+      .messageImg.active
+        cursor: pointer
+        path
+          fill: #4086F1
       .textInput
-        width: 87%
+        width: 90%
         font-size: 15px
         font-family: "SF Pro Regular", sans-serif
         border: none
@@ -78,14 +95,20 @@
         width: 34px
         height: 34px
         border-radius: 50%
-        background: rgb(63, 134, 241)
+        border: 1px solid #4086F1
+        background: #fff
         margin: 0 15px 0 0
         cursor: pointer
-      .triangle
-        position: relative
-        &:after
-          content: ""
-          position: absolute
-          left: 13px
-          border: 8px solid transparent
-          border-left: 10px solid white
+        transition: background .3s ease
+        .triangle
+          transform: rotate(180deg)
+          width: 14px
+          padding-right: 2px
+        svg
+          path
+            fill: #C4C4C4
+        &:hover
+          background: #4086F1
+          svg
+            path
+              fill: #fff
