@@ -45,9 +45,6 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         file={file}
                         setFilePreview={setFilePreview}
                         share={share}
-                        direction="row"
-                        drawParams={drawParams}
-                        setDrawParams={setDrawParams}
                     />
                     <div className={styles.canvasWrap}>
                         {isLoading ? <Loader
@@ -104,7 +101,6 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                     canvasRef.current.height = sizes.height;
                     canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
                     canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
-                    setDrawParams(state => ({...state, imgWidth: sizes.width, imgHeight: sizes.height}));
                 }
             }
         }
@@ -120,8 +116,6 @@ const PreviewFile = ({setFilePreview, file, share}) => {
             if(window.cancelLoadMedia) window.cancelLoadMedia.cancel()
         }
     }, []); //eslint-disable-line
-
-    const [drawParams, setDrawParams] = useState({color: 'black', colorRGBA: 'rgba(0, 0, 0, 0.2)', width: 2, imgWidth: 0, imgHeight: 0, figure: "brush-outlined", fontSize: 13, fontFamily: 'Arial, sans-serif', lineHeight: 15});
 
     return (
         <PopUp set={set} background={'none'} padding='0'>
