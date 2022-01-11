@@ -55,6 +55,7 @@ function Magnifier({canvas}) {
             e.target.width = width;
             e.target.height = height;
             const ctx = magnifierRef.current.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(
                 e.target,
                 //get image
