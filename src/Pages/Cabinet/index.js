@@ -28,6 +28,7 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
+import MutualEdit from "./Components/MutualEdit/MutualEdit";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
@@ -347,6 +348,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
+            <MutualEdit />
         </div>
     )
 }
