@@ -3,15 +3,16 @@ import React, {useRef, useState} from 'react';
 import styles from './MutualEdit.module.sass';
 import PopUp from "../../../../generalComponents/PopUp";
 import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
-import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ImagePanel from "./ImagePanel/ImagePanel";
+import DrawZone from "./DrawZone/DrawZone";
 
 function MutualEdit() {
 
     const canvasRef = useRef();
+    const addImageRef = useRef();
     const canvasWrapRef = useRef();
     const mainRef = useRef();
-    const [images, setImages] = useState({loaded: [], saved: []})
+    const [images, setImages] = useState({loaded: [], saved: []});
 
     const [params, setParams] = useState({isLoading: false, dragImage: false})
 
@@ -22,6 +23,8 @@ function MutualEdit() {
     const setDroppableZone = () => {
         setParams(s => ({...s, dragImage: !s.dragImage}))
     }
+
+
 
     return<PopUp>
         <div className={styles.mutualEdit} ref={canvasWrapRef}>
@@ -37,26 +40,13 @@ function MutualEdit() {
             </header>
             <div className={styles.mainField}>
                 <ImagePanel addImage={true} pushImages={pushLoaded} images={images.loaded} setDroppableZone={setDroppableZone} />
-                <main className={styles.paintField} ref={mainRef}>
-                    <div className={styles.canvasWrap}>
-                        {params.dragImage ? <div className={styles.droppableZone}>Перетащите файл в область редактирования</div> : null}
-                        {params.isLoading ? <Loader
-                            type='bounceDots'
-                            position='absolute'
-                            background='rgba(255, 255, 255, 0)'
-                            zIndex={5}
-                            containerType='bounceDots'
-                            width='60%'
-                            height='80%'
-                        /> : null}
-                        <canvas
-                            ref={canvasRef}
-                            className={styles.canvas}
-                            width={mainRef?.current?.getBoundingClientRect().width}
-                            height={mainRef?.current?.getBoundingClientRect().height}
-                        />
-                    </div>
-                </main>
+                <DrawZone
+                    canvasRef={canvasRef}
+                    addImageRef={addImageRef}
+                    mainRef={mainRef}
+                    params={params}
+                    setParams={setParams}
+                />
                 <div className={styles.rightPanelWrap}>
                     <div className={styles.asideWrap}>
                         <ImagePanel images={images.saved} />

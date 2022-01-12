@@ -2,8 +2,12 @@ import React from 'react'
 
 import styles from './ImagePanel.module.sass'
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/plus-3.svg";
+import {setDragged} from "../../../../../Store/actions/CabinetActions";
+import {useDispatch} from "react-redux";
 
 function ImagePanel({images = [], addImage = false, pushImages = () => {}, setDroppableZone = () => {}}) {
+
+    const dispatch = useDispatch();
 
     const addImages = e => {
         let files = [];
@@ -20,15 +24,16 @@ function ImagePanel({images = [], addImage = false, pushImages = () => {}, setDr
             className={styles.itemWrap}
             key={i}
             draggable
-            onDragStart={handleDragStart}
+            onDragStart={() => handleDragStart(image)}
             onDragEnd={handleDragEnd}
         >
             <img className={styles.image} src={image} alt='img' draggable={false} />
         </div>)
     )
 
-    const handleDragStart = () => {
+    const handleDragStart = (image) => {
         setDroppableZone();
+        dispatch(setDragged(image));
     }
 
     const handleDragEnd = (e) => {

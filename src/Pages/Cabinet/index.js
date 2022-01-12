@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
-// import { onGetUserInfo } from '../../Store/actions/startPageAction'
-// import { onGetFolders, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
 import styles from './PrivateCabinet.module.sass'
 import SideMenu from './Components/SideMenu'
 import MyFolders from './Components/MyFolders'
@@ -28,7 +26,6 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
-import MutualEdit from "./Components/MutualEdit/MutualEdit";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
@@ -39,7 +36,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const project = useSelector(state => state.Cabinet.project?.chosenProject);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
-    //const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
@@ -105,21 +101,13 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     return (
         <div
             className={styles.mainWrap}
-            //style={{minHeight}}
             onDragOver={handleDragOver}
         >
             <SideMenu
                 data={id_company ? businessMenu : menu}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
-            <div
-                className={styles.workArea}
-                // style={{
-                //     minHeight,
-                //     width: collapsed ? `calc(100vw - 55px)` : '82%',
-                //     minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
-                // }}
-            >
+            <div className={styles.workArea}>
                 <Switch>
                     <Redirect exact from='/' to={id_company ? '/company' : '/folders'}/>
                     
@@ -348,7 +336,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            <MutualEdit />
+            {/*<MutualEdit />*/}
         </div>
     )
 }
