@@ -9,6 +9,7 @@ import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabin
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
 import {
 	onGetChatGroups,
+	onGetResentChatsList,
 	// onGetChatGroupsMembers
 } from "../../../../../Store/actions/CabinetActions";
 
@@ -26,11 +27,12 @@ const ChatList = ({
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
 
 	//TODO: Chats list
-	const chatList = useSelector((state) => state.Cabinet.contactList) || [];
+	const chatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
     const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
 
 	useEffect(() => {
 		dispatch(onGetChatGroups());
+		dispatch(onGetResentChatsList());
 	}, []); //eslint-disable-line
     useEffect(() => {
 		// if (selectedContact?.isGroup) dispatch(onGetChatGroupsMembers(selectedContact.id))
@@ -213,7 +215,7 @@ const ChatList = ({
 				</div>
 			</div>
 			<div className={styles.list}>
-				{chatsType === "chats" ? renderChatsList(chatList) : ""}
+				{chatsType === "chats" ? renderChatsList(chatsList) : ""}
 				{chatsType === "groups" ? renderGroupsList() : ""}
 			</div>
 		</div>

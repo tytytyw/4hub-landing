@@ -4,7 +4,8 @@ import styles from "./ChatBoard.module.sass";
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/add-2.svg";
 import {ReactComponent as SmileIcon} from "../../../../../assets/PrivateCabinet/smile.svg";
 import {ReactComponent as RadioIcon} from "../../../../../assets/PrivateCabinet/radio-3.svg";
-import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {ReactComponent as PlayIcon} from "../../../../../assets/PrivateCabinet/play-grey.svg";
+import {ReactComponent as SendIcon} from "../../../../../assets/PrivateCabinet/send.svg";
 import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
 import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
@@ -20,6 +21,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
 
     const endMessagesRef = useRef();
 
+    const [textAreaValue, setTextAreaValue] = useState('')
     const [messages, setMessages] = useState([
         {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
         {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
@@ -39,7 +41,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         const newMessage = {text, type: 'outbox'}
         if (text) setMessages(messages => [...messages, newMessage])
         setTimeout(() => {
-            inputRef.current.value = '';
+            setTextAreaValue('')
             inputRef.current.style.height = '25px'
         })
     }
@@ -49,10 +51,11 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
 
     const keyPress = (e) => {
         findCursorPosition()
-        if (e.keyCode === 13 && !e.shiftKey) addMessage(inputRef.current.value)
+        if (e.keyCode === 13 && !e.shiftKey) addMessage(textAreaValue)
     }
 
     const onTextAreaChange = (e) => {
+        setTextAreaValue(e.target.value)
         e.target.style.height = 'auto'
         e.target.style.height = e.target.value ? e.target.scrollHeight + 'px': '25px'
     }
@@ -77,10 +80,9 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
             </main>
             <footer className={styles.chatBoardFooter}>
                 <div className={styles.downloadOptions}>
-                    <AddIcon />
+                    <AddIcon title='Вставить файл' />
                 </div>
                 <div className={styles.textMessage}>
-                    <img src={imageSrc + "assets/PrivateCabinet/send.svg"} alt="img" className={styles.messageImg} />
                     <textarea
                         ref={inputRef}
                         type="text"
@@ -90,12 +92,15 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
                         rows={1}
                         onKeyDown={keyPress}
                         onChange={onTextAreaChange}
+                        value={textAreaValue}
+
                     />
+                    <SendIcon className={classNames({[styles.messageImg]: true, [styles.active]: textAreaValue.length})} onClick={() => addMessage(textAreaValue)} />
                 </div>
                 <div className={styles.sendOptions}>
-                    <div className={styles.button}><RadioIcon /></div>
-                    <div className={`${styles.button} ${styles.triangle}`} />
-                    <div className={styles.button} onClick={() => setRightPanel(state => state ==='emo' ? '' : 'emo')} ><SmileIcon /></div>
+                    <div title='Аудио сообщение' className={styles.button}><RadioIcon title='' /></div>
+                    <div title='Видео сообщение' className={styles.button}><PlayIcon title='' className={styles.triangle} /></div>
+                    <div title='Смайлики' className={styles.button} onClick={() => setRightPanel(state => state ==='emo' ? '' : 'emo')} ><SmileIcon title='' /></div>
                 </div>
             </footer>
         </div>

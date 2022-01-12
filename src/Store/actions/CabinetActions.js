@@ -59,6 +59,7 @@ import {
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
+    RESENT_CHATS_LIST,
     CHAT_GROUPS_MEMBERS,
     CHAT_GROUP_DELETE
 } from '../types';
@@ -961,6 +962,29 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
             console.log(error)
         })
 
+};
+
+export const onGetResentChatsList = () => async (dispatch, getState) => {
+
+    const uid = getState().user.uid
+
+    api.get(`/ajax/chat_list.php?uid=${uid}`)
+        .then(response => {
+            if (response.data.ok) {
+                const data = response.data.data
+                const newData = []
+                for (const key in data) {
+                    newData.push({...data[key]})
+                }
+                dispatch({
+                    type: RESENT_CHATS_LIST,
+                    payload: newData
+                })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
 };
 
 export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
