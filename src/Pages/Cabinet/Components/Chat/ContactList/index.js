@@ -7,6 +7,7 @@ import {
 	onGetCompanyContacts,
 } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { createContactStatus } from "../../../../../generalComponents/chatHelper";
 import classNames from "classnames";
 import { ReactComponent as AddContactIcon } from "../../../../../assets/PrivateCabinet/addContact-2.svg";
 import CustomChatItem from "../CustomChatItem";
@@ -17,6 +18,7 @@ const ContactList = ({
 	selectedContact,
 	setSelectedContact,
 	setAction,
+	currentDate,
 }) => {
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
@@ -43,11 +45,14 @@ const ContactList = ({
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={contact}
-					key={'contact_'+contact.id}
-                    title={`${contact?.sname} ${contact?.name}`}
-                    subtitle={'в сети 29 мин. назад'}
-					status={'в сети 29 мин. назад'}
-                    avatar={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+					key={"contact_" + contact.id}
+					title={`${contact?.sname} ${contact?.name}`}
+					subtitle={createContactStatus(contact, currentDate)}
+					status={createContactStatus(contact, currentDate)}
+					avatar={
+						contact?.icon?.[0] ||
+						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+					}
 				/>
 			);
 		});
@@ -61,10 +66,9 @@ const ContactList = ({
 					[styles.addContact]: true,
 				})}
 				onClick={() => {
-					setAction({ type: "addContact", name: "Добавить контакт", text: "" })
-					setSelectedContact(null)
-					}
-				}
+					setAction({ type: "addContact", name: "Добавить контакт", text: "" });
+					setSelectedContact(null);
+				}}
 				title="Добавить контакт"
 			>
 				<div className={styles.iconWrap}>
@@ -76,7 +80,9 @@ const ContactList = ({
 					<span className={styles.text}>Добавить контакт</span>
 				)}
 			</div>
-			{contactList ? <div className={styles.list}>{renderContactList()}</div> : null}
+			{contactList ? (
+				<div className={styles.list}>{renderContactList()}</div>
+			) : null}
 		</div>
 	);
 };
