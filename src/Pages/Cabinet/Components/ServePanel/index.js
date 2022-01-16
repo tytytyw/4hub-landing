@@ -262,7 +262,7 @@ const ServePanel = ({
 
     const tempDisconnect = () => (
         <div
-            className={`${!chosenFile ? styles.iconView : styles.iconDisabled}`}
+            className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
             onClick={() => console.log('click on disconnect btn')}
         ><PowerOffIcon className={styles.iconTrash} /></div>
     )
