@@ -60,9 +60,12 @@ const Devices = () => {
 	const renderDevicesList = () => {
 		if (!devices) return null;
 		return devices.map((dev, i) => {
-			// if (dev?.is_block === '1' || dev?.is_online === 0) {
-			//     return null
-			// }
+			if (
+                dev?.is_block === '1'
+                // || dev?.is_online === 0
+            ) {
+			    return null
+			}
 			return (
 				<DeviceItem
 					key={i + dev.name}
@@ -100,6 +103,7 @@ const Devices = () => {
 					setDevices(devices.filter((i) => !selectedDevices.includes(i.id)))
 				);
 				setSelectedDevices([]);
+                setMultiple(false)
 			});
 	};
 
@@ -181,7 +185,7 @@ const Devices = () => {
 					/>
 				)}
 			</List>
-			<WorkSpace listCollapsed={listCollapsed} />
+			<WorkSpace listCollapsed={listCollapsed} setMultiple={setMultiple} />
 			{mouseParams !== null && (
 				<ContextMenu
 					params={mouseParams}

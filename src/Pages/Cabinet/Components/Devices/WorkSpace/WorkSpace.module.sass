@@ -110,6 +110,22 @@
       white-space: nowrap
       text-overflow: ellipsis
       font-family: "SF Pro Light", sans-serif
+  .disableBtn
+    display: flex
+    justify-content: center
+    align-items: center
+    box-shadow: 0 2px 4px #dedede
+    border-radius: 3px
+    width: 100px
+    height: 24px
+    color: #606060
+    font-size: 12px
+    cursor: pointer
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out
+    margin-top: 10px
+  .disableBtn:hover
+    background: #4086F1
+    color: white
 
 .contentWrapper
   height: calc(100% - 55px - 90px)
@@ -126,6 +142,7 @@
     img
       max-width: 100%
       width: 400px
+      max-height: 400px
 
   .optionsWrapper
     padding: 65px 20px 30px 20px

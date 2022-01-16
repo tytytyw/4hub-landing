@@ -10,10 +10,16 @@ import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
 // import ActionApproval from '../../../../../generalComponents/ActionApproval'
 
-const WorkSpace = ({ listCollapsed }) => {
+const WorkSpace = ({ listCollapsed, setMultiple }) => {
 	// const dispatch = useDispatch();
 	const selectedDevice = useSelector((state) => state.Cabinet.selectedDevice);
+	const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
 	// const nullifyAction = () => setAction({type: '', name: '', text: ''});
+
+    const getDeviceIconName = (device) => {
+		if (device) return device === "Mobile Phone" ? "iphone" : device;
+		return "unknown";
+	};
 
 	return (
 		<>
@@ -35,16 +41,14 @@ const WorkSpace = ({ listCollapsed }) => {
 					</div>
 				</div>
 
-				<ServePanel />
+				<ServePanel chosenFile={selectedDevice || selectedUser} chooseSeveral={setMultiple} />
 
 				{selectedDevice && (
 					<div className={styles.contentWrapper}>
 						<div className={styles.previewWrapper}>
 							{selectedDevice && (
 								<img
-									src={`./assets/PrivateCabinet/devices/${
-										selectedDevice.device || "unknown"
-									}.svg`}
+									src={`./assets/PrivateCabinet/devices/${getDeviceIconName(selectedDevice.device)}.svg`}
 									onError={(e) =>
 										e.target.setAttribute(
 											"src",
@@ -63,9 +67,7 @@ const WorkSpace = ({ listCollapsed }) => {
 										<div className={styles.filePreviewWrap}>
 											<div className={styles.content}>
 												<img
-													src={`./assets/PrivateCabinet/devices/${
-														selectedDevice.device || "unknown"
-													}.svg`}
+                                                    src={`./assets/PrivateCabinet/devices/${getDeviceIconName(selectedDevice.device)}.svg`}
 													onError={(e) =>
 														e.target.setAttribute(
 															"src",
@@ -119,9 +121,10 @@ const WorkSpace = ({ listCollapsed }) => {
 									<div className={styles.infoFileItem}>
 										<span className={styles.itemName}>Активность</span>
 										<span className={styles.description}>
-											{selectedDevice?.last_visit}
+                                        {selectedDevice?.last_visit?.split('-').reverse().join('.')}
 										</span>
 									</div>
+                                    <div className={styles.disableBtn}>Отключить</div>
 								</>
 							</div>
 						</div>
