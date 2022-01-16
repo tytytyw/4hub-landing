@@ -213,20 +213,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
                     <Route
                         path='/devices'
-                        render={() => <Devices
-                            filePreview={filePreview}
-                            setFilePreview={setFilePreview}
-                            fileSelect={fileSelect}
-                            fileAddCustomization={fileAddCustomization}
-                            setFileAddCustomization={setFileAddCustomization}
-                            setAwaitingFiles={setAwaitingFiles}
-                            awaitingFiles={awaitingFiles}
-                            loaded={loaded}
-                            setLoaded={setLoaded}
-                            loadingFile={loadingFile}
-                            fileErrors={fileErrors}
-                            setLoadingFile={setLoadingFile}
-                        />}
+                        render={() => <Devices />}
                     />
 
                     <Route

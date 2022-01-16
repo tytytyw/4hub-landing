@@ -320,7 +320,6 @@ const ServePanel = ({
     const renderInDevices = () => (
         <>
             <div className={styles.groupStart}>
-                {tempTabs()}
                 <div className={styles.filterPanel}>
                     {tempSize()} {tempChoose()}
                 </div>

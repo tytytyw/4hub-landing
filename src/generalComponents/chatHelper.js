@@ -2,8 +2,8 @@ export const createContactStatus = (contact, currentDate) => {
     if (!contact.is_user) return "Пользователя нет в системе 4Hub";
 
     const lastVisitDate = {};
-    // const contactDate = contact.ut; //expected '2022-01-12 19:32:46'
-    const contactDate = '2022-01-12 21:00:00';
+    const contactDate = contact.ut; //expected '2022-01-12 19:32:46'
+    // const contactDate = '2022-01-12 21:00:00';
 
     [lastVisitDate.date, lastVisitDate.time] = contactDate.split(" ");
     lastVisitDate.time = `${lastVisitDate.time.split(":")[0]}:${
