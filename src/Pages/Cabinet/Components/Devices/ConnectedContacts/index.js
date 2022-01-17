@@ -6,12 +6,15 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import classNames from "classnames";
 import ContactItem from "../ContactItem";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import LoadingFailed from '../LoadingFailed'
 
 const ConnectedContacts = ({
 	listCollapsed,
 	setMouseParams,
 	listSize,
 	connectedContactsListLoading,
+	loadingFailed,
+	getConnectedContacts,
 }) => {
 	const connectedContacts = useSelector(
 		(state) => state.Cabinet.connectedContacts
@@ -38,6 +41,7 @@ const ConnectedContacts = ({
 			className={classNames({
 				[styles.wrapper]: true,
 				[styles.hidden]: collapse,
+                [styles.loadingFailed]: loadingFailed,
 			})}
 		>
 			<div
@@ -65,20 +69,11 @@ const ConnectedContacts = ({
 			<div
 				className={classNames({
 					[styles.innerContacts]: true,
+                    
 				})}
 			>
-				{collapse && renderContacts()}
-				{/* TODO: remove */}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-				{collapse && renderContacts()}
-
-				{connectedContactsListLoading ? (
-					<div style={{ height: "54px", position: "relative", overflow: 'hidden' }}>
+                {connectedContactsListLoading ? (
+					<div style={{ height: "54px", position: "relative", overflow: "hidden" }}>
 						<Loader
 							type="bounceDots"
 							position="absolute"
@@ -90,6 +85,21 @@ const ConnectedContacts = ({
 						/>
 					</div>
 				) : null}
+				{loadingFailed ? (
+					collapse && <LoadingFailed callback={getConnectedContacts} />
+				) : null}
+
+				{collapse && renderContacts()}
+                
+				{/* TODO: remove */}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+
 			</div>
 		</div>
 	);

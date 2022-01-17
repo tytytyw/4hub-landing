@@ -20,11 +20,13 @@ import {
 	setSelectedDevice,
 	setSelectedUser,
 } from "../../../../Store/actions/CabinetActions";
+import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import ConnectedContacts from "./ConnectedContacts";
 import SuccessPopup from "../Business/SuccessPopup";
 import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desktop.svg";
 import api from "../../../../api";
 import OptionButtomLine from "./OptionButtomLine";
+import LoadingFailed from "./LoadingFailed";
 
 const Devices = () => {
 	const dispatch = useDispatch();
@@ -47,11 +49,16 @@ const Devices = () => {
 	const [devicesListLoading, setDevicesListLoading] = useState(false);
     const [connectedContactsListLoading, setConnectedContactsListLoading] = useState(false);
 
+    const [errors, setErrors] = useState({сonnectedContactsError: false, devicesListError: false});
+
 	useEffect(() => {
-		dispatch(onGetDevices(setDevicesListLoading));
-		dispatch(onGetConnectedContacts(setConnectedContactsListLoading));
+        dispatch(onGetUserInfo());
+        getConnectedContacts();
+        dispatch(onGetDevices(setDevicesListLoading, setErrors));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+    const getConnectedContacts = () => dispatch(onGetConnectedContacts(setConnectedContactsListLoading, setErrors))
 
 	const multipleSelect = (dev) => {
 		if (selectedDevices.includes(dev.id)) {
@@ -171,7 +178,6 @@ const Devices = () => {
 			>
 				<div className={styles.listWrap}>
 					<div className={styles.devicesListWrap}>
-						{renderDevicesList()}
 						{devicesListLoading ? (
 							<div style={{ height: "54px", position: "relative" }}>
 								<Loader
@@ -185,14 +191,22 @@ const Devices = () => {
 								/>
 							</div>
 						) : null}
+
+                        {errors?.devicesListError ?
+                            <LoadingFailed callback={() => dispatch(onGetDevices(setDevicesListLoading, setErrors))} /> : renderDevicesList()}
 					</div>
+
 					<ConnectedContacts
 						listSize={size}
 						listCollapsed={listCollapsed}
 						setMouseParams={setMouseParams}
                         connectedContactsListLoading={connectedContactsListLoading}
+                        loadingFailed={errors?.сonnectedContactsError}
+                        setConnectedContactsListLoading={setConnectedContactsListLoading}
+                        getConnectedContacts={getConnectedContacts}
 					/>
 				</div>
+                
 				{multiple && (
 					<OptionButtomLine
 						selectedDevices={selectedDevices}

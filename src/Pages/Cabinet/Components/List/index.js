@@ -16,6 +16,7 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
         >
             <div className={styles.header}>
                 {!listCollapsed && <span>{title}</span>}
+                <span />
                 <div className={styles.imgWrap}>
                 <img
                     className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
