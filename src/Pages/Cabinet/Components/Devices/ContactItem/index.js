@@ -32,6 +32,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
                     dispatch(setSelectedUser(contact))
                     dispatch(setSelectedDevice(null))
                 }}
+                title={listCollapsed ? contact?.user_name : ''}
             >
                 <div className={styles.titleWrap}>
                     <div className={styles.imageWrap}>

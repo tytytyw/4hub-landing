@@ -165,8 +165,10 @@ const Devices = () => {
 				setListCollapsed={setListCollapsed}
 				listCollapsed={listCollapsed}
 			>
-				<div className={styles.folderListWrap}>
-					{renderDevicesList()}
+				<div className={styles.listWrap}>
+                    <div className={styles.devicesListWrap}>
+                        {renderDevicesList()}
+                    </div>
 					<ConnectedContacts
 						listSize={size}
 						listCollapsed={listCollapsed}

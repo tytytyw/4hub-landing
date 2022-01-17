@@ -28,7 +28,7 @@ const ConnectedContacts = ({ listCollapsed, setMouseParams, listSize }) => {
 	};
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={classNames({[styles.wrapper]: true, [styles.hidden]: collapse,})}>
 			<div
 				className={classNames({
 					[styles.titleWrap]: true,
@@ -37,21 +37,30 @@ const ConnectedContacts = ({ listCollapsed, setMouseParams, listSize }) => {
 				})}
 				onClick={() => setCollapse(!collapse)}
 			>
-				<span className={styles.title}>Подключенные пользователи</span>
+				<span title={listCollapsed ? 'Подключенные пользователи' : ''} className={styles.title}>Подключенные пользователи</span>
 				<PlayIcon
 					className={classNames({
 						[styles.playButton]: true,
 						[styles.revert]: collapse,
 					})}
+                    title={collapse ? 'Свернуть' : 'Развернуть'}
 				/>
 			</div>
 			<div
 				className={classNames({
-					[styles.innerFolders]: true,
-					[styles.hidden]: !collapse,
+					[styles.innerContacts]: true,
+					
 				})}
 			>
-				{renderContacts()}
+				{collapse && renderContacts()}
+                {/* TODO: remove */}
+                {/* {collapse && renderContacts()}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()} */}
 			</div>
 		</div>
 	);

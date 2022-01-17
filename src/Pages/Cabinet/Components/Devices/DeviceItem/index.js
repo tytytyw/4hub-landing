@@ -15,7 +15,6 @@ const DeviceItem = ({
 	listCollapsed,
 }) => {
 	
-
 	return (
 		<>
 			<div
@@ -25,6 +24,7 @@ const DeviceItem = ({
 					[styles?.[`wrapper_${listSize}`]]: !!listSize,
 				})}
 				onClick={onClick}
+                title={listCollapsed ? device.name : ''}
 			>
 				<div className={styles.titleWrap}>
 					<div className={styles.titleImg}>
