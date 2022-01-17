@@ -8,6 +8,7 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
+import { getDeviceIconName } from "../../../../../generalComponents/collections";
 // import ActionApproval from '../../../../../generalComponents/ActionApproval'
 
 const WorkSpace = ({ listCollapsed, setMultiple }) => {
@@ -15,11 +16,6 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
 	const selectedDevice = useSelector((state) => state.Cabinet.selectedDevice);
 	const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
 	// const nullifyAction = () => setAction({type: '', name: '', text: ''});
-
-    const getDeviceIconName = (device) => {
-		if (device) return device === "Mobile Phone" ? "iphone" : device;
-		return "unknown";
-	};
 
 	return (
 		<>

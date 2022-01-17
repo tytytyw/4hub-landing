@@ -4,6 +4,7 @@ import styles from "./DeviceItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { getDeviceIconName } from "../../../../../generalComponents/collections";
 
 const DeviceItem = ({
 	device,
@@ -13,10 +14,7 @@ const DeviceItem = ({
 	listSize,
 	listCollapsed,
 }) => {
-	const getDeviceIconName = (device) => {
-		if (device) return device === "Mobile Phone" ? "iphone" : device;
-		return "unknown";
-	};
+	
 
 	return (
 		<>

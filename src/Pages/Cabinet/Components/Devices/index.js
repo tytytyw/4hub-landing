@@ -60,12 +60,12 @@ const Devices = () => {
 	const renderDevicesList = () => {
 		if (!devices) return null;
 		return devices.map((dev, i) => {
-			if (
-                dev?.is_block === '1'
+			// if (
+                // dev?.is_block === '1'
                 // || dev?.is_online === 0
-            ) {
-			    return null
-			}
+            // ) {
+			//     return null
+			// }
 			return (
 				<DeviceItem
 					key={i + dev.name}
