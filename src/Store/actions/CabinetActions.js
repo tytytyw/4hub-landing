@@ -581,7 +581,8 @@ export const setDevices = data => ({
     payload: data
 })
 
-export const onGetDevices = () => async (dispatch, getState) => {
+export const onGetDevices = (setDevicesListLoading) => async (dispatch, getState) => {
+    setDevicesListLoading(true)
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
             if(res.data.ok === 1) {
@@ -611,11 +612,13 @@ export const onGetDevices = () => async (dispatch, getState) => {
             }
         })
         .catch(err => console.log(err))
+        .finally(() => setDevicesListLoading(false))
 };
 
 
-export const onGetConnectedContacts = () => async (dispatch, getState) => {
+export const onGetConnectedContacts = (setConnectedContactsListLoading) => async (dispatch, getState) => {
     try {
+        setConnectedContactsListLoading(true)
         const res = await api.get(`/ajax/devices_users_list.php?uid=${getState().user.uid}}`)
         if (!!res?.data?.ok) {
             dispatch({
@@ -625,6 +628,8 @@ export const onGetConnectedContacts = () => async (dispatch, getState) => {
         }
     } catch (e) {
         console.log(e)
+    } finally {
+        setConnectedContactsListLoading(false)
     }
     /*dispatch({
         type: GET_CONNECTED_CONTACTS,
