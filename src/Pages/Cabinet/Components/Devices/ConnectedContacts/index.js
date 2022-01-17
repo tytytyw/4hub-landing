@@ -54,13 +54,13 @@ const ConnectedContacts = ({ listCollapsed, setMouseParams, listSize }) => {
 			>
 				{collapse && renderContacts()}
                 {/* TODO: remove */}
-                {/* {collapse && renderContacts()}
                 {collapse && renderContacts()}
                 {collapse && renderContacts()}
                 {collapse && renderContacts()}
                 {collapse && renderContacts()}
                 {collapse && renderContacts()}
-                {collapse && renderContacts()} */}
+                {collapse && renderContacts()}
+                {collapse && renderContacts()}
 			</div>
 		</div>
 	);

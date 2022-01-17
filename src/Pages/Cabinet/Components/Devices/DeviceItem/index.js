@@ -49,10 +49,10 @@ const DeviceItem = ({
 					{!listCollapsed && (
 						<div className={styles.deviceInfo}>
 							<span className={styles.title}>{device.name}</span>
-							<div className={styles.details}>
+							{/* <div className={styles.details}>
 								<span>OS: {device.os}</span>
 								<span>Last visited: {device.last_visit}</span>
-							</div>
+							</div> */}
 						</div>
 					)}
 				</div>
