@@ -18,7 +18,6 @@ export function drawCanvasPosition(canvas, image, dx = canvas.width, dy = canvas
     let img = new Image();
     img.src = image;
     img.onload = () => {
-        console.log(dx)
         const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, width, height);
         ctx.drawImage(img, (dx - sizes.width)/2, (dy - sizes.height)/2, sizes.width, sizes.height);
     }

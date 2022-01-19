@@ -2,12 +2,15 @@ import React from 'react'
 
 import styles from './ImagePanel.module.sass'
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/plus-3.svg";
-import {setDragged} from "../../../../../Store/actions/CabinetActions";
-import {useDispatch} from "react-redux";
+import {ReactComponent as DeleteIcon} from "../../../../../assets/PrivateCabinet/delete.svg"
 
-function ImagePanel({images = [], addImage = false, pushImages = () => {}, setDroppableZone = () => {}}) {
-
-    const dispatch = useDispatch();
+function ImagePanel({
+    images = [],
+    addImage = false,
+    pushImages = () => {},
+    deleteImage = () => {},
+    inputRef = null
+}) {
 
     const addImages = e => {
         let files = [];
@@ -24,27 +27,20 @@ function ImagePanel({images = [], addImage = false, pushImages = () => {}, setDr
             className={styles.itemWrap}
             key={i}
             draggable
-            onDragStart={() => handleDragStart(image)}
-            onDragEnd={handleDragEnd}
         >
+            <div className={styles.hoverDelete}>
+                <div className={styles.deleteWrap} onClick={() => deleteImage(i)}>
+                    <DeleteIcon className={styles.deleteIco} />
+                </div>
+            </div>
             <img className={styles.image} src={image} alt='img' draggable={false} />
         </div>)
     )
 
-    const handleDragStart = (image) => {
-        setDroppableZone();
-        dispatch(setDragged(image));
-    }
-
-    const handleDragEnd = (e) => {
-        e.preventDefault();
-        setDroppableZone();
-    }
-
     return(
         <aside className={styles.panel}>
             {renderImages()}
-            {addImage ? <div className={styles.itemWrap}>
+            {addImage && images.length < 4 ? <div className={styles.itemWrap}>
                 <AddIcon className={styles.addIcon}/>
                 <div>Загрузить</div>
                 <input
@@ -52,6 +48,7 @@ function ImagePanel({images = [], addImage = false, pushImages = () => {}, setDr
                     type='file'
                     className={styles.inputImage}
                     multiple
+                    ref={inputRef}
                 />
             </div> : null}
         </aside>

@@ -40,7 +40,7 @@ import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview, canvasWrapRef, title = ''
+         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
@@ -228,7 +228,7 @@ const MiniToolBar = ({
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Отменить</span>
-                    <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
+                    <span className={`${styles.button} ${images?.length > 0 ? styles.save : styles.disabled}`} onClick={() => saveImageToPanel(canvasRef.current.toDataURL())}>Сохранить</span>
                 </div>
             </div>
         </div>
@@ -239,6 +239,16 @@ const MiniToolBar = ({
             chooseAdditionalTool({});
         }
     }, []) //eslint-disable-line
+
+    useEffect(() => {
+        setParams(s => ({...s, history: {...s.history, previous: [], next: []}}));
+        if(images?.length > 0) {
+            setParams(s => ({...s, edit: true}));
+        } else {
+            setParams(s => ({...s, edit: false}));
+            chooseAdditionalTool('none');
+        }
+    }, [images]) //eslint-disable-line
 
     return (
         <>

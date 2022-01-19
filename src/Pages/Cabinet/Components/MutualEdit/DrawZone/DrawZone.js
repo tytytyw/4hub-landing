@@ -3,8 +3,9 @@ import React, {useEffect} from 'react';
 import styles from './DrawZone.module.sass';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {drawCanvasPosition} from "../../PreviewFile/paintHelpers";
+import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/plus-3.svg";
 
-function DrawZone({params, canvasRef, mainRef, images, setParams}) {
+function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
 
     const paintImage = async (images) => {
         setParams(s => ({...s, isLoading: true}));
@@ -32,6 +33,8 @@ function DrawZone({params, canvasRef, mainRef, images, setParams}) {
         paintImage(images.loaded)
     }, [images.loaded]) //eslint-disable-line
 
+    const fileSelect = () => {if(inputRef?.current) inputRef.current.click()};
+
     return <main className={styles.paintField} ref={mainRef}>
         <div className={styles.canvasWrap}>
             {params.isLoading ? <Loader
@@ -51,6 +54,18 @@ function DrawZone({params, canvasRef, mainRef, images, setParams}) {
             />
             {images?.loaded?.length > 1 ? <div className={styles.verticalDivider}/> : null}
             {images?.loaded?.length > 2 ? <div className={styles.horizontalDivider}/> : null}
+            {images?.loaded?.length === 3 ? <div
+                className={styles.addField}
+                style={{
+                    width: canvasRef?.current?.getBoundingClientRect().width/2 || 0,
+                    height: canvasRef?.current?.getBoundingClientRect().height/2 || 0
+                }}
+            >
+                <div onClick={fileSelect} className={styles.addFile}>
+                    <AddIcon className={styles.addIcon} />
+                    <span>Загрузите файл для сравнения</span>
+                </div>
+            </div> : null}
         </div>
     </main>
 }
