@@ -148,7 +148,8 @@ export const moveFile = (folder, file, uid) => {
 
 //Moves folder to another folder
 export const moveFolder = (folder, folderToMove, uid) => {
-    return api.post(`/ajax/file_move.php?uid=${uid}&fid=${folderToMove.fid}&dir=${folder.path}`)
+    if(folder.path.startsWith(folderToMove.path)) return Promise().reject(new Error('Folder cannot be move to itself or to children'))
+    return api.post(`/ajax/dir_move.php?uid=${uid}&dir=${folderToMove.name}&parent=${folderToMove.gdir}&dir_new=${folder.path}`)
         .then(res => {
             return !!res.data.ok
         })
