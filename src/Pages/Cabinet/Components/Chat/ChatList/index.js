@@ -4,6 +4,7 @@ import styles from "./ChatList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import CustomChatItem from "../CustomChatItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import { createContactStatus } from "../../../../../generalComponents/chatHelper";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
@@ -21,6 +22,7 @@ const ChatList = ({
 	setAction,
 	mouseParams,
 	setMouseParams,
+	currentDate,
 }) => {
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
@@ -57,8 +59,8 @@ const ChatList = ({
 					chatItem={chat}
 					key={chat.id}
 					title={`${chat?.sname} ${chat?.name}`}
-					subtitle={"в сети 29 мин. назад"}
-					status={"в сети 29 мин. назад"}
+					subtitle={createContactStatus(chat, currentDate)}
+					status={createContactStatus(chat, currentDate)}
 					avatar={
 						chat?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`

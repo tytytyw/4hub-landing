@@ -135,6 +135,16 @@ export const contextMenuSubFolder = {
     additional: []
 }
 
+// Devices
+export const getDeviceIconName = (device) => {
+    switch (device) {
+        case 'Mobile': return 'iphone'
+        case 'Desktop': return 'Desktop'
+        case 'Tablet': return 'pad'
+        default: return "unknown";
+    }
+};
+
 export const contextMenuDevice = {
     main: [
         {name: 'Блокировать устройство', img: 'edit', type: 'disconnectItem'},

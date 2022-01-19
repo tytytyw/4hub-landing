@@ -581,7 +581,9 @@ export const setDevices = data => ({
     payload: data
 })
 
-export const onGetDevices = () => async (dispatch, getState) => {
+export const onGetDevices = (setDevicesListLoading, setErrors) => async (dispatch, getState) => {
+    setDevicesListLoading(true)
+    setErrors(prevState => {return {...prevState, devicesListError: false}})
     api.get(`/ajax/devices_list.php?uid=${getState().user.uid}`)
         .then(res => {
             if(res.data.ok === 1) {
@@ -608,23 +610,29 @@ export const onGetDevices = () => async (dispatch, getState) => {
                     type: GET_DEVICES,
                     payload: list
                 })
-            }
+            } else throw new Error()
         })
-        .catch(err => console.log(err))
+        .catch(() => setErrors(prevState => {return {...prevState, devicesListError: true}}))
+        .finally(() => setDevicesListLoading(false))
 };
 
 
-export const onGetConnectedContacts = () => async (dispatch, getState) => {
+export const onGetConnectedContacts = (setConnectedContactsListLoading, setErrors) => async (dispatch, getState) => {
     try {
+        setConnectedContactsListLoading(true)
+        setErrors(prevState => {return {...prevState, сonnectedContactsError: false}})
         const res = await api.get(`/ajax/devices_users_list.php?uid=${getState().user.uid}}`)
-        if (!!res?.data?.ok) {
+        if (res?.data?.ok) {
             dispatch({
                 type: GET_CONNECTED_CONTACTS,
                 payload: res.data.users
             })
-        }
-    } catch (e) {
-        console.log(e)
+        } else throw new Error()
+
+    } catch {
+        setErrors(prevState => {return {...prevState, сonnectedContactsError: true}})
+    } finally {
+        setConnectedContactsListLoading(false)
     }
     /*dispatch({
         type: GET_CONNECTED_CONTACTS,

@@ -12,15 +12,18 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
                 [styles.listWrap]: true,
                 [styles.listWrapCollapsed]: !!listCollapsed
             })}
+            title={listCollapsed ? title : ''}
         >
             <div className={styles.header}>
                 {!listCollapsed && <span>{title}</span>}
+                <span />
                 <div className={styles.imgWrap}>
                 <img
                     className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
                     src={`${imageSrc}assets/PrivateCabinet/play-grey.svg`}
                     alt='play'
                     onClick={() => setListCollapsed(!listCollapsed)}
+                    title={listCollapsed ? 'Развернуть' : 'Свернуть'}
                 />
                     {!!icon &&
                     <img

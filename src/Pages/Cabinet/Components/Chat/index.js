@@ -30,6 +30,7 @@ const Chat = ({ setMenuItem }) => {
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+	const [date, setDate] = useState(new Date());
 	const dispatch = useDispatch();
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
@@ -87,7 +88,14 @@ const Chat = ({ setMenuItem }) => {
 	useEffect(() => {
 		setMenuItem("Chat");
 		dispatch(onGetUserInfo());
-		return () => setMenuItem("");
+		const timer = setInterval(() => {// Creates an interval which will update the current data every minute
+			setDate(new Date());
+		  }, 60 * 1000);
+		return () => {
+			setMenuItem("");
+			clearInterval(timer);
+		};
+		
 	}, []); //eslint-disable-line
 
     useEffect(() => {
@@ -178,6 +186,7 @@ const Chat = ({ setMenuItem }) => {
 							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
+							currentDate={date}
 						/>
 					) : null}
 					{boardOption === "chats" ? (
@@ -192,6 +201,7 @@ const Chat = ({ setMenuItem }) => {
 							action={action}
 							closeContextMenu={closeContextMenu}
 							deleteChatGroup={deleteChatGroup}
+							currentDate={date}
 						/>
 					) : null}
 				</div>

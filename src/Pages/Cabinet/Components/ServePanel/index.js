@@ -24,6 +24,7 @@ import { ReactComponent as MenuIcon } from '../../../../assets/PrivateCabinet/me
 import { ReactComponent as SafeIcon } from '../../../../assets/PrivateCabinet/safe.svg';
 import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/share.svg';
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
+import { ReactComponent as PowerOffIcon } from '../../../../assets/PrivateCabinet/powerOff.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
 // import { ReactComponent as AddFileIcon } from '../../../../assets/PrivateCabinet/add_file.svg';
 import { ReactComponent as AddFolderIcon } from '../../../../assets/PrivateCabinet/add_folder.svg';
@@ -259,6 +260,13 @@ const ServePanel = ({
         ><DeleteIcon className={styles.iconTrash} /></div>
     )
 
+    const tempDisconnect = () => (
+        <div
+            className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
+            onClick={() => console.log('click on disconnect btn')}
+        ><PowerOffIcon className={styles.iconTrash} /></div>
+    )
+
     const tempShare = () => (
         <div
             className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
@@ -320,14 +328,13 @@ const ServePanel = ({
     const renderInDevices = () => (
         <>
             <div className={styles.groupStart}>
-                {tempTabs()}
                 <div className={styles.filterPanel}>
                     {tempSize()} {tempChoose()}
                 </div>
             </div>
             <div className={styles.groupEnd}>
                 <div className={styles.iconButtons}>
-                    {tempDelete()}
+                    {tempDisconnect()}
                 </div>
             </div>
         </>

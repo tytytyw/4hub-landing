@@ -1,62 +1,108 @@
-import React, {useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
-import styles from './ConnectedContacts.module.sass'
-import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg'
-import classNames from "classnames"
+import styles from "./ConnectedContacts.module.sass";
+import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
+import classNames from "classnames";
 import ContactItem from "../ContactItem";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import LoadingFailed from '../LoadingFailed'
 
-const ConnectedContacts = ({listCollapsed, chosenContact, setChosenContact, setMouseParams, listSize}) => {
+const ConnectedContacts = ({
+	listCollapsed,
+	setMouseParams,
+	listSize,
+	connectedContactsListLoading,
+	loadingFailed,
+	getConnectedContacts,
+}) => {
+	const connectedContacts = useSelector(
+		(state) => state.Cabinet.connectedContacts
+	);
+	const [collapse, setCollapse] = useState(true);
 
-    const connectedContacts = useSelector(state => state.Cabinet.connectedContacts)
-    const [collapse, setCollapse] = useState(true)
+	const renderContacts = () => {
+		return connectedContacts.map((contact, index) => {
+			return (
+				<ContactItem
+					listSize={listSize}
+					key={index}
+					contact={contact}
+					active={contact?.active}
+					setMouseParams={setMouseParams}
+					listCollapsed={listCollapsed}
+				/>
+			);
+		});
+	};
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => setChosenContact(null), [collapse])
+	return (
+		<div
+			className={classNames({
+				[styles.wrapper]: true,
+				[styles.hidden]: collapse,
+                [styles.loadingFailed]: loadingFailed,
+			})}
+		>
+			<div
+				className={classNames({
+					[styles.titleWrap]: true,
+					[styles.titleCollapsed]: !!listCollapsed,
+					[styles.titleWrapChosen]: !!collapse,
+				})}
+				onClick={() => setCollapse(!collapse)}
+			>
+				<span
+					title={listCollapsed ? "Подключенные пользователи" : ""}
+					className={styles.title}
+				>
+					Подключенные пользователи
+				</span>
+				<PlayIcon
+					className={classNames({
+						[styles.playButton]: true,
+						[styles.revert]: collapse,
+					})}
+					title={collapse ? "Свернуть" : "Развернуть"}
+				/>
+			</div>
+			<div
+				className={classNames({
+					[styles.innerContacts]: true,
+                    
+				})}
+			>
+                {connectedContactsListLoading ? (
+					<div style={{ height: "54px", position: "relative", overflow: "hidden" }}>
+						<Loader
+							type="bounceDots"
+							position="absolute"
+							background="transparent"
+							zIndex={5}
+							width="100px"
+							height="100px"
+							containerType="bounceDots"
+						/>
+					</div>
+				) : null}
+				{loadingFailed ? (
+					collapse && <LoadingFailed callback={getConnectedContacts} />
+				) : null}
 
-    const renderContacts = () => {
-      return connectedContacts.map((contact, index) => {
-          return <ContactItem
-              listSize={listSize}
-              key={index}
-              contact={contact}
-              active={contact?.active}
-              chosenContact={chosenContact}
-              setChosenContact={setChosenContact}
-              setMouseParams={setMouseParams}
-              listCollapsed={listCollapsed}
-          />
-      })
-    }
+				{collapse && renderContacts()}
+                
+				{/* TODO: remove */}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
+				{collapse && renderContacts()}
 
-    return (
-        <div className={styles.wrapper}>
-            <div
-                className={classNames({
-                    [styles.titleWrap]: true,
-                    [styles.titleCollapsed]: !!listCollapsed,
-                    [styles.titleWrapChosen]: !!collapse
-                })}
-                onClick={() => setCollapse(!collapse)}
-            >
-                <span className={styles.title}>Подключенные пользователи</span>
-                <PlayIcon
-                    className={classNames({
-                        [styles.playButton]: true,
-                        [styles.revert]: collapse
-                    })}
-                />
-            </div>
-            <div
-                className={classNames({
-                    [styles.innerFolders]: true,
-                    [styles.hidden]: !collapse
-                })}
-            >
-                {renderContacts()}
-            </div>
-        </div>
-    )
-}
+			</div>
+		</div>
+	);
+};
 
-export default ConnectedContacts
+export default ConnectedContacts;
