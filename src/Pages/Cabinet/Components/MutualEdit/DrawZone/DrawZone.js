@@ -1,9 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import styles from './DrawZone.module.sass';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {drawCanvasPosition} from "../../PreviewFile/paintHelpers";
 
-function DrawZone({params, setParams, canvasRef, mainRef, addImageRef, images}) {
+function DrawZone({params, canvasRef, mainRef, images, setParams}) {
+
+    const paintImage = async (images) => {
+        setParams(s => ({...s, isLoading: true}));
+        canvasRef.current.getContext('2d').clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+        if(images.length === 1) {
+            await drawCanvasPosition(canvasRef.current, images[0]);
+        }
+        if(images.length === 2) {
+            await drawCanvasPosition(canvasRef.current, images[0], canvasRef.current.width/2, canvasRef.current.height, canvasRef.current.width/2, canvasRef.current.height/2)
+            await drawCanvasPosition(canvasRef.current, images[1], canvasRef.current.width * 1.5, canvasRef.current.height, canvasRef.current.width/2, canvasRef.current.height/2)
+        }
+        if(images.length >= 3) {
+            await drawCanvasPosition(canvasRef.current, images[0], canvasRef.current.width/2, canvasRef.current.height/2, canvasRef.current.width/2, canvasRef.current.height/2)
+            await drawCanvasPosition(canvasRef.current, images[1], canvasRef.current.width * 1.5, canvasRef.current.height/2, canvasRef.current.width/2, canvasRef.current.height/2)
+            await drawCanvasPosition(canvasRef.current, images[2], canvasRef.current.width/2, canvasRef.current.height * 1.5, canvasRef.current.width/2, canvasRef.current.height/2)
+            if(images.length === 4) {
+                await drawCanvasPosition(canvasRef.current, images[3], canvasRef.current.width * 1.5, canvasRef.current.height * 1.5, canvasRef.current.width/2, canvasRef.current.height/2)
+            }
+        }
+        setParams(s => ({...s, isLoading: false}));
+    }
+
+    useEffect(() => {
+        paintImage(images.loaded)
+    }, [images.loaded]) //eslint-disable-line
 
     return <main className={styles.paintField} ref={mainRef}>
         <div className={styles.canvasWrap}>
