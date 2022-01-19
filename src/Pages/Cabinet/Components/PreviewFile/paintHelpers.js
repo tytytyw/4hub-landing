@@ -12,3 +12,14 @@ export function drawCanvas(canvas, image, callback = null, next, previous) {
         if(callback) callback(next, previous);
     }
 }
+
+export function drawCanvasPosition(canvas, image, dx = canvas.width, dy = canvas.height, width = canvas.width, height = canvas.height) {
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let img = new Image();
+    img.src = image;
+    img.onload = () => {
+        console.log(dx)
+        const sizes = imageToRatio(img.naturalWidth, img.naturalHeight, width, height);
+        ctx.drawImage(img, (dx - sizes.width)/2, (dy - sizes.height)/2, sizes.width, sizes.height);
+    }
+}

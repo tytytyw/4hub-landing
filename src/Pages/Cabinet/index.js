@@ -26,14 +26,14 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
-// import MutualEdit from "./Components/MutualEdit/MutualEdit";
+import MutualEdit from "./Components/MutualEdit/MutualEdit";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
     const uid = useSelector(state => state.user.uid);
     const id_company = useSelector(state => state.user.id_company);
     const path = useSelector(state => state.Cabinet.fileList?.path);
-    // const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
+    const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
     const projectFolder = useSelector(state => state.Cabinet.project?.chosenFolder);
     const project = useSelector(state => state.Cabinet.project?.chosenProject);
     const dispatch = useDispatch();
@@ -325,7 +325,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {/*{mutualEdit.open ? <MutualEdit /> : null}*/}
+            {mutualEdit.open ? <MutualEdit /> : null}
         </div>
     )
 }

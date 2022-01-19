@@ -71,9 +71,11 @@ const MiniToolBar = ({
     };
 
     const chooseAdditionalTool = (name) => {
-        canvasRef.current.onmousemove = null;
-        canvasRef.current.onmousedown = null;
-        canvasRef.current.onmouseup = null;
+        if(canvasRef?.current) {
+            canvasRef.current.onmousemove = null;
+            canvasRef.current.onmousedown = null;
+            canvasRef.current.onmouseup = null;
+        }
         dispatch(onSetPaint('tool', {name}));
     }
 
@@ -173,7 +175,7 @@ const MiniToolBar = ({
             <div className={styles.rightPart}>
                 <div
                     className={styles.customWrap}
-                    onClick={() => {if(params.edit) dispatch(onSetPaint('mutualEdit', {open: true, data: canvasRef.current.toDataURL("image/png")}))}}
+                    onClick={() => {if(params.edit) dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")]}))}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
@@ -225,7 +227,7 @@ const MiniToolBar = ({
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
                 </div>
             </div>
