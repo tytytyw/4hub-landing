@@ -33,7 +33,7 @@ function MutualEdit() {
     }
 
     const deleteSaved = (i) => {
-        setImages(s => ({...s, saved: s.loaded.filter((el, index) => i !== index)}))
+        setImages(s => ({...s, saved: s.saved.filter((el, index) => i !== index)}))
     }
 
     useLayoutEffect(() => {

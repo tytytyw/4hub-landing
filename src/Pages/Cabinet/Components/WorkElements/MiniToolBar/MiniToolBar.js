@@ -227,7 +227,7 @@ const MiniToolBar = ({
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Закрыть</span>
                     <span className={`${styles.button} ${images?.length > 0 ? styles.save : styles.disabled}`} onClick={() => saveImageToPanel(canvasRef.current.toDataURL())}>Сохранить</span>
                 </div>
             </div>
