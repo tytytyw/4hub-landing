@@ -147,7 +147,8 @@ const INITIAL_STATE = {
         size: 2,
         mutualEdit: {
             open: false,
-            data: []
+            data: [],
+            destination: ''
         }
     },
 

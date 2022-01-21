@@ -175,7 +175,7 @@ const MiniToolBar = ({
             <div className={styles.rightPart}>
                 <div
                     className={styles.customWrap}
-                    onClick={() => {if(params.edit) dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")]}))}}
+                    onClick={() => {if(params.edit) dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
