@@ -8,7 +8,6 @@ import Safe from './Components/Safe'
 import Devices from './Components/Devices'
 import MyProfile from './Components/MyProfile'
 import MyFiles from './Components/MyFiles'
-import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
 import {Switch, Route, useHistory, Redirect} from 'react-router'
@@ -26,14 +25,13 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
-import MutualEdit from "./Components/MutualEdit/MutualEdit";
+import Modals from "./Components/Modals/Modals";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
     const uid = useSelector(state => state.user.uid);
     const id_company = useSelector(state => state.user.id_company);
     const path = useSelector(state => state.Cabinet.fileList?.path);
-    const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
     const projectFolder = useSelector(state => state.Cabinet.project?.chosenFolder);
     const project = useSelector(state => state.Cabinet.project?.chosenProject);
     const dispatch = useDispatch();
@@ -306,26 +304,22 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 </Switch>
 
             </div>
-            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
-                ? <FileLoader
-                    awaitingFiles={awaitingFiles}
-                    setAwaitingFiles={setAwaitingFiles}
-                    loadingFile={loadingFile}
-                    setLoadingFile={setLoadingFile}
-                    loaded={loaded}
-                    setLoaded={setLoaded}
-                    setFileAddCustomization={setFileAddCustomization}
-                    fileAddCustomization={fileAddCustomization}
-                    fileErrors={fileErrors}
-                    setFileErrors={setFileErrors}
-                    menuItem={menuItem}
-                    filesPage={filesPage}
-                />
-            : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
-            {mutualEdit.open ? <MutualEdit /> : null}
+            <Modals
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+                loadingFile={loadingFile}
+                setLoadingFile={setLoadingFile}
+                loaded={loaded}
+                setLoaded={setLoaded}
+                setFileAddCustomization={setFileAddCustomization}
+                fileAddCustomization={fileAddCustomization}
+                fileErrors={fileErrors}
+                setFileErrors={setFileErrors}
+                menuItem={menuItem}
+            />
         </div>
     )
 }
