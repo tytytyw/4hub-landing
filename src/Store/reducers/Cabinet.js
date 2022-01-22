@@ -55,7 +55,7 @@ import {
     CHAT_GROUPS_LIST,
     RESENT_CHATS_LIST,
     // CHAT_GROUPS_MEMBERS,
-    CHAT_GROUP_DELETE,
+    CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -157,6 +157,12 @@ const INITIAL_STATE = {
         groupsList: [],
         recentChatsList: [],
     },
+
+    //GLOBAL MODALS
+    modals: {
+        error: {open: false, message: ''},
+        success: {open: false, message: ''}
+    }
 
 }
 
@@ -393,6 +399,11 @@ export default function startPage(state = INITIAL_STATE, action) {
         //PAINT
         case SET_PAINT: {
             return {...state, paint: {...state.paint, [action.payload.key]: action.payload.value}}
+        }
+
+        //GLOBAL MODAL
+        case SET_MODALS: {
+            return {...state, modals: {...state.modals, [action.payload.key]: action.payload.value}}
         }
     }
 }
