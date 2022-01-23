@@ -63,6 +63,8 @@ const ChatList = ({
 						chat?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
 					}
+					setMouseParams={setMouseParams}
+					contextMenuList={chat.is_secret_chat ? 'secretChat' : 'chatsList'}
 				/>
 			);
 		});
@@ -119,6 +121,7 @@ const ChatList = ({
 							group?.members?.length || 0
 						} участников группы ( ${0} онлайн )`}
 						setMouseParams={setMouseParams}
+						contextMenuList={'groupsList'}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>

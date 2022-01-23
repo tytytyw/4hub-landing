@@ -58,6 +58,7 @@ import {
     CHAT_SELECTED_CONTACT,
     // CHAT_GROUPS_MEMBERS,
     CHAT_GROUP_DELETE,
+    SECRET_CHAT_DELETE,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -274,6 +275,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         case CHAT_GROUP_DELETE: {
             const groups = state.chat.groupsList.filter(gr => gr.id !== action.payload.id)
             return {...state, chat: {...state.chat, groupsList: groups}}
+        }
+        case SECRET_CHAT_DELETE: {
+            const secretChats = state.chat.secretChatsList.filter(gr => gr.id !== action.payload.id)
+            return {...state, chat: {...state.chat, secretChatsList: secretChats}}
         }
         //SORT FILES
         case SORT_FILES: {

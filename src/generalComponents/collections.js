@@ -256,6 +256,10 @@ export const contextMenuChatGroup = [
     {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
 ]
 
+export const contextMenuSecretChat = [
+    {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
+]
+
 // org structure
 
 export const contextMenuPerson = [

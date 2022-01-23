@@ -18,8 +18,8 @@ import SuccessPopup from "./SuccessPopup";
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
-import { contextMenuChatGroup } from '../../../../generalComponents/collections';
-import { groupDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
+import { contextMenuChatGroup, contextMenuSecretChat } from '../../../../generalComponents/collections';
+import { groupDelete, secretChatDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import {onGetChatMessages, onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
 
 const Chat = ({ setMenuItem }) => {
@@ -75,6 +75,20 @@ const Chat = ({ setMenuItem }) => {
 		},
 	]
 
+	const callbackArrMainSecretChat = [
+        {
+			type: 'deleteSecretChat',
+			name: 'Удалить',
+			text: `Вы действительно хотите удалить секретный чат c ${selectedContact?.name}?`,
+			callback: (list, index) =>
+			setAction({
+				text: list[index].text,
+				type: list[index].type,
+				name: list[index].name,
+			})
+		},
+	]
+
 	const deleteChatGroup = () => {
 		//TODO: add is_admin validation
 		groupDelete(
@@ -83,6 +97,18 @@ const Chat = ({ setMenuItem }) => {
 			uid,
 			setShowSuccessMessage,
 			"Группа удалена"
+		);
+		nullifyAction();
+		setSelectedContact(null);
+	}
+
+	const deleteSecretChat = () => {
+		secretChatDelete(
+			selectedContact,
+			dispatch,
+			uid,
+			setShowSuccessMessage,
+			"Секретный чат удален"
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -245,18 +271,21 @@ const Chat = ({ setMenuItem }) => {
 				""
 			)}
 			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
-                <div className={styles.ContextMenuItems}>{renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup)}</div>
+                <div className={styles.ContextMenuItems}>
+					{mouseParams.contextMenuList === 'groupsList' ? renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup) : null}
+					{mouseParams.contextMenuList === 'secretChat' ? renderContextMenuItems(contextMenuSecretChat, callbackArrMainSecretChat) : null}
+				</div>
             </ContextMenu> : null}
-			{action.type === "deleteChatGroup" ? (
+			{action.type === "deleteChatGroup" || action.type === "deleteSecretChat" ? (
 				<ActionApproval
 					name={action.name}
 					text={action.text}
 					set={closeContextMenu}
-					callback={deleteChatGroup}
+					callback={action.type === "deleteChatGroup" ? deleteChatGroup : deleteSecretChat}
 					approve={'Удалить'}
 				>
 					<div className={styles.groupLogoWrap}>
-						<img className={styles.groupLogo} src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`} alt='group logo' />
+						<img className={styles.groupLogo} src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/${action.type === "deleteChatGroup" ? 'chatGroup' : 'profile-noPhoto'}.svg`} alt='group logo' />
 					</div>
 				</ActionApproval>
 			) : null}

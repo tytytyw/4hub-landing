@@ -62,6 +62,7 @@ import {
     RESENT_CHATS_LIST,
     // CHAT_GROUPS_MEMBERS,
     CHAT_GROUP_DELETE,
+    SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
 } from '../types';
@@ -1048,6 +1049,13 @@ export const onDeleteChatGroup = (group) => {
     return {
         type: CHAT_GROUP_DELETE,
         payload: group
+    }
+};
+
+export const onDeleteSecretChat = (secretChat) => {
+    return {
+        type: SECRET_CHAT_DELETE,
+        payload: secretChat
     }
 };
 

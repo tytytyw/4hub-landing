@@ -17,10 +17,11 @@ const CustomChatItem = ({
 	contextMenu = "contextMenu",
 	disableHover = false,
 	setMouseParams = () => {},
+	contextMenuList = ''
 }) => {
 	const onChatItemClick = (e, isMenu) => {
 		if (isMenu)
-			setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 });
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25, contextMenuList });
 
 		if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
 			setCollapseMembersList((state) => !state);
