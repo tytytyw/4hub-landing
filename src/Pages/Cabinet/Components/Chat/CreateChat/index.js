@@ -163,7 +163,7 @@ const CreateChat = ({
 			if (image) formData.append("file", image);
 			formData.append(
 				"id_user_to",
-				JSON.stringify(selectedContacts.map((item) => item.id))
+				JSON.stringify(selectedContacts.map((item) => item.id_real_user))
 			);
 			if (componentType === 'edit') formData.append("id_group", selectedContact.id);
 			api					     //_ add or edit

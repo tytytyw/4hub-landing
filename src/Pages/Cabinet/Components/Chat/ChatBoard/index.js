@@ -14,20 +14,21 @@ import classNames from "classnames";
 import InviteUser from './InviteUser'
 import Message from './Message'
 
-const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
+const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
     const [rightPanel, setRightPanel] = useState('')
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
-
+    const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
     const endMessagesRef = useRef();
 
     const [textAreaValue, setTextAreaValue] = useState('')
-    const [messages, setMessages] = useState([
-        {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
-        {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
-    ])
+    // const [messages, setMessages] = useState([
+    //     {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
+    //     {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
+    // ])
+    const [messages, setMessages] = useState(selectedContact.messages || [])
 
-    const renderMessages = () => {
+    const renderMessages = (messages) => {
         if (!messages?.length || !selectedContact) return null
         return (
             messages.map((msg, index) => {
@@ -63,7 +64,20 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
         endMessagesRef?.current?.scrollIntoView()
     }
     useEffect(() => scrollToBottom, [messages, selectedContact])
-    
+
+    //TODO connect to webSockets
+    // const socket = new WebSocket("wss://test22.mh.net.ua:3001")
+    // socket.onopen = function(e) {
+    //     console.log(e)
+    //     alert("[open] is connect");
+    //     };
+    // socket.onmessage = function(e) {
+    //     console.log(`[message] ${e.data}`);
+    // };
+    // socket.close();
+
+    useEffect(() => setMessages(selectedContact?.messages ?? []), [selectedContact])
+
     return (
         <div className={styles.chatBoardWrap}>
 
@@ -71,7 +85,7 @@ const ChatBoard = ({inputRef, setCursorPosition, selectedContact, insertToInput,
             <main className={styles.chatBoardMessageList}>
                 <div style={{width: rightPanel ? 'calc(100% - 200px)' : '100%'}} className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}
-                    {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} /> : renderMessages()}
+                    {selectedContact?.is_user === 0 ? <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} /> : renderMessages(messages)}
                     <div ref={endMessagesRef} />
                 </div>
                 <div className={styles.rightPanel}>

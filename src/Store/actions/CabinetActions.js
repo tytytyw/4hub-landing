@@ -61,7 +61,8 @@ import {
     CHAT_GROUPS_LIST,
     RESENT_CHATS_LIST,
     CHAT_GROUPS_MEMBERS,
-    CHAT_GROUP_DELETE
+    CHAT_GROUP_DELETE,
+    CHAT_SELECTED_CONTACT,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -1024,6 +1025,49 @@ export const onDeleteChatGroup = (group) => {
         payload: group
     }
 };
+
+export const onGetChatMessages = (target) => (dispatch, getState) => {
+
+    const uid = getState().user.uid
+    const {isGroup} = target
+
+    api.get(`/ajax/chat${isGroup ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup ? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
+        .then(response => {
+            if (response.data.ok) {
+                const messages = Object.values(response.data?.data ?? {})
+
+                const newData = isGroup
+                    ? getState().Cabinet.chat.groupsList.map(group => {return target.id === group.id ? {...group, messages} : group})
+                    : getState().user.id_company
+                        ? getState().Cabinet.companyContactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
+                        : getState().Cabinet.contactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
+
+                dispatch({
+                    type: isGroup ? CHAT_GROUPS_LIST : RESENT_CHATS_LIST,
+                    payload: newData
+                })
+
+                const selectedContact = getState().Cabinet.chat.selectedContact
+                if (target === selectedContact) {
+                    dispatch({
+                        type: CHAT_SELECTED_CONTACT,
+                        payload: {...selectedContact, messages}
+                    })
+                }
+
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+
+};
+
+export const onSetSelectedContact = (contact) => {
+    return {
+        type: CHAT_SELECTED_CONTACT,
+        payload: contact
+    }
+}
 
 // COMPANY
 export const onGetCompanyContacts = (setShowSuccessMessage, message) => async (dispatch, getState) => {

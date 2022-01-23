@@ -20,12 +20,13 @@ import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import { contextMenuChatGroup } from '../../../../generalComponents/collections';
 import { groupDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
+import {onGetChatMessages, onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
 	const [search, setSearch] = useState("");
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
-	const [selectedContact, setSelectedContact] = useState(null);
+	const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -39,6 +40,8 @@ const Chat = ({ setMenuItem }) => {
         setMouseParams(null);
 		nullifyAction()
     }
+	
+	const setSelectedContact = (contact) => selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : ''
 
     const renderContextMenuItems = (target, type) => {
         return target.map((item, i) => {
@@ -94,13 +97,18 @@ const Chat = ({ setMenuItem }) => {
 		return () => {
 			setMenuItem("");
 			clearInterval(timer);
+			setSelectedContact(null);
 		};
 		
 	}, []); //eslint-disable-line
 
-    useEffect(() => {
-		setSelectedContact(null)
-	}, [boardOption]); //eslint-disable-line
+    // useEffect(() => {
+	// 	setSelectedContact(null)
+	// }, [boardOption]); //eslint-disable-line
+
+	useEffect(() => {
+		if (selectedContact) dispatch(onGetChatMessages(selectedContact))
+	}, [selectedContact?.id]); //eslint-disable-line
     
 	return (
 		<div className={styles.chatComponent}>

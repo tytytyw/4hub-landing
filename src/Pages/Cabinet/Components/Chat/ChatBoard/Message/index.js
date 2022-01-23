@@ -5,9 +5,11 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function Message({ message, selectedContact }) {
     const text = message.text.split('\n')
+	const messageType = message.id_user === selectedContact.id_user ? 'outbox' : 'inbox'
+	
 	return (
-		<div className={classNames(styles.wrapper, styles[message.type])}>
-			{message.type === "inbox" ? (
+		<div className={classNames(styles.wrapper, styles[messageType])}>
+			{messageType === "inbox" ? (
 				<img
 					src={
 						selectedContact?.icon?.[0] ||

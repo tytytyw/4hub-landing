@@ -133,9 +133,9 @@ const ChatList = ({
 	};
 
 	useEffect(() => {
-		setSelectedContact(null);
+		// setSelectedContact(null);
         setAction({ type: "", name: "", text: "" })
-	}, [chatsType, setSelectedContact]); //eslint-disable-line
+	}, [chatsType]); //eslint-disable-line
 	useEffect(() => {
 		setCollapseMembersList(mouseParams ? true : false);
 	}, [selectedContact]); //eslint-disable-line
