@@ -1,11 +1,9 @@
-export const createContactStatus = (contact, currentDate) => {
-    if (!contact.is_user) return "Пользователя нет в системе 4Hub";
+export const createContactStatus = (isUser, currentDate, contactLastVisitDate, isOnline) => {
+    if (!isUser) return "Пользователя нет в системе 4Hub";
 
     const lastVisitDate = {};
-    const contactDate = contact.ut; //expected '2022-01-12 19:32:46'
-    // const contactDate = '2022-01-12 21:00:00';
 
-    [lastVisitDate.date, lastVisitDate.time] = contactDate.split(" ");
+    [lastVisitDate.date, lastVisitDate.time] = contactLastVisitDate.split(" ");
     lastVisitDate.time = `${lastVisitDate.time.split(":")[0]}:${
         lastVisitDate.time.split(":")[1]
     }`;
@@ -18,7 +16,7 @@ export const createContactStatus = (contact, currentDate) => {
             if (currentDate.getDate() === +lastVisitDate.day) {
                 //today
                 const minutesDifference =
-                    (currentDate - new Date(contactDate)) / 60000;
+                    (currentDate - new Date(contactLastVisitDate)) / 60000;
                 if (minutesDifference > 12 * 60) {
                     // more than 12 hours ago
                     return `сегодня в ${lastVisitDate.time}`;
@@ -26,7 +24,7 @@ export const createContactStatus = (contact, currentDate) => {
                     //less than an hour ago
                     const minutes = Math.floor(minutesDifference);
                     //contact online
-                    return minutes < 1 || contact.is_online === 1
+                    return minutes < 1 || isOnline === 1
                         ? "в сети"
                         : `${minutes} мин. назад`;
                 } else {

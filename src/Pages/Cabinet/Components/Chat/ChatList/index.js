@@ -11,7 +11,6 @@ import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateC
 import {
 	onGetChatGroups,
 	onGetResentChatsList,
-	// onGetChatGroupsMembers
 } from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
@@ -36,21 +35,12 @@ const ChatList = ({
 		dispatch(onGetChatGroups());
 		dispatch(onGetResentChatsList());
 	}, []); //eslint-disable-line
-    useEffect(() => {
-		// if (selectedContact?.isGroup) dispatch(onGetChatGroupsMembers(selectedContact.id))
-	}, [selectedContact]); //eslint-disable-line
 
 	const renderChatsList = (chatList) => {
 		if (!chatList) return null;
 
-		return chatList.map((chat, i) => {
-			if (
-				!(
-					chat?.name?.toLowerCase().includes(search.toLowerCase()) ||
-					chat?.sname?.toLowerCase().includes(search.toLowerCase())
-				)
-			)
-				return null;
+		return chatList.map(chat => {
+			if (!( chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null;
 			return (
 				<CustomChatItem
 					selectedContact={selectedContact}
@@ -59,8 +49,8 @@ const ChatList = ({
 					chatItem={chat}
 					key={chat.id}
 					title={`${chat?.sname} ${chat?.name}`}
-					subtitle={createContactStatus(chat, currentDate)}
-					status={createContactStatus(chat, currentDate)}
+					subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
+					status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
 					avatar={
 						chat?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
@@ -81,7 +71,7 @@ const ChatList = ({
 					chatItem={member}
 					key={chatId + "_user_" + member.id}
 					title={member?.name}
-					subtitle={"в сети 30 мин. назад"}
+					subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online)}
 					avatar={
 						member?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
@@ -156,7 +146,7 @@ const ChatList = ({
 						text: "",
                         chatsType
 					})
-                    setSelectedContact(null)
+                    // setSelectedContact(null)
 				}}
 				title={
 					sideMenuCollapsed
