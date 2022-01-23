@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CustomChatItem.module.sass";
 import classNames from "classnames";
+import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet/password.svg";
 
 const CustomChatItem = ({
 	selectedContact,
@@ -13,18 +14,18 @@ const CustomChatItem = ({
 	isSubList = false,
 	setCollapseMembersList,
 	status,
-	contextMenu = 'contextMenu',
+	contextMenu = "contextMenu",
 	disableHover = false,
-	setMouseParams = () => {}
+	setMouseParams = () => {},
 }) => {
-    const onChatItemClick = (e, isMenu) => {
-		if (isMenu) setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
+	const onChatItemClick = (e, isMenu) => {
+		if (isMenu)
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 });
 
-        if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
-			setCollapseMembersList(state => !state)
-		}
-			else setSelectedContact({...chatItem, status})
-    }
+		if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
+			setCollapseMembersList((state) => !state);
+		} else setSelectedContact({ ...chatItem, status });
+	};
 	return (
 		<div
 			className={classNames({
@@ -39,21 +40,43 @@ const CustomChatItem = ({
 		>
 			<div className={styles.groupName}>
 				<img src={avatar} alt="avatar" className={styles.avatar} />
-				{sideMenuCollapsed ? null : (
+				{sideMenuCollapsed ? (
+					chatItem.is_secret_chat && (
+						<LockIcon className={styles.secretChatIcon} />
+					)
+				) : (
 					<div className={styles.info}>
-						<div className={styles.title}>{title}</div>
+						<div className={styles.title}>
+							{title}{" "}
+							{chatItem.is_secret_chat ? (
+								<LockIcon className={styles.secretChatIcon} />
+							) : (
+								""
+							)}
+						</div>
 						<div className={styles.subtitle}>{subtitle}</div>
 					</div>
 				)}
 			</div>
 			<div className={styles.functionWrap}>
-				{contextMenu === 'contextMenu' ? <div className={styles.menuWrap} onClick={e => onChatItemClick(e, true)}
-				>
-					<span className={styles.menu} />
-				</div> : null}
-				{contextMenu === 'checkBox' ?
-					<div className={classNames({[styles.radioContact]: true, [styles.radioContactChosen]: selectedContact?.filter(c => c.id === chatItem.id).length})} />
-				: null}
+				{contextMenu === "contextMenu" ? (
+					<div
+						className={styles.menuWrap}
+						onClick={(e) => onChatItemClick(e, true)}
+					>
+						<span className={styles.menu} />
+					</div>
+				) : null}
+				{contextMenu === "checkBox" ? (
+					<div
+						className={classNames({
+							[styles.radioContact]: true,
+							[styles.radioContactChosen]: selectedContact?.filter(
+								(c) => c.id === chatItem.id
+							).length,
+						})}
+					/>
+				) : null}
 			</div>
 		</div>
 	);
