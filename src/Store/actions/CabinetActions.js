@@ -60,9 +60,10 @@ import {
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
     RESENT_CHATS_LIST,
-    CHAT_GROUPS_MEMBERS,
+    // CHAT_GROUPS_MEMBERS,
     CHAT_GROUP_DELETE,
     CHAT_SELECTED_CONTACT,
+    SECRET_CHATS_LIST,
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -980,7 +981,7 @@ export const onGetResentChatsList = () => async (dispatch, getState) => {
     api.get(`/ajax/chat_list.php?uid=${uid}`)
         .then(response => {
             if (response.data.ok) {
-                const data = response.data.data
+                const data = response.data?.data
                 const newData = []
                 for (const key in data) {
                     newData.push({...data[key]})
@@ -996,28 +997,52 @@ export const onGetResentChatsList = () => async (dispatch, getState) => {
         })
 };
 
-export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
-
+export const onGetSecretChatsList = () => async (dispatch, getState) => {
+    
     const uid = getState().user.uid
 
-    api.get(`/ajax/chat_group_user_list.php?uid=${uid}&id_group=${id}`)
+    api.get(`/ajax/chat_group_sec_list.php?uid=${uid}`)
         .then(response => {
-            const data = response.data?.data
-
-            const newData = []
-            for (const key in data) {
-                newData.push(data[key])
+            if (response.data.ok) {
+                const data = response.data.chat_groups
+                const newData = []
+                for (const key in data) {
+                    const chat = Object.values(data[key].users)[0]
+                    newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
+                }
+                dispatch({
+                    type: SECRET_CHATS_LIST,
+                    payload: newData
+                })
             }
-
-            dispatch({
-                type: CHAT_GROUPS_MEMBERS,
-                payload: {id, data: newData}
-            })
-        }).catch(error => {
+        })
+        .catch(error => {
             console.log(error)
         })
+}
 
-};
+// export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
+
+//     const uid = getState().user.uid
+
+//     api.get(`/ajax/chat_group_user_list.php?uid=${uid}&id_group=${id}`)
+//         .then(response => {
+//             const data = response.data?.data
+
+//             const newData = []
+//             for (const key in data) {
+//                 newData.push(data[key])
+//             }
+
+//             dispatch({
+//                 type: CHAT_GROUPS_MEMBERS,
+//                 payload: {id, data: newData}
+//             })
+//         }).catch(error => {
+//             console.log(error)
+//         })
+
+// };
 
 export const onDeleteChatGroup = (group) => {
     return {

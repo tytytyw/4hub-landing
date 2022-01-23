@@ -54,6 +54,7 @@ import {
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
     RESENT_CHATS_LIST,
+    SECRET_CHATS_LIST,
     CHAT_SELECTED_CONTACT,
     // CHAT_GROUPS_MEMBERS,
     CHAT_GROUP_DELETE,
@@ -152,6 +153,7 @@ const INITIAL_STATE = {
     chat: {
         groupsList: [],
         recentChatsList: [],
+        secretChatsList: [],
         selectedContact: null
     },
 
@@ -259,6 +261,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case RESENT_CHATS_LIST: {
             return {...state, chat: {...state.chat, recentChatsList: action.payload}}
+        }
+        case SECRET_CHATS_LIST: {
+            return {...state, chat: {...state.chat, secretChatsList: action.payload}}
         }
         case CHAT_SELECTED_CONTACT: {
             return {...state, chat: {...state.chat, selectedContact: action.payload}}

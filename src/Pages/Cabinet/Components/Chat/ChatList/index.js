@@ -11,6 +11,7 @@ import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateC
 import {
 	onGetChatGroups,
 	onGetResentChatsList,
+	onGetSecretChatsList
 } from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
@@ -28,13 +29,20 @@ const ChatList = ({
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
 
 	//TODO: Chats list
-	const chatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
+	const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
+	const secretChatsList = useSelector((state) => state.Cabinet.chat.secretChatsList);
+	const [chatsList, setChatList] = useState([])
     const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
 
 	useEffect(() => {
 		dispatch(onGetChatGroups());
 		dispatch(onGetResentChatsList());
+		dispatch(onGetSecretChatsList());
 	}, []); //eslint-disable-line
+
+	useEffect(() => {
+		setChatList([...recentChatsList, ...secretChatsList])
+	}, [recentChatsList, secretChatsList]); //eslint-disable-line
 
 	const renderChatsList = (chatList) => {
 		if (!chatList) return null;
@@ -48,7 +56,7 @@ const ChatList = ({
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={chat}
 					key={chat.id}
-					title={`${chat?.sname} ${chat?.name}`}
+					title={`${chat?.sname || ''} ${chat?.name}`}
 					subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
 					status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
 					avatar={
