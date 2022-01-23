@@ -39,7 +39,7 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
         )
     }
     const addMessage = (text) => {
-        const newMessage = {text, type: 'outbox'}
+        const newMessage = {text, id_user: selectedContact.id_real_user}
         if (text) setMessages(messages => [...messages, newMessage])
         setTimeout(() => {
             setTextAreaValue('')

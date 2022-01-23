@@ -5,8 +5,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function Message({ message, selectedContact }) {
     const text = message.text.split('\n')
-	const messageType = message.id_user === selectedContact.id_user ? 'outbox' : 'inbox'
-	
+	const messageType = message.id_user === selectedContact.id_real_user ? 'outbox' : 'inbox'
+console.log(message, selectedContact)
 	return (
 		<div className={classNames(styles.wrapper, styles[messageType])}>
 			{messageType === "inbox" ? (
