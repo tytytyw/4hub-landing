@@ -10,7 +10,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
 	onGetChatGroups,
-	// onGetChatGroupsMembers,
+	onGetResentChatsList
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 
@@ -28,7 +28,7 @@ const CreateChat = ({
 	const [previewAvatar, setPreviewAvatar] = useState(null);
 	const [image, setImage] = useState(null);
 	const [groupName, setGroupName] = useState("");
-	const [showActionApproval, setShowActionApproval] = useState(false);
+	const [showActionApproval, setShowActionApproval] = useState({type: null, show: false});
 	const [loadingType, setLoadingType] = useState("");
 	const dispatch = useDispatch();
 	const inputWrapRef = useRef();
@@ -86,7 +86,7 @@ const CreateChat = ({
 	useEffect(() => {
 		setSearch("");
 		setInputWrapHeight(inputWrapRef.current.offsetHeight)
-		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval(true)
+		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval({type: 'secretChat', show: true})
 	}, [selectedContacts, maxCountUsers]);
 
 	useEffect(() => {
@@ -156,34 +156,37 @@ const CreateChat = ({
 	};
 
 	const onSubmit = () => {
+		if (showActionApproval.show) setShowActionApproval(state => {return {...state, show: false}})
 		setLoadingType("squarify")
-		//for create group
-		if (maxCountUsers > 1) {
-			const formData = new FormData();
-			if (image) formData.append("file", image);
-			formData.append(
-				"id_user_to",
-				JSON.stringify(selectedContacts.map((item) => item.id_real_user))
-			);
-			if (componentType === 'edit') formData.append("id_group", selectedContact.id);
-			api					     //_ add or edit
-				.post(`/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`, formData)
-				.then((res) => {
-					if (res.data.ok) {
-						dispatch(onGetChatGroups());
-						// dispatch(onGetChatGroupsMembers(res.data.id_group));
-						if (componentType === 'add') setShowSuccessPopup({
-							title: "Новая группа успешно создана",
-							text: "",
-						});
-						onExit();
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				})
-				.finally(() => setLoadingType(""));
-		}
+		const formData = new FormData();
+		if (image) formData.append("file", image);
+		formData.append(
+			"id_user_to",
+			JSON.stringify(selectedContacts.map((item) => item.id_real_user))
+		);
+		if (componentType === 'edit') formData.append("id_group", selectedContact.id);
+		const apiUrl = showActionApproval.type === 'secretChat'
+			// secret chat
+			//TODO: remove deadline
+			? `/ajax/chat_group_sec_add.php?uid=${uid}&name=${selectedContacts[0].name}&deadline=2042-01-28 10:37:35`
+			// group		    //_ add or _edit
+			: `/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`
+		api					     
+			.post(apiUrl, formData)
+			.then((res) => {
+				if (res.data.ok) {
+					dispatch(showActionApproval.type === 'secretChat' ? onGetResentChatsList() : onGetChatGroups());
+					if (componentType === 'add') setShowSuccessPopup({
+						title: showActionApproval.type === 'secretChat' ? 'Секретный чат успешно создан' : "Новая группа успешно создана",
+						text: "",
+					});
+					onExit();
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => setLoadingType(""));
 	};
 
 	return (
@@ -259,7 +262,7 @@ const CreateChat = ({
 					{renderContactList(step === "one" ? contactList : selectedContacts)}
 				</div>
 			</div>
-			{showActionApproval ? (
+			{showActionApproval?.show ? (
 				<ActionApproval
 					name={"Начать секретный чат"}
 					text={`Вы действительно хотите создать секртеный чат с ${
@@ -269,7 +272,7 @@ const CreateChat = ({
 						setShowActionApproval(false);
 						setSelectedContact([]);
 					}}
-					// callback={}
+					callback={onSubmit}
 					approve={"Создать"}
 				>
 					<img
