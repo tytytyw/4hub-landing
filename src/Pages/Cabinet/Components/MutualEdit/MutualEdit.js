@@ -43,8 +43,11 @@ function MutualEdit({menuItem}) {
     }
 
     const deleteChosen = (fid) => {
+        console.log([...images.chosen].indexOf(fid))
         let chosen = [...images.chosen];
-        chosen.splice([...images.chosen].indexOf(fid));
+        if([...images.chosen].indexOf(fid) !== -1) {
+            chosen.splice([...images.chosen].indexOf(fid), 1);
+        }
         return chosen;
     }
 
