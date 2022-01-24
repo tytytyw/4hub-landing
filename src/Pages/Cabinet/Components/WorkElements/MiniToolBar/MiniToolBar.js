@@ -15,6 +15,8 @@ import {ReactComponent as Square3Icon} from '../../../../../assets/PrivateCabine
 import {ReactComponent as SearchIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/search.svg'
 import {ReactComponent as TextIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/text.svg'
 import {ReactComponent as VectorIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/vector-1.svg'
+import {ReactComponent as InfoIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/info.svg'
+import {ReactComponent as CameraIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/camera.svg'
 import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
 import Marker from "./Tools/Marker";
@@ -30,9 +32,15 @@ import LineDraw from "./Tools/LineDraw/LineDraw";
 import Triangle from "./Tools/Triangle";
 import Magnifier from "./Tools/Magnifier";
 
+//TODO - Need to switch to real users
+import BlackMan from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo0.png'
+import WhiteMan from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
+import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
+
+
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview, canvasWrapRef
+         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel, closePreview = () => {}
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
@@ -63,9 +71,11 @@ const MiniToolBar = ({
     };
 
     const chooseAdditionalTool = (name) => {
-        canvasRef.current.onmousemove = null;
-        canvasRef.current.onmousedown = null;
-        canvasRef.current.onmouseup = null;
+        if(canvasRef?.current) {
+            canvasRef.current.onmousemove = null;
+            canvasRef.current.onmousedown = null;
+            canvasRef.current.onmouseup = null;
+        }
         dispatch(onSetPaint('tool', {name}));
     }
 
@@ -91,9 +101,9 @@ const MiniToolBar = ({
         dispatch(onSetPaint('tool', new toolName(canvasRef?.current, {color: paint.color, pushInDrawHistory: onFinishDraw})))
     }
 
-    const addButton = (icon, name = '', options = null, callback = null) => (
+    const addButton = (icon, name = '', options = null, callback = null, itemClass) => (
         <div
-            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen}`}
+            className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name && styles.chosen} ${styles[itemClass]}`}
             onClick={options && callback && params.edit ? () => {callback(options)} : null}
         >
             {icon}
@@ -111,8 +121,8 @@ const MiniToolBar = ({
             canvasRef.current.onmouseup = null;
             dispatch(onSetPaint('tool', undefined));
             const preview = canvasRef.current.toDataURL("image/png");
-            if(file.fid && file.fid !== 'printScreen') replaceFile(uid, file, preview);
-            if(file.fid === 'printScreen') sendFile(uid, file);
+            if(file?.fid && file?.fid !== 'printScreen') replaceFile(uid, file, preview);
+            if(file?.fid === 'printScreen') sendFile(uid, file);
         } else {
             addTool(Pencil);
         }
@@ -137,6 +147,14 @@ const MiniToolBar = ({
         </div>
     )
 
+    const renderPhotos = (photos) => (
+        <div className={styles.photoWrap}>
+            {photos.map((photo, i) => <div key={i} className={styles.photoUser} style={{transform: `translateX(${12 * i}px)`}}>
+                <img src={photo} alt='img' />
+            </div>)}
+        </div>
+    )
+
     const setPreviewFileOrder = () => (
         <div
             className={styles.previewFileToolbar}
@@ -145,17 +163,23 @@ const MiniToolBar = ({
             }}
         >
             <div className={styles.leftPart}>
-                <div className={styles.imgTitle}>
+                {file?.preview ? <div className={styles.imgTitle}>
                     <img
-                        src={`${file.preview}${file.fid === 'printScreen' ? '' : `?${new Date()}`}`}
+                        src={`${file?.preview}${file?.fid === 'printScreen' ? '' : `?${new Date()}`}`}
                         style={{maxWidth: 100, maxHeight: 45}} alt='img'
                     />
-                    <span className={styles.name}>{file.name}</span>
-                </div>
+                    <span className={styles.name}>{file?.name}</span>
+                </div> : null}
                 {standardEditToolBar()}
             </div>
             <div className={styles.rightPart}>
-                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
+                <div
+                    className={styles.customWrap}
+                    onClick={() => {if(params.edit) {
+                        dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))
+                        setFilePreview(filePreview => ({...filePreview, view: false, file: null}))
+                    }}}
+                >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
@@ -186,16 +210,54 @@ const MiniToolBar = ({
         </div>
     )
 
+    const setPreviewMutualEdit = () => (
+        <div
+            className={`${styles.previewFileToolbar} ${styles.mutualEditWrap}`}
+            style={{
+                width
+            }}
+        >
+            <div className={styles.leftPart}>
+                <div className={styles.title}>{title}</div>
+                {standardEditToolBar()}
+            </div>
+            <div className={styles.rightPart}>
+                <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
+                <div className={`${styles.customWrap}`}>
+                    {addButton(<div className={`${styles.compareWrap}`}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>, '', null, null, 'compareWrapChosen')}
+                </div>
+                <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
+                <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
+                {renderPhotos([BlackMan, WhiteMan, Woman])}
+                <div className={styles.manageButtons}>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Закрыть</span>
+                    <span className={`${styles.button} ${images?.length > 0 ? styles.save : styles.disabled}`} onClick={() => saveImageToPanel(canvasRef.current.toDataURL())}>Сохранить</span>
+                </div>
+            </div>
+        </div>
+    )
+
     useEffect(() => {
         return () => {
             chooseAdditionalTool({});
         }
     }, []) //eslint-disable-line
 
+    useEffect(() => {
+        setParams(s => ({...s, history: {...s.history, previous: [], next: []}}));
+        if(images?.length > 0) {
+            setParams(s => ({...s, edit: true}));
+        } else {
+            setParams(s => ({...s, edit: false}));
+            chooseAdditionalTool('none');
+        }
+    }, [images]) //eslint-disable-line
+
     return (
         <>
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
+            {toolBarType === 'mutualEdit' ? setPreviewMutualEdit() : null}
 
             {params.edit && paint.tool?.name === 'text' ? <TextDraw
                 canvas={canvasRef?.current}

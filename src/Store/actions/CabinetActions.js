@@ -65,6 +65,7 @@ import {
     SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
+    SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 
@@ -1181,6 +1182,13 @@ export const onDeleteCompanyDocument = (type, success, msg) => async (dispatch, 
 export const onSetPaint = (key, value) => {
     return {
         type: SET_PAINT,
+        payload: {key, value}
+    }
+}
+
+export const onSetModals = (key, value) => {
+    return {
+        type: SET_MODALS,
         payload: {key, value}
     }
 }

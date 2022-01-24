@@ -148,7 +148,8 @@ export const moveFile = (folder, file, uid) => {
 
 //Moves folder to another folder
 export const moveFolder = (folder, folderToMove, uid) => {
-    return api.post(`/ajax/file_move.php?uid=${uid}&fid=${folderToMove.fid}&dir=${folder.path}`)
+    if(folder.path.startsWith(folderToMove.path)) return Promise().reject(new Error('Folder cannot be move to itself or to children'))
+    return api.post(`/ajax/dir_move.php?uid=${uid}&dir=${folderToMove.name}&parent=${folderToMove.gdir}&dir_new=${folder.path}`)
         .then(res => {
             return !!res.data.ok
         })
@@ -184,4 +185,14 @@ export function hexToRgbA(hex, type){
             : `${[(c>>16)&255, (c>>8)&255, c&255].join(',')}`;
     }
     throw new Error('Bad Hex');
+}
+
+//Transforming dataURL canvas into Blob
+export function dataURLintoBlobImage(dataURL) {
+    const blobBin = atob(dataURL.split(',')[1]);
+    let array = [];
+    for(let i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {type: 'image/png'});
 }

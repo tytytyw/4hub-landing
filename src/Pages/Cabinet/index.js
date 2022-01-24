@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
-// import { onGetUserInfo } from '../../Store/actions/startPageAction'
-// import { onGetFolders, onAddRecentFiles, onAddRecentFolders } from '../../Store/actions/CabinetActions'
 import styles from './PrivateCabinet.module.sass'
 import SideMenu from './Components/SideMenu'
 import MyFolders from './Components/MyFolders'
@@ -10,7 +8,6 @@ import Safe from './Components/Safe'
 import Devices from './Components/Devices'
 import MyProfile from './Components/MyProfile'
 import MyFiles from './Components/MyFiles'
-import FileLoader from './Components/FileLoader'
 import Programs from "./Components/Programs"
 
 import {Switch, Route, useHistory, Redirect} from 'react-router'
@@ -28,6 +25,7 @@ import {businessMenu, menu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
+import Modals from "./Components/Modals/Modals";
 
 const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
@@ -38,7 +36,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const project = useSelector(state => state.Cabinet.project?.chosenProject);
     const dispatch = useDispatch();
     const [collapsed, setCollapsed] = useState(false);
-    //const minHeight = window.outerHeight >= 1440 ? window.outerHeight * 0.8 : window.outerHeight * 0.75;
     const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
     const [fileAddCustomization, setFileAddCustomization] = useState({show: false, file: {}, several: false, files: []});
     const [fileErrors, setFileErrors] = useState([]);
@@ -104,21 +101,13 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     return (
         <div
             className={styles.mainWrap}
-            //style={{minHeight}}
             onDragOver={handleDragOver}
         >
             <SideMenu
                 data={id_company ? businessMenu : menu}
                 collapsed={collapsed} setCollapsed={setCollapsed}
             />
-            <div
-                className={styles.workArea}
-                // style={{
-                //     minHeight,
-                //     width: collapsed ? `calc(100vw - 55px)` : '82%',
-                //     minWidth: collapsed ? `calc(100vw - 55px)` : '82%',
-                // }}
-            >
+            <div className={styles.workArea}>
                 <Switch>
                     <Redirect exact from='/' to={id_company ? '/company' : '/folders'}/>
                     
@@ -315,25 +304,22 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 </Switch>
 
             </div>
-            {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0
-                ? <FileLoader
-                    awaitingFiles={awaitingFiles}
-                    setAwaitingFiles={setAwaitingFiles}
-                    loadingFile={loadingFile}
-                    setLoadingFile={setLoadingFile}
-                    loaded={loaded}
-                    setLoaded={setLoaded}
-                    setFileAddCustomization={setFileAddCustomization}
-                    fileAddCustomization={fileAddCustomization}
-                    fileErrors={fileErrors}
-                    setFileErrors={setFileErrors}
-                    menuItem={menuItem}
-                    filesPage={filesPage}
-                />
-            : null}
             <div style={{display: 'none'}}>
                 <input type='file' multiple='multiple' onChange={onInputFiles} ref={inputRef} />
             </div>
+            <Modals
+                awaitingFiles={awaitingFiles}
+                setAwaitingFiles={setAwaitingFiles}
+                loadingFile={loadingFile}
+                setLoadingFile={setLoadingFile}
+                loaded={loaded}
+                setLoaded={setLoaded}
+                setFileAddCustomization={setFileAddCustomization}
+                fileAddCustomization={fileAddCustomization}
+                fileErrors={fileErrors}
+                setFileErrors={setFileErrors}
+                menuItem={menuItem}
+            />
         </div>
     )
 }

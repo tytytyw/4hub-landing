@@ -57,8 +57,9 @@ import {
     SECRET_CHATS_LIST,
     CHAT_SELECTED_CONTACT,
     CHAT_ID_USER,
-    CHAT_GROUP_DELETE,
     SECRET_CHAT_DELETE,
+    // CHAT_GROUPS_MEMBERS,
+    CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -147,7 +148,12 @@ const INITIAL_STATE = {
     paint: {
         tool: undefined,
         color: 'rgba(0,0,0,1)',
-        size: 2
+        size: 2,
+        mutualEdit: {
+            open: false,
+            data: [],
+            destination: ''
+        }
     },
 
     //CHAT
@@ -158,6 +164,12 @@ const INITIAL_STATE = {
         selectedContact: null,
         userId: null,
     },
+
+    //GLOBAL MODALS
+    modals: {
+        error: {open: false, message: ''},
+        success: {open: false, message: '', title: ''}
+    }
 
 }
 
@@ -404,6 +416,11 @@ export default function startPage(state = INITIAL_STATE, action) {
         //PAINT
         case SET_PAINT: {
             return {...state, paint: {...state.paint, [action.payload.key]: action.payload.value}}
+        }
+
+        //GLOBAL MODAL
+        case SET_MODALS: {
+            return {...state, modals: {...state.modals, [action.payload.key]: action.payload.value}}
         }
     }
 }

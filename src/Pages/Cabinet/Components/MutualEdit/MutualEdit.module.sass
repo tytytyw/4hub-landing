@@ -1,0 +1,30 @@
+$border: 1px solid #DFDFDF
+
+.mutualEdit
+  display: flex
+  border-radius: 6px
+  width: calc(100vw - 80px)
+  height: calc(100vh - 80px)
+  flex-direction: column
+  .header
+    display: flex
+    height: 60px
+    width: 100%
+    border-bottom: $border
+  .mainField
+    display: flex
+    height: calc(100% - 60px)
+    width: 100%
+
+  .rightPanelWrap
+    display: flex
+    flex-direction: column
+    width: 100px
+    .asideWrap
+      height: calc(100% - 86px)
+      border-bottom: $border
+    .buttonsWrap
+      height: 86px
+      width: 100%
+      border-left: $border
+

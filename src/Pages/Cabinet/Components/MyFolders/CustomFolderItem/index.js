@@ -132,13 +132,14 @@ const CustomFolderItem = ({
     const handleDrop = async () => {
         if(draggedFile.is_dir === 1) {
             await moveFolder(f, draggedFile, uid)
-            .then(result => {
-                if(!result) setError(state => ({...state, isError: true, message: 'Папка не была перемещена'}))
-                if(result) {
-                    dispatch(onDeleteFile(draggedFile));
-                    setShowSuccessMessage('Папка перемещена');
-                }
-            })
+                .then(result => {
+                    if(!result) setError(state => ({...state, isError: true, message: 'Папка не была перемещена'}))
+                    if(result) {
+                        dispatch(onDeleteFile(draggedFile));
+                        setShowSuccessMessage('Папка перемещена');
+                    }
+                })
+                .catch(err => console.log(err));
         } else {
             await moveFile(f, draggedFile, uid)
             .then(result => {
