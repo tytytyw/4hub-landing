@@ -47,8 +47,8 @@ const ContactList = ({
 					chatItem={contact}
 					key={"contact_" + contact.id}
 					title={`${contact?.sname} ${contact?.name}`}
-					subtitle={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online)}
-					status={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online)}
+					subtitle={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, contact.real_user_date_gmt)}
+					status={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, contact.real_user_date_gmt)}
 					avatar={
 						contact?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
