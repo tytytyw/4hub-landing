@@ -1,11 +1,13 @@
 import classNames from "classnames";
 import React from "react";
+import {useSelector} from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 function Message({ message, selectedContact }) {
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
     const text = message.text.split('\n')
-	const messageType = message.id_user === selectedContact.id_real_user ? 'outbox' : 'inbox'
+	const messageType = message.id_user === userId ? 'outbox' : 'inbox'
 
 	return (
 		<div className={classNames(styles.wrapper, styles[messageType])}>

@@ -14,6 +14,7 @@ import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
+import { onGetReсentChatsList } from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
@@ -117,6 +118,8 @@ const Chat = ({ setMenuItem }) => {
 	useEffect(() => {
 		setMenuItem("Chat");
 		dispatch(onGetUserInfo());
+		dispatch(onGetReсentChatsList());
+
 		const timer = setInterval(() => {// Creates an interval which will update the current data every minute
 			setDate(new Date());
 		  }, 60 * 1000);

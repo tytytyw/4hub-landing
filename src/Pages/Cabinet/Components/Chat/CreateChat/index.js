@@ -10,7 +10,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
 	onGetChatGroups,
-	onGetResentChatsList
+	onGetReсentChatsList
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 
@@ -175,7 +175,7 @@ const CreateChat = ({
 			.post(apiUrl, formData)
 			.then((res) => {
 				if (res.data.ok) {
-					dispatch(showActionApproval.type === 'secretChat' ? onGetResentChatsList() : onGetChatGroups());
+					dispatch(showActionApproval.type === 'secretChat' ? onGetReсentChatsList() : onGetChatGroups());
 					if (componentType === 'add') setShowSuccessPopup({
 						title: showActionApproval.type === 'secretChat' ? 'Секретный чат успешно создан' : "Новая группа успешно создана",
 						text: "",

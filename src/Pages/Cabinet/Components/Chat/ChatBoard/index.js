@@ -19,13 +19,10 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
     const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+    const userId = useSelector((state) => state.Cabinet.chat.userId);
     const endMessagesRef = useRef();
 
     const [textAreaValue, setTextAreaValue] = useState('')
-    // const [messages, setMessages] = useState([
-    //     {text: 'Добрый день, задание срочное прошу не затягивать', type: 'outbox'},
-    //     {text: 'большую коллекцию размеров outboxи форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков', type: 'inbox'},
-    // ])
     const [messages, setMessages] = useState(selectedContact.messages || [])
 
     const renderMessages = (messages) => {
@@ -39,7 +36,7 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
         )
     }
     const addMessage = (text) => {
-        const newMessage = {text, id_user: selectedContact.id_real_user}
+        const newMessage = {text, id_user: userId}
         if (text) setMessages(messages => [...messages, newMessage])
         setTimeout(() => {
             setTextAreaValue('')

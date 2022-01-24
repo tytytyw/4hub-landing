@@ -60,7 +60,7 @@ import {
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
     RESENT_CHATS_LIST,
-    // CHAT_GROUPS_MEMBERS,
+    CHAT_ID_USER,
     CHAT_GROUP_DELETE,
     SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
@@ -975,13 +975,18 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
 
 };
 
-export const onGetResentChatsList = () => async (dispatch, getState) => {
+export const onGetReсentChatsList = () => async (dispatch, getState) => {
 
     const uid = getState().user.uid
 
     api.get(`/ajax/chat_list.php?uid=${uid}`)
         .then(response => {
             if (response.data.ok) {
+                dispatch({
+                    type: CHAT_ID_USER,
+                    payload: response.data.id_user
+                })
+
                 const data = response.data?.data
                 const newData = []
                 for (const key in data) {

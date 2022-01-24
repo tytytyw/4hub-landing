@@ -10,7 +10,7 @@ import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabin
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
 import {
 	onGetChatGroups,
-	onGetResentChatsList,
+	onGetReсentChatsList,
 	onGetSecretChatsList
 } from "../../../../../Store/actions/CabinetActions";
 
@@ -36,7 +36,7 @@ const ChatList = ({
 
 	useEffect(() => {
 		dispatch(onGetChatGroups());
-		dispatch(onGetResentChatsList());
+		dispatch(onGetReсentChatsList());
 		dispatch(onGetSecretChatsList());
 	}, []); //eslint-disable-line
 
