@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from "classnames";
 
 import styles from './ImagePanel.module.sass'
 import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/plus-3.svg";
@@ -9,7 +10,10 @@ function ImagePanel({
     addImage = false,
     pushImages = () => {},
     deleteImage = () => {},
-    inputRef = null
+    inputRef = null,
+    isChoosing = false,
+    addToChosen = () => {},
+    chosen = []
 }) {
 
     const addImages = e => {
@@ -24,15 +28,19 @@ function ImagePanel({
 
     const renderImages = () => (
         images.map((image, i) => <div
-            className={styles.itemWrap}
+
+            className={classnames({
+                [styles.itemWrap]: true,
+                [styles.itemChosen]: typeof image === 'object' && chosen.indexOf(image.fid) !== -1
+            })}
             key={i}
             draggable
         >
-            <div className={styles.hoverDelete}>
+            {!isChoosing ? <div className={styles.hoverDelete}>
                 <div className={styles.deleteWrap} onClick={() => deleteImage(i)}>
                     <DeleteIcon className={styles.deleteIco} />
                 </div>
-            </div>
+            </div> : <div className={styles.hoverDelete} onClick={() => addToChosen(image.fid)}/>}
             {typeof image === 'string'
                 ? <img className={styles.image} src={image} alt='img' draggable={false} />
                 : <img className={styles.image} src={image.src} alt='img' draggable={false} />

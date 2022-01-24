@@ -21,10 +21,10 @@ function MutualEdit({menuItem}) {
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
     const mutualEdit = useSelector(s => s.Cabinet.paint.mutualEdit);
     const project = useSelector(s => s.Cabinet.project);
-    const [images, setImages] = useState({loaded: [], saved: []});
+    const [images, setImages] = useState({loaded: [], saved: [], chosen: []});
     const dispatch = useDispatch();
 
-    const [params, setParams] = useState({isLoading: false})
+    const [params, setParams] = useState({isLoading: false, isChoosing: false})
 
     const pushLoaded = (files) => {
         setImages(s => ({...s, loaded: [...s.loaded, ...files].slice(0,4)}));
@@ -34,8 +34,22 @@ function MutualEdit({menuItem}) {
         setImages(s => ({...s, loaded: s.loaded.filter((el, index) => i !== index)}))
     }
 
+    const addToChosen = (fid) => {
+        if(images.chosen.indexOf(fid) === -1) {
+            setImages(s => ({...s, chosen: [...s.chosen, fid]}));
+        } else {
+            setImages(s => ({...s, chosen: deleteChosen(fid)}));
+        }
+    }
+
+    const deleteChosen = (fid) => {
+        let chosen = [...images.chosen];
+        chosen.splice([...images.chosen].indexOf(fid));
+        return chosen;
+    }
+
     const deleteSaved = (i) => {
-        setImages(s => ({...s, saved: s.saved.filter((el, index) => i !== index)}))
+        setImages(s => ({...s, saved: s.saved.filter((el, index) => i !== index), chosen: deleteChosen(images.saved[i].fid)}))
     }
 
     const saveImage = async (file) => {
@@ -93,6 +107,8 @@ function MutualEdit({menuItem}) {
                     title="Сравнить документы/файлы"
                     images={images.loaded}
                     saveImageToPanel={saveImage}
+                    chosen={images.chosen}
+                    isLoading={params.isLoading}
                 />
             </header>
             <div className={styles.mainField}>
@@ -116,9 +132,18 @@ function MutualEdit({menuItem}) {
                         <ImagePanel
                             images={images.saved}
                             deleteImage={deleteSaved}
+                            isChoosing={params.isChoosing}
+                            addToChosen={addToChosen}
+                            chosen={images.chosen}
                         />
                     </div>
-                    <div className={styles.buttonsWrap}></div>
+                    <div className={styles.buttonsWrap}>
+                        <div
+                            className={`${styles.sendSavedButton} ${params.isChoosing ? styles.choosing : ''}`}
+                            onClick={() => setParams(s => ({...s, isChoosing: !params.isChoosing}))}
+                        >Выбрать</div>
+                        <div className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ''}`}>Отправить</div>
+                    </div>
                 </div>
             </div>
         </div>
