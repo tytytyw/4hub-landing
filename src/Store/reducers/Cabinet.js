@@ -168,7 +168,9 @@ const INITIAL_STATE = {
     //GLOBAL MODALS
     modals: {
         error: {open: false, message: ''},
-        success: {open: false, message: '', title: ''}
+        success: {open: false, message: '', title: ''},
+        loader: false,
+        share: {open: false, fids: [], fid: undefined, action_type: ''}
     }
 
 }

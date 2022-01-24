@@ -5,6 +5,8 @@ import FileLoader from "../FileLoader";
 import Error from "../../../../generalComponents/Error";
 import Success from "../../../../generalComponents/Success";
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
+import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
+import Loader from "../../../../generalComponents/Loaders/4HUB";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -13,6 +15,8 @@ function Modals ({
     const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
     const error = useSelector(state => state.Cabinet.modals.error);
     const success = useSelector(state => state.Cabinet.modals.success);
+    const loader = useSelector(state => state.Cabinet.modals.loader);
+    const share = useSelector(state => state.Cabinet.modals.share);
     const dispatch = useDispatch();
 
     const closeError = () => dispatch(onSetModals('error', {open: false, message: ''}));
@@ -37,6 +41,15 @@ function Modals ({
             : null}
         <Error error={error.open} message={error.message} set={closeError} />
         <Success success={success.open} message={success.message} set={closeSuccess} title={success.title} />
+        {share.open ? <Share /> : null}
+        {loader ? <Loader
+            position='absolute'
+            zIndex={10000}
+            containerType='bounceDots'
+            type='bounceDots'
+            background='rgba(256, 256, 256, 0.5)'
+            animation={false}
+        /> : null}
     </>
 }
 

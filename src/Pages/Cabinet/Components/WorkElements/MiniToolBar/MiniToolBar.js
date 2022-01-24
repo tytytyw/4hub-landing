@@ -40,7 +40,7 @@ import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel, closePreview = () => {}
+         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
@@ -231,7 +231,7 @@ const MiniToolBar = ({
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: false}))}}>Закрыть</span>
-                    <span className={`${styles.button} ${images?.length > 0 ? styles.save : styles.disabled}`} onClick={() => saveImageToPanel(canvasRef.current.toDataURL())}>Сохранить</span>
+                    <span className={`${styles.button} ${images?.length > 0 && !isLoading ? styles.save : styles.disabled}`} onClick={() => !isLoading ? saveImageToPanel(canvasRef.current.toDataURL()) : null}>Сохранить</span>
                 </div>
             </div>
         </div>

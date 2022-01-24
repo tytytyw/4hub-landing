@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import styles from './Share.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
@@ -12,6 +12,7 @@ import { ReactComponent as Password } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { arrayForPhpRequest } from "../../../../../../generalComponents/generalHelpers";
+import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
 function Share({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
@@ -23,10 +24,12 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     const [timeValue, setTimeValue] = useState({hours: '', minutes: '', seconds: ''});
     const [password, setPassword] = useState("");
     const uid = useSelector(state => state.user.uid);
+    const share = useSelector(state => state.Cabinet.modals.share);
+    const dispatch = useDispatch();
     const [data, setData] = useState(
         {
             uid,
-            fids: file.is_dir || !!file?.folders ? '' : files.length ? [...files] : [file.fid],
+            fids: file?.is_dir || !!file?.folders ? '' : files?.length ? [...files] : file ? [file?.fid] : share.fids,
             user_to: '',
             prim: '',
             deadline: '',
@@ -48,15 +51,15 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     },[password]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const onShareFile = () => {
-        setLoadingType('squarify')
+        setLoadingType ? setLoadingType('squarify') : dispatch(onSetModals('loader', true))
         const newData = action_type === 'dir_access_add'
             ? `uid=${data.uid}&email=${data.user_to}&deadline=${data.deadline}&is_read=${data?.is_write}&pass=${data.pass}&dir=${file?.is_dir || file?.folders ? file.path : ''}&prim=${data.prim}`
             : `uid=${data.uid}&user_to=${data.user_to}&deadline=${data.deadline}${arrayForPhpRequest('fids', data.fids)}&is_write=${data?.is_write}&pass=${data.pass}&prim=${data.prim}`
-            api.post(`/ajax/${action_type}.php?${newData}`)
+            api.post(`/ajax/${action_type || share.action_type}.php?${newData}`)
             .then(res => {
                 if(!!res.data.ok) {
-                    setShowSuccessMessage('Отправлено')
-                    close()
+                    setShowSuccessMessage ? setShowSuccessMessage('Отправлено') : dispatch(onSetModals('success', {open: true, message: 'Отправка прошла успешно'}))
+                    closeModal()
                 } else if (res.data.error) {
                     setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
                 } else {
@@ -65,14 +68,18 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
                 }
             })
             .catch(err => {setError(`${err}`)})
-            .finally(() => setLoadingType(''))
+            .finally(() => setLoadingType ? setLoadingType('squarify') : dispatch(onSetModals('loader', false)))
+    }
+
+    const closeModal = () => {
+        close ? close() : dispatch(onSetModals('share', {...share, open: false, fids: [], fid: undefined, action_type: ''}));
     }
 
     return (
-        <PopUp set={close}>
+        <PopUp set={closeModal}>
             {!displayStotagePeriod && !displayMessengers && !displaySetPassword && <div className={styles.ShareFile_wrap}>
                 <div className={classNames(styles.header, styles.border_bottom)}>
-                    <FileInfo file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}/>
+                    <FileInfo file={data?.fids?.length > 1 ? {ext: 'FILES', count: data.fids.length} : file}/>
                     <div className={styles.buttons_wrap}>
                         <div className={styles.close_wrap}  onClick={close}>
                             <span className={styles.close} />
@@ -140,13 +147,13 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
                     </span>
                 </div>
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={close}>Отмена</div>
+                    <div className={styles.cancel} onClick={closeModal}>Отмена</div>
                     <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
                 </div>
             </div>}
-            {error && <Error error={error} set={close} message={error} />}
+            {error && <Error error={error} set={closeModal} message={error} />}
             {displayStotagePeriod && <StoragePeriod
-                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                file={data.fids.length > 1 ? {ext: 'FILES', count: data.fids.length} : file}
                 setDisplayStotagePeriod={setDisplayStotagePeriod}
                 dateValue={dateValue}
                 setDateValue={setDateValue}
@@ -155,13 +162,13 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
             />}
             {displayMessengers && <ShareToMessengers
                 setDisplayMessengers={setDisplayMessengers}
-                close={close}
+                close={closeModal}
                 fid={file.fid}
-                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                file={data.fids.length > 1 ? {ext: 'FILES', count: data.fids.length} : file}
                 data={data}
             />}
             {displaySetPassword && <SetPassword
-                file={files.length > 1 ? {ext: 'FILES', count: files.length} : file}
+                file={data.fids.length > 1 ? {ext: 'FILES', count: data.fids.length} : file}
                 setDisplaySetPassword={setDisplaySetPassword}
                 password={password}
                 setPassword={setPassword}
