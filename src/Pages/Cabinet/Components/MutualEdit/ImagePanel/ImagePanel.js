@@ -33,7 +33,11 @@ function ImagePanel({
                     <DeleteIcon className={styles.deleteIco} />
                 </div>
             </div>
-            <img className={styles.image} src={image} alt='img' draggable={false} />
+            {typeof image === 'string'
+                ? <img className={styles.image} src={image} alt='img' draggable={false} />
+                : <img className={styles.image} src={image.src} alt='img' draggable={false} />
+            }
+
         </div>)
     )
 

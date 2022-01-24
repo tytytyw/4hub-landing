@@ -65,7 +65,7 @@ function MutualEdit({menuItem}) {
         return await api.post(`/ajax/${loadDest[menuItem] ?? ''}file_add.php`, data)
             .then(res => {
                 if(!!res?.data?.ok) {
-                    setImages(s => ({...s, saved: [...s.saved, file]}));
+                    setImages(s => ({...s, saved: [...s.saved, {src: file, fid: res?.data?.fid || ''}]}));
                 } else {
                     dispatch(onSetModals('error', {open: true, message: `Файл не сохранен, попробуйте еще раз`}));
                 }
