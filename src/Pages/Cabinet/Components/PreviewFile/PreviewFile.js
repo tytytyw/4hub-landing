@@ -45,6 +45,7 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         file={file}
                         setFilePreview={setFilePreview}
                         share={share}
+                        closePreview={set}
                     />
                     <div className={styles.canvasWrap}>
                         {isLoading ? <Loader

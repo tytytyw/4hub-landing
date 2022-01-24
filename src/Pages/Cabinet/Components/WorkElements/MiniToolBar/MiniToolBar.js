@@ -40,7 +40,7 @@ import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel
+         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel, closePreview = () => {}
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
@@ -175,7 +175,10 @@ const MiniToolBar = ({
             <div className={styles.rightPart}>
                 <div
                     className={styles.customWrap}
-                    onClick={() => {if(params.edit) dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))}}
+                    onClick={() => {if(params.edit) {
+                        dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))
+                        setFilePreview(filePreview => ({...filePreview, view: false, file: null}))
+                    }}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
                     <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>

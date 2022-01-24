@@ -81,7 +81,9 @@ function MutualEdit({menuItem}) {
         }
     }, []); //eslint-disable-line
 
-    return<PopUp>
+    const closeMutualEdit = () => dispatch(onSetPaint('mutualEdit', {...mutualEdit, open: false, data: [], destination: ''}))
+
+    return<PopUp set={closeMutualEdit}>
         <div className={styles.mutualEdit} ref={canvasWrapRef}>
             <header className={styles.header}>
                 <MiniToolBar
