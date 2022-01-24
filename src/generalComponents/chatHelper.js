@@ -1,5 +1,5 @@
 export const createContactStatus = (isUser, currentDate, contactLastVisitDate, isOnline) => {
-    if (!isUser) return "Пользователя нет в системе 4Hub";
+    if (!isUser || !contactLastVisitDate) return "Пользователя нет в системе 4Hub";
 
     const lastVisitDate = {};
 

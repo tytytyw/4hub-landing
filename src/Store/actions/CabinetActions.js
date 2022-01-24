@@ -1013,8 +1013,9 @@ export const onGetSecretChatsList = () => async (dispatch, getState) => {
             if (response.data.ok) {
                 const data = response.data.chat_groups
                 const newData = []
+                const userId = getState().Cabinet.chat.userId
                 for (const key in data) {
-                    const chat = Object.values(data[key].users)[0]
+                    const chat = Object.values(data[key].users).filter(item => item.id !== userId)[0]
                     newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
                 }
                 dispatch({
@@ -1027,29 +1028,6 @@ export const onGetSecretChatsList = () => async (dispatch, getState) => {
             console.log(error)
         })
 }
-
-// export const onGetChatGroupsMembers = (id) => async (dispatch, getState) => {
-
-//     const uid = getState().user.uid
-
-//     api.get(`/ajax/chat_group_user_list.php?uid=${uid}&id_group=${id}`)
-//         .then(response => {
-//             const data = response.data?.data
-
-//             const newData = []
-//             for (const key in data) {
-//                 newData.push(data[key])
-//             }
-
-//             dispatch({
-//                 type: CHAT_GROUPS_MEMBERS,
-//                 payload: {id, data: newData}
-//             })
-//         }).catch(error => {
-//             console.log(error)
-//         })
-
-// };
 
 export const onDeleteChatGroup = (group) => {
     return {
