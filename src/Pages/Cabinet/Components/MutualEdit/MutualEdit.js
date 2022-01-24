@@ -144,7 +144,14 @@ function MutualEdit({menuItem}) {
                             className={`${styles.sendSavedButton} ${params.isChoosing ? styles.choosing : ''}`}
                             onClick={() => setParams(s => ({...s, isChoosing: !params.isChoosing}))}
                         >Выбрать</div>
-                        <div className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ''}`}>Отправить</div>
+                        <div
+                            className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ''}`}
+                            onClick={() => {
+                                if(images.chosen.length > 0) {
+                                    dispatch(onSetModals('share', {open: true, fids: images.chosen, action_type: 'file_share'}))
+                                }
+                            }}
+                        >Отправить</div>
                     </div>
                 </div>
             </div>
