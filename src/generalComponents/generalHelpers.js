@@ -186,3 +186,13 @@ export function hexToRgbA(hex, type){
     }
     throw new Error('Bad Hex');
 }
+
+//Transforming dataURL canvas into Blob
+export function dataURLintoBlobImage(dataURL) {
+    const blobBin = atob(dataURL.split(',')[1]);
+    let array = [];
+    for(let i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {type: 'image/png'});
+}

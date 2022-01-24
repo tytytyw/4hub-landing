@@ -6,14 +6,19 @@ import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
 import ImagePanel from "./ImagePanel/ImagePanel";
 import DrawZone from "./DrawZone/DrawZone";
 import {useSelector, useDispatch} from "react-redux";
-import {onSetPaint} from "../../../../Store/actions/CabinetActions";
+import {onSetModals, onSetPaint} from "../../../../Store/actions/CabinetActions";
+import api from "../../../../api";
+import {loadDest} from "../../../../generalComponents/collections";
+import {dataURLintoBlobImage} from "../../../../generalComponents/generalHelpers";
 
-function MutualEdit() {
+function MutualEdit({menuItem}) {
 
     const canvasRef = useRef();
     const canvasWrapRef = useRef();
     const mainRef = useRef();
     const inputRef = useRef();
+    const uid = useSelector(s => s.user.uid);
+    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
     const mutualEdit = useSelector(s => s.Cabinet.paint.mutualEdit);
     const [images, setImages] = useState({loaded: [], saved: []});
     const dispatch = useDispatch();
@@ -28,12 +33,44 @@ function MutualEdit() {
         setImages(s => ({...s, loaded: s.loaded.filter((el, index) => i !== index)}))
     }
 
-    const pushSaved = (file) => {
-        setImages(s => ({...s, saved: [...s.saved, file]}));
-    }
-
     const deleteSaved = (i) => {
         setImages(s => ({...s, saved: s.saved.filter((el, index) => i !== index)}))
+    }
+
+    const saveImage = async (file) => {
+
+        const image = new File([dataURLintoBlobImage(file)], "Совместное редактирование.png");
+
+        let data = new FormData();
+        data.append('uid', uid);
+        data.append('myfile', image);
+        data.append('fileName', `Совместное редактирование`);
+        data.append('tag', '');
+        data.append('pass', '');
+        data.append('color', '');
+        data.append('symbol', '');
+        data.append('emoji', '');
+        data.append('dir', mutualEdit.destination);
+
+        if(menuItem === 'safe') {
+            data.append('id_safe', authorizedSafe.id_safe);
+            data.append('code', authorizedSafe.code);
+        }
+        // if(menuItem === 'project') {
+        //     data.append('id_project', file?.options?.id_project);
+        // }
+
+        setParams(s => ({...s, isLoading: true}));
+        return await api.post(`/ajax/${loadDest[menuItem] ?? ''}file_add.php`, data)
+            .then(res => {
+                if(!!res?.data?.ok) {
+                    setImages(s => ({...s, saved: [...s.saved, file]}));
+                } else {
+                    dispatch(onSetModals('error', {open: true, message: `Файл не сохранен, попробуйте еще раз`}));
+                }
+            })
+            .catch(err => {dispatch(onSetModals('error', {open: true, message: `${err}`}))})
+            .finally(() => setParams(s => ({...s, isLoading: false})));
     }
 
     useLayoutEffect(() => {
@@ -52,7 +89,7 @@ function MutualEdit() {
                     toolBarType="mutualEdit"
                     title="Сравнить документы/файлы"
                     images={images.loaded}
-                    saveImageToPanel={pushSaved}
+                    saveImageToPanel={saveImage}
                 />
             </header>
             <div className={styles.mainField}>
