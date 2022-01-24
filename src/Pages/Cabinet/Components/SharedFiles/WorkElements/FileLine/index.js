@@ -12,6 +12,7 @@ import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabin
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
+import { ReactComponent as ArrowIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 import { colors } from "../../../../../../generalComponents/collections";
 
 const FileLine = ({
@@ -158,8 +159,9 @@ const FileLine = ({
 					</div>
 				)}
 
-				<div className={styles.setingWrap}>
-					<button className={styles.seting}>Только просмотр</button>
+				<div className={styles.settingWrap}>
+					<button className={styles.setting}>Только просмотр</button>
+                    <span className={styles.arrowIcon} ><ArrowIcon /></span>
 				</div>
 			</div>
 			<span className={styles.storageInfo}>
