@@ -19,8 +19,7 @@ export const createContactStatus = (isUser, currentDate, contactLastVisitDate, i
                     //less than an hour ago
                     const minutes = Math.floor(minutesDifference);
                     //contact online
-                    return minutes < 1 
-                    // || isOnline === 1
+                    return minutes < 1 || isOnline === 1
                         ? "в сети"
                         : `${minutes} мин. назад`;
                 } else {

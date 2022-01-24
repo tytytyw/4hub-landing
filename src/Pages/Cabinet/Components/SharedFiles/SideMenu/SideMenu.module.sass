@@ -1,0 +1,79 @@
+.sideMenu
+  display: flex
+  flex-direction: column
+  height: 100%
+  border-right: 1px solid rgb(174, 174, 174)
+  background-color: #fff
+  color: #49494B
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    box-sizing: border-box
+    padding: 0 15px
+    width: 309px
+    min-height: 68px
+    height: 68px
+    border-bottom: 1px solid #e5e5e5
+    .headerName
+      display: flex
+      align-items: center
+      justify-content: space-between
+      color: #49494B
+      font-family: "SF Pro Bold", sans-serif
+      font-size: 15px
+    #headerIcon
+      margin-right: 9px
+    #headerArrow
+      cursor: pointer
+    #headerArrow:hover path
+      fill: #4086F1
+  .menu
+    .menuItem
+      display: flex
+      align-items: center
+      justify-content: space-between
+      box-sizing: border-box
+      padding: 20px
+      border-bottom: 1px solid #DFDFDF
+      width: 100%
+      font-size: 14px
+      -webkit-touch-callout: none
+      -webkit-user-select: none
+      -moz-user-select: none
+      -ms-user-select: none
+      user-select: none
+      &:hover, &.active
+        background-color: #EBF1FD
+      .count
+        color: #8B8B8B
+  .searchField
+    display: flex
+    align-items: center
+    justify-content: center
+    min-height: 60px
+    position: relative
+    border-bottom: 1px solid #DFDFDF
+    input
+      width: 284px
+      height: 41px
+      border-radius: 30px
+      padding: 0 40px 0 15px
+      box-sizing: border-box
+      background: rgb(247, 247, 247)
+      border: none
+      font-family: "SF Pro Regular", sans-serif
+      font-size: 12px
+    input::placeholder
+      color: rgb(174, 174, 174)
+    .searchGlass
+      position: absolute
+      top: calc(50% - 10px)
+      right: 25px
+      cursor: pointer
+.sideMenuCollapsed
+  width: 100px
+  .header
+    width: 100px
+  #headerArrow
+    transform: rotate(180deg)
