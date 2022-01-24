@@ -6,7 +6,15 @@ import { ReactComponent as SharedFilesIcon } from "../../../../../assets/Private
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
-const SideMenu = ({sideMenuCollapsed, setSideMenuCollapsed, search, setSearch}) => {
+const SideMenu = ({
+	sideMenuCollapsed,
+	setSideMenuCollapsed,
+	search,
+	setSearch,
+	sideMenuChosenItem,
+	setSideMenuChosenItem,
+    filesSharedMeCounter=0
+}) => {
 	return (
 		<div
 			className={classNames({
@@ -48,19 +56,31 @@ const SideMenu = ({sideMenuCollapsed, setSideMenuCollapsed, search, setSearch}) 
 				</div>
 			)}
 			<div
-                className={styles.menu}
+				className={styles.menu}
 				style={{
 					height: `calc(100% - 90px - ${sideMenuCollapsed ? "0" : "60"}px)`,
 				}}
 			>
-				<div className={styles.menuItem}>
-                    {!sideMenuCollapsed ? "Файлы которые расшарил я" : "Я"}
-                    <span className={styles.count}>({0})</span>
-                </div>
-                <div className={styles.menuItem}>
-                {!sideMenuCollapsed ? "Файлы расшаренные мне" : "Мне"}
-                    <span className={styles.count}>({0})</span>
-                </div>
+				<div
+                    onClick={() => setSideMenuChosenItem('sharedI')}
+					className={classNames({
+						[styles.menuItem]: true,
+						[styles.active]: sideMenuChosenItem === "sharedI",
+					})}
+				>
+					{!sideMenuCollapsed ? "Файлы которые расшарил я" : "Я"}
+					<span className={styles.count}>({0})</span>
+				</div>
+				<div
+                    onClick={() => setSideMenuChosenItem('sharedMe')}
+					className={classNames({
+						[styles.menuItem]: true,
+						[styles.active]: sideMenuChosenItem === "sharedMe",
+					})}
+				>
+					{!sideMenuCollapsed ? "Файлы расшаренные мне" : "Мне"}
+					<span className={styles.count}>({filesSharedMeCounter})</span>
+				</div>
 			</div>
 		</div>
 	);

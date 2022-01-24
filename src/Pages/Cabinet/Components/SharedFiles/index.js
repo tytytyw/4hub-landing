@@ -50,8 +50,9 @@ const SharedFiles = ({
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState('');
-	const fileList = useSelector((state) => state.Cabinet.sharedFiles);
+	const [fileList, setFileList] = useState(null);
 	// const user = useSelector((state) => state.user.userInfo);
+	const [sideMenuChosenItem, setSideMenuChosenItem] = useState('sharedMe');
 	const dispatch = useDispatch();
 
 	const [year, setYear] = useState(null);
@@ -64,8 +65,10 @@ const SharedFiles = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
+	// const [filesNotCustomize, setFilesNotCustomize] = useState([]);
 
-	const [filesNotCustomize, setFilesNotCustomize] = useState([]);
+	const filesSharedMe = useSelector(state => state.Cabinet.sharedFiles)
+	const filesSharedI = []
 
 	useEffect(() => {
 		dispatch(onGetSharedFiles("", month));
@@ -75,24 +78,19 @@ const SharedFiles = ({
 		if (filePick.customize) {
 			setFilePick({
 				show: true,
-				files: filePick?.files.filter(
-					(fid) => filesNotCustomize.indexOf(fid) === -1
-				),
+				files: filePick?.files,
 				customize: true,
 			});
 		}
 	}, [filePick.customize]); // eslint-disable-line
 
-	useEffect(() => {
-		fileList?.files.forEach((file) => {
-			if (
-				file.is_write === "0" &&
-				filesNotCustomize.indexOf(file.is_write) === -1
-			)
-				setFilesNotCustomize((state) => [...state, file.fid]);
-		});
-	}, [fileList]); // eslint-disable-line
 
+	useEffect(() => {
+		if (sideMenuChosenItem === 'sharedMe') setFileList(filesSharedMe)
+		if (sideMenuChosenItem === 'sharedI') setFileList(filesSharedI)
+	}, [sideMenuChosenItem, filesSharedMe]); // eslint-disable-line
+
+	// TODO: delete unused items
 	const callbackArrMain = [
 		{
 			type: "share",
@@ -171,6 +169,7 @@ const SharedFiles = ({
 	];
 
 	const renderFilesGroup = (mounth, i) => {
+		if (!fileList?.files?.length) return null
 		return (
 			<FilesGroup
 				key={i}
@@ -388,6 +387,9 @@ const SharedFiles = ({
 				setSideMenuCollapsed={setSideMenuCollapsed}
 				search={search}
 				setSearch={setSearch}
+				sideMenuChosenItem={sideMenuChosenItem}
+				setSideMenuChosenItem={setSideMenuChosenItem}
+				filesSharedMeCounter={filesSharedMe?.files?.length}
 			/>
 
 			<div className={styles.workAreaWrap}>

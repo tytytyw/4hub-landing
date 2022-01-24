@@ -5,7 +5,7 @@ import WorkBars from "../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
 import FileLineShort from "../../SharedFiles/WorkElements/FileLineShort/index";
 import FileBar from "../../WorkElements/FileBar";
-import FileLine from "../../WorkElements/FileLine";
+import FileLine from "../WorkElements/FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 
@@ -53,7 +53,7 @@ function FilesGroup({
 
 	return (
 		<div className={styles.fileWrap}>
-			{fileList?.files.length > 0 && <div
+			{fileList?.files?.length > 0 && <div
 				onClick={() => {
 					setCollapse(!collapse);
 				}}
@@ -62,7 +62,7 @@ function FilesGroup({
 				<p className={styles.dateName}>{mounthName}</p>
 				<div className={styles.buttonsWrap}>
 					<button className={styles.collapseBtn}>
-						{fileList?.files.length ?? 0} объектов
+						{fileList?.files?.length ?? 0} объектов
 					</button>
 					<div
 						className={classNames({
@@ -85,7 +85,7 @@ function FilesGroup({
 				workElementsView !== "workLinesPreview" && (
 					<div className={styles.fileDate}>
 						{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						{fileList?.files.length > 0 && <p>10.08.2020</p>}
+						{fileList?.files?.length > 0 && <p>10.08.2020</p>}
 					</div>
 				)}
 
