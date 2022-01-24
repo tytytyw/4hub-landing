@@ -20,6 +20,7 @@ function MutualEdit({menuItem}) {
     const uid = useSelector(s => s.user.uid);
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
     const mutualEdit = useSelector(s => s.Cabinet.paint.mutualEdit);
+    const project = useSelector(s => s.Cabinet.project);
     const [images, setImages] = useState({loaded: [], saved: []});
     const dispatch = useDispatch();
 
@@ -56,9 +57,9 @@ function MutualEdit({menuItem}) {
             data.append('id_safe', authorizedSafe.id_safe);
             data.append('code', authorizedSafe.code);
         }
-        // if(menuItem === 'project') {
-        //     data.append('id_project', file?.options?.id_project);
-        // }
+        if(menuItem === 'project') {
+            data.append('id_project', project?.chosenProject?.id);
+        }
 
         setParams(s => ({...s, isLoading: true}));
         return await api.post(`/ajax/${loadDest[menuItem] ?? ''}file_add.php`, data)
