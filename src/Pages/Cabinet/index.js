@@ -237,6 +237,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                             saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
                             loadingType={loadingType}
                             setLoadingType={setLoadingType}
+                            setMenuItem={setMenuItem}
 
                         />}
                     />

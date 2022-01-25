@@ -12,12 +12,13 @@ import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
 import DateBlock from "./DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import { contextMenuFile } from "../../../../generalComponents/collections";
+import { contextMenuSharedFiles } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 // import ActionApproval from "../../../../generalComponents/ActionApproval";
 // import File from "../../../../generalComponents/Files";
 import PreviewFile from "../PreviewFile/PreviewFile";
 import BottomPanel from "../BottomPanel";
+import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import {
 	onGetSharedFiles,
 	// onDeleteFile,
@@ -26,7 +27,6 @@ import {
 import { previewFormats } from "../../../../generalComponents/collections";
 import api from "../../../../api";
 // import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
-import CreateZip from "../ContextMenuComponents/ContextMenuFile/CreateZip";
 import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
 // import CopyLinkShare from "../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare";
@@ -47,6 +47,7 @@ const SharedFiles = ({
 	// setFileAddCustomization,
 	// saveCustomizeSeveralFiles,
 	setLoadingType,
+	setMenuItem,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState('');
@@ -69,6 +70,19 @@ const SharedFiles = ({
 
 	const filesSharedMe = useSelector(state => state.Cabinet.sharedFiles)
 	const filesSharedI = []
+
+	useEffect(() => {
+		setMenuItem("SharedFiles");
+		dispatch(onGetUserInfo());
+
+		// const timer = setInterval(() => {// Creates an interval which will update the current data every minute
+		// 	setDate(new Date());
+		//   }, 60 * 1000);
+		return () => {
+			setMenuItem("");
+			// clearInterval(timer);
+		}
+	}, []) // eslint-disable-line
 
 	useEffect(() => {
 		dispatch(onGetSharedFiles("", month));
@@ -117,29 +131,6 @@ const SharedFiles = ({
 			callback: () => setFilePick({ ...filePick, show: true }),
 		},
 		{
-			type: "archive",
-			name: "Добавить файл в архив",
-			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "intoZip",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: (list, index) =>
-				setAction({
-					...action,
-					type: list[index].type,
-					name: list[index].name,
-				}),
-		},
-		{
-			type: "intoZipSeveral",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: () => setFilePick({ ...filePick, show: true, intoZip: true }),
-		},
-		{
 			type: "properties",
 			name: "Свойства",
 			text: ``,
@@ -185,6 +176,7 @@ const SharedFiles = ({
 				mounthName={mounth}
 				setAction={setAction}
 				setMouseParams={setMouseParams}
+				sideMenuChosenItem={sideMenuChosenItem}
 			/>
 		);
 	};
@@ -474,10 +466,10 @@ const SharedFiles = ({
 						tooltip={true}
 					>
 						<div className={styles.mainMenuItems}>
-							{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+							{renderMenuItems(contextMenuSharedFiles.main, callbackArrMain)}
 						</div>
 						<div className={styles.additionalMenuItems}>
-							{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
+							{renderMenuItems(contextMenuSharedFiles.additional, additionalMenuItems)}
 						</div>
 					</ContextMenu>
 				)}
@@ -536,17 +528,6 @@ const SharedFiles = ({
 						setLoadingType={setLoadingType}
 					/>
 				) : null} */}
-				{action.type === "intoZip" ? (
-					<CreateZip
-						close={nullifyAction}
-						file={chosenFile}
-						title={action.name}
-						filePick={filePick}
-						nullifyFilePick={nullifyFilePick}
-						setShowSuccessMessage={setShowSuccessMessage}
-						setLoadingType={setLoadingType}
-					/>
-				) : null}
 				<form
 					style={{ display: "none" }}
 					name="downloadFile"
@@ -578,26 +559,6 @@ const SharedFiles = ({
 						setLoadingType={setLoadingType}
 					/>
 				) : null}
-				{/* {action.type === "archive" ? (
-					<ActionApproval
-						name={filePick.show ? "Архивировать выбранные файлы" : action.name}
-						text={
-							filePick.show
-								? " Вы действительно хотите переместить в архив выбранные файлы?"
-								: action.text
-						}
-						set={cancelArchive}
-						callback={archiveFile}
-						approve={"Архивировать"}
-					>
-						<div className={styles.fileActionWrap}>
-							<File
-								format={filePick.show ? "FILES" : chosenFile?.ext}
-								color={chosenFile?.color}
-							/>
-						</div>
-					</ActionApproval>
-				) : null} */}
 				{action.type === "properties" ? (
 					<FileProperty close={nullifyAction} file={chosenFile} />
 				) : null}

@@ -21,7 +21,8 @@ function FilesGroup({
 	setAction,
 	setMouseParams,
 	mounthName,
-    index
+    index,
+	sideMenuChosenItem
 }) {
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
@@ -47,6 +48,7 @@ function FilesGroup({
 				}
 				callbackArrMain={callbackArrMain}
 				shareLink={shareLink}
+				sideMenuChosenItem={sideMenuChosenItem}
 			/>
 		));
 	};

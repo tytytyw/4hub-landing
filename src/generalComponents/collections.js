@@ -366,3 +366,18 @@ export const periods = {
     "365": "В этом году",
     "999": "Папки",
 }
+
+// Shared files
+
+export const contextMenuSharedFiles = {
+    main: [
+        {name: 'Расшарить', img: 'share', type: 'share'},
+        {name: 'Скопировать ссылку', img: 'link-4', type: 'copyLink'},
+        {name: 'Редактировать файл', img: 'edit', type: 'customize'},
+        {name: 'Ред. несколько файлов', img: 'editSeveral', type: 'customizeSeveral'},
+        {name: 'Свойства', img: 'info', type: 'properties'},
+        {name: 'Скачать', img: 'download-blue', type: 'download'},
+        {name: 'Печать', img: 'print-2', type: 'print'},
+    ],
+    additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
+};

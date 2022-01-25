@@ -8,7 +8,6 @@ import { ReactComponent as PrintIcon } from "../../../../../../assets/PrivateCab
 // import {ReactComponent as SettingsIcon} from '../../../../../../assets/PrivateCabinet/settings.svg'
 // import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabinet/delete.svg'
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
-import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabinet/zip.svg";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
@@ -19,7 +18,7 @@ const FileLine = ({
 	file,
 	setChosenFile,
 	chosen,
-	// setMouseParams,
+	setMouseParams,
 	setAction,
 	setFilePreview,
 	filePreview,
@@ -27,9 +26,17 @@ const FileLine = ({
 	setFilePick,
 	callbackArrMain,
 	folderSelect,
-	// openFolderMenu,
+	openFolderMenu,
+	sideMenuChosenItem,
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
+
+	//TODO: get actual avatar and name from api
+	const avatarSrc = useSelector((state) => state?.user?.userInfo?.icon[0]);
+	const ownerName =
+		(useSelector((state) => state?.user?.userInfo?.name) || "") +
+		" " +
+		(useSelector((state) => state?.user?.userInfo?.sname) || "");
 
 	const printFile = () => {
 		setTimeout(() => {
@@ -67,6 +74,7 @@ const FileLine = ({
 			setFilePreview({ ...filePreview, view: true, file });
 		}
 	};
+	console.log(useSelector((state) => state));
 
 	return (
 		<div
@@ -98,13 +106,13 @@ const FileLine = ({
 				</div>
 
 				<div className={styles.infoWrap}>
-					<div className={styles.fileName}>
+					<div title={file.name} className={styles.fileName}>
 						{file.name && file.name.slice(0, file.name.lastIndexOf("."))}
 					</div>
 
 					<div className={styles.fileInfo}>
-						<span className={styles.fileDate}>{file.ctime.split(" ")[0]}</span>
-						<span className={styles.fileSize}>{file.size_now}</span>
+						<span className={styles.fileDate} title={file.ctime.split(" ")[0]}>{file.ctime.split(" ")[0]}</span>
+						<span className={styles.fileSize} title={file.size_now}>{file.size_now}</span>
 						{size !== "small" && (
 							<div className={styles.symbols}>
 								{file.is_pass === 1 && (
@@ -158,39 +166,54 @@ const FileLine = ({
 						)}
 					</div>
 				)}
-
+			</div>
+			<div className={styles.actionBlock}>
 				<div className={styles.settingWrap}>
 					<button className={styles.setting}>Только просмотр</button>
-                    <span className={styles.arrowIcon} ><ArrowIcon /></span>
+					{sideMenuChosenItem === "sharedI" ? (
+						<span className={styles.arrowIcon}>
+							<ArrowIcon />
+						</span>
+					) : null}
 				</div>
-			</div>
-			<span className={styles.storageInfo}>
-				Срок хранения: Осталось (8дней)
-			</span>
-			<div className={styles.optionsWrap}>
-				{file?.ext !== "ZIP" && file?.is_dir !== 1 && (
-					<div className={styles.iconView}>
-						<PrintIcon onClick={printFile} />
+				{sideMenuChosenItem === "sharedMe" ? (
+					<img
+						alt="avatar"
+						className={styles.ownerAvatar}
+						src={avatarSrc}
+						title={ownerName}
+					/>
+				) : null}
+				<span className={styles.storageInfo}>
+					Срок хранения: Осталось (8дней)
+				</span>
+				<div className={styles.optionsWrap}>
+					{file?.ext !== "ZIP" && file?.is_dir !== 1 && (
+						<div className={styles.iconView}>
+							<PrintIcon onClick={printFile} />
+						</div>
+					)}
+
+					<div className={classNames(styles.iconView, styles.iconShare)}>
+						<ShareIcon onClick={onShareFile} />
 					</div>
-				)}
 
-				<div className={classNames(styles.iconView)}>
-					<ZipIcon />
+					<div
+						className={styles.menuWrap}
+						onClick={(e) => {
+							file.is_dir
+								? openFolderMenu(e, file)
+								: setMouseParams({
+										x: e.clientX,
+										y: e.clientY,
+										width: 240,
+										height: 25,
+								  });
+						}}
+					>
+						<span className={styles.menu} />
+					</div>
 				</div>
-				<div className={classNames(styles.iconView, styles.iconShare)}>
-					<ShareIcon onClick={onShareFile} />
-				</div>
-
-				{/* <div
-                    className={styles.menuWrap}
-                    onClick={e => {
-                        file.is_dir
-                            ? openFolderMenu(e, file)
-                            : setMouseParams({x: e.clientX, y: e.clientY, width: 240, height: 25})
-                    }}
-                >
-                    <span className={styles.menu}/>
-                </div> */}
 			</div>
 		</div>
 	);
