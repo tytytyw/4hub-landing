@@ -5,6 +5,7 @@ import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import { ReactComponent as ArrowIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 
 const FileLineShort = ({
 	file,
@@ -15,6 +16,7 @@ const FileLineShort = ({
 	filePreview,
 	filePick,
 	setFilePick,
+	sideMenuChosenItem
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 
@@ -53,10 +55,12 @@ const FileLineShort = ({
 						</div>
 
 						<div className={styles.fileInfo}>
-							<span className={styles.fileDate}>
-								{file.mtime.split(" ")[0]}
-							</span>
-							<span className={styles.fileSize}>{file.size_now}</span>
+							<div>
+								<span className={styles.fileDate}>
+									{file.mtime.split(" ")[0]}
+								</span>
+								<span className={styles.fileSize}>{file.size_now}</span>
+							</div>
 							{size !== "small" && (
 								<div className={styles.symbols}>
 									{file.is_pass === 1 && (
@@ -127,11 +131,14 @@ const FileLineShort = ({
 					</div>
 				</div>
 			</div>
-			<div className={styles.linkWrap}>
-				<a className={styles.link} href={`https://fs2.mh.net.ua`}>
-					https://fs2.mh.net.ua
-				</a>
-			</div>
+			<div className={styles.settingWrap}>
+					<button className={styles.setting}>Только просмотр</button>
+					{sideMenuChosenItem === "sharedI" ? (
+						<span className={styles.arrowIcon}>
+							<ArrowIcon />
+						</span>
+					) : null}
+				</div>
 		</div>
 	);
 };

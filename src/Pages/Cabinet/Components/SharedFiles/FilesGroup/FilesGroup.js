@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
-import FileLineShort from "../../SharedFiles/WorkElements/FileLineShort/index";
+import FileLineShort from "../WorkElements/FileLineShort";
 import FileBar from "../../WorkElements/FileBar";
 import FileLine from "../WorkElements/FileLine";
 import classNames from "classnames";
