@@ -1,5 +1,7 @@
 export const createContactStatus = (isUser, currentDate, contactLastVisitDate, isOnline, gmt) => {
-    if (!isUser || !contactLastVisitDate) return "Пользователя нет в системе 4Hub";
+    if (!isUser) return "Пользователя нет в системе 4Hub";
+    if (!gmt || !contactLastVisitDate) return ''
+    
     const lastVisitWithGmt = new Date(contactLastVisitDate + ` GMT${gmt < 0 ? '' : '+'}${gmt}`);
     const timeToString = lastVisitWithGmt.toLocaleTimeString('ru')
     const lastVisitTime = timeToString.slice(0, timeToString.lastIndexOf(':'));

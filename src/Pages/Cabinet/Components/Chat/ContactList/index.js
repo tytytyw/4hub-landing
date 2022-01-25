@@ -24,6 +24,7 @@ const ContactList = ({
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
 	);
+	const gmt = useSelector(state => state?.user?.userInfo?.gmt) // server time zone
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -47,8 +48,8 @@ const ContactList = ({
 					chatItem={contact}
 					key={"contact_" + contact.id}
 					title={`${contact?.sname} ${contact?.name}`}
-					subtitle={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, contact.real_user_date_gmt)}
-					status={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, contact.real_user_date_gmt)}
+					subtitle={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, gmt)}
+					status={createContactStatus(contact.is_user, currentDate, contact.real_user_date_last, contact.is_online, gmt)}
 					avatar={
 						contact?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`

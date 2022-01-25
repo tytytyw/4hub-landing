@@ -74,7 +74,6 @@ const FileLine = ({
 			setFilePreview({ ...filePreview, view: true, file });
 		}
 	};
-	console.log(useSelector((state) => state));
 
 	return (
 		<div
