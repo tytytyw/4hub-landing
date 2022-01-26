@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./SideMenu.module.sass";
 
 import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import SideList from "../SideList";
-import { onSetWorkElementsView } from "../../../../../Store/actions/CabinetActions";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
 import { months } from "../../../../../generalComponents/CalendarHelper";
@@ -22,16 +21,6 @@ const SideMenu = ({
 	month,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (workElementsView === "workLinesPreview" && sideMenuCollapsed)
-			setSideMenuCollapsed(false);
-	}, [workElementsView]); // eslint-disable-line
-	useEffect(() => {
-		if (workElementsView === "workLinesPreview" && sideMenuCollapsed)
-			dispatch(onSetWorkElementsView("preview"));
-	}, [sideMenuCollapsed]); // eslint-disable-line
 
 	return (
 		<div

@@ -22,7 +22,8 @@ function FilesGroup({
 	setMouseParams,
 	mounthName,
     index,
-	sideMenuChosenItem
+	sideMenuChosenItem,
+	sideMenuCollapsed
 }) {
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
@@ -48,6 +49,7 @@ function FilesGroup({
 				}
 				callbackArrMain={callbackArrMain}
 				sideMenuChosenItem={sideMenuChosenItem}
+				sideMenuCollapsed={sideMenuCollapsed}
 			/>
 		));
 	};
@@ -58,13 +60,13 @@ function FilesGroup({
 				onClick={() => {
 					setCollapse(!collapse);
 				}}
-				className={styles.collapseHeader}
+				className={classNames(styles.collapseHeader, styles[workElementsView], sideMenuCollapsed && workElementsView === "workLinesPreview" ? styles.mini : '')}
 			>
 				<p className={styles.dateName}>{mounthName}</p>
 				<div className={styles.buttonsWrap}>
-					<button className={styles.collapseBtn}>
+					{sideMenuCollapsed && workElementsView === "workLinesPreview" ? "" : <button className={styles.collapseBtn}>
 						{fileList?.files?.length ?? 0} объектов
-					</button>
+					</button>}
 					<div
 						className={classNames({
 							[styles.arrowFile]: true,

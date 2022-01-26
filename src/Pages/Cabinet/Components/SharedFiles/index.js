@@ -179,6 +179,7 @@ const SharedFiles = ({
 				setAction={setAction}
 				setMouseParams={setMouseParams}
 				sideMenuChosenItem={sideMenuChosenItem}
+				sideMenuCollapsed={sideMenuCollapsed}
 			/>
 		);
 	};
