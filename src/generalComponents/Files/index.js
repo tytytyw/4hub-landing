@@ -33,8 +33,8 @@ const File = ({format, color}) => {
                 className={`${styles.label} ${isFormat() > -1 ? styles[`${format}Big`] : styles.othersBig}`}
                 style={{background: `${color ? color : ''}`, fontSize}}
             >
-                {format.toUpperCase() === 'ZIP' ? <img className={styles.zip} src='/assets/PrivateCabinet/zipper.svg' alt='' /> : null}
-                {format ? <span className={format.toUpperCase() === 'ZIP' ? styles.labelZip : null}>{format.toUpperCase()}</span> : <img src='./assets/PrivateCabinet/down-arrow-2.svg' alt='img' />}
+                {format?.toUpperCase() === 'ZIP' ? <img className={styles.zip} src='/assets/PrivateCabinet/zipper.svg' alt='' /> : null}
+                {format ? <span className={format?.toUpperCase() === 'ZIP' ? styles.labelZip : null}>{format?.toUpperCase()}</span> : <img src='./assets/PrivateCabinet/down-arrow-2.svg' alt='img' />}
             </div>
         </div>
     )
