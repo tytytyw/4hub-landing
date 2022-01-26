@@ -56,13 +56,13 @@ const FileLine = ({
 
 	const onPickFile = () => {
 		if (filePick.show) {
-			const isPicked = filePick.files.filter((el) => el === file.fid);
+			const isPicked = filePick.files.filter((el) => el === file?.fid);
 			isPicked.length > 0
 				? setFilePick({
 						...filePick,
-						files: filePick.files.filter((el) => el !== file.fid),
+						files: filePick.files.filter((el) => el !== file?.fid),
 				  })
-				: setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
+				: setFilePick({ ...filePick, files: [...filePick.files, file?.fid] });
 		}
 		setChosenFile(file);
 	};
@@ -92,46 +92,46 @@ const FileLine = ({
 					{file?.is_dir ? (
 						<FolderIcon
 							className={`${styles.folderIcon} ${
-								colors.filter((el) => el.color === file.color)[0]?.name
+								colors.filter((el) => el.color === file?.color)[0]?.name
 							}`}
 						/>
 					) : (
 						<File
-							color={file.is_write === "0" ? "#C1C1C1" : file.color}
-							format={file.ext}
+							color={file?.is_write === "0" ? "#C1C1C1" : file?.color}
+							format={file?.ext}
 							className={styles.mainFile}
 						/>
 					)}
 				</div>
 
 				<div className={styles.infoWrap}>
-					<div title={file.name} className={styles.fileName}>
-						{file.name && file.name.slice(0, file.name.lastIndexOf("."))}
+					<div title={file?.name} className={styles.fileName}>
+						{file?.name && file?.name.slice(0, file?.name.lastIndexOf("."))}
 					</div>
 
 					<div className={styles.fileInfo}>
-						<span className={styles.fileDate} title={file.ctime.split(" ")[0]}>{file.ctime.split(" ")[0]}</span>
-						<span className={styles.fileSize} title={file.size_now}>{file.size_now}</span>
+						<span className={styles.fileDate} title={file?.ctime?.split(" ")[0]}>{file?.ctime?.split(" ")[0]}</span>
+						<span className={styles.fileSize} title={file?.size_now}>{file?.size_now}</span>
 						{size !== "small" && (
 							<div className={styles.symbols}>
-								{file.is_pass === 1 && (
+								{file?.is_pass === 1 && (
 									<img
 										className={styles.locked}
 										src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 										alt="lock"
 									/>
 								)}
-								{file.fig && (
+								{file?.fig && (
 									<img
 										className={styles.sign}
-										src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
+										src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`}
 										alt="sign"
 									/>
 								)}
-								{file.emo && (
+								{file?.emo && (
 									<img
 										className={styles.smile}
-										src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
+										src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`}
 										alt="emoji"
 									/>
 								)}
@@ -142,24 +142,24 @@ const FileLine = ({
 
 				{size === "small" && (
 					<div className={styles.symbols}>
-						{file.is_pass === 1 && (
+						{file?.is_pass === 1 && (
 							<img
 								className={styles.locked}
 								src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
 								alt="lock"
 							/>
 						)}
-						{file.fig && (
+						{file?.fig && (
 							<img
 								className={styles.sign}
-								src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
+								src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`}
 								alt="sign"
 							/>
 						)}
-						{file.emo && (
+						{file?.emo && (
 							<img
 								className={styles.smile}
-								src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
+								src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`}
 								alt="emoji"
 							/>
 						)}
@@ -168,6 +168,7 @@ const FileLine = ({
 			</div>
 			<div className={styles.actionBlock}>
 				<div className={styles.settingWrap}>
+					{sideMenuChosenItem === "sharedI" && <span></span>}
 					<button className={styles.setting}>Только просмотр</button>
 					{sideMenuChosenItem === "sharedI" ? (
 						<span className={styles.arrowIcon}>
@@ -175,14 +176,12 @@ const FileLine = ({
 						</span>
 					) : null}
 				</div>
-				{sideMenuChosenItem === "sharedMe" ? (
-					<img
-						alt="avatar"
-						className={styles.ownerAvatar}
-						src={avatarSrc}
-						title={ownerName}
-					/>
-				) : null}
+				<img
+					alt="avatar"
+					className={styles.ownerAvatar}
+					src={avatarSrc}
+					title={ownerName}
+				/>
 				<span className={styles.storageInfo}>
 					Срок хранения: Осталось (8дней)
 				</span>
@@ -200,7 +199,7 @@ const FileLine = ({
 					<div
 						className={styles.menuWrap}
 						onClick={(e) => {
-							file.is_dir
+							file?.is_dir
 								? openFolderMenu(e, file)
 								: setMouseParams({
 										x: e.clientX,
