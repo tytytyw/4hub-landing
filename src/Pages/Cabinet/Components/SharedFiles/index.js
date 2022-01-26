@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./SharedFiles.module.sass";
 import FilesGroup from "./FilesGroup/FilesGroup";
 import WorkLinesPreview from "../WorkElements/WorkLinesPreview";
-import SideList from "./SideList";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
@@ -50,10 +49,10 @@ const SharedFiles = ({
 	setMenuItem,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
-	const [search, setSearch] = useState('');
+	const [search, setSearch] = useState("");
 	const [fileList, setFileList] = useState(null);
 	// const user = useSelector((state) => state.user.userInfo);
-	const [sideMenuChosenItem, setSideMenuChosenItem] = useState('sharedMe');
+	const [sideMenuChosenItem, setSideMenuChosenItem] = useState("sharedMe");
 	const dispatch = useDispatch();
 
 	const [year, setYear] = useState(null);
@@ -68,8 +67,12 @@ const SharedFiles = ({
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
 	// const [filesNotCustomize, setFilesNotCustomize] = useState([]);
 
-	const filesSharedMe = useSelector(state => state.Cabinet.sharedFiles.sharedMe)
-	const filesSharedI =  useSelector(state => state.Cabinet.sharedFiles.sharedI)
+	const filesSharedMe = useSelector(
+		(state) => state.Cabinet.sharedFiles.sharedMe
+	);
+	const filesSharedI = useSelector(
+		(state) => state.Cabinet.sharedFiles.sharedI
+	);
 	useEffect(() => {
 		setMenuItem("SharedFiles");
 		dispatch(onGetUserInfo());
@@ -80,8 +83,8 @@ const SharedFiles = ({
 		return () => {
 			setMenuItem("");
 			// clearInterval(timer);
-		}
-	}, []) // eslint-disable-line
+		};
+	}, []); // eslint-disable-line
 
 	useEffect(() => {
 		dispatch(onGetSharedFiles("sharedMe", "", month));
@@ -98,10 +101,9 @@ const SharedFiles = ({
 		}
 	}, [filePick.customize]); // eslint-disable-line
 
-
 	useEffect(() => {
-		if (sideMenuChosenItem === 'sharedMe') setFileList(filesSharedMe)
-		if (sideMenuChosenItem === 'sharedI') setFileList(filesSharedI)
+		if (sideMenuChosenItem === "sharedMe") setFileList(filesSharedMe);
+		if (sideMenuChosenItem === "sharedI") setFileList(filesSharedI);
 	}, [sideMenuChosenItem, filesSharedMe]); // eslint-disable-line
 
 	// TODO: delete unused items
@@ -160,7 +162,7 @@ const SharedFiles = ({
 	];
 
 	const renderFilesGroup = (mounth, i) => {
-		if (!fileList?.files?.length) return null
+		if (!fileList?.files?.length) return null;
 		return (
 			<FilesGroup
 				key={i}
@@ -383,6 +385,8 @@ const SharedFiles = ({
 				setSideMenuChosenItem={setSideMenuChosenItem}
 				filesSharedMe={filesSharedMe}
 				filesSharedI={filesSharedI}
+				renderFilesGroup={renderFilesGroup}
+				month={month}
 			/>
 
 			<div className={styles.workAreaWrap}>
@@ -419,25 +423,18 @@ const SharedFiles = ({
 					className={styles.workSpace}
 					style={{
 						height: `${
-							filePick.show ? "calc(100% - 90px - 55px - 86px - 80px)" : "calc(100% - 90px - 55px - 86px)"
+							filePick.show
+								? "calc(100% - 90px - 55px - 86px - 80px)"
+								: "calc(100% - 90px - 55px - 86px)"
 						}`,
 					}}
 				>
 					{workElementsView === "workLinesPreview" && (
-						<>
-							<SideList>
-								{month
-									? renderFilesGroup(months()[month - 1].name, 0)
-									: months().map((item, i) => renderFilesGroup(item.name, i))}
-							</SideList>
-							<div className={styles.filePreviewWrap}>
-								<WorkLinesPreview
-									file={chosenFile}
-									hideFileList={true}
-									filePick={filePick}
-								/>
-							</div>
-						</>
+						<WorkLinesPreview
+							file={chosenFile}
+							hideFileList={true}
+							filePick={filePick}
+						/>
 					)}
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
@@ -470,7 +467,10 @@ const SharedFiles = ({
 							{renderMenuItems(contextMenuSharedFiles.main, callbackArrMain)}
 						</div>
 						<div className={styles.additionalMenuItems}>
-							{renderMenuItems(contextMenuSharedFiles.additional, additionalMenuItems)}
+							{renderMenuItems(
+								contextMenuSharedFiles.additional,
+								additionalMenuItems
+							)}
 						</div>
 					</ContextMenu>
 				)}

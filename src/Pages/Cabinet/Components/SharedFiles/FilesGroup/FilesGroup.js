@@ -27,7 +27,7 @@ function FilesGroup({
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
-	const renderFiles = (Type, shareLink) => {
+	const renderFiles = (Type) => {
 		if (!fileList || fileList.length === 0) return null;
 		return fileList.files?.map((file, index) => (
 			<Type
@@ -47,7 +47,6 @@ function FilesGroup({
 						: chosenFile?.fid === file?.fid
 				}
 				callbackArrMain={callbackArrMain}
-				shareLink={shareLink}
 				sideMenuChosenItem={sideMenuChosenItem}
 			/>
 		));

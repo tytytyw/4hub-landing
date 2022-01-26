@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./SideMenu.module.sass";
 
 import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import SideList from "../SideList";
+import { onSetWorkElementsView } from "../../../../../Store/actions/CabinetActions";
+
+//TODO: заменить при получении сгрупированного на даты списка файлов
+import { months } from "../../../../../generalComponents/CalendarHelper";
 
 const SideMenu = ({
 	sideMenuCollapsed,
 	setSideMenuCollapsed,
-	search,
-	setSearch,
 	sideMenuChosenItem,
 	setSideMenuChosenItem,
-    filesSharedMe,
+	filesSharedMe,
 	filesSharedI,
+	renderFilesGroup,
+	month,
 }) => {
+	const workElementsView = useSelector((state) => state.Cabinet.view);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (workElementsView === "workLinesPreview" && sideMenuCollapsed)
+			setSideMenuCollapsed(false);
+	}, [workElementsView]); // eslint-disable-line
+	useEffect(() => {
+		if (workElementsView === "workLinesPreview" && sideMenuCollapsed)
+			dispatch(onSetWorkElementsView("preview"));
+	}, [sideMenuCollapsed]); // eslint-disable-line
 
 	return (
 		<div
@@ -36,53 +52,38 @@ const SideMenu = ({
 				/>
 			</div>
 
-			{sideMenuCollapsed ? null : (
-				<div className={styles.searchField}>
-					<input
-						placeholder="Введите имя файла"
-						type="text"
-						onChange={(e) => setSearch(e.target.value)}
-						value={search}
-					/>
-					<img
-						src={
-							imageSrc +
-							`assets/PrivateCabinet/${
-								search ? "garbage.svg" : "magnifying-glass-2.svg"
-							}`
-						}
-						alt="search"
-						className={styles.searchGlass}
-						onClick={() => setSearch("")}
-					/>
-				</div>
-			)}
-			<div
-				className={styles.menu}
-				style={{
-					height: `calc(100% - 90px - ${sideMenuCollapsed ? "0" : "60"}px)`,
-				}}
-			>
+			<div className={styles.menu}>
 				<div
-                    onClick={() => setSideMenuChosenItem('sharedI')}
+					onClick={() => setSideMenuChosenItem("sharedI")}
 					className={classNames({
 						[styles.menuItem]: true,
 						[styles.active]: sideMenuChosenItem === "sharedI",
 					})}
 				>
 					{!sideMenuCollapsed ? "Файлы которые расшарил я" : "Я"}
-					<span className={styles.count}>({filesSharedI?.files?.length || '0'})</span>
+					<span className={styles.count}>
+						({filesSharedI?.files?.length || "0"})
+					</span>
 				</div>
 				<div
-                    onClick={() => setSideMenuChosenItem('sharedMe')}
+					onClick={() => setSideMenuChosenItem("sharedMe")}
 					className={classNames({
 						[styles.menuItem]: true,
 						[styles.active]: sideMenuChosenItem === "sharedMe",
 					})}
 				>
 					{!sideMenuCollapsed ? "Файлы расшаренные мне" : "Мне"}
-					<span className={styles.count}>({filesSharedMe?.files?.length || '0'})</span>
+					<span className={styles.count}>
+						({filesSharedMe?.files?.length || "0"})
+					</span>
 				</div>
+				{workElementsView === "workLinesPreview" && (
+					<SideList>
+						{month
+							? renderFilesGroup(months()[month - 1].name, 0)
+							: months().map((item, i) => renderFilesGroup(item.name, i))}
+					</SideList>
+				)}
 			</div>
 		</div>
 	);
