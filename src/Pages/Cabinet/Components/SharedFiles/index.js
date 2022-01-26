@@ -68,9 +68,8 @@ const SharedFiles = ({
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
 	// const [filesNotCustomize, setFilesNotCustomize] = useState([]);
 
-	const filesSharedMe = useSelector(state => state.Cabinet.sharedFiles)
-	const filesSharedI = []
-
+	const filesSharedMe = useSelector(state => state.Cabinet.sharedFiles.sharedMe)
+	const filesSharedI =  useSelector(state => state.Cabinet.sharedFiles.sharedI)
 	useEffect(() => {
 		setMenuItem("SharedFiles");
 		dispatch(onGetUserInfo());
@@ -85,7 +84,8 @@ const SharedFiles = ({
 	}, []) // eslint-disable-line
 
 	useEffect(() => {
-		dispatch(onGetSharedFiles("", month));
+		dispatch(onGetSharedFiles("sharedMe", "", month));
+		dispatch(onGetSharedFiles("sharedI", "", month));
 	}, [month]); // eslint-disable-line
 
 	useEffect(() => {
@@ -381,7 +381,8 @@ const SharedFiles = ({
 				setSearch={setSearch}
 				sideMenuChosenItem={sideMenuChosenItem}
 				setSideMenuChosenItem={setSideMenuChosenItem}
-				filesSharedMeCounter={filesSharedMe?.files?.length}
+				filesSharedMe={filesSharedMe}
+				filesSharedI={filesSharedI}
 			/>
 
 			<div className={styles.workAreaWrap}>

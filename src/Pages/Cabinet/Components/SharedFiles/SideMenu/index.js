@@ -13,8 +13,10 @@ const SideMenu = ({
 	setSearch,
 	sideMenuChosenItem,
 	setSideMenuChosenItem,
-    filesSharedMeCounter=0
+    filesSharedMe,
+	filesSharedI,
 }) => {
+
 	return (
 		<div
 			className={classNames({
@@ -69,7 +71,7 @@ const SideMenu = ({
 					})}
 				>
 					{!sideMenuCollapsed ? "Файлы которые расшарил я" : "Я"}
-					<span className={styles.count}>({0})</span>
+					<span className={styles.count}>({filesSharedI?.files?.length || '0'})</span>
 				</div>
 				<div
                     onClick={() => setSideMenuChosenItem('sharedMe')}
@@ -79,7 +81,7 @@ const SideMenu = ({
 					})}
 				>
 					{!sideMenuCollapsed ? "Файлы расшаренные мне" : "Мне"}
-					<span className={styles.count}>({filesSharedMeCounter})</span>
+					<span className={styles.count}>({filesSharedMe?.files?.length || '0'})</span>
 				</div>
 			</div>
 		</div>

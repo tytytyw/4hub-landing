@@ -119,7 +119,7 @@ const INITIAL_STATE = {
     connectedContacts: [],
 
     // SHARED FILES
-    sharedFiles: null,
+    sharedFiles: {sharedMe: null, sharedI: null},
 
     // ARCHIVE
     arhiveFileList: null,
@@ -384,7 +384,7 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         // SHARED FILES
         case CHOOSE_SHARED_FILES: {
-            return {...state, sharedFiles: {...state.sharedFiles, files: action.payload}};
+            return {...state, sharedFiles: {...state.sharedFiles, [action.payload.key]: {files: action.payload.files}}};
         }
 
         //ARCHIVE

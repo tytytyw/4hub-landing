@@ -870,12 +870,19 @@ export const onSearch = (value) => {
 }
 
 // SHARED FILES
-export const onGetSharedFiles  = (day, mounth) => async (dispatch, getState) => {
+export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getState) => {
+    const url = () => {
+        switch (type) {
+            case 'sharedMe': return 'file_share_get'
+            // case 'sharedI'
+            default: return 'files_share_mylist'
+        }
+    }
     try {
-        const res = await api.get(`/ajax/file_share_get.php?uid=${getState().user.uid}&m=${mounth}`)
+        const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}&m=${mounth}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
-            payload: res.data.data
+            payload: type === "sharedI" ? {files: res.data.myshares, key: type} : {files: res.data.data, key: type}
         })
     } catch (e) {
         console.log(e);
