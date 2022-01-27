@@ -201,9 +201,9 @@ const MiniToolBar = ({
                 width
             }}
         >
-            <div className={styles.leftPart}>
-                {standardEditToolBar()}
-            </div>
+            {/*<div className={styles.leftPart}>*/}
+            {/*    {standardEditToolBar()}*/}
+            {/*</div>*/}
             <div className={styles.rightPart}>
                 <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
             </div>

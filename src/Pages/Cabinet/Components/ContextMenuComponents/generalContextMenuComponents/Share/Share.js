@@ -64,7 +64,6 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
                     setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
                 } else {
                     setError('Что-то пошло не так. Повторите попытку позже')
-                    console.log(res)
                 }
             })
             .catch(err => {setError(`${err}`)})
