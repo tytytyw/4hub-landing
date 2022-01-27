@@ -8,7 +8,7 @@ import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
 // import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
-import WorkLinesPreview from '../WorkElements/WorkLinesPreview'
+import WorkLinesPreview from '../WorkElements/WorkLinesPreview/WorkLinesPreview'
 import FileLineShort from '../WorkElements/FileLineShort'
 import {useSelector} from 'react-redux'
 import AddMember from "../AddMember";
