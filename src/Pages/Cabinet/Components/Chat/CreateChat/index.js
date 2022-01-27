@@ -10,7 +10,7 @@ import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
 	onGetChatGroups,
-	onGetReсentChatsList
+	onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 
@@ -33,7 +33,7 @@ const CreateChat = ({
 	const dispatch = useDispatch();
 	const inputWrapRef = useRef();
 	const [inputWrapHeight, setInputWrapHeight] = useState(0);
-
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
 	const uid = useSelector((state) => state.user.uid);
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
@@ -85,7 +85,7 @@ const CreateChat = ({
 
 	useEffect(() => {
 		setSearch("");
-		setInputWrapHeight(inputWrapRef.current.offsetHeight)
+		setInputWrapHeight(inputWrapRef?.current?.offsetHeight)
 		if (selectedContacts.length && maxCountUsers === 1) setShowActionApproval({type: 'secretChat', show: true})
 	}, [selectedContacts, maxCountUsers]);
 
@@ -160,9 +160,11 @@ const CreateChat = ({
 		setLoadingType("squarify")
 		const formData = new FormData();
 		if (image) formData.append("file", image);
+		const users = selectedContacts.map((item) => item.id_real_user)
+		users.push(userId)
 		formData.append(
 			"id_user_to",
-			JSON.stringify(selectedContacts.map((item) => item.id_real_user))
+			JSON.stringify(users)
 		);
 		if (componentType === 'edit') formData.append("id_group", selectedContact.id);
 		const apiUrl = showActionApproval.type === 'secretChat'
@@ -175,7 +177,7 @@ const CreateChat = ({
 			.post(apiUrl, formData)
 			.then((res) => {
 				if (res.data.ok) {
-					dispatch(showActionApproval.type === 'secretChat' ? onGetReсentChatsList() : onGetChatGroups());
+					dispatch(showActionApproval.type === 'secretChat' ? onGetSecretChatsList() : onGetChatGroups());
 					if (componentType === 'add') setShowSuccessPopup({
 						title: showActionApproval.type === 'secretChat' ? 'Секретный чат успешно создан' : "Новая группа успешно создана",
 						text: "",

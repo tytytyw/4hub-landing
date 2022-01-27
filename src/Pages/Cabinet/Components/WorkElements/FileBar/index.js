@@ -17,8 +17,8 @@ const FileBar = ({
 
     const onPickFile = () => {
         if(filePick.show) {
-            const isPicked = filePick.files.filter(el => el === file.fid);
-            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file.fid)}) : setFilePick({...filePick, files: [...filePick.files, file.fid]});
+            const isPicked = filePick.files.filter(el => el === file?.fid);
+            isPicked.length > 0 ? setFilePick({...filePick, files: filePick.files.filter(el => el !== file?.fid)}) : setFilePick({...filePick, files: [...filePick.files, file?.fid]});
         }
         if(!isLoading) setChosenFile(file);
     }
@@ -53,27 +53,27 @@ const FileBar = ({
                 <div
                     className={styles.menu}
                     onClick={e => {
-                        file.is_dir
+                        file?.is_dir
                             ? openFolderMenu(e, file)
                             : setMouseParams({x: e.clientX, y: e.clientY, width: 240, height: 25})
                     }}
                 ><span/></div>
                 <div className={styles.symbols}>
-                    <div>{file?.fig && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt='fig' /> : null}</div>
-                    <div>{file?.emo && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt='emoji' /> : null}</div>
+                    <div>{file?.fig && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`} alt='fig' /> : null}</div>
+                    <div>{file?.emo && !isLoading ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`} alt='emoji' /> : null}</div>
                 </div>
                 <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ''}`}>
                     {file?.is_dir
-                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name}`} />
-                        : <File color={file.is_write === '0' ? '#C1C1C1' : file.color} format={file.ext} className={styles.mainFile}/>
+                        ? <FolderIcon className={`${styles.folderIcon} ${colors.filter(el => el.color === file?.color)[0]?.name}`} />
+                        : <File color={file?.is_write === '0' ? '#C1C1C1' : file?.color} format={file?.ext} className={styles.mainFile}/>
                     }
                     {file?.is_pass && !isLoading ? <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt='lock' /> : null}
                 </div>
-                <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag ? `#${file.tag}` : null}</div>
-                <div className={styles.fname}>{file.name}</div>
+                <div className={file?.tag ? styles.ftag : styles.fEmtyTag}>{file?.tag ? `#${file?.tag}` : null}</div>
+                <div className={styles.fname}>{file?.name}</div>
                 <div className={styles.fileInfo}>
-                    <div>{file.size_now}</div>
-                    <div>{file.ctime.split(' ')[0]}</div>
+                    <div>{file?.size_now}</div>
+                    <div>{file?.ctime?.split(' ')[0]}</div>
                 </div>
             </div>
         </>

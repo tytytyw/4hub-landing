@@ -379,6 +379,7 @@ const ServePanel = ({
             {pathname === '/programs' && renderInPrograms()}
             {pathname === '/safe' && renderInSafe()}
             {pathname === '/project' && renderInProject()}
+            {pathname === '/shared-files' && renderInPrograms()}
 
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}

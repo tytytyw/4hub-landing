@@ -1,132 +1,56 @@
-.workSpace
-  display: flex
-  height: 100%
-.filePreviewWrap
-  width: 65%
-.parentWrapper
-  height: 100%
-  overflow: hidden
-
-.FilesList
-  width: 100%
-  overflow-y: scroll
-  height: 85%
-  scrollbar-width: auto
-  scrollbar-color: #4086F1 #F5F5F5
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    width: 12px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
-
 .wrapper
-  height: calc(100% - 90px - 55px)
-  overflow-y: hidden
-  overflow-x: hidden
-  scrollbar-width: auto
-  scrollbar-color: #4086F1 #F5F5F5
-  &::-webkit-scrollbar-track
-    background: #0A3AAB
-  &::-webkit-scrollbar-track
-    -webkit-box-shadow: none
-    background-color: #F5F5F5
-  &::-webkit-scrollbar
-    width: 12px
-    background-color: #FFFFFF
-  &::-webkit-scrollbar-thumb
-    background-color: #4086F1
-
-.header
+  overflow: hidden
+  height: 100%
   display: flex
-  align-items: center
-  justify-content: space-between
-  height: 90px
-  border-bottom: 1px solid #e5e5e5
-  box-sizing: border-box
-  padding: 0 39px 0 17px
-  .infoHeader
-    display: flex
-    justify-content: space-between
-    align-items: center
-    min-width: 340px
-    width: 400px
-    max-width: 400px
-
-.searchWrap
-  display: flex
-  align-items: center
-  justify-content: space-between
-  padding: 20px 20px 10px 20px
-
-.select
-  box-shadow: none
-  border-radius: 3px
-  border: 1px solid #4086F1
-  .selectContent
-    font-size: 12px
-    line-height: 14px
+  font-family: "SF Pro Light", sans-serif
+  letter-spacing: -0.06px
+  .workAreaWrap
     height: 100%
-    display: flex
-    align-items: center
-    padding: 0 10px
-    color: #666666
-
-.yearSelect
-  width: 121px
-  height: 32px
-
-  .selectContentYear
-    font-size: 12px
-    line-height: 14px
-    height: 100%
-    display: flex
-    justify-content: center
-    align-items: center
-    padding: 0 10px
-    color: #666666
-
-.buttonsWrap
-  padding: 10px 15px 10px 15px
-  display: flex
-  justify-content: space-between
-
-  .daySelect
-    min-width: 109px
-    height: 32px
-
-  .button.active
-    background: rgba(64, 134, 241, 0.1)
-    transition: background-color 0.2s ease-in-out
-    border: 1px solid #4086F1
-
-  .button
-    display: block
+    width: 100%
     overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
+    flex-grow: 1
+    .header
+      display: flex
+      align-items: center
+      justify-content: space-between
+      height: 90px
+      border-bottom: 1px solid #e5e5e5
+      box-sizing: border-box
+      padding: 0 39px 0 17px
+    .infoHeader
+      display: flex
+      justify-content: space-between
+      align-items: center
+      min-width: 340px
+      width: 400px
+      max-width: 400px
+    .fileActionWrap
+      width: 66px
+      height: 75px
+      position: relative
+    .workSpace
+      display: flex
+      height: 100%
+      align-items: center
+      justify-content: center
+      img
+        max-height: 40vh
+      .filesList
+        width: 100%
+        overflow-y: scroll
+        height: 100%
+        scrollbar-width: auto
+        scrollbar-color: #4086F1 #F5F5F5
+        &::-webkit-scrollbar-track
+          background: #0A3AAB
+        &::-webkit-scrollbar-track
+          -webkit-box-shadow: none
+          background-color: #F5F5F5
+        &::-webkit-scrollbar
+          width: 12px
+          background-color: #FFFFFF
+        &::-webkit-scrollbar-thumb
+          background-color: #4086F1
 
-    cursor: pointer
-    width: 171px
-    height: 34px
-    border: none
-    background: #ffffff
-    border-radius: 3px
-    padding: 0 10px
-    font-family: inherit
-    margin: 0 5px
-    color: #666666
-    font-size: 12px
-    box-shadow: 0 2px 4px #dedede
-    transition: background-color 0.2s ease-in-out
-    &:hover
-      background: rgba(64, 134, 241, 0.1)
-      transition: background-color 0.2s ease-in-out
-.fileActionWrap
-  width: 66px
-  height: 75px
-  position: relative
+      
+

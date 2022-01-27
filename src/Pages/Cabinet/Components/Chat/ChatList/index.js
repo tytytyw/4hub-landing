@@ -33,6 +33,7 @@ const ChatList = ({
 	const secretChatsList = useSelector((state) => state.Cabinet.chat.secretChatsList);
 	const [chatsList, setChatList] = useState([])
     const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
+	const gmt = useSelector(state => state?.user?.userInfo?.gmt) // server time zone
 
 	useEffect(() => {
 		dispatch(onGetChatGroups());
@@ -57,8 +58,8 @@ const ChatList = ({
 					chatItem={chat}
 					key={chat.id}
 					title={`${chat?.sname || ''} ${chat?.name}`}
-					subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
-					status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online)}
+					subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+					status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
 					avatar={
 						chat?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
@@ -81,7 +82,7 @@ const ChatList = ({
 					chatItem={member}
 					key={chatId + "_user_" + member.id}
 					title={member?.name}
-					subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online)}
+					subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online, gmt)}
 					avatar={
 						member?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`

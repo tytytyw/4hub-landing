@@ -1,11 +1,8 @@
-.wrapper
-
-
 .searchWrap
   display: flex
   align-items: stretch
   justify-content: flex-start
-  padding: 20px 20px 10px 20px
+  padding: 10px 20px
   .daySelect
     min-width: 109px
     height: 32px
@@ -40,27 +37,27 @@
     color: #666666
 
 .buttonsWrap
-  padding: 10px 15px 10px 15px
+  padding: 0 20px
   display: flex
   justify-content: space-between
-
+  flex-wrap: nowrap
   .button.active
     background: rgba(64, 134, 241, 0.1)
     transition: background-color 0.2s ease-in-out
     border: 1px solid #4086F1
 
   .button
+    flex: 1
     display: block
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
     border: 1px solid transparent
     cursor: pointer
-    width: 171px
     height: 34px
     background: #ffffff
     border-radius: 3px
-    padding: 0 10px
+    padding: 0 3px
     font-family: inherit
     margin: 0 5px
     color: #666666
@@ -70,6 +67,10 @@
     &:hover
       background: rgba(64, 134, 241, 0.1)
       transition: background-color 0.2s ease-in-out
+    &:first-child
+      margin: 0 5px 0 0
+    &:last-child
+      margin: 0 0 0 5px
 
 
 .search

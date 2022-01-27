@@ -1,25 +1,22 @@
-export const createContactStatus = (isUser, currentDate, contactLastVisitDate, isOnline) => {
+export const createContactStatus = (isUser, currentDate, contactLastVisitDate, isOnline, gmt) => {
     if (!isUser) return "Пользователя нет в системе 4Hub";
+    if (!gmt || !contactLastVisitDate) return ''
+    
+    const lastVisitWithGmt = new Date(contactLastVisitDate + ` GMT${gmt < 0 ? '' : '+'}${gmt}`);
+    const timeToString = lastVisitWithGmt.toLocaleTimeString('ru')
+    const lastVisitTime = timeToString.slice(0, timeToString.lastIndexOf(':'));
+    const lastVisitDate = lastVisitWithGmt.toLocaleDateString('ru');
 
-    const lastVisitDate = {};
-
-    [lastVisitDate.date, lastVisitDate.time] = contactLastVisitDate.split(" ");
-    lastVisitDate.time = `${lastVisitDate.time.split(":")[0]}:${
-        lastVisitDate.time.split(":")[1]
-    }`;
-    [lastVisitDate.year, lastVisitDate.month, lastVisitDate.day] =
-        lastVisitDate.date.split("-");
-
-    if (currentDate.getFullYear() === +lastVisitDate.year) {
+    if (currentDate.getFullYear() === lastVisitWithGmt.getFullYear()) {
         //this year
-        if (currentDate.getMonth() + 1 === +lastVisitDate.month) {
-            if (currentDate.getDate() === +lastVisitDate.day) {
+        if (currentDate.getMonth() === lastVisitWithGmt.getMonth()) {
+            if (currentDate.getDate() === lastVisitWithGmt.getDate()) {
                 //today
                 const minutesDifference =
-                    (currentDate - new Date(contactLastVisitDate)) / 60000;
+                    (currentDate - new Date(lastVisitWithGmt)) / 60000;
                 if (minutesDifference > 12 * 60) {
                     // more than 12 hours ago
-                    return `сегодня в ${lastVisitDate.time}`;
+                    return `сегодня в ${lastVisitTime}`;
                 } else if (minutesDifference <= 60) {
                     //less than an hour ago
                     const minutes = Math.floor(minutesDifference);
@@ -35,45 +32,43 @@ export const createContactStatus = (isUser, currentDate, contactLastVisitDate, i
                     if (hours === 1) word_ending = "";
                     return `${hours > 1 ? hours : ""} час${word_ending} назад`;
                 }
-            } else if (currentDate.getDate() === +lastVisitDate.day - 1) {
+            } else if (currentDate.getDate() - 1 === lastVisitWithGmt.getDate()) {
                 //yesterday
-                return `вчера в ${lastVisitDate.time}`;
+                return `вчера в ${lastVisitTime}`;
             }
         }
         const monthToString = (month) => {
             switch (month) {
-                case "01":
+                case 0:
                     return " Января";
-                case "02":
+                case 1:
                     return " Февраля";
-                case "03":
+                case 2:
                     return " Марта";
-                case "04":
+                case 3:
                     return " Апреля";
-                case "05":
+                case 4:
                     return " Мая";
-                case "06":
+                case 5:
                     return " Июня";
-                case "07":
+                case 6:
                     return " Июля";
-                case "08":
+                case 7:
                     return " Августа";
-                case "09":
+                case 8:
                     return " Сентября";
-                case "10":
+                case 9:
                     return " Октября";
-                case "11":
+                case 10:
                     return " Ноября";
-                case "12":
+                case 11:
                     return " Декабря";
                 default:
                     return `.${month}`;
             }
         };
-        return `был в сети ${+lastVisitDate.day}${monthToString(
-            lastVisitDate.month
-        )}`;
+        return `был в сети ${lastVisitWithGmt.getDate()}${monthToString(lastVisitWithGmt.getMonth())}`;
     }
     //not this year
-    return `был в сети ${+lastVisitDate.day}.${lastVisitDate.month}.${lastVisitDate.year}`;
+    return `был в сети ${lastVisitDate}`;
 };
