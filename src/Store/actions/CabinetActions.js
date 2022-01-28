@@ -875,14 +875,14 @@ export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getStat
         switch (type) {
             case 'sharedMe': return 'file_share_get'
             // case 'sharedI'
-            default: return 'files_share_mylist'
+            default: return 'file_share_mylist'
         }
     }
     try {
         const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}&m=${mounth}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
-            payload: type === "sharedI" ? {files: res.data.myshares, key: type} : {files: res.data.data, key: type}
+            payload: type === "sharedI" ? {files: res.data.data, key: type} : {files: res.data.data, key: type}
         })
     } catch (e) {
         console.log(e);
