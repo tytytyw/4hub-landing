@@ -93,12 +93,49 @@
         &:hover
           background: #fc7a7a
           color: white
+  .customWrap
+    position: relative
+    margin: 0 5px 0 0
+    .unread
+      position: absolute
+      width: 7px
+      height: 7px
+      top: -3px
+      right: -3px
+      background: #D72419
+      border-radius: 50%
+    .menuDots
+      position: relative
+      background: #3b6dcb
+      width: 3px
+      height: 3px
+      border-radius: 1px
+      &:before, &:after
+        position: absolute
+        content: ''
+        background: #3b6dcb
+        width: 3px
+        height: 3px
+        border-radius: 1px
+      &:before
+        transform: translateX(6px)
+      &:after
+        transform: translateX(-6px)
+  .photoWrap
+    width: calc(28px + 12px + 12px)
+    height: 28px
+    margin: 0 10px 0 0
+    .photoUser
+      position: absolute
 .standardToolBarWrap
   display: flex
   align-items: center
   .customWrap
     margin: 0 0 0 5px
 .mutualEditWrap
+  .rightPart
+    display: flex
+    width: 50%
   .customWrap
     margin: 0 5px 0 0
   .menuDots

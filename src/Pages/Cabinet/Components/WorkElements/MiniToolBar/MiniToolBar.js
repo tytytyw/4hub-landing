@@ -17,6 +17,8 @@ import {ReactComponent as TextIcon} from '../../../../../assets/PrivateCabinet/m
 import {ReactComponent as VectorIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/vector-1.svg'
 import {ReactComponent as InfoIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/info.svg'
 import {ReactComponent as CameraIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/camera.svg'
+import {ReactComponent as MessageIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/messages.svg'
+import {ReactComponent as DashedBorderIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/dashedBorder.svg'
 import Pencil from "./Tools/Pencil";
 import Eraser from "./Tools/Eraser";
 import Marker from "./Tools/Marker";
@@ -201,11 +203,17 @@ const MiniToolBar = ({
                 width
             }}
         >
-            {/*<div className={styles.leftPart}>*/}
-            {/*    {standardEditToolBar()}*/}
-            {/*</div>*/}
+            <div className={styles.leftPart}/>
             <div className={styles.rightPart}>
-                <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
+                <div className={styles.customWrap}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
+                <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
+                <div className={styles.rightPart}>
+                    <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
+                </div>
+                <div className={styles.customWrap}>{addButton(<DashedBorderIcon />)}</div>
+                <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
+                <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
+                {renderPhotos([BlackMan, WhiteMan, Woman])}
             </div>
         </div>
     )
