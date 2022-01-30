@@ -40,7 +40,10 @@ const CustomChatItem = ({
 			title={sideMenuCollapsed ? title : ""}
 		>
 			<div className={styles.groupName}>
-				<img src={avatar} alt="avatar" className={styles.avatar} />
+				<div className={styles.avatarWrapper}>
+					<img src={avatar} alt="avatar" className={styles.avatar} />
+					{chatItem.is_online ? <div className={styles.onlineIndicator}></div> : ''}
+				</div>
 				{sideMenuCollapsed ? (
 					chatItem.is_secret_chat && (
 						<LockIcon className={styles.secretChatIcon} />
