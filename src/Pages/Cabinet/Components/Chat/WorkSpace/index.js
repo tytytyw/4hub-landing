@@ -16,6 +16,7 @@ const WorkSpace = ({
 	setShowSuccessPopup,
 	nullifyAction,
 	action,
+	currentDate,
 }) => {
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const inputRef = useRef();
@@ -63,6 +64,7 @@ const WorkSpace = ({
 						nullifyAction={nullifyAction}
 						setShowSuccessPopup={setShowSuccessPopup}
 						componentType={'add'}
+						currentDate={currentDate}
 					/>
 				) : ''}
 				{action.type === "editChatGroup" ? (
@@ -73,6 +75,7 @@ const WorkSpace = ({
 						setShowSuccessPopup={setShowSuccessPopup}
 						selectedContact={selectedContact}
 						componentType={'edit'}
+						currentDate={currentDate}
 					/>
 				) : ''}
 			</div>

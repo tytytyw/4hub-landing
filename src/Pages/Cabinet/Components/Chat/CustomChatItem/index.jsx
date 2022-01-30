@@ -17,7 +17,8 @@ const CustomChatItem = ({
 	contextMenu = "contextMenu",
 	disableHover = false,
 	setMouseParams = () => {},
-	contextMenuList = ''
+	contextMenuList = '',
+	paddingRight = ''
 }) => {
 	const onChatItemClick = (e, isMenu) => {
 		if (isMenu)
@@ -36,6 +37,7 @@ const CustomChatItem = ({
 				[styles.active]: selectedContact && selectedContact?.id === chatItem.id,
 				[styles.disableHover]: disableHover,
 			})}
+			style={{paddingRight}}
 			onClick={onChatItemClick}
 			title={sideMenuCollapsed ? title : ""}
 		>

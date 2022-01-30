@@ -33,7 +33,7 @@ const ServePanel = ({selectedContact, isGroup = false}) => {
 			) : null}
 			{selectedContact ? (
 				<div className={styles.headerOptions}>
-                    <div className={styles.iconView}><AddContactIcon className={styles.addContactIcon} /></div>
+                    <div onClick={() => console.log(selectedContact)} className={styles.iconView}><AddContactIcon className={styles.addContactIcon} /></div>
                     <div className={styles.iconView}><PhoneIcon /></div>
                     <div className={styles.iconView}><VideoIcon /></div>
                     <div className={styles.separating} />

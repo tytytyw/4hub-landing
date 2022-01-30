@@ -191,7 +191,9 @@ const Chat = ({ setMenuItem }) => {
 					/>
 				</div>
 				{sideMenuCollapsed ? null : (
-					<SearchField value={search} setValue={setSearch} />
+					<div className={styles.borderBottom}>
+						<SearchField value={search} setValue={setSearch} />
+					</div>
 				)}
 				<div
 					style={{
@@ -234,6 +236,7 @@ const Chat = ({ setMenuItem }) => {
 				setShowSuccessPopup={setShowSuccessPopup}
                 nullifyAction={nullifyAction}
                 action={action}
+				currentDate={date}
 			/>
 			{action.type === "addContact" ? (
 				<AddContact
@@ -276,7 +279,7 @@ const Chat = ({ setMenuItem }) => {
 					</div>
 				</ActionApproval>
 			) : null}
-			{selectedContact?.isGroup ? <AddUserToGroup /> : ''}
+			{selectedContact?.isGroup ? <AddUserToGroup oldUsers={selectedContact?.users} /> : ''}
 		</div>
 	);
 };
