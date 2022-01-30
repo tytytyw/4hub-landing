@@ -19,6 +19,8 @@ import SuccessPopup from "./SuccessPopup";
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import ActionApproval from "../../../../generalComponents/ActionApproval";
+import SearchField from "../../../../generalComponents/SearchField";
+import AddUserToGroup from "./ServePanel/AddUserToGroup"
 import { contextMenuChatGroup, contextMenuSecretChat } from '../../../../generalComponents/collections';
 import { groupDelete, secretChatDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import {onGetChatMessages, onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
@@ -189,25 +191,7 @@ const Chat = ({ setMenuItem }) => {
 					/>
 				</div>
 				{sideMenuCollapsed ? null : (
-					<div className={styles.searchField}>
-						<input
-							placeholder="Введите имя пользователя"
-							type="text"
-							onChange={(e) => setSearch(e.target.value)}
-							value={search}
-						/>
-						<img
-							src={
-								imageSrc +
-								`assets/PrivateCabinet/${
-									search ? "garbage.svg" : "magnifying-glass-2.svg"
-								}`
-							}
-							alt="search"
-							className={styles.searchGlass}
-							onClick={() => setSearch("")}
-						/>
-					</div>
+					<SearchField value={search} setValue={setSearch} />
 				)}
 				<div
 					style={{
@@ -292,6 +276,7 @@ const Chat = ({ setMenuItem }) => {
 					</div>
 				</ActionApproval>
 			) : null}
+			{selectedContact?.isGroup ? <AddUserToGroup /> : ''}
 		</div>
 	);
 };
