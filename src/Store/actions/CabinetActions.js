@@ -960,7 +960,7 @@ export const setDragged = (element) => {
 };
 
 // Chat
-export const onGetChatGroups = () => async (dispatch, getState) => {
+export const onGetChatGroups = (updateGroupUsersList) => async (dispatch, getState) => {
 
     const uid = getState().user.uid
 
@@ -972,6 +972,7 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
             for (const key in data) {
                 const group = data[key]
                 newData.push({...group, isGroup: true, users: Object.values(group.users)})
+                if (updateGroupUsersList?.id_group === group.id_group) dispatch(onSetSelectedContact({...updateGroupUsersList, users: Object.values(group.users)}))
             }
 
             dispatch({

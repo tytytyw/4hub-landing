@@ -17,6 +17,7 @@ const WorkSpace = ({
 	nullifyAction,
 	action,
 	currentDate,
+	setAction,
 }) => {
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const inputRef = useRef();
@@ -44,7 +45,7 @@ const WorkSpace = ({
 				</div>
 			</div>
 			<div className={styles.main}>
-				{selectedContact && !action.type ? (
+				{selectedContact && action.type !== 'addChat' && action.type !== 'editChatGroup' ? (
 					<ChatBoard
 						inputRef={inputRef}
 						setCursorPosition={setCursorPosition}
@@ -53,6 +54,7 @@ const WorkSpace = ({
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
+						setAction={setAction}
 					/>
 				) : (
 					""

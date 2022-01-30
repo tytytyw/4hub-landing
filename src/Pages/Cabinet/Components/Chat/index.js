@@ -237,6 +237,7 @@ const Chat = ({ setMenuItem }) => {
                 nullifyAction={nullifyAction}
                 action={action}
 				currentDate={date}
+				setAction={setAction}
 			/>
 			{action.type === "addContact" ? (
 				<AddContact
@@ -279,7 +280,7 @@ const Chat = ({ setMenuItem }) => {
 					</div>
 				</ActionApproval>
 			) : null}
-			{selectedContact?.isGroup ? <AddUserToGroup oldUsers={selectedContact?.users} /> : ''}
+			{action.type === 'addUsersToGroup' ? <AddUserToGroup group={selectedContact} nullifyAction={nullifyAction} /> : ''}
 		</div>
 	);
 };

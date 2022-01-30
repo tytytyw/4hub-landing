@@ -14,7 +14,7 @@ import classNames from "classnames";
 import InviteUser from './InviteUser'
 import Message from './Message'
 
-const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapsed, boardOption, setShowSuccessPopup}) => {
+const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapsed, boardOption, setShowSuccessPopup, setAction}) => {
     const [rightPanel, setRightPanel] = useState('')
     const id_company = useSelector(state => state.user.id_company)
     const contactList = useSelector(state => id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList);
@@ -78,7 +78,7 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
     return (
         <div className={styles.chatBoardWrap}>
 
-            {selectedContact ? <ServePanel selectedContact={selectedContact} /> : ''}
+            {selectedContact ? <ServePanel selectedContact={selectedContact} setAction={setAction} /> : ''}
             <main className={styles.chatBoardMessageList}>
                 <div style={{width: rightPanel ? 'calc(100% - 200px)' : '100%'}} className={styles.chatArea}>
                     {contactList?.length === 0 && boardOption === 'contacts' ? <AddFirstContactIcon className={classNames({[styles.addFirstContactIcon]: true, [styles.collapsedMenu]: sideMenuCollapsed})} /> : ''}

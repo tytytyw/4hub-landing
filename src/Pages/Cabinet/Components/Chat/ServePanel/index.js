@@ -10,7 +10,7 @@ import {ReactComponent as InfoIcon} from "../../../../../assets/PrivateCabinet/i
 import {ReactComponent as CopyLinkIcon} from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/picture-2.svg";
 
-const ServePanel = ({selectedContact, isGroup = false}) => {
+const ServePanel = ({selectedContact, setAction}) => {
 	return (
 		<div className={styles.chatBoardHeader}>
 			{selectedContact ? (
@@ -18,7 +18,7 @@ const ServePanel = ({selectedContact, isGroup = false}) => {
 					<img
 						src={
 							selectedContact?.icon?.[0] ||
-							`${imageSrc}assets/PrivateCabinet/${isGroup? 'profile-noPhoto' : 'chatGroup'}.svg`
+							`${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup? 'chatGroup' : 'profile-noPhoto'}.svg`
 						}
 						alt="img"
 						className={styles.avatar}
@@ -33,7 +33,12 @@ const ServePanel = ({selectedContact, isGroup = false}) => {
 			) : null}
 			{selectedContact ? (
 				<div className={styles.headerOptions}>
-                    <div onClick={() => console.log(selectedContact)} className={styles.iconView}><AddContactIcon className={styles.addContactIcon} /></div>
+                    <div
+						onClick={() => setAction(selectedContact?.isGroup ? {type: 'addUsersToGroup'} : {})}
+						className={styles.iconView}
+					>
+						<AddContactIcon className={styles.addContactIcon} />
+					</div>
                     <div className={styles.iconView}><PhoneIcon /></div>
                     <div className={styles.iconView}><VideoIcon /></div>
                     <div className={styles.separating} />
