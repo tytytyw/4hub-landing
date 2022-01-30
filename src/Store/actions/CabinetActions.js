@@ -970,7 +970,8 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
 
             const newData = []
             for (const key in data) {
-                newData.push({...data[key], isGroup: true})
+                const group = data[key]
+                newData.push({...group, isGroup: true, users: Object.values(group.users)})
             }
 
             dispatch({
@@ -1023,7 +1024,7 @@ export const onGetSecretChatsList = () => async (dispatch, getState) => {
                 const userId = getState().Cabinet.chat.userId
                 for (const key in data) {
                     const chat = Object.values(data[key].users).filter(item => item.id !== userId)[0]
-                    newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
+                    if (chat) newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
                 }
                 dispatch({
                     type: SECRET_CHATS_LIST,

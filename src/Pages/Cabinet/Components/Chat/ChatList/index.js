@@ -119,8 +119,8 @@ const ChatList = ({
 						}
 						setCollapseMembersList={setCollapseMembersList}
 						status={`${
-							group?.members?.length || 0
-						} участников группы ( ${0} онлайн )`}
+							group?.users?.length || 0
+						} участников группы ( ${group.users.filter(user => user?.is_online === 1).length} онлайн )`}
 						setMouseParams={setMouseParams}
 						contextMenuList={'groupsList'}
 					/>
