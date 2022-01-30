@@ -21,10 +21,11 @@ const CreateChat = ({
 	setShowSuccessPopup,
 	selectedContact,
 	componentType,
-	currentDate
+	currentDate,
+	initialUser
 }) => {
 	const [search, setSearch] = useState("");
-	const [selectedContacts, setSelectedContact] = useState([]);
+	const [selectedContacts, setSelectedContact] = useState(initialUser ? [initialUser] : []);
 	const [step, setStep] = useState("one");
 	const [previewAvatar, setPreviewAvatar] = useState(null);
 	const [image, setImage] = useState(null);

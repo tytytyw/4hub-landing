@@ -1061,10 +1061,9 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
         .then(response => {
             if (response.data.ok) {
                 const messages = Object.values(response.data?.data ?? {})
-
                 const newData = isGroup
                     ? getState().Cabinet.chat.groupsList.map(group => {return target.id === group.id ? {...group, messages} : group})
-                    : getState().user.id_company
+                    : !!getState().user.id_company
                         ? getState().Cabinet.companyContactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
                         : getState().Cabinet.contactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
 

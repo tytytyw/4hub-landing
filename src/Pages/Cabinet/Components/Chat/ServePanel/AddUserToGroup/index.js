@@ -64,14 +64,15 @@ const AddUserToGroup = ({group, nullifyAction}) => {
 		>
 			<SearchField value={search} setValue={setSearch} />
 			<div className={styles.usersList}>
-				<UsersList
-					//TODO: filter contactList
-					usersList={usersList}
-					search={search}
-					selectedUsers={selectedUsers}
-					setSelectedUsers={changeSelectedContacts}
-					userContextMenu={"checkBox"}
-				/>
+				{usersList.length
+                    ? <UsersList
+                        usersList={usersList}
+                        search={search}
+                        selectedUsers={selectedUsers}
+                        setSelectedUsers={changeSelectedContacts}
+                        userContextMenu={"checkBox"}
+                    />
+                    : <div className={styles.noUsersMsg}>все контакты уже добавлены в группу</div>}
 			</div>
             {loadingType ? (
 				<Loader

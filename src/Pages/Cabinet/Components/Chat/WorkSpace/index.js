@@ -67,6 +67,7 @@ const WorkSpace = ({
 						setShowSuccessPopup={setShowSuccessPopup}
 						componentType={'add'}
 						currentDate={currentDate}
+						initialUser={action.initialUser}
 					/>
 				) : ''}
 				{action.type === "editChatGroup" ? (

@@ -33,12 +33,13 @@ const ServePanel = ({selectedContact, setAction}) => {
 			) : null}
 			{selectedContact ? (
 				<div className={styles.headerOptions}>
-                    <div
-						onClick={() => setAction(selectedContact?.isGroup ? {type: 'addUsersToGroup'} : {})}
+                    {(selectedContact.id_real_user && selectedContact.id_real_user !== '0') || selectedContact.isGroup ? <div
+						onClick={() => setAction(selectedContact?.isGroup ? {type: 'addUsersToGroup'} : {type: 'addChat', chatsType: "groups", initialUser: selectedContact})}
 						className={styles.iconView}
+						title={selectedContact.isGroup ? 'Добавить участников в группу' : `Создать групповой чат с ${selectedContact.name}`}
 					>
-						<AddContactIcon className={styles.addContactIcon} />
-					</div>
+						<AddContactIcon title="" className={styles.addContactIcon} />
+					</div> : null}
                     <div className={styles.iconView}><PhoneIcon /></div>
                     <div className={styles.iconView}><VideoIcon /></div>
                     <div className={styles.separating} />
