@@ -723,8 +723,8 @@ export const onChooseProjectFiles = (folder, project, page) => async (dispatch, 
                 type: LOAD_PROJECT_FILES,
                 payload: res.data.files
             })
-        } else {return {type: SET_MODALS, payload: {open: true, message: 'Failed to load project files'}}}})
-        .catch(() => ({type: SET_MODALS, payload: {open: true, message: 'Failed to load project files'}}))
+        } else {return {type: SET_MODALS, payload: {key: 'erro', value: {open: true, message: 'Failed to load project files'}}}}})
+        .catch(() => ({type: SET_MODALS, payload: {key: 'erro', value: {open: true, message: 'Failed to load project files'}}}))
 }
 
 export const setChosenFolderProject = (folder) => {
