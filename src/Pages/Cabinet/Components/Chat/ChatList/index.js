@@ -27,6 +27,7 @@ const ChatList = ({
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
 
 	//TODO: Chats list
 	const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
@@ -65,7 +66,7 @@ const ChatList = ({
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
 					}
 					setMouseParams={setMouseParams}
-					contextMenuList={chat.is_secret_chat ? 'secretChat' : 'chatsList'}
+					contextMenuList={chat.is_secret_chat ? 'secretChat' : 'recentChat'}
 				/>
 			);
 		});
@@ -74,6 +75,7 @@ const ChatList = ({
 	const renderMembersList = (members, chatId) => {
 		if (!members) return null;
 		return members.map((member, i) => {
+			if (member.id_user === userId) return null
 			return (
 				<CustomChatItem
 					selectedContact={selectedContact}
@@ -88,6 +90,8 @@ const ChatList = ({
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
 					}
 					isSubList={true}
+					setMouseParams={setMouseParams}
+					contextMenuList={'userInGroup'}
 				/>
 			);
 		});
@@ -122,7 +126,7 @@ const ChatList = ({
 							group?.users?.length || 0
 						} участников группы ( ${group.users.filter(user => user?.is_online === 1).length} онлайн )`}
 						setMouseParams={setMouseParams}
-						contextMenuList={'groupsList'}
+						contextMenuList={'group'}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>

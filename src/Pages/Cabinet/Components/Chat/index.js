@@ -21,7 +21,7 @@ import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import SearchField from "../../../../generalComponents/SearchField";
 import AddUserToGroup from "./ServePanel/AddUserToGroup"
-import { contextMenuChatGroup, contextMenuSecretChat } from '../../../../generalComponents/collections';
+import { contextMenuChat } from '../../../../generalComponents/collections';
 import { groupDelete, secretChatDelete } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import {onGetChatMessages, onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
 
@@ -38,6 +38,7 @@ const Chat = ({ setMenuItem }) => {
 	const dispatch = useDispatch();
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
 
 	const closeContextMenu = () => {
         setMouseParams(null);
@@ -47,50 +48,99 @@ const Chat = ({ setMenuItem }) => {
 	const setSelectedContact = (contact) => selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : ''
 
     const renderContextMenuItems = (target, type) => {
-        return target.map((item, i) => {
+		let contextMenuItems = target;
+		if (selectedContact?.isGroup) {
+			const admins = selectedContact.users.filter(u => u.is_admin).map(u => u.id_user)
+
+			if (!admins.includes(userId)) {
+				// user not admin of group
+				const onlyAdminItemsTypes = ['editChatGroup', 'deleteUserFromGroup'];
+				const filteredMenu = [...target].filter(item => !onlyAdminItemsTypes.includes(item.type));
+				contextMenuItems = filteredMenu
+			}
+		}
+        return contextMenuItems.map((item, i) => {
             return <ContextMenuItem
                 key={i}
                 width={mouseParams.width}
                 height={mouseParams.height}
                 text={item.name}
                 callback={() => type[i]?.callback(type, i)}
-                imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
+                imageSrc={imageSrc + `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`}
             />
         })
     };
-	const callbackArrMainGroup = [
-		{
-			type: 'editChatGroup',
-			name: 'Редактировать',
-			text: ``, 
-			callback: (list, index) => setAction(list[index])
-		},
-        {
-			type: 'deleteChatGroup',
-			name: 'Удалить',
-			text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
-			callback: (list, index) =>
-			setAction({
-				text: list[index].text,
-				type: list[index].type,
-				name: list[index].name,
-			})
-		},
-	]
 
-	const callbackArrMainSecretChat = [
-        {
-			type: 'deleteSecretChat',
-			name: 'Удалить',
-			text: `Вы действительно хотите удалить секретный чат c ${selectedContact?.name}?`,
-			callback: (list, index) =>
-			setAction({
-				text: list[index].text,
-				type: list[index].type,
-				name: list[index].name,
-			})
-		},
-	]
+	const callbackArr = {
+		group: [
+			{
+				type: 'editChatGroup',
+				name: 'Редактировать',
+				text: ``, 
+				callback: (list, index) => setAction(list[index])
+			},
+			{
+				type: 'deleteChatGroup',
+				name: 'Удалить',
+				text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+				callback: (list, index) =>
+				setAction({
+					text: list[index].text,
+					type: list[index].type,
+					name: list[index].name,
+				})
+			},
+		],
+		secretChat: [
+			{
+				type: 'deleteSecretChat',
+				name: 'Удалить',
+				text: `Вы действительно хотите удалить секретный чат c ${selectedContact?.name}?`,
+				callback: (list, index) =>
+				setAction({
+					text: list[index].text,
+					type: list[index].type,
+					name: list[index].name,
+				})
+			},
+		],
+		recentChat: [],
+		userInGroup: [
+			{
+				type: 'clearMessages',
+				name: 'Очистить историю',
+				text: ``,
+				callback: (list, index) =>
+				setAction({
+					text: list[index].text,
+					type: list[index].type,
+					name: list[index].name,
+				})
+			},
+			{
+				type: 'blockUser',
+				name: 'Заблокировать',
+				text: ``,
+				callback: (list, index) =>
+				setAction({
+					text: list[index].text,
+					type: list[index].type,
+					name: list[index].name,
+				})
+			},
+			{
+				type: 'deleteUserFromGroup',
+				name: 'Удалить из группы',
+				text: ``,
+				callback: (list, index) =>
+				setAction({
+					text: list[index].text,
+					type: list[index].type,
+					name: list[index].name,
+				})
+			},
+		],
+	}
 
 	const deleteChatGroup = () => {
 		//TODO: add is_admin validation
@@ -132,10 +182,6 @@ const Chat = ({ setMenuItem }) => {
 		};
 		
 	}, []); //eslint-disable-line
-
-    // useEffect(() => {
-	// 	setSelectedContact(null)
-	// }, [boardOption]); //eslint-disable-line
 
 	useEffect(() => {
 		if (selectedContact) dispatch(onGetChatMessages(selectedContact))
@@ -210,6 +256,7 @@ const Chat = ({ setMenuItem }) => {
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
 							currentDate={date}
+							setMouseParams={setMouseParams}
 						/>
 					) : null}
 					{boardOption === "chats" ? (
@@ -263,8 +310,7 @@ const Chat = ({ setMenuItem }) => {
 			)}
 			{mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
                 <div className={styles.ContextMenuItems}>
-					{mouseParams.contextMenuList === 'groupsList' ? renderContextMenuItems(contextMenuChatGroup, callbackArrMainGroup) : null}
-					{mouseParams.contextMenuList === 'secretChat' ? renderContextMenuItems(contextMenuSecretChat, callbackArrMainSecretChat) : null}
+					{renderContextMenuItems(contextMenuChat[mouseParams.contextMenuList], callbackArr[mouseParams.contextMenuList])}
 				</div>
             </ContextMenu> : null}
 			{action.type === "deleteChatGroup" || action.type === "deleteSecretChat" ? (
