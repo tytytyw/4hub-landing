@@ -171,7 +171,7 @@ const INITIAL_STATE = {
         success: {open: false, message: '', title: ''},
         loader: false,
         share: {open: false, fids: [], fid: undefined, action_type: ''},
-        previewWithComments: {open: false, files: []}
+        previewWithComments: {open: true, files: []}
     }
 
 }
