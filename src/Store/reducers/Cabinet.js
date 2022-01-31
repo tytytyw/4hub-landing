@@ -58,7 +58,7 @@ import {
     CHAT_SELECTED_CONTACT,
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
-    // CHAT_GROUPS_MEMBERS,
+    SET_MESSAGES,
     CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
@@ -163,6 +163,7 @@ const INITIAL_STATE = {
         secretChatsList: [],
         selectedContact: null,
         userId: null,
+        messages: null,
     },
 
     //GLOBAL MODALS
@@ -295,6 +296,10 @@ export default function startPage(state = INITIAL_STATE, action) {
             const secretChats = state.chat.secretChatsList.filter(gr => gr.id !== action.payload.id)
             return {...state, chat: {...state.chat, secretChatsList: secretChats}}
         }
+        case SET_MESSAGES: {
+            return {...state, chat: {...state.chat, messages: action.payload}}
+        }
+        
         //SORT FILES
         case SORT_FILES: {
             return {...state, fileCriterion: {...state.fileCriterion, sorting: action.payload}}

@@ -65,6 +65,7 @@ import {
     SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
+    SET_MESSAGES,
     SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
@@ -1053,6 +1054,10 @@ export const onDeleteSecretChat = (secretChat) => {
 };
 
 export const onGetChatMessages = (target) => (dispatch, getState) => {
+    dispatch({
+        type: SET_MESSAGES,
+        payload: null
+    })
 
     const uid = getState().user.uid
     const {isGroup} = target
@@ -1060,26 +1065,11 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
     api.get(`/ajax/chat${isGroup ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup ? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
         .then(response => {
             if (response.data.ok) {
-                const messages = Object.values(response.data?.data ?? {})
-                const newData = isGroup
-                    ? getState().Cabinet.chat.groupsList.map(group => {return target.id === group.id ? {...group, messages} : group})
-                    : !!getState().user.id_company
-                        ? getState().Cabinet.companyContactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
-                        : getState().Cabinet.contactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
-
+                const messages = Object.values(response.data?.data ?? {});
                 dispatch({
-                    type: isGroup ? CHAT_GROUPS_LIST : RESENT_CHATS_LIST,
-                    payload: newData
+                    type: SET_MESSAGES,
+                    payload: messages
                 })
-
-                const selectedContact = getState().Cabinet.chat.selectedContact
-                if (target === selectedContact) {
-                    dispatch({
-                        type: CHAT_SELECTED_CONTACT,
-                        payload: {...selectedContact, messages}
-                    })
-                }
-
             }
         }).catch(error => {
             console.log(error)

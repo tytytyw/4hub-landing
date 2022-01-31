@@ -260,7 +260,7 @@ export const contextMenuChat = {
     userInGroup: [
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
         {name: 'Заблокировать', img: '', type: 'blockUser'},
-        {name: 'Удалить из группы admin', img: 'garbage', type: 'deleteUserFromGroup'},
+        {name: 'Удалить из группы', img: 'garbage', type: 'deleteUserFromGroup'},
     ],
     recentChat: [
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},

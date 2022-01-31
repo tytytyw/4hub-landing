@@ -39,7 +39,7 @@ const ChatBoard = ({
 	const endMessagesRef = useRef();
 
 	const [textAreaValue, setTextAreaValue] = useState("");
-	const [messages, setMessages] = useState(selectedContact.messages || []);
+	const messages= useSelector((state) => state.Cabinet.chat.messages);
 
 	const renderMessages = (messages) => {
 		if (selectedContact?.is_secret_chat && messages?.length === 0)
@@ -53,7 +53,8 @@ const ChatBoard = ({
 	};
 	const addMessage = (text) => {
 		const newMessage = { text, id_user: userId };
-		if (text) setMessages((messages) => [...messages, newMessage]);
+        //TODO: remove
+		if (text) messages.push(newMessage)
 		setTimeout(() => {
 			setTextAreaValue("");
 			inputRef.current.style.height = "25px";
@@ -92,10 +93,10 @@ const ChatBoard = ({
 	// };
 	// socket.close();
 
-	useEffect(
-		() => setMessages(selectedContact?.messages ?? []),
-		[selectedContact]
-	);
+	// useEffect(
+	// 	() => setMessages(selectedContact?.messages ?? []),
+	// 	[selectedContact]
+	// );
 
 	return (
 		<div className={styles.chatBoardWrap}>
