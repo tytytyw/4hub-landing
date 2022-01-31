@@ -2,8 +2,8 @@ import React from 'react'
 import classnames from "classnames";
 
 import styles from './ImagePanel.module.sass'
-import {ReactComponent as AddIcon} from "../../../../../assets/PrivateCabinet/plus-3.svg";
-import {ReactComponent as DeleteIcon} from "../../../../../assets/PrivateCabinet/delete.svg"
+import {ReactComponent as AddIcon} from "../../../../../../../assets/PrivateCabinet/plus-3.svg";
+import {ReactComponent as DeleteIcon} from "../../../../../../../assets/PrivateCabinet/delete.svg"
 
 function ImagePanel({
     images = [],

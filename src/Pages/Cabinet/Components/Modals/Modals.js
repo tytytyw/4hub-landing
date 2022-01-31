@@ -1,5 +1,5 @@
 import React from 'react'
-import MutualEdit from "../MutualEdit/MutualEdit";
+import MutualEdit from "./Components/MutualEdit/MutualEdit";
 import {useDispatch, useSelector} from "react-redux";
 import FileLoader from "../FileLoader";
 import Error from "../../../../generalComponents/Error";
