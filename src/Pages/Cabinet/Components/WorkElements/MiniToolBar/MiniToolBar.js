@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
+import {onSetModals, onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import styles from './MiniToolBar.module.sass'
 import {ReactComponent as PencilIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
 import {ReactComponent as MarkerIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
@@ -47,6 +47,7 @@ const MiniToolBar = ({
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
     const paint = useSelector(state => state.Cabinet.paint);
+    const previewWithComments = useSelector(state => state.Cabinet.modals.previewWithComments);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
@@ -210,7 +211,7 @@ const MiniToolBar = ({
                 <div className={styles.rightPart}>
                     <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
                 </div>
-                <div className={styles.customWrap}>{addButton(<DashedBorderIcon />)}</div>
+                <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: []}))}>{addButton(<DashedBorderIcon />)}</div>
                 <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
