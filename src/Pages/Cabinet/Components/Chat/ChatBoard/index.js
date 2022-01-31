@@ -63,7 +63,7 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
     useEffect(() => scrollToBottom, [messages, selectedContact])
 
     //TODO connect to webSockets
-    // const socket = new WebSocket("wss://test22.mh.net.ua:3001")
+    // const socket = new WebSocket("wss://fs2.mh.net.ua/ws/")
     // socket.onopen = function(e) {
     //     console.log(e)
     //     alert("[open] is connect");
