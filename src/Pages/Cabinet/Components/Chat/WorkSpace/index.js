@@ -18,6 +18,7 @@ const WorkSpace = ({
 	action,
 	currentDate,
 	setAction,
+	setMouseParams
 }) => {
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const inputRef = useRef();
@@ -55,6 +56,7 @@ const WorkSpace = ({
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
 						setAction={setAction}
+						setMouseParams={setMouseParams}
 					/>
 				) : (
 					""
