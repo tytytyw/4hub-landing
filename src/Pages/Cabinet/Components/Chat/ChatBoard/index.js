@@ -8,6 +8,7 @@ import {ReactComponent as PlayIcon} from "../../../../../assets/PrivateCabinet/p
 import {ReactComponent as SendIcon} from "../../../../../assets/PrivateCabinet/send.svg";
 import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
+import SecretChatStartWallpaper from "./SecretChatStartWallpaper";
 import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
 import {useSelector} from "react-redux";
 import classNames from "classnames";
@@ -26,6 +27,7 @@ const ChatBoard = ({inputRef, setCursorPosition, insertToInput, sideMenuCollapse
     const [messages, setMessages] = useState(selectedContact.messages || [])
 
     const renderMessages = (messages) => {
+        if (selectedContact?.is_secret_chat && messages?.length === 0) return <SecretChatStartWallpaper />
         if (!messages?.length || !selectedContact) return null
         return (
             messages.map((msg, index) => {
