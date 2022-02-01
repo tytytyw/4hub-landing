@@ -254,7 +254,8 @@ export const contextMenuDocFile = [
 export const contextMenuChat = {
     group: [
         {name: 'Редактировать', img: 'edit', type: 'editChatGroup'},
-        {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
+        {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'},
+        {name: 'Покинуть группу', img: 'garbage', type: 'leaveFromChatGroup'},
     ],
     secretChat: [{name: 'Удалить', img: 'garbage', type: 'deleteSecretChat'}],
     userInGroup: [
