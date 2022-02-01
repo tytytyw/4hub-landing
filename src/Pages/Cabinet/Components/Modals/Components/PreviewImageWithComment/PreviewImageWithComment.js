@@ -13,13 +13,45 @@ import BlackMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/
 import WhiteMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
 import Woman from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
 
+const c = {1: [
+        {
+            img: BlackMan,
+            text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
+            replies: [
+                {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
+                {img: Woman, text: 'Text'}
+            ]
+        },
+        {
+            img: WhiteMan,
+            text: '60-х годах и, в более недавнее время, программы электронной',
+            replies: []
+        },
+    ],
+    7: [
+        {
+            img: BlackMan,
+            text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
+            replies: [
+                {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
+                {img: Woman, text: 'Text'}
+            ]
+        },
+        {
+            img: WhiteMan,
+            text: '60-х годах и, в более недавнее время, программы электронной',
+            replies: []
+        },
+    ]
+}
+
 function PreviewImageWithComment() {
 
     const canvasRef = useRef(null);
     const canvasWrapRef = useRef(null);
     const previewImageWithComment = useSelector(s => s.Cabinet.modals.previewWithComments);
     const [chosenFile, setChosenFile] = useState(previewImageWithComment.chosenFile || null);
-    const [params, setParams] = useState({comments: null, renderedFirstImage: false});
+    const [params, setParams] = useState({comments: c, renderedFirstImage: false});
     const dispatch = useDispatch();
 
     const renderImages = () => {
@@ -45,37 +77,7 @@ function PreviewImageWithComment() {
     const toggleComment = () => {
         if(params.comments) return setParams(s => ({...s, comments: null}));
         return setParams(s => ({...s,
-            comments: {1: [
-                {
-                    img: BlackMan,
-                    text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
-                    replies: [
-                        {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
-                        {img: Woman, text: 'Text'}
-                    ]
-                },
-                {
-                    img: WhiteMan,
-                    text: '60-х годах и, в более недавнее время, программы электронной',
-                    replies: []
-                },
-                ],
-                7: [
-                    {
-                        img: BlackMan,
-                        text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
-                        replies: [
-                            {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
-                            {img: Woman, text: 'Text'}
-                        ]
-                    },
-                    {
-                        img: WhiteMan,
-                        text: '60-х годах и, в более недавнее время, программы электронной',
-                        replies: []
-                    },
-                ]
-            }}
+            comments: c}
         ));
     }
 
