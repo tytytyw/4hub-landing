@@ -59,20 +59,33 @@ function PreviewImageWithComment() {
                     text: '60-х годах и, в более недавнее время, программы электронной',
                     replies: []
                 },
+                ],
+                7: [
+                    {
+                        img: BlackMan,
+                        text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
+                        replies: [
+                            {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
+                            {img: Woman, text: 'Text'}
+                        ]
+                    },
+                    {
+                        img: WhiteMan,
+                        text: '60-х годах и, в более недавнее время, программы электронной',
+                        replies: []
+                    },
                 ]
             }}
         ));
     }
 
     const renderGroup = (obj) => {
-        for(const key of Object.keys(obj)) {
-            return <div key={key} className={styles.periodWrap}>
-                <div className={styles.period}>{periods[key]}</div>
-                <div className={styles.commentList}>
-                    {renderComments(obj[key])}
-                </div>
+        return Object.keys(obj).map(key => <div key={key} className={styles.periodWrap}>
+            <div className={styles.period}>{periods[key]}</div>
+            <div className={styles.commentList}>
+                {renderComments(obj[key])}
             </div>
-        }
+        </div>)
     }
 
     const renderComments = (array) => (
