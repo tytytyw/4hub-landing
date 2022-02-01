@@ -212,7 +212,12 @@ const MiniToolBar = ({
                 <div className={styles.customWrap}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
                 <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
                 <div className={styles.rightPart}>
-                    <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
+                    <div
+                        className={`${styles.customWrap}`}
+                        onClick={() => dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [file.preview], destination: file?.gdir || 'global/all'}))}
+                    >
+                        {addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}
+                    </div>
                 </div>
                 <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: project.files, chosenFile: file}))}>{addButton(<DashedBorderIcon />)}</div>
                 <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
