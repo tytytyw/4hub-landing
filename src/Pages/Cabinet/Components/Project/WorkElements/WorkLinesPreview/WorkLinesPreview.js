@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
-// import PrintScreen from "../../../../../../generalComponents/PrintScreen";
+// import PrintScreen from "../../../Modals/Components/PrintScreen/PrintScreen";
 import {projectSrc} from '../../../../../../generalComponents/globalVariables';
 import PreviewFile from "../../../PreviewFile/PreviewFile";
 

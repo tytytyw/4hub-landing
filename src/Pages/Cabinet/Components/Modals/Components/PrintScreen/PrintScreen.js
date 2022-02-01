@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "./PrintScreen.module.sass";
-import {imageToRatio} from "../generalHelpers";
+import {htmlToCanvas, imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 
-const PrintScreen = ({imgRef, show, setShow, setFilePreview}) => {
+const PrintScreen = ({show, setShow, setFilePreview}) => {
 
+    const imgRef = useRef(null);
     const [display, setDisplay] = useState('none');
     const [size, setSize] = useState({width: '200px', height: '150px'});
     useEffect(() => {
@@ -20,6 +21,9 @@ const PrintScreen = ({imgRef, show, setShow, setFilePreview}) => {
     }, [show, imgRef]);
 
     useEffect(() => {
+        setTimeout(() => {
+            htmlToCanvas(document.getElementById('root'), imgRef.current, setDisplay)
+        }, 500);
         return () => {setDisplay('none'); setShow('none')}
     }, []) //eslint-disable-line
 
