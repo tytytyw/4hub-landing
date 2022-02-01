@@ -2,8 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import styles from "./PrintScreen.module.sass";
 import {htmlToCanvas, imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 
-const PrintScreen = ({show, setShow, setFilePreview}) => {
-
+const PrintScreen = () => {
     const imgRef = useRef(null);
     const [display, setDisplay] = useState('none');
     const [size, setSize] = useState({width: '200px', height: '150px'});
@@ -17,6 +16,9 @@ const PrintScreen = ({show, setShow, setFilePreview}) => {
 
             const sizes = imageToRatio(imgRef.current.width, imgRef.current.height, 200, 200);
             setSize(size => ({...size, width: sizes.width, height: sizes.height}));
+                setTimeout(() => {
+                    setDisplay('none')
+                }, 10500);
         }
     }, [show, imgRef]);
 
