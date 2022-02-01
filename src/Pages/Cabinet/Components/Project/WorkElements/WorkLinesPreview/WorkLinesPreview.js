@@ -145,6 +145,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
                         toolBarType={'previewFile'}
+                        file={chosenFile}
                     /> : null}
                     <div className={styles.previewImg} ref={previewRef}>
                         {chosenFile ? chosenFile.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={chosenFile?.ext} color={chosenFile?.color} /></div></div> : null}
