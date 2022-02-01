@@ -50,8 +50,8 @@ function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
             <canvas
                 ref={canvasRef}
                 className={styles.canvas}
-                width={mainRef?.current?.getBoundingClientRect().width - 30 || 0}
-                height={mainRef?.current?.getBoundingClientRect().height - 30 || 0}
+                width={mainRef?.current?.getBoundingClientRect().width - 30}
+                height={mainRef?.current?.getBoundingClientRect().height - 30}
             />
             {images?.loaded?.length > 1 ? <div className={styles.verticalDivider}/> : null}
             {images?.loaded?.length > 2 ? <div className={styles.horizontalDivider}/> : null}
@@ -61,8 +61,8 @@ function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
                     [styles.addFieldFull]: images?.loaded?.length === 0
                 })}
                 style={{
-                    width: images?.loaded?.length === 0 ? canvasRef?.current?.getBoundingClientRect().width :  canvasRef?.current?.getBoundingClientRect().width/2 || 0,
-                    height: images?.loaded?.length === 0 ? canvasRef?.current?.getBoundingClientRect().height : canvasRef?.current?.getBoundingClientRect().height/2 || 0
+                    width: images?.loaded?.length === 0 ? 'calc(100%-30px)' :  canvasRef?.current?.getBoundingClientRect().width/2 || 0,
+                    height: images?.loaded?.length === 0 ? 'calc(100%-30px)' : canvasRef?.current?.getBoundingClientRect().height/2 || 0
                 }}
             >
                 <div onClick={fileSelect} className={styles.addFile}>
