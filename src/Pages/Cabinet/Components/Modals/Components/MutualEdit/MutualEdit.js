@@ -1,15 +1,15 @@
 import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import styles from './MutualEdit.module.sass';
-import PopUp from "../../../../generalComponents/PopUp";
-import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
+import PopUp from "../../../../../../generalComponents/PopUp";
+import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import ImagePanel from "./ImagePanel/ImagePanel";
 import DrawZone from "./DrawZone/DrawZone";
 import {useSelector, useDispatch} from "react-redux";
-import {onSetModals, onSetPaint} from "../../../../Store/actions/CabinetActions";
-import api from "../../../../api";
-import {loadDest} from "../../../../generalComponents/collections";
-import {dataURLintoBlobImage} from "../../../../generalComponents/generalHelpers";
+import {onSetModals, onSetPaint} from "../../../../../../Store/actions/CabinetActions";
+import api from "../../../../../../api";
+import {loadDest} from "../../../../../../generalComponents/collections";
+import {dataURLintoBlobImage} from "../../../../../../generalComponents/generalHelpers";
 
 function MutualEdit({menuItem}) {
 

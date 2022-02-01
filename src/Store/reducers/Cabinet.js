@@ -109,7 +109,7 @@ const INITIAL_STATE = {
         projectFolders: {},
         files: [],
         chosenFolder: '',
-        chosenProject: null
+        chosenProject: null,
     },
 
 
@@ -173,7 +173,8 @@ const INITIAL_STATE = {
         error: {open: false, message: ''},
         success: {open: false, message: '', title: ''},
         loader: false,
-        share: {open: false, fids: [], fid: undefined, action_type: ''}
+        share: {open: false, fids: [], fid: undefined, action_type: ''},
+        previewWithComments: {open: false, files: [], chosenFile: null}
     }
 
 }

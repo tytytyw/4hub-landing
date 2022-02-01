@@ -1,5 +1,5 @@
 import React from 'react'
-import MutualEdit from "../MutualEdit/MutualEdit";
+import MutualEdit from "./Components/MutualEdit/MutualEdit";
 import {useDispatch, useSelector} from "react-redux";
 import FileLoader from "../FileLoader";
 import Error from "../../../../generalComponents/Error";
@@ -7,6 +7,7 @@ import Success from "../../../../generalComponents/Success";
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
+import PreviewImageWithComment from "./Components/PreviewImageWithComment/PreviewImageWithComment";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -17,6 +18,7 @@ function Modals ({
     const success = useSelector(state => state.Cabinet.modals.success);
     const loader = useSelector(state => state.Cabinet.modals.loader);
     const share = useSelector(state => state.Cabinet.modals.share);
+    const previewImageWithComment = useSelector(state => state.Cabinet.modals.previewWithComments);
     const dispatch = useDispatch();
 
     const closeError = () => dispatch(onSetModals('error', {open: false, message: ''}));
@@ -50,6 +52,7 @@ function Modals ({
             background='rgba(256, 256, 256, 0.5)'
             animation={false}
         /> : null}
+        {previewImageWithComment.open ? <PreviewImageWithComment /> : null}
     </>
 }
 

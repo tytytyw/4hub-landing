@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
+import {onSetModals, onSetPaint} from "../../../../../Store/actions/CabinetActions";
 import styles from './MiniToolBar.module.sass'
 import {ReactComponent as PencilIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg'
 import {ReactComponent as MarkerIcon} from '../../../../../assets/PrivateCabinet/minitoolbar/marker.svg'
@@ -42,11 +42,14 @@ import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview, canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false
+         setFilePreview = () => {}, canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false,
+         isPreview = true, isComment = false, toggleComment = () => {}
 }) => {
 
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
     const paint = useSelector(state => state.Cabinet.paint);
+    const previewWithComments = useSelector(state => state.Cabinet.modals.previewWithComments);
+    const project = useSelector(state => state.Cabinet.project);
     const uid = useSelector(state => state.user.uid);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
@@ -166,13 +169,14 @@ const MiniToolBar = ({
         >
             <div className={styles.leftPart}>
                 {file?.preview ? <div className={styles.imgTitle}>
-                    <img
+                    {isPreview ? <img
                         src={`${file?.preview}${file?.fid === 'printScreen' ? '' : `?${new Date()}`}`}
                         style={{maxWidth: 100, maxHeight: 45}} alt='img'
-                    />
+                    /> : null}
                     <span className={styles.name}>{file?.name}</span>
                 </div> : null}
                 {standardEditToolBar()}
+                {isComment ? <div className={styles.customWrap} onClick={toggleComment}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div> : null}
             </div>
             <div className={styles.rightPart}>
                 <div
@@ -208,9 +212,14 @@ const MiniToolBar = ({
                 <div className={styles.customWrap}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
                 <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
                 <div className={styles.rightPart}>
-                    <div className={styles.customWrap}>{addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}</div>
+                    <div
+                        className={`${styles.customWrap}`}
+                        onClick={() => dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [file.preview], destination: file?.gdir || 'global/all'}))}
+                    >
+                        {addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}
+                    </div>
                 </div>
-                <div className={styles.customWrap}>{addButton(<DashedBorderIcon />)}</div>
+                <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: project.files, chosenFile: file}))}>{addButton(<DashedBorderIcon />)}</div>
                 <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
