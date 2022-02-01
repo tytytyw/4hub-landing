@@ -8,6 +8,11 @@ import {drawCanvas} from "../../../PreviewFile/paintHelpers";
 import {periods} from "../../../../../../generalComponents/collections";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
+//TODO - Need to switch to real users
+import BlackMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo0.png'
+import WhiteMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
+import Woman from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
+
 function PreviewImageWithComment() {
 
     const canvasRef = useRef(null);
@@ -42,22 +47,28 @@ function PreviewImageWithComment() {
         return setParams(s => ({...s,
             comments: {1: [
                 {
-                    img: '133',
-                    text: 'Text',
+                    img: BlackMan,
+                    text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
                     replies: [
-                        {img: '133', text: 'Text'},
-                        {img: '133', text: 'Text'}
+                        {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
+                        {img: Woman, text: 'Text'}
                     ]
-                }]
+                },
+                {
+                    img: WhiteMan,
+                    text: '60-х годах и, в более недавнее время, программы электронной',
+                    replies: []
+                },
+                ]
             }}
         ));
     }
 
     const renderGroup = (obj) => {
         for(const key of Object.keys(obj)) {
-            return <div>
+            return <div key={key} className={styles.periodWrap}>
                 <div className={styles.period}>{periods[key]}</div>
-                <div className={styles.comments}>
+                <div className={styles.commentList}>
                     {renderComments(obj[key])}
                 </div>
             </div>
@@ -65,10 +76,12 @@ function PreviewImageWithComment() {
     }
 
     const renderComments = (array) => (
-        array.map(comment => <div>
-            <div>
-                <img src={comment.img} alt='avatar'/>
-                <div className={styles.text}>{comment.text}</div>
+        array.map((comment, i) => <div key={i} className={styles.commentWrap}>
+            <div className={styles.commentItem}>
+                <div className={styles.leftPart}>
+                    <img src={comment.img} alt='avatar' className={styles.image} />
+                    <div className={styles.text}>{comment.text}</div>
+                </div>
                 <div className={styles.reply}>Ответить</div>
             </div>
             {comment?.replies?.length > 0 ? <div className={styles.replies}>
