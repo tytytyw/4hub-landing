@@ -39,7 +39,8 @@ const ChatBoard = ({
 	const endMessagesRef = useRef();
 
 	const [textAreaValue, setTextAreaValue] = useState("");
-	const messages= useSelector((state) => state.Cabinet.chat.messages);
+	const messages = useSelector((state) => state.Cabinet.chat.messages);
+	// const uid = useSelector((state) => state.user.uid);
 
 	const renderMessages = (messages) => {
 		if (selectedContact?.is_secret_chat && messages?.length === 0)
@@ -53,8 +54,8 @@ const ChatBoard = ({
 	};
 	const addMessage = (text) => {
 		const newMessage = { text, id_user: userId };
-        //TODO: remove
-		if (text) messages.push(newMessage)
+		//TODO: remove
+		if (text) messages.push(newMessage);
 		setTimeout(() => {
 			setTextAreaValue("");
 			inputRef.current.style.height = "25px";
@@ -83,20 +84,16 @@ const ChatBoard = ({
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
 	//TODO connect to webSockets
-	// const socket = new WebSocket("wss://fs2.mh.net.ua/ws/")
-	// socket.onopen = function(e) {
-	//     console.log(e)
-	//     alert("[open] is connect");
-	//     };
-	// socket.onmessage = function(e) {
-	//     console.log(`[message] ${e.data}`);
+	// const socket = new WebSocket("wss://fs2.mh.net.ua/ws/");
+	// socket.onmessage = function (e) {
+	// 	console.log(`[message] ${e.data}`);
 	// };
-	// socket.close();
-
-	// useEffect(
-	// 	() => setMessages(selectedContact?.messages ?? []),
-	// 	[selectedContact]
-	// );
+	// useEffect(() => {
+	// 	socket.onopen = function (e) {
+	// 		JSON.stringify({action:'joined', uid, user: 'nick'})
+	// 	};
+	// 	return () => socket.close();
+	// }, []);
 
 	return (
 		<div className={styles.chatBoardWrap}>

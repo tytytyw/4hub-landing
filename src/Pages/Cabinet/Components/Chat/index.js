@@ -79,7 +79,7 @@ const Chat = ({ setMenuItem }) => {
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
-					color={type[i] && type[i]?.value === messageLifeTime ? '#4086F1' : ''}
+					color={type && type[i] && type[i]?.value === messageLifeTime ? '#4086F1' : ''}
 					text={item.name}
 					callback={() => type[i]?.callback(type, i)}
 					imageSrc={item.img !== undefined ?

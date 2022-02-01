@@ -1057,7 +1057,7 @@ export const onDeleteSecretChat = (secretChat) => {
 export const onGetChatMessages = (target) => (dispatch, getState) => {
     dispatch({
         type: SET_MESSAGES,
-        payload: null
+        payload: []
     })
 
     const uid = getState().user.uid
