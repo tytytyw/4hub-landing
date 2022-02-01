@@ -58,7 +58,8 @@ import {
     CHAT_SELECTED_CONTACT,
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
-    // CHAT_GROUPS_MEMBERS,
+    SET_MESSAGES,
+    SET_MESSAGE_LIFE_TIME,
     CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
@@ -163,6 +164,8 @@ const INITIAL_STATE = {
         secretChatsList: [],
         selectedContact: null,
         userId: null,
+        messages: null,
+        messageLifeTime: 3600,
     },
 
     //GLOBAL MODALS
@@ -295,6 +298,12 @@ export default function startPage(state = INITIAL_STATE, action) {
         case SECRET_CHAT_DELETE: {
             const secretChats = state.chat.secretChatsList.filter(gr => gr.id !== action.payload.id)
             return {...state, chat: {...state.chat, secretChatsList: secretChats}}
+        }
+        case SET_MESSAGES: {
+            return {...state, chat: {...state.chat, messages: action.payload}}
+        }
+        case SET_MESSAGE_LIFE_TIME: {
+            return {...state, chat: {...state.chat, messageLifeTime: action.payload}}
         }
         //SORT FILES
         case SORT_FILES: {

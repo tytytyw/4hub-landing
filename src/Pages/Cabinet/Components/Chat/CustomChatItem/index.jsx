@@ -17,11 +17,12 @@ const CustomChatItem = ({
 	contextMenu = "contextMenu",
 	disableHover = false,
 	setMouseParams = () => {},
-	contextMenuList = ''
+	contextMenuList = '',
+	paddingRight = ''
 }) => {
 	const onChatItemClick = (e, isMenu) => {
 		if (isMenu)
-			setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25, contextMenuList });
+			setMouseParams({ x: e.clientX, y: e.clientY, width: 210, height: 25, contextMenuList });
 
 		if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
 			setCollapseMembersList((state) => !state);
@@ -36,11 +37,15 @@ const CustomChatItem = ({
 				[styles.active]: selectedContact && selectedContact?.id === chatItem.id,
 				[styles.disableHover]: disableHover,
 			})}
+			style={{paddingRight}}
 			onClick={onChatItemClick}
 			title={sideMenuCollapsed ? title : ""}
 		>
 			<div className={styles.groupName}>
-				<img src={avatar} alt="avatar" className={styles.avatar} />
+				<div className={styles.avatarWrapper}>
+					<img src={avatar} alt="avatar" className={styles.avatar} />
+					{chatItem.is_online ? <div className={styles.onlineIndicator}></div> : ''}
+				</div>
 				{sideMenuCollapsed ? (
 					chatItem.is_secret_chat && (
 						<LockIcon className={styles.secretChatIcon} />

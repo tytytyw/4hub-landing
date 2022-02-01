@@ -19,6 +19,7 @@ const ContactList = ({
 	setSelectedContact,
 	setAction,
 	currentDate,
+	setMouseParams
 }) => {
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
@@ -54,6 +55,8 @@ const ContactList = ({
 						contact?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
 					}
+					setMouseParams={setMouseParams}
+					contextMenuList={'contact'}
 				/>
 			);
 		});

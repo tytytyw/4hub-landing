@@ -65,6 +65,8 @@ import {
     SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
+    SET_MESSAGE_LIFE_TIME,
+    SET_MESSAGES,
     SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
@@ -960,7 +962,7 @@ export const setDragged = (element) => {
 };
 
 // Chat
-export const onGetChatGroups = () => async (dispatch, getState) => {
+export const onGetChatGroups = (updateGroupUsersList) => async (dispatch, getState) => {
 
     const uid = getState().user.uid
 
@@ -970,7 +972,9 @@ export const onGetChatGroups = () => async (dispatch, getState) => {
 
             const newData = []
             for (const key in data) {
-                newData.push({...data[key], isGroup: true})
+                const group = data[key]
+                newData.push({...group, isGroup: true, users: Object.values(group.users)})
+                if (updateGroupUsersList?.id_group === group.id_group) dispatch(onSetSelectedContact({...updateGroupUsersList, users: Object.values(group.users)}))
             }
 
             dispatch({
@@ -1023,7 +1027,7 @@ export const onGetSecretChatsList = () => async (dispatch, getState) => {
                 const userId = getState().Cabinet.chat.userId
                 for (const key in data) {
                     const chat = Object.values(data[key].users).filter(item => item.id !== userId)[0]
-                    newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
+                    if (chat) newData.push({...chat, is_user: 1, real_user_date_last: chat.date_last, id: chat.id_group, is_secret_chat: true})
                 }
                 dispatch({
                     type: SECRET_CHATS_LIST,
@@ -1051,6 +1055,10 @@ export const onDeleteSecretChat = (secretChat) => {
 };
 
 export const onGetChatMessages = (target) => (dispatch, getState) => {
+    dispatch({
+        type: SET_MESSAGES,
+        payload: []
+    })
 
     const uid = getState().user.uid
     const {isGroup} = target
@@ -1058,27 +1066,11 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
     api.get(`/ajax/chat${isGroup ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup ? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
         .then(response => {
             if (response.data.ok) {
-                const messages = Object.values(response.data?.data ?? {})
-
-                const newData = isGroup
-                    ? getState().Cabinet.chat.groupsList.map(group => {return target.id === group.id ? {...group, messages} : group})
-                    : getState().user.id_company
-                        ? getState().Cabinet.companyContactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
-                        : getState().Cabinet.contactList.map(contact => {return target.id === contact.id ? {...contact, messages} : contact})
-
+                const messages = Object.values(response.data?.data ?? {});
                 dispatch({
-                    type: isGroup ? CHAT_GROUPS_LIST : RESENT_CHATS_LIST,
-                    payload: newData
+                    type: SET_MESSAGES,
+                    payload: messages
                 })
-
-                const selectedContact = getState().Cabinet.chat.selectedContact
-                if (target === selectedContact) {
-                    dispatch({
-                        type: CHAT_SELECTED_CONTACT,
-                        payload: {...selectedContact, messages}
-                    })
-                }
-
             }
         }).catch(error => {
             console.log(error)
@@ -1090,6 +1082,13 @@ export const onSetSelectedContact = (contact) => {
     return {
         type: CHAT_SELECTED_CONTACT,
         payload: contact
+    }
+}
+
+export const onSetMessageLifeTime = (value) => {
+    return {
+        type: SET_MESSAGE_LIFE_TIME,
+        payload: value
     }
 }
 

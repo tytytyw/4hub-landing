@@ -4,6 +4,8 @@
   display: flex
   .ContextMenuItems
     margin: 10px 0
+    div
+      margin: 7px 0
   .sideMenu
     display: flex
     flex-direction: column
@@ -49,30 +51,8 @@
         fill: rgb(64, 134, 241)
         transition: fill 0.2s ease-in-out
         cursor: pointer
-    .searchField
-      display: flex
-      align-items: center
-      justify-content: center
-      min-height: 60px
-      position: relative
+    .borderBottom
       border-bottom: 1px solid #DFDFDF
-      input
-        width: 284px
-        height: 41px
-        border-radius: 30px
-        padding: 0 40px 0 15px
-        box-sizing: border-box
-        background: rgb(247, 247, 247)
-        border: none
-        font-family: "SF Pro Regular", sans-serif
-        font-size: 12px
-      input::placeholder
-        color: rgb(174, 174, 174)
-      .searchGlass
-        position: absolute
-        top: calc(50% - 10px)
-        right: 25px
-        cursor: pointer
   .sideMenuCollapsed
     width: 100px
     .header

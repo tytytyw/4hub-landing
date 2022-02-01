@@ -4,7 +4,7 @@ import styles from './ActionApproval.module.sass';
 import PopUp from '../PopUp';
 import classNames from 'classnames';
 
-const ActionApproval = ({set, text, name, children, callback, approve, childrenWidth = ''}) => {
+const ActionApproval = ({set, text, name, children, callback, approve, childrenWidth = '', disableActionBtn=false}) => {
     return(<PopUp set={set}>
         <div className={styles.wrap}>
             <span className={styles.cross} onClick={set} />
@@ -13,7 +13,7 @@ const ActionApproval = ({set, text, name, children, callback, approve, childrenW
             <div className={classNames({[styles.text]: !!text})}>{text}</div>
             <div className={styles.buttonsWrap}>
                 <div className={styles.cancel} onClick={set}>Отмена</div>
-                <div className={styles.action} onClick={callback}>{approve}</div>
+                <div className={classNames({[styles.action]: true, [styles.disableBtn]: disableActionBtn})} onClick={callback}>{approve}</div>
             </div>
         </div>
     </PopUp>)

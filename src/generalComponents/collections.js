@@ -251,14 +251,39 @@ export const contextMenuDocFile = [
 
 // Chat
 
-export const contextMenuChatGroup = [
-    {name: 'Редактировать', img: 'edit', type: 'editChatGroup'},
-    {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
-]
-
-export const contextMenuSecretChat = [
-    {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
-]
+export const contextMenuChat = {
+    group: [
+        {name: 'Редактировать', img: 'edit', type: 'editChatGroup'},
+        {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'}
+    ],
+    secretChat: [{name: 'Удалить', img: 'garbage', type: 'deleteSecretChat'}],
+    userInGroup: [
+        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
+        {name: 'Заблокировать', img: '', type: 'blockUser'},
+        {name: 'Удалить из группы', img: 'garbage', type: 'deleteUserFromGroup'},
+    ],
+    recentChat: [
+        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
+        {name: 'Заблокировать', img: '', type: 'blockUser'},
+        {name: 'Отметить непрочитанным', img: '', type: 'markAsUnread'},
+    ],
+    contact: [
+        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
+        {name: 'Заблокировать', img: '', type: 'blockUser'},
+        {name: 'Отметить непрочитанным', img: '', type: 'markAsUnread'},
+    ],
+    timer: [
+        {name: '1 час'},
+        {name: '45 мин.'},
+        {name: '30 мин.'},
+        {name: '15 мин.'},
+        {name: '10 мин.'},
+        {name: '5 мин.'},
+        {name: '1 мин.'},
+        {name: '30 сек.'},
+        {name: '20 сек.'}
+    ]
+}
 
 // org structure
 

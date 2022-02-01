@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 
 import styles from './ContextMenu.module.sass';
 
-const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0, disableAutohide = false}) => {
+const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose, movehorizontal = 0, disableAutohide = false, withoutOffset = false}) => {
 
     const closeContext = e => {
         if(!customClose) {
@@ -32,6 +32,7 @@ const ContextMenu = ({children, params, setParams, tooltip, itemRef, customClose
     }, []);
 
     const setMenuHorizontal = () => {
+        if (withoutOffset) return `${params.x - params.width/2}px`;
         if(params.width + params.x >= screenWidth) {
             return `${params.x - params.width}px`;
         } else {

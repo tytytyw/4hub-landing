@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./CreateChat.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
-import CustomChatItem from "../CustomChatItem";
 import ProfileUpload from "../../../Components/MyProfile/UserForm/ProfileUpload";
 import AvatarBackground from "../../../../../assets/PrivateCabinet/circle.svg";
 import ActionApproval from "../../../../../generalComponents/ActionApproval";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import UsersList from "./UsersList";
 import {
 	onGetChatGroups,
 	onGetSecretChatsList,
@@ -21,9 +21,11 @@ const CreateChat = ({
 	setShowSuccessPopup,
 	selectedContact,
 	componentType,
+	currentDate,
+	initialUser
 }) => {
 	const [search, setSearch] = useState("");
-	const [selectedContacts, setSelectedContact] = useState([]);
+	const [selectedContacts, setSelectedContact] = useState(initialUser ? [initialUser] : []);
 	const [step, setStep] = useState("one");
 	const [previewAvatar, setPreviewAvatar] = useState(null);
 	const [image, setImage] = useState(null);
@@ -110,36 +112,7 @@ const CreateChat = ({
 		if (step === "exit") onExit();
 	}, [step]); //eslint-disable-line
 
-	const renderContactList = (contactList) =>
-		contactList?.map((contact, i) => {
-			if (
-				!(
-					contact?.name?.toLowerCase().includes(search.toLowerCase()) ||
-					contact?.sname?.toLowerCase().includes(search.toLowerCase())
-				)
-			)
-				return null;
-			return (
-				<CustomChatItem
-					selectedContact={selectedContacts}
-					setSelectedContact={
-						step === "one" ? changeSelectedContacts : () => {}
-					}
-					sideMenuCollapsed={false}
-					chatItem={contact}
-					key={"contact_" + contact.id}
-					title={`${contact?.sname} ${contact?.name}`}
-					subtitle={"в сети 29 мин. назад"}
-					status={"в сети 29 мин. назад"}
-					avatar={
-						contact?.icon?.[0] ||
-						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-					}
-					contextMenu={step === "one" ? "checkBox" : ""}
-					disableHover={step === "two"}
-				/>
-			);
-		});
+
 
 	const stepHandler = (direction) => {
 		// for create group
@@ -261,7 +234,15 @@ const CreateChat = ({
 					</div>
 				)}
 				<div className={styles.contactsList} style={{height: `calc(100vh - ${inputWrapHeight}px - 68px - 90px)`}}>
-					{renderContactList(step === "one" ? contactList : selectedContacts)}
+					<UsersList
+						usersList={step === "one" ? contactList : selectedContacts}
+						search={search}
+						selectedUsers={selectedContacts}
+						setSelectedUsers={step === "one" ? changeSelectedContacts : () => {}}
+						userContextMenu={step === "one" ? "checkBox" : ""}
+						disableHover={step === "two"}
+						currentDate={currentDate}
+					/>
 				</div>
 			</div>
 			{showActionApproval?.show ? (

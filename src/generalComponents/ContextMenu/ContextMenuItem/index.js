@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './ContextMenuItem.module.sass';
 
-const ContextMenuItem = ({width, height, text, imageSrc, callback}) => {
+const ContextMenuItem = ({width, height, color, text, imageSrc, callback}) => {
     return <div
         className={styles.itemWrap}
-        style={{width, height}}
+        style={{width, height, color}}
         onClick={() => {
             if(callback) callback();
         }}
