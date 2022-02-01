@@ -140,7 +140,7 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
 
             <div className={styles.previewFileWrap}>
                 <div className={styles.previewContent}>
-                    {chosenFile?.mime_type?.split('/')[0] === 'image' ? <MiniToolBar
+                    {chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image' ? <MiniToolBar
                         direction="row"
                         drawParams={drawParams}
                         setDrawParams={setDrawParams}
