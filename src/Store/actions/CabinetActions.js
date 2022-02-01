@@ -65,6 +65,7 @@ import {
     SECRET_CHAT_DELETE,
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
+    SET_MESSAGE_LIFE_TIME,
     SET_MESSAGES,
     SET_MODALS
 } from '../types';
@@ -1081,6 +1082,13 @@ export const onSetSelectedContact = (contact) => {
     return {
         type: CHAT_SELECTED_CONTACT,
         payload: contact
+    }
+}
+
+export const onSetMessageLifeTime = (value) => {
+    return {
+        type: SET_MESSAGE_LIFE_TIME,
+        payload: value
     }
 }
 

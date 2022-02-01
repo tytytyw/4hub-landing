@@ -14,7 +14,7 @@ import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
-import { onGetReсentChatsList } from "../../../../Store/actions/CabinetActions";
+import { onGetReсentChatsList, onSetMessageLifeTime } from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -47,7 +47,8 @@ const Chat = ({ setMenuItem }) => {
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
-
+	const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
+	
 	const closeContextMenu = () => {
 		setMouseParams(null);
 		nullifyAction();
@@ -78,6 +79,7 @@ const Chat = ({ setMenuItem }) => {
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
+					color={type[i] && type[i]?.value === messageLifeTime ? '#4086F1' : ''}
 					text={item.name}
 					callback={() => type[i]?.callback(type, i)}
 					imageSrc={item.img !== undefined ?
@@ -158,15 +160,15 @@ const Chat = ({ setMenuItem }) => {
 			},
 		],
 		timer: [
-			{name: '1 час', value: 3600, callback: (list, index) => console.log( list[index].value)},
-			{name: '45 мин.', value: 2700, callback: (list, index) => console.log( list[index].value)},
-			{name: '30 мин.', value: 1800, callback: (list, index) => console.log( list[index].value)},
-			{name: '15 мин.', value: 900, callback: (list, index) => console.log( list[index].value)},
-			{name: '10 мин.', value: 600, callback: (list, index) => console.log( list[index].value)},
-			{name: '5 мин.', value: 300, callback: (list, index) => console.log( list[index].value)},
-			{name: '1 мин.', value: 60, callback: (list, index) => console.log( list[index].value)},
-			{name: '30 сек.', value: 30, callback: (list, index) => console.log( list[index].value)},
-			{name: '20 сек.', value: 20, callback: (list, index) => console.log( list[index].value)}
+			{name: '1 час', value: 3600, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '45 мин.', value: 2700, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '30 мин.', value: 1800, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '15 мин.', value: 900, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '10 мин.', value: 600, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '5 мин.', value: 300, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '1 мин.', value: 60, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '30 сек.', value: 30, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
+			{name: '20 сек.', value: 20, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
 		]
 	};
 

@@ -59,6 +59,7 @@ import {
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
     SET_MESSAGES,
+    SET_MESSAGE_LIFE_TIME,
     CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
@@ -164,6 +165,7 @@ const INITIAL_STATE = {
         selectedContact: null,
         userId: null,
         messages: null,
+        messageLifeTime: 3600,
     },
 
     //GLOBAL MODALS
@@ -299,7 +301,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         case SET_MESSAGES: {
             return {...state, chat: {...state.chat, messages: action.payload}}
         }
-        
+        case SET_MESSAGE_LIFE_TIME: {
+            return {...state, chat: {...state.chat, messageLifeTime: action.payload}}
+        }
         //SORT FILES
         case SORT_FILES: {
             return {...state, fileCriterion: {...state.fileCriterion, sorting: action.payload}}
