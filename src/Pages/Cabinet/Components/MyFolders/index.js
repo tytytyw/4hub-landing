@@ -10,7 +10,6 @@ import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
-import PreviewFile from '../Modals/Components/PreviewFile/PreviewFile';
 import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
@@ -261,13 +260,6 @@ const MyFolders = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-            {filePreview?.view ? <PreviewFile
-                setFilePreview={setFilePreview}
-                file={filePreview?.file}
-                filePreview={filePreview}
-                setLoadingType={setLoadingType}
-                share={setAction}
-            /> : null}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(
                 chosenFolder?.contextMenuFolder?.path.indexOf('global') === 0 && chosenFolder?.contextMenuFolder?.path.split('/').length === 2
