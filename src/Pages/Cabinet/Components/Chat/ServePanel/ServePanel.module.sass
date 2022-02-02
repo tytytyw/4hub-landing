@@ -64,6 +64,14 @@
         .addContactIcon
           path:last-child:not(:nth-child(4))
             fill: #4086F1
+      &.disable
+        cursor: default
+        svg
+          opacity: .3
+        &:hover
+          background: #fff
+          path, polygon
+            fill: #BABABA
     .PicInPicIcon
       width: 54px
       padding: 0 3px
