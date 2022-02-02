@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import styles from './PreviewImageWithComment.module.sass';
+import styles from './PreviewWithComment.module.sass';
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classnames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
@@ -45,7 +45,7 @@ const c = {1: [
     ]
 }
 
-function PreviewImageWithComment() {
+function PreviewWithComment() {
 
     const canvasRef = useRef(null);
     const canvasWrapRef = useRef(null);
@@ -148,4 +148,4 @@ function PreviewImageWithComment() {
     </PopUp>)
 }
 
-export default PreviewImageWithComment;
+export default PreviewWithComment;
