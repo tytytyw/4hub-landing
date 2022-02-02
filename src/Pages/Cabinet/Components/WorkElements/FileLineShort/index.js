@@ -5,14 +5,15 @@ import File from '../../../../../generalComponents/Files';
 import {useDispatch, useSelector} from "react-redux";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
-import {onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onChooseFiles, onSetModals} from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
-       file, setChosenFile, chosen, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
+       file, setChosenFile, chosen, setMouseParams, filePick, setFilePick,
        setGLoader, folderSelect,  params = null, chooseItemNext, openFolderMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
+    const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
     const dispatch = useDispatch();
 
     const onPickFile = () => {
@@ -34,7 +35,7 @@ const FileLineShort = ({
         if(file?.is_dir) {
             // folderSelect(file)
         } else {
-            setFilePreview({...filePreview, view: true, file});
+            dispatch(onSetModals('previewFile', {...previewFile, open: true, file}));
         }
     }
 

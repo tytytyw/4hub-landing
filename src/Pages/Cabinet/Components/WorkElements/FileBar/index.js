@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './FileBar.module.sass';
 import File from '../../../../../generalComponents/Files';
-import {setDragged} from "../../../../../Store/actions/CabinetActions";
+import {onSetModals, setDragged} from "../../../../../Store/actions/CabinetActions";
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
 
@@ -13,6 +13,7 @@ const FileBar = ({
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);
+    const previewFile = useSelector(s => s.Cabinet.modals.previewFile)
     const dispatch = useDispatch();
 
     const onPickFile = () => {
@@ -28,7 +29,7 @@ const FileBar = ({
             folderSelect(file);
             setChosenFile(null);
         } else {
-            setFilePreview({...filePreview, view: true, file});
+            dispatch(onSetModals('previewFile', {...previewFile, open: true, file}));
         }
     }
 

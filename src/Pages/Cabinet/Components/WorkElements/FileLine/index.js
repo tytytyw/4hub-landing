@@ -9,15 +9,18 @@ import {ReactComponent as SettingsIcon} from '../../../../../assets/PrivateCabin
 import {ReactComponent as DeleteIcon} from '../../../../../assets/PrivateCabinet/delete.svg'
 import {ReactComponent as ShareIcon} from '../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
+import {onSetModals} from "../../../../../Store/actions/CabinetActions";
 
 const FileLine = ({
-          file, setChosenFile, chosen, setMouseParams, setAction, setFilePreview, filePreview, filePick,
+          file, setChosenFile, chosen, setMouseParams, setAction, filePick,
           setFilePick, shareLink, callbackArrMain, folderSelect, openFolderMenu
 }) => {
     const size = useSelector(state => state.Cabinet.size)
+    const previewFile = useSelector(state => state.Cabinet.modals.previewFile)
+    const dispatch = useDispatch()
     const downloadFile = () => {
         // TODO - api for downloading folder
         if(file?.is_dir === 0) {
@@ -57,7 +60,7 @@ const FileLine = ({
         if(file?.is_dir) {
             folderSelect(file)
         } else {
-            setFilePreview({...filePreview, view: true, file});
+            dispatch(onSetModals('previewFile', {...previewFile, open: true, file}));
         }
     }
 

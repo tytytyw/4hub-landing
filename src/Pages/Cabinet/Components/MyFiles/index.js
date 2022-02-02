@@ -14,7 +14,6 @@ import {
 	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
 import CreateSafePassword from "../CreateSafePassword";
-import PreviewFile from "../Modals/Components/PreviewFile/PreviewFile";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
@@ -491,14 +490,6 @@ const MyFiles = ({
 					title="Создайте пароль для Сейфа с паролями"
 				/>
 			)}
-			{filePreview?.view ? (
-				<PreviewFile
-					setFilePreview={setFilePreview}
-					file={filePreview?.file}
-					filePreview={filePreview}
-					setLoadingType={setLoadingType}
-				/>
-			) : null}
 			{showSuccessMessage && (
 				<SuccessMessage
 					showSuccessMessage={showSuccessMessage}
