@@ -22,19 +22,27 @@ const MainPanel = ({ setAction }) => {
 				// user is admin
 				return {
 					text: "Удалить группу",
-					callback: () => console.log("delete group"),
+					callback: () => setAction({
+						text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+						type: 'deleteChatGroup',
+						name: 'Удалить'
+					}),
 				};
 			} else {
 				// user not admin
 				return {
 					text: "Покинуть группу",
-					callback: () => console.log("leave"),
+					callback: () => setAction({
+						text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
+						type: 'leaveFromChatGroup',
+						name: 'Покинуть'
+					}),
 				};
 			}
 		}
 		return {
 			text: "Очистить историю",
-			callback: () => console.log("delete chat"),
+			callback: () => console.log("clear messages"),
 		};
 	};
 
@@ -153,7 +161,7 @@ const MainPanel = ({ setAction }) => {
 
 				<div
 					className={classNames(styles.menuItem, styles.borderTop)}
-					onClick={deleteBtnType().callback}
+					onClick={deleteBtnType()?.callback}
 				>
 					<div className={styles.leftSide}>
 						<span className={styles.menuItemName}>{deleteBtnType()?.text}</span>
