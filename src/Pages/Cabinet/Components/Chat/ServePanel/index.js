@@ -10,12 +10,13 @@ import {ReactComponent as CameraIcon} from "../../../../../assets/PrivateCabinet
 import {ReactComponent as InfoIcon} from "../../../../../assets/PrivateCabinet/info-2.svg";
 import {ReactComponent as CopyLinkIcon} from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import {ReactComponent as PictureIcon} from "../../../../../assets/PrivateCabinet/picture-2.svg";
-import {onSetPaint} from "../../../../../Store/actions/CabinetActions";
+import { onSetPaint, onSetModals } from "../../../../../Store/actions/CabinetActions";
 
 
 const ServePanel = ({selectedContact, setAction}) => {
     const dispatch = useDispatch();
 	const paint = useSelector(state => state.Cabinet.paint);
+	const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
 
 	return (
 		<div className={styles.chatBoardHeader}>
@@ -56,7 +57,7 @@ const ServePanel = ({selectedContact, setAction}) => {
 					>
                         <PictureIcon /><div className={styles.line} /><PictureIcon />
                     </div>
-                    <div className={styles.iconView}><CameraIcon /></div>
+                    <div onClick={() => printScreen.open ? null : dispatch((onSetModals('printScreen', ({...printScreen, open: true}))))} className={styles.iconView}><CameraIcon /></div>
                     <div className={styles.iconView}><InfoIcon /></div>
 				</div>
 			) : null}
