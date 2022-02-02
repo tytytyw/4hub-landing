@@ -4,7 +4,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import classnames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
-import {drawCanvas} from "../../../PreviewFile/paintHelpers";
+import {drawCanvas} from "../PreviewFile/paintHelpers";
 import {periods} from "../../../../../../generalComponents/collections";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 

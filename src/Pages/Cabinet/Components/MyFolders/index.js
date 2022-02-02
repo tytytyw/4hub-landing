@@ -10,7 +10,7 @@ import CreateFile from '../CreateFile';
 import CustomFolderItem from './CustomFolderItem';
 import CreateSafePassword from '../CreateSafePassword';
 import RecentFolders from './RecentFolders';
-import PreviewFile from '../PreviewFile/PreviewFile';
+import PreviewFile from '../Modals/Components/PreviewFile/PreviewFile';
 import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {

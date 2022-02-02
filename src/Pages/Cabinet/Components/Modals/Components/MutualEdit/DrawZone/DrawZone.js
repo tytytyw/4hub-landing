@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 
 import styles from './DrawZone.module.sass';
 import Loader from "../../../../../../../generalComponents/Loaders/4HUB";
-import {drawCanvasPosition} from "../../../../PreviewFile/paintHelpers";
+import {drawCanvasPosition} from "../../PreviewFile/paintHelpers";
 import {ReactComponent as AddIcon} from "../../../../../../../assets/PrivateCabinet/plus-3.svg";
 import classnames from "classnames";
 

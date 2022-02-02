@@ -6,7 +6,7 @@ import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 import {projectSrc} from '../../../../../../generalComponents/globalVariables';
-import PreviewFile from "../../../PreviewFile/PreviewFile";
+import PreviewFile from "../../../Modals/Components/PreviewFile/PreviewFile";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) => {
 
