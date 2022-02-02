@@ -9,7 +9,6 @@ import CreateFolder from './CreateFolder'
 import CreateFile from '../CreateFile'
 import CustomFolderItem from './CustomFolderItem'
 import CreateSafePassword from '../CreateSafePassword'
-import PreviewFile from '../Modals/Components/PreviewFile/PreviewFile'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
 import {
     contextProgram,
@@ -244,13 +243,6 @@ const Programs = ({
                 onToggle={onSafePassword}
                 title='Создайте пароль для сейфа'
             />}
-
-            {filePreview?.view &&
-                <PreviewFile
-                    setFilePreview={setFilePreview}
-                    file={filePreview?.file}
-                    filePreview={filePreview}
-                />}
 
             {createFolder &&
             <CreateFolder
