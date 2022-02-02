@@ -8,16 +8,22 @@ import {imageSrc, projectSrc} from '../../../../../../generalComponents/globalVa
 import {getMedia, imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import {useDispatch, useSelector} from "react-redux";
+import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
-const PreviewFile = ({setFilePreview = () => {}, file}) => {
+const PreviewFile = () => {
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const file = useSelector(s => s.Cabinet.modals.previewFile.file);
+    const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
+    const dispatch = useDispatch();
 
     const set = e => {
         let close = false;
         if(e?.target?.className === styles.preview) close = true;
-        if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+        // if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+        if(close) dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
     }
 
     const renderOfficePreview = () => {
@@ -43,7 +49,6 @@ const PreviewFile = ({setFilePreview = () => {}, file}) => {
                         canvasRef={canvasRef}
                         canvasWrapRef={canvasWrapRef}
                         file={file}
-                        // setFilePreview={setFilePreview}
                         share={true}
                         closePreview={set}
                     />

@@ -42,7 +42,7 @@ import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2
 
 const MiniToolBar = ({
          file, toolBarType = 'general', width = '100%', canvasRef = null, share = null,
-         setFilePreview = () => {}, canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false,
+         canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false,
          isPreview = true, isComment = false, toggleComment = () => {}
 }) => {
 
@@ -52,6 +52,7 @@ const MiniToolBar = ({
     const project = useSelector(state => state.Cabinet.project);
     const uid = useSelector(state => state.user.uid);
     const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
+    const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
@@ -184,16 +185,16 @@ const MiniToolBar = ({
                     className={styles.customWrap}
                     onClick={() => {if(params.edit) {
                         dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))
-                        // setFilePreview(filePreview => ({...filePreview, view: false, file: null}))
+                        dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
                     }}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {/*setFilePreview(filePreview => ({...filePreview, view: false, file: null}))*/}}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));}}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
                     {share !== null ? <span
                         className={`${styles.button} ${styles.send}`}
                         onClick={() => {
-                            // setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+                            dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
                             // share({type: 'share', name: '', text: ``})
                     }}>Отправить</span> : null}
                 </div>
@@ -220,7 +221,7 @@ const MiniToolBar = ({
                         {addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}
                     </div>
                 </div>
-                <div className={styles.customWrap}>{addButton(<DashedBorderIcon />)}</div>
+                <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewFile', {...previewFile, open: true, file}))}>{addButton(<DashedBorderIcon />)}</div>
                 <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}

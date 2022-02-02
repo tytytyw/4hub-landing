@@ -9,6 +9,7 @@ import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/S
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import PreviewImageWithComment from "./Components/PreviewImageWithComment/PreviewImageWithComment";
 import PrintScreen from "./Components/PrintScreen/PrintScreen";
+import PreviewFile from "./Components/PreviewFile/PreviewFile";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -21,6 +22,7 @@ function Modals ({
     const share = useSelector(state => state.Cabinet.modals.share);
     const previewImageWithComment = useSelector(state => state.Cabinet.modals.previewWithComments);
     const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
+    const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
     const dispatch = useDispatch();
 
     const closeError = () => dispatch(onSetModals('error', {open: false, message: ''}));
@@ -56,6 +58,7 @@ function Modals ({
         /> : null}
         {previewImageWithComment.open ? <PreviewImageWithComment /> : null}
         {printScreen.open ? <PrintScreen /> : null}
+        {previewFile.open ? <PreviewFile /> : null}
     </>
 }
 
