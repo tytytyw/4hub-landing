@@ -197,7 +197,6 @@ const MiniToolBar = ({
                         onClick={() => {
                             dispatch(onSetModals('share', {...shareStore, open: true, fids: [file.fid], action_type: 'file_share'}));
                             dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
-                            // share({type: 'share', name: '', text: ``})
                     }}>Отправить</span> : null}
                 </div>
             </div>
