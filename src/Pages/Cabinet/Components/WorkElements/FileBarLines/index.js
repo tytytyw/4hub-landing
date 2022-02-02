@@ -9,10 +9,13 @@ import { ReactComponent as SettingsIcon } from "../../../../../assets/PrivateCab
 
 import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabinet/share.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
+import {onSetModals} from "../../../../../Store/actions/CabinetActions";
+import {useSelector} from "react-redux";
 
-const FileBar = ({ file, chosen, setChosenFile, setFilePreview, filePreview }) => {
+const FileBar = ({ file, chosen, setChosenFile }) => {
 
-	const handleDoubleClick = () => setFilePreview({...filePreview, view: true, file})
+	const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
+	const handleDoubleClick = () => dispatch(onSetModals('previewFile', {...previewFile, open: true, file}));
 
 	return (
 		<div

@@ -6,7 +6,6 @@ import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 import {projectSrc} from '../../../../../../generalComponents/globalVariables';
-import PreviewFile from "../../../Modals/Components/PreviewFile/PreviewFile";
 
 const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) => {
 
@@ -18,7 +17,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
     const ctx = canvasRef.current ? canvasRef.current.getContext('2d') : null
     const uid = useSelector(state => state.user.uid)
     const [, setUndoList] = useState([]);
-    const [filePreview, setFilePreview] = useState({view: false, file: null, create: false});
 
     useEffect(() => {
         if(chosenFile?.mime_type && chosenFile?.mime_type?.split('/')[0] === 'image') {
@@ -138,7 +136,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
                     </div>
                 </div>
             </div>
-            {filePreview.view ? <PreviewFile filePreview={filePreview} setFilePreview={setFilePreview} file={filePreview?.file} /> : null}
         </div>)
 }
 

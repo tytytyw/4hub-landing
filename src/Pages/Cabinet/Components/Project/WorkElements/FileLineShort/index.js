@@ -3,21 +3,22 @@ import React from "react";
 import styles from "./FileLineShort.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
                            file,
                            setChosenFile,
                            chosen,
                            setMouseParams,
-                           setFilePreview,
-                           filePreview,
                            filePick,
                            setFilePick,
                            fileCollapsed
                        }) => {
     const size = useSelector((state) => state.Cabinet.size);
+    const previewFile = useSelector(s => s.Cabinet.modals.previewFile)
+    const dispatch = useDispatch();
 
     const onPickFile = () => {
         if (filePick.show) {
@@ -40,7 +41,7 @@ const FileLineShort = ({
     return (
         <div
             onClick={onPickFile}
-            onDoubleClick={() => setFilePreview({ ...filePreview, view: true, file })}
+            onDoubleClick={() => dispatch(onSetModals('previewFile', {...previewFile, open: true, file}))}
             className={classNames({
                 [styles.wrapper]: true,
                 [styles.active]: chosen,
