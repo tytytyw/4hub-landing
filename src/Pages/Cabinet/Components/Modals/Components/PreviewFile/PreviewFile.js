@@ -22,7 +22,6 @@ const PreviewFile = () => {
     const set = e => {
         let close = false;
         if(e?.target?.className === styles.preview) close = true;
-        // if(close) setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
         if(close) dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
     }
 

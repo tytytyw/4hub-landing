@@ -52,6 +52,7 @@ const MiniToolBar = ({
     const project = useSelector(state => state.Cabinet.project);
     const uid = useSelector(state => state.user.uid);
     const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
+    const shareStore = useSelector(s => s.Cabinet.modals.share);
     const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
@@ -194,8 +195,8 @@ const MiniToolBar = ({
                     {share !== null ? <span
                         className={`${styles.button} ${styles.send}`}
                         onClick={() => {
+                            dispatch(onSetModals('share', {...shareStore, open: true, fids: [file.fid], action_type: 'file_share'}));
                             dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
-                            // share({type: 'share', name: '', text: ``})
                     }}>Отправить</span> : null}
                 </div>
             </div>
