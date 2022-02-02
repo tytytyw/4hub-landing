@@ -95,7 +95,7 @@ const ServePanel = ({ selectedContact, setAction }) => {
 						<div className={styles.line} />
 						<PictureIcon />
 					</div>
-					<div
+					{!selectedContact?.is_secret_chat ? <div
 						onClick={() =>
 							printScreen.open
 								? null
@@ -106,7 +106,7 @@ const ServePanel = ({ selectedContact, setAction }) => {
 						className={classNames({[styles.iconView]: true, [styles.disable]: printScreen?.open})}
 					>
 						<CameraIcon />
-					</div>
+					</div> : ''}
 					<div className={styles.iconView}>
 						<InfoIcon />
 					</div>
