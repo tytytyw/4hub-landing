@@ -175,20 +175,21 @@
   position: relative
   .arrow
     color: #4086F1
-  .inActive path,
-  .inActive clipPath,
-  .inActive circle,
-  .inActive
-    fill: grey
-    color: grey
+  &.chosen
+    background: #afc8ee
+.inActive path,
+.inActive clipPath,
+.inActive circle,
+.inActive
+  fill: grey
+  color: grey
+  cursor: default
   .inactiveColor
     width: 17px
     height: 17px
     border: 1px solid grey
     background: grey
     border-radius: 50%
-  &.chosen
-    background: #afc8ee
 .buttonWrapInactive
   cursor: default
 .compareWrap

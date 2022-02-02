@@ -51,6 +51,7 @@ const MiniToolBar = ({
     const previewWithComments = useSelector(state => state.Cabinet.modals.previewWithComments);
     const project = useSelector(state => state.Cabinet.project);
     const uid = useSelector(state => state.user.uid);
+    const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
@@ -210,7 +211,7 @@ const MiniToolBar = ({
             <div className={styles.leftPart}/>
             <div className={styles.rightPart}>
                 <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: project.files, chosenFile: file}))}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
-                <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
+                <div className={`${styles.customWrap} ${printScreen.open && styles.inActive}`} onClick={() => printScreen.open ? null : dispatch((onSetModals('printScreen', ({...printScreen, open: true}))))}>{addButton(<CameraIcon />)}</div>
                 <div className={styles.rightPart}>
                     <div
                         className={`${styles.customWrap}`}

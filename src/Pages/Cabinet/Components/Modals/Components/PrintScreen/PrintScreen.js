@@ -1,38 +1,43 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./PrintScreen.module.sass";
 import {htmlToCanvas, imageToRatio} from "../../../../../../generalComponents/generalHelpers";
+import {useDispatch, useSelector} from "react-redux";
+import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
 const PrintScreen = () => {
+    const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
     const imgRef = useRef(null);
     const [display, setDisplay] = useState('none');
     const [size, setSize] = useState({width: '200px', height: '150px'});
-    useEffect(() => {
-        setDisplay(show);
-        if(show === 'block') {
-            const audio = new Audio('./assets/audio/printScreen.mp3');
-            audio.addEventListener("canplaythrough", () => {
-                audio.play()
-            });
-
-            const sizes = imageToRatio(imgRef.current.width, imgRef.current.height, 200, 200);
-            setSize(size => ({...size, width: sizes.width, height: sizes.height}));
-                setTimeout(() => {
-                    setDisplay('none')
-                }, 10500);
-        }
-    }, [show, imgRef]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setTimeout(() => {
-            htmlToCanvas(document.getElementById('root'), imgRef.current, setDisplay)
+            htmlToCanvas(document.getElementById('root'), imgRef.current, showImage)
         }, 500);
-        return () => {setDisplay('none'); setShow('none')}
     }, []) //eslint-disable-line
 
+    const showImage = (display, result) => {
+        setDisplay(display);
+        const audio = new Audio('./assets/audio/printScreen.mp3');
+        audio.addEventListener("canplaythrough", () => {
+            audio.play()
+        });
+
+        dispatch(onSetModals('printScreen', {...printScreen, result}))
+        const sizes = imageToRatio(imgRef.current.width, imgRef.current.height, 200, 200);
+        setSize(size => ({...size, width: sizes.width, height: sizes.height}));
+        setTimeout(() => {
+            setDisplay('none');
+            dispatch(onSetModals('printScreen', {...printScreen, open: false}))
+        }, 10500);
+    }
+
     const handlePreview = (e) => {
-        setFilePreview({view: true, file: {preview: e.target.src, mime_type: 'image/png', ext: 'PNG', is_preview: 1, fid: 'printScreen'}});
+        //TODO - add preview via dispatch
+        // setFilePreview({view: true, file: {preview: e.target.src, mime_type: 'image/png', ext: 'PNG', is_preview: 1, fid: 'printScreen'}});
         setDisplay('none');
-        setShow('none');
+        dispatch(onSetModals('printScreen', {...printScreen, open: false}));
     }
 
     return(

@@ -64,7 +64,7 @@ export const htmlToCanvas = async (element, ref, set) => {
         .then(function (canvas) {
             const data = canvas.toDataURL('image/png');
             ref.setAttribute('src', data);
-            if(set) set('block')
+            if(set) set('block', data)
         })
         .catch(e => console.log(e));
 }
