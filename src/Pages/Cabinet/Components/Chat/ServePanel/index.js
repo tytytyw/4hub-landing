@@ -15,7 +15,11 @@ import {
 	onSetModals,
 } from "../../../../../Store/actions/CabinetActions";
 
-const ServePanel = ({ selectedContact, setAction }) => {
+const ServePanel = ({
+	selectedContact,
+	setAction,
+	setRightPanelContentType,
+}) => {
 	const dispatch = useDispatch();
 	const paint = useSelector((state) => state.Cabinet.paint);
 	const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
@@ -95,19 +99,33 @@ const ServePanel = ({ selectedContact, setAction }) => {
 						<div className={styles.line} />
 						<PictureIcon />
 					</div>
-					{!selectedContact?.is_secret_chat ? <div
+					{!selectedContact?.is_secret_chat ? (
+						<div
+							onClick={() =>
+								printScreen.open
+									? null
+									: dispatch(
+											onSetModals("printScreen", { ...printScreen, open: true })
+									  )
+							}
+							className={classNames({
+								[styles.iconView]: true,
+								[styles.disable]: printScreen?.open,
+							})}
+						>
+							<CameraIcon />
+						</div>
+					) : (
+						""
+					)}
+					<div
+						className={styles.iconView}
 						onClick={() =>
-							printScreen.open
-								? null
-								: dispatch(
-										onSetModals("printScreen", { ...printScreen, open: true })
-								  )
+							setRightPanelContentType((state) =>
+								state === "info" ? "" : "info"
+							)
 						}
-						className={classNames({[styles.iconView]: true, [styles.disable]: printScreen?.open})}
 					>
-						<CameraIcon />
-					</div> : ''}
-					<div className={styles.iconView}>
 						<InfoIcon />
 					</div>
 				</div>

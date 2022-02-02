@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import classNames from "classnames";
 import InviteUser from "./InviteUser";
 import Message from "./Message";
+import InfoPanel from "./InfoPanel";
 
 const ChatBoard = ({
 	inputRef,
@@ -27,7 +28,7 @@ const ChatBoard = ({
 	setAction,
 	setMouseParams,
 }) => {
-	const [rightPanel, setRightPanel] = useState("");
+	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
@@ -98,13 +99,13 @@ const ChatBoard = ({
 	return (
 		<div className={styles.chatBoardWrap}>
 			{selectedContact ? (
-				<ServePanel selectedContact={selectedContact} setAction={setAction} />
+				<ServePanel selectedContact={selectedContact} setAction={setAction} setRightPanelContentType={setRightPanelContentType} />
 			) : (
 				""
 			)}
 			<main className={styles.chatBoardMessageList}>
 				<div
-					style={{ width: rightPanel ? "calc(100% - 200px)" : "100%" }}
+					style={{ width: rightPanelContentType ? "calc(100% - 200px)" : "100%" }}
 					className={styles.chatArea}
 				>
 					{contactList?.length === 0 && boardOption === "contacts" ? (
@@ -127,9 +128,12 @@ const ChatBoard = ({
 					)}
 					<div ref={endMessagesRef} />
 				</div>
-				<div className={styles.rightPanel}>
-					{rightPanel === "emo" ? (
+				<div className={styles.rightPanelContentType}>
+					{rightPanelContentType === "emo" ? (
 						<EmojiArea insertToInput={insertToInput} />
+					) : null}
+					{rightPanelContentType === "info" ? (
+						<InfoPanel setAction={setAction} />
 					) : null}
 				</div>
 			</main>
@@ -168,7 +172,7 @@ const ChatBoard = ({
 						title="Смайлики"
 						className={styles.button}
 						onClick={() =>
-							setRightPanel((state) => (state === "emo" ? "" : "emo"))
+							setRightPanelContentType((state) => (state === "emo" ? "" : "emo"))
 						}
 					>
 						<SmileIcon title="" />
