@@ -6,7 +6,7 @@ import styles from "./MainPanel.module.sass";
 
 import { ReactComponent as TriangleIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 
-const MainPanel = ({ setAction }) => {
+const MainPanel = ({ setAction, setOption }) => {
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
@@ -65,7 +65,7 @@ const MainPanel = ({ setAction }) => {
 			</div>
 			<div className={styles.menu}>
 				<div>
-					<div className={classNames(styles.menuItem, styles.borderBottom)}>
+					<div className={classNames(styles.menuItem, styles.borderBottom)} onClick={() => setOption('media')}>
 						<div className={styles.leftSide}>
 							<span className={styles.menuItemName}>Мультимедиа</span>
 						</div>

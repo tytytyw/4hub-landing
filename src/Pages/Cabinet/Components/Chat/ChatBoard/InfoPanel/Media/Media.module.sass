@@ -1,0 +1,42 @@
+.wrapper
+    color: #49494B
+    font-family: "SF Pro Light", sans-serif
+    font-size: 12px
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    height: 100%
+    .subOptions
+        padding: 10px
+        display: flex
+        align-items: center
+        justify-content: space-between
+    .content
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        .groupByDate
+            .dateTitle
+                background-color: rgba(73, 73, 75, .1)
+                padding: 3px 0 3px 10px
+                color: #A0A0A0
+                font-size: 10px
+                margin: 0
+            .picturesWrap
+                display: flex
+                flex-wrap: wrap
+                align-items: center
+                padding: 0 7.5px
+                margin: 10px 0
+                .miniPictureWrap
+                    width: 58px
+                    height: 40px
+                    margin-bottom: 5px
+                    cursor: pointer
+                    &:not(:nth-child(3n))
+                        margin-right: 5px
+                    img
+                        object-fit: cover
+                        height: 100%
+                        width: 100%
