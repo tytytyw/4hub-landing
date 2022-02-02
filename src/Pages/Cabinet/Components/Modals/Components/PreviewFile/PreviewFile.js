@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {previewFormats} from '../../../../generalComponents/collections';
+import {previewFormats} from '../../../../../../generalComponents/collections';
 import styles from './PreviewFile.module.sass';
-import PopUp from '../../../../generalComponents/PopUp';
-import File from "../../../../generalComponents/Files";
-import {imageSrc, projectSrc} from '../../../../generalComponents/globalVariables';
-import {getMedia, imageToRatio} from "../../../../generalComponents/generalHelpers";
-import MiniToolBar from "../WorkElements/MiniToolBar/MiniToolBar";
-import Loader from "../../../../generalComponents/Loaders/4HUB";
+import PopUp from '../../../../../../generalComponents/PopUp';
+import File from "../../../../../../generalComponents/Files";
+import {imageSrc, projectSrc} from '../../../../../../generalComponents/globalVariables';
+import {getMedia, imageToRatio} from "../../../../../../generalComponents/generalHelpers";
+import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
+import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 
-const PreviewFile = ({setFilePreview, file, share}) => {
+const PreviewFile = ({setFilePreview = () => {}, file}) => {
 
     const [loading, setLoading] = useState(false)
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
@@ -43,8 +43,8 @@ const PreviewFile = ({setFilePreview, file, share}) => {
                         canvasRef={canvasRef}
                         canvasWrapRef={canvasWrapRef}
                         file={file}
-                        setFilePreview={setFilePreview}
-                        share={share}
+                        // setFilePreview={setFilePreview}
+                        share={true}
                         closePreview={set}
                     />
                     <div className={styles.canvasWrap}>

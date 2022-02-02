@@ -1,4 +1,4 @@
-import {imageToRatio} from "../../../../generalComponents/generalHelpers";
+import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
 
 //draw image on canvas
 export function drawCanvas(canvas, image, callback = null, next, previous) {

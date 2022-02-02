@@ -28,7 +28,7 @@ import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
 import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
-import {drawCanvas} from "../../PreviewFile/paintHelpers";
+import {drawCanvas} from "../../Modals/Components/PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
 import Triangle from "./Tools/Triangle";
@@ -51,6 +51,7 @@ const MiniToolBar = ({
     const previewWithComments = useSelector(state => state.Cabinet.modals.previewWithComments);
     const project = useSelector(state => state.Cabinet.project);
     const uid = useSelector(state => state.user.uid);
+    const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
     const dispatch = useDispatch();
     const colorPickerRef = useRef();
 
@@ -183,17 +184,17 @@ const MiniToolBar = ({
                     className={styles.customWrap}
                     onClick={() => {if(params.edit) {
                         dispatch(onSetPaint('mutualEdit', {...paint.mutualEdit, open: true, data: [canvasRef.current.toDataURL("image/png")], destination: file?.gdir || 'global/all'}))
-                        setFilePreview(filePreview => ({...filePreview, view: false, file: null}))
+                        // setFilePreview(filePreview => ({...filePreview, view: false, file: null}))
                     }}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {setFilePreview(filePreview => ({...filePreview, view: false, file: null}))}}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {/*setFilePreview(filePreview => ({...filePreview, view: false, file: null}))*/}}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
                     {share !== null ? <span
                         className={`${styles.button} ${styles.send}`}
                         onClick={() => {
-                            setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
-                            share({type: 'share', name: '', text: ``})
+                            // setFilePreview(filePreview => ({...filePreview, view: false, file: null}));
+                            // share({type: 'share', name: '', text: ``})
                     }}>Отправить</span> : null}
                 </div>
             </div>
@@ -209,8 +210,8 @@ const MiniToolBar = ({
         >
             <div className={styles.leftPart}/>
             <div className={styles.rightPart}>
-                <div className={styles.customWrap}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
-                <div className={styles.customWrap}>{addButton(<CameraIcon />)}</div>
+                <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: project.files, chosenFile: file}))}>{addButton(<MessageIcon />)}<div className={styles.unread} /></div>
+                <div className={`${styles.customWrap} ${printScreen.open && styles.inActive}`} onClick={() => printScreen.open ? null : dispatch((onSetModals('printScreen', ({...printScreen, open: true}))))}>{addButton(<CameraIcon />)}</div>
                 <div className={styles.rightPart}>
                     <div
                         className={`${styles.customWrap}`}
@@ -219,7 +220,7 @@ const MiniToolBar = ({
                         {addButton(<div className={styles.compareWrap}><PhotoIcon /><PhotoIcon /></div>)}
                     </div>
                 </div>
-                <div className={styles.customWrap} onClick={() => dispatch(onSetModals('previewWithComments', {...previewWithComments, open: true, files: project.files, chosenFile: file}))}>{addButton(<DashedBorderIcon />)}</div>
+                <div className={styles.customWrap}>{addButton(<DashedBorderIcon />)}</div>
                 <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
                 <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
                 {renderPhotos([BlackMan, WhiteMan, Woman])}
