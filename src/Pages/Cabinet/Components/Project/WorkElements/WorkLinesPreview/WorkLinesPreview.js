@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 import api from "../../../../../../api";
 import File from "../../../../../../generalComponents/Files";
 import {imageToRatio} from "../../../../../../generalComponents/generalHelpers";
-// import PrintScreen from "../../../Modals/Components/PrintScreen/PrintScreen";
 import {projectSrc} from '../../../../../../generalComponents/globalVariables';
 import PreviewFile from "../../../PreviewFile/PreviewFile";
 
@@ -107,20 +106,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
         }
     }
 
-    //PrintScreen of the webPage
-    // const imgRef = useRef(null);
-    // const [showPrintScreen, setShowPrintScreen] = useState(false);
-    // const [display, setDisplay] = useState('none');
-    // const makePrintScreen = () => {
-    //     setShowPrintScreen(true);
-    //     setTimeout(() => {
-    //         htmlToCanvas(document.getElementById('root'), imgRef.current, setDisplay)
-    //     }, 500);
-    //     setTimeout(() => {
-    //         setShowPrintScreen(false);
-    //     }, 10500);
-    // }
-
     return (
         <div
             className={styles.workLinesPreviewWrap}
@@ -153,7 +138,6 @@ const WorkLinesPreview = ({recentFiles, children, chosenFile, fileCollapsed}) =>
                     </div>
                 </div>
             </div>
-            {/*{showPrintScreen ? <PrintScreen imgRef={imgRef} show={display} setShow={setDisplay} setFilePreview={setFilePreview} /> : null}*/}
             {filePreview.view ? <PreviewFile filePreview={filePreview} setFilePreview={setFilePreview} file={filePreview?.file} /> : null}
         </div>)
 }
