@@ -260,18 +260,18 @@ export const contextMenuChat = {
     secretChat: [{name: 'Удалить', img: 'garbage', type: 'deleteSecretChat'}],
     userInGroup: [
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: '', type: 'blockUser'},
+        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
         {name: 'Удалить из группы', img: 'garbage', type: 'deleteUserFromGroup'},
     ],
     recentChat: [
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: '', type: 'blockUser'},
-        {name: 'Отметить непрочитанным', img: '', type: 'markAsUnread'},
+        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
+        {name: 'Отметить непрочитанным', img: 'mark-unread', type: 'markAsUnread'},
     ],
     contact: [
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: '', type: 'blockUser'},
-        {name: 'Отметить непрочитанным', img: '', type: 'markAsUnread'},
+        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
+        {name: 'Отметить непрочитанным', img: 'mark-unread', type: 'markAsUnread'},
     ],
     timer: [
         {name: '1 час'},
