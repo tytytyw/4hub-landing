@@ -22,21 +22,23 @@ const MainPanel = ({ setAction }) => {
 				// user is admin
 				return {
 					text: "Удалить группу",
-					callback: () => setAction({
-						text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
-						type: 'deleteChatGroup',
-						name: 'Удалить'
-					}),
+					callback: () =>
+						setAction({
+							text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+							type: "deleteChatGroup",
+							name: "Удалить",
+						}),
 				};
 			} else {
 				// user not admin
 				return {
 					text: "Покинуть группу",
-					callback: () => setAction({
-						text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
-						type: 'leaveFromChatGroup',
-						name: 'Покинуть'
-					}),
+					callback: () =>
+						setAction({
+							text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
+							type: "leaveFromChatGroup",
+							name: "Покинуть",
+						}),
 				};
 			}
 		}
@@ -46,19 +48,20 @@ const MainPanel = ({ setAction }) => {
 		};
 	};
 
+	const getAvatarSrc = () => {
+		return (
+			selectedContact?.icon?.[0] ||
+			`${imageSrc}assets/PrivateCabinet/${
+				selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
+			}.svg`
+		);
+	};
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
-				<img
-					className={styles.avatar}
-					alt="avatar"
-					src={
-						selectedContact?.icon?.[0] ||
-						`${imageSrc}assets/PrivateCabinet/${
-							selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
-						}.svg`
-					}
-				/>
+            <div style={{backgroundImage: `url(${getAvatarSrc()})`}} className={styles.blurBackground}></div>
+				<img className={styles.avatar} alt="avatar" src={getAvatarSrc()} />
 			</div>
 			<div className={styles.menu}>
 				<div>
