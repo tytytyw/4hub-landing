@@ -1,4 +1,11 @@
+@keyframes open
+    0%
+        transform: translateX(200px)
+    99%
+        transform: translateX(0)
 .wrapper
+    animation: open 0.2s ease-in-out
     border-left: 1px solid #CFCFCF
     height: 100%
     width: 200px
+    overflow: hidden
