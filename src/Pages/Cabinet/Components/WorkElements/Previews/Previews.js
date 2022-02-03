@@ -17,8 +17,8 @@ function Previews({
 }) {
 
     const audioRef = useRef(null);
-    const [audio, setAudio] = useState(null);
-    const [video, setVideo] = useState(null);
+    const [audio, setAudio] = useState('');
+    const [video, setVideo] = useState('');
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -39,33 +39,35 @@ function Previews({
     }
 
     const renderFilePreview = () => {
-        switch (file.mime_type.split('/')[0]) {
-            case 'image': {
-                return <canvas
-                    ref={canvasRef}
-                    className={styles.canvas}
-                />
-            }
-            case 'video': {
-                return <video controls src={video ? video : ''} type={file.mime_type} onError={e => renderError('Failed to open video')}>
-                    <source src={video ? video : ''} type={file.mime_type}/>
-                </video>
-            }
-            case 'audio': {
-                return <div className={styles.audioWrap}>
-                    <div className={styles.audioPicWrap}>
-                        <img className={styles.audioPic} src={`${imageSrc}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
+        if(!loading) {
+            switch (file.mime_type.split('/')[0]) {
+                case 'image': {
+                    return <canvas
+                        ref={canvasRef}
+                        className={styles.canvas}
+                    />
+                }
+                case 'video': {
+                    return <video controls src={video ? video : ''} type={file.mime_type} onError={() => renderOfficePreview('Failed to open video')}>
+                        <source src={video ? video : ''} type={file.mime_type}/>
+                    </video>
+                }
+                case 'audio': {
+                    return <div className={styles.audioWrap}>
+                        <div className={styles.audioPicWrap}>
+                            <img className={styles.audioPic} src={`${imageSrc}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
+                        </div>
+                        <audio ref={audioRef} src={audio ? audio : ''} type={file?.mime_type} controls onError={() => renderOfficePreview('Failed to open audio')}>
+                            <source src={audio ? audio : ''} type={file?.mime_type} />
+                        </audio>
                     </div>
-                    <audio ref={audioRef} src={audio ? audio : ''} type={file?.mime_type} controls onError={e => renderError('Failed to open audio')}>
-                        <source src={audio ? audio : ''} type={file?.mime_type} />
-                    </audio>
-                </div>
-            }
-            case 'application': {
-                return <iframe src={`${projectSrc}${file?.preview}`} title={file?.name} frameBorder="0" scrolling="no" />
-            }
-            default: {
-                return <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>
+                }
+                case 'application': {
+                    return <iframe src={`${projectSrc}${file?.preview}`} title={file?.name} frameBorder="0" scrolling="no" />
+                }
+                default: {
+                    return <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>
+                }
             }
         }
     }
@@ -103,9 +105,9 @@ function Previews({
 
     return(
         <>
-        {loading ? <div className={styles.previewsWrap}>
+        {loading ? null : <div className={styles.previewsWrap}>
             {file?.is_preview === 1 ? renderFilePreview() : renderOfficePreview()}
-        </div> : null}
+        </div>}
         </>
     )
 }
