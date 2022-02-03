@@ -1,0 +1,86 @@
+.wrapper
+    color: #49494B
+    font-size: 12px
+    font-family: "SF Pro Light", sans-serif
+    display: flex
+    flex-direction: column
+    height: 100%
+    .borderBottom
+        border-bottom: 1px solid #DFDFDF
+    .borderTop
+        border-top: 1px solid #DFDFDF
+    .avatarWrapper
+        height: 114px
+        display: flex
+        align-items: center
+        justify-content: center
+        position: relative
+        overflow: hidden
+        .blurBackground
+            background-position: center
+            background-size: cover
+            width: 100%
+            height: 100%
+            filter: blur(20px)
+            opacity: .9
+        .avatar
+            width: 80px
+            height: 80px
+            object-fit: cover
+            object-position: center
+            border-radius: 50%
+            position: absolute
+
+    .menu
+        flex-grow: 1
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        .menuItem
+            display: flex
+            justify-content: space-between
+            align-items: center
+            height: 40px
+            padding: 0 10px
+            .menuItemText
+                color: #AEAEAE
+                margin-right: 10px
+            .textBtn
+                color: #4086F1
+                font-size: 10px
+                padding: 0
+                &:hover
+                    color: blue
+            .triangleIcon
+                width: 5px
+                height: 7px
+                transform: rotate(180deg)
+            cursor: pointer
+            &:hover:not(.hoverDisable)
+                background-color: #EBF1FD
+            &.hoverDisable
+                cursor: default
+        .menuItem.positionRelative
+            position: relative
+            .switcher
+                background: red
+                width: 24px
+                height: 14px
+                background: #F2F2F2
+                border-radius: 10px
+                display: flex
+                align-items: center
+                justify-content: flex-start
+                transition: background 0.1s ease-in-out
+                cursor: pointer
+                .switch
+                    width: 12px
+                    height: 12px
+                    background: #C4C4C4
+                    border-radius: 50%
+                    transform: translateX(9%)
+                    transition: transform 0.1s ease-in-out
+                .switchActive
+                    background: #39B31E
+                    transform: translateX(115%)
+                    transition: transform 0.1s ease-in-out

@@ -25,6 +25,7 @@ import { contextMenuChat } from "../../../../generalComponents/collections";
 import {
 	groupDelete,
 	secretChatDelete,
+	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import {
 	onGetChatMessages,
@@ -58,30 +59,34 @@ const Chat = ({ setMenuItem }) => {
 		selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : "";
 
 	const renderContextMenuItems = (target, type) => {
-		let contextMenuItems = target;
+		let newTarget = target;
+		let newType = type
 		if (selectedContact?.isGroup) {
 			const admins = selectedContact.users
 				.filter((u) => u.is_admin)
 				.map((u) => u.id_user);
-
+			const filterContextMenu = (arr, filter) => arr.filter(item =>  !filter.includes(item.type))
 			if (!admins.includes(userId)) {
 				// user not admin of group
-				const onlyAdminItemsTypes = ["editChatGroup", "deleteUserFromGroup"];
-				const filteredMenu = [...target].filter(
-					(item) => !onlyAdminItemsTypes.includes(item.type)
-				);
-				contextMenuItems = filteredMenu;
+				const onlyAdminItemsTypes = ["editChatGroup", "deleteUserFromGroup", "deleteChatGroup"];
+				newTarget = filterContextMenu(target, onlyAdminItemsTypes);
+				newType = filterContextMenu(type, onlyAdminItemsTypes);
+			} else {
+				// user is admin
+				const onlyNotAdminItemsTypes = ["leaveFromChatGroup"];
+				newTarget = filterContextMenu(target, onlyNotAdminItemsTypes);
+				newType = filterContextMenu(type, onlyNotAdminItemsTypes);
 			}
 		}
-		return contextMenuItems.map((item, i) => {
+		return newTarget.map((item, i) => {
 			return (
 				<ContextMenuItem
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
-					color={type && type[i] && type[i]?.value === messageLifeTime ? '#4086F1' : ''}
+					color={newType && newType[i] && newType[i]?.value === messageLifeTime ? '#4086F1' : ''}
 					text={item.name}
-					callback={() => type[i]?.callback(type, i)}
+					callback={() => newType[i]?.callback(newType, i)}
 					imageSrc={item.img !== undefined ?
 						imageSrc + `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg` : null
 					}
@@ -102,6 +107,17 @@ const Chat = ({ setMenuItem }) => {
 				type: "deleteChatGroup",
 				name: "Удалить",
 				text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+				callback: (list, index) =>
+					setAction({
+						text: list[index].text,
+						type: list[index].type,
+						name: list[index].name,
+					}),
+			},
+			{
+				type: "leaveFromChatGroup",
+				name: "Покинуть",
+				text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
 				callback: (list, index) =>
 					setAction({
 						text: list[index].text,
@@ -173,13 +189,25 @@ const Chat = ({ setMenuItem }) => {
 	};
 
 	const deleteChatGroup = () => {
-		//TODO: add is_admin validation
 		groupDelete(
 			selectedContact,
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Группа удалена"
+			"Группа удалена",
+		);
+		nullifyAction();
+		setSelectedContact(null);
+	};
+
+	const leaveChatGroup = () => {
+		leaveGroup(
+			selectedContact,
+			userId,
+			dispatch,
+			uid,
+			setShowSuccessMessage,
+			"Вы покинули группу",
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -378,6 +406,23 @@ const Chat = ({ setMenuItem }) => {
 										: "profile-noPhoto"
 								}.svg`
 							}
+							alt="group logo"
+						/>
+					</div>
+				</ActionApproval>
+			) : null}
+			{action.type === "leaveFromChatGroup" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={closeContextMenu}
+					callback={leaveChatGroup}
+					approve={"Покинуть"}
+				>
+					<div className={styles.groupLogoWrap}>
+						<img
+							className={styles.groupLogo}
+							src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`}
 							alt="group logo"
 						/>
 					</div>

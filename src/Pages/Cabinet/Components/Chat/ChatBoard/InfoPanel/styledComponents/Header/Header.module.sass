@@ -1,0 +1,29 @@
+.wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: #EBF1FD
+    height: 40px
+    border-bottom: 1px solid #DFDFDF
+    user-select: none
+    .backButton, .searchBtn
+        display: flex
+        justify-content: center
+        align-items: center
+        cursor: pointer
+        margin: 0 10px
+    .searchBtn
+        .searchIcon
+            width: 13px
+            height: 13px
+        &:hover
+            .searchIcon
+                path
+                    fill: #4086F1
+    .backButton
+        height: 7px
+        width: 5px
+        &:hover
+            .triangleIcon
+                g
+                    fill: #4086F1

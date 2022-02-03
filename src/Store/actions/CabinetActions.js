@@ -1059,18 +1059,19 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
         type: SET_MESSAGES,
         payload: []
     })
-
     const uid = getState().user.uid
     const {isGroup} = target
 
     api.get(`/ajax/chat${isGroup ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup ? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
         .then(response => {
             if (response.data.ok) {
-                const messages = Object.values(response.data?.data ?? {});
-                dispatch({
-                    type: SET_MESSAGES,
-                    payload: messages
-                })
+                if (getState().Cabinet.chat.selectedContact.id === target.id) {
+                    const messages = Object.values(response.data?.data ?? {});
+                    dispatch({
+                        type: SET_MESSAGES,
+                        payload: messages
+                    })
+                }
             }
         }).catch(error => {
             console.log(error)
