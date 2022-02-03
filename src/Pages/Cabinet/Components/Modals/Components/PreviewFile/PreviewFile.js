@@ -18,8 +18,10 @@ const PreviewFile = () => {
     const set = e => {
         let close = false;
         if(e?.target?.className === styles.preview) close = true;
-        if(close) dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
+        if(close) closeModal();
     }
+
+    const closeModal = () => dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
 
     return (
         <PopUp set={set} background={'none'} padding='0'>
@@ -39,6 +41,7 @@ const PreviewFile = () => {
                             <Previews
                                 file={file}
                                 canvasRef={canvasRef}
+                                errorHandler={closeModal}
                             />
                         </div> : null}
             </div>
