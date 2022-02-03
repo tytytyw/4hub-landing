@@ -13,6 +13,7 @@ function Previews({
     canvasRef = null,
     width = undefined,
     height = undefined,
+    errorHandler = () => {}
 }) {
 
     const audioRef = useRef(null);
@@ -23,7 +24,10 @@ function Previews({
     const dispatch = useDispatch();
     const error = useSelector(s => s.Cabinet.modals.error);
 
-    const renderError = (message) => dispatch(onSetModals('error', {...error, open: true, message}));
+    const renderError = (message) => {
+        dispatch(onSetModals('error', {...error, open: true, message}));
+        errorHandler(message);
+    }
 
     const renderOfficePreview = () => {
         const isFormat = previewFormats.filter(type => file?.ext.toLowerCase().includes(type)).length > 0;
