@@ -5,19 +5,25 @@ import {imageSrc, projectSrc} from "../../../../../generalComponents/globalVaria
 import File from "../../../../../generalComponents/Files";
 import {previewFormats} from "../../../../../generalComponents/collections";
 import {getMedia, imageToRatio} from "../../../../../generalComponents/generalHelpers";
+import {useDispatch, useSelector} from "react-redux";
+import {onSetModals} from "../../../../../Store/actions/CabinetActions";
 
 function Previews({
     file = null,
     canvasRef = null,
     width = undefined,
     height = undefined,
-    setLoading = () => {}
 }) {
 
     const audioRef = useRef(null);
     const [audio, setAudio] = useState(null);
     const [video, setVideo] = useState(null);
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const error = useSelector(s => s.Cabinet.modals.error);
+
+    const renderError = (message) => dispatch(onSetModals('error', {...error, open: true, message}));
 
     const renderOfficePreview = () => {
         const isFormat = previewFormats.filter(type => file?.ext.toLowerCase().includes(type)).length > 0;
@@ -37,7 +43,7 @@ function Previews({
                 />
             }
             case 'video': {
-                return <video controls src={video ? video : ''} type={file.mime_type} onError={e => console.log(e)}>
+                return <video controls src={video ? video : ''} type={file.mime_type} onError={e => renderError('Failed to open video')}>
                     <source src={video ? video : ''} type={file.mime_type}/>
                 </video>
             }
@@ -46,7 +52,7 @@ function Previews({
                     <div className={styles.audioPicWrap}>
                         <img className={styles.audioPic} src={`${imageSrc}assets/PrivateCabinet/file-preview_audio.svg`} alt='audio'/>
                     </div>
-                    <audio ref={audioRef} src={audio ? audio : ''} type={file?.mime_type} controls onError={e => console.log(e)}>
+                    <audio ref={audioRef} src={audio ? audio : ''} type={file?.mime_type} controls onError={e => renderError('Failed to open audio')}>
                         <source src={audio ? audio : ''} type={file?.mime_type} />
                     </audio>
                 </div>
@@ -76,14 +82,15 @@ function Previews({
                     canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
                 }
             }
+            img.onerror = () => renderError('Failed to load image, try to open it agein')
         }
         if(file.mime_type && file.mime_type.includes('audio') && file.is_preview) {
             setLoading(true);
-            getMedia(`${imageSrc}${file.preview}`, file.mime_type, setAudio, setLoading)
+            getMedia(`${imageSrc}${file.preview}`, file.mime_type, setAudio, setLoading, renderError)
         }
         if(file.mime_type && file.mime_type.includes('video') && file.is_preview) {
             setLoading(true);
-            getMedia(`${imageSrc}${file.preview}`, file.mime_type, setVideo, setLoading)
+            getMedia(`${imageSrc}${file.preview}`, file.mime_type, setVideo, setLoading, renderError)
         }
         return () => {
             if(window.cancelLoadMedia) window.cancelLoadMedia.cancel()
@@ -91,9 +98,11 @@ function Previews({
     }, []); //eslint-disable-line
 
     return(
-        <div className={styles.previewsWrap}>
+        <>
+        {loading ? <div className={styles.previewsWrap}>
             {file?.is_preview === 1 ? renderFilePreview() : renderOfficePreview()}
-        </div>
+        </div> : null}
+        </>
     )
 }
 

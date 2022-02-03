@@ -101,7 +101,8 @@ export const sendFile = async (uid, file) => {
 }
 
 //loading media to play (after problems with Safari)
-export const getMedia = (url, type, set, setLoading) => {
+export const getMedia = (url, type, set = () => {}, setLoading = () => {}, setError = () => {}) => {
+    setLoading(true);
     const cancelLoadMedia = CancelToken.source();
     window.cancellationTokens = {cancelLoadMedia}
     api.get(url, {
@@ -113,9 +114,9 @@ export const getMedia = (url, type, set, setLoading) => {
             let objectURL = URL.createObjectURL(blob);
             set(objectURL);
         })
-        .catch(err => console.log(err))
+        .catch(err => setError('Failed to load media'))
         .finally(() => {
-            if(setLoading) setLoading(false);
+           setLoading(false);
         })
 }
 
