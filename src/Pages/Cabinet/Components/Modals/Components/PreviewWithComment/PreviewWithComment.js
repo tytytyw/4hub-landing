@@ -12,6 +12,7 @@ import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import BlackMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo0.png'
 import WhiteMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
 import Woman from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
+import Previews from "../../../WorkElements/Previews/Previews";
 
 const c = {1: [
         {
@@ -51,8 +52,10 @@ function PreviewWithComment() {
     const canvasWrapRef = useRef(null);
     const previewImageWithComment = useSelector(s => s.Cabinet.modals.previewWithComments);
     const [chosenFile, setChosenFile] = useState(previewImageWithComment.chosenFile || null);
-    const [params, setParams] = useState({comments: c, renderedFirstImage: false});
+    const [params, setParams] = useState({comments: c, renderedFirstImage: false, loading: false});
     const dispatch = useDispatch();
+
+    const setLoading = (loading) => setParams(s  => ({...s, loading}))
 
     const renderImages = () => {
         if(!previewImageWithComment?.files) return null;
@@ -133,11 +136,18 @@ function PreviewWithComment() {
                     />
                 </div>
                 <div className={styles.drawPanel} ref={canvasWrapRef}>
-                    <canvas
-                        ref={canvasRef}
+                    {/*<canvas*/}
+                    {/*    ref={canvasRef}*/}
+                    {/*    width={canvasWrapRef?.current?.getBoundingClientRect().width}*/}
+                    {/*    height={canvasWrapRef?.current?.getBoundingClientRect().height}*/}
+                    {/*    className={styles.canvas}*/}
+                    {/*/>*/}
+                    <Previews
+                        file={chosenFile}
+                        canvasRef={canvasRef}
                         width={canvasWrapRef?.current?.getBoundingClientRect().width}
                         height={canvasWrapRef?.current?.getBoundingClientRect().height}
-                        className={styles.canvas}
+                        setLoading={setLoading}
                     />
                     {params.comments ? <div className={styles.comments}>
                         {renderGroup(params.comments)}
