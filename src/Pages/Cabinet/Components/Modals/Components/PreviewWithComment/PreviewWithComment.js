@@ -110,7 +110,7 @@ function PreviewWithComment() {
 
     //rendering chosen image on opening modal
     useEffect(() => {
-        if(previewImageWithComment?.chosenFile?.preview && canvasRef?.current.getBoundingClientRect().width > 0 && !params.renderedFirstImage) {
+        if(canvasRef.current && previewImageWithComment?.chosenFile?.preview && canvasRef?.current.getBoundingClientRect().width > 0 && !params.renderedFirstImage) {
             setParams(s => ({...s, renderedFirstImage: true}))
             drawCanvas(canvasRef?.current, previewImageWithComment.chosenFile.preview)
         }
@@ -136,15 +136,9 @@ function PreviewWithComment() {
                     />
                 </div>
                 <div className={styles.drawPanel} ref={canvasWrapRef}>
-                    {/*<canvas*/}
-                    {/*    ref={canvasRef}*/}
-                    {/*    width={canvasWrapRef?.current?.getBoundingClientRect().width}*/}
-                    {/*    height={canvasWrapRef?.current?.getBoundingClientRect().height}*/}
-                    {/*    className={styles.canvas}*/}
-                    {/*/>*/}
                     <Previews
                         file={chosenFile}
-                        canvasRef={canvasRef}
+                        ref={canvasRef}
                         width={canvasWrapRef?.current?.getBoundingClientRect().width}
                         height={canvasWrapRef?.current?.getBoundingClientRect().height}
                         setLoading={setLoading}

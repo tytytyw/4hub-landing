@@ -40,7 +40,7 @@ const PreviewFile = () => {
                             /> : null}
                             <Previews
                                 file={file}
-                                canvasRef={canvasRef}
+                                ref={canvasRef}
                                 errorHandler={closeModal}
                             />
                         </div> : null}
