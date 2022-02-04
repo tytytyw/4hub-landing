@@ -25,7 +25,7 @@ const WorkBarsPreview = ({
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
     const uid = useSelector(state => state.user.uid);
-    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
     const [previewReq, setPreviewReq] = useState({sent: false, data: null});
     const dispatch = useDispatch();
     

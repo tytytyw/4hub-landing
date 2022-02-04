@@ -30,7 +30,7 @@ const WorkLinesPreview = ({
 	const [color, setColor] = useState(null);
 	const [f, setF] = useState(file);
 	const uid = useSelector((state) => state.user.uid);
-	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 	const [previewReq, setPreviewReq] = useState({ sent: false, data: null });
     const dispatch = useDispatch();
 

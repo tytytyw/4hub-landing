@@ -22,9 +22,9 @@ const WorkBars = ({
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 	const search = useSelector((state) => state.Cabinet.search);
-	const fileList = useSelector((state) => state.Cabinet.fileList);
+	const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
 	const dispatch = useDispatch();
-	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
 	const load = (entry) => {
 		if (!gLoader && authorizedSafe) {

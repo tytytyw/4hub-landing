@@ -140,7 +140,7 @@ const ChatBoard = ({
 			socket?.removeEventListener("close", onConnectClose);
 			socket?.close();
 		};
-	}, [socket]);
+	}, [socket]); //eslint-disable-line
 
 	return (
 		<div className={styles.chatBoardWrap}>

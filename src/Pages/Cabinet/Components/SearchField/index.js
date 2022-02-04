@@ -12,7 +12,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 	const inputRef = useRef(null);
 	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
 	const searchField = useSelector(state => state.Cabinet?.search);
-	const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
 	const dispatch = useDispatch();
 
 	const search = (query) => {

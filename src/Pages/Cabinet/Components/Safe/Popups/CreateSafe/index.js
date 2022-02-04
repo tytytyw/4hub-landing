@@ -32,7 +32,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 	const [showPass, setShowPass] = useState("");
 	const [error, setError] = useState(false);
 
-	const codeToTel = useSelector((state) => state.Cabinet.safeCodeToTel);
+	const codeToTel = useSelector((state) => state.Cabinet.safe.safeCodeToTel);
 
 	const renderTags = () => {
 		return tags.map((tag, i) => {

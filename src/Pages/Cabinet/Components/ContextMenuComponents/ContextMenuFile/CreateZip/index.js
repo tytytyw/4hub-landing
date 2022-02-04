@@ -16,7 +16,7 @@ import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {onChooseFiles, onGetSafeFileList} from '../../../../../../Store/actions/CabinetActions';
 import {useLocation} from "react-router";
 
-const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType }) => {
+const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType, filesPage }) => {
 
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
@@ -33,7 +33,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
     const [visibility, setVisibility] = useState('password');
     const dispatch = useDispatch();
     const {pathname} = useLocation()
-    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -65,7 +65,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
 
             api.post(`/ajax/${pathname === '/safe' ? 'safe_' : ''}file_zip.php`, data)
                 .then(() => {
-                    dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType) : onChooseFiles(fileList.path));
+                    dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType, '', filesPage, "") : onChooseFiles(fileList.path));
                     setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     onCancel();
                 })

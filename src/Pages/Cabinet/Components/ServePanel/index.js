@@ -53,7 +53,7 @@ const ServePanel = ({
     const search = useSelector(state => state.Cabinet.search);
     const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
     const fileList = useSelector(state => state.Cabinet.fileList);
-    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
     const dispatch = useDispatch();
 
     const {pathname} = useLocation()

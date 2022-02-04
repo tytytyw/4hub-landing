@@ -54,10 +54,10 @@ const Safe = ({
 	const [chosenFile, setChosenFile] = useState(null);
 	const [mouseParams, setMouseParams] = useState(null);
 
-	const safes = useSelector((state) => state.Cabinet.safes);
-	const fileList = useSelector((state) => state.Cabinet.safeFileList);
+	const safes = useSelector((state) => state.Cabinet.safe.safes);
+	const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 	const [listCollapsed, setListCollapsed] = useState("");
 	const [selectedSafe, setSelectedSafe] = useState(null);
 	const [createSafe, setCreateSafe] = useState(false);

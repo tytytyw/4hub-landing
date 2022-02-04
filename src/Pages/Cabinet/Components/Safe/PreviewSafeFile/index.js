@@ -10,7 +10,7 @@ import File from "../../../../../generalComponents/Files";
 const PreviewSafeFile = ({setFilePreview, file, filePreview, setLoadingType}) => {
 
     const uid = useSelector(state => state.user.uid);
-    const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
 
     const standardPrev = <div className={styles.filePreviewWrapWrap}><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div>;
 

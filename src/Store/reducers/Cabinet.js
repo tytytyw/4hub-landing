@@ -99,10 +99,12 @@ const INITIAL_STATE = {
     categories: [],
 
     //SAFE
-    safeFileList: null,
-    safes: null,
-    authorizedSafe: null,
-    safeCodeToTel: '',
+    safe: {
+        safeFileList: null,
+        safes: null,
+        authorizedSafe: null,
+        safeCodeToTel: '',
+    },
 
     //PROJECT
     project: {
@@ -264,11 +266,11 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileList: {...state.fileList, files}, fileListAll: state.fileListAll ? {...state.fileListAll, files: filesAll} : null}
         }
         case CUSTOMIZE_SAFE_FILE: {
-            const safeFiles = state.safeFileList.map(file => {
+            const safeFiles = state.safe.safeFileList.map(file => {
                 if(file.fid !== action.payload.fid) return file;
                 return action.payload;
             });
-            return {...state, safeFileList: safeFiles}
+            return {...state, safe: {...state.safe, safeFileList: safeFiles}}
         }
         case SET_SIZE:
             return {...state, size: action.payload}
@@ -357,18 +359,18 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         //SAFE
         case CODE_TEL:
-            return {...state, safeCodeToTel: action.payload}
+            return {...state, safe: {...state.safe, safeCodeToTel: action.payload}}
         case GET_SAFES:
-            return {...state, safes: action.payload}
+            return {...state, safe: {...state.safe, safes: action.payload}}
         case AUTHORIZED_SAFE:
-            return {...state, authorizedSafe: action.payload}
+            return {...state, safe: {...state.safe, authorizedSafe: action.payload}}
         case CHOOSE_SAFE_FILELIST:
-            return {...state, safeFileList: {...action.payload}};
+            return {...state, safe: {...state.safe, safeFileList: {...action.payload}}};
         case LOAD_SAFE_FILELIST:
-            return {...state, safeFileList: {...state.safeFileList, files: [...state.safeFileList?.files, ...action.payload.files]}};
+            return {...state, safe: {...state.safe, safeFileList: {...state.safe.safeFileList, files: [...state.safe.safeFileList?.files, ...action.payload.files]}}};
         case SAFE_FILE_DELETE: {
-            const files = state.safeFileList.filter(el => el.fid !== action.payload)
-            return {...state, safeFileList: files};
+            const files = state.safe.safeFileList.files.filter(el => el.fid !== action.payload)
+            return {...state, safe: {...state.safe, safeFileList: files}};
         }
 
         //PROJECT

@@ -61,7 +61,7 @@ const WorkSpace = ({
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 	const uid = useSelector((state) => state.user.uid);
 
 	const [mouseParams, setMouseParams] = useState(null);
@@ -498,6 +498,7 @@ const WorkSpace = ({
 					nullifyFilePick={nullifyFilePick}
 					setShowSuccessMessage={setShowSuccessMessage}
 					setLoadingType={setLoadingType}
+					filesPage={filesPage}
 				/>
 			) : null}
 
