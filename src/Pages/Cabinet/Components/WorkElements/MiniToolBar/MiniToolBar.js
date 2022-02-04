@@ -190,7 +190,10 @@ const MiniToolBar = ({
                     }}}
                 >{addButton(<div className={styles.compareWrap}><PhotoIcon className={`${!params.edit && styles.inActive}`} /><PhotoIcon className={`${!params.edit && styles.inActive}`} /></div>)}</div>
                 <div className={styles.manageButtons}>
-                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));}}>Отменить</span>
+                    <span className={`${styles.button} ${styles.cancel}`} onClick={() => {
+                        dispatch(onSetModals('previewFile', {...previewFile, open: false, file: null}));
+                        dispatch(onSetModals('previewWithComments', {...previewFile, open: false, files: [], chosenFile: null}));
+                    }}>Отменить</span>
                     <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>{params.edit ? "Сохранить" : "Редактировать"}</span>
                     {share !== null ? <span
                         className={`${styles.button} ${styles.send}`}
