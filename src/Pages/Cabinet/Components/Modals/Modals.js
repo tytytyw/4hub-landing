@@ -7,7 +7,7 @@ import Success from "../../../../generalComponents/Success";
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
-import PreviewImageWithComment from "./Components/PreviewImageWithComment/PreviewImageWithComment";
+import PreviewWithComment from "./Components/PreviewWithComment/PreviewWithComment";
 import PrintScreen from "./Components/PrintScreen/PrintScreen";
 import PreviewFile from "./Components/PreviewFile/PreviewFile";
 
@@ -56,7 +56,7 @@ function Modals ({
             background='rgba(256, 256, 256, 0.5)'
             animation={false}
         /> : null}
-        {previewImageWithComment.open ? <PreviewImageWithComment /> : null}
+        {previewImageWithComment.open ? <PreviewWithComment /> : null}
         {printScreen.open ? <PrintScreen /> : null}
         {previewFile.open ? <PreviewFile /> : null}
     </>

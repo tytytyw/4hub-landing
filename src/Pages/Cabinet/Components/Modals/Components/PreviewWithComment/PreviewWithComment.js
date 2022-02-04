@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import styles from './PreviewImageWithComment.module.sass';
+import styles from './PreviewWithComment.module.sass';
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classnames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +12,7 @@ import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import BlackMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo0.png'
 import WhiteMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
 import Woman from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
+import Previews from "../../../WorkElements/Previews/Previews";
 
 const c = {1: [
         {
@@ -45,14 +46,16 @@ const c = {1: [
     ]
 }
 
-function PreviewImageWithComment() {
+function PreviewWithComment() {
 
     const canvasRef = useRef(null);
     const canvasWrapRef = useRef(null);
     const previewImageWithComment = useSelector(s => s.Cabinet.modals.previewWithComments);
     const [chosenFile, setChosenFile] = useState(previewImageWithComment.chosenFile || null);
-    const [params, setParams] = useState({comments: c, renderedFirstImage: false});
+    const [params, setParams] = useState({comments: c, renderedFirstImage: false, loading: false});
     const dispatch = useDispatch();
+
+    const setLoading = (loading) => setParams(s  => ({...s, loading}))
 
     const renderImages = () => {
         if(!previewImageWithComment?.files) return null;
@@ -107,7 +110,7 @@ function PreviewImageWithComment() {
 
     //rendering chosen image on opening modal
     useEffect(() => {
-        if(previewImageWithComment?.chosenFile?.preview && canvasRef?.current.getBoundingClientRect().width > 0 && !params.renderedFirstImage) {
+        if(canvasRef.current && previewImageWithComment?.chosenFile?.preview && canvasRef?.current.getBoundingClientRect().width > 0 && !params.renderedFirstImage) {
             setParams(s => ({...s, renderedFirstImage: true}))
             drawCanvas(canvasRef?.current, previewImageWithComment.chosenFile.preview)
         }
@@ -133,11 +136,12 @@ function PreviewImageWithComment() {
                     />
                 </div>
                 <div className={styles.drawPanel} ref={canvasWrapRef}>
-                    <canvas
+                    <Previews
+                        file={chosenFile}
                         ref={canvasRef}
                         width={canvasWrapRef?.current?.getBoundingClientRect().width}
                         height={canvasWrapRef?.current?.getBoundingClientRect().height}
-                        className={styles.canvas}
+                        setLoading={setLoading}
                     />
                     {params.comments ? <div className={styles.comments}>
                         {renderGroup(params.comments)}
@@ -148,4 +152,4 @@ function PreviewImageWithComment() {
     </PopUp>)
 }
 
-export default PreviewImageWithComment;
+export default PreviewWithComment;
