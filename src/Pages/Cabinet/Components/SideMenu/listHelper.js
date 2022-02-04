@@ -13,7 +13,7 @@ export const menu = [
     },
     {
         name: 'Чат',
-        path: '/chat',
+        path: '/chat-page',
         src: `${imageSrc}assets/PrivateCabinet/sms.svg`
     },
     {
@@ -116,7 +116,7 @@ export const businessMenu = [
     },
     {
         name: 'Чат',
-        path: '/chat',
+        path: '/chat-page',
         src: `${imageSrc}assets/PrivateCabinet/sms.svg`
     },
     {
