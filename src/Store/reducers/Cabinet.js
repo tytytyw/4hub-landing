@@ -58,7 +58,8 @@ import {
     CHAT_SELECTED_CONTACT,
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
-    SET_MESSAGES,
+    GET_MESSAGES,
+    ADD_NEW_MESSAGE,
     SET_MESSAGE_LIFE_TIME,
     CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
@@ -301,8 +302,11 @@ export default function startPage(state = INITIAL_STATE, action) {
             const secretChats = state.chat.secretChatsList.filter(gr => gr.id !== action.payload.id)
             return {...state, chat: {...state.chat, secretChatsList: secretChats}}
         }
-        case SET_MESSAGES: {
+        case GET_MESSAGES: {
             return {...state, chat: {...state.chat, messages: action.payload}}
+        }
+        case ADD_NEW_MESSAGE: {
+            return {...state, chat: {...state.chat, messages: [...state.chat.messages, action.payload]}}
         }
         case SET_MESSAGE_LIFE_TIME: {
             return {...state, chat: {...state.chat, messageLifeTime: action.payload}}

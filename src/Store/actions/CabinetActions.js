@@ -66,7 +66,8 @@ import {
     CHAT_SELECTED_CONTACT,
     SECRET_CHATS_LIST,
     SET_MESSAGE_LIFE_TIME,
-    SET_MESSAGES,
+    ADD_NEW_MESSAGE,
+    GET_MESSAGES,
     SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
@@ -1056,7 +1057,7 @@ export const onDeleteSecretChat = (secretChat) => {
 
 export const onGetChatMessages = (target) => (dispatch, getState) => {
     dispatch({
-        type: SET_MESSAGES,
+        type: GET_MESSAGES,
         payload: []
     })
     const uid = getState().user.uid
@@ -1068,7 +1069,7 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
                 if (getState().Cabinet.chat.selectedContact.id === target.id) {
                     const messages = Object.values(response.data?.data ?? {});
                     dispatch({
-                        type: SET_MESSAGES,
+                        type: GET_MESSAGES,
                         payload: messages
                     })
                 }
@@ -1078,6 +1079,13 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
         })
 
 };
+
+export const addNewChatMessage = (msg) => (dispatch, getState) => {
+    dispatch({
+        type: ADD_NEW_MESSAGE,
+        payload: msg
+    })
+}
 
 export const onSetSelectedContact = (contact) => {
     return {

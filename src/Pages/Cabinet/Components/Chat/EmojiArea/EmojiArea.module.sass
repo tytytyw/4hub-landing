@@ -1,4 +1,11 @@
+@keyframes open
+    0%
+        transform: translateX(200px)
+    99%
+        transform: translateX(0)
+
 .emojiAreaWrap
+  animation: open .2s ease-in-out
   display: flex
   align-items: center
   flex-direction: column

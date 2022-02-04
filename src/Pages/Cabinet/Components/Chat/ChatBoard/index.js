@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import styles from "./ChatBoard.module.sass";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/add-2.svg";
 import { ReactComponent as SmileIcon } from "../../../../../assets/PrivateCabinet/smile.svg";
@@ -7,16 +6,16 @@ import { ReactComponent as RadioIcon } from "../../../../../assets/PrivateCabine
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { ReactComponent as SendIcon } from "../../../../../assets/PrivateCabinet/send.svg";
 import { ReactComponent as TimerIcon } from "../../../../../assets/PrivateCabinet/alarmClock.svg";
-
 import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
 import SecretChatStartWallpaper from "./SecretChatStartWallpaper";
 import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 import InviteUser from "./InviteUser";
 import Message from "./Message";
 import InfoPanel from "./InfoPanel";
+import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 
 const ChatBoard = ({
 	inputRef,
@@ -41,7 +40,10 @@ const ChatBoard = ({
 
 	const [textAreaValue, setTextAreaValue] = useState("");
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
-	// const uid = useSelector((state) => state.user.uid);
+	const uid = useSelector((state) => state.user.uid);
+
+	const [socket, setSocket] = useState(null);
+	const dispatch = useDispatch();
 
 	const renderMessages = (messages) => {
 		if (selectedContact?.is_secret_chat && messages?.length === 0)
@@ -61,6 +63,19 @@ const ChatBoard = ({
 			setTextAreaValue("");
 			inputRef.current.style.height = "25px";
 		});
+
+		//TODO:
+		socket.send(
+			JSON.stringify({
+				action: "chat_message_send",
+				uid,
+				id_contact: selectedContact.id,
+				id_user_to: selectedContact.id_real_user,
+				text,
+				// is param added manually?
+				id_user: userId
+			})
+		);
 	};
 
 	//TODO - Need to change after chat is developed
@@ -84,28 +99,65 @@ const ChatBoard = ({
 	};
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
-	//TODO connect to webSockets
-	// const socket = new WebSocket("wss://fs2.mh.net.ua/ws/");
-	// socket.onmessage = function (e) {
-	// 	console.log(`[message] ${e.data}`);
-	// };
-	// useEffect(() => {
-	// 	socket.onopen = function (e) {
-	// 		JSON.stringify({action:'joined', uid, user: 'nick'})
-	// 	};
-	// 	return () => socket.close();
-	// }, []);
+	// TODO: webSockets
+	const onConnectOpen = (e) => {
+		socket.send(JSON.stringify({ action: "uid", uid }));
+	};
+
+	const onWebSocketsMessage = (e) => {
+		const data = JSON.parse(e.data);
+
+		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
+		if (data.action === "PublicMessage") {
+			const newMsg = {
+				id: "15", //fake
+				id_user: data.id_user,
+				id_user_to: data.id_user_to,
+				text: data.text,
+				// ut: "2022-01-21 10:47:13",
+			}
+			dispatch(addNewChatMessage(newMsg))
+		}
+	};
+
+	const onConnectClose = (e) => {
+		console.log("connection closed", e);
+	};
+
+	useEffect(() => {
+		setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
+	}, []);
+
+	useEffect(() => {
+		if (socket) {
+			socket.addEventListener("open", onConnectOpen);
+			socket.addEventListener("close", onConnectClose);
+			socket.addEventListener("message", onWebSocketsMessage);
+		}
+		return () => {
+			socket?.removeEventListener("message", onWebSocketsMessage);
+			socket?.removeEventListener("open", onConnectOpen);
+			socket?.removeEventListener("close", onConnectClose);
+			socket?.close();
+		};
+	}, [socket]);
 
 	return (
 		<div className={styles.chatBoardWrap}>
 			{selectedContact ? (
-				<ServePanel selectedContact={selectedContact} setAction={setAction} setRightPanelContentType={setRightPanelContentType} />
+				<ServePanel
+					selectedContact={selectedContact}
+					setAction={setAction}
+					setRightPanelContentType={setRightPanelContentType}
+				/>
 			) : (
 				""
 			)}
 			<main className={styles.chatBoardMessageList}>
 				<div
-					style={{ width: rightPanelContentType ? "calc(100% - 200px)" : "100%" }}
+					style={{
+						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
+					}}
 					className={styles.chatArea}
 				>
 					{contactList?.length === 0 && boardOption === "contacts" ? (
@@ -172,7 +224,9 @@ const ChatBoard = ({
 						title="Смайлики"
 						className={styles.button}
 						onClick={() =>
-							setRightPanelContentType((state) => (state === "emo" ? "" : "emo"))
+							setRightPanelContentType((state) =>
+								state === "emo" ? "" : "emo"
+							)
 						}
 					>
 						<SmileIcon title="" />
