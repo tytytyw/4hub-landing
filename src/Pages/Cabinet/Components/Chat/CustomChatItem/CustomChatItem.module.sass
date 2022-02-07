@@ -38,11 +38,16 @@
         flex-direction: column
         justify-content: center
         align-items: flex-start
+        max-width: 180px
         .title
             display: flex
             align-items: center
             font-size: 16px
             color: rgb(73, 73, 73)
+            max-width: 100%
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
             .secretChatIcon
                 height: 15px
                 width: 15px
@@ -52,6 +57,10 @@
         .subtitle
             font-size: 11px
             color: rgb(133, 133, 133)
+            text-overflow: ellipsis
+            overflow: hidden
+            white-space: nowrap
+            max-width: 100%
     .radioContact
         width: 18px
         height: 18px
@@ -106,6 +115,24 @@
             bottom: 0
             path
                 fill: #4086F1
+.rightWrap
+    display: flex
+    align-items: center
+    .notificationsCounter
+        background-color: #D72419
+        border-radius: 50%
+        min-width: 16px
+        min-height: 16px
+        display: flex
+        align-items: center
+        justify-content: center
+        font-size: 9px
+        color: #fff
+        margin-right: 5px
+        line-height: 16px
+        animation: showCounter 2.2s ease-in-out
+        &.hidden
+            display: none
             
 @media (max-width: 1440px)
     .item

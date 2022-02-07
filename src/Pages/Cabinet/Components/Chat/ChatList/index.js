@@ -37,7 +37,9 @@ const ChatList = ({
 	const [chatsList, setChatList] = useState([])
     const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
 	const gmt = useSelector(state => state?.user?.userInfo?.gmt) // server time zone
-
+	const recentGroupsMessages = useSelector((state) => state.Cabinet.chat.recentGroupsMessages);
+	const notificationsCounter = useSelector((state) => state.Cabinet.chat.notificationsCounter);
+	
 	useEffect(() => {
 		dispatch(onGetChatGroups());
 		dispatch(onGetReсentChatsList());
@@ -118,7 +120,7 @@ const ChatList = ({
 						chatItem={group}
 						key={group.id}
 						title={group?.name}
-						subtitle={"last message"}
+						subtitle={recentGroupsMessages[group.id_group] || ''}
 						avatar={
 							group?.icon?.[0] ||
 							`${imageSrc}assets/PrivateCabinet/chatGroup.svg`
@@ -129,6 +131,7 @@ const ChatList = ({
 						} участников группы ( ${group.users.filter(user => user?.is_online === 1).length} онлайн )`}
 						setMouseParams={setMouseParams}
 						contextMenuList={'group'}
+						notificationsCounter={notificationsCounter[`group_${group.id_group}`]}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>

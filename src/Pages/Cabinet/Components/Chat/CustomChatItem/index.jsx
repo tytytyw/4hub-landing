@@ -18,7 +18,8 @@ const CustomChatItem = ({
 	disableHover = false,
 	setMouseParams = () => {},
 	contextMenuList = '',
-	paddingRight = ''
+	paddingRight = '',
+	notificationsCounter = null,
 }) => {
 	const onChatItemClick = (e, isMenu) => {
 		if (isMenu)
@@ -64,7 +65,8 @@ const CustomChatItem = ({
 					</div>
 				)}
 			</div>
-			<div className={styles.functionWrap}>
+			<div className={styles.rightWrap}>
+				<div className={classNames({[styles.notificationsCounter]: true, [styles.hidden]: !notificationsCounter})}>{notificationsCounter}</div>
 				{contextMenu === "contextMenu" ? (
 					<div
 						className={styles.menuWrap}

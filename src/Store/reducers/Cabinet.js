@@ -53,6 +53,9 @@ import {
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
+    NEW_LAST_GROUP_MESSAGE,
+    SET_NOTIFICATION_COUNTER,
+    INCREASE_NOTIFICATION_COUNTER,
     RESENT_CHATS_LIST,
     SECRET_CHATS_LIST,
     CHAT_SELECTED_CONTACT,
@@ -163,6 +166,8 @@ const INITIAL_STATE = {
     //CHAT
     chat: {
         groupsList: [],
+        recentGroupsMessages: {},
+        notificationsCounter: {},
         recentChatsList: [],
         secretChatsList: [],
         selectedContact: null,
@@ -309,6 +314,15 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case ADD_NEW_MESSAGE: {
             return {...state, chat: {...state.chat, messages: [...state.chat.messages, action.payload]}}
+        }
+        case NEW_LAST_GROUP_MESSAGE: {
+            return {...state, chat: {...state.chat, recentGroupsMessages: {...state.chat.recentGroupsMessages, [action.payload.id_group]: action.payload.text}}}
+        }
+        case SET_NOTIFICATION_COUNTER: {
+            return {...state, chat: {...state.chat, notificationsCounter: {...state.chat.notificationsCounter, [action.payload.id]: action.payload.value}}}
+        }
+        case INCREASE_NOTIFICATION_COUNTER: {
+            return {...state, chat: {...state.chat, notificationsCounter: {...state.chat.notificationsCounter, [action.payload]: (state.chat.notificationsCounter[action.payload] || 0) + 1}}}
         }
         case SET_MESSAGE_LIFE_TIME: {
             return {...state, chat: {...state.chat, messageLifeTime: action.payload}}

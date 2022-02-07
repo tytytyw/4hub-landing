@@ -53,13 +53,18 @@ const ChatBoard = ({
 		if (!messages?.length || !selectedContact) return null;
 		return messages.map((msg, index) => {
 			return (
-				<Message message={msg} selectedContact={selectedContact} key={index} currentDate={currentDate} />
+				<Message
+					message={msg}
+					selectedContact={selectedContact}
+					key={index}
+					currentDate={currentDate}
+				/>
 			);
 		});
 	};
 	const addMessage = (text) => {
 		//TODO:
-		if (text) {
+		if (text && socket) {
 			const sendMessage = (params) => {
 				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
 			};
@@ -127,9 +132,27 @@ const ChatBoard = ({
 				ut: data.api?.ut_message,
 				isNewMessage: true,
 			};
+			if (data.is_group && selectedContact.isGroup) {
+				dispatch({
+					type: "NEW_LAST_GROUP_MESSAGE",
+					payload: { id_group: data.id_group, text: data.text },
+				});
+
+				if (data.id_group !== selectedContact.id_group)
+					dispatch({
+						type: "INCREASE_NOTIFICATION_COUNTER",
+						payload: `group_${data.id_group}`
+					});
+			}
+
 			if (
-				(data.is_group && selectedContact.isGroup && data.id_group === selectedContact.id) ||
-				(!data.is_group && !selectedContact.isGroup && (data.id_contact === selectedContact.id || data.id_user_to === userId))
+				(data.is_group &&
+					selectedContact.isGroup &&
+					data.id_group === selectedContact.id) ||
+				(!data.is_group &&
+					!selectedContact.isGroup &&
+					(data.id_contact === selectedContact.id ||
+						data.id_user_to === userId))
 			) {
 				dispatch(addNewChatMessage(newMsg));
 			} else {
@@ -152,6 +175,12 @@ const ChatBoard = ({
 	}, [socketReconnect]); //eslint-disable-line
 
 	useEffect(() => {
+		//TODO: move to Store
+		if (selectedContact) dispatch({
+			type: "SET_NOTIFICATION_COUNTER",
+			payload: {id: selectedContact.isGroup ? `group_${selectedContact.id_group}` :  `contact_${selectedContact.id}`, value: 0}
+		});
+
 		if (socket) {
 			socket.addEventListener("open", onConnectOpen);
 			socket.addEventListener("close", onConnectClose);
