@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
 import CreateChat from "../CreateChat";
@@ -10,7 +11,6 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 
 const WorkSpace = ({
-	selectedContact,
 	sideMenuCollapsed,
 	boardOption,
 	setShowSuccessPopup,
@@ -20,6 +20,9 @@ const WorkSpace = ({
 	setAction,
 	setMouseParams
 }) => {
+	const selectedContact = useSelector(
+		(state) => state.Cabinet.chat.selectedContact
+	);
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const inputRef = useRef();
 	const insertToInput = (value) => {
@@ -50,13 +53,13 @@ const WorkSpace = ({
 					<ChatBoard
 						inputRef={inputRef}
 						setCursorPosition={setCursorPosition}
-						selectedContact={selectedContact}
 						insertToInput={insertToInput}
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
 						setAction={setAction}
 						setMouseParams={setMouseParams}
+						currentDate={currentDate}
 					/>
 				) : (
 					""

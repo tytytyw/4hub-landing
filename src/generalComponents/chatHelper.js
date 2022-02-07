@@ -82,3 +82,19 @@ export const createContactStatus = (
 	//not this year
 	return `был в сети ${lastVisitDate}`;
 };
+
+export const messageTime = (currentDate, message_ut, gmt) => {
+	if (!gmt || !message_ut || !currentDate) return "";
+
+	const date = new Date(message_ut + ` GMT${gmt < 0 ? "" : "+"}${gmt}`);
+	const time = date.toLocaleTimeString("ru");
+	const minutesDifference = (currentDate - new Date(date)) / 60000;
+
+	if (minutesDifference >= 60) {
+		return time.slice(0, time.lastIndexOf(':'))
+	} else {
+		return minutesDifference >= 1
+		? `${Math.floor(minutesDifference)} мин назад`
+		: 'менее минуты назад'
+	}
+}

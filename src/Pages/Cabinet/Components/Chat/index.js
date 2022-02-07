@@ -310,7 +310,6 @@ const Chat = ({ setMenuItem }) => {
 						<ContactList
 							search={search}
 							sideMenuCollapsed={sideMenuCollapsed}
-							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
 							currentDate={date}
@@ -321,7 +320,6 @@ const Chat = ({ setMenuItem }) => {
 						<ChatList
 							search={search}
 							sideMenuCollapsed={sideMenuCollapsed}
-							selectedContact={selectedContact}
 							setSelectedContact={setSelectedContact}
 							setAction={setAction}
 							mouseParams={mouseParams}
@@ -336,7 +334,6 @@ const Chat = ({ setMenuItem }) => {
 			</div>
 			<WorkSpace
 				boardOption={boardOption}
-				selectedContact={selectedContact}
 				sideMenuCollapsed={sideMenuCollapsed}
 				setShowSuccessPopup={setShowSuccessPopup}
 				nullifyAction={nullifyAction}

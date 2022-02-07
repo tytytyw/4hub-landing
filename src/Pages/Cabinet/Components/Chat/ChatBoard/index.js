@@ -26,6 +26,7 @@ const ChatBoard = ({
 	setShowSuccessPopup,
 	setAction,
 	setMouseParams,
+	currentDate,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -52,7 +53,7 @@ const ChatBoard = ({
 		if (!messages?.length || !selectedContact) return null;
 		return messages.map((msg, index) => {
 			return (
-				<Message message={msg} selectedContact={selectedContact} key={index} />
+				<Message message={msg} selectedContact={selectedContact} key={index} currentDate={currentDate} />
 			);
 		});
 	};
@@ -124,6 +125,7 @@ const ChatBoard = ({
 				id_user_to: data.api?.id_user_to,
 				text: data.text,
 				ut: data.api?.ut_message,
+				isNewMessage: true,
 			};
 			if (
 				(data.is_group && selectedContact.isGroup && data.id_group === selectedContact.id) ||
@@ -146,7 +148,8 @@ const ChatBoard = ({
 			setSocketReconnect(false);
 			setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
 		}
-	}, [socketReconnect]);
+		return () => socket?.close();
+	}, [socketReconnect]); //eslint-disable-line
 
 	useEffect(() => {
 		if (socket) {
@@ -158,9 +161,8 @@ const ChatBoard = ({
 			socket?.removeEventListener("message", onWebSocketsMessage);
 			socket?.removeEventListener("open", onConnectOpen);
 			socket?.removeEventListener("close", onConnectClose);
-			socket?.close();
 		};
-	}, [socket]); //eslint-disable-line
+	}, [socket, selectedContact]); //eslint-disable-line
 
 	return (
 		<div className={styles.chatBoardWrap}>

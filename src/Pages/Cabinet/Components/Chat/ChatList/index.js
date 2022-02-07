@@ -17,7 +17,6 @@ import {
 const ChatList = ({
 	search,
 	sideMenuCollapsed,
-	selectedContact,
 	setSelectedContact,
 	setAction,
 	mouseParams,
@@ -28,6 +27,9 @@ const ChatList = ({
 	const [chatsType, setChatsType] = useState("chats");
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
+	const selectedContact = useSelector(
+		(state) => state.Cabinet.chat.selectedContact
+	);
 
 	//TODO: Chats list
 	const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
@@ -53,7 +55,6 @@ const ChatList = ({
 			if (!( chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null;
 			return (
 				<CustomChatItem
-					selectedContact={selectedContact}
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={chat}
@@ -78,7 +79,6 @@ const ChatList = ({
 			if (member.id_user === userId) return null
 			return (
 				<CustomChatItem
-					selectedContact={selectedContact}
 					setSelectedContact={() => {}}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={member}
@@ -110,7 +110,6 @@ const ChatList = ({
 			return (
 				<div key={"wrap_" + group.id}>
 					<CustomChatItem
-						selectedContact={selectedContact}
 						setSelectedContact={setSelectedContact}
 						sideMenuCollapsed={sideMenuCollapsed}
 						chatItem={group}

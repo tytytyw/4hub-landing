@@ -15,7 +15,6 @@ import CustomChatItem from "../CustomChatItem";
 const ContactList = ({
 	search,
 	sideMenuCollapsed,
-	selectedContact,
 	setSelectedContact,
 	setAction,
 	currentDate,
@@ -24,6 +23,9 @@ const ContactList = ({
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
+	);
+	const selectedContact = useSelector(
+		(state) => state.Cabinet.chat.selectedContact
 	);
 	const gmt = useSelector(state => state?.user?.userInfo?.gmt) // server time zone
 	const dispatch = useDispatch();
