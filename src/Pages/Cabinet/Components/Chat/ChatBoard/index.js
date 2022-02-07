@@ -35,14 +35,15 @@ const ChatBoard = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
-	const userId = useSelector((state) => state.Cabinet.chat.userId);
 	const endMessagesRef = useRef();
 
 	const [textAreaValue, setTextAreaValue] = useState("");
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 	const uid = useSelector((state) => state.user.uid);
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
 
 	const [socket, setSocket] = useState(null);
+	const [socketReconnect, setSocketReconnect] = useState(true);
 	const dispatch = useDispatch();
 
 	const renderMessages = (messages) => {
@@ -56,26 +57,31 @@ const ChatBoard = ({
 		});
 	};
 	const addMessage = (text) => {
-		const newMessage = { text, id_user: userId };
-		//TODO: remove
-		if (text) messages.push(newMessage);
+		//TODO:
+		if (text) {
+			const sendMessage = (params) => {
+				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
+			};
+
+			sendMessage(
+				selectedContact.isGroup
+					? {
+							action: "chat_group_message_add",
+							id_group: selectedContact.id_group,
+							is_group: true,
+					  }
+					: {
+							action: "chat_message_send",
+							id_user_to: selectedContact.id_real_user,
+							id_contact: selectedContact.id,
+					  }
+			);
+		}
+
 		setTimeout(() => {
 			setTextAreaValue("");
 			inputRef.current.style.height = "25px";
 		});
-
-		//TODO:
-		socket.send(
-			JSON.stringify({
-				action: "chat_message_send",
-				uid,
-				id_contact: selectedContact.id,
-				id_user_to: selectedContact.id_real_user,
-				text,
-				// is param added manually?
-				id_user: userId
-			})
-		);
 	};
 
 	//TODO - Need to change after chat is developed
@@ -99,34 +105,48 @@ const ChatBoard = ({
 	};
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
-	// TODO: webSockets
+	// webSockets
 	const onConnectOpen = (e) => {
 		socket.send(JSON.stringify({ action: "uid", uid }));
 	};
 
 	const onWebSocketsMessage = (e) => {
 		const data = JSON.parse(e.data);
+		//temp
+		if (data.action === "Connected") console.log("Connected");
 
 		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
-		if (data.action === "PublicMessage") {
+		// PrivateMessage - direct message; PublicMessage- message from group
+		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
 			const newMsg = {
-				id: "15", //fake
-				id_user: data.id_user,
-				id_user_to: data.id_user_to,
+				id: data.api?.id_message,
+				id_user: data.api?.id_user,
+				id_user_to: data.api?.id_user_to,
 				text: data.text,
-				// ut: "2022-01-21 10:47:13",
+				ut: data.api?.ut_message,
+			};
+			if (
+				(data.is_group && selectedContact.isGroup && data.id_group === selectedContact.id) ||
+				(!data.is_group && !selectedContact.isGroup && (data.id_contact === selectedContact.id || data.id_user_to === userId))
+			) {
+				dispatch(addNewChatMessage(newMsg));
+			} else {
+				console.log("new message from dont selectedContact");
 			}
-			dispatch(addNewChatMessage(newMsg))
 		}
 	};
 
 	const onConnectClose = (e) => {
 		console.log("connection closed", e);
+		setSocketReconnect(true);
 	};
 
 	useEffect(() => {
-		setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
-	}, []);
+		if (socketReconnect) {
+			setSocketReconnect(false);
+			setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
+		}
+	}, [socketReconnect]);
 
 	useEffect(() => {
 		if (socket) {
