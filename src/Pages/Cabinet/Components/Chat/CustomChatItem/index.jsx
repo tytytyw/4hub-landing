@@ -1,11 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
 import styles from "./CustomChatItem.module.sass";
 import classNames from "classnames";
 import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet/password.svg";
 
 const CustomChatItem = ({
+	selectedContact,
 	setSelectedContact,
 	sideMenuCollapsed,
 	chatItem,
@@ -21,9 +20,6 @@ const CustomChatItem = ({
 	contextMenuList = '',
 	paddingRight = ''
 }) => {
-	const selectedContact = useSelector(
-		(state) => state.Cabinet.chat.selectedContact
-	);
 	const onChatItemClick = (e, isMenu) => {
 		if (isMenu)
 			setMouseParams({ x: e.clientX, y: e.clientY, width: 210, height: 25, contextMenuList });

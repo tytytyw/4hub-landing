@@ -55,6 +55,7 @@ const ChatList = ({
 			if (!( chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null;
 			return (
 				<CustomChatItem
+					selectedContact={selectedContact}
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={chat}
@@ -79,6 +80,7 @@ const ChatList = ({
 			if (member.id_user === userId) return null
 			return (
 				<CustomChatItem
+					selectedContact={selectedContact}
 					setSelectedContact={() => {}}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={member}
@@ -110,6 +112,7 @@ const ChatList = ({
 			return (
 				<div key={"wrap_" + group.id}>
 					<CustomChatItem
+						selectedContact={selectedContact}
 						setSelectedContact={setSelectedContact}
 						sideMenuCollapsed={sideMenuCollapsed}
 						chatItem={group}
