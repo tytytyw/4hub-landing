@@ -231,9 +231,9 @@ const Chat = ({ setMenuItem }) => {
 		dispatch(onGetReсentChatsList());
 
 		const timer = setInterval(() => {
-			// Creates an interval which will update the current data every minute
+			// Creates an interval which will update the current data every 20sec
 			setDate(new Date());
-		}, 60 * 1000);
+		}, 20 * 1000);
 		return () => {
 			setMenuItem("");
 			clearInterval(timer);

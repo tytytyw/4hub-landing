@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import styles from "./ChatList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateC
 import {
 	onGetChatGroups,
 	onGetReсentChatsList,
-	onGetSecretChatsList
+	onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
 
 const ChatList = ({
@@ -31,15 +31,22 @@ const ChatList = ({
 		(state) => state.Cabinet.chat.selectedContact
 	);
 
-	//TODO: Chats list
-	const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
-	const secretChatsList = useSelector((state) => state.Cabinet.chat.secretChatsList);
-	const [chatsList, setChatList] = useState([])
-    const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
-	const gmt = useSelector(state => state?.user?.userInfo?.gmt) // server time zone
-	const recentGroupsMessages = useSelector((state) => state.Cabinet.chat.recentGroupsMessages);
-	const notificationsCounter = useSelector((state) => state.Cabinet.chat.notificationsCounter);
-	
+	const recentChatsList = useSelector(
+		(state) => state.Cabinet.chat.recentChatsList
+	);
+	const secretChatsList = useSelector(
+		(state) => state.Cabinet.chat.secretChatsList
+	);
+	const [chatsList, setChatList] = useState([]);
+	const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
+	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
+	const recentGroupsMessages = useSelector(
+		(state) => state.Cabinet.chat.recentGroupsMessages
+	);
+	const notificationsCounter = useSelector(
+		(state) => state.Cabinet.chat.notificationsCounter
+	);
+
 	useEffect(() => {
 		dispatch(onGetChatGroups());
 		dispatch(onGetReсentChatsList());
@@ -47,61 +54,94 @@ const ChatList = ({
 	}, []); //eslint-disable-line
 
 	useEffect(() => {
-		setChatList([...recentChatsList, ...secretChatsList])
+		setChatList([...recentChatsList, ...secretChatsList]);
 	}, [recentChatsList, secretChatsList]); //eslint-disable-line
 
-	const renderChatsList = (chatList) => {
-		if (!chatList) return null;
+	const renderChatsList = useMemo(() => {
+		if (!chatsList) return null;
 
-		return chatList.map(chat => {
-			if (!( chat?.name?.toLowerCase().includes(search.toLowerCase()) || chat?.sname?.toLowerCase().includes(search.toLowerCase()))) return null;
+		return chatsList.map((chat) => {
+			if (
+				!(
+					chat?.name?.toLowerCase().includes(search.toLowerCase()) ||
+					chat?.sname?.toLowerCase().includes(search.toLowerCase())
+				)
+			)
+				return null;
 			return (
 				<CustomChatItem
 					selectedContact={selectedContact}
 					setSelectedContact={setSelectedContact}
 					sideMenuCollapsed={sideMenuCollapsed}
 					chatItem={chat}
-					key={chat.id + (!!chat.is_secret_chat ? '_secretChat' : '')}
-					title={`${chat?.sname || ''} ${chat?.name}`}
-					subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
-					status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+					key={chat.id + (!!chat.is_secret_chat ? "_secretChat" : "")}
+					title={`${chat?.sname || ""} ${chat?.name}`}
+					subtitle={createContactStatus(
+						chat.is_user,
+						currentDate,
+						chat.real_user_date_last,
+						chat.is_online,
+						gmt
+					)}
+					status={createContactStatus(
+						chat.is_user,
+						currentDate,
+						chat.real_user_date_last,
+						chat.is_online,
+						gmt
+					)}
 					avatar={
 						chat?.icon?.[0] ||
 						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
 					}
 					setMouseParams={setMouseParams}
-					contextMenuList={chat.is_secret_chat ? 'secretChat' : 'recentChat'}
+					contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
 				/>
 			);
 		});
-	};
+	}, [
+		chatsList,
+		currentDate,
+		gmt,
+		search,
+		selectedContact,
+		sideMenuCollapsed,
+		setMouseParams,
+		setSelectedContact,
+	]);
 
-	const renderMembersList = (members, chatId) => {
-		if (!members) return null;
-		return members.map((member, i) => {
-			if (member.id_user === userId) return null
-			return (
-				<CustomChatItem
-					selectedContact={selectedContact}
-					setSelectedContact={() => {}}
-					sideMenuCollapsed={sideMenuCollapsed}
-					chatItem={member}
-					key={chatId + "_user_" + member.id}
-					title={member?.name}
-					subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online, gmt)}
-					avatar={
-						member?.icon?.[0] ||
-						`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-					}
-					isSubList={true}
-					setMouseParams={setMouseParams}
-					contextMenuList={'userInGroup'}
-				/>
-			);
-		});
-	};
+	const renderGroupsList = useMemo(() => {
+		const renderMembersList = (members, chatId) => {
+			if (!members) return null;
+			return members.map((member, i) => {
+				if (member.id_user === userId) return null;
+				return (
+					<CustomChatItem
+						selectedContact={selectedContact}
+						setSelectedContact={() => {}}
+						sideMenuCollapsed={sideMenuCollapsed}
+						chatItem={member}
+						key={chatId + "_user_" + member.id}
+						title={member?.name}
+						subtitle={createContactStatus(
+							1,
+							currentDate,
+							member.date_last,
+							member.is_online,
+							gmt
+						)}
+						avatar={
+							member?.icon?.[0] ||
+							`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+						}
+						isSubList={true}
+						setMouseParams={setMouseParams}
+						contextMenuList={"userInGroup"}
+					/>
+				);
+			});
+		};
 
-	const renderGroupsList = () => {
 		if (!groupsList) return null;
 		return groupsList.map((group, i) => {
 			if (
@@ -120,18 +160,20 @@ const ChatList = ({
 						chatItem={group}
 						key={group.id}
 						title={group?.name}
-						subtitle={recentGroupsMessages[group.id_group] || ''}
+						subtitle={recentGroupsMessages[group.id_group] || ""}
 						avatar={
 							group?.icon?.[0] ||
 							`${imageSrc}assets/PrivateCabinet/chatGroup.svg`
 						}
 						setCollapseMembersList={setCollapseMembersList}
-						status={`${
-							group?.users?.length || 0
-						} участников группы ( ${group.users.filter(user => user?.is_online === 1).length} онлайн )`}
+						status={`${group?.users?.length || 0} участников группы ( ${
+							group.users.filter((user) => user?.is_online === 1).length
+						} онлайн )`}
 						setMouseParams={setMouseParams}
-						contextMenuList={'group'}
-						notificationsCounter={notificationsCounter[`group_${group.id_group}`]}
+						contextMenuList={"group"}
+						notificationsCounter={
+							notificationsCounter[`group_${group.id_group}`]
+						}
 					/>
 					{selectedContact?.id === group.id && !collapseMembersList ? (
 						<div key={"member_wrap" + group.id} className={styles.membersList}>
@@ -141,11 +183,24 @@ const ChatList = ({
 				</div>
 			);
 		});
-	};
+	}, [
+		groupsList,
+		userId,
+		selectedContact,
+		sideMenuCollapsed,
+		currentDate,
+		gmt,
+		setMouseParams,
+		search,
+		setSelectedContact,
+		recentGroupsMessages,
+		notificationsCounter,
+		collapseMembersList,
+	]);
 
 	useEffect(() => {
 		// setSelectedContact(null);
-        setAction({ type: "", name: "", text: "" })
+		setAction({ type: "", name: "", text: "" });
 	}, [chatsType]); //eslint-disable-line
 	useEffect(() => {
 		setCollapseMembersList(mouseParams ? true : false);
@@ -163,11 +218,13 @@ const ChatList = ({
 				onClick={() => {
 					setAction({
 						type: "addChat",
-						name: `${chatsType === "chats" ? "Cекретный чат" : "Новая группа"} `,
+						name: `${
+							chatsType === "chats" ? "Cекретный чат" : "Новая группа"
+						} `,
 						text: "",
-                        chatsType
-					})
-                    // setSelectedContact(null)
+						chatsType,
+					});
+					// setSelectedContact(null)
 				}}
 				title={
 					sideMenuCollapsed
@@ -228,8 +285,8 @@ const ChatList = ({
 				</div>
 			</div>
 			<div className={styles.list}>
-				{chatsType === "chats" ? renderChatsList(chatsList) : ""}
-				{chatsType === "groups" ? renderGroupsList() : ""}
+				{chatsType === "chats" ? renderChatsList : ""}
+				{chatsType === "groups" ? renderGroupsList : ""}
 			</div>
 		</div>
 	);

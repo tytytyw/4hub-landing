@@ -95,6 +95,8 @@ export const messageTime = (currentDate, message_ut, gmt) => {
 	} else {
 		return minutesDifference >= 1
 		? `${Math.floor(minutesDifference)} мин назад`
-		: 'менее минуты назад'
+		: minutesDifference < 0.5
+			? 'только что'
+			: 'менее минуты назад'
 	}
 }

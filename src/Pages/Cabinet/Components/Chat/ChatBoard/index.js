@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import styles from "./ChatBoard.module.sass";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/add-2.svg";
 import { ReactComponent as SmileIcon } from "../../../../../assets/PrivateCabinet/smile.svg";
 import { ReactComponent as RadioIcon } from "../../../../../assets/PrivateCabinet/radio-3.svg";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import { ReactComponent as SendIcon } from "../../../../../assets/PrivateCabinet/send.svg";
 import { ReactComponent as TimerIcon } from "../../../../../assets/PrivateCabinet/alarmClock.svg";
 import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
@@ -16,6 +15,7 @@ import InviteUser from "./InviteUser";
 import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
+import TextArea from "./TextArea";
 
 const ChatBoard = ({
 	inputRef,
@@ -38,7 +38,6 @@ const ChatBoard = ({
 	);
 	const endMessagesRef = useRef();
 
-	const [textAreaValue, setTextAreaValue] = useState("");
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -47,7 +46,7 @@ const ChatBoard = ({
 	const [socketReconnect, setSocketReconnect] = useState(true);
 	const dispatch = useDispatch();
 
-	const renderMessages = (messages) => {
+	const renderMessages = useMemo(() => {
 		if (selectedContact?.is_secret_chat && messages?.length === 0)
 			return <SecretChatStartWallpaper />;
 		if (!messages?.length || !selectedContact) return null;
@@ -61,14 +60,13 @@ const ChatBoard = ({
 				/>
 			);
 		});
-	};
+	}, [messages, currentDate, selectedContact]);
+
 	const addMessage = (text) => {
-		//TODO:
 		if (text && socket) {
 			const sendMessage = (params) => {
 				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
 			};
-
 			sendMessage(
 				selectedContact.isGroup
 					? {
@@ -83,29 +81,8 @@ const ChatBoard = ({
 					  }
 			);
 		}
-
-		setTimeout(() => {
-			setTextAreaValue("");
-			inputRef.current.style.height = "25px";
-		});
 	};
 
-	//TODO - Need to change after chat is developed
-	const findCursorPosition = () =>
-		setCursorPosition(inputRef.current.selectionStart);
-
-	const keyPress = (e) => {
-		findCursorPosition();
-		if (e.keyCode === 13 && !e.shiftKey) addMessage(textAreaValue);
-	};
-
-	const onTextAreaChange = (e) => {
-		setTextAreaValue(e.target.value);
-		e.target.style.height = "auto";
-		e.target.style.height = e.target.value
-			? e.target.scrollHeight + "px"
-			: "25px";
-	};
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
 	};
@@ -118,8 +95,6 @@ const ChatBoard = ({
 
 	const onWebSocketsMessage = (e) => {
 		const data = JSON.parse(e.data);
-		//temp
-		if (data.action === "Connected") console.log("Connected");
 
 		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
 		// PrivateMessage - direct message; PublicMessage- message from group
@@ -141,7 +116,7 @@ const ChatBoard = ({
 				if (data.id_group !== selectedContact.id_group)
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
-						payload: `group_${data.id_group}`
+						payload: `group_${data.id_group}`,
 					});
 			}
 
@@ -176,10 +151,16 @@ const ChatBoard = ({
 
 	useEffect(() => {
 		//TODO: move to Store
-		if (selectedContact) dispatch({
-			type: "SET_NOTIFICATION_COUNTER",
-			payload: {id: selectedContact.isGroup ? `group_${selectedContact.id_group}` :  `contact_${selectedContact.id}`, value: 0}
-		});
+		if (selectedContact)
+			dispatch({
+				type: "SET_NOTIFICATION_COUNTER",
+				payload: {
+					id: selectedContact.isGroup
+						? `group_${selectedContact.id_group}`
+						: `contact_${selectedContact.id}`,
+					value: 0,
+				},
+			});
 
 		if (socket) {
 			socket.addEventListener("open", onConnectOpen);
@@ -227,7 +208,7 @@ const ChatBoard = ({
 							setShowSuccessPopup={setShowSuccessPopup}
 						/>
 					) : (
-						renderMessages(messages)
+						renderMessages
 					)}
 					<div ref={endMessagesRef} />
 				</div>
@@ -244,26 +225,11 @@ const ChatBoard = ({
 				<div className={styles.downloadOptions}>
 					<AddIcon title="Вставить файл" />
 				</div>
-				<div className={styles.textMessage}>
-					<textarea
-						ref={inputRef}
-						type="text"
-						placeholder="Введите текст сообщения"
-						className={styles.textInput}
-						onClick={findCursorPosition}
-						rows={1}
-						onKeyDown={keyPress}
-						onChange={onTextAreaChange}
-						value={textAreaValue}
-					/>
-					<SendIcon
-						className={classNames({
-							[styles.messageImg]: true,
-							[styles.active]: textAreaValue.length,
-						})}
-						onClick={() => addMessage(textAreaValue)}
-					/>
-				</div>
+				<TextArea
+					inputRef={inputRef}
+					setCursorPosition={setCursorPosition}
+					addMessage={addMessage}
+				/>
 				<div className={styles.sendOptions}>
 					<div title="Аудио сообщение" className={styles.button}>
 						<RadioIcon title="" />
