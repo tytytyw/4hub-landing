@@ -1,0 +1,39 @@
+.textMessage
+    display: flex
+    align-items: flex-end
+    align-self: stretch
+    justify-content: space-between
+    width: 80%
+    padding: 4px 30px 4px 20px
+    position: relative
+    &:after
+        content: ""
+        position: absolute
+        width: 1px
+        height: 44px
+        bottom: -5px
+        right: 30px
+        background: #DFDFDF
+    .messageImg
+        margin: 0 30px 0 0
+        width: 22px
+        height: 22px
+        padding: 2px 0
+        path
+            fill: #DCDCDC
+    .messageImg.active
+        cursor: pointer
+        path
+            fill: #4086F1
+    .textInput
+        width: 90%
+        font-size: 15px
+        font-family: "SF Pro Regular", sans-serif
+        border: none
+        outline: none
+        resize: none
+        height: 25px
+        line-height: 20px
+        max-height: 400px
+        overflow-y: scroll
+        overflow-x: hidden
