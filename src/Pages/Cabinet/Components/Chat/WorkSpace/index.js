@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
 import CreateChat from "../CreateChat";
@@ -9,6 +9,7 @@ import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
+import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
 	sideMenuCollapsed,
@@ -18,11 +19,127 @@ const WorkSpace = ({
 	action,
 	currentDate,
 	setAction,
-	setMouseParams
+	setMouseParams,
 }) => {
+	const [socket, setSocket] = useState(null);
+	const [socketReconnect, setSocketReconnect] = useState(true);
+	const uid = useSelector((state) => state.user.uid);
+	const userId = useSelector((state) => state.Cabinet.chat.userId);
+	const id_company = useSelector((state) => state.user.id_company);
+
+	const dispatch = useDispatch();
+
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
+
+	// webSockets
+
+	const onConnectOpen = (e) => {
+		socket.send(JSON.stringify({ action: "uid", uid }));
+	};
+
+	const onWebSocketsMessage = (e) => {
+		const data = JSON.parse(e.data);
+
+		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
+		// PrivateMessage - direct message; PublicMessage- message from group
+		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
+			const newMsg = {
+				id: data.api?.id_message,
+				id_user: data.api?.id_user,
+				id_user_to: data.api?.id_user_to,
+				text: data.text,
+				ut: data.api?.ut_message,
+				isNewMessage: true,
+			};
+			if (data.is_group && selectedContact.isGroup) {
+				dispatch({
+					type: "NEW_LAST_GROUP_MESSAGE",
+					payload: { id_group: data.id_group, text: data.text },
+				});
+
+				if (data.id_group !== selectedContact.id_group)
+					dispatch({
+						type: "INCREASE_NOTIFICATION_COUNTER",
+						payload: `group_${data.id_group}`,
+					});
+			}
+
+			if (
+				(data.is_group &&
+					selectedContact.isGroup &&
+					data.id_group === selectedContact.id) ||
+				(!data.is_group &&
+					!selectedContact.isGroup &&
+					(data.id_contact === selectedContact.id ||
+						data.id_user_to === userId))
+			) {
+				dispatch(addNewChatMessage(newMsg));
+			} else {
+				console.log("new message from dont selectedContact");
+			}
+		}
+	};
+
+	const onConnectClose = (e) => {
+		console.log("connection closed", e);
+		setSocketReconnect(true);
+	};
+
+	const addMessage = (text) => {
+		if (text && socket) {
+			const sendMessage = (params) => {
+				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
+			};
+			sendMessage(
+				selectedContact.isGroup
+					? {
+							action: "chat_group_message_add",
+							id_group: selectedContact.id_group,
+							is_group: true,
+					  }
+					: {
+							action: "chat_message_send",
+							id_user_to: selectedContact.id_real_user,
+							id_contact: selectedContact.id,
+					  }
+			);
+		}
+	};
+
+	useEffect(() => {
+		if (socketReconnect) {
+			setSocketReconnect(false);
+			setSocket(new WebSocket("wss://fs2.mh.net.ua/ws/"));
+		}
+		return () => socket?.close();
+	}, [socketReconnect]); //eslint-disable-line
+
+	useEffect(() => {
+		//TODO: move to Store
+		if (selectedContact)
+			dispatch({
+				type: "SET_NOTIFICATION_COUNTER",
+				payload: {
+					id: selectedContact.isGroup
+						? `group_${selectedContact.id_group}`
+						: `contact_${selectedContact.id}`,
+					value: 0,
+				},
+			});
+
+		if (socket) {
+			socket.addEventListener("open", onConnectOpen);
+			socket.addEventListener("close", onConnectClose);
+			socket.addEventListener("message", onWebSocketsMessage);
+		}
+		return () => {
+			socket?.removeEventListener("message", onWebSocketsMessage);
+			socket?.removeEventListener("open", onConnectOpen);
+			socket?.removeEventListener("close", onConnectClose);
+		};
+	}, [socket, selectedContact]); //eslint-disable-line
 
 	return (
 		<div className={styles.chatWorkSpaceWrap}>
@@ -35,7 +152,9 @@ const WorkSpace = ({
 				</div>
 			</div>
 			<div className={styles.main}>
-				{selectedContact && action.type !== 'addChat' && action.type !== 'editChatGroup' ? (
+				{selectedContact &&
+				action.type !== "addChat" &&
+				action.type !== "editChatGroup" ? (
 					<ChatBoard
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
@@ -43,6 +162,7 @@ const WorkSpace = ({
 						setAction={setAction}
 						setMouseParams={setMouseParams}
 						currentDate={currentDate}
+						addMessage={addMessage}
 					/>
 				) : (
 					""
@@ -53,11 +173,13 @@ const WorkSpace = ({
 						maxCountUsers={action?.chatsType === "groups" ? 200 : 1}
 						nullifyAction={nullifyAction}
 						setShowSuccessPopup={setShowSuccessPopup}
-						componentType={'add'}
+						componentType={"add"}
 						currentDate={currentDate}
 						initialUser={action.initialUser}
 					/>
-				) : ''}
+				) : (
+					""
+				)}
 				{action.type === "editChatGroup" ? (
 					<CreateChat
 						title={action.name}
@@ -65,10 +187,12 @@ const WorkSpace = ({
 						nullifyAction={nullifyAction}
 						setShowSuccessPopup={setShowSuccessPopup}
 						selectedContact={selectedContact}
-						componentType={'edit'}
+						componentType={"edit"}
 						currentDate={currentDate}
 					/>
-				) : ''}
+				) : (
+					""
+				)}
 			</div>
 
 			<BottomPanel />
