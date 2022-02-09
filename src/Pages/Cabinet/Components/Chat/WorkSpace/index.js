@@ -45,6 +45,16 @@ const WorkSpace = ({
 		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
 		// PrivateMessage - direct message; PublicMessage- message from group
 		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
+			const isForGroups = data.is_group && selectedContact?.isGroup;
+			const isForChats = !data.is_group && !selectedContact?.isGroup;
+			const isForSelectedGroup =
+				isForGroups && data.id_group === selectedContact?.id;
+			const isForSelectedChat =
+				isForChats &&
+				(data.id_contact === selectedContact?.id ||
+					(data.id_user_to === userId &&
+						data.api.id_user === selectedContact?.id_real_user));
+
 			const newMsg = {
 				id: data.api?.id_message,
 				id_user: data.api?.id_user,
@@ -53,31 +63,30 @@ const WorkSpace = ({
 				ut: data.api?.ut_message,
 				isNewMessage: true,
 			};
-			if (data.is_group && selectedContact.isGroup) {
+
+			if (isForGroups) {
 				dispatch({
 					type: "NEW_LAST_GROUP_MESSAGE",
 					payload: { id_group: data.id_group, text: data.text },
 				});
+			}
+			if (isForSelectedGroup || isForSelectedChat) {
+				dispatch(addNewChatMessage(newMsg));
+			} else {
+				console.log("new message from dont selectedContact");
 
-				if (data.id_group !== selectedContact.id_group)
+				if (data.is_group && !isForSelectedGroup) {
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
 						payload: `group_${data.id_group}`,
 					});
-			}
-
-			if (
-				(data.is_group &&
-					selectedContact.isGroup &&
-					data.id_group === selectedContact.id) ||
-				(!data.is_group &&
-					!selectedContact.isGroup &&
-					(data.id_contact === selectedContact.id ||
-						data.id_user_to === userId))
-			) {
-				dispatch(addNewChatMessage(newMsg));
-			} else {
-				console.log("new message from dont selectedContact");
+				}
+				if (!data.is_group && !isForSelectedChat) {
+					dispatch({
+						type: "INCREASE_NOTIFICATION_COUNTER",
+						payload: `chat_${data.api.id_user}`,
+					});
+				}
 			}
 		}
 	};
@@ -93,16 +102,16 @@ const WorkSpace = ({
 				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
 			};
 			sendMessage(
-				selectedContact.isGroup
+				selectedContact?.isGroup
 					? {
 							action: "chat_group_message_add",
-							id_group: selectedContact.id_group,
+							id_group: selectedContact?.id_group,
 							is_group: true,
 					  }
 					: {
 							action: "chat_message_send",
-							id_user_to: selectedContact.id_real_user,
-							id_contact: selectedContact.id,
+							id_user_to: selectedContact?.id_real_user,
+							id_contact: selectedContact?.id,
 					  }
 			);
 		}
@@ -122,9 +131,9 @@ const WorkSpace = ({
 			dispatch({
 				type: "SET_NOTIFICATION_COUNTER",
 				payload: {
-					id: selectedContact.isGroup
-						? `group_${selectedContact.id_group}`
-						: `contact_${selectedContact.id}`,
+					id: selectedContact?.isGroup
+						? `group_${selectedContact?.id_group}`
+						: `chat_${selectedContact?.id_real_user}`,
 					value: 0,
 				},
 			});

@@ -96,19 +96,13 @@ const ChatList = ({
 					}
 					setMouseParams={setMouseParams}
 					contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
+					notificationsCounter={
+						notificationsCounter[chat.is_secret_chat ? `group_${chat.id_group}` : `chat_${chat.id_real_user}`]
+					}
 				/>
 			);
 		});
-	}, [
-		chatsList,
-		currentDate,
-		gmt,
-		search,
-		selectedContact,
-		sideMenuCollapsed,
-		setMouseParams,
-		setSelectedContact,
-	]);
+	}, [chatsList, search, selectedContact, setSelectedContact, sideMenuCollapsed, currentDate, gmt, setMouseParams, notificationsCounter]);
 
 	const renderGroupsList = useMemo(() => {
 		const renderMembersList = (members, chatId) => {
@@ -199,7 +193,6 @@ const ChatList = ({
 	]);
 
 	useEffect(() => {
-		// setSelectedContact(null);
 		setAction({ type: "", name: "", text: "" });
 	}, [chatsType]); //eslint-disable-line
 	useEffect(() => {
@@ -224,7 +217,6 @@ const ChatList = ({
 						text: "",
 						chatsType,
 					});
-					// setSelectedContact(null)
 				}}
 				title={
 					sideMenuCollapsed
