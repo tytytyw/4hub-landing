@@ -18,9 +18,6 @@ import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import TextArea from "./TextArea";
 
 const ChatBoard = ({
-	inputRef,
-	setCursorPosition,
-	insertToInput,
 	sideMenuCollapsed,
 	boardOption,
 	setShowSuccessPopup,
@@ -37,6 +34,7 @@ const ChatBoard = ({
 		(state) => state.Cabinet.chat.selectedContact
 	);
 	const endMessagesRef = useRef();
+
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 	const uid = useSelector((state) => state.user.uid);
@@ -82,6 +80,7 @@ const ChatBoard = ({
 			);
 		}
 	};
+
 
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
@@ -214,7 +213,7 @@ const ChatBoard = ({
 				</div>
 				<div className={styles.rightPanelContentType}>
 					{rightPanelContentType === "emo" ? (
-						<EmojiArea insertToInput={insertToInput} />
+						<EmojiArea />
 					) : null}
 					{rightPanelContentType === "info" ? (
 						<InfoPanel setAction={setAction} />
@@ -226,8 +225,6 @@ const ChatBoard = ({
 					<AddIcon title="Вставить файл" />
 				</div>
 				<TextArea
-					inputRef={inputRef}
-					setCursorPosition={setCursorPosition}
 					addMessage={addMessage}
 				/>
 				<div className={styles.sendOptions}>

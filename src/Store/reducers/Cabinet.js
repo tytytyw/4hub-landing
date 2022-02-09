@@ -64,6 +64,7 @@ import {
     GET_MESSAGES,
     ADD_NEW_MESSAGE,
     SET_MESSAGE_LIFE_TIME,
+    INSERT_EMODJI,
     CHAT_GROUP_DELETE, SET_MODALS,
 } from '../types'
 
@@ -174,6 +175,7 @@ const INITIAL_STATE = {
         userId: null,
         messages: null,
         messageLifeTime: 3600,
+        insertEmodji: '',
     },
 
     //GLOBAL MODALS
@@ -326,6 +328,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_MESSAGE_LIFE_TIME: {
             return {...state, chat: {...state.chat, messageLifeTime: action.payload}}
+        }
+        case INSERT_EMODJI: {
+            return {...state, chat: {...state.chat, insertEmodji: action.payload}}
         }
         //SORT FILES
         case SORT_FILES: {

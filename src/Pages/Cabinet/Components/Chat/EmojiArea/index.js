@@ -2,10 +2,11 @@ import React from "react";
 
 import styles from "./EmojiArea.module.sass";
 import EmojiPicker from "emoji-picker-react";
+import { useDispatch } from "react-redux";
 
-const EmojiArea = ({insertToInput}) => {
-
-    const onEmojiClick = (event, emojiObject) => insertToInput(emojiObject.emoji);
+const EmojiArea = () => {
+	const dispatch = useDispatch();
+  const onEmojiClick = (event, emojiObject) => dispatch({type:"INSERT_EMODJI" , payload: emojiObject.emoji})
 
   return (
       <div className={styles.emojiAreaWrap}>

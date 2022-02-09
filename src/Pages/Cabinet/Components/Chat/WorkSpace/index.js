@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
@@ -23,20 +23,6 @@ const WorkSpace = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
-	const [cursorPosition, setCursorPosition] = useState(0);
-	const inputRef = useRef();
-	const insertToInput = (value) => {
-		if (inputRef.current) {
-			inputRef.current.value =
-				inputRef.current.value.slice(0, cursorPosition) +
-				value +
-				" " +
-				inputRef.current.value.slice(cursorPosition);
-			inputRef.current.focus();
-			inputRef.current.selectionStart = cursorPosition + 3;
-			inputRef.current.selectionEnd = cursorPosition + 3;
-		}
-	};
 
 	return (
 		<div className={styles.chatWorkSpaceWrap}>
@@ -51,9 +37,6 @@ const WorkSpace = ({
 			<div className={styles.main}>
 				{selectedContact && action.type !== 'addChat' && action.type !== 'editChatGroup' ? (
 					<ChatBoard
-						inputRef={inputRef}
-						setCursorPosition={setCursorPosition}
-						insertToInput={insertToInput}
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
