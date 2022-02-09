@@ -173,7 +173,7 @@ const INITIAL_STATE = {
         secretChatsList: [],
         selectedContact: null,
         userId: null,
-        messages: null,
+        messages: [],
         messageLifeTime: 3600,
         insertEmodji: '',
     },

@@ -35,7 +35,7 @@ const CustomChatItem = ({
 				[styles.item]: true,
 				[styles.sublist]: isSubList,
 				[styles.sideMenuCollapsed]: sideMenuCollapsed,
-				[styles.active]: selectedContact && selectedContact?.id === chatItem.id,
+				[styles.active]: selectedContact && selectedContact?.id === chatItem.id && !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
 				[styles.disableHover]: disableHover,
 			})}
 			style={{paddingRight}}

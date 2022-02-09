@@ -104,15 +104,21 @@ const WorkSpace = ({
 			sendMessage(
 				selectedContact?.isGroup
 					? {
+						action: "chat_group_message_add",
+						id_group: selectedContact?.id_group,
+						is_group: true,
+					}
+					: selectedContact.is_secret_chat
+						? {
 							action: "chat_group_message_add",
 							id_group: selectedContact?.id_group,
-							is_group: true,
-					  }
-					: {
+							is_secret_chat: true,
+						}
+						: {
 							action: "chat_message_send",
 							id_user_to: selectedContact?.id_real_user,
 							id_contact: selectedContact?.id,
-					  }
+						}
 			);
 		}
 	};
