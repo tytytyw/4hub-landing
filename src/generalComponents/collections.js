@@ -272,6 +272,7 @@ export const contextMenuChat = {
         {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
         {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
         {name: 'Отметить непрочитанным', img: 'mark-unread', type: 'markAsUnread'},
+        {name: 'Удалить', img: 'garbage', type: 'deleteContact'},
     ],
     timer: [
         {name: '1 час'},

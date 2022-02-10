@@ -27,6 +27,7 @@ import {
 	secretChatDelete,
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
+import { contactDelete } from "../../../../generalComponents/chatHelper"
 import {
 	onGetChatMessages,
 	onSetSelectedContact,
@@ -49,6 +50,7 @@ const Chat = ({ setMenuItem }) => {
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
 	const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
+	const id_company = useSelector((state) => state.user.id_company);
 	
 	const closeContextMenu = () => {
 		setMouseParams(null);
@@ -96,6 +98,17 @@ const Chat = ({ setMenuItem }) => {
 	};
 
 	const callbackArr = {
+		contact: [
+			{name: 'Очистить историю', type: 'clearMessages'},
+			{name: 'Заблокировать', type: 'blockUser'},
+			{name: 'Отметить непрочитанным', type: 'markAsUnread'},
+			{name: 'Удалить контакт', type: 'deleteContact', text: `Вы действительно хотите удалить контакт ${selectedContact?.name}?`,callback: (list, index) =>
+			setAction({
+				text: list[index].text,
+				type: list[index].type,
+				name: list[index].name,
+			}),},
+		],
 		group: [
 			{
 				type: "editChatGroup",
@@ -420,6 +433,23 @@ const Chat = ({ setMenuItem }) => {
 						<img
 							className={styles.groupLogo}
 							src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`}
+							alt="group logo"
+						/>
+					</div>
+				</ActionApproval>
+			) : null}
+			{action.type === "deleteContact" ? (
+				<ActionApproval
+					name={action.name}
+					text={action.text}
+					set={nullifyAction}
+					callback={() => contactDelete(selectedContact, id_company, dispatch, uid, nullifyAction)}
+					approve={"Удалить"}
+				>
+					<div className={styles.groupLogoWrap}>
+						<img
+							className={styles.groupLogo}
+							src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
 							alt="group logo"
 						/>
 					</div>

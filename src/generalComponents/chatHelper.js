@@ -1,3 +1,16 @@
+import api from '../api';
+import { onGetCompanyContacts, onGetContacts } from '../Store/actions/CabinetActions';
+
+export const contactDelete = (contact, id_company, dispatch, uid, nullifyAction) => {
+	nullifyAction()
+	const addOrgParams = () => id_company ? `&id_company=${id_company}` : ''
+    api.post(`/ajax/${id_company ? 'org_' : ''}contacts_del.php?uid=${uid}&id=${contact.id}${addOrgParams()}`)
+        .then(res => {if(res.data.ok) {
+            dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
+    } else { console.log(res?.error) }})
+        .catch(err => console.log(err));
+};
+
 export const createContactStatus = (
 	isUser,
 	currentDate,
