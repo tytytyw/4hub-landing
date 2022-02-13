@@ -319,6 +319,22 @@ const ServePanel = ({
         </>
     )
 
+    const renderInArchive = () => (
+        <>
+            <div className={styles.groupStart}>
+                {tempTabs()}
+                <div className={styles.filterPanel}>
+                    {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+                </div>
+            </div>
+            <div className={styles.groupEnd}>
+                <div className={styles.iconButtons}>
+                    {tempShare()} {tempDelete()}
+                </div>
+            </div>
+        </>
+    )
+
 	const renderInSafe = () => {
 		return authorizedSafe ? (
 			<>
@@ -400,6 +416,7 @@ const ServePanel = ({
             {pathname === '/project' && renderInProject()}
             {pathname === '/shared-files' && renderInPrograms()}
             {pathname === '/downloaded-files' && renderInSharedFiles()}
+            {pathname === '/archive' && renderInArchive()}
 
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}

@@ -353,7 +353,7 @@ const MyFiles = ({
 	};
 	useEffect(() => {
 		setMenuItem(menuItem);
-		return () => {setMenuItem(""); console.log('unmount')};
+		return () => setMenuItem("")
 	}, []); //eslint-disable-line
 
 	const cancelArchive = () => {

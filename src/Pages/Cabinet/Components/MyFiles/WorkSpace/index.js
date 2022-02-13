@@ -19,7 +19,7 @@ import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
-import {onAddRecentFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
 	chosenFile,
@@ -70,7 +70,11 @@ const WorkSpace = ({
 		setGLoader(true)
 		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
-		dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
+		//TODO: need dispatch downloaded-files
+		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		
 	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {

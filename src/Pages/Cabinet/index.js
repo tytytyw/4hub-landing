@@ -15,7 +15,6 @@ import Settings from './Components/MyProfile/settings'
 import Project from './Components/Project';
 import SharedFiles from './Components/SharedFiles';
 import {setPreviewTheme} from '../../Store/actions/main';
-import Archive from './Components/Archive';
 import Journal from './Components/Journal';
 import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
@@ -134,7 +133,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                     <Route path='/settings' component={Settings}/>
 
                     <Route
-                        path={['/files', '/downloaded-files']}
+                        path={['/files', '/downloaded-files', '/archive']}
                         render={() => <MyFiles
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
@@ -239,10 +238,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                             setMenuItem={setMenuItem}
 
                         />}
-                    />
-                    <Route
-                        path='/archive'
-                        render={() => <Archive />}
                     />
 
                     <Route

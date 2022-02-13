@@ -131,7 +131,6 @@ const Buttons = ({
 			{pathname === "/folders" && renderMyFilesButtons()}
 			{pathname === "/files" && renderMyFilesButtons()}
 			{pathname === '/safe' && renderMyFilesButtons()}
-			{/* {pathname === '/project' && renderInProject()} */}
 			{pathname === "/downloaded-files" && renderMyFilesButtons()}
 			{pathname === "/archive" && renderMyFilesButtons()}
 		</div>
