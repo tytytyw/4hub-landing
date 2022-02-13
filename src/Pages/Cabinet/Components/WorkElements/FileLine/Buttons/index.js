@@ -126,13 +126,22 @@ const Buttons = ({
 		</>
 	);
 
+	const renderArchiveButtons = () => (
+		<>
+			{renderDownloadBtn()}
+			{renderPrintBtn()}
+			{renderDeleteBtn()}
+			{renderShareBtn()}
+		</>
+	);
+
 	return (
 		<div className={styles.optionsWrap}>
 			{pathname === "/folders" && renderMyFilesButtons()}
 			{pathname === "/files" && renderMyFilesButtons()}
 			{pathname === '/safe' && renderMyFilesButtons()}
 			{pathname === "/downloaded-files" && renderMyFilesButtons()}
-			{pathname === "/archive" && renderMyFilesButtons()}
+			{pathname === "/archive" && renderArchiveButtons()}
 		</div>
 	);
 };

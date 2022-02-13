@@ -66,6 +66,7 @@ const WorkSpace = ({
 		setGLoader(false)
 	}
 	useEffect(() => {
+		dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 		setFilesPage(0)
 		setGLoader(true)
 		pathname === '/files' && dispatch(onAddRecentFiles())

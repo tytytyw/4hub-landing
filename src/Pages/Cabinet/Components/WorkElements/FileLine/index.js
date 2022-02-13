@@ -70,6 +70,7 @@ const FileLine = ({
 		>
 			<FileInfo file={file}/>
 			{pathname === "/downloaded-files" && renderAdditionalItems()}
+			{pathname === "/archive" && renderAdditionalItems()}
 			<Buttons
 				file={file}
 				callbackArrMain={callbackArrMain}

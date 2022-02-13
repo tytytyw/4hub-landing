@@ -4,12 +4,19 @@ import { useLocation } from "react-router";
 
 const OptionalDate = ({ file }) => {
 	const { pathname } = useLocation();
-	return (
+
+	const getText = () => {
+		switch (pathname) {
+			case "/downloaded-files": return {title: "Дата загрузки: ", value: file.ctime?.split(' ')[0] ?? ""}
+			// TODO: get date of arhive
+			case "/archive": return {title: "Дата архивирования: ", value: file.atime?.split(' ')[0] ?? "00.00.0000"}
+			default: return ""
+		}
+	}
+ 	return (
 		<div className={styles.wrapper}>
-			<span className={styles.descriptoin}>Дата загрузки: </span>
-			<span className={styles.value}>
-				{pathname === "/downloaded-files" && file.ctime && file.ctime.split(' ')[0]}
-			</span>
+			<span className={styles.description}>{getText().title}</span>
+			<span className={styles.value}>{getText().value}</span>
 		</div>
 	);
 };

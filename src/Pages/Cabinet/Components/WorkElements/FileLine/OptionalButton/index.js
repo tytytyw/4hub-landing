@@ -11,9 +11,16 @@ const OptionalButton = () => {
 		</div>
 	);
 
+	const renderInArchive = () => (
+		<div onClick={() => console.log("Разархивировать")}>
+			<span>Разархивировать</span>
+		</div>
+	)
+
 	return (
 		<div className={styles.wrapper}>
 			{pathname === "/downloaded-files" && renderInSharedFiles()}
+			{pathname === "/archive" && renderInArchive()}
 		</div>
 	);
 };
