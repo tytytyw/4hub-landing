@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./WorkSpace.module.sass";
+import { useLocation } from "react-router";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
@@ -58,6 +59,7 @@ const WorkSpace = ({
 	const fileRef = useRef(null);
 	const dispatch = useDispatch();
 	const [containerRef, width] = useElementResize();
+	const {pathname} = useLocation();
 
 	const successLoad = () => {
 		setFilesPage(2)
@@ -66,10 +68,10 @@ const WorkSpace = ({
 	useEffect(() => {
 		setFilesPage(0)
 		setGLoader(true)
-		dispatch(onAddRecentFiles())
+		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
 		dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-	}, []); //eslint-disable-line
+	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
         let index;
@@ -98,7 +100,7 @@ const WorkSpace = ({
 						<Profile setItem={setItem} />
 					</div>
 				</div>
-				{recentFiles?.length > 0 && (
+				{ pathname === "/files" && recentFiles?.length > 0 && (
 					<RecentFiles
 						setFilePreview={setFilePreview}
 						filePreview={filePreview}

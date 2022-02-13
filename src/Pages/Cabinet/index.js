@@ -82,8 +82,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
             file,
             options: {filePath: path, destination: menuItem, dir, id_project: project?.id ?? ''}
         }));
-        console.dir(files)
-
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };

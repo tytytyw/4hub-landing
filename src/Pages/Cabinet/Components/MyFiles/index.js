@@ -352,8 +352,8 @@ const MyFiles = ({
 		});
 	};
 	useEffect(() => {
-		setMenuItem("myFiles");
-		return () => setMenuItem("");
+		setMenuItem(menuItem);
+		return () => {setMenuItem(""); console.log('unmount')};
 	}, []); //eslint-disable-line
 
 	const cancelArchive = () => {
