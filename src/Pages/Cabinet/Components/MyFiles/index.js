@@ -352,7 +352,7 @@ const MyFiles = ({
 		});
 	};
 	useEffect(() => {
-		setMenuItem(menuItem);
+		setMenuItem('myFiles');
 		return () => setMenuItem("")
 	}, []); //eslint-disable-line
 
