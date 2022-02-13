@@ -186,7 +186,8 @@ const INITIAL_STATE = {
         share: {open: false, fids: [], fid: undefined, action_type: ''},
         previewWithComments: {open: false, files: [], chosenFile: null},
         printScreen: {open: false, result: ''},
-        previewFile: {open: false, file: null}
+        previewFile: {open: false, file: null},
+        topMessage: {open: false, type: 'message', message: ''} //type = message(default) || error
     }
 
 }

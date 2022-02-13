@@ -10,6 +10,7 @@ import Loader from "../../../../generalComponents/Loaders/4HUB";
 import PreviewWithComment from "./Components/PreviewWithComment/PreviewWithComment";
 import PrintScreen from "./Components/PrintScreen/PrintScreen";
 import PreviewFile from "./Components/PreviewFile/PreviewFile";
+import TopMessage from "./Components/TopMessage/TopMessage";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -47,6 +48,7 @@ function Modals ({
             : null}
         <Error error={error.open} message={error.message} set={closeError} />
         <Success success={success.open} message={success.message} set={closeSuccess} title={success.title} />
+        <TopMessage />
         {share.open ? <Share /> : null}
         {loader ? <Loader
             position='absolute'

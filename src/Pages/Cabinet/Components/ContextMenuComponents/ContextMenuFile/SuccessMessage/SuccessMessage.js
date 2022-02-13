@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import styles from './SuccessMessage.module.sass'
 
+
+//Deprecated
+//TODO - Needs to be replaced with dispatch
 function SuccessMessage({ showSuccessMessage, setShowSuccessMessage }) {
 
     useEffect(() => {
