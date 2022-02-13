@@ -209,7 +209,7 @@ export default function startPage(state = INITIAL_STATE, action) {
             const addFiles = () => {
                 let f = {...state.fileList.files}
                 for(let key in f) {
-                    if(action.payload.files[key]) f[key] = [...f[key], ...action.payload.files[key]];
+                    if(action.payload.files[key] && Array.isArray(f[key])) f[key] = [...f[key], ...action.payload.files[key]];
                 }
                 return f;
             }
@@ -426,7 +426,7 @@ export default function startPage(state = INITIAL_STATE, action) {
 
         //ARCHIVE
         case CHOOSE_ARCHIVE_FILES: {
-            return {...state, arhiveFileList: {...state.arhiveFileList, files: action.payload}};
+            return {...state, fileList: {...action.payload}};
         }
 
         //JOURNAL

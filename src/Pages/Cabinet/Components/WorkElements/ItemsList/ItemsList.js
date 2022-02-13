@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react"
+import { useLocation } from "react-router";
 
 import styles from "./ItemsList.module.sass"
 import WorkBars from "../WorkBars";
@@ -14,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     onChooseFiles,
     onChooseFolder,
+    onGetArchiveFiles,
     onSetNextFilesToPrevious,
     onSetPath
 } from "../../../../../Store/actions/CabinetActions";
@@ -36,6 +38,7 @@ const ItemsList = ({
     const workElementsView = useSelector(state => state.Cabinet.view);
     const dispatch = useDispatch();
     const [groupInfo, setGroupInfo] = useState({amount: 0, title: ''});
+    const {pathname} = useLocation();
 
     const folderSelect = (folder) => {
         const path = fileList.path + `/${folder.name}` //TODO - need to be folder.path
@@ -152,13 +155,15 @@ const ItemsList = ({
 
     const load = (entry) => {
         if(!gLoader) {
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname === '/folders'){
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === '/folders'){
                 setLoadingFiles(true);
                 dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ''));
             }
-            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
+            if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
                 setLoadingFiles(true);
-                dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+                pathname === '/archive' && dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', ''));
+                pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
             }
         }
     }

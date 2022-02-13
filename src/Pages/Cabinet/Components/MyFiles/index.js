@@ -352,8 +352,8 @@ const MyFiles = ({
 		});
 	};
 	useEffect(() => {
-		setMenuItem("myFiles");
-		return () => setMenuItem("");
+		setMenuItem('myFiles');
+		return () => setMenuItem("")
 	}, []); //eslint-disable-line
 
 	const cancelArchive = () => {

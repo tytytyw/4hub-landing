@@ -1,5 +1,6 @@
 import React, {useRef, useState} from "react";
 import {useSelector} from "react-redux";
+import { useLocation } from "react-router";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../WorkBars";
 import FileBar from "../FileBar";
@@ -19,6 +20,7 @@ function FilesGroup({
 	const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const workBarsPreviewGroupRef = useRef(null);
+	const {pathname} = useLocation();
 
 	const handleChangeGroup = () => {
 		setChosenFolder(state => ({...state, group: {title, amount: fileList?.length}}))
@@ -82,7 +84,7 @@ function FilesGroup({
 						</div>
 					)}
 					{workElementsView === "workLinesPreview"
-					? menuItem === 'myFiles'
+					? (pathname.includes('files') || pathname === '/archive')
 						? <div className={styles.collapseContentFileItem}>
 							{renderFileItem(FileItem, fileList)}
 					      </div>

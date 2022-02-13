@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./WorkSpace.module.sass";
+import { useLocation } from "react-router";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
@@ -18,7 +19,7 @@ import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
-import {onAddRecentFiles, onChooseFiles} from "../../../../../Store/actions/CabinetActions";
+import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
 	chosenFile,
@@ -58,18 +59,24 @@ const WorkSpace = ({
 	const fileRef = useRef(null);
 	const dispatch = useDispatch();
 	const [containerRef, width] = useElementResize();
+	const {pathname} = useLocation();
 
 	const successLoad = () => {
 		setFilesPage(2)
 		setGLoader(false)
 	}
 	useEffect(() => {
+		dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 		setFilesPage(0)
 		setGLoader(true)
-		dispatch(onAddRecentFiles())
+		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
-		dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-	}, []); //eslint-disable-line
+		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
+		//TODO: need dispatch downloaded-files
+		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		
+	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
         let index;
@@ -98,7 +105,7 @@ const WorkSpace = ({
 						<Profile setItem={setItem} />
 					</div>
 				</div>
-				{recentFiles?.length > 0 && (
+				{ pathname === "/files" && recentFiles?.length > 0 && (
 					<RecentFiles
 						setFilePreview={setFilePreview}
 						filePreview={filePreview}

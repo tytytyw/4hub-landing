@@ -153,7 +153,7 @@ const CustomFolderItem = ({
     }
     return (<>
         <div
-            className={`${styles.innerFolderWrap} ${fileList?.path.includes(f.path) ? styles.chosenSubFolderWrap : undefined}`}
+            className={`${styles.innerFolderWrap} ${fileList?.path?.includes(f?.path) ? styles.chosenSubFolderWrap : undefined}`}
             onClick={clickHandle}
             onDrop={handleDrop}
             style={{

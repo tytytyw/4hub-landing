@@ -50,7 +50,7 @@ import {
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
-    CHOOSE_ARCHIVE_FILES,
+    // CHOOSE_ARCHIVE_FILES,
     SET_DRAGGED,
     LOAD_PROJECT_FILES,
     SET_CHOSEN_FOLDER,
@@ -944,16 +944,46 @@ export const onGetGuestFolderFiles  = (did, setLoading) => async (dispatch) => {
 }
 
 // ARCHIVE
-export const onGetArchiveFiles  = (day, mounth) => async (dispatch, getState) => {
-    try {
-        const res = await api.get(`/ajax/archive_list.php?uid=${getState().user.uid}`)
-        dispatch({
-            type: CHOOSE_ARCHIVE_FILES,
-            payload: res.data.files
+
+// TODO: move to onChooseFiles
+export const onGetArchiveFiles = (search, page, set, setLoad, loadedFilesType) => async (dispatch, getState) => {
+    const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
+    const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
+    const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
+    const searched = search ? `&search=${search}` : '';
+    const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
+    const cancelChooseFiles = CancelToken.source();
+    window.cancellationTokens = {cancelChooseFiles}
+        const url = `/ajax/archive_list.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+        await api.get(url,{
+            cancelToken: cancelChooseFiles.token
+        }).then(files => {
+            if(loadedFilesType === 'next') {
+                page > 1
+                    ? dispatch({
+                        type: LOAD_FILES_NEXT,
+                        payload: {files: files.data}
+                    })
+                    : dispatch({
+                        type: CHOOSE_FILES_NEXT,
+                        payload: {files: files.data}
+                    })
+            } else {
+                page > 1
+                    ? dispatch({
+                        type: LOAD_FILES,
+                        payload: {files: files.data}
+                    })
+                    : dispatch({
+                        type: CHOOSE_FILES,
+                        payload: {files: files.data}
+                    })
+            }
+            if(typeof set === 'function') set(files.data.length ?? files.data);
+            if(setLoad) setLoad(false);
         })
-    } catch (e) {
-        console.log(e);
-    }
+            .catch(e => console.log(e))
+            .finally(() => {delete window.cancellationTokens.cancelChooseFiles});
 }
 
 export const setDragged = (element) => {
