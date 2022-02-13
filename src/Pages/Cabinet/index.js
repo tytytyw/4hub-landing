@@ -14,7 +14,6 @@ import {Switch, Route, useHistory, Redirect} from 'react-router'
 import Settings from './Components/MyProfile/settings'
 import Project from './Components/Project';
 import SharedFiles from './Components/SharedFiles';
-import DownloadedFiles from './Components/DownloadedFiles';
 import {setPreviewTheme} from '../../Store/actions/main';
 import Archive from './Components/Archive';
 import Journal from './Components/Journal';
@@ -83,6 +82,8 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
             file,
             options: {filePath: path, destination: menuItem, dir, id_project: project?.id ?? ''}
         }));
+        console.dir(files)
+
         setAwaitingFiles([...awaitingFiles].concat(...files));
         inputRef.current.value = '';
     };
@@ -135,7 +136,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                     <Route path='/settings' component={Settings}/>
 
                     <Route
-                        path='/files'
+                        path={['/files', '/downloaded-files']}
                         render={() => <MyFiles
                             filePreview={filePreview}
                             setFilePreview={setFilePreview}
@@ -241,12 +242,6 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
 
                         />}
                     />
-
-                    <Route
-                        path='/downloaded-files'
-                        render={() => <DownloadedFiles />}
-                    />
-
                     <Route
                         path='/archive'
                         render={() => <Archive />}
