@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 import api from "../../../../api";
 import {contextMenuFile, periods, previewFormats} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
@@ -51,7 +52,7 @@ const MyFiles = ({
 	const [loadingFiles, setLoadingFiles] = useState(false);
 
 	const [gLoader, setGLoader] = useState(false);
-
+    const {pathname} = useLocation();
 	const [listCollapsed, setListCollapsed] = useState(false);
 	const [chosenFolder] = useState({
 		path: "global/all",
@@ -389,9 +390,11 @@ const MyFiles = ({
 
 	const load = (entry) => {
 		if(!gLoader) {
-			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
+			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
 				setLoadingFiles(true);
 				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+				pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
 			}
 		}
 	}

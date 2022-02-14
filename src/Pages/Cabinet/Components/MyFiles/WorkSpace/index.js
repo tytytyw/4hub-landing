@@ -20,6 +20,7 @@ import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProper
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
+import DateFilter from '../DateFilter'
 
 const WorkSpace = ({
 	chosenFile,
@@ -127,6 +128,7 @@ const WorkSpace = ({
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
 				/>
+				{pathname === '/archive' && <DateFilter />}
 				<ItemsList
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}

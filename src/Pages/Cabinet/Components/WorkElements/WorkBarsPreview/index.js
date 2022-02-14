@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useSelector} from 'react-redux';
-
+import { useLocation } from "react-router";
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../generalComponents/Files';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
@@ -23,6 +23,7 @@ const WorkBarsPreview = ({
     const [video, setVideo] = useState(null);
     const [loading, setLoading] = useState(false);
     const previewRef = useRef(null);
+    const {pathname} = useLocation();
     const innerFilesHeight = () => {
         switch(size) {
             case 'small': return '106px';
@@ -92,7 +93,7 @@ const WorkBarsPreview = ({
     }, [])
 
     return (<div
-        className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+        className={`${styles.workBarsPreviewWrap} ${renderHeight(recentFiles, filePick, styles, pathname === '/archive')}`}
         style={{
             gridTemplateColumns: size === 'small'
                 ? 'repeat(auto-fill, 118px)'

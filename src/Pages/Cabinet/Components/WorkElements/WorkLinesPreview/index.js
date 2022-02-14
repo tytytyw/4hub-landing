@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
+import { useLocation } from "react-router";
 import {imageSrc, projectSrc} from '../../../../../generalComponents/globalVariables';
 import styles from './WorkLinesPreview.module.sass';
 import {colors} from '../../../../../generalComponents/collections'
@@ -14,7 +15,8 @@ const WorkLinesPreview = ({
       file, children, hideFileList, filesPage, fileRef, filePick, gLoader,
       load, options, renderFiles, renderGroups, menuItem
 }) => {
-
+    
+    const {pathname} = useLocation();
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
     const fileList = useSelector(state => state.Cabinet?.fileList);
@@ -89,7 +91,7 @@ const WorkLinesPreview = ({
 
     return (
         <div
-            className={`${styles.workLinesPreviewWrap} ${renderHeight(recentFiles, filePick, styles)}`}
+            className={`${styles.workLinesPreviewWrap} ${renderHeight(recentFiles, filePick, styles, pathname === '/archive')}`}
         >
         {!hideFileList && menuItem !== 'myFiles'&& <div
             className={styles.fileListWrap}

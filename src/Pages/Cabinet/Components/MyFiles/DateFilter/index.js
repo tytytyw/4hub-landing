@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./DateBlock.module.sass";
+import styles from "./DateFilter.module.sass";
 import Select from "../../../../../generalComponents/Select/Select";
-import { getDays, getYears, months } from "../helper";
+import { getDays, getYears, months } from "./helper";
 import classNames from "classnames";
 
-const DateBlock = ({ month, setMonth }) => {
+const DateFilter = ({ month, setMonth }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.searchWrap}>
@@ -48,4 +48,4 @@ const DateBlock = ({ month, setMonth }) => {
 	);
 };
 
-export default DateBlock;
+export default DateFilter;

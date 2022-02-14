@@ -9,7 +9,7 @@ import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
-import DateBlock from "./DateBlock";
+import DateFilter from "../MyFiles/DateFilter";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuSharedFiles } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -412,7 +412,7 @@ const SharedFiles = ({
 					}
 					filePick={filePick}
 				/>
-				<DateBlock
+				<DateFilter
 					search={search}
 					setSearch={setSearch}
 					year={year}
