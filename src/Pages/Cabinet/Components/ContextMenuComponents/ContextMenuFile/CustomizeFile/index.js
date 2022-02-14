@@ -40,7 +40,7 @@ const CustomizeFile = ({
 	const fileListAll = useSelector((state) => state.Cabinet?.fileListAll);
 	const search = useSelector((state) => state.Cabinet?.search);
 	const [name, setName] = useState(
-		file ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
+		items.length === 1 ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
 	);
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -100,11 +100,13 @@ const CustomizeFile = ({
 
 		const data = {
 			uid,
-			fids: filePick.customize ? filePick.files : [file.fid],
+			fids: filePick.show ? filePick.files : [file.fid],
 			fileName:
-				name === file?.name.slice(0, file.name.lastIndexOf("."))
-					? ""
-					: `${name}${file?.fname.slice(file.name.lastIndexOf("."))}`,
+				items.length === 1
+					? name === file?.name.slice(0, file.name.lastIndexOf("."))
+						? ""
+						: `${name}${file?.fname.slice(file.name.lastIndexOf("."))}`
+					: "",
 			tag: tagOption.chosen === file.tag ? "" : `${tagOption.chosen}`,
 			pass: password === passwordRepeat ? `${password}` : "",
 			color: color?.color === file?.color ? "" : `${color?.color}`,
@@ -135,6 +137,7 @@ const CustomizeFile = ({
 			emo: data.emoji ? emoji : file.emo,
 			fig: data.symbol ? sign : file.fig,
 			is_pass: password && passwordRepeat ? 1 : 0,
+			fids: filePick.show ? filePick.files : [file.fid],
 		};
 		if (filePick.customize) {
 			delete data.fName;
@@ -168,7 +171,12 @@ const CustomizeFile = ({
 					if (res.data.ok === 1) {
 						if (menuItem !== "Safe") {
 							dispatch(onAddRecentFiles());
-							dispatch(onCustomizeFile(newFile));
+							if(items.length === 1) {
+								dispatch(onCustomizeFile(newFile))
+							} else {
+								if (menuItem === 'myFiles') dispatch(onChooseFiles(fileListAll?.path, search, 1, '', '', '', 'file_list_all'));
+								if (menuItem === 'myFolders') dispatch(onChooseFiles(path, search, 1, '', ''));
+							}
 						} else dispatch(onCustomizeSafeFile(newFile));
 					} else {
 						setError(true);
@@ -217,7 +225,6 @@ const CustomizeFile = ({
 				: info?.dir ?? '',
 		};
 		if(menuItem === 'project') options['id_project'] = info.id;
-		console.log(options);
 		saveCustomizeSeveralFiles(options);
 	};
 
