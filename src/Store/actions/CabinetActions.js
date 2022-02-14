@@ -882,7 +882,8 @@ export const onSearch = (value) => {
 }
 
 // SHARED FILES
-export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getState) => {
+export const onGetSharedFiles  = (type, dateFilter) => async (dispatch, getState) => {
+    const dateFiltered = dateFilter ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : '' }${dateFilter?.m ? `&m=${dateFilter?.m}` : '' }${dateFilter?.y ? `&y=${dateFilter?.y}` : '' }` : ''
     const url = () => {
         switch (type) {
             case 'sharedMe': return 'file_share_get'
@@ -891,7 +892,7 @@ export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getStat
         }
     }
     try {
-        const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}&m=${mounth}`)
+        const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}}${dateFiltered}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
             payload: type === "sharedI" ? {files: res.data.data, key: type} : {files: res.data.data, key: type}
