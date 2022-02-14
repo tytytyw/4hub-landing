@@ -130,7 +130,10 @@ const ItemsList = ({
     }, [fileList?.path])
 
     useEffect(() => {
-        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', '', dateFilter))
+        if (pathname === '/archive') {
+            dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, '', '', dateFilter))
+            setFilesPage(1)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dateFilter])
 

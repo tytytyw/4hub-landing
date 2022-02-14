@@ -14,6 +14,7 @@ import {
 	onDeleteFile,
 	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
+import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 import CreateSafePassword from "../CreateSafePassword";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
@@ -66,7 +67,12 @@ const MyFiles = ({
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () =>
 		setFilePick({ show: false, files: [], customize: false });
-	const callbackArrMain = [
+
+	const filterContexMenuForArchive = (arr) => {
+		const arhiveContexMenuItems = ['share', 'download', "print"];
+		return arr.filter(item => pathname === '/archive' ? arhiveContexMenuItems.includes(item.type) : true);
+	}
+	const callbackArrMain = filterContexMenuForArchive([
 		{
 			type: "share",
 			name: "",
@@ -133,7 +139,7 @@ const MyFiles = ({
 			text: ``,
 			callback: () => checkMimeTypes(),
 		},
-	];
+	])
 
 	const additionalMenuItems = [
 		{
@@ -353,6 +359,7 @@ const MyFiles = ({
 		});
 	};
 	useEffect(() => {
+		dispatch(onGetUserInfo())
 		setMenuItem('myFiles');
 		return () => setMenuItem("")
 	}, []); //eslint-disable-line
@@ -507,7 +514,7 @@ const MyFiles = ({
 				tooltip={true}
 			>
 				<div className={styles.mainMenuItems}>
-					{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+					{renderMenuItems(filterContexMenuForArchive(contextMenuFile.main), callbackArrMain)}
 				</div>
 				<div className={styles.additionalMenuItems}>
 					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}

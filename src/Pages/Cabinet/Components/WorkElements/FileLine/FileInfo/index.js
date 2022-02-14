@@ -10,7 +10,7 @@ import { useLocation } from "react-router";
 
 const FileInfo = ({file}) => {
 	const { pathname } = useLocation();
-	const shortWidht = pathname === '/archive' ? {maxWidth: `calc( 100% - 610px )`} : pathname === '/downloaded-files' ? {maxWidth: `calc( 100% - 720px )`} : {}
+	const shortWidht = pathname === '/archive' || pathname === '/downloaded-files' ? {maxWidth: `calc( 100% - 620px )`} : {}
 
 	return (
 		<div className={styles.fileAbout} style={shortWidht}>

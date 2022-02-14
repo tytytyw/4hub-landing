@@ -71,6 +71,7 @@ const WorkSpace = ({
 		dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 		setFilesPage(0)
 		setGLoader(true)
+		setChosenFile(null)
 		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
 		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
