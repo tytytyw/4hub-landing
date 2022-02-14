@@ -125,9 +125,9 @@ const WorkSpace = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
-					menuItem={menuItem}
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
+					dateFilter={dateFilter}
 				/>
 				{pathname === '/archive' && <DateFilter
 					dateFilter={dateFilter}

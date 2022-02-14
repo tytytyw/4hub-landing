@@ -230,7 +230,6 @@ const WorkSpace = ({
                 filePick={filePick}
                 fileAddCustomization={fileAddCustomization}
                 setFileAddCustomization={setFileAddCustomization}
-                menuItem={menuItem}
                 setGLoader={setGLoader}
                 setNewFolderInfo={setNewFolderInfo}
                 setFilesPage={setFilesPage}
