@@ -1,9 +1,12 @@
 import React from "react";
+import {useSelector} from 'react-redux'
 import styles from "./OptionalButton.module.sass";
 import { useLocation } from "react-router";
+import classNames from "classnames";
 
 const OptionalButton = () => {
 	const { pathname } = useLocation();
+	const size = useSelector(state => state.Cabinet.size)
 
 	const renderInSharedFiles = () => (
 		<div onClick={() => console.log("Открыть файл в системе 4Hub")}>
@@ -18,7 +21,7 @@ const OptionalButton = () => {
 	)
 
 	return (
-		<div className={styles.wrapper}>
+		<div className={classNames(styles.wrapper, styles[size])} >
 			{pathname === "/downloaded-files" && renderInSharedFiles()}
 			{pathname === "/archive" && renderInArchive()}
 		</div>

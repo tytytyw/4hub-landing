@@ -50,12 +50,12 @@ const FileLine = ({
 		}
 	};
 
-	const renderAdditionalItems  = () => (
+	const renderAdditionalItems = () => (
 		<div className={styles.AdditionalItemsWrapper}>
 			<OptionalButton />
 			<OptionalDate file={file} />
 		</div>
-	)
+	);
 
 	return (
 		<div
@@ -68,16 +68,18 @@ const FileLine = ({
 				[styles.shortWidth]: pathname === "/downloaded-files",
 			})}
 		>
-			<FileInfo file={file}/>
-			{pathname === "/downloaded-files" && renderAdditionalItems()}
-			{pathname === "/archive" && renderAdditionalItems()}
-			<Buttons
-				file={file}
-				callbackArrMain={callbackArrMain}
-				setAction={setAction}
-				openFolderMenu={openFolderMenu}
-				setMouseParams={setMouseParams}
-			/>
+			<FileInfo file={file} />
+			<div className={styles.flexContainer}>
+				{pathname === "/downloaded-files" && renderAdditionalItems()}
+				{pathname === "/archive" && renderAdditionalItems()}
+				<Buttons
+					file={file}
+					callbackArrMain={callbackArrMain}
+					setAction={setAction}
+					openFolderMenu={openFolderMenu}
+					setMouseParams={setMouseParams}
+				/>
+			</div>
 		</div>
 	);
 };
