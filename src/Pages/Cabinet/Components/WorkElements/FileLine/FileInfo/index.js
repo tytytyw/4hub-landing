@@ -1,5 +1,4 @@
 import React from "react";
-import {useSelector} from 'react-redux'
 import styles from "../FileLine.module.sass"
 
 import File from '../../../../../../generalComponents/Files'
@@ -10,7 +9,6 @@ import { useLocation } from "react-router";
 
 
 const FileInfo = ({file}) => {
-    const size = useSelector(state => state.Cabinet.size)
 	const { pathname } = useLocation();
 	const shortWidht = pathname === '/archive' ? {maxWidth: `calc( 100% - 610px )`} : pathname === '/downloaded-files' ? {maxWidth: `calc( 100% - 720px )`} : {}
 
@@ -40,7 +38,7 @@ const FileInfo = ({file}) => {
 				</div>
 
 				<div className={styles.fileInfo}>
-					<span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span>
+					{pathname !== '/downloaded-files' ? <span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span> : ''}
 					<span className={styles.fileSize}>{file?.size_now}</span>
 						<div className={styles.symbols}>
 							{file?.is_pass === 1 && (
