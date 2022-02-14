@@ -16,7 +16,7 @@ import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {onChooseFiles, onGetSafeFileList, onSetModals} from '../../../../../../Store/actions/CabinetActions';
 import {useLocation} from "react-router";
 
-const CreateZip = ({setShowSuccessMessage = () => {}, setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
+const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
 
     const {title, items, filesPage} = useSelector(s => s.Cabinet.modals.contextMenuModals);
     console.log(items)
@@ -75,7 +75,6 @@ const CreateZip = ({setShowSuccessMessage = () => {}, setLoadingType = () => {},
                 .then(() => {
                     dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType, '', filesPage, "") : onChooseFiles(fileList.path));
                     dispatch(onSetModals('topMessage', {...topMessage, open: true, type: 'message', message: 'Выбранные файлы успешно сжато в Zip'}))
-                    // setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     onCancel();
                 })
                 .catch(() => setError(true))

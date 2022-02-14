@@ -17,11 +17,11 @@ function TopMessage({ showSuccessMessage }) {
 
     return (
         <>
-        {topMessage.open ? <div className={styles.wrap}>
+        <div className={styles.wrap}>
             <div className={styles[topMessage.type]}>
-                {showSuccessMessage}
+                {topMessage.message}
             </div>
-        </div> : null}
+        </div>
         </>
     )
 }

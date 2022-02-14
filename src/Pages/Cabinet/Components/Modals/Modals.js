@@ -25,6 +25,7 @@ function Modals ({
     const previewImageWithComment = useSelector(state => state.Cabinet.modals.previewWithComments);
     const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
     const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
+    const topMessage = useSelector(state => state.Cabinet.modals.topMessage);
     const dispatch = useDispatch();
 
     const closeError = () => dispatch(onSetModals('error', {open: false, message: ''}));
@@ -49,7 +50,7 @@ function Modals ({
             : null}
         <Error error={error.open} message={error.message} set={closeError} />
         <Success success={success.open} message={success.message} set={closeSuccess} title={success.title} />
-        <TopMessage />
+        {topMessage.open ? <TopMessage /> : null}
         {share.open ? <Share /> : null}
         {loader ? <Loader
             position='absolute'
