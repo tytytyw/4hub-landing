@@ -10,7 +10,7 @@ import {
     onChooseFiles,
     onGetSafeFileList,
     nullifyFilters,
-    onChooseProjectFiles,
+    onChooseProjectFiles, onSetModals,
 } from '../../../../Store/actions/CabinetActions';
 import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exclamation.svg';
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
@@ -37,6 +37,7 @@ const FileLoader = ({
     const fileList = useSelector(state => state.Cabinet.fileList);
     const fileListAll = useSelector(state => state.Cabinet.fileListAll);
     const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
+    const contextMenuModals = useSelector(state => state.Cabinet.modals.contextMenuModals);
     const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
 
     //Cancel Loading variables
@@ -68,15 +69,18 @@ const FileLoader = ({
 
     useEffect(() => {
         if(awaitingFiles.length > 1 && !fileAddCustomization.several) {
+            dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: [...awaitingFiles], title: 'Редактировать выбранные файлы', filePick: {several: true}, menuItem}))
             setFileAddCustomization({...fileAddCustomization, several: true, files: [...awaitingFiles]});
             setAwaitingFiles([]);
         } else if(awaitingFiles.length > 1 && fileAddCustomization.several) {
             startLoading();
-            setFileAddCustomization({...fileAddCustomization, several: false, files: []})
+            setFileAddCustomization({...fileAddCustomization, several: false, files: []});
+            dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], title: '', filePick: null, menuItem: ''}));
         } else if(!fileAddCustomization.show) {
             setFileAddCustomization({...fileAddCustomization, show: true, file: awaitingFiles[0]});
             setAwaitingFiles([]);
         } else {
+            dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], title: '', filePick: null, menuItem: ''}))
             setFileAddCustomization({show: false, file: null})
             startLoading();
         }

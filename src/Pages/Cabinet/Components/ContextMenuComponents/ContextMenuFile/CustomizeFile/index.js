@@ -22,14 +22,8 @@ import File from "../../../../../../generalComponents/Files";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const CustomizeFile = ({
-	// title,
-	// close = () => {},
-	// file,
-	// filePick,
-	// fileAddCustomization,
 	saveCustomizeSeveralFiles,
 	setLoadingType = () => {},
-	// menuItem,
    info
 }) => {
 	const {title, items, filePick, menuItem} = useSelector(s => s.Cabinet.modals.contextMenuModals);
@@ -47,7 +41,7 @@ const CustomizeFile = ({
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
 	const [showRepeat, setShowRepeat] = useState(false);
 	const [color, setColor] = useState(
-		filePick?.customize || items.length > 1
+		filePick?.several || items.length > 1
 			? colors[0]
 			: colors.find((c) => c.color === file.color) ?? colors[0]
 	);
@@ -327,8 +321,8 @@ const CustomizeFile = ({
                         <div
                             className={`${file || items.length > 1 ? styles.add : styles.buttonDisabled}`}
                             onClick={() => {
-                                if(file) onAddFile();
-                                if(items.length > 1) addToAwaitingFiles();
+                                if(!filePick.several) onAddFile();
+                                if(filePick.several) addToAwaitingFiles();
                             }}
                         >Сохранить</div>
                     </div>
