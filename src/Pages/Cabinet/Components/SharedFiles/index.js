@@ -35,7 +35,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import SideMenu from "./SideMenu";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
-import { months } from "../../../../generalComponents/CalendarHelper";
+// import { months } from "../../../../generalComponents/CalendarHelper";
 
 const SharedFiles = ({
 	filePreview,
@@ -56,7 +56,6 @@ const SharedFiles = ({
 	const dispatch = useDispatch();
 
 	const [year, setYear] = useState(null);
-	const [month, setMonth] = useState("");
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [mouseParams, setMouseParams] = useState(null);
@@ -86,10 +85,14 @@ const SharedFiles = ({
 		};
 	}, []); // eslint-disable-line
 
-	useEffect(() => {
-		dispatch(onGetSharedFiles("sharedMe", "", month));
-		dispatch(onGetSharedFiles("sharedI", "", month));
-	}, [month]); // eslint-disable-line
+	// useEffect(() => {
+	// 	dispatch(onGetSharedFiles("sharedMe", "", month));
+	// 	dispatch(onGetSharedFiles("sharedI", "", month));
+	// }, [month]); // eslint-disable-line
+		useEffect(() => {
+		dispatch(onGetSharedFiles("sharedMe", ""));
+		dispatch(onGetSharedFiles("sharedI", ""));
+	}, []); // eslint-disable-line
 
 	useEffect(() => {
 		if (filePick.customize) {
@@ -387,7 +390,7 @@ const SharedFiles = ({
 				filesSharedMe={filesSharedMe}
 				filesSharedI={filesSharedI}
 				renderFilesGroup={renderFilesGroup}
-				month={month}
+				// month={month}
 			/>
 
 			<div className={styles.workAreaWrap}>
@@ -417,8 +420,6 @@ const SharedFiles = ({
 					setSearch={setSearch}
 					year={year}
 					setYear={setYear}
-					month={month}
-					setMonth={setMonth}
 				/>
 				<div
 					className={styles.workSpace}
@@ -440,9 +441,9 @@ const SharedFiles = ({
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
 						<div className={styles.filesList}>
-							{month
+							{/* {month
 								? renderFilesGroup(months()[month - 1].name, 0)
-								: months().map((item, i) => renderFilesGroup(item.name, i))}
+								: months().map((item, i) => renderFilesGroup(item.name, i))} */}
 						</div>
 					)}
 				</div>

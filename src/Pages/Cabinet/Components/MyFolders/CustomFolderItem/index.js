@@ -27,7 +27,7 @@ const CustomFolderItem = ({
     const file_amount_controller = useRef(null);
     const [folderParams, setFolderParams] = useState({
         open: false,
-        isGlobal: f.path.split('/').length === 2 && f.path.includes('global')
+        isGlobal: f.path?.split('/').length === 2 && f.path?.includes('global')
     });
 
     const getQuantity = () => {
@@ -49,11 +49,11 @@ const CustomFolderItem = ({
             getQuantity();
         }
         file_amount_controller.current = 1
-        if(fileList?.path.includes(f?.path) && !folderParams.open) open(false);
+        if(fileList?.path?.includes(f?.path) && !folderParams.open) open(false);
     }, []); // eslint-disable-line
 
     useEffect(() => {
-        if(fileList?.path.includes(f?.path) && !folderParams.open) open(false);
+        if(fileList?.path?.includes(f?.path) && !folderParams.open) open(false);
     }, [fileList?.path]) // eslint-disable-line
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const CustomFolderItem = ({
         let boolean = false;
         e.target?.viewportElement 
             ? e.target?.viewportElement?.classList.forEach(el => {if(el.toString().search('playButton')) boolean = true})
-            : e.target.classList.forEach(el => {if (el.includes('playButton')) boolean = true})
+            : e.target.classList.forEach(el => {if (el?.includes('playButton')) boolean = true})
         if(boolean) open()
         dispatch(onChooseFolder(f.folders.folders, f.path));
     };
@@ -72,12 +72,12 @@ const CustomFolderItem = ({
     const open = (isOpen) => {
         const open = typeof isOpen === "boolean" ? true : !folderParams.open;
         setFolderParams(state => ({...state, open: typeof isOpen === "boolean" ? true : !state.open}))
-        const folderWidth = (offDispatch ? 360 : 310) + (open ? p * (f.path.split("/").length - 1) : 0)
+        const folderWidth = (offDispatch ? 360 : 310) + (open ? p * (f.path?.split("/").length - 1) : 0)
         setChosenFolder(state => ({...state, info: f, folderWidth}))
     }
 
     const renderInnerFolders = () => {
-        const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
+        const currentPath = fileList?.path?.split('/').slice(0, f.path?.split('/').length).join('/');
         if(currentPath !== f.path || !folderParams.open || !f?.folders) return null;
         return f?.folders.map((f, i) => {
             return <CustomFolderItem
@@ -86,7 +86,7 @@ const CustomFolderItem = ({
                 setChosenFolder={setChosenFolder}
                 chosenFolder={chosenFolder}
                 listCollapsed={listCollapsed}
-                chosen={fileList?.path.includes(f.path)}
+                chosen={fileList?.path?.includes(f.path)}
                 subFolder={true}
                 setMouseParams={setMouseParams}
                 setGLoader={setGLoader}
@@ -102,7 +102,7 @@ const CustomFolderItem = ({
     };
 
     const clickHandle = async (e) => {
-        const currentPath = fileList?.path.split('/').slice(0, f.path.split('/').length).join('/');
+        const currentPath = fileList?.path?.split('/').slice(0, f.path?.split('/').length).join('/');
         if(!isRecent && !offDispatch) openFolder(e, currentPath);
 
         if (!fileList?.path !== f.path) {
@@ -171,8 +171,8 @@ const CustomFolderItem = ({
             >
                 <div className={styles.innerFolderName}>
                     <div style={{
-                        width: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0,
-                        minWidth: isRecent ? p : p * (f.path.split("/").length - 1) ?? 0
+                        width: isRecent ? p : p * (f.path?.split("/").length - 1) ?? 0,
+                        minWidth: isRecent ? p : p * (f.path?.split("/").length - 1) ?? 0
                     }}/>
                     <div className={styles.folderIconWrap}>
                         {folderParams.isGlobal
@@ -195,7 +195,7 @@ const CustomFolderItem = ({
                     {!listCollapsed && f.emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='emoji' />}
                     {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='emoji' />}
                     {isRecent ? null : <PlayIcon
-                        className={`${styles.playButton} ${fileList?.path.includes(f.path) && folderParams.open ? styles.revert : undefined}`}
+                        className={`${styles.playButton} ${fileList?.path?.includes(f.path) && folderParams.open ? styles.revert : undefined}`}
                     />}
                     {offDispatch ? null : <div
                         className={styles.menuWrap}
@@ -205,16 +205,16 @@ const CustomFolderItem = ({
         </div>
         {isRecent ? null : <div
             style={{
-                height: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
-                minHeight: `${fileList?.path.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
+                height: `${fileList?.path?.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
+                minHeight: `${fileList?.path?.includes(f.path) && folderParams.open ? 'max-content' : '0px'}`,
                 maxWidth: chosenFolder.folderWidth
             }}
-            className={`${styles.innerFolders} ${fileList?.path.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
+            className={`${styles.innerFolders} ${fileList?.path?.includes(f.path) && folderParams.open ? undefined : styles.hidden}`}
         >
             {offDispatch ? null : <div
                 className={styles.addFolderToFolder}
                 style={{
-                    padding: `0 15px 0 ${p * (f.path.split("/").length) ?? 0}px`,
+                    padding: `0 15px 0 ${p * (f.path?.split("/").length) ?? 0}px`,
                     width: chosenFolder.folderWidth,
                     minWidth: chosenFolder.folderWidth
                 }}

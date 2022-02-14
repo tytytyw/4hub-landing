@@ -28,7 +28,9 @@ const mock = () => {}
 const ItemsList = ({
        setGLoader, setFilesPage, setChosenFolder = mock, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
-       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock, menuItem
+       fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock, menuItem,
+       dateFilter
+
 }) => {
 
     // const uid = useSelector(state => state?.user.uid);
@@ -127,6 +129,11 @@ const ItemsList = ({
         setLoadingFiles(false);
     }, [fileList?.path])
 
+    useEffect(() => {
+        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', '', dateFilter))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dateFilter])
+
     const onSuccessLoading = (result) => {
         if(typeof result === 'number') {
             setTimeout(() => {
@@ -161,7 +168,7 @@ const ItemsList = ({
             }
             if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
                 setLoadingFiles(true);
-                pathname === '/archive' && dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', ''));
+                pathname === '/archive' && dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', '', dateFilter));
                 pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
                 pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
             }

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import { useLocation } from "react-router";
@@ -61,6 +61,7 @@ const WorkSpace = ({
 	const dispatch = useDispatch();
 	const [containerRef, width] = useElementResize();
 	const {pathname} = useLocation();
+	const [dateFilter, setDateFilter] = useState({});
 
 	const successLoad = () => {
 		setFilesPage(2)
@@ -128,7 +129,10 @@ const WorkSpace = ({
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
 				/>
-				{pathname === '/archive' && <DateFilter />}
+				{pathname === '/archive' && <DateFilter
+					dateFilter={dateFilter}
+					setDateFilter={setDateFilter}
+				/>}
 				<ItemsList
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
@@ -149,6 +153,7 @@ const WorkSpace = ({
 					fileRef={fileRef}
 					width={width}
 					menuItem={menuItem}
+					dateFilter={dateFilter}
 				/>
 
 				{filePick.show ? (

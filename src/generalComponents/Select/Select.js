@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import styles from './Select.module.sass'
 import classNames from 'classnames'
 
-const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
+const Select = ({data = [], initValue, onChange = () => {}, cleareFilter = () => {}, ...props}) => {
 
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState('')
@@ -30,6 +30,12 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
         return valueItem?.text
     }
 
+    useEffect(() => {
+        if (!open && !value) cleareFilter()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, value])
+    
+
     return (
         <div
             ref={ref}
@@ -41,7 +47,7 @@ const Select = ({data = [], initValue, onChange = () => {}, ...props}) => {
         >
 
             <div
-                onClick={() => setOpen(!open)}
+                onClick={() => {setOpen(!open); setValue('')}}
                 className={classNames({
                     [styles.select]: true,
                     [styles.selected]: !!value
