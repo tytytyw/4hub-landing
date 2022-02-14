@@ -14,7 +14,7 @@ import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { arrayForPhpRequest } from "../../../../../../generalComponents/generalHelpers";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
-function Share({file, files, close, action_type, setShowSuccessMessage, setLoadingType}) {
+function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -25,6 +25,7 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
     const [password, setPassword] = useState("");
     const uid = useSelector(state => state.user.uid);
     const share = useSelector(state => state.Cabinet.modals.share);
+    const file = useSelector(state => state.Cabinet.modals.share.file);
     const dispatch = useDispatch();
     const [data, setData] = useState(
         {
@@ -40,6 +41,10 @@ function Share({file, files, close, action_type, setShowSuccessMessage, setLoadi
         return time < limit
         ? time < 10 ? `0${time}` : time
         : time[0];
+    }
+
+    const close = () => {
+        dispatch(onSetModals('share', {open: false, fids: [], action_type: '', file: {}}))
     }
 
     useEffect(()=> {

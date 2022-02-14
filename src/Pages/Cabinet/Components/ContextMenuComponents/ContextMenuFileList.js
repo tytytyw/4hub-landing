@@ -10,8 +10,12 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
 
+    const shate_types = {
+        myFolders: 'file_share'
+    }
+
     const callbackArrMain = [
-        {type: 'share', name: '', text: ``, callback: () => {}},
+        {type: 'share', name: '', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : shate_types[menuItem], file}))}},
         {type: 'copyLink', name: '', text: ``, callback: () => {}},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
