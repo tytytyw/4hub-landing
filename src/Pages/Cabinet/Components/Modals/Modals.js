@@ -15,7 +15,8 @@ import ContextModal from "../ContextMenuComponents/ContextModal";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
-     setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
+     setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem,
+     saveCustomizeSeveralFiles
  }) {
     const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
     const error = useSelector(state => state.Cabinet.modals.error);
@@ -63,7 +64,7 @@ function Modals ({
         {previewImageWithComment.open ? <PreviewWithComment /> : null}
         {printScreen.open ? <PrintScreen /> : null}
         {previewFile.open ? <PreviewFile /> : null}
-        <ContextModal />
+        <ContextModal saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
     </>
 }
 

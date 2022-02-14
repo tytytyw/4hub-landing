@@ -5,7 +5,7 @@ import {contextMenuFile, previewFormats} from "../../../../generalComponents/col
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 
-function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage}) {
+function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem}) {
 
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage}) {
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: () => {}},
         {type: 'copyLink', name: '', text: ``, callback: () => {}},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: () => {}},
+        {type: 'customize', name: 'Редактирование файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${file?.name}?`, callback: () => {}},
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},

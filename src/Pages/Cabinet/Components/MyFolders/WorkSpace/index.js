@@ -281,7 +281,7 @@ const WorkSpace = ({
         {mouseParams !== null && mouseParams?.width && mouseParams?.height ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
-            <ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} />
+            <ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={filesPage} menuItem={menuItem} />
         </ContextMenu> : null}
         {action.type === 'delete' ?
             <ActionApproval

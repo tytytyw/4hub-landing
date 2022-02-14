@@ -12,7 +12,7 @@ import {
 	onCustomizeSafeFile,
 	onAddRecentFiles,
 	onChooseFiles,
-	onGetSafeFileList,
+	onGetSafeFileList, onSetModals,
 } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -22,17 +22,19 @@ import File from "../../../../../../generalComponents/Files";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 const CustomizeFile = ({
-	title,
-	close,
-	file,
-	filePick,
-	fileAddCustomization,
-	setFileAddCustomization,
+	// title,
+	// close = () => {},
+	// file,
+	// filePick,
+	// fileAddCustomization,
 	saveCustomizeSeveralFiles,
-	setLoadingType,
-	menuItem,
+	setLoadingType = () => {},
+	// menuItem,
    info
 }) => {
+	const {title, items, filePick, menuItem} = useSelector(s => s.Cabinet.modals.contextMenuModals);
+	const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+	const file = items[0];
 	const uid = useSelector((state) => state.user.uid);
 	const path = useSelector((state) => state.Cabinet?.fileList?.path);
 	const fileListAll = useSelector((state) => state.Cabinet?.fileListAll);
@@ -45,20 +47,20 @@ const CustomizeFile = ({
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
 	const [showRepeat, setShowRepeat] = useState(false);
 	const [color, setColor] = useState(
-		filePick?.customize || fileAddCustomization?.several
+		filePick?.customize || items.length > 1
 			? colors[0]
 			: colors.find((c) => c.color === file.color) ?? colors[0]
 	);
 	const [tagOption, setTagOption] = useState({
 		chosen:
-			filePick?.customize || fileAddCustomization?.several ? "" : file?.tag || "",
+			filePick?.customize || items.length > 1 ? "" : file?.tag || "",
 		count: 30,
 	});
 	const [sign, setSign] = useState(
-		filePick?.customize || fileAddCustomization?.several ? "" : file?.fig
+		filePick?.customize || items.length > 1 ? "" : file?.fig
 	);
 	const [emoji, setEmoji] = useState(
-		filePick?.customize || fileAddCustomization?.several ? "" : file?.emo
+		filePick?.customize || items.length > 1 ? "" : file?.emo
 	);
 	const [error, setError] = useState(false);
 	const [visibility, setVisibility] = useState("password");
@@ -66,6 +68,10 @@ const CustomizeFile = ({
 		(state) => state.Cabinet.authorizedSafe
 	);
 	const dispatch = useDispatch();
+
+	const close = () => {
+		dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], title: '', filesPage: 0, filePick: null, menuItem: ''}))
+	}
 
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -141,7 +147,7 @@ const CustomizeFile = ({
 							dispatch(onGetSafeFileList(authorizedSafeData.code, authorizedSafeData.id_safe, "","","",))
                         }
 						else {
-                            dispatch(onAddRecentFiles());
+							dispatch(onAddRecentFiles());
                             //TODO: add sort & filter params to dispatch
 							if (menuItem === 'myFiles') dispatch(onChooseFiles(fileListAll?.path, search, 1, '', '', '', 'file_list_all'));
 							if (menuItem === 'myFolders') dispatch(onChooseFiles(path, search, 1, '', ''));
@@ -224,7 +230,7 @@ const CustomizeFile = ({
                 >
                     <span className={styles.cross} onClick={close} />
                     <span className={styles.title}>{title}</span>
-                    {filePick?.customize || fileAddCustomization?.several ? null :
+                    {filePick?.customize || items.length > 1 ? null :
                         <div className={styles.fileIconWrap}>
                             <div className={`${styles.fileWrap}`}>
                                 <div className={styles.file}><File color={color?.light} format={file ? getName(file.name).format : ''} /></div>
@@ -252,7 +258,7 @@ const CustomizeFile = ({
                         </div>}
                     <div className={`${styles.inputFieldsWrap}`}>
                         <div className={styles.inputWrap}>
-                            {filePick?.customize || fileAddCustomization?.several ? null :
+                            {filePick?.customize || items.length > 1 ? null :
                                 <InputField
                                     model='text'
                                     
@@ -312,10 +318,10 @@ const CustomizeFile = ({
                     <div className={styles.buttonsWrap}>
                         <div className={styles.cancel} onClick={close}>Отмена</div>
                         <div
-                            className={`${file || fileAddCustomization?.several ? styles.add : styles.buttonDisabled}`}
+                            className={`${file || items.length > 1 ? styles.add : styles.buttonDisabled}`}
                             onClick={() => {
                                 if(file) onAddFile();
-                                if(fileAddCustomization?.several) addToAwaitingFiles();
+                                if(items.length > 1) addToAwaitingFiles();
                             }}
                         >Сохранить</div>
                     </div>

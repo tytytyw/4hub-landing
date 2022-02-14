@@ -188,7 +188,7 @@ const INITIAL_STATE = {
         printScreen: {open: false, result: ''},
         previewFile: {open: false, file: null},
         topMessage: {open: false, type: 'message', message: ''}, //type = message(default) || error
-        contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+        contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0, filePick: null, menuItem: ''} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     }
 
 }
@@ -262,17 +262,22 @@ export default function startPage(state = INITIAL_STATE, action) {
         case CHOOSE_RECENT_FILES:
             return {...state, chosenRecentFile: action.payload}
         case CUSTOMIZE_FILE: {
-            const files = state.fileList.files.map(file => {
-                if(file.fid !== action.payload.fid) return file;
-                return action.payload;
-            });
-            const filesAll = state.fileListAll
-                ? (state.fileListAll.files.map(file => {
+            if(Array.isArray(state.fileList.files)) {
+                const files = state.fileList.files.map(file => {
                     if(file.fid !== action.payload.fid) return file;
                     return action.payload;
-                }))
-                : null;
-            return {...state, fileList: {...state.fileList, files}, fileListAll: state.fileListAll ? {...state.fileListAll, files: filesAll} : null}
+                });
+                return {...state, fileList: {...state.fileList, files}}
+            }
+            let files = state.fileList.files;
+            for(let key in files) {
+                files[key].forEach((file, i) => {
+                    if(file.fid === action.payload.fid) {
+                        files[key][i] = action.payload
+                    }
+                })
+            }
+            return {...state, fileList: {...state.fileList, files}}
         }
         case CUSTOMIZE_SAFE_FILE: {
             const safeFiles = state.safe.safeFileList.map(file => {

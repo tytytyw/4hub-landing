@@ -308,6 +308,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
                 fileErrors={fileErrors}
                 setFileErrors={setFileErrors}
                 menuItem={menuItem}
+                saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
             />
         </div>
     )
