@@ -46,6 +46,7 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH,
+    SET_CHOSEN_FILE,
     CHOOSE_GUEST_SHARED_FILES,
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
@@ -125,6 +126,13 @@ export const onSetPath = (path) => {
             type: SET_FILES_PATH,
             payload: path
         }
+}
+
+export const onsetInitialChosenFile = (file) => {
+    return {
+        type: SET_CHOSEN_FILE,
+        payload: file
+    }
 }
 
 export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType, allFiles) => async (dispatch, getState) => {

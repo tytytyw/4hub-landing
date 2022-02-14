@@ -52,7 +52,7 @@ const FileLine = ({
 
 	const renderAdditionalItems = () => (
 		<div className={styles.AdditionalItemsWrapper}>
-			<OptionalButton />
+			<OptionalButton file={file} />
 			<OptionalDate file={file} />
 		</div>
 	);

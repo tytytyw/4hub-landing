@@ -68,7 +68,6 @@ const WorkSpace = ({
 		setGLoader(false)
 	}
 	useEffect(() => {
-		dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 		setFilesPage(0)
 		setGLoader(true)
 		setChosenFile(null)
@@ -78,7 +77,7 @@ const WorkSpace = ({
 		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
 		//TODO: need dispatch downloaded-files
 		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-		
+		return () => dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {

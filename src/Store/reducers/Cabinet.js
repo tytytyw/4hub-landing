@@ -41,6 +41,7 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH,
+    SET_CHOSEN_FILE,
     CHOOSE_GUEST_SHARED_FILES,
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
@@ -243,6 +244,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
         case SET_FILES_PATH: {
             return {...state, fileList: {...state.fileList, files: [], path: action.payload}};
+        }
+        case SET_CHOSEN_FILE: {
+            return {...state, fileList: {...state.fileList, chosenFile: action.payload}};
         }
         case FILE_DELETE: {
             const files = state.fileList.files.filter(el => el.fid !== action.payload.fid);

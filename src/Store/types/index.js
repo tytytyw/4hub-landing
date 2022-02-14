@@ -13,6 +13,7 @@ export const CHOOSE_FOLDER = 'CHOOSE_FOLDER';
 export const CHOOSE_FILES = 'CHOOSE_FILES';
 export const LOAD_FILES = 'LOAD_FILES';
 export const SET_FILES_PATH = 'SET_FILES_PATH';
+export const SET_CHOSEN_FILE = 'SET_CHOSEN_FILE';
 export const LOAD_FILES_ALL = 'LOAD_FILES_ALL';
 export const CHOOSE_ALL_FILES = 'CHOOSE_ALL_FILES';
 export const FILE_DELETE = 'FILE_DELETE';

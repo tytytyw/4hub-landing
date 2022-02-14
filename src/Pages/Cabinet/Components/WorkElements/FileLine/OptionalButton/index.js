@@ -1,15 +1,27 @@
 import React from "react";
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import styles from "./OptionalButton.module.sass";
-import { useLocation } from "react-router";
+import {useHistory, useLocation} from "react-router";
+import {onSetPath, onChooseFiles, onsetInitialChosenFile} from '../../../../../../Store/actions/CabinetActions'
 import classNames from "classnames";
 
-const OptionalButton = () => {
+const OptionalButton = ({file}) => {
+	const history = useHistory()
 	const { pathname } = useLocation();
 	const size = useSelector(state => state.Cabinet.size)
+	const dispatch = useDispatch()
+	
+	const goToFolder = () => {
+        const path = file.gdir
+		dispatch(onsetInitialChosenFile(file))
+        dispatch(onChooseFiles(path, '', 1, '', ''))
+		dispatch(onSetPath(path));
+		setTimeout(() => history.push("/folders"), 50)
+    }
 
 	const renderInSharedFiles = () => (
-		<div onClick={() => console.log("Открыть файл в системе 4Hub")}>
+		// onSetPath
+		<div onClick={goToFolder}>
 			<span>Открыть файл в системе 4Hub</span>
 		</div>
 	);
