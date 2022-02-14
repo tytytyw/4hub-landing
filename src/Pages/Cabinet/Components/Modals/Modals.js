@@ -11,6 +11,7 @@ import PreviewWithComment from "./Components/PreviewWithComment/PreviewWithComme
 import PrintScreen from "./Components/PrintScreen/PrintScreen";
 import PreviewFile from "./Components/PreviewFile/PreviewFile";
 import TopMessage from "./Components/TopMessage/TopMessage";
+import ContextModal from "../ContextMenuComponents/ContextModal";
 
 function Modals ({
      awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
@@ -61,6 +62,7 @@ function Modals ({
         {previewImageWithComment.open ? <PreviewWithComment /> : null}
         {printScreen.open ? <PrintScreen /> : null}
         {previewFile.open ? <PreviewFile /> : null}
+        <ContextModal />
     </>
 }
 

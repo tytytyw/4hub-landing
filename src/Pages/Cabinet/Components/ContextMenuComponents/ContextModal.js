@@ -1,15 +1,17 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import CreateZip from "./ContextMenuFile/CreateZip";
 
-
-//CreateZip title, file, filePick, filesPage
-//CustomizeFile title, file, filePick, filesPage, menuItem; via props - setCustomizeSeveralFiles
-//FileProperty file
+// action_type, items = [{}, {}], filesPage?, title, filePick?, menuItem; via props - setCustomizeSeveralFiles
 
 
 
 function ContextModal() {
-    return <>
 
+    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+
+    return <>
+        {contextMenuModals.type === 'CreateZip' ? <CreateZip /> : null}
     </>
 }
 

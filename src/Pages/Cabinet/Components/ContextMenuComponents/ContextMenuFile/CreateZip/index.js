@@ -13,14 +13,18 @@ import Signs from '../../../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../../../generalComponents/Elements/Emoji';
 import File from '../../../../../../generalComponents/Files';
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-import {onChooseFiles, onGetSafeFileList} from '../../../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onGetSafeFileList, onSetModals} from '../../../../../../Store/actions/CabinetActions';
 import {useLocation} from "react-router";
 
-const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSuccessMessage, setLoadingType, filesPage }) => {
+const CreateZip = ({setShowSuccessMessage = () => {}, setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
 
+    const {title, items, filesPage} = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    console.log(items)
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
-    const [name, setName] = useState(file.fname.slice(0, file.fname.lastIndexOf('.')));
+    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    const topMessage = useSelector(s => s.Cabinet.modals.topMessage);
+    const [name, setName] = useState(items.length === 1 ? items[0].fname.slice(0, items[0].fname.lastIndexOf('.')) : '');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -34,6 +38,10 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
     const dispatch = useDispatch();
     const {pathname} = useLocation()
     const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
+
+    const close = () => {
+        dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], title: '', filesPage: 0}))
+    }
 
     const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -57,7 +65,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
             color: color.color,
             emoji: emoji ? emoji : '',
             symbol: sign ? sign : '',
-            fids: filePick.show ? filePick.files : [file.fid]
+            fids: items.length === 1 ? [items[0].fid] : items
         }
         if (pathname === '/safe') data.id_safe = authorizedSafe.id_safe
 
@@ -66,7 +74,8 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
             api.post(`/ajax/${pathname === '/safe' ? 'safe_' : ''}file_zip.php`, data)
                 .then(() => {
                     dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType, '', filesPage, "") : onChooseFiles(fileList.path));
-                    setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
+                    dispatch(onSetModals('topMessage', {...topMessage, open: true, type: 'message', message: 'Выбранные файлы успешно сжато в Zip'}))
+                    // setShowSuccessMessage('Выбранные файлы успешно сжато в Zip');
                     onCancel();
                 })
                 .catch(() => setError(true))
@@ -110,7 +119,7 @@ const CreateZip = ({ close, title, file, filePick, nullifyFilePick, setShowSucce
                             <div className={styles.file}><File color={color.light} format='ZIP' /></div>
                         </div>
                         <div className={styles.picPreview}>
-                            <div className={styles.name}>{getName(file.fname).name}</div>
+                            <div className={styles.name}>{items.length === 1 ? getName(items[0].fname).name : ''}</div>
                             <div className={styles.fileOptions}>
                                 {tagOption.chosen && <div
                                     className={`${styles.minitagWrap} ${styles.redCross}`}

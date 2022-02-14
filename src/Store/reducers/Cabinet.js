@@ -187,7 +187,8 @@ const INITIAL_STATE = {
         previewWithComments: {open: false, files: [], chosenFile: null},
         printScreen: {open: false, result: ''},
         previewFile: {open: false, file: null},
-        topMessage: {open: false, type: 'message', message: ''} //type = message(default) || error
+        topMessage: {open: false, type: 'message', message: ''}, //type = message(default) || error
+        contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     }
 
 }

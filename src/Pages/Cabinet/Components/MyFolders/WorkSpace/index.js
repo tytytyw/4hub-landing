@@ -31,6 +31,7 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import FolderPath from "../FolderPath";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
+import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile, nullifyAddingSeveralFiles,
@@ -277,9 +278,10 @@ const WorkSpace = ({
             /> : null}
             <BottomPanel />
         </div>
-        {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+        {mouseParams !== null && mouseParams?.width && mouseParams?.height ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
             <div className={styles.additionalMenuItems}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
+            <ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} />
         </ContextMenu> : null}
         {action.type === 'delete' ?
             <ActionApproval
