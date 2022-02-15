@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 import api from "../../../../api";
 import {contextMenuFile, periods, previewFormats} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
@@ -13,6 +14,7 @@ import {
 	onDeleteFile,
 	onAddRecentFiles, onChooseFiles,
 } from "../../../../Store/actions/CabinetActions";
+import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 import CreateSafePassword from "../CreateSafePassword";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
@@ -51,7 +53,7 @@ const MyFiles = ({
 	const [loadingFiles, setLoadingFiles] = useState(false);
 
 	const [gLoader, setGLoader] = useState(false);
-
+    const {pathname} = useLocation();
 	const [listCollapsed, setListCollapsed] = useState(false);
 	const [chosenFolder] = useState({
 		path: "global/all",
@@ -65,7 +67,12 @@ const MyFiles = ({
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 	const nullifyFilePick = () =>
 		setFilePick({ show: false, files: [], customize: false });
-	const callbackArrMain = [
+
+	const filterContexMenuForArchive = (arr) => {
+		const arhiveContexMenuItems = ['share', 'download', "print"];
+		return arr.filter(item => pathname === '/archive' ? arhiveContexMenuItems.includes(item.type) : true);
+	}
+	const callbackArrMain = filterContexMenuForArchive([
 		{
 			type: "share",
 			name: "",
@@ -132,7 +139,7 @@ const MyFiles = ({
 			text: ``,
 			callback: () => checkMimeTypes(),
 		},
-	];
+	])
 
 	const additionalMenuItems = [
 		{
@@ -352,6 +359,7 @@ const MyFiles = ({
 		});
 	};
 	useEffect(() => {
+		dispatch(onGetUserInfo())
 		setMenuItem('myFiles');
 		return () => setMenuItem("")
 	}, []); //eslint-disable-line
@@ -389,9 +397,11 @@ const MyFiles = ({
 
 	const load = (entry) => {
 		if(!gLoader) {
-			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && window.location?.pathname.includes('files')){
+			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
 				setLoadingFiles(true);
 				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+				pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
 			}
 		}
 	}
@@ -504,7 +514,7 @@ const MyFiles = ({
 				tooltip={true}
 			>
 				<div className={styles.mainMenuItems}>
-					{renderMenuItems(contextMenuFile.main, callbackArrMain)}
+					{renderMenuItems(filterContexMenuForArchive(contextMenuFile.main), callbackArrMain)}
 				</div>
 				<div className={styles.additionalMenuItems}>
 					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}

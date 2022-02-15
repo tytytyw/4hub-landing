@@ -46,6 +46,7 @@ import {
     SET_FILTER_FIGURE,
     SET_REVERSE_CRITERION,
     SET_FILES_PATH,
+    SET_CHOSEN_FILE,
     CHOOSE_GUEST_SHARED_FILES,
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
@@ -125,6 +126,13 @@ export const onSetPath = (path) => {
             type: SET_FILES_PATH,
             payload: path
         }
+}
+
+export const onsetInitialChosenFile = (file) => {
+    return {
+        type: SET_CHOSEN_FILE,
+        payload: file
+    }
 }
 
 export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType, allFiles) => async (dispatch, getState) => {
@@ -874,7 +882,8 @@ export const onSearch = (value) => {
 }
 
 // SHARED FILES
-export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getState) => {
+export const onGetSharedFiles  = (type, dateFilter) => async (dispatch, getState) => {
+    const dateFiltered = dateFilter ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : '' }${dateFilter?.m ? `&m=${dateFilter?.m}` : '' }${dateFilter?.y ? `&y=${dateFilter?.y}` : '' }` : ''
     const url = () => {
         switch (type) {
             case 'sharedMe': return 'file_share_get'
@@ -883,7 +892,7 @@ export const onGetSharedFiles  = (type, day, mounth) => async (dispatch, getStat
         }
     }
     try {
-        const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}&m=${mounth}`)
+        const res = await api.get(`/ajax/${url(type)}.php?uid=${getState().user.uid}}${dateFiltered}`)
         dispatch({
             type: CHOOSE_SHARED_FILES,
             payload: type === "sharedI" ? {files: res.data.data, key: type} : {files: res.data.data, key: type}
@@ -946,15 +955,16 @@ export const onGetGuestFolderFiles  = (did, setLoading) => async (dispatch) => {
 // ARCHIVE
 
 // TODO: move to onChooseFiles
-export const onGetArchiveFiles = (search, page, set, setLoad, loadedFilesType) => async (dispatch, getState) => {
+export const onGetArchiveFiles = (search, page, set, setLoad, loadedFilesType, dateFilter) => async (dispatch, getState) => {
     const emoji = getState().Cabinet.fileCriterion.filters.emoji ? `&filter_emo=${getState().Cabinet.fileCriterion.filters.emoji}` : '';
     const sign = getState().Cabinet.fileCriterion.filters.figure ? `&filter_fig=${getState().Cabinet.fileCriterion.filters.figure}` : '';
     const color = getState().Cabinet.fileCriterion.filters.color.color ? `&filter_color=${getState().Cabinet.fileCriterion.filters.color.color}` : '';
     const searched = search ? `&search=${search}` : '';
+    const dateFiltered = dateFilter ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : '' }${dateFilter?.m ? `&m=${dateFilter?.m}` : '' }${dateFilter?.y ? `&y=${dateFilter?.y}` : '' }` : ''
     const sortReverse = getState().Cabinet.fileCriterion.reverse && getState().Cabinet.fileCriterion?.reverse[getState().Cabinet.fileCriterion.sorting] ? `&sort_reverse=1` : '';
     const cancelChooseFiles = CancelToken.source();
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/archive_list.php?uid=${getState().user.uid}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
+        const url = `/ajax/archive_list.php?uid=${getState().user.uid}${searched}${dateFiltered}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {

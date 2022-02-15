@@ -9,7 +9,7 @@ import Notifications from "../Notifications";
 import Profile from "../Profile";
 import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
-import DateBlock from "./DateBlock";
+import DateFilter from "../MyFiles/DateFilter";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { contextMenuSharedFiles } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -33,8 +33,6 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import SideMenu from "./SideMenu";
-
-//TODO: заменить при получении сгрупированного на даты списка файлов
 import { months } from "../../../../generalComponents/CalendarHelper";
 
 const SharedFiles = ({
@@ -55,8 +53,6 @@ const SharedFiles = ({
 	const [sideMenuChosenItem, setSideMenuChosenItem] = useState("sharedMe");
 	const dispatch = useDispatch();
 
-	const [year, setYear] = useState(null);
-	const [month, setMonth] = useState("");
 	const [chosenFile, setChosenFile] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
 	const [mouseParams, setMouseParams] = useState(null);
@@ -65,6 +61,8 @@ const SharedFiles = ({
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 	const uid = useSelector((state) => state.user.uid);
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
+	const [dateFilter, setDateFilter] = useState({});
+
 	// const [filesNotCustomize, setFilesNotCustomize] = useState([]);
 
 	const filesSharedMe = useSelector(
@@ -76,20 +74,15 @@ const SharedFiles = ({
 	useEffect(() => {
 		setMenuItem("SharedFiles");
 		dispatch(onGetUserInfo());
-
-		// const timer = setInterval(() => {// Creates an interval which will update the current data every minute
-		// 	setDate(new Date());
-		//   }, 60 * 1000);
 		return () => {
 			setMenuItem("");
-			// clearInterval(timer);
 		};
 	}, []); // eslint-disable-line
 
 	useEffect(() => {
-		dispatch(onGetSharedFiles("sharedMe", "", month));
-		dispatch(onGetSharedFiles("sharedI", "", month));
-	}, [month]); // eslint-disable-line
+		dispatch(onGetSharedFiles("sharedMe", ""));
+		dispatch(onGetSharedFiles("sharedI", ""));
+	}, []); // eslint-disable-line
 
 	useEffect(() => {
 		if (filePick.customize) {
@@ -387,7 +380,7 @@ const SharedFiles = ({
 				filesSharedMe={filesSharedMe}
 				filesSharedI={filesSharedI}
 				renderFilesGroup={renderFilesGroup}
-				month={month}
+				// month={month}
 			/>
 
 			<div className={styles.workAreaWrap}>
@@ -412,13 +405,9 @@ const SharedFiles = ({
 					}
 					filePick={filePick}
 				/>
-				<DateBlock
-					search={search}
-					setSearch={setSearch}
-					year={year}
-					setYear={setYear}
-					month={month}
-					setMonth={setMonth}
+				<DateFilter
+					dateFilter={dateFilter}
+					setDateFilter={setDateFilter}
 				/>
 				<div
 					className={styles.workSpace}
@@ -440,9 +429,7 @@ const SharedFiles = ({
 					{/*TODO: заменить при получении сгруппированного на даты списка файлов */}
 					{workElementsView !== "workLinesPreview" && (
 						<div className={styles.filesList}>
-							{month
-								? renderFilesGroup(months()[month - 1].name, 0)
-								: months().map((item, i) => renderFilesGroup(item.name, i))}
+							{months().map((item, i) => renderFilesGroup(item.name, i))}
 						</div>
 					)}
 				</div>

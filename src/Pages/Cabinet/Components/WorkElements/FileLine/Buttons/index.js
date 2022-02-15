@@ -135,12 +135,21 @@ const Buttons = ({
 		</>
 	);
 
+	const renderMyDownloadedFileButtons = () => (
+		<>
+			{renderDownloadBtn()}
+			{renderPrintBtn()}
+			{renderSettingBtn()}
+			{renderContexMenuBtn()}
+		</>
+	);
+
 	return (
 		<div className={styles.optionsWrap}>
 			{pathname === "/folders" && renderMyFilesButtons()}
 			{pathname === "/files" && renderMyFilesButtons()}
 			{pathname === '/safe' && renderMyFilesButtons()}
-			{pathname === "/downloaded-files" && renderMyFilesButtons()}
+			{pathname === "/downloaded-files" && renderMyDownloadedFileButtons()}
 			{pathname === "/archive" && renderArchiveButtons()}
 		</div>
 	);

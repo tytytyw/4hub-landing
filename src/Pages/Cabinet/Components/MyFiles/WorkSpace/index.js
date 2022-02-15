@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import styles from "./WorkSpace.module.sass";
 import { useLocation } from "react-router";
@@ -20,6 +20,7 @@ import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProper
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
+import DateFilter from '../DateFilter'
 
 const WorkSpace = ({
 	chosenFile,
@@ -60,22 +61,23 @@ const WorkSpace = ({
 	const dispatch = useDispatch();
 	const [containerRef, width] = useElementResize();
 	const {pathname} = useLocation();
+	const [dateFilter, setDateFilter] = useState({});
 
 	const successLoad = () => {
 		setFilesPage(2)
 		setGLoader(false)
 	}
 	useEffect(() => {
-		dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 		setFilesPage(0)
 		setGLoader(true)
+		setChosenFile(null)
 		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
 		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
 		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
 		//TODO: need dispatch downloaded-files
 		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-		
+		return () => dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
 	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
@@ -123,10 +125,14 @@ const WorkSpace = ({
 					fileAddCustomization={fileAddCustomization}
 					setFileAddCustomization={setFileAddCustomization}
 					addFile={fileSelect}
-					menuItem={menuItem}
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
+					dateFilter={dateFilter}
 				/>
+				{pathname === '/archive' && <DateFilter
+					dateFilter={dateFilter}
+					setDateFilter={setDateFilter}
+				/>}
 				<ItemsList
 					setGLoader={setGLoader}
 					setFilesPage={setFilesPage}
@@ -147,6 +153,7 @@ const WorkSpace = ({
 					fileRef={fileRef}
 					width={width}
 					menuItem={menuItem}
+					dateFilter={dateFilter}
 				/>
 
 				{filePick.show ? (

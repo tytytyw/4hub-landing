@@ -24,7 +24,8 @@ import {
     onAddRecentFiles,
     onAddRecentFolders,
     onChooseFiles,
-    onGetFolders
+    onGetFolders,
+    onsetInitialChosenFile
 } from '../../../../Store/actions/CabinetActions';
 import Error from '../../../../generalComponents/Error';
 import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
@@ -44,6 +45,7 @@ const MyFolders = ({
     const recentFolders = useSelector(state => state.Cabinet.recentFolders);
     const path = useSelector(state => state.Cabinet.folderList?.path);
     const fileList = useSelector(state => state.Cabinet.fileList);
+    const initialChosenFile = useSelector(state => state.Cabinet.fileList?.chosenFile);
     const [listCollapsed, setListCollapsed] = useState('');
     const [newFolder, setNewFolder] = useState(false);
     //TODO - Need to check object keys and delete useless
@@ -70,14 +72,21 @@ const MyFolders = ({
         setGLoader(false)
     }
     useEffect(() => {
-        setFilesPage(0)
         setMenuItem('myFolders')
         dispatch(onGetUserInfo());
-        dispatch(onGetFolders());
         dispatch(onAddRecentFiles());
         dispatch(onAddRecentFolders());
-        dispatch(onChooseFiles('global/all', '', 1, '', successLoad));
-        return () => setMenuItem('')
+        dispatch(onGetFolders());
+        setFilesPage(0)
+        dispatch(onChooseFiles(initialChosenFile ?  initialChosenFile.gdir: 'global/all', '', 1, '', successLoad));
+        if (initialChosenFile) {
+            setChosenFile(initialChosenFile)
+            dispatch(onsetInitialChosenFile(null))
+        }
+        return () => {
+            setMenuItem('')
+            dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
+        }
     }, []); //eslint-disable-line
 
     const renderFolderList = (root, isRecent) => {

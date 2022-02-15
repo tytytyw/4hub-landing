@@ -1,9 +1,12 @@
 import React from "react";
+import {useSelector} from 'react-redux'
 import styles from "./OptionalDate.module.sass";
 import { useLocation } from "react-router";
+import classNames from "classnames";
 
 const OptionalDate = ({ file }) => {
 	const { pathname } = useLocation();
+	const size = useSelector(state => state.Cabinet.size)
 
 	const getText = () => {
 		switch (pathname) {
@@ -14,7 +17,7 @@ const OptionalDate = ({ file }) => {
 		}
 	}
  	return (
-		<div className={styles.wrapper}>
+		<div className={classNames(styles.wrapper, styles[size])}>
 			<span className={styles.description}>{getText().title}</span>
 			<span className={styles.value}>{getText().value}</span>
 		</div>

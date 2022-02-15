@@ -128,11 +128,13 @@ export const exit = () => {
 };
 
 //Count height of fields for files (WorkBars, WorkLines, WorkBarsPreview, WorkLinesPreview)
-export const renderHeight = (recentFiles, filePick, styles) => (
+export const renderHeight = (recentFiles, filePick, styles, dateFilter) => (
     recentFiles?.length > 0
         ? filePick.show
         ? styles.showFilePickWithRecentFiles
         : styles.hideFilePickWithRecentFiles
+        : !!dateFilter
+        ? styles.dateFilter
         : filePick.show
         ? styles.showFilePick
         : styles.hideFilePick

@@ -31,13 +31,6 @@ const FileLine = ({
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 
-	//TODO: get actual avatar and name from api
-	const avatarSrc = useSelector((state) => state?.user?.userInfo?.icon[0]);
-	const ownerName =
-		(useSelector((state) => state?.user?.userInfo?.name) || "") +
-		" " +
-		(useSelector((state) => state?.user?.userInfo?.sname) || "");
-
 	const printFile = () => {
 		setTimeout(() => {
 			callbackArrMain.forEach((item) => {
@@ -179,8 +172,8 @@ const FileLine = ({
 				<img
 					alt="avatar"
 					className={styles.ownerAvatar}
-					src={avatarSrc}
-					title={ownerName}
+					src={imageSrc + (file.user_icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")}
+					title={file.user_name + " " + file.user_sname}
 				/>
 				<span className={styles.storageInfo}>
 					Срок хранения: Осталось (8дней)

@@ -1,18 +1,19 @@
 import React from "react";
-import {useSelector} from 'react-redux'
 import styles from "../FileLine.module.sass"
 
 import File from '../../../../../../generalComponents/Files'
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
+import { useLocation } from "react-router";
 
 
 const FileInfo = ({file}) => {
-    const size = useSelector(state => state.Cabinet.size)
+	const { pathname } = useLocation();
+	const shortWidht = pathname === '/archive' || pathname === '/downloaded-files' ? {maxWidth: `calc( 100% - 620px )`} : {}
 
 	return (
-		<div className={styles.fileAbout}>
+		<div className={styles.fileAbout} style={shortWidht}>
 			<div
 				className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}
 			>
@@ -37,9 +38,8 @@ const FileInfo = ({file}) => {
 				</div>
 
 				<div className={styles.fileInfo}>
-					<span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span>
+					{pathname !== '/downloaded-files' ? <span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span> : ''}
 					<span className={styles.fileSize}>{file?.size_now}</span>
-					{size !== "small" && (
 						<div className={styles.symbols}>
 							{file?.is_pass === 1 && (
 								<img
@@ -62,36 +62,10 @@ const FileInfo = ({file}) => {
 									alt="emoji"
 								/>
 							)}
+							{file?.tag && <div className={styles.ftag}>#{file?.tag}</div>}
 						</div>
-					)}
 				</div>
 			</div>
-
-			{size === "small" && (
-				<div className={styles.symbols}>
-					{file?.is_pass === 1 && (
-						<img
-							className={styles.locked}
-							src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-							alt="lock"
-						/>
-					)}
-					{file?.fig && (
-						<img
-							className={styles.sign}
-							src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`}
-							alt="sign"
-						/>
-					)}
-					{file?.emo && (
-						<img
-							className={styles.smile}
-							src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`}
-							alt="emoji"
-						/>
-					)}
-				</div>
-			)}
 		</div>
 	);
 };

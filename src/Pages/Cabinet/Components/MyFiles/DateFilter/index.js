@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "./DateBlock.module.sass";
+import styles from "./DateFilter.module.sass";
 import Select from "../../../../../generalComponents/Select/Select";
-import { getDays, getYears, months } from "../helper";
+import { getDays, getYears, months } from "./helper";
 import classNames from "classnames";
 
-const DateBlock = ({ month, setMonth }) => {
+const DateFilter = ({dateFilter, setDateFilter}) => {
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.searchWrap}>
@@ -14,6 +15,8 @@ const DateBlock = ({ month, setMonth }) => {
 						className={styles.select}
 						classNameSelect={styles.selectContentYear}
 						data={getYears()}
+						onChange={(value) => setDateFilter(dateFilter => ({...dateFilter, y: value}))}
+						cleareFilter={() => setDateFilter(dateFilter => ({...dateFilter, y: ''}))}
 					/>
 				</div>
 
@@ -23,6 +26,8 @@ const DateBlock = ({ month, setMonth }) => {
 						className={styles.select}
 						classNameSelect={styles.selectContent}
 						data={getDays()}
+						onChange={(value) => setDateFilter(dateFilter => ({...dateFilter, d: value}))}
+						cleareFilter={() => setDateFilter(dateFilter => ({...dateFilter, d: ''}))}
 					/>
 				</div>
 			</div>
@@ -32,12 +37,12 @@ const DateBlock = ({ month, setMonth }) => {
 					<button
 						key={index}
 						onClick={() => {
-							if (month !== item.id) setMonth(item.id);
-							else setMonth('');
+							if (dateFilter?.m !== item.id) setDateFilter(dateFilter => ({...dateFilter, m: item.id}));
+							else setDateFilter(dateFilter => ({...dateFilter, m: ''}));
 						}}
 						className={classNames({
 							[styles.button]: true,
-							[styles.active]: item.id === month,
+							[styles.active]: item.id === dateFilter?.m,
 						})}
 					>
 						{item.text}
@@ -48,4 +53,4 @@ const DateBlock = ({ month, setMonth }) => {
 	);
 };
 
-export default DateBlock;
+export default DateFilter;

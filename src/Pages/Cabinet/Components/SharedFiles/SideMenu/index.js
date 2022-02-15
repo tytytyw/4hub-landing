@@ -8,7 +8,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import SideList from "../SideList";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
-import { months } from "../../../../../generalComponents/CalendarHelper";
+// import { months } from "../../../../../generalComponents/CalendarHelper";
 
 const SideMenu = ({
 	sideMenuCollapsed,
@@ -17,8 +17,8 @@ const SideMenu = ({
 	setSideMenuChosenItem,
 	filesSharedMe,
 	filesSharedI,
-	renderFilesGroup,
-	month,
+	// renderFilesGroup,
+	// month,
 }) => {
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
@@ -68,9 +68,9 @@ const SideMenu = ({
 				</div>
 				{workElementsView === "workLinesPreview" && (
 					<SideList>
-						{month
+						{/* {month
 							? renderFilesGroup(months()[month - 1].name, 0)
-							: months().map((item, i) => renderFilesGroup(item.name, i))}
+							: months().map((item, i) => renderFilesGroup(item.name, i))} */}
 					</SideList>
 				)}
 			</div>
