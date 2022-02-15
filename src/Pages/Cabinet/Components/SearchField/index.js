@@ -3,8 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useDebounce} from '../../../../generalComponents/Hooks';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onSearch, onGetSafeFileList} from '../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onSearch, onGetSafeFileList, onGetArchiveFiles} from '../../../../Store/actions/CabinetActions';
 import Select from "../../../../generalComponents/Select/Select";
+import { useLocation } from "react-router";
 
 
 const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
@@ -14,11 +15,13 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 	const searchField = useSelector(state => state.Cabinet?.search);
 	const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
 	const dispatch = useDispatch();
+	const {pathname} = useLocation();
 
 	const search = (query) => {
-		if (menuItem === 'myFolders') dispatch(onChooseFiles(path, query, 1))
-		if (menuItem === 'myFiles') dispatch(onChooseFiles('', query, 1, '', '', '', 'file_list_all'))
-		if (menuItem === 'safe') dispatch(
+		if (pathname === '/folders') dispatch(onChooseFiles(path, query, 1))
+		if (pathname.includes('files')) dispatch(onChooseFiles('', query, 1, '', '', '', 'file_list_all'))
+		if (pathname === '/archive') dispatch(onGetArchiveFiles(query, 1, '', '', '')) //TODO: add date filter
+		if (pathname === '/safe') dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
                 authorizedSafe.id_safe,
