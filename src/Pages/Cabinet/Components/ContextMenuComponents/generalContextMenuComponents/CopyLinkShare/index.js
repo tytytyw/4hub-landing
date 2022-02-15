@@ -97,7 +97,6 @@ function CopyLinkShare() {
 				linkRef.current.value = "";
 			}
 			dispatch(onSetModals('topMessage', {open: true, message: "Ссылка скопирована"}))
-			// setShowSuccessMessage("Ссылка скопирована");
 		}
 	};
 
