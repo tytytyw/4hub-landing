@@ -96,7 +96,7 @@ function CopyLinkShare() {
 				document.execCommand("copy");
 				linkRef.current.value = "";
 			}
-			dispatch(onSetModals('topMessage', {open: true, message: "Ссылка скопирована"}))
+			dispatch(onSetModals('topMessage', {open: true, type: 'message', message: "Ссылка скопирована"}))
 		}
 	};
 
