@@ -22,7 +22,7 @@ const OptionalButton = ({file, successLoad}) => {
     }
 
 	const unArchiveFile = () => {
-		api.get(`/ajax/file_unarchive.php?uid=${uid}&fid1=${file.fid}`)
+		api.get(`/ajax/file_unarchive.php?uid=${uid}&fid=${file.fid}`)
 			.then((res) => {
 				if (res.data.ok) {
 					//TODO: replace to topMessage
@@ -36,13 +36,13 @@ const OptionalButton = ({file, successLoad}) => {
  
 	const renderInSharedFiles = () => (
 		// onSetPath
-		<div onClick={goToFolder}>
+		<div className={styles.button} onClick={goToFolder}>
 			<span>Открыть файл в системе 4Hub</span>
 		</div>
 	);
 
 	const renderInArchive = () => (
-		<div onClick={unArchiveFile}>
+		<div className={styles.button} onClick={unArchiveFile}>
 			<span>Разархивировать</span>
 		</div>
 	)
