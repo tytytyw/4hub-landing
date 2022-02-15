@@ -6,15 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
-import { onGetContacts } from "../../../../../../Store/actions/CabinetActions";
+import {onGetContacts, onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../api";
 import Error from "../../../../../../generalComponents/Error";
 
-function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action_type = '' }) {
+function CopyLinkShare() {
+    const { items, action_type } = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    const item = items[0];
 	const uid = useSelector(state => state.user.uid);
 	const contactList = useSelector((state) => state.Cabinet.contactList);
+	const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
 	const [url, setUrl] = useState("Загрузка...");
 	const [review, setReview] = useState({ text: "Просмотр" });
 	const [context, setContext] = useState("");
@@ -28,7 +31,7 @@ function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action
 	const dispatch = useDispatch();
 
 	const saveChanges = () => {
-		nullifyAction();
+        dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], action_type: ''}))
 	};
 
 	const checkContextMenu = (e) => {
@@ -93,7 +96,8 @@ function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action
 				document.execCommand("copy");
 				linkRef.current.value = "";
 			}
-			setShowSuccessMessage("Ссылка скопирована");
+			dispatch(onSetModals('topMessage', {open: true, message: "Ссылка скопирована"}))
+			// setShowSuccessMessage("Ссылка скопирована");
 		}
 	};
 
@@ -218,11 +222,11 @@ function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action
 
 	const sendProject = () => {
 		//TODO add api
-		nullifyAction();
+        saveChanges();
 	};
 
 	return (
-		<PopUp set={nullifyAction}>
+		<PopUp set={saveChanges}>
 			{sendAccess && chosenContacts.length > 0 ? (
 				<div className={styles.sendLinkWrap} onClick={checkContextMenu}>
 					<header>
@@ -402,7 +406,7 @@ function CopyLinkShare({ item = {}, nullifyAction, setShowSuccessMessage, action
 						<div className={styles.line} />
 					</main>
 					<div className={styles.buttonsWrap}>
-						<div className={styles.cancel} onClick={nullifyAction}>
+						<div className={styles.cancel} onClick={saveChanges}>
 							Отмена
 						</div>
 						<div className={`${styles.add}`} onClick={saveChanges}>

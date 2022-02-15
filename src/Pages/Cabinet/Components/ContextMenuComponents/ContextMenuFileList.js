@@ -10,13 +10,17 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
 
-    const shate_types = {
+    const share_types = {
         myFolders: 'file_share'
     }
 
+    const copy_link_types = {
+        myFolders: file.is_dir === 1 ? 'dir_access_add' : ''
+    }
+
     const callbackArrMain = [
-        {type: 'share', name: '', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : shate_types[menuItem], file}))}},
-        {type: 'copyLink', name: '', text: ``, callback: () => {}},
+        {type: 'share', name: '', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : share_types[menuItem], file}))}},
+        {type: 'copyLink', name: '', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CopyLinkShare', items: [file], action_type: copy_link_types[menuItem]}))}},
         {type: 'customize', name: 'Редактирование файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
         {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
         {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${file?.name}?`, callback: () => {}},
