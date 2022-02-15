@@ -38,7 +38,7 @@ const FileInfo = ({file}) => {
 				</div>
 
 				<div className={styles.fileInfo}>
-					{pathname !== '/downloaded-files' ? <span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span> : ''}
+					{pathname === '/files' ? <span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span> : ''}
 					<span className={styles.fileSize}>{file?.size_now}</span>
 						<div className={styles.symbols}>
 							{file?.is_pass === 1 && (

@@ -21,6 +21,7 @@ const FileLine = ({
 	callbackArrMain,
 	folderSelect,
 	openFolderMenu,
+	successLoad,
 }) => {
 	const size = useSelector((state) => state.Cabinet.size);
 	const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
@@ -52,7 +53,7 @@ const FileLine = ({
 
 	const renderAdditionalItems = () => (
 		<div className={styles.AdditionalItemsWrapper}>
-			<OptionalButton file={file} />
+			<OptionalButton file={file} successLoad={successLoad} />
 			<OptionalDate file={file} />
 		</div>
 	);

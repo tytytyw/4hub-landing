@@ -154,6 +154,7 @@ const WorkSpace = ({
 					width={width}
 					menuItem={menuItem}
 					dateFilter={dateFilter}
+					successLoad={successLoad}
 				/>
 
 				{filePick.show ? (
