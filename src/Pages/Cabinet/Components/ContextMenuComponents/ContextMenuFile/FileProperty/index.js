@@ -5,10 +5,17 @@ import PopUp from '../../../../../../generalComponents/PopUp';
 import General from './General';
 import Security from './Security';
 import PrevVersions from './PrevVersions';
+import {useDispatch, useSelector} from "react-redux";
+import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
-const FileProperty = ({close, file }) => {
+const FileProperty = () => {
 
     const [inset, setInset] = useState('general');
+    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    const file = contextMenuModals.items[0];
+    const dispatch = useDispatch();
+
+    const close = () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: []}))
 
     return(<PopUp set={close}>
         <div className={styles.propertiesWrap}>

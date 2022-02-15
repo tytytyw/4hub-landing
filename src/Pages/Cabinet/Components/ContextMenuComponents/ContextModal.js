@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import CreateZip from "./ContextMenuFile/CreateZip";
 import CustomizeFile from "./ContextMenuFile/CustomizeFile";
 import CopyLinkShare from "./generalContextMenuComponents/CopyLinkShare";
+import FileProperty from "./ContextMenuFile/FileProperty";
 
 // action_type, items = [{}, {}], filesPage?, title, filePick?, menuItem; via props - setCustomizeSeveralFiles
 
@@ -16,6 +17,7 @@ function ContextModal({saveCustomizeSeveralFiles}) {
         {contextMenuModals.type === 'CreateZip' ? <CreateZip /> : null}
         {contextMenuModals.type === 'CustomizeFile' ? <CustomizeFile saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} /> : null}
         {contextMenuModals.type === 'CopyLinkShare' ? <CopyLinkShare /> : null}
+        {contextMenuModals.type === 'FileProperty' ? <FileProperty /> : null}
     </>
 }
 
