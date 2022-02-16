@@ -73,10 +73,10 @@ const WorkSpace = ({
 		setChosenFile(null)
 		pathname === '/files' && dispatch(onAddRecentFiles())
 		//TODO - Need to change request after server changes
-		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
+		if (pathname === '/files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all', pathname))
+		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, '', pathname))
 		//TODO: need dispatch downloaded-files
-		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
+		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all', pathname))
 		dispatch({
 			type: "SORT_FILES",
 			payload:

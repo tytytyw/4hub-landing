@@ -399,9 +399,9 @@ const MyFiles = ({
 		if(!gLoader) {
 			if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
 				setLoadingFiles(true);
-				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
-				pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
-                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+				dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all', pathname));
+				pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all', pathname));
+                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all', pathname));
 			}
 		}
 	}
