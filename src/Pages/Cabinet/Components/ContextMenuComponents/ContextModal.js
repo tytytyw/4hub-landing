@@ -6,6 +6,8 @@ import CopyLinkShare from "./generalContextMenuComponents/CopyLinkShare";
 import FileProperty from "./ContextMenuFile/FileProperty";
 import MoveToArchive from "./ContextMenuFile/MoveToArchive/MoveToArchive";
 import DownloadFile from "./ContextMenuFile/DownloadFile/DownloadFile";
+import PrintFile from "./ContextMenuFile/PrintFile/PrintFile";
+import DeleteFile from "./ContextMenuFile/DeleteFile/DeleteFIle";
 
 // action_type, items = [{}, {}], filesPage?, title, filePick?, menuItem; via props - setCustomizeSeveralFiles
 
@@ -22,6 +24,8 @@ function ContextModal({saveCustomizeSeveralFiles}) {
         {contextMenuModals.type === 'FileProperty' ? <FileProperty /> : null}
         {contextMenuModals.type === 'MoveToArchive' ? <MoveToArchive /> : null}
         {contextMenuModals.type === 'DownloadFile' ? <DownloadFile /> : null}
+        {contextMenuModals.type === 'PrintFile' ? <PrintFile /> : null}
+        {contextMenuModals.type === 'DeleteFile' ? <DeleteFile /> : null}
     </>
 }
 
