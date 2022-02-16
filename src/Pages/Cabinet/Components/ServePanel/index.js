@@ -78,9 +78,9 @@ const ServePanel = ({
     const setFilter = (sorting) => {
         if(setGLoader) setGLoader(true);
         dispatch(onSortFile(sorting));
-        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader))
-        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter));
-        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader, '', 'file_list_all'))
+        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader, pathname))
+        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter, pathname));
+        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', setGLoader, '', 'file_list_all', pathname))
         if (pathname === '/safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -120,7 +120,9 @@ const ServePanel = ({
 
     const renderSortingItems = (target, callback) => (
         target.map((item, i) => {
-            return <div
+            return pathname !== "/archive" && item.name === "По дате архивирования"
+            ? ''
+            : <div
                 onClick={() => callback(item.ext)}
                 className={styles.contextSortingItem}
                 key={i}
@@ -137,9 +139,9 @@ const ServePanel = ({
 
     const setFigure = (value) => {
         dispatch(onChangeFilterFigure(value));
-        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter));
-        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
+        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', '', pathname))
+        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter, pathname));
+        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all', pathname))
         if (pathname === '/safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -156,9 +158,9 @@ const ServePanel = ({
     }
     const setColor = (value) => {
         dispatch(onChangeFilterColor(value));
-        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter));
-        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
+        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', '', pathname))
+        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter, pathname));
+        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all', pathname))
         if (pathname === '/safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,
@@ -175,9 +177,9 @@ const ServePanel = ({
     }
     const setEmoji = (value) => {
         dispatch(onChangeFilterEmoji(value));
-        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', ''))
-        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter));
-        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all'))
+        if (pathname === '/folders') dispatch(onChooseFiles(fileList.path, search, 1, '', '', pathname))
+        if (pathname === '/archive') dispatch(onGetArchiveFiles(search, 1, '', setGLoader, '', dateFilter, pathname));
+        if (pathname.includes('files')) dispatch(onChooseFiles(fileList.path, search, 1, '', '', '', 'file_list_all', pathname))
         if (pathname === '/safe') {dispatch(
             onGetSafeFileList(
                 authorizedSafe.code,

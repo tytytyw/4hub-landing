@@ -71,6 +71,7 @@ const FileLine = ({
 		>
 			<FileInfo file={file} />
 			<div className={styles.flexContainer}>
+				<div />
 				{pathname === "/downloaded-files" && renderAdditionalItems()}
 				{pathname === "/archive" && renderAdditionalItems()}
 				<Buttons

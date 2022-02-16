@@ -172,9 +172,9 @@ const ItemsList = ({
             }
             if(entry.isIntersecting && !loadingFiles && filesPage !== 0 && (pathname.includes('files') || pathname === '/archive')){
                 setLoadingFiles(true);
-                pathname === '/archive' && dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', '', dateFilter));
-                pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
-                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all'));
+                pathname === '/archive' && dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, '', '', dateFilter, pathname));
+                pathname === '/files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all', pathname));
+                pathname === '/downloaded-files' && dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, '', '', 'file_list_all', pathname));
             }
         }
     }

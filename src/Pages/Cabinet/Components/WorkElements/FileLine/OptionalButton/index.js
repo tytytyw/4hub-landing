@@ -28,7 +28,7 @@ const OptionalButton = ({file, successLoad}) => {
 					//TODO: replace to topMessage
 					onGetArchiveFiles('', 1, '', successLoad, '')
 					//TODO: dispatch fileList filter
-					dispatch(onSetModals('success', {open: true, message: 'Файл успешно разархивирован', title: ''}));
+					dispatch(onSetModals('topMessage', {open: true, type: 'message', message: 'Файл успешно разархивирован'}))
 				} else throw new Error();
 			})
 			.catch(() => dispatch(onSetModals('error', {open: true, message: 'что-то пошло не так', title: 'ошибка'})))
