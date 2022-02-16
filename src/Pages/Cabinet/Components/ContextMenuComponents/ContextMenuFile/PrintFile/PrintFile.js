@@ -43,7 +43,7 @@ function PrintFile() {
 
     useLayoutEffect(() => {
         checkMimeTypes(contextMenuModals.items[0])
-    }, [])
+    }, []) //eslint-disable-line
 
     return <iframe
         style={{display: 'none'}}

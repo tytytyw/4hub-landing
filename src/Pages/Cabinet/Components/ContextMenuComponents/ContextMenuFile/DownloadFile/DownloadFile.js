@@ -12,7 +12,7 @@ function DownloadFile() {
         setTimeout(() => {
             dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: []}))
         }, 0);
-    }, [])
+    }, []) //eslint-disable-line
 
     return <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
         <input style={{display: 'none'}} name='fid' value={contextMenuModals?.items[0]?.fid || ''} readOnly />
