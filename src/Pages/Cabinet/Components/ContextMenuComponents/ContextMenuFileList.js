@@ -27,7 +27,7 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
         {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
         {type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
         {type: 'properties', name: 'Свойства', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'FileProperty', items: [file]}))}},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
+        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file]}))}},
         {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
     ];
     const additionalMenuItems = [

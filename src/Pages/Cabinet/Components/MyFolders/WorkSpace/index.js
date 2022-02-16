@@ -347,9 +347,9 @@ const WorkSpace = ({
 					</div>
 				</ActionApproval>
 			: null}
-        <form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>
-            <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />
-        </form>
+        {/*<form style={{display: 'none'}} name='downloadFile' action='/ajax/download.php' method='post'>*/}
+        {/*    <input style={{display: 'none'}} name='fid' value={chosenFile?.fid || ''} readOnly />*/}
+        {/*</form>*/}
         <iframe
             style={{display: 'none'}}
             title={'print'}
