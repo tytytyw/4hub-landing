@@ -191,7 +191,6 @@ const INITIAL_STATE = {
         topMessage: {open: false, type: 'message', message: ''}, //type = message(default) || error
         contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0, filePick: null, menuItem: ''} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     }
-
 }
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -251,9 +250,20 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, fileList: {...state.fileList, chosenFile: action.payload}};
         }
         case FILE_DELETE: {
-            const files = state.fileList.files.filter(el => el.fid !== action.payload.fid);
-            const filesAll = state.fileListAll ? state.fileListAll.files.filter(el => el.fid !== action.payload.fid) : null;
-            return {...state, fileList: {...state.fileList, files}, fileListAll: state.fileListAll ? {...state.fileListAll, files: filesAll} : null};
+            if(Array.isArray(state.fileList.files)) {
+                const files = state.fileList.files.filter(el => el.fid !== action.payload.fid);
+                return {...state, fileList: {...state.fileList, files}};
+            } else {
+                let files = state.fileList.files;
+                for(let key in files) {
+                    files[key].forEach((file, i) => {
+                        if(file.fid === action.payload.fid) {
+                            delete files[key][i];
+                        }
+                    })
+                }
+                return {...state, fileList: {...state.fileList, files}}
+            }
         }
         case CONTACT_LIST:
             return {...state, contactList: action.payload}
