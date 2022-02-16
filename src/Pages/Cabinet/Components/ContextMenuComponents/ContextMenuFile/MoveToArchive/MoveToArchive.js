@@ -14,7 +14,7 @@ function MoveToArchive() {
     const file = items[0];
     const dispatch = useDispatch();
 
-    const cancelArchive = () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: []}))
+    const cancelArchive = () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], filePick: null}))
 
     const addToArchive = (uid, fid, file, options) => {
         api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
