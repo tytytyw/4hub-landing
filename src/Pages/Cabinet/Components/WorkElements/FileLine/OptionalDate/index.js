@@ -12,7 +12,7 @@ const OptionalDate = ({ file }) => {
 		switch (pathname) {
 			case "/downloaded-files": return {title: "Дата загрузки: ", value: file.ctime?.split(' ')[0] ?? ""}
 			// TODO: get date of arhive
-			case "/archive": return {title: "Дата архивирования: ", value: file.atime?.split(' ')[0] ?? "00.00.0000"}
+			case "/archive": return {title: "Дата архивирования: ", value: file?.date_archive? file.date_archive?.split(' ')[0]??'' : ''}
 			default: return ""
 		}
 	}

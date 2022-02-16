@@ -29,7 +29,7 @@ const ItemsList = ({
        setGLoader, setFilesPage, setChosenFolder = mock, setChosenFile, filePick, setMouseParams,
        setAction, setFilePreview, filePreview, setFilePick, callbackArrMain, chosenFile, fileLoading,
        fileSelect, filesPage, chosenFolder, gLoader, fileRef, width, openFolderMenu = mock, menuItem,
-       dateFilter
+       dateFilter, successLoad
 
 }) => {
 
@@ -83,6 +83,7 @@ const ItemsList = ({
                 params={params}
                 chooseItemNext={chooseItemNext}
                 openFolderMenu={openFolderMenu}
+                successLoad={successLoad}
             />
         });
     }
