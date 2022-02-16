@@ -60,6 +60,7 @@ export const contextMenuProfile = {
 export const contextMenuFilters = {
     main: [
         {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
+        {name: `По дате архивирования`, reverseName: 'По дате архивирования', img: '', ext: 'byDateArchived&sort_reverse=1&group=date_archive'},
         {name: `По дате добавления/создания`, reverseName: 'По дате добавления/создания', img: '', ext: 'byDateCreated&sort_reverse=1&group=ctime'},
         {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged&sort_reverse=1&group=mtime'},
         {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},

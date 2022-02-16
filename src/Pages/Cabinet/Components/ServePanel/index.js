@@ -120,7 +120,9 @@ const ServePanel = ({
 
     const renderSortingItems = (target, callback) => (
         target.map((item, i) => {
-            return <div
+            return pathname !== "/archive" && item.name === "По дате архивирования"
+            ? ''
+            : <div
                 onClick={() => callback(item.ext)}
                 className={styles.contextSortingItem}
                 key={i}

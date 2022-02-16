@@ -77,7 +77,20 @@ const WorkSpace = ({
 		if (pathname === '/archive') dispatch(onGetArchiveFiles('', 1, '', successLoad, ''))
 		//TODO: need dispatch downloaded-files
 		if (pathname === '/downloaded-files') dispatch(onChooseFiles('', '', 1, '', successLoad, '', 'file_list_all'))
-		return () => dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
+		dispatch({
+			type: "SORT_FILES",
+			payload:
+				pathname === "/archive"
+					? "byDateArchived&sort_reverse=1&group=date_archive"
+					: "byDateCreated&sort_reverse=1&group=ctime",
+		});
+		return () => {
+			dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
+			dispatch({
+				type: "SORT_FILES",
+				payload: "byDateCreated&sort_reverse=1&group=ctime",
+			});
+		}
 	}, [pathname]); //eslint-disable-line
 
 	const onActiveCallbackArrMain = (type) => {
