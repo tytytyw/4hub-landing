@@ -59,12 +59,14 @@ const Buttons = ({
 		</div>
 	);
 	const renderPrintBtn = () =>
-		file?.ext !== "ZIP" &&
-		file?.is_dir !== 1 && (
+		file?.ext !== "ZIP" && file?.is_dir !== 1 ? (
 			<div className={styles.iconView}>
 				<PrintIcon onClick={printFile} />
 			</div>
+		) : (
+			<div className={classNames(styles.iconView, styles.hidden)}></div>
 		);
+
 	const renderSettingBtn = () => (
 		<div
 			className={classNames({
@@ -117,8 +119,8 @@ const Buttons = ({
 
 	const renderMyFilesButtons = () => (
 		<>
-			{renderDownloadBtn()}
 			{renderPrintBtn()}
+			{renderDownloadBtn()}
 			{renderSettingBtn()}
 			{renderDeleteBtn()}
 			{renderShareBtn()}
@@ -128,8 +130,8 @@ const Buttons = ({
 
 	const renderArchiveButtons = () => (
 		<>
-			{renderDownloadBtn()}
 			{renderPrintBtn()}
+			{renderDownloadBtn()}
 			{renderDeleteBtn()}
 			{renderShareBtn()}
 		</>
@@ -137,8 +139,8 @@ const Buttons = ({
 
 	const renderMyDownloadedFileButtons = () => (
 		<>
-			{renderDownloadBtn()}
 			{renderPrintBtn()}
+			{renderDownloadBtn()}
 			{renderSettingBtn()}
 			{renderContexMenuBtn()}
 		</>
@@ -148,7 +150,7 @@ const Buttons = ({
 		<div className={styles.optionsWrap}>
 			{pathname === "/folders" && renderMyFilesButtons()}
 			{pathname === "/files" && renderMyFilesButtons()}
-			{pathname === '/safe' && renderMyFilesButtons()}
+			{pathname === "/safe" && renderMyFilesButtons()}
 			{pathname === "/downloaded-files" && renderMyDownloadedFileButtons()}
 			{pathname === "/archive" && renderArchiveButtons()}
 		</div>
