@@ -5,18 +5,18 @@ import {contextMenuFile, previewFormats} from "../../../../generalComponents/col
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 
+export const share_types = {
+    myFolders: 'file_share'
+}
+
 function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem}) {
-
-    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
-    const dispatch = useDispatch();
-
-    const share_types = {
-        myFolders: 'file_share'
-    }
 
     const copy_link_types = {
         myFolders: file.is_dir === 1 ? 'dir_access_add' : ''
     }
+
+    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    const dispatch = useDispatch();
 
     const callbackArrMain = [
         {type: 'share', name: '', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : share_types[menuItem], file}))}},

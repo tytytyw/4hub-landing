@@ -1,24 +1,24 @@
 import React from 'react';
 
 import styles from './OptionButtomLine.module.sass';
+import {onSetModals} from "../../../../../Store/actions/CabinetActions";
+import {useDispatch, useSelector} from "react-redux";
+import {share_types} from "../../ContextMenuComponents/ContextMenuFileList";
 
 const OptionButtomLine = ({
-      filePick, setAction, action, setFilePick, callbackArrMain, nullifyFilePick, share, chosenFile, archive
+      filePick, setAction, action, callbackArrMain, nullifyFilePick, share, chosenFile, archive, filesPage, menuItem
 }) => {
 
-    const onZip = () => {
-        if(filePick.files.length > 0) {
-                callbackArrMain.forEach((el, index, list) => {
-                    if(el.type === 'intoZip') setAction({...action, type: list[index].type, name: list[index].name});
-                })
-        }
-    }
+    const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
+    const dispatch = useDispatch();
 
-    const onEdit = () => filePick.files.length > 0 ? setFilePick({...filePick, customize: true}) : null;
+    const onZip = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.files, title: 'Сжать в ZIP', filesPage})) : null;
 
-    const onShare = () => chosenFile ? share() : null;
+    const onEdit = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.files, title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem})) : null;
 
-    const onMoveToArchive = () => chosenFile ? archive() : null;
+    const onShare = () => chosenFile ? dispatch(onSetModals('share', {open: true, fids: filePick.files, action_type: share_types[menuItem]})) : null;
+
+    const onMoveToArchive = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'MoveToArchive', items: filePick.files, filePick})) : null;
 
     return (
         <div className={styles.optionBottomLine}>
