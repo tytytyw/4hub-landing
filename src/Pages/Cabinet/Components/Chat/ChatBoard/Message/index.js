@@ -11,6 +11,20 @@ function Message({ message, selectedContact, currentDate }) {
 	const messageType = message.id_user === userId ? "outbox" : "inbox";
 	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
 
+	const renderAttachment = () => {
+		if (message.attachment?.type?.includes('audio')) {
+			return (
+				<audio controls src={message.attachment.link}></audio>
+			)
+		}
+		if (message.attachment?.type?.includes('video')) {
+			return (
+				<video controls src={message.attachment.link}></video>
+			)
+		}
+		return ""
+	}
+
 	return (
 		<div className={classNames(styles.wrapper, styles[messageType])}>
 			{messageType === "inbox" ? (
@@ -27,6 +41,7 @@ function Message({ message, selectedContact, currentDate }) {
 			)}
 			<div className={styles.textWrapper}>
 				<div className={classNames(styles.content)}>
+					{renderAttachment()}
 					{text.map((item, index) => (
 						<p key={index} className={styles.text}>
 							{item}

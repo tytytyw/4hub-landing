@@ -15,6 +15,7 @@ import InviteUser from "./InviteUser";
 import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
+import api from "../../../../../api";
 
 const ChatBoard = ({
 	sideMenuCollapsed,
@@ -37,6 +38,7 @@ const ChatBoard = ({
 	const [isRecording, setIsRecording] = useState(false);
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
+	const uid = useSelector((state) => state.user.uid);
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
@@ -55,6 +57,19 @@ const ChatBoard = ({
 			);
 		});
 	}, [messages, currentDate, selectedContact]);
+
+	const upLoadFile = (blob, fileName) => {
+		const file = new File([blob], fileName, {type: blob.type});
+		const formData = new FormData();
+		formData.append("myfile", file);
+		api.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+			.then(res => {
+				if (res.data.ok) {
+					const attachment = {...res.data.files.myfile, link: res.data.link}
+					addMessage('', attachment)
+				}
+			})
+	}
 
 	const onRecording = (type, constraints) => {
 		if (navigator.mediaDevices) {
@@ -80,7 +95,7 @@ const ChatBoard = ({
 		if (isRecording && mediaRecorder) {
 			const cleareTracks = () =>
 				mediaRecorder.stream.getTracks().forEach((track) => track.stop());
-			mediaRecorder?.state === "active" && mediaRecorder.stop();
+			mediaRecorder?.state === "active" && recordEnd();
 			mediaRecorder && cleareTracks();
 			setMediaRecorder(null);
 		}
@@ -90,14 +105,8 @@ const ChatBoard = ({
 	const onDataAviable = (e) => {
 		if (isRecording) {
 			const data = e.data;
-			if (data.type.includes("audio")) {
-				const audioObj = new Audio(URL.createObjectURL(data));
-				audioObj.setAttribute("controls", "");
-				document.body.appendChild(audioObj);
-			}
-			if (data.type.includes("video")) {
-				console.log("video file");
-			}
+			if (data.type.includes("audio")) upLoadFile(data, 'аудио сообщение')
+			if (data.type.includes("video")) upLoadFile(data, 'видер сообщение')
 			setIsRecording(false);
 			setMediaRecorder(null);
 			recordCancel();
@@ -181,7 +190,13 @@ const ChatBoard = ({
 					>
 						<RadioIcon />
 					</div>
-					<div title="Видео сообщение" className={styles.button}>
+					<div
+						title="Видео сообщение"
+						className={styles.button}
+						onMouseDown={() => onRecording("message", { audio: true, video: true })}
+						onMouseUp={() => recordEnd()}
+						onMouseOut={recordCancel}
+					>
 						<PlayIcon className={styles.triangle} />
 					</div>
 					<div
