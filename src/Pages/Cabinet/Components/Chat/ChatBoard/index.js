@@ -33,6 +33,9 @@ const ChatBoard = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
+	const [mediaRecorder, setMediaRecorder] = useState(null);
+	const [isRecording, setIsRecording] = useState(false);
+	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
@@ -52,6 +55,66 @@ const ChatBoard = ({
 			);
 		});
 	}, [messages, currentDate, selectedContact]);
+
+	const onRecording = (type, constraints) => {
+		if (navigator.mediaDevices) {
+			setIsRecording(true);
+			navigator.mediaDevices
+				.getUserMedia(constraints) // ex. { audio: true , video: true}
+				.then((stream) => {
+					if (type === "message") {
+						// for audio/video messages
+						const recorder = new MediaRecorder(stream);
+						setMediaRecorder(recorder);
+					}
+				})
+				.catch((error) => console.log(error));
+		}
+	};
+
+	const recordEnd = () => {
+		mediaRecorder?.stop();
+	};
+
+	const recordCancel = () => {
+		if (isRecording && mediaRecorder) {
+			const cleareTracks = () =>
+				mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+			mediaRecorder?.state === "active" && mediaRecorder.stop();
+			mediaRecorder && cleareTracks();
+			setMediaRecorder(null);
+		}
+		setIsRecording(false);
+	};
+
+	const onDataAviable = (e) => {
+		if (isRecording) {
+			const data = e.data;
+			if (data.type.includes("audio")) {
+				const audioObj = new Audio(URL.createObjectURL(data));
+				audioObj.setAttribute("controls", "");
+				document.body.appendChild(audioObj);
+			}
+			if (data.type.includes("video")) {
+				console.log("video file");
+			}
+			setIsRecording(false);
+			setMediaRecorder(null);
+			recordCancel();
+		}
+	};
+
+	useEffect(() => {
+		if (mediaRecorder) {
+			mediaRecorder.start();
+			mediaRecorder.addEventListener("dataavailable", onDataAviable);
+		}
+		return () => {
+			if (mediaRecorder)
+				mediaRecorder.removeEventListener("dataavailable", onDataAviable);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaRecorder]);
 
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
@@ -109,11 +172,17 @@ const ChatBoard = ({
 				</div>
 				<TextArea addMessage={addMessage} />
 				<div className={styles.sendOptions}>
-					<div title="Аудио сообщение" className={styles.button}>
-						<RadioIcon title="" />
+					<div
+						title="Аудио сообщение"
+						className={styles.button}
+						onMouseDown={() => onRecording("message", { audio: true })}
+						onMouseUp={() => recordEnd()}
+						onMouseOut={recordCancel}
+					>
+						<RadioIcon />
 					</div>
 					<div title="Видео сообщение" className={styles.button}>
-						<PlayIcon title="" className={styles.triangle} />
+						<PlayIcon className={styles.triangle} />
 					</div>
 					<div
 						title="Смайлики"
