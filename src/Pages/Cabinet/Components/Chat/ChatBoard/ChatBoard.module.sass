@@ -1,3 +1,26 @@
+@-webkit-keyframes pulse
+	0% 
+    -webkit-box-shadow: 0 0 0 0 rgba(64, 134,241,.4)
+
+	70% 
+    -webkit-box-shadow: 0 0 0 10px rgba(64,134,241,.4)
+
+	100% 
+   -webkit-box-shadow: 0 0 0 0 rgba(64,134,241,.4)
+
+@keyframes pulse
+  0%
+    -moz-box-shadow: 0 0 0 0 rgba(64,134,241,.4)
+    box-shadow: 0 0 0 0 rgba(64,134,241,.4)
+
+  70%
+    -moz-box-shadow: 0 0 0 10px rgba(64,134,241,.4)
+    box-shadow: 0 0 0 10px rgba(64,134,241,.4)
+
+  100%
+    -moz-box-shadow: 0 0 0 0 rgba(64,134,241,.4)
+    box-shadow: 0 0 0 0 rgba(64,134,241,.4)
+
 .chatBoardWrap
   display: flex
   flex-direction: column
@@ -26,6 +49,20 @@
     border-top: 1px solid #DFDFDF
     box-sizing: border-box
     padding: 15px 15px 35px
+    .leftContainer
+      display: flex
+      align-self: center
+      .recordIcon
+        width: 18px
+        height: 18px
+        background-color: #E1562A
+        border-radius: 50%
+        align-self: center
+        margin: 0 10px
+    .recordHint, .duration
+      color: #49494B
+      font-size: 13px
+      align-self: center
     .downloadOptions
       display: flex
       align-items: flex-end
@@ -74,3 +111,13 @@
           svg
             path
               fill: #fff
+        &:active.pressed
+          animation: pulse 2s infinite
+    &.recoring
+      *
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -khtml-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none    

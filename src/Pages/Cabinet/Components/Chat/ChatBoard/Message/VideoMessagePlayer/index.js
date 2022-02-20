@@ -40,9 +40,9 @@ const VideoMessagePlayer = ({ video }) => {
 		const remainder = Math.ceil(
 			videoRef?.current?.duration - videoRef?.current?.currentTime
 		);
-        const min = Math.floor(remainder / 60)
-        const sec = remainder % 60
-		return `${min < 10 ? `0${min}`: min}:${sec < 10 ? `0${sec}`: sec}`;
+		const min = Math.floor(remainder / 60);
+		const sec = remainder % 60;
+		return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
 	};
 
 	useEffect(() => {
@@ -103,7 +103,7 @@ const VideoMessagePlayer = ({ video }) => {
 					onClick={playHandler}
 				></video>
 			</div>
-            <span className={styles.duration}>{renderRemainder()}</span>
+			<span className={styles.duration}>{renderRemainder()}</span>
 		</div>
 	);
 };

@@ -36,6 +36,7 @@ const ChatBoard = ({
 	);
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [isRecording, setIsRecording] = useState(false);
+	const [ducationTimer, setDucationTimer] = useState(0);
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
 	const uid = useSelector((state) => state.user.uid);
@@ -59,19 +60,28 @@ const ChatBoard = ({
 	}, [messages, currentDate, selectedContact]);
 
 	const upLoadFile = (blob, fileName, kind) => {
-		const file = new File([blob], fileName, {type: blob.type});
+		const file = new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
 		formData.append("myfile", file);
-		api.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
-			.then(res => {
-				if (res.data.ok) {
-					const attachment = {...res.data.files.myfile, link: res.data.link, kind}
-					addMessage('', attachment)
-				}
-			})
-	}
+		api.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData).then((res) => {
+			if (res.data.ok) {
+				const attachment = {
+					...res.data.files.myfile,
+					link: res.data.link,
+					kind,
+				};
+				addMessage("", attachment);
+			}
+		});
+	};
 
 	const onRecording = (type, constraints) => {
+		navigator.getUserMedia =
+			navigator.getUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia ||
+			navigator.webkitGetUserMedia;
+
 		if (navigator.mediaDevices) {
 			setIsRecording(true);
 			navigator.mediaDevices
@@ -105,8 +115,10 @@ const ChatBoard = ({
 	const onDataAviable = (e) => {
 		if (isRecording) {
 			const data = e.data;
-			if (data.type.includes("audio")) upLoadFile(data, 'аудио сообщение', 'audio_message')
-			if (data.type.includes("video")) upLoadFile(data, 'видео сообщение', 'video_message')
+			if (data.type.includes("audio"))
+				upLoadFile(data, "аудио сообщение", "audio_message");
+			if (data.type.includes("video"))
+				upLoadFile(data, "видео сообщение", "video_message");
 			setIsRecording(false);
 			setMediaRecorder(null);
 			recordCancel();
@@ -124,6 +136,18 @@ const ChatBoard = ({
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mediaRecorder]);
+
+	useEffect(() => {
+		if (isRecording) {
+			const timer = setInterval(() => {
+				setDucationTimer((sec) => sec + 1);
+			}, 1000);
+			return () => {
+				clearTimeout(timer);
+				setDucationTimer(0)
+			};
+		}
+	}, [isRecording]);
 
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
@@ -175,15 +199,44 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</main>
-			<footer className={styles.chatBoardFooter}>
-				<div className={styles.downloadOptions}>
-					<AddIcon title="Вставить файл" />
-				</div>
-				<TextArea addMessage={addMessage} />
+			<footer
+				className={classNames({
+					[styles.chatBoardFooter]: true,
+					[styles.recoring]: isRecording,
+				})}
+			>
+				{isRecording ? (
+					<div className={styles.leftContainer}>
+						<div className={styles.recordIcon}></div>
+						<span className={styles.duration}>{`${
+							Math.floor(ducationTimer / 60) < 10
+								? `0${Math.floor(ducationTimer / 60)}`
+								: Math.floor(ducationTimer / 60)
+						}:${
+							ducationTimer % 60 < 10
+								? `0${Math.floor(ducationTimer % 60)}`
+								: Math.floor(ducationTimer % 60)
+						}`}</span>
+					</div>
+				) : (
+					<div className={styles.downloadOptions}>
+						<AddIcon title="Вставить файл" />
+					</div>
+				)}
+				{isRecording ? (
+					<div className={styles.recordHint}>
+						Для отмены отпустите курсор вне поля
+					</div>
+				) : (
+					<TextArea addMessage={addMessage} />
+				)}
 				<div className={styles.sendOptions}>
 					<div
 						title="Аудио сообщение"
-						className={styles.button}
+						className={classNames({
+							[styles.button]: true,
+							[styles.pressed]: isRecording,
+						})}
 						onMouseDown={() => onRecording("message", { audio: true })}
 						onMouseUp={() => recordEnd()}
 						onMouseOut={recordCancel}
@@ -192,8 +245,13 @@ const ChatBoard = ({
 					</div>
 					<div
 						title="Видео сообщение"
-						className={styles.button}
-						onMouseDown={() => onRecording("message", { audio: true, video: true })}
+						className={classNames({
+							[styles.button]: true,
+							[styles.pressed]: isRecording,
+						})}
+						onMouseDown={() =>
+							onRecording("message", { audio: true, video: true })
+						}
 						onMouseUp={() => recordEnd()}
 						onMouseOut={recordCancel}
 					>
