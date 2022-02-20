@@ -58,14 +58,14 @@ const ChatBoard = ({
 		});
 	}, [messages, currentDate, selectedContact]);
 
-	const upLoadFile = (blob, fileName) => {
+	const upLoadFile = (blob, fileName, kind) => {
 		const file = new File([blob], fileName, {type: blob.type});
 		const formData = new FormData();
 		formData.append("myfile", file);
 		api.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
 			.then(res => {
 				if (res.data.ok) {
-					const attachment = {...res.data.files.myfile, link: res.data.link}
+					const attachment = {...res.data.files.myfile, link: res.data.link, kind}
 					addMessage('', attachment)
 				}
 			})
@@ -105,8 +105,8 @@ const ChatBoard = ({
 	const onDataAviable = (e) => {
 		if (isRecording) {
 			const data = e.data;
-			if (data.type.includes("audio")) upLoadFile(data, 'аудио сообщение')
-			if (data.type.includes("video")) upLoadFile(data, 'видер сообщение')
+			if (data.type.includes("audio")) upLoadFile(data, 'аудио сообщение', 'audio_message')
+			if (data.type.includes("video")) upLoadFile(data, 'видео сообщение', 'video_message')
 			setIsRecording(false);
 			setMediaRecorder(null);
 			recordCancel();

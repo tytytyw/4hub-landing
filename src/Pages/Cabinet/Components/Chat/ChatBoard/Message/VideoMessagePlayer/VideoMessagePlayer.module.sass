@@ -1,0 +1,31 @@
+.wrapper
+    position: relative
+    .videoWrapper
+        // width: 300px
+        // height: 300px
+        overflow: hidden
+        border-radius: 50%
+        position: relative
+        display: flex
+        align-items: center
+        justify-content: center
+        .progressCircle
+            stroke-width: 8
+            stroke: #4086F1
+            transform-origin: center
+            transform: rotate(-90deg)
+            transition: stroke-dashoffset linear .3s
+        .video
+            width: 90%
+            height: 90%
+            object-fit: cover
+            position: absolute
+            border-radius: 50%
+.duration
+    font-size: 10px
+    color: #858585
+    text-align: right
+    margin: 7px 4px
+    position: absolute
+    bottom: -26px
+    left: 0

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { messageTime } from "../../../../../../generalComponents/chatHelper";
+import VideoMessagePlayer from "./VideoMessagePlayer";
 
 function Message({ message, selectedContact, currentDate }) {
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -12,18 +13,14 @@ function Message({ message, selectedContact, currentDate }) {
 	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
 
 	const renderAttachment = () => {
-		if (message.attachment?.type?.includes('audio')) {
-			return (
-				<audio controls src={message.attachment.link}></audio>
-			)
+		if (message.attachment?.kind === "audio_message") {
+			return <audio controls src={message.attachment.link}></audio>;
 		}
-		if (message.attachment?.type?.includes('video')) {
-			return (
-				<video controls src={message.attachment.link}></video>
-			)
+		if (message.attachment?.kind === "video_message") {
+			return <VideoMessagePlayer video={message.attachment} />;
 		}
-		return ""
-	}
+		return "";
+	};
 
 	return (
 		<div className={classNames(styles.wrapper, styles[messageType])}>
@@ -40,14 +37,18 @@ function Message({ message, selectedContact, currentDate }) {
 				""
 			)}
 			<div className={styles.textWrapper}>
-				<div className={classNames(styles.content)}>
-					{renderAttachment()}
-					{text.map((item, index) => (
-						<p key={index} className={styles.text}>
-							{item}
-						</p>
-					))}
-				</div>
+				{message.attachment?.kind === "video_message" ? (
+					renderAttachment()
+				) : (
+					<div className={classNames(styles.content)}>
+						{message.attachment?.kind !== "video_message" && renderAttachment()}
+						{text.map((item, index) => (
+							<p key={index} className={styles.text}>
+								{item}
+							</p>
+						))}
+					</div>
+				)}
 				<div className={styles.time}>
 					{messageTime(currentDate, message.ut, gmt)}
 				</div>
