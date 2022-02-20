@@ -6,7 +6,8 @@ import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 
 export const share_types = {
-    myFolders: 'file_share'
+    myFolders: 'file_share',
+    folders: 'file_share'
 }
 
 function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem}) {

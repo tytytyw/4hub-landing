@@ -13,7 +13,7 @@ import {
     onChangeFilterEmoji,
     onChangeFilterColor,
     onSetReverseCriterion,
-    onGetSafeFileList,
+    onGetSafeFileList, onSetModals,
 } from '../../../../Store/actions/CabinetActions';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onSetWorkElementsView} from '../../../../Store/actions/CabinetActions';
@@ -37,16 +37,16 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 import {useLocation} from "react-router";
 import {useWindowSize} from "../../../../generalComponents/Hooks";
+import {share_types} from "../ContextMenuComponents/ContextMenuFileList";
 
 const ServePanel = ({
-        chosenFile, setAction, archive, share, chooseSeveral, filePick,
+        chosenFile, archive, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, setGLoader, setNewFolderInfo, setFilesPage, dateFilter
 }) => {
     const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
-    // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.Cabinet.size);
@@ -55,9 +55,10 @@ const ServePanel = ({
     const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
+    const contextMenuModals = useSelector(state => state.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
 
-    const {pathname} = useLocation()
+    const {pathname} = useLocation();
 
     const changeSize = (s) => {
         const sizes = window.innerHeight > 693 ? ['small', 'medium', 'big'] : ['small', 'medium'];
@@ -262,7 +263,9 @@ const ServePanel = ({
         <div
             className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
             onClick={() => {
-                if(chosenFile) setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`});
+                if(chosenFile) {
+                    dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DeleteFile', items: filePick.show ? filePick.files : [chosenFile], filePick}))
+                }
             }}
         ><DeleteIcon className={styles.iconTrash} /></div>
     )
@@ -277,14 +280,19 @@ const ServePanel = ({
     const tempShare = () => (
         <div
             className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-            onClick={() => {if(chosenFile) share()}}
+            onClick={() => {if(chosenFile) {
+                console.log(pathname.split('/')[1])
+                dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : chosenFile, action_type: chosenFile.is_dir === 1 ? 'dir_access_add' : share_types[pathname.split('/')[1]], file: chosenFile}))
+            }}}
         ><ShareIcon className={styles.iconShare} /></div>
     )
 
     const tempArchive = () => (
         <div
             className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-            onClick={() => {if(chosenFile) archive()}}
+            onClick={() => {if(chosenFile) {
+                dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'MoveToArchive', items: filePick.files, filePick}))
+            }}}
         ><SafeIcon className={styles.iconSafe} /></div>
     )
 
