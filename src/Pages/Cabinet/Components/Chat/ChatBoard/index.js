@@ -89,12 +89,11 @@ const ChatBoard = ({
 			navigator.mozGetUserMedia ||
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
-
+		setIsRecording(true);
 		if (navigator.mediaDevices) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
 				.then((stream) => {
-					setIsRecording(true);
 					if (type === "message") {
 						// for audio/video messages
 						const recorder = new MediaRecorder(stream);
@@ -103,8 +102,11 @@ const ChatBoard = ({
 						if (constraints.video) {
 							// video preview
 							setVideoPreview(true);
-							videoMessagePreview.current.srcObject = stream;
-							videoMessagePreview.current.play();
+							const video = videoMessagePreview.current
+							if (video) {
+								video.srcObject = stream;
+								video.play();
+							}
 						}
 					}
 				})
@@ -149,7 +151,9 @@ const ChatBoard = ({
 
 	useEffect(() => {
 		if (mediaRecorder) {
-			mediaRecorder.addEventListener("dataavailable", onDataAviable);
+			isRecording
+				? mediaRecorder.addEventListener("dataavailable", onDataAviable)
+				: recordCancel()
 		}
 		return () => {
 			if (mediaRecorder)
