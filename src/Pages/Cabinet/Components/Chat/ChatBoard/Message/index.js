@@ -5,6 +5,7 @@ import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { messageTime } from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
+import VoiceMessagePlayer from "./VoiceMessagePlayer";
 
 function Message({ message, selectedContact, currentDate }) {
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -14,10 +15,10 @@ function Message({ message, selectedContact, currentDate }) {
 
 	const renderAttachment = () => {
 		if (message.attachment?.kind === "audio_message") {
-			return <audio controls src={message.attachment.link}></audio>;
+			return <VoiceMessagePlayer src={message.attachment.link} inboxMessage={messageType === 'inbox'}/>
 		}
 		if (message.attachment?.kind === "video_message") {
-			return <VideoMessagePlayer video={message.attachment} />;
+			return <VideoMessagePlayer video={message.attachment} />
 		}
 		return "";
 	};
@@ -40,7 +41,7 @@ function Message({ message, selectedContact, currentDate }) {
 				{message.attachment?.kind === "video_message" ? (
 					renderAttachment()
 				) : (
-					<div className={classNames(styles.content)}>
+					<div className={classNames({[styles.content]: true, [styles.audio_content]:message.attachment?.kind === "audio_message"})}>
 						{message.attachment?.kind !== "video_message" && renderAttachment()}
 						{text.map((item, index) => (
 							<p key={index} className={styles.text}>
