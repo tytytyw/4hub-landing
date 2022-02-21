@@ -40,7 +40,9 @@ const ChatBoard = ({
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
 	const footerRef = useRef();
+	const videoMessagePreview = useRef();
 	const uid = useSelector((state) => state.user.uid);
+	const [videoPreview, setVideoPreview] = useState(null)
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
@@ -93,6 +95,13 @@ const ChatBoard = ({
 						const recorder = new MediaRecorder(stream);
 						recorder.start()
 						setMediaRecorder(recorder);
+						if (constraints.video) {
+							// video preview
+							setVideoPreview(true)
+							videoMessagePreview.current.srcObject = stream
+							videoMessagePreview.current.play()
+
+						}
 					}
 				})
 				.catch((error) => console.log(error));
@@ -110,6 +119,7 @@ const ChatBoard = ({
 			mediaRecorder?.state === "active" && recordEnd();
 			mediaRecorder && cleareTracks();
 			setMediaRecorder(null);
+			setVideoPreview(null)
 		}
 		setIsRecording(false);
 	};
@@ -287,6 +297,7 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</footer>
+			{videoPreview ? <video ref={videoMessagePreview} className={styles.videoMessagePreview} autoplay /> : ""}
 		</div>
 	);
 };
