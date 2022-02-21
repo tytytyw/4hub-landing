@@ -7,7 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 export const share_types = {
     myFolders: 'file_share',
-    folders: 'file_share'
+    folders: 'file_share',
+    files: 'file_share'
 }
 
 function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem}) {
@@ -20,19 +21,19 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
     const dispatch = useDispatch();
 
     const callbackArrMain = [
-        {type: 'share', name: '', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : share_types[menuItem], file}))}},
-        {type: 'copyLink', name: '', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CopyLinkShare', items: [file], action_type: copy_link_types[menuItem]}))}},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'MoveToArchive', items: [file], filePick}))}},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
-        {type: 'intoZipSeveral', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'FileProperty', items: [file]}))}},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file]}))}},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'PrintFile', items: [file]}))}},
+        {type: 'share', img: 'share', name: 'Расшарить', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : share_types[menuItem], file}))}},
+        {type: 'copyLink', img: 'link-4', name: 'Скопировать ссылку', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CopyLinkShare', items: [file], action_type: copy_link_types[menuItem]}))}},
+        {type: 'customize', img: 'edit', name: 'Редактировать файл', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
+        {type: 'customizeSeveral', img: 'editSeveral', name: `Ред. несколько файлов`, text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
+        {type: 'archive', img: 'archive', name: 'Переместить в архив', text: `Вы действительно хотите архивировать файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'MoveToArchive', items: [file], filePick}))}},
+        {type: 'intoZip', img: 'zip', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
+        {type: 'intoZipSeveral', img: 'severalZip', name: 'Сжать несколько файлов в Zip', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
+        {type: 'properties', img: 'info', name: 'Свойства', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'FileProperty', items: [file]}))}},
+        {type: 'download', img: 'download-blue', name: 'Скачать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file]}))}},
+        {type: 'print', img: 'print-2', name: 'Печать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'PrintFile', items: [file]}))}},
     ];
     const additionalMenuItems = [
-        {type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DeleteFile', items: filePick.show ? filePick.files : [file], filePick}))}}
+        {type: 'delete', img: 'garbage', name: 'Удалить', text: `Вы действительно хотите удалить файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DeleteFile', items: filePick.show ? filePick.files : [file], filePick}))}}
     ];
 
     const excessItems = () => {
@@ -76,8 +77,8 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
     }
 
     return <>
-        <div>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
-        <div style={{margin: '10px 0 10px 0'}}>{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}</div>
+        <div>{renderMenuItems(callbackArrMain, callbackArrMain)}</div>
+        <div style={{margin: '10px 0 10px 0'}}>{renderMenuItems(additionalMenuItems, additionalMenuItems)}</div>
     </>
 }
 

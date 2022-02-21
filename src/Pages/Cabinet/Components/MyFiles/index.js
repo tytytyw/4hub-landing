@@ -22,6 +22,7 @@ import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
+import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 
 const MyFiles = ({
 	filePreview,
@@ -194,7 +195,6 @@ const MyFiles = ({
 							: chosenFile?.fid === file?.fid
 					}
 					listCollapsed={listCollapsed}
-					renderMenuItems={renderMenuItems}
 					setMouseParams={setMouseParams}
 					action={action}
 					setAction={setAction}
@@ -444,7 +444,6 @@ const MyFiles = ({
 			<WorkSpace
 				chosenFolder={chosenFolder}
 				workElementsView={workElementsView}
-				renderMenuItems={renderMenuItems}
 				mouseParams={mouseParams}
 				setMouseParams={setMouseParams}
 				action={action}
@@ -513,12 +512,7 @@ const MyFiles = ({
 				setParams={setMouseParams}
 				tooltip={true}
 			>
-				<div className={styles.mainMenuItems}>
-					{renderMenuItems(filterContexMenuForArchive(contextMenuFile.main), callbackArrMain)}
-				</div>
-				<div className={styles.additionalMenuItems}>
-					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-				</div>
+				<ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={filesPage} menuItem={menuItem} />
 			</ContextMenu>
 		) : null}
 		</>
