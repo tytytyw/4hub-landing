@@ -16,6 +16,7 @@ import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
 import api from "../../../../../api";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const ChatBoard = ({
 	sideMenuCollapsed,
@@ -63,19 +64,23 @@ const ChatBoard = ({
 	}, [messages, currentDate, selectedContact]);
 
 	const upLoadFile = (blob, fileName, kind) => {
+		setMessageIsSending(true);
 		const file = new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
 		formData.append("myfile", file);
-		api.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData).then((res) => {
-			if (res.data.ok) {
-				const attachment = {
-					...res.data.files.myfile,
-					link: res.data.link,
-					kind,
-				};
-				addMessage("", attachment);
-			}
-		});
+		api
+			.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+			.then((res) => {
+				if (res.data.ok) {
+					const attachment = {
+						...res.data.files.myfile,
+						link: res.data.link,
+						kind,
+					};
+					addMessage("", attachment);
+				}
+			})
+			.finally(() => setMessageIsSending(false));
 	};
 
 	const onRecording = (type, constraints) => {
@@ -138,11 +143,8 @@ const ChatBoard = ({
 
 	const mouseUpHandler = (e) => {
 		//for recording
-		const mouseUpOnFooter =
-			footerRef?.current?.offsetLeft < e.pageX &&
-			footerRef?.current?.offsetTop < e.pageY;
-		if (isRecording)
-			mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel();
+		const mouseUpOnFooter = footerRef?.current?.offsetTop + 90 < e.pageY;
+		mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel();
 	};
 
 	useEffect(() => {
@@ -252,28 +254,44 @@ const ChatBoard = ({
 					<TextArea addMessage={addMessage} />
 				)}
 				<div className={styles.sendOptions}>
-					<div
-						title="Аудио сообщение"
-						className={classNames({
-							[styles.button]: true,
-							[styles.pressed]: isRecording,
-						})}
-						onMouseDown={() => onRecording("message", { audio: true })}
-					>
-						<RadioIcon />
-					</div>
-					<div
-						title="Видео сообщение"
-						className={classNames({
-							[styles.button]: true,
-							[styles.pressed]: isRecording,
-						})}
-						onMouseDown={() =>
-							onRecording("message", { audio: true, video: true })
-						}
-					>
-						<PlayIcon className={styles.triangle} />
-					</div>
+					{messageIsSending ? (
+						<div className={styles.loaderWrapper}>
+							<Loader
+								type="bounceDots"
+								position="absolute"
+								background="white"
+								zIndex={5}
+								width="100px"
+								height="100px"
+								containerType="bounceDots"
+							/>
+						</div>
+					) : (
+						<>
+							<div
+								title="Аудио сообщение"
+								className={classNames({
+									[styles.button]: true,
+									[styles.pressed]: isRecording,
+								})}
+								onMouseDown={() => onRecording("message", { audio: true })}
+							>
+								<RadioIcon />
+							</div>
+							<div
+								title="Видео сообщение"
+								className={classNames({
+									[styles.button]: true,
+									[styles.pressed]: isRecording,
+								})}
+								onMouseDown={() =>
+									onRecording("message", { audio: true, video: true })
+								}
+							>
+								<PlayIcon className={styles.triangle} />
+							</div>
+						</>
+					)}
 					<div
 						title="Смайлики"
 						className={styles.button}
@@ -309,7 +327,6 @@ const ChatBoard = ({
 					ref={videoMessagePreview}
 					muted={true}
 					className={styles.videoMessagePreview}
-					autoplay
 				/>
 			) : (
 				""
