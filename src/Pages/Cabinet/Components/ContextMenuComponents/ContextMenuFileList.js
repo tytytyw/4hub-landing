@@ -15,7 +15,7 @@ export const share_types = {
 function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem, authorizedSafe = null}) {
 
     const copy_link_types = {
-        myFolders: file.is_dir === 1 ? 'dir_access_add' : ''
+        myFolders: file?.is_dir === 1 ? 'dir_access_add' : ''
     }
 
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
@@ -49,10 +49,10 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
     ];
 
     const excessItems = () => {
-        if(filePick.show) {
+        if(filePick?.show) {
             return ['intoZip', 'properties', 'download', 'print']
         } else {
-            if(file.mime_type) {
+            if(file?.mime_type) {
                 switch (file.mime_type.split('/')[0]) {
                     case 'image': return []
                     case 'video': return ['print']
@@ -65,7 +65,7 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
                     default: return ['print'];
                 }
             }
-            if(previewFormats.filter(ext => file.ext.toLowerCase().includes(ext))[0]) return [];
+            if(previewFormats.filter(ext => file?.ext.toLowerCase().includes(ext))[0]) return [];
             return ['print'];
         }
     }

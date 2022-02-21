@@ -274,6 +274,7 @@ const Project = ({
 				menuItem={menuItem}
 				setParams={setParams}
 				setSelectedProject={setSelectedProject}
+				mouseParams={mouseParams}
 			/>
 
 			{mouseParams?.type === "menu" && (
