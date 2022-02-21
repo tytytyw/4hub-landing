@@ -39,6 +39,7 @@ const ChatBoard = ({
 	const [ducationTimer, setDucationTimer] = useState(0);
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
+	const footerRef = useRef();
 	const uid = useSelector((state) => state.user.uid);
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
@@ -83,13 +84,14 @@ const ChatBoard = ({
 			navigator.webkitGetUserMedia;
 
 		if (navigator.mediaDevices) {
-			setIsRecording(true);
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
 				.then((stream) => {
+					setIsRecording(true);
 					if (type === "message") {
 						// for audio/video messages
 						const recorder = new MediaRecorder(stream);
+						recorder.start()
 						setMediaRecorder(recorder);
 					}
 				})
@@ -102,7 +104,7 @@ const ChatBoard = ({
 	};
 
 	const recordCancel = () => {
-		if (isRecording && mediaRecorder) {
+		if (mediaRecorder) {
 			const cleareTracks = () =>
 				mediaRecorder.stream.getTracks().forEach((track) => track.stop());
 			mediaRecorder?.state === "active" && recordEnd();
@@ -119,15 +121,19 @@ const ChatBoard = ({
 				upLoadFile(data, "аудио сообщение", "audio_message");
 			if (data.type.includes("video"))
 				upLoadFile(data, "видео сообщение", "video_message");
-			setIsRecording(false);
 			setMediaRecorder(null);
 			recordCancel();
 		}
+		setIsRecording(false);
 	};
+
+	const mouseUpHandler = (e) => { //for recording
+		const mouseUpOnFooter = footerRef?.current?.offsetLeft < e.pageX && footerRef?.current?.offsetTop < e.pageY
+		if (isRecording) mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel()
+	}
 
 	useEffect(() => {
 		if (mediaRecorder) {
-			mediaRecorder.start();
 			mediaRecorder.addEventListener("dataavailable", onDataAviable);
 		}
 		return () => {
@@ -155,7 +161,7 @@ const ChatBoard = ({
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
 	return (
-		<div className={styles.chatBoardWrap}>
+		<div className={classNames({[styles.chatBoardWrap]:true, [styles.recoring]: isRecording})} onMouseLeave={recordCancel} onMouseUp={mouseUpHandler}>
 			{selectedContact ? (
 				<ServePanel
 					selectedContact={selectedContact}
@@ -200,10 +206,8 @@ const ChatBoard = ({
 				</div>
 			</main>
 			<footer
-				className={classNames({
-					[styles.chatBoardFooter]: true,
-					[styles.recoring]: isRecording,
-				})}
+				ref={footerRef}
+				className={styles.chatBoardFooter}
 			>
 				{isRecording ? (
 					<div className={styles.leftContainer}>
@@ -238,8 +242,6 @@ const ChatBoard = ({
 							[styles.pressed]: isRecording,
 						})}
 						onMouseDown={() => onRecording("message", { audio: true })}
-						onMouseUp={() => recordEnd()}
-						onMouseOut={recordCancel}
 					>
 						<RadioIcon />
 					</div>
@@ -252,8 +254,6 @@ const ChatBoard = ({
 						onMouseDown={() =>
 							onRecording("message", { audio: true, video: true })
 						}
-						onMouseUp={() => recordEnd()}
-						onMouseOut={recordCancel}
 					>
 						<PlayIcon className={styles.triangle} />
 					</div>
