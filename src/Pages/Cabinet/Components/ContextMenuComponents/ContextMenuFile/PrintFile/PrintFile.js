@@ -3,12 +3,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {previewFormats} from "../../../../../../generalComponents/collections";
 import api from "../../../../../../api";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
+import {useLocation} from "react-router";
 
 function PrintFile() {
 
     const uid = useSelector(s => s.user.uid);
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
+
+    const { pathname } = useLocation();
+
+    const closeModal = () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], authorizedSafe: null}));
 
     const checkMimeTypes = (file) => {
         const mType = file?.mime_type ?? contextMenuModals.items[0]?.mime_type;
@@ -19,10 +24,31 @@ function PrintFile() {
             printFile(`${preview}`)
         } else {
             if(isFormat) {
-                api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
-                    .then(res => printFile(res.data.file_pdf))
-                    .catch(err => dispatch(onSetModals('error', {open: true, message: err})))
-                    .finally(() => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: []})));
+                if(pathname.split('/')[1] !== 'safe') {
+                    api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
+                        .then(res => printFile(res.data.file_pdf))
+                        .catch(err => dispatch(onSetModals('error', {open: true, message: err})))
+                        .finally(() => closeModal());
+                } else {
+                    api
+                        .get(
+                            `/ajax/safe_file_download.php?uid=${uid}&fid=${fid}&id_safe=${contextMenuModals.authorizedSafe.id_safe}&pass=${contextMenuModals.authorizedSafe.password}&code=${contextMenuModals.authorizedSafe.code}`,
+                            {
+                                responseType: "blob",
+                            }
+                        )
+
+                        .then((res) => {
+                            const blob = new Blob([res.data], {type : mType});
+                            const objectURL = URL.createObjectURL(blob);
+
+                            if(mType === 'application/pdf' || (mType && mType?.includes('image'))) {
+                                printFile(objectURL);
+                            } else if (isFormat) printFile(objectURL);
+                        })
+                        .catch((err) => console.log(err))
+                        .finally(() => closeModal());
+                }
             }
         }
     };

@@ -6,7 +6,6 @@ import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
-// import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview/WorkLinesPreview'
 import FileLineShort from '../WorkElements/FileLineShort'
@@ -15,13 +14,14 @@ import AddMember from "../AddMember";
 import BottomPanel from "../../BottomPanel";
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
+import ContextMenu from "../../../../../generalComponents/ContextMenu";
+import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 const WorkSpace = ({
-   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject, mouseParams
 }) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
-    // const fileList = useSelector(state => state.Cabinet.fileList)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
     const [workElementsView, setWorkElementsView] = useState('')
@@ -79,10 +79,6 @@ const WorkSpace = ({
                 addFile={fileSelect}
             />
 
-            {/*<MembersPanel*/}
-            {/*    setAddMember={setAddMember}*/}
-            {/*/>*/}
-
             {!!chosenFolder?.name ? <WorkLinesPreview
                 recentFiles={recentFiles}
                 chosenFile={chosenFile}
@@ -105,6 +101,9 @@ const WorkSpace = ({
                 set={setAddMember}
             />}
             <BottomPanel />
+            {mouseParams !== null && mouseParams?.width && mouseParams?.height ? <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+                <ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={0} menuItem={menuItem} />
+            </ContextMenu> : null}
         </div>
     )
 }

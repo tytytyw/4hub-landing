@@ -1,41 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import api from "../../../../api";
-import {contextMenuFile, periods, previewFormats} from "../../../../generalComponents/collections";
+import {periods} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
 import WorkSpace from "./WorkSpace/index";
-import CreateFile from "../CreateFile";
-import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-import { fileDelete } from "../../../../generalComponents/fileMenuHelper";
-import {
-	onDeleteFile,
-	onAddRecentFiles, onChooseFiles,
-} from "../../../../Store/actions/CabinetActions";
+import { onChooseFiles } from "../../../../Store/actions/CabinetActions";
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 import CreateSafePassword from "../CreateSafePassword";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
-import {imageSrc} from '../../../../generalComponents/globalVariables';
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
+import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
+import CreateFile from "../CreateFile";
 
 const MyFiles = ({
 	filePreview,
 	setFilePreview,
-	awaitingFiles,
-	setAwaitingFiles,
-	loaded,
 	setFileAddCustomization,
-	setLoaded,
-	loadingFile,
-	fileErrors,
 	fileSelect,
 	fileAddCustomization,
-	setLoadingFile,
 	menuItem,
 	setMenuItem,
 	nullifyAddingSeveralFiles,
@@ -43,8 +30,14 @@ const MyFiles = ({
 	setLoadingType,
 	filesPage,
 	setFilesPage,
+    awaitingFiles,
+    setAwaitingFiles,
+	loaded,
+	setLoaded,
+	loadingFile,
+	fileErrors,
+	setLoadingFile,
 }) => {
-	const uid = useSelector((state) => state.user.uid);
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.Cabinet.fileList);
@@ -68,116 +61,6 @@ const MyFiles = ({
 	const nullifyFilePick = () =>
 		setFilePick({ show: false, files: [], customize: false });
 
-	const filterContexMenuForArchive = (arr) => {
-		const arhiveContexMenuItems = ['share', 'download', "print"];
-		return arr.filter(item => pathname === '/archive' ? arhiveContexMenuItems.includes(item.type) : true);
-	}
-	const callbackArrMain = filterContexMenuForArchive([
-		{
-			type: "share",
-			name: "",
-			text: ``,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "copyLink",
-			name: "",
-			text: ``,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "customize",
-			name: "Редактирование файла",
-			text: ``,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "customizeSeveral",
-			name: `Редактирование файлов`,
-			text: ``,
-			callback: () => setFilePick({ ...filePick, show: true }),
-		},
-		{
-			type: "archive",
-			name: "Добавить файл в архив",
-			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "intoZip",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: (list, index) =>
-				setAction({
-					...action,
-					type: list[index].type,
-					name: list[index].name,
-				}),
-		},
-		{
-			type: "intoZipSeveral",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: () => setFilePick({ ...filePick, show: true, intoZip: true }),
-		},
-		{
-			type: "properties",
-			name: "Свойства",
-			text: ``,
-			callback: () =>
-				setAction({ ...action, type: "properties", name: "Свойства" }),
-		},
-		{
-			type: "download",
-			name: "Загрузка файла",
-			text: ``,
-			callback: () => document.downloadFile.submit(),
-		},
-		{
-			type: "print",
-			name: "Распечатать файл",
-			text: ``,
-			callback: () => checkMimeTypes(),
-		},
-	])
-
-	const additionalMenuItems = [
-		{
-			type: "delete",
-			name: "Удаление файла",
-			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index]),
-		},
-	];
-
-	const checkMimeTypes = (file) => {
-		const mType = file?.mime_type ?? chosenFile?.mime_type;
-		const isFormat = previewFormats.filter(format => chosenFile.ext.toLowerCase().includes(format)).length > 0;
-		const fid = file?.fid ?? chosenFile?.fid;
-		const preview = file?.preview ?? chosenFile?.preview;
-		if(mType === 'application/pdf' || (mType && mType?.includes('image'))) {
-			setLoadingType('bounceDot')
-			printFile(`${preview}`)
-		} else {
-			if(isFormat) {
-				setLoadingType('bounceDot')
-				api.post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
-					.then(res => printFile(res.data.file_pdf))
-					.catch(err => console.log(err));
-			}
-		}
-	};
-
-	const printFile = (path) => {
-		let pri = document.getElementById("frame");
-		pri.src = `https://fs2.mh.net.ua/${path}`;
-		setTimeout(() => {
-			pri.contentWindow.focus();
-			pri.contentWindow.print();
-		}, 1000);
-		setLoadingType("");
-	};
-
 	const [safePassword, setSafePassword] = useState({ open: false });
 	const renderFileItem = (Type, list) => {
 		if (!list) return null;
@@ -194,14 +77,10 @@ const MyFiles = ({
 							: chosenFile?.fid === file?.fid
 					}
 					listCollapsed={listCollapsed}
-					renderMenuItems={renderMenuItems}
 					setMouseParams={setMouseParams}
 					action={action}
 					setAction={setAction}
 					nullifyAction={nullifyAction}
-					callbackArrMain={callbackArrMain}
-					additionalMenuItems={additionalMenuItems}
-					deleteFile={deleteFile}
 					setFilePreview={setFilePreview}
 					filePreview={filePreview}
 					filePick={filePick}
@@ -221,7 +100,6 @@ const MyFiles = ({
 				fileList={list[k]}
 				filePreview={filePreview}
 				setFilePreview={setFilePreview}
-				callbackArrMain={callbackArrMain}
 				chosenFile={chosenFile}
 				setChosenFile={setChosenFile}
 				filePick={filePick}
@@ -237,137 +115,14 @@ const MyFiles = ({
 		))
 	}
 
-	const deleteFile = () => {
-		if (filePick.show) {
-			const gdir = fileList.path;
-			filePick.files.forEach((fid, i, arr) =>
-				fileDelete(
-					{ gdir, fid },
-					dispatch,
-					uid,
-					i === arr.length - 1 ? setShowSuccessMessage : "",
-					"Файлы перемещено в корзину"
-				)
-			);
-			setFilePick({ ...filePick, files: [], show: false });
-		} else {
-			fileDelete(
-				chosenFile,
-				dispatch,
-				uid,
-				setShowSuccessMessage,
-				"Файл перемещен в корзину"
-			);
-		}
-		nullifyAction();
-		setChosenFile(null);
-		dispatch(onAddRecentFiles());
-	};
-
-	const addToArchive = (uid, fid, file, options) => {
-		setLoadingType("squarify");
-		api
-			.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
-			.then((res) => {
-				if (res.data.ok === 1) {
-					dispatch(onDeleteFile(file));
-					if (options.single) setShowSuccessMessage("Файл добавлен в архив");
-					if (options.several)
-						setShowSuccessMessage("Выбранные файлы добавлено в архив");
-				} else console.log(res?.error);
-			})
-			.catch((err) => console.log(err))
-			.finally(() => {
-				nullifyAction();
-				setChosenFile(null);
-				setLoadingType("");
-				if (filePick.show) nullifyFilePick();
-			});
-	};
-
-	const archiveFile = () => {
-		if (filePick.show) {
-			filePick.files.forEach((fid, i) => {
-				const options = {
-					single: false,
-					several: i === filePick.files.length - 1,
-				};
-				addToArchive(uid, fid, { fid }, options);
-			});
-		} else {
-			addToArchive(uid, chosenFile.fid, chosenFile, {
-				single: true,
-				several: false,
-			});
-		}
-	};
 	const onSafePassword = (boolean) =>
 		setSafePassword({ ...safePassword, open: boolean });
-	const excessItems = () => {
-		if (filePick.show) {
-			return ["intoZip", "properties", "download", "print"];
-		} else {
-			if (chosenFile.mime_type) {
-				switch (chosenFile.mime_type.split("/")[0]) {
-					case "image":
-						return [];
-					case "video":
-						return ["print"];
-					case "audio":
-						return ["print"];
-					case "application": {
-						return chosenFile.mime_type === "application/x-compressed"
-							? ["print", "intoZip", "intoZipSeveral"]
-							: [];
-					}
-					default:
-						return ["print"];
-				}
-			}
-			if (
-				previewFormats.filter((ext) =>
-					chosenFile.ext.toLowerCase().includes(ext)
-				)[0]
-			)
-				return [];
-			return ["print"];
-		}
-	};
-	const renderMenuItems = (target, type) => {
-		const eItems = excessItems();
-		let filteredMenu = [...target];
-		filteredMenu.forEach((el, i, arr) => {
-			eItems.forEach((excess) => {
-				if (excess === el.type) delete arr[i];
-			});
-		});
-		return filteredMenu.map((item, i) => {
-			return (
-				<ContextMenuItem
-					key={i}
-					width={mouseParams.width}
-					height={mouseParams.height}
-					text={item.name}
-					callback={() =>
-						type.forEach((el, index) => {
-							if (el.type === item.type) el.callback(type, index);
-						})
-					}
-					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-				/>
-			);
-		});
-	};
+
 	useEffect(() => {
 		dispatch(onGetUserInfo())
 		setMenuItem('myFiles');
 		return () => setMenuItem("")
 	}, []); //eslint-disable-line
-
-	const cancelArchive = () => {
-		nullifyFilePick();
-		nullifyAction();
-	};
 
 	const onSuccessLoading = (result) => {
 		if(typeof result === 'number') {
@@ -444,7 +199,6 @@ const MyFiles = ({
 			<WorkSpace
 				chosenFolder={chosenFolder}
 				workElementsView={workElementsView}
-				renderMenuItems={renderMenuItems}
 				mouseParams={mouseParams}
 				setMouseParams={setMouseParams}
 				action={action}
@@ -453,18 +207,13 @@ const MyFiles = ({
 				nullifyFilePick={nullifyFilePick}
 				chosenFile={chosenFile}
 				setChosenFile={setChosenFile}
-				callbackArrMain={callbackArrMain}
-				additionalMenuItems={additionalMenuItems}
-				deleteFile={deleteFile}
 				filePreview={filePreview}
 				setFilePreview={setFilePreview}
 				setSafePassword={setSafePassword}
 				fileSelect={fileSelect}
 				filePick={filePick}
 				setFilePick={setFilePick}
-				archiveFile={archiveFile}
 				setShowSuccessMessage={setShowSuccessMessage}
-				cancelArchive={cancelArchive}
 				fileAddCustomization={fileAddCustomization}
 				setFileAddCustomization={setFileAddCustomization}
 				nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
@@ -476,24 +225,25 @@ const MyFiles = ({
 				setGLoader={setGLoader}
 				menuItem={menuItem}
 			/>
-			{fileAddCustomization.show && (
-				<CreateFile
-					title={fileAddCustomization.create ? "Создать файл" : "Добавить файл"}
-					info={chosenFolder}
-					blob={fileAddCustomization.file}
-					setBlob={setFileAddCustomization}
-					onToggleSafePassword={onSafePassword}
-					awaitingFiles={awaitingFiles}
-					setAwaitingFiles={setAwaitingFiles}
-					loaded={loaded}
-					setLoaded={setLoaded}
-					loadingFile={loadingFile}
-					fileErrors={fileErrors}
-					setLoadingFile={setLoadingFile}
-					showChoiceFolders={true}
-					menuItem={menuItem}
-				/>
-			)}
+			{fileAddCustomization.show ? <CreateFile
+				title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
+				info={chosenFolder}
+				blob={fileAddCustomization.file}
+				setBlob={setFileAddCustomization}
+				onToggleSafePassword={onSafePassword}
+				awaitingFiles={awaitingFiles}
+				setAwaitingFiles={setAwaitingFiles}
+				loaded={loaded}
+				setLoaded={setLoaded}
+				loadingFile={loadingFile}
+				fileErrors={fileErrors}
+				setLoadingFile={setLoadingFile}
+				create={fileAddCustomization.create}
+				setGLoader={setGLoader}
+				initFolder={chosenFolder}
+				showChoiceFolders={true}
+				menuItem={menuItem}
+			/> : null}
 			{safePassword.open && (
 				<CreateSafePassword
 					onToggle={onSafePassword}
@@ -513,12 +263,7 @@ const MyFiles = ({
 				setParams={setMouseParams}
 				tooltip={true}
 			>
-				<div className={styles.mainMenuItems}>
-					{renderMenuItems(filterContexMenuForArchive(contextMenuFile.main), callbackArrMain)}
-				</div>
-				<div className={styles.additionalMenuItems}>
-					{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-				</div>
+				<ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={filesPage} menuItem={menuItem} />
 			</ContextMenu>
 		) : null}
 		</>

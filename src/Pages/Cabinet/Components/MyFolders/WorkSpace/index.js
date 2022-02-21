@@ -77,6 +77,7 @@ const WorkSpace = ({
                 setGLoader={setGLoader}
                 setNewFolderInfo={setNewFolderInfo}
                 setFilesPage={setFilesPage}
+                menuItem={menuItem}
             />
             <FolderPath
                 width={width}
@@ -108,12 +109,13 @@ const WorkSpace = ({
             />
             {filePick.show ? <OptionButtomLine
                 filePick={filePick}
-                setFilePick={setFilePick}
                 actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
                 setAction={setAction}
                 action={action}
                 nullifyFilePick={nullifyFilePick}
                 chosenFile={chosenFile}
+                menuItem={menuItem}
+                filesPage={filesPage}
             /> : null}
             <BottomPanel />
         </div>

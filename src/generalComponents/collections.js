@@ -30,6 +30,8 @@ export const smiles = [
     'quiet', 'sad', 'shocked', 'smart', 'smiling', 'surprised', 'suspicious', 'thinking', 'tongue-out', 'unhappy'
 ];
 
+//Deprecated
+//TODO - Needs to be checked and deleted - new array in ContextMenuFileList
 export const contextMenuFile = {
     main: [
         {name: 'Расшарить', img: 'share', type: 'share'},

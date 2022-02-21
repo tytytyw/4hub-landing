@@ -137,7 +137,13 @@ const FileLineShort = ({
                             });
                         }}
                     >
-                        <span className={styles.menu} />
+                        <span
+                            className={styles.menu}
+                            onClick={e => {
+                                onPickFile();
+                                setMouseParams({x: e.clientX, y: e.clientY, width: 240, height: 25})
+                            }}
+                        />
                     </div>
                 </div>
 

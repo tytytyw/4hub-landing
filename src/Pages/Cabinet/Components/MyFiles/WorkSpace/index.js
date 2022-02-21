@@ -8,15 +8,8 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
-import ActionApproval from "../../../../../generalComponents/ActionApproval";
-import File from "../../../../../generalComponents/Files";
 import RecentFiles from "../../RecentFiles";
-import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
-import Share from "../../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
-import CopyLinkShare from '../../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare';
-import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
-import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
@@ -30,26 +23,17 @@ const WorkSpace = ({
 	setMouseParams,
 	action,
 	setAction,
-	nullifyAction,
 	nullifyFilePick,
 	callbackArrMain,
-	deleteFile,
 	setFilePreview,
 	filePreview,
 	fileSelect,
 	fileLoading,
 	filePick,
 	setFilePick,
-	archiveFile,
 	chosenFolder,
-	showSuccessMessage,
-	setShowSuccessMessage,
-    cancelArchive,
 	fileAddCustomization,
 	setFileAddCustomization,
-	nullifyAddingSeveralFiles,
-	saveCustomizeSeveralFiles,
-	setLoadingType,
 	filesPage,
 	setFilesPage,
 	gLoader,
@@ -183,95 +167,6 @@ const WorkSpace = ({
 				) : null}
 				<BottomPanel />
 			</div>
-			{action.type === "delete" ? (
-				<ActionApproval
-					name={filePick.show ? 'Удаление файлов' : action.name}
-					text={filePick.show ? 'Вы действительно хотите удалить выбранные файлы?' : action.text}
-					set={cancelArchive}
-					callback={deleteFile}
-					approve={'Удалить'}
-				>
-					<div className={styles.fileActionWrap}>
-						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
-					</div>
-				</ActionApproval>
-			) : null}
-			{action.type === 'customize' || filePick.customize || fileAddCustomization.several ? <CustomizeFile
-            title={filePick.customize ||  fileAddCustomization?.several ? `Редактировать выбранные файлы` : action.name }
-            info={chosenFolder}
-            file={chosenFile}
-            // TODO - Check Cancellation for FilePick
-            close={filePick.customize ? nullifyFilePick : fileAddCustomization.several ? nullifyAddingSeveralFiles : nullifyAction}
-            filePick={filePick}
-            setFilePick={setFilePick}
-            fileAddCustomization={fileAddCustomization}
-            setFileAddCustomization={setFileAddCustomization}
-            saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-            setLoadingType={setLoadingType}
-        /> : null}
-			{action.type === "intoZip" ? (
-				<CreateZip
-					close={nullifyAction}
-					file={chosenFile}
-					title={action.name}
-					info={chosenFolder}
-					filePick={filePick}
-                	nullifyFilePick={nullifyFilePick}
-					setShowSuccessMessage={setShowSuccessMessage}
-					setLoadingType={setLoadingType}
-				/>
-			) : null}
-			<form
-				style={{ display: "none" }}
-				name="downloadFile"
-				action="/ajax/download.php"
-				method="post"
-			>
-				<input
-					style={{ display: "none" }}
-					name="fid"
-					value={chosenFile?.fid || ""}
-					readOnly
-				/>
-			</form>
-			<iframe
-				style={{ display: "none" }}
-				title={"print"}
-				frameBorder="0"
-				scrolling="no"
-				id="frame"
-			/>
-			{action.type === "share" || action.type === "resend" ? (
-				<Share
-					file={chosenFile}
-					files={filePick.files}
-					close={nullifyAction}
-					action_type={action.type}
-					showSuccessMessage={showSuccessMessage}
-					setShowSuccessMessage={setShowSuccessMessage}
-					setLoadingType={setLoadingType}
-				/>
-			) : null}
-			{action.type === "archive" ? (
-				<ActionApproval
-					name={filePick.show ? 'Архивировать выбранные файлы' : action.name}
-					text={filePick.show ? ' Вы действительно хотите переместить в архив выбранные файлы?' : action.text}
-					set={cancelArchive}
-					callback={archiveFile}
-					approve={'Архивировать'}
-				>
-					<div className={styles.fileActionWrap}>
-						<File format={filePick.show ? 'FILES' : chosenFile?.ext} color={chosenFile?.color} />
-					</div>
-				</ActionApproval>
-			) : null}
-			{action.type === "properties" ? (
-				<FileProperty close={nullifyAction} file={chosenFile} />
-			) : null}
-			{action.type === 'copyLink' ? <CopyLinkShare
-                nullifyAction={nullifyAction}
-                setShowSuccessMessage={setShowSuccessMessage}
-            /> : null}
 		</>
 	);
 };

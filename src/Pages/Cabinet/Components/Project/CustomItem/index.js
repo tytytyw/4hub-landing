@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './CustomItem.module.sass'
 import classNames from "classnames";
 
-const CustomItem = ({item, badge, onClick, listSize}) => {
+const CustomItem = ({item, badge, onClick, listSize, collapsed}) => {
 
     return (
         <div
@@ -14,7 +14,10 @@ const CustomItem = ({item, badge, onClick, listSize}) => {
             })}
         >
 
-            <div className={styles.innerFolder}>
+            <div className={classNames({
+                [styles.innerFolder]: true,
+                [styles.collapsed]: collapsed
+            })}>
 
                 <div className={styles.innerFolderName}>
                     <img
@@ -22,9 +25,9 @@ const CustomItem = ({item, badge, onClick, listSize}) => {
                         alt='icon'
                         className={styles.innerFolderIcon}
                     />
-                    <div className={styles.nameWrap}>
+                    {collapsed ? null : <div className={styles.nameWrap}>
                         <div className={styles.name}>{item.name}</div>
-                    </div>
+                    </div>}
                 </div>
 
                 <div className={styles.innerFolderMedia}>

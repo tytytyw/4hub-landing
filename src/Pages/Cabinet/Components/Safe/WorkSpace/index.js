@@ -16,18 +16,10 @@ import FileBar from "../../WorkElements/FileBar";
 import FileLine from "../../WorkElements/FileLine";
 import FileLineShort from "../FileLineShort";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
-import { contextMenuFile } from "../../../../../generalComponents/collections";
-import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
-import { previewFormats } from "../../../../../generalComponents/collections";
-import ActionApproval from "../../../../../generalComponents/ActionApproval";
-import File from "../../../../../generalComponents/Files";
 import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
-import FileProperty from "../../ContextMenuComponents/ContextMenuFile/FileProperty";
-import CreateZip from "../../ContextMenuComponents/ContextMenuFile/CreateZip";
 import classNames from "classnames";
-import api from "../../../../../api";
-import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 
 const WorkSpace = ({
 	menuItem,
@@ -48,10 +40,6 @@ const WorkSpace = ({
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
 	setLoadingType,
-	deleteFile,
-	cancelArchive,
-	archiveFile,
-	setShowSuccessMessage,
 	filesPage,
 	setFilesPage,
 	loadingFiles,
@@ -62,155 +50,12 @@ const WorkSpace = ({
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
 	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
-	const uid = useSelector((state) => state.user.uid);
 
 	const [mouseParams, setMouseParams] = useState(null);
 
 	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
 	const fileRef = useRef(null);
-
-	const callbackArrMain = [
-		{ type: "resend", name: "", text: ``, callback: "" },
-		{ type: "share", name: "", text: ``, callback: "" },
-		{ type: "openInApp", name: "", text: ``, callback: "" },
-		{ type: "copyLink", name: "", text: ``, callback: "" },
-		{
-			type: "customize",
-			name: "Редактирование файла",
-			text: ``,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "customizeSeveral",
-			name: `Редактирование файлов`,
-			text: ``,
-			callback: (list, index) => setFilePick({ ...filePick, show: true }),
-		},
-		{
-			type: "archive",
-			name: "Добавить файл в архив",
-			text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index]),
-		},
-		{
-			type: "intoZip",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: (list, index) =>
-				setAction({
-					...action,
-					type: list[index].type,
-					name: list[index].name,
-				}),
-		},
-		{
-			type: "intoZipSeveral",
-			name: "Сжать в ZIP",
-			text: ``,
-			callback: () => setFilePick({ ...filePick, show: true, intoZip: true }),
-		},
-		{ type: "info", name: "", text: ``, callback: "" },
-		{
-			type: "download",
-			name: "Загрузка файла",
-			text: ``,
-			callback: () => document.downloadFile.submit(),
-		},
-		{
-			type: "properties",
-			name: "Свойства",
-			text: ``,
-			callback: () =>
-				setAction({ ...action, type: "properties", name: "Свойства" }),
-		},
-		{
-			type: "print",
-			name: "Распечатать файл",
-			text: ``,
-			callback: () => checkMimeTypes(),
-		},
-	];
-
-	const additionalMenuItems = [
-		{
-			type: "delete",
-			name: "Удаление файла",
-			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
-			callback: (list, index) => setAction(list[index]),
-		},
-	];
-
-	const onActiveCallbackArrMain = (type) => {
-		let index;
-		callbackArrMain.forEach((el, i) =>
-			el.type === type ? (index = i) : undefined
-		);
-		callbackArrMain[index].callback(callbackArrMain, index);
-	};
-
-	const excessItems = () => {
-		if (filePick.show) {
-			return [
-				"intoZip",
-				"properties",
-				"download",
-				"print",
-				"share",
-				"copyLink",
-			];
-		} else {
-			if (chosenFile.mime_type) {
-				switch (chosenFile.mime_type.split("/")[0]) {
-					case "image":
-						return ["share", "copyLink"];
-					case "video":
-						return ["print", "share", "copyLink"];
-					case "audio":
-						return ["print", "share", "copyLink"];
-					case "application": {
-						return chosenFile.mime_type === "application/x-compressed"
-							? ["print", "intoZip", "intoZipSeveral", "share", "copyLink"]
-							: ["share", "copyLink"];
-					}
-					default:
-						return ["print, share", "copyLink"];
-				}
-			}
-			if (
-				previewFormats.filter((ext) =>
-					chosenFile.ext.toLowerCase().includes(ext)
-				)[0]
-			)
-				return ["share", "copyLink"];
-			return ["print", "share", "copyLink"];
-		}
-	};
-	const renderMenuItems = (target, type) => {
-		const eItems = excessItems();
-		let filteredMenu = [...target];
-		filteredMenu.forEach((el, i, arr) => {
-			eItems.forEach((excess) => {
-				if (excess === el.type) delete arr[i];
-			});
-		});
-		return filteredMenu.map((item, i) => {
-			return (
-				<ContextMenuItem
-					key={i}
-					width={mouseParams.width}
-					height={mouseParams.height}
-					text={item.name}
-					callback={() =>
-						type.forEach((el, index) => {
-							if (el.type === item.type) el.callback(type, index);
-						})
-					}
-					imageSrc={`${imageSrc}assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-				/>
-			);
-		});
-	};
 
 	// Types of Files view
 	const renderFiles = (Type) => {
@@ -233,50 +78,10 @@ const WorkSpace = ({
 					filePreview={filePreview}
 					filePick={filePick}
 					setFilePick={setFilePick}
-					callbackArrMain={callbackArrMain}
 					size={size}
 				/>
 			);
 		});
-	};
-
-	const checkMimeTypes = () => {
-		const mType = chosenFile?.mime_type;
-		const isFormat =
-			previewFormats.filter((format) =>
-				chosenFile.ext.toLowerCase().includes(format)
-			).length > 0;
-
-		setLoadingType("bounceDot");
-		api
-			.get(
-				`/ajax/safe_file_download.php?uid=${uid}&fid=${chosenFile.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
-				{
-					responseType: "blob",
-				}
-			)
-
-			.then((res) => {
-				const blob = new Blob([res.data], {type : mType});
-				const objectURL = URL.createObjectURL(blob);
-				
-				if(mType === 'application/pdf' || (mType && mType?.includes('image'))) {
-					setLoadingType("bounceDot");
-					printFile(objectURL);
-				} else if (isFormat) printFile(objectURL);
-			})
-			.catch((err) => console.log(err))
-			.finally(() => setLoadingType(""));
-	};
-
-	const printFile = (path) => {
-		let pri = document.getElementById("frame");
-		pri.src = path;
-
-		setTimeout(() => {
-			pri.contentWindow.focus();
-			pri.contentWindow.print();
-		}, 1000);
 	};
 
 	useEffect(() => {
@@ -309,8 +114,6 @@ const WorkSpace = ({
 				<ServePanel
 					chosenFile={chosenFile}
 					setAction={setAction}
-					share={() => onActiveCallbackArrMain("share")}
-					archive={() => onActiveCallbackArrMain("archive")}
 					chooseSeveral={() =>
 						setFilePick({ ...filePick, files: [], show: !filePick.show })
 					}
@@ -387,7 +190,6 @@ const WorkSpace = ({
 
 				{filePick.show ? (
 					<OptionButtomLine
-						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
 						actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
@@ -406,34 +208,8 @@ const WorkSpace = ({
 					setParams={setMouseParams}
 					tooltip={true}
 				>
-					<div className={styles.mainMenuItems}>
-						{renderMenuItems(contextMenuFile.main, callbackArrMain)}
-					</div>
-					<div className={styles.additionalMenuItems}>
-						{renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
-					</div>
+					<ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={filesPage} menuItem={menuItem} authorizedSafe={authorizedSafe} />
 				</ContextMenu>
-			) : null}
-
-			{action.type === "delete" ? (
-				<ActionApproval
-					name={filePick.show ? "Удаление файлов" : action.name}
-					text={
-						filePick.show
-							? "Вы действительно хотите удалить выбранные файлы?"
-							: action.text
-					}
-					set={cancelArchive}
-					callback={deleteFile}
-					approve={"Удалить"}
-				>
-					<div className={styles.fileActionWrap}>
-						<File
-							format={filePick.show ? "FILES" : chosenFile?.ext}
-							color={chosenFile?.color}
-						/>
-					</div>
-				</ActionApproval>
 			) : null}
 
 			{action.type === "customize" ||
@@ -462,69 +238,6 @@ const WorkSpace = ({
 					menuItem={menuItem}
 				/>
 			) : null}
-
-			{action.type === "archive" ? (
-				<ActionApproval
-					name={filePick.show ? "Архивировать выбранные файлы" : action.name}
-					text={
-						filePick.show
-							? " Вы действительно хотите переместить в архив выбранные файлы?"
-							: action.text
-					}
-					set={cancelArchive}
-					callback={archiveFile}
-					approve={"Архивировать"}
-				>
-					<div className={styles.fileActionWrap}>
-						<File
-							format={filePick.show ? "FILES" : chosenFile?.ext}
-							color={chosenFile?.color}
-						/>
-					</div>
-				</ActionApproval>
-			) : null}
-
-			{action.type === "properties" ? (
-				<FileProperty close={nullifyAction} file={chosenFile} />
-			) : null}
-
-			{action.type === "intoZip" ? (
-				<CreateZip
-					close={nullifyAction}
-					file={chosenFile}
-					title={action.name}
-					filePick={filePick}
-					nullifyFilePick={nullifyFilePick}
-					setShowSuccessMessage={setShowSuccessMessage}
-					setLoadingType={setLoadingType}
-					filesPage={filesPage}
-				/>
-			) : null}
-
-			<form
-				style={{ display: "none" }}
-				name="downloadFile"
-				action={`/ajax/safe_file_download.php?${uid}&id_safe=${
-					authorizedSafe?.id_safe || ""
-				}&pass=${authorizedSafe?.password || ""}&code=${
-					authorizedSafe?.code || ""
-				}`}
-				method="post"
-			>
-				<input
-					style={{ display: "none" }}
-					name="fid"
-					value={chosenFile?.fid || ""}
-					readOnly
-				/>
-			</form>
-			<iframe
-				style={{ display: "none" }}
-				title={"print"}
-				frameBorder="0"
-				scrolling="no"
-				id="frame"
-			/>
 		</>
 	);
 };
