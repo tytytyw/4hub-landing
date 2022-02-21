@@ -42,7 +42,7 @@ const ChatBoard = ({
 	const footerRef = useRef();
 	const videoMessagePreview = useRef();
 	const uid = useSelector((state) => state.user.uid);
-	const [videoPreview, setVideoPreview] = useState(null)
+	const [videoPreview, setVideoPreview] = useState(null);
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
@@ -93,14 +93,13 @@ const ChatBoard = ({
 					if (type === "message") {
 						// for audio/video messages
 						const recorder = new MediaRecorder(stream);
-						recorder.start()
+						recorder.start();
 						setMediaRecorder(recorder);
 						if (constraints.video) {
 							// video preview
-							setVideoPreview(true)
-							videoMessagePreview.current.srcObject = stream
-							videoMessagePreview.current.play()
-
+							setVideoPreview(true);
+							videoMessagePreview.current.srcObject = stream;
+							videoMessagePreview.current.play();
 						}
 					}
 				})
@@ -119,7 +118,7 @@ const ChatBoard = ({
 			mediaRecorder?.state === "active" && recordEnd();
 			mediaRecorder && cleareTracks();
 			setMediaRecorder(null);
-			setVideoPreview(null)
+			setVideoPreview(null);
 		}
 		setIsRecording(false);
 	};
@@ -137,10 +136,14 @@ const ChatBoard = ({
 		setIsRecording(false);
 	};
 
-	const mouseUpHandler = (e) => { //for recording
-		const mouseUpOnFooter = footerRef?.current?.offsetLeft < e.pageX && footerRef?.current?.offsetTop < e.pageY
-		if (isRecording) mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel()
-	}
+	const mouseUpHandler = (e) => {
+		//for recording
+		const mouseUpOnFooter =
+			footerRef?.current?.offsetLeft < e.pageX &&
+			footerRef?.current?.offsetTop < e.pageY;
+		if (isRecording)
+			mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel();
+	};
 
 	useEffect(() => {
 		if (mediaRecorder) {
@@ -160,7 +163,7 @@ const ChatBoard = ({
 			}, 1000);
 			return () => {
 				clearTimeout(timer);
-				setDucationTimer(0)
+				setDucationTimer(0);
 			};
 		}
 	}, [isRecording]);
@@ -171,7 +174,14 @@ const ChatBoard = ({
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
 	return (
-		<div className={classNames({[styles.chatBoardWrap]:true, [styles.recoring]: isRecording})} onMouseLeave={recordCancel} onMouseUp={mouseUpHandler}>
+		<div
+			className={classNames({
+				[styles.chatBoardWrap]: true,
+				[styles.recoring]: isRecording,
+			})}
+			onMouseLeave={recordCancel}
+			onMouseUp={mouseUpHandler}
+		>
 			{selectedContact ? (
 				<ServePanel
 					selectedContact={selectedContact}
@@ -215,10 +225,7 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</main>
-			<footer
-				ref={footerRef}
-				className={styles.chatBoardFooter}
-			>
+			<footer ref={footerRef} className={styles.chatBoardFooter}>
 				{isRecording ? (
 					<div className={styles.leftContainer}>
 						<div className={styles.recordIcon}></div>
@@ -297,7 +304,16 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</footer>
-			{videoPreview ? <video ref={videoMessagePreview} className={styles.videoMessagePreview} autoplay /> : ""}
+			{videoPreview ? (
+				<video
+					ref={videoMessagePreview}
+					muted={true}
+					className={styles.videoMessagePreview}
+					autoplay
+				/>
+			) : (
+				""
+			)}
 		</div>
 	);
 };
