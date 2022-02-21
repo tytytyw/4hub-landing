@@ -15,6 +15,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
 import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
+import CreateFile from "../CreateFile";
 
 const MyFiles = ({
 	filePreview,
@@ -29,6 +30,13 @@ const MyFiles = ({
 	setLoadingType,
 	filesPage,
 	setFilesPage,
+    awaitingFiles,
+    setAwaitingFiles,
+	loaded,
+	setLoaded,
+	loadingFile,
+	fileErrors,
+	setLoadingFile,
 }) => {
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
@@ -217,6 +225,25 @@ const MyFiles = ({
 				setGLoader={setGLoader}
 				menuItem={menuItem}
 			/>
+			{fileAddCustomization.show ? <CreateFile
+				title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
+				info={chosenFolder}
+				blob={fileAddCustomization.file}
+				setBlob={setFileAddCustomization}
+				onToggleSafePassword={onSafePassword}
+				awaitingFiles={awaitingFiles}
+				setAwaitingFiles={setAwaitingFiles}
+				loaded={loaded}
+				setLoaded={setLoaded}
+				loadingFile={loadingFile}
+				fileErrors={fileErrors}
+				setLoadingFile={setLoadingFile}
+				create={fileAddCustomization.create}
+				setGLoader={setGLoader}
+				initFolder={chosenFolder}
+				showChoiceFolders={true}
+				menuItem={menuItem}
+			/> : null}
 			{safePassword.open && (
 				<CreateSafePassword
 					onToggle={onSafePassword}
