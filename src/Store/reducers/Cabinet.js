@@ -189,7 +189,7 @@ const INITIAL_STATE = {
         printScreen: {open: false, result: ''},
         previewFile: {open: false, file: null},
         topMessage: {open: false, type: 'message', message: ''}, //type = message(default) || error
-        contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0, filePick: null, menuItem: ''} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+        contextMenuModals: {type: '', items: [], title: '', action_type: '', filesPage: 0, filePick: null, menuItem: '', authorizedSafe: null} //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
     }
 }
 

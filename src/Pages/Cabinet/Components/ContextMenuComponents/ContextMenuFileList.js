@@ -12,7 +12,7 @@ export const share_types = {
     files: 'file_share'
 }
 
-function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem}) {
+function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuItem, authorizedSafe = null}) {
 
     const copy_link_types = {
         myFolders: file.is_dir === 1 ? 'dir_access_add' : ''
@@ -24,7 +24,10 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
 
     const filterContextMenu = (location, array) => {
         if(location === 'archive') {
-            return array.filter(item => pathname === '/archive' ? ['share', 'download', "print"].includes(item.type) : true);
+            return array.filter(item => ['share', 'download', "print"].includes(item.type));
+        }
+        if(location === 'safe') {
+            return array.filter(item => !['share', 'copyLink'].includes(item.type));
         }
         return array;
     }
@@ -38,8 +41,8 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
         {type: 'intoZip', img: 'zip', name: 'Сжать в ZIP', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
         {type: 'intoZipSeveral', img: 'severalZip', name: 'Сжать несколько файлов в Zip', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.show ? filePick.files : [file], title: 'Сжать в ZIP', filesPage}))}},
         {type: 'properties', img: 'info', name: 'Свойства', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'FileProperty', items: [file]}))}},
-        {type: 'download', img: 'download-blue', name: 'Скачать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file]}))}},
-        {type: 'print', img: 'print-2', name: 'Печать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'PrintFile', items: [file]}))}},
+        {type: 'download', img: 'download-blue', name: 'Скачать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file], authorizedSafe}))}},
+        {type: 'print', img: 'print-2', name: 'Печать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'PrintFile', items: [file], authorizedSafe}))}},
     ]);
     const additionalMenuItems = [
         {type: 'delete', img: 'garbage', name: 'Удалить', text: `Вы действительно хотите удалить файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DeleteFile', items: filePick.show ? filePick.files : [file], filePick}))}}
