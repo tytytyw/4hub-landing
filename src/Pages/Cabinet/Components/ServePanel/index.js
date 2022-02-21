@@ -40,7 +40,7 @@ import {useWindowSize} from "../../../../generalComponents/Hooks";
 import {share_types} from "../ContextMenuComponents/ContextMenuFileList";
 
 const ServePanel = ({
-        chosenFile, archive, chooseSeveral, filePick,
+        chosenFile, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, setGLoader, setNewFolderInfo, setFilesPage, dateFilter
 }) => {

@@ -1,9 +1,10 @@
 import React from 'react';
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import {imageSrc} from "../../../../generalComponents/globalVariables";
-import {contextMenuFile, previewFormats} from "../../../../generalComponents/collections";
+import {previewFormats} from "../../../../generalComponents/collections";
 import {onSetModals} from "../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router";
 
 export const share_types = {
     myFolders: 'file_share',
@@ -19,8 +20,16 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
 
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
+    const { pathname } = useLocation();
 
-    const callbackArrMain = [
+    const filterContextMenu = (location, array) => {
+        if(location === 'archive') {
+            return array.filter(item => pathname === '/archive' ? ['share', 'download', "print"].includes(item.type) : true);
+        }
+        return array;
+    }
+
+    const callbackArrMain = filterContextMenu(pathname.split('/')[1],[
         {type: 'share', img: 'share', name: 'Расшарить', text: ``, callback: () => {dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : file, action_type: file.is_dir === 1 ? 'dir_access_add' : share_types[menuItem], file}))}},
         {type: 'copyLink', img: 'link-4', name: 'Скопировать ссылку', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CopyLinkShare', items: [file], action_type: copy_link_types[menuItem]}))}},
         {type: 'customize', img: 'edit', name: 'Редактировать файл', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.show ? filePick.files : [file], title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem}))}},
@@ -31,7 +40,7 @@ function ContextMenuFileList({file = {}, filePick, mouseParams, filesPage, menuI
         {type: 'properties', img: 'info', name: 'Свойства', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'FileProperty', items: [file]}))}},
         {type: 'download', img: 'download-blue', name: 'Скачать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [file]}))}},
         {type: 'print', img: 'print-2', name: 'Печать', text: ``, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'PrintFile', items: [file]}))}},
-    ];
+    ]);
     const additionalMenuItems = [
         {type: 'delete', img: 'garbage', name: 'Удалить', text: `Вы действительно хотите удалить файл ${file?.name}?`, callback: () => {dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DeleteFile', items: filePick.show ? filePick.files : [file], filePick}))}}
     ];
