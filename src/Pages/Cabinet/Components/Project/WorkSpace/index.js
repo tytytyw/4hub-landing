@@ -6,7 +6,6 @@ import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import Profile from '../../Profile'
 import ServePanel from '../../ServePanel'
-// import MembersPanel from './MembersPanel'
 import RecentFiles from '../../RecentFiles'
 import WorkLinesPreview from '../WorkElements/WorkLinesPreview/WorkLinesPreview'
 import FileLineShort from '../WorkElements/FileLineShort'
@@ -23,7 +22,6 @@ const WorkSpace = ({
 }) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
-    // const fileList = useSelector(state => state.Cabinet.fileList)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
     const [workElementsView, setWorkElementsView] = useState('')

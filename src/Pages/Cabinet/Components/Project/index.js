@@ -59,6 +59,7 @@ const Project = ({
 	const [gLoader, setGLoader] = useState(false);
 	const [safePassword, setSafePassword] = useState({open: false});
 	const [params, setParams] = useState({fromRecent: false});
+	const [listCollapsed, setListCollapsed] = useState(false);
 	const listRef = useRef(null);
 
 	useEffect(() => {
@@ -204,6 +205,7 @@ const Project = ({
 				setParams={setParams}
 				params={params}
 				listRef={listRef}
+				listCollapsed={listCollapsed}
 			/>
 		));
 	};
@@ -250,6 +252,8 @@ const Project = ({
 				className={styles.listWrap}
 				onCreate={setCreateProject}
 				ref={listRef}
+				listCollapsed={listCollapsed}
+				setListCollapsed={setListCollapsed}
 			>
 				{projects?.length < 1 ? (
 					<div className={styles.emptyBlock}>

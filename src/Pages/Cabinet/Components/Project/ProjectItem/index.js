@@ -56,6 +56,7 @@ const ProjectItem = ({
                 setChosenFolder={setChosenFolder}
                 setMouseParams={setMouseParams}
                 project={project}
+                collapsed={listCollapsed}
             />
         })
     }
@@ -79,7 +80,6 @@ const ProjectItem = ({
                 <div
                     className={classNames({
                         [styles.titleWrap]: true,
-                        [styles.titleCollapsed]: !!listCollapsed,
                         [styles.titleWrapChosen]: !!collapse
                     })}
                 >
@@ -90,7 +90,7 @@ const ProjectItem = ({
 
                         <div className={styles.leftTitleWrap}>
                             {getIcon(project)}
-                            <div className={styles.nameWrap}>
+                            {!listCollapsed ? <div className={styles.nameWrap}>
                                 <p className={styles.title}>{project.name}</p>
                                 <div
                                     className={classNames({
@@ -100,12 +100,12 @@ const ProjectItem = ({
                                 >
                                     {project?.tags && `#${project.tags}`}
                                 </div>
-                            </div>
+                            </div> : null}
                         </div>
 
                         <div className={styles.stickWrap}>
 
-                            <div className={styles.symbolWrap}>
+                            {!listCollapsed ? <div className={styles.symbolWrap}>
                                 {project?.id_fig &&
                                 <img
                                     className={styles.symbols}
@@ -120,7 +120,7 @@ const ProjectItem = ({
                                     alt='emoji'
                                 />}
 
-                            </div>
+                            </div> : null}
 
                             <PlayIcon
                                 className={classNames({
@@ -151,6 +151,7 @@ const ProjectItem = ({
                     })}
                 >
                     <CustomItem
+                        collapsed={listCollapsed}
                         listSize={size}
                         badge={project?.tasks}
                         onClick={() => {}}
@@ -161,6 +162,7 @@ const ProjectItem = ({
                         }}
                     />
                     <CustomItem
+                        collapsed={listCollapsed}
                         listSize={size}
                         onClick={() => setNewFolder(true)}
                         item={{
