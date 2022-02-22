@@ -62,6 +62,7 @@ const WorkSpace = ({
 				text: data.text,
 				ut: data.api?.ut_message,
 				isNewMessage: true,
+				attachment: data.attachment
 			};
 
 			if (isForGroups) {
@@ -96,10 +97,10 @@ const WorkSpace = ({
 		setSocketReconnect(true);
 	};
 
-	const addMessage = (text) => {
-		if (text && socket) {
+	const addMessage = (text, attachment) => {
+		if ((text || attachment) && socket) {
 			const sendMessage = (params) => {
-				socket.send(JSON.stringify({ ...params, uid, id_company, text }));
+				socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
 			};
 			sendMessage(
 				selectedContact?.isGroup

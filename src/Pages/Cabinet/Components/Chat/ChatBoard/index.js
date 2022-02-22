@@ -15,6 +15,8 @@ import InviteUser from "./InviteUser";
 import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
+import api from "../../../../../api";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 
 const ChatBoard = ({
 	sideMenuCollapsed,
@@ -33,7 +35,15 @@ const ChatBoard = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
+	const [mediaRecorder, setMediaRecorder] = useState(null);
+	const [isRecording, setIsRecording] = useState(false);
+	const [ducationTimer, setDucationTimer] = useState(0);
+	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
+	const footerRef = useRef();
+	const videoMessagePreview = useRef();
+	const uid = useSelector((state) => state.user.uid);
+	const [videoPreview, setVideoPreview] = useState(null);
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
@@ -53,13 +63,131 @@ const ChatBoard = ({
 		});
 	}, [messages, currentDate, selectedContact]);
 
+	const upLoadFile = (blob, fileName, kind) => {
+		setMessageIsSending(true);
+		const file = new File([blob], fileName, { type: blob.type });
+		const formData = new FormData();
+		formData.append("myfile", file);
+		api
+			.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+			.then((res) => {
+				if (res.data.ok) {
+					const attachment = {
+						...res.data.files.myfile,
+						link: res.data.link,
+						kind,
+					};
+					addMessage("", attachment);
+				}
+			})
+			.finally(() => setMessageIsSending(false));
+	};
+
+	const onRecording = (type, constraints) => {
+		navigator.getUserMedia =
+			navigator.getUserMedia ||
+			navigator.mozGetUserMedia ||
+			navigator.msGetUserMedia ||
+			navigator.webkitGetUserMedia;
+		setIsRecording(true);
+		if (navigator.mediaDevices) {
+			navigator.mediaDevices
+				.getUserMedia(constraints) // ex. { audio: true , video: true}
+				.then((stream) => {
+					if (type === "message") {
+						// for audio/video messages
+						const recorder = new MediaRecorder(stream);
+						recorder.start();
+						setMediaRecorder(recorder);
+						if (constraints.video) {
+							// video preview
+							setVideoPreview(true);
+							const video = videoMessagePreview.current
+							if (video) {
+								video.srcObject = stream;
+								video.play();
+							}
+						}
+					}
+				})
+				.catch((error) => console.log(error));
+		}
+	};
+
+	const recordEnd = () => {
+		mediaRecorder?.stop();
+	};
+
+	const recordCancel = () => {
+		if (mediaRecorder) {
+			const cleareTracks = () =>
+				mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+			mediaRecorder?.state === "active" && recordEnd();
+			mediaRecorder && cleareTracks();
+			setMediaRecorder(null);
+			setVideoPreview(null);
+		}
+		setIsRecording(false);
+	};
+
+	const onDataAviable = (e) => {
+		if (isRecording) {
+			const data = e.data;
+			if (data.type.includes("audio"))
+				upLoadFile(data, "аудио сообщение", "audio_message");
+			if (data.type.includes("video"))
+				upLoadFile(data, "видео сообщение", "video_message");
+			setMediaRecorder(null);
+			recordCancel();
+		}
+		setIsRecording(false);
+	};
+
+	const mouseUpHandler = (e) => {
+		//for recording
+		const mouseUpOnFooter = footerRef?.current?.offsetTop + 90 < e.pageY;
+		mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel();
+	};
+
+	useEffect(() => {
+		if (mediaRecorder) {
+			isRecording
+				? mediaRecorder.addEventListener("dataavailable", onDataAviable)
+				: recordCancel()
+		}
+		return () => {
+			if (mediaRecorder)
+				mediaRecorder.removeEventListener("dataavailable", onDataAviable);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaRecorder]);
+
+	useEffect(() => {
+		if (isRecording) {
+			const timer = setInterval(() => {
+				setDucationTimer((sec) => sec + 1);
+			}, 1000);
+			return () => {
+				clearTimeout(timer);
+				setDucationTimer(0);
+			};
+		}
+	}, [isRecording]);
+
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
 	};
 	useEffect(() => scrollToBottom, [messages, selectedContact]);
 
 	return (
-		<div className={styles.chatBoardWrap}>
+		<div
+			className={classNames({
+				[styles.chatBoardWrap]: true,
+				[styles.recoring]: isRecording,
+			})}
+			onMouseLeave={recordCancel}
+			onMouseUp={mouseUpHandler}
+		>
 			{selectedContact ? (
 				<ServePanel
 					selectedContact={selectedContact}
@@ -103,18 +231,71 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</main>
-			<footer className={styles.chatBoardFooter}>
-				<div className={styles.downloadOptions}>
-					<AddIcon title="Вставить файл" />
-				</div>
-				<TextArea addMessage={addMessage} />
+			<footer ref={footerRef} className={styles.chatBoardFooter}>
+				{isRecording ? (
+					<div className={styles.leftContainer}>
+						<div className={styles.recordIcon}></div>
+						<span className={styles.duration}>{`${
+							Math.floor(ducationTimer / 60) < 10
+								? `0${Math.floor(ducationTimer / 60)}`
+								: Math.floor(ducationTimer / 60)
+						}:${
+							ducationTimer % 60 < 10
+								? `0${Math.floor(ducationTimer % 60)}`
+								: Math.floor(ducationTimer % 60)
+						}`}</span>
+					</div>
+				) : (
+					<div className={styles.downloadOptions}>
+						<AddIcon title="Вставить файл" />
+					</div>
+				)}
+				{isRecording ? (
+					<div className={styles.recordHint}>
+						Для отмены отпустите курсор вне поля
+					</div>
+				) : (
+					<TextArea addMessage={addMessage} />
+				)}
 				<div className={styles.sendOptions}>
-					<div title="Аудио сообщение" className={styles.button}>
-						<RadioIcon title="" />
-					</div>
-					<div title="Видео сообщение" className={styles.button}>
-						<PlayIcon title="" className={styles.triangle} />
-					</div>
+					{messageIsSending ? (
+						<div className={styles.loaderWrapper}>
+							<Loader
+								type="bounceDots"
+								position="absolute"
+								background="white"
+								zIndex={5}
+								width="100px"
+								height="100px"
+								containerType="bounceDots"
+							/>
+						</div>
+					) : (
+						<>
+							<div
+								title="Аудио сообщение"
+								className={classNames({
+									[styles.button]: true,
+									[styles.pressed]: isRecording,
+								})}
+								onMouseDown={() => onRecording("message", { audio: true })}
+							>
+								<RadioIcon />
+							</div>
+							<div
+								title="Видео сообщение"
+								className={classNames({
+									[styles.button]: true,
+									[styles.pressed]: isRecording,
+								})}
+								onMouseDown={() =>
+									onRecording("message", { audio: true, video: true })
+								}
+							>
+								<PlayIcon className={styles.triangle} />
+							</div>
+						</>
+					)}
 					<div
 						title="Смайлики"
 						className={styles.button}
@@ -145,6 +326,15 @@ const ChatBoard = ({
 					) : null}
 				</div>
 			</footer>
+			{videoPreview ? (
+				<video
+					ref={videoMessagePreview}
+					muted={true}
+					className={styles.videoMessagePreview}
+				/>
+			) : (
+				""
+			)}
 		</div>
 	);
 };
