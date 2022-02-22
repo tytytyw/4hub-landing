@@ -3,12 +3,16 @@ import React from "react";
 import styles from "./SearchField.module.sass";
 import { imageSrc } from "../globalVariables";
 
-const SearchField = ({value, setValue}) => {
+const SearchField = ({
+	 value,
+	 setValue,
+	 placeholder = "Введите имя пользователя"
+}) => {
 	return (
 		<div className={styles.wrapper}>
 			<input
                 className={styles.input}
-				placeholder="Введите имя пользователя"
+				placeholder={placeholder}
 				type="text"
 				onChange={(e) => setValue(e.target.value)}
 				value={value}
