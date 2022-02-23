@@ -17,6 +17,7 @@ import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
 import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import VideoRecordPreview from './VideoRecordPreview'
 
 const ChatBoard = ({
 	sideMenuCollapsed,
@@ -327,11 +328,7 @@ const ChatBoard = ({
 				</div>
 			</footer>
 			{videoPreview ? (
-				<video
-					ref={videoMessagePreview}
-					muted={true}
-					className={styles.videoMessagePreview}
-				/>
+				<VideoRecordPreview isVideoMessage={videoMessagePreview} ducationTimer={ducationTimer} timeLimit={60 * 10} recordEnd={recordEnd} />
 			) : (
 				""
 			)}

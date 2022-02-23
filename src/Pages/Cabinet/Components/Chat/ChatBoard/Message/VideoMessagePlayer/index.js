@@ -156,7 +156,6 @@ const VideoMessagePlayer = ({ video }) => {
 					ref={videoRef}
 					className={styles.video}
 					src={video.link}
-					// onClick={playHandler}
 				></video>
 			</div>
 			<span className={styles.duration}>{renderRemainder()}</span>
