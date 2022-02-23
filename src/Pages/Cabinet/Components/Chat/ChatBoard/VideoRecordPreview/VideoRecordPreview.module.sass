@@ -1,0 +1,37 @@
+@keyframes appearance
+  0%
+    transform: scale(.1)
+  100%
+    transform: scale(1)
+
+.wrapper
+    position: absolute
+    border-radius: 50%
+    top: calc(50% - 150px)
+    left: calc(50% - 150px)
+    width: 300px
+    height: 300px
+    object-fit: cover
+    animation: appearance .5s
+    .videoWrapper
+        overflow: hidden
+        position: relative
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 100%
+        height: 100%
+        .progressCircle
+            stroke-width: 8
+            stroke: #4086F1
+            transform-origin: center
+            transform: rotate(-90deg)
+            transition: stroke-dashoffset linear .3s
+        .video
+            width: 90%
+            height: 90%
+            object-fit: cover
+            position: absolute
+            border-radius: 50%
+        &.circle
+            border-radius: 50%

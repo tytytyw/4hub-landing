@@ -3,7 +3,7 @@ import styles from "./VideoMessagePlayer.module.sass";
 
 const VideoMessagePlayer = ({ video }) => {
 	const circleRadius = 150;
-	const circumference = 2 * Math.PI * circleRadius;
+	const circumference = 2 * Math.PI * (circleRadius - 8);
 
 	const videoRef = useRef();
 	const [playing, setPlaying] = useState(false);
@@ -45,6 +45,16 @@ const VideoMessagePlayer = ({ video }) => {
 		return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
 	};
 
+	const rewindVideo = (value) => {
+		const video = videoRef?.current;
+		if (video) {
+			video.pause();
+			setProgress(value);
+			video.currentTime = (video.duration * value) / 100;
+			video.play();
+		}
+	};
+
 	useEffect(() => {
 		const video = videoRef.current;
 
@@ -75,8 +85,54 @@ const VideoMessagePlayer = ({ video }) => {
 		};
 	}, []);
 
+	const clickHandler = (e) => {
+		const targetCoords = e.currentTarget.getBoundingClientRect();
+		const outerRadius = circleRadius;
+		const innerRadius = circleRadius - 15;
+		const calcDistanceBetweenPoints = (a, b) =>
+			Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+		// coordinates relative to center circle
+		const clickCoordinats = {
+			x: e.clientX - targetCoords.left - circleRadius,
+			y: (e.clientY - targetCoords.top - circleRadius) * -1,
+		};
+		const clickRadius = calcDistanceBetweenPoints(
+			{ x: 0, y: 0 },
+			clickCoordinats
+		);
+		const coordinatsStartProgressBar = { x: 0, y: clickRadius };
+		const valueBaseTriangle = calcDistanceBetweenPoints(
+			clickCoordinats,
+			coordinatsStartProgressBar
+		);
+		if (clickRadius > innerRadius && clickRadius < outerRadius) {
+			// click on progress bar
+			const numToSquare = (num) =>
+				(Math.round(num * 10000) * Math.round(num * 10000)) / 100000000;
+			const multiplyNum = (a, b) =>
+				(Math.round(a * 10000) * Math.round(b * 10000)) / 100000000;
+			const circularArcRange =
+				clickRadius *
+				Math.acos(
+					(numToSquare(clickRadius) +
+						numToSquare(clickRadius) -
+						numToSquare(valueBaseTriangle)) /
+						(2 * multiplyNum(clickRadius, clickRadius))
+				);
+			const calcProgress = (range) => (range / circumference) * 100;
+			if (clickCoordinats.x === 0) setProgress(clickCoordinats.y > 0 ? 0 : 50);
+			if (clickCoordinats.x > 0) rewindVideo(calcProgress(circularArcRange)); // '< 180deg'
+			if (clickCoordinats.x < 0)
+				rewindVideo(calcProgress(circumference - circularArcRange)); // '> 180deg'
+		}
+		if (clickRadius < innerRadius) {
+			// click on video
+			playHandler();
+		}
+	};
+
 	return (
-		<div className={styles.wrapper}>
+		<div className={styles.wrapper} onClick={clickHandler}>
 			<div className={styles.videoWrapper}>
 				<svg width={circleRadius * 2} height={circleRadius * 2}>
 					<circle
@@ -100,7 +156,6 @@ const VideoMessagePlayer = ({ video }) => {
 					ref={videoRef}
 					className={styles.video}
 					src={video.link}
-					onClick={playHandler}
 				></video>
 			</div>
 			<span className={styles.duration}>{renderRemainder()}</span>
