@@ -26,7 +26,7 @@ const Programs = () => {
     const [search, setSearch] = useState('')
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''})
-    const searchPlaceholder = "Введите название программы"
+    const searchPlaceholder = "Введите название программы";
 
     useEffect(() => {
         dispatch(onGetProgramFolders())

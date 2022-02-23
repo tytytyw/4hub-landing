@@ -4,6 +4,7 @@ import styles from './WorkSpace.module.sass'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
+import classnames from "classnames";
 
 const WorkSpace = ({
        // chosenTopListProgram,
@@ -38,7 +39,12 @@ const WorkSpace = ({
     return (
         <>
             <div
-                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}
+                className={classnames({
+                    [styles.workSpaceWrap]: true,
+                    [styles.collapsed]: listCollapsed,
+                    [styles.notCollapsed]: !listCollapsed,
+                })}
+            >
             >
                 <div className={styles.header}>
                     <SearchField/>

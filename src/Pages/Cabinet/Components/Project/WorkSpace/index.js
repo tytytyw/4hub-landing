@@ -16,9 +16,11 @@ import {imageSrc} from "../../../../../generalComponents/globalVariables";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
+import classnames from "classnames";
 
 const WorkSpace = ({
-   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject, mouseParams
+   setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject, mouseParams,
+   listCollapsed
 }) => {
 
     const files = useSelector(state => state.Cabinet.project.files)
@@ -55,7 +57,14 @@ const WorkSpace = ({
     }
 
     return (
-        <div className={styles.wrapper} ref={containerRef}>
+        <div
+            className={classnames({
+                [styles.wrapper]: true,
+                [styles.collapsed]: listCollapsed,
+                [styles.notCollapsed]: !listCollapsed,
+            })}
+            ref={containerRef}
+        >
 
             <div className={styles.header}>
                 <SearchField />
