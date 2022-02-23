@@ -91,13 +91,14 @@ const ChatBoard = ({
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
 		setIsRecording(true);
-		if (navigator.mediaDevices) {
+		const wantMimeType = 'video/webm;codecs=vp9';
+		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
 				.then((stream) => {
 					if (type === "message") {
 						// for audio/video messages
-						const recorder = new MediaRecorder(stream);
+						const recorder = new MediaRecorder(stream, {mimeType: wantMimeType});
 						recorder.start();
 						setMediaRecorder(recorder);
 						if (constraints.video) {
