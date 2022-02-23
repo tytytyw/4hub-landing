@@ -51,7 +51,7 @@ const VoiceMessagePlayer = ({ src, inboxMessage }) => {
 	};
 
 	const renderRemainder = () => {
-		if (!audio.duration) return "00:00";
+		if (!audio.duration || audio.duration === Infinity) return "00:00";
 		const remainder = Math.ceil(audio.duration - audio.currentTime);
 		const min = Math.floor(remainder / 60);
 		const sec = remainder % 60;
