@@ -45,7 +45,6 @@ const WorkSpace = ({
                     [styles.notCollapsed]: !listCollapsed,
                 })}
             >
-            >
                 <div className={styles.header}>
                     <SearchField/>
                     <div className={styles.infoHeader}>
