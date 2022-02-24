@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./VideoMessagePlayer.module.sass";
+import { ReactComponent as SpeakerIcon } from "../../../../../../../assets/PrivateCabinet/speaker.svg";
 
 const VideoMessagePlayer = ({ video }) => {
 	const circleRadius = 150;
@@ -9,6 +10,7 @@ const VideoMessagePlayer = ({ video }) => {
 	const [playing, setPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const [circleOffset, setCircleOffset] = useState(circumference);
+	const [mute, setMute] = useState(false);
 
 	const playHandler = () => {
 		!playing ? videoRef.current.play() : videoRef.current.pause();
@@ -52,6 +54,7 @@ const VideoMessagePlayer = ({ video }) => {
 			setProgress(value);
 			video.currentTime = (video.duration * value) / 100;
 			video.play();
+			setPlaying(true)
 		}
 	};
 
@@ -86,6 +89,17 @@ const VideoMessagePlayer = ({ video }) => {
 	}, []);
 
 	const clickHandler = (e) => {
+		if (
+			(typeof e.target.className === "string" &&
+				e.target.className.includes("mute")) ||
+			(typeof e.target.parentElement?.className === "string" &&
+				e.target.parentElement?.className.includes("mute")) ||
+			(typeof e.target.parentElement?.parentElement?.className === "string" &&
+				e.target.parentElement?.parentElement?.className.includes("mute"))
+		)
+			//click on mute button
+			return false;
+
 		const targetCoords = e.currentTarget.getBoundingClientRect();
 		const outerRadius = circleRadius;
 		const innerRadius = circleRadius - 15;
@@ -131,6 +145,14 @@ const VideoMessagePlayer = ({ video }) => {
 		}
 	};
 
+	useEffect(() => {
+		videoRef.current.muted = mute;
+	}, [mute]);
+
+	const muteHandler = () => {
+		setMute((mute) => !mute);
+	};
+
 	return (
 		<div className={styles.wrapper} onClick={clickHandler}>
 			<div className={styles.videoWrapper}>
@@ -152,11 +174,13 @@ const VideoMessagePlayer = ({ video }) => {
 						fill="none"
 					/>
 				</svg>
-				<video
-					ref={videoRef}
-					className={styles.video}
-					src={video.link}
-				></video>
+				<video ref={videoRef} className={styles.video} src={video.link}></video>
+				{playing && (
+					<div className={styles.muteBtn} onClick={muteHandler}>
+						<SpeakerIcon />
+						{!mute ? <div className={styles.muteValue}></div> : ""}
+					</div>
+				)}
 			</div>
 			<span className={styles.duration}>{renderRemainder()}</span>
 		</div>

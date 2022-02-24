@@ -91,7 +91,7 @@ const ChatBoard = ({
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
 		setIsRecording(true);
-		const wantMimeType = 'video/webm;codecs=vp9';
+		const wantMimeType = constraints.video ? 'video/webm;codecs=vp8,opus' : 'audio/webm;codecs=opus';
 		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
@@ -112,7 +112,13 @@ const ChatBoard = ({
 						}
 					}
 				})
-				.catch((error) => console.log(error));
+				.catch((error) => {
+					setIsRecording(false)
+					console.log(error)
+				});
+		} else {
+			console.log('Browser not supported')
+			setIsRecording(false)
 		}
 	};
 
