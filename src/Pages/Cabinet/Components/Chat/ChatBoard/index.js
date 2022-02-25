@@ -17,7 +17,7 @@ import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
 import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import VideoRecordPreview from './VideoRecordPreview'
+import VideoRecordPreview from "./VideoRecordPreview";
 
 const ChatBoard = ({
 	sideMenuCollapsed,
@@ -91,20 +91,28 @@ const ChatBoard = ({
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
 		setIsRecording(true);
-		const wantMimeType = constraints.video ? 'video/webm;codecs=vp8,opus' : 'audio/webm;codecs=opus';
+		const wantMimeType = constraints.video
+			? MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
+				? "video/webm;codecs=vp8,opus"
+				: "video/mp4"
+			: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+				? "audio/webm;codecs=opus"
+				: "audio/mp3";
 		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
 				.then((stream) => {
 					if (type === "message") {
 						// for audio/video messages
-						const recorder = new MediaRecorder(stream, {mimeType: wantMimeType});
+						const recorder = new MediaRecorder(stream, {
+							mimeType: wantMimeType,
+						});
 						recorder.start();
 						setMediaRecorder(recorder);
 						if (constraints.video) {
 							// video preview
 							setVideoPreview(true);
-							const video = videoMessagePreview.current
+							const video = videoMessagePreview.current;
 							if (video) {
 								video.srcObject = stream;
 								video.play();
@@ -113,12 +121,12 @@ const ChatBoard = ({
 					}
 				})
 				.catch((error) => {
-					setIsRecording(false)
-					console.log(error)
+					setIsRecording(false);
+					console.log(error);
 				});
 		} else {
-			console.log('Browser not supported')
-			setIsRecording(false)
+			console.log("Browser not supported");
+			setIsRecording(false);
 		}
 	};
 
@@ -161,7 +169,7 @@ const ChatBoard = ({
 		if (mediaRecorder) {
 			isRecording
 				? mediaRecorder.addEventListener("dataavailable", onDataAviable)
-				: recordCancel()
+				: recordCancel();
 		}
 		return () => {
 			if (mediaRecorder)
@@ -335,7 +343,12 @@ const ChatBoard = ({
 				</div>
 			</footer>
 			{videoPreview ? (
-				<VideoRecordPreview isVideoMessage={videoMessagePreview} ducationTimer={ducationTimer} timeLimit={60 * 10} recordEnd={recordEnd} />
+				<VideoRecordPreview
+					isVideoMessage={videoMessagePreview}
+					ducationTimer={ducationTimer}
+					timeLimit={60 * 10}
+					recordEnd={recordEnd}
+				/>
 			) : (
 				""
 			)}
