@@ -1,24 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./DeleteMessage.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
 import api from "../../../../../../api";
+import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 
-const DeleteMessage = ({ set, message }) => {
+const DeleteMessage = ({ set, message, nullifyAction }) => {
     const uid = useSelector((state) => state.user.uid);
 	const text = message?.text?.split("\n").slice(0,5)??[];
+    const dispatch = useDispatch()
+
 	const onAproveBtnHandler = () => {
+        nullifyAction()
 		api.get(`/ajax/chat_message_del.php?uid=${uid}&id_message=${message.id}`)
 			.then((res) => {
 				if (res.data.ok) {
-					console.log(res)
+                    dispatch(onSetModals('topMessage', {open: true, type: 'message', message: 'Сообщение удалено'}))
+                    
 				} else {
-                    console.log('err')
+                    dispatch(onSetModals('error', {open: true, message: 'Что-то пошло не так, повторите попытку позже'}))
                 }
 			})
     };
-    
+
 	return (
 		<PopUp set={set}>
 			<div className={styles.wrap}>

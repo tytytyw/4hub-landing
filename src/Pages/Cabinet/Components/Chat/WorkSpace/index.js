@@ -216,6 +216,7 @@ const WorkSpace = ({
 					<DeleteMessage
 						set={nullifyAction}
 						message={action.message}
+						nullifyAction={nullifyAction}
 					>
 					</DeleteMessage>
 				) : null}
