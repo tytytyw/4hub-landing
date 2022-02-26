@@ -59,9 +59,11 @@ const ChatBoard = ({
 					selectedContact={selectedContact}
 					key={index}
 					currentDate={currentDate}
+					setMouseParams={setMouseParams}
 				/>
 			);
 		});
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages, currentDate, selectedContact]);
 
 	const upLoadFile = (blob, fileName, kind) => {

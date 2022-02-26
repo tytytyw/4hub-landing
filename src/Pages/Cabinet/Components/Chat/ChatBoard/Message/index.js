@@ -7,7 +7,13 @@ import { messageTime } from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
 import VoiceMessagePlayer from "./VoiceMessagePlayer";
 
-function Message({ message, selectedContact, currentDate }) {
+function Message({
+	message,
+	selectedContact,
+	currentDate,
+	setMouseParams,
+	contextMenuList = "message",
+}) {
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
 	const text = message.text.split("\n");
 	const messageType = message.id_user === userId ? "outbox" : "inbox";
@@ -15,10 +21,15 @@ function Message({ message, selectedContact, currentDate }) {
 
 	const renderAttachment = () => {
 		if (message.attachment?.kind === "audio_message") {
-			return <VoiceMessagePlayer src={message.attachment.link} inboxMessage={messageType === 'inbox'}/>
+			return (
+				<VoiceMessagePlayer
+					src={message.attachment.link}
+					inboxMessage={messageType === "inbox"}
+				/>
+			);
 		}
 		if (message.attachment?.kind === "video_message") {
-			return <VideoMessagePlayer video={message.attachment} />
+			return <VideoMessagePlayer video={message.attachment} />;
 		}
 		return "";
 	};
@@ -37,19 +48,45 @@ function Message({ message, selectedContact, currentDate }) {
 			) : (
 				""
 			)}
-			<div className={styles.textWrapper}>
-				{message.attachment?.kind === "video_message" ? (
-					renderAttachment()
-				) : (
-					<div className={classNames({[styles.content]: true, [styles.audio_content]:message.attachment?.kind === "audio_message"})}>
-						{message.attachment?.kind !== "video_message" && renderAttachment()}
-						{text.map((item, index) => (
-							<p key={index} className={styles.text}>
-								{item}
-							</p>
-						))}
+			<div className={styles.contentWrapper}>
+				<div className={styles.flexContainer}>
+					{message.attachment?.kind === "video_message" ? (
+						renderAttachment()
+					) : (
+						<div
+							className={classNames({
+								[styles.content]: true,
+								[styles.audio_content]:
+									message.attachment?.kind === "audio_message",
+							})}
+						>
+							{message.attachment?.kind !== "video_message" &&
+								renderAttachment()}
+							{text.map((item, index) => (
+								<p key={index} className={styles.text}>
+									{item}
+								</p>
+							))}
+						</div>
+					)}
+					<div className={styles.menuWrapper}>
+						<div
+							className={styles.menu}
+							onClick={(e) => {
+								setMouseParams({
+									x: e.clientX,
+									y: e.clientY,
+									width: 220,
+									height: 25,
+									contextMenuList,
+									text: message.text ?? "",
+								});
+							}}
+						>
+							<span className={styles.dot} />
+						</div>
 					</div>
-				)}
+				</div>
 				<div className={styles.time}>
 					{messageTime(currentDate, message.ut, gmt)}
 				</div>

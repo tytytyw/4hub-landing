@@ -10,7 +10,7 @@
         margin-right: 15px
         object-fit: cover
         object-position: center
-    .textWrapper
+    .contentWrapper
         display: flex
         flex-direction: column
         align-items: flex-end
@@ -33,9 +33,51 @@
             color: #858585
             text-align: right
             margin: 7px 4px
+            padding-right: 20px
+        .flexContainer
+            display: flex
+            .menuWrapper
+                align-self: stretch
+                opacity: 0
+                transition: opacity .2s ease
+                display: flex
+                justify-content: center
+                align-items: stretch
+                .menu
+                    display: flex
+                    width: 20px
+                    justify-content: center
+                    align-items: center
+                    cursor: pointer
+                    .dot
+                        position: relative
+                        width: 5px
+                        height: 5px
+                        background: #8C8C8C
+                        transition: background 0.2s ease
+                        border-radius: 50%
+                        &::before, &::after
+                            content: ''
+                            position: absolute
+                            width: 5px
+                            height: 5px
+                            background: #8C8C8C
+                            transition: background 0.2s ease
+                            border-radius: 50%
+                        &::before
+                            transform: translateY(10px)
+                        &::after
+                            transform: translateY(-10px)
+                .menu:hover .dot, .menu:hover .dot::before, .menu:hover .dot::after
+                    background: #477DE1
+                    transition: background 0.2s ease
+            &:hover
+                .menuWrapper
+                    opacity: 1
+        
 .wrapper.outbox
     justify-content: flex-end
-    .textWrapper
+    .contentWrapper
         align-items: flex-end
         .content
             align-self: flex-end
