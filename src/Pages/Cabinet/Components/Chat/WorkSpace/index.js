@@ -10,6 +10,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
+import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 
 const WorkSpace = ({
 	sideMenuCollapsed,
@@ -62,7 +63,7 @@ const WorkSpace = ({
 				text: data.text,
 				ut: data.api?.ut_message,
 				isNewMessage: true,
-				attachment: data.attachment
+				attachment: data.attachment,
 			};
 
 			if (isForGroups) {
@@ -100,26 +101,28 @@ const WorkSpace = ({
 	const addMessage = (text, attachment) => {
 		if ((text || attachment) && socket) {
 			const sendMessage = (params) => {
-				socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
+				socket.send(
+					JSON.stringify({ ...params, uid, id_company, text, attachment })
+				);
 			};
 			sendMessage(
 				selectedContact?.isGroup
 					? {
-						action: "chat_group_message_add",
-						id_group: selectedContact?.id_group,
-						is_group: true,
-					}
+							action: "chat_group_message_add",
+							id_group: selectedContact?.id_group,
+							is_group: true,
+					  }
 					: selectedContact.is_secret_chat
-						? {
+					? {
 							action: "chat_group_message_add",
 							id_group: selectedContact?.id_group,
 							is_secret_chat: true,
-						}
-						: {
+					  }
+					: {
 							action: "chat_message_send",
 							id_user_to: selectedContact?.id_real_user,
 							id_contact: selectedContact?.id,
-						}
+					  }
 			);
 		}
 	};
@@ -209,6 +212,13 @@ const WorkSpace = ({
 				) : (
 					""
 				)}
+				{action.type === "deleteMessage" ? (
+					<DeleteMessage
+						set={nullifyAction}
+						message={action.message}
+					>
+					</DeleteMessage>
+				) : null}
 			</div>
 
 			<BottomPanel />

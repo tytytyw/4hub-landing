@@ -70,7 +70,7 @@ function Message({
 						</div>
 					)}
 					<div className={styles.menuWrapper}>
-						<div
+						{messageType === 'outbox' && <div
 							className={styles.menu}
 							onClick={(e) => {
 								setMouseParams({
@@ -79,12 +79,12 @@ function Message({
 									width: 220,
 									height: 25,
 									contextMenuList,
-									text: message.text ?? "",
+									message: message,
 								});
 							}}
 						>
 							<span className={styles.dot} />
-						</div>
+						</div>}
 					</div>
 				</div>
 				<div className={styles.time}>

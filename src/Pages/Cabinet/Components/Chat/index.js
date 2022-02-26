@@ -270,19 +270,13 @@ const Chat = ({ setMenuItem }) => {
 			{
 				name: "Редактировать сообщение",
 				type: "editMessage",
-				text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
-				callback: (list, index) => setAction(null),
+				text: "",
+				callback: () => setAction("editMessage"),
 			},
 			{
 				name: "Удалить сообщение",
 				type: "deleteMessage",
-				text: `Вы действительно хотите удалить сообщение ${null}?`,
-				callback: (list, index) =>
-					setAction({
-						text: list[index].text,
-						type: list[index].type,
-						name: list[index].name,
-					}),
+				callback: () => setAction({type: "deleteMessage", message: mouseParams.message})
 			},
 		],
 	};
