@@ -178,10 +178,12 @@ const WorkSpace = ({
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
+						action={action}
 						setAction={setAction}
 						setMouseParams={setMouseParams}
 						currentDate={currentDate}
 						addMessage={addMessage}
+						nullifyAction={nullifyAction}
 					/>
 				) : (
 					""

@@ -271,7 +271,7 @@ const Chat = ({ setMenuItem }) => {
 				name: "Редактировать сообщение",
 				type: "editMessage",
 				text: "",
-				callback: () => setAction("editMessage"),
+				callback: () => setAction({type: "editMessage", message: mouseParams.message}),
 			},
 			{
 				name: "Удалить сообщение",
@@ -283,7 +283,7 @@ const Chat = ({ setMenuItem }) => {
 
 	const filterContextMenu = (arr) => {
 		// message without text
-		if (mouseParams.contextMenuList === "message" && !mouseParams.text)
+		if (mouseParams.contextMenuList === "message" && !mouseParams.message.text)
 			return arr.filter((item) => item.type !== "editMessage");
 
 		return arr;

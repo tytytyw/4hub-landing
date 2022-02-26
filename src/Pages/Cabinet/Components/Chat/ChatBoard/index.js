@@ -23,10 +23,12 @@ const ChatBoard = ({
 	sideMenuCollapsed,
 	boardOption,
 	setShowSuccessPopup,
+	action,
 	setAction,
 	setMouseParams,
 	currentDate,
 	addMessage,
+	nullifyAction,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -63,7 +65,7 @@ const ChatBoard = ({
 				/>
 			);
 		});
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages, currentDate, selectedContact]);
 
 	const upLoadFile = (blob, fileName, kind) => {
@@ -98,8 +100,8 @@ const ChatBoard = ({
 				? "video/webm;codecs=vp8,opus"
 				: "video/mp4"
 			: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-				? "audio/webm;codecs=opus"
-				: "audio/mp3";
+			? "audio/webm;codecs=opus"
+			: "audio/mp3";
 		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
@@ -217,30 +219,48 @@ const ChatBoard = ({
 			)}
 			<main className={styles.chatBoardMessageList}>
 				<div
+					className={styles.chatAreaWrapper}
 					style={{
 						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
 					}}
-					className={styles.chatArea}
 				>
-					{contactList?.length === 0 && boardOption === "contacts" ? (
-						<AddFirstContactIcon
-							className={classNames({
-								[styles.addFirstContactIcon]: true,
-								[styles.collapsedMenu]: sideMenuCollapsed,
-							})}
-						/>
+					<div className={styles.chatArea}>
+						{contactList?.length === 0 && boardOption === "contacts" ? (
+							<AddFirstContactIcon
+								className={classNames({
+									[styles.addFirstContactIcon]: true,
+									[styles.collapsedMenu]: sideMenuCollapsed,
+								})}
+							/>
+						) : (
+							""
+						)}
+						{selectedContact?.is_user === 0 ? (
+							<InviteUser
+								contact={selectedContact}
+								setShowSuccessPopup={setShowSuccessPopup}
+							/>
+						) : (
+							renderMessages
+						)}
+						<div ref={endMessagesRef} />
+					</div>
+					{action?.type === "editMessage" ? (
+						<div
+							className={styles.editingMessage}
+							style={{
+								width: rightPanelContentType
+									? "calc(100% - 65px)"
+									: "calc(100% - 200px - 65px)",
+							}}
+						>
+							<div className={styles.line}></div>
+							<p className={styles.text}>{action.message.text}</p>
+							<div className={styles.close} onClick={nullifyAction} />
+						</div>
 					) : (
 						""
 					)}
-					{selectedContact?.is_user === 0 ? (
-						<InviteUser
-							contact={selectedContact}
-							setShowSuccessPopup={setShowSuccessPopup}
-						/>
-					) : (
-						renderMessages
-					)}
-					<div ref={endMessagesRef} />
 				</div>
 				<div className={styles.rightPanelContentType}>
 					{rightPanelContentType === "emo" ? <EmojiArea /> : null}
@@ -273,7 +293,11 @@ const ChatBoard = ({
 						Для отмены отпустите курсор вне поля
 					</div>
 				) : (
-					<TextArea addMessage={addMessage} />
+					<TextArea
+						addMessage={addMessage}
+						action={action}
+						nullifyAction={nullifyAction}
+					/>
 				)}
 				<div className={styles.sendOptions}>
 					{messageIsSending ? (
