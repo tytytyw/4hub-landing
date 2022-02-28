@@ -19,6 +19,8 @@ import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoRecordPreview from "./VideoRecordPreview";
 
+let audioFrequencyData = [];
+
 const ChatBoard = ({
 	sideMenuCollapsed,
 	boardOption,
@@ -73,19 +75,22 @@ const ChatBoard = ({
 		const file = new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
 		formData.append("myfile", file);
-		api
-			.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
-			.then((res) => {
-				if (res.data.ok) {
-					const attachment = {
-						...res.data.files.myfile,
-						link: res.data.link,
-						kind,
-					};
-					addMessage("", attachment);
-				}
-			})
-			.finally(() => setMessageIsSending(false));
+		createHistogramData(audioFrequencyData).then((histogramData) => {
+			api
+				.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+				.then((res) => {
+					if (res.data.ok) {
+						const attachment = {
+							...res.data.files.myfile,
+							link: res.data.link,
+							kind,
+						};
+						if (histogramData) attachment.histogramData = histogramData;
+						addMessage("", attachment);
+					}
+				})
+				.finally(() => setMessageIsSending(false));
+		});
 	};
 
 	const onRecording = (type, constraints) => {
@@ -95,6 +100,7 @@ const ChatBoard = ({
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
 		setIsRecording(true);
+		audioFrequencyData = [];
 		const wantMimeType = constraints.video
 			? MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
 				? "video/webm;codecs=vp8,opus"
@@ -121,6 +127,37 @@ const ChatBoard = ({
 								video.srcObject = stream;
 								video.play();
 							}
+						} else {
+							// get audio frequency data for histogram
+							const audioContext = new (window.AudioContext ||
+								window.webkitAudioContext)();
+							const processor = audioContext.createScriptProcessor(256, 1, 1);
+							const analyser = audioContext.createAnalyser();
+							const source = audioContext.createMediaStreamSource(stream);
+							source.connect(analyser);
+							source.connect(processor);
+							processor.connect(audioContext.destination);
+							const getAudioFrequencyData = () => {
+								if (stream.active) {
+									let audioData = new Uint8Array(64);
+									analyser.getByteFrequencyData(audioData);
+									const sumFrequencyValues = audioData.reduce(
+										(previousValue, currentValue) =>
+											previousValue + currentValue,
+										0
+									);
+									const averageFrequencyValue = Math.floor(
+										sumFrequencyValues / audioData.length
+									);
+									if (averageFrequencyValue)
+										audioFrequencyData.push(averageFrequencyValue);
+								} else
+									processor.removeEventListener(
+										"audioprocess",
+										getAudioFrequencyData
+									);
+							};
+							processor.addEventListener("audioprocess", getAudioFrequencyData);
 						}
 					}
 				})
@@ -131,6 +168,23 @@ const ChatBoard = ({
 		} else {
 			console.log("Browser not supported");
 			setIsRecording(false);
+		}
+	};
+
+	const createHistogramData = async (data) => {
+		if (data.length) {
+			const result = [];
+			const columnDataLength = Math.floor(data.length / 50);
+			for (let i = 0; i < 50; i++) {
+				const columnData = data.splice(0, columnDataLength);
+				const columnValue = Math.floor(
+					columnData.reduce((p, c) => p + c, 0) / columnDataLength
+				);
+				result.push(
+					columnValue > 120 ? 100 : columnValue < 5 ? 0 : columnValue
+				);
+			}
+			return result;
 		}
 	};
 
@@ -188,7 +242,7 @@ const ChatBoard = ({
 				setDucationTimer((sec) => sec + 1);
 			}, 1000);
 			return () => {
-				clearTimeout(timer);
+				clearInterval(timer);
 				setDucationTimer(0);
 			};
 		}
@@ -299,7 +353,12 @@ const ChatBoard = ({
 						nullifyAction={nullifyAction}
 					/>
 				)}
-				<div className={styles.sendOptions}>
+				<div
+					className={classNames({
+						[styles.sendOptions]: true,
+						[styles.secretChat]: selectedContact?.is_secret_chat,
+					})}
+				>
 					{messageIsSending ? (
 						<div className={styles.loaderWrapper}>
 							<Loader

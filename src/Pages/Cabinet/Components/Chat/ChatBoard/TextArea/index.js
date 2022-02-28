@@ -38,7 +38,6 @@ const TextArea = ({ addMessage, editMessage= () => console.log("edit message fun
 	};
 
 	const sendHandler = () => {
-		console.log(editingMessage);
 		// TODO: add edit message socket action
 		editingMessage
 			? editMessage(action.message.id, textAreaValue)

@@ -24,6 +24,7 @@ function Message({
 			return (
 				<VoiceMessagePlayer
 					src={message.attachment.link}
+					histogramData={message.attachment?.histogramData??[]}
 					inboxMessage={messageType === "inbox"}
 				/>
 			);
