@@ -47,6 +47,7 @@ const WorkSpace = ({
 		// PrivateMessage - direct message; PublicMessage- message from group
 		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
 			const isForGroups = data.is_group && selectedContact?.isGroup;
+			const isForSecretChat = data.is_secret_chat && selectedContact?.is_secret_chat;
 			const isForChats = !data.is_group && !selectedContact?.isGroup;
 			const isForSelectedGroup =
 				isForGroups && data.id_group === selectedContact?.id;
@@ -55,6 +56,8 @@ const WorkSpace = ({
 				(data.id_contact === selectedContact?.id ||
 					(data.id_user_to === userId &&
 						data.api.id_user === selectedContact?.id_real_user));
+			const isForSelectedSecretChat = 
+				isForSecretChat && data.id_group === selectedContact?.id;
 
 			const newMsg = {
 				id: data.api?.id_message,
@@ -72,18 +75,18 @@ const WorkSpace = ({
 					payload: { id_group: data.id_group, text: data.text },
 				});
 			}
-			if (isForSelectedGroup || isForSelectedChat) {
+			if (isForSelectedGroup || isForSelectedChat || isForSelectedSecretChat) {
 				dispatch(addNewChatMessage(newMsg));
 			} else {
 				console.log("new message from dont selectedContact");
 
-				if (data.is_group && !isForSelectedGroup) {
+				if (data.id_group && !isForSelectedGroup) {
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
 						payload: `group_${data.id_group}`,
 					});
 				}
-				if (!data.is_group && !isForSelectedChat) {
+				if (!data.id_group && !isForSelectedChat) {
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
 						payload: `chat_${data.api.id_user}`,
@@ -141,7 +144,7 @@ const WorkSpace = ({
 			dispatch({
 				type: "SET_NOTIFICATION_COUNTER",
 				payload: {
-					id: selectedContact?.isGroup
+					id: selectedContact?.isGroup || selectedContact?.is_secret_chat
 						? `group_${selectedContact?.id_group}`
 						: `chat_${selectedContact?.id_real_user}`,
 					value: 0,

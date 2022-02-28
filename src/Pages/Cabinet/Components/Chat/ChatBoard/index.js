@@ -273,7 +273,11 @@ const ChatBoard = ({
 			)}
 			<main className={styles.chatBoardMessageList}>
 				<div
-					className={styles.chatAreaWrapper}
+					className={classNames({
+						[styles.chatAreaWrapper]: true,
+						[styles.center]:
+							selectedContact?.is_secret_chat && !messages?.length,
+					})}
 					style={{
 						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
 					}}
