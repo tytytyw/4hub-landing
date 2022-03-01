@@ -470,7 +470,7 @@ const Chat = ({ setMenuItem }) => {
 					params={mouseParams}
 					setParams={setMouseParams}
 					tooltip={false}
-					withoutOffset={selectedContact?.is_secret_chat ? true : false}
+					withoutOffset={mouseParams.contextMenuList === 'timer' ? true : false}
 				>
 					<div className={styles.ContextMenuItems}>
 						{renderContextMenuItems(
