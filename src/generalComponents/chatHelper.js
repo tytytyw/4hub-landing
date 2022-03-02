@@ -28,7 +28,7 @@ export const createContactStatus = (
 		if (gmt < 0) return gmt < -9 ? `${gmt}:00` : `-0${gmt * -1}:00`
 	}
 	const lastVisitWithGmt = new Date(
-		contactLastVisitDate + gtmToString()
+		contactLastVisitDate.replace(' ','T') + gtmToString()
 	);
 	const timeToString = lastVisitWithGmt.toLocaleTimeString("ru");
 	const lastVisitTime = timeToString.slice(0, timeToString.lastIndexOf(":"));

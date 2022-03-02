@@ -3,17 +3,15 @@ import styles from "./VoiceMessagePlayer.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
 import classNames from "classnames";
 
-const VoiceMessagePlayer = ({ src, inboxMessage }) => {
+const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
 	const [playing, setPlaying] = useState(false);
 	const [audio] = useState(new Audio(src));
 	const [progress, setProgress] = useState(0);
 
 	const renderHistogram = (
-		// array length must be 50
-		arr = [
-			10, 10, 10, 50, 60, 60, 80, 2, 100, 100, 80, 60, 60, 70, 40, 50, 1, 1, 1,
-			5, 5, 6, 1, 1, 60, 69, 70, 70, 70, 30, 60, 70, 2, 2, 2, 90, 85, 90, 2, 2,
-			2, 2, 45, 45, 25, 35, 25, 45, 45, 45,
+		arr = [ // array must be length == 50, 0 < value >= 100
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		]
 	) => {
 		return arr.map((value, i) => (
@@ -113,7 +111,7 @@ const VoiceMessagePlayer = ({ src, inboxMessage }) => {
 			>
 				<div className={styles.audioHistogram}>
 					<input className={styles.seekBar} type='range' onClick={onSeek} min='0' max='100' step='1'></input>
-					{renderHistogram()}
+					{renderHistogram(histogramData?.length ? histogramData : undefined)}
 				</div>
 				<span className={styles.duration}>{renderRemainder()}</span>
 			</div>

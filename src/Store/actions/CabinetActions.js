@@ -1104,7 +1104,7 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup || is_secret_chat? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup || is_secret_chat? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
         .then(response => {
             if (response.data.ok) {
                 if (getState().Cabinet.chat.selectedContact.id === target.id) {

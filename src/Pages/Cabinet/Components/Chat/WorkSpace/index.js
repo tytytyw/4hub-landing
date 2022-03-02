@@ -10,6 +10,7 @@ import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
+import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 
 const WorkSpace = ({
 	sideMenuCollapsed,
@@ -46,6 +47,7 @@ const WorkSpace = ({
 		// PrivateMessage - direct message; PublicMessage- message from group
 		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
 			const isForGroups = data.is_group && selectedContact?.isGroup;
+			const isForSecretChat = data.is_secret_chat && selectedContact?.is_secret_chat;
 			const isForChats = !data.is_group && !selectedContact?.isGroup;
 			const isForSelectedGroup =
 				isForGroups && data.id_group === selectedContact?.id;
@@ -54,6 +56,8 @@ const WorkSpace = ({
 				(data.id_contact === selectedContact?.id ||
 					(data.id_user_to === userId &&
 						data.api.id_user === selectedContact?.id_real_user));
+			const isForSelectedSecretChat = 
+				isForSecretChat && data.id_group === selectedContact?.id;
 
 			const newMsg = {
 				id: data.api?.id_message,
@@ -62,7 +66,7 @@ const WorkSpace = ({
 				text: data.text,
 				ut: data.api?.ut_message,
 				isNewMessage: true,
-				attachment: data.attachment
+				attachment: data.attachment,
 			};
 
 			if (isForGroups) {
@@ -71,18 +75,18 @@ const WorkSpace = ({
 					payload: { id_group: data.id_group, text: data.text },
 				});
 			}
-			if (isForSelectedGroup || isForSelectedChat) {
+			if (isForSelectedGroup || isForSelectedChat || isForSelectedSecretChat) {
 				dispatch(addNewChatMessage(newMsg));
 			} else {
 				console.log("new message from dont selectedContact");
 
-				if (data.is_group && !isForSelectedGroup) {
+				if (data.id_group && !isForSelectedGroup) {
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
 						payload: `group_${data.id_group}`,
 					});
 				}
-				if (!data.is_group && !isForSelectedChat) {
+				if (!data.id_group && !isForSelectedChat) {
 					dispatch({
 						type: "INCREASE_NOTIFICATION_COUNTER",
 						payload: `chat_${data.api.id_user}`,
@@ -100,26 +104,28 @@ const WorkSpace = ({
 	const addMessage = (text, attachment) => {
 		if ((text || attachment) && socket) {
 			const sendMessage = (params) => {
-				socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
+				socket.send(
+					JSON.stringify({ ...params, uid, id_company, text, attachment })
+				);
 			};
 			sendMessage(
 				selectedContact?.isGroup
 					? {
-						action: "chat_group_message_add",
-						id_group: selectedContact?.id_group,
-						is_group: true,
-					}
+							action: "chat_group_message_add",
+							id_group: selectedContact?.id_group,
+							is_group: true,
+					  }
 					: selectedContact.is_secret_chat
-						? {
+					? {
 							action: "chat_group_message_add",
 							id_group: selectedContact?.id_group,
 							is_secret_chat: true,
-						}
-						: {
+					  }
+					: {
 							action: "chat_message_send",
 							id_user_to: selectedContact?.id_real_user,
 							id_contact: selectedContact?.id,
-						}
+					  }
 			);
 		}
 	};
@@ -138,7 +144,7 @@ const WorkSpace = ({
 			dispatch({
 				type: "SET_NOTIFICATION_COUNTER",
 				payload: {
-					id: selectedContact?.isGroup
+					id: selectedContact?.isGroup || selectedContact?.is_secret_chat
 						? `group_${selectedContact?.id_group}`
 						: `chat_${selectedContact?.id_real_user}`,
 					value: 0,
@@ -175,10 +181,12 @@ const WorkSpace = ({
 						sideMenuCollapsed={sideMenuCollapsed}
 						boardOption={boardOption}
 						setShowSuccessPopup={setShowSuccessPopup}
+						action={action}
 						setAction={setAction}
 						setMouseParams={setMouseParams}
 						currentDate={currentDate}
 						addMessage={addMessage}
+						nullifyAction={nullifyAction}
 					/>
 				) : (
 					""
@@ -209,6 +217,14 @@ const WorkSpace = ({
 				) : (
 					""
 				)}
+				{action.type === "deleteMessage" ? (
+					<DeleteMessage
+						set={nullifyAction}
+						message={action.message}
+						nullifyAction={nullifyAction}
+					>
+					</DeleteMessage>
+				) : null}
 			</div>
 
 			<BottomPanel />

@@ -14,7 +14,10 @@ import WorkSpace from "./WorkSpace";
 import classNames from "classnames";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
-import { onGetReсentChatsList, onSetMessageLifeTime } from "../../../../Store/actions/CabinetActions";
+import {
+	onGetReсentChatsList,
+	onSetMessageLifeTime,
+} from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -27,7 +30,7 @@ import {
 	secretChatDelete,
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
-import { contactDelete } from "../../../../generalComponents/chatHelper"
+import { contactDelete } from "../../../../generalComponents/chatHelper";
 import {
 	onGetChatMessages,
 	onSetSelectedContact,
@@ -49,9 +52,11 @@ const Chat = ({ setMenuItem }) => {
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
-	const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
+	const messageLifeTime = useSelector(
+		(state) => state.Cabinet.chat.messageLifeTime
+	);
 	const id_company = useSelector((state) => state.user.id_company);
-	
+
 	const closeContextMenu = () => {
 		setMouseParams(null);
 		nullifyAction();
@@ -62,15 +67,20 @@ const Chat = ({ setMenuItem }) => {
 
 	const renderContextMenuItems = (target, type) => {
 		let newTarget = target;
-		let newType = type
+		let newType = type;
 		if (selectedContact?.isGroup) {
 			const admins = selectedContact.users
 				.filter((u) => u.is_admin)
 				.map((u) => u.id_user);
-			const filterContextMenu = (arr, filter) => arr.filter(item =>  !filter.includes(item.type))
+			const filterContextMenu = (arr, filter) =>
+				arr.filter((item) => !filter.includes(item.type));
 			if (!admins.includes(userId)) {
 				// user not admin of group
-				const onlyAdminItemsTypes = ["editChatGroup", "deleteUserFromGroup", "deleteChatGroup"];
+				const onlyAdminItemsTypes = [
+					"editChatGroup",
+					"deleteUserFromGroup",
+					"deleteChatGroup",
+				];
 				newTarget = filterContextMenu(target, onlyAdminItemsTypes);
 				newType = filterContextMenu(type, onlyAdminItemsTypes);
 			} else {
@@ -86,11 +96,18 @@ const Chat = ({ setMenuItem }) => {
 					key={i}
 					width={mouseParams.width}
 					height={mouseParams.height}
-					color={newType && newType[i] && newType[i]?.value === messageLifeTime ? '#4086F1' : ''}
+					color={
+						newType && newType[i] && newType[i]?.value === messageLifeTime
+							? "#4086F1"
+							: ""
+					}
 					text={item.name}
 					callback={() => newType[i]?.callback(newType, i)}
-					imageSrc={item.img !== undefined ?
-						imageSrc + `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg` : null
+					imageSrc={
+						item.img !== undefined
+							? imageSrc +
+							  `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`
+							: null
 					}
 				/>
 			);
@@ -99,15 +116,20 @@ const Chat = ({ setMenuItem }) => {
 
 	const callbackArr = {
 		contact: [
-			{name: 'Очистить историю', type: 'clearMessages'},
-			{name: 'Заблокировать', type: 'blockUser'},
-			{name: 'Отметить непрочитанным', type: 'markAsUnread'},
-			{name: 'Удалить контакт', type: 'deleteContact', text: `Вы действительно хотите удалить контакт ${selectedContact?.name}?`,callback: (list, index) =>
-			setAction({
-				text: list[index].text,
-				type: list[index].type,
-				name: list[index].name,
-			}),},
+			{ name: "Очистить историю", type: "clearMessages" },
+			{ name: "Заблокировать", type: "blockUser" },
+			{ name: "Отметить непрочитанным", type: "markAsUnread" },
+			{
+				name: "Удалить контакт",
+				type: "deleteContact",
+				text: `Вы действительно хотите удалить контакт ${selectedContact?.name}?`,
+				callback: (list, index) =>
+					setAction({
+						text: list[index].text,
+						type: list[index].type,
+						name: list[index].name,
+					}),
+			},
 		],
 		group: [
 			{
@@ -189,16 +211,82 @@ const Chat = ({ setMenuItem }) => {
 			},
 		],
 		timer: [
-			{name: '1 час', value: 3600, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '45 мин.', value: 2700, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '30 мин.', value: 1800, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '15 мин.', value: 900, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '10 мин.', value: 600, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '5 мин.', value: 300, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '1 мин.', value: 60, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '30 сек.', value: 30, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-			{name: '20 сек.', value: 20, callback: (list, index) => dispatch(onSetMessageLifeTime(list[index].value))},
-		]
+			{
+				name: "1 час",
+				value: 3600,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "45 мин.",
+				value: 2700,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "30 мин.",
+				value: 1800,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "15 мин.",
+				value: 900,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "10 мин.",
+				value: 600,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "5 мин.",
+				value: 300,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "1 мин.",
+				value: 60,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "30 сек.",
+				value: 30,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+			{
+				name: "20 сек.",
+				value: 20,
+				callback: (list, index) =>
+					dispatch(onSetMessageLifeTime(list[index].value)),
+			},
+		],
+		message: [
+			{
+				name: "Редактировать сообщение",
+				type: "editMessage",
+				text: "",
+				callback: () => setAction({type: "editMessage", message: mouseParams.message}),
+			},
+			{
+				name: "Удалить сообщение",
+				type: "deleteMessage",
+				callback: () => setAction({type: "deleteMessage", message: mouseParams.message})
+			},
+		],
+	};
+
+	const filterContextMenu = (arr) => {
+		// message without text
+		if (mouseParams.contextMenuList === "message" && !mouseParams.message.text)
+			return arr.filter((item) => item.type !== "editMessage");
+
+		return arr;
 	};
 
 	const deleteChatGroup = () => {
@@ -207,7 +295,7 @@ const Chat = ({ setMenuItem }) => {
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Группа удалена",
+			"Группа удалена"
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -220,7 +308,7 @@ const Chat = ({ setMenuItem }) => {
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Вы покинули группу",
+			"Вы покинули группу"
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -382,12 +470,12 @@ const Chat = ({ setMenuItem }) => {
 					params={mouseParams}
 					setParams={setMouseParams}
 					tooltip={false}
-					withoutOffset={selectedContact?.is_secret_chat ? true : false}
+					withoutOffset={mouseParams.contextMenuList === 'timer' ? true : false}
 				>
 					<div className={styles.ContextMenuItems}>
 						{renderContextMenuItems(
-							contextMenuChat[mouseParams.contextMenuList],
-							callbackArr[mouseParams.contextMenuList]
+							filterContextMenu(contextMenuChat[mouseParams.contextMenuList]),
+							filterContextMenu(callbackArr[mouseParams.contextMenuList])
 						)}
 					</div>
 				</ContextMenu>
@@ -432,7 +520,10 @@ const Chat = ({ setMenuItem }) => {
 					<div className={styles.groupLogoWrap}>
 						<img
 							className={styles.groupLogo}
-							src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`}
+							src={
+								selectedContact?.icon?.[0] ||
+								`${imageSrc}assets/PrivateCabinet/chatGroup.svg`
+							}
 							alt="group logo"
 						/>
 					</div>
@@ -443,13 +534,24 @@ const Chat = ({ setMenuItem }) => {
 					name={action.name}
 					text={action.text}
 					set={nullifyAction}
-					callback={() => contactDelete(selectedContact, id_company, dispatch, uid, nullifyAction)}
+					callback={() =>
+						contactDelete(
+							selectedContact,
+							id_company,
+							dispatch,
+							uid,
+							nullifyAction
+						)
+					}
 					approve={"Удалить"}
 				>
 					<div className={styles.groupLogoWrap}>
 						<img
 							className={styles.groupLogo}
-							src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
+							src={
+								selectedContact?.icon?.[0] ||
+								`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+							}
 							alt="group logo"
 						/>
 					</div>

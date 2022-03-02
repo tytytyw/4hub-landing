@@ -17,16 +17,20 @@ import InfoPanel from "./InfoPanel";
 import TextArea from "./TextArea";
 import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import VideoRecordPreview from './VideoRecordPreview'
+import VideoRecordPreview from "./VideoRecordPreview";
+
+let audioFrequencyData = [];
 
 const ChatBoard = ({
 	sideMenuCollapsed,
 	boardOption,
 	setShowSuccessPopup,
+	action,
 	setAction,
 	setMouseParams,
 	currentDate,
 	addMessage,
+	nullifyAction,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -59,9 +63,11 @@ const ChatBoard = ({
 					selectedContact={selectedContact}
 					key={index}
 					currentDate={currentDate}
+					setMouseParams={setMouseParams}
 				/>
 			);
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages, currentDate, selectedContact]);
 
 	const upLoadFile = (blob, fileName, kind) => {
@@ -69,19 +75,22 @@ const ChatBoard = ({
 		const file = new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
 		formData.append("myfile", file);
-		api
-			.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
-			.then((res) => {
-				if (res.data.ok) {
-					const attachment = {
-						...res.data.files.myfile,
-						link: res.data.link,
-						kind,
-					};
-					addMessage("", attachment);
-				}
-			})
-			.finally(() => setMessageIsSending(false));
+		createHistogramData(audioFrequencyData).then((histogramData) => {
+			api
+				.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+				.then((res) => {
+					if (res.data.ok) {
+						const attachment = {
+							...res.data.files.myfile,
+							link: res.data.link,
+							kind,
+						};
+						if (histogramData) attachment.histogramData = histogramData;
+						addMessage("", attachment);
+					}
+				})
+				.finally(() => setMessageIsSending(false));
+		});
 	};
 
 	const onRecording = (type, constraints) => {
@@ -91,34 +100,91 @@ const ChatBoard = ({
 			navigator.msGetUserMedia ||
 			navigator.webkitGetUserMedia;
 		setIsRecording(true);
-		const wantMimeType = constraints.video ? 'video/webm;codecs=vp8,opus' : 'audio/webm;codecs=opus';
+		audioFrequencyData = [];
+		const wantMimeType = constraints.video
+			? MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
+				? "video/webm;codecs=vp8,opus"
+				: "video/mp4"
+			: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+			? "audio/webm;codecs=opus"
+			: "audio/mp3";
 		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
 			navigator.mediaDevices
 				.getUserMedia(constraints) // ex. { audio: true , video: true}
 				.then((stream) => {
 					if (type === "message") {
 						// for audio/video messages
-						const recorder = new MediaRecorder(stream, {mimeType: wantMimeType});
+						const recorder = new MediaRecorder(stream, {
+							mimeType: wantMimeType,
+						});
 						recorder.start();
 						setMediaRecorder(recorder);
 						if (constraints.video) {
 							// video preview
 							setVideoPreview(true);
-							const video = videoMessagePreview.current
+							const video = videoMessagePreview.current;
 							if (video) {
 								video.srcObject = stream;
 								video.play();
 							}
+						} else {
+							// get audio frequency data for histogram
+							const audioContext = new (window.AudioContext ||
+								window.webkitAudioContext)();
+							const processor = audioContext.createScriptProcessor(256, 1, 1);
+							const analyser = audioContext.createAnalyser();
+							const source = audioContext.createMediaStreamSource(stream);
+							source.connect(analyser);
+							source.connect(processor);
+							processor.connect(audioContext.destination);
+							const getAudioFrequencyData = () => {
+								if (stream.active) {
+									let audioData = new Uint8Array(64);
+									analyser.getByteFrequencyData(audioData);
+									const sumFrequencyValues = audioData.reduce(
+										(previousValue, currentValue) =>
+											previousValue + currentValue,
+										0
+									);
+									const averageFrequencyValue = Math.floor(
+										sumFrequencyValues / audioData.length
+									);
+									if (averageFrequencyValue)
+										audioFrequencyData.push(averageFrequencyValue);
+								} else
+									processor.removeEventListener(
+										"audioprocess",
+										getAudioFrequencyData
+									);
+							};
+							processor.addEventListener("audioprocess", getAudioFrequencyData);
 						}
 					}
 				})
 				.catch((error) => {
-					setIsRecording(false)
-					console.log(error)
+					setIsRecording(false);
+					console.log(error);
 				});
 		} else {
-			console.log('Browser not supported')
-			setIsRecording(false)
+			console.log("Browser not supported");
+			setIsRecording(false);
+		}
+	};
+
+	const createHistogramData = async (data) => {
+		if (data.length) {
+			const result = [];
+			const columnDataLength = Math.floor(data.length / 50);
+			for (let i = 0; i < 50; i++) {
+				const columnData = data.splice(0, columnDataLength);
+				const columnValue = Math.floor(
+					columnData.reduce((p, c) => p + c, 0) / columnDataLength
+				);
+				result.push(
+					columnValue > 120 ? 100 : columnValue < 5 ? 0 : columnValue
+				);
+			}
+			return result;
 		}
 	};
 
@@ -161,7 +227,7 @@ const ChatBoard = ({
 		if (mediaRecorder) {
 			isRecording
 				? mediaRecorder.addEventListener("dataavailable", onDataAviable)
-				: recordCancel()
+				: recordCancel();
 		}
 		return () => {
 			if (mediaRecorder)
@@ -176,7 +242,7 @@ const ChatBoard = ({
 				setDucationTimer((sec) => sec + 1);
 			}, 1000);
 			return () => {
-				clearTimeout(timer);
+				clearInterval(timer);
 				setDucationTimer(0);
 			};
 		}
@@ -207,30 +273,52 @@ const ChatBoard = ({
 			)}
 			<main className={styles.chatBoardMessageList}>
 				<div
+					className={classNames({
+						[styles.chatAreaWrapper]: true,
+						[styles.center]:
+							selectedContact?.is_secret_chat && !messages?.length,
+					})}
 					style={{
 						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
 					}}
-					className={styles.chatArea}
 				>
-					{contactList?.length === 0 && boardOption === "contacts" ? (
-						<AddFirstContactIcon
-							className={classNames({
-								[styles.addFirstContactIcon]: true,
-								[styles.collapsedMenu]: sideMenuCollapsed,
-							})}
-						/>
+					<div className={styles.chatArea}>
+						{contactList?.length === 0 && boardOption === "contacts" ? (
+							<AddFirstContactIcon
+								className={classNames({
+									[styles.addFirstContactIcon]: true,
+									[styles.collapsedMenu]: sideMenuCollapsed,
+								})}
+							/>
+						) : (
+							""
+						)}
+						{selectedContact?.is_user === 0 ? (
+							<InviteUser
+								contact={selectedContact}
+								setShowSuccessPopup={setShowSuccessPopup}
+							/>
+						) : (
+							renderMessages
+						)}
+						<div ref={endMessagesRef} />
+					</div>
+					{action?.type === "editMessage" ? (
+						<div
+							className={styles.editingMessage}
+							style={{
+								width: rightPanelContentType
+									? "calc(100% - 65px)"
+									: "calc(100% - 200px - 65px)",
+							}}
+						>
+							<div className={styles.line}></div>
+							<p className={styles.text}>{action.message.text}</p>
+							<div className={styles.close} onClick={nullifyAction} />
+						</div>
 					) : (
 						""
 					)}
-					{selectedContact?.is_user === 0 ? (
-						<InviteUser
-							contact={selectedContact}
-							setShowSuccessPopup={setShowSuccessPopup}
-						/>
-					) : (
-						renderMessages
-					)}
-					<div ref={endMessagesRef} />
 				</div>
 				<div className={styles.rightPanelContentType}>
 					{rightPanelContentType === "emo" ? <EmojiArea /> : null}
@@ -263,9 +351,18 @@ const ChatBoard = ({
 						Для отмены отпустите курсор вне поля
 					</div>
 				) : (
-					<TextArea addMessage={addMessage} />
+					<TextArea
+						addMessage={addMessage}
+						action={action}
+						nullifyAction={nullifyAction}
+					/>
 				)}
-				<div className={styles.sendOptions}>
+				<div
+					className={classNames({
+						[styles.sendOptions]: true,
+						[styles.secretChat]: selectedContact?.is_secret_chat,
+					})}
+				>
 					{messageIsSending ? (
 						<div className={styles.loaderWrapper}>
 							<Loader
@@ -335,7 +432,12 @@ const ChatBoard = ({
 				</div>
 			</footer>
 			{videoPreview ? (
-				<VideoRecordPreview isVideoMessage={videoMessagePreview} ducationTimer={ducationTimer} timeLimit={60 * 10} recordEnd={recordEnd} />
+				<VideoRecordPreview
+					isVideoMessage={videoMessagePreview}
+					ducationTimer={ducationTimer}
+					timeLimit={60 * 10}
+					recordEnd={recordEnd}
+				/>
 			) : (
 				""
 			)}

@@ -1,0 +1,97 @@
+@keyframes showPopup
+    0%
+        width: 10px
+        height: 10px
+        background: white
+        opacity: 0
+    99%
+        width: 460px
+        height: 200px
+        opacity: 0
+
+.wrap
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+    position: relative
+    animation: showPopup 0.2s ease-in-out
+    min-width: 460px
+    box-sizing: border-box
+    padding: 0 0 30px 0
+    font-family: "SF Pro Regular"
+    letter-spacing: -0.08px
+    .cross
+        top: 10px
+        right: 10px
+        position: absolute
+        width: 16px
+        height: 16px
+        cursor: pointer
+        &::before, &::after
+            background: #a7a4a4
+            content: ''
+            position: absolute
+            top: 8px
+            width: 16px
+            height: 2px
+        &::before
+            transform: rotate(45deg)
+        &::after
+            transform: rotate(-45deg)
+        &:hover
+            &::before, &::after
+                background: #4086F1
+    .title
+        font-size: 19px
+        margin: 30px 0 26px 0
+        font-family: "SF Pro Medium"
+        color: #2B353E
+    .buttonsWrap
+        display: flex
+        width: 90%
+        justify-content: center
+        .button
+            display: flex
+            justify-content: center
+            align-items: center
+            width: 115px
+            height: 34px
+            margin: 0 2px
+            border-radius: 5px
+            cursor: pointer
+            font-size: 11px
+            transition: background .2s ease
+            &.cancel
+                background: #e3e3e3
+                color: #49494B
+            &.action
+                background: #EB4545
+                color: white
+                white-space: nowrap
+            &:hover
+                background: #fc7a7a
+                color: #fff
+    .subTitle
+        display: block
+        overflow: hidden
+        text-overflow: ellipsis
+        width: 80%
+        max-width: 400px
+        font-size: 12px
+        line-height: 20px
+        letter-spacing: 0.2px
+        text-align: center
+        margin: 0 0 20px 0
+    .textWrap
+        background: linear-gradient(180deg, #4086F1 0%, #2565C8 89.21%)
+        border-radius: 12px
+        padding: 10px 16px
+        margin-bottom: 21px
+        .text
+            max-width: 420px
+            margin: 0
+            font-size: 13px
+            word-break: break-word
+            color: #fff
+            font-family: "SF Pro Light"

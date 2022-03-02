@@ -287,6 +287,10 @@ export const contextMenuChat = {
         {name: '1 мин.'},
         {name: '30 сек.'},
         {name: '20 сек.'}
+    ],
+    message: [
+        {name: 'Редактировать сообщение', img: 'edit', type: 'editMessage'},
+        {name: 'Удалить сообщение', img: 'garbage', type: 'deleteMessage'},
     ]
 }
 

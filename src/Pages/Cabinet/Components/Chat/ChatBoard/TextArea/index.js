@@ -5,10 +5,11 @@ import styles from "./TextArea.module.sass";
 import { ReactComponent as SendIcon } from "../../../../../../assets/PrivateCabinet/send.svg";
 import classNames from "classnames";
 
-const TextArea = ({ addMessage }) => {
+const TextArea = ({ addMessage, editMessage= () => console.log("edit message func"), action, nullifyAction }) => {
 	const textAreaRef = useRef();
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const [textAreaValue, setTextAreaValue] = useState("");
+	const [editingMessage, setEditingMessage] = useState(false);
 	const insertEmodji = useSelector((state) => state.Cabinet.chat.insertEmodji);
 	const dispatch = useDispatch();
 
@@ -27,18 +28,22 @@ const TextArea = ({ addMessage }) => {
 	const keyPress = (e) => {
 		findCursorPosition();
 		if (e.keyCode === 13 && !e.shiftKey) {
-			addMessage(textAreaValue);
-			cleareTextArea();
+			sendHandler();
 		}
 	};
 
 	const onTextAreaChange = (e) => {
 		findCursorPosition();
 		setTextAreaValue(e.target.value);
-		e.target.style.height = "auto";
-		e.target.style.height = e.target.value
-			? e.target.scrollHeight + "px"
-			: "25px";
+	};
+
+	const sendHandler = () => {
+		// TODO: add edit message socket action
+		editingMessage
+			? editMessage(action.message.id, textAreaValue)
+			: addMessage(textAreaValue);
+		cleareTextArea();
+		nullifyAction();
 	};
 
 	useEffect(() => {
@@ -62,6 +67,27 @@ const TextArea = ({ addMessage }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [insertEmodji]);
 
+	useEffect(() => {
+		if (action?.type === "editMessage") {
+			const saveTextValue = textAreaValue;
+			setTextAreaValue(action?.message.text);
+			setEditingMessage(true);
+			return () => {
+				setTextAreaValue(saveTextValue);
+				setEditingMessage(false);
+			};
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [action]);
+
+	useEffect(() => {
+		const textarea = textAreaRef.current;
+		textarea.style.height = "auto";
+		textarea.style.height = textAreaValue
+			? textarea.scrollHeight + "px"
+			: "25px";
+	}, [textAreaValue]);
+
 	return (
 		<div className={styles.textMessage}>
 			<textarea
@@ -80,10 +106,7 @@ const TextArea = ({ addMessage }) => {
 					[styles.messageImg]: true,
 					[styles.active]: textAreaValue.length,
 				})}
-				onClick={() => {
-					addMessage(textAreaValue);
-					cleareTextArea();
-				}}
+				onClick={sendHandler}
 			/>
 		</div>
 	);
