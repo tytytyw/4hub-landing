@@ -33,9 +33,11 @@ const WorkSpace = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
+	const messageLifeTime = useSelector(
+		(state) => state.Cabinet.chat.messageLifeTime
+	);
 
 	// webSockets
-
 	const onConnectOpen = (e) => {
 		socket.send(JSON.stringify({ action: "uid", uid }));
 	};
@@ -120,6 +122,7 @@ const WorkSpace = ({
 							action: "chat_group_message_add",
 							id_group: selectedContact?.id_group,
 							is_secret_chat: true,
+							deadline: messageLifeTime
 					  }
 					: {
 							action: "chat_message_send",
