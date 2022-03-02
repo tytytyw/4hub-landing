@@ -4,7 +4,7 @@ import styles from "./DeleteMessage.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
 import api from "../../../../../../api";
-import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import { onSetModals, onDeleteChatMessage } from "../../../../../../Store/actions/CabinetActions";
 
 const DeleteMessage = ({ set, message, nullifyAction }) => {
     const uid = useSelector((state) => state.user.uid);
@@ -16,6 +16,7 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 		api.get(`/ajax/chat_message_del.php?uid=${uid}&id_message=${message.id}`)
 			.then((res) => {
 				if (res.data.ok) {
+					dispatch(onDeleteChatMessage(message))
                     dispatch(onSetModals('topMessage', {open: true, type: 'message', message: 'Сообщение удалено'}))
                     
 				} else {

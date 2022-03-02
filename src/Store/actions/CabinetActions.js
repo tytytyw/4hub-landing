@@ -69,6 +69,7 @@ import {
     SECRET_CHATS_LIST,
     SET_MESSAGE_LIFE_TIME,
     ADD_NEW_MESSAGE,
+    MESSAGE_DELETE,
     GET_MESSAGES,
     SET_MODALS
 } from '../types';
@@ -1140,6 +1141,14 @@ export const onSetMessageLifeTime = (value) => {
         type: SET_MESSAGE_LIFE_TIME,
         payload: value
     }
+}
+
+export const onDeleteChatMessage = (message) => (dispatch, getState) => {
+    const messages = getState().Cabinet.chat.messages.filter(msg => msg.id !== message.id)
+    dispatch({
+        type: MESSAGE_DELETE,
+        payload: messages
+    })
 }
 
 // COMPANY

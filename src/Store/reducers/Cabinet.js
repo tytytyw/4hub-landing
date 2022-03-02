@@ -63,6 +63,7 @@ import {
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
     GET_MESSAGES,
+    MESSAGE_DELETE,
     ADD_NEW_MESSAGE,
     SET_MESSAGE_LIFE_TIME,
     INSERT_EMODJI,
@@ -333,6 +334,9 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, chat: {...state.chat, secretChatsList: secretChats}}
         }
         case GET_MESSAGES: {
+            return {...state, chat: {...state.chat, messages: action.payload}}
+        }
+        case MESSAGE_DELETE: {
             return {...state, chat: {...state.chat, messages: action.payload}}
         }
         case ADD_NEW_MESSAGE: {
