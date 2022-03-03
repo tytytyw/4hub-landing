@@ -1097,7 +1097,7 @@ export const onDeleteSecretChat = (secretChat) => {
     }
 };
 
-export const onGetChatMessages = (target) => (dispatch, getState) => {
+export const onGetChatMessages = (target, search) => (dispatch, getState) => {
     dispatch({
         type: GET_MESSAGES,
         payload: []
@@ -1105,11 +1105,10 @@ export const onGetChatMessages = (target) => (dispatch, getState) => {
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1&${isGroup || is_secret_chat? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}`)
         .then(response => {
             if (response.data.ok) {
                 if (getState().Cabinet.chat.selectedContact.id === target.id) {
-                    // const messages = Object.values(response.data?.data ?? {});
                     const messages = response.data?.data ?? {}
                     dispatch({
                         type: GET_MESSAGES,
