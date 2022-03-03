@@ -54,14 +54,11 @@ const ChatBoard = ({
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
 	const renderMessages = (day) => {
-		const messagesOfDay = [...messages[day]].reverse()
-		if (selectedContact?.is_secret_chat && messages?.length === 0)
-			return <SecretChatStartWallpaper />;
-		if (!messagesOfDay?.length || !selectedContact) return null;
+		const messagesOfDay = [...messages[day]].reverse();
 		return messagesOfDay.map((msg, index) => {
 			return (
 				<Message
-					message={{...msg, day}}
+					message={{ ...msg, day }}
 					selectedContact={selectedContact}
 					key={index}
 					currentDate={currentDate}
@@ -81,16 +78,20 @@ const ChatBoard = ({
 	};
 
 	const renderGroups = useMemo(() => {
+		if (selectedContact?.is_secret_chat && Object.keys(messages)?.length === 0)
+			return <SecretChatStartWallpaper />;
 		if (typeof messages !== "object") return null;
 		const days = Object.keys(messages).reverse();
-		return days.map(day => (
-			<div className={styles.dateGroup} key={day}>
-				<div className={styles.date}>
-					<span className={styles.text}>{dateToString(day)}</span>
+		return days.map((day) =>
+			messages[day]?.length && selectedContact ? (
+				<div className={styles.dateGroup} key={day}>
+					<div className={styles.date}>
+						<span className={styles.text}>{dateToString(day)}</span>
+					</div>
+					{renderMessages(day)}
 				</div>
-				{renderMessages(day)}
-			</div>
-		));
+			) : null
+		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages, currentDate, selectedContact]);
 
