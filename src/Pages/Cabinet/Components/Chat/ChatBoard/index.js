@@ -78,9 +78,40 @@ const ChatBoard = ({
 	};
 
 	const renderGroups = useMemo(() => {
-		if (selectedContact?.is_secret_chat && Object.keys(messages)?.length === 0)
-			return <SecretChatStartWallpaper />;
-		if (typeof messages !== "object") return null;
+		if (
+			selectedContact?.is_secret_chat &&
+			(messages === null || (messages && Object.keys(messages)?.length === 0))
+		)
+			return (
+				<SecretChatStartWallpaper>
+					{messages === null ? (
+						<Loader
+							type="bounceDots"
+							position="static"
+							background="transparent"
+							zIndex={5}
+							width="100px"
+							height="100px"
+							containerType="bounceDots"
+						/>
+					) : (
+						""
+					)}
+				</SecretChatStartWallpaper>
+			);
+
+		if (typeof messages !== "object" || !messages)
+			return (
+				<Loader
+					type="bounceDots"
+					position="absolute"
+					background="white"
+					zIndex={5}
+					width="100px"
+					height="100px"
+					containerType="bounceDots"
+				/>
+			);
 		const days = Object.keys(messages).reverse();
 		return days.map((day) =>
 			messages[day]?.length && selectedContact ? (

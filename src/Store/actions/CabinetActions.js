@@ -1100,7 +1100,7 @@ export const onDeleteSecretChat = (secretChat) => {
 export const onGetChatMessages = (target, search) => (dispatch, getState) => {
     dispatch({
         type: GET_MESSAGES,
-        payload: []
+        payload: null
     })
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
