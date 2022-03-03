@@ -18,6 +18,7 @@ import TextArea from "./TextArea";
 import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoRecordPreview from "./VideoRecordPreview";
+import { monthToString } from "../../../../../generalComponents/chatHelper";
 
 let audioFrequencyData = [];
 
@@ -52,14 +53,15 @@ const ChatBoard = ({
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
-	const renderMessages = useMemo(() => {
+	const renderMessages = (day) => {
+		const messagesOfDay = [...messages[day]].reverse()
 		if (selectedContact?.is_secret_chat && messages?.length === 0)
 			return <SecretChatStartWallpaper />;
-		if (!messages?.length || !selectedContact) return null;
-		return messages.map((msg, index) => {
+		if (!messagesOfDay?.length || !selectedContact) return null;
+		return messagesOfDay.map((msg, index) => {
 			return (
 				<Message
-					message={msg}
+					message={{...msg, day}}
 					selectedContact={selectedContact}
 					key={index}
 					currentDate={currentDate}
@@ -67,6 +69,28 @@ const ChatBoard = ({
 				/>
 			);
 		});
+	};
+
+	const dateToString = (date) => {
+		if (date === "today") return "Сегодня";
+		const arr = date.split("-").reverse();
+		const day = arr[0];
+		const month = monthToString(+arr[1] - 1);
+		const year = currentDate.getFullYear() === +arr[2] ? "" : arr[2];
+		return `${+day} ${month} ${year}`;
+	};
+
+	const renderGroups = useMemo(() => {
+		if (typeof messages !== "object") return null;
+		const days = Object.keys(messages).reverse();
+		return days.map(day => (
+			<div className={styles.dateGroup} key={day}>
+				<div className={styles.date}>
+					<span className={styles.text}>{dateToString(day)}</span>
+				</div>
+				{renderMessages(day)}
+			</div>
+		));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages, currentDate, selectedContact]);
 
@@ -299,11 +323,12 @@ const ChatBoard = ({
 								setShowSuccessPopup={setShowSuccessPopup}
 							/>
 						) : (
-							renderMessages
+							renderGroups
 						)}
 						<div ref={endMessagesRef} />
 					</div>
 					{action?.type === "editMessage" ? (
+						// TODO: add api when it will be ready
 						<div
 							className={styles.editingMessage}
 							style={{
