@@ -32,42 +32,42 @@ export const categoryIcons = {
 export const categories = {
     'Office': {
         id: 1,
-        image: `${imageSrc}assets/PrivateCabinet/programs/ms-office.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/office.svg`,
         list: []
     },
     'Adobe': {
         id: 2,
-        image: `${imageSrc}assets/PrivateCabinet/programs/adobe.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
         list: []
     },
     'Программирование': {
         id: 3,
-        image: `${imageSrc}assets/PrivateCabinet/programs/digital-campaign.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/responsive.svg`,
         list: []
     },
     'Арт': {
         id: 4,
-        image: `${imageSrc}assets/PrivateCabinet/programs/statistics.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/palette.svg`,
         list: []
     },
     'Музыкальные программы': {
         id: 5,
-        image: `${imageSrc}assets/PrivateCabinet/programs/music.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/music_icon.svg`,
         list: []
     },
     'Медиа': {
         id: 6,
-        image: `${imageSrc}assets/PrivateCabinet/programs/digital-campaign.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/digital_campaign.svg`,
         list: []
     },
     'Статистика': {
         id: 7,
-        image: `${imageSrc}assets/PrivateCabinet/programs/statistics.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/seo.svg`,
         list: []
     },
     'Обучающие': {
         id: 8,
-        image: `${imageSrc}assets/PrivateCabinet/programs/alphabet.svg`,
+        image: `${imageSrc}assets/PrivateCabinet/programs/alphabet_icon.svg`,
         list: []
     },
 }
