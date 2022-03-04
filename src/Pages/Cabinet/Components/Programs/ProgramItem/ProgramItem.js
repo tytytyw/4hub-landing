@@ -1,19 +1,16 @@
 import React from 'react';
-import {useDispatch} from 'react-redux'
+// import {useDispatch} from 'react-redux'
 
-import styles from './CustomFolderItem.module.sass'
+import styles from './ProgramItem.module.sass'
 import classNames from 'classnames'
-import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
 import FolderIcon from "./FolderIcon";
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
-const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
+const ProgramItem = ({folder, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
 
-    const dispatch = useDispatch();
 
     const onClickHandler = () => {
         setChosenFolder(folder?.id)
-        dispatch(onGetPrograms(folder?.id))
     }
 
     return (
@@ -88,4 +85,4 @@ const CustomFolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams
     )
 }
 
-export default CustomFolderItem;
+export default ProgramItem;

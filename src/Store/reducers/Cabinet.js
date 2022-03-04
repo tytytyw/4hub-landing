@@ -97,11 +97,13 @@ const INITIAL_STATE = {
     search: '',
 
     //PROGRAMS
-    programFolders: [],
-    programs: [],
-    recentPrograms: [],
-    topListPrograms: [],
-    categories: [],
+    programs: {
+        programFolders: [],
+        programs: [],
+        recentPrograms: [],
+        topListPrograms: [],
+        categories: []
+    },
 
     //SAFE
     safe: {

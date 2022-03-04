@@ -4,7 +4,7 @@ import {onChooseFiles} from '../../../../../Store/actions/CabinetActions';
 
 import styles from './RecentFolders.module.sass';
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
-import CustomFolderItem from "../CustomFolderItem";
+import CustomFolderItem from "../ProgramItem";
 
 const RecentFolders = ({listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams}) => {
 
