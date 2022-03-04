@@ -44,7 +44,7 @@ const WorkSpace = ({
 
 	const onWebSocketsMessage = (e) => {
 		const data = JSON.parse(e.data);
-
+		
 		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
 		// PrivateMessage - direct message; PublicMessage- message from group
 		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {

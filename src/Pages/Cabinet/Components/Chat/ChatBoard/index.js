@@ -70,6 +70,7 @@ const ChatBoard = ({
 
 	const dateToString = (date) => {
 		if (date === "today") return "Сегодня";
+		if (date === "yesterday") return "Вчера";
 		const arr = date.split("-").reverse();
 		const day = arr[0];
 		const month = monthToString(+arr[1] - 1);

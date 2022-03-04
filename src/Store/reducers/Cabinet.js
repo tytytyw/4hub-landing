@@ -340,7 +340,7 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, chat: {...state.chat, messages: action.payload}}
         }
         case ADD_NEW_MESSAGE: {
-            return {...state, chat: {...state.chat, messages: {...state.chat.messages, today: [action.payload, ...state.chat.messages.today]}}}
+            return {...state, chat: {...state.chat, messages: {today: state.chat.messages.today ? [action.payload, ...state.chat.messages.today] : [action.payload], ...state.chat.messages}}}
         }
         case NEW_LAST_GROUP_MESSAGE: {
             return {...state, chat: {...state.chat, recentGroupsMessages: {...state.chat.recentGroupsMessages, [action.payload.id_group]: action.payload.text}}}
