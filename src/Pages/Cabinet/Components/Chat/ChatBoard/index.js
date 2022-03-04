@@ -9,7 +9,7 @@ import EmojiArea from "../EmojiArea";
 import ServePanel from "../ServePanel";
 import SecretChatStartWallpaper from "./SecretChatStartWallpaper";
 import { ReactComponent as AddFirstContactIcon } from "../../../../../assets/PrivateCabinet/addFirstContact.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames";
 import InviteUser from "./InviteUser";
 import Message from "./Message";
@@ -19,6 +19,8 @@ import api from "../../../../../api";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoRecordPreview from "./VideoRecordPreview";
 import { monthToString } from "../../../../../generalComponents/chatHelper";
+import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
+import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 
 let audioFrequencyData = [];
 
@@ -46,10 +48,16 @@ const ChatBoard = ({
 	const [ducationTimer, setDucationTimer] = useState(0);
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const endMessagesRef = useRef();
+	const chatArea = useRef();
 	const footerRef = useRef();
 	const videoMessagePreview = useRef();
 	const uid = useSelector((state) => state.user.uid);
 	const [videoPreview, setVideoPreview] = useState(null);
+	const [messagesPage, setMessagesPage] = useState(1);
+	const [loadingMessages, setLoadingMessages] = useState(false);
+	const [chatBoardOldHeight, setChatBoardOldHeight] = useState(0);
+	const search = useSelector((state) => state.Cabinet.search);
+	const dispatch = useDispatch();
 
 	const messages = useSelector((state) => state.Cabinet.chat.messages);
 
@@ -280,6 +288,43 @@ const ChatBoard = ({
 		mouseUpOnFooter && ducationTimer > 1 ? recordEnd() : recordCancel();
 	};
 
+	const onSuccessLoading = (result) => {
+		if (typeof result === "object") {
+			let moreElements = false;
+			for (let key in result) {
+				if (result[key].length > 0) moreElements = true;
+			}
+			setTimeout(() => {
+				moreElements
+					? setMessagesPage((filesPage) => filesPage + 1)
+					: setMessagesPage(0);
+				setLoadingMessages(false);
+			}, 500);
+		} else {
+			setTimeout(() => {
+				setMessagesPage(0);
+				setLoadingMessages(false);
+			}, 500);
+		}
+	};
+	const load = (entry) => {
+		if (entry.isIntersecting && !loadingMessages && messagesPage !== 0) {
+			setChatBoardOldHeight(chatArea.current.scrollHeight);
+
+			setLoadingMessages(true);
+			dispatch(
+				onGetChatMessages(
+					selectedContact,
+					search,
+					messagesPage,
+					onSuccessLoading
+				)
+			);
+		}
+	};
+	const options = { root: null, rootMargin: "0px", threshold: 0 };
+	const [startMessagesRef] = useScrollElementOnScreen(options, load);
+
 	useEffect(() => {
 		if (mediaRecorder) {
 			isRecording
@@ -308,7 +353,23 @@ const ChatBoard = ({
 	const scrollToBottom = () => {
 		endMessagesRef?.current?.scrollIntoView();
 	};
-	useEffect(() => scrollToBottom, [messages, selectedContact]);
+	useEffect(() => {
+		if (
+			chatBoardOldHeight &&
+			chatArea.current.scrollHeight - chatBoardOldHeight
+		) {
+			chatArea?.current?.scrollTo(
+				0,
+				chatArea.current.scrollHeight - chatBoardOldHeight
+			);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [messages]);
+
+	useEffect(() => {
+		setMessagesPage(1);
+		scrollToBottom();
+	}, [selectedContact]);
 
 	return (
 		<div
@@ -333,13 +394,35 @@ const ChatBoard = ({
 					className={classNames({
 						[styles.chatAreaWrapper]: true,
 						[styles.center]:
-							selectedContact?.is_secret_chat && !messages?.length,
+							selectedContact?.is_secret_chat &&
+							(!messages || (messages && Object.keys(messages).length === 0)),
 					})}
 					style={{
 						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
 					}}
 				>
-					<div className={styles.chatArea}>
+					<div className={styles.chatArea} ref={chatArea}>
+						<div
+							className={classNames({
+								[styles.bottomLine]: true,
+								[styles.bottomLineHidden]: messagesPage === 0,
+							})}
+							ref={startMessagesRef}
+						>
+							{messagesPage !== 1 ? (
+								<Loader
+									type="bounceDots"
+									position="absolute"
+									background="white"
+									zIndex={5}
+									width="100px"
+									height="100px"
+									containerType="bounceDots"
+								/>
+							) : (
+								""
+							)}
+						</div>
 						{contactList?.length === 0 && boardOption === "contacts" ? (
 							<AddFirstContactIcon
 								className={classNames({

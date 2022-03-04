@@ -271,12 +271,14 @@ const Chat = ({ setMenuItem }) => {
 				name: "Редактировать сообщение",
 				type: "editMessage",
 				text: "",
-				callback: () => setAction({type: "editMessage", message: mouseParams.message}),
+				callback: () =>
+					setAction({ type: "editMessage", message: mouseParams.message }),
 			},
 			{
 				name: "Удалить сообщение",
 				type: "deleteMessage",
-				callback: () => setAction({type: "deleteMessage", message: mouseParams.message})
+				callback: () =>
+					setAction({ type: "deleteMessage", message: mouseParams.message }),
 			},
 		],
 	};
@@ -470,7 +472,7 @@ const Chat = ({ setMenuItem }) => {
 					params={mouseParams}
 					setParams={setMouseParams}
 					tooltip={false}
-					withoutOffset={mouseParams.contextMenuList === 'timer' ? true : false}
+					withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
 				>
 					<div className={styles.ContextMenuItems}>
 						{renderContextMenuItems(

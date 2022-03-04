@@ -71,6 +71,7 @@ import {
     ADD_NEW_MESSAGE,
     MESSAGE_DELETE,
     GET_MESSAGES,
+    GET_PREVIUS_MESSAGES,
     SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
@@ -1097,26 +1098,36 @@ export const onDeleteSecretChat = (secretChat) => {
     }
 };
 
-export const onGetChatMessages = (target, search) => (dispatch, getState) => {
-    dispatch({
+export const onGetChatMessages = (target, search, page = 1, loadingMessages) => (dispatch, getState) => {
+    if (page === 1) dispatch({
         type: GET_MESSAGES,
         payload: null
     })
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page}&per_page=10`)
         .then(response => {
             if (response.data.ok) {
                 if (getState().Cabinet.chat.selectedContact.id === target.id) {
                     const messages = response.data?.data ?? {}
-                    dispatch({
+                    page > 1
+                    ? dispatch({
+                        type: GET_PREVIUS_MESSAGES,
+                        payload: messages
+                    })
+                    : dispatch({
                         type: GET_MESSAGES,
                         payload: messages
                     })
+                    if(typeof loadingMessages === 'function') loadingMessages(messages);
                 }
             }
         }).catch(error => {
+            dispatch({
+                type: SET_MODALS,
+                payload: {key: 'topMessage', value: {open: true, type: 'error', message: 'Ошибка загрузки'}}
+            })
             console.log(error)
         })
 

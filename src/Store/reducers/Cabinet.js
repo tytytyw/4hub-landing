@@ -63,6 +63,7 @@ import {
     CHAT_ID_USER,
     SECRET_CHAT_DELETE,
     GET_MESSAGES,
+    GET_PREVIUS_MESSAGES,
     MESSAGE_DELETE,
     ADD_NEW_MESSAGE,
     SET_MESSAGE_LIFE_TIME,
@@ -336,11 +337,18 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_MESSAGES: {
             return {...state, chat: {...state.chat, messages: action.payload}}
         }
+        case GET_PREVIUS_MESSAGES: {
+            let messages = {...state.chat.messages}
+            for(let key in action.payload) {
+                messages[key] = messages[key] ? [...messages[key], ...action.payload[key]] : [...action.payload[key]];
+            }
+            return {...state, chat: {...state.chat, messages: messages}}
+        }
         case MESSAGE_DELETE: {
             return {...state, chat: {...state.chat, messages: action.payload}}
         }
         case ADD_NEW_MESSAGE: {
-            return {...state, chat: {...state.chat, messages: {today: state.chat.messages.today ? [action.payload, ...state.chat.messages.today] : [action.payload], ...state.chat.messages}}}
+            return {...state, chat: {...state.chat, messages: { ...state.chat.messages, today: state.chat.messages.today ? [action.payload, ...state.chat.messages.today] : [action.payload]}}}
         }
         case NEW_LAST_GROUP_MESSAGE: {
             return {...state, chat: {...state.chat, recentGroupsMessages: {...state.chat.recentGroupsMessages, [action.payload.id_group]: action.payload.text}}}
