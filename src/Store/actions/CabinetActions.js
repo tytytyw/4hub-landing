@@ -72,7 +72,7 @@ import {
     SET_MODALS
 } from '../types';
 import {folders} from "../../generalComponents/collections";
-import {programs} from "../../Pages/Cabinet/Components/Programs/consts";
+import {categories} from "../../Pages/Cabinet/Components/Programs/consts";
 
 const CancelToken = axios.CancelToken;
 
@@ -379,7 +379,7 @@ export const onDeleteSafeFile = (file) => {
 export const onGetCategories = () => async (dispatch) => {
     dispatch({
         type: GET_CATEGORIES,
-        payload: Object.keys(programs)
+        payload: Object.keys(categories).map(category => ({name: category, ...categories[category]}))
     })
 };
 

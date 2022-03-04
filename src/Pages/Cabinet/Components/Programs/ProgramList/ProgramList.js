@@ -22,15 +22,15 @@ function ProgramList({
     const categories = useSelector(s => s.Cabinet.programs.categories)
 
     const renderPrograms = () => {
-        return categories.map((folder, i) => {
+        return categories.map((category, i) => {
             return <ProgramItem
                 key={i}
-                folder={folder}
+                category={category}
                 listSize={size}
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
-                chosen={params.folder?.path === folder.path}
+                chosen={params.folder?.path === category.path}
                 padding={'0px 10px 0px 26px'}
             />
         })

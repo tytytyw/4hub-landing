@@ -1,85 +1,48 @@
 import React from 'react';
-// import {useDispatch} from 'react-redux'
 
 import styles from './ProgramItem.module.sass'
 import classNames from 'classnames'
 import FolderIcon from "./FolderIcon";
-import {imageSrc} from "../../../../../generalComponents/globalVariables";
 
-const ProgramItem = ({folder, chosenFolder, setChosenFolder, setMouseParams, listCollapsed, listSize}) => {
+const ProgramItem = ({category, chosenFolder, setChosenFolder, listCollapsed, listSize}) => {
 
 
     const onClickHandler = () => {
-        setChosenFolder(folder?.id)
+        console.log(category)
+        // setChosenFolder(category?.id)
     }
 
     return (
         <div
             className={classNames({
                 [styles.innerFolderWrap]: true,
-                [styles.active]: chosenFolder === folder?.id,
+                [styles.active]: chosenFolder === category?.id,
             })}
             onClick={onClickHandler}
         >
             <div className={classNames({
                 [styles.innerFolder]: true,
                 [styles?.[`innerFolder_${listSize}`]]: !!listSize
-            })} >
+            })}>
 
                 <div className={styles.innerFolderName}>
-                    {folder?.icon ?
+                    {category?.image ?
                         <img
-                            src={`${imageSrc}assets/PrivateCabinet/${folder.icon}.svg`}
+                            src={category.image}
                             alt='icon'
                             className={styles.innerFolderIcon}
                         /> :
                         <FolderIcon
-                            fill={folder?.color}
+                            fill={category?.color}
                             className={styles.innerFolderIcon}
                         />}
-
                     <div className={styles.nameWrap}>
                         <div className={styles.Name}>
-                            {!listCollapsed &&
-                            <>
-                                <div className={styles.name}>{folder.name}</div>
-                                {folder.tags ? <div className={styles.tag}>{folder.tags}</div> : null}
-                            </>}
-
+                            {!listCollapsed && <div className={styles.name}>{category.name}</div>}
                         </div>
                     </div>
                 </div>
-
-                <div className={styles.innerFolderMedia}>
-
-                    {!listCollapsed &&
-                    <>
-                        {folder.emo &&
-                        <img
-                            className={styles.symbols}
-                            src={`${imageSrc}assets/PrivateCabinet/smiles/${folder?.emo}.svg`}
-                            alt='emoji'
-                        />}
-
-                        {folder.fig &&
-                        <img
-                            className={styles.symbols}
-                            src={`${imageSrc}assets/PrivateCabinet/signs/${folder?.fig}.svg`}
-                            alt='emoji'
-                        />}
-                    </>}
-
-                    <div
-                        className={styles.menuWrap}
-                        onClick={e => {
-                            setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
-                        }}
-                    >
-                        <span className={styles.menu}/>
-                    </div>
-
-                </div>
-
+                <div className={styles.innerFolderMedia}>({category.list.length})</div>
             </div>
         </div>
     )

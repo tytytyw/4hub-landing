@@ -397,7 +397,7 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_TOP_LIST_PROGRAMS:
             return {...state, topListPrograms: action.payload}
         case GET_CATEGORIES:
-            return {...state, categories: action.payload}
+            return {...state, programs: {...state.programs, categories: action.payload}}
 
         //SAFE
         case CODE_TEL:

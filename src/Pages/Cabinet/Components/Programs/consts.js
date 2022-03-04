@@ -1,14 +1,14 @@
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 
-export const categories = {
-    1: 'Все',
-    2: 'Творчество',
-    3: 'Программы',
-    4: 'Мессенджеры',
-    5: 'Офис',
-    6: 'Развлечения',
-    7: 'Другое',
-}
+// export const categories = {
+//     1: 'Все',
+//     2: 'Творчество',
+//     3: 'Программы',
+//     4: 'Мессенджеры',
+//     5: 'Офис',
+//     6: 'Развлечения',
+//     7: 'Другое',
+// }
 
 export const programIcons = {
     premier_pro: `${imageSrc}assets/PrivateCabinet/premier.svg`,
@@ -28,6 +28,50 @@ export const categoryIcons = {
     games: `${imageSrc}assets/PrivateCabinet/games.svg`,
     other: `${imageSrc}assets/PrivateCabinet/puzzle.svg`,
 }
+
+export const categories = {
+    'Office': {
+        id: 1,
+        image: `${imageSrc}assets/PrivateCabinet/programs/ms-office.svg`,
+        list: []
+    },
+    'Adobe': {
+        id: 2,
+        image: `${imageSrc}assets/PrivateCabinet/programs/adobe.svg`,
+        list: []
+    },
+    'Программирование': {
+        id: 3,
+        image: `${imageSrc}assets/PrivateCabinet/programs/digital-campaign.svg`,
+        list: []
+    },
+    'Арт': {
+        id: 4,
+        image: `${imageSrc}assets/PrivateCabinet/programs/statistics.svg`,
+        list: []
+    },
+    'Музыкальные программы': {
+        id: 5,
+        image: `${imageSrc}assets/PrivateCabinet/programs/music.svg`,
+        list: []
+    },
+    'Медиа': {
+        id: 6,
+        image: `${imageSrc}assets/PrivateCabinet/programs/digital-campaign.svg`,
+        list: []
+    },
+    'Статистика': {
+        id: 7,
+        image: `${imageSrc}assets/PrivateCabinet/programs/statistics.svg`,
+        list: []
+    },
+    'Обучающие': {
+        id: 8,
+        image: `${imageSrc}assets/PrivateCabinet/programs/alphabet.svg`,
+        list: []
+    },
+}
+
 
 export const programs = {
     "1C": [
