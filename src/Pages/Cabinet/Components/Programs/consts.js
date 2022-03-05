@@ -38,7 +38,36 @@ export const categories = {
     'Adobe': {
         id: 2,
         image: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
-        list: []
+        list: [
+            {
+                name: 'Adobe Photoshop',
+                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Adobe Illustrator',
+                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Adobe Procriete',
+                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Adobe Xd',
+                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe_icon.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Программирование': {
         id: 3,
