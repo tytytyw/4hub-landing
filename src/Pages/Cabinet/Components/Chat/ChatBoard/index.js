@@ -68,7 +68,7 @@ const ChatBoard = ({
 				<Message
 					message={{ ...msg, day }}
 					selectedContact={selectedContact}
-					key={index}
+					key={msg.id+msg.ut}
 					currentDate={currentDate}
 					setMouseParams={setMouseParams}
 				/>
