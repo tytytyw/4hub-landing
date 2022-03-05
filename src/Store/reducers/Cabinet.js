@@ -13,10 +13,6 @@ import {
     CHOOSE_RECENT_FILES,
     CUSTOMIZE_FILE,
     CUSTOMIZE_SAFE_FILE,
-    GET_PROGRAM_FOLDERS,
-    GET_PROGRAMS,
-    GET_RECENT_PROGRAMS,
-    GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
     GET_SAFES,
     CODE_TEL,
@@ -66,7 +62,7 @@ import {
     ADD_NEW_MESSAGE,
     SET_MESSAGE_LIFE_TIME,
     INSERT_EMODJI,
-    CHAT_GROUP_DELETE, SET_MODALS,
+    CHAT_GROUP_DELETE, SET_MODALS, CHOOSE_CATEGORY,
 } from '../types'
 
 const INITIAL_STATE = {
@@ -98,10 +94,7 @@ const INITIAL_STATE = {
 
     //PROGRAMS
     programs: {
-        programFolders: [],
-        programs: [],
-        recentPrograms: [],
-        topListPrograms: [],
+        category: {},
         categories: []
     },
 
@@ -388,16 +381,10 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
 
         // PROGRAMS
-        case GET_PROGRAM_FOLDERS:
-            return {...state, programFolders: action.payload}
-        case GET_PROGRAMS:
-            return {...state, programs: action.payload}
-        case GET_RECENT_PROGRAMS:
-            return {...state, recentPrograms: action.payload}
-        case GET_TOP_LIST_PROGRAMS:
-            return {...state, topListPrograms: action.payload}
         case GET_CATEGORIES:
             return {...state, programs: {...state.programs, categories: action.payload}}
+        case CHOOSE_CATEGORY:
+            return {...state, programs: {...state.programs, category: action.payload}}
 
         //SAFE
         case CODE_TEL:

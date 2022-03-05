@@ -5,9 +5,9 @@ import ProgramList from "./ProgramList/ProgramList";
 
 const Programs = () => {
 
-    const [listCollapsed, setListCollapsed] = useState('')
+    const [listCollapsed, setListCollapsed] = useState('');
 
-    const [chosenProgram, setChosenProgram] = useState()
+    const [chosenProgram, setChosenProgram] = useState();
 
     return (
         <div className={styles.workAreaWrap}>

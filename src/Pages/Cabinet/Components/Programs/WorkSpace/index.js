@@ -7,34 +7,8 @@ import Notifications from '../../Notifications'
 import classnames from "classnames";
 
 const WorkSpace = ({
-       // chosenTopListProgram,
-       // setChosenTopListProgram,
        listCollapsed
 }) => {
-
-    // const dispatch = useDispatch();
-
-    // const programs = useSelector(state => state.Cabinet.programs);
-    // const size = useSelector(state => state.Cabinet.size);
-
-
-    // Types of Files view
-    // const renderPrograms = (Type) => {
-    //     if (!programs) return null;
-    //     return programs.map((program, i) => {
-    //         return <Type
-    //             key={i}
-    //             program={program}
-    //             // setChosenProgram={setChosenProgram}
-    //             // chosenProgram={chosenProgram}
-    //             // setMouseParams={setMouseParams}
-    //             // setAction={setAction}
-    //             // setFilePreview={setFilePreview}
-    //             // filePreview={filePreview}
-    //             size={size}
-    //         />
-    //     });
-    // }
 
     return (
         <>
@@ -50,7 +24,6 @@ const WorkSpace = ({
                     <div className={styles.infoHeader}>
                         <StorageSize/>
                         <Notifications/>
-                        {/*<Profile setItem={setItem}/>*/}
                     </div>
                 </div>
             </div>

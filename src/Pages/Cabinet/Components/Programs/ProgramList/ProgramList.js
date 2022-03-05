@@ -14,12 +14,12 @@ function ProgramList({
 
     const size = useSelector(state => state.Cabinet.size);
     const [search, setSearch] = useState('');
-    const [params, ] = useState({ });
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
     const searchPlaceholder = "Введите название программы";
     const dispatch = useDispatch();
-    const categories = useSelector(s => s.Cabinet.programs.categories)
+    const categories = useSelector(s => s.Cabinet.programs.categories);
+    const chosenCategory = useSelector(s => s.Cabinet.programs.category);
 
     const renderPrograms = () => {
         return categories.map((category, i) => {
@@ -30,7 +30,7 @@ function ProgramList({
                 listCollapsed={listCollapsed}
                 setNewFolderInfo={setNewFolderInfo}
                 newFolderInfo={newFolderInfo}
-                chosen={params.folder?.path === category.path}
+                chosen={chosenCategory.id === category.id}
                 padding={'0px 10px 0px 26px'}
             />
         })

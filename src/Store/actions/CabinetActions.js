@@ -5,7 +5,6 @@ import {
     ADD_RECENT_FILES,
     ADD_RECENT_FOLDERS,
     CHOOSE_FILES,
-    // CHOOSE_ALL_FILES,
     CHOOSE_FOLDER,
     CONTACT_LIST,
     COMPANY_CONTACT_LIST,
@@ -16,11 +15,7 @@ import {
     CHOOSE_RECENT_FILES,
     CUSTOMIZE_FILE,
     CUSTOMIZE_SAFE_FILE,
-    // GET_PROGRAM_FOLDERS,
-    // GET_RECENT_PROGRAMS,
-    // GET_TOP_LIST_PROGRAMS,
     GET_CATEGORIES,
-    // GET_PROGRAMS,
     GET_SAFES,
     CODE_TEL,
     CHOOSE_SAFE_FILELIST,
@@ -39,7 +34,6 @@ import {
     SET_CALENDAR_EVENTS,
     SORT_FILES,
     LOAD_FILES,
-    // LOAD_FILES_ALL,
     SET_FILTER_COLOR,
     SET_FILTER_EMOJI,
     SET_FILTER_FIGURE,
@@ -50,7 +44,6 @@ import {
     NULLIFY_FILTERS,
     SET_SELECTED_DEVICE,
     SET_SELECTED_USER,
-    // CHOOSE_ARCHIVE_FILES,
     SET_DRAGGED,
     LOAD_PROJECT_FILES,
     SET_CHOSEN_FOLDER,
@@ -59,7 +52,6 @@ import {
     CHOOSE_FILES_NEXT,
     SET_NEXT_FILES_TO_PREVIOUS, SET_PAINT,
     CHAT_GROUPS_LIST,
-    // NEW_LAST_GROUP_MESSAGE,
     RESENT_CHATS_LIST,
     CHAT_ID_USER,
     CHAT_GROUP_DELETE,
@@ -69,7 +61,7 @@ import {
     SET_MESSAGE_LIFE_TIME,
     ADD_NEW_MESSAGE,
     GET_MESSAGES,
-    SET_MODALS
+    SET_MODALS, CHOOSE_CATEGORY
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 import {categories} from "../../Pages/Cabinet/Components/Programs/consts";
@@ -380,6 +372,13 @@ export const onGetCategories = () => async (dispatch) => {
     dispatch({
         type: GET_CATEGORIES,
         payload: Object.keys(categories).map(category => ({name: category, ...categories[category]}))
+    })
+};
+
+export const onChooseCategory = (category) => async (dispatch) => {
+    dispatch({
+        type: CHOOSE_CATEGORY,
+        payload: category
     })
 };
 

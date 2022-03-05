@@ -3,20 +3,20 @@ import React from 'react';
 import styles from './ProgramItem.module.sass'
 import classNames from 'classnames'
 import FolderIcon from "./FolderIcon";
+import {useDispatch} from "react-redux";
+import {onChooseCategory} from "../../../../../Store/actions/CabinetActions";
 
-const ProgramItem = ({category, chosenFolder, setChosenFolder, listCollapsed, listSize}) => {
+const ProgramItem = ({category, listCollapsed, listSize, chosen}) => {
 
+    const dispatch = useDispatch()
 
-    const onClickHandler = () => {
-        console.log(category)
-        // setChosenFolder(category?.id)
-    }
+    const onClickHandler = () => dispatch(onChooseCategory(category));
 
     return (
         <div
             className={classNames({
                 [styles.innerFolderWrap]: true,
-                [styles.active]: chosenFolder === category?.id,
+                [styles.active]: chosen,
             })}
             onClick={onClickHandler}
         >
