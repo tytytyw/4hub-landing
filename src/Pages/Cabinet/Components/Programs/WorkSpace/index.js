@@ -5,10 +5,19 @@ import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
 import classnames from "classnames";
+import {useSelector} from "react-redux";
 
 const WorkSpace = ({
        listCollapsed
 }) => {
+
+    const category = useSelector(s => s.Cabinet.programs.category)
+
+    const renderPrograms = () => category.list.map((program, i) => <div key={i}>
+        {program.name}
+    </div>)
+
+    const emptyList = () => <div> Список програм пуст </div>
 
     return (
         <>
@@ -25,6 +34,9 @@ const WorkSpace = ({
                         <StorageSize/>
                         <Notifications/>
                     </div>
+                </div>
+                <div className={styles.fileList}>
+                    {category?.list ? category.list.length > 0 ? renderPrograms() : emptyList() : null}
                 </div>
             </div>
         </>)

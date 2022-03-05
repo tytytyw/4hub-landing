@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styles from './Programms.module.sass'
 import WorkSpace from './WorkSpace'
-import ProgramList from "./ProgramList/ProgramList";
+import CategoryList from "./CategoryList/CategoryList";
 
 const Programs = () => {
 
@@ -11,7 +11,7 @@ const Programs = () => {
 
     return (
         <div className={styles.workAreaWrap}>
-            <ProgramList
+            <CategoryList
                 listCollapsed={listCollapsed}
                 setListCollapsed={setListCollapsed}
             />

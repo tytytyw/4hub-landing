@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
-import styles from './ProgramList.module.sass';
+import styles from './CategoryList.module.sass';
 import List from "../../List";
 import SearchField from "../../../../../generalComponents/SearchField";
-import ProgramItem from "../ProgramItem/ProgramItem";
+import CategoryItem from "../CategoryItem/CategoryItem";
 import {useDispatch, useSelector} from "react-redux";
 import {onGetCategories} from "../../../../../Store/actions/CabinetActions";
 
-function ProgramList({
+function CategoryList({
     listCollapsed,
     setListCollapsed
 }) {
@@ -23,7 +23,7 @@ function ProgramList({
 
     const renderPrograms = () => {
         return categories.map((category, i) => {
-            return <ProgramItem
+            return <CategoryItem
                 key={i}
                 category={category}
                 listSize={size}
@@ -60,4 +60,4 @@ function ProgramList({
     )
 }
 
-export default ProgramList;
+export default CategoryList;
