@@ -13,7 +13,10 @@ function ProgramItem({program}) {
 
     return (
         <>
-        <div className={styles.itemWrap}>
+        <div className={classNames({
+            [styles.itemWrap]: true,
+            [styles.chosenItem]: params.openedComments
+        })}>
             <div className={styles.leftGroup}>
                 <img src={program.icon} alt='ico' className={styles.programImage} />
                 <div className={styles.programName}>{program?.name}</div>

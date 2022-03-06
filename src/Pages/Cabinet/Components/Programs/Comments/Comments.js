@@ -5,7 +5,8 @@ import styles from './Comments.module.sass';
 function Comments() {
     return (
         <div className={styles.commentsWrap}>
-            Comments works
+            <div className={styles.commentList}></div>
+            <div className={styles.manageButtons}></div>
         </div>
     )
 }
