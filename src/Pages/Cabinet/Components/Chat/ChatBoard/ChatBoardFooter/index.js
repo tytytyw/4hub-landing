@@ -29,6 +29,8 @@ const ChatBoardFooter = ({
 	setVideoPreview,
 	videoMessagePreview,
 	recordCancel,
+    file,
+    setFile,
 }) => {
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const selectedContact = useSelector(
@@ -38,9 +40,9 @@ const ChatBoardFooter = ({
 
 	const upLoadFile = (blob, fileName, kind) => {
 		setMessageIsSending(true);
-		const file = new File([blob], fileName, { type: blob.type });
+		const sendingFile = file??new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
-		formData.append("myfile", file);
+		formData.append("myfile", sendingFile);
 		createHistogramData(audioFrequencyData).then((histogramData) => {
 			api
 				.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
@@ -57,6 +59,7 @@ const ChatBoardFooter = ({
 				})
 				.finally(() => setMessageIsSending(false));
 		});
+        setFile(null)
 	};
 
 	const onRecording = (type, constraints) => {
@@ -180,6 +183,11 @@ const ChatBoardFooter = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mediaRecorder]);
 
+    useEffect(() => {
+        if (file) upLoadFile('','','file')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [file])
+    
 	return (
 		<footer ref={footerRef} className={styles.chatBoardFooter}>
 			{isRecording ? (

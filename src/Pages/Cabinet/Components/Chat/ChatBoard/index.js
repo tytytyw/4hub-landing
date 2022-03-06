@@ -27,6 +27,8 @@ const ChatBoard = ({
 	currentDate,
 	addMessage,
 	nullifyAction,
+	file,
+	setFile,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -330,6 +332,8 @@ const ChatBoard = ({
 				setVideoPreview={setVideoPreview}
 				videoMessagePreview={videoMessagePreview}
 				recordCancel={recordCancel}
+				file={file}
+				setFile={setFile}
 			/>
 
 			{videoPreview ? (

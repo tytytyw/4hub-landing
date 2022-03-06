@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Chat.module.sass";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
@@ -52,10 +52,12 @@ const Chat = ({ setMenuItem }) => {
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
+	const [file, setFile] = useState(null);
 	const messageLifeTime = useSelector(
 		(state) => state.Cabinet.chat.messageLifeTime
 	);
 	const id_company = useSelector((state) => state.user.id_company);
+	const fileInputRef = useRef()
 
 	const closeContextMenu = () => {
 		setMouseParams(null);
@@ -64,6 +66,11 @@ const Chat = ({ setMenuItem }) => {
 
 	const setSelectedContact = (contact) =>
 		selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : "";
+	
+	const onInputFiles = (e) => {
+		setFile(e.target.files[0])
+		e.target.value = '';
+	}
 
 	const renderContextMenuItems = (target, type) => {
 		let newTarget = target;
@@ -295,7 +302,7 @@ const Chat = ({ setMenuItem }) => {
 			{
 				name: "Файлы с компьютера",
 				type: "addPcFile",
-				callback: () => setAction({ type: "addPcFile" })
+				callback: () => fileInputRef.current.click()
 			},
 		]
 	};
@@ -461,6 +468,8 @@ const Chat = ({ setMenuItem }) => {
 				currentDate={date}
 				setAction={setAction}
 				setMouseParams={setMouseParams}
+				file={file}
+				setFile={setFile}
 			/>
 			{action.type === "addContact" ? (
 				<AddContact
@@ -581,6 +590,9 @@ const Chat = ({ setMenuItem }) => {
 			) : (
 				""
 			)}
+			<div style={{display: 'none'}}>
+                <input type='file' onChange={onInputFiles} ref={fileInputRef} />
+            </div>
 		</div>
 	);
 };

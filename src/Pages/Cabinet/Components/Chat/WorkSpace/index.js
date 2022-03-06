@@ -21,6 +21,8 @@ const WorkSpace = ({
 	currentDate,
 	setAction,
 	setMouseParams,
+	file,
+	setFile,
 }) => {
 	const [socket, setSocket] = useState(null);
 	const [socketReconnect, setSocketReconnect] = useState(true);
@@ -190,6 +192,8 @@ const WorkSpace = ({
 						currentDate={currentDate}
 						addMessage={addMessage}
 						nullifyAction={nullifyAction}
+						file={file}
+						setFile={setFile}
 					/>
 				) : (
 					""
