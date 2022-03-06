@@ -4,26 +4,46 @@ import styles from "./DeleteMessage.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
 import api from "../../../../../../api";
-import { onSetModals, onDeleteChatMessage } from "../../../../../../Store/actions/CabinetActions";
+import {
+	onSetModals,
+	onDeleteChatMessage,
+} from "../../../../../../Store/actions/CabinetActions";
 
 const DeleteMessage = ({ set, message, nullifyAction }) => {
-    const uid = useSelector((state) => state.user.uid);
-	const text = message?.text?.split("\n").slice(0,5)??[];
-    const dispatch = useDispatch()
+	const uid = useSelector((state) => state.user.uid);
+	const text = message?.text?.split("\n").slice(0, 5) ?? [];
+	const dispatch = useDispatch();
 
 	const onAproveBtnHandler = () => {
-        nullifyAction()
-		api.get(`/ajax/chat_message_del.php?uid=${uid}&id_message=${message.id}`)
+		nullifyAction();
+		api
+			.get(
+				`/ajax/chat${
+					message.id_group ? "_group" : ""
+				}_message_del.php?uid=${uid}&id_message=${message.id}${
+					message.id_group ? `&id_group=${message.id_group}` : ""
+				}`
+			)
 			.then((res) => {
 				if (res.data.ok) {
-					dispatch(onDeleteChatMessage(message))
-                    dispatch(onSetModals('topMessage', {open: true, type: 'message', message: 'Сообщение удалено'}))
-                    
+					dispatch(onDeleteChatMessage(message));
+					dispatch(
+						onSetModals("topMessage", {
+							open: true,
+							type: "message",
+							message: "Сообщение удалено",
+						})
+					);
 				} else {
-                    dispatch(onSetModals('error', {open: true, message: 'Что-то пошло не так, повторите попытку позже'}))
-                }
-			})
-    };
+					dispatch(
+						onSetModals("error", {
+							open: true,
+							message: "Что-то пошло не так, повторите попытку позже",
+						})
+					);
+				}
+			});
+	};
 
 	return (
 		<PopUp set={set}>
@@ -33,13 +53,17 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 				<div className={styles.subTitle}>
 					Вы действительно хотите удалить сообщение?
 				</div>
-				{message.text?.length ? <div className={styles.textWrap}>
-					{text.map((item, index) => (
-						<p key={index} className={styles.text}>
-							{index === 4 && message.text.length > 5 ? `${item}...` : item}
-						</p>
-					))}
-				</div> : ''}
+				{message.text?.length ? (
+					<div className={styles.textWrap}>
+						{text.map((item, index) => (
+							<p key={index} className={styles.text}>
+								{index === 4 && message.text.length > 5 ? `${item}...` : item}
+							</p>
+						))}
+					</div>
+				) : (
+					""
+				)}
 				<div className={styles.buttonsWrap}>
 					<div
 						className={classNames(styles.cancel, styles.button)}
