@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 import styles from './ProgramItem.module.sass';
 import {imageSrc} from "../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
+import Comments from "../Comments/Comments";
 
 function ProgramItem({program}) {
 
     const [params, setParams] = useState({isFavourite: program.isFavourite, openedComments: false});
 
     const onSetFavourite = () => setParams(s => ({...s, isFavourite: !s.isFavourite}));
-    const onToggleComments = () => program.comments.length > 0 ? setParams(s => ({...s, openedComments: !s.openedComments})) : null;
+    const onToggleComments = () => setParams(s => ({...s, openedComments: !s.openedComments}));
 
     return (
+        <>
         <div className={styles.itemWrap}>
             <div className={styles.leftGroup}>
                 <img src={program.icon} alt='ico' className={styles.programImage} />
@@ -23,7 +25,6 @@ function ProgramItem({program}) {
                 <div
                     className={classNames({
                         [styles.openComments]: true,
-                        [styles.isComments]: program.comments.length > 0,
                         [styles.openedComments]: params.openedComments
                     })}
                     onClick={onToggleComments}
@@ -34,6 +35,8 @@ function ProgramItem({program}) {
                 <img onClick={onSetFavourite} className={params.isFavourite ? styles.isFavourite : styles.isNotFavourite} src={`${imageSrc}assets/PrivateCabinet/programs/${params.isFavourite ? 'star' : 'greyStar'}.svg`} alt='favourite' />
             </div>
         </div>
+            {params.openedComments ? <Comments /> : null}
+        </>
     )
 }
 
