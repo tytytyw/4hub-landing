@@ -43,7 +43,7 @@ export const categories = {
                 name: 'Adobe Photoshop',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/photoshop.svg`,
                 link: 'https://fs2.mh.net.ua',
-                isFavourite: false,
+                isFavourite: true,
                 comments: []
             },
             {
@@ -55,7 +55,7 @@ export const categories = {
             },
             {
                 name: 'Adobe Procriete',
-                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/procreate.svg`,
+                icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/procriete.svg`,
                 link: 'https://fs2.mh.net.ua',
                 isFavourite: false,
                 comments: []

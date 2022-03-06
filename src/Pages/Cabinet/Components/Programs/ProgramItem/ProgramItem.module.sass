@@ -4,5 +4,64 @@
   border-bottom: 1px solid #DFDFDF
   display: flex
   align-items: center
+  justify-content: space-between
+  font-family: "SF Pro Regular", sans-serif
+  font-size: 13px
+  color: #49494B
   &:last-child
     border-bottom: 0
+  .leftGroup
+    display: flex
+    align-items: center
+    margin: 0 0 0 10px
+    height: 100%
+    width: 25%
+    max-width: 25%
+    min-width: 25%
+    .programImage
+      max-width: 40px
+      max-height: 40px
+      margin: 0 13px 0 0
+    .programName
+      width: 80%
+      max-width: 80%
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+  .centerGroup
+    display: flex
+    margin: 0 0 0 -20%
+    .copyLink
+      background: #ECF3FE
+      border-radius: 20px
+      box-sizing: border-box
+      padding: 10px 30px
+
+  .rightGroup
+    display: flex
+    align-items: center
+    height: 100%
+    margin: 0 20px 0 0
+    .openComments
+      display: flex
+      align-items: center
+      justify-content: center
+      box-sizing: border-box
+      padding: 10px 20px
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15)
+      border-radius: 100px
+      margin: 0 20px 0 0
+      cursor: default
+    .isComments
+      cursor: pointer
+    .openedComments
+      background: #4086F1
+      color: #FFFFFF
+    .isFavourite
+      cursor: pointer
+      box-sizing: border-box
+      padding: 5px 4px 5px 4px
+    .isNotFavourite
+      cursor: pointer
+      box-sizing: border-box
+      padding: 5px
