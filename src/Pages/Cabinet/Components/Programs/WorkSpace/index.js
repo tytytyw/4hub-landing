@@ -20,7 +20,7 @@ const WorkSpace = ({
         program={program}
     />);
 
-    const emptyList = () => <div> Список програм пуст </div>
+    const emptyList = () => <div className={styles.emptyList}> Список программ пуст </div>
 
     return (
         <>
