@@ -197,7 +197,16 @@ const ChatBoardFooter = ({
 				</div>
 			) : (
 				<div className={styles.downloadOptions}>
-					<AddIcon title="Вставить файл" />
+					<AddIcon
+                        title="Вставить файл"
+                        onClick={(e) => setMouseParams({
+                            x: e.clientX,
+                            y: e.clientY,
+                            width: 220,
+                            height: 25,
+                            contextMenuList: 'uploadFile'
+                        })}
+                    />
 				</div>
 			)}
 			{isRecording ? (

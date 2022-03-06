@@ -281,6 +281,23 @@ const Chat = ({ setMenuItem }) => {
 					setAction({ type: "deleteMessage", message: mouseParams.message }),
 			},
 		],
+		uploadFile: [
+			{
+				name: "Камера",
+				type: "makePhoto",
+				callback: () => setAction({ type: "makePhoto" })
+			},
+			{
+				name: "Файлы с системы 4Hub",
+				type: "add4hubFile",
+				callback: () => setAction({ type: "add4hubFile" })
+			},
+			{
+				name: "Файлы с компьютера",
+				type: "addPcFile",
+				callback: () => setAction({ type: "addPcFile" })
+			},
+		]
 	};
 
 	const filterContextMenu = (arr) => {

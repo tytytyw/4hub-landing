@@ -77,7 +77,7 @@ function Message({
 								setMouseParams({
 									x: e.clientX,
 									y: e.clientY,
-									width: 220,
+									width: 190,
 									height: 25,
 									contextMenuList,
 									message: message,
