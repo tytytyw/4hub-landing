@@ -38,7 +38,7 @@ function ProgramItem({program}) {
                 <img onClick={onSetFavourite} className={params.isFavourite ? styles.isFavourite : styles.isNotFavourite} src={`${imageSrc}assets/PrivateCabinet/programs/${params.isFavourite ? 'star' : 'greyStar'}.svg`} alt='favourite' />
             </div>
         </div>
-            {params.openedComments ? <Comments hideComments={onToggleComments} /> : null}
+            {params.openedComments ? <Comments hideComments={onToggleComments} comments={program.comments} /> : null}
         </>
     )
 }

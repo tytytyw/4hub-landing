@@ -48,25 +48,25 @@ export const categories = {
                     {
                         from: 'Max Kortelov',
                         date: '01.01.2022',
-                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo0.png`,
+                        icon: `${imageSrc}assets/PrivateCabinet/avatars/a1.svg`,
                         text: 'Some test Comments'
                     },
                     {
                         from: 'Alexey',
                         date: '03.01.2022',
-                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo1.png`,
-                        text: 'Some test Comments'
+                        icon: `${imageSrc}assets/PrivateCabinet/avatars/a2.svg`,
+                        text: 'большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков'
                     },
                     {
                         from: 'Dmitriy Kolesnikov',
                         date: '03.02.2022',
-                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo2.png`,
+                        icon: `${imageSrc}assets/PrivateCabinet/avatars/a3.svg`,
                         text: 'Some test Comments'
                     },
                     {
                         from: 'Makar Razumovskiy',
                         date: '03.02.2022',
-                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo2.png`,
+                        icon: `${imageSrc}assets/PrivateCabinet/avatars/a4.svg`,
                         text: 'Some test Comments'
                     },
                 ]
