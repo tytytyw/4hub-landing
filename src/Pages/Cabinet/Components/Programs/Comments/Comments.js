@@ -2,14 +2,21 @@ import React, {useState} from 'react';
 
 import styles from './Comments.module.sass';
 import AddComment from "../AddComment/AddComment";
+import {onSetModals} from "../../../../../Store/actions/CabinetActions";
+import {useDispatch} from "react-redux";
 
-function Comments({hideComments = () => {}, comments = []}) {
+function Comments({hideComments = () => {}, comments = [], program = {}}) {
 
-    const [params, setParams] = useState({newCommentModal: false});
+    const [params, setParams] = useState({newCommentModal: false, commentList: comments});
+    const dispatch = useDispatch();
 
-    const toggleNewCommentModal = () => setParams(s => ({...s, newCommentModal: !s.newCommentModal}))
+    const toggleNewCommentModal = () => setParams(s => ({...s, newCommentModal: !s.newCommentModal}));
+    const onAddComment = (newComment) => {
+        setParams(s => ({...s, commentList: [...s.commentList, newComment], newCommentModal: false}));
+        dispatch(onSetModals('success', {open: true, message: `Ваш отзыв о программе ${program?.name ?? ''} успешно добавлен`, title: 'Отзыв успешно добавлен'}))
+    }
 
-    const renderComments = () => comments.map((comment, i) => <div className={styles.comment} key={i}>
+    const renderComments = () => params.commentList.map((comment, i) => <div className={styles.comment} key={i}>
         <div className={styles.commentLeftColumn}>
             <img src={comment.icon} alt='avatar'/>
         </div>
@@ -30,7 +37,7 @@ function Comments({hideComments = () => {}, comments = []}) {
                 <div onClick={toggleNewCommentModal} className={styles.addButton}>Добавить комментарий</div>
             </div>
         </div>
-        {params.newCommentModal ? <AddComment close={toggleNewCommentModal} /> : null}
+        {params.newCommentModal ? <AddComment close={toggleNewCommentModal} onAddComment={onAddComment} program={program} /> : null}
         </>
     )
 }
