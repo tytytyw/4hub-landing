@@ -146,7 +146,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType,
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname === '/downloaded-files' ? '&is_uploaded=1' : ''
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/${allFiles ?? 'lsjson'}.php?uid=${getState().user.uid}&dir=${allFiles ? '' : path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+        const url = `/ajax/${allFiles ?? 'lsjson'}.php?uid=${getState().user.uid}&dir=${allFiles ? '' : path}${searched}&page=${page}&per_page=${5}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {

@@ -212,12 +212,12 @@ const ChatBoard = ({
 				chatArea.current.scrollHeight - chatBoardOldHeight
 			);
 		}
+		if (messagesPage === 0) scrollToBottom();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages]);
 
 	useEffect(() => {
 		setMessagesPage(1);
-		scrollToBottom();
 	}, [selectedContact]);
 
 	return (
