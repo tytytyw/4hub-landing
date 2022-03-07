@@ -31,10 +31,7 @@ import {
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import { contactDelete } from "../../../../generalComponents/chatHelper";
-import {
-	onGetChatMessages,
-	onSetSelectedContact,
-} from "../../../../Store/actions/CabinetActions";
+import {onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
@@ -369,8 +366,8 @@ const Chat = ({ setMenuItem }) => {
 	}, []); //eslint-disable-line
 
 	useEffect(() => {
-		if (selectedContact) dispatch(onGetChatMessages(selectedContact));
-	}, [selectedContact?.id]); //eslint-disable-line
+		if (selectedContact) dispatch({type: "GET_MESSAGES", payload: null});
+	}, [selectedContact]); //eslint-disable-line
 
 	return (
 		<div className={styles.chatComponent}>

@@ -340,7 +340,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         case GET_PREVIUS_MESSAGES: {
             let messages = {...state.chat.messages}
             for(let key in action.payload) {
-                messages[key] = messages[key] ? [...messages[key], ...action.payload[key]] : [...action.payload[key]];
+                // messages[key] = messages[key] ? [...messages[key], ...action.payload[key]] : [...action.payload[key]];
+                //TODO: modify Chat messages pagination
+                messages[key] = messages[key] ? [...messages[key].filter(oldMsg => !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)), ...action.payload[key]] : [...action.payload[key]];
             }
             return {...state, chat: {...state.chat, messages: messages}}
         }

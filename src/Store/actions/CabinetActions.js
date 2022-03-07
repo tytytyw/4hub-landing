@@ -146,7 +146,7 @@ export const onChooseFiles = (path, search, page, set, setLoad, loadedFilesType,
     const cancelChooseFiles = CancelToken.source();
     const downloadedFiles = pathname === '/downloaded-files' ? '&is_uploaded=1' : ''
     window.cancellationTokens = {cancelChooseFiles}
-        const url = `/ajax/${allFiles ?? 'lsjson'}.php?uid=${getState().user.uid}&dir=${allFiles ? '' : path}${searched}&page=${page}&per_page=${5}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+        const url = `/ajax/${allFiles ?? 'lsjson'}.php?uid=${getState().user.uid}&dir=${allFiles ? '' : path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting}${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
         await api.get(url,{
             cancelToken: cancelChooseFiles.token
         }).then(files => {
@@ -1098,15 +1098,11 @@ export const onDeleteSecretChat = (secretChat) => {
     }
 };
 
-export const onGetChatMessages = (target, search, page = 1, loadingMessages) => (dispatch, getState) => {
-    if (page === 1) dispatch({
-        type: GET_MESSAGES,
-        payload: null
-    })
+export const onGetChatMessages = (target, search, page, loadingMessages) => (dispatch, getState) => {
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page}&per_page=10`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page || 1}&per_page=30`)
         .then(response => {
             if (response.data.ok) {
                 if (getState().Cabinet.chat.selectedContact.id === target.id) {
