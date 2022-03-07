@@ -1105,7 +1105,7 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (dis
     api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page || 1}&per_page=30`)
         .then(response => {
             if (response.data.ok) {
-                if (getState().Cabinet.chat.selectedContact.id === target.id) {
+                if (getState().Cabinet.chat.selectedContact?.id === target?.id) {
                     const messages = response.data?.data ?? {}
                     page > 1
                     ? dispatch({

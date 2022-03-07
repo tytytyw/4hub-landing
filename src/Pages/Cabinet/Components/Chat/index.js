@@ -33,6 +33,7 @@ import {
 import { contactDelete } from "../../../../generalComponents/chatHelper";
 import {onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
 
+
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
 	const [search, setSearch] = useState("");
@@ -54,7 +55,7 @@ const Chat = ({ setMenuItem }) => {
 		(state) => state.Cabinet.chat.messageLifeTime
 	);
 	const id_company = useSelector((state) => state.user.id_company);
-	const fileInputRef = useRef()
+	const fileInputRef = useRef();
 
 	const closeContextMenu = () => {
 		setMouseParams(null);
@@ -279,6 +280,11 @@ const Chat = ({ setMenuItem }) => {
 					setAction({ type: "editMessage", message: mouseParams.message }),
 			},
 			{
+				name: "Скачать",
+				type: "download",
+				callback: () => console.log('download')
+			},
+			{
 				name: "Удалить сообщение",
 				type: "deleteMessage",
 				callback: () =>
@@ -305,11 +311,20 @@ const Chat = ({ setMenuItem }) => {
 	};
 
 	const filterContextMenu = (arr) => {
-		// message without text
-		if (mouseParams.contextMenuList === "message" && !mouseParams.message.text)
-			return arr.filter((item) => item.type !== "editMessage");
+		let filtredArr = arr;
+		if (mouseParams.contextMenuList === "message")
+			if (mouseParams.message.messageType === 'outbox') {
+				// message without text
+				filtredArr = filtredArr.filter((item) => !mouseParams.message.text ? item.type !== "editMessage" : true);
+			}
+			if (mouseParams.message.messageType === 'inbox') {
+				// inbox with file
+				filtredArr = filtredArr.filter((item) => mouseParams.message.attachment?.kind === "file" ?  item.type === "download" : false)
+			}
+			// without file
+			filtredArr = filtredArr.filter((item) => mouseParams.message.attachment?.kind !== "file" ? item.type !== "download" : true);
 
-		return arr;
+		return filtredArr;
 	};
 
 	const deleteChatGroup = () => {

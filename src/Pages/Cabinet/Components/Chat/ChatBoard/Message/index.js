@@ -73,23 +73,23 @@ function Message({
 							))}
 						</div>
 					)}
-					<div className={styles.menuWrapper}>
-						{messageType === 'outbox' && <div
+					{messageType !== "inbox" || message.attachment?.kind === "file" ? <div className={styles.menuWrapper}>
+						<div
 							className={styles.menu}
 							onClick={(e) => {
 								setMouseParams({
 									x: e.clientX,
 									y: e.clientY,
-									width: 190,
+									width: 215,
 									height: 25,
 									contextMenuList,
-									message: message,
+									message: {...message, messageType},
 								});
 							}}
 						>
 							<span className={styles.dot} />
-						</div>}
-					</div>
+						</div>
+					</div> : ''}
 				</div>
 				<div className={styles.time}>
 					{messageTime(currentDate, message.ut, gmt)}

@@ -197,9 +197,9 @@ const ChatBoard = ({
 		}
 	}, [isRecording]);
 
-	const scrollToBottom = () => {
-		endMessagesRef?.current?.scrollIntoView();
-	};
+	// const scrollToBottom = () => {
+	// 	endMessagesRef?.current?.scrollIntoView();
+	// };
 
 	useEffect(() => {
 		if (
@@ -212,14 +212,14 @@ const ChatBoard = ({
 				chatArea.current.scrollHeight - chatBoardOldHeight
 			);
 		}
-		if (messagesPage === 0) scrollToBottom();
+		// if (messagesPage === 0) scrollToBottom();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages]);
 
 	useEffect(() => {
 		setMessagesPage(1);
 	}, [selectedContact]);
-
+	
 	return (
 		<div
 			className={classNames({

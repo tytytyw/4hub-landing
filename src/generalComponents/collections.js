@@ -290,6 +290,7 @@ export const contextMenuChat = {
     ],
     message: [
         {name: 'Редактировать сообщение', img: 'edit', type: 'editMessage'},
+        {name: 'Скачать', img: 'download-blue', type: 'download'},
         {name: 'Удалить сообщение', img: 'garbage', type: 'deleteMessage'},
     ],
     uploadFile: [
