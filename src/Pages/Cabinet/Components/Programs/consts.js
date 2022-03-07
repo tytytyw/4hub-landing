@@ -44,7 +44,32 @@ export const categories = {
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/photoshop.svg`,
                 link: 'https://fs2.mh.net.ua',
                 isFavourite: true,
-                comments: []
+                comments: [
+                    {
+                        from: 'Max Kortelov',
+                        date: '01.01.2022',
+                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo0.png`,
+                        text: 'Some test Comments'
+                    },
+                    {
+                        from: 'Alexey',
+                        date: '03.01.2022',
+                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo1.png`,
+                        text: 'Some test Comments'
+                    },
+                    {
+                        from: 'Dmitriy Kolesnikov',
+                        date: '03.02.2022',
+                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo2.png`,
+                        text: 'Some test Comments'
+                    },
+                    {
+                        from: 'Makar Razumovskiy',
+                        date: '03.02.2022',
+                        icon: `${imageSrc}assets/PrivateCabinet/minitoolbar/users/photo2.png`,
+                        text: 'Some test Comments'
+                    },
+                ]
             },
             {
                 name: 'Adobe Illustrator',
