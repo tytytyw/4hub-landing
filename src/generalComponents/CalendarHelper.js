@@ -39,7 +39,7 @@ const yearCode = (year) => {
 };
 
 export const getDate = (n) => {
-    return{day: d.getDate(), month: d.getMonth() < 9 ? `${n === 0 ? n : ''}${d.getMonth() + 1}` : d.getMonth(), year: d.getFullYear()}
+    return{day: d.getDate() < 9 ? `${n === 0 ? n : ''}${d.getDate()}` : d.getDate(), month: d.getMonth() < 9 ? `${n === 0 ? n : ''}${d.getMonth() + 1}` : d.getMonth(), year: d.getFullYear()}
 };
 
 const renderDaysInMonth = (month, obj) => {
