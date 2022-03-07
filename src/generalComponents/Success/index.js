@@ -11,15 +11,16 @@ const Success = ({success, set, message, title, icon}) => {
                     <span className={styles.cross} onClick={() => set(false )} />
                     <span className={styles.title}>{title}</span>
                     <div>
-                        {icon ? null : <img
-                            src='./assets/StartPage/tv.svg'
-                            alt='img'
-                        />}
                         <img
-                            src={icon ?? './assets/StartPage/check.svg'}
+                            src={icon ?? './assets/StartPage/tv.svg'}
+                            alt='img'
+                            className={styles.mainImage}
+                        />
+                        {icon ? null : <img
+                            src='./assets/StartPage/check.svg'
                             alt='img'
                             className={styles.check}
-                        />
+                        />}
                     </div>
                     <div className={styles.infoSuccess}>
                         <span>{message}</span>
