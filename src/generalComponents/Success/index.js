@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Success.module.sass';
 import PopUp from '../PopUp';
 
-const Success = ({success, set, message, title}) => {
+const Success = ({success, set, message, title, icon}) => {
     return (
         <>
             {success && <PopUp set={set}>
@@ -11,12 +11,12 @@ const Success = ({success, set, message, title}) => {
                     <span className={styles.cross} onClick={() => set(false )} />
                     <span className={styles.title}>{title}</span>
                     <div>
-                        <img
+                        {icon ? null : <img
                             src='./assets/StartPage/tv.svg'
                             alt='img'
-                        />
+                        />}
                         <img
-                            src='./assets/StartPage/check.svg'
+                            src={icon ?? './assets/StartPage/check.svg'}
                             alt='img'
                             className={styles.check}
                         />
