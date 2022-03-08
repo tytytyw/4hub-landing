@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo, useLayoutEffect } from "react";
 import styles from "./ChatBoard.module.sass";
 
 import EmojiArea from "../EmojiArea";
@@ -163,7 +163,7 @@ const ChatBoard = ({
 		}
 	};
 	const options = { root: null, rootMargin: "0px", threshold: 0 };
-	const [startMessagesRef] = useScrollElementOnScreen(options, load);
+	const [startMessagesRef, isVisible] = useScrollElementOnScreen(options, load);
 
 	const recordCancel = () => {
 		if (mediaRecorder) {
@@ -201,11 +201,12 @@ const ChatBoard = ({
 	// 	endMessagesRef?.current?.scrollIntoView();
 	// };
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (
 			chatBoardOldHeight &&
 			messagesPage &&
-			chatArea.current.scrollHeight - chatBoardOldHeight
+			chatArea.current.scrollHeight - chatBoardOldHeight &&
+			isVisible
 		) {
 			chatArea?.current?.scrollTo(
 				0,
@@ -219,7 +220,7 @@ const ChatBoard = ({
 	useEffect(() => {
 		setMessagesPage(1);
 	}, [selectedContact]);
-	
+
 	return (
 		<div
 			className={classNames({
