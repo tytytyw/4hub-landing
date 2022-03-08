@@ -30,7 +30,7 @@ function Modals ({
     const dispatch = useDispatch();
 
     const closeError = () => dispatch(onSetModals('error', {open: false, message: ''}));
-    const closeSuccess = () => dispatch(onSetModals('success', {open: false, message: '', title: ''}));
+    const closeSuccess = () => dispatch(onSetModals('success', {open: false, message: '', title: '', icon: ''}));
 
     return <>
         {mutualEdit.open ? <MutualEdit /> : null}
@@ -50,7 +50,7 @@ function Modals ({
             />
             : null}
         <Error error={error.open} message={error.message} set={closeError} />
-        <Success success={success.open} message={success.message} set={closeSuccess} title={success.title} />
+        <Success success={success.open} message={success.message} set={closeSuccess} title={success.title} icon={success.icon} />
         {topMessage.open ? <TopMessage /> : null}
         {share.open ? <Share /> : null}
         {loader ? <Loader

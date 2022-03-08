@@ -4,49 +4,43 @@ import styles from './WorkSpace.module.sass'
 import SearchField from '../../SearchField'
 import StorageSize from '../../StorageSize'
 import Notifications from '../../Notifications'
+import classnames from "classnames";
+import {useSelector} from "react-redux";
+import ProgramItem from "../ProgramItem/ProgramItem";
+import Profile from "../../Profile";
 
 const WorkSpace = ({
-       // chosenTopListProgram,
-       // setChosenTopListProgram,
        listCollapsed
 }) => {
 
-    // const dispatch = useDispatch();
+    const category = useSelector(s => s.Cabinet.programs.category)
 
-    // const programs = useSelector(state => state.Cabinet.programs);
-    // const size = useSelector(state => state.Cabinet.size);
+    const renderPrograms = () => category.list.map((program, i) => <ProgramItem
+        key={i}
+        program={program}
+    />);
 
-
-    // Types of Files view
-    // const renderPrograms = (Type) => {
-    //     if (!programs) return null;
-    //     return programs.map((program, i) => {
-    //         return <Type
-    //             key={i}
-    //             program={program}
-    //             // setChosenProgram={setChosenProgram}
-    //             // chosenProgram={chosenProgram}
-    //             // setMouseParams={setMouseParams}
-    //             // setAction={setAction}
-    //             // setFilePreview={setFilePreview}
-    //             // filePreview={filePreview}
-    //             size={size}
-    //         />
-    //     });
-    // }
+    const emptyList = () => <div className={styles.emptyList}> Список программ пуст </div>
 
     return (
         <>
             <div
-                className={`${styles.workSpaceWrap} ${typeof listCollapsed === 'boolean' ? listCollapsed ? styles.workSpaceWrapCollapsed : styles.workSpaceWrapUncollapsed : undefined}`}
+                className={classnames({
+                    [styles.workSpaceWrap]: true,
+                    [styles.collapsed]: listCollapsed,
+                    [styles.notCollapsed]: !listCollapsed,
+                })}
             >
                 <div className={styles.header}>
                     <SearchField/>
                     <div className={styles.infoHeader}>
                         <StorageSize/>
                         <Notifications/>
-                        {/*<Profile setItem={setItem}/>*/}
+                        <Profile />
                     </div>
+                </div>
+                <div className={styles.fileList}>
+                    {category?.list ? category.list.length > 0 ? renderPrograms() : emptyList() : null}
                 </div>
             </div>
         </>)

@@ -17,8 +17,10 @@
     min-width: calc(100% - 311px)
     max-width: calc(100% - 311px)
 
-.workSpaceWrapUncollapsed
+.notCollapsed
   animation: uncollapse 0.3s ease-in-out
+  width: calc(100% - 121px)
+  max-width: calc(100% - 121px)
 .workSpaceWrap
   width: calc(100% - 310px)
   max-width: calc(100% - 310px)
@@ -39,7 +41,7 @@
       min-width: 340px
       width: 400px
       max-width: 400px
-.workSpaceWrapCollapsed
+.collapsed
   min-width: calc(100% - 121px)
   width: calc(100% - 121px)
   animation: collapse 0.3s ease-in-out
@@ -83,9 +85,30 @@
   &::-webkit-scrollbar-thumb
     background-color: #4086F1
 
-.file_list
+.fileList
   display: flex
   flex-direction: column
-  height: calc(100% - 90px - 55px)
+  height: calc(100% - 90px)
   overflow-x: hidden
   overflow-y: scroll
+  scrollbar-width: auto
+  scrollbar-color: #4086F1 #F5F5F5
+  &::-webkit-scrollbar-track
+    background: #0A3AAB
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: #F5F5F5
+  &::-webkit-scrollbar
+    width: 12px
+    background-color: #FFFFFF
+  &::-webkit-scrollbar-thumb
+    background-color: #4086F1
+.emptyList
+  width: 100%
+  height: 200px
+  display: flex
+  justify-content: center
+  align-items: center
+  font-family: "SF Pro Regular", sans-serif
+  color: #a4a4a4
+  font-size: 14px

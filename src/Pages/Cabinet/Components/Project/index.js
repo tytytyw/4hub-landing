@@ -279,6 +279,7 @@ const Project = ({
 				setParams={setParams}
 				setSelectedProject={setSelectedProject}
 				mouseParams={mouseParams}
+				listCollapsed={listCollapsed}
 			/>
 
 			{mouseParams?.type === "menu" && (

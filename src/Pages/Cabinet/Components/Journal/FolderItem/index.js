@@ -1,18 +1,14 @@
 import React from 'react';
-import {useDispatch} from 'react-redux'
+// import {useDispatch} from 'react-redux'
 
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
-import {onGetPrograms} from '../../../../../Store/actions/CabinetActions'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
 const FolderItem = ({folder, chosenFolder, setChosenFolder, setMouseParams}) => {
 
-    const dispatch = useDispatch();
-
     const onClickHandler = () => {
         setChosenFolder(folder?.id)
-        dispatch(onGetPrograms(folder?.id))
     }
 
     return (
