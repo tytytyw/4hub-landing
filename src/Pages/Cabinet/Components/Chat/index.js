@@ -312,7 +312,7 @@ const Chat = ({ setMenuItem }) => {
 
 	const filterContextMenu = (arr) => {
 		let filtredArr = arr;
-		if (mouseParams.contextMenuList === "message")
+		if (mouseParams.contextMenuList === "message") {
 			if (mouseParams.message.messageType === 'outbox') {
 				// message without text
 				filtredArr = filtredArr.filter((item) => !mouseParams.message.text ? item.type !== "editMessage" : true);
@@ -323,7 +323,7 @@ const Chat = ({ setMenuItem }) => {
 			}
 			// without file
 			filtredArr = filtredArr.filter((item) => mouseParams.message.attachment?.kind !== "file" ? item.type !== "download" : true);
-
+		}
 		return filtredArr;
 	};
 

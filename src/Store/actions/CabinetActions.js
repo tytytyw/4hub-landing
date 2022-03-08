@@ -1102,7 +1102,7 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (dis
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page || 1}&per_page=30`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page || 1}&per_page=10`)
         .then(response => {
             if (response.data.ok) {
                 if (getState().Cabinet.chat.selectedContact?.id === target?.id) {
@@ -1153,6 +1153,15 @@ export const onSetMessageLifeTime = (value) => {
 export const onDeleteChatMessage = (message) => (dispatch, getState) => {
     const oldMessages = getState().Cabinet.chat.messages
     const messages = {...oldMessages, [message.day]: oldMessages[message.day].filter(msg => msg.id !== message.id)}
+    dispatch({
+        type: MESSAGE_DELETE,
+        payload: messages
+    })
+}
+
+export const onEditChatMessage = (editedMessage) => (dispatch, getState) => {
+    const oldMessages = getState().Cabinet.chat.messages
+    const messages = {...oldMessages, [editedMessage.day]: oldMessages[editedMessage.day].map(msg => msg.id === editedMessage.id ? editedMessage : msg)}
     dispatch({
         type: MESSAGE_DELETE,
         payload: messages
