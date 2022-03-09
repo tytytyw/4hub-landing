@@ -31,6 +31,7 @@ const ChatBoardFooter = ({
 	recordCancel,
     file,
     setFile,
+	scrollToBottom,
 }) => {
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const selectedContact = useSelector(
@@ -57,6 +58,7 @@ const ChatBoardFooter = ({
 						};
 						if (histogramData) attachment.histogramData = histogramData;
 						addMessage("", attachment);
+						scrollToBottom()
 					}
 				})
 				.finally(() => setMessageIsSending(false));
@@ -228,6 +230,7 @@ const ChatBoardFooter = ({
 					addMessage={addMessage}
 					action={action}
 					nullifyAction={nullifyAction}
+					scrollToBottom={scrollToBottom}
 				/>
 			)}
 			<div

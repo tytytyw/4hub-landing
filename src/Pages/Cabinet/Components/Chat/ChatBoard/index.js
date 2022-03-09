@@ -49,6 +49,7 @@ const ChatBoard = ({
 	const [messagesPage, setMessagesPage] = useState(1);
 	const [loadingMessages, setLoadingMessages] = useState(false);
 	const [chatBoardOldHeight, setChatBoardOldHeight] = useState(0);
+	const [scrollPosition, setScrollPosition] = useState(0);
 	const search = useSelector((state) => state.Cabinet.search);
 	const dispatch = useDispatch();
 
@@ -197,9 +198,9 @@ const ChatBoard = ({
 		}
 	}, [isRecording]);
 
-	// const scrollToBottom = () => {
-	// 	endMessagesRef?.current?.scrollIntoView();
-	// };
+	const scrollToBottom = () => {
+		endMessagesRef?.current?.scrollIntoView();
+	};
 
 	useLayoutEffect(() => {
 		if (
@@ -213,13 +214,18 @@ const ChatBoard = ({
 				chatArea.current.scrollHeight - chatBoardOldHeight
 			);
 		}
-		// if (messagesPage === 0) scrollToBottom();
+		if (scrollPosition < 10) scrollToBottom()
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [messages]);
 
 	useEffect(() => {
 		setMessagesPage(1);
 	}, [selectedContact]);
+	
+	const onChatBoardScroll = (e) => {
+		setScrollPosition((e.target.scrollHeight - e.target.clientHeight) - e.target.scrollTop)
+	} 
 
 	return (
 		<div
@@ -251,7 +257,7 @@ const ChatBoard = ({
 						width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
 					}}
 				>
-					<div className={styles.chatArea} ref={chatArea}>
+					<div className={styles.chatArea} ref={chatArea} onScroll={onChatBoardScroll}>
 						<div
 							className={classNames({
 								[styles.bottomLine]: true,
@@ -335,6 +341,7 @@ const ChatBoard = ({
 				recordCancel={recordCancel}
 				file={file}
 				setFile={setFile}
+				scrollToBottom={scrollToBottom}
 			/>
 
 			{videoPreview ? (

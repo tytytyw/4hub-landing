@@ -9,7 +9,7 @@ import {
 	onEditChatMessage,
 } from "../../../../../../Store/actions/CabinetActions";
 
-const TextArea = ({ addMessage, action, nullifyAction }) => {
+const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
 	const textAreaRef = useRef();
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const [textAreaValue, setTextAreaValue] = useState("");
@@ -74,11 +74,16 @@ const TextArea = ({ addMessage, action, nullifyAction }) => {
 		setTextAreaValue(e.target.value);
 	};
 
+	const onAddMessage = () => {
+		addMessage(textAreaValue)
+		scrollToBottom()
+	}
+
 	const sendHandler = () => {
 		// TODO: add edit message socket action
 		editingMessage
 			? editMessage(action.message, textAreaValue)
-			: addMessage(textAreaValue);
+			: onAddMessage();
 		cleareTextArea();
 		nullifyAction();
 	};
