@@ -33,7 +33,64 @@ export const categories = {
     'Office': {
         id: 1,
         image: `${imageSrc}assets/PrivateCabinet/programs/office.svg`,
-        list: []
+        list: [
+            {
+                name: '1C',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'LigaZakon',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'AirMail',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'The Bat',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Mind Manager',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Microsoft Office',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'ABBYY FineReader',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'WinScan2PDF',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Adobe': {
         id: 2,
@@ -92,37 +149,540 @@ export const categories = {
                 isFavourite: false,
                 comments: []
             },
+            {
+                name: 'Adobe Acrobat',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
         ]
     },
     'Программирование': {
         id: 3,
         image: `${imageSrc}assets/PrivateCabinet/programs/responsive.svg`,
-        list: []
+        list: [
+            {
+                name: 'JetBrains',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Coda',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'DreamWeaver CS3',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Orange Pl PC',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Visual Studio',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'PHP',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Node.js',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Python',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Go',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Advanced Outlook Repair',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Disk Drill',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Easy Recovery',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Partition Table Doctor',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Windows',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Linux',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Docker',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Crystal Disk Mark',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Everest',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'HDD Life',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'USB Network Gate',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'USB Over Network',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Microsoft Network Monitor',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'TeamViewer',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Ports',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Screw Drivers',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'MSSQL',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Navi Cat',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'TrueCrypt',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Avast',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Kaspersky',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'NOD32',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'WinRAR',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: '7Zip',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'UExtractor',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Acronis Disk Director',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Chrome',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'FireFox',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Opera',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Safari',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Ultra ISO',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Virtual Clone Drive',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Nero',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Skype',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Telegram',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Discord',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Арт': {
         id: 4,
         image: `${imageSrc}assets/PrivateCabinet/programs/palette.svg`,
-        list: []
+        list: [
+            {
+                name: 'Rebelle',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Procreate',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Clip Studio Paint Pro',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Artweaver',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'ArtRage',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Музыкальные программы': {
         id: 5,
         image: `${imageSrc}assets/PrivateCabinet/programs/music_icon.svg`,
-        list: []
+        list: [
+            {
+                name: 'AIMP',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'KMPPlayer',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Медиа': {
         id: 6,
         image: `${imageSrc}assets/PrivateCabinet/programs/digital_campaign.svg`,
-        list: []
+        list: [
+            {
+                name: 'ABBYY FineReader',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: '3ds Max',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'ArchiCad',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'AutoDesk AutoCad',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'CoralDraw Graphics Suite',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Sketch',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'PDF XChange Editor',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Boom',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Статистика': {
         id: 7,
         image: `${imageSrc}assets/PrivateCabinet/programs/seo.svg`,
-        list: []
+        list: [
+            {
+                name: 'SPSS',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Stata',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'SAS',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'MATLAB',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'JMP',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
     'Обучающие': {
         id: 8,
         image: `${imageSrc}assets/PrivateCabinet/programs/alphabet_icon.svg`,
-        list: []
+        list: [
+            {
+                name: 'Scholastic Learn at Home',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Brainly',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'BrainPop',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Twinkl',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+            {
+                name: 'Sumdog',
+                icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
+                link: 'https://fs2.mh.net.ua',
+                isFavourite: false,
+                comments: []
+            },
+        ]
     },
 }
 
