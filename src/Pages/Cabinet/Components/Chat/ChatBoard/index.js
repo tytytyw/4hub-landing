@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import styles from "./ChatBoard.module.sass";
 
 import EmojiArea from "../EmojiArea";
@@ -80,7 +80,7 @@ const ChatBoard = ({
 		return `${+day} ${month} ${year}`;
 	};
 
-	const renderGroups = useMemo(() => {
+	const renderGroups = useCallback(() => {
 		if (
 			selectedContact?.is_secret_chat &&
 			(messages === null || (messages && Object.keys(messages)?.length === 0))
@@ -295,7 +295,7 @@ const ChatBoard = ({
 								setShowSuccessPopup={setShowSuccessPopup}
 							/>
 						) : (
-							renderGroups
+							renderGroups()
 						)}
 						<div ref={endMessagesRef} />
 					</div>

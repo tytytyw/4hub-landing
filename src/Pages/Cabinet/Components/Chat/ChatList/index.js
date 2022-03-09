@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import styles from "./ChatList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +57,7 @@ const ChatList = ({
 		setChatList([...recentChatsList, ...secretChatsList]);
 	}, [recentChatsList, secretChatsList]); //eslint-disable-line
 
-	const renderChatsList = useMemo(() => {
+	const renderChatsList = useCallback(() => {
 		if (!chatsList) return null;
 
 		return chatsList.map((chat) => {
@@ -104,7 +104,7 @@ const ChatList = ({
 		});
 	}, [chatsList, search, selectedContact, setSelectedContact, sideMenuCollapsed, currentDate, gmt, setMouseParams, notificationsCounter]);
 
-	const renderGroupsList = useMemo(() => {
+	const renderGroupsList = useCallback(() => {
 		const renderMembersList = (members, chatId) => {
 			if (!members) return null;
 			return members.map((member, i) => {
@@ -277,8 +277,8 @@ const ChatList = ({
 				</div>
 			</div>
 			<div className={styles.list}>
-				{chatsType === "chats" ? renderChatsList : ""}
-				{chatsType === "groups" ? renderGroupsList : ""}
+				{chatsType === "chats" ? renderChatsList() : ""}
+				{chatsType === "groups" ? renderGroupsList() : ""}
 			</div>
 		</div>
 	);
