@@ -6,6 +6,7 @@ import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import {useDispatch, useSelector} from "react-redux";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import Previews from "../../../WorkElements/Previews/Previews";
+import { useLocation } from 'react-router-dom';
 
 const PreviewFile = () => {
 
@@ -14,6 +15,7 @@ const PreviewFile = () => {
     const dispatch = useDispatch();
     const canvasRef = useRef(null);
     const canvasWrapRef = useRef(null);
+    const {pathname} = useLocation()
 
     const set = e => {
         let close = false;
@@ -31,7 +33,7 @@ const PreviewFile = () => {
             >
                 {file
                         ? <div className={styles.imagePreviewWrap} ref={canvasWrapRef}>
-                            {file?.mime_type && file?.mime_type.includes('image') ? <MiniToolBar
+                            {file?.mime_type && file?.mime_type.includes('image') && !pathname.includes("chat") ? <MiniToolBar
                                 canvasRef={canvasRef}
                                 canvasWrapRef={canvasWrapRef}
                                 file={file}
