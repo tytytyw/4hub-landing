@@ -51,6 +51,8 @@ const ChatBoardFooter = ({
 						const attachment = {
 							...res.data.files.myfile,
 							link: res.data.link,
+							fid: res.data.fid,
+							id: res.data.id,
 							kind,
 						};
 						if (histogramData) attachment.histogramData = histogramData;

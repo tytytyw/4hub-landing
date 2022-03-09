@@ -17,6 +17,8 @@ import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import {
 	onGetReсentChatsList,
 	onSetMessageLifeTime,
+	onSetSelectedContact,
+	onSetModals,
 } from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -31,8 +33,6 @@ import {
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import { contactDelete } from "../../../../generalComponents/chatHelper";
-import {onSetSelectedContact} from "../../../../Store/actions/CabinetActions";
-
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
@@ -55,6 +55,7 @@ const Chat = ({ setMenuItem }) => {
 		(state) => state.Cabinet.chat.messageLifeTime
 	);
 	const id_company = useSelector((state) => state.user.id_company);
+	const contextMenuModals = useSelector(state => state.Cabinet.modals.contextMenuModals);
 	const fileInputRef = useRef();
 
 	const closeContextMenu = () => {
@@ -282,7 +283,7 @@ const Chat = ({ setMenuItem }) => {
 			{
 				name: "Скачать",
 				type: "download",
-				callback: () => console.log('download')
+				callback: () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [mouseParams.message.attachment], authorizedSafe:null}))
 			},
 			{
 				name: "Удалить сообщение",

@@ -69,7 +69,7 @@ function DownloadFile() {
         : <form
                 style={{display: 'none'}}
                 name='downloadFile'
-                action='/ajax/download.php'
+                action={`/ajax/${location === 'chat-page' ? "chat_file_" : ""}download.php`}
                 method='post'
                 ref={formRef}
                 onError={() => dispatch(onSetModals('error', {...error, open: true, message: 'File not found'}))}
