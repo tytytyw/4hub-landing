@@ -25,7 +25,7 @@ const WorkSpace = ({
 
     const files = useSelector(state => state.Cabinet.project.files)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
-    const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false})
+    const [filePick, setFilePick] = useState({show: false, files: []})
     const [workElementsView, setWorkElementsView] = useState('')
     const [chosenFile, setChosenFile] = useState(null)
     const [action, setAction] = useState({type: '', name: '', text: ''})
@@ -86,6 +86,9 @@ const WorkSpace = ({
             <ServePanel
                 disableWorkElementsView={!!chosenFolder?.name}
                 addFile={fileSelect}
+                chooseSeveral={() => setFilePick({...filePick, files: [], show: !filePick.show})}
+                chosenFile={chosenFile}
+                filePick={filePick}
             />
 
             {!!chosenFolder?.name ? <WorkLinesPreview
