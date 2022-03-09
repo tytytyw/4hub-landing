@@ -1,5 +1,6 @@
 import api from '../api';
 import { onGetCompanyContacts, onGetContacts } from '../Store/actions/CabinetActions';
+import { months } from '../generalComponents/CalendarHelper'
 
 export const contactDelete = (contact, id_company, dispatch, uid, nullifyAction) => {
 	nullifyAction()
@@ -9,37 +10,6 @@ export const contactDelete = (contact, id_company, dispatch, uid, nullifyAction)
             dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
     } else { console.log(res?.error) }})
         .catch(err => console.log(err));
-};
-
-export const monthToString = (month) => {
-	switch (month) {
-		case 0:
-			return " Января";
-		case 1:
-			return " Февраля";
-		case 2:
-			return " Марта";
-		case 3:
-			return " Апреля";
-		case 4:
-			return " Мая";
-		case 5:
-			return " Июня";
-		case 6:
-			return " Июля";
-		case 7:
-			return " Августа";
-		case 8:
-			return " Сентября";
-		case 9:
-			return " Октября";
-		case 10:
-			return " Ноября";
-		case 11:
-			return " Декабря";
-		default:
-			return `.${month}`;
-	}
 };
 
 const gtmToString = (gmt) => {
@@ -57,6 +27,7 @@ export const createContactStatus = (
 	isOnline,
 	gmt
 ) => {
+
 	if (!isUser) return "Пользователя нет в системе 4Hub";
 	if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
@@ -97,9 +68,7 @@ export const createContactStatus = (
 				return `вчера в ${lastVisitTime}`;
 			}
 		}
-		return `был в сети ${lastVisitWithGmt.getDate()}${monthToString(
-			lastVisitWithGmt.getMonth()
-		)}`;
+		return `был в сети ${lastVisitWithGmt.getDate()}${months()}`;
 	}
 	//not this year
 	return `был в сети ${lastVisitDate}`;

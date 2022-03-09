@@ -12,7 +12,7 @@ import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoRecordPreview from "./VideoRecordPreview";
-import { monthToString } from "../../../../../generalComponents/chatHelper";
+import { dateToString } from "../../../../../generalComponents/CalendarHelper";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
@@ -68,16 +68,6 @@ const ChatBoard = ({
 				/>
 			);
 		});
-	};
-
-	const dateToString = (date) => {
-		if (date === "today") return "Сегодня";
-		if (date === "yesterday") return "Вчера";
-		const arr = date.split("-").reverse();
-		const day = arr[0];
-		const month = monthToString(+arr[1] - 1);
-		const year = currentDate.getFullYear() === +arr[2] ? "" : arr[2];
-		return `${+day} ${month} ${year}`;
 	};
 
 	const renderGroups = useCallback(() => {

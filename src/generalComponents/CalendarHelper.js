@@ -1,18 +1,18 @@
 const d = new Date();
 
 export const months = (year) => [
-    {id: 0, name: 'Январь', code: 1, days: 31},
-    {id: 1, name: 'Февраль', code: 4, days: year % 4 === 0 ? 29 : 28},
-    {id: 2, name: 'Март', code: 4, days: 31},
-    {id: 3, name: 'Апрель', code: 0, days: 30},
-    {id: 4, name: 'Май', code: 2, days: 31},
-    {id: 5, name: 'Июнь', code: 5, days: 30},
-    {id: 6, name: 'Июль', code: 0, days: 31},
-    {id: 7, name: 'Август', code: 3, days: 31},
-    {id: 8, name: 'Сентябрь', code: 6, days: 30},
-    {id: 9, name: 'Октябрь', code: 1, days: 31},
-    {id: 10, name: 'Ноябрь', code: 4, days: 30},
-    {id: 11, name: 'Декабрь', code: 6, days: 31}
+    {id: 0, name: 'Январь', declensionName: 'Января', code: 1, days: 31},
+    {id: 1, name: 'Февраль', declensionName: 'Февраля', code: 4, days: year % 4 === 0 ? 29 : 28},
+    {id: 2, name: 'Март', declensionName: 'Марта', code: 4, days: 31},
+    {id: 3, name: 'Апрель', declensionName: 'Апреля', code: 0, days: 30},
+    {id: 4, name: 'Май', declensionName: 'Мая', code: 2, days: 31},
+    {id: 5, name: 'Июнь', declensionName: 'Июня', code: 5, days: 30},
+    {id: 6, name: 'Июль', declensionName: 'Июля', code: 0, days: 31},
+    {id: 7, name: 'Август', declensionName: 'Августа', code: 3, days: 31},
+    {id: 8, name: 'Сентябрь', declensionName: 'Сентября', code: 6, days: 30},
+    {id: 9, name: 'Октябрь', declensionName: 'Октября', code: 1, days: 31},
+    {id: 10, name: 'Ноябрь', declensionName: 'Ноября', code: 4, days: 30},
+    {id: 11, name: 'Декабрь', declensionName: 'Декабря', code: 6, days: 31}
 ];
 
 export const getMonthByIndex = index => {
@@ -114,4 +114,14 @@ export const areEqual = (a, b) => {
   return a.day === b.day &&
          a.month === b.month &&
          a.year === b.year;
+};
+
+export const dateToString = (date) => {
+    if (date === "today") return "Сегодня";
+    if (date === "yesterday") return "Вчера";
+    const arr = date.split("-").reverse();
+    const day = arr[0];
+    const month = months()[+arr[1] - 1].declensionName;
+    const year = d.getFullYear() === +arr[2] ? "" : arr[2];
+    return `${+day} ${month} ${year}`;
 };
