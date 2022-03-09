@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SecretChatStartWallpaper.module.sass";
 
-const SecretChatStartWallpaper = () => {
+const SecretChatStartWallpaper = ({children}) => {
 	return (
 		<div className={styles.wrap}>
 			<h4 className={styles.title}>Секретный чат</h4>
@@ -11,6 +11,7 @@ const SecretChatStartWallpaper = () => {
                 <li className={styles.text}>Позволяют удалеть переписку по таймеру</li>
                 <li className={styles.text}>Не позволяют пересылать сообщения</li>
 			</ul>
+			{children}
 		</div>
 	);
 };

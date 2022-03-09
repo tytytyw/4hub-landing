@@ -11,6 +11,45 @@ export const contactDelete = (contact, id_company, dispatch, uid, nullifyAction)
         .catch(err => console.log(err));
 };
 
+export const monthToString = (month) => {
+	switch (month) {
+		case 0:
+			return " Января";
+		case 1:
+			return " Февраля";
+		case 2:
+			return " Марта";
+		case 3:
+			return " Апреля";
+		case 4:
+			return " Мая";
+		case 5:
+			return " Июня";
+		case 6:
+			return " Июля";
+		case 7:
+			return " Августа";
+		case 8:
+			return " Сентября";
+		case 9:
+			return " Октября";
+		case 10:
+			return " Ноября";
+		case 11:
+			return " Декабря";
+		default:
+			return `.${month}`;
+	}
+};
+
+const gtmToString = (gmt) => {
+	if (gmt > 9) return `+${gmt}:00`
+	if (gmt > 0) return `+0${gmt}:00`
+	if (gmt === 0) return `+00:00`
+	if (gmt < 0) return gmt < -9 ? `${gmt}:00` : `-0${gmt * -1}:00`
+	return ""
+}
+
 export const createContactStatus = (
 	isUser,
 	currentDate,
@@ -21,14 +60,8 @@ export const createContactStatus = (
 	if (!isUser) return "Пользователя нет в системе 4Hub";
 	if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
-	const gtmToString = () => {
-		if (gmt > 9) return `+${gmt}:00`
-		if (gmt > 0) return `+0${gmt}:00`
-		if (gmt === 0) return `+00:00`
-		if (gmt < 0) return gmt < -9 ? `${gmt}:00` : `-0${gmt * -1}:00`
-	}
 	const lastVisitWithGmt = new Date(
-		contactLastVisitDate.replace(' ','T') + gtmToString()
+		contactLastVisitDate.replace(' ','T') + gtmToString(gmt)
 	);
 	const timeToString = lastVisitWithGmt.toLocaleTimeString("ru");
 	const lastVisitTime = timeToString.slice(0, timeToString.lastIndexOf(":"));
@@ -64,36 +97,6 @@ export const createContactStatus = (
 				return `вчера в ${lastVisitTime}`;
 			}
 		}
-		const monthToString = (month) => {
-			switch (month) {
-				case 0:
-					return " Января";
-				case 1:
-					return " Февраля";
-				case 2:
-					return " Марта";
-				case 3:
-					return " Апреля";
-				case 4:
-					return " Мая";
-				case 5:
-					return " Июня";
-				case 6:
-					return " Июля";
-				case 7:
-					return " Августа";
-				case 8:
-					return " Сентября";
-				case 9:
-					return " Октября";
-				case 10:
-					return " Ноября";
-				case 11:
-					return " Декабря";
-				default:
-					return `.${month}`;
-			}
-		};
 		return `был в сети ${lastVisitWithGmt.getDate()}${monthToString(
 			lastVisitWithGmt.getMonth()
 		)}`;
@@ -105,10 +108,9 @@ export const createContactStatus = (
 export const messageTime = (currentDate, message_ut, gmt) => {
 	if (!gmt || !message_ut || !currentDate) return "";
 
-	const date = new Date(message_ut + ` GMT${gmt < 0 ? "" : "+"}${gmt}`);
+	const date = new Date(message_ut.replace(' ','T') + gtmToString(gmt));
 	const time = date.toLocaleTimeString("ru");
-	const minutesDifference = (currentDate - new Date(date)) / 60000;
-
+	const minutesDifference = (currentDate - date) / 60000;
 	if (minutesDifference >= 60) {
 		return time.slice(0, time.lastIndexOf(':'))
 	} else {

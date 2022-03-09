@@ -290,7 +290,13 @@ export const contextMenuChat = {
     ],
     message: [
         {name: 'Редактировать сообщение', img: 'edit', type: 'editMessage'},
+        {name: 'Скачать', img: 'download-blue', type: 'download'},
         {name: 'Удалить сообщение', img: 'garbage', type: 'deleteMessage'},
+    ],
+    uploadFile: [
+        {name: "Камера", img: 'camera', type: "makePhoto"},
+        {name: "Файлы с системы 4Hub", img: 'files', type: "add4hubFile"},
+        {name: "Файлы с компьютера", img: 'files', type: "addPcFile"},
     ]
 }
 

@@ -6,6 +6,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { messageTime } from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
 import VoiceMessagePlayer from "./VoiceMessagePlayer";
+import FileMessage from "./FileMessage";
 
 function Message({
 	message,
@@ -31,6 +32,9 @@ function Message({
 		}
 		if (message.attachment?.kind === "video_message") {
 			return <VideoMessagePlayer video={message.attachment} />;
+		}
+		if (message.attachment?.kind === "file") {
+			return <FileMessage file={message.attachment} />;
 		}
 		return "";
 	};
@@ -61,8 +65,7 @@ function Message({
 									message.attachment?.kind === "audio_message",
 							})}
 						>
-							{message.attachment?.kind !== "video_message" &&
-								renderAttachment()}
+							{renderAttachment()}
 							{text.map((item, index) => (
 								<p key={index} className={styles.text}>
 									{item}
@@ -70,23 +73,23 @@ function Message({
 							))}
 						</div>
 					)}
-					<div className={styles.menuWrapper}>
-						{messageType === 'outbox' && <div
+					{messageType !== "inbox" || message.attachment?.kind === "file" ? <div className={styles.menuWrapper}>
+						<div
 							className={styles.menu}
 							onClick={(e) => {
 								setMouseParams({
 									x: e.clientX,
 									y: e.clientY,
-									width: 220,
+									width: 215,
 									height: 25,
 									contextMenuList,
-									message: message,
+									message: {...message, messageType},
 								});
 							}}
 						>
 							<span className={styles.dot} />
-						</div>}
-					</div>
+						</div>
+					</div> : ''}
 				</div>
 				<div className={styles.time}>
 					{messageTime(currentDate, message.ut, gmt)}

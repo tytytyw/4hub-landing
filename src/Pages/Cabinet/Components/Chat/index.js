@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Chat.module.sass";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/play-grey.svg";
@@ -17,6 +17,8 @@ import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import {
 	onGetReсentChatsList,
 	onSetMessageLifeTime,
+	onSetSelectedContact,
+	onSetModals,
 } from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -31,10 +33,6 @@ import {
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import { contactDelete } from "../../../../generalComponents/chatHelper";
-import {
-	onGetChatMessages,
-	onSetSelectedContact,
-} from "../../../../Store/actions/CabinetActions";
 
 const Chat = ({ setMenuItem }) => {
 	const [boardOption, setBoardOption] = useState("contacts");
@@ -52,10 +50,13 @@ const Chat = ({ setMenuItem }) => {
 	const [mouseParams, setMouseParams] = useState(null);
 	const uid = useSelector((state) => state.user.uid);
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
+	const [file, setFile] = useState(null);
 	const messageLifeTime = useSelector(
 		(state) => state.Cabinet.chat.messageLifeTime
 	);
 	const id_company = useSelector((state) => state.user.id_company);
+	const contextMenuModals = useSelector(state => state.Cabinet.modals.contextMenuModals);
+	const fileInputRef = useRef();
 
 	const closeContextMenu = () => {
 		setMouseParams(null);
@@ -64,6 +65,11 @@ const Chat = ({ setMenuItem }) => {
 
 	const setSelectedContact = (contact) =>
 		selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : "";
+	
+	const onInputFiles = (e) => {
+		setFile(e.target.files[0])
+		e.target.value = '';
+	}
 
 	const renderContextMenuItems = (target, type) => {
 		let newTarget = target;
@@ -271,22 +277,55 @@ const Chat = ({ setMenuItem }) => {
 				name: "Редактировать сообщение",
 				type: "editMessage",
 				text: "",
-				callback: () => setAction({type: "editMessage", message: mouseParams.message}),
+				callback: () =>
+					setAction({ type: "editMessage", message: mouseParams.message }),
+			},
+			{
+				name: "Скачать",
+				type: "download",
+				callback: () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [mouseParams.message.attachment], authorizedSafe:null}))
 			},
 			{
 				name: "Удалить сообщение",
 				type: "deleteMessage",
-				callback: () => setAction({type: "deleteMessage", message: mouseParams.message})
+				callback: () =>
+					setAction({ type: "deleteMessage", message: mouseParams.message }),
 			},
 		],
+		uploadFile: [
+			{
+				name: "Камера",
+				type: "makePhoto",
+				callback: () => setAction({ type: "makePhoto" })
+			},
+			{
+				name: "Файлы с системы 4Hub",
+				type: "add4hubFile",
+				callback: () => setAction({ type: "add4hubFile" })
+			},
+			{
+				name: "Файлы с компьютера",
+				type: "addPcFile",
+				callback: () => fileInputRef.current.click()
+			},
+		]
 	};
 
 	const filterContextMenu = (arr) => {
-		// message without text
-		if (mouseParams.contextMenuList === "message" && !mouseParams.message.text)
-			return arr.filter((item) => item.type !== "editMessage");
-
-		return arr;
+		let filtredArr = arr;
+		if (mouseParams.contextMenuList === "message") {
+			if (mouseParams.message.messageType === 'outbox') {
+				// message without text
+				filtredArr = filtredArr.filter((item) => !mouseParams.message.text ? item.type !== "editMessage" : true);
+			}
+			if (mouseParams.message.messageType === 'inbox') {
+				// inbox with file
+				filtredArr = filtredArr.filter((item) => mouseParams.message.attachment?.kind === "file" ?  item.type === "download" : false)
+			}
+			// without file
+			filtredArr = filtredArr.filter((item) => mouseParams.message.attachment?.kind !== "file" ? item.type !== "download" : true);
+		}
+		return filtredArr;
 	};
 
 	const deleteChatGroup = () => {
@@ -343,8 +382,8 @@ const Chat = ({ setMenuItem }) => {
 	}, []); //eslint-disable-line
 
 	useEffect(() => {
-		if (selectedContact) dispatch(onGetChatMessages(selectedContact));
-	}, [selectedContact?.id]); //eslint-disable-line
+		if (selectedContact) dispatch({type: "GET_MESSAGES", payload: null});
+	}, [selectedContact]); //eslint-disable-line
 
 	return (
 		<div className={styles.chatComponent}>
@@ -442,6 +481,8 @@ const Chat = ({ setMenuItem }) => {
 				currentDate={date}
 				setAction={setAction}
 				setMouseParams={setMouseParams}
+				file={file}
+				setFile={setFile}
 			/>
 			{action.type === "addContact" ? (
 				<AddContact
@@ -470,7 +511,7 @@ const Chat = ({ setMenuItem }) => {
 					params={mouseParams}
 					setParams={setMouseParams}
 					tooltip={false}
-					withoutOffset={mouseParams.contextMenuList === 'timer' ? true : false}
+					withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
 				>
 					<div className={styles.ContextMenuItems}>
 						{renderContextMenuItems(
@@ -562,6 +603,9 @@ const Chat = ({ setMenuItem }) => {
 			) : (
 				""
 			)}
+			<div style={{display: 'none'}}>
+                <input type='file' onChange={onInputFiles} ref={fileInputRef} />
+            </div>
 		</div>
 	);
 };

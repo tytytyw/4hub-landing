@@ -60,8 +60,11 @@ import {
     SECRET_CHATS_LIST,
     SET_MESSAGE_LIFE_TIME,
     ADD_NEW_MESSAGE,
+    MESSAGE_DELETE,
     GET_MESSAGES,
-    SET_MODALS, CHOOSE_CATEGORY
+    GET_PREVIUS_MESSAGES,
+    SET_MODALS,
+    CHOOSE_CATEGORY
 } from '../types';
 import {folders} from "../../generalComponents/collections";
 import {categories} from "../../Pages/Cabinet/Components/Programs/consts";
@@ -898,26 +901,32 @@ export const onDeleteSecretChat = (secretChat) => {
     }
 };
 
-export const onGetChatMessages = (target) => (dispatch, getState) => {
-    dispatch({
-        type: GET_MESSAGES,
-        payload: []
-    })
+export const onGetChatMessages = (target, search, page, loadingMessages) => (dispatch, getState) => {
     const uid = getState().user.uid
     const {isGroup, is_secret_chat} = target
 
-    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&${isGroup || is_secret_chat? `id_group=${target.id}` : `id_user_to=${target.id_real_user}`}`)
+    api.get(`/ajax/chat${isGroup || is_secret_chat  ? '_group' : ''}_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ''}${isGroup || is_secret_chat? `&id_group=${target.id}` : `&id_user_to=${target.id_real_user}`}&page=${page || 1}&per_page=10`)
         .then(response => {
             if (response.data.ok) {
-                if (getState().Cabinet.chat.selectedContact.id === target.id) {
-                    const messages = Object.values(response.data?.data ?? {});
-                    dispatch({
+                if (getState().Cabinet.chat.selectedContact?.id === target?.id) {
+                    const messages = response.data?.data ?? {}
+                    page > 1
+                    ? dispatch({
+                        type: GET_PREVIUS_MESSAGES,
+                        payload: messages
+                    })
+                    : dispatch({
                         type: GET_MESSAGES,
                         payload: messages
                     })
+                    if(typeof loadingMessages === 'function') loadingMessages(messages);
                 }
             }
         }).catch(error => {
+            dispatch({
+                type: SET_MODALS,
+                payload: {key: 'topMessage', value: {open: true, type: 'error', message: 'Ошибка загрузки'}}
+            })
             console.log(error)
         })
 
@@ -942,6 +951,24 @@ export const onSetMessageLifeTime = (value) => {
         type: SET_MESSAGE_LIFE_TIME,
         payload: value
     }
+}
+
+export const onDeleteChatMessage = (message) => (dispatch, getState) => {
+    const oldMessages = getState().Cabinet.chat.messages
+    const messages = {...oldMessages, [message.day]: oldMessages[message.day].filter(msg => msg.id !== message.id)}
+    dispatch({
+        type: MESSAGE_DELETE,
+        payload: messages
+    })
+}
+
+export const onEditChatMessage = (editedMessage) => (dispatch, getState) => {
+    const oldMessages = getState().Cabinet.chat.messages
+    const messages = {...oldMessages, [editedMessage.day]: oldMessages[editedMessage.day].map(msg => msg.id === editedMessage.id ? editedMessage : msg)}
+    dispatch({
+        type: MESSAGE_DELETE,
+        payload: messages
+    })
 }
 
 // COMPANY

@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useDebounce} from '../../../../generalComponents/Hooks';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import styles from "./SearchField.module.sass";
-import {onChooseFiles, onSearch, onGetSafeFileList, onGetArchiveFiles} from '../../../../Store/actions/CabinetActions';
+import {onChooseFiles, onSearch, onGetSafeFileList, onGetArchiveFiles, onGetChatMessages} from '../../../../Store/actions/CabinetActions';
 import Select from "../../../../generalComponents/Select/Select";
 import { useLocation } from "react-router";
 
@@ -14,6 +14,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
 	const searchField = useSelector(state => state.Cabinet?.search);
 	const authorizedSafe = useSelector(state => state.Cabinet.safe.authorizedSafe);
+	const selectedChat = useSelector(state => state.Cabinet.chat.selectedContact);
 	const dispatch = useDispatch();
 	const {pathname} = useLocation();
 
@@ -33,6 +34,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
                 1,
                 ''
         ))
+		if (pathname === '/chat-page') dispatch(onGetChatMessages(selectedChat, query))
 	};
 	const debounceCallback = useDebounce(search, 500);
 	const handleChange = (e) => {

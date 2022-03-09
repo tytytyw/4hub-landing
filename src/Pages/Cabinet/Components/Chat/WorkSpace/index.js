@@ -21,6 +21,8 @@ const WorkSpace = ({
 	currentDate,
 	setAction,
 	setMouseParams,
+	file,
+	setFile,
 }) => {
 	const [socket, setSocket] = useState(null);
 	const [socketReconnect, setSocketReconnect] = useState(true);
@@ -33,16 +35,18 @@ const WorkSpace = ({
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
+	const messageLifeTime = useSelector(
+		(state) => state.Cabinet.chat.messageLifeTime
+	);
 
 	// webSockets
-
 	const onConnectOpen = (e) => {
 		socket.send(JSON.stringify({ action: "uid", uid }));
 	};
 
 	const onWebSocketsMessage = (e) => {
 		const data = JSON.parse(e.data);
-
+		
 		if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
 		// PrivateMessage - direct message; PublicMessage- message from group
 		if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
@@ -120,6 +124,7 @@ const WorkSpace = ({
 							action: "chat_group_message_add",
 							id_group: selectedContact?.id_group,
 							is_secret_chat: true,
+							deadline: messageLifeTime
 					  }
 					: {
 							action: "chat_message_send",
@@ -187,6 +192,8 @@ const WorkSpace = ({
 						currentDate={currentDate}
 						addMessage={addMessage}
 						nullifyAction={nullifyAction}
+						file={file}
+						setFile={setFile}
 					/>
 				) : (
 					""
