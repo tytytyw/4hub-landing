@@ -5,6 +5,11 @@ import File from "../../../../../../generalComponents/Files";
 import {useDispatch, useSelector} from "react-redux";
 import {onDeleteFile, onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
+import {useLocation} from "react-router";
+
+const endpoints = {
+    project: 'project_'
+}
 
 function MoveToArchive() {
 
@@ -16,8 +21,10 @@ function MoveToArchive() {
 
     const cancelArchive = () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], filePick: null}))
 
+    const path = useLocation().pathname.split("/")[1];
+
     const addToArchive = (uid, fid, file, options) => {
-        api.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
+        api.post(`/ajax/${endpoints[path] ?? ''}file_archive.php?uid=${uid}&fid=${fid}`)
             .then(res => {
                 if (res.data.ok === 1) {
                     dispatch(onDeleteFile(file));
@@ -25,7 +32,8 @@ function MoveToArchive() {
                     if(options.several) dispatch(onSetModals('topMessage', {open: true, type: 'message', message: "Выбранные файлы добавлено в архив"}));
                 } else console.log(res?.error)
             })
-            .catch(err => console.log(err))
+            .catch(() => dispatch(onSetModals('topMessage', {open: true, type: 'error', message: "Файл не добавлен в архив"})))
+            .finally(() => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], filePick: null})));
     }
 
     const archiveFile = () => {
