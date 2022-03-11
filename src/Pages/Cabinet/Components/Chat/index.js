@@ -295,8 +295,8 @@ const Chat = ({ setMenuItem }) => {
 		uploadFile: [
 			{
 				name: "Камера",
-				type: "makePhoto",
-				callback: () => setAction({ type: "makePhoto" })
+				type: "createMediaFromCamera",
+				callback: () => setAction({ type: "createMediaFromCamera" })
 			},
 			{
 				name: "Файлы с системы 4Hub",
