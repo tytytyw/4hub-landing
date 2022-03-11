@@ -27,7 +27,6 @@ export const createContactStatus = (
 	isOnline,
 	gmt
 ) => {
-
 	if (!isUser) return "Пользователя нет в системе 4Hub";
 	if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
@@ -68,7 +67,7 @@ export const createContactStatus = (
 				return `вчера в ${lastVisitTime}`;
 			}
 		}
-		return `был в сети ${lastVisitWithGmt.getDate()}${months()}`;
+		return `был в сети ${lastVisitWithGmt.getDate()} ${months()[lastVisitWithGmt.getMonth()].declensionName}`;
 	}
 	//not this year
 	return `был в сети ${lastVisitDate}`;
