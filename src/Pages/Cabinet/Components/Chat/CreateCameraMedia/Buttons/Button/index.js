@@ -5,6 +5,9 @@ import styles from "./Button.module.sass";
 const Button = ({
 	children,
 	callback = () => {},
+	actionCallback,
+	isRecording,
+	setIsRecording,
 	width = 0,
 	height = 0,
 	borderRadius = "2px",
@@ -13,9 +16,12 @@ const Button = ({
 }) => {
 	return (
 		<div
-    onClick={callback}
-			className={styles.wrapper}
-			style={{ width, height, backgroundColor, borderRadius }}
+    		onClick={actionCallback ? null : callback}
+			onMouseDown={actionCallback ? actionCallback : null}
+			// TODO: temp
+			onMouseUp={() => setIsRecording && setIsRecording(false)}
+			className={classNames({[styles.wrapper]: true, [styles.recording]: actionCallback && isRecording})}
+			style={{ width, height, backgroundColor: !isRecording ? backgroundColor : '#EB1F1F' , borderRadius }}
 		>
 			<div
 				className={classNames(styles.childrenWrapper, styles[childrenColor])}

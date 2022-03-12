@@ -1,8 +1,33 @@
+@-webkit-keyframes pulse
+	0% 
+    -webkit-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+	70% 
+    -webkit-box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+
+	100% 
+   -webkit-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+@keyframes pulse
+  0%
+    -moz-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+  70%
+    -moz-box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+    box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+
+  100%
+    -moz-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    
 .wrapper
     display: flex
     justify-content: center
     align-items: center
     cursor: pointer
+    &.recording:active
+        animation: pulse 2s infinite
     .childrenWrapper
         display: flex
         justify-content: center

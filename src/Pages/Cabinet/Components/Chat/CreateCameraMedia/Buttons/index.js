@@ -5,7 +5,19 @@ import styles from "./Buttons.module.sass";
 import { ReactComponent as VideoIcon } from "../../../../../../assets/PrivateCabinet/film.svg";
 import { ReactComponent as CameraIcon } from "../../../../../../assets/PrivateCabinet/camera.svg";
 
-const Buttons = ({ state, nullifyAction, contentType, setContentType }) => {
+const Buttons = ({ state, nullifyAction, contentType, setContentType, isRecording, setIsRecording }) => {
+	
+	const onActionBtnHandler = () => {
+		console.log('onActionBtnHandler')
+		if (contentType === "video") {
+			setIsRecording(true)
+		}
+
+		if (contentType === "image") {
+			
+		}
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.leftContainer}>
@@ -26,14 +38,16 @@ const Buttons = ({ state, nullifyAction, contentType, setContentType }) => {
 				</Button>
 				<div className={styles.actionButton}>
 					<Button
-						callback={() => console.log("record")}
+						actionCallback={onActionBtnHandler}
 						width={48}
 						height={48}
 						borderRadius="50%"
 						backgroundColor="#fff"
+						isRecording={isRecording}
+						setIsRecording={setIsRecording}
 					>
 						{contentType === "image" && <CameraIcon />}
-						{contentType === "video" && <VideoIcon />}
+						{contentType === "video" && (isRecording ? <div className={styles.square} /> : <VideoIcon />)}
 					</Button>
 				</div>
 			</div>
