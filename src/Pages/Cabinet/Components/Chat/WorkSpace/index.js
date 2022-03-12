@@ -195,6 +195,7 @@ const WorkSpace = ({
 						nullifyAction={nullifyAction}
 						file={file}
 						setFile={setFile}
+						socket={socket}
 					/>
 				) : (
 					""

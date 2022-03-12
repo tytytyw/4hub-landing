@@ -1,24 +1,42 @@
-import api from '../api';
-import { onGetCompanyContacts, onGetContacts } from '../Store/actions/CabinetActions';
-import { months } from '../generalComponents/CalendarHelper'
+import api from "../api";
+import {
+	onGetCompanyContacts,
+	onGetContacts,
+} from "../Store/actions/CabinetActions";
+import { months } from "../generalComponents/CalendarHelper";
 
-export const contactDelete = (contact, id_company, dispatch, uid, nullifyAction) => {
-	nullifyAction()
-	const addOrgParams = () => id_company ? `&id_company=${id_company}` : ''
-    api.post(`/ajax/${id_company ? 'org_' : ''}contacts_del.php?uid=${uid}&id=${contact.id}${addOrgParams()}`)
-        .then(res => {if(res.data.ok) {
-            dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
-    } else { console.log(res?.error) }})
-        .catch(err => console.log(err));
+export const contactDelete = (
+	contact,
+	id_company,
+	dispatch,
+	uid,
+	nullifyAction
+) => {
+	nullifyAction();
+	const addOrgParams = () => (id_company ? `&id_company=${id_company}` : "");
+	api
+		.post(
+			`/ajax/${id_company ? "org_" : ""}contacts_del.php?uid=${uid}&id=${
+				contact.id
+			}${addOrgParams()}`
+		)
+		.then((res) => {
+			if (res.data.ok) {
+				dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
+			} else {
+				console.log(res?.error);
+			}
+		})
+		.catch((err) => console.log(err));
 };
 
 const gtmToString = (gmt) => {
-	if (gmt > 9) return `+${gmt}:00`
-	if (gmt > 0) return `+0${gmt}:00`
-	if (gmt === 0) return `+00:00`
-	if (gmt < 0) return gmt < -9 ? `${gmt}:00` : `-0${gmt * -1}:00`
-	return ""
-}
+	if (gmt > 9) return `+${gmt}:00`;
+	if (gmt > 0) return `+0${gmt}:00`;
+	if (gmt === 0) return `+00:00`;
+	if (gmt < 0) return gmt < -9 ? `${gmt}:00` : `-0${gmt * -1}:00`;
+	return "";
+};
 
 export const createContactStatus = (
 	isUser,
@@ -31,7 +49,7 @@ export const createContactStatus = (
 	if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
 	const lastVisitWithGmt = new Date(
-		contactLastVisitDate.replace(' ','T') + gtmToString(gmt)
+		contactLastVisitDate.replace(" ", "T") + gtmToString(gmt)
 	);
 	const timeToString = lastVisitWithGmt.toLocaleTimeString("ru");
 	const lastVisitTime = timeToString.slice(0, timeToString.lastIndexOf(":"));
@@ -67,7 +85,9 @@ export const createContactStatus = (
 				return `вчера в ${lastVisitTime}`;
 			}
 		}
-		return `был в сети ${lastVisitWithGmt.getDate()} ${months()[lastVisitWithGmt.getMonth()].declensionName}`;
+		return `был в сети ${lastVisitWithGmt.getDate()} ${
+			months()[lastVisitWithGmt.getMonth()].declensionName
+		}`;
 	}
 	//not this year
 	return `был в сети ${lastVisitDate}`;
@@ -76,16 +96,39 @@ export const createContactStatus = (
 export const messageTime = (currentDate, message_ut, gmt) => {
 	if (!gmt || !message_ut || !currentDate) return "";
 
-	const date = new Date(message_ut.replace(' ','T') + gtmToString(gmt));
+	const date = new Date(message_ut.replace(" ", "T") + gtmToString(gmt));
 	const time = date.toLocaleTimeString("ru");
 	const minutesDifference = (currentDate - date) / 60000;
 	if (minutesDifference >= 60) {
-		return time.slice(0, time.lastIndexOf(':'))
+		return time.slice(0, time.lastIndexOf(":"));
 	} else {
 		return minutesDifference >= 1
-		? `${Math.floor(minutesDifference)} мин назад`
-		: minutesDifference < 0.5
-			? 'только что'
-			: 'менее минуты назад'
+			? `${Math.floor(minutesDifference)} мин назад`
+			: minutesDifference < 0.5
+			? "только что"
+			: "менее минуты назад";
 	}
-}
+};
+
+export const wantMimeType = (constraints) => {
+	return constraints.video
+		? MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
+			? "video/webm;codecs=vp8,opus"
+			: "video/mp4"
+		: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+		? "audio/webm;codecs=opus"
+		: "audio/mp3";
+};
+
+export const cameraAccess = async (constraints = { audio: true, video: true }) => {
+	navigator.getUserMedia =
+		navigator.getUserMedia ||
+		navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia ||
+		navigator.webkitGetUserMedia;
+
+	if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType(constraints))) {
+		return navigator.mediaDevices.getUserMedia(constraints);
+	}
+	return false;
+};
