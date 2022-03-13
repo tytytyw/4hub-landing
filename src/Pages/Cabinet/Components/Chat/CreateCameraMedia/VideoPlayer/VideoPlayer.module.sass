@@ -10,6 +10,18 @@
         background: rgba(255,255,255,.4)
         border-radius: 10px
         border: 1px solid rgba(64, 134, 241, .2)
+        opacity: 1
+        transition: opacity .2s ease
+        .time
+            color: #fff
+            position: absolute
+            bottom: 50px
+            font-size: 13px
+            &.curentTime
+                left: 0
+            &.durationTime
+                right: 0
+            
         .inputRange
             width: 100%
             height: 100%
@@ -68,7 +80,7 @@
         &.paused
             opacity: 1
     &:hover
-        .playButton
+        .playButton, .seekPanel
             opacity: 1
     .video
         width: 100%

@@ -1,7 +1,8 @@
 import React, { useState, useLayoutEffect, useRef } from "react";
 import styles from "./VideoPlayer.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
-import classNames from 'classnames'
+import classNames from "classnames";
+import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 
 const VideoPlayer = ({ source, videoPlayerRef }) => {
 	const [playing, setPlaying] = useState(false);
@@ -69,12 +70,18 @@ const VideoPlayer = ({ source, videoPlayerRef }) => {
 		<div className={styles.wrapper}>
 			<video ref={videoPlayerRef} src={source} className={styles.video} />
 			<div
-				className={classNames({[styles.playButton]: true, [styles.paused]: playing === false})}
+				className={classNames({
+					[styles.playButton]: true,
+					[styles.paused]: playing === false,
+				})}
 				onClick={() => setPlaying((prevValue) => !prevValue)}
 			>
 				{playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
 			</div>
 			<div className={styles.seekPanel} ref={seekPanelRef}>
+				<span className={classNames(styles.time, styles.currentTime)}>
+                    {videoPlayerRef.current?.duration >= 0 ? ducationTimerToString(progress === 0 ? 0 :videoPlayerRef.current?.currentTime) : ''}
+				</span>
 				<input
 					className={styles.inputRange}
 					onChange={(e) => setProgress(e.target.value)}
@@ -93,6 +100,9 @@ const VideoPlayer = ({ source, videoPlayerRef }) => {
 						}px)`,
 					}}
 				/>
+				<span className={classNames(styles.time, styles.durationTime)}>
+					{videoPlayerRef.current?.duration > 0 ? ducationTimerToString(videoPlayerRef.current?.duration) : ''}
+				</span>
 			</div>
 		</div>
 	);
