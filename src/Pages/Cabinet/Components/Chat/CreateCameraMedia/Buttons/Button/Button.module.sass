@@ -26,7 +26,10 @@
     justify-content: center
     align-items: center
     cursor: pointer
-    &.recording:active
+    user-select: none
+    -moz-user-select: none
+    -webkit-user-select: none
+    &.recording
         animation: pulse 2s infinite
     .childrenWrapper
         display: flex
@@ -39,6 +42,7 @@
                 path, g
                     fill:#494949
         &.white
+            color: white
             svg
                 path, g
                     fill: #fff

@@ -132,3 +132,15 @@ export const cameraAccess = async (constraints = { audio: true, video: true }) =
 	}
 	return false;
 };
+
+export const ducationTimerToString = (seconds) => (
+	`${
+		Math.floor(seconds / 60) < 10
+			? `0${Math.floor(seconds / 60)}`
+			: Math.floor(seconds / 60)
+	}:${
+		seconds % 60 < 10
+			? `0${Math.floor(seconds % 60)}`
+			: Math.floor(seconds % 60)
+	}`
+)

@@ -7,20 +7,28 @@ import {
 	wantMimeType,
 } from "../../../../../generalComponents/chatHelper";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import VideoPlayer from "./VideoPlayer";
 
 const CreateCameraMedia = ({ nullifyAction }) => {
 	const [state, setState] = useState("init");
 	const [contentType, setContentType] = useState("image");
 	const [stream, setStream] = useState(null);
+	const [videoPreview, setVideoPreview] = useState(null);
 	const [quality, setQuality] = useState(720);
 	const [isRecording, setIsRecording] = useState(false);
-	const videoRef = useRef();
+	const [mediaRecorder, setMediaRecorder] = useState(null);
+	const [ducationTimer, setDucationTimer] = useState(0);
+
+	const streamPreviewRef = useRef();
+	const videoPreviewRef = useRef();
+
+	const constraints = {
+		audio: true,
+		video: { height: { exact: quality }, facingMode: "user" },
+	};
 
 	const getStream = () =>
-		cameraAccess({
-			audio: true,
-			video: { height: { exact: quality }, facingMode: "user" },
-		})
+		cameraAccess(constraints)
 			.then((stream) => onStreamReady(stream))
 			.catch(() => console.log("error access to cam"));
 
@@ -29,11 +37,48 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	};
 
 	const onStreamReady = (stream) => {
-		const video = videoRef.current;
+		const video = streamPreviewRef.current;
 		video.srcObject = stream;
 		video.play();
 		setStream(stream);
 	};
+
+	const onRecordVideo = () => {
+		const recorder = new MediaRecorder(stream, {
+			mimeType: wantMimeType(constraints),
+		});
+		recorder.start();
+		setMediaRecorder(recorder);
+	};
+
+	const onActionBtnHandler = () => {
+		console.log("onActionBtnHandler");
+		if (contentType === "video") {
+			setIsRecording(true);
+			onRecordVideo();
+		}
+
+		if (contentType === "image") {
+		}
+	};
+
+	const videoDataAviable = (e) => {
+		setVideoPreview(URL.createObjectURL(e.data));
+		cleareStreamTracks();
+		setState('readyToSend')
+	};
+
+	const videoRecordStop = () => {
+		setIsRecording(false);
+		mediaRecorder.stop();
+	};
+
+	const setInitialState = () => {
+		setStream(null)
+		setState('init')
+		setVideoPreview(null)
+		getStream()
+	}
 
 	useEffect(() => {
 		getStream();
@@ -46,15 +91,46 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [stream]);
 
+	useEffect(() => {
+		if (mediaRecorder) {
+			mediaRecorder.addEventListener("dataavailable", videoDataAviable);
+
+			return () =>
+				mediaRecorder.removeEventListener("dataavailable", videoDataAviable);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mediaRecorder]);
+
+	useEffect(() => {
+		if (isRecording) {
+			const timer = setInterval(() => {
+				setDucationTimer((sec) => sec + 1);
+			}, 1000);
+			return () => {
+				clearInterval(timer);
+				setDucationTimer(0);
+			};
+		}
+	}, [isRecording]);
+
 	return (
 		<PopUp set={nullifyAction}>
 			<div className={styles.contentWrapper}>
 				<div className={styles.contentPreview}>
 					<div className={styles.videoWrapper} height={quality}>
-						<video ref={videoRef} className={styles.video} muted={true} />
+						{videoPreview ? (
+							<VideoPlayer source={videoPreview} videoPlayerRef={videoPreviewRef}/>
+						) : null}
+						{!videoPreview ? (
+							<video
+								ref={streamPreviewRef}
+								className={styles.video}
+								muted={true}
+							/>
+						) : null}
 					</div>
 				</div>
-				{state === "init" && (
+				{state === "init" && !isRecording && stream && (
 					<select
 						className={styles.select}
 						value={quality}
@@ -66,7 +142,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 						{/* <option>240</option> */}
 					</select>
 				)}
-				{!stream ? (
+				{!stream && !isRecording ? (
 					<Loader
 						type="bounceDots"
 						background="transparent"
@@ -87,6 +163,11 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				setContentType={setContentType}
 				isRecording={isRecording}
 				setIsRecording={setIsRecording}
+				onActionBtnHandler={onActionBtnHandler}
+				videoRecordStop={videoRecordStop}
+				ducationTimer={ducationTimer}
+				setInitialState={setInitialState}
+				stream={stream}
 			/>
 		</PopUp>
 	);

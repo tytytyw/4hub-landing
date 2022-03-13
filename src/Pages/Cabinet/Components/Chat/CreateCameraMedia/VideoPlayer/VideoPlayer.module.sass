@@ -1,0 +1,75 @@
+.wrapper
+    position: relative
+    .seekPanel
+        position: absolute
+        bottom: 20px
+        left: 50%
+        transform: translateX(-50%)
+        height: 40px
+        width: 90%
+        background: rgba(255,255,255,.4)
+        border-radius: 10px
+        border: 1px solid rgba(64, 134, 241, .2)
+        .inputRange
+            width: 100%
+            height: 100%
+            opacity: 0
+            position: absolute
+            z-index: 2
+            margin: 0
+            padding: 0
+        .seekHolder
+            width: 4px
+            height: 50px
+            background: rgb(64, 134, 241)
+            position: absolute
+            bottom: -5px
+            border-radius: 10px
+            transition: transform .2s linear
+    .playButton
+        position: absolute
+        top: 50%
+        left: 50%
+        cursor: pointer
+        width: 75px
+        height: 57px
+        transform: translate(-50%, -50%)
+        background: #3D81E8
+        border-radius: 7px
+        display: flex
+        align-items: center
+        justify-content: center
+        opacity: 0
+        transition: opacity .2s ease
+        svg 
+            //play icon
+            transform: rotate(180deg)
+            width: 22px
+            height: 26px
+            path
+                fill: #fff
+        .pauseIcon
+            height: 22px
+            width: 26px
+            cursor: pointer
+            position: relative
+            &:before,
+            &:after 
+                position: absolute
+                top: 0
+                background: #fff
+                content: ""
+                height: 22px
+                width: 3px
+            &:before
+                left: 5px
+            &:after 
+                right: 5px
+        &.paused
+            opacity: 1
+    &:hover
+        .playButton
+            opacity: 1
+    .video
+        width: 100%
+        object-fit: contain

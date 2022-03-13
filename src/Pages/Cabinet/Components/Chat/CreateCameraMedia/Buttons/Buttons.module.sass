@@ -5,16 +5,24 @@
     justify-content: space-between
     align-items: center
     border-top: 1px solid #DFDFDF
+    user-select: none
+    -moz-user-select: none
+    -webkit-user-select: none
+    position: relative
     .leftContainer, .rightContainer
         display: flex
         align-items: center
         width: 120px
-        justify-content: space-between
+    .leftContainer
+        justify-content: flex-start
+    .rightContainer
+        justify-content: flex-end
     .centerContainer
-        position: relative
         .actionButton
             position: absolute
-            top: -95px
+            top: -85px
+            left: 50%
+            transform: translateX(-50%)
             .square
                 width: 14px
                 height: 14px

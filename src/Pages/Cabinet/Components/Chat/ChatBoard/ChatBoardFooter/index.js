@@ -14,6 +14,7 @@ import api from "../../../../../../api";
 import {
 	cameraAccess,
 	wantMimeType,
+	ducationTimerToString,
 } from "../../../../../../generalComponents/chatHelper";
 
 let audioFrequencyData = [];
@@ -185,15 +186,7 @@ const ChatBoardFooter = ({
 			{isRecording ? (
 				<div className={styles.leftContainer}>
 					<div className={styles.recordIcon}></div>
-					<span className={styles.duration}>{`${
-						Math.floor(ducationTimer / 60) < 10
-							? `0${Math.floor(ducationTimer / 60)}`
-							: Math.floor(ducationTimer / 60)
-					}:${
-						ducationTimer % 60 < 10
-							? `0${Math.floor(ducationTimer % 60)}`
-							: Math.floor(ducationTimer % 60)
-					}`}</span>
+					<span className={styles.duration}>{ducationTimerToString(ducationTimer)}</span>
 				</div>
 			) : (
 				<div className={styles.downloadOptions}>
