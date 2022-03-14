@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./VideoPlayer.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 import classNames from "classnames";
@@ -30,7 +30,7 @@ const VideoPlayer = ({ source, videoPlayerRef }) => {
 		}, 500);
 	};
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const video = videoPlayerRef.current;
 		playing ? video.play() : video.pause();
 		if (playing) {
@@ -40,7 +40,7 @@ const VideoPlayer = ({ source, videoPlayerRef }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [playing]);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const video = videoPlayerRef.current;
 		//fix Chorome bug with Infinity duration
 		const fixInfinityDuration = () => {

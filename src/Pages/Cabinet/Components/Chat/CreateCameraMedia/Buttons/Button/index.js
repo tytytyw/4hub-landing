@@ -12,6 +12,9 @@ const Button = ({
 	borderRadius = "2px",
 	childrenColor = "black",
 	backgroundColor = "#EDEDED",
+	boxShadow = false,
+	hoverEffect = false,
+	activeBtn,
 }) => {
 	return (
 		<div
@@ -20,12 +23,15 @@ const Button = ({
 			className={classNames({
 				[styles.wrapper]: true,
 				[styles.recording]: mouseDownCallback && isRecording,
+				[styles.hoverEffect]: hoverEffect,
+				[styles.active]: activeBtn
 			})}
 			style={{
 				width,
 				height,
 				backgroundColor: !isRecording ? backgroundColor : "#EB1F1F",
 				borderRadius,
+				boxShadow: boxShadow ?? ''
 			}}
 		>
 			<div

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import Button from "./Button";
 import styles from "./Buttons.module.sass";
 import { ReactComponent as VideoIcon } from "../../../../../../assets/PrivateCabinet/film.svg";
 import { ReactComponent as CameraIcon } from "../../../../../../assets/PrivateCabinet/camera.svg";
+import { ReactComponent as MessageIcon } from "../../../../../../assets/PrivateCabinet/chat/message.svg";
+import { ReactComponent as PencilIcon } from "../../../../../../assets/PrivateCabinet/chat/pencil.svg";
+import { ReactComponent as RotateIcon } from "../../../../../../assets/PrivateCabinet/chat/rotate.svg";
+import { ReactComponent as MirrorIcon } from "../../../../../../assets/PrivateCabinet/chat/mirror.svg";
+import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/chat/settings.svg";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
@@ -19,8 +24,53 @@ const Buttons = ({
 	setInitialState,
 	stream,
 }) => {
+	const [centralButtons] = useState([
+		{
+			name: "addMessage",
+			clickCallback: () => {
+				setActiveBtn((prevState) =>
+					prevState === "addMessage" ? null : "addMessage"
+				);
+			},
+			icon: <MessageIcon />,
+		},
+		{
+			name: "addСaption",
+			clickCallback: () => {
+				setActiveBtn((prevState) =>
+					prevState === "addСaption" ? null : "addСaption"
+				);
+			},
+			icon: <PencilIcon strole="none" />,
+		},
+		{
+			name: "rotate",
+			clickCallback: () => {
+				setActiveBtn(null);
+			},
+			icon: <RotateIcon />,
+		},
+		{
+			name: "mirror",
+			clickCallback: () => {
+				setActiveBtn(null);
+			},
+			icon: <MirrorIcon />,
+		},
+		{
+			name: "settings",
+			clickCallback: () => {
+				setActiveBtn((prevState) =>
+					prevState === "settings" ? null : "settings"
+				);
+			},
+			icon: <SettingsIcon />,
+		},
+	]);
+	const [activeBtn, setActiveBtn] = useState(null);
+
 	const onClickHandler = () => {
-		if (contentType === 'video') return videoRecordStop();
+		if (contentType === "video") return videoRecordStop();
 	};
 
 	const renderLeftBtns = () => {
@@ -71,10 +121,27 @@ const Buttons = ({
 					{contentType === "image" && <VideoIcon />}
 				</Button>
 			);
+		if (state === "readyToSend")
+			return centralButtons.map((btn) => (
+				<Button
+					clickCallback={btn.clickCallback}
+					width={54}
+					height={34}
+					borderRadius="2px"
+					childrenColor="black"
+					backgroundColor="#fff"
+					boxShadow="0px 2px 4px #DEDEDE"
+					hoverEffect={true}
+					key={btn.name}
+					activeBtn={activeBtn === btn.name}
+				>
+					{btn.icon}
+				</Button>
+			));
 	};
 
 	const renderRightBtns = () => {
-		if (state === "init")
+		if (state === "init" && !isRecording)
 			return (
 				<TextButton
 					text="Отмена"
@@ -106,12 +173,13 @@ const Buttons = ({
 		<div className={styles.wrapper}>
 			<div className={styles.leftContainer}>{renderLeftBtns()}</div>
 			<div className={styles.centerContainer}>
-				{renderCentralBtns()}
 				{state === "init" && stream && (
 					<div className={styles.actionButton}>
 						<Button
 							clickCallback={onClickHandler}
-							mouseDownCallback={() => !isRecording && contentType === 'video' && onActionBtnHandler()}
+							mouseDownCallback={() =>
+								!isRecording && contentType === "video" && onActionBtnHandler()
+							}
 							width={48}
 							height={48}
 							borderRadius="50%"
@@ -128,6 +196,7 @@ const Buttons = ({
 						</Button>
 					</div>
 				)}
+				{renderCentralBtns()}
 			</div>
 			<div className={styles.rightContainer}>{renderRightBtns()}</div>
 		</div>

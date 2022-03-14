@@ -29,6 +29,10 @@
     user-select: none
     -moz-user-select: none
     -webkit-user-select: none
+    transition: background 0.2s ease-in-out
+    &:not(:last-child)
+        margin-right: 10px
+    
     &.recording
         animation: pulse 2s infinite
     .childrenWrapper
@@ -46,3 +50,16 @@
             svg
                 path, g
                     fill: #fff
+    &.hoverEffect:hover, &.active
+        background: #4086F1 !important
+        .black
+            svg
+                path, g, circle, rect
+                    fill:#fff
+                path+rect
+                    stroke: #fff
+        .white
+            color: white
+            svg
+                path, g,
+                    fill: #494949

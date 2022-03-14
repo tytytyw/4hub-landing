@@ -1,5 +1,6 @@
 .wrapper
     position: relative
+    overflow: auto
     .seekPanel
         position: absolute
         bottom: 20px
@@ -10,7 +11,7 @@
         background: rgba(255,255,255,.4)
         border-radius: 10px
         border: 1px solid rgba(64, 134, 241, .2)
-        opacity: 1
+        opacity: 0
         transition: opacity .2s ease
         .time
             color: #fff
@@ -74,9 +75,9 @@
                 height: 22px
                 width: 3px
             &:before
-                left: 5px
+                left: 6px
             &:after 
-                right: 5px
+                right: 6px
         &.paused
             opacity: 1
     &:hover
