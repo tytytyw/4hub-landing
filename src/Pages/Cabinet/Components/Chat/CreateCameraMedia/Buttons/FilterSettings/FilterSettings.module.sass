@@ -1,0 +1,26 @@
+.wrapper
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    padding: 20px
+    .optionWrapper
+        margin-bottom: 8px
+        .input
+            width: 100%
+            position: relative
+            z-index: 2
+            &.defaultDash::after
+                content: ''
+                background: #4086F1
+                height: 80%
+                width: 2px
+                left: 50%
+                top: 50%
+                transform: translate(-50%, -50%)
+                position: absolute
+                z-index: -1
+        .title
+            color: #454545
+            font-size: 13px
+            margin: 0
+    .optionWrapper:nth-child(2n+ 1)
+        margin-right: 35px

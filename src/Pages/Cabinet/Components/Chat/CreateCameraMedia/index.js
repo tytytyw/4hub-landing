@@ -18,6 +18,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	const [isRecording, setIsRecording] = useState(false);
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [ducationTimer, setDucationTimer] = useState(0);
+	const [visualEffects, setVisualEffects] = useState({transform: {scale: '', rotate: 0}, filter: ''})
 
 	const streamPreviewRef = useRef();
 	const videoPreviewRef = useRef();
@@ -119,7 +120,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				<div className={styles.contentPreview}>
 					<div className={styles.videoWrapper} height={quality}>
 						{videoPreview ? (
-							<VideoPlayer source={videoPreview} videoPlayerRef={videoPreviewRef}/>
+							<VideoPlayer source={videoPreview} videoPlayerRef={videoPreviewRef} visualEffects={{filter: visualEffects.filter, transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`}} />
 						) : null}
 						{!videoPreview ? (
 							<video
@@ -168,6 +169,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				ducationTimer={ducationTimer}
 				setInitialState={setInitialState}
 				stream={stream}
+				setVisualEffects={setVisualEffects}
 			/>
 		</PopUp>
 	);

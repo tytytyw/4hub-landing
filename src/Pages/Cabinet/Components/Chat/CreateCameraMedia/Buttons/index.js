@@ -11,6 +11,7 @@ import { ReactComponent as MirrorIcon } from "../../../../../../assets/PrivateCa
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/chat/settings.svg";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import FilterSettings from "./FilterSettings";
 
 const Buttons = ({
 	state,
@@ -23,6 +24,7 @@ const Buttons = ({
 	ducationTimer,
 	setInitialState,
 	stream,
+	setVisualEffects,
 }) => {
 	const [centralButtons] = useState([
 		{
@@ -46,14 +48,31 @@ const Buttons = ({
 		{
 			name: "rotate",
 			clickCallback: () => {
-				setActiveBtn(null);
+				// setActiveBtn(null);
+				setVisualEffects((prevEffects) => ({
+					...prevEffects,
+					transform: {
+						...prevEffects.transform,
+						rotate:
+							prevEffects.transform.rotate === 270
+								? 0
+								: prevEffects.transform.rotate + 90,
+					},
+				}));
 			},
 			icon: <RotateIcon />,
 		},
 		{
 			name: "mirror",
 			clickCallback: () => {
-				setActiveBtn(null);
+				// setActiveBtn(null);
+				setVisualEffects((prevEffects) => ({
+					...prevEffects,
+					transform: {
+						...prevEffects.transform,
+						scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
+					},
+				}));
 			},
 			icon: <MirrorIcon />,
 		},
@@ -171,34 +190,43 @@ const Buttons = ({
 
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.leftContainer}>{renderLeftBtns()}</div>
-			<div className={styles.centerContainer}>
-				{state === "init" && stream && (
-					<div className={styles.actionButton}>
-						<Button
-							clickCallback={onClickHandler}
-							mouseDownCallback={() =>
-								!isRecording && contentType === "video" && onActionBtnHandler()
-							}
-							width={48}
-							height={48}
-							borderRadius="50%"
-							backgroundColor="#fff"
-							isRecording={isRecording}
-						>
-							{contentType === "image" && <CameraIcon />}
-							{contentType === "video" &&
-								(isRecording ? (
-									<div className={styles.square} />
-								) : (
-									<VideoIcon />
-								))}
-						</Button>
-					</div>
-				)}
-				{renderCentralBtns()}
+			{activeBtn === "settings" && (
+				<div className={styles.optionsWrapper}>
+					<FilterSettings setVisualEffects={setVisualEffects} />
+				</div>
+			)}
+			<div className={styles.buttonsWrapper}>
+				<div className={styles.leftContainer}>{renderLeftBtns()}</div>
+				<div className={styles.centerContainer}>
+					{state === "init" && stream && (
+						<div className={styles.actionButton}>
+							<Button
+								clickCallback={onClickHandler}
+								mouseDownCallback={() =>
+									!isRecording &&
+									contentType === "video" &&
+									onActionBtnHandler()
+								}
+								width={48}
+								height={48}
+								borderRadius="50%"
+								backgroundColor="#fff"
+								isRecording={isRecording}
+							>
+								{contentType === "image" && <CameraIcon />}
+								{contentType === "video" &&
+									(isRecording ? (
+										<div className={styles.square} />
+									) : (
+										<VideoIcon />
+									))}
+							</Button>
+						</div>
+					)}
+					{renderCentralBtns()}
+				</div>
+				<div className={styles.rightContainer}>{renderRightBtns()}</div>
 			</div>
-			<div className={styles.rightContainer}>{renderRightBtns()}</div>
 		</div>
 	);
 };

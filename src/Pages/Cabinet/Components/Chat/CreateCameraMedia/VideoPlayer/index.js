@@ -4,7 +4,7 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 
-const VideoPlayer = ({ source, videoPlayerRef }) => {
+const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
 	const [playing, setPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const seekPanelRef = useRef();
@@ -68,7 +68,7 @@ const VideoPlayer = ({ source, videoPlayerRef }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<video ref={videoPlayerRef} src={source} className={styles.video} />
+			<video ref={videoPlayerRef} src={source} className={styles.video} style={visualEffects} />
 			<div
 				className={classNames({
 					[styles.playButton]: true,
