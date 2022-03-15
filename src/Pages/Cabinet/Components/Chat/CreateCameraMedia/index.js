@@ -8,17 +8,22 @@ import {
 } from "../../../../../generalComponents/chatHelper";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoPlayer from "./VideoPlayer";
+import ImagePreview from "./ImagePreview";
 
 const CreateCameraMedia = ({ nullifyAction }) => {
 	const [state, setState] = useState("init");
 	const [contentType, setContentType] = useState("image");
 	const [stream, setStream] = useState(null);
 	const [videoPreview, setVideoPreview] = useState(null);
+	const [imagePreview, setImagePreview] = useState(null);
 	const [quality, setQuality] = useState(720);
 	const [isRecording, setIsRecording] = useState(false);
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [ducationTimer, setDucationTimer] = useState(0);
-	const [visualEffects, setVisualEffects] = useState({transform: {scale: '', rotate: 0}, filter: ''})
+	const [visualEffects, setVisualEffects] = useState({
+		transform: { scale: "", rotate: 0 },
+		filter: "",
+	});
 
 	const streamPreviewRef = useRef();
 	const videoPreviewRef = useRef();
@@ -66,7 +71,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	const videoDataAviable = (e) => {
 		setVideoPreview(URL.createObjectURL(e.data));
 		cleareStreamTracks();
-		setState('readyToSend')
+		setState("readyToSend");
 	};
 
 	const videoRecordStop = () => {
@@ -74,12 +79,25 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		mediaRecorder.stop();
 	};
 
+	const takePicture = () => {
+		const video = streamPreviewRef.current;
+		const canvas = document.createElement("canvas");
+		const context = canvas.getContext("2d");
+		canvas.height = video.videoHeight;
+		canvas.width = video.videoWidth;
+		context.drawImage(video, 0, 0);
+		setImagePreview(canvas.toDataURL("image/png"));
+		cleareStreamTracks();
+		setState("readyToSend");
+	};
+
 	const setInitialState = () => {
-		setStream(null)
-		setState('init')
-		setVideoPreview(null)
-		getStream()
-	}
+		setStream(null);
+		setState("init");
+		setVideoPreview(null);
+		setImagePreview(null);
+		getStream();
+	};
 
 	useEffect(() => {
 		getStream();
@@ -120,9 +138,21 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				<div className={styles.contentPreview}>
 					<div className={styles.videoWrapper} height={quality}>
 						{videoPreview ? (
-							<VideoPlayer source={videoPreview} videoPlayerRef={videoPreviewRef} visualEffects={{filter: visualEffects.filter, transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`}} />
+							<VideoPlayer
+								source={videoPreview}
+								videoPlayerRef={videoPreviewRef}
+								visualEffects={{
+									filter: visualEffects.filter,
+									transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
+								}}
+							/>
+						) : imagePreview ? (
+							<ImagePreview image={imagePreview} visualEffects={{
+								filter: visualEffects.filter,
+								transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
+							}} />
 						) : null}
-						{!videoPreview ? (
+						{!videoPreview && !imagePreview ? (
 							<video
 								ref={streamPreviewRef}
 								className={styles.video}
@@ -166,6 +196,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				setIsRecording={setIsRecording}
 				onActionBtnHandler={onActionBtnHandler}
 				videoRecordStop={videoRecordStop}
+				takePicture={takePicture}
 				ducationTimer={ducationTimer}
 				setInitialState={setInitialState}
 				stream={stream}

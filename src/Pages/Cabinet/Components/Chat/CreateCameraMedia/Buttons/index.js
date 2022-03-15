@@ -21,11 +21,13 @@ const Buttons = ({
 	onActionBtnHandler,
 	isRecording,
 	videoRecordStop,
+	takePicture,
 	ducationTimer,
 	setInitialState,
 	stream,
 	setVisualEffects,
 }) => {
+	const [activeBtn, setActiveBtn] = useState(null);
 	const [centralButtons] = useState([
 		{
 			name: "addMessage",
@@ -86,17 +88,17 @@ const Buttons = ({
 			icon: <SettingsIcon />,
 		},
 	]);
-	const [activeBtn, setActiveBtn] = useState(null);
 
 	const onClickHandler = () => {
 		if (contentType === "video") return videoRecordStop();
+		if (contentType === "image") return takePicture()
 	};
 
 	const renderLeftBtns = () => {
 		if (state === "readyToSend")
 			return (
 				<Button
-					clickCallback={setInitialState}
+					clickCallback={() => {setInitialState(); setActiveBtn(null)}}
 					width={38}
 					height={38}
 					borderRadius="50%"
