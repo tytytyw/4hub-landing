@@ -11,6 +11,11 @@ import { ReactComponent as TimerIcon } from "../../../../../../assets/PrivateCab
 import TextArea from "../TextArea";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import api from "../../../../../../api";
+import {
+	cameraAccess,
+	wantMimeType,
+	ducationTimerToString,
+} from "../../../../../../generalComponents/chatHelper";
 
 let audioFrequencyData = [];
 
@@ -29,9 +34,10 @@ const ChatBoardFooter = ({
 	setVideoPreview,
 	videoMessagePreview,
 	recordCancel,
-    file,
-    setFile,
+	file,
+	setFile,
 	scrollToBottom,
+	socket,
 }) => {
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const selectedContact = useSelector(
@@ -41,7 +47,7 @@ const ChatBoardFooter = ({
 
 	const upLoadFile = (blob, fileName, kind) => {
 		setMessageIsSending(true);
-		const sendingFile = file??new File([blob], fileName, { type: blob.type });
+		const sendingFile = file ?? new File([blob], fileName, { type: blob.type });
 		const formData = new FormData();
 		formData.append("myfile", sendingFile);
 		createHistogramData(audioFrequencyData).then((histogramData) => {
@@ -57,91 +63,74 @@ const ChatBoardFooter = ({
 							kind,
 						};
 						if (histogramData) attachment.histogramData = histogramData;
-						addMessage("", attachment);
-						scrollToBottom()
+						if (socket?.readyState) {
+							addMessage("", attachment);
+							scrollToBottom();
+						} else console.log("соединение не установлено");
 					}
 				})
 				.finally(() => setMessageIsSending(false));
 		});
-        setFile(null)
+		setFile(null);
 	};
 
 	const onRecording = (type, constraints) => {
-		navigator.getUserMedia =
-			navigator.getUserMedia ||
-			navigator.mozGetUserMedia ||
-			navigator.msGetUserMedia ||
-			navigator.webkitGetUserMedia;
 		setIsRecording(true);
 		audioFrequencyData = [];
-		const wantMimeType = constraints.video
-			? MediaRecorder.isTypeSupported("video/webm;codecs=vp8,opus")
-				? "video/webm;codecs=vp8,opus"
-				: "video/mp4"
-			: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-			? "audio/webm;codecs=opus"
-			: "audio/mp3";
-		if (navigator.mediaDevices && MediaRecorder.isTypeSupported(wantMimeType)) {
-			navigator.mediaDevices
-				.getUserMedia(constraints) // ex. { audio: true , video: true}
-				.then((stream) => {
-					if (type === "message") {
-						// for audio/video messages
-						const recorder = new MediaRecorder(stream, {
-							mimeType: wantMimeType,
-						});
-						recorder.start();
-						setMediaRecorder(recorder);
-						if (constraints.video) {
-							// video preview
-							setVideoPreview(true);
-							const video = videoMessagePreview.current;
-							if (video) {
-								video.srcObject = stream;
-								video.play();
-							}
-						} else {
-							// get audio frequency data for histogram
-							const audioContext = new (window.AudioContext ||
-								window.webkitAudioContext)();
-							const processor = audioContext.createScriptProcessor(256, 1, 1);
-							const analyser = audioContext.createAnalyser();
-							const source = audioContext.createMediaStreamSource(stream);
-							source.connect(analyser);
-							source.connect(processor);
-							processor.connect(audioContext.destination);
-							const getAudioFrequencyData = () => {
-								if (stream.active) {
-									let audioData = new Uint8Array(64);
-									analyser.getByteFrequencyData(audioData);
-									const sumFrequencyValues = audioData.reduce(
-										(previousValue, currentValue) =>
-											previousValue + currentValue,
-										0
-									);
-									const averageFrequencyValue = Math.floor(
-										sumFrequencyValues / audioData.length
-									);
-									if (averageFrequencyValue)
-										audioFrequencyData.push(averageFrequencyValue);
-								} else
-									processor.removeEventListener(
-										"audioprocess",
-										getAudioFrequencyData
-									);
-							};
-							processor.addEventListener("audioprocess", getAudioFrequencyData);
+		cameraAccess(constraints)
+			.then((stream) => {
+				if (type === "message") {
+					// for audio/video messages
+					const recorder = new MediaRecorder(stream, {
+						mimeType: wantMimeType(constraints),
+					});
+					recorder.start();
+					setMediaRecorder(recorder);
+					if (constraints.video) {
+						// video preview
+						setVideoPreview(true);
+						const video = videoMessagePreview.current;
+						if (video) {
+							video.srcObject = stream;
+							video.play();
 						}
+					} else {
+						// get audio frequency data for histogram
+						const audioContext = new (window.AudioContext ||
+							window.webkitAudioContext)();
+						const processor = audioContext.createScriptProcessor(256, 1, 1);
+						const analyser = audioContext.createAnalyser();
+						const source = audioContext.createMediaStreamSource(stream);
+						source.connect(analyser);
+						source.connect(processor);
+						processor.connect(audioContext.destination);
+						const getAudioFrequencyData = () => {
+							if (stream.active) {
+								let audioData = new Uint8Array(64);
+								analyser.getByteFrequencyData(audioData);
+								const sumFrequencyValues = audioData.reduce(
+									(previousValue, currentValue) => previousValue + currentValue,
+									0
+								);
+								const averageFrequencyValue = Math.floor(
+									sumFrequencyValues / audioData.length
+								);
+								if (averageFrequencyValue)
+									audioFrequencyData.push(averageFrequencyValue);
+							} else
+								processor.removeEventListener(
+									"audioprocess",
+									getAudioFrequencyData
+								);
+						};
+						processor.addEventListener("audioprocess", getAudioFrequencyData);
 					}
-				})
-				.catch((error) => {
-					setIsRecording(false);
-					console.log(error);
-				});
-		} else {
-			console.log("Browser not supported");
-			setIsRecording(false);
-		}
+				}
+			})
+			.catch(() => {
+				setIsRecording(false);
+				console.log("Browser not supported");
+			});
 	};
 
 	const createHistogramData = async (data) => {
@@ -187,38 +176,32 @@ const ChatBoardFooter = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mediaRecorder]);
 
-    useEffect(() => {
-        if (file) upLoadFile('','','file')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [file])
-    
+	useEffect(() => {
+		if (file) upLoadFile("", "", "file");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [file]);
+
 	return (
 		<footer ref={footerRef} className={styles.chatBoardFooter}>
 			{isRecording ? (
 				<div className={styles.leftContainer}>
 					<div className={styles.recordIcon}></div>
-					<span className={styles.duration}>{`${
-						Math.floor(ducationTimer / 60) < 10
-							? `0${Math.floor(ducationTimer / 60)}`
-							: Math.floor(ducationTimer / 60)
-					}:${
-						ducationTimer % 60 < 10
-							? `0${Math.floor(ducationTimer % 60)}`
-							: Math.floor(ducationTimer % 60)
-					}`}</span>
+					<span className={styles.duration}>{ducationTimerToString(ducationTimer)}</span>
 				</div>
 			) : (
 				<div className={styles.downloadOptions}>
 					<AddIcon
-                        title="Вставить файл"
-                        onClick={(e) => setMouseParams({
-                            x: e.clientX,
-                            y: e.clientY,
-                            width: 220,
-                            height: 25,
-                            contextMenuList: 'uploadFile'
-                        })}
-                    />
+						title="Вставить файл"
+						onClick={(e) =>
+							setMouseParams({
+								x: e.clientX,
+								y: e.clientY,
+								width: 220,
+								height: 25,
+								contextMenuList: "uploadFile",
+							})
+						}
+					/>
 				</div>
 			)}
 			{isRecording ? (

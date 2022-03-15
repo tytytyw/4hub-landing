@@ -294,7 +294,7 @@ export const contextMenuChat = {
         {name: 'Удалить сообщение', img: 'garbage', type: 'deleteMessage'},
     ],
     uploadFile: [
-        {name: "Камера", img: 'camera', type: "makePhoto"},
+        {name: "Камера", img: 'camera', type: "createMediaFromCamera"},
         {name: "Файлы с системы 4Hub", img: 'files', type: "add4hubFile"},
         {name: "Файлы с компьютера", img: 'files', type: "addPcFile"},
     ]

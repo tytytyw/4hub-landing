@@ -29,6 +29,7 @@ const ChatBoard = ({
 	nullifyAction,
 	file,
 	setFile,
+	socket,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -332,6 +333,7 @@ const ChatBoard = ({
 				file={file}
 				setFile={setFile}
 				scrollToBottom={scrollToBottom}
+				socket={socket}
 			/>
 
 			{videoPreview ? (

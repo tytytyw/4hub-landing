@@ -3,7 +3,6 @@ import styles from "./VideoRecordPreview.module.sass";
 import classNames from "classnames";
 
 const VideoRecordPreview = ({
-	video,
 	isVideoMessage,
 	ducationTimer,
 	timeLimit = 0,
@@ -62,7 +61,6 @@ const VideoRecordPreview = ({
 				<video
 					ref={isVideoMessage}
 					className={classNames({ [styles.video]: isVideoMessage })}
-					src={video}
 					muted={true}
 				></video>
 			</div>

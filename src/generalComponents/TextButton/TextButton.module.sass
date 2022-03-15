@@ -1,0 +1,35 @@
+.wrapper
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 140px
+    height: 39px
+    border-radius: 5px
+    cursor: pointer
+    font-size: 14px
+    transition: background .2s ease
+    user-select: none
+    -moz-user-select: none
+    -webkit-user-select: none
+.cancel
+    background: #e3e3e3
+    border: 1px solid #e9e9e9
+    color: grey
+.cancel:hover
+    background: #fc7a7a
+    color: white
+.ok
+    background: #477DE1
+    border: 1px solid #477DE1
+    color: white
+.ok:hover
+    background: #3b6dcb
+.disabled
+    background: #e9e9e9
+    border: none
+    color: grey
+    cursor: default
+    opacity: .7
+    &:hover
+        background: #e9e9e9
+        color: grey

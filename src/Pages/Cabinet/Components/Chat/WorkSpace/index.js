@@ -11,6 +11,7 @@ import Notifications from "../../Notifications";
 import Profile from "../../Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
+import CreateCameraMedia from "../CreateCameraMedia";
 
 const WorkSpace = ({
 	sideMenuCollapsed,
@@ -194,6 +195,7 @@ const WorkSpace = ({
 						nullifyAction={nullifyAction}
 						file={file}
 						setFile={setFile}
+						socket={socket}
 					/>
 				) : (
 					""
@@ -233,6 +235,7 @@ const WorkSpace = ({
 					</DeleteMessage>
 				) : null}
 			</div>
+			{action?.type === 'createMediaFromCamera' ? <CreateCameraMedia nullifyAction={nullifyAction} /> : ''}
 
 			<BottomPanel />
 		</div>

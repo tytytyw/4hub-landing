@@ -1,0 +1,65 @@
+@-webkit-keyframes pulse
+	0% 
+    -webkit-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+	70% 
+    -webkit-box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+
+	100% 
+   -webkit-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+@keyframes pulse
+  0%
+    -moz-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+
+  70%
+    -moz-box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+    box-shadow: 0 0 0 10px rgba(235,31,31,.4)
+
+  100%
+    -moz-box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    box-shadow: 0 0 0 0 rgba(235,31,31,.4)
+    
+.wrapper
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    user-select: none
+    -moz-user-select: none
+    -webkit-user-select: none
+    transition: background 0.2s ease-in-out
+    &:not(:last-child)
+        margin-right: 10px
+    
+    &.recording
+        animation: pulse 2s infinite
+    .childrenWrapper
+        display: flex
+        justify-content: center
+        align-items: center
+        max-width: 60%
+        max-height: 60%
+        &.black
+            svg
+                path, g
+                    fill:#494949
+        &.white
+            color: white
+            svg
+                path, g
+                    fill: #fff
+    &.hoverEffect:hover, &.active
+        background: #4086F1 !important
+        .black
+            svg
+                path, g, circle, rect
+                    fill:#fff
+                path+rect
+                    stroke: #fff
+        .white
+            color: white
+            svg
+                path, g,
+                    fill: #494949

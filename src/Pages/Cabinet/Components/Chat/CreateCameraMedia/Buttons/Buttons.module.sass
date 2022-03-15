@@ -1,0 +1,35 @@
+.wrapper
+    .buttonsWrapper
+        height: 70px
+        padding: 10px 20px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        border-top: 1px solid #DFDFDF
+        user-select: none
+        -moz-user-select: none
+        -webkit-user-select: none
+        position: relative
+        .leftContainer, .rightContainer
+            display: flex
+            align-items: center
+            width: 120px
+        .leftContainer
+            justify-content: flex-start
+        .rightContainer
+            justify-content: flex-end
+        .centerContainer
+            display: flex
+            align-items: center
+            .actionButton
+                position: absolute
+                top: -85px
+                left: 50%
+                transform: translateX(-50%)
+                .square
+                    width: 14px
+                    height: 14px
+                    background: #fff
+                    border-radius: 2px
+    .optionsWrapper
+        border-top: 1px solid #DFDFDF
