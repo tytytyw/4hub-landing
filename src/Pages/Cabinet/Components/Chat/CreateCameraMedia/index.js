@@ -22,7 +22,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	const [ducationTimer, setDucationTimer] = useState(0);
 	const [visualEffects, setVisualEffects] = useState({
 		transform: { scale: "", rotate: 0 },
-		filter: "",
+		filter: {brightness: 1, contrast: 1, saturate: 1, grayscale: 0, "hue-rotate": 0, invert: 0, sepia: 0, blur: 0, result:''},
 	});
 
 	const streamPreviewRef = useRef();
@@ -142,13 +142,13 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 								source={videoPreview}
 								videoPlayerRef={videoPreviewRef}
 								visualEffects={{
-									filter: visualEffects.filter,
+									filter: visualEffects.filter.result,
 									transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
 								}}
 							/>
 						) : imagePreview ? (
 							<ImagePreview image={imagePreview} visualEffects={{
-								filter: visualEffects.filter,
+								filter: visualEffects.filter.result,
 								transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
 							}} />
 						) : null}
@@ -200,6 +200,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				ducationTimer={ducationTimer}
 				setInitialState={setInitialState}
 				stream={stream}
+				visualEffects={visualEffects}
 				setVisualEffects={setVisualEffects}
 			/>
 		</PopUp>

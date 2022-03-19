@@ -26,6 +26,7 @@ const Buttons = ({
 	ducationTimer,
 	setInitialState,
 	stream,
+	visualEffects,
 	setVisualEffects,
 }) => {
 	const [activeOption, setActiveOption] = useState(null);
@@ -194,7 +195,7 @@ const Buttons = ({
 		<div className={styles.wrapper}>
 			{activeOption === "filterSettings" && (
 				<div className={styles.optionsWrapper}>
-					<FilterSettings setVisualEffects={setVisualEffects} />
+					<FilterSettings visualEffects={visualEffects} setVisualEffects={setVisualEffects} />
 				</div>
 			)}
 			<div className={styles.buttonsWrapper}>
