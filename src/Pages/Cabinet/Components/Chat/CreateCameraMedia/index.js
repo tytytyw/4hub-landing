@@ -22,11 +22,24 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	const [ducationTimer, setDucationTimer] = useState(0);
 	const [visualEffects, setVisualEffects] = useState({
 		transform: { scale: "", rotate: 0 },
-		filter: {brightness: 1, contrast: 1, saturate: 1, grayscale: 0, "hue-rotate": 0, invert: 0, sepia: 0, blur: 0, result:''},
+		filter: {
+			brightness: 1,
+			contrast: 1,
+			saturate: 1,
+			grayscale: 0,
+			"hue-rotate": 0,
+			invert: 0,
+			sepia: 0,
+			blur: 0,
+			result: "",
+		},
 	});
 
 	const streamPreviewRef = useRef();
 	const videoPreviewRef = useRef();
+	const canvasRef = useRef();
+	const imageRef = useRef();
+	const previewSize = useRef();
 
 	const constraints = {
 		audio: true,
@@ -63,9 +76,6 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 			setIsRecording(true);
 			onRecordVideo();
 		}
-
-		if (contentType === "image") {
-		}
 	};
 
 	const videoDataAviable = (e) => {
@@ -81,7 +91,12 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 
 	const takePicture = () => {
 		const video = streamPreviewRef.current;
-		const canvas = document.createElement("canvas");
+		previewSize.current = {
+			height: video.clientHeight,
+			width: video.clientWidth,
+		};
+
+		const canvas = canvasRef.current;
 		const context = canvas.getContext("2d");
 		canvas.height = video.videoHeight;
 		canvas.width = video.videoWidth;
@@ -97,6 +112,33 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		setVideoPreview(null);
 		setImagePreview(null);
 		getStream();
+		setVisualEffects({
+			transform: { scale: "", rotate: 0 },
+			filter: {
+				brightness: 1,
+				contrast: 1,
+				saturate: 1,
+				grayscale: 0,
+				"hue-rotate": 0,
+				invert: 0,
+				sepia: 0,
+				blur: 0,
+				result: "",
+			},
+		});
+	};
+
+	const rotateCanvas = () => {
+		const image = imageRef.current;
+		const canvas = canvasRef.current;
+		const context = canvas.getContext("2d");
+		canvas.height = image.naturalWidth;
+		canvas.width = image.naturalHeight;
+		context.translate(canvas.width / 2, canvas.height / 2);
+		context.rotate((-90 * Math.PI) / 180);
+		context.translate(-canvas.height / 2, -canvas.width / 2);
+		context.drawImage(imageRef.current, 0, 0);
+		setImagePreview(canvas.toDataURL("image/png"));
 	};
 
 	useEffect(() => {
@@ -132,11 +174,15 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		}
 	}, [isRecording]);
 
+	useEffect(() => {
+		if (imageRef.current) rotateCanvas();
+	}, [visualEffects.transform?.rotate]);
+
 	return (
 		<PopUp set={nullifyAction}>
 			<div className={styles.contentWrapper}>
 				<div className={styles.contentPreview}>
-					<div className={styles.videoWrapper} height={quality}>
+					<div className={styles.videoWrapper}>
 						{videoPreview ? (
 							<VideoPlayer
 								source={videoPreview}
@@ -147,10 +193,14 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 								}}
 							/>
 						) : imagePreview ? (
-							<ImagePreview image={imagePreview} visualEffects={{
-								filter: visualEffects.filter.result,
-								transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
-							}} />
+							<ImagePreview
+								image={imagePreview}
+								visualEffects={visualEffects}
+								imageRef={imageRef}
+								streamPreviewRef={streamPreviewRef}
+								height={previewSize.current?.height}
+								width={previewSize.current?.width}
+							/>
 						) : null}
 						{!videoPreview && !imagePreview ? (
 							<video
@@ -202,7 +252,9 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				stream={stream}
 				visualEffects={visualEffects}
 				setVisualEffects={setVisualEffects}
+				rotateCanvas={rotateCanvas}
 			/>
+			<canvas ref={canvasRef} style={{ display: "none" }} />
 		</PopUp>
 	);
 };
