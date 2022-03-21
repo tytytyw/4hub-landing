@@ -28,6 +28,8 @@ const Buttons = ({
 	stream,
 	visualEffects,
 	setVisualEffects,
+	onRotateClick,
+	onMirrorClick,
 }) => {
 	const [activeOption, setActiveOption] = useState(null);
 	const [centralButtons] = useState([
@@ -56,31 +58,12 @@ const Buttons = ({
 			subButtons: [
 				{
 					name: "rotate",
-					clickCallback: () => {
-						setVisualEffects((prevEffects) => ({
-							...prevEffects,
-							transform: {
-								...prevEffects.transform,
-								rotate:
-									prevEffects.transform.rotate === 270
-										? 0
-										: prevEffects.transform.rotate + 90,
-							},
-						}));
-					},
+					clickCallback: onRotateClick,
 					icon: <RotateIcon />,
 				},
 				{
 					name: "mirror",
-					clickCallback: () => {
-						setVisualEffects((prevEffects) => ({
-							...prevEffects,
-							transform: {
-								...prevEffects.transform,
-								scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
-							},
-						}));
-					},
+					clickCallback: onMirrorClick,
 					icon: <MirrorIcon />,
 				},
 				{

@@ -141,6 +141,45 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		setImagePreview(canvas.toDataURL("image/png"));
 	};
 
+	const onRotateClick = () => {
+		setVisualEffects((prevEffects) => ({
+			...prevEffects,
+			transform: {
+				...prevEffects.transform,
+				rotate:
+					prevEffects.transform.rotate === 270
+						? 0
+						: prevEffects.transform.rotate + 90,
+			},
+		}));
+		if (imageRef.current) rotateCanvas();
+	};
+
+	const onMirrorClick = () => {
+		setVisualEffects((prevEffects) => ({
+			...prevEffects,
+			transform: {
+				...prevEffects.transform,
+				scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
+			},
+		}));
+		if (imageRef.current) reflectCanvas()
+		
+	};
+
+	const reflectCanvas = () => {
+		const canvas = canvasRef.current;
+		const width =  canvas.width
+		const height = canvas.height
+		const context = canvas.getContext("2d");
+		canvas.width = width
+		canvas.height = height
+		context.scale(-1, 1)
+		context.translate(-canvas.width, 0)
+		context.drawImage(imageRef.current, 0, 0);
+		setImagePreview(canvas.toDataURL("image/png"));
+	};
+
 	useEffect(() => {
 		getStream();
 		return () => cleareStreamTracks();
@@ -173,10 +212,6 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 			};
 		}
 	}, [isRecording]);
-
-	useEffect(() => {
-		if (imageRef.current) rotateCanvas();
-	}, [visualEffects.transform?.rotate]);
 
 	return (
 		<PopUp set={nullifyAction}>
@@ -253,6 +288,8 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				visualEffects={visualEffects}
 				setVisualEffects={setVisualEffects}
 				rotateCanvas={rotateCanvas}
+				onRotateClick={onRotateClick}
+				onMirrorClick={onMirrorClick}
 			/>
 			<canvas ref={canvasRef} style={{ display: "none" }} />
 		</PopUp>
