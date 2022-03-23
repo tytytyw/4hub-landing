@@ -9,6 +9,7 @@ import { ReactComponent as PencilIcon } from "../../../../../../assets/PrivateCa
 import { ReactComponent as RotateIcon } from "../../../../../../assets/PrivateCabinet/chat/rotate.svg";
 import { ReactComponent as MirrorIcon } from "../../../../../../assets/PrivateCabinet/chat/mirror.svg";
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/chat/settings.svg";
+import { ReactComponent as CropIcon } from "../../../../../../assets/PrivateCabinet/chat/crop.svg";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import FilterSettings from "./FilterSettings";
@@ -25,14 +26,17 @@ const Buttons = ({
 	ducationTimer,
 	setInitialState,
 	stream,
+	visualEffects,
 	setVisualEffects,
+	onRotateClick,
+	onMirrorClick,
 }) => {
-	const [activeBtn, setActiveBtn] = useState(null);
+	const [activeOption, setActiveOption] = useState(null);
 	const [centralButtons] = useState([
 		{
 			name: "addMessage",
 			clickCallback: () => {
-				setActiveBtn((prevState) =>
+				setActiveOption((prevState) =>
 					prevState === "addMessage" ? null : "addMessage"
 				);
 			},
@@ -41,78 +45,53 @@ const Buttons = ({
 		{
 			name: "addСaption",
 			clickCallback: () => {
-				setActiveBtn((prevState) =>
+				setActiveOption((prevState) =>
 					prevState === "addСaption" ? null : "addСaption"
 				);
 			},
 			icon: <PencilIcon strole="none" />,
 		},
 		{
-			name: "rotate",
-			clickCallback: () => {
-				// setActiveBtn(null);
-				setVisualEffects((prevEffects) => ({
-					...prevEffects,
-					transform: {
-						...prevEffects.transform,
-						rotate:
-							prevEffects.transform.rotate === 270
-								? 0
-								: prevEffects.transform.rotate + 90,
-					},
-				}));
-			},
+			name: "transformOptions",
+			clickCallback: () => setActiveOption("transformOptions"),
 			icon: <RotateIcon />,
+			subButtons: [
+				{
+					name: "rotate",
+					clickCallback: onRotateClick,
+					icon: <RotateIcon />,
+				},
+				{
+					name: "mirror",
+					clickCallback: onMirrorClick,
+					icon: <MirrorIcon />,
+				},
+				{
+					name: "crop",
+					clickCallback: () => {},
+					icon: <CropIcon />,
+				},
+			],
 		},
 		{
-			name: "mirror",
+			name: "filterSettings",
 			clickCallback: () => {
-				// setActiveBtn(null);
-				setVisualEffects((prevEffects) => ({
-					...prevEffects,
-					transform: {
-						...prevEffects.transform,
-						scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
-					},
-				}));
-			},
-			icon: <MirrorIcon />,
-		},
-		{
-			name: "settings",
-			clickCallback: () => {
-				setActiveBtn((prevState) =>
-					prevState === "settings" ? null : "settings"
+				setActiveOption((prevState) =>
+					prevState === "filterSettings" ? null : "filterSettings"
 				);
 			},
 			icon: <SettingsIcon />,
+			subButtons: [],
 		},
 	]);
 
 	const onClickHandler = () => {
 		if (contentType === "video") return videoRecordStop();
-		if (contentType === "image") return takePicture()
+		if (contentType === "image") return takePicture();
 	};
 
-	const renderLeftBtns = () => {
-		if (state === "readyToSend")
-			return (
-				<Button
-					clickCallback={() => {setInitialState(); setActiveBtn(null)}}
-					width={38}
-					height={38}
-					borderRadius="50%"
-					childrenColor="white"
-					backgroundColor="#EDEDED"
-				>
-					<img
-						alt="back"
-						style={{ transform: "translateX(-1px)" }}
-						src={imageSrc + "assets/PrivateCabinet/arrow-2.svg"}
-					/>
-				</Button>
-			);
-	};
+	const onBackButtonhandler = () =>
+		activeOption ? setActiveOption(null) : setInitialState();
 
 	const renderCentralBtns = () => {
 		if (isRecording)
@@ -142,8 +121,13 @@ const Buttons = ({
 					{contentType === "image" && <VideoIcon />}
 				</Button>
 			);
-		if (state === "readyToSend")
-			return centralButtons.map((btn) => (
+		if (state === "readyToSend") {
+			const buttons =
+				centralButtons.filter((btn) => btn.name === activeOption)[0]
+					?.subButtons || centralButtons;
+			if (!buttons?.length) return null;
+
+			return buttons.map((btn) => (
 				<Button
 					clickCallback={btn.clickCallback}
 					width={54}
@@ -154,11 +138,11 @@ const Buttons = ({
 					boxShadow="0px 2px 4px #DEDEDE"
 					hoverEffect={true}
 					key={btn.name}
-					activeBtn={activeBtn === btn.name}
 				>
 					{btn.icon}
 				</Button>
 			));
+		}
 	};
 
 	const renderRightBtns = () => {
@@ -192,13 +176,30 @@ const Buttons = ({
 
 	return (
 		<div className={styles.wrapper}>
-			{activeBtn === "settings" && (
+			{activeOption === "filterSettings" && (
 				<div className={styles.optionsWrapper}>
-					<FilterSettings setVisualEffects={setVisualEffects} />
+					<FilterSettings visualEffects={visualEffects} setVisualEffects={setVisualEffects} />
 				</div>
 			)}
 			<div className={styles.buttonsWrapper}>
-				<div className={styles.leftContainer}>{renderLeftBtns()}</div>
+				<div className={styles.leftContainer}>
+					{state === "readyToSend" && (
+						<Button
+							clickCallback={onBackButtonhandler}
+							width={38}
+							height={38}
+							borderRadius="50%"
+							childrenColor="white"
+							backgroundColor="#EDEDED"
+						>
+							<img
+								alt="back"
+								style={{ transform: "translateX(-1px)" }}
+								src={imageSrc + "assets/PrivateCabinet/arrow-2.svg"}
+							/>
+						</Button>
+					)}
+				</div>
 				<div className={styles.centerContainer}>
 					{state === "init" && stream && (
 						<div className={styles.actionButton}>

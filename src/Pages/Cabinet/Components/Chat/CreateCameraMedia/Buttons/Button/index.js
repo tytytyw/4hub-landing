@@ -14,7 +14,6 @@ const Button = ({
 	backgroundColor = "#EDEDED",
 	boxShadow = false,
 	hoverEffect = false,
-	activeBtn,
 }) => {
 	return (
 		<div
@@ -24,7 +23,6 @@ const Button = ({
 				[styles.wrapper]: true,
 				[styles.recording]: mouseDownCallback && isRecording,
 				[styles.hoverEffect]: hoverEffect,
-				[styles.active]: activeBtn
 			})}
 			style={{
 				width,

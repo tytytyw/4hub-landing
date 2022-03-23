@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./FilterSettings.module.sass";
 import classNames from "classnames";
 
-const FilterSettings = ({ setVisualEffects }) => {
+const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 	const [options, setOptions] = useState([
 		{
 			name: "Яркость",
@@ -10,7 +10,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 2,
 			step: 0.02,
-			value: 1,
+			value: visualEffects.filter.brightness,
 			unit: "",
 		},
 		{
@@ -19,7 +19,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 2,
 			step: 0.02,
-			value: 1,
+			value: visualEffects.filter.contrast,
 			unit: "",
 		},
 		{
@@ -28,7 +28,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 2,
 			step: 0.02,
-			value: 1,
+			value: visualEffects.filter.saturate,
 			unit: "",
 		},
 		{
@@ -37,7 +37,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 1,
 			step: 0.01,
-			value: 0,
+			value: visualEffects.filter.grayscale,
 			unit: "",
 		},
 		{
@@ -46,7 +46,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 360,
 			step: 1,
-			value: 0,
+			value: visualEffects.filter["hue-rotate"],
 			unit: "deg",
 		},
 		{
@@ -55,7 +55,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 1,
 			step: 0.01,
-			value: 0,
+			value: visualEffects.filter.invert,
 			unit: "",
 		},
 		{
@@ -64,7 +64,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 1,
 			step: 0.01,
-			value: 0,
+			value: visualEffects.filter.sepia,
 			unit: "",
 		},
 		{
@@ -73,7 +73,7 @@ const FilterSettings = ({ setVisualEffects }) => {
 			min: 0,
 			max: 10,
 			step: 0.1,
-			value: 0,
+			value: visualEffects.filter.blur,
 			unit: "px",
 		},
 	]);
@@ -84,9 +84,11 @@ const FilterSettings = ({ setVisualEffects }) => {
 			.join(" ");
 
 	useEffect(() => {
+		const newFilterParams = {...visualEffects.filter}
+		options.forEach(option => newFilterParams[option.filterName] = option.value)
 		setVisualEffects((prevEffects) => ({
 			...prevEffects,
-			filter: innerFilterEffects(),
+			filter: {...newFilterParams, result: innerFilterEffects()},
 		}));
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [options]);
