@@ -30,6 +30,8 @@ const ChatBoard = ({
 	file,
 	setFile,
 	socket,
+	endMessagesRef,
+	scrollToBottom,
 }) => {
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
@@ -42,7 +44,6 @@ const ChatBoard = ({
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [isRecording, setIsRecording] = useState(false);
 	const [ducationTimer, setDucationTimer] = useState(0);
-	const endMessagesRef = useRef();
 	const chatArea = useRef();
 	const footerRef = useRef();
 	const videoMessagePreview = useRef();
@@ -189,9 +190,7 @@ const ChatBoard = ({
 		}
 	}, [isRecording]);
 
-	const scrollToBottom = () => {
-		endMessagesRef?.current?.scrollIntoView();
-	};
+	
 
 	useLayoutEffect(() => {
 		if (

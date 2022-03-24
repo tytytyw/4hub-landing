@@ -30,6 +30,7 @@ const Buttons = ({
 	setVisualEffects,
 	onRotateClick,
 	onMirrorClick,
+	onSendFile,
 }) => {
 	const [activeOption, setActiveOption] = useState(null);
 	const [centralButtons] = useState([
@@ -158,7 +159,7 @@ const Buttons = ({
 		if (state === "readyToSend")
 			return (
 				<Button
-					clickCallback={() => console.log("send file")}
+					clickCallback={onSendFile}
 					width={38}
 					height={38}
 					borderRadius="50%"
