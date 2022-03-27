@@ -7,6 +7,8 @@ import Cabinet from './Pages/Cabinet';
 import StartPage from "./Pages/StartPage";
 import Guest from "./Pages/Guest";
 import Loader from "./generalComponents/Loaders/4HUB";
+import { LocalizedProvider } from 'react-localized';
+import locales from './locales';
 
 function App() {
 
@@ -26,20 +28,37 @@ function App() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <>
-            {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} setLoadingType={setLoadingType} /> : null}
-            {!uid && options.guest && !options.business ? <Guest/> : null}
-            {!options.guest && uid && !options.business ? <Cabinet loadingType={loadingType} setLoadingType={setLoadingType} /> : null}
-            {loadingType ? <Loader
-                position='absolute'
-                zIndex={10000}
-                containerType='bounceDots'
-                type='bounceDots'
-                background='white'
-                animation={false}
-            /> : null}
-        </>
-    );
+        <LocalizedProvider
+            locales={locales}
+            selected="ru"
+        >
+            { ({ localeReady }) => (
+                localeReady
+                ? <>
+                    {!uid && !options.guest && !options.business ? <StartPage setOptions={setOptions} setLoadingType={setLoadingType} /> : null}
+                    {!uid && options.guest && !options.business ? <Guest/> : null}
+                    {!options.guest && uid && !options.business ? <Cabinet loadingType={loadingType} setLoadingType={setLoadingType} /> : null}
+                    {loadingType ? <Loader
+                        position='absolute'
+                        zIndex={10000}
+                        containerType='bounceDots'
+                        type='bounceDots'
+                        background='white'
+                        animation={false}
+                    /> : null}
+                </>
+                : <Loader
+                        position='absolute'
+                        zIndex={10000}
+                        containerType='bounceDots'
+                        type='bounceDots'
+                        background='white'
+                        animation={false}
+                    />
+                )
+            }
+        </LocalizedProvider>
+    )
 }
 
 export default App;
