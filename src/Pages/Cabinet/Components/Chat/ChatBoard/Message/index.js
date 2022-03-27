@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import React, {useRef} from "react";
 import { useSelector } from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
@@ -7,6 +7,7 @@ import { messageTime } from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
 import VoiceMessagePlayer from "./VoiceMessagePlayer";
 import FileMessage from "./FileMessage";
+import VideoPlayer from "../../CreateCameraMedia/VideoPlayer";
 
 function Message({
 	message,
@@ -19,6 +20,7 @@ function Message({
 	const text = message.text.split("\n");
 	const messageType = message.id_user === userId ? "outbox" : "inbox";
 	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
+	const videoPlayerRef = useRef()
 
 	const renderAttachment = () => {
 		if (message.attachment?.kind === "audio_message") {
@@ -35,6 +37,9 @@ function Message({
 		}
 		if (message.attachment?.kind === "file") {
 			return <FileMessage file={message.attachment} />;
+		}
+		if (message.attachment?.kind === "video") {
+			return <VideoPlayer source={message.attachment.link} videoPlayerRef={videoPlayerRef} visualEffects={message.attachment.visualEffects} />;
 		}
 		return "";
 	};
