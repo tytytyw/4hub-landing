@@ -1,9 +1,10 @@
 import {PERSONAL_SETTINGS, PERSONAL_SETTINGS_THEME, PREVIEW_THEME, RESET_PERSONAL_SETTINGS} from '../types'
+import {getStorageItem} from "../../generalComponents/StorageHelper";
 
 const INITIAL_STATE = {
     personalSettings: {
         theme: 'blue',
-        lang: 'ru',
+        lang: getStorageItem('lang') ?? 'ru',
         notify: false
     },
     previewTheme: null
