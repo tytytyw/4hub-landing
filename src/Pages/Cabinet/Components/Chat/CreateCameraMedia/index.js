@@ -27,6 +27,7 @@ const CreateCameraMedia = ({
 	const [isRecording, setIsRecording] = useState(false);
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [ducationTimer, setDucationTimer] = useState(0);
+	const [textMessage, setTextMessage] = useState("");
 	const [visualEffects, setVisualEffects] = useState({
 		transform: { scale: "", rotate: 0 },
 		filter: {
@@ -79,7 +80,6 @@ const CreateCameraMedia = ({
 	};
 
 	const onActionBtnHandler = () => {
-		console.log("onActionBtnHandler");
 		if (contentType === "video") {
 			setIsRecording(true);
 			onRecordVideo();
@@ -217,7 +217,7 @@ const CreateCameraMedia = ({
 								transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
 							};
 						if (socket?.readyState) {
-							addMessage("", attachment);
+							addMessage(textMessage, attachment);
 							scrollToBottom();
 						} else console.log("соединение не установлено");
 					}
@@ -337,6 +337,8 @@ const CreateCameraMedia = ({
 				onRotateClick={onRotateClick}
 				onMirrorClick={onMirrorClick}
 				onSendFile={onSendFile}
+				textMessage={textMessage}
+				setTextMessage={setTextMessage}
 			/>
 			<canvas ref={canvasRef} style={{ display: "none" }} />
 		</PopUp>

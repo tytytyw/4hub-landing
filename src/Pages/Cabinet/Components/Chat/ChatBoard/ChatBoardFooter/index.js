@@ -163,6 +163,11 @@ const ChatBoardFooter = ({
 		setIsRecording(false);
 	};
 
+	const onAddMessage = (text) => {
+		addMessage(text)
+		scrollToBottom()
+	}
+
 	useEffect(() => {
 		if (mediaRecorder) {
 			isRecording
@@ -210,10 +215,9 @@ const ChatBoardFooter = ({
 				</div>
 			) : (
 				<TextArea
-					addMessage={addMessage}
+					onAddMessage={onAddMessage}
 					action={action}
 					nullifyAction={nullifyAction}
-					scrollToBottom={scrollToBottom}
 				/>
 			)}
 			<div

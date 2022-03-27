@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import Button from "./Button";
 import styles from "./Buttons.module.sass";
@@ -10,9 +10,12 @@ import { ReactComponent as RotateIcon } from "../../../../../../assets/PrivateCa
 import { ReactComponent as MirrorIcon } from "../../../../../../assets/PrivateCabinet/chat/mirror.svg";
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/chat/settings.svg";
 import { ReactComponent as CropIcon } from "../../../../../../assets/PrivateCabinet/chat/crop.svg";
+import { ReactComponent as CheckIcon } from "../../../../../../assets/PrivateCabinet//check-mark.svg";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import FilterSettings from "./FilterSettings";
+import TextArea from "../../ChatBoard/TextArea";
+import classNames from "classnames";
 
 const Buttons = ({
 	state,
@@ -31,17 +34,18 @@ const Buttons = ({
 	onRotateClick,
 	onMirrorClick,
 	onSendFile,
+	textMessage,
+	setTextMessage,
 }) => {
 	const [activeOption, setActiveOption] = useState(null);
+	const saveTextButtonRef = useRef();
+
 	const [centralButtons] = useState([
 		{
-			name: "addMessage",
-			clickCallback: () => {
-				setActiveOption((prevState) =>
-					prevState === "addMessage" ? null : "addMessage"
-				);
-			},
+			name: "addText",
+			clickCallback: () => setActiveOption("addText"),
 			icon: <MessageIcon />,
+			subButtons: [],
 		},
 		{
 			name: "addСaption",
@@ -122,6 +126,7 @@ const Buttons = ({
 					{contentType === "image" && <VideoIcon />}
 				</Button>
 			);
+
 		if (state === "readyToSend") {
 			const buttons =
 				centralButtons.filter((btn) => btn.name === activeOption)[0]
@@ -156,6 +161,19 @@ const Buttons = ({
 					style={{ width: 116, height: 34 }}
 				/>
 			);
+		if (activeOption === "addText")
+			return (
+				<Button
+					clickCallback={() => saveTextButtonRef.current?.click()}
+					width={38}
+					height={38}
+					borderRadius="50%"
+					childrenColor="white"
+					backgroundColor="#4086F1"
+				>
+					<CheckIcon title={"Сохранить"} height={14} width={19} />
+				</Button>
+			);
 		if (state === "readyToSend")
 			return (
 				<Button
@@ -177,9 +195,22 @@ const Buttons = ({
 
 	return (
 		<div className={styles.wrapper}>
+			{activeOption === "addText" && (
+				<div className={classNames(styles.optionsWrapper, styles.textWrapper)}>
+					<TextArea
+						onAddMessage={setTextMessage}
+						initialTextValue={textMessage}
+						nullifyAction={() => setActiveOption(null)}
+						saveTextButtonRef={saveTextButtonRef}
+					/>
+				</div>
+			)}
 			{activeOption === "filterSettings" && (
 				<div className={styles.optionsWrapper}>
-					<FilterSettings visualEffects={visualEffects} setVisualEffects={setVisualEffects} />
+					<FilterSettings
+						visualEffects={visualEffects}
+						setVisualEffects={setVisualEffects}
+					/>
 				</div>
 			)}
 			<div className={styles.buttonsWrapper}>
