@@ -24,6 +24,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.1",
     "react-flow-renderer": "^9.6.9",
+    "react-image-crop": "^10.0.0",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0",
     "react-moment": "^1.1.1",
