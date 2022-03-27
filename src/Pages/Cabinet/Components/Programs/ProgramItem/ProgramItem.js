@@ -26,7 +26,7 @@ function ProgramItem({program}) {
             [styles.chosenItem]: params.openedComments
         })}>
             <div className={styles.leftGroup}>
-                <img src={program.icon} alt='ico' className={styles.programImage} />
+                <img src={program.icon || `${imageSrc}assets/PrivateCabinet/more.svg`} alt='ico' className={styles.programImage} />
                 <div className={styles.programName}>{program?.name}</div>
             </div>
             <div className={styles.centerGroup}>
