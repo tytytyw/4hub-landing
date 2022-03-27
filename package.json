@@ -43,8 +43,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && gulp deploy",
     "publish": "gulp publish",
-    "extract-ru": "react-localized-extractor -l ru -a.gettext __ -o './src/locales'",
-    "extract-en": "react-localized-extractor -l en -a.gettext __ -o './src/locales'"
+    "extract": "react-localized-extractor -l ru en -a.gettext __ -o './src/locales'"
   },
   "eslintConfig": {
     "extends": [
