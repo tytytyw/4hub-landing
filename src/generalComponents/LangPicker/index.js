@@ -5,6 +5,8 @@ import {ReactComponent as ArrowIcon} from "../../assets/StartPage/arrow-point.sv
 import {ReactComponent as CheckMark} from "../../assets/PrivateCabinet/check-mark.svg";
 import classNames from "classnames";
 import {setStorageItem} from "../StorageHelper";
+import {changeLanguage} from "../../Store/actions/main";
+import {useDispatch} from "react-redux";
 
 const langs = [
     {lang: 'ru', title: 'ru', name: 'Русский'},
@@ -16,6 +18,7 @@ const LangPicker = () => {
 
     const [lang, setLang] = useState(langs[0])
     const [open, setOpen] = useState(false)
+    const dispatch = useDispatch()
 
     const ref = useRef()
 
@@ -54,6 +57,7 @@ const LangPicker = () => {
                                 setOpen(false)
                                 setLang(item)
                                 setStorageItem('lang', item.lang)
+                                dispatch(changeLanguage(item.lang))
                             }}
                             className={styles.item}
                             key={item.lang}

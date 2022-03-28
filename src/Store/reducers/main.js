@@ -1,4 +1,10 @@
-import {PERSONAL_SETTINGS, PERSONAL_SETTINGS_THEME, PREVIEW_THEME, RESET_PERSONAL_SETTINGS} from '../types'
+import {
+    CHANGE_LANGUAGE,
+    PERSONAL_SETTINGS,
+    PERSONAL_SETTINGS_THEME,
+    PREVIEW_THEME,
+    RESET_PERSONAL_SETTINGS
+} from '../types'
 import {getStorageItem} from "../../generalComponents/StorageHelper";
 
 const INITIAL_STATE = {
@@ -20,6 +26,8 @@ export default function main(state = INITIAL_STATE, action) {
             return {...state, personalSettings: {...state.personalSettings, theme: action.payload}}
         case RESET_PERSONAL_SETTINGS:
             return {...state, personalSettings: INITIAL_STATE.personalSettings}
+        case CHANGE_LANGUAGE:
+            return {...state, personalSettings: {...state.personalSettings, lang: action.payload}}
         default:
             return state;
     }
