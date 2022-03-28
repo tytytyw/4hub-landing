@@ -36,6 +36,12 @@ function App() {
         <LocalizedProvider
             locales={locales}
             selected={lang}
+            alias={{
+                gettext: '__',
+                pgettext: '__p',
+                ngettext: '__n',
+                npgettext: '__np',
+            }}
         >
             { ({ localeReady }) => (
                 localeReady

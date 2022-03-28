@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 "
+">= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);\n"
+"Language: uk\n"
+
+#: src/Pages/StartPage/index.js:66
+msgid "Cтраница в разработке"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:58
+msgid "Вход"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:67
+msgid "Назад на главную"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:79
+msgid "Неверный логин или пароль"
+msgstr ""
+
+#: src/Pages/StartPage/index.js:59
+msgid "Регистрация"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Landing.js:14
+#: src/Pages/StartPage/Components/Landing/Landing.js:15
+msgid "Умное рабочее пространство"
+msgstr ""
