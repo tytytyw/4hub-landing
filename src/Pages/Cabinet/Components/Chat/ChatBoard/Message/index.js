@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
@@ -20,14 +20,14 @@ function Message({
 	const text = message.text.split("\n");
 	const messageType = message.id_user === userId ? "outbox" : "inbox";
 	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
-	const videoPlayerRef = useRef()
+	const videoPlayerRef = useRef();
 
 	const renderAttachment = () => {
 		if (message.attachment?.kind === "audio_message") {
 			return (
 				<VoiceMessagePlayer
 					src={message.attachment.link}
-					histogramData={message.attachment?.histogramData??[]}
+					histogramData={message.attachment?.histogramData ?? []}
 					inboxMessage={messageType === "inbox"}
 				/>
 			);
@@ -35,11 +35,20 @@ function Message({
 		if (message.attachment?.kind === "video_message") {
 			return <VideoMessagePlayer video={message.attachment} />;
 		}
-		if (message.attachment?.kind === "file") {
+		if (
+			message.attachment?.kind === "file" ||
+			message.attachment?.kind === "image"
+		) {
 			return <FileMessage file={message.attachment} />;
 		}
 		if (message.attachment?.kind === "video") {
-			return <VideoPlayer source={message.attachment.link} videoPlayerRef={videoPlayerRef} visualEffects={message.attachment.visualEffects} />;
+			return (
+				<VideoPlayer
+					source={message.attachment.link}
+					videoPlayerRef={videoPlayerRef}
+					visualEffects={message.attachment.visualEffects}
+				/>
+			);
 		}
 		return "";
 	};
@@ -66,35 +75,45 @@ function Message({
 						<div
 							className={classNames({
 								[styles.content]: true,
+								[styles.file_content]:
+									message.attachment?.kind === "image" ||
+									message.attachment?.kind === "file",
 								[styles.audio_content]:
 									message.attachment?.kind === "audio_message",
+								[styles.video_content]: message.attachment?.kind === "video",
 							})}
 						>
 							{renderAttachment()}
-							{text.map((item, index) => (
-								<p key={index} className={styles.text}>
-									{item}
-								</p>
-							))}
+							<div className={styles.textWrapper}>
+								{text.map((item, index) => (
+									<p key={index} className={styles.text}>
+										{item}
+									</p>
+								))}
+							</div>
 						</div>
 					)}
-					{messageType !== "inbox" || message.attachment?.kind === "file" ? <div className={styles.menuWrapper}>
-						<div
-							className={styles.menu}
-							onClick={(e) => {
-								setMouseParams({
-									x: e.clientX,
-									y: e.clientY,
-									width: 215,
-									height: 25,
-									contextMenuList,
-									message: {...message, messageType},
-								});
-							}}
-						>
-							<span className={styles.dot} />
+					{messageType !== "inbox" || message.attachment?.kind === "file" ? (
+						<div className={styles.menuWrapper}>
+							<div
+								className={styles.menu}
+								onClick={(e) => {
+									setMouseParams({
+										x: e.clientX,
+										y: e.clientY,
+										width: 215,
+										height: 25,
+										contextMenuList,
+										message: { ...message, messageType },
+									});
+								}}
+							>
+								<span className={styles.dot} />
+							</div>
 						</div>
-					</div> : ''}
+					) : (
+						""
+					)}
 				</div>
 				<div className={styles.time}>
 					{messageTime(currentDate, message.ut, gmt)}

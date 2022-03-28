@@ -28,6 +28,7 @@ const CreateCameraMedia = ({
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [ducationTimer, setDucationTimer] = useState(0);
 	const [textMessage, setTextMessage] = useState("");
+	const [gloader, setgloader] = useState(false);
 	const [visualEffects, setVisualEffects] = useState({
 		transform: { scale: "", rotate: 0 },
 		filter: {
@@ -188,6 +189,7 @@ const CreateCameraMedia = ({
 	};
 
 	const onSendFile = () => {
+		setgloader(true);
 		const getFileFromUrl = fetch(videoPreview || imagePreview)
 			.then((res) => res.blob())
 			.then(
@@ -222,7 +224,10 @@ const CreateCameraMedia = ({
 						} else console.log("соединение не установлено");
 					}
 				})
-				.finally(() => nullifyAction());
+				.finally(() => {
+					nullifyAction();
+					setgloader(false);
+				});
 		});
 	};
 
@@ -259,7 +264,16 @@ const CreateCameraMedia = ({
 		}
 	}, [isRecording]);
 
-	return (
+	return gloader ? (
+		<Loader
+			type="bounceDots"
+			background="transparent"
+			zIndex={5}
+			width="100px"
+			height="100px"
+			containerType="bounceDots"
+		/>
+	) : (
 		<PopUp set={nullifyAction}>
 			<div className={styles.contentWrapper}>
 				<div className={styles.contentPreview}>

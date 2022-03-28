@@ -40,9 +40,17 @@ const FileMessage = ({ file }) => {
 		<div className={styles.wrapper} onClick={onFileClick}>
 			<div className={styles.fileBar}>
 				<div className={styles.file}>
-					<File color="grey" format={ext} className={styles.mainFile} />
+					<File
+						color="grey"
+						format={file.kind === "file" ? ext : "png"}
+						className={styles.mainFile}
+					/>
 				</div>
-				<div className={styles.fname}>{file.name}</div>
+				{file.kind === "file" ? (
+					<div className={styles.fname}>{file.name}</div>
+				) : (
+					""
+				)}
 			</div>
 		</div>
 	);

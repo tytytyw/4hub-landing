@@ -129,25 +129,30 @@ const Buttons = ({
 
 		if (state === "readyToSend") {
 			const buttons =
-				centralButtons.filter((btn) => btn.name === activeOption)[0]
+				centralButtons.filter((btn) => btn?.name === activeOption)[0]
 					?.subButtons || centralButtons;
 			if (!buttons?.length) return null;
 
-			return buttons.map((btn) => (
-				<Button
-					clickCallback={btn.clickCallback}
-					width={54}
-					height={34}
-					borderRadius="2px"
-					childrenColor="black"
-					backgroundColor="#fff"
-					boxShadow="0px 2px 4px #DEDEDE"
-					hoverEffect={true}
-					key={btn.name}
-				>
-					{btn.icon}
-				</Button>
-			));
+			return buttons.map((btn) =>
+				contentType === "video" &&
+				(btn?.name === "crop" || btn?.name === "addСaption") ? (
+					""
+				) : (
+					<Button
+						clickCallback={btn.clickCallback}
+						width={54}
+						height={34}
+						borderRadius="2px"
+						childrenColor="black"
+						backgroundColor="#fff"
+						boxShadow="0px 2px 4px #DEDEDE"
+						hoverEffect={true}
+						key={btn.name}
+					>
+						{btn.icon}
+					</Button>
+				)
+			);
 		}
 	};
 
