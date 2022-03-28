@@ -9,8 +9,15 @@ import {
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoPlayer from "./VideoPlayer";
 import ImagePreview from "./ImagePreview";
+import api from "../../../../../api";
+import { useSelector } from "react-redux";
 
-const CreateCameraMedia = ({ nullifyAction }) => {
+const CreateCameraMedia = ({
+	nullifyAction,
+	addMessage,
+	socket,
+	scrollToBottom,
+}) => {
 	const [state, setState] = useState("init");
 	const [contentType, setContentType] = useState("image");
 	const [stream, setStream] = useState(null);
@@ -20,6 +27,8 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	const [isRecording, setIsRecording] = useState(false);
 	const [mediaRecorder, setMediaRecorder] = useState(null);
 	const [ducationTimer, setDucationTimer] = useState(0);
+	const [textMessage, setTextMessage] = useState("");
+	const [gloader, setgloader] = useState(false);
 	const [visualEffects, setVisualEffects] = useState({
 		transform: { scale: "", rotate: 0 },
 		filter: {
@@ -34,6 +43,7 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 			result: "",
 		},
 	});
+	const uid = useSelector((state) => state.user.uid);
 
 	const streamPreviewRef = useRef();
 	const videoPreviewRef = useRef();
@@ -71,7 +81,6 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 	};
 
 	const onActionBtnHandler = () => {
-		console.log("onActionBtnHandler");
 		if (contentType === "video") {
 			setIsRecording(true);
 			onRecordVideo();
@@ -163,21 +172,63 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
 			},
 		}));
-		if (imageRef.current) reflectCanvas()
-		
+		if (imageRef.current) reflectCanvas();
 	};
 
 	const reflectCanvas = () => {
 		const canvas = canvasRef.current;
-		const width =  canvas.width
-		const height = canvas.height
+		const width = canvas.width;
+		const height = canvas.height;
 		const context = canvas.getContext("2d");
-		canvas.width = width
-		canvas.height = height
-		context.scale(-1, 1)
-		context.translate(-canvas.width, 0)
+		canvas.width = width;
+		canvas.height = height;
+		context.scale(-1, 1);
+		context.translate(-canvas.width, 0);
 		context.drawImage(imageRef.current, 0, 0);
 		setImagePreview(canvas.toDataURL("image/png"));
+	};
+
+	const onSendFile = () => {
+		setgloader(true);
+		const getFileFromUrl = fetch(videoPreview || imagePreview)
+			.then((res) => res.blob())
+			.then(
+				(blobFile) =>
+					new File([blobFile], contentType, {
+						type:
+							contentType === "video" ? wantMimeType(constraints) : "image/png",
+					})
+			);
+		getFileFromUrl.then((file) => {
+			const formData = new FormData();
+			formData.append("myfile", file);
+			api
+				.post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+				.then((res) => {
+					if (res.data.ok) {
+						const attachment = {
+							...res.data.files.myfile,
+							link: res.data.link,
+							fid: res.data.fid,
+							id: res.data.id,
+							kind: contentType,
+						};
+						if (contentType === "video")
+							attachment.visualEffects = {
+								filter: visualEffects.filter.result,
+								transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
+							};
+						if (socket?.readyState) {
+							addMessage(textMessage, attachment);
+							scrollToBottom();
+						} else console.log("соединение не установлено");
+					}
+				})
+				.finally(() => {
+					nullifyAction();
+					setgloader(false);
+				});
+		});
 	};
 
 	useEffect(() => {
@@ -213,7 +264,16 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 		}
 	}, [isRecording]);
 
-	return (
+	return gloader ? (
+		<Loader
+			type="bounceDots"
+			background="transparent"
+			zIndex={5}
+			width="100px"
+			height="100px"
+			containerType="bounceDots"
+		/>
+	) : (
 		<PopUp set={nullifyAction}>
 			<div className={styles.contentWrapper}>
 				<div className={styles.contentPreview}>
@@ -290,6 +350,9 @@ const CreateCameraMedia = ({ nullifyAction }) => {
 				rotateCanvas={rotateCanvas}
 				onRotateClick={onRotateClick}
 				onMirrorClick={onMirrorClick}
+				onSendFile={onSendFile}
+				textMessage={textMessage}
+				setTextMessage={setTextMessage}
 			/>
 			<canvas ref={canvasRef} style={{ display: "none" }} />
 		</PopUp>

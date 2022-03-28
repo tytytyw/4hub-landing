@@ -9,10 +9,16 @@ import {
 	onEditChatMessage,
 } from "../../../../../../Store/actions/CabinetActions";
 
-const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
+const TextArea = ({
+	onAddMessage,
+	action,
+	nullifyAction,
+	initialTextValue = "",
+	saveTextButtonRef = null,
+}) => {
 	const textAreaRef = useRef();
 	const [cursorPosition, setCursorPosition] = useState(0);
-	const [textAreaValue, setTextAreaValue] = useState("");
+	const [textAreaValue, setTextAreaValue] = useState(initialTextValue);
 	const [editingMessage, setEditingMessage] = useState(false);
 	const insertEmodji = useSelector((state) => state.Cabinet.chat.insertEmodji);
 	const dispatch = useDispatch();
@@ -57,8 +63,10 @@ const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
 	const cleareTextArea = () => {
 		setCursorPosition(0);
 		setTimeout(() => {
-			setTextAreaValue("");
-			textAreaRef.current.style.height = "25px";
+			if (textAreaRef.current) {
+				setTextAreaValue("");
+				textAreaRef.current.style.height = "24px";
+			}
 		});
 	};
 
@@ -74,16 +82,11 @@ const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
 		setTextAreaValue(e.target.value);
 	};
 
-	const onAddMessage = () => {
-		addMessage(textAreaValue)
-		scrollToBottom()
-	}
-
 	const sendHandler = () => {
 		// TODO: add edit message socket action
 		editingMessage
 			? editMessage(action.message, textAreaValue)
-			: onAddMessage();
+			: onAddMessage(textAreaValue);
 		cleareTextArea();
 		nullifyAction();
 	};
@@ -127,7 +130,7 @@ const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
 		textarea.style.height = "auto";
 		textarea.style.height = textAreaValue
 			? textarea.scrollHeight + "px"
-			: "25px";
+			: "24px";
 	}, [textAreaValue]);
 
 	return (
@@ -143,13 +146,15 @@ const TextArea = ({ addMessage, action, nullifyAction, scrollToBottom }) => {
 				onChange={onTextAreaChange}
 				value={textAreaValue}
 			/>
-			<SendIcon
-				className={classNames({
-					[styles.messageImg]: true,
-					[styles.active]: textAreaValue.length,
-				})}
-				onClick={sendHandler}
-			/>
+
+			<span ref={saveTextButtonRef} onClick={sendHandler}>
+				<SendIcon
+					className={classNames({
+						[styles.messageImg]: true,
+						[styles.active]: textAreaValue.length,
+					})}
+				/>
+			</span>
 		</div>
 	);
 };
