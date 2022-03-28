@@ -9,11 +9,13 @@ import Guest from "./Pages/Guest";
 import Loader from "./generalComponents/Loaders/4HUB";
 import { LocalizedProvider } from 'react-localized';
 import locales from './locales';
+import {getStorageItem, setStorageItem} from "./generalComponents/StorageHelper";
 
 function App() {
 
     const [loadingType, setLoadingType] = useState('bounceDots');
     const uid = useSelector(state => state.user.uid);
+    const lang = useSelector(state => state.main.personalSettings.lang);
     const dispatch = useDispatch();
 
     const [options, setOptions] = useState({guest: false})
@@ -25,12 +27,21 @@ function App() {
             const data = {uid: uid?.[0].split('=')[1], id_company: id_company?.[0].split('=')[1]}
             dispatch(onLog(data));
         }
+        if(!getStorageItem('lang')) {
+            setStorageItem('lang', 'ru');
+        }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <LocalizedProvider
             locales={locales}
-            selected="ru"
+            selected={lang}
+            alias={{
+                gettext: '__',
+                pgettext: '__p',
+                ngettext: '__n',
+                npgettext: '__np',
+            }}
         >
             { ({ localeReady }) => (
                 localeReady

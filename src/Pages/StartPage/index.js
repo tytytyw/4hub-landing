@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useLocales} from "react-localized";
 
 import styles from './StartPage.module.sass';
 import { ReactComponent as InfoIcon } from '../../assets/StartPage/info.svg';
@@ -18,8 +19,9 @@ import BusinessRegistration from "./Components/BusinessRegistration";
 import LangPicker from "../../generalComponents/LangPicker";
 import Error from '../../generalComponents/Error';
 
-const StartPage = ({setOptions, setLoadingType}) => {
+function StartPage({setOptions, setLoadingType}) {
 
+    const { __ } = useLocales()
     const [pageOption, setPage] = useState('init');
     const [loader, setLoader] = useState(false);
 
@@ -53,16 +55,16 @@ const StartPage = ({setOptions, setLoadingType}) => {
                 </a>}
                 <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage('info')} />
                 <LangPicker/>
-                <div className={styles.listItem} onClick={() => setPage('enter')}>Вход</div>
-                <div className={`${styles.registerButton} ${styles.listItem}`} onClick={onRegister}>Регистрация</div>
+                <div className={styles.listItem} onClick={() => setPage('enter')}>{ __('Вход') }</div>
+                <div className={`${styles.registerButton} ${styles.listItem}`} onClick={onRegister}>{ __('Регистрация') }</div>
             </header>
             <main className={styles.main}>
                 {pageOption === 'init' && <Intro setPage={setPage} setOptions={setOptions} />}
                 {pageOption === 'sendFile' && <UploadFile setPage={setPage} />}
                 {pageOption === 'develop' && <div className={styles.main}>
                     <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' />
-                    <div style={{fontSize: '5vw', margin: '3vw 0'}}>Cтраница в разработке</div>
-                    <div className={styles.buttonBack} onClick={() => setPage('init')}> Назад на главную</div>
+                    <div style={{fontSize: '5vw', margin: '3vw 0'}}>{ __('Cтраница в разработке') }</div>
+                    <div className={styles.buttonBack} onClick={() => setPage('init')}>{ __('Назад на главную') }</div>
                 </div>}
                 {pageOption === 'landing' && <Landing />}
                 {pageOption === 'business-landing' && <BusinessLanding />}
@@ -74,7 +76,7 @@ const StartPage = ({setOptions, setLoadingType}) => {
                 {(pageOption === 'business-register') && <BusinessRegistration setPage={setPage} pageOption={pageOption} />}
                 {pageOption === 'forgotPassword' && <ForgotPassword setPage={setPage} />}
                 {pageOption === 'renewPassword' && <RenewPassword setPage={setPage} />}
-                {pageOption === 'errorEnter' && <Error error={true} message={'Неверный логин или пароль'} set={() => setPage('enter')} />}
+                {pageOption === 'errorEnter' && <Error error={true} message={ __('Неверный логин или пароль') } set={() => setPage('enter')} />}
 
             </main>
         </div>

@@ -4,16 +4,17 @@ import styles from './LangPicker.module.sass'
 import {ReactComponent as ArrowIcon} from "../../assets/StartPage/arrow-point.svg";
 import {ReactComponent as CheckMark} from "../../assets/PrivateCabinet/check-mark.svg";
 import classNames from "classnames";
+import {setStorageItem} from "../StorageHelper";
 
 const langs = [
-    {lang: 'ru', name: 'Русский'},
-    {lang: 'ua', name: 'Украинский'},
-    {lang: 'eng', name: 'Английский'},
+    {lang: 'ru', title: 'ru', name: 'Русский'},
+    {lang: 'uk', title: 'ua', name: 'Украинский'},
+    {lang: 'en', title: 'eng', name: 'Английский'},
 ]
 
 const LangPicker = () => {
 
-    const [lang, setLang] = useState('ru')
+    const [lang, setLang] = useState(langs[0])
     const [open, setOpen] = useState(false)
 
     const ref = useRef()
@@ -43,7 +44,7 @@ const LangPicker = () => {
                     onClick={() => setOpen(!open)}
                     className={styles.info}
                 >
-                    <span className={styles.lang}>{lang}</span>
+                    <span className={styles.lang}>{lang.title}</span>
                     <ArrowIcon className={styles.arrow} />
                 </div>
                 <ul className={styles.list}>
@@ -51,13 +52,14 @@ const LangPicker = () => {
                         <li
                             onClick={() => {
                                 setOpen(false)
-                                setLang(item.lang)
+                                setLang(item)
+                                setStorageItem('lang', item.lang)
                             }}
                             className={styles.item}
                             key={item.lang}
                         >
-                            <p className={styles.lang}>{item.lang}</p>
-                            {lang === item.lang && <CheckMark/>}
+                            <p className={styles.lang}>{item.title}</p>
+                            {lang.lang === item.lang && <CheckMark/>}
                         </li>
                     ))}
                 </ul>

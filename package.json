@@ -15,6 +15,7 @@
     "chart.js": "^3.3.2",
     "classnames": "^2.2.6",
     "emoji-picker-react": "^3.4.8",
+    "gettext-parser": "^5.1.1",
     "html2canvas": "^1.3.2",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
@@ -27,6 +28,7 @@
     "react-image-crop": "^10.0.0",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0",
+    "react-localized-loader": "^1.1.0",
     "react-moment": "^1.1.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
@@ -43,7 +45,8 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && gulp deploy",
     "publish": "gulp publish",
-    "extract": "react-localized-extractor -l ru en uk -a.gettext __ -o './src/locales'"
+    "extract-lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations'",
+    "convert-po": "node ./translations/po2json.js"
   },
   "eslintConfig": {
     "extends": [

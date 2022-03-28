@@ -1,5 +1,5 @@
 import { createLocale } from 'react-localized';
-import messages from './en.po';
+import messages from './uk.json';
 
 const extra = {};
 
