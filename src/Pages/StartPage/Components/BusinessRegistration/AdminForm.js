@@ -7,6 +7,7 @@ import AdminSelect from "./AdminSelect";
 import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
+import { useLocales } from 'react-localized';
 
 let requiredInputs = [
 	"surname",
@@ -32,7 +33,8 @@ const AdminForm = ({
 	const [confirmPass, setConfirmPass] = useState(true);
 	const [showPass, setShowPass] = useState(false);
 	const [disablePass, setDisablePass] = useState(false);
-	const id_company = useSelector(state => state.user.userInfo.id_company)
+	const id_company = useSelector(state => state.user.userInfo.id_company);
+	const { __ } = useLocales();
 
 	const { fields, setFields, errors, onChange, checkErrors, blurs } =
 		useValidateForm(
@@ -104,7 +106,7 @@ const AdminForm = ({
 			<form noValidate onSubmit={onSubmit}>
 				<div className={styles.formItem}>
 					<label className={styles.label}>
-						Передача прав Администратора
+						{ __('Передача прав Администратора') }
 						{requiredInputs.includes("admin") && (
 							<span className={styles.required}>*</span>
 						)}
@@ -116,21 +118,21 @@ const AdminForm = ({
 						data={[
 							{
 								id: 1,
-								text: "Назначить меня администратором Компании",
-								info: `Вы сможете самостоятельно верифицировать компанию, добавлять и 
+								text: __("Назначить меня администратором Компании"),
+								info: __(`Вы сможете самостоятельно верифицировать компанию, добавлять и 
                                 редактировать информацию, открывать и закрывать вакансии и добавлять 
-                                кандидатов.`,
+                                кандидатов.`),
 							},
 							{
 								id: 0,
-								text: "Назначить другого человека администратором Компании",
-								info: `Вы будете добавлены в Компанию как обычный сотрудник. Ваши 
+								text: __("Назначить другого человека администратором Компании"),
+								info: __(`Вы будете добавлены в Компанию как обычный сотрудник. Ваши 
                                 полномочия и права доступа сможет определить указанный 
                                 Администратор. Указанный Администратор получит на почту 
-                                уведомление о назначении.`,
+                                уведомление о назначении.`),
 							},
 						]}
-						placeholder="Назначить меня администратором Компании"
+						placeholder={ __("Назначить меня администратором Компании") }
 					/>
 				</div>
 
@@ -140,8 +142,8 @@ const AdminForm = ({
 							required={requiredInputs.includes("surname")}
 							isMistake={errors.includes("surname")}
 							className={styles.input}
-							label="Фамилия"
-							placeholder="Фамилия"
+							label={ __("Фамилия") }
+							placeholder={ __("Фамилия") }
 							name="surname"
 							value={getValue("surname")}
 							onChange={(e) => onChange(e.target.value, "surname")}
@@ -153,8 +155,8 @@ const AdminForm = ({
 							required={requiredInputs.includes("name")}
 							isMistake={errors.includes("name")}
 							className={styles.input}
-							label="Имя"
-							placeholder="Имя"
+							label={ __("Имя") }
+							placeholder={ __("Имя") }
 							name="name"
 							value={getValue("name")}
 							onChange={(e) => onChange(e.target.value, "name")}
@@ -166,8 +168,8 @@ const AdminForm = ({
 							required={requiredInputs.includes("middle_name")}
 							isMistake={errors.includes("middle_name")}
 							className={styles.input}
-							label="Отчество"
-							placeholder="Отчество"
+							label={ __("Отчество") }
+							placeholder={ __("Отчество") }
 							name="middle_name"
 							value={getValue("middle_name")}
 							onChange={(e) => onChange(e.target.value, "middle_name")}
@@ -181,8 +183,8 @@ const AdminForm = ({
 						required={requiredInputs.includes("phone")}
 						isMistake={isPhone()}
 						className={styles.input}
-						label="Телефон"
-						placeholder={"Телефон"}
+						label={ __("Телефон") }
+						placeholder={ __("Телефон") }
 						name="phone"
 						value={getValue("phone")}
 						onChange={(e) => {
@@ -198,8 +200,8 @@ const AdminForm = ({
 						required={requiredInputs.includes("email")}
 						isMistake={isEmail()}
 						className={styles.input}
-						label="Email"
-						placeholder="Email"
+						label={ __("Email") }
+						placeholder={ __("Email") }
 						name="email"
 						value={getValue("email")}
 						onChange={(e) => {
@@ -217,8 +219,8 @@ const AdminForm = ({
 								required={requiredInputs.includes("password")}
 								isMistake={errors.includes("password")}
 								className={styles.input}
-								label="Пароль"
-								placeholder="Пароль"
+								label={ __("Пароль") }
+								placeholder={ __("Пароль") }
 								name="password"
 								type="password"
 								value={getValue("password")}
@@ -233,8 +235,8 @@ const AdminForm = ({
 								required={requiredInputs.includes("password_r")}
 								isMistake={isConfirmPass()}
 								className={styles.input}
-								label="Подтвердите пароль"
-								placeholder="Подтвердите пароль"
+								label={ __("Подтвердите пароль") }
+								placeholder={ __("Подтвердите пароль") }
 								name="password_r"
 								type="password"
 								value={getValue("password_r")}
@@ -264,9 +266,9 @@ const AdminForm = ({
 						</div>
 					</div>
 					<div className={styles.agreementsText}>
-						Я принимаю<span> Условия использования </span> 4Hub
-						<span> Политику конфиденциальности</span> и
-						<span> Политику интелектуальной собственности</span>
+						<>{ __(`Я принимаю`) }</> <span> { __(`Условия использования`) }</span> { __(`4Hub`) }
+						<span> { __(`Политику конфиденциальности`) } </span> { __(`и`) }
+						<span>{ __(`Политику интелектуальной собственности`) }</span>
 					</div>
 				</div>
 
@@ -279,7 +281,7 @@ const AdminForm = ({
 						type="submit"
 						className={styles.submitBtn}
 					>
-						Сохранить и продолжить
+						{ __(`Сохранить и продолжить`) }
 					</button>
 				</div>
 			</form>

@@ -2,11 +2,14 @@ import React, {useEffect} from 'react';
 import styles from './SuccessCreated.module.sass'
 import {useDispatch} from 'react-redux'
 import {onGetUserInfo} from "../../../../../Store/actions/startPageAction";
+import { useLocales } from 'react-localized';
 
 import timesImg from '../../../../../assets/BusinessCabinet/times.svg'
 import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
 
 const SuccessCreated = ({set}) => {
+
+    const { __ } = useLocales()
 
     const toBusiness = () => {
         set(false)
@@ -26,7 +29,7 @@ const SuccessCreated = ({set}) => {
                 <img onClick={toBusiness} className={styles.close} src={timesImg} alt="Close"/>
 
                 <div className={styles.header}>
-                    <h4 className={styles.title}>Регистрация прошла успешно</h4>
+                    <h4 className={styles.title}>{ __('Регистрация прошла успешно') }</h4>
                 </div>
 
                 <div className={styles.content}>
@@ -36,13 +39,13 @@ const SuccessCreated = ({set}) => {
                     </div>
 
                     <p className={styles.text}>
-                        Письмо подтверждения регистрации отправлено на Ваш email. 
-                        Будьте добры перейти по ссылке для завершения<br/> процесса регистрации
+                        { __(`Письмо подтверждения регистрации отправлено на Ваш email. 
+                        Будьте добры перейти по ссылке для завершения${<br/>} процесса регистрации`) }
                     </p>
 
                     <p className={styles.info}>
                         Не пришло письмо ?
-                        <span className={styles.resend}> Отправить заново</span>
+                        <span className={styles.resend}>{ __('Отправить заново') }</span>
                     </p>
 
                     <div className={styles.actionBlock}>
@@ -50,7 +53,7 @@ const SuccessCreated = ({set}) => {
                             onClick={toBusiness}
                             className={styles.completeBtn}
                         >
-                            Готово
+                            { __('Готово') }
                         </button>
                     </div>
 

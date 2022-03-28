@@ -5,6 +5,7 @@ import Input from "../../../Cabinet/Components/MyProfile/Input";
 import Select from "./Select";
 import {useValidateForm} from "./validation";
 import api from "../../../../api";
+import { useLocales } from 'react-localized';
 
 const requiredInputs = [
     'company_name'
@@ -12,6 +13,7 @@ const requiredInputs = [
 
 const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setLoadingType}) => {
     const userInfo = useSelector(state => state.user.userInfo)
+    const { __ } = useLocales()
 
     const {
         fields,
@@ -19,7 +21,7 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
         errors,
         onChange,
         checkErrors
-    } = useValidateForm({ emp_num: mainFields?.main?.emp_num || 'более 50', activity_field: '' }, requiredInputs)
+    } = useValidateForm({ emp_num: mainFields?.main?.emp_num || __('более 50'), activity_field: '' }, requiredInputs)
 
     useEffect(() => {
         if (mainFields?.main) {
@@ -78,13 +80,13 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
                 </div>
 
                 <div className={styles.formItem}>
-                    <label className={styles.label}>Количество сотрудников в компании</label>
+                    <label className={styles.label}>{ __('Количество сотрудников в компании') }</label>
                     <div className={styles.selectWrap}>
                         <Select
                             data={[
-                                'более 10',
-                                'более 50',
-                                'более 100',
+                                __('более 10'),
+                                __('более 50'),
+                                __('более 100'),
                             ]}
                             placeholder='более 50'
                             initValue={getValue('emp_num') || mainFields?.main?.emp_num}
@@ -96,8 +98,8 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
                 <div className={styles.formItem}>
                     <Input
                         className={styles.input}
-                        label='Сфера деятельности'
-                        placeholder='IT'
+                        label={ __('Сфера деятельности') }
+                        placeholder={ __('IT') }
                         name='activity_field'
                         value={getValue('activity_field')}
                         onChange={e => onChange(e.target.value, 'activity_field')}
@@ -111,15 +113,15 @@ const MainForm = ({mainFields, setMainFields, setStep, compare, setCompare, setL
                         </div>
                     </div>
                     <div className={styles.agreementsText}>
-                        Я принимаю<span> Условия использования </span> 4Hub
-                        <span> Политику конфиденциальности</span> и
-                        <span> Политику интелектуальной собственности</span>
+                        { __('Я принимаю') }<span> { __('Условия использования') }</span> { __('4Hub') }
+                        <span> { __('Политику конфиденциальности') }</span> { __('и') }
+                        <span> { __('Политику интелектуальной собственности') }</span>
                     </div>
                 </div>
 
                 <div className={styles.actionBlock}>
                     <button className={styles.submitBtn}>
-                        Сохранить и продолжить
+                        { __('Сохранить и продолжить') }
                     </button>
                 </div>
 
