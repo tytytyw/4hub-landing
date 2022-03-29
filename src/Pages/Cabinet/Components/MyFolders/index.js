@@ -14,7 +14,7 @@ import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderPro
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
     contextMenuFolder,
-    contextMenuFolderGeneral, useFolders
+    useContextMenuFolderGeneral, useFolders
 } from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
@@ -38,7 +38,7 @@ const MyFolders = ({
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
                nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType, filesPage, setFilesPage
 }) => {
-
+    const contextMenuFolderGeneral = useContextMenuFolderGeneral();
     const uid = useSelector(state => state.user.uid);
     const global = useSelector(state => state.Cabinet.global);
     const other = useSelector(state => state.Cabinet.other);

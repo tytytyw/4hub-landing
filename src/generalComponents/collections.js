@@ -132,13 +132,17 @@ export function useContextMenuProjects() {
     };
 }
 
-export const contextMenuFolderGeneral = {
-    main: [
-        {name: 'Добавить папку', img: 'settings-work-tool'},
-        {name: 'Свойства', img: 'info'},
-    ],
-    additional: []
-};
+export function useContextMenuFolderGeneral() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Добавить папку'), img: 'settings-work-tool'},
+            {name: __('Свойства'), img: 'info'},
+        ],
+        additional: []
+    };
+}
+
 
 export const contextMenuFolder = {
     main: [
