@@ -183,15 +183,19 @@ export const getDeviceIconName = (device) => {
     }
 };
 
-export const contextMenuDevice = {
-    main: [
-        {name: 'Блокировать устройство', img: 'edit', type: 'disconnectItem'},
-        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllItem"},
-        {name: 'Отключить', img: 'shareFile', type: "offItem"},
-        {name: 'Отключить несколько', img: 'shareFile', type: "offAllItem"}
-    ],
-    additional: []
+export function useContextMenuDevice() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Блокировать устройство'), img: 'edit', type: 'disconnectItem'},
+            {name: __('Блокировать несколько'), img: 'shareFile', type: "disconnectAllItem"},
+            {name: __('Отключить'), img: 'shareFile', type: "offItem"},
+            {name: __('Отключить несколько'), img: 'shareFile', type: "offAllItem"}
+        ],
+        additional: []
+    }
 }
+
 
 export const contextMenuDeviceUser = {
     main: [
