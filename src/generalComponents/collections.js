@@ -224,29 +224,37 @@ export function useContextMenuSafeItem() {
 }
 
 // Programs
-export const contextProgramFolder = {
-    main: [
-        {name: 'Расшарить', img: 'shareFile'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
-        {name: 'Редактировать', img: 'edit'},
-        {name: 'Переместить в архив', img: 'archive'},
-        {name: 'Свойства', img: 'info'},
-    ],
-    additional: [
-        {name: 'Удалить', img: 'garbage'}
-    ]
+export function useContextProgramFolder() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Расшарить'), img: 'shareFile'},
+            {name: __('Скопировать ссылку'), img: 'link-4'},
+            {name: __('Редактировать'), img: 'edit'},
+            {name: __('Переместить в архив'), img: 'archive'},
+            {name: __('Свойства'), img: 'info'},
+        ],
+        additional: [
+            {name: __('Удалить'), img: 'garbage'}
+        ]
+    }
 }
 
-export const contextProgram = {
-    main: [
-        {name: 'Открыть', img: 'open-file-button'},
-        {name: 'Переслать', img: 'resend'},
-        {name: 'Скопировать ссылку', img: 'link-4'},
-    ],
-    additional: [
-        {name: 'Удалить', img: 'garbage'}
-    ]
+
+export function useContextProgram() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Открыть'), img: 'open-file-button'},
+            {name: __('Переслать'), img: 'resend'},
+            {name: __('Скопировать ссылку'), img: 'link-4'},
+        ],
+        additional: [
+            {name: __('Удалить'), img: 'garbage'}
+        ]
+    }
 }
+
 
 
 export const previewTypes = ['application/msword', 'application/excel'];
