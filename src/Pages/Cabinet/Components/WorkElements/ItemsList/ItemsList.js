@@ -21,7 +21,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
-import {periods} from "../../../../../generalComponents/collections";
+import {usePeriods} from "../../../../../generalComponents/collections";
 
 const mock = () => {}
 
@@ -33,7 +33,7 @@ const ItemsList = ({
 
 }) => {
 
-    // const uid = useSelector(state => state?.user.uid);
+    const periods = usePeriods();
     const fileList = useSelector(state => state.Cabinet.fileList);
     const folderList = useSelector(state => state.Cabinet.folderList);
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);

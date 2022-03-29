@@ -5,7 +5,7 @@ import classnames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import {drawCanvas} from "../PreviewFile/paintHelpers";
-import {periods} from "../../../../../../generalComponents/collections";
+import {usePeriods} from "../../../../../../generalComponents/collections";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 
 //TODO - Need to switch to real users
@@ -48,6 +48,7 @@ const c = {1: [
 
 function PreviewWithComment() {
 
+    const periods = usePeriods();
     const canvasRef = useRef(null);
     const canvasWrapRef = useRef(null);
     const previewImageWithComment = useSelector(s => s.Cabinet.modals.previewWithComments);

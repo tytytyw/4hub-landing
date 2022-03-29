@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
-import {periods} from "../../../../generalComponents/collections";
+import {usePeriods} from "../../../../generalComponents/collections";
 import styles from "./MyFiles.module.sass";
 import List from "../List";
 import FileItem from "./FileItem/index";
@@ -38,6 +38,7 @@ const MyFiles = ({
 	fileErrors,
 	setLoadingFile,
 }) => {
+	const periods = usePeriods();
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
 	const fileList = useSelector((state) => state.Cabinet.fileList);
