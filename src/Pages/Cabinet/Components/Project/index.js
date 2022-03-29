@@ -15,7 +15,7 @@ import {
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {
-	contextMenuSubFolder, useContextMenuProjects,
+	useContextMenuProjects, useContextMenuSubFolder,
 } from "../../../../generalComponents/collections";
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
@@ -40,6 +40,7 @@ const Project = ({
 		 setLoadingType, setMenuItem, fileAddCustomization, setFileAddCustomization, awaitingFiles, setAwaitingFiles,
 		 loaded, setLoaded, loadingFile, fileErrors, setLoadingFile, menuItem, fileSelect, saveCustomizeSeveralFiles
 }) => {
+	const contextMenuSubFolder = useContextMenuSubFolder();
 	const contextMenuProjects = useContextMenuProjects();
 	const dispatch = useDispatch();
 	const projects = useSelector((state) => state.Cabinet.project.projects);

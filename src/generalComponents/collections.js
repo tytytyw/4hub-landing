@@ -159,15 +159,18 @@ export function useContextMenuFolder() {
     };
 }
 
-export const contextMenuSubFolder = {
-    main: [
-        {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
-        {name: 'Расшарить', img: 'resend'},
-        {name: 'Скопировать ссылку', img: 'shareFile', type: "setAccessFolder"},
-        {name: 'Свойства', img: 'info', type: "propertiesFolder"},
-        {name: 'Удалить папку', img: 'garbage', type: 'deleteFolder'}
-    ],
-    additional: []
+export function useContextMenuSubFolder() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Редактировать'), img: 'edit', type: 'customizeFolder'},
+            {name: __('Расшарить'), img: 'resend'},
+            {name: __('Скопировать ссылку'), img: 'shareFile', type: "setAccessFolder"},
+            {name: __('Свойства'), img: 'info', type: "propertiesFolder"},
+            {name: __('Удалить папку'), img: 'garbage', type: 'deleteFolder'}
+        ],
+        additional: []
+    }
 }
 
 // Devices
