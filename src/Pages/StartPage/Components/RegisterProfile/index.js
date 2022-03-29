@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import classnames from 'classnames';
+import { useLocales } from 'react-localized';
 
 import api from '../../../../api';
 import styles from './RegisterProfile.module.sass';
@@ -7,16 +8,17 @@ import RegistrationSuccess from '../RegistrationSuccess';
 import Error from '../../../../generalComponents/Error';
 
 const RegisterProfile = ({setPage, pageOption}) => {
+    const { __ } = useLocales()
 
     const regTypes = [
-        {title: '4Hub', name: 'Обычная версия'},
-        {title: '4Hub (business)', name: 'Бизнес версия'}
+        {title: '4Hub', name: __('Обычная версия')},
+        {title: '4Hub (business)', name: __('Бизнес версия')}
     ];
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: '', repeatPass: '', company: '', regType: regTypes[0].name, openRegType: false});
     const [compare, setCompare] = useState({isLogin: false, isPass: false, isCoincidePass: false, isAgreed: false, isСompany: false});
     const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('Упс.... что-то пошло не так. Попробуй еще раз!')
+    const [errorMessage, setErrorMessage] = useState(__('Упс.... что-то пошло не так. Попробуй еще раз!'))
 
     const renderRegTypes = () => (
         regTypes.map((el, i) => (
@@ -89,7 +91,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
                     } else {
                         res.data.error
                         ? setErrorMessage(res.data.error)
-                        : setErrorMessage('Упс.... что-то пошло не так. Попробуй еще раз!');
+                        : setErrorMessage(__('Упс.... что-то пошло не так. Попробуй еще раз!'));
                         setError(true);
                     }
                 })
@@ -116,9 +118,9 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   className={styles.regList}
               >{renderRegTypes()}</div>
           </div>*/}
-          <div className={`${styles.registerWrap} ${info.regType === "Бизнес версия" ? styles.business : ''}`}>
+          <div className={`${styles.registerWrap} ${info.regType === __("Бизнес версия") ? styles.business : ''}`}>
               <span className={styles.cross} onClick={() => setPage('init')} />
-              <span className={styles.title}>Регистрация</span>
+              <span className={styles.title}>{ __('Регистрация') }</span>
 
               <div className={styles.buttonsGroup}>
                   {renderRegTypes()}
@@ -126,8 +128,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
 
               {info.regType === "Бизнес версия" ? <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                   <label className={styles.inputName}>
-                      Имя компании
-                      {compare.isСompany && <span> Некорректный ввод данных</span>}
+                      { __('Имя компании') }
+                      {compare.isСompany && <span>{ __('Некорректный ввод данных') }</span>}
                   </label>
                   <input
                       className={classnames({
@@ -145,8 +147,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
               </div> : null}
               <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                   <label className={styles.inputName}>
-                      Email / Телефон
-                      {compare.isLogin && <span> Некорректный ввод данных</span>}
+                      { __('Email / Телефон') }
+                      {compare.isLogin && <span>{ __('Некорректный ввод данных') }</span>}
                   </label>
                   <input
                       className={classnames({
@@ -162,8 +164,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
               </div>
               <div className={styles.inputWrap}>
                   <label className={styles.inputName}>
-                      Пароль
-                      {compare.isPass && <span> Некорректный ввод данных</span>}
+                      { __('Пароль') }
+                      {compare.isPass && <span>{ __('Некорректный ввод данных') }</span>}
                   </label>
                   <input
                       className={classnames({
@@ -194,7 +196,7 @@ const RegisterProfile = ({setPage, pageOption}) => {
               <div className={styles.inputWrap}>
                   <label className={styles.inputName}>
                       Повторите пароль
-                      {compare.isCoincidePass && <span> Некорректный ввод данных</span>}
+                      {compare.isCoincidePass && <span>{ __('Некорректный ввод данных') }</span>}
                   </label>
                   <input
                       className={classnames({
@@ -217,13 +219,13 @@ const RegisterProfile = ({setPage, pageOption}) => {
                       >{compare.isAgreed && <img src='./assets/StartPage/tick.svg' alt='tick' />}</div>
                   </div>
                   <div className={styles.agreementsText}>
-                      Я принимаю<span> Условия использования </span> 4Hub
-                      <span> Политику конфиденциальности</span> и
-                      <span> Политику интелектуальной собственности</span>
+                      { __('Я принимаю') }<span>{ __('Условия использования') }</span> { __('4Hub') }
+                      <span>{ __('Политику конфиденциальности') }</span>{ __('и') }
+                      <span>{ __('Политику интелектуальной собственности') }</span>
                   </div>
               </div>
-              <div className={styles.button} onClick={() => sendRequest()}>Создать аккаунт</div>
-              <span className={styles.orSpan}>или</span>
+              <div className={styles.button} onClick={() => sendRequest()}>{ __('Создать аккаунт') }</div>
+              <span className={styles.orSpan}>{ __('или') }</span>
               <div className={styles.socialNetworks}>
                   <div className={styles.linkedIn}><img src='./assets/StartPage/linkedIn.svg' alt='lIn' /></div>
                   <div className={styles.facebook}><img src='./assets/StartPage/fb.svg' alt='fb' /></div>
@@ -232,8 +234,8 @@ const RegisterProfile = ({setPage, pageOption}) => {
                   <div className={styles.pinterest}><img src='./assets/StartPage/pinterest.svg' alt='p' /></div>
                   <div className={styles.vk}><img src='./assets/StartPage/vk.svg' alt='vk' /></div>
               </div>
-              <div className={styles.registration}>У Вас уже есть аккаунт ?
-                  <span onClick={() => setPage('enter')}> Вход</span>
+              <div className={styles.registration}>{ __('У Вас уже есть аккаунт ?') }
+                  <span onClick={() => setPage('enter')}>{ __('Вход') }</span>
               </div>
           </div>
       </div>}

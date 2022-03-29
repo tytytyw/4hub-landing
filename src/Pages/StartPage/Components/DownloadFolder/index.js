@@ -7,8 +7,11 @@ import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/fo
 import Error from "../../../../generalComponents/Error";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import { useLocales } from 'react-localized';
 
 const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
+
+    const { __ } = useLocales()
 
     const emptyFolder = {
         name: 'No folder',
@@ -83,7 +86,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
                         className={styles.download}
                         onClick={() => document.downloadFile.submit()}
                     /></a> : null}
-                    {folder.name !== 'No folder' && <h2>Скачать папку «{folder.name}»</h2>}
+                    {folder.name !== 'No folder' && <h2>{ __('Скачать папку') } «{folder.name}»</h2>}
                     {folder.is_pass === 1 && <div className={styles.passwordWrap}>
                         <input
                             type={visibility}
@@ -91,7 +94,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
                             name='pass'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Введите пароль указанный на почте'
+                            placeholder={ __('Введите пароль указанный на почте') }
                         />
                         {visibility === 'password' && <img
                             src={imageSrc + 'assets/StartPage/invisible.svg'}
@@ -106,13 +109,13 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
                             onClick={() => setVisibility('password')}
                         />}
                     </div>}
-                    {folder.name !=='No folder' ? <span className={styles.term}>Срок хранения папки ( {countLeftDays()} до {showTime()})</span> : null}
-                    {folder.name !=='No folder' ? <div className={styles.guestButton} onClick={switchToGuestCabinet}>Посмотреть в гостевом режиме</div> : null}
+                    {folder.name !=='No folder' ? <span className={styles.term}>{ __('Срок хранения папки') } ( {countLeftDays()} до {showTime()})</span> : null}
+                    {folder.name !=='No folder' ? <div className={styles.guestButton} onClick={switchToGuestCabinet}>{ __('Посмотреть в гостевом режиме') }</div> : null}
                 </>}
             </form>}
-            {error && <Error error={error} set={setError} message={'Упс... Такая папка не найдена'} />}
+            {error && <Error error={error} set={setError} message={ __('Упс... Такая папка не найдена') } />}
             {loader ? <>
-                <span>Идет процесс созадния ZIP архива</span>
+                <span>{ __('Идет процесс созадния ZIP архива') }</span>
                 <Loader
                     type='bounceDots'
                     position='absolute'

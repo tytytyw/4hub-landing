@@ -6,7 +6,7 @@ import {ReactComponent as CheckMark} from "../../assets/PrivateCabinet/check-mar
 import classNames from "classnames";
 import {setStorageItem} from "../StorageHelper";
 import {changeLanguage} from "../../Store/actions/main";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const langs = [
     {lang: 'ru', title: 'ru', name: 'Русский'},
@@ -16,7 +16,8 @@ const langs = [
 
 const LangPicker = () => {
 
-    const [lang, setLang] = useState(langs[0])
+    const language = useSelector(s => s.main.personalSettings.lang);
+    const [lang, setLang] = useState(langs.filter(el => el.lang === language)[0] ?? langs[0])
     const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
 
@@ -63,7 +64,7 @@ const LangPicker = () => {
                             key={item.lang}
                         >
                             <p className={styles.lang}>{item.title}</p>
-                            {lang.lang === item.lang && <CheckMark/>}
+                            {language === item.lang && <CheckMark/>}
                         </li>
                     ))}
                 </ul>

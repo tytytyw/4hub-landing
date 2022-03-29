@@ -3,9 +3,11 @@ import styles from "./Tariff.module.sass";
 import classNames from "classnames";
 import { ReactComponent as FolderIcon } from '../../../../../assets/StartPage/folder.svg';
 import { ReactComponent as PieChartIcon } from '../../../../../assets/StartPage/pie_chart.svg';
+import { useLocales } from 'react-localized';
 
 
 function Tariff({ name, cost, currentPlan, promo, discont }) {
+	const { __ } = useLocales();
 	return (
 		<div className={styles.tariff}>
 			<div
@@ -30,26 +32,25 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
 					)}
 				</p>
 				<p className={styles.tariff_cost_clarification}>
-					На пользователя в месяц начиная с 3 польз.
+					{ __('На пользователя в месяц начиная с 3 польз.') }
 				</p>
 				<ul className={styles.tariff_descrp}>
 					<li className={styles.tariff_descrp_item}>
 						<PieChartIcon className={styles.tariff_descrp_ico} />
 						<p className={styles.tariff_descrp_text}>
-							2 000 ГБ места для безопасного хранения файлов
+							{ __('2 000 ГБ места для безопасного хранения файлов') }
 						</p>
 					</li>
 					<li className={styles.tariff_descrp_item}>
 						<FolderIcon className={styles.tariff_descrp_ico} />
 						<p className={styles.tariff_descrp_text}>
-							Простые инструменты для храннения и предоставления доступа и
-							совместной работы
+							{ __('Простые инструменты для храннения и предоставления доступа и совместной работы') }
 						</p>
 					</li>
 					<button
 						className={classNames({[styles.tariff_btn]: true, [styles.tariff_current_btn]:currentPlan, [styles.tariff_promo_btn]:promo})}
 					>
-						{currentPlan ? 'Текущий план' : 'Купить'}
+						{currentPlan ? __('Текущий план') : __('Купить')}
 					</button>
 				</ul>
 			</div>

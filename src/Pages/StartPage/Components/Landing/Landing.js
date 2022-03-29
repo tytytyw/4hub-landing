@@ -1,5 +1,5 @@
 import styles from './Landing.module.sass'
-import Main from './Main/Main.jsx'
+import Main from './Main/Main'
 import Footer from './Footer/Footer'
 import React, { useEffect } from 'react'
 import { useLocales } from 'react-localized'
