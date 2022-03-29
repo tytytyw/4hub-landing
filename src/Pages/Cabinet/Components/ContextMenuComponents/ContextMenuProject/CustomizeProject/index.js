@@ -5,7 +5,7 @@ import styles from './CustomizeProject.module.sass'
 import api from '../../../../../../api/index'
 import PopUp from '../../../../../../generalComponents/PopUp'
 import InputField from '../../../../../../generalComponents/InputField'
-import {tags} from '../../../../../../generalComponents/collections'
+import {useTags} from '../../../../../../generalComponents/collections'
 import Error from '../../../../../../generalComponents/Error'
 import Colors from '../../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../../generalComponents/Elements/Signs'
@@ -16,6 +16,7 @@ import {onGetProjects} from '../../../../../../Store/actions/CabinetActions'
 
 const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
 
+    const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(project.name);
     const [target, setTarget] = useState('');

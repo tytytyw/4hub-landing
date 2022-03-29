@@ -5,7 +5,7 @@ import styles from './CreateZip.module.sass';
 import api from '../../../../../../api';
 import PopUp from '../../../../../../generalComponents/PopUp';
 import InputField from '../../../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../../../generalComponents/collections';
+import {colors, useTags} from '../../../../../../generalComponents/collections';
 import Error from '../../../../../../generalComponents/Error';
 import Colors from '../../../../../../generalComponents/Elements/Colors';
 import '../../../../../../generalComponents/colors.sass';
@@ -17,7 +17,7 @@ import {onChooseFiles, onGetSafeFileList, onSetModals} from '../../../../../../S
 import {useLocation} from "react-router";
 
 const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
-
+    const tags = useTags();
     const {title, items, filesPage} = useSelector(s => s.Cabinet.modals.contextMenuModals);
     console.log(items)
     const uid = useSelector(state => state.user.uid);

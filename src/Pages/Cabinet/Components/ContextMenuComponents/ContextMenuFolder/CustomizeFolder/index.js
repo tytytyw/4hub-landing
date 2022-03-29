@@ -6,7 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import {tags, colors, useFolders} from "../../../../../../generalComponents/collections";
+import {useTags, colors, useFolders} from "../../../../../../generalComponents/collections";
 import {onChooseFiles, onGetFolders} from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -24,6 +24,7 @@ const CustomizeFolder = ({
 	setGLoader,
  	successLoad,
 }) => {
+	const tags = useTags();
 	const uid = useSelector((state) => state.user.uid);
 	const folderList = useSelector(state => state.Cabinet.folderList);
 	const fileList = useSelector(state => state.Cabinet.fileList);

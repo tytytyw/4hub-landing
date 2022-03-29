@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import styles from './CreateTask.module.sass'
 import InputField from '../../../../../generalComponents/InputField'
-import {colors, tags} from '../../../../../generalComponents/collections'
+import {colors, useTags} from '../../../../../generalComponents/collections'
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
@@ -20,7 +20,7 @@ const events = [
 ]
 
 const CreateTask = ({onCreate, setSuccess, setEvent}) => {
-
+    const tags = useTags();
     const [eventType, setEventType] = useState('');
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');

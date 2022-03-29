@@ -6,7 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import { tags, colors } from "../../../../../../generalComponents/collections";
+import {colors, useTags} from "../../../../../../generalComponents/collections";
 import { onGetProjectFolders } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -22,6 +22,7 @@ const CreateFolder = ({
 	parentFolder,
 	setGLoader,
 }) => {
+	const tags = useTags();
 	const uid = useSelector((state) => state.user.uid);
 	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");

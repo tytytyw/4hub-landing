@@ -4,7 +4,7 @@ import styles from './CreateSafePassword.module.sass';
 import PopUp from '../../../../generalComponents/PopUp';
 import {ReactComponent as SafeIcon} from '../../../../assets/PrivateCabinet/safeColored.svg';
 import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
+import {colors, useTags} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
@@ -12,7 +12,7 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 
 const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => {
-
+    const tags = useTags();
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [tagOption, setTagOption] = useState({chosen: '', count: 30});

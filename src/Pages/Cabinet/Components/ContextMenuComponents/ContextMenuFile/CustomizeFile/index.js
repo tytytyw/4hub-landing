@@ -5,7 +5,7 @@ import styles from "./CustomizeFile.module.sass";
 import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
-import { tags, colors } from "../../../../../../generalComponents/collections";
+import {colors, useTags} from "../../../../../../generalComponents/collections";
 import Error from "../../../../../../generalComponents/Error";
 import {
 	onCustomizeFile,
@@ -26,6 +26,7 @@ const CustomizeFile = ({
 	setLoadingType = () => {},
    info
 }) => {
+	const tags = useTags();
 	const {title, items, filePick, menuItem} = useSelector(s => s.Cabinet.modals.contextMenuModals);
 	const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
 	const file = items[0];

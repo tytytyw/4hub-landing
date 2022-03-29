@@ -6,7 +6,7 @@ import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import InputField from '../../../../generalComponents/InputField';
 import SelectFolder from '../../../../generalComponents/SelectFolder/SelectFolder';
-import {tags, colors} from '../../../../generalComponents/collections';
+import {colors, useTags} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
@@ -21,7 +21,7 @@ const CreateFile = ({
                 awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem,
                 initFolder, showChoiceFolders, info
 }) => {
-
+    const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const search = useSelector(state => state.Cabinet.search);

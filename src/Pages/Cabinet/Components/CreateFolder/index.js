@@ -6,7 +6,7 @@ import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import InputField from '../../../../generalComponents/InputField';
-import {tags, colors, useFolders} from '../../../../generalComponents/collections';
+import {colors, useFolders, useTags} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
@@ -20,7 +20,7 @@ const CreateFolder = ({
     onCreate, title, showChoiceFolders = true, chosenFolder, newFolderInfo = {},
     setGLoader, setNewFolderInfo
 }) => {
-
+    const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
     const search = useSelector(state => state.Cabinet.search);

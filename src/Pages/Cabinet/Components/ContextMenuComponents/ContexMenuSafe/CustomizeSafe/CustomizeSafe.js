@@ -5,7 +5,7 @@ import Colors from "../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import { colors, tags } from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
 import SafeIcon from "../../../Safe/SafeIcon";
@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 
 const CustomizeSafe = ({ safe, close, setLoadingType }) => {
+	const tags = useTags();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
 	const [name, setName] = useState(safe.name);

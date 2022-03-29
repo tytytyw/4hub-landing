@@ -6,7 +6,7 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
-import { colors, tags } from "../../../../../../generalComponents/collections";
+import {colors, useTags} from "../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
@@ -17,6 +17,7 @@ import api from "../../../../../../api";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateSafe = ({ onCreate, setLoadingType }) => {
+	const tags = useTags();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
 	const [name, setName] = useState("");

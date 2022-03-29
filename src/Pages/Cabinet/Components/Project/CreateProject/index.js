@@ -5,7 +5,7 @@ import styles from './CreateProject.module.sass'
 import api from '../../../../../api'
 import PopUp from '../../../../../generalComponents/PopUp'
 import InputField from '../../../../../generalComponents/InputField'
-import {tags, colors} from '../../../../../generalComponents/collections'
+import {colors, useTags} from '../../../../../generalComponents/collections'
 import Error from '../../../../../generalComponents/Error'
 import Colors from '../../../../../generalComponents/Elements/Colors'
 import Signs from '../../../../../generalComponents/Elements/Signs'
@@ -14,7 +14,7 @@ import ProjectIcons from '../ProjectIcons/ProjectIcons'
 import {onGetProjects} from '../../../../../Store/actions/CabinetActions'
 
 const CreateProject = ({onCreate, title, setLoadingType}) => {
-
+    const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
     const [target, setTarget] = useState('');

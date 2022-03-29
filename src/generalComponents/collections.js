@@ -11,7 +11,10 @@ export function useFolders() { // eslint-disable-line
     ];
 }
 
-export const tags = ['Фото', 'Видео', 'Музыка', 'Работа', 'Спорт', 'Развлечения', 'Игры', 'Документы', 'Другое'];
+export function useTags() {
+    const { __ } = useLocales()
+    return [__('Фото'), __('Видео'), __('Музыка'), __('Работа'), __('Спорт'), __('Развлечения'), __('Игры'), __('Документы'), __('Другое')]
+}
 
 export const colors = [
     {dark: '#efeeee', light: '#efeeee', color: 'grey', name: 'grey'},
