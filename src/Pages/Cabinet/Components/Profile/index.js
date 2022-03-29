@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Profile.module.sass';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
-import {contextMenuProfile} from '../../../../generalComponents/collections';
+import {useContextMenuProfile} from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import {useHistory} from "react-router";
 import {imageSrc} from "../../../../generalComponents/globalVariables";
@@ -10,6 +10,7 @@ import {exit} from "../../../../generalComponents/generalHelpers";
 
 const Profile = () => {
 
+    const contextMenuProfile = useContextMenuProfile;
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
     const profileRef = useRef();

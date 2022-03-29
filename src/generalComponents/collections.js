@@ -58,16 +58,20 @@ export function useContextMenuFile() {
     };
 }
 
-export const contextMenuProfile = {
-    main: [
-        {name: 'Мой профиль', img: 'profile-icon'},
-        {name: 'Служба поддержки', img: 'question-icon'},
-        {name: 'Настройки', img: 'settings-icon'},
-    ],
-    additional: [
-        {name: 'Выход', img: 'sign-out-icon'},
-    ]
-};
+export function useContextMenuProfile() {
+    const { __ } = useLocales()
+    return {
+        main: [
+            {name: __('Мой профиль'), img: 'profile-icon'},
+            {name: __('Служба поддержки'), img: 'question-icon'},
+            {name: __('Настройки'), img: 'settings-icon'},
+        ],
+        additional: [
+            {name: __('Выход'), img: 'sign-out-icon'},
+        ]
+    };
+}
+
 
 export const contextMenuFilters = {
     main: [
