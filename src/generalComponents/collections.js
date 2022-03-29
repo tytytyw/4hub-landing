@@ -360,12 +360,15 @@ export function useContextMenuChat() {
 
 // org structure
 
-export const contextMenuPerson = [
-    {name: 'Добавить сотрудника', img: 'plus-3', type: 'add-employee'},
-    {name: 'Редактировать', img: 'edit', type: 'customize'},
-    {name: 'Информация о сотруднике', img: 'info', type: 'info'},
-    {name: 'Удалить', img: 'garbage', type: 'delete'}
-]
+export function useContextMenuPerson() {
+    const { __ } = useLocales();
+    return [
+        {name: __('Добавить сотрудника'), img: 'plus-3', type: 'add-employee'},
+        {name: __('Редактировать'), img: 'edit', type: 'customize'},
+        {name: __('Информация о сотруднике'), img: 'info', type: 'info'},
+        {name: __('Удалить'), img: 'garbage', type: 'delete'}
+    ]
+}
 
 export const personStatus = [
     { color: "#fff", name: "white", text: "Без статуса" },

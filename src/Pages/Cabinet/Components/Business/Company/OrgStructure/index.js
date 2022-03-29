@@ -8,7 +8,7 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import CustomNodeComponent from "./CustomNodeComponent";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
-import { contextMenuPerson } from "../../../../../../generalComponents/collections";
+import {useContextMenuPerson} from "../../../../../../generalComponents/collections";
 import AddEmployee from "../AddEmployee";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
@@ -24,6 +24,7 @@ function OrgStructure({
 	setPageOption,
 	action,
 }) {
+	const contextMenuPerson = useContextMenuPerson();
 	const onNodeDragStop = (e, node) => {
 		changeNodeCoorditates(node);
 	};
