@@ -11,7 +11,7 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
 import PreviewSafeFile from "./PreviewSafeFile";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import { contextMenuSafeItem } from "../../../../generalComponents/collections";
+import {useContextMenuSafeItem} from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import { safeFileDelete } from "../../../../generalComponents/fileMenuHelper";
 import classNames from "classnames";
@@ -48,6 +48,7 @@ const Safe = ({
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
 }) => {
+	const contextMenuSafeItem = useContextMenuSafeItem();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
 	const path = useSelector((state) => state.Cabinet.folderList?.path);

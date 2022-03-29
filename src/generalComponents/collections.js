@@ -208,18 +208,20 @@ export function useContextMenuDeviceUser() {
     }
 }
 
-export const contextMenuSafeItem = {
-    main: [
-        {name: 'Предоставить доступ', img: 'download-blue'},
-        {name: 'Редактировать', img: 'edit', type: 'customizeSafe'},
-        {name: 'Сменить пароль', img: 'settings-work-tool'},
-        {name: 'Свойства', img: 'info', type: 'propertiesSafe'},
-    ],
-    additional: [
-        {name: 'Удалить', img: 'garbage'}
-    ]
+export function useContextMenuSafeItem() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Предоставить доступ'), img: 'download-blue'},
+            {name: __('Редактировать'), img: 'edit', type: 'customizeSafe'},
+            {name: __('Сменить пароль'), img: 'settings-work-tool'},
+            {name: __('Свойства'), img: 'info', type: 'propertiesSafe'},
+        ],
+        additional: [
+            {name: __('Удалить'), img: 'garbage'}
+        ]
+    }
 }
-
 
 // Programs
 export const contextProgramFolder = {
