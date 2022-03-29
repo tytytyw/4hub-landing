@@ -197,12 +197,15 @@ export function useContextMenuDevice() {
 }
 
 
-export const contextMenuDeviceUser = {
-    main: [
-        {name: 'Блокировать пользователя', img: 'edit', type: 'disconnectItem'},
-        {name: 'Блокировать несколько', img: 'shareFile', type: "disconnectAllUser"}
-    ],
-    additional: []
+export function useContextMenuDeviceUser() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Блокировать пользователя'), img: 'edit', type: 'disconnectItem'},
+            {name: __('Блокировать несколько'), img: 'shareFile', type: "disconnectAllUser"}
+        ],
+        additional: []
+    }
 }
 
 export const contextMenuSafeItem = {

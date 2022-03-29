@@ -8,7 +8,7 @@ import WorkSpace from "./WorkSpace";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import {
-	contextMenuDeviceUser, useContextMenuDevice,
+	useContextMenuDevice, useContextMenuDeviceUser,
 } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
@@ -29,6 +29,7 @@ import LoadingFailed from "./LoadingFailed";
 
 const Devices = () => {
 	const contextMenuDevice = useContextMenuDevice();
+	const contextMenuDeviceUser = useContextMenuDeviceUser();
 	const dispatch = useDispatch();
 	const devices = useSelector((state) => state.Cabinet.devices);
 	const size = useSelector((state) => state.Cabinet.size);
