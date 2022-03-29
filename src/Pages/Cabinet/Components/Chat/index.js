@@ -26,7 +26,7 @@ import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMe
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import SearchField from "../../../../generalComponents/SearchField";
 import AddUserToGroup from "./ServePanel/AddUserToGroup";
-import { contextMenuChat } from "../../../../generalComponents/collections";
+import {useContextMenuChat} from "../../../../generalComponents/collections";
 import {
 	groupDelete,
 	secretChatDelete,
@@ -35,6 +35,7 @@ import {
 import { contactDelete } from "../../../../generalComponents/chatHelper";
 
 const Chat = ({ setMenuItem }) => {
+	const contextMenuChat = useContextMenuChat();
 	const [boardOption, setBoardOption] = useState("contacts");
 	const [search, setSearch] = useState("");
 	const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);

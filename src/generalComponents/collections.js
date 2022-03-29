@@ -309,50 +309,53 @@ export function useContextMenuDocFile() {
 
 // Chat
 
-export const contextMenuChat = {
-    group: [
-        {name: 'Редактировать', img: 'edit', type: 'editChatGroup'},
-        {name: 'Удалить', img: 'garbage', type: 'deleteChatGroup'},
-        {name: 'Покинуть группу', img: 'garbage', type: 'leaveFromChatGroup'},
-    ],
-    secretChat: [{name: 'Удалить', img: 'garbage', type: 'deleteSecretChat'}],
-    userInGroup: [
-        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
-        {name: 'Удалить из группы', img: 'garbage', type: 'deleteUserFromGroup'},
-    ],
-    recentChat: [
-        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
-        {name: 'Отметить непрочитанным', img: 'mark-unread', type: 'markAsUnread'},
-    ],
-    contact: [
-        {name: 'Очистить историю', img: 'brush-2', type: 'clearMessages'},
-        {name: 'Заблокировать', img: 'block-user', type: 'blockUser'},
-        {name: 'Отметить непрочитанным', img: 'mark-unread', type: 'markAsUnread'},
-        {name: 'Удалить', img: 'garbage', type: 'deleteContact'},
-    ],
-    timer: [
-        {name: '1 час'},
-        {name: '45 мин.'},
-        {name: '30 мин.'},
-        {name: '15 мин.'},
-        {name: '10 мин.'},
-        {name: '5 мин.'},
-        {name: '1 мин.'},
-        {name: '30 сек.'},
-        {name: '20 сек.'}
-    ],
-    message: [
-        {name: 'Редактировать сообщение', img: 'edit', type: 'editMessage'},
-        {name: 'Скачать', img: 'download-blue', type: 'download'},
-        {name: 'Удалить сообщение', img: 'garbage', type: 'deleteMessage'},
-    ],
-    uploadFile: [
-        {name: "Камера", img: 'camera', type: "createMediaFromCamera"},
-        {name: "Файлы с системы 4Hub", img: 'files', type: "add4hubFile"},
-        {name: "Файлы с компьютера", img: 'files', type: "addPcFile"},
-    ]
+export function useContextMenuChat() {
+    const { __ } = useLocales();
+    return {
+        group: [
+            {name: __('Редактировать'), img: 'edit', type: 'editChatGroup'},
+            {name: __('Удалить'), img: 'garbage', type: 'deleteChatGroup'},
+            {name: __('Покинуть группу'), img: 'garbage', type: 'leaveFromChatGroup'},
+        ],
+        secretChat: [{name: __('Удалить'), img: 'garbage', type: 'deleteSecretChat'}],
+        userInGroup: [
+            {name: __('Очистить историю'), img: 'brush-2', type: 'clearMessages'},
+            {name: __('Заблокировать'), img: 'block-user', type: 'blockUser'},
+            {name: __('Удалить из группы'), img: 'garbage', type: 'deleteUserFromGroup'},
+        ],
+        recentChat: [
+            {name: __('Очистить историю'), img: 'brush-2', type: 'clearMessages'},
+            {name: __('Заблокировать'), img: 'block-user', type: 'blockUser'},
+            {name: __('Отметить непрочитанным'), img: 'mark-unread', type: 'markAsUnread'},
+        ],
+        contact: [
+            {name: __('Очистить историю'), img: 'brush-2', type: 'clearMessages'},
+            {name: __('Заблокировать'), img: 'block-user', type: 'blockUser'},
+            {name: __('Отметить непрочитанным'), img: 'mark-unread', type: 'markAsUnread'},
+            {name: __('Удалить'), img: 'garbage', type: 'deleteContact'},
+        ],
+        timer: [
+            {name: __('1 час')},
+            {name: __('45 мин.')},
+            {name: __('30 мин.')},
+            {name: __('15 мин.')},
+            {name: __('10 мин.')},
+            {name: __('5 мин.')},
+            {name: __('1 мин.')},
+            {name: __('30 сек.')},
+            {name: __('20 сек.')}
+        ],
+        message: [
+            {name: __('Редактировать сообщение'), img: 'edit', type: 'editMessage'},
+            {name: __('Скачать'), img: 'download-blue', type: 'download'},
+            {name: __('Удалить сообщение'), img: 'garbage', type: 'deleteMessage'},
+        ],
+        uploadFile: [
+            {name: __("Камера"), img: 'camera', type: "createMediaFromCamera"},
+            {name: __("Файлы с системы 4Hub"), img: 'files', type: "add4hubFile"},
+            {name: __("Файлы с компьютера"), img: 'files', type: "addPcFile"},
+        ]
+    }
 }
 
 // org structure
