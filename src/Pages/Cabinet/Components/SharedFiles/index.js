@@ -11,24 +11,18 @@ import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
 import DateFilter from "../MyFiles/DateFilter";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import { contextMenuSharedFiles } from "../../../../generalComponents/collections";
+import {useContextMenuSharedFiles} from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-// import ActionApproval from "../../../../generalComponents/ActionApproval";
-// import File from "../../../../generalComponents/Files";
 import PreviewFile from "../Modals/Components/PreviewFile/PreviewFile";
 import BottomPanel from "../BottomPanel";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import {
 	onGetSharedFiles,
-	// onDeleteFile,
-	// onAddRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import { previewFormats } from "../../../../generalComponents/collections";
 import api from "../../../../api";
-// import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import Share from "../ContextMenuComponents/generalContextMenuComponents/Share/Share";
 import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty";
-// import CopyLinkShare from "../ContextMenuComponents/generalContextMenuComponents/CopyLinkShare";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
@@ -39,17 +33,13 @@ const SharedFiles = ({
 	filePreview,
 	setFilePreview,
 	fileSelect,
-	// fileAddCustomization,
-	// nullifyAddingSeveralFiles,
-	// setFileAddCustomization,
-	// saveCustomizeSeveralFiles,
 	setLoadingType,
 	setMenuItem,
 }) => {
+	const contextMenuSharedFiles = useContextMenuSharedFiles();
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState("");
 	const [fileList, setFileList] = useState(null);
-	// const user = useSelector((state) => state.user.userInfo);
 	const [sideMenuChosenItem, setSideMenuChosenItem] = useState("sharedMe");
 	const dispatch = useDispatch();
 

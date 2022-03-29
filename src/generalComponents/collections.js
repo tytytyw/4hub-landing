@@ -479,15 +479,18 @@ export function usePeriods() {
 
 // Shared files
 
-export const contextMenuSharedFiles = {
-    main: [
-        {name: 'Расшарить', img: 'share', type: 'share'},
-        {name: 'Скопировать ссылку', img: 'link-4', type: 'copyLink'},
-        {name: 'Редактировать файл', img: 'edit', type: 'customize'},
-        {name: 'Ред. несколько файлов', img: 'editSeveral', type: 'customizeSeveral'},
-        {name: 'Свойства', img: 'info', type: 'properties'},
-        {name: 'Скачать', img: 'download-blue', type: 'download'},
-        {name: 'Печать', img: 'print-2', type: 'print'},
-    ],
-    additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
-};
+export function useContextMenuSharedFiles() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Расшарить'), img: 'share', type: 'share'},
+            {name: __('Скопировать ссылку'), img: 'link-4', type: 'copyLink'},
+            {name: __('Редактировать файл'), img: 'edit', type: 'customize'},
+            {name: __('Ред. несколько файлов'), img: 'editSeveral', type: 'customizeSeveral'},
+            {name: __('Свойства'), img: 'info', type: 'properties'},
+            {name: __('Скачать'), img: 'download-blue', type: 'download'},
+            {name: __('Печать'), img: 'print-2', type: 'print'},
+        ],
+        additional: [{name: __('Удалить'), img: 'garbage', type: 'delete'}]
+    };
+}
