@@ -7,8 +7,10 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FileIco } from "../../../../../../assets/BusinessCabinet/file_dowload.svg";
 import CropImage from "./CropImage/CropImage";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
+	const { __ } = useLocales()
 	// const [response, setResponse] = useState('');
 	const [error, setError] = useState(false);
 	const [cropParams, setCropParams] = useState(null);
@@ -98,11 +100,11 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 						<span className={styles.text}>
 							Перетащите Файл или Нажмите{" "}
 							<span className={styles.download} onClick={sendFile}>
-								Загрузить
+								{ __('Загрузить') }
 							</span>
 						</span>
 					</div>
-					{error ? <p className={styles.fileError}> необходимо загрузить изображение менее 5мб</p> : null}
+					{error ? <p className={styles.fileError}>{ __('необходимо загрузить изображение менее 5мб') }</p> : null}
 				</form>
 
 				{blob && (
@@ -116,10 +118,10 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
 
 				<div className={styles.buttonsWrap}>
 					<div className={styles.cancel} onClick={nullifyAction}>
-						Отмена
+						{ __('Отмена') }
 					</div>
 					<div className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})} onClick={createNewImage}>
-						Сохранить
+						{ __('Сохранить') }
 					</div>
 				</div>
 			</div>

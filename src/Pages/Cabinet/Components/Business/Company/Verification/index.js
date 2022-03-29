@@ -2,9 +2,10 @@ import React, {useRef} from 'react';
 
 import styles from './Verification.module.sass'
 import {ReactComponent as SuccessImg} from "../../../../../../assets/BusinessCabinet/WelcomePage/success.svg";
+import {useLocales} from "react-localized";
 
 const Verification = ({setPageOption}) => {
-
+    const { __ } = useLocales()
     const labelRef = useRef()
     const upload = () => {
         labelRef.current.click()
@@ -17,18 +18,18 @@ const Verification = ({setPageOption}) => {
 
                 <div className={styles.header}>
                     <SuccessImg className={styles.icon}/>
-                    <p>Верефикация компании</p>
+                    <p>{ __('Верефикация компании') }</p>
                 </div>
 
                 <div className={styles.infoBlock}>
-                    <p className={styles.labelText}>Фото выписки с ЕДР</p>
+                    <p className={styles.labelText}>{ __('Фото выписки с ЕДР') }</p>
                     <div
                         onClick={upload}
                         className={styles.uploadBlock}
                     >
                         <p onClick={e => e.stopPropagation()} className={styles.uploadText}>
-                            Перетащите сюда фото или
-                            <label ref={labelRef} htmlFor='Verification-upload'> Загрузите</label>
+                            { __('Перетащите сюда фото или') }
+                            <label ref={labelRef} htmlFor='Verification-upload'>{ __('Загрузите') }</label>
                         </p>
                         <input id='Verification-upload' type="file"/>
                     </div>
@@ -36,9 +37,9 @@ const Verification = ({setPageOption}) => {
                 </div>
 
                 <div className={styles.actionBlock}>
-                    <button className={styles.cancelBtn}>Отмена</button>
+                    <button className={styles.cancelBtn}>{ __('Отмена') }</button>
                     <button onClick={() => setPageOption('welcome')}>
-                        Подтвердить
+                        { __('Подтвердить') }
                     </button>
                 </div>
 

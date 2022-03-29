@@ -5,8 +5,10 @@ import ContactSearch from "./ContactSearch/ContactSearch";
 import SearchList from "./SearchList/SearchList";
 import { ReactComponent as AddContactIcon } from "../../../../../../../assets/PrivateCabinet/addContact.svg";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
+	const { __ } = useLocales()
 	const [search, setSearch] = useState("");
 	const [contactList, setContactList] = useState("");
 
@@ -47,7 +49,7 @@ const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setActi
 				<div className={styles.iconWrap}>
 					<AddContactIcon width={12} height={14} />
 				</div>
-				<span className={styles.text}>Добавить контакт</span>
+				<span className={styles.text}>{ __('Добавить контакт') }</span>
 			</div>
 
 			<div className={styles.contactListWrap}>

@@ -5,8 +5,10 @@ import {
 	usePersonPositions, usePersonStatus,
 } from "../../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import {useLocales} from "react-localized";
 
 const Select = ({ selectFor, value, setValue, disableСhanges }) => {
+	const { __ } = useLocales();
 	const personPositions = usePersonPositions();
 	const personStatus = usePersonStatus();
 	const [open, setOpen] = useState(false);
@@ -46,7 +48,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
 						alt="magnify"
 					/>
 					<input
-						placeholder="введите название должности"
+						placeholder={ __("введите название должности") }
 						className={styles.searchInput}
 						onChange={(e) =>
 							setFiltredPositions(
@@ -118,7 +120,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
 											personStatus.filter((i) => i.text === value)[0].color
 										}`,
 									}}
-								></div>
+								/>
 							</div>
 						)}
 						{selectFor === "status" ? (
@@ -126,7 +128,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
 						) : (
 							<input
 								className={styles.positionInput}
-								placeholder={!disableСhanges ? "Выберите из списка или введите вручную" : "не указана"}
+								placeholder={!disableСhanges ? __("Выберите из списка или введите вручную") : __("не указана")}
 								value={value}
                                 disabled={disableСhanges}
 								onChange={(e) =>

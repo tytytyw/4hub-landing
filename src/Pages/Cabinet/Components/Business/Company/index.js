@@ -14,7 +14,6 @@ import Contacts from "./Contacts";
 import SearchField from "../../SearchField";
 import Notifications from "../../Notifications";
 import Profile from "../../Profile";
-// import Verification from "./Verification";
 import OrgStructure from "./OrgStructure";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import ContextMenuItem from "../../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -24,8 +23,10 @@ import { onGetUserInfo } from "../../../../../Store/actions/startPageAction";
 import { onGetCompanyContacts }  from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import SuccessMessage from "../../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
+import {useLocales} from "react-localized";
 
 const Company = () => {
+	const { __ } = useLocales()
 	const [pageOption, setPageOption] = useState({ name: "init" });
 	const [mouseParams, setMouseParams] = useState(null);
 	const [action, setAction] = useState({ type: "", name: "", text: "" });
@@ -43,40 +44,40 @@ const Company = () => {
 	const sideListData = [
 		{
 			name: "get_info",
-			label: "Общие сведения",
+			label: __("Общие сведения"),
 			icon: <InfoIcon />,
 			children: [
-				{ name: "standards", label: "Стандарты компании" },
-				{ name: "mission", label: "Миссия компании" },
-				{ name: "viziya", label: "Визия" },
-				{ name: "contacts", label: "Контакты" },
+				{ name: "standards", label: __("Стандарты компании") },
+				{ name: "mission", label: __("Миссия компании") },
+				{ name: "viziya", label: __("Визия") },
+				{ name: "contacts", label: __("Контакты") },
 			],
 		},
 		{
 			name: "team",
-			label: "Команда",
+			label: __("Команда"),
 			icon: <TeamIcon />,
 			children: [
-				{ name: "add-employee", label: "Добавить сотрудников" },
-				{ name: "settings_access", label: "Настройки доступа" },
+				{ name: "add-employee", label: __("Добавить сотрудников") },
+				{ name: "settings_access", label: __("Настройки доступа") },
 			],
 		},
 		{
 			name: "org_structure",
-			label: "Орг. Структура",
+			label: __("Орг. Структура"),
 			icon: <OrgIcon />,
 			children: [
-				{ name: "add-employee", label: "Добавить сотрудников" },
-				{ name: "settings_access", label: "Настройки доступа" },
+				{ name: "add-employee", label: __("Добавить сотрудников") },
+				{ name: "settings_access", label: __("Настройки доступа") },
 			],
 		},
 		{
 			name: "settings",
-			label: "Настройки",
+			label: __("Настройки"),
 			icon: <SettingsIcon />,
 			children: [
-				{ name: "add-employee", label: "Добавить сотрудников" },
-				{ name: "settings_access", label: "Настройки доступа" },
+				{ name: "add-employee", label: __("Добавить сотрудников") },
+				{ name: "settings_access", label: __("Настройки доступа") },
 			],
 		},
 	];
@@ -146,9 +147,6 @@ const Company = () => {
 				</div>
 
 				<div style={{position: loadingType ? 'relative' : ''}} className={styles.content}>
-					{/* {pageOption.name === "init" && (
-						<Verification setPageOption={setPageOption} />
-					)} */}
 					{pageOption.name === "welcome" && (
 						<WelcomeCard setPageOption={setPageOption} />
 					)}
@@ -174,8 +172,6 @@ const Company = () => {
 					)}
 					{pageOption.name === "contacts" && (
 						<Contacts
-							// setPageOption={setPageOption}
-							// pageOption={pageOption}
 							setLoadingType={setLoadingType}
 							setShowSuccessMessage={setShowSuccessMessage}
 							mouseParams={mouseParams}

@@ -2,8 +2,10 @@ import React from 'react'
 
 import styles from './SuccessSend.module.sass'
 import successImg from '../../../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
+import {useLocales} from "react-localized";
 
 const SuccessSend = ({setPageOption}) => {
+    const { __ } = useLocales()
 
     return (
         <div className={styles.centeredWrapper}>
@@ -12,18 +14,17 @@ const SuccessSend = ({setPageOption}) => {
 
                 <div className={styles.header}>
                     <img src={successImg} alt="Success"/>
-                    <p>Письмо отправлено на почту</p>
+                    <p>{ __('Письмо отправлено на почту') }</p>
                 </div>
 
                 <div className={styles.infoBlock}>
                     <p>
-                        Письмо с правами доступа отправленно на указанный вами email
-                        mailgmail@gmail.com
+                        { __('Письмо с правами доступа отправленно на указанный вами email mailgmail@gmail.com') }
                     </p>
                 </div>
 
                 <div className={styles.actionBlock}>
-                    <button onClick={() => setPageOption('welcome')}>Готово</button>
+                    <button onClick={() => setPageOption('welcome')}>{ __('Готово') }</button>
                 </div>
 
             </div>

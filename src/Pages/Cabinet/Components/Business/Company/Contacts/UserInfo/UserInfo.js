@@ -7,8 +7,10 @@ import { ReactComponent as DeleteIcon } from "../../../../../../../assets/Privat
 import { ReactComponent as PhoneIcon } from "../../../../../../../assets/PrivateCabinet/phone-3.svg";
 import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateCabinet/mail-3.svg";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 function UserInfo({ selectedItem, setAction }) {
+	const { __ } = useLocales();
 	const renderContactItem = (array, type) => {
 		if (!array) return null;
 		return array.map((value, index) => {
@@ -65,7 +67,7 @@ function UserInfo({ selectedItem, setAction }) {
 
 					<div
                         className={styles.iconView}
-                        onClick={() => setAction({type: 'deleteContact', name: 'Удаление контакта', text: `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`})}
+                        onClick={() => setAction({type: 'deleteContact', name: __('Удаление контакта'), text: __(`Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`)})}
                     >
 						<DeleteIcon height={17} className={styles.iconTrash} />
 					</div>

@@ -13,6 +13,7 @@ import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessC
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from 'classnames'
+import {useLocales} from "react-localized";
 
 const FileView = ({
 	pageOption,
@@ -27,6 +28,7 @@ const FileView = ({
 	setShowSuccessMessage,
 	downloadFileSrc
 }) => {
+	const { __ } = useLocales()
 	const contextMenuDocFile = useContextMenuDocFile();
 	const dispatch = useDispatch();
 	const [editFile, setEditFile] = useState(false)
@@ -43,21 +45,21 @@ const FileView = ({
 	const callbackArr = [
 		{
 			type: "editFile",
-			name: "Редактировать файл",
+			name: __("Редактировать файл"),
 			text: ``,
             callback: () => openFileEditor(),
 		},
 		{
 			type: "deleteFile",
-			name: "Удаление файла",
-			text: `Вы действительно хотите удалить файл?`,
+			name: __("Удаление файла"),
+			text: __(`Вы действительно хотите удалить файл?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
 
 	const deleteFile = () => {
 		nullifyAction()
-		dispatch(onDeleteCompanyDocument(pageOption.name, setShowSuccessMessage, 'документ удален'))
+		dispatch(onDeleteCompanyDocument(pageOption.name, setShowSuccessMessage, __('документ удален')))
 	}
 	const openFileEditor = () => {
 		nullifyAction()

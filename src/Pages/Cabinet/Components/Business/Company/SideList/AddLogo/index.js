@@ -3,25 +3,27 @@ import styles from "./AddLogo.module.sass";
 // import logoImg from "../../../../../../../assets/BusinessCabinet/logo.png";
 import { ReactComponent as ArrowIcon } from "../../../../../../../assets/BusinessCabinet/SideList/arrow.svg";
 import ContextMenu from "../../../../../../../generalComponents/ContextMenu";
+import {useLocales} from "react-localized";
 
 const AddLogo = ({ mouseParams, setMouseParams, renderMenuItems, setAction, companyName, setCompanyName, companyLogo }) => {
+	const { __ } = useLocales();
 	const [defaultTitle] = useState("Добавить лого компании")
 
 	const contextMenuLogo = [
-		{ name: "Загрузить Лого", img: "download-blue", type: "uploadLogo" },
-		{ name: "Редактировать", img: "edit", type: "editLogo" },
+		{ name: __("Загрузить Лого"), img: "download-blue", type: "uploadLogo" },
+		{ name: __("Редактировать"), img: "edit", type: "editLogo" },
 	].filter(menuItem => companyLogo ? true : menuItem.type !== 'editLogo') ;
 
 	const callbackArrMain = [
 		{
 			type: "uploadLogo",
-			name: "Загрузить Лого",
+			name: __("Загрузить Лого"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "editLogo",
-			name: "Редактировать",
+			name: __("Редактировать"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},

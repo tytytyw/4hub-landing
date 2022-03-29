@@ -9,8 +9,10 @@ import api from "../../../../../../api";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetCompanyContacts }  from "../../../../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
+import {useLocales} from "react-localized";
 
 const Contacts = ({setLoadingType, setShowSuccessMessage, mouseParams, setMouseParams, renderMenuItems}) => {
+    const { __ } = useLocales()
     const [selectedItem, setSelectedItem] = useState(null);
     const [action, setAction] = useState({ type: "", name: "", text: "" });
     const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -24,7 +26,7 @@ const Contacts = ({setLoadingType, setShowSuccessMessage, mouseParams, setMouseP
         nullifyAction()
         api.get(`/ajax/org_contacts_del.php?uid=${uid}&id_company=${id_company}&id=${selectedItem.id}`)
         .then(() => {
-            dispatch(onGetCompanyContacts(setShowSuccessMessage, 'Контакт удален'))
+            dispatch(onGetCompanyContacts(setShowSuccessMessage, __('Контакт удален')))
             setSelectedItem(null)
         })
         .catch(err => {
@@ -33,21 +35,21 @@ const Contacts = ({setLoadingType, setShowSuccessMessage, mouseParams, setMouseP
     }
 
     const contextMenuContact = [
-		{ name: "Поделиться", img: "share", type: "shareContact" },
-		{ name: "Редактировать", img: "edit", type: "editContact" },
-        { name: "Удалить", img: "garbage", type: "deleteContact" },
+		{ name: __("Поделиться"), img: "share", type: "shareContact" },
+		{ name: __("Редактировать"), img: "edit", type: "editContact" },
+        { name: __("Удалить"), img: "garbage", type: "deleteContact" },
     ]
     const callbackArrMain = [
 		{
 			type: "deleteContact",
-			name: "Удаление контакта",
-			text: `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`,
+			name: __("Удаление контакта"),
+			text: __(`Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "editContact",
-			name: "Редактировать",
-			text: ``,
+			name: __("Редактировать"),
+			text: __(``),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -93,7 +95,7 @@ const Contacts = ({setLoadingType, setShowSuccessMessage, mouseParams, setMouseP
 					text={action.text}
 					set={nullifyAction}
 					callback={deleteContact}
-					approve={'Удалить'}
+					approve={ __('Удалить') }
 				>
                     <img
 						className={styles.avatar}

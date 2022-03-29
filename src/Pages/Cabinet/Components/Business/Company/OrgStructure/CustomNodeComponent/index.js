@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { ReactComponent as Plus } from "../../../../../../../assets/PrivateCabinet/plus-3.svg";
 
 
-function CustomNodeComponent({ data, props }) {
+function CustomNodeComponent({ data }) {
 	return (
 		<div
 			className={classNames(
@@ -24,7 +24,6 @@ function CustomNodeComponent({ data, props }) {
 					background: "#4086F1",
 				}}
 			/>
-			{/* } */}
 			<div className={styles.person}>
 				<div className={styles.avatar}>
 					<img
@@ -54,7 +53,7 @@ function CustomNodeComponent({ data, props }) {
 				}}
 			/>
 			<div className={styles.addButtonWrap}>
-				<span className={styles.line}></span>
+				<span className={styles.line}/>
 
 				<div className={styles.iconWrap}>
 					<Plus className={styles.plusIcon} />

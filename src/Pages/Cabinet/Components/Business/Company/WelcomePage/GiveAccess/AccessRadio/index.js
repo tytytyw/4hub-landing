@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import styles from './AccessRadio.module.sass'
 
 const AccessRadio = ({data = [], name, onChange}) => {
-
   const [value, setValue] = useState('')
 
   const handleCheck = item => {

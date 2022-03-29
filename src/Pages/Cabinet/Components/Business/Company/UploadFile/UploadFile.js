@@ -8,8 +8,10 @@ import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCab
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) => {
+	const { __ } = useLocales();
 	const id_company = useSelector((state) => state.user.id_company);
 	const uid = useSelector((state) => state.user.uid);
 	const dispatch = useDispatch()
@@ -58,17 +60,17 @@ const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) 
 
 				<div className={styles.infoBlock}>
 					<p className={styles.labelText}>
-						Добавьте документ {pageOption.label.toLowerCase()}
+						{ __('Добавьте документ') } {pageOption.label.toLowerCase()}
 					</p>
 					<div className={styles.uploadBlock}>
 						<p
 							onClick={(e) => e.stopPropagation()}
 							className={styles.uploadText}
 						>
-							Перетащите сюда файл или
+							{ __('Перетащите сюда файл или') }
 							<label htmlFor="Verification-upload">
 								{" "}
-								Загрузите
+								{ __('Загрузите') }
 							</label>
 						</p>
 						<input
@@ -79,10 +81,10 @@ const UploadFile = ({pageOption, setBlob, blob, setLoadingType, setPageOption}) 
 						/>
 					</div>
 				</div>
-                {formatError ? <p className={styles.fileError}> необходимо загрузить файл с раширением .doc или .docx</p> : null}
+                {formatError ? <p className={styles.fileError}>{ __('необходимо загрузить файл с раширением .doc или .docx') }</p> : null}
 				<div className={styles.actionBlock}>
-					<button onClick={() => {setPageOption({name: 'init'})}} className={styles.cancelBtn}>Отмена</button>
-					<button onClick={sendFile} className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})} >Подтвердить</button>
+					<button onClick={() => {setPageOption({name: 'init'})}} className={styles.cancelBtn}>{ __('Отмена') }</button>
+					<button onClick={sendFile} className={classNames({[styles.action]: true, [styles.disableBtn] : !blob})}>{ __('Подтвердить') }</button>
 				</div>
 			</div>
 		</div>

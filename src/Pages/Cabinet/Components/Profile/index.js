@@ -10,7 +10,7 @@ import {exit} from "../../../../generalComponents/generalHelpers";
 
 const Profile = () => {
 
-    const contextMenuProfile = useContextMenuProfile;
+    const contextMenuProfile = useContextMenuProfile();
     const user = useSelector(state => state.user.userInfo);
     const [mouseParams, setMouseParams] = useState(null);
     const profileRef = useRef();

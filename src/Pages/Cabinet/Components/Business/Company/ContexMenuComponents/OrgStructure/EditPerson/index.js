@@ -7,8 +7,10 @@ import { ReactComponent as Avatar } from "../../../../../../../../assets/Busines
 import classNames from "classnames";
 import Select from "../../../AddEmployee/Select/Select";
 import {usePersonStatus} from "../../../../../../../../generalComponents/collections";
+import {useLocales} from "react-localized";
 
 const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
+	const { __ } = useLocales();
 	const personStatus = usePersonStatus();
 	const [name, setName] = useState(person.data.info.name);
 	const [surname, setSurname] = useState(person.data.info.surname);
@@ -24,7 +26,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 		<PopUp set={nullifyAction}>
 			<div className={styles.wrapper}>
 				<div className={styles.header}>
-					<p>{!disableСhanges ? "Редактировать сотрудника" : "Информация о сотруднике"}</p>
+					<p>{!disableСhanges ? __("Редактировать сотрудника") : __("Информация о сотруднике")}</p>
 				</div>
 
 				<div className={styles.uploadBlock}>
@@ -41,12 +43,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 					<div className={styles.row}>
 						<div className={styles.field}>
 							<label className={styles.label} htmlFor="family">
-								Фамилия
+								{ __('Фамилия') }
 							</label>
 							<Input
 								id="family"
 								name="email"
-								placeholder={!disableСhanges ? "Введите фамилию" : "не указана"}
+								placeholder={!disableСhanges ? __("Введите фамилию") : __("не указана")}
 								isName={true}
 								value={surname}
 								disabled={disableСhanges}
@@ -62,12 +64,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 						</div>
 						<div className={styles.field}>
 							<label className={styles.label} htmlFor="name">
-								Имя
+								{ __('Имя') }
 							</label>
 							<Input
 								id="name"
 								name="name"
-								placeholder={!disableСhanges ? "Введите имя" : "не указано"}
+								placeholder={!disableСhanges ? __("Введите имя") : __("не указано")}
 								value={name}
 								disabled={disableСhanges}
 								onChange={(e) =>
@@ -88,7 +90,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 							<Input
 								id="middle_name"
 								name="middle_name"
-								placeholder={!disableСhanges ? "Введите отчество" : "не указано"}
+								placeholder={!disableСhanges ? __("Введите отчество") : __("не указано")}
 								value={middleName}
 								disabled={disableСhanges}
 								onChange={(e) =>
@@ -106,7 +108,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 					<div className={styles.row}>
 						<div className={classNames(styles.field, styles.position)}>
 							<label className={styles.label} htmlFor="position">
-								Должность
+								{ __('Должность') }
 							</label>
 
 							<Select
@@ -120,7 +122,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 					<div className={styles.row}>
 						<div className={classNames(styles.field, styles.status)}>
 							<label className={styles.label} htmlFor="status">
-								Статус
+								{ __('Статус') }
 							</label>
 							<Select
 								selectFor={"status"}
@@ -134,12 +136,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 					<div className={styles.row}>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="phone">
-								Телефон
+								{ __('Телефон') }
 							</label>
 							<Input
 								id="phone"
 								name="phone"
-								placeholder={!disableСhanges ? "+38" : "телефон не указан"}
+								placeholder={!disableСhanges ? __("+38") : __("телефон не указан")}
 								phone={true}
 								value={phone}
 								disabled={disableСhanges}
@@ -148,12 +150,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 						</div>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="phone2">
-								Телефон (2)
+								{ __('Телефон (2)') }
 							</label>
 							<Input
 								id="phone2"
 								name="phone2"
-								placeholder={!disableСhanges ? "Дополнительный телефон" : "телефон не указан"}
+								placeholder={!disableСhanges ? __("Дополнительный телефон") : __("телефон не указан")}
 								phone={true}
 								value={phone2}
 								disabled={disableСhanges}
@@ -165,12 +167,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 					<div className={styles.row}>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="email">
-								Email
+								{ __('Email') }
 							</label>
 							<Input
 								id="email"
 								name="email"
-								placeholder={!disableСhanges ? "Введите email" : "email не указан"}
+								placeholder={!disableСhanges ? __("Введите email") : __("email не указан")}
 								value={email}
 								disabled={disableСhanges}
 								onChange={(e) => setEmail(e.target.value)}
@@ -178,12 +180,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 						</div>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="email2">
-								Email (2)
+								{ __('Email (2)') }
 							</label>
 							<Input
 								id="email2"
 								name="email2"
-								placeholder={!disableСhanges ? "Введите запасной email" : "запасной email не указан"}
+								placeholder={!disableСhanges ? __("Введите запасной email") : __("запасной email не указан")}
 								value={email2}
 								disabled={disableСhanges}
 								onChange={(e) => setEmail2(e.target.value)}
@@ -194,7 +196,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 
 				<div className={styles.actionBlock}>
 					{!disableСhanges && <button onClick={() => nullifyAction()} className={styles.cancelBtn}>
-						Отмена
+						{ __('Отмена') }
 					</button>}
 					<button
 						onClick={() => {
@@ -215,7 +217,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 							}) : nullifyAction()
 						}}
 					>
-						{disableСhanges ? "Готово" : "Сохранить"}
+						{disableСhanges ? __("Готово") : __("Сохранить")}
 					</button>
 				</div>
 			</div>

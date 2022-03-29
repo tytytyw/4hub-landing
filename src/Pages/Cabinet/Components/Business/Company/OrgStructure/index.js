@@ -14,6 +14,7 @@ import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import EditPerson from "../ContexMenuComponents/OrgStructure/EditPerson";
 import { ReactComponent as Plus } from "../../../../../../assets/PrivateCabinet/plus-3.svg";
+import {useLocales} from "react-localized";
 
 function OrgStructure({
 	mouseParams,
@@ -24,6 +25,7 @@ function OrgStructure({
 	setPageOption,
 	action,
 }) {
+	const { __ } = useLocales()
 	const contextMenuPerson = useContextMenuPerson();
 	const onNodeDragStop = (e, node) => {
 		changeNodeCoorditates(node);
@@ -48,7 +50,7 @@ function OrgStructure({
 			)
 				setAction({
 					type: "add-employee",
-					name: "Добавить сотрудника",
+					name: __("Добавить сотрудника"),
 					text: "",
 				});
 		} else if (isEdge(element)) {
@@ -72,36 +74,36 @@ function OrgStructure({
 	const callbackArr = [
 		{
 			type: "add-employee",
-			name: "Добавить сотрудника",
+			name: __("Добавить сотрудника"),
 			text: ``,
 			callback: () =>
 				setAction({
 					type: "add-employee",
-					name: "Добавить сотрудника",
+					name: __("Добавить сотрудника"),
 					text: "",
 				}),
 		},
 		{
 			type: "delete",
-			name: "Удаление сотрудника",
-			text: `Вы действительно хотите удалить пользователя ${
+			name: __("Удаление сотрудника"),
+			text: __(`Вы действительно хотите удалить пользователя ${
 				chosenPerson?.data.info.surname +
 				" " +
 				chosenPerson?.data.info.name +
 				" " +
 				chosenPerson?.data.info.middleName
-			} из орг структуры компании?`,
+			} из орг структуры компании?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "info",
-			name: "Информация о сотруднике",
+			name: __("Информация о сотруднике"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
-			name: "Редактирование сотрудника",
+			name: __("Редактирование сотрудника"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
@@ -278,13 +280,13 @@ function OrgStructure({
 						onClick={() =>
 							setAction({
 								type: "add-employee",
-								name: "Добавить сотрудника",
+								name: __("Добавить сотрудника"),
 								text: "",
 							})
 						}
 					>
 						<Plus className={styles.plusIco} />
-						<span className={styles.tile}>Добавить Руководителя компании</span>
+						<span className={styles.tile}>{ __('Добавить Руководителя компании') }</span>
 					</div>
 				)}
 			</ReactFlow>
@@ -313,7 +315,7 @@ function OrgStructure({
 					<div
 						className={styles.menuLine}
 						onClick={() => deleteLine(chosenLine)}
-						title="удалить линию"
+						title={ __("удалить линию") }
 					/>
 				</ContextMenu>
 			) : null}
@@ -346,7 +348,7 @@ function OrgStructure({
 					text={action.text}
 					set={nullifyAction}
 					callback={deletePerson}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 				>
 					{/* TODO: past actual avatar */}
 					<img

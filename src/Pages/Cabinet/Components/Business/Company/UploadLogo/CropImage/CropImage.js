@@ -178,19 +178,19 @@ function CropImage({ blob, setCropParams, setPicParams }) {
 					<div
 						className={classNames(styles.dot, styles.dotLT)}
 						onMouseDown={(e) => moveDot(e, "top", "left")}
-					></div>
+					/>
 					<div
 						className={classNames(styles.dot, styles.dotRT)}
 						onMouseDown={(e) => moveDot(e, "top", "right")}
-					></div>
+					/>
 					<div
 						className={classNames(styles.dot, styles.dotLB)}
 						onMouseDown={(e) => moveDot(e, "bottom", "left")}
-					></div>
+					/>
 					<div
 						className={classNames(styles.dot, styles.dotRB)}
 						onMouseDown={(e) => moveDot(e, "bottom", "right")}
-					></div>
+					/>
 				</div>
 				<img
 					className={styles.editablePicture}
@@ -198,13 +198,13 @@ function CropImage({ blob, setCropParams, setPicParams }) {
 					draggable={false}
 					src={blobUrl}
 					alt="crop_logo"
-				></img>
+				/>
 				<div
 					style={{ backgroundImage: `url(${blobUrl})` }}
 					className={styles.picture}
 					draggable={false}
 					id="picture"
-				></div>
+				/>
 			</div>
 			<canvas id="canvas" style={{ visibility: "hidden" }}></canvas>
 		</div>

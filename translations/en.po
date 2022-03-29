@@ -1,5 +1,16 @@
+#: src/generalComponents/collections.js:86
+#: src/Pages/Cabinet/Components/Archive/index.js:50
+#: src/Pages/Cabinet/Components/Archive/index.js:51
+#: src/Pages/Cabinet/Components/Archive/index.js:52
+#: src/Pages/Cabinet/Components/Archive/index.js:53
+#: src/Pages/Cabinet/Components/Archive/index.js:54
+#: src/Pages/Cabinet/Components/Archive/index.js:56
+#: src/Pages/Cabinet/Components/Archive/index.js:57
+#: src/Pages/Cabinet/Components/Archive/index.js:58
+#: src/Pages/Cabinet/Components/Archive/index.js:59
 msgid ""
 msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
@@ -7,19 +18,70 @@ msgstr ""
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
+#: src/generalComponents/collections.js:344
+msgid "1 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:338
+msgid "1 час"
+msgstr ""
+
+#: src/generalComponents/collections.js:342
+msgid "10 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:341
+msgid "15 мин."
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:41
 msgid "2 000 ГБ места для безопасного хранения файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:346
+msgid "20 сек."
+msgstr ""
+
+#: src/generalComponents/collections.js:340
+msgid "30 мин."
+msgstr ""
+
+#: src/generalComponents/collections.js:345
+msgid "30 сек."
+msgstr ""
+
+#: src/generalComponents/collections.js:447
+msgid "3D-визуализатор"
+msgstr ""
+
+#: src/generalComponents/collections.js:339
+msgid "45 мин."
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:269
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:116
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:222
 msgid "4Hub"
+msgstr ""
+
+#: src/generalComponents/collections.js:343
+msgid "5 мин."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:188
+msgid "72 х 72"
+msgstr ""
+
+#: src/generalComponents/collections.js:455
+msgid "Android-разработчик"
+msgstr ""
+
+#: src/generalComponents/collections.js:450
+msgid "Backend-разработчик"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:135
@@ -52,8 +114,20 @@ msgstr ""
 msgid "Email получателя"
 msgstr ""
 
+#: src/generalComponents/collections.js:415
+msgid "Event-менеджер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:305
 msgid "figma"
+msgstr ""
+
+#: src/generalComponents/collections.js:448
+msgid "Flash-программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:449
+msgid "Frontend-разработчик"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:289
@@ -64,8 +138,32 @@ msgstr ""
 msgid "google drive"
 msgstr ""
 
+#: src/generalComponents/collections.js:427
+msgid "HR-директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:426
+msgid "HR-менеджер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:102
 msgid "IT"
+msgstr ""
+
+#: src/generalComponents/collections.js:99
+msgid "ONLYOFFICE"
+msgstr ""
+
+#: src/generalComponents/collections.js:451
+msgid "PHP-программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:416
+msgid "PR-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:446
+msgid "Python-разработчик"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:39
@@ -73,8 +171,24 @@ msgstr ""
 msgid "Remote WorkSpace"
 msgstr ""
 
+#: src/generalComponents/collections.js:445
+msgid "SEO-специалист"
+msgstr ""
+
+#: src/generalComponents/collections.js:452
+msgid "SMM специалист"
+msgstr ""
+
+#: src/generalComponents/collections.js:454
+msgid "Team leader"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:281
 msgid "telegram"
+msgstr ""
+
+#: src/generalComponents/collections.js:453
+msgid "UX-дизайнер"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:313
@@ -85,8 +199,40 @@ msgstr ""
 msgid "youtube"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/helper.js:31
+msgid "Август"
+msgstr ""
+
+#: src/generalComponents/collections.js:407
+msgid "Адвокат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:27
+msgid "Апрель"
+msgstr ""
+
+#: src/generalComponents/collections.js:391
+msgid "Арт-директор"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:62
+msgid "Архив"
+msgstr ""
+
+#: src/generalComponents/collections.js:123
+msgid "Архивировать"
+msgstr ""
+
+#: src/generalComponents/collections.js:400
+msgid "Ассистент руководителя"
+msgstr ""
+
 #: src/Pages/StartPage/Components/UploadFile.js:56
 msgid "Без ограничений"
+msgstr ""
+
+#: src/generalComponents/collections.js:376
+msgid "Без статуса"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:23
@@ -102,8 +248,33 @@ msgstr ""
 msgid "Бизнес версия"
 msgstr ""
 
+#: src/generalComponents/collections.js:408
+msgid "Бизнес-аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:409
+msgid "Бизнес-консультант"
+msgstr ""
+
+#: src/generalComponents/collections.js:420
+msgid "Бизнес-тренер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:27
 msgid "Блог"
+msgstr ""
+
+#: src/generalComponents/collections.js:191
+#: src/generalComponents/collections.js:205
+msgid "Блокировать несколько"
+msgstr ""
+
+#: src/generalComponents/collections.js:204
+msgid "Блокировать пользователя"
+msgstr ""
+
+#: src/generalComponents/collections.js:190
+msgid "Блокировать устройство"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:87
@@ -117,6 +288,22 @@ msgstr ""
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:24
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:88
 msgid "более 50"
+msgstr ""
+
+#: src/generalComponents/collections.js:472
+msgid "Более недели"
+msgstr ""
+
+#: src/generalComponents/collections.js:417
+msgid "Бренд-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:402
+msgid "Бухгалтер"
+msgstr ""
+
+#: src/generalComponents/collections.js:474
+msgid "В прошлом месяце"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:15
@@ -142,6 +329,14 @@ msgstr ""
 msgid ""
 "В целях безопасности, на Email Вашей учетной записи отправлено "
 "подтверждение этого изменения"
+msgstr ""
+
+#: src/generalComponents/collections.js:475
+msgid "В этом году"
+msgstr ""
+
+#: src/generalComponents/collections.js:473
+msgid "В этом месяце"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:26
@@ -174,12 +369,32 @@ msgstr ""
 msgid "Введите пароль указанный на почте"
 msgstr ""
 
+#: src/generalComponents/collections.js:429
+msgid "Веб-аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:430
+msgid "Веб-дизайнер"
+msgstr ""
+
+#: src/generalComponents/collections.js:431
+msgid "Верстальщик"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Видео"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:178
 msgid "Возможность организации конференций"
 msgstr ""
 
 #: src/Pages/StartPage/Components/ForgotPassword.js:70
 msgid "Восстановление пароля"
+msgstr ""
+
+#: src/generalComponents/collections.js:124
+msgid "Все участники"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:254
@@ -211,6 +426,22 @@ msgid ""
 "                                кандидатов."
 msgstr ""
 
+#: src/generalComponents/collections.js:70
+msgid "Выход"
+msgstr ""
+
+#: src/generalComponents/collections.js:432
+msgid "Геймдизайнер"
+msgstr ""
+
+#: src/generalComponents/collections.js:388
+msgid "Генеральный директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:401
+msgid "Главный бухгалтер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Calendar.js:91
 msgid "Год"
 msgstr ""
@@ -219,6 +450,26 @@ msgstr ""
 #: src/Pages/StartPage/Components/RenewPassword.js:134
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:78
 msgid "Готово"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:35
+msgid "Декабрь"
+msgstr ""
+
+#: src/generalComponents/collections.js:378
+msgid "Декретный отпуск"
+msgstr ""
+
+#: src/generalComponents/collections.js:421
+msgid "Директор по персоналу"
+msgstr ""
+
+#: src/generalComponents/collections.js:393
+msgid "Директор по производству"
+msgstr ""
+
+#: src/generalComponents/collections.js:394
+msgid "Директор по развитию"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Intro.js:27
@@ -243,6 +494,39 @@ msgstr ""
 msgid "До"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:155
+msgid "Добавить знаки"
+msgstr ""
+
+#: src/generalComponents/collections.js:139
+#: src/generalComponents/collections.js:154
+msgid "Добавить папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:366
+msgid "Добавить сотрудника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:162
+msgid "Добавить тег"
+msgstr ""
+
+#: src/generalComponents/collections.js:119
+msgid "Добавить участника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:55
+msgid "Добавить файл в архив"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:141
+msgid "Добавить цвет"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:148
+msgid "Добавить эмоджи"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:152
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:160
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:168
@@ -252,16 +536,47 @@ msgstr ""
 msgid "добавление файла"
 msgstr ""
 
+#: src/generalComponents/collections.js:107
+msgid "Документ Google"
+msgstr ""
+
+#: src/generalComponents/collections.js:102
+msgid "Документ Word"
+msgstr ""
+
 #: src/generalComponents/collections.js:10
+#: src/generalComponents/collections.js:16
 msgid "Документы"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Другое"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:67
+msgid "Журнал"
+msgstr ""
+
+#: src/generalComponents/collections.js:323
+#: src/generalComponents/collections.js:328
+#: src/generalComponents/collections.js:333
+msgid "Заблокировать"
 msgstr ""
 
 #: src/Pages/StartPage/Components/EnterProfile.js:109
 msgid "Забыли пароль?"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/listHelper.js:57
+msgid "Загруженные файлы"
+msgstr ""
+
 #: src/Pages/StartPage/Components/UploadFile.js:101
 msgid "Загрузить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:58
+msgid "Загрузка файла"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:96
@@ -272,14 +587,26 @@ msgstr ""
 msgid "Запрос успешно отправлен"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:152
+msgid "Знаки"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:270
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:117
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:223
 msgid "и"
 msgstr ""
 
+#: src/generalComponents/collections.js:16
+msgid "Игры"
+msgstr ""
+
 #: src/Pages/StartPage/Components/DownloadFolder/index.js:118
 msgid "Идет процесс созадния ZIP архива"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:173
+msgid "Изменен"
 msgstr ""
 
 #: src/generalComponents/collections.js:9
@@ -305,16 +632,72 @@ msgstr ""
 msgid "Интеграция необходимых сервисов"
 msgstr ""
 
+#: src/generalComponents/collections.js:433
+msgid "Интернет-маркетолог"
+msgstr ""
+
+#: src/generalComponents/collections.js:368
+msgid "Информация о сотруднике"
+msgstr ""
+
+#: src/generalComponents/collections.js:389
+msgid "Исполнительный директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:380
+msgid "Испытательный срок"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:30
+msgid "Июль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:29
+msgid "Июнь"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:15
+msgid "Как защитить мои данные?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:14
+msgid "Как увеличить обьем хранилища?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:37
+msgid "Календарь"
+msgstr ""
+
+#: src/generalComponents/collections.js:354
+msgid "Камера"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:34
 msgid "Карта сайта"
+msgstr ""
+
+#: src/generalComponents/collections.js:103
+msgid "Книга Excel"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:83
 msgid "Количество сотрудников в компании"
 msgstr ""
 
+#: src/generalComponents/collections.js:395
+msgid "Коммерческий директор"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:7
+msgid "Компания"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:33
 msgid "Контакты"
+msgstr ""
+
+#: src/generalComponents/collections.js:434
+msgid "Контент-менеджер"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:35
@@ -325,20 +708,89 @@ msgstr ""
 msgid "Конфиденциальность и безопасность"
 msgstr ""
 
+#: src/generalComponents/collections.js:435
+msgid "Копирайтер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/SendSuccess.js:57
 msgid "Копировать ссылку"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:72
+msgid "Корзина"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
 msgid "Купить"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/helper.js:28
+msgid "Май"
+msgstr ""
+
+#: src/generalComponents/collections.js:392
+msgid "Маркетинговый директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:410
+msgid "Маркетолог"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:26
+msgid "Март"
+msgstr ""
+
+#: src/generalComponents/collections.js:411
+msgid "Менеджер по закупкам"
+msgstr ""
+
+#: src/generalComponents/collections.js:412
+msgid "Менеджер по качеству"
+msgstr ""
+
+#: src/generalComponents/collections.js:422
+msgid "Менеджер по персоналу"
+msgstr ""
+
+#: src/generalComponents/collections.js:414
+msgid "Менеджер по продажам"
+msgstr ""
+
+#: src/generalComponents/collections.js:413
+msgid "Менеджер по развитию"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:32
+msgid "Мои задачи"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:22
+msgid "Мои папки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:27
+msgid "Мои файлы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:12
+msgid "Мой отдел"
+msgstr ""
+
+#: src/generalComponents/collections.js:65
+msgid "Мой профиль"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
 #: src/generalComponents/collections.js:8
 msgid "Музыка"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:35
 msgid "На пользователя в месяц начиная с 3 польз."
+msgstr ""
+
+#: src/generalComponents/collections.js:471
+msgid "На этой неделе"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:213
@@ -356,6 +808,18 @@ msgstr ""
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:121
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:135
 msgid "Назначить меня администратором Компании"
+msgstr ""
+
+#: src/generalComponents/collections.js:67
+msgid "Настройки"
+msgstr ""
+
+#: src/generalComponents/collections.js:423
+msgid "Начальник отдела кадров"
+msgstr ""
+
+#: src/generalComponents/collections.js:396
+msgid "Начальник отдела продаж"
 msgstr ""
 
 #: src/Pages/StartPage/Components/RegistrationSuccess.js:38
@@ -382,6 +846,10 @@ msgstr ""
 msgid "Новый пароль"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/helper.js:34
+msgid "Ноябрь"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:25
 msgid "О 4Hub"
 msgstr ""
@@ -402,6 +870,14 @@ msgstr ""
 msgid "Обычная версия"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/helper.js:33
+msgid "Октябрь"
+msgstr ""
+
+#: src/generalComponents/collections.js:436
+msgid "Оператор ПК"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:175
 msgid "Оптимизация командной работы"
 msgstr ""
@@ -410,8 +886,29 @@ msgstr ""
 msgid "Остались вопросы?"
 msgstr ""
 
+#: src/generalComponents/collections.js:192
+msgid "Отключить"
+msgstr ""
+
+#: src/generalComponents/collections.js:193
+msgid "Отключить несколько"
+msgstr ""
+
+#: src/generalComponents/collections.js:379
+msgid "Открытая вакансия"
+msgstr ""
+
+#: src/generalComponents/collections.js:248
+msgid "Открыть"
+msgstr ""
+
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:59
 msgid "Открыть календарь"
+msgstr ""
+
+#: src/generalComponents/collections.js:329
+#: src/generalComponents/collections.js:334
+msgid "Отметить непрочитанным"
 msgstr ""
 
 #: src/Pages/StartPage/Components/ForgotPassword.js:91
@@ -428,9 +925,27 @@ msgstr ""
 msgid "Отправить файл"
 msgstr ""
 
+#: src/generalComponents/collections.js:377
+msgid "Отпуск"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:171
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:172
 msgid "Отчество"
+msgstr ""
+
+#: src/generalComponents/collections.js:398
+msgid "Офис-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:322
+#: src/generalComponents/collections.js:327
+#: src/generalComponents/collections.js:332
+msgid "Очистить историю"
+msgstr ""
+
+#: src/generalComponents/collections.js:476
+msgid "Папки"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:222
@@ -453,8 +968,67 @@ msgstr ""
 msgid "Перейти"
 msgstr ""
 
+#: src/generalComponents/collections.js:234
+#: src/generalComponents/collections.js:50
+msgid "Переместить в архив"
+msgstr ""
+
+#: src/generalComponents/collections.js:249
+msgid "Переслать"
+msgstr ""
+
 #: src/Pages/StartPage/Components/UploadFile.js:101
 msgid "Перетащите Файл или Нажмите"
+msgstr ""
+
+#: src/generalComponents/collections.js:492
+#: src/generalComponents/collections.js:55
+msgid "Печать"
+msgstr ""
+
+#: src/generalComponents/collections.js:81
+msgid "По дате архивирования"
+msgstr ""
+
+#: src/generalComponents/collections.js:82
+msgid "По дате добавления/создания"
+msgstr ""
+
+#: src/generalComponents/collections.js:83
+msgid "По дате изменения"
+msgstr ""
+
+#: src/generalComponents/collections.js:84
+msgid "По дате последнего открытия"
+msgstr ""
+
+#: src/generalComponents/collections.js:80
+msgid "По имени от А до Я"
+msgstr ""
+
+#: src/generalComponents/collections.js:80
+msgid "По имени от Я до А"
+msgstr ""
+
+#: src/generalComponents/collections.js:85
+msgid "По размеру (от больших к малым)"
+msgstr ""
+
+#: src/generalComponents/collections.js:85
+#: src/generalComponents/collections.js:86
+msgid "По размеру (от малых к большим)"
+msgstr ""
+
+#: src/generalComponents/collections.js:87
+msgid "По типу"
+msgstr ""
+
+#: src/generalComponents/collections.js:87
+msgid "По типу U+21FD"
+msgstr ""
+
+#: src/generalComponents/collections.js:88
+msgid "По тэгам"
 msgstr ""
 
 #: src/Pages/StartPage/Components/RenewPassword.js:106
@@ -468,6 +1042,14 @@ msgstr ""
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:238
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:239
 msgid "Подтвердите пароль"
+msgstr ""
+
+#: src/generalComponents/collections.js:318
+msgid "Покинуть группу"
+msgstr ""
+
+#: src/generalComponents/collections.js:129
+msgid "Покинуть проект"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:271
@@ -490,8 +1072,20 @@ msgstr ""
 msgid "Предложение дня"
 msgstr ""
 
+#: src/generalComponents/collections.js:215
+msgid "Предоставить доступ"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:138
 msgid "Предоставление доступа к загруженным файлам"
+msgstr ""
+
+#: src/generalComponents/collections.js:109
+msgid "Презентация Google"
+msgstr ""
+
+#: src/generalComponents/collections.js:104
+msgid "Презентация PowerPoint"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:184
@@ -500,6 +1094,26 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:42
 msgid "Пригласите друзей"
+msgstr ""
+
+#: src/generalComponents/collections.js:437
+msgid "Программист"
+msgstr ""
+
+#: src/generalComponents/collections.js:438
+msgid "Программист 1С"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:47
+msgid "Программы"
+msgstr ""
+
+#: src/generalComponents/collections.js:439
+msgid "Продакт-менеджер"
+msgstr ""
+
+#: src/generalComponents/collections.js:428
+msgid "Проектный менеджер"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:47
@@ -512,12 +1126,44 @@ msgstr ""
 msgid "процесс регистрации"
 msgstr ""
 
+#: src/generalComponents/collections.js:16
+msgid "Работа"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Развлечения"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:141
 msgid "Разграничение прав доступа к файлам"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:180
+msgid "Размеры"
+msgstr ""
+
+#: src/generalComponents/collections.js:440
+msgid "Разработчик игр"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:41
 msgid "Разработчикам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:59
+msgid "Распечатать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:52
+msgid "Расшаренные файлы"
+msgstr ""
+
+#: src/generalComponents/collections.js:152
+#: src/generalComponents/collections.js:167
+#: src/generalComponents/collections.js:231
+#: src/generalComponents/collections.js:46
+#: src/generalComponents/collections.js:486
+msgid "Расшарить"
 msgstr ""
 
 #: src/Pages/StartPage/Components/EnterProfile.js:121
@@ -529,6 +1175,51 @@ msgstr "Registration"
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:32
 #: src/Pages/StartPage/Components/RegistrationSuccess.js:15
 msgid "Регистрация прошла успешно"
+msgstr ""
+
+#: src/generalComponents/collections.js:489
+#: src/generalComponents/collections.js:49
+msgid "Ред. несколько файлов"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:53
+msgid "Редактирование файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:54
+msgid "Редактирование файлов"
+msgstr ""
+
+#: src/generalComponents/collections.js:122
+#: src/generalComponents/collections.js:151
+#: src/generalComponents/collections.js:166
+#: src/generalComponents/collections.js:216
+#: src/generalComponents/collections.js:233
+#: src/generalComponents/collections.js:305
+#: src/generalComponents/collections.js:316
+#: src/generalComponents/collections.js:367
+msgid "Редактировать"
+msgstr ""
+
+#: src/generalComponents/collections.js:349
+msgid "Редактировать сообщение"
+msgstr ""
+
+#: src/generalComponents/collections.js:48
+#: src/generalComponents/collections.js:488
+msgid "Редактировать файл"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:187
+msgid "Резрешение"
+msgstr ""
+
+#: src/generalComponents/collections.js:425
+msgid "Рекрутер"
+msgstr ""
+
+#: src/generalComponents/collections.js:387
+msgid "Руководитель компании"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Intro.js:16
@@ -551,6 +1242,42 @@ msgid ""
 "можно меньше"
 msgstr ""
 
+#: src/generalComponents/collections.js:125
+#: src/generalComponents/collections.js:140
+#: src/generalComponents/collections.js:155
+#: src/generalComponents/collections.js:169
+#: src/generalComponents/collections.js:218
+#: src/generalComponents/collections.js:235
+#: src/generalComponents/collections.js:490
+#: src/generalComponents/collections.js:53
+#: src/Pages/Cabinet/Components/Archive/index.js:57
+msgid "Свойства"
+msgstr ""
+
+#: src/generalComponents/collections.js:470
+msgid "Сегодня"
+msgstr ""
+
+#: src/generalComponents/collections.js:399
+msgid "Секретарь"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:32
+msgid "Сентябрь"
+msgstr ""
+
+#: src/generalComponents/collections.js:51
+msgid "Сжать в Zip"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:56
+msgid "Сжать в ZIP"
+msgstr ""
+
+#: src/generalComponents/collections.js:52
+msgid "Сжать несколько файлов в Zip"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:265
 msgid "синхронизация"
 msgstr ""
@@ -565,12 +1292,41 @@ msgid ""
 "инструментов"
 msgstr ""
 
+#: src/generalComponents/collections.js:441
+msgid "Системный администратор"
+msgstr ""
+
+#: src/generalComponents/collections.js:442
+msgid "Системный аналитик"
+msgstr ""
+
+#: src/generalComponents/collections.js:350
+#: src/generalComponents/collections.js:491
+#: src/generalComponents/collections.js:54
+msgid "Скачать"
+msgstr ""
+
 #: src/Pages/StartPage/Components/DownloadFolder/index.js:89
 msgid "Скачать папку"
 msgstr ""
 
+#: src/generalComponents/collections.js:120
+#: src/generalComponents/collections.js:153
+#: src/generalComponents/collections.js:168
+#: src/generalComponents/collections.js:232
+#: src/generalComponents/collections.js:250
+#: src/generalComponents/collections.js:47
+#: src/generalComponents/collections.js:487
+msgid "Скопировать ссылку"
+msgstr ""
+
+#: src/generalComponents/collections.js:66
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:43
 msgid "Служба поддержки"
+msgstr ""
+
+#: src/generalComponents/collections.js:217
+msgid "Сменить пароль"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:195
@@ -578,8 +1334,20 @@ msgstr ""
 msgid "совместный проект"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/listHelper.js:17
+msgid "Совместный проект"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:166
+msgid "Создан"
+msgstr ""
+
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:227
 msgid "Создать аккаунт"
+msgstr ""
+
+#: src/generalComponents/collections.js:121
+msgid "Создать папку"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:39
@@ -589,6 +1357,10 @@ msgstr ""
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:284
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:124
 msgid "Сохранить и продолжить"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Спорт"
 msgstr ""
 
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:71
@@ -613,8 +1385,16 @@ msgstr ""
 msgid "Сфера деятельности"
 msgstr ""
 
+#: src/generalComponents/collections.js:108
+msgid "Таблица Google"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:17
 msgid "Тарифный план"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:159
+msgid "Тег"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
@@ -626,12 +1406,64 @@ msgstr ""
 msgid "Телефон"
 msgstr ""
 
+#: src/generalComponents/collections.js:443
+msgid "Тестировщик"
+msgstr ""
+
+#: src/generalComponents/collections.js:419
+msgid "Торговый агент"
+msgstr ""
+
+#: src/generalComponents/collections.js:418
+msgid "Торговый представитель"
+msgstr ""
+
+#: src/generalComponents/collections.js:424
+msgid "Тренинг-менеджер"
+msgstr ""
+
 #: src/Pages/StartPage/Components/EnterProfile.js:120
 msgid "У Вас нет аккаунта ?"
 msgstr ""
 
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:237
 msgid "У Вас уже есть аккаунт ?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/index.js:65
+#: src/Pages/Cabinet/Components/Archive/WorkElements/FileLine/index.js:121
+msgid "Удаление файла"
+msgstr ""
+
+#: src/generalComponents/collections.js:221
+#: src/generalComponents/collections.js:238
+#: src/generalComponents/collections.js:253
+#: src/generalComponents/collections.js:306
+#: src/generalComponents/collections.js:317
+#: src/generalComponents/collections.js:320
+#: src/generalComponents/collections.js:335
+#: src/generalComponents/collections.js:369
+#: src/generalComponents/collections.js:494
+#: src/generalComponents/collections.js:57
+#: src/Pages/Cabinet/Components/Archive/index.js:166
+msgid "Удалить"
+msgstr ""
+
+#: src/generalComponents/collections.js:324
+msgid "Удалить из группы"
+msgstr ""
+
+#: src/generalComponents/collections.js:156
+#: src/generalComponents/collections.js:170
+msgid "Удалить папку"
+msgstr ""
+
+#: src/generalComponents/collections.js:130
+msgid "Удалить проект"
+msgstr ""
+
+#: src/generalComponents/collections.js:351
+msgid "Удалить сообщение"
 msgstr ""
 
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:63
@@ -677,13 +1509,42 @@ msgstr ""
 msgid "Файл успешно отправлен"
 msgstr ""
 
+#: src/generalComponents/collections.js:356
+msgid "Файлы с компьютера"
+msgstr ""
+
+#: src/generalComponents/collections.js:355
+msgid "Файлы с системы 4Hub"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:145
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:146
 msgid "Фамилия"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Archive/helper.js:25
+msgid "Февраль"
+msgstr ""
+
 #: src/generalComponents/collections.js:7
 msgid "Фильмы"
+msgstr ""
+
+#: src/generalComponents/collections.js:403
+msgid "Финансист"
+msgstr ""
+
+#: src/generalComponents/collections.js:390
+#: src/generalComponents/collections.js:397
+msgid "Финансовый директор"
+msgstr ""
+
+#: src/generalComponents/collections.js:404
+msgid "Финансовый консультант"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Фото"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:19
@@ -692,6 +1553,14 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:37
 msgid "Хранилище"
+msgstr ""
+
+#: src/generalComponents/collections.js:444
+msgid "Художник компьютерной графики"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:138
+msgid "Цвет"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:16
@@ -703,6 +1572,22 @@ msgstr ""
 msgid ""
 "часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "
 "\"рыбой\" для текстов на латинице с начала XVI века."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/listHelper.js:42
+msgid "Чат"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Accordion/Accordion.js:13
+msgid "Что такое 4Hub ?"
+msgstr ""
+
+#: src/generalComponents/collections.js:405
+msgid "Экономист"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:145
+msgid "Эмоджи"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:338
@@ -721,8 +1606,16 @@ msgid ""
 "является стандартной \"рыбой\" для текстов на латинице с начала XVI века."
 msgstr ""
 
+#: src/generalComponents/collections.js:406
+msgid "Юрист"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:269
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:116
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:222
 msgid "Я принимаю"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Archive/helper.js:24
+msgid "Январь"
 msgstr ""

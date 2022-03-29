@@ -8,8 +8,10 @@ import classNames from "classnames";
 import ProfileUpload from "../../../../MyProfile/UserForm/ProfileUpload";
 import api from "../../../../../../../api";
 import { onGetCompanyContacts }  from "../../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selectedItem, type}) => {
+	const { __ } = useLocales();
 	const [userData, setUserData] = useState({name: '', sname: '', pname: ''})
 	const [image, setImage] = useState(null)
 	const [preview, setPreview] = useState(null)
@@ -162,13 +164,13 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 				</div>
 			</div>
 			<p className={styles.label}>
-				<span className={styles.text}>{!preview ? "Загрузите фото контакта" : ""}</span>
+				<span className={styles.text}>{!preview ? __("Загрузите фото контакта") : ""}</span>
 			</p>
 			<div className={styles.scrollArea}>
 				<div className={styles.inputWrap}>
 					<input
 						className={classNames({[styles.input]: true, [styles.requiredInpit]: requiredError})}
-						placeholder='Имя'
+						placeholder={ __('Имя') }
 						value={userData?.name || ''}
 						onChange={(e) => onChange('name', e.target.value)}
 					/>
@@ -176,7 +178,7 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 				<div className={styles.inputWrap}>
 					<input
 						className={styles.input}
-						placeholder='Фамилия'
+						placeholder={ __('Фамилия') }
 						value={userData?.sname || ''}
 						onChange={(e) => onChange('sname', e.target.value)}
 					/>
@@ -184,22 +186,22 @@ const AddContact = ({nullifyAction, setLoadingType, setShowSuccessMessage, selec
 				<div className={styles.inputWrap}>
 					<input
 						className={styles.input}
-						placeholder='Отчество'
+						placeholder={ __('Отчество') }
 						value={userData?.pname || ''}
 						onChange={(e) => onChange('pname', e.target.value)}
 					/>
 				</div>
-				{renderContactItem(['Введите номер телефона'], "tel")}
-				{renderContactItem(['Введите email'], "email")}
+				{renderContactItem([__('Введите номер телефона')], "tel")}
+				{renderContactItem([__('Введите email')], "email")}
 				{renderSocialItem(socials, 'soc')}
 				{renderSocialItem(messengers, 'mes')}
 			</div>
 			<div className={styles.buttonsWrap}>
 				<div className={styles.cancel} onClick={nullifyAction}>
-					Отмена
+					{ __('Отмена') }
 				</div>
 				<div className={classNames({[styles.action]: true, [styles.disableBtn] : !userData?.name})} onClick={onSubmit}>
-					Сохранить
+					{ __('Сохранить') }
 				</div>
 			</div>
 		</div>

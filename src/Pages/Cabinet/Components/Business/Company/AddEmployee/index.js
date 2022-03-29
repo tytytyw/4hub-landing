@@ -9,8 +9,10 @@ import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessC
 import classNames from "classnames";
 import Select from "./Select/Select";
 import {usePersonStatus} from "../../../../../../generalComponents/collections";
+import {useLocales} from "react-localized";
 
 const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
+	const { __ } = useLocales()
 	const personStatus = usePersonStatus();
 	const [success, setSuccess] = useState(false);
 
@@ -50,7 +52,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="family"
 								name="email"
-								placeholder="Введите фамилию"
+								placeholder={ __("Введите фамилию") }
 								isName={true}
 								onChange={(e) =>
 									setSurname(
@@ -69,7 +71,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="name"
 								name="name"
-								placeholder="Введите имя"
+								placeholder={ __("Введите имя") }
 								onChange={(e) =>
 									setName(
 										e.target.value
@@ -88,7 +90,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="surname"
 								name="middle_name"
-								placeholder="Введите отчество"
+								placeholder={ __("Введите отчество") }
 								onChange={(e) =>
 									setMiddleName(
 										e.target.value
@@ -135,7 +137,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="phone"
 								name="phone"
-								placeholder="+38"
+								placeholder={ __("+38") }
 								phone={true}
 								onChange={(e) => setPhone(e.target.value)}
 							/>
@@ -147,7 +149,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="phone2"
 								name="phone2"
-								placeholder="Дополнительный телефон"
+								placeholder={ __("Дополнительный телефон") }
 								phone={true}
 								onChange={(e) => setPhone2(e.target.value)}
 							/>
@@ -157,12 +159,12 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 					<div className={styles.row}>
 						<div className={classNames(styles.field, styles.contacts)}>
 							<label className={styles.label} htmlFor="email">
-								Email
+								{ __('Email') }
 							</label>
 							<Input
 								id="email"
 								name="email"
-								placeholder="Введите email"
+								placeholder={ __("Введите email") }
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
@@ -173,7 +175,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							<Input
 								id="email2"
 								name="email2"
-								placeholder="Введите запасной email"
+								placeholder={ __("Введите запасной email") }
 								onChange={(e) => setEmail2(e.target.value)}
 							/>
 						</div>
@@ -182,7 +184,7 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 
 				<div className={styles.actionBlock}>
 					<button onClick={() => nullifyAction()} className={styles.cancelBtn}>
-						Отмена
+						{ __('Отмена') }
 					</button>
 					<button
 						onClick={() => {
@@ -200,15 +202,15 @@ const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
 							});
 						}}
 					>
-						Добавить
+						{ __('Добавить') }
 					</button>
 				</div>
 			</div>
 
 			{success && (
 				<SuccessPopup
-					title="Сотрудник успешно добавлен"
-					text="Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
+					title={ __("Сотрудник успешно добавлен") }
+					text={ __("Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании") }
 					set={nullifyAction}
 				>
 					<SuccessImg width={40} height={40} />

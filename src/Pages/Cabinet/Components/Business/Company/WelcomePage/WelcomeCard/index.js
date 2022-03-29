@@ -4,8 +4,10 @@ import successImg from "../../../../../../../assets/BusinessCabinet/WelcomePage/
 import {ReactComponent as PencilImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/pencil.svg";
 import {ReactComponent as KeyImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/key.svg";
 import {ReactComponent as ArrowImg} from "../../../../../../../assets/BusinessCabinet/WelcomePage/arrow.svg";
+import {useLocales} from "react-localized";
 
 const WelcomeCard = ({setPageOption}) => {
+    const { __ } = useLocales()
 
     return (
         <div className={styles.centeredWrapper}>
@@ -14,13 +16,12 @@ const WelcomeCard = ({setPageOption}) => {
 
             <div className={styles.header}>
                 <img src={successImg} alt="Success"/>
-                <p>Верефикация прошла успешно</p>
+                <p>{ __('Верефикация прошла успешно') }</p>
             </div>
 
             <div className={styles.infoBlock}>
                 <p>
-                    Заполните информацию о компании или предоставьте доступ для
-                    заполнения для комфортного пользования сервисом
+                    { __('Заполните информацию о компании или предоставьте доступ для заполнения для комфортного пользования сервисом') }
                 </p>
             </div>
 
@@ -28,16 +29,14 @@ const WelcomeCard = ({setPageOption}) => {
 
                 <div className={styles.cardItem}>
                     <div className={styles.card}>
-                        <p>Заполнить самостоятельно</p>
+                        <p>{ __('Заполнить самостоятельно') }</p>
                         <div className={styles.bgImg}>
                             <PencilImg/>
                         </div>
                     </div>
 
                     <p className={styles.cardText}>
-                        Ввести все поля самостоятельно
-                        закерепив за собой все права
-                        администратора
+                        { __('Ввести все поля самостоятельно закерепив за собой все права администратора') }
                     </p>
                 </div>
 
@@ -46,31 +45,27 @@ const WelcomeCard = ({setPageOption}) => {
                     className={styles.cardItem}
                 >
                     <div className={styles.card}>
-                        <p>Предоставить доступ</p>
+                        <p>{ __('Предоставить доступ') }</p>
                         <div className={styles.bgImg}>
                             <KeyImg/>
                         </div>
                     </div>
 
                     <p className={styles.cardText}>
-                        предоставления доступа дает
-                        возможность третим лицам заполнять
-                        данные о компании
+                        { __('предоставления доступа дает возможность третим лицам заполнять данные о компании') }
                     </p>
                 </div>
 
                 <div className={styles.cardItem}>
                     <div className={styles.card}>
-                        <p>Пропустить</p>
+                        <p>{ __('Пропустить') }</p>
                         <div className={styles.bgImg}>
                             <ArrowImg/>
                         </div>
                     </div>
 
                     <p className={styles.cardText}>
-                        Вы можите заполнить информацию
-                        позже но вы не сможете полноценно
-                        пользоваться всеми услузами сервиса
+                        { __('Вы можите заполнить информацию позже но вы не сможете полноценно пользоваться всеми услузами сервиса') }
                     </p>
                 </div>
 

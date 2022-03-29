@@ -3,8 +3,10 @@ import styles from "./Main.module.sass";
 import Tariff from "../Tariff/Tariff";
 import classNames from "classnames";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 function Main({scrollTop}) {
+	const { __ } = useLocales();
 	const [count, setCount] = useState(null);
 	let isScrolling = false;
 	const SliderItemPic1 = document.querySelector("#slide-picture_1");
@@ -128,15 +130,15 @@ function Main({scrollTop}) {
 							id="slide-text_1"
 							className={classNames(styles.text_item, styles.text_item_active)}
 						>
-							<h4 className={styles.presentation__title}>Файлообменник</h4>
+							<h4 className={styles.presentation__title}>{ __('Файлообменник') }</h4>
 							<p className={styles.presentation__text}>
-								Cистематизация данных в одном пространстве
+								{ __('Cистематизация данных в одном пространстве') }
 							</p>
 							<p className={styles.presentation__text}>
-								Предоставление доступа к загруженным файлам
+								{ __('Предоставление доступа к загруженным файлам') }
 							</p>
 							<p className={styles.presentation__text}>
-								Разграничение прав доступа к файлам
+								{ __('Разграничение прав доступа к файлам') }
 							</p>
 						</div>
 
@@ -147,7 +149,7 @@ function Main({scrollTop}) {
 									styles.image_1_1
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_1_1.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 							<img
 								className={classNames(
@@ -155,7 +157,7 @@ function Main({scrollTop}) {
 									styles.image_1_2
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_1_2.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 							<img
 								className={classNames(
@@ -163,24 +165,23 @@ function Main({scrollTop}) {
 									styles.image_1_3
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_1_3.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 						</div>
 					</section>
 					<section className={styles.slide}>
 						<div id="slide-text_2" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
-								Оптимизация командной работы
+								{ __('Оптимизация командной работы') }
 							</h4>
 							<p className={styles.presentation__text}>
-								Возможность организации конференций
+								{ __('Возможность организации конференций') }
 							</p>
 							<p className={styles.presentation__text}>
-								Синхронизация совместной работы над проектами с использованием
-								встроенных инструментов
+								{ __('Синхронизация совместной работы над проектами с использованием встроенных инструментов') }
 							</p>
 							<p className={styles.presentation__text}>
-								Приватная работа с документами
+								{ __('Приватная работа с документами') }
 							</p>
 						</div>
 
@@ -191,7 +192,7 @@ function Main({scrollTop}) {
 									styles.image_2_1
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_2_1.png"}
-								alt="совместный проект"
+								alt={ __("совместный проект") }
 							/>
 							<img
 								className={classNames(
@@ -199,19 +200,19 @@ function Main({scrollTop}) {
 									styles.image_2_2
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_2_2.png"}
-								alt="совместный проект"
+								alt={ __("совместный проект") }
 							/>
 						</div>
 					</section>
 					<section className={styles.slide}>
 						<div id="slide-text_3" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
-								Конфиденциальность и безопасность
+								{ __('Конфиденциальность и безопасность') }
 							</h4>
 							<p className={styles.presentation__text}>
-								Надежная защита личных и корпоративных данных
+								{ __('Надежная защита личных и корпоративных данных') }
 							</p>
-							<p className={styles.presentation__text}>Шифрование файлов</p>
+							<p className={styles.presentation__text}>{ __('Шифрование файлов') }</p>
 						</div>
 
 						<div id="slide-picture_3" className={styles.image_wrap}>
@@ -221,7 +222,7 @@ function Main({scrollTop}) {
 									styles.image_3_1
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_3_1.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 							<img
 								className={classNames(
@@ -229,7 +230,7 @@ function Main({scrollTop}) {
 									styles.image_3_2
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_3_2.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 							<img
 								className={classNames(
@@ -237,20 +238,20 @@ function Main({scrollTop}) {
 									styles.image_3_3
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_3_3.png"}
-								alt="добавление файла"
+								alt={ __("добавление файла") }
 							/>
 						</div>
 					</section>
 					<section className={styles.slide}>
 						<div id="slide-text_4" className={styles.text_item}>
 							<h4 className={styles.presentation__title}>
-								Интеграция необходимых сервисов
+								{ __('Интеграция необходимых сервисов') }
 							</h4>
 							<p className={styles.presentation__text}>
-								Синхронизация со сторонними сервисами
+								{ __('Синхронизация со сторонними сервисами') }
 							</p>
 							<p className={styles.presentation__text}>
-								Встроенный магазин программного обеспечения
+								{ __('Встроенный магазин программного обеспечения') }
 							</p>
 						</div>
 
@@ -261,7 +262,7 @@ function Main({scrollTop}) {
 									styles.image_4
 								)}
 								src={imageSrc + "assets/BusinessCabinet/slider_item_4.png"}
-								alt="синхронизация"
+								alt={ __("синхронизация") }
 							/>
 							<img
 								className={classNames(
@@ -269,7 +270,7 @@ function Main({scrollTop}) {
 									styles.image_4_youtube
 								)}
 								src={imageSrc + "assets/StartPage/youtube.svg"}
-								alt="youtube"
+								alt={ __("youtube") }
 							/>
 							<img
 								className={classNames(
@@ -277,7 +278,7 @@ function Main({scrollTop}) {
 									styles.image_4_telegram
 								)}
 								src={imageSrc + "assets/StartPage/telegram.svg"}
-								alt="telegram"
+								alt={ __("telegram") }
 							/>
 							<img
 								className={classNames(
@@ -285,7 +286,7 @@ function Main({scrollTop}) {
 									styles.image_4_google_calendar
 								)}
 								src={imageSrc + "assets/StartPage/google_calendar.svg"}
-								alt="google calendar"
+								alt={ __("google calendar") }
 							/>
 							<img
 								className={classNames(
@@ -293,7 +294,7 @@ function Main({scrollTop}) {
 									styles.image_4_google_drive
 								)}
 								src={imageSrc + "assets/StartPage/google_drive.svg"}
-								alt="google drive"
+								alt={ __("google drive") }
 							/>
 							<img
 								className={classNames(
@@ -301,7 +302,7 @@ function Main({scrollTop}) {
 									styles.image_4_figma
 								)}
 								src={imageSrc + "assets/StartPage/figma.svg"}
-								alt="figma"
+								alt={ __("figma") }
 							/>
 							<img
 								className={classNames(
@@ -309,7 +310,7 @@ function Main({scrollTop}) {
 									styles.image_4_viber
 								)}
 								src={imageSrc + "assets/StartPage/viber.svg"}
-								alt="viber"
+								alt={ __("viber") }
 							/>
 							<img
 								className={classNames(
@@ -317,7 +318,7 @@ function Main({scrollTop}) {
 									styles.image_4_whatsapp
 								)}
 								src={imageSrc + "assets/StartPage/whatsapp.svg"}
-								alt="whatsapp"
+								alt={ __("whatsapp") }
 							/>
 							<img
 								className={classNames(
@@ -325,18 +326,16 @@ function Main({scrollTop}) {
 									styles.image_4_skype
 								)}
 								src={imageSrc + "assets/StartPage/skype.svg"}
-								alt="skype"
+								alt={ __("skype") }
 							/>
 						</div>
 					</section>
 				</div>
 			</div>
 			<section className={styles.storage}>
-				<h2 className={styles.storage_title}>Хранилище</h2>
+				<h2 className={styles.storage_title}>{ __('Хранилище') }</h2>
 				<p className={styles.storage_subtitile}>
-					Это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem
-					Ipsum является стандартной "рыбой" для текстов на латинице с начала
-					XVI века.
+					{ __('Это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века.') }
 				</p>
 				<div className={styles.tariffs_list}>
 					<Tariff name={"Free"} cost={0} currentPlan={true} promo={""} />
@@ -346,10 +345,10 @@ function Main({scrollTop}) {
 						cost={100}
 						discont={50}
 						currentPlan={false}
-						promo={"Предложение дня"}
+						promo={ __("Предложение дня") }
 					/>
 					<Tariff
-						name={"Premium plus"}
+						name={ __("Premium plus") }
 						cost={120}
 						currentPlan={false}
 						promo={""}
