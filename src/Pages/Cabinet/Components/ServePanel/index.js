@@ -29,7 +29,7 @@ import { ReactComponent as PowerOffIcon } from '../../../../assets/PrivateCabine
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
 import { ReactComponent as AddFolderIcon } from '../../../../assets/PrivateCabinet/add_folder.svg';
 import {
-    contextMenuCreateFile,
+    useContextMenuCreateFile,
     useContextMenuFilters
 } from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -46,7 +46,8 @@ const ServePanel = ({
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, setGLoader, setNewFolderInfo, setFilesPage, dateFilter
 }) => {
-    const contextMenuFilters = useContextMenuFilters()
+    const contextMenuCreateFile = useContextMenuCreateFile();
+    const contextMenuFilters = useContextMenuFilters();
     const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');

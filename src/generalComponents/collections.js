@@ -92,21 +92,25 @@ export function useContextMenuFilters() {
 }
 
 
-export const contextMenuCreateFile = {
-    other: [
-        {name: 'ONLYOFFICE', img: 'microsoft-oneOffice'},
-    ],
-    microsoft: [
-        {name: 'Документ Word', img: 'word', ext: 'docx'},
-        {name: 'Книга Excel', img: 'excel', ext: 'xlsx'},
-        {name: 'Презентация PowerPoint', img: 'powerpoint', ext: 'pptx'},
-    ],
-    google: [
-        {name: 'Документ Google', img: 'google-doc'},
-        {name: 'Таблица Google', img: 'google-table'},
-        {name: 'Презентация Google', img: 'google-presentation'},
-    ],
-};
+export function useContextMenuCreateFile() {
+    const { __ } = useLocales();
+    return {
+        other: [
+            {name: __('ONLYOFFICE'), img: 'microsoft-oneOffice'},
+        ],
+        microsoft: [
+            {name: __('Документ Word'), img: 'word', ext: 'docx'},
+            {name: __('Книга Excel'), img: 'excel', ext: 'xlsx'},
+            {name: __('Презентация PowerPoint'), img: 'powerpoint', ext: 'pptx'},
+        ],
+        google: [
+            {name: __('Документ Google'), img: 'google-doc'},
+            {name: __('Таблица Google'), img: 'google-table'},
+            {name: __('Презентация Google'), img: 'google-presentation'},
+        ],
+    };
+}
+
 
 export const contextMenuProjects = {
     main: [
