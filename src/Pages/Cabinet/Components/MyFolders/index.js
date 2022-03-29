@@ -13,7 +13,7 @@ import RecentFolders from './RecentFolders';
 import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
-    contextMenuFolder,
+    useContextMenuFolder,
     useContextMenuFolderGeneral, useFolders
 } from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
@@ -38,6 +38,7 @@ const MyFolders = ({
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
                nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType, filesPage, setFilesPage
 }) => {
+    const contextMenuFolder = useContextMenuFolder();
     const contextMenuFolderGeneral = useContextMenuFolderGeneral();
     const uid = useSelector(state => state.user.uid);
     const global = useSelector(state => state.Cabinet.global);

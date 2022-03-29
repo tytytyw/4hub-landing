@@ -144,17 +144,20 @@ export function useContextMenuFolderGeneral() {
 }
 
 
-export const contextMenuFolder = {
-    main: [
-        {name: 'Редактировать', img: 'edit', type: 'customizeFolder'},
-        {name: 'Расшарить', img: 'resend'},
-        {name: 'Скопировать ссылку', img: 'shareFile'},
-        {name: 'Добавить папку', img: 'settings-work-tool'},
-        {name: 'Свойства', img: 'info'},
-        {name: 'Удалить папку', img: 'garbage'}
-    ],
-    additional: []
-};
+export function useContextMenuFolder() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Редактировать'), img: 'edit', type: 'customizeFolder'},
+            {name: __('Расшарить'), img: 'resend'},
+            {name: __('Скопировать ссылку'), img: 'shareFile'},
+            {name: __('Добавить папку'), img: 'settings-work-tool'},
+            {name: __('Свойства'), img: 'info'},
+            {name: __('Удалить папку'), img: 'garbage'}
+        ],
+        additional: []
+    };
+}
 
 export const contextMenuSubFolder = {
     main: [
