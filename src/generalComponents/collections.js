@@ -299,10 +299,13 @@ export const dotsPaint = [
 
 // Company
 
-export const contextMenuDocFile = [
-    {name: 'Редактировать', img: 'edit', type: 'editFile'},
-    {name: 'Удалить', img: 'garbage', type: 'deleteFile'}
-]
+export function useContextMenuDocFile() {
+    const { __ } = useLocales();
+    return [
+        {name: __('Редактировать'), img: 'edit', type: 'editFile'},
+        {name: __('Удалить'), img: 'garbage', type: 'deleteFile'}
+    ]
+}
 
 // Chat
 

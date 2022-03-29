@@ -4,7 +4,7 @@ import styles from "./FileView.module.sass";
 import { ReactComponent as DownloadIco } from "../../../../../../assets/PrivateCabinet/download.svg";
 import { ReactComponent as PointerMenuImg } from "../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
-import { contextMenuDocFile } from "../../../../../../generalComponents/collections";
+import {useContextMenuDocFile} from "../../../../../../generalComponents/collections";
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import { onDeleteCompanyDocument, onGetCompanyDocument }  from "../../../../../../Store/actions/CabinetActions";
@@ -27,6 +27,7 @@ const FileView = ({
 	setShowSuccessMessage,
 	downloadFileSrc
 }) => {
+	const contextMenuDocFile = useContextMenuDocFile();
 	const dispatch = useDispatch();
 	const [editFile, setEditFile] = useState(false)
 
