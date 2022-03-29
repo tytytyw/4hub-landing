@@ -370,13 +370,16 @@ export function useContextMenuPerson() {
     ]
 }
 
-export const personStatus = [
-    { color: "#fff", name: "white", text: "Без статуса" },
-    { color: "#20C8D2", name: "aqua", text: "Отпуск" },
-    { color: "#39B31E", name: "green", text: "Декретный отпуск" },
-    { color: "#F4A862", name: "orange", text: "Открытая вакансия" },
-    { color: "#A30BEB", name: "violet", text: "Испытательный срок" },
-]
+export function usePersonStatus() {
+    const { __ } = useLocales();
+    return [
+        { color: "#fff", name: "white", text: __("Без статуса") },
+        { color: "#20C8D2", name: "aqua", text: __("Отпуск") },
+        { color: "#39B31E", name: "green", text: __("Декретный отпуск") },
+        { color: "#F4A862", name: "orange", text: __("Открытая вакансия") },
+        { color: "#A30BEB", name: "violet", text: __("Испытательный срок") },
+    ]
+}
 
 export const personPositions = [
     "Руководитель компании",

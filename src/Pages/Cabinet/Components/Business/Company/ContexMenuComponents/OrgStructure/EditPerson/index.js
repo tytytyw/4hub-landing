@@ -6,9 +6,10 @@ import PopUp from "../../../../../../../../generalComponents/PopUp";
 import { ReactComponent as Avatar } from "../../../../../../../../assets/BusinessCabinet/noPhoto.svg";
 import classNames from "classnames";
 import Select from "../../../AddEmployee/Select/Select";
-import { personStatus } from "../../../../../../../../generalComponents/collections";
+import {usePersonStatus} from "../../../../../../../../generalComponents/collections";
 
 const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
+	const personStatus = usePersonStatus();
 	const [name, setName] = useState(person.data.info.name);
 	const [surname, setSurname] = useState(person.data.info.surname);
 	const [middleName, setMiddleName] = useState(person.data.info.middleName);

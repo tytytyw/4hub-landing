@@ -8,9 +8,10 @@ import { ReactComponent as Avatar } from "../../../../../../assets/BusinessCabin
 import { ReactComponent as SuccessImg } from "../../../../../../assets/BusinessCabinet/checked.svg";
 import classNames from "classnames";
 import Select from "./Select/Select";
-import { personStatus } from "../../../../../../generalComponents/collections";
+import {usePersonStatus} from "../../../../../../generalComponents/collections";
 
 const AddEmployee = ({ nullifyAction, setPageOption, addPerson }) => {
+	const personStatus = usePersonStatus();
 	const [success, setSuccess] = useState(false);
 
 	const [name, setName] = useState("");
