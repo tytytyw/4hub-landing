@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Select.module.sass";
 import classNames from "classnames";
 import {
-	personPositions, usePersonStatus,
+	usePersonPositions, usePersonStatus,
 } from "../../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 
 const Select = ({ selectFor, value, setValue, disableСhanges }) => {
+	const personPositions = usePersonPositions();
 	const personStatus = usePersonStatus();
 	const [open, setOpen] = useState(false);
 	const ref = useRef();
