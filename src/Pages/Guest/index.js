@@ -6,7 +6,7 @@ import classNames from "classnames";
 import ServePanel from "./ServePanel";
 
 import ContextMenu from "../../generalComponents/ContextMenu";
-import {contextMenuFile} from "../../generalComponents/collections";
+import {useContextMenuFile} from "../../generalComponents/collections";
 import ActionApproval from "../../generalComponents/ActionApproval";
 import File from "../../generalComponents/Files";
 import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem";
@@ -27,7 +27,7 @@ const getParam = param => {
 }
 
 const Guest = () => {
-
+    const contextMenuFile = useContextMenuFile()
     const dispatch = useDispatch()
     const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
 

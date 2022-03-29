@@ -10,7 +10,7 @@ import Profile from "../Profile";
 import ServePanel from "../ServePanel";
 import DateBlock from "../Journal/DateBlock";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import {contextMenuFile} from "../../../../generalComponents/collections";
+import {useContextMenuFile} from "../../../../generalComponents/collections";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
 import File from "../../../../generalComponents/Files";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
@@ -20,7 +20,7 @@ import FilesGroup from '../Archive/WorkElements/FilesGroup/FilesGroup'
 import { months } from "../../../../generalComponents/CalendarHelper";
 
 const Cart = () => {
-
+    const contextMenuFile = useContextMenuFile()
     const workElementsView = useSelector((state) => state.Cabinet.view);
     const [search, setSearch] = useState(null)
     const fileList = useSelector((state) => state.Cabinet.fileList)

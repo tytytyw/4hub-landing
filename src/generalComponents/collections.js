@@ -39,21 +39,24 @@ export const smiles = [
 
 //Deprecated
 //TODO - Needs to be checked and deleted - new array in ContextMenuFileList
-export const contextMenuFile = {
-    main: [
-        {name: 'Расшарить', img: 'share', type: 'share'},
-        {name: 'Скопировать ссылку', img: 'link-4', type: 'copyLink'},
-        {name: 'Редактировать файл', img: 'edit', type: 'customize'},
-        {name: 'Ред. несколько файлов', img: 'editSeveral', type: 'customizeSeveral'},
-        {name: 'Переместить в архив', img: 'archive', type: 'archive'},
-        {name: 'Сжать в Zip', img: 'zip', type: 'intoZip'},
-        {name: 'Сжать несколько файлов в Zip', img: 'severalZip', type: 'intoZipSeveral'},
-        {name: 'Свойства', img: 'info', type: 'properties'},
-        {name: 'Скачать', img: 'download-blue', type: 'download'},
-        {name: 'Печать', img: 'print-2', type: 'print'},
-    ],
-    additional: [{name: 'Удалить', img: 'garbage', type: 'delete'}]
-};
+export function useContextMenuFile() {
+    const { __ } = useLocales()
+    return {
+        main: [
+            {name: __('Расшарить'), img: 'share', type: 'share'},
+            {name: __('Скопировать ссылку'), img: 'link-4', type: 'copyLink'},
+            {name: __('Редактировать файл'), img: 'edit', type: 'customize'},
+            {name: __('Ред. несколько файлов'), img: 'editSeveral', type: 'customizeSeveral'},
+            {name: __('Переместить в архив'), img: 'archive', type: 'archive'},
+            {name: __('Сжать в Zip'), img: 'zip', type: 'intoZip'},
+            {name: __('Сжать несколько файлов в Zip'), img: 'severalZip', type: 'intoZipSeveral'},
+            {name: __('Свойства'), img: 'info', type: 'properties'},
+            {name: __('Скачать'), img: 'download-blue', type: 'download'},
+            {name: __('Печать'), img: 'print-2', type: 'print'},
+        ],
+        additional: [{name: __('Удалить'), img: 'garbage', type: 'delete'}]
+    };
+}
 
 export const contextMenuProfile = {
     main: [

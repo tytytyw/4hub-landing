@@ -9,7 +9,7 @@ import ServePanel from '../ServePanel'
 import {useDispatch, useSelector} from 'react-redux'
 import DateBlock from './DateBlock'
 import ContextMenu from '../../../../generalComponents/ContextMenu'
-import {contextMenuFile} from '../../../../generalComponents/collections'
+import {useContextMenuFile} from '../../../../generalComponents/collections'
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem'
 import ActionApproval from '../../../../generalComponents/ActionApproval'
 import File from '../../../../generalComponents/Files'
@@ -25,6 +25,7 @@ import { months } from "../../../../generalComponents/CalendarHelper";
 
 const Journal = () => {
 
+    const contextMenuFile = useContextMenuFile()
     const workElementsView = useSelector((state) => state.Cabinet.view);
     const [search, setSearch] = useState(null)
 
