@@ -1,11 +1,15 @@
+import  { useLocales } from "react-localized";
 // global folders
-export const folders = [
-    {name: 'all', nameRu: 'Общая папка', path: 'global/all'},
-    {name: 'video', nameRu: 'Фильмы', path: 'global/video'},
-    {name: 'music', nameRu: 'Музыка', path: 'global/music'},
-    {name: 'images', nameRu: 'Изображения', path: 'global/images'},
-    {name: 'docs', nameRu: 'Документы', path: 'global/docs'},
-];
+export function useFolders() { // eslint-disable-line
+    const { __ } = useLocales()
+    return [
+        {name: 'all', nameRu: __('Общая папка'), path: 'global/all'},
+        {name: 'video', nameRu: __('Фильмы'), path: 'global/video'},
+        {name: 'music', nameRu: __('Музыка'), path: 'global/music'},
+        {name: 'images', nameRu: __('Изображения'), path: 'global/images'},
+        {name: 'docs', nameRu: __('Документы'), path: 'global/docs'}
+    ];
+}
 
 export const tags = ['Фото', 'Видео', 'Музыка', 'Работа', 'Спорт', 'Развлечения', 'Игры', 'Документы', 'Другое'];
 

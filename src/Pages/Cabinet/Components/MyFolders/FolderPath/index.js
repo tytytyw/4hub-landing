@@ -1,12 +1,13 @@
 import React from "react"
 
 import styles from "./FolderPath.module.sass"
-import {folders} from "../../../../../generalComponents/collections";
+import {useFolders} from "../../../../../generalComponents/collections";
 import {useDispatch, useSelector} from "react-redux";
 import {onChooseFiles, onChooseFolder, onSetPath} from "../../../../../Store/actions/CabinetActions";
 
 const FolderPath = ({width, setFilesPage, setGLoader, setChosenFolder}) => {
 
+    const folders = useFolders()
     const path = useSelector(state => state.Cabinet.fileList?.path)
     const filesNextPath = useSelector(state => state.Cabinet.fileList?.filesNext?.path)
     const folderList = useSelector(state => state.Cabinet?.folderList)

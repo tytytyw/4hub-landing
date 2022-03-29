@@ -6,7 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import { tags, colors } from "../../../../../../generalComponents/collections";
+import {tags, colors, useFolders} from "../../../../../../generalComponents/collections";
 import {onChooseFiles, onGetFolders} from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -46,6 +46,7 @@ const CustomizeFolder = ({
 	const [visibility, setVisibility] = useState("password");
 	const [errors, setErrors] = useState({});
 	const dispatch = useDispatch();
+	const folders = useFolders();
 
 	const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -91,7 +92,7 @@ const CustomizeFolder = ({
 			})
 			.finally(() => {
 				setGLoader(false);
-				dispatch(onGetFolders(folderList.path));
+				dispatch(onGetFolders(folderList.path, folders));
 				if(fileList.path !== chosenFolder?.info?.path)dispatch(onChooseFiles(fileList.path, '', 1, '', successLoad));
 
 			});

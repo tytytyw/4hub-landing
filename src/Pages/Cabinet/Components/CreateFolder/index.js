@@ -6,7 +6,7 @@ import api from '../../../../api';
 import PopUp from '../../../../generalComponents/PopUp';
 import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
 import InputField from '../../../../generalComponents/InputField';
-import {tags, colors} from '../../../../generalComponents/collections';
+import {tags, colors, useFolders} from '../../../../generalComponents/collections';
 import Error from '../../../../generalComponents/Error';
 import {onChooseFiles, onGetFolders} from '../../../../Store/actions/CabinetActions';
 import Colors from '../../../../generalComponents/Elements/Colors';
@@ -38,6 +38,7 @@ const CreateFolder = ({
     const [visibility, setVisibility] = useState('password');
     const [path, setPath] = useState(newFolderInfo?.path ?? chosenFolder?.path)
     const dispatch = useDispatch();
+    const folders = useFolders();
 
     const onAddName = (name) => {
         setNoNameError(false);
@@ -65,7 +66,7 @@ const CreateFolder = ({
                 })
                 .catch(() => {setError(true)})
                 .finally(() => {
-                    dispatch(onGetFolders(fileList?.path));
+                    dispatch(onGetFolders(fileList?.path, folders));
                     dispatch(onChooseFiles(fileList?.path, search, 1, '', setGLoader));
                 }); // TODO - NEED TO REVIEW AFTER CHANGED FOLDERS STRUCTURE
         } else {

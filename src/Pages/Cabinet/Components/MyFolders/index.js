@@ -14,7 +14,7 @@ import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderPro
 import ContextMenu from '../../../../generalComponents/ContextMenu';
 import {
     contextMenuFolder,
-    contextMenuFolderGeneral
+    contextMenuFolderGeneral, useFolders
 } from '../../../../generalComponents/collections';
 import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
 import ActionApproval from '../../../../generalComponents/ActionApproval';
@@ -64,6 +64,8 @@ const MyFolders = ({
     const nullifyAction = () => setAction({type: '', name: '', text: ''});
     const folderListWrapRef = useRef(null);
     const fakeScrollRef = useRef(null);
+    const folders = useFolders()
+
 
     //Clear action on change folder
     useEffect(() => {nullifyAction()}, [path]);
@@ -75,8 +77,8 @@ const MyFolders = ({
         setMenuItem('myFolders')
         dispatch(onGetUserInfo());
         dispatch(onAddRecentFiles());
-        dispatch(onAddRecentFolders());
-        dispatch(onGetFolders());
+        dispatch(onAddRecentFolders(folders));
+        dispatch(onGetFolders('', folders));
         setFilesPage(0)
         dispatch(onChooseFiles(initialChosenFile ?  initialChosenFile.gdir: 'global/all', '', 1, '', successLoad));
         if (initialChosenFile) {
@@ -159,7 +161,7 @@ const MyFolders = ({
         nullifyAction();
         api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
             .then(res => {if(res.data.ok === 1) {
-                dispatch(onGetFolders());
+                dispatch(onGetFolders('', folders));
                 dispatch(onChooseFiles(fileList?.path, '', 1));
                 setChosenFolder(state =>({...state, info: null}));
             } else {

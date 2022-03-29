@@ -35,6 +35,16 @@ msgstr ""
 msgid "Email / Телефон"
 msgstr ""
 
+#: src/Pages/StartPage/Components/UploadFile.js:148
+#: src/Pages/StartPage/Components/UploadFile.js:155
+msgid "Email отправителя"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:137
+#: src/Pages/StartPage/Components/UploadFile.js:144
+msgid "Email получателя"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:305
 msgid "figma"
 msgstr ""
@@ -52,6 +62,7 @@ msgid "IT"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:39
+#: src/Pages/StartPage/Components/Intro.js:14
 msgid "Remote WorkSpace"
 msgstr ""
 
@@ -65,6 +76,10 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:273
 msgid "youtube"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:56
+msgid "Без ограничений"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:23
@@ -127,7 +142,14 @@ msgid "Вакансии"
 msgstr ""
 
 #: src/Pages/StartPage/Components/ForgotPassword.js:103
+#: src/Pages/StartPage/Components/RenewPassword.js:146
 msgid "Ваш пароль обновлён"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SendSuccess.js:45
+msgid ""
+"Ваш файл успешно отправлен на указанный email так же вы можете скопировать "
+"ссылку"
 msgstr ""
 
 #: src/Pages/StartPage/Components/ForgotPassword.js:72
@@ -187,11 +209,31 @@ msgid "Год"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:56
+#: src/Pages/StartPage/Components/RenewPassword.js:134
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:78
 msgid "Готово"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:27
+msgid "Для бизнеса"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:20
+msgid "Для личных целей"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:35
+msgid ""
+"Для подтверждения Email Вам было отправлено контрольное письмо, перейдя по "
+"ссылке Вы сможете завершить"
 msgstr ""
 
 #: src/Pages/StartPage/Components/DownloadFile.js:48
 msgid "дней"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:56
+msgid "До"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:152
@@ -203,8 +245,16 @@ msgstr ""
 msgid "добавление файла"
 msgstr ""
 
+#: src/generalComponents/collections.js:10
+msgid "Документы"
+msgstr ""
+
 #: src/Pages/StartPage/Components/EnterProfile.js:109
 msgid "Забыли пароль?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:101
+msgid "Загрузить"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:96
@@ -223,6 +273,10 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/DownloadFolder/index.js:118
 msgid "Идет процесс созадния ZIP архива"
+msgstr ""
+
+#: src/generalComponents/collections.js:9
+msgid "Изображения"
 msgstr ""
 
 #: src/Pages/StartPage/Components/EnterProfile.js:111
@@ -264,8 +318,16 @@ msgstr ""
 msgid "Конфиденциальность и безопасность"
 msgstr ""
 
+#: src/Pages/StartPage/Components/SendSuccess.js:57
+msgid "Копировать ссылку"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
 msgid "Купить"
+msgstr ""
+
+#: src/generalComponents/collections.js:8
+msgid "Музыка"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:35
@@ -289,6 +351,10 @@ msgstr ""
 msgid "Назначить меня администратором Компании"
 msgstr ""
 
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:38
+msgid "Не пришло письмо ?"
+msgstr ""
+
 #: src/Pages/StartPage/index.js:79
 msgid "Неверный логин или пароль"
 msgstr ""
@@ -300,7 +366,13 @@ msgstr ""
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:151
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:168
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:199
+#: src/Pages/StartPage/Components/RenewPassword.js:107
+#: src/Pages/StartPage/Components/RenewPassword.js:77
 msgid "Некорректный ввод данных"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RenewPassword.js:76
+msgid "Новый пароль"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:25
@@ -309,6 +381,14 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.helper.js:9
 msgid "О проекте"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RenewPassword.js:73
+msgid "Обновите пароль"
+msgstr ""
+
+#: src/generalComponents/collections.js:6
+msgid "Общая папка"
 msgstr ""
 
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:14
@@ -323,12 +403,22 @@ msgstr ""
 msgid "Остались вопросы?"
 msgstr ""
 
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:59
+msgid "Открыть календарь"
+msgstr ""
+
 #: src/Pages/StartPage/Components/ForgotPassword.js:91
+#: src/Pages/StartPage/Components/UploadFile.js:162
 msgid "Отправить"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:48
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:39
 msgid "Отправить заново"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:36
+msgid "Отправить файл"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:171
@@ -343,8 +433,25 @@ msgstr ""
 msgid "Пароль"
 msgstr ""
 
+#: src/Pages/StartPage/Components/RenewPassword.js:48
+msgid "Пароль успешно обновлен"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:109
 msgid "Передача прав Администратора"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:24
+#: src/Pages/StartPage/Components/Intro.js:31
+msgid "Перейти"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:101
+msgid "Перетащите Файл или Нажмите"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RenewPassword.js:106
+msgid "Повторите пароль"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:31
@@ -394,6 +501,10 @@ msgid ""
 "работы"
 msgstr ""
 
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:35
+msgid "процесс регистрации"
+msgstr ""
+
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:141
 msgid "Разграничение прав доступа к файлам"
 msgstr ""
@@ -409,7 +520,28 @@ msgid "Регистрация"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:32
+#: src/Pages/StartPage/Components/RegistrationSuccess.js:15
 msgid "Регистрация прошла успешно"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:16
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:29
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше  сейчас делаю его на 3 строки можно больше "
+"можно меньше"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Intro.js:22
+msgid ""
+"Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 "
+"строкиможно больше можно меньше  сейчас делаю его на 3 строкиможно больше "
+"можно меньше"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:265
@@ -452,8 +584,22 @@ msgstr ""
 msgid "Сохранить и продолжить"
 msgstr ""
 
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:71
+msgid ""
+"Срок удаления файла по умолчанию (23:59), после завершения срока хранения "
+"ссылка автоматически будет недоступна"
+msgstr ""
+
+#: src/Pages/StartPage/Components/UploadFile.js:111
+msgid "Срок хранения"
+msgstr ""
+
 #: src/Pages/StartPage/Components/DownloadFolder/index.js:112
 msgid "Срок хранения папки"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:45
+msgid "Срок хранения файла"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:101
@@ -481,6 +627,14 @@ msgstr ""
 msgid "У Вас уже есть аккаунт ?"
 msgstr ""
 
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:63
+msgid "Укажите время хранения"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SavePeriodPicker.js:52
+msgid "Укажите даты хранения"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Business/Landing/Landing.js:14
 #: src/Pages/StartPage/Components/Landing/Landing.js:15
 msgid "Умное рабочее пространство"
@@ -496,6 +650,8 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:21
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:94
+#: src/Pages/StartPage/Components/RenewPassword.js:18
+#: src/Pages/StartPage/Components/UploadFile.js:181
 msgid "Упс.... что-то пошло не так. Попробуй еще раз!"
 msgstr ""
 
@@ -505,9 +661,22 @@ msgstr ""
 msgid "Условия использования"
 msgstr ""
 
+#: src/Pages/StartPage/Components/UploadFile.js:118
+#: src/Pages/StartPage/Components/UploadFile.js:120
+msgid "Установить пароль"
+msgstr ""
+
+#: src/Pages/StartPage/Components/SendSuccess.js:25
+msgid "Файл успешно отправлен"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:145
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:146
 msgid "Фамилия"
+msgstr ""
+
+#: src/generalComponents/collections.js:7
+msgid "Фильмы"
 msgstr ""
 
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:19

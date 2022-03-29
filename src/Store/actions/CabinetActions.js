@@ -66,12 +66,11 @@ import {
     SET_MODALS,
     CHOOSE_CATEGORY
 } from '../types';
-import {folders} from "../../generalComponents/collections";
 import {categories} from "../../Pages/Cabinet/Components/Programs/consts";
 
 const CancelToken = axios.CancelToken;
 
-export const onGetFolders = (path) => async (dispatch, getState) => {
+export const onGetFolders = (path, folders) => async (dispatch, getState) => {
     // TODO - Need to modify page && item per page state `&page=${1}&items_per_page=${20}`
     api.get(`/ajax/get_folders.php?uid=${getState().user.uid}`)
         .then(res => {
@@ -217,7 +216,7 @@ export const onGetContacts = () => async (dispatch, getState) => {
 
 };
 
-export const onAddRecentFolders = () => async (dispatch, getState) => {
+export const onAddRecentFolders = (folders) => async (dispatch, getState) => {
 
     api.get(`ajax/dir_recent.php?uid=${getState().user.uid}`)
         .then(res => {
