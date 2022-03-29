@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import classnames from 'classnames';
+import { useLocales } from 'react-localized'
 
 import api from '../../../api';
 import styles from './RenewPassword.module.sass';
@@ -8,13 +9,13 @@ import Success from '../../../generalComponents/Success';
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const RenewPassword = ({setPage}) => {
-
+    const { __ } = useLocales()
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({pass: '', repeatPass: ''});
     const [compare, setCompare] = useState({isPass: false, isCoincidePass: false});
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [message, setMessage] = useState('Упс.... что-то пошло не так. Попробуй еще раз!');
+    const [message, setMessage] = useState(__('Упс.... что-то пошло не так. Попробуй еще раз!'));
     const [userInfo, setUserInfo] = useState({confirm: '', login: ''});
 
     useEffect(() => {
@@ -44,7 +45,7 @@ const RenewPassword = ({setPage}) => {
             api.post(`/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`)
                 .then(res => {
                     if(res.data.ok === 1) {
-                        setMessage('Пароль успешно обновлен');
+                        setMessage( __('Пароль успешно обновлен') );
                         setSuccess(true);
                     } else {
                         setMessage(res.data.toString());
@@ -69,11 +70,11 @@ const RenewPassword = ({setPage}) => {
                 <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
                 <div className={styles.renewWrap}>
                     <span className={styles.cross} onClick={() => setPage('init')} />
-                    <span className={styles.title}>Обновите пароль</span>
+                    <span className={styles.title}>{ __('Обновите пароль') }</span>
                     <div className={styles.inputWrap}>
                         <label className={styles.inputName}>
-                            Новый пароль
-                            {compare.isPass && <span> Некорректный ввод данных</span>}
+                            { __('Новый пароль') }
+                            {compare.isPass && <span> { __('Некорректный ввод данных') }</span>}
                         </label>
                         <input
                             className={classnames({
@@ -102,8 +103,8 @@ const RenewPassword = ({setPage}) => {
                     </div>
                     <div className={styles.inputWrap}>
                         <label className={styles.inputName}>
-                            Повторите пароль
-                            {compare.isCoincidePass && <span> Некорректный ввод данных</span>}
+                            { __('Повторите пароль') }
+                            {compare.isCoincidePass && <span>{ __('Некорректный ввод данных') }</span>}
                         </label>
                         <input
                             className={classnames({
@@ -130,7 +131,7 @@ const RenewPassword = ({setPage}) => {
                             onClick={() => setVisibility('password')}
                         />}
                     </div>
-                    <div className={styles.button} onClick={() => sendRequest()}>Готово</div>
+                    <div className={styles.button} onClick={() => sendRequest()}>{ __('Готово') }</div>
                 </div>
             </div>
             {error && <Error
@@ -142,7 +143,7 @@ const RenewPassword = ({setPage}) => {
                 success={success}
                 set={backToEnterProfile}
                 message={message}
-                title='Ваш пароль обновлён'
+                title={ __('Ваш пароль обновлён') }
             />}
         </>
     )

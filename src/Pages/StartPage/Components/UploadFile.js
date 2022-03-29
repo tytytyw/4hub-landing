@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocales } from 'react-localized'
 
 import styles from './UploadFile.module.sass'
 import PopUp from '../../../generalComponents/PopUp';
@@ -13,7 +14,7 @@ import { ReactComponent as InvisibleIcon } from '../../../assets/StartPage/invis
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const UploadFile = ({ setPage }) => {
-
+    const { __ } = useLocales();
     const [password, setPassword] = useState({text: '', active: false});
     const [showPeriod, setShowPeriod] = useState(false);
     const [showCalendar, setShowCalendar] = useState(false);
@@ -52,7 +53,7 @@ const UploadFile = ({ setPage }) => {
     const renderExpireDate = () => {
         return dateValue
         ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : '00'}:${timeValue.minutes ? setTime(timeValue.minutes, 60) : '00'}`
-        : 'Без ограничений';
+        : __('Без ограничений');
     }
 
     const setTime = (time, limit) => {
@@ -97,7 +98,7 @@ const UploadFile = ({ setPage }) => {
                         onChange={e => setBlob(e.target.files[0])}
                     />
                     <img src={imageSrc + 'assets/StartPage/down-arrow-2.svg'} alt='Upload file' />
-                    <span>Перетащите Файл или Нажмите <span className={styles.download}>Загрузить</span></span>
+                    <span>{ __('Перетащите Файл или Нажмите') }<span className={styles.download}>{ __('Загрузить') }</span></span>
                 </div>}
                 {blob && <div className={styles.uploadWrapFile}>
                     <span className={styles.cross} onClick={() => setBlob('')} />
@@ -107,16 +108,16 @@ const UploadFile = ({ setPage }) => {
                 </div>}
                 <div className={styles.fieldsWrap}>
                     <div className={styles.fieldWrapper}>
-                        <span>Срок хранения</span>
+                        <span>{ __('Срок хранения') }</span>
                         <div className={`${styles.fields} ${styles.choose}`} onClick={() => setShowPeriod(!showPeriod)}>
                             <div>{renderExpireDate()}</div>
                             <img src={imageSrc + 'assets/StartPage/play-button.svg'} alt='Open PopUp' />
                         </div>
                     </div>
                     <div className={styles.fieldWrapper}>
-                        <span>Установить пароль</span>
+                        <span>{ __('Установить пароль') }</span>
                         <div className={styles.fields}>
-                            {!password.active && <div>Установить пароль</div>}
+                            {!password.active && <div>{ __('Установить пароль') }</div>}
                             {password.active && <>
                                 <input
                                 type={visibility}
@@ -133,32 +134,32 @@ const UploadFile = ({ setPage }) => {
                         </div>
                     </div>
                     <div className={styles.fieldWrapper}>
-                        <span>Email получателя</span>
+                        <span>{ __('Email получателя') }</span>
                         <input
                             type='email'
                             name='email'
                             value={email.receiver}
                             onChange={(e) => setEmail({...email, receiver: e.target.value})}
                             className={styles.emailField}
-                            placeholder='Email получателя'
+                            placeholder={ __('Email получателя') }
                         />
                     </div>
                     <div className={styles.fieldWrapper}>
-                        <span>Email отправителя</span>
+                        <span>{ __('Email отправителя') }</span>
                         <input
                             type='email'
                             name='email'
                             value={email.sender}
                             onChange={(e) => setEmail({...email, sender: e.target.value})}
                             className={styles.emailField}
-                            placeholder='Email отправителя'
+                            placeholder={ __('Email отправителя') }
                         />
                     </div>
                 </div>
                 <div
                     className={styles.submitButton}
                     onClick={sendFile}
-                >Отправить</div>
+                >{ __('Отправить') }</div>
             </form>
             {showPeriod && <PopUp set={setShowPeriod}>
                 <SavePeriodPicker
@@ -177,7 +178,7 @@ const UploadFile = ({ setPage }) => {
                 <div style={{
                     width: 'max-content',
                     padding: '20px'
-                }}>Упс.... что-то пошло не так. Попробуй еще раз!</div>
+                }}>{ __('Упс.... что-то пошло не так. Попробуй еще раз!') }</div>
             </PopUp>}
             {response && <PopUp set={setResponse}>
                 <SendSuccess data={response} set={setResponse} />

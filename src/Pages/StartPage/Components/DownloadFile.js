@@ -7,9 +7,11 @@ import { getDate } from '../../../generalComponents/CalendarHelper';
 import { ReactComponent as DownloadIcon } from '../../../assets/StartPage/down-arrow.svg';
 import Error from "../../../generalComponents/Error";
 import {imageSrc} from '../../../generalComponents/globalVariables';
+import { useLocales } from 'react-localized';
 
 const DownloadFile = ({ setPage }) => {
 
+    const { __ } = useLocales()
     const emptyFile = {
         name: 'No file',
         size: 0,
@@ -43,7 +45,7 @@ const DownloadFile = ({ setPage }) => {
         const last = days.toFixed().toString()[days.toString().length - 1];
         if(last === '1') return `${days.toFixed()} день`;
         if(last === '2' || last === '3' || last === '4') return `${days.toFixed()} дня`;
-        return `${days.toFixed()} дней`;
+        return `${days.toFixed()} ${ __('дней') }`;
     };
 
     const showTime = () => {
@@ -89,7 +91,7 @@ const DownloadFile = ({ setPage }) => {
                     name='pass'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Введите пароль указанный на почте'
+                    placeholder={ __('Введите пароль указанный на почте') }
                 />
                 {visibility === 'password' && <img
                      src={imageSrc + 'assets/StartPage/invisible.svg'}
@@ -107,7 +109,7 @@ const DownloadFile = ({ setPage }) => {
             {file.name !=='No file' && <span className={styles.term}>Срок хранения файла ( {countLeftDays()} до {showTime()})</span>}
             </>}
         </form>}
-        {error && <Error error={error} set={setError} message={'Упс... Такой файл не найден'} />}
+        {error && <Error error={error} set={setError} message={ __('Упс... Такой файл не найден') } />}
         </>
     )
 }

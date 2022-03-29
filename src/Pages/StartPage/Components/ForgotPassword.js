@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import classnames from 'classnames';
+import { useLocales } from 'react-localized';
 
 import api from '../../../api';
 import styles from './ForgotPassword.module.sass';
@@ -8,7 +9,7 @@ import Success from '../../../generalComponents/Success';
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const ForgotPassword = ({setPage}) => {
-
+    const { __ } = useLocales();
     const [login, setLogin] = useState('');
     const [compare, setCompare] = useState(false);
     const [error, setError] = useState(false);
@@ -40,7 +41,7 @@ const ForgotPassword = ({setPage}) => {
     };
 
     const signIn = () => {
-        const mSuccess = 'В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения';
+        const mSuccess = __('В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения');
 
         if(login && !compare) {
             api.post(`/ajax/user_pass_remember.php?name=${login}`)
@@ -66,14 +67,14 @@ const ForgotPassword = ({setPage}) => {
             <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
             <div className={styles.forgotWrap}>
                 <span className={styles.cross} onClick={() => setPage('init')} />
-                <span className={styles.title}>Восстановление пароля</span>
+                <span className={styles.title}>{ __('Восстановление пароля') }</span>
                 <div className={styles.info}>
-                    Введите Email / Телефон указанный при регистрации, Вам будет направлено письмо с ссылкой для восстановления пароля.
+                    { __('Введите Email / Телефон указанный при регистрации, Вам будет направлено письмо с ссылкой для восстановления пароля.') }
                 </div>
                 <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                     <label className={styles.inputName} htmlFor='login'>
-                        Email / Телефон
-                        {compare && <span> Некорректный ввод данных</span>}
+                        { __('Email / Телефон') }
+                        {compare && <span>{ __('Некорректный ввод данных') }</span>}
                     </label>
                     <input
                         className={classnames({
@@ -87,7 +88,7 @@ const ForgotPassword = ({setPage}) => {
                         onBlur={e => checkLogin(e.target)}
                     />
                 </div>
-                <div className={styles.button} onClick={signIn}>Отправить</div>
+                <div className={styles.button} onClick={signIn}>{ __('Отправить') }</div>
             </div>
         </div>
         {error && <Error
@@ -99,7 +100,7 @@ const ForgotPassword = ({setPage}) => {
             success={success}
             set={setSuccess}
             message={message}
-            title={'Ваш пароль обновлён'}
+            title={ __('Ваш пароль обновлён') }
         />}
         </>
     )

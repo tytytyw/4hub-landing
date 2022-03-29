@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
+import { useLocales } from 'react-localized'
 
 import api from '../../../api';
 import { onLog } from '../../../Store/actions/startPageAction';
@@ -8,7 +9,7 @@ import styles from './EnterProfile.module.sass';
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const EnterProfile = ({setPage}) => {
-
+    const { __ } = useLocales();
     const dispatch = useDispatch();
     const [visibility, setVisibility] = useState('password');
     const [info, setInfo] = useState({login: '', pass: ''});
@@ -49,12 +50,12 @@ const EnterProfile = ({setPage}) => {
             <img className={styles.hubIcon} src={imageSrc + 'assets/StartPage/4HUB.svg'} alt='4HUB' onClick={() => setPage('init')} />
             <div className={styles.enterWrap}>
                 <span className={styles.cross} onClick={() => setPage('init')} />
-                <span className={styles.title}>Вход</span>
+                <span className={styles.title}>{ __('Вход') }</span>
 
                 <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                     <label className={styles.inputName} htmlFor='login'>
-                        Email / Телефон
-                        {compare.isLogin && <span> Некорректный ввод данных</span>}
+                        { __('Email / Телефон') }
+                        {compare.isLogin && <span>{ __('Некорректный ввод данных') }</span>}
                     </label>
                     <input
                         className={classnames({
@@ -73,8 +74,8 @@ const EnterProfile = ({setPage}) => {
                 </div>
                 <div className={styles.inputWrap}>
                     <label className={styles.inputName} htmlFor='pass'>
-                        Пароль
-                        {compare.isPass && <span> Некорректный ввод данных</span>}
+                        { __('Пароль') }
+                        {compare.isPass && <span>{ __('Некорректный ввод данных') }</span>}
                     </label>
                     <input
                         className={classnames({
@@ -105,9 +106,9 @@ const EnterProfile = ({setPage}) => {
                 <div
                     className={styles.remindPassword}
                     onClick={() => setPage('forgotPassword')}
-                >Забыли пароль?</div>
-                <div className={styles.button} onClick={signIn}>Вход</div>
-                <span className={styles.orSpan}>или</span>
+                >{ __('Забыли пароль?') }</div>
+                <div className={styles.button} onClick={signIn}>{ __('Вход') }</div>
+                <span className={styles.orSpan}>{ __('или') }</span>
                 <div className={styles.socialNetworks}>
                     <div className={styles.linkedIn}><img src={imageSrc + 'assets/StartPage/linkedIn.svg'} alt='lIn' /></div>
                     <div className={styles.facebook}><img src={imageSrc + 'assets/StartPage/fb.svg'} alt='fb' /></div>
@@ -116,8 +117,8 @@ const EnterProfile = ({setPage}) => {
                     <div className={styles.pinterest}><img src={imageSrc + 'assets/StartPage/pinterest.svg'} alt='p' /></div>
                     <div className={styles.vk}><img src={imageSrc + 'assets/StartPage/vk.svg'} alt='vk' /></div>
                 </div>
-                <div className={styles.registration}>У Вас нет аккаунта ?
-                    <span onClick={() => setPage('register')}> Регистрация</span>
+                <div className={styles.registration}>{ __('У Вас нет аккаунта ?') }
+                    <span onClick={() => setPage('register')}>{ __('Регистрация') }</span>
                 </div>
             </div>
         </div>

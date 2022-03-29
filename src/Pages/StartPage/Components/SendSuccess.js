@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
+import { useLocales } from 'react-localized'
 
 import styles from './SendSuccess.module.sass';
 import File from '../../../generalComponents/Files';
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const SendSuccess = ({data, set }) => {
+    const { __ } = useLocales();
     const format = data.files.file.name.split('.');
     const ref = useRef(null);
 
@@ -20,7 +22,7 @@ const SendSuccess = ({data, set }) => {
 
  return(
      <div className={styles.successWrap}>
-        <div>Файл успешно отправлен</div>
+        <div>{ __('Файл успешно отправлен') }</div>
         <span className={styles.cross} onClick={() => set('')} />
         <div className={styles.imageWrap}>
             <img src={imageSrc + 'assets/StartPage/success-file-send.svg'}
@@ -40,7 +42,7 @@ const SendSuccess = ({data, set }) => {
             </div>
         </div>
          <span className={styles.infoText}>
-             Ваш файл успешно отправлен на указанный email так же вы можете скопировать ссылку
+             { __('Ваш файл успешно отправлен на указанный email так же вы можете скопировать ссылку') }
          </span>
          <div className={styles.linkWrap}>
              <div className={styles.inputWrap}><input ref={ref} type='text' value={`http://fs2.mh.net.ua${data.link}`} readOnly /></div>
@@ -52,7 +54,7 @@ const SendSuccess = ({data, set }) => {
          <div
              className={styles.copyButton}
              onClick={() => copyText()}
-         >Копировать ссылку</div>
+         >{ __('Копировать ссылку') }</div>
      </div>
  )
 };

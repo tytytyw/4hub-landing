@@ -5,8 +5,18 @@ msgstr ""
 ">= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);\n"
 "Language: uk\n"
 
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:41
+msgid "2 000 ГБ места для безопасного хранения файлов"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:269
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:116
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:222
 msgid "4Hub"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:135
+msgid "Cистематизация данных в одном пространстве"
 msgstr ""
 
 #: src/Pages/StartPage/index.js:66
@@ -15,9 +25,141 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:203
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:204
+#: src/Pages/StartPage/Components/InfoPage.js:52
 msgid "Email"
 msgstr ""
 
+#: src/Pages/StartPage/Components/EnterProfile.js:57
+#: src/Pages/StartPage/Components/ForgotPassword.js:76
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:150
+msgid "Email / Телефон"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:305
+msgid "figma"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:289
+msgid "google calendar"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:297
+msgid "google drive"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:102
+msgid "IT"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:39
+msgid "Remote WorkSpace"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:281
+msgid "telegram"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:313
+msgid "viber"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:273
+msgid "youtube"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:23
+msgid "Безопасность"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:18
+msgid "Безопасноть"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:121
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:15
+msgid "Бизнес версия"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:27
+msgid "Блог"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:87
+msgid "более 10"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:89
+msgid "более 100"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:24
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:88
+msgid "более 50"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:15
+#: src/Pages/StartPage/Components/InfoPage.helper.js:17
+#: src/Pages/StartPage/Components/InfoPage.helper.js:19
+#: src/Pages/StartPage/Components/InfoPage.helper.js:29
+#: src/Pages/StartPage/Components/InfoPage.helper.js:31
+#: src/Pages/StartPage/Components/InfoPage.helper.js:33
+#: src/Pages/StartPage/Components/InfoPage.helper.js:43
+#: src/Pages/StartPage/Components/InfoPage.helper.js:45
+#: src/Pages/StartPage/Components/InfoPage.helper.js:47
+msgid ""
+"В то время некий безымянный печатник создал большую коллекцию размеров и "
+"форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не "
+"только успешно пережил без заметных изменений пять веков, но и перешагнул в "
+"электронный дизайн. Его популяризации в новое время послужили публикация "
+"листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее "
+"время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах "
+"которых используется Lorem Ipsum."
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:44
+msgid ""
+"В целях безопасности, на Email Вашей учетной записи отправлено "
+"подтверждение этого изменения"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:26
+msgid "Вакансии"
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:103
+msgid "Ваш пароль обновлён"
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:72
+msgid ""
+"Введите Email / Телефон указанный при регистрации, Вам будет направлено "
+"письмо с ссылкой для восстановления пароля."
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:59
+msgid "Введите Ваш вопрос"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFile.js:94
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:97
+msgid "Введите пароль указанный на почте"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:178
+msgid "Возможность организации конференций"
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:70
+msgid "Восстановление пароля"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:254
+msgid "Встроенный магазин программного обеспечения"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:110
+#: src/Pages/StartPage/Components/EnterProfile.js:53
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:238
 #: src/Pages/StartPage/index.js:58
 msgid "Вход"
 msgstr ""
@@ -40,17 +182,98 @@ msgid ""
 "                                кандидатов."
 msgstr ""
 
+#: src/Pages/StartPage/Components/Calendar.js:91
+msgid "Год"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:56
 msgid "Готово"
 msgstr ""
 
+#: src/Pages/StartPage/Components/DownloadFile.js:48
+msgid "дней"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:152
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:160
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:168
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:225
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:233
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:241
+msgid "добавление файла"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:109
+msgid "Забыли пароль?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:96
+msgid "Закрыть"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:74
+msgid "Запрос успешно отправлен"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:270
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:117
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:223
 msgid "и"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:118
+msgid "Идет процесс созадния ZIP архива"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:111
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:228
+msgid "или"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:158
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:159
+#: src/Pages/StartPage/Components/InfoPage.js:46
 msgid "Имя"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:131
+msgid "Имя компании"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:248
+msgid "Интеграция необходимых сервисов"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:34
+msgid "Карта сайта"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:83
+msgid "Количество сотрудников в компании"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:33
+msgid "Контакты"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:35
+msgid "Конфиденсальность"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:210
+msgid "Конфиденциальность и безопасность"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
+msgid "Купить"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:35
+msgid "На пользователя в месяц начиная с 3 польз."
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:213
+msgid "Надежная защита личных и корпоративных данных"
 msgstr ""
 
 #: src/Pages/StartPage/index.js:67
@@ -70,6 +293,40 @@ msgstr ""
 msgid "Неверный логин или пароль"
 msgstr ""
 
+#: src/Pages/StartPage/Components/EnterProfile.js:58
+#: src/Pages/StartPage/Components/EnterProfile.js:78
+#: src/Pages/StartPage/Components/ForgotPassword.js:77
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:132
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:151
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:168
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:199
+msgid "Некорректный ввод данных"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:25
+msgid "О 4Hub"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:9
+msgid "О проекте"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:14
+msgid "Обычная версия"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:175
+msgid "Оптимизация командной работы"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.js:41
+msgid "Остались вопросы?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/ForgotPassword.js:91
+msgid "Отправить"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:48
 msgid "Отправить заново"
 msgstr ""
@@ -81,11 +338,17 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:222
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:223
+#: src/Pages/StartPage/Components/EnterProfile.js:77
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:167
 msgid "Пароль"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:109
 msgid "Передача прав Администратора"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:31
+msgid "Поддержка"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:238
@@ -94,13 +357,53 @@ msgid "Подтвердите пароль"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:271
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:118
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:224
 msgid "Политику интелектуальной собственности"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:270
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:117
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:223
 msgid "Политику конфиденциальности"
 msgstr ""
 
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:113
+msgid "Посмотреть в гостевом режиме"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:350
+msgid "Предложение дня"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:138
+msgid "Предоставление доступа к загруженным файлам"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:184
+msgid "Приватная работа с документами"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:42
+msgid "Пригласите друзей"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:47
+msgid ""
+"Простые инструменты для храннения и предоставления доступа и совместной "
+"работы"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:141
+msgid "Разграничение прав доступа к файлам"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:41
+msgid "Разработчикам"
+msgstr ""
+
+#: src/Pages/StartPage/Components/EnterProfile.js:121
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:123
 #: src/Pages/StartPage/index.js:59
 msgid "Регистрация"
 msgstr ""
@@ -109,8 +412,60 @@ msgstr ""
 msgid "Регистрация прошла успешно"
 msgstr ""
 
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:265
+msgid "синхронизация"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:251
+msgid "Синхронизация со сторонними сервисами"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:181
+msgid ""
+"Синхронизация совместной работы над проектами с использованием встроенных "
+"инструментов"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:89
+msgid "Скачать папку"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:43
+msgid "Служба поддержки"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:195
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:203
+msgid "совместный проект"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:227
+msgid "Создать аккаунт"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:39
+msgid "Сообщество"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:284
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:124
 msgid "Сохранить и продолжить"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:112
+msgid "Срок хранения папки"
+msgstr ""
+
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:101
+msgid "Сфера деятельности"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:17
+msgid "Тарифный план"
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
+msgid "Текущий план"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:186
@@ -118,12 +473,35 @@ msgstr ""
 msgid "Телефон"
 msgstr ""
 
+#: src/Pages/StartPage/Components/EnterProfile.js:120
+msgid "У Вас нет аккаунта ?"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:237
+msgid "У Вас уже есть аккаунт ?"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Business/Landing/Landing.js:14
 #: src/Pages/StartPage/Components/Landing/Landing.js:15
 msgid "Умное рабочее пространство"
 msgstr ""
 
+#: src/Pages/StartPage/Components/DownloadFolder/index.js:116
+msgid "Упс... Такая папка не найдена"
+msgstr ""
+
+#: src/Pages/StartPage/Components/DownloadFile.js:112
+msgid "Упс... Такой файл не найден"
+msgstr ""
+
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:21
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:94
+msgid "Упс.... что-то пошло не так. Попробуй еще раз!"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:269
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:116
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:222
 msgid "Условия использования"
 msgstr ""
 
@@ -132,6 +510,43 @@ msgstr ""
 msgid "Фамилия"
 msgstr ""
 
+#: src/Pages/StartPage/Components/Landing/Footer/Footer.js:19
+msgid "Функции"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:37
+msgid "Хранилище"
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:16
+#: src/Pages/StartPage/Components/InfoPage.helper.js:18
+#: src/Pages/StartPage/Components/InfoPage.helper.js:30
+#: src/Pages/StartPage/Components/InfoPage.helper.js:32
+#: src/Pages/StartPage/Components/InfoPage.helper.js:44
+#: src/Pages/StartPage/Components/InfoPage.helper.js:46
+msgid ""
+"часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "
+"\"рыбой\" для текстов на латинице с начала XVI века."
+msgstr ""
+
+#: src/Pages/StartPage/Components/Landing/Main/Main.js:338
+msgid ""
+"Это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem\n"
+"\t\t\t\t\tIpsum является стандартной \"рыбой\" для текстов на латинице с "
+"начала\n"
+"\t\t\t\t\tXVI века."
+msgstr ""
+
+#: src/Pages/StartPage/Components/InfoPage.helper.js:14
+#: src/Pages/StartPage/Components/InfoPage.helper.js:28
+#: src/Pages/StartPage/Components/InfoPage.helper.js:42
+msgid ""
+"Это текст-\"рыба\", часто используемый в печати и вэб-дизайне. Lorem Ipsum "
+"является стандартной \"рыбой\" для текстов на латинице с начала XVI века."
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:269
+#: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:116
+#: src/Pages/StartPage/Components/RegisterProfile/index.js:222
 msgid "Я принимаю"
 msgstr ""
