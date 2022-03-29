@@ -112,22 +112,25 @@ export function useContextMenuCreateFile() {
 }
 
 
-export const contextMenuProjects = {
-    main: [
-        {name: 'Добавить участника', img: 'add-user', type: 'addMember'},
-        {name: 'Скопировать ссылку', img: 'perm-set', type: 'copyLink'},
-        {name: 'Создать папку', img: 'add-folder', type: 'addFolder'},
-        {name: 'Редактировать', img: 'rename', type: 'customize'},
-        {name: 'Архивировать', img: 'archive', type: 'archive'},
-        {name: 'Все участники', img: 'all-users'},
-        {name: 'Свойства', img: 'property', margin: true, type: 'propertiesProject'},
+export function useContextMenuProjects() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __('Добавить участника'), img: 'add-user', type: 'addMember'},
+            {name: __('Скопировать ссылку'), img: 'perm-set', type: 'copyLink'},
+            {name: __('Создать папку'), img: 'add-folder', type: 'addFolder'},
+            {name: __('Редактировать'), img: 'rename', type: 'customize'},
+            {name: __('Архивировать'), img: 'archive', type: 'archive'},
+            {name: __('Все участники'), img: 'all-users'},
+            {name: __('Свойства'), img: 'property', margin: true, type: 'propertiesProject'},
 
-    ],
-    additional: [
-        {name: 'Покинуть проект', img: 'leave', type: 'leave'},
-        {name: 'Удалить проект', img: 'delete', type: 'delete'},
-    ]
-};
+        ],
+        additional: [
+            {name: __('Покинуть проект'), img: 'leave', type: 'leave'},
+            {name: __('Удалить проект'), img: 'delete', type: 'delete'},
+        ]
+    };
+}
 
 export const contextMenuFolderGeneral = {
     main: [
