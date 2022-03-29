@@ -19,8 +19,10 @@ import FilesGroup from './WorkElements/FilesGroup/FilesGroup';
 import {onGetArchiveFiles} from "../../../../Store/actions/CabinetActions";
 
 import { months } from "../../../../generalComponents/CalendarHelper";
+import {useLocales} from "react-localized";
 
 const Archive = () => {
+    const { __ } = useLocales()
 
     const workElementsView = useSelector((state) => state.Cabinet.view);
     
@@ -45,23 +47,23 @@ const Archive = () => {
 	}, [month]); // eslint-disable-line
 
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => {}},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
-        {type: 'archive', name: 'Добавить файл в архив', text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`, callback: (list, index) => setAction(list[index])},
-        {type: 'intoZip', name: 'Сжать в ZIP', text: ``, callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
-        {type: 'properties', name: 'Свойства', text: ``, callback: () => setAction({...action, type: 'properties', name: 'Свойства'})},
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
+        {type: 'resend', name: __(''), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'share', name: __(''), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: __(''), text: __(``), callback: () => {}},
+        {type: 'customize', name: __('Редактирование файла'), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: __(`Редактирование файлов`), text: __(``), callback: () => {}},
+        {type: 'archive', name: __('Добавить файл в архив'), text: __(`Вы действительно хотите архивировать файл ${chosenFile?.name}?`), callback: (list, index) => setAction(list[index])},
+        {type: 'intoZip', name: __('Сжать в ZIP'), text: __(``), callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})},
+        {type: 'properties', name: __('Свойства'), text: __(``), callback: () => setAction({...action, type: 'properties', name: __('Свойства')})},
+        {type: 'download', name: __('Загрузка файла'), text: __(``), callback: () => {}},
+        {type: 'print', name: __('Распечатать файл'), text: __(``), callback: () => {}},
     ]
     
     const additionalMenuItems = [
         {
             type: 'delete',
-            name: 'Удаление файла',
-            text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
+            name: __('Удаление файла'),
+            text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`),
             callback: (list, index) => setAction(list[index])
         },
     ]
@@ -161,7 +163,7 @@ const Archive = () => {
                     text={action.text}
                     set={nullifyAction}
                     callback={() => {}}
-                    approve={"Удалить"}
+                    approve={__("Удалить")}
                 >
                     <div className={styles.fileActionWrap}>
                         <File format={chosenFile?.ext} color={chosenFile?.color} />

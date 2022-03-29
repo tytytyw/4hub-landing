@@ -7,12 +7,12 @@ import File from '../../../../../../generalComponents/Files';
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {onChooseFiles} from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const WorkLinesPreview = ({
       fileList, file, children, hideFileList, filePick, page, setPage, fileRef, chosenFolder, gLoader
 }) => {
-
-    //const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+    const { __ } = useLocales()
     const size = useSelector(state => state.Cabinet.size);
     const search = useSelector(state => state.Cabinet?.search);
     const [loadingFiles, setLoadingFiles] = useState(false);
@@ -135,57 +135,57 @@ const WorkLinesPreview = ({
                 <div className={styles.previewFileInfoWrap}>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Цвет</span>
+                        <span className={styles.itemName}>{ __('Цвет') }</span>
                         {f?.color
                             ? <span className={styles.colorCircle} style={{background: color?.light, border: `1px solid ${color?.dark}`}}/>
-                            : <span className={styles.optionItem}>Добавить цвет</span>}
+                            : <span className={styles.optionItem}>{ __('Добавить цвет') }</span>}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Эмоджи</span>
+                        <span className={styles.itemName}>{ __('Эмоджи') }</span>
                         {f?.emo
                             ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt='sign'/>
-                            : <span className={styles.optionItem}>Добавить эмоджи</span>}
+                            : <span className={styles.optionItem}>{ __('Добавить эмоджи') }</span>}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Знаки</span>
+                        <span className={styles.itemName}>{ __('Знаки') }</span>
                         {f?.fig
                             ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt='sign' />
-                            : <span className={styles.optionItem}>Добавить знаки</span>}
+                            : <span className={styles.optionItem}>{ __('Добавить знаки') }</span>}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Тег</span>
+                        <span className={styles.itemName}>{ __('Тег') }</span>
                         {f?.tag
                             ? <span className={styles.tagName}>#{f.tag}</span>
-                            : <span className={styles.optionItem}>Добавить тег</span>}
+                            : <span className={styles.optionItem}>{ __('Добавить тег') }</span>}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Создан</span>
+                        <span className={styles.itemName}>{ __('Создан') }</span>
                         {f?.ctime
                             ? <span className={styles.description}>{f.mtime.split(' ')[0]}</span>
                             : ''}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Изменен</span>
+                        <span className={styles.itemName}>{ __('Изменен') }</span>
                         {f?.mtime
                             ? <span className={styles.description}>{f.ctime.split(' ')[0]}</span>
                             : ''}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Размеры</span>
+                        <span className={styles.itemName}>{ __('Размеры') }</span>
                         {f?.size_now
                             ? <span className={styles.description}>{f.size_now}</span>
                             : ''}
                     </div>
 
                     <div className={styles.infoFileItem}>
-                        <span className={styles.itemName}>Резрешение</span>
-                        <span className={styles.description}>72 х 72</span>
+                        <span className={styles.itemName}>{ __('Резрешение') }</span>
+                        <span className={styles.description}>{ __('72 х 72') }</span>
                     </div>
                     
                 </div>}

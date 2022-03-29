@@ -2,14 +2,18 @@ import React, {useState} from 'react'
 
 import styles from './Accordion.module.sass'
 import classnames from 'classnames'
+import {useLocales} from "react-localized";
 
-const data = [
-    {id: 'question_1', question: 'Что такое 4Hub ?', answer: 'Ответ 1'},
-    {id: 'question_2', question: 'Как увеличить обьем хранилища?', answer: 'Ответ 2'},
-    {id: 'question_3', question: 'Как защитить мои данные?', answer: 'Ответ 3'},
-]
+
 
 const Accordion = () => {
+
+    const { __ } = useLocales()
+    const data = [
+        {id: 'question_1', question: __('Что такое 4Hub ?'), answer: 'Ответ 1'},
+        {id: 'question_2', question: __('Как увеличить обьем хранилища?'), answer: 'Ответ 2'},
+        {id: 'question_3', question: __('Как защитить мои данные?'), answer: 'Ответ 3'},
+    ]
 
     const [active, setActive] = useState('')
 
