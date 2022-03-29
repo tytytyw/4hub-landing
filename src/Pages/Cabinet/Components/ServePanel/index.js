@@ -27,9 +27,11 @@ import { ReactComponent as ShareIcon } from '../../../../assets/PrivateCabinet/s
 import { ReactComponent as DeleteIcon } from '../../../../assets/PrivateCabinet/delete.svg';
 import { ReactComponent as PowerOffIcon } from '../../../../assets/PrivateCabinet/powerOff.svg';
 import { ReactComponent as FileSize } from '../../../../assets/PrivateCabinet/file_size.svg';
-// import { ReactComponent as AddFileIcon } from '../../../../assets/PrivateCabinet/add_file.svg';
 import { ReactComponent as AddFolderIcon } from '../../../../assets/PrivateCabinet/add_folder.svg';
-import {contextMenuFilters, contextMenuCreateFile} from '../../../../generalComponents/collections';
+import {
+    contextMenuCreateFile,
+    useContextMenuFilters
+} from '../../../../generalComponents/collections';
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Colors from "../../../../generalComponents/Elements/Colors";
@@ -44,6 +46,7 @@ const ServePanel = ({
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, setGLoader, setNewFolderInfo, setFilesPage, dateFilter
 }) => {
+    const contextMenuFilters = useContextMenuFilters()
     const [, height] = useWindowSize();
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');

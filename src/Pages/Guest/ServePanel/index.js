@@ -29,13 +29,14 @@ import Emoji from "../../../generalComponents/Elements/Emoji";
 import ContextMenuItem from "../../../generalComponents/ContextMenu/ContextMenuItem";
 import {onSetWorkElementsView} from "../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../generalComponents/ContextMenu";
-import {contextMenuCreateFile, contextMenuFilters} from "../../../generalComponents/collections";
+import {contextMenuCreateFile, useContextMenuFilters} from "../../../generalComponents/collections";
 import {imageSrc} from '../../../generalComponents/globalVariables';
 
 const ServePanel = ({
          chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile
 }) => {
+    const contextMenuFilters = useContextMenuFilters()
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
     // const [reverseCriterea, setReverseCriterea] = useState({byName: false});

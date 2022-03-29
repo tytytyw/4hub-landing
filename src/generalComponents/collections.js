@@ -73,20 +73,24 @@ export function useContextMenuProfile() {
 }
 
 
-export const contextMenuFilters = {
-    main: [
-        {name: `По имени от А до Я`, reverseName: 'По имени от Я до А', img: '', ext: 'byName'},
-        {name: `По дате архивирования`, reverseName: 'По дате архивирования', img: '', ext: 'byDateArchived&sort_reverse=1&group=date_archive'},
-        {name: `По дате добавления/создания`, reverseName: 'По дате добавления/создания', img: '', ext: 'byDateCreated&sort_reverse=1&group=ctime'},
-        {name: 'По дате изменения', reverseName: 'По дате изменения', img: '', ext: 'byDateChanged&sort_reverse=1&group=mtime'},
-        {name: 'По дате последнего открытия', reverseName: 'По дате последнего открытия', img: '', ext: 'byDateOpened'},
-        {name: 'По размеру (от больших к малым)', reverseName: 'По размеру (от малых к большим)', img: '', ext: 'bySize&sort_reverse=1'},
-        {name: 'По размеру (от малых к большим)', reverseName: '', img: '', ext: 'bySize'},
-        {name: 'По типу', reverseName: 'По типу U+21FD', img: '', ext: 'byType'},
-        {name: 'По тэгам', reverseName: 'По тэгам', img: '', ext: 'byTags'},
-    ],
-    additional: []
-};
+export function useContextMenuFilters() {
+    const { __ } = useLocales();
+    return {
+        main: [
+            {name: __(`По имени от А до Я`), reverseName: __('По имени от Я до А'), img: '', ext: 'byName'},
+            {name: __(`По дате архивирования`), reverseName: __('По дате архивирования'), img: '', ext: 'byDateArchived&sort_reverse=1&group=date_archive'},
+            {name: __(`По дате добавления/создания`), reverseName: __('По дате добавления/создания'), img: '', ext: 'byDateCreated&sort_reverse=1&group=ctime'},
+            {name: __('По дате изменения'), reverseName: __('По дате изменения'), img: '', ext: 'byDateChanged&sort_reverse=1&group=mtime'},
+            {name: __('По дате последнего открытия'), reverseName: __('По дате последнего открытия'), img: '', ext: 'byDateOpened'},
+            {name: __('По размеру (от больших к малым)'), reverseName: __('По размеру (от малых к большим)'), img: '', ext: 'bySize&sort_reverse=1'},
+            {name: __('По размеру (от малых к большим)'), reverseName: __(''), img: '', ext: 'bySize'},
+            {name: __('По типу'), reverseName: __('По типу U+21FD'), img: '', ext: 'byType'},
+            {name: __('По тэгам'), reverseName: __('По тэгам'), img: '', ext: 'byTags'},
+        ],
+        additional: []
+    };
+}
+
 
 export const contextMenuCreateFile = {
     other: [
