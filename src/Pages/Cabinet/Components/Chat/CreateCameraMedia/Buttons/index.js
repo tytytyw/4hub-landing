@@ -16,6 +16,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import FilterSettings from "./FilterSettings";
 import TextArea from "../../ChatBoard/TextArea";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const Buttons = ({
 	state,
@@ -37,6 +38,7 @@ const Buttons = ({
 	textMessage,
 	setTextMessage,
 }) => {
+	const { __ } = useLocales();
 	const [activeOption, setActiveOption] = useState(null);
 	const saveTextButtonRef = useRef();
 
@@ -160,7 +162,7 @@ const Buttons = ({
 		if (state === "init" && !isRecording)
 			return (
 				<TextButton
-					text="Отмена"
+					text={ __('Отмена') }
 					type="cancel"
 					callback={nullifyAction}
 					style={{ width: 116, height: 34 }}
@@ -176,7 +178,7 @@ const Buttons = ({
 					childrenColor="white"
 					backgroundColor="#4086F1"
 				>
-					<CheckIcon title={"Сохранить"} height={14} width={19} />
+					<CheckIcon title={ __('Сохранить') } height={14} width={19} />
 				</Button>
 			);
 		if (state === "readyToSend")

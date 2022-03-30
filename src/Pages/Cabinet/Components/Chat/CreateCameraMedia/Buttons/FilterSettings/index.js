@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./FilterSettings.module.sass";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const FilterSettings = ({ visualEffects, setVisualEffects }) => {
+	const { __ } = useLocales();
 	const [options, setOptions] = useState([
 		{
-			name: "Яркость",
+			name: __("Яркость"),
 			filterName: "brightness",
 			min: 0,
 			max: 2,
@@ -14,7 +16,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Контраст",
+			name: __("Контраст"),
 			filterName: "contrast",
 			min: 0,
 			max: 2,
@@ -23,7 +25,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Насыщенность",
+			name: __("Насыщенность"),
 			filterName: "saturate",
 			min: 0,
 			max: 2,
@@ -32,7 +34,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Оттенки серого",
+			name: __("Оттенки серого"),
 			filterName: "grayscale",
 			min: 0,
 			max: 1,
@@ -41,7 +43,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Смещение цветов",
+			name: __("Смещение цветов"),
 			filterName: "hue-rotate",
 			min: 0,
 			max: 360,
@@ -50,7 +52,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "deg",
 		},
 		{
-			name: "Инверсия",
+			name: __("Инверсия"),
 			filterName: "invert",
 			min: 0,
 			max: 1,
@@ -59,7 +61,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Сепия",
+			name: __("Сепия"),
 			filterName: "sepia",
 			min: 0,
 			max: 1,
@@ -68,7 +70,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
 			unit: "",
 		},
 		{
-			name: "Размытие",
+			name: __("Размытие"),
 			filterName: "blur",
 			min: 0,
 			max: 10,

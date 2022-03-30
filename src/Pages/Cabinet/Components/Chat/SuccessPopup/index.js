@@ -3,8 +3,13 @@ import styles from './SuccessPopup.module.sass'
 import Popup from '../../../../../generalComponents/PopUp'
 import timesImg from '../../../../../assets/BusinessCabinet/times.svg'
 import successImg from '../../../../../assets/BusinessCabinet/WelcomePage/success.svg'
+import {useLocales} from "react-localized";
 
-const SuccessPopup = ({title = '', text = '', buttonText = 'Готово', set}) => {
+const SuccessPopup = ({title = '', text = '', buttonText, set}) => {
+    const { __ } = useLocales();
+    if (!buttonText) {
+        buttonText = __('Готово')
+    }
 
     return (
         <Popup set={set}>

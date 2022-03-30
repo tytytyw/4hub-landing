@@ -9,8 +9,10 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { onGetChatGroups } from "../../../../../../Store/actions/CabinetActions";
 
 import api from "../../../../../../api";
+import {useLocales} from "react-localized";
 
 const AddUserToGroup = ({group, nullifyAction}) => {
+	const { __ } = useLocales();
 	const [search, setSearch] = useState("");
     const [loadingType, setLoadingType] = useState("");
 	const [selectedUsers, setSelectedUsers] = useState([]);
@@ -57,8 +59,8 @@ const AddUserToGroup = ({group, nullifyAction}) => {
 		<ActionApproval
 			set={nullifyAction}
 			callback={onSubmit}
-			name="Добавить участников в группу"
-			approve="Добавить"
+			name={ __("Добавить участников в группу") }
+			approve={ __("Добавить") }
 			childrenWidth={457}
             disableActionBtn={!selectedUsers?.length}
 		>
@@ -72,7 +74,7 @@ const AddUserToGroup = ({group, nullifyAction}) => {
                         setSelectedUsers={changeSelectedContacts}
                         userContextMenu={"checkBox"}
                     />
-                    : <div className={styles.noUsersMsg}>все контакты уже добавлены в группу</div>}
+                    : <div className={styles.noUsersMsg}>{ __('все контакты уже добавлены в группу') }</div>}
 			</div>
             {loadingType ? (
 				<Loader
@@ -88,6 +90,6 @@ const AddUserToGroup = ({group, nullifyAction}) => {
 			) : null}
 		</ActionApproval>
 	)
-};
+}
 
 export default AddUserToGroup;

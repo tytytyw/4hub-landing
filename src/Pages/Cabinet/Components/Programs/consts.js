@@ -37,14 +37,14 @@ export const categories = {
             {
                 name: '1C',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/1c.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'http://1c.ua/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'LigaZakon',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/liga-zakon.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.ligazakon.ua/',
                 isFavourite: false,
                 comments: []
             },

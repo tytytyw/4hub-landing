@@ -7,10 +7,12 @@ import api from "../../../../../api";
 import {ReactComponent as ContactsDatabaseIcon} from "../../../../../assets/PrivateCabinet/contactsDatabase.svg";
 import classNames from "classnames";
 import { onGetCompanyContacts, onGetContacts }  from "../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 
 function AddContact({action, nullifyAction, setShowSuccessPopup}) {
-    const [name, setName] = useState('')
+	const { __ } = useLocales();
+	const [name, setName] = useState('')
     const [sname, setSname] = useState('')
     const [tel, setTel] = useState('')
     const [email, setEmail] = useState('')
@@ -30,7 +32,7 @@ function AddContact({action, nullifyAction, setShowSuccessPopup}) {
 			api.post(`/ajax/${id_company ? 'org_' : ''}contacts_add.php?uid=${uid}&name=${name}&sname=${sname}${addCompanyParams()}`, formData)
                 .then(() => {
 					dispatch(id_company ? onGetCompanyContacts() : onGetContacts())
-					setShowSuccessPopup({title: 'База контактов успешно добавлена', text: 'База контактов успешно добавлен в Вашу книгу контактов'})
+					setShowSuccessPopup({title: __('База контактов успешно добавлена'), text: __('База контактов успешно добавлен в Вашу книгу контактов')})
                 })
 				.catch(err => {
                     console.log(err)
@@ -57,27 +59,27 @@ function AddContact({action, nullifyAction, setShowSuccessPopup}) {
 				name={action.name}
 				set={nullifyAction}
 				callback={onSubmit}
-				approve={"Добавить"}
+				approve={ __("Добавить") }
 				childrenWidth={"100%"}
 			>
 				<div className={styles.inputWrap}>
-					<InputField mistake={requiredInputError && !name} value={name} set={setName} height={40} placeholder="Имя" />
+					<InputField mistake={requiredInputError && !name} value={name} set={setName} height={40} placeholder={ __("Имя") } />
 				</div>
 				<div className={styles.inputWrap}>
-					<InputField value={sname} set={setSname} height={40} placeholder="Фамилия" />
+					<InputField value={sname} set={setSname} height={40} placeholder={ __("Фамилия") } />
 				</div>
 				<div className={styles.inputWrap}>
-					<InputField mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)} value={tel} set={setTel} phone={true} height={40} placeholder="Номер телефона" />
+					<InputField mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)} value={tel} set={setTel} phone={true} height={40} placeholder={ __("Номер телефона") } />
 				</div>
 				<div className={styles.inputWrap}>
-					<InputField mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)} value={email} set={setEmail} height={40} placeholder="Email" />
+					<InputField mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)} value={email} set={setEmail} height={40} placeholder={ __("Email") } />
 				</div>
 				<div>
-					<p className={styles.text}>или</p>
+					<p className={styles.text}>{ __('или') }</p>
 					<div className={styles.addContactsDatabase}>
 						<ContactsDatabaseIcon className={styles.icon} />
-						<span className={classNames(styles.text, styles.button)}>Загрузите</span>
-						<span className={styles.text}>базу контактов</span>
+						<span className={classNames(styles.text, styles.button)}>{ __('Загрузите') }</span>
+						<span className={styles.text}>{ __('базу контактов') }</span>
 					</div>
 				</div>
 			</ActionApproval>

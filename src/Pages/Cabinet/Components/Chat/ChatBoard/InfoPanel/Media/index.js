@@ -3,13 +3,15 @@ import styles from "./Media.module.sass";
 import Header from "../styledComponents/Header";
 import SubOptionButton from "../styledComponents/SubOptionButton";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
+import {useLocales} from "react-localized";
 
 const Media = ({ setOption }) => {
+	const { __ } = useLocales();
 	const [subOption, setSubOption] = useState("photo");
 	const options = [
-		{ name: "Фото", id: "photo" },
-		{ name: "Видео", id: "video" },
-		{ name: "Gif", id: "gif" },
+		{ name: __("Фото"), id: "photo" },
+		{ name: __("Видео"), id: "video" },
+		{ name: __("Gif"), id: "gif" },
 	];
 
 	//TODO: temp
@@ -42,7 +44,7 @@ const Media = ({ setOption }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<Header setOption={setOption} title="Мультимедиа" />
+			<Header setOption={setOption} title={ __("Мультимедиа") } />
 			<div className={styles.subOptions}>
 				{options.map((item) => {
 					return (
@@ -59,11 +61,11 @@ const Media = ({ setOption }) => {
 			{subOption === "photo" ? (
 				<div className={styles.content}>
 					<div className={styles.groupByDate}>
-						<h5 className={styles.dateTitle}>Сегодня</h5>
+						<h5 className={styles.dateTitle}>{ __('Сегодня') }</h5>
 						<div className={styles.picturesWrap}>{renderImages(images)}</div>
 					</div>
 					<div className={styles.groupByDate}>
-						<h5 className={styles.dateTitle}>04.11.2021</h5>
+						<h5 className={styles.dateTitle}>{ __('04.11.2021') }</h5>
 						<div className={styles.picturesWrap}>
 							{renderImages([images[2], images[4]])}
 						</div>

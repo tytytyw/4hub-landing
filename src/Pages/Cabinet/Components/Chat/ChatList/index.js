@@ -13,6 +13,7 @@ import {
 	onGetReсentChatsList,
 	onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const ChatList = ({
 	search,
@@ -23,6 +24,7 @@ const ChatList = ({
 	setMouseParams,
 	currentDate,
 }) => {
+	const { __ } = useLocales();
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
@@ -160,9 +162,9 @@ const ChatList = ({
 							`${imageSrc}assets/PrivateCabinet/chatGroup.svg`
 						}
 						setCollapseMembersList={setCollapseMembersList}
-						status={`${group?.users?.length || 0} участников группы ( ${
+						status={ __(`${group?.users?.length || 0} участников группы ( ${
 							group.users.filter((user) => user?.is_online === 1).length
-						} онлайн )`}
+						} онлайн )`)}
 						setMouseParams={setMouseParams}
 						contextMenuList={"group"}
 						notificationsCounter={
@@ -177,7 +179,7 @@ const ChatList = ({
 				</div>
 			);
 		});
-	}, [
+	}, [ //eslint-disable-line
 		groupsList,
 		userId,
 		selectedContact,
@@ -189,7 +191,7 @@ const ChatList = ({
 		setSelectedContact,
 		recentGroupsMessages,
 		notificationsCounter,
-		collapseMembersList,
+		collapseMembersList
 	]);
 
 	useEffect(() => {
@@ -212,7 +214,7 @@ const ChatList = ({
 					setAction({
 						type: "addChat",
 						name: `${
-							chatsType === "chats" ? "Cекретный чат" : "Новая группа"
+							chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
 						} `,
 						text: "",
 						chatsType,
@@ -220,7 +222,7 @@ const ChatList = ({
 				}}
 				title={
 					sideMenuCollapsed
-						? `Создать ${chatsType === "chats" ? "секретный" : "групповой"} чат`
+						? __(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`)
 						: ""
 				}
 			>
@@ -240,7 +242,7 @@ const ChatList = ({
 
 				{!sideMenuCollapsed ? (
 					<span className={styles.text}>
-						Создать {chatsType === "chats" ? "секретный" : "групповой"} чат
+						{ __(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`) }
 					</span>
 				) : (
 					""
@@ -260,7 +262,7 @@ const ChatList = ({
 						[styles.addChat]: true,
 					})}
 					onClick={() => setChatsType("chats")}
-					title={sideMenuCollapsed ? "Чаты" : ""}
+					title={sideMenuCollapsed ? __("Чаты") : ""}
 				>
 					<span className={styles.text}>Чаты</span>
 				</div>
@@ -271,7 +273,7 @@ const ChatList = ({
 						[styles.addChat]: true,
 					})}
 					onClick={() => setChatsType("groups")}
-					title={sideMenuCollapsed ? "Группы" : ""}
+					title={sideMenuCollapsed ? __("Группы") : ""}
 				>
 					<span className={styles.text}>Группы</span>
 				</div>

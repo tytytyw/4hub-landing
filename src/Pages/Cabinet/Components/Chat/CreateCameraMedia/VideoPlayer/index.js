@@ -42,7 +42,7 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects={} }) => {
 
 	useEffect(() => {
 		const video = videoPlayerRef.current;
-		//fix Chorome bug with Infinity duration
+		//TODO - fix Chorome bug with Infinity duration
 		const fixInfinityDuration = () => {
 			const getDuration = () => {
 				video.currentTime = 0;

@@ -13,6 +13,7 @@ import {
 	onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
+import {useLocales} from "react-localized";
 
 const CreateChat = ({
 	title,
@@ -24,6 +25,7 @@ const CreateChat = ({
 	currentDate,
 	initialUser
 }) => {
+	const { __ } = useLocales();
 	const [search, setSearch] = useState("");
 	const [selectedContacts, setSelectedContact] = useState(initialUser ? [initialUser] : []);
 	const [step, setStep] = useState("one");
@@ -152,7 +154,7 @@ const CreateChat = ({
 				if (res.data.ok) {
 					dispatch(showActionApproval.type === 'secretChat' ? onGetSecretChatsList() : onGetChatGroups());
 					if (componentType === 'add') setShowSuccessPopup({
-						title: showActionApproval.type === 'secretChat' ? 'Секретный чат успешно создан' : "Новая группа успешно создана",
+						title: showActionApproval.type === 'secretChat' ? __('Секретный чат успешно создан') : __('Новая группа успешно создана'),
 						text: "",
 					});
 					onExit();
@@ -176,9 +178,9 @@ const CreateChat = ({
 				</div>
 				<div className={styles.title}>
 					{maxCountUsers > 1 && step === "one"
-						? `Выберите пользователей ${
+						? __(`Выберите пользователей ${
 								selectedContacts.length
-						}/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
+						}/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`)
 						: ""}
 					{maxCountUsers === 1 ? title : ""}
 					{step === "two" ? title : ""}
@@ -193,8 +195,8 @@ const CreateChat = ({
 						})}
 						onClick={() => stepHandler("forward")}
 					>
-						{step === "one" ? "Далее" : ""}
-						{step === "two" ? `${componentType === 'add' ? 'Создать' : 'Сохранить'}` : ""}
+						{step === "one" ? __('Далее') : ""}
+						{step === "two" ? `${componentType === 'add' ? __('Создать') : __('Сохранить')}` : ""}
 					</div>
 				) : (
 					<div />
@@ -209,7 +211,7 @@ const CreateChat = ({
 									className={styles.input}
 									value={search}
 									onChange={(e) => setSearch(e.target.value)}
-									placeholder="Введите имя пользователя"
+									placeholder={ __('Введите имя пользователя') }
 								/>
 								{renderSelectedContacts()}
 							</div>
@@ -229,7 +231,7 @@ const CreateChat = ({
 							value={groupName}
 							onChange={(e) => setGroupName(e.target.value)}
 							className={styles.name}
-							placeholder="Введите имя группы"
+							placeholder={ __('Введите имя группы') }
 						/>
 					</div>
 				)}
@@ -247,16 +249,16 @@ const CreateChat = ({
 			</div>
 			{showActionApproval?.show ? (
 				<ActionApproval
-					name={"Начать секретный чат"}
-					text={`Вы действительно хотите создать секртеный чат с ${
+					name={ __('Начать секретный чат') }
+					text={ __(`Вы действительно хотите создать секртеный чат с ${
 						selectedContacts[0].name || ""
-					} ${selectedContacts[0].sname || ""}?`}
+					} ${selectedContacts[0].sname || ""}?`)}
 					set={() => {
 						setShowActionApproval(false);
 						setSelectedContact([]);
 					}}
 					callback={onSubmit}
-					approve={"Создать"}
+					approve={ __('Создать')}
 				>
 					<img
 						className={styles.avatar}

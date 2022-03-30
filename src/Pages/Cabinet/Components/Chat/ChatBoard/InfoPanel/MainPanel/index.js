@@ -5,8 +5,10 @@ import { imageSrc } from "../../../../../../../generalComponents/globalVariables
 import styles from "./MainPanel.module.sass";
 
 import { ReactComponent as TriangleIcon } from "../../../../../../../assets/PrivateCabinet/play-grey.svg";
+import {useLocales} from "react-localized";
 
 const MainPanel = ({ setAction, setOption }) => {
+	const { __ } = useLocales();
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
 	);
@@ -21,29 +23,29 @@ const MainPanel = ({ setAction, setOption }) => {
 			if (admins.includes(userId)) {
 				// user is admin
 				return {
-					text: "Удалить группу",
+					text: __("Удалить группу"),
 					callback: () =>
 						setAction({
-							text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
-							type: "deleteChatGroup",
-							name: "Удалить",
+							text: __(`Вы действительно хотите удалить группу ${selectedContact?.name}?`),
+							type: __("deleteChatGroup"),
+							name: __("Удалить"),
 						}),
 				};
 			} else {
 				// user not admin
 				return {
-					text: "Покинуть группу",
+					text: __("Покинуть группу"),
 					callback: () =>
 						setAction({
-							text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
+							text: __(`Вы действительно хотите покинуть группу ${selectedContact?.name}?`),
 							type: "leaveFromChatGroup",
-							name: "Покинуть",
+							name: __("Покинуть"),
 						}),
 				};
 			}
 		}
 		return {
-			text: "Очистить историю",
+			text: __("Очистить историю"),
 			callback: () => console.log("clear messages"),
 		};
 	};
@@ -67,7 +69,7 @@ const MainPanel = ({ setAction, setOption }) => {
 				<div>
 					<div className={classNames(styles.menuItem, styles.borderBottom)} onClick={() => setOption('media')}>
 						<div className={styles.leftSide}>
-							<span className={styles.menuItemName}>Мультимедиа</span>
+							<span className={styles.menuItemName}>{ __('Мультимедиа') }</span>
 						</div>
 						<div className={styles.leftSide}>
 							<span className={styles.menuItemText}>({810})</span>
@@ -77,7 +79,7 @@ const MainPanel = ({ setAction, setOption }) => {
 
 					<div className={classNames(styles.menuItem, styles.borderBottom)}>
 						<div className={styles.leftSide}>
-							<span className={styles.menuItemName}>Документы</span>
+							<span className={styles.menuItemName}>{ __('Документы') }</span>
 						</div>
 						<div className={styles.leftSide}>
 							<span className={styles.menuItemText}>({810})</span>
@@ -97,7 +99,7 @@ const MainPanel = ({ setAction, setOption }) => {
 
 					<div className={classNames(styles.menuItem, styles.borderBottom)}>
 						<div className={styles.leftSide}>
-							<span className={styles.menuItemName}>Ссылки</span>
+							<span className={styles.menuItemName}>{ __('Ссылки') }</span>
 						</div>
 						<div className={styles.leftSide}>
 							<span className={styles.menuItemText}>({810})</span>
@@ -114,7 +116,7 @@ const MainPanel = ({ setAction, setOption }) => {
 							)}
 						>
 							<div className={styles.leftSide}>
-								<span className={styles.menuItemName}>Добавить участника</span>
+								<span className={styles.menuItemName}>{ __('Добавить участника') }</span>
 							</div>
 							<div
 								className={styles.leftSide}
@@ -130,7 +132,7 @@ const MainPanel = ({ setAction, setOption }) => {
 									)
 								}
 							>
-								<button className={styles.textBtn}>Добавить</button>
+								<button className={styles.textBtn}>{ __('Добавить') }</button>
 							</div>
 						</div>
 					) : (
@@ -146,7 +148,7 @@ const MainPanel = ({ setAction, setOption }) => {
 						)}
 					>
 						<div className={styles.leftSide}>
-							<span className={styles.menuItemName}>Уведомления</span>
+							<span className={styles.menuItemName}>{ __('Уведомления') }</span>
 						</div>
 						<div
 							className={classNames(styles.switcher)}

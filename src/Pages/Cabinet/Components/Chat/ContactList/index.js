@@ -11,6 +11,7 @@ import { createContactStatus } from "../../../../../generalComponents/chatHelper
 import classNames from "classnames";
 import { ReactComponent as AddContactIcon } from "../../../../../assets/PrivateCabinet/addContact-2.svg";
 import CustomChatItem from "../CustomChatItem";
+import {useLocales} from "react-localized";
 
 const ContactList = ({
 	search,
@@ -20,6 +21,7 @@ const ContactList = ({
 	currentDate,
 	setMouseParams
 }) => {
+	const { __ } = useLocales();
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
@@ -72,10 +74,10 @@ const ContactList = ({
 					[styles.addContact]: true,
 				})}
 				onClick={() => {
-					setAction({ type: "addContact", name: "Добавить контакт", text: "" });
+					setAction({ type: "addContact", name: __("Добавить контакт"), text: __("") });
 					setSelectedContact(null);
 				}}
-				title="Добавить контакт"
+				title={ __("Добавить контакт") }
 			>
 				<div className={styles.iconWrap}>
 					<AddContactIcon width={19} height={22} />
@@ -83,7 +85,7 @@ const ContactList = ({
 				{sideMenuCollapsed ? (
 					""
 				) : (
-					<span className={styles.text}>Добавить контакт</span>
+					<span className={styles.text}>{ __('Добавить контакт') }</span>
 				)}
 			</div>
 			{contactList ? (

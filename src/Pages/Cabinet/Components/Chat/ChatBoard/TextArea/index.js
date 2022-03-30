@@ -8,6 +8,7 @@ import {
 	onSetModals,
 	onEditChatMessage,
 } from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const TextArea = ({
 	onAddMessage,
@@ -16,6 +17,7 @@ const TextArea = ({
 	initialTextValue = "",
 	saveTextButtonRef = null,
 }) => {
+	const { __ } = useLocales();
 	const textAreaRef = useRef();
 	const [cursorPosition, setCursorPosition] = useState(0);
 	const [textAreaValue, setTextAreaValue] = useState(initialTextValue);
@@ -53,7 +55,7 @@ const TextArea = ({
 					dispatch(
 						onSetModals("error", {
 							open: true,
-							message: "Что-то пошло не так, повторите попытку позже",
+							message: __("Что-то пошло не так, повторите попытку позже"),
 						})
 					)
 				);
@@ -138,7 +140,7 @@ const TextArea = ({
 			<textarea
 				ref={textAreaRef}
 				type="text"
-				placeholder="Введите текст сообщения"
+				placeholder={ __("Введите текст сообщения") }
 				className={styles.textInput}
 				onClick={findCursorPosition}
 				rows={1}

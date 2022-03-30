@@ -8,12 +8,18 @@
 #: src/Pages/Cabinet/Components/Archive/index.js:57
 #: src/Pages/Cabinet/Components/Archive/index.js:58
 #: src/Pages/Cabinet/Components/Archive/index.js:59
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:52
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 "
 ">= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);\n"
 "Language: uk\n"
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:140
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:144
+msgid "+38"
+msgstr ""
 
 #: src/generalComponents/collections.js:344
 msgid "1 мин."
@@ -31,6 +37,7 @@ msgstr ""
 msgid "15 мин."
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:41
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:41
 msgid "2 000 ГБ места для безопасного хранения файлов"
 msgstr ""
@@ -77,6 +84,7 @@ msgstr ""
 msgid "Backend-разработчик"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:135
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:135
 msgid "Cистематизация данных в одном пространстве"
 msgstr ""
@@ -85,16 +93,26 @@ msgstr ""
 msgid "Cтраница в разработке"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:162
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:170
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:203
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:204
 #: src/Pages/StartPage/Components/InfoPage.js:52
 msgid "Email"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:183
+msgid "Email (2)"
+msgstr ""
+
 #: src/Pages/StartPage/Components/EnterProfile.js:57
 #: src/Pages/StartPage/Components/ForgotPassword.js:76
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:150
 msgid "Email / Телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:175
+msgid "email не указан"
 msgstr ""
 
 #: src/Pages/StartPage/Components/UploadFile.js:148
@@ -111,6 +129,7 @@ msgstr ""
 msgid "Event-менеджер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:305
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:305
 msgid "figma"
 msgstr ""
@@ -123,10 +142,12 @@ msgstr ""
 msgid "Frontend-разработчик"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:289
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:289
 msgid "google calendar"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:297
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:297
 msgid "google drive"
 msgstr ""
@@ -155,6 +176,10 @@ msgstr ""
 msgid "PR-менеджер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:351
+msgid "Premium plus"
+msgstr ""
+
 #: src/generalComponents/collections.js:446
 msgid "Python-разработчик"
 msgstr ""
@@ -168,6 +193,10 @@ msgstr ""
 msgid "SEO-специалист"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:329
+msgid "skype"
+msgstr ""
+
 #: src/generalComponents/collections.js:452
 msgid "SMM специалист"
 msgstr ""
@@ -176,6 +205,7 @@ msgstr ""
 msgid "Team leader"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:281
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:281
 msgid "telegram"
 msgstr ""
@@ -184,10 +214,16 @@ msgstr ""
 msgid "UX-дизайнер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:313
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:313
 msgid "viber"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:321
+msgid "whatsapp"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:273
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:273
 msgid "youtube"
 msgstr ""
@@ -206,10 +242,6 @@ msgstr ""
 
 #: src/generalComponents/collections.js:391
 msgid "Арт-директор"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:62
-msgid "Архив"
 msgstr ""
 
 #: src/generalComponents/collections.js:123
@@ -232,6 +264,7 @@ msgstr ""
 msgid "Безопасность"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:17
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:18
 msgid "Безопасноть"
 msgstr ""
@@ -253,6 +286,7 @@ msgstr ""
 msgid "Бизнес-тренер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:26
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:27
 msgid "Блог"
 msgstr ""
@@ -332,6 +366,7 @@ msgstr ""
 msgid "В этом месяце"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:25
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:26
 msgid "Вакансии"
 msgstr ""
@@ -347,6 +382,13 @@ msgid ""
 "ссылку"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:167
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:195
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:175
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:39
+msgid "Введите email"
+msgstr ""
+
 #: src/Pages/StartPage/Components/ForgotPassword.js:72
 msgid ""
 "Введите Email / Телефон указанный при регистрации, Вам будет направлено "
@@ -357,9 +399,43 @@ msgstr ""
 msgid "Введите Ваш вопрос"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:178
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:188
+msgid "Введите запасной email"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:74
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactList/ContactSearch/ContactSearch.js:10
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactSearch/ContactSearch.js:10
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:72
+msgid "Введите имя"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:51
+msgid "введите название должности"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:194
+msgid "Введите номер телефона"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:93
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:93
+msgid "Введите отчество"
+msgstr ""
+
 #: src/Pages/StartPage/Components/DownloadFile.js:94
 #: src/Pages/StartPage/Components/DownloadFolder/index.js:97
 msgid "Введите пароль указанный на почте"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:55
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:51
+msgid "Введите фамилию"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:39
+msgid "Ввести все поля самостоятельно закерепив за собой все права администратора"
 msgstr ""
 
 #: src/generalComponents/collections.js:429
@@ -370,6 +446,14 @@ msgstr ""
 msgid "Веб-дизайнер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:21
+msgid "Верефикация компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:19
+msgid "Верефикация прошла успешно"
+msgstr ""
+
 #: src/generalComponents/collections.js:431
 msgid "Верстальщик"
 msgstr ""
@@ -378,6 +462,11 @@ msgstr ""
 msgid "Видео"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/index.js:52
+msgid "Визия"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:178
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:178
 msgid "Возможность организации конференций"
 msgstr ""
@@ -390,6 +479,7 @@ msgstr ""
 msgid "Все участники"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:254
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:254
 msgid "Встроенный магазин программного обеспечения"
 msgstr ""
@@ -411,12 +501,32 @@ msgid ""
 "                                уведомление о назначении."
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:55
+msgid "Вы действительно хотите удалить файл?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:68
+msgid ""
+"Вы можите заполнить информацию позже но вы не сможете полноценно "
+"пользоваться всеми услузами сервиса"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:122
 msgid ""
 "Вы сможете самостоятельно верифицировать компанию, добавлять и \n"
 "                                редактировать информацию, открывать и "
 "закрывать вакансии и добавлять \n"
 "                                кандидатов."
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:213
+msgid ""
+"Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:131
+msgid "Выберите из списка или введите вручную"
 msgstr ""
 
 #: src/generalComponents/collections.js:70
@@ -439,6 +549,9 @@ msgstr ""
 msgid "Год"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:220
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:27
+#: src/Pages/Cabinet/Components/Business/SuccessPopup/index.js:24
 #: src/Pages/StartPage/Components/BusinessRegistration/SuccessCreated/index.js:56
 #: src/Pages/StartPage/Components/RenewPassword.js:134
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:78
@@ -487,8 +600,16 @@ msgstr ""
 msgid "До"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:205
+msgid "Добавить"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:155
 msgid "Добавить знаки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/ContactList/ContactList.js:52
+msgid "Добавить контакт"
 msgstr ""
 
 #: src/generalComponents/collections.js:139
@@ -496,8 +617,22 @@ msgstr ""
 msgid "Добавить папку"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:289
+msgid "Добавить Руководителя компании"
+msgstr ""
+
 #: src/generalComponents/collections.js:366
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:283
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:53
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:77
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:82
 msgid "Добавить сотрудника"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:61
+#: src/Pages/Cabinet/Components/Business/Company/index.js:70
+#: src/Pages/Cabinet/Components/Business/Company/index.js:79
+msgid "Добавить сотрудников"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:162
@@ -520,6 +655,12 @@ msgstr ""
 msgid "Добавить эмоджи"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:152
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:160
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:168
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:225
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:233
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:241
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:152
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:160
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:168
@@ -527,6 +668,10 @@ msgstr ""
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:233
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:241
 msgid "добавление файла"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:63
+msgid "Добавьте документ"
 msgstr ""
 
 #: src/generalComponents/collections.js:107
@@ -537,17 +682,34 @@ msgstr ""
 msgid "Документ Word"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:62
+msgid "документ удален"
+msgstr ""
+
 #: src/generalComponents/collections.js:10
 #: src/generalComponents/collections.js:16
 msgid "Документы"
 msgstr ""
 
-#: src/generalComponents/collections.js:16
-msgid "Другое"
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:111
+msgid "Должность"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:67
-msgid "Журнал"
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:152
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:158
+msgid "Дополнительный телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:57
+msgid "Доступ на добовления сотрудников"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:62
+msgid "Доступ на редактирование системных параметров"
+msgstr ""
+
+#: src/generalComponents/collections.js:16
+msgid "Другое"
 msgstr ""
 
 #: src/generalComponents/collections.js:323
@@ -560,12 +722,23 @@ msgstr ""
 msgid "Забыли пароль?"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:57
-msgid "Загруженные файлы"
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:73
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:32
+msgid "Загрузите"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:167
+msgid "Загрузите фото контакта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:103
 #: src/Pages/StartPage/Components/UploadFile.js:101
 msgid "Загрузить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:13
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:20
+msgid "Загрузить Лого"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Archive/index.js:58
@@ -574,6 +747,20 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:96
 msgid "Закрыть"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:188
+msgid "запасной email не указан"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:24
+msgid ""
+"Заполните информацию о компании или предоставьте доступ для заполнения для "
+"комфортного пользования сервисом"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:32
+msgid "Заполнить самостоятельно"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:74
@@ -611,6 +798,8 @@ msgstr ""
 msgid "или"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:173
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:67
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:158
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:159
 #: src/Pages/StartPage/Components/InfoPage.js:46
@@ -621,6 +810,7 @@ msgstr ""
 msgid "Имя компании"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:248
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:248
 msgid "Интеграция необходимых сервисов"
 msgstr ""
@@ -630,6 +820,8 @@ msgid "Интернет-маркетолог"
 msgstr ""
 
 #: src/generalComponents/collections.js:368
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:29
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:100
 msgid "Информация о сотруднике"
 msgstr ""
 
@@ -657,14 +849,11 @@ msgstr ""
 msgid "Как увеличить обьем хранилища?"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:37
-msgid "Календарь"
-msgstr ""
-
 #: src/generalComponents/collections.js:354
 msgid "Камера"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:33
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:34
 msgid "Карта сайта"
 msgstr ""
@@ -677,14 +866,20 @@ msgstr ""
 msgid "Количество сотрудников в компании"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/index.js:58
+msgid "Команда"
+msgstr ""
+
 #: src/generalComponents/collections.js:395
 msgid "Коммерческий директор"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:7
-msgid "Компания"
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:29
+msgid "Контакт удален"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/index.js:53
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:32
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:33
 msgid "Контакты"
 msgstr ""
@@ -693,10 +888,12 @@ msgstr ""
 msgid "Контент-менеджер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:34
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:35
 msgid "Конфиденсальность"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:210
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:210
 msgid "Конфиденциальность и безопасность"
 msgstr ""
@@ -709,10 +906,7 @@ msgstr ""
 msgid "Копировать ссылку"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:72
-msgid "Корзина"
-msgstr ""
-
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:53
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
 msgid "Купить"
 msgstr ""
@@ -753,20 +947,8 @@ msgstr ""
 msgid "Менеджер по развитию"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:32
-msgid "Мои задачи"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:22
-msgid "Мои папки"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:27
-msgid "Мои файлы"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:12
-msgid "Мой отдел"
+#: src/Pages/Cabinet/Components/Business/Company/index.js:51
+msgid "Миссия компании"
 msgstr ""
 
 #: src/generalComponents/collections.js:65
@@ -778,6 +960,7 @@ msgstr ""
 msgid "Музыка"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:35
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:35
 msgid "На пользователя в месяц начиная с 3 польз."
 msgstr ""
@@ -786,6 +969,7 @@ msgstr ""
 msgid "На этой неделе"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:213
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:213
 msgid "Надежная защита личных и корпоративных данных"
 msgstr ""
@@ -804,7 +988,14 @@ msgid "Назначить меня администратором Компани
 msgstr ""
 
 #: src/generalComponents/collections.js:67
+#: src/Pages/Cabinet/Components/Business/Company/index.js:76
 msgid "Настройки"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:62
+#: src/Pages/Cabinet/Components/Business/Company/index.js:71
+#: src/Pages/Cabinet/Components/Business/Company/index.js:80
+msgid "Настройки доступа"
 msgstr ""
 
 #: src/generalComponents/collections.js:423
@@ -817,6 +1008,16 @@ msgstr ""
 
 #: src/Pages/StartPage/Components/RegistrationSuccess.js:38
 msgid "Не пришло письмо ?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/Select/Select.js:131
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:51
+msgid "не указана"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:72
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:93
+msgid "не указано"
 msgstr ""
 
 #: src/Pages/StartPage/index.js:79
@@ -835,6 +1036,14 @@ msgstr ""
 msgid "Некорректный ввод данных"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:107
+msgid "необходимо загрузить изображение менее 5мб"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:84
+msgid "необходимо загрузить файл с раширением .doc или .docx"
+msgstr ""
+
 #: src/Pages/StartPage/Components/RenewPassword.js:76
 msgid "Новый пароль"
 msgstr ""
@@ -843,6 +1052,7 @@ msgstr ""
 msgid "Ноябрь"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:24
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:25
 msgid "О 4Hub"
 msgstr ""
@@ -859,6 +1069,10 @@ msgstr ""
 msgid "Общая папка"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/index.js:47
+msgid "Общие сведения"
+msgstr ""
+
 #: src/Pages/StartPage/Components/RegisterProfile/index.js:14
 msgid "Обычная версия"
 msgstr ""
@@ -871,8 +1085,13 @@ msgstr ""
 msgid "Оператор ПК"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:175
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:175
 msgid "Оптимизация командной работы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/index.js:67
+msgid "Орг. Структура"
 msgstr ""
 
 #: src/Pages/StartPage/Components/InfoPage.js:41
@@ -899,11 +1118,22 @@ msgstr ""
 msgid "Открыть календарь"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:187
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:201
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:199
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:86
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:121
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:40
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:80
+msgid "Отмена"
+msgstr ""
+
 #: src/generalComponents/collections.js:329
 #: src/generalComponents/collections.js:334
 msgid "Отметить непрочитанным"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:85
 #: src/Pages/StartPage/Components/ForgotPassword.js:91
 #: src/Pages/StartPage/Components/UploadFile.js:162
 msgid "Отправить"
@@ -922,6 +1152,7 @@ msgstr ""
 msgid "Отпуск"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:189
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:171
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:172
 msgid "Отчество"
@@ -970,6 +1201,14 @@ msgstr ""
 msgid "Переслать"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:70
+msgid "Перетащите сюда файл или"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:31
+msgid "Перетащите сюда фото или"
+msgstr ""
+
 #: src/Pages/StartPage/Components/UploadFile.js:101
 msgid "Перетащите Файл или Нажмите"
 msgstr ""
@@ -977,6 +1216,16 @@ msgstr ""
 #: src/generalComponents/collections.js:492
 #: src/generalComponents/collections.js:55
 msgid "Печать"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:17
+msgid "Письмо отправлено на почту"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/SuccessSend/index.js:22
+msgid ""
+"Письмо с правами доступа отправленно на указанный вами email "
+"mailgmail@gmail.com"
 msgstr ""
 
 #: src/generalComponents/collections.js:81
@@ -1028,13 +1277,23 @@ msgstr ""
 msgid "Повторите пароль"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:30
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:31
 msgid "Поддержка"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:38
+msgid "Поделиться"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:238
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:239
 msgid "Подтвердите пароль"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/UploadFile/UploadFile.js:87
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:42
+msgid "Подтвердить"
 msgstr ""
 
 #: src/generalComponents/collections.js:318
@@ -1061,16 +1320,53 @@ msgstr ""
 msgid "Посмотреть в гостевом режиме"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:348
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:350
 msgid "Предложение дня"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:52
+msgid "Предоставить все прова"
+msgstr ""
+
 #: src/generalComponents/collections.js:215
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:48
 msgid "Предоставить доступ"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:58
+msgid "предоставить доступ для работы с кадрами"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:53
+msgid ""
+"предоставление всех прав дает возможность редактировать, изменять удалять "
+"всю информацию в системе"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:23
+msgid "Предоставление доступа"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:138
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:138
 msgid "Предоставление доступа к загруженным файлам"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:55
+msgid ""
+"предоставления доступа дает возможность третим лицам заполнять данные о "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:28
+msgid ""
+"Предоставления доступа дает возможность третим лицам заполнять данные о "
+"компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:63
+msgid "предостовление доступа для администрирования ресурса"
 msgstr ""
 
 #: src/generalComponents/collections.js:109
@@ -1081,10 +1377,12 @@ msgstr ""
 msgid "Презентация PowerPoint"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:184
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:184
 msgid "Приватная работа с документами"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:41
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:42
 msgid "Пригласите друзей"
 msgstr ""
@@ -1097,10 +1395,6 @@ msgstr ""
 msgid "Программист 1С"
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:47
-msgid "Программы"
-msgstr ""
-
 #: src/generalComponents/collections.js:439
 msgid "Продакт-менеджер"
 msgstr ""
@@ -1109,6 +1403,11 @@ msgstr ""
 msgid "Проектный менеджер"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/WelcomeCard/index.js:61
+msgid "Пропустить"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:47
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:47
 msgid ""
 "Простые инструменты для храннения и предоставления доступа и совместной "
@@ -1127,6 +1426,7 @@ msgstr ""
 msgid "Развлечения"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:141
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:141
 msgid "Разграничение прав доступа к файлам"
 msgstr ""
@@ -1139,16 +1439,13 @@ msgstr ""
 msgid "Разработчик игр"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:40
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:41
 msgid "Разработчикам"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Archive/index.js:59
 msgid "Распечатать файл"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:52
-msgid "Расшаренные файлы"
 msgstr ""
 
 #: src/generalComponents/collections.js:152
@@ -1175,6 +1472,10 @@ msgstr ""
 msgid "Ред. несколько файлов"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:106
+msgid "Редактирование сотрудника"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Archive/index.js:53
 msgid "Редактирование файла"
 msgstr ""
@@ -1191,6 +1492,10 @@ msgstr ""
 #: src/generalComponents/collections.js:305
 #: src/generalComponents/collections.js:316
 #: src/generalComponents/collections.js:367
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:39
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:51
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:14
+#: src/Pages/Cabinet/Components/Business/Company/SideList/AddLogo/index.js:26
 msgid "Редактировать"
 msgstr ""
 
@@ -1198,8 +1503,13 @@ msgstr ""
 msgid "Редактировать сообщение"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:29
+msgid "Редактировать сотрудника"
+msgstr ""
+
 #: src/generalComponents/collections.js:48
 #: src/generalComponents/collections.js:488
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:48
 msgid "Редактировать файл"
 msgstr ""
 
@@ -1271,14 +1581,17 @@ msgstr ""
 msgid "Сжать несколько файлов в Zip"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:265
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:265
 msgid "синхронизация"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:251
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:251
 msgid "Синхронизация со сторонними сервисами"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:181
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:181
 msgid ""
 "Синхронизация совместной работы над проектами с использованием встроенных "
@@ -1314,6 +1627,7 @@ msgid "Скопировать ссылку"
 msgstr ""
 
 #: src/generalComponents/collections.js:66
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:42
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:43
 msgid "Служба поддержки"
 msgstr ""
@@ -1322,13 +1636,11 @@ msgstr ""
 msgid "Сменить пароль"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:195
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:203
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:195
 #: src/Pages/StartPage/Components/Landing/Main/Main.js:203
 msgid "совместный проект"
-msgstr ""
-
-#: src/Pages/Cabinet/Components/Business/listHelper.js:17
-msgid "Совместный проект"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Archive/WorkElements/WorkLinesPreview/index.js:166
@@ -1343,8 +1655,19 @@ msgstr ""
 msgid "Создать папку"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:38
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:39
 msgid "Сообщество"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/AddEmployee/index.js:212
+msgid "Сотрудник успешно добавлен"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:204
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:220
+#: src/Pages/Cabinet/Components/Business/Company/UploadLogo/UploadLogo.js:124
+msgid "Сохранить"
 msgstr ""
 
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:284
@@ -1374,6 +1697,14 @@ msgstr ""
 msgid "Срок хранения файла"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/index.js:50
+msgid "Стандарты компании"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:125
+msgid "Статус"
+msgstr ""
+
 #: src/Pages/StartPage/Components/BusinessRegistration/MainForm.js:101
 msgid "Сфера деятельности"
 msgstr ""
@@ -1382,6 +1713,7 @@ msgstr ""
 msgid "Таблица Google"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:16
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:17
 msgid "Тарифный план"
 msgstr ""
@@ -1390,13 +1722,24 @@ msgstr ""
 msgid "Тег"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Tariff/Tariff.js:53
 #: src/Pages/StartPage/Components/Landing/Tariff/Tariff.js:53
 msgid "Текущий план"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:139
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:186
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:187
 msgid "Телефон"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:153
+msgid "Телефон (2)"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:144
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:158
+msgid "телефон не указан"
 msgstr ""
 
 #: src/generalComponents/collections.js:443
@@ -1423,8 +1766,18 @@ msgstr ""
 msgid "У Вас уже есть аккаунт ?"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:45
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/UserInfo/UserInfo.js:70
+msgid "Удаление контакта"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:88
+msgid "Удаление сотрудника"
+msgstr ""
+
 #: src/Pages/Cabinet/Components/Archive/index.js:65
 #: src/Pages/Cabinet/Components/Archive/WorkElements/FileLine/index.js:121
+#: src/Pages/Cabinet/Components/Business/Company/DocPreview/FileView.js:54
 msgid "Удаление файла"
 msgstr ""
 
@@ -1439,11 +1792,18 @@ msgstr ""
 #: src/generalComponents/collections.js:494
 #: src/generalComponents/collections.js:57
 #: src/Pages/Cabinet/Components/Archive/index.js:166
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:40
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/index.js:98
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:351
 msgid "Удалить"
 msgstr ""
 
 #: src/generalComponents/collections.js:324
 msgid "Удалить из группы"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/OrgStructure/index.js:318
+msgid "удалить линию"
 msgstr ""
 
 #: src/generalComponents/collections.js:156
@@ -1459,12 +1819,20 @@ msgstr ""
 msgid "Удалить сообщение"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:35
+msgid "Укажите Email"
+msgstr ""
+
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:63
 msgid "Укажите время хранения"
 msgstr ""
 
 #: src/Pages/StartPage/Components/SavePeriodPicker.js:52
 msgid "Укажите даты хранения"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Company/WelcomePage/GiveAccess/index.js:46
+msgid "Укажите разрещение доступа"
 msgstr ""
 
 #: src/Pages/Cabinet/Components/Business/Landing/Landing.js:14
@@ -1502,6 +1870,10 @@ msgstr ""
 msgid "Файл успешно отправлен"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:133
+msgid "Файлообменник"
+msgstr ""
+
 #: src/generalComponents/collections.js:356
 msgid "Файлы с компьютера"
 msgstr ""
@@ -1510,6 +1882,8 @@ msgstr ""
 msgid "Файлы с системы 4Hub"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Contacts/AddContact/AddContact.js:181
+#: src/Pages/Cabinet/Components/Business/Company/ContexMenuComponents/OrgStructure/EditPerson/index.js:46
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:145
 #: src/Pages/StartPage/Components/BusinessRegistration/AdminForm.js:146
 msgid "Фамилия"
@@ -1540,10 +1914,16 @@ msgstr ""
 msgid "Фото"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Company/Verification/index.js:25
+msgid "Фото выписки с ЕДР"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Footer/Footer.js:18
 #: src/Pages/StartPage/Components/Landing/Footer/Footer.js:19
 msgid "Функции"
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:336
 #: src/Pages/StartPage/Components/InfoPage.helper.js:37
 msgid "Хранилище"
 msgstr ""
@@ -1567,12 +1947,12 @@ msgid ""
 "\"рыбой\" для текстов на латинице с начала XVI века."
 msgstr ""
 
-#: src/Pages/Cabinet/Components/Business/listHelper.js:42
-msgid "Чат"
-msgstr ""
-
 #: src/Pages/Cabinet/Components/Accordion/Accordion.js:13
 msgid "Что такое 4Hub ?"
+msgstr ""
+
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:215
+msgid "Шифрование файлов"
 msgstr ""
 
 #: src/generalComponents/collections.js:405
@@ -1591,6 +1971,7 @@ msgid ""
 "\t\t\t\t\tXVI века."
 msgstr ""
 
+#: src/Pages/Cabinet/Components/Business/Landing/Main/Main.js:338
 #: src/Pages/StartPage/Components/InfoPage.helper.js:14
 #: src/Pages/StartPage/Components/InfoPage.helper.js:28
 #: src/Pages/StartPage/Components/InfoPage.helper.js:42

@@ -6,8 +6,10 @@ import timesImg from '../../../../../../assets/BusinessCabinet/times.svg'
 import classNames from 'classnames'
 import {messengersData} from './consts'
 import api from "../../../../../../api";
+import {useLocales} from "react-localized";
 
 function InviteUser({contact, setShowSuccessPopup}) {
+    const { __ } = useLocales();
     const [sentInvite, setSentInvite] = useState(false)
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [messengers, setMessengers] = useState([])
@@ -20,8 +22,8 @@ function InviteUser({contact, setShowSuccessPopup}) {
                 .then((res) => {
                     if (res.data.ok) {
                         setShowSuccessPopup({
-                            title: 'Приглашение успешно отправлено',
-                            text: `${contact.sname} ${contact.name} получил(а) приглашение на добавление в сеть 4Hub`
+                            title: __('Приглашение успешно отправлено'),
+                            text: __(`${contact.sname} ${contact.name} получил(а) приглашение на добавление в сеть 4Hub`)
                         })
                     }
                 })
@@ -47,11 +49,10 @@ function InviteUser({contact, setShowSuccessPopup}) {
     return (
         <div className={styles.wrapper}>
             <p className={styles.text}>
-                Данный контакт отсутсвует в системе 4Hub отправьте 
-                приглашения что бы Вы могли вести диалог в системе
+                { __('Данный контакт отсутсвует в системе 4Hub отправьте приглашения что бы Вы могли вести диалог в системе') }
             </p>
             <div onClick={() => setSentInvite(true)} className={styles.button}>
-                Пригласить
+                { __('Пригласить') }
             </div>
             {sentInvite ? <Popup set={setSentInvite}>
                 <div className={styles.sendInvite}>
@@ -59,12 +60,12 @@ function InviteUser({contact, setShowSuccessPopup}) {
                         <img onClick={() => setSentInvite(false)} className={styles.close} src={timesImg} alt="Close"/>
                         <div className={styles.header}>
                             <h4 className={styles.title}>
-                                Выберите способ приглашения
+                                { __('Выберите способ приглашения') }
                             </h4>
                         </div>
                         <div className={styles.content}>
                             <p className={styles.text}>
-                                При отправки через месенжер будет открыто выбранное приложение на Вашем устройстве
+                                { __('При отправки через месенжер будет открыто выбранное приложение на Вашем устройстве') }
                             </p>
                             <div className={styles.socials}>
                                 {messengers.map((item, index) => {
@@ -89,7 +90,7 @@ function InviteUser({contact, setShowSuccessPopup}) {
                             </div>
                             <div className={styles.actionBlock}>
                                 <button onClick={onSendInvite} className={classNames({[styles.completeBtn]: true, [styles.disabledBtn]: !selectedSoc})}>
-                                    Отправить
+                                    { __('Отправить') }
                                 </button>
                             </div>
                         </div>

@@ -22,7 +22,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
 				})}
 				key={i}
 				style={{ height: `${value}%` }}
-			></div>
+			/>
 		));
 	};
 

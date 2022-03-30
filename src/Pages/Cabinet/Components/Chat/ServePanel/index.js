@@ -14,12 +14,14 @@ import {
 	onSetPaint,
 	onSetModals,
 } from "../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const ServePanel = ({
 	selectedContact,
 	setAction,
 	setRightPanelContentType,
 }) => {
+	const { __ } = useLocales();
 	const dispatch = useDispatch();
 	const paint = useSelector((state) => state.Cabinet.paint);
 	const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
@@ -66,8 +68,8 @@ const ServePanel = ({
 							className={styles.iconView}
 							title={
 								selectedContact.isGroup
-									? "Добавить участников в группу"
-									: `Создать групповой чат с ${selectedContact.name}`
+									? __("Добавить участников в группу")
+									: __(`Создать групповой чат с ${selectedContact.name}`)
 							}
 						>
 							<AddContactIcon title="" className={styles.addContactIcon} />

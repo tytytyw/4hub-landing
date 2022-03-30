@@ -16,6 +16,7 @@ import {
 	wantMimeType,
 	ducationTimerToString,
 } from "../../../../../../generalComponents/chatHelper";
+import {useLocales} from "react-localized";
 
 let audioFrequencyData = [];
 
@@ -39,6 +40,7 @@ const ChatBoardFooter = ({
 	scrollToBottom,
 	socket,
 }) => {
+	const { __ } = useLocales();
 	const [messageIsSending, setMessageIsSending] = useState(false);
 	const selectedContact = useSelector(
 		(state) => state.Cabinet.chat.selectedContact
@@ -66,7 +68,7 @@ const ChatBoardFooter = ({
 						if (socket?.readyState) {
 							addMessage("", attachment);
 							scrollToBottom();
-						} else console.log("соединение не установлено");
+						} else console.log("connection is not established");
 					}
 				})
 				.finally(() => setMessageIsSending(false));
@@ -154,9 +156,9 @@ const ChatBoardFooter = ({
 		if (isRecording) {
 			const data = e.data;
 			if (data.type.includes("audio"))
-				upLoadFile(data, "аудио сообщение", "audio_message");
+				upLoadFile(data, __("аудио сообщение"), "audio_message");
 			if (data.type.includes("video"))
-				upLoadFile(data, "видео сообщение", "video_message");
+				upLoadFile(data, __("видео сообщение"), "video_message");
 			setMediaRecorder(null);
 			recordCancel();
 		}
@@ -196,7 +198,7 @@ const ChatBoardFooter = ({
 			) : (
 				<div className={styles.downloadOptions}>
 					<AddIcon
-						title="Вставить файл"
+						title={ __("Вставить файл") }
 						onClick={(e) =>
 							setMouseParams({
 								x: e.clientX,
@@ -211,7 +213,7 @@ const ChatBoardFooter = ({
 			)}
 			{isRecording ? (
 				<div className={styles.recordHint}>
-					Для отмены отпустите курсор вне поля
+					{ __('Для отмены отпустите курсор вне поля') }
 				</div>
 			) : (
 				<TextArea
@@ -241,7 +243,7 @@ const ChatBoardFooter = ({
 				) : (
 					<>
 						<div
-							title="Аудио сообщение"
+							title={ __("Аудио сообщение") }
 							className={classNames({
 								[styles.button]: true,
 								[styles.pressed]: isRecording,
@@ -251,7 +253,7 @@ const ChatBoardFooter = ({
 							<RadioIcon />
 						</div>
 						<div
-							title="Видео сообщение"
+							title={ __("Видео сообщение") }
 							className={classNames({
 								[styles.button]: true,
 								[styles.pressed]: isRecording,
@@ -265,7 +267,7 @@ const ChatBoardFooter = ({
 					</>
 				)}
 				<div
-					title="Смайлики"
+					title={ __("Смайлики") }
 					className={styles.button}
 					onClick={() =>
 						setRightPanelContentType((state) => (state === "emo" ? "" : "emo"))
@@ -275,7 +277,7 @@ const ChatBoardFooter = ({
 				</div>
 				{selectedContact?.is_secret_chat ? (
 					<div
-						title="Таймер сообщений"
+						title={ __("Таймер сообщений") }
 						className={styles.button}
 						onClick={(e) =>
 							setMouseParams({

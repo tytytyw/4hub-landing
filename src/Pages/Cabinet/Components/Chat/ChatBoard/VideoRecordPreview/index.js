@@ -62,7 +62,7 @@ const VideoRecordPreview = ({
 					ref={isVideoMessage}
 					className={classNames({ [styles.video]: isVideoMessage })}
 					muted={true}
-				></video>
+				/>
 			</div>
 		</div>
 	);

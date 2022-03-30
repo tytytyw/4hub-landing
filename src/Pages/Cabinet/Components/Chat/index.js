@@ -33,8 +33,10 @@ import {
 	leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import { contactDelete } from "../../../../generalComponents/chatHelper";
+import {useLocales} from "react-localized";
 
 const Chat = ({ setMenuItem }) => {
+	const { __ } = useLocales();
 	const contextMenuChat = useContextMenuChat();
 	const [boardOption, setBoardOption] = useState("contacts");
 	const [search, setSearch] = useState("");
@@ -123,13 +125,13 @@ const Chat = ({ setMenuItem }) => {
 
 	const callbackArr = {
 		contact: [
-			{ name: "Очистить историю", type: "clearMessages" },
-			{ name: "Заблокировать", type: "blockUser" },
-			{ name: "Отметить непрочитанным", type: "markAsUnread" },
+			{ name: __("Очистить историю"), type: "clearMessages" },
+			{ name: __("Заблокировать"), type: "blockUser" },
+			{ name: __("Отметить непрочитанным"), type: "markAsUnread" },
 			{
-				name: "Удалить контакт",
-				type: "deleteContact",
-				text: `Вы действительно хотите удалить контакт ${selectedContact?.name}?`,
+				name: __("Удалить контакт"),
+				type: __("deleteContact"),
+				text: __(`Вы действительно хотите удалить контакт ${selectedContact?.name}?`),
 				callback: (list, index) =>
 					setAction({
 						text: list[index].text,
@@ -141,14 +143,14 @@ const Chat = ({ setMenuItem }) => {
 		group: [
 			{
 				type: "editChatGroup",
-				name: "Редактировать",
+				name: __("Редактировать"),
 				text: ``,
 				callback: (list, index) => setAction(list[index]),
 			},
 			{
 				type: "deleteChatGroup",
-				name: "Удалить",
-				text: `Вы действительно хотите удалить группу ${selectedContact?.name}?`,
+				name: __("Удалить"),
+				text: __(`Вы действительно хотите удалить группу ${selectedContact?.name}?`),
 				callback: (list, index) =>
 					setAction({
 						text: list[index].text,
@@ -158,8 +160,8 @@ const Chat = ({ setMenuItem }) => {
 			},
 			{
 				type: "leaveFromChatGroup",
-				name: "Покинуть",
-				text: `Вы действительно хотите покинуть группу ${selectedContact?.name}?`,
+				name: __("Покинуть"),
+				text: __(`Вы действительно хотите покинуть группу ${selectedContact?.name}?`),
 				callback: (list, index) =>
 					setAction({
 						text: list[index].text,
@@ -171,8 +173,8 @@ const Chat = ({ setMenuItem }) => {
 		secretChat: [
 			{
 				type: "deleteSecretChat",
-				name: "Удалить",
-				text: `Вы действительно хотите удалить секретный чат c ${selectedContact?.name}?`,
+				name: __("Удалить"),
+				text: __(`Вы действительно хотите удалить секретный чат c ${selectedContact?.name}?`),
 				callback: (list, index) =>
 					setAction({
 						text: list[index].text,
@@ -185,7 +187,7 @@ const Chat = ({ setMenuItem }) => {
 		userInGroup: [
 			{
 				type: "clearMessages",
-				name: "Очистить историю",
+				name: __("Очистить историю"),
 				text: ``,
 				callback: (list, index) =>
 					setAction({
@@ -196,7 +198,7 @@ const Chat = ({ setMenuItem }) => {
 			},
 			{
 				type: "blockUser",
-				name: "Заблокировать",
+				name: __("Заблокировать"),
 				text: ``,
 				callback: (list, index) =>
 					setAction({
@@ -207,7 +209,7 @@ const Chat = ({ setMenuItem }) => {
 			},
 			{
 				type: "deleteUserFromGroup",
-				name: "Удалить из группы",
+				name: __("Удалить из группы"),
 				text: ``,
 				callback: (list, index) =>
 					setAction({
@@ -219,55 +221,55 @@ const Chat = ({ setMenuItem }) => {
 		],
 		timer: [
 			{
-				name: "1 час",
+				name: __("1 час"),
 				value: 3600,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "45 мин.",
+				name: __("45 мин."),
 				value: 2700,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "30 мин.",
+				name: __("30 мин."),
 				value: 1800,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "15 мин.",
+				name: __("15 мин."),
 				value: 900,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "10 мин.",
+				name: __("10 мин."),
 				value: 600,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "5 мин.",
+				name: __("5 мин."),
 				value: 300,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "1 мин.",
+				name: __("1 мин."),
 				value: 60,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "30 сек.",
+				name: __("30 сек."),
 				value: 30,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
 			},
 			{
-				name: "20 сек.",
+				name: __("20 сек."),
 				value: 20,
 				callback: (list, index) =>
 					dispatch(onSetMessageLifeTime(list[index].value)),
@@ -275,19 +277,19 @@ const Chat = ({ setMenuItem }) => {
 		],
 		message: [
 			{
-				name: "Редактировать сообщение",
+				name: __("Редактировать сообщение"),
 				type: "editMessage",
-				text: "",
+				text: __(""),
 				callback: () =>
 					setAction({ type: "editMessage", message: mouseParams.message }),
 			},
 			{
-				name: "Скачать",
+				name: __("Скачать"),
 				type: "download",
 				callback: () => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'DownloadFile', items: [mouseParams.message.attachment], authorizedSafe:null}))
 			},
 			{
-				name: "Удалить сообщение",
+				name: __("Удалить сообщение"),
 				type: "deleteMessage",
 				callback: () =>
 					setAction({ type: "deleteMessage", message: mouseParams.message }),
@@ -295,17 +297,17 @@ const Chat = ({ setMenuItem }) => {
 		],
 		uploadFile: [
 			{
-				name: "Камера",
+				name: __("Камера"),
 				type: "createMediaFromCamera",
 				callback: () => setAction({ type: "createMediaFromCamera" })
 			},
 			{
-				name: "Файлы с системы 4Hub",
+				name: __("Файлы с системы 4Hub"),
 				type: "add4hubFile",
 				callback: () => setAction({ type: "add4hubFile" })
 			},
 			{
-				name: "Файлы с компьютера",
+				name: __("Файлы с компьютера"),
 				type: "addPcFile",
 				callback: () => fileInputRef.current.click()
 			},
@@ -335,7 +337,7 @@ const Chat = ({ setMenuItem }) => {
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Группа удалена"
+			__("Группа удалена")
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -348,7 +350,7 @@ const Chat = ({ setMenuItem }) => {
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Вы покинули группу"
+			__("Вы покинули группу")
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -360,7 +362,7 @@ const Chat = ({ setMenuItem }) => {
 			dispatch,
 			uid,
 			setShowSuccessMessage,
-			"Секретный чат удален"
+			__("Секретный чат удален")
 		);
 		nullifyAction();
 		setSelectedContact(null);
@@ -402,7 +404,7 @@ const Chat = ({ setMenuItem }) => {
 					<FolderIcon
 						onClick={() => setSideMenuCollapsed((value) => !value)}
 						id={styles.headerArrow}
-						title={sideMenuCollapsed ? "развернуть" : "свернуть"}
+						title={sideMenuCollapsed ? __("развернуть") : __("свернуть")}
 					/>
 				</div>
 				<div className={styles.boardOptions}>
@@ -411,28 +413,28 @@ const Chat = ({ setMenuItem }) => {
 							boardOption === "contacts" ? styles.selected : ""
 						}`}
 						onClick={() => setBoardOption("contacts")}
-						title="Контакты"
+						title={ __("Контакты") }
 					/>
 					<PhoneIcon
 						className={`${styles.option} ${
 							boardOption === "calls" ? styles.selected : ""
 						}`}
 						onClick={() => setBoardOption("calls")}
-						title="Недавние звонки"
+						title={ __("Недавние звонки") }
 					/>
 					<ChatIcon
 						className={`${styles.option} ${
 							boardOption === "chats" ? styles.selected : ""
 						}`}
 						onClick={() => setBoardOption("chats")}
-						title="Чаты"
+						title={ __("Чаты") }
 					/>
 					<SettingsIcon
 						className={`${styles.option} ${
 							boardOption === "settings" ? styles.selected : ""
 						}`}
 						onClick={() => setBoardOption("settings")}
-						title="Настройки"
+						title={ __("Настройки") }
 					/>
 				</div>
 				{sideMenuCollapsed ? null : (
@@ -533,7 +535,7 @@ const Chat = ({ setMenuItem }) => {
 							? deleteChatGroup
 							: deleteSecretChat
 					}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 				>
 					<div className={styles.groupLogoWrap}>
 						<img
@@ -557,7 +559,7 @@ const Chat = ({ setMenuItem }) => {
 					text={action.text}
 					set={closeContextMenu}
 					callback={leaveChatGroup}
-					approve={"Покинуть"}
+					approve={ __("Покинуть") }
 				>
 					<div className={styles.groupLogoWrap}>
 						<img
@@ -585,7 +587,7 @@ const Chat = ({ setMenuItem }) => {
 							nullifyAction
 						)
 					}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 				>
 					<div className={styles.groupLogoWrap}>
 						<img

@@ -18,6 +18,7 @@ const CreateCameraMedia = ({
 	socket,
 	scrollToBottom,
 }) => {
+
 	const [state, setState] = useState("init");
 	const [contentType, setContentType] = useState("image");
 	const [stream, setStream] = useState(null);
@@ -221,7 +222,7 @@ const CreateCameraMedia = ({
 						if (socket?.readyState) {
 							addMessage(textMessage, attachment);
 							scrollToBottom();
-						} else console.log("соединение не установлено");
+						} else console.log('connection is not established');
 					}
 				})
 				.finally(() => {
