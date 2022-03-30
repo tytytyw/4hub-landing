@@ -5,16 +5,17 @@ import classNames from "classnames";
 import Comments from "../Comments/Comments";
 import {onSetModals} from "../../../../../Store/actions/CabinetActions";
 import {useDispatch} from "react-redux";
+import {useLocales} from "react-localized";
 
 function ProgramItem({program}) {
-
+    const { __ } = useLocales();
     const [params, setParams] = useState({isFavourite: program.isFavourite, openedComments: false});
     const dispatch = useDispatch();
 
     const onSetFavourite = () => {
         setParams(s => ({...s, isFavourite: !s.isFavourite}));
         if(!params.isFavourite) {
-            dispatch(onSetModals('success', {open: true, message: 'Программа появится в списке во вкладке избраные программы', title: 'Программа успешно добавлена в избранные', icon: `${imageSrc}assets/PrivateCabinet/programs/star.svg`}))
+            dispatch(onSetModals('success', {open: true, message: __('Программа появится в списке во вкладке избраные программы'), title: __('Программа успешно добавлена в избранные'), icon: `${imageSrc}assets/PrivateCabinet/programs/star.svg`}))
         }
     }
     const onToggleComments = () => setParams(s => ({...s, openedComments: !s.openedComments}));

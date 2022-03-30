@@ -8,11 +8,12 @@ import classnames from "classnames";
 import {useSelector} from "react-redux";
 import ProgramItem from "../ProgramItem/ProgramItem";
 import Profile from "../../Profile";
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({
        listCollapsed
 }) => {
-
+    const { __ } = useLocales()
     const category = useSelector(s => s.Cabinet.programs.category)
 
     const renderPrograms = () => category.list.map((program, i) => <ProgramItem
@@ -20,7 +21,7 @@ const WorkSpace = ({
         program={program}
     />);
 
-    const emptyList = () => <div className={styles.emptyList}> Список программ пуст </div>
+    const emptyList = () => <div className={styles.emptyList}>{ __('Список программ пуст') }</div>
 
     return (
         <>

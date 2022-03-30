@@ -6,17 +6,18 @@ import SearchField from "../../../../../generalComponents/SearchField";
 import CategoryItem from "../CategoryItem/CategoryItem";
 import {useDispatch, useSelector} from "react-redux";
 import {onGetCategories} from "../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 function CategoryList({
     listCollapsed,
     setListCollapsed
 }) {
-
+    const { __ } = useLocales();
     const size = useSelector(state => state.Cabinet.size);
     const [search, setSearch] = useState('');
 
     const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const searchPlaceholder = "Введите название программы";
+    const searchPlaceholder = __("Введите название программы");
     const dispatch = useDispatch();
     const categories = useSelector(s => s.Cabinet.programs.categories);
     const chosenCategory = useSelector(s => s.Cabinet.programs.category);
@@ -43,7 +44,7 @@ function CategoryList({
     return (
     <List
         icon={false}
-        title='Программы'
+        title={ __('Программы') }
         src='add-folder.svg'
         setListCollapsed={setListCollapsed}
         listCollapsed={listCollapsed}
