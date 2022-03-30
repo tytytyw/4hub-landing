@@ -15,11 +15,13 @@ import Signs from '../../../../generalComponents/Elements/Signs';
 import Emoji from '../../../../generalComponents/Elements/Emoji';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import SelectFolder from "../../../../generalComponents/SelectFolder/SelectFolder";
+import {useLocales} from "react-localized";
 
 const CreateFolder = ({
     onCreate, title, showChoiceFolders = true, chosenFolder, newFolderInfo = {},
     setGLoader, setNewFolderInfo
 }) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
@@ -135,7 +137,7 @@ const CreateFolder = ({
                                 model='text'
                                 value={name}
                                 set={onAddName}
-                                placeholder='Имя папки'
+                                placeholder={ __('Имя папки') }
                                 mistake={noNameError}
                             />
                         </div>
@@ -144,7 +146,7 @@ const CreateFolder = ({
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавьте #Тег'
+                                placeholder={ __('Добавьте #Тег') }
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -174,7 +176,7 @@ const CreateFolder = ({
                                 switcher={true}
                                 value={password}
                                 set={setPassword}
-                                placeholder='Пароль'
+                                placeholder={ __('Пароль') }
                                 onSwitch={onSwitch}
                                 visibility={visibility}
                                 setVisibility={setVisibility}
@@ -187,7 +189,7 @@ const CreateFolder = ({
                                 switcher={false}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
-                                placeholder='Повторите пароль'
+                                placeholder={ __('Повторите пароль') }
                                 visibility={visibility}
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
@@ -198,12 +200,12 @@ const CreateFolder = ({
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                        <div className={styles.add} onClick={() => onAddFolder()}>Добавить</div>
+                        <div className={styles.cancel} onClick={() => onCreate(false)}>{ __('Отмена') }</div>
+                        <div className={styles.add} onClick={() => onAddFolder()}>{ __('Добавить') }</div>
                     </div>
                 </div>
             </PopUp>
-            {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
+            {error && <Error error={error} set={closeComponent} message={ __('Папка не добавлена') } />}
         </>
     )
 }
