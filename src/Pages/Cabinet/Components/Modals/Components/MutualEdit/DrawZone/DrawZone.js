@@ -5,9 +5,10 @@ import Loader from "../../../../../../../generalComponents/Loaders/4HUB";
 import {drawCanvasPosition} from "../../PreviewFile/paintHelpers";
 import {ReactComponent as AddIcon} from "../../../../../../../assets/PrivateCabinet/plus-3.svg";
 import classnames from "classnames";
+import {useLocales} from "react-localized";
 
 function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
-
+    const { __ } = useLocales();
     const paintImage = async (images) => {
         setParams(s => ({...s, isLoading: true}));
         canvasRef.current.getContext('2d').clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -67,7 +68,7 @@ function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
             >
                 <div onClick={fileSelect} className={styles.addFile}>
                     <AddIcon className={styles.addIcon} />
-                    <span>Загрузите файл для сравнения</span>
+                    <span>{ __('Загрузите файл для сравнения') }</span>
                 </div>
             </div> : null}
         </div>

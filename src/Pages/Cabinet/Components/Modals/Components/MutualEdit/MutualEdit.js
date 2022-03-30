@@ -10,9 +10,10 @@ import {onSetModals, onSetPaint} from "../../../../../../Store/actions/CabinetAc
 import api from "../../../../../../api";
 import {loadDest} from "../../../../../../generalComponents/collections";
 import {dataURLintoBlobImage} from "../../../../../../generalComponents/generalHelpers";
+import {useLocales} from "react-localized";
 
 function MutualEdit({menuItem}) {
-
+    const { __ } = useLocales();
     const canvasRef = useRef();
     const canvasWrapRef = useRef();
     const mainRef = useRef();
@@ -56,12 +57,12 @@ function MutualEdit({menuItem}) {
 
     const saveImage = async (file) => {
 
-        const image = new File([dataURLintoBlobImage(file)], "Совместное редактирование.png");
+        const image = new File([dataURLintoBlobImage(file)], __("Совместное редактирование.png"));
 
         let data = new FormData();
         data.append('uid', uid);
         data.append('myfile', image);
-        data.append('fileName', `Совместное редактирование`);
+        data.append('fileName', __(`Совместное редактирование`));
         data.append('tag', '');
         data.append('pass', '');
         data.append('color', '');
@@ -83,7 +84,7 @@ function MutualEdit({menuItem}) {
                 if(!!res?.data?.ok) {
                     setImages(s => ({...s, saved: [...s.saved, {src: file, fid: res?.data?.fid || ''}]}));
                 } else {
-                    dispatch(onSetModals('error', {open: true, message: `Файл не сохранен, попробуйте еще раз`}));
+                    dispatch(onSetModals('error', {open: true, message: __(`Файл не сохранен, попробуйте еще раз`)}));
                 }
             })
             .catch(err => {dispatch(onSetModals('error', {open: true, message: `${err}`}))})
@@ -106,7 +107,7 @@ function MutualEdit({menuItem}) {
                     canvasRef={canvasRef}
                     canvasWrapRef={canvasWrapRef}
                     toolBarType="mutualEdit"
-                    title="Сравнить документы/файлы"
+                    title={ __("Сравнить документы/файлы") }
                     images={images.loaded}
                     saveImageToPanel={saveImage}
                     chosen={images.chosen}
@@ -143,7 +144,7 @@ function MutualEdit({menuItem}) {
                         <div
                             className={`${styles.sendSavedButton} ${params.isChoosing ? styles.choosing : ''}`}
                             onClick={() => setParams(s => ({...s, isChoosing: !params.isChoosing}))}
-                        >Выбрать</div>
+                        >{ __('Выбрать') }</div>
                         <div
                             className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ''}`}
                             onClick={() => {
@@ -151,7 +152,7 @@ function MutualEdit({menuItem}) {
                                     dispatch(onSetModals('share', {open: true, fids: images.chosen, action_type: 'file_share'}))
                                 }
                             }}
-                        >Отправить</div>
+                        >{ __('Отправить') }</div>
                     </div>
                 </div>
             </div>

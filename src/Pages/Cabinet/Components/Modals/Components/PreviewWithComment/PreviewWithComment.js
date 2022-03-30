@@ -13,40 +13,42 @@ import BlackMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/
 import WhiteMan from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
 import Woman from '../../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
 import Previews from "../../../WorkElements/Previews/Previews";
-
-const c = {1: [
-        {
-            img: BlackMan,
-            text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
-            replies: [
-                {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
-                {img: Woman, text: 'Text'}
-            ]
-        },
-        {
-            img: WhiteMan,
-            text: '60-х годах и, в более недавнее время, программы электронной',
-            replies: []
-        },
-    ],
-    7: [
-        {
-            img: BlackMan,
-            text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы ',
-            replies: [
-                {img: WhiteMan, text: 'Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы'},
-                {img: Woman, text: 'Text'}
-            ]
-        },
-        {
-            img: WhiteMan,
-            text: '60-х годах и, в более недавнее время, программы электронной',
-            replies: []
-        },
-    ]
-}
+import {useLocales} from "react-localized";
 
 function PreviewWithComment() {
+    const { __ } = useLocales();
+
+    const c = {1: [
+            {
+                img: BlackMan,
+                text: __('Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы '),
+                replies: [
+                    {img: WhiteMan, text: __('Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы')},
+                    {img: Woman, text: 'Text'}
+                ]
+            },
+            {
+                img: WhiteMan,
+                text: __('60-х годах и, в более недавнее время, программы электронной'),
+                replies: []
+            },
+        ],
+        7: [
+            {
+                img: BlackMan,
+                text: __('Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы '),
+                replies: [
+                    {img: WhiteMan, text: __('Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы')},
+                    {img: Woman, text: 'Text'}
+                ]
+            },
+            {
+                img: WhiteMan,
+                text: __('60-х годах и, в более недавнее время, программы электронной'),
+                replies: []
+            },
+        ]
+    }
 
     const periods = usePeriods();
     const canvasRef = useRef(null);
@@ -101,7 +103,7 @@ function PreviewWithComment() {
                     <img src={comment.img} alt='avatar' className={styles.image} />
                     <div className={styles.text}>{comment.text}</div>
                 </div>
-                <div className={styles.reply}>Ответить</div>
+                <div className={styles.reply}>{ __('Ответить') }</div>
             </div>
             {comment?.replies?.length > 0 ? <div className={styles.replies}>
                 {renderComments(comment.replies)}
