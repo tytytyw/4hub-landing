@@ -32,12 +32,14 @@ import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMess
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
 import {checkBrowser} from '../../../../generalComponents/generalHelpers';
+import {useLocales} from "react-localized";
 
 const MyFolders = ({
                setItem, menuItem, setMenuItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
                setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
                nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType, filesPage, setFilesPage
 }) => {
+    const { __ } = useLocales();
     const contextMenuFolder = useContextMenuFolder();
     const contextMenuFolderGeneral = useContextMenuFolderGeneral();
     const uid = useSelector(state => state.user.uid);
@@ -145,17 +147,17 @@ const MyFolders = ({
     };
 
     const callbackArrMain = [
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
-        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: __('Добавить папку'), text: __(``), callback: () => setNewFolder(true)},
+        {type: 'propertiesFolder', name: __('Свойства'), text: __(``), callback: (list, index) => setAction(list[index])},
     ];
 
     const callbackArrOther = [
-        {type: "customizeFolder", name: "Редактирование папки", text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'resendFolder', name: 'Расшарить', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: 'Настроить доступ', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: 'Добавить папку', text: ``, callback: () => setNewFolder(true)},
-        {type: 'propertiesFolder', name: 'Свойства', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'deleteFolder', name: 'Удаление папки', text: `Вы действительно хотите удалить выбранную папку?`, callback: (list, index) => setAction(list[index])},
+        {type: "customizeFolder", name: __("Редактирование папки"), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'resendFolder', name: __('Расшарить'), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'setAccessFolder', name: __('Настроить доступ'), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'addFolder', name: __('Добавить папку'), text: __(``), callback: () => setNewFolder(true)},
+        {type: 'propertiesFolder', name: __('Свойства'), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'deleteFolder', name: __('Удаление папки'), text: __(`Вы действительно хотите удалить выбранную папку?`), callback: (list, index) => setAction(list[index])},
     ];
 
     const deleteFolder = () => {
@@ -166,15 +168,15 @@ const MyFolders = ({
                 dispatch(onChooseFiles(fileList?.path, '', 1));
                 setChosenFolder(state =>({...state, info: null}));
             } else {
-                setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'});
+                setError({isError: true, message: __('Папка не удалена. Попробуйте еще раз!')});
             }})
-            .catch(() => setError({isError: true, message: 'Папка не удалена. Попробуйте еще раз!'}));
+            .catch(() => setError({isError: true, message: __('Папка не удалена. Попробуйте еще раз!')}));
     };
 
     return (
         <div className={styles.workAreaWrap}>
             <List
-                title='Папки'
+                title={ __('Папки') }
                 src='add-folder.svg'
                 listCollapsed={listCollapsed}
                 setListCollapsed={setListCollapsed}
@@ -242,7 +244,7 @@ const MyFolders = ({
             />
             {newFolder && <CreateFolder
                 onCreate={setNewFolder}
-                title='Создать папку'
+                title={ __('Создать папку') }
                 info={newFolderInfo}
                 chosenFolder={chosenFolder}
                 setChosenFolder={setChosenFolder}
@@ -250,7 +252,7 @@ const MyFolders = ({
                 seetNewFolderInfo={setNewFolderInfo}
             />}
             {fileAddCustomization.show ? <CreateFile
-                title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
+                title={fileAddCustomization.create ? __('Создать файл') : __('Добавление файла')}
                 info={chosenFolder}
                 blob={fileAddCustomization.file}
                 setBlob={setFileAddCustomization}
@@ -270,7 +272,7 @@ const MyFolders = ({
             /> : null}
             {safePassword.open && <CreateSafePassword
                 onToggle={onSafePassword}
-                title='Создайте пароль для сейфа'
+                title={ __('Создайте пароль для сейфа') }
             />}
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
                 <div className={styles.mainMenuItems}>{renderMenuItems(
@@ -282,7 +284,7 @@ const MyFolders = ({
                         : callbackArrOther
                 )}</div>
             </ContextMenu> : null}
-            {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={'Удалить'}>
+            {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={ __('Удалить') }>
                 <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
             </ActionApproval> : null}
             {action.type === 'propertiesFolder'
@@ -297,7 +299,7 @@ const MyFolders = ({
 					setError={setError}
 					chosenFolder={chosenFolder}
                     chosenSubFolder={chosenSubFolder}
-					title="Редактировать папку"
+					title={ __("Редактировать папку") }
 					setGLoader={setGLoader}
                     info={newFolderInfo}
                     successLoad={successLoad}

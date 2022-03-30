@@ -11,13 +11,14 @@ import api, {cancelRequest} from '../../../../../api';
 import {getStorageItem, setStorageItem} from "../../../../../generalComponents/StorageHelper";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {moveFile, moveFolder} from "../../../../../generalComponents/generalHelpers";
+import {useLocales} from "react-localized";
 
 const CustomFolderItem = ({
       f, setChosenFolder, chosenFolder, listCollapsed, p = 25, chosen, subFolder, setError,
       setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams, setGLoader, setFilesPage,
       setShowSuccessMessage, openMenu, isRecent, offDispatch
 }) => {
-
+    const { __ } = useLocales();
     const [filesQuantity, setFilesQuantity] = useState(0);
     const uid = useSelector(state => state.user.uid);
     const draggedFile = useSelector(state => state.Cabinet.dragged);
@@ -136,17 +137,17 @@ const CustomFolderItem = ({
                     if(!result) setError(state => ({...state, isError: true, message: 'Папка не была перемещена'}))
                     if(result) {
                         dispatch(onDeleteFile(draggedFile));
-                        setShowSuccessMessage('Папка перемещена');
+                        setShowSuccessMessage( __('Папка перемещена') );
                     }
                 })
                 .catch(err => console.log(err));
         } else {
             await moveFile(f, draggedFile, uid)
             .then(result => {
-                if(!result) setError(state => ({...state, isError: true, message: 'Файл не был перемещен'}))
+                if(!result) setError(state => ({...state, isError: true, message: __('Файл не был перемещен') }))
                 if(result) {
                     dispatch(onDeleteFile(draggedFile));
-                    setShowSuccessMessage('Файл перемещен');
+                    setShowSuccessMessage( __('Файл перемещен') );
                 }
             })
         }
@@ -222,7 +223,7 @@ const CustomFolderItem = ({
             >
                 <div className={styles.addFolderName}>
                     <FolderIcon style={{width: '17px'}} />
-                    {!listCollapsed && <span>Новая папка</span>}
+                    {!listCollapsed && <span>{ __('Новая папка') }</span>}
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
             </div>}

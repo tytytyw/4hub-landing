@@ -17,6 +17,7 @@ import {useElementResize} from "../../../../../generalComponents/Hooks";
 import FolderPath from "../FolderPath";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({
        fileLoading, chosenFile, setChosenFile,
@@ -25,9 +26,8 @@ const WorkSpace = ({
        setShowSuccessMessage, setLoadingType, gLoader, setGLoader, setNewFolder, setNewFolderInfo, newFolderInfo, filesPage,
        setFilesPage, menuItem, setChosenFolder, openFolderMenu
 }) => {
-
+    const { __ } = useLocales();
     const workElementsView = useSelector(state => state.Cabinet.view);
-
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [mouseParams, setMouseParams] = useState(null);
     const [filePick, setFilePick] = useState({show: false, files: [], customize: false, intoZip: false});
@@ -96,7 +96,6 @@ const WorkSpace = ({
                 setFilePreview={setFilePreview}
                 filePreview={filePreview}
                 setFilePick={setFilePick}
-                // callbackArrMain={callbackArrMain}
                 chosenFile={chosenFile}
                 fileLoading={fileLoading}
                 fileSelect={fileSelect}
@@ -109,7 +108,7 @@ const WorkSpace = ({
             />
             {filePick.show ? <OptionButtomLine
                 filePick={filePick}
-                actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+                actionName={filePick.intoZip ? __('Сжать в Zip') : __('Редактировать')}
                 setAction={setAction}
                 action={action}
                 nullifyFilePick={nullifyFilePick}
