@@ -62,7 +62,7 @@ const FullCalendarTable = ({events}) => {
                     omitZeroMinute: false,
                 }}
                 firstDay={1}
-                locale='ru'
+                locale='ru' //TODO - according real location
                 eventContent={renderEventContent}
             />
         </div>

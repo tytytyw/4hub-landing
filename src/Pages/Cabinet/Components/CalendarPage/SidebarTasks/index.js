@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react'
 import styles from '../CalendarPage.module.sass'
 import ListTaskItem from '../ListTaskItem'
 import {useSelector} from 'react-redux'
+import {useLocales} from "react-localized";
 
 const SidebarTasks = ({data, listCollapsed}) => {
-
+    const { __ } = useLocales()
     const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const getEventsByDay = data => {
@@ -28,7 +29,7 @@ const SidebarTasks = ({data, listCollapsed}) => {
         <>
             <div className={styles.myTasksBlock}>
                 <p className={styles.title}>
-                    Мои задачи {!listCollapsed && <span>{getStrDate()}</span>}
+                    { __('Мои задачи') } {!listCollapsed && <span>{getStrDate()}</span>}
                 </p>
             </div>
             {events?.map((event, i) => (

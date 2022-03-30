@@ -5,9 +5,10 @@ import {getDays, getYears, months} from '../helper'
 import classNames from 'classnames'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
+import {useLocales} from "react-localized";
 
 const DateBlock = ({setViewType}) => {
-
+    const { __ } = useLocales()
     const calendarDate = useSelector(state => state.Cabinet.calendarDate)
     const dispatch = useDispatch()
 
@@ -42,7 +43,7 @@ const DateBlock = ({setViewType}) => {
                 <div className={styles.selectsWrap}>
                     <div className={styles.yearSelect}>
                         <Select
-                            placeholder='Выбрать год'
+                            placeholder={ __('Выбрать год') }
                             className={styles.select}
                             classNameSelect={styles.selectContentYear}
                             data={getYears()}
@@ -53,7 +54,7 @@ const DateBlock = ({setViewType}) => {
 
                     <div className={styles.daySelect}>
                         <Select
-                            placeholder='Выбрать день'
+                            placeholder={ __('Выбрать день') }
                             className={styles.select}
                             classNameSelect={styles.selectContent}
                             data={getDays()}

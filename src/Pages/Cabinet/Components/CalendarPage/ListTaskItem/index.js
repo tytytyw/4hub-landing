@@ -4,9 +4,10 @@ import styles from './ListTaskItem.module.sass'
 import {hexToRgb, eventTypesColor} from '../helper'
 import classNames from 'classnames'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const ListTaskItem = ({event, collapsed}) => {
-
+    const { __ } = useLocales()
     const color = eventTypesColor?.[event?.type]
     const rgba = hexToRgb(color)
 
@@ -43,22 +44,22 @@ const ListTaskItem = ({event, collapsed}) => {
                         <div className={styles.infoBlock}>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Имя задачи</p>
+                                <p className={styles.option}>{ __('Имя задачи') }</p>
                                 <p className={styles.value}>{event?.name}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Сроки</p>
+                                <p className={styles.option}>{ __('Сроки') }</p>
                                 <p className={styles.value}>{event?.term}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Тег</p>
+                                <p className={styles.option}>{ __('Тег') }</p>
                                 <p className={styles.value}>{event?.tag}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Отправитель</p>
+                                <p className={styles.option}>{ __('Отправитель') }</p>
                                 <p className={styles.value}>{event?.sender}</p>
                             </div>
 

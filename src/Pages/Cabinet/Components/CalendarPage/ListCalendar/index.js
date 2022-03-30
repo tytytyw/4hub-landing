@@ -7,9 +7,10 @@ import {months, weekDays} from '../helper'
 import {useDispatch, useSelector} from 'react-redux'
 import {setCalendarDate} from '../../../../../Store/actions/CabinetActions'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const ListCalendar = ({setViewType, collapsed = false}) => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
@@ -117,7 +118,7 @@ const ListCalendar = ({setViewType, collapsed = false}) => {
                 </div> :
                 <div className={styles.contentCollapsed}>
 
-                    <div className={styles.weekDay}>Пн</div>
+                    <div className={styles.weekDay}>{ __('Пн') }</div>
 
                     <div className={styles.daysWrap}>
                         {allDays?.map((itemDay, index) => (

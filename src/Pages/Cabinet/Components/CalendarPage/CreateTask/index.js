@@ -9,17 +9,10 @@ import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import Select from './Select/Select'
 import PopUp from '../../../../../generalComponents/PopUp'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
-
-const events = [
-    {id: 1, name: 'Задача', icon: 'task'},
-    {id: 2, name: 'День рождение', icon: 'birthday'},
-    {id: 3, name: 'Встреча online', icon: 'online-meeting'},
-    {id: 4, name: 'Встреча offline', icon: 'offline-meeting'},
-    {id: 5, name: 'Напоминание', icon: 'reminder'},
-    {id: 6, name: 'Другое', icon: 'other'},
-]
+import {useLocales} from "react-localized";
 
 const CreateTask = ({onCreate, setSuccess, setEvent}) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const [eventType, setEventType] = useState('');
     const [dateFrom, setDateFrom] = useState('');
@@ -30,6 +23,15 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
     const [color, setColor] = useState(colors[0]);
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
+
+    const events = [
+        {id: 1, name: __('Задача'), icon: 'task'},
+        {id: 2, name: __('День рождение'), icon: 'birthday'},
+        {id: 3, name: __('Встреча online'), icon: 'online-meeting'},
+        {id: 4, name: __('Встреча offline'), icon: 'offline-meeting'},
+        {id: 5, name: __('Напоминание'), icon: 'reminder'},
+        {id: 6, name: __('Другое'), icon: 'other'},
+    ]
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -93,7 +95,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
 
                             <div className={styles.selectWrap}>
                                 <Select
-                                    placeholder='Выбрать'
+                                    placeholder={ __('Выбрать') }
                                     data={events}
                                     value={getEventName(eventType)}
                                 >
@@ -132,11 +134,11 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                 </div>
                                 &nbsp;&nbsp;
                                 <div className={styles.rangeDateBlock}>
-                                    <span>До:</span>
+                                    <span>{ __('До:') }</span>
                                     <input
                                         type="text"
                                         className={styles.rangeInput}
-                                        placeholder='_ _ . _ _ . _ _ _ _'
+                                        placeholder={ __('_ _ . _ _ . _ _ _ _') }
                                         value={dateTo}
                                         maxLength={10}
                                         onChange={onChangeDateTo}
@@ -150,7 +152,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                     height={width >= 1440 ? '40px' : '30px'}
                                     value={members}
                                     set={setMembers}
-                                    placeholder='Участники (введите email или выбирите из списка)'
+                                    placeholder={ __('Участники (введите email или выбирите из списка)') }
                                 />
                                 <img
                                     src={`${imageSrc}assets/PrivateCabinet/input-arrow.svg`}
@@ -164,7 +166,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                 <input
                                     className={styles.inputField}
                                     type='text'
-                                    placeholder='Добавте #Тег'
+                                    placeholder={ __('Добавте #Тег') }
                                     value={tagOption.chosen}
                                     onChange={(e) => onChangeTag(e.target.value)}
                                     onFocus={() => {
@@ -179,7 +181,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
 
                             <div className={styles.inputWrap}>
                                 <textarea
-                                    placeholder='Опишите задачу'
+                                    placeholder={ __('Опишите задачу') }
                                     className={styles.description}
                                     onChange={event => setDesc(event.target.value)}
                                     value={desc}
@@ -196,7 +198,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                     </div>
 
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
+                        <div className={styles.cancel} onClick={() => onCreate(false)}>{ __('Отмена') }</div>
                         <div
                             className={styles.add}
                             onClick={() => {
@@ -214,7 +216,7 @@ const CreateTask = ({onCreate, setSuccess, setEvent}) => {
                                 setSuccess(true)
                             }}
                         >
-                            Создать
+                            { __('Создать') }
                         </div>
                     </div>
 

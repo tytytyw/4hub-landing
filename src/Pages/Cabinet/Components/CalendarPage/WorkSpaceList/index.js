@@ -3,9 +3,10 @@ import styles from './WorkSpace.module.sass'
 import {hexToRgb, hours, eventTypesColor, monthNameType} from '../helper'
 import TableListTaskItem from '../TableListTaskItem'
 import {useSelector} from 'react-redux'
+import {useLocales} from "react-localized";
 
 const WorkSpaceList = ({events}) => {
-
+    const { __ } = useLocales()
     const calendarDate = useSelector(state => state.Cabinet.calendarDate)
 
     const checkDateEvent = event => {
@@ -41,7 +42,7 @@ const WorkSpaceList = ({events}) => {
     }
 
     const getStrDate = () => {
-        return `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
+        return __(`${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`)
     }
 
     const getEventsCount = () => {
@@ -60,18 +61,18 @@ const WorkSpaceList = ({events}) => {
 
                 <div className={styles.headerBtnWrap}>
                     <button className={styles.headerBtn}>
-                        {getEventsCount()} задач
+                        {getEventsCount()} { __('задач') }
                     </button>
                 </div>
                 <div className={styles.headerBtnWrap}>
                     <button className={styles.headerBtn}>
-                        1 новая задача
+                        { __('1 новая задача') }
                     </button>
                     <span className={styles.badge}>3</span>
                 </div>
                 <div className={styles.headerBtnWrap}>
                     <button className={styles.headerBtn}>
-                        1 напоминание
+                        { __('1 напоминание') }
                     </button>
                 </div>
             </div>

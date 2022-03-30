@@ -4,11 +4,11 @@ import styles from './PopoverTaskItem.module.sass'
 import {hexToRgb, eventTypesColor} from '../../helper'
 import classNames from 'classnames'
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
 
-    console.log({reverseSide})
-
+    const { __ } = useLocales()
     const color = eventTypesColor?.[task?.type]
     const rgba = hexToRgb(color)
 
@@ -49,22 +49,22 @@ const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
                         <div className={styles.infoBlock}>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Имя задачи</p>
+                                <p className={styles.option}>{ __('Имя задачи') }</p>
                                 <p className={styles.value}>{task?.name}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Срок</p>
+                                <p className={styles.option}>{ __('Срок') }</p>
                                 <p className={styles.value}>{task?.term}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Тег</p>
+                                <p className={styles.option}>{ __('Тег') }</p>
                                 <p className={styles.value}>{task?.tag}</p>
                             </div>
 
                             <div className={styles.infoItem}>
-                                <p className={styles.option}>Отправитель</p>
+                                <p className={styles.option}>{ __('Отправитель') }</p>
                                 <p className={styles.value}>{task?.sender}</p>
                             </div>
 
@@ -82,7 +82,7 @@ const PopoverTaskItem = ({task, reverseSide = false, reverse = false}) => {
                         className={styles.actionBtn}
                         onClick={() => {}}
                     >
-                        Перейти к задаче
+                        { __('Перейти к задаче') }
                     </button>
                 </div>
 

@@ -4,9 +4,10 @@ import styles from './TableListTaskItem.module.sass'
 import {eventTypesColor} from '../helper'
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const TableListTaskItem = ({task}) => {
-
+    const { __ } = useLocales()
     const [collapse, setCollapse] = useState(false)
     const color = eventTypesColor?.[task?.type]
 
@@ -35,17 +36,17 @@ const TableListTaskItem = ({task}) => {
                 <div className={styles.infoBlock}>
 
                     <div className={classNames(styles.infoItem, styles.infoItemName)}>
-                        <p className={styles.option}>Имя задачи</p>
+                        <p className={styles.option}>{ __('Имя задачи') }</p>
                         <p className={styles.value}>{task?.name}</p>
                     </div>
 
                     <div className={styles.infoItem}>
-                        <p className={styles.option}>Срок</p>
+                        <p className={styles.option}>{ __('Срок') }</p>
                         <p className={styles.value}>{task?.term}</p>
                     </div>
 
                     <div className={styles.infoItem}>
-                        <p className={styles.option}>Тег</p>
+                        <p className={styles.option}>{ __('Тег') }</p>
                         <p className={styles.value}>{task?.tag}</p>
                     </div>
 
@@ -56,7 +57,7 @@ const TableListTaskItem = ({task}) => {
                             alt="Avatar"
                         />
                         <div>
-                            <p className={styles.option}>Отправитель</p>
+                            <p className={styles.option}>{ __('Отправитель') }</p>
                             <p className={styles.value}>{task?.sender}</p>
                         </div>
                     </div>
@@ -90,11 +91,9 @@ const TableListTaskItem = ({task}) => {
             <div className={styles.descWrap}>
 
                 <div className={styles.descBlock}>
-                    <p className={styles.descTitle}>Описание задачи</p>
+                    <p className={styles.descTitle}>{ __('Описание задачи') }</p>
                     <p className={styles.descText}>
-                        Текст большую коллекцию размеров и форм шрифтов,
-                        используя Lorem Ipsum для распечатки образцов. Lorem Ipsum
-                        не только успешно пережил без заметных изменений пять веков
+                        { __('Текст большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков') }
                     </p>
                 </div>
 
@@ -102,7 +101,7 @@ const TableListTaskItem = ({task}) => {
                     <button
                         className={styles.actionBtn}
                     >
-                        Перейти к задаче
+                        { __('Перейти к задаче') }
                     </button>
                 </div>
 
