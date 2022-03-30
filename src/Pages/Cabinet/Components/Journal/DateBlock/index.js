@@ -1,12 +1,15 @@
 import React from 'react'
 import styles from './DateBlock.module.sass'
 import Select from '../../../../../generalComponents/Select/Select'
-import {getDays, getYears, months} from '../helper'
+import {useMonths, useGetYears, useGetDays} from "../../Archive/helper";
 import classNames from 'classnames'
-// import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
-const DateBlock = ({search, setSearch, month, setMonth}) => {
-
+const DateBlock = ({month, setMonth}) => {
+    const { __ } = useLocales();
+    const months = useMonths();
+    const getDays = useGetDays();
+    const getYears = useGetYears();
     return (
         <div className={styles.wrapper}>
 
@@ -15,7 +18,7 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
                 <div className={styles.selectsWrap}>
                     <div className={styles.yearSelect}>
                         <Select
-                            placeholder='Выбрать год'
+                            placeholder={ __('Выбрать год') }
                             className={styles.select}
                             classNameSelect={styles.selectContentYear}
                             data={getYears()}
@@ -24,29 +27,13 @@ const DateBlock = ({search, setSearch, month, setMonth}) => {
 
                     <div className={styles.daySelect}>
                         <Select
-                            placeholder='Выбрать день'
+                            placeholder={ __('Выбрать день') }
                             className={styles.select}
                             classNameSelect={styles.selectContent}
                             data={getDays()}
                         />
                     </div>
                 </div>
-
-                {/*<div className={styles.search}>
-                    <input
-                        type='search'
-                        value={search || ''}
-                        onChange={event => setSearch(event.target.value)}
-                        className={styles.input}
-                        placeholder='Введите ключевое слово'
-                    />
-                    <img
-                        className={styles.icon}
-                        src={imageSrc + 'assets/PrivateCabinet/magnifying-glass-2.svg'}
-                        alt='Search'
-                    />
-                </div>*/}
-
             </div>
 
             <div className={styles.buttonsWrap}>

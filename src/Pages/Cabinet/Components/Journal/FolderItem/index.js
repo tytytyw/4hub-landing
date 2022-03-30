@@ -1,6 +1,4 @@
 import React from 'react';
-// import {useDispatch} from 'react-redux'
-
 import styles from './CustomFolderItem.module.sass'
 import classNames from 'classnames'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';

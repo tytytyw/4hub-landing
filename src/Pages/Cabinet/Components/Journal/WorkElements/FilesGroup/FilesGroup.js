@@ -11,6 +11,7 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 
 import WorkLinesPreview from '../WorkLinesPreview'
 import SideList from '../../../SharedFiles/SideList'
+import {useLocales} from "react-localized";
 
 function FilesGroup({
 	fileList,
@@ -26,6 +27,7 @@ function FilesGroup({
 	mounthName,
     index
 }) {
+	const { __ } = useLocales();
 	const [collapse, setCollapse] = useState(index === 0);
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
@@ -65,7 +67,7 @@ function FilesGroup({
 				<p className={styles.dateName}>{mounthName}</p>
 				<div className={styles.buttonsWrap}>
 					<button className={styles.collapseBtn}>
-						{fileList?.files.length ?? 0} объектов
+						{fileList?.files.length ?? 0} { __('объектов') }
 					</button>
 					<div
 						className={classNames({
@@ -130,7 +132,6 @@ function FilesGroup({
 				)}
 			</>}	
 
-			
 		</div>
 	);
 }

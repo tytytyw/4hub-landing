@@ -10,9 +10,10 @@ import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabi
 import {ReactComponent as ShareIcon} from '../../../../../../assets/PrivateCabinet/share.svg'
 import classNames from 'classnames'
 import {useSelector} from 'react-redux'
+import {useLocales} from "react-localized";
 
 const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview}) => {
-
+    const { __ } = useLocales()
     const size = useSelector(state => state.Cabinet.size)
 
     return (
@@ -114,8 +115,8 @@ const FileLine = ({file, setChosenFile, chosenFile, setMouseParams, setAction, s
                     className={classNames(styles.iconView, styles.iconTrash)}
                     onClick={() => setAction({
                         type: 'delete',
-                        name: 'Удаление файла',
-                        text: `Вы действительно хотите удалить файл ${file?.name}?`
+                        name: __('Удаление файла'),
+                        text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
                     })}
                 >
                     <DeleteIcon/>

@@ -4,7 +4,7 @@ import styles from './List.module.sass';
 import classNames from "classnames";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 
-const List = ({title, src, setListCollapsed = () => {}, listCollapsed, children, onCreate, icon = true}) => {
+const List = ({setListCollapsed = () => {}, listCollapsed, children}) => {
 
     return (
         <div
