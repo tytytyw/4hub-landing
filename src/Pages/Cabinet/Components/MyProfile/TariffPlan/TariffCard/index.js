@@ -3,9 +3,10 @@ import React from 'react'
 import styles from './TariffCard.module.sass'
 import Button from '../../Button'
 import classnames from 'classnames'
+import {useLocales} from "react-localized";
 
 const TariffCard = ({ item }) => {
-
+    const { __ } = useLocales();
     return (
         <div className={styles.card}>
 
@@ -13,7 +14,7 @@ const TariffCard = ({ item }) => {
                 [styles.topBlock]: true,
                 [styles.dayOffer]: item.dayOffer
             })}>
-                {item.dayOffer && 'Предложение дня'}
+                {item.dayOffer && __('Предложение дня')}
             </div>
 
             <div>
@@ -52,7 +53,7 @@ const TariffCard = ({ item }) => {
                         [styles.buyBtn]: !item.current
                     })}
                 >
-                    {item.current ? 'Текущий план' : 'Купить'}
+                    {item.current ? __('Текущий план') : __('Купить')}
                 </Button>
             </div>
 

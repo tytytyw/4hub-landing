@@ -11,9 +11,10 @@ import {useSelector} from 'react-redux'
 import {emptyProfileImage, getContactName, messengersIcons, titlesSoc} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
+import {useLocales} from "react-localized";
 
 const SendFriend = ({set, selectedItem}) => {
-
+    const { __ } = useLocales()
     const contacts = useSelector(state => state.Cabinet.contactList)
     const uid = useSelector(state => state.user.uid)
 
@@ -85,7 +86,7 @@ const SendFriend = ({set, selectedItem}) => {
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>
                         <span className={styles.titleIcon}><ChatIcon/></span>
-                        <span className={styles.info}>Поделиться с помощью:</span>
+                        <span className={styles.info}>{ __('Поделиться с помощью:') }</span>
                     </div>
                     <div className={styles.socials}>
                         <li
@@ -132,7 +133,7 @@ const SendFriend = ({set, selectedItem}) => {
                                 src={imageSrc + 'assets/PrivateCabinet/more.svg'}
                                 alt='Email'
                             />
-                            <p>Ещё</p>
+                            <p>{ __('Ещё') }</p>
                         </li>
                     </div>
                 </div>
@@ -143,7 +144,7 @@ const SendFriend = ({set, selectedItem}) => {
 
                         <div className={styles.contactsTop}>
                             <div className={styles.blockTitle}>
-                                <span className={styles.info}>Контакты</span>
+                                <span className={styles.info}>{ __('Контакты') }</span>
                             </div>
                             <div className={styles.search}>
                                 <ContactSearch
@@ -179,7 +180,7 @@ const SendFriend = ({set, selectedItem}) => {
                         type='submit'
                         className={styles.actionBtn}
                     >
-                        Отправить
+                        { __('Отправить') }
                     </Button>
                 </div>
 

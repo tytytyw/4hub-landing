@@ -9,56 +9,13 @@ import {useSelector} from 'react-redux'
 import {messengersData} from '../Contacts/consts'
 import api from '../../../../../api'
 import classNames from 'classnames'
+import {useLocales} from "react-localized";
 
 const TellFriend = ({ set, contact }) => {
-
+    const { __ } = useLocales()
     const uid = useSelector(state => state.user.uid)
 
     const [selectedSoc, setSelectedSoc] = useState(null)
-    /*const [search, setSearch] = useState('')
-    const [contactList, setContactList] = useState(contacts)
-
-    const [selectedContact, setSelectedContact] = useState(null)
-
-
-    const [errors, setErrors] = useState({})
-    const [submitErrors, setSubmitErrors] = useState({})
-    const [fields, setFields] = useState({})
-    const [blur, setBlur] = useState({})*/
-
-    /*useEffect(() => {
-
-        const filterArray = contacts.filter(item => {
-            const name = getContactName(item).toLowerCase()
-            const searchValue = search.toLowerCase()
-            return name.includes(searchValue)
-        })
-
-        setContactList(filterArray)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search])
-
-    const onBlurHandler = event => {
-        const {name} = event.target
-        setBlur({...blur, [name]: true})
-    }
-
-    const onChangeHandler = event => {
-
-        let {value, name} = event.target
-
-        if (!isCorrectData(value, name, fields,['email'])) {
-            setErrors({...errors, [name]: true})
-        } else {
-            setErrors({...errors, [name]: false})
-            setSubmitErrors({...submitErrors, [name]: false})
-        }
-
-        setFields({...fields, [name]: value})
-
-    }
-*/
     const onSubmit = event => {
 
         event.preventDefault()
@@ -77,8 +34,6 @@ const TellFriend = ({ set, contact }) => {
 
     }
 
-    //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
-
     return (
         <PopUp set={set}>
             <form
@@ -93,7 +48,7 @@ const TellFriend = ({ set, contact }) => {
                             src={imageSrc + 'assets/PrivateCabinet/logo.svg'}
                             alt='logo'
                         />
-                        <span>Рассказать друзьям</span>
+                        <span>{ __('Рассказать друзьям') }</span>
                     </div>
                     <span
                         className={styles.close}
@@ -106,7 +61,7 @@ const TellFriend = ({ set, contact }) => {
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>
                         <span className={styles.titleIcon}><ChatIcon/></span>
-                        <span className={styles.info}>Поделиться с помощью:</span>
+                        <span className={styles.info}>{ __('Поделиться с помощью:') }</span>
                     </div>
                     <div className={styles.socials}>
                         <li
@@ -146,7 +101,7 @@ const TellFriend = ({ set, contact }) => {
                                 src={imageSrc + 'assets/PrivateCabinet/more.svg'}
                                 alt='Email'
                             />
-                            <p>Ещё</p>
+                            <p>{ __('Ещё') }</p>
                         </li>
                     </div>
                 </div>
@@ -156,7 +111,7 @@ const TellFriend = ({ set, contact }) => {
                         type='submit'
                         className={styles.actionBtn}
                     >
-                        Отправить
+                        { __('Отправить') }
                     </Button>
                 </div>
 

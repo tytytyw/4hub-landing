@@ -19,9 +19,10 @@ import Confident from './Confident'
 import PrimaryButton from './PrimaryButton'
 import TariffPlan from "./TariffPlan/increase_storage"
 import {setPreviewTheme} from "../../../../Store/actions/main";
+import {useLocales} from "react-localized";
 
 const Settings = () => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const [pageOption, setPageOption] = useState('confident')
     const [popup, setPopup] = useState(false)
@@ -50,29 +51,29 @@ const Settings = () => {
                 <div className={styles.buttons}>
                     <div className={styles.buttonsList}>
                         <PrimaryButton
-                            text='Конфиденциальность'
+                            text={ __('Конфиденциальность') }
                             active={pageOption === 'confident'}
                             onClick={() => setPageOption('confident')}
                         />
                         <PrimaryButton
-                            text='Персонализация'
+                            text={ __('Персонализация') }
                             active={pageOption === 'personal'}
                             onClick={() => setPageOption('personal')}
                         />
                         <PrimaryButton
-                            text='Данные и память'
+                            text={ __('Данные и память') }
                             active={pageOption === 'data_memory'}
                             onClick={() => setPageOption('data_memory')}
                         />
                         <PrimaryButton
-                            text='Вопросы о 4HUB'
+                            text={ __('Вопросы о 4HUB') }
                             active={pageOption === 'questions'}
                             onClick={() => setPageOption('questions')}
                         />
 
                         <div className={styles.buttonsRight}>
                             <PrimaryButton
-                                text='Рассказать друзьям'
+                                text={ __('Рассказать друзьям') }
                                 icon={<UploadIcon/>}
                                 alt='Upload'
                                 active={popup}

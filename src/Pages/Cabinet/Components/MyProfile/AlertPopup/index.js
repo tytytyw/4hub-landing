@@ -2,8 +2,10 @@ import React from 'react'
 import styles from './AlertPopup.module.sass'
 import PopUp from '../../../../../generalComponents/PopUp'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const Index = ({ set, text, title, setShowCodePopup }) => {
+    const { __ } = useLocales();
     return (
         <PopUp set={set}>
             <div className={styles.sendSuccess}>
@@ -24,7 +26,7 @@ const Index = ({ set, text, title, setShowCodePopup }) => {
                         set(false);
                         setShowCodePopup(true)
                     }}
-                >Продолжить</div>
+                >{ __('Продолжить') }</div>
             </div>
         </PopUp>
     )

@@ -8,9 +8,10 @@ import FormContact from './FormContact/FormContact'
 import ContactsAll from './ContactsAll'
 import ContactsFav from './ContactsFav'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const Contacts = () => {
-
+    const { __ } = useLocales()
     const contacts = useSelector(state => state.Cabinet.contactList)
 
     const [pageOption, setPageOption] = useState('ContactsAll')
@@ -20,19 +21,19 @@ const Contacts = () => {
         {
             id: 'NewContact',
             icon: `${imageSrc}/assets/PrivateCabinet/plus-3.svg`,
-            label: 'Добавить контакт',
+            label: __('Добавить контакт'),
             onClick: () => setContactPopup(true)
         },
         {
             id: 'ContactsFav',
             icon: `${imageSrc}/assets/PrivateCabinet/star-2.svg`,
-            label: 'Избранное',
+            label: __('Избранное'),
             onClick: () => setPageOption('ContactsFav')
         },
         {
             id: 'ContactsAll',
             icon: `${imageSrc}/assets/PrivateCabinet/contact-book.svg`,
-            label: 'Все контакты',
+            label: __('Все контакты'),
             onClick: () => setPageOption('ContactsAll')
         }
     ]

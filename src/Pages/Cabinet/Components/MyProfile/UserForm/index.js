@@ -10,9 +10,10 @@ import AlertPopup from '../AlertPopup'
 import CodePopup from '../CodePopup/index'
 import {formIsValid, isCorrectData} from '../Input/validation'
 import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
+import {useLocales} from "react-localized";
 
 const UserForm = () => {
-
+    const { __ } = useLocales()
     const user = useSelector(state => state.user.userInfo)
     const uid = useSelector(state => state.user.uid)
 
@@ -150,7 +151,7 @@ const UserForm = () => {
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex50}`}>
                             <Input
-                                label='Имя'
+                                label={ __('Имя') }
                                 name='name'
                                 disabled={!editForm}
                                 isMistake={isMistake('name')}
@@ -161,7 +162,7 @@ const UserForm = () => {
                         </div>
                         <div className={`${styles.field} ${styles.flex50}`}>
                             <Input
-                                label='Фамилия'
+                                label={ __('Фамилия') }
                                 name='sname'
                                 disabled={!editForm}
                                 isMistake={isMistake('sname')}
@@ -176,7 +177,7 @@ const UserForm = () => {
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
                                 type='email'
-                                label='Email'
+                                label={ __('Email') }
                                 name='email'
                                 disabled={!editForm}
                                 isMistake={isMistake('email')}
@@ -191,7 +192,7 @@ const UserForm = () => {
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
                                 type='password'
-                                label='Пароль'
+                                label={ __('Пароль') }
                                 name='pass'
                                 disabled={!editForm}
                                 isMistake={isMistake('pass')}
@@ -210,7 +211,7 @@ const UserForm = () => {
 
                             <Input
                                 type='password'
-                                label='Повторите Пароль'
+                                label={ __('Повторите Пароль') }
                                 name='password_r'
                                 disabled={!editForm}
                                 isMistake={isMistake('password_r')}
@@ -226,7 +227,7 @@ const UserForm = () => {
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
-                                label='Телефон'
+                                label={ __('Телефон') }
                                 name='tel'
                                 disabled={!editForm}
                                 value={fields?.tel || ''}
@@ -243,20 +244,20 @@ const UserForm = () => {
                                 className={styles.cancelBtn}
                                 onClick={() => resetForm()}
                             >
-                                Отмена
+                                { __('Отмена') }
                             </Button>
                             <Button
                                 type='submit'
                                 className={styles.submitBtn}
                             >
-                                Сохранить
+                                { __('Сохранить') }
                             </Button>
                         </>}
                         {!editForm && <Button
                             className={styles.editBtn}
                             onClick={() => setEditForm(true)}
                         >
-                            Редактировать
+                            { __('Редактировать') }
                         </Button>}
                     </div>
 

@@ -18,9 +18,10 @@ import Contacts from './Contacts'
 import Programs from './Programs'
 import TellFriend from './TellFriends/TellFriend'
 import PrimaryButton from './PrimaryButton'
+import {useLocales} from "react-localized";
 
 const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const [pageOption, setPageOption] = useState(null)
     const [popup, setPopup] = useState(false)
@@ -50,33 +51,33 @@ const MyProfile = ({ defaultPageOption = 'personal_data' }) => {
                 <div className={styles.buttons}>
                     <div className={styles.buttonsList}>
                         <PrimaryButton
-                            text='Личные данные'
+                            text={ __('Личные данные') }
                             active={pageOption === 'personal_data'}
                             onClick={() => setPageOption('personal_data')}
                         />
                         <PrimaryButton
-                            text='Служба поддержки'
+                            text={ __('Служба поддержки') }
                             active={pageOption === 'support'}
                             onClick={() => setPageOption('support')}
                         />
                         <PrimaryButton
-                            text='Тарифный план'
+                            text={ __('Тарифный план') }
                             active={pageOption === 'tariff_plan'}
                             onClick={() => setPageOption('tariff_plan')}
                         />
                         <PrimaryButton
-                            text='Контакты'
+                            text={ __('Контакты') }
                             active={pageOption === 'contacts'}
                             onClick={() => setPageOption('contacts')}
                         />
                         <PrimaryButton
-                            text='Подключенные прораммы'
+                            text={ __('Подключенные прораммы') }
                             active={pageOption === 'programs'}
                             onClick={() => setPageOption('programs')}
                         />
                         <div className={styles.buttonsRight}>
                             <PrimaryButton
-                                text='Рассказать друзьям'
+                                text={ __('Рассказать друзьям') }
                                 icon={<UploadIcon/>}
                                 alt='Upload'
                                 active={popup}

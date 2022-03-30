@@ -7,8 +7,10 @@ import Button from "../Button/index";
 import {useDispatch, useSelector} from 'react-redux'
 import api from "../../../../../api";
 import {onGetUserInfo} from '../../../../../Store/actions/startPageAction'
+import {useLocales} from "react-localized";
 
 const CodePopup = ({ setShowCodePopup }) => {
+	const { __ } = useLocales();
 	const [code, setCode] = useState("");
 	const [errors] = useState({});
 	const uid = useSelector((state) => state.user.uid);
@@ -40,17 +42,17 @@ const CodePopup = ({ setShowCodePopup }) => {
 				<div className={styles.content}>
 					<div className={styles.inputWrap}>
 						<p className={styles.orItem}>
-							на ваш контактный email отправлен код-пароль
+							{ __('на ваш контактный email отправлен код-пароль') }
 						</p>
 						<Input
-							placeholder="Введите код"
+							placeholder={ __("Введите код") }
 							label={false}
 							name="code"
 							className={styles.input}
 							isMistake={errors?.code}
 							onChange={(event) => setCode(event.target.value)}
 						/>
-						<span className={styles.link}>Не пришол код?</span>
+						<span className={styles.link}>{ __('Не пришел код?') }</span>
 					</div>
 				</div>
 				<div className={styles.actionBlock}>
@@ -58,7 +60,7 @@ const CodePopup = ({ setShowCodePopup }) => {
 						className={styles.actionBtn}
 						onClick={() => sentCode()}
 					>
-						Далее
+						{ __('Далее') }
 					</Button>
 				</div>
 			</div>

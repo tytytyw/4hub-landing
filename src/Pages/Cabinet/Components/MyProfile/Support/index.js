@@ -10,9 +10,10 @@ import api from '../../../../../api'
 import AlertPopup from '../AlertPopup'
 import {formIsValid, isCorrectData} from '../Input/validation'
 import {useSelector} from 'react-redux'
+import {useLocales} from "react-localized";
 
 const Support = () => {
-
+    const { __ } = useLocales()
     const uid = useSelector(state => state.user.uid)
 
     const [errors, setErrors] = useState({})
@@ -79,10 +80,10 @@ const Support = () => {
     return (
         <div className={styles.support}>
 
-            <h2 className={styles.title}>Часто задаваемые вопросы</h2>
+            <h2 className={styles.title}>{ __('Часто задаваемые вопросы') }</h2>
             <Accordion/>
 
-            <h2 className={styles.title}>Остались вопросы?</h2>
+            <h2 className={styles.title}>{ __('Остались вопросы?') }</h2>
             {/*<QuestionForm/>*/}
 
             <form
@@ -95,7 +96,7 @@ const Support = () => {
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Input
-                                label='Введите тему'
+                                label={ __('Введите тему') }
                                 name='subj'
                                 isMistake={isMistake('subj')}
                                 value={fields?.subj || ''}
@@ -103,23 +104,12 @@ const Support = () => {
                                 onBlur={onBlurHandler}
                             />
                         </div>
-                        {/*<div className={`${styles.field} ${styles.flex50}`}>
-                            <Input
-                                type='email'
-                                name='email'
-                                label='Введите Ваш Email'
-                                isMistake={isMistake('email')}
-                                value={fields?.email}
-                                onChange={onChangeHandler}
-                                onBlur={onBlurHandler}
-                            />
-                        </div>*/}
                     </div>
 
                     <div className={styles.row}>
                         <div className={`${styles.field} ${styles.flex100}`}>
                             <Textarea
-                                label='Задайте вопрос'
+                                label={ __('Задайте вопрос') }
                                 name='text'
                                 isMistake={isMistake('text')}
                                 value={fields?.text || ''}
@@ -133,7 +123,7 @@ const Support = () => {
                         <Button
                             type='submit'
                         >
-                            Отправить
+                            { __('Отправить') }
                         </Button>
                     </div>
 
@@ -142,8 +132,8 @@ const Support = () => {
 
             {success && <AlertPopup
                 set={setSuccess}
-                title='Запрос успешно отправлен'
-                text='Благодарим за обратную связь!'
+                title={ __('Запрос успешно отправлен') }
+                text={ __('Благодарим за обратную связь!') }
             />}
 
         </div>

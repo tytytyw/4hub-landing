@@ -7,14 +7,17 @@ import Select from '../../../../../generalComponents/Select/Select'
 import Button from '../Button'
 import {resetPersonalSettings, setPersonalSettings, setPreviewTheme} from '../../../../../Store/actions/main'
 import {useDispatch, useSelector} from 'react-redux'
+import {useLocales} from "react-localized";
 
-const langs = [
-    {id: 'ru', text: 'Русский'},
-    {id: 'en', text: 'English'},
-    {id: 'uk', text: 'Украинский'},
-]
+
 
 const Personal = () => {
+    const { __ } = useLocales()
+    const langs = [
+        {id: 'ru', text: __('Русский')},
+        {id: 'en', text: 'Английский'},
+        {id: 'uk', text: __('Украинский')},
+    ]
 
     const dispatch = useDispatch()
     const personalSettings = useSelector(state => state.main.personalSettings)
@@ -35,7 +38,7 @@ const Personal = () => {
         <div className={styles.wrapper}>
 
             <div className={styles.title}>
-                <h4>Персонализация</h4>
+                <h4>{ __('Персонализация') }</h4>
             </div>
 
             <form
@@ -44,12 +47,12 @@ const Personal = () => {
                 className={styles.form}
             >
                 <div className={styles.formItem}>
-                    <label className={styles.label}>Уведомления</label>
+                    <label className={styles.label}>{ __('Уведомления') }</label>
                     <div className={styles.formBlock}>
 
                         <div className={styles.option}>
                             <BellIcon/>
-                            <p>Звуковое оповещение</p>
+                            <p>{ __('Звуковое оповещение') }</p>
                         </div>
 
                         <div
@@ -66,7 +69,7 @@ const Personal = () => {
                 </div>
 
                 <div className={styles.formItem}>
-                    <label className={styles.label}>Тема</label>
+                    <label className={styles.label}>{ __('Тема') }</label>
                     <div className={styles.radioBlockWrapper}>
 
                         <div
@@ -85,7 +88,7 @@ const Personal = () => {
                                     checked={fields?.theme === 'blue'}
                                     onChange={() => {}}
                                 />
-                                <label htmlFor='blue'>Синий</label>
+                                <label htmlFor='blue'>{ __('Синий') }</label>
                             </div>
                             <div
                                 style={{
@@ -172,7 +175,7 @@ const Personal = () => {
                 </div>
 
                 <div className={styles.formItem}>
-                    <label className={styles.label}>Язык интерфейса</label>
+                    <label className={styles.label}>{ __('Язык интерфейса') }</label>
                     <div className={styles.select}>
                         <Select
                             initValue='ru'
@@ -191,13 +194,13 @@ const Personal = () => {
                             dispatch(resetPersonalSettings())
                         }}
                     >
-                        Отмена
+                        { __('Отмена') }
                     </Button>
                     <Button
                         type='submit'
                         className={styles.submitBtn}
                     >
-                        Сохранить
+                        { __('Сохранить') }
                     </Button>
                 </div>
 

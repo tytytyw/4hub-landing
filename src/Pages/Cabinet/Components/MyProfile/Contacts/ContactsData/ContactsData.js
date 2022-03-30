@@ -21,9 +21,10 @@ import ActionApproval from '../../../../../../generalComponents/ActionApproval'
 import {onGetContacts} from '../../../../../../Store/actions/CabinetActions'
 import FormContact from '../FormContact/FormContact'
 import SendFriend from '../../TellFriends/SendFriend'
+import {useLocales} from "react-localized";
 
 const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
@@ -92,7 +93,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
     const profileImage = selectedItem?.icon?.[0] || emptyProfileImage
 
     const getDate = date => {
-        return date ? (new Date(date)).toLocaleDateString() : 'Не задан'
+        return date ? (new Date(date)).toLocaleDateString() : __('Не задан')
     }
 
     return (
@@ -151,9 +152,9 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
                         {delConfirm &&
                         <ActionApproval
-                            name='Удаление контакта'
-                            approve='Удалить'
-                            text={`Вы действительно хотите удалить контакт ${getContactName(selectedItem)}?`}
+                            name={ __('Удаление контакта') }
+                            approve={ __('Удалить') }
+                            text={ __(`Вы действительно хотите удалить контакт ${getContactName(selectedItem)}?`)}
                             set={() => setDelConfirm(false)}
                             callback={onDeleteConfirm}
                         >
@@ -198,7 +199,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
                     {selectedItem?.tel?.length > 0 &&
                     <div className={styles.infoItem}>
-                        <span className={styles.info}>Телефон:</span>
+                        <span className={styles.info}>{ __('Телефон:') }</span>
                         <div className={styles.value}>
                             <span>
                                 {selectedItem?.tel &&
@@ -213,7 +214,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
                     {selectedItem?.email?.length > 0 &&
                     <div className={styles.infoItem}>
-                        <span className={styles.info}>Email:</span>
+                        <span className={styles.info}>{ __('Email:') }</span>
                         <div className={styles.value}>
                             <span>
                                 {selectedItem?.email &&
@@ -228,7 +229,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
                     {selectedItem?.bdate &&
                     <div className={styles.infoItem}>
-                        <span className={styles.info}>День рождения:</span>
+                        <span className={styles.info}>{ __('День рождения:') }</span>
                         <div className={styles.value}>
                             <span>{selectedItem?.bdate}</span>
                         </div>
@@ -236,7 +237,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
 
                     {selectedItem?.company &&
                     <div className={styles.infoItem}>
-                        <span className={styles.info}>Компания:</span>
+                        <span className={styles.info}>{ __('Компания:') }</span>
                         <div className={styles.value}>
                             <span>{selectedItem?.company}</span>
                         </div>
@@ -247,7 +248,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
-                            })}>Профиль соц. сетей:</span>
+                            })}>{ __('Профиль соц. сетей:') }</span>
                         <div className={styles.value}>
                             <ul className={styles.socialsList}>
                                 {selectedItem?.soc.map((item, index) => (
@@ -266,7 +267,7 @@ const ContactsData = ({data = [], selectedItem, setSelectedItem}) => {
                             <span className={classnames({
                                 [styles.info]: true,
                                 [styles.links]: true,
-                            })}>Мессенджеры:</span>
+                            })}>{ __('Мессенджеры:') }</span>
                         <div className={styles.value}>
                             <ul className={styles.socialsList}>
                                 {selectedItem?.mes.map((item, index) => (

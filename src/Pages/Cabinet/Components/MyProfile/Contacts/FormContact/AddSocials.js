@@ -5,9 +5,10 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import Button from '../../Button'
 import {messengersData, socialsData} from '../consts'
 import Input from "../../Input"
+import {useLocales} from "react-localized";
 
 const AddSocials = ({values, setValues, set, ...props}) => {
-
+    const { __ } = useLocales()
     const [socialValues, setSocialValues] = useState([])
 
     useEffect(() => {
@@ -81,7 +82,7 @@ const AddSocials = ({values, setValues, set, ...props}) => {
                                 Укажите никнейм к соц.сетям
                             </p> :
                             <p className={styles.title}>
-                                Укажите Ваш контактный номер<br/> для мессенджеров
+                                { __('Укажите Ваш контактный номер') }<br/>{ __('для мессенджеров') }
                             </p>}
                     </div>
 
@@ -123,13 +124,13 @@ const AddSocials = ({values, setValues, set, ...props}) => {
                         className={styles.cancelBtn}
                         onClick={() => set(false)}
                     >
-                        Отмена
+                        { __('Отмена') }
                     </Button>
                     <Button
                         type='submit'
                         className={styles.submitBtn}
                     >
-                        Сохранить
+                        { __('Сохранить') }
                     </Button>
                 </div>
 

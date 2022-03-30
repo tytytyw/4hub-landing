@@ -14,9 +14,10 @@ import Button from '../../Button'
 
 import {socialsIcons} from '../consts'
 import Input from '../../Input'
+import {useLocales} from "react-localized";
 
-const EditContact = ({set, contacts}) => {
-
+const EditContact = ({set}) => {
+    const { __ } = useLocales()
     const [numbers, setNumbers] = useState([])
     const [mails, setMails] = useState([])
 
@@ -65,21 +66,6 @@ const EditContact = ({set, contacts}) => {
             formValues[name] = value
         }
 
-
-
-        /*dispatch(onAddContact({
-            id: contacts.length + 2,
-            image: preview,
-            name: `${formValues?.name} ${formValues?.sname}`,
-            company: formValues?.company,
-            email: mails,
-            tel: numbers,
-            bdate: formValues?.bdate,
-            prim: formValues?.prim,
-            soc: socials,
-            messengers: []
-        }))*/
-
         set(false)
     }
 
@@ -117,7 +103,7 @@ const EditContact = ({set, contacts}) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Имя:</span>
+                                <span className={styles.info}>{ __('Имя:') }</span>
                                 <input
                                     name='name'
                                     className={styles.input}
@@ -127,7 +113,7 @@ const EditContact = ({set, contacts}) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Фамилия:</span>
+                                <span className={styles.info}>{ __('Фамилия:') }</span>
                                 <input
                                     name='sname'
                                     className={styles.input}
@@ -137,7 +123,7 @@ const EditContact = ({set, contacts}) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Компания:</span>
+                                <span className={styles.info}>{ __('Компания:') }</span>
                                 <input
                                     name='company'
                                     className={styles.input}
@@ -155,7 +141,7 @@ const EditContact = ({set, contacts}) => {
                                         }}
                                         className={styles.minusBtn}
                                     />
-                                    <span className={styles.info}>Введите номер телефона:</span>
+                                    <span className={styles.info}>{ __('Введите номер телефона:') }</span>
                                     <Input
                                         phone={true}
                                         name='number[]'
@@ -181,7 +167,7 @@ const EditContact = ({set, contacts}) => {
                                     src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
-                                <span className={styles.info}>Добавить номер телефона:</span>
+                                <span className={styles.info}>{ __('Добавить номер телефона:') }</span>
                             </div>
                         </div>
 
@@ -195,7 +181,7 @@ const EditContact = ({set, contacts}) => {
                                         }}
                                         className={styles.minusBtn}
                                     />
-                                    <span className={styles.info}>Введите @mail:</span>
+                                    <span className={styles.info}>{ __('Введите @mail:') }</span>
                                     <input
                                         name='email[]'
                                         type="email"
@@ -220,13 +206,13 @@ const EditContact = ({set, contacts}) => {
                                     src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
-                                <span className={styles.info}>Добавить @mail:</span>
+                                <span className={styles.info}>{ __('Добавить @mail:') }</span>
                             </div>
                         </div>
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Добавить день рождения:</span>
+                                <span className={styles.info}>{ __('Добавить день рождения:') }</span>
                                 <input
                                     name='date_birth'
                                     onChange={event => setDateValue(event.target.value)}
@@ -244,7 +230,7 @@ const EditContact = ({set, contacts}) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Добавить профиль соц.сети:</span>
+                                <span className={styles.info}>{ __('Добавить профиль соц.сети:') }</span>
                                 <ul className={styles.socialsList}>
                                     {socials.map((item, index) => !!item.link && (
                                         <li key={index}>
@@ -280,13 +266,13 @@ const EditContact = ({set, contacts}) => {
                         className={styles.cancelBtn}
                         onClick={() => set(false)}
                     >
-                        Отмена
+                        { __('Отмена') }
                     </Button>
                     <Button
                         type='submit'
                         className={styles.submitBtn}
                     >
-                        Сохранить
+                        { __('Сохранить') }
                     </Button>
                 </div>
             </form>

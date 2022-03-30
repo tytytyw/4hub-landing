@@ -3,27 +3,29 @@ import React from 'react'
 import styles from './TariffPlan.module.sass'
 import Button from '../Button'
 import TariffCard from './TariffCard'
-import {data} from "./consts";
+import {useData} from "./consts";
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const TariffPlan = ({currentTariff = 'Free', balance = 100}) => {
-
+    const { __ } = useLocales();
+    const data = useData();
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.header}>
 
                 <div className={styles.headerLeft}>
-                    <p>Ваш текущий тарифный план:&nbsp;<span className={styles.tariff}>{currentTariff}</span></p>
+                    <p>{ __('Ваш текущий тарифный план:') }&nbsp;<span className={styles.tariff}>{currentTariff}</span></p>
                 </div>
                 <div className={styles.headerRight}>
                     <div className={styles.balance}>
                         <img src={imageSrc + "assets/PrivateCabinet/credit-card-payment.svg"} alt="Credit card"/>
-                        <p>Баланс:&nbsp;<span>{balance}$</span></p>
+                        <p>{ __('Баланс:') }&nbsp;<span>{balance}$</span></p>
                     </div>
                     <div className={styles.addBalance}>
                         <Button className={styles.addBalanceBtn}>
-                            Пополнить баланс
+                            { __('Пополнить баланс') }
                             <img src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="Plus"/>
                         </Button>
                     </div>

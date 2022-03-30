@@ -17,9 +17,10 @@ import Input from '../../Input'
 import {onGetContacts} from '../../../../../../Store/actions/CabinetActions'
 import {formIsValid, isCorrectData} from '../../Input/validation'
 import api from '../../../../../../api'
+import {useLocales} from "react-localized";
 
 const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const uid = useSelector(state => state.user.uid)
 
@@ -162,7 +163,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
                     <div className={styles.header}>
                         <p className={styles.title}>
-                            {type === 'edit' ? 'Редактировать контакт' : 'Добавить контакт'}
+                            {type === 'edit' ? __('Редактировать контакт') : __('Добавить контакт')}
                         </p>
                         <div className={styles.uploadBlock}>
                             <ProfileUpload
@@ -182,7 +183,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                         [styles.info]: true,
                                         [styles.errorInfo]: isMistake('name')
                                     })}
-                                >Имя:</span>
+                                >{ __('Имя:') }</span>
                                 <Input
                                     name='name'
                                     className={styles.input}
@@ -201,7 +202,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                         [styles.info]: true,
                                         [styles.errorInfo]: isMistake('sname')
                                     })}
-                                >Фамилия:</span>
+                                >{ __('Фамилия:') }</span>
                                 <Input
                                     name='sname'
                                     className={styles.input}
@@ -215,7 +216,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Компания:</span>
+                                <span className={styles.info}>{ __('Компания:') }</span>
                                 <Input
                                     name='company'
                                     className={styles.input}
@@ -237,7 +238,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                             }}
                                             className={styles.minusBtn}
                                         />
-                                        <span className={styles.info}>Введите номер телефона:</span>
+                                        <span className={styles.info}>{ __('Введите номер телефона:') }</span>
                                     </div>
                                     <Input
                                         phone={true}
@@ -263,7 +264,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                     src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
-                                <span className={styles.info}>Добавить номер телефона:</span>
+                                <span className={styles.info}>{ __('Добавить номер телефона:') }</span>
                             </div>
                         </div>
 
@@ -277,9 +278,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                         }}
                                         className={styles.minusBtn}
                                     />
-                                    <span className={styles.info}>Введите @mail:</span>
+                                    <span className={styles.info}>{ __('Введите @mail:') }</span>
                                     <Input
-                                        //name={`email-${index}`}
                                         type="email"
                                         onChange={event => {
                                             mails[index] = event.target.value
@@ -302,13 +302,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                                     src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
                                     alt="new_contact"
                                 />
-                                <span className={styles.info}>Добавить @mail:</span>
+                                <span className={styles.info}>{ __('Добавить @mail:') }</span>
                             </div>
                         </div>
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Добавить день рождения:</span>
+                                <span className={styles.info}>{ __('Добавить день рождения:') }</span>
                                 <Input
                                     name='bdate'
                                     onChange={onChangeHandler}
@@ -349,7 +349,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
                         <div className={styles.formItem}>
                             <div className={styles.formBlock}>
-                                <span className={styles.info}>Добавить мессенджеры:</span>
+                                <span className={styles.info}>{ __('Добавить мессенджеры:') }</span>
                                 <ul className={styles.socialsList}>
                                     {messengers.map((item, index) => !!item.link && (
                                         <li key={index}>
@@ -373,7 +373,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                         <Input
                             name='prim'
                             className={styles.inputStyle}
-                            placeholder='Заметки'
+                            placeholder={ __('Заметки') }
                             value={fields?.prim || ''}
                             onChange={onChangeHandler}
                             onBlur={onBlurHandler}
@@ -388,13 +388,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                         className={styles.cancelBtn}
                         onClick={() => set(false)}
                     >
-                        Отмена
+                        { __('Отмена') }
                     </Button>
                     <Button
                         type='submit'
                         className={styles.submitBtn}
                     >
-                        Сохранить
+                        { __('Сохранить') }
                     </Button>
                 </div>
 
