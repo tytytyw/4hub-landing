@@ -3,9 +3,10 @@ import React from 'react';
 import styles from './List.module.sass';
 import classNames from "classnames";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, icon = true}) => {
-
+    const { __ } = useLocales();
     return (
         <div
             className={classNames({
@@ -23,7 +24,7 @@ const List = ({title, src, setListCollapsed, listCollapsed, children, onCreate, 
                     src={`${imageSrc}assets/PrivateCabinet/play-grey.svg`}
                     alt='play'
                     onClick={() => setListCollapsed(!listCollapsed)}
-                    title={listCollapsed ? 'Развернуть' : 'Свернуть'}
+                    title={listCollapsed ? __('Развернуть') : __('Свернуть')}
                 />
                     {!!icon &&
                     <img
