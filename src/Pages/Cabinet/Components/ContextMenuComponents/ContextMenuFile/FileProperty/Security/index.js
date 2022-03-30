@@ -5,9 +5,10 @@ import styles from './Security.module.sass';
 import InputField from '../../../../../../../generalComponents/InputField';
 import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
 import api from '../../../../../../../api';
+import {useLocales} from "react-localized";
 
 const Security = ({file}) => {
-
+    const { __ } = useLocales();
     const userInfo = useSelector(state => state.user.userInfo);
     const uid = useSelector(state => state.user.uid);
 
@@ -21,7 +22,7 @@ const Security = ({file}) => {
         })
     };
 
-    const noUsers = <div>Доступ не предоставлен никому</div>;
+    const noUsers = <div>{ __('Доступ не предоставлен никому') }</div>;
 
     useEffect(() => {
         async function fetchUsers() {
@@ -43,7 +44,7 @@ const Security = ({file}) => {
                 <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} /></div>
             </div>
             <div className={styles.accessWrap}>
-                <span>Список пользователей, которым предоставлен доступ с возможностью изменить разрешение</span>
+                <span>{ __('Список пользователей, которым предоставлен доступ с возможностью изменить разрешение') }</span>
                 <div className={styles.users}>
                 {userList.length > 0 ? renderUsers(userList) : noUsers}
                 </div>

@@ -5,9 +5,10 @@ import Button from '../../../MyProfile/Button'
 import {messengersData} from '../../../MyProfile/Contacts/consts'
 import classNames from 'classnames'
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
+import {useLocales} from "react-localized";
 
 const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
-
+    const { __ } = useLocales()
     const [selectedSoc, setSelectedSoc] = useState(null)
     const [hrefSoc, setHrefSoc] = useState(null)
     const file_link = `http://fs2.mh.net.ua/ajax/download.php?fid=${fid}`;
@@ -39,10 +40,10 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
                 </div>
                 <div className={styles.border}/>
                 <div className={styles.blockTitle}>
-                    <span className={styles.info}>Выберите мессенджер</span>
+                    <span className={styles.info}>{ __('Выберите мессенджер') }</span>
                 </div>
                 <div className={styles.border}/>
-                <span className={styles.aboutInfo}>При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве</span>
+                <span className={styles.aboutInfo}>{ __('При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве') }</span>
                 <div className={styles.socials}>
                         {messengersData.map((item, index) => {
                             if (item.type === "slack" || item.type === "skype")  return ''
@@ -68,11 +69,11 @@ const ShareToMessengers = ({setDisplayMessengers, close, fid, file}) => {
 
                 <div className={styles.actionBlock}>
                     <Button onClick={() => setDisplayMessengers(false)} className={styles.backBtn}>
-                        Назад
+                        { __('Назад') }
                     </Button>
                     <a target='_blank' rel='noreferrer' href={hrefSoc}>
                         <Button onClick={() => close()} className={styles.actionBtn}>
-                            Отправить
+                            { __('Отправить') }
                         </Button>
                     </a>
                 </div>

@@ -15,8 +15,10 @@ import { ReactComponent as Pensil } from "../../../../../../assets/PrivateCabine
 import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/eye.svg";
 import { ReactComponent as Download } from "../../../../../../assets/PrivateCabinet/download-2.svg";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
+	const { __ } = useLocales();
 	const [error, setError] = useState(false);
 	const [emptyField, setEmptyField] = useState(false);
 	const [displaySetPassword, setDisplaySetPassword] = useState(false);
@@ -64,17 +66,17 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 			)
 			.then((res) => {
 				if (res.data.ok === 1) {
-					setShowSuccessMessage("Отправлено");
+					setShowSuccessMessage( __("Отправлено") );
 					close();
 				} else if (res.data.error) {
 					setError(
 						res.data.error.includes("user_to") &&
 							res.data.error.includes("not found")
-							? "Пользователь не найден"
+							? __("Пользователь не найден")
 							: res.data.error
 					);
 				} else {
-					setError("Что-то пошло не так. Повторите попытку позже");
+					setError(__("Что-то пошло не так. Повторите попытку позже") );
 					console.log(res);
 				}
 			})
@@ -128,7 +130,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						</div>
 					}
 					<div className={classNames(styles.recipient, styles.border_bottom)}>
-						<p className={styles.recipient_title}>{displayMessengers ? 'Предоставить доступ с помощью' : 'Кому'}:</p>
+						<p className={styles.recipient_title}>{displayMessengers ? __('Предоставить доступ с помощью') : __('Кому')}:</p>
 						{!displayMessengers && (
 							<div className={styles.recipient_mail}>
 								<input
@@ -138,9 +140,9 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 										setData((data) => ({ ...data, user_to: e.target.value }))
 									}
 									value={data.user_to}
-									placeholder="Эл.адрес или имя"
+									placeholder={ __("Эл.адрес или имя") }
 									type="text"
-								></input>
+								/>
 							</div>
 						)}
 						{displayMessengers && (
@@ -148,7 +150,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						)}
 						{!displayMessengers &&<div className={styles.recipient_messenger}>
 							<span onClick={() => setDisplayMessengers(true)}>
-								Отправить через мессенджер
+								{ __('Отправить через мессенджер') }
 							</span>
 						</div>}
 						
@@ -159,25 +161,25 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 								setData((data) => ({ ...data, prim: e.target.value }))
 							}
 							value={data.prim}
-							placeholder="Добавить комментарий к Сейфу"
+							placeholder={ __("Добавить комментарий к Сейфу") }
 							type="text"
-						></textarea>
+						/>
 					</div>
 					<div className={classNames(styles.row_item, styles.border_bottom)}>
 						<div className={styles.ico_wrap}>
 							<Password width={16} height={20} className={styles.row_ico} />
 						</div>
 						<div className={styles.input_wrap}>
-							<p className={styles.input_title}>Временный пароль</p>
+							<p className={styles.input_title}>{ __('Временный пароль') }</p>
 							<span className={styles.input_descrp}>
-								Установите временный пароль для выбранного Вами пользователя
+								{ __('Установите временный пароль для выбранного Вами пользователя') }
 							</span>
 						</div>
 						<span
 							onClick={() => setDisplaySetPassword(true)}
 							className={styles.set_btn}
 						>
-							Установить
+							{ __('Установить') }
 						</span>
 					</div>
 					<div className={classNames(styles.row_item, styles.border_bottom)}>
@@ -187,19 +189,19 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 						<div className={styles.input_wrap}>
 							<p className={styles.input_title}>Срок доступа к сейфу</p>
 							<span className={styles.input_descrp}>
-								Установите срок доступа к сейфу для выбранного Вами пользователя
+								{ __('Установите срок доступа к сейфу для выбранного Вами пользователя') }
 							</span>
 						</div>
 						<span
 							onClick={() => setDisplayStotagePeriod(true)}
 							className={styles.set_btn}
 						>
-							Установить
+							{ __('Установить') }
 						</span>
 					</div>
 					<div className={classNames(styles.share_link, styles.border_bottom)}>
 						<h5 className={styles.share_link_title}>
-							Взаимодействие с информацией в сейфе
+							{ __('Взаимодействие с информацией в сейфе') }
 						</h5>
 						<div className={styles.row_item}>
 							<div className={styles.ico_wrap}>
@@ -208,8 +210,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							<div className={styles.input_wrap}>
 								<p className={styles.input_title}>Редактирование</p>
 								<span className={styles.input_descrp}>
-									Все пользователи, которым предоставлен доступ к сейфу, могут
-									редактировать его содержание
+									{ __('Все пользователи, которым предоставлен доступ к сейфу, могут редактировать его содержание') }
 								</span>
 							</div>
 							<div
@@ -234,8 +235,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 							<div className={styles.input_wrap}>
 								<p className={styles.input_title}>Просмотр</p>
 								<span className={styles.input_descrp}>
-									Все пользователи, которым предоставлен доступ к сейфу, могут
-									просматривать содержание сейфа
+									{ __('Все пользователи, которым предоставлен доступ к сейфу, могут просматривать содержание сейфа') }
 								</span>
 							</div>
 							<div
@@ -258,10 +258,9 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 								<Download width={21} height={21}  className={styles.row_ico} />
 							</div>
 							<div className={styles.input_wrap}>
-								<p className={styles.input_title}>Скачивание</p>
+								<p className={styles.input_title}>{ __('Скачивание') }</p>
 								<span className={styles.input_descrp}>
-									Все пользователи, которым предоставлен доступ к сейфу, могут
-									скачать содержание сейфа
+									{ __('Все пользователи, которым предоставлен доступ к сейфу, могут скачать содержание сейфа') }
 								</span>
 							</div>
 							<div
@@ -282,7 +281,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 					</div>
 					<div className={styles.buttonsWrap}>
 						<div className={styles.cancel} onClick={() => close()}>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div
 							className={styles.add}
@@ -290,7 +289,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
 								data.user_to ? onShareSafe() : setEmptyField(true);
 							}}
 						>
-							Отправить
+							{ __('Отправить') }
 						</div>
 					</div>
 				</div>

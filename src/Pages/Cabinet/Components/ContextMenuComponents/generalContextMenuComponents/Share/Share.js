@@ -13,8 +13,10 @@ import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabi
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { arrayForPhpRequest } from "../../../../../../generalComponents/generalHelpers";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
+    const { __ } = useLocales();
     const [error, setError] = useState(false);
     const [emptyField, setEmptyField] = useState(false);
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
@@ -63,12 +65,12 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
             api.post(`/ajax/${action_type || share.action_type}.php?${newData}`)
             .then(res => {
                 if(!!res.data.ok) {
-                    setShowSuccessMessage ? setShowSuccessMessage('Отправлено') : dispatch(onSetModals('success', {open: true, message: 'Отправка прошла успешно'}))
+                    setShowSuccessMessage ? setShowSuccessMessage( __('Отправлено') ) : dispatch(onSetModals('success', {open: true, message: __('Отправка прошла успешно')}))
                     closeModal()
                 } else if (res.data.error) {
-                    setError(res.data.error === 'user_to not found' ? 'Пользователь не найден' : res.data.error)
+                    setError(res.data.error === 'user_to not found' ? __('Пользователь не найден') : res.data.error)
                 } else {
-                    setError('Что-то пошло не так. Повторите попытку позже')
+                    setError(__('Что-то пошло не так. Повторите попытку позже') )
                 }
             })
             .catch(err => {setError(`${err}`)})
@@ -93,7 +95,7 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
                 <div className={styles.border}/>
                 <div className={classNames(styles.recipient, styles.border_bottom)}>
                     <p className={styles.recipient_title}>
-                        Кому:
+                        { __('Кому:') }
                     </p>
                     <div className={styles.recipient_mail}>
                         <input
@@ -101,12 +103,12 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
                             onClick={() => setEmptyField(false)}
                             onChange={(e) => setData(data => ({...data, user_to: e.target.value}))}
                             value={data.user_to}
-                            placeholder='Эл.адрес или имя'
+                            placeholder={ __('Эл.адрес или имя') }
                             type='text'
                         />
                     </div>
                     <div className={styles.recipient_messenger}>
-                        <span onClick={() => setDisplayMessengers(true)}>Отправить через мессенджер</span>
+                        <span onClick={() => setDisplayMessengers(true)}>{ __('Отправить через мессенджер') }</span>
                     </div>
                 </div>
                 <div className={styles.border}/>
@@ -114,7 +116,7 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
                     <textarea
                         onChange={(e)=> setData(data => ({...data, prim: e.target.value}))}
                         value={data.prim}
-                        placeholder='Добавить комментарий к файлу'
+                        placeholder={ __('Добавить комментарий к файлу') }
                         type='text'
                     />
                     <div className={styles.border}/>
@@ -125,13 +127,13 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
                     </div>
                     <div className={styles.input_wrap}>
                         <p className={styles.input_title}>Пароль</p>
-                        <input id={'input_pass'} value='Вы можете установить пароль на данный файл' type='button' />
+                        <input id={'input_pass'} value={ __('Вы можете установить пароль на данный файл') } type='button' />
                     </div>
                     <span
                         onClick={() => setDisplaySetPassword(true)}
                         className={styles.set_btn}
                     >
-                        Установить
+                        { __('Установить') }
                     </span>
                 </div>
                 <div className={styles.border}/>
@@ -140,19 +142,19 @@ function Share({files, action_type, setShowSuccessMessage, setLoadingType}) {
                         <Calendar className={styles.row_ico} />
                     </div>
                     <div className={styles.input_wrap}>
-                        <p className={styles.input_title}>Срок хранения файла/папки</p>
-                        <input value='Установите срок хранения файла (после завершения файл будет удален)' type='button'></input>
+                        <p className={styles.input_title}>{ __('Срок хранения файла/папки') }</p>
+                        <input value={ __('Установите срок хранения файла (после завершения файл будет удален)') } type='button'></input>
                     </div>
                     <span
                         onClick={() => setDisplayStotagePeriod(true)}
                         className={styles.set_btn}
                     >
-                        Установить
+                        { __('Установить') }
                     </span>
                 </div>
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={closeModal}>Отмена</div>
-                    <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>Отправить</div>
+                    <div className={styles.cancel} onClick={closeModal}>{ __('Отмена') }</div>
+                    <div className={styles.add} onClick={()=> {data.user_to ? onShareFile() : setEmptyField(true)}}>{ __('Отправить') }</div>
                 </div>
             </div>}
             {error && <Error error={error} set={closeModal} message={error} />}

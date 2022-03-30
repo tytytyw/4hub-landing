@@ -7,9 +7,10 @@ import Security from './Security';
 import PrevVersions from './PrevVersions';
 import {useDispatch, useSelector} from "react-redux";
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const FileProperty = () => {
-
+    const { __ } = useLocales();
     const [inset, setInset] = useState('general');
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const file = contextMenuModals.items[0];
@@ -25,22 +26,22 @@ const FileProperty = () => {
                 <div
                     className={`${styles.inset} ${inset === 'general' ? styles.chosen : null}`}
                     onClick={() => setInset('general')}
-                >Общие</div>
+                >{ __('Общие') }</div>
                 <div
                     className={`${styles.inset} ${inset === 'security' ? styles.chosen : null}`}
                     onClick={() => setInset('security')}
-                >Доступы</div>
+                >{ __('Доступы') }</div>
                 <div
                     className={`${styles.inset} ${inset === 'prev' ? styles.chosen : null}`}
                     onClick={() => setInset('prev')}
-                >Предыдущие версии</div>
+                >{ __('Предыдущие версии') }</div>
             </div>
             {inset === 'general' ? <General file={file} /> : null}
             {inset === 'security' ? <Security file={file} /> : null}
             {inset === 'prev' ? <PrevVersions file={file} /> : null}
             <div className={styles.buttonsWrap}>
-                <div className={styles.cancel} onClick={close}>Отмена</div>
-                <div className={`${styles.add}`} onClick={close}>Готово</div>
+                <div className={styles.cancel} onClick={close}>{ __('Отмена') }</div>
+                <div className={`${styles.add}`} onClick={close}>{ __('Готово') }</div>
             </div>
         </div>
     </PopUp>)

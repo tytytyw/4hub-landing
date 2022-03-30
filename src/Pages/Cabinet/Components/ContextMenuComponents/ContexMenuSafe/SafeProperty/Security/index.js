@@ -4,9 +4,10 @@ import {useSelector} from 'react-redux';
 import styles from './Security.module.sass';
 import InputField from '../../../../../../../generalComponents/InputField';
 import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const Security = ({safe}) => {
-
+    const { __ } = useLocales();
     const userInfo = useSelector(state => state.user.userInfo);
     const userList = ['Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
     const userListRestriction = ['Коваленко Артем', 'Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
@@ -23,13 +24,13 @@ const Security = ({safe}) => {
                 <div className={styles.inputWrap}><InputField height='90%' placeholder={`${userInfo?.name} ${userInfo?.sname}`} disabled={true} /></div>
             </div>
             <div className={styles.accessWrap}>
-                <span>Список пользователей, которым предоставлен доступ с возможностью изменить разрешение</span>
+                <span>{ __('Список пользователей, которым предоставлен доступ с возможностью изменить разрешение') }</span>
                 <div className={styles.users}>
                     {renderUsers(userList)}
                 </div>
             </div>
             <div className={styles.limitationWrap}>
-                <span>Дополнительные настройки взаимодействия с файлом (разрешение/запрет на изменение, чтение и тд) с возможностью изменить:</span>
+                <span>{ __('Дополнительные настройки взаимодействия с файлом (разрешение/запрет на изменение, чтение и тд) с возможностью изменить:') }</span>
                 <div className={styles.users}>
                     {renderUsers(userListRestriction)}
                 </div>

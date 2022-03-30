@@ -5,8 +5,10 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import General from "./General";
 import Security from "./Security";
 import PrevVersions from "./PrevVersions";
+import {useLocales} from "react-localized";
 
 const SafeProperty = ({ close, safe }) => {
+	const { __ } = useLocales();
 	const [inset, setInset] = useState("general");
 	return (
 		<PopUp set={close}>
@@ -44,10 +46,10 @@ const SafeProperty = ({ close, safe }) => {
 				{inset === "prev" ? <PrevVersions safe={safe} /> : null}
 				<div className={styles.buttonsWrap}>
 					<div className={styles.cancel} onClick={close}>
-						Отмена
+						{ __('Отмена') }
 					</div>
 					<div className={`${styles.add}`} onClick={close}>
-						Готово
+						{ __('Готово') }
 					</div>
 				</div>
 			</div>

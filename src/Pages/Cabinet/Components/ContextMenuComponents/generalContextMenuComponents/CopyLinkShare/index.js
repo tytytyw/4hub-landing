@@ -11,15 +11,17 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../api";
 import Error from "../../../../../../generalComponents/Error";
+import {useLocales} from "react-localized";
 
 function CopyLinkShare() {
-    const { items, action_type } = useSelector(s => s.Cabinet.modals.contextMenuModals);
+	const { __ } = useLocales();
+	const { items, action_type } = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const item = items[0];
 	const uid = useSelector(state => state.user.uid);
 	const contactList = useSelector((state) => state.Cabinet.contactList);
 	const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
-	const [url, setUrl] = useState("Загрузка...");
-	const [review, setReview] = useState({ text: "Просмотр" });
+	const [url, setUrl] = useState( __("Загрузка...") );
+	const [review, setReview] = useState({ text: __("Просмотр") });
 	const [context, setContext] = useState("");
 	const linkRef = useRef("");
 	const [chosenContacts, setChosenContacts] = useState([]);
@@ -62,9 +64,9 @@ function CopyLinkShare() {
 	};
 
 	const getLink = (status) => {
-		setUrl('Загрузка...')
+		setUrl(__('Загрузка...') )
 		if(item?.is_dir === 0) {
-			item?.file_link ? setUrl(item.file_link) : setError(state => ({...state, error: true, message: `Ссылка на файл не найдена. Попробуйте еще раз`}));
+			item?.file_link ? setUrl(item.file_link) : setError(state => ({...state, error: true, message: __(`Ссылка на файл не найдена. Попробуйте еще раз`)}));
 		} else {
 			let stat = '$&is_read=1'
 			if(status === 'write') stat = '$&is_read=0'
@@ -96,7 +98,7 @@ function CopyLinkShare() {
 				document.execCommand("copy");
 				linkRef.current.value = "";
 			}
-			dispatch(onSetModals('topMessage', {open: true, type: 'message', message: "Ссылка скопирована"}))
+			dispatch(onSetModals('topMessage', {open: true, type: 'message', message: __("Ссылка скопирована")}))
 		}
 	};
 
@@ -151,24 +153,24 @@ function CopyLinkShare() {
 			<div
 				className={styles.reviewOption}
 				onClick={() => {
-					setReview({ ...review, text: "Просмотр" });
+					setReview({ ...review, text: __("Просмотр")});
 					getLink();
 				}}
 			>
 				<div
 					className={`${styles.radio} ${
-						review.text === "Просмотр" ? styles.radioChosen : ""
+						review.text === __("Просмотр") ? styles.radioChosen : ""
 					}`}
 				/>
-				<div className={styles.description}>Просмотр</div>
+				<div className={styles.description}>{ __('Просмотр') }</div>
 			</div>
 			<div
 				className={styles.reviewOption}
-				onClick={() => setReview({ ...review, text: "Скачивание" })}
+				onClick={() => setReview({ ...review, text: __("Скачивание") })}
 			>
 				<div
 					className={`${styles.radio} ${
-						review.text === "Скачивание" ? styles.radioChosen : ""
+						review.text === __("Скачивание") ? styles.radioChosen : ""
 					}`}
 				/>
 				<div>Скачивание</div>
@@ -176,19 +178,19 @@ function CopyLinkShare() {
 			<div
 				className={`${styles.reviewOption} ${styles.reviewOptionLast}`}
 				onClick={() => {
-					setReview({ ...review, text: "Редактировать" });
+					setReview({ ...review, text: __("Редактировать") });
 					getLink("write");
 				}}
 			>
 				<div
 					className={`${styles.radio} ${
-						review.text === "Редактировать" ? styles.radioChosen : ""
+						review.text === __("Редактировать") ? styles.radioChosen : ""
 					}`}
 				/>
-				<div>Редактировать</div>
+				<div>{ __('Редактировать') }</div>
 			</div>
 			<span className={styles.descr}>
-				Может упорядочивать, добавлять и редактировать файл
+				{ __('Может упорядочивать, добавлять и редактировать файл') }
 			</span>
 		</div>
 	);
@@ -240,7 +242,7 @@ function CopyLinkShare() {
 						</div>
 						<div className={styles.details}>
 							<div className={styles.title}>
-								Предоставьте доступ пользователям и группам
+								{ __('Предоставьте доступ пользователям и группам') }
 							</div>
 						</div>
 					</header>
@@ -271,29 +273,20 @@ function CopyLinkShare() {
 							</div>
 							<div className={styles.message}>
 								<textarea
-									placeholder="Добавить сообщение"
+									placeholder={ __("Добавить сообщение") }
 									value={prim}
 									onChange={(e) => setPrim(e.target.value)}
 								/>
 							</div>
-							{/* <div className={`${styles.project}`}> */}
-							{/* <FolderIcon
-									className={`${styles.projectIcon} ${
-										colors.filter((el) => el.color === project.info.color)[0]
-											?.name
-									}`}
-								/> */}
-							{/* <div className={styles.projectInfo}>{project.name}</div> */}
-							{/* </div> */}
 							<div className={styles.buttonsWrap}>
 								<div
 									className={styles.cancel}
 									onClick={() => setSendAccess(false)}
 								>
-									Отмена
+									{ __('Отмена') }
 								</div>
 								<div className={styles.send} onClick={sendProject}>
-									Отправить
+									{ __('Отправить') }
 								</div>
 							</div>
 						</div>
@@ -309,7 +302,7 @@ function CopyLinkShare() {
 						<div className={styles.details}>
 							<div className={styles.title}>Скопируйте ссылку</div>
 							<div className={styles.description}>
-								для того чтобы отправить ссылку нажмите кнопку копировать ссылку
+								{ __('для того чтобы отправить ссылку нажмите кнопку копировать ссылку') }
 							</div>
 						</div>
 					</header>
@@ -317,7 +310,7 @@ function CopyLinkShare() {
 						<div className={styles.copyLink}>
 							<div className={styles.link}>{url}</div>
 							<div className={styles.copy} onClick={copyLink}>
-								Копировать ссылку
+								{ __('Копировать ссылку') }
 							</div>
 						</div>
 						<div className={styles.accessUsers}>
@@ -327,15 +320,15 @@ function CopyLinkShare() {
 								</div>
 								<div className={styles.details}>
 									<div className={styles.title}>
-										Предоставьте доступ пользователям и группам
+										{ __('Предоставьте доступ пользователям и группам') }
 									</div>
 									<div className={styles.description}>
-										совместный доступ не настроен
+										{ __('совместный доступ не настроен') }
 									</div>
 								</div>
 							</div>
 							<div className={styles.contacts} onClick={onOpenContacts}>
-								<span>Контакты</span>
+								<span>{ __('Контакты') }</span>
 								<img
 									src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
 									alt="copy"
@@ -347,11 +340,11 @@ function CopyLinkShare() {
 									<div className={styles.contactsList}>
 										<div className={styles.contactTitleWrap}>
 											<img  className={styles.notebookIcon} src={`${imageSrc}assets/PrivateCabinet/notebook-of-contacts.svg`} alt="img" />
-											<span>Контакты</span>
+											<span>{ __('Контакты') }</span>
 										</div>
 										<div className={styles.line} />
 										<div className={styles.contactsSearchBar}>
-											<input type="text" placeholder="Введите имя или email" />
+											<input type="text" placeholder={ __("Введите имя или email") } />
 											<img
 												src={
 													imageSrc +
@@ -370,7 +363,7 @@ function CopyLinkShare() {
 												}`}
 												onClick={() => setSendAccess(true)}
 											>
-												Готово
+												{ __('Готово') }
 											</div>
 										</div>
 									</div>
@@ -385,10 +378,10 @@ function CopyLinkShare() {
 								</div>
 								<div className={styles.details}>
 									<div className={styles.title}>
-										Доступные пользователи, у которых есть ссылка
+										{ __('Доступные пользователи, у которых есть ссылка') }
 									</div>
 									<div className={styles.description}>
-										просматривать могут все у кого есть ссылка
+										{ __('просматривать могут все у кого есть ссылка') }
 									</div>
 								</div>
 							</div>
@@ -406,10 +399,10 @@ function CopyLinkShare() {
 					</main>
 					<div className={styles.buttonsWrap}>
 						<div className={styles.cancel} onClick={saveChanges}>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div className={`${styles.add}`} onClick={saveChanges}>
-							Готово
+							{ __('Готово') }
 						</div>
 					</div>
 				</div>

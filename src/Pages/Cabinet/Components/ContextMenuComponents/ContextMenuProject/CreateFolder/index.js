@@ -13,6 +13,7 @@ import "../../../../../../generalComponents/colors.sass";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import {useLocales} from "react-localized";
 
 const CreateFolder = ({
 	onCreate,
@@ -22,6 +23,7 @@ const CreateFolder = ({
 	parentFolder,
 	setGLoader,
 }) => {
+	const { __ } = useLocales();
 	const tags = useTags();
 	const uid = useSelector((state) => state.user.uid);
 	const [name, setName] = useState("");
@@ -68,11 +70,11 @@ const CreateFolder = ({
 				.then((res) => {
 					if (res.data.ok === 1) {
 					} else {
-						setError("Папка не добавлена");
+						setError( __("Папка не добавлена") );
 					}
 				})
 				.catch(() => {
-					setError("Папка не добавлена");
+					setError( __("Папка не добавлена") );
 				})
 				.finally(() => {
 					setGLoader(false);
@@ -179,7 +181,7 @@ const CreateFolder = ({
 								model="text"
 								value={name}
 								set={onAddName}
-								placeholder="Имя папки"
+								placeholder={ __("Имя папки") }
 								mistake={noNameError}
 							/>
 						</div>
@@ -188,7 +190,7 @@ const CreateFolder = ({
 							<input
 								className={styles.inputField}
 								type="text"
-								placeholder="Добавте #Тег"
+								placeholder={ __("Добавте #Тег") }
 								value={tagOption.chosen}
 								onChange={(e) => onChangeTag(e.target.value)}
 								onFocus={() => {
@@ -204,7 +206,7 @@ const CreateFolder = ({
 								switcher={true}
 								value={password}
 								set={setPassword}
-								placeholder="Пароль"
+								placeholder={ __("Пароль") }
 								onSwitch={onSwitch}
 								isPass={showRepeat}
 								visibility={visibility}
@@ -218,7 +220,7 @@ const CreateFolder = ({
 									switcher={false}
 									value={passwordRepeat}
 									set={setPasswordRepeat}
-									placeholder="Повторите пароль"
+									placeholder={ __("Повторите пароль") }
 									visibility={visibility}
 									setVisibility={setVisibility}
 									comparePass={comparePass}

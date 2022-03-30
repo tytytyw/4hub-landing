@@ -2,9 +2,10 @@ import React, {useLayoutEffect, useRef} from 'react';
 import {onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router";
+import {useLocales} from "react-localized";
 
 function DownloadFile() {
-
+    const { __ } = useLocales();
     const uid = useSelector(s => s.user.uid);
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const error = useSelector(s => s.Cabinet.modals.error);
@@ -57,7 +58,7 @@ function DownloadFile() {
                 }`}
                 method="post"
                 ref={formRef}
-                onError={() => dispatch(onSetModals('error', {...error, open: true, message: 'File not found'}))}
+                onError={() => dispatch(onSetModals('error', {...error, open: true, message: __('Файл не найден')}))}
             >
                 <input
                     style={{ display: "none" }}
@@ -72,7 +73,7 @@ function DownloadFile() {
                 action={`/ajax/${location === 'chat-page' ? "chat_file_" : ""}download.php`}
                 method='post'
                 ref={formRef}
-                onError={() => dispatch(onSetModals('error', {...error, open: true, message: 'File not found'}))}
+                onError={() => dispatch(onSetModals('error', {...error, open: true, message: __('Файл не найден')}))}
             >
               <input style={{display: 'none'}} name='fid' value={contextMenuModals?.items[0]?.fid || ''} readOnly />
           </form>}

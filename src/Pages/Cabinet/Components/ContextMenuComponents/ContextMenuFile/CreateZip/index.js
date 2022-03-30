@@ -15,8 +15,10 @@ import File from '../../../../../../generalComponents/Files';
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import {onChooseFiles, onGetSafeFileList, onSetModals} from '../../../../../../Store/actions/CabinetActions';
 import {useLocation} from "react-router";
+import {useLocales} from "react-localized";
 
 const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const {title, items, filesPage} = useSelector(s => s.Cabinet.modals.contextMenuModals);
     console.log(items)
@@ -74,7 +76,7 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
             api.post(`/ajax/${pathname === '/safe' ? 'safe_' : ''}file_zip.php`, data)
                 .then(() => {
                     dispatch(pathname === '/safe' ? onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.password, '', '', setLoadingType, '', filesPage, "") : onChooseFiles(fileList.path));
-                    dispatch(onSetModals('topMessage', {...topMessage, open: true, type: 'message', message: 'Выбранные файлы успешно сжато в Zip'}))
+                    dispatch(onSetModals('topMessage', {...topMessage, open: true, type: 'message', message: __('Выбранные файлы успешно сжато в Zip')}))
                     onCancel();
                 })
                 .catch(() => setError(true))
@@ -144,7 +146,7 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
                                 model='text'
                                 value={name}
                                 set={setName}
-                                placeholder='Имя файла'
+                                placeholder={ __('Имя файла') }
                             />
                         </div>
                         <div className={styles.tagPicker}>
@@ -152,7 +154,7 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавьте #Тег'
+                                placeholder={ __('Добавьте #Тег') }
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -169,7 +171,7 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
                                 isPass={showRepeat}
                                 value={password}
                                 set={setPassword}
-                                placeholder='Пароль'
+                                placeholder={ __('Пароль') }
                                 onSwitch={onSwitch}
                                 visibility={visibility}
                                 setVisibility={setVisibility}
@@ -182,7 +184,7 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
                                 switcher={false}
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
-                                placeholder='Повторите пароль'
+                                placeholder={ __('Повторите пароль') }
                                 visibility={visibility}
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
@@ -194,12 +196,12 @@ const CreateZip = ({setLoadingType = () => {}, nullifyFilePick = () => {}}) => {
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={onCancel}>Отмена</div>
-                        <div className={`${styles.add}`} onClick={onAddFileToZip}>Добавить</div>
+                        <div className={styles.cancel} onClick={onCancel}>{ __('Отмена') }</div>
+                        <div className={`${styles.add}`} onClick={onAddFileToZip}>{ __('Добавить') }</div>
                     </div>
                 </div>
             </PopUp>
-            {error && <Error error={error} set={close} message='Файл не удалось сжать в ZIP архив' />}
+            {error && <Error error={error} set={close} message={ __('Файл не удалось сжать в ZIP архив') } />}
         </div>
     )
 }

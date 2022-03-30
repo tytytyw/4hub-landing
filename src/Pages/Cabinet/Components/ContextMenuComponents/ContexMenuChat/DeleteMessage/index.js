@@ -8,8 +8,10 @@ import {
 	onSetModals,
 	onDeleteChatMessage,
 } from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const DeleteMessage = ({ set, message, nullifyAction }) => {
+	const { __ } = useLocales();
 	const uid = useSelector((state) => state.user.uid);
 	const text = message?.text?.split("\n").slice(0, 5) ?? [];
 	const dispatch = useDispatch();
@@ -31,14 +33,14 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 						onSetModals("topMessage", {
 							open: true,
 							type: "message",
-							message: "Сообщение удалено",
+							message: __("Сообщение удалено"),
 						})
 					);
 				} else {
 					dispatch(
 						onSetModals("error", {
 							open: true,
-							message: "Что-то пошло не так, повторите попытку позже",
+							message: __("Что-то пошло не так, повторите попытку позже"),
 						})
 					);
 				}
@@ -51,7 +53,7 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 				<div className={styles.cross} onClick={set} />
 				<span className={styles.title}>Удалить сообщение</span>
 				<div className={styles.subTitle}>
-					Вы действительно хотите удалить сообщение?
+					{ __('Вы действительно хотите удалить сообщение?') }
 				</div>
 				{message.text?.length ? (
 					<div className={styles.textWrap}>
@@ -69,19 +71,19 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 						className={classNames(styles.cancel, styles.button)}
 						onClick={set}
 					>
-						Отмена
+						{ __('Отмена') }
 					</div>
 					<div
 						className={classNames(styles.action, styles.button)}
 						// onClick={() => onAproveBtnHandler()}
 					>
-						Удалить у меня
+						{ __('Удалить у меня') }
 					</div>
 					<div
 						className={classNames(styles.action, styles.button)}
 						onClick={() => onAproveBtnHandler()}
 					>
-						Удалить у всех
+						{ __('Удалить у всех') }
 					</div>
 				</div>
 			</div>

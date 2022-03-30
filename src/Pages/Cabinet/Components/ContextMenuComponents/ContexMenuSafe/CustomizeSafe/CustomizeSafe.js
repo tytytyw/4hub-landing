@@ -15,8 +15,10 @@ import classNames from "classnames";
 import api from "../../../../../../api";
 import { useSelector, useDispatch } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import {useLocales} from "react-localized";
 
 const CustomizeSafe = ({ safe, close, setLoadingType }) => {
+	const { __ } = useLocales();
 	const tags = useTags();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
@@ -73,8 +75,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 					} else {
 						setError(
 							res.data.error === "user not owener of safe or safe not found"
-								? "Пользователь не владелец сейфа или сейф не найден"
-								: "Что-то пошло не так. Повторите попытку позже"
+								? __("Пользователь не владелец сейфа или сейф не найден")
+								: __("Что-то пошло не так. Повторите попытку позже")
 						);
 					}
 				}
@@ -131,7 +133,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 					<span className={styles.cross} onClick={() => close()} />
 
 					<div className={styles.content}>
-						<span className={styles.title}>Редактирование сейфа</span>
+						<span className={styles.title}>{ __('Редактирование сейфа') }</span>
 						<div className={styles.folderIconWrap}>
 							<div
 								className={classNames({
@@ -206,7 +208,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 							<div className={styles.inputWrap}>
 								<Input
 									name="name"
-									placeholder="Имя сейфа"
+									placeholder={ __("Имя сейфа") }
 									className={styles.input}
 									value={name}
 									onChange={(event) => setName(event.target.value)}
@@ -219,7 +221,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 								<input
 									className={styles.inputField}
 									type="text"
-									placeholder="Добавьте #Тег"
+									placeholder={ __("Добавьте #Тег") }
 									value={tagOption.chosen}
 									onChange={(e) => onChangeTag(e.target.value)}
 									onFocus={() => {
@@ -240,7 +242,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 								<Input
 									type="password"
 									name="password"
-									placeholder="Введите пароль"
+									placeholder={ __("Введите пароль") }
 									showPass={showPass}
 									setShowPass={setShowPass}
 									className={styles.input}
@@ -257,10 +259,10 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 
 					<div className={styles.buttonsWrap}>
 						<div className={styles.cancel} onClick={() => close()}>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div className={styles.add} onClick={() => AddSafe()}>
-							Сохранить
+							{ __('Сохранить') }
 						</div>
 					</div>
 				</div>

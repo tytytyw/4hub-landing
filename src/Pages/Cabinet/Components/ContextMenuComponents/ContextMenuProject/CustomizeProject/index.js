@@ -13,9 +13,10 @@ import Emoji from '../../../../../../generalComponents/Elements/Emoji'
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 import ProjectIcons from '../../../Project/ProjectIcons/ProjectIcons'
 import {onGetProjects} from '../../../../../../Store/actions/CabinetActions'
+import {useLocales} from "react-localized";
 
 const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
-
+    const { __ } = useLocales();
     const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState(project.name);
@@ -55,10 +56,10 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                     dispatch(onGetProjects())
                     closeComponent()
                 } else if ((res.data.error === "name exists")) {
-					setError("Проект с таким именем уже существует");
+					setError(__("Проект с таким именем уже существует"));
                     setNoNameError(true)
 				} else {
-					setError("Что-то пошло не так. Повторите попытку позже");
+					setError(__("Что-то пошло не так. Повторите попытку позже"));
 				}
             })
             .catch(error => console.log(error))
@@ -107,7 +108,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             model='text'
                             value={target}
                             set={setTarget}
-                            placeholder='Цель проекта'
+                            placeholder={ __('Цель проекта') }
                         />
                     </div>
 
@@ -116,7 +117,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             model='text'
                             value={members}
                             set={setMembers}
-                            placeholder='Участники (введите email или из списка)'
+                            placeholder={ __('Участники (введите email или из списка)') }
                         />
                         <img
                             src={imageSrc + 'assets/PrivateCabinet/input-arrow.svg'}
@@ -130,7 +131,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                         <input
                             className={styles.inputField}
                             type='text'
-                            placeholder='Добавьте #Тег'
+                            placeholder={ __('Добавьте #Тег') }
                             value={tagOption.chosen}
                             onChange={(e) => onChangeTag(e.target.value)}
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -147,7 +148,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             switcher={true}
                             value={password}
                             set={setPassword}
-                            placeholder='Установить пароль'
+                            placeholder={ __('Установить пароль') }
                             onSwitch={onSwitch}
                             visibility={visibility}
                             setVisibility={setVisibility}
@@ -161,7 +162,7 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                             switcher={false}
                             value={passwordRepeat}
                             set={setPasswordRepeat}
-                            placeholder='Повторите пароль'
+                            placeholder={ __('Повторите пароль') }
                             visibility={visibility}
                             setVisibility={setVisibility}
                             comparePass={comparePass}
@@ -175,12 +176,12 @@ const CustomizeProject = ({onCreate, title, project, setLoadingType}) => {
                 <Signs sign={sign} setSign={setSign} />
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                    <div className={styles.add} onClick={() => onCustomize()}>Сохранить</div>
+                    <div className={styles.cancel} onClick={() => onCreate(false)}>{ __('Отмена') }</div>
+                    <div className={styles.add} onClick={() => onCustomize()}>{ __('Сохранить') }</div>
                 </div>
             </div>
         </PopUp>
-        {error && <Error error={error} set={closeComponent} message='Папка не добавлена' />}
+        {error && <Error error={error} set={closeComponent} message={ __('Папка не добавлена') } />}
         </>
     )
 }

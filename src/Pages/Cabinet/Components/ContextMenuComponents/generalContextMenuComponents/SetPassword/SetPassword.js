@@ -7,8 +7,10 @@ import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import classNames from "classnames";
 import {ReactComponent as Password} from "../../../../../../assets/PrivateCabinet/password.svg";
 import Success from "../../../../../../generalComponents/Success";
+import {useLocales} from "react-localized";
 
 function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
+	const { __ } = useLocales();
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
 	const [showRepeat, setShowRepeat] = useState(true);
@@ -53,13 +55,13 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 						</div>
 						<div className={styles.input_wrap}>
 							<p className={styles.input_title}>Пароль</p>
-							<input id={'input_pass'} value='Вы можете установить пароль на данный файл' type='button' />
+							<input id={'input_pass'} value={ __('Вы можете установить пароль на данный файл') } type='button' />
 						</div>
 					</div>
 					<div className={styles.border}/>
 					<div className={styles.inputFieldsWrap}>
 						<div className={styles.inputWrapInfo}>
-							<span>Придумайте пароль для файла</span>
+							<span>{ __('Придумайте пароль для файла') }</span>
 							<InputField
 								model="password"
 								isPass={true}
@@ -67,7 +69,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 								height={"35px"}
 								value={password}
 								set={setPassword}
-								placeholder="Пароль"
+								placeholder={ __("Пароль") }
 								onSwitch={onSwitch}
 								visibility={visibility}
 								setVisibility={setVisibility}
@@ -83,7 +85,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 									height={"35px"}
 									value={passwordRepeat}
 									set={setPasswordRepeat}
-									placeholder="Повторите пароль"
+									placeholder={ __("Повторите пароль") }
 									visibility={visibility}
 									setVisibility={setVisibility}
 									comparePass={comparePass}
@@ -97,7 +99,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 							className={styles.cancel}
 							onClick={() => setDisplaySetPassword(false)}
 						>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div
 							className={`${file ? styles.add : styles.buttonDisabled}`}
@@ -105,7 +107,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 								if (file) onAddPass();
 							}}
 						>
-							Установить
+							{ __('Установить') }
 						</div>
 					</div>
 				</div>
@@ -114,13 +116,13 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
 				<Error
 					error={error}
 					set={closeComponent}
-					message="Пароль не добавлен"
+					message={ __("Пароль не добавлен") }
 				/>
 			)}
 			{success && (<Success
 					set={closeComponent}
-					message='Пароль на файл успешно установлен при передаче файла, на email получателя прийдет указанный Вами пароль'
-					title='Пароль успешно установлен'
+					message={ __('Пароль на файл успешно установлен при передаче файла, на email получателя прийдет указанный Вами пароль') }
+					title={ __('Пароль успешно установлен') }
 					success={success}
 			/>)}
 		</div>

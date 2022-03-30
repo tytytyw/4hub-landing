@@ -12,14 +12,15 @@ import {imageSrc} from "../../../../../../generalComponents/globalVariables";
 import {ReactComponent as FolderIcon} from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../../generalComponents/collections";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
+import {useLocales} from "react-localized";
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadingType }) {
-
+    const { __ } = useLocales();
     const uid = useSelector(state => state.user.uid);
     const contactList = useSelector(state => state.Cabinet.contactList);
     const fileList = useSelector(state => state.Cabinet.fileList);
-    const [url, setUrl] = useState("Загрузка...");
-    const [review, setReview] = useState({text: "Просмотр"});
+    const [url, setUrl] = useState(__("Загрузка..."));
+    const [review, setReview] = useState({text: __("Просмотр")});
     const [access, setAccess] = useState({text: "limited"});
     const [context, setContext] = useState('');
     const linkRef = useRef("");
@@ -49,7 +50,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
     }
 
     const getLink = (status) => {
-        setUrl('Загрузка...')
+        setUrl(__('Загрузка...'))
         let stat = '$&is_read=1'
         if(status === 'write') stat = '$&is_read=0'
         const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST${stat}`;
@@ -71,7 +72,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                 document.execCommand('copy');
                 linkRef.current.value = '';
             }
-            setShowSuccessMessage('Ссылка скопирована');
+            setShowSuccessMessage( __('Ссылка скопирована') );
         }
     }
 
@@ -105,26 +106,26 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
             <div
                 className={styles.reviewOption}
                 onClick={() => {
-                    setReview({...review, text: 'Просмотр'});
+                    setReview({...review, text: __('Просмотр')});
                     getLink();
                 }}>
-                <div className={`${styles.radio} ${review.text === 'Просмотр' ? styles.radioChosen : ''}`} />
+                <div className={`${styles.radio} ${review.text === __('Просмотр') ? styles.radioChosen : ''}`} />
                 <div className={styles.description}>Просмотр</div>
             </div>
-            <div className={styles.reviewOption} onClick={() => setReview({...review, text: 'Скачивание'})}>
-                <div className={`${styles.radio} ${review.text === 'Скачивание' ? styles.radioChosen : ''}`} />
+            <div className={styles.reviewOption} onClick={() => setReview({...review, text: __('Скачивание')})}>
+                <div className={`${styles.radio} ${review.text === __('Скачивание') ? styles.radioChosen : ''}`} />
                 <div>Скачивание</div>
             </div>
             <div
                 className={`${styles.reviewOption} ${styles.reviewOptionLast}`}
                 onClick={() => {
-                    setReview({...review, text: 'Редактировать'});
+                    setReview({...review, text: __('Редактировать')});
                     getLink('write');
                 }}>
-                <div className={`${styles.radio} ${review.text === 'Редактировать' ? styles.radioChosen : ''}`} />
+                <div className={`${styles.radio} ${review.text === __('Редактировать') ? styles.radioChosen : ''}`} />
                 <div>Редактировать</div>
             </div>
-            <span className={styles.descr}>Может упорядочивать, добавлять и редактировать файл</span>
+            <span className={styles.descr}>{ __('Может упорядочивать, добавлять и редактировать файл') }</span>
         </div>
     )
 
@@ -160,7 +161,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
 
     const sendFolder = () => {
         const path = fileList.path;
-        const access = review.text === 'Просмотр';
+        const access = review.text === __('Просмотр');
         setLoadingType('squarify');
         chosenContacts.forEach((c, i) => {
             api.get(`/ajax/dir_access_add.php?uid=${uid}&dir=${path}&email=${c.email[0]}&is_read=${access}&prim=${prim}`)
@@ -173,7 +174,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                 .finally(() => {
                     if(chosenContacts.length - 1 === i) {
                         setLoadingType('');
-                        setShowSuccessMessage('Ссылка отправлена на почту');
+                        setShowSuccessMessage( __('Ссылка отправлена на почту') );
                         nullifyAction();
                     }
                 })
@@ -192,7 +193,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                         <img src='./assets/PrivateCabinet/arrow.svg' alt='img' />
                     </div>
                     <div className={styles.details}>
-                        <div className={styles.title}>Предоставьте доступ пользователям и группам</div>
+                        <div className={styles.title}>{ __('Предоставьте доступ пользователям и группам') }</div>
                     </div>
                 </header>
                 <main>
@@ -212,7 +213,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                             onClick={() => setNotify(!notify)}
                         >
                             <div className={notify ? styles.notifyEnable : styles.notifyDisable}/>
-                            <span>Уведомить пользователя</span>
+                            <span>{ __('Уведомить пользователя') }</span>
                         </div>
                         <div className={styles.message}>
                             <textarea placeholder='Добавить сообщение' value={prim} onChange={e => setPrim(e.target.value)} />
@@ -222,8 +223,8 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                             <div className={styles.folderInfo}>{folder.info.name}</div>
                         </div>
                         <div className={styles.buttonsWrap}>
-                            <div className={styles.cancel} onClick={() => setSendAccess(false)}>Отмена</div>
-                            <div className={styles.send} onClick={sendFolder}>Отправить</div>
+                            <div className={styles.cancel} onClick={() => setSendAccess(false)}>{ __('Отмена') }</div>
+                            <div className={styles.send} onClick={sendFolder}>{ __('Отправить') }</div>
                         </div>
                     </div>
                 </main>
@@ -234,14 +235,14 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                         <CopyIcon className={styles.copyIcon} />
                     </div>
                     <div className={styles.details}>
-                        <div className={styles.title}>Скопируйте ссылку</div>
-                        <div className={styles.description}>для того чтобы отправить ссылку нажмите кнопку копировать ссылку</div>
+                        <div className={styles.title}>{ __('Скопируйте ссылку') }</div>
+                        <div className={styles.description}>{ __('для того чтобы отправить ссылку нажмите кнопку копировать ссылку') }</div>
                     </div>
                 </header>
                 <main>
                     <div className={styles.copyLink}>
                         <div className={styles.link}>{url}</div>
-                        <div className={styles.copy} onClick={copyLink}>Копировать ссылку</div>
+                        <div className={styles.copy} onClick={copyLink}>{ __('Копировать ссылку') }</div>
                     </div>
                     <div className={styles.accessUsers}>
                         <div className={styles.infoWrap}>
@@ -249,8 +250,8 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                                 <UserIcon className={styles.userIcon} />
                             </div>
                             <div className={styles.details}>
-                                <div className={styles.title}>Предоставьте доступ пользователям и группам</div>
-                                <div className={styles.description}>совместный доступ не настроен</div>
+                                <div className={styles.title}>{ __('Предоставьте доступ пользователям и группам') }</div>
+                                <div className={styles.description}>{ __('совместный доступ не настроен') }</div>
                             </div>
                         </div>
                         <div className={styles.contacts} onClick={onOpenContacts}>
@@ -259,11 +260,11 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                             {context === 'addContacts' ? <div className={styles.contactsList}>
                                 <div className={styles.contactsHeader}>
                                     <img src={imageSrc + 'assets/PrivateCabinet/notebook-of-contacts.svg'} alt='img' />
-                                    <span>Контакты</span>
+                                    <span>{ __('Контакты') }</span>
                                 </div>
                                 <div className={styles.line}/>
                                 <div className={styles.contactsSearchBar}>
-                                    <input type='text' placeholder='Введите имя или email' />
+                                    <input type='text' placeholder={ __('Введите имя или email') } />
                                     <img src={imageSrc + 'assets/PrivateCabinet/magnifying-glass-2.svg'} alt='img' />
                                 </div>
                                 <div className={styles.contactList}>
@@ -273,7 +274,7 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                                     <div
                                         className={`${chosenContacts.length > 0 ? styles.button : styles.buttonDisabled}`}
                                         onClick={() => setSendAccess(true)}
-                                    >Готово</div>
+                                    >{ __('Готово') }</div>
                                 </div>
                             </div> : null}
                         </div>
@@ -285,8 +286,8 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                                 <WorldIcon className={styles.worldIcon} />
                             </div>
                             <div className={styles.details}>
-                                <div className={styles.title}>Доступные пользователи, у которых есть ссылка</div>
-                                <div className={styles.description}>просматривать могут все у кого есть ссылка</div>
+                                <div className={styles.title}>{ __('Доступные пользователи, у которых есть ссылка') }</div>
+                                <div className={styles.description}>{ __('просматривать могут все у кого есть ссылка') }</div>
                             </div>
                         </div>
                         <div className={styles.openList}>
@@ -294,11 +295,11 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                             {context === 'access' ? <div className={styles.reviewOptions}>
                                 <div  className={styles.reviewOption} onClick={() => setAccess({...access, text: 'limited'})}>
                                     <div className={`${styles.radio} ${access.text === 'limited' ? styles.radioChosen : ''}`} />
-                                    <div className={styles.description}>Доступ ограниченный</div>
+                                    <div className={styles.description}>{ __('Доступ ограниченный') }</div>
                                 </div>
                                 <div className={styles.reviewOption} onClick={() => setAccess({...access, text: 'onLink'})}>
                                     <div className={`${styles.radio} ${access.text === 'onLink' ? styles.radioChosen : ''}`} />
-                                    <div>Доступные пользователям, у которых есть ссылка</div>
+                                    <div>{ __('Доступные пользователям, у которых есть ссылка') }</div>
                                 </div>
                             </div> : null}
                         </div>
@@ -310,8 +311,8 @@ function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadi
                     </div>
                 </main>
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={nullifyAction}>Отмена</div>
-                    <div className={`${styles.add}`} onClick={saveChanges}>Готово</div>
+                    <div className={styles.cancel} onClick={nullifyAction}>{ __('Отмена') }</div>
+                    <div className={`${styles.add}`} onClick={saveChanges}>{ __('Готово') }</div>
                 </div>
             </div> : null}
             <input ref={linkRef} type='text' style={{display: 'none'}} />

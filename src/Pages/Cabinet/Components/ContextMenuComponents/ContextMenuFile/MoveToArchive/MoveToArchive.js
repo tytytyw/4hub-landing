@@ -6,13 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {onDeleteFile, onSetModals} from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import {useLocation} from "react-router";
+import {useLocales} from "react-localized";
 
 const endpoints = {
     project: 'project_'
 }
 
 function MoveToArchive() {
-
+    const { __ } = useLocales();
     const { filePick, items } = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const uid = useSelector(s => s.user.uid);
@@ -28,11 +29,11 @@ function MoveToArchive() {
             .then(res => {
                 if (res.data.ok === 1) {
                     dispatch(onDeleteFile(file));
-                    if(options.single) dispatch(onSetModals('topMessage', {open: true, type: 'message', message: "Файл добавлен в архив"}));
-                    if(options.several) dispatch(onSetModals('topMessage', {open: true, type: 'message', message: "Выбранные файлы добавлено в архив"}));
+                    if(options.single) dispatch(onSetModals('topMessage', {open: true, type: 'message', message: __("Файл добавлен в архив")}));
+                    if(options.several) dispatch(onSetModals('topMessage', {open: true, type: 'message', message: __("Выбранные файлы добавлено в архив")}));
                 } else console.log(res?.error)
             })
-            .catch(() => dispatch(onSetModals('topMessage', {open: true, type: 'error', message: "Файл не добавлен в архив"})))
+            .catch(() => dispatch(onSetModals('topMessage', {open: true, type: 'error', message: __("Файл не добавлен в архив")})))
             .finally(() => dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: '', items: [], filePick: null})));
     }
 
@@ -49,11 +50,11 @@ function MoveToArchive() {
 
     return <>
         <ActionApproval
-                name={'Архивировать выбранные файлы'}
-                text={' Вы действительно хотите переместить в архив выбранные файлы?'}
+                name={ __('Архивировать выбранные файлы') }
+                text={__(' Вы действительно хотите переместить в архив выбранные файлы?') }
                 set={cancelArchive}
                 callback={archiveFile}
-                approve={'Архивировать'}
+                approve={ __('Архивировать') }
             >
                 <div className={styles.fileActionWrap}>
                     <File format={filePick.show ? 'FILES' : file?.ext} color={file?.color} />

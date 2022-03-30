@@ -14,6 +14,7 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import { imageSrc 
 } from "../../../../../../generalComponents/globalVariables";
+import {useLocales} from "react-localized";
 
 const CustomizeFolder = ({
 	nullifyAction,
@@ -24,6 +25,7 @@ const CustomizeFolder = ({
 	setGLoader,
  	successLoad,
 }) => {
+	const { __ } = useLocales();
 	const tags = useTags();
 	const uid = useSelector((state) => state.user.uid);
 	const folderList = useSelector(state => state.Cabinet.folderList);
@@ -85,11 +87,11 @@ const CustomizeFolder = ({
 		.then((res) => {
 				if (res.data.ok === 1) {
 				} else {
-					setError("Папка не добавлена");
+					setError( __("Папка не добавлена") );
 				}
 			})
 			.catch(() => {
-				setError("Папка не добавлена");
+				setError( __("Папка не добавлена") );
 			})
 			.finally(() => {
 				setGLoader(false);
@@ -197,7 +199,7 @@ const CustomizeFolder = ({
 								model="text"
 								value={name}
 								set={setName}
-								placeholder="Имя папки"
+								placeholder={ __("Имя папки") }
 								mistake={errors?.name}
 							/>
 						</div>
@@ -206,7 +208,7 @@ const CustomizeFolder = ({
 							<input
 								className={styles.inputField}
 								type="text"
-								placeholder="Добавте #Тег"
+								placeholder={ __("Добавте #Тег") }
 								value={tagOption.chosen}
 								onChange={(e) => onChangeTag(e.target.value)}
 								onFocus={() => {
@@ -222,7 +224,7 @@ const CustomizeFolder = ({
 								switcher={true}
 								value={password}
 								set={setPassword}
-								placeholder="Пароль"
+								placeholder={ __("Пароль") }
 								onSwitch={onSwitch}
 								isPass={showRepeat}
 								visibility={visibility}
@@ -236,7 +238,7 @@ const CustomizeFolder = ({
 									switcher={false}
 									value={passwordRepeat}
 									set={setPasswordRepeat}
-									placeholder="Повторите пароль"
+									placeholder={ __("Повторите пароль") }
 									visibility={visibility}
 									setVisibility={setVisibility}
 									comparePass={comparePass}
@@ -253,10 +255,10 @@ const CustomizeFolder = ({
 							className={styles.cancel}
 							onClick={() => closeComponent(false)}
 						>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div className={styles.add} onClick={() => onCustomizeFolder()}>
-							Сохранить
+							{ __('Сохранить') }
 						</div>
 					</div>
 				</div>

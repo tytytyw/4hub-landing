@@ -5,8 +5,10 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
 import Error from "../../../../../../generalComponents/Error";
 import { useSelector } from "react-redux";
+import {useLocales} from "react-localized";
 
 function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
+	const { __ } = useLocales();
 	const uid = useSelector((state) => state.user.uid);
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -39,7 +41,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
 			api
 				.post('', data/*"/ajax/file_edit.php", data*/)
 				.then((res) => {
-					setShowSuccessMessage('пароль установлен');
+					setShowSuccessMessage(__('пароль установлен'));
 					closeComponent();
 				})
 				.catch((err) => {
@@ -69,7 +71,7 @@ console.log(folder)
 							height={width >= 1440 ? "40px" : "30px"}
 							value={password}
 							set={setPassword}
-							placeholder="Пароль"
+							placeholder={ __("Пароль") }
 							onSwitch={onSwitch}
 							visibility={visibility}
 							setVisibility={setVisibility}
@@ -82,7 +84,7 @@ console.log(folder)
 								height={width >= 1440 ? "40px" : "30px"}
 								value={passwordRepeat}
 								set={setPasswordRepeat}
-								placeholder="Повторите пароль"
+								placeholder={ __("Повторите пароль") }
 								visibility={visibility}
 								setVisibility={setVisibility}
 								comparePass={comparePass}
@@ -95,7 +97,7 @@ console.log(folder)
 							className={styles.cancel}
 							onClick={() => setDisplaySetPassword(false)}
 						>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div
 							className={styles.add}
@@ -103,7 +105,7 @@ console.log(folder)
 								onAddPass();
 							}}
 						>
-							Установить
+							{ __('Установить') }
 						</div>
 					</div>
 				</div>
@@ -112,7 +114,7 @@ console.log(folder)
 				<Error
 					error={error}
 					set={closeComponent}
-					message="Пароль не добавлен"
+					message={ __("Пароль не добавлен") }
 				/>
 			)}
 		</div>

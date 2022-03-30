@@ -5,8 +5,10 @@ import { ReactComponent as FolderIcon } from "../../../../../../../assets/Privat
 import { colors } from "../../../../../../../generalComponents/collections";
 import InputField from "../../../../../../../generalComponents/InputField";
 import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const PrevVersions = ({folder}) => {
+    const { __ } = useLocales()
     return (<div className={styles.prevVersionsWrap}>
         <div className={styles.nameBlock}>
             <div className={styles.folderWrap}><FolderIcon
@@ -18,7 +20,7 @@ const PrevVersions = ({folder}) => {
         </div>
         <div className={styles.prevChanged}>
             <div className={styles.infoWrap}>
-                <span className={styles.name}>Дата изменения:</span>
+                <span className={styles.name}>{ __('Дата изменения:') }</span>
                 <span className={styles.value}>{folder.ctime}</span>
             </div>
             <div className={styles.prevFileBlock}>
@@ -38,13 +40,13 @@ const PrevVersions = ({folder}) => {
                         </div> : null}
                         <div className={styles.folderInfoText}>
                             <span className={styles.sizeNow}>{folder.size_now}</span>
-                            <span></span>
+                            <span/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={styles.description}>Вы можете восстановить старую версию файла из резервной копии для восстановления старого файла нажмите кнопку восстановить</div>
-            <div className={styles.restoreWrap}><div className={styles.restore}>Восстановить</div></div>
+            <div className={styles.description}>{ __('Вы можете восстановить старую версию файла из резервной копии для восстановления старого файла нажмите кнопку восстановить') }</div>
+            <div className={styles.restoreWrap}><div className={styles.restore}>{ __('Восстановить') }</div></div>
         </div>
     </div>)
 }

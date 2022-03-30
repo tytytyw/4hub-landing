@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styles from "./SetPassword.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
+import {useLocales} from "react-localized";
 
 function SetPassword({ setDisplaySetPassword, onAddPass }) {
+	const { __ } = useLocales();
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 	const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -47,7 +49,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 							height={width >= 1440 ? "40px" : "30px"}
 							value={password}
 							set={setPassword}
-							placeholder="Пароль"
+							placeholder={ __("Пароль") }
 							onSwitch={onSwitch}
 							visibility={visibility}
 							setVisibility={setVisibility}
@@ -61,7 +63,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 								height={width >= 1440 ? "40px" : "30px"}
 								value={passwordRepeat}
 								set={setPasswordRepeat}
-								placeholder="Повторите пароль"
+								placeholder={ __("Повторите пароль") }
 								visibility={visibility}
 								setVisibility={setVisibility}
 								comparePass={comparePass}
@@ -74,7 +76,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 							className={styles.cancel}
 							onClick={() => setDisplaySetPassword(false)}
 						>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div
 							className={styles.add}
@@ -82,7 +84,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 								if (passwordCoincide || password === '') closeComponent();
 							}}
 						>
-							Установить
+							{ __('Установить') }
 						</div>
 					</div>
 				</div>

@@ -9,9 +9,11 @@ import { ReactComponent as Password } from '../../../../../../assets/PrivateCabi
 import { ReactComponent as Calendar } from '../../../../../../assets/PrivateCabinet/calendar-6.svg';
 import { ReactComponent as Pensil } from '../../../../../../assets/PrivateCabinet/edit.svg';
 import { ReactComponent as Eye } from '../../../../../../assets/PrivateCabinet/eye.svg';
+import {useLocales} from "react-localized";
 
 //TODO - CHECK - needs to be deprecated
 function ConfigAccessFolder({folder, close, setShowSuccessMessage}) {
+    const { __ } = useLocales();
     const [displayStotagePeriod, setDisplayStotagePeriod] = useState(false);
     const [displaySetPassword, setDisplaySetPassword] = useState(false);
     const [dateValue, setDateValue] = useState('');
@@ -46,22 +48,22 @@ function ConfigAccessFolder({folder, close, setShowSuccessMessage}) {
                         </div>
                         <div className={styles.input_wrap}>
                             <p className={styles.input_title}>Может просматривать</p>
-                            <input value='Все у кого есть эта ссылка, смогут просматривать файл' type='button'></input>
+                            <input value={ __('Все у кого есть эта ссылка, смогут просматривать файл') } type='button'></input>
                         </div>
                         <span
                             className={styles.set_list}
-                        >Все у кого есть ссылка</span>
+                        >{ __('Все у кого есть ссылка') }</span>
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
                     <div className={styles.ico_wrap}>
                         <Calendar className={styles.row_ico} />
                     </div>
                     <div className={styles.input_wrap}>
-                        <p className={styles.input_title}>Срок хранения файла/папки</p>
-                        <input value='Установите срок хранения файла (после завершения файл будет удален)' type='button'></input>
+                        <p className={styles.input_title}>{ __('Срок хранения файла/папки') }</p>
+                        <input value={ __('Установите срок хранения файла (после завершения файл будет удален)') } type='button'/>
                     </div>
                     <span onClick={() => setDisplayStotagePeriod(true)} className={styles.set_btn}>
-                        Установить
+                        { __('Установить') }
                     </span>
                 </div>
                 <div className={classNames(styles.row_item, styles.border_bottom)}>
@@ -69,11 +71,11 @@ function ConfigAccessFolder({folder, close, setShowSuccessMessage}) {
                         <Password className={styles.row_ico} />
                     </div>
                     <div className={styles.input_wrap}>
-                        <p className={styles.input_title}>Пароль</p>
-                        <input id={'input_pass'} placeholder='Вы можете установить пароль на данный файл'></input>
+                        <p className={styles.input_title}>{ __('Пароль') }</p>
+                        <input id={'input_pass'} placeholder={ __('Вы можете установить пароль на данный файл') }/>
                     </div>
                     <span onClick={() => setDisplaySetPassword(true)} className={styles.set_btn}>
-                        Установить
+                        { __('Установить') }
                     </span>
                 </div>
                 <div className={styles.share_link}>
@@ -82,12 +84,12 @@ function ConfigAccessFolder({folder, close, setShowSuccessMessage}) {
                             <Pensil className={styles.row_ico} />
                         </div>
                         <div className={styles.input_wrap}>
-                            <p className={styles.input_title}>Может редактировать</p>
-                            <input value='Все у кого есть эта ссылка, смогут изменять файл' type='button'></input>
+                            <p className={styles.input_title}>{ __('Может редактировать') }</p>
+                            <input value={ __('Все у кого есть эта ссылка, смогут изменять файл') } type='button'></input>
                         </div>
                         <span
                             className={styles.set_list}
-                        >Все у кого есть ссылка</span>
+                        >{ __('Все у кого есть ссылка') }</span>
                     </div>
                     
                 </div>

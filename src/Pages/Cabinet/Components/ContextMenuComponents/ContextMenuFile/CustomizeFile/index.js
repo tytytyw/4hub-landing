@@ -20,12 +20,14 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import File from "../../../../../../generalComponents/Files";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const CustomizeFile = ({
 	saveCustomizeSeveralFiles,
 	setLoadingType = () => {},
    info
 }) => {
+	const { __ } = useLocales();
 	const tags = useTags();
 	const {title, items, filePick, menuItem} = useSelector(s => s.Cabinet.modals.contextMenuModals);
 	const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
@@ -263,10 +265,9 @@ const CustomizeFile = ({
                             {filePick?.customize || items.length > 1 ? null :
                                 <InputField
                                     model='text'
-                                    
                                     value={name}
                                     set={setName}
-                                    placeholder='Имя файла'
+                                    placeholder={ __('Имя файла') }
                                 />}
                         </div>
                         <div className={styles.tagPicker}>
@@ -274,7 +275,7 @@ const CustomizeFile = ({
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавьте #Тег'
+                                placeholder={ __('Добавьте #Тег') }
                                 value={tagOption?.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -291,7 +292,7 @@ const CustomizeFile = ({
                                 isPass={showRepeat}
                                 value={password}
                                 set={setPassword}
-                                placeholder='Пароль'
+                                placeholder={ __('Пароль') }
                                 onSwitch={onSwitch}
                                 visibility={visibility}
                                 setVisibility={setVisibility}
@@ -306,7 +307,7 @@ const CustomizeFile = ({
                                 
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
-                                placeholder='Повторите пароль'
+                                placeholder={ __('Повторите пароль') }
                                 visibility={visibility}
                                 setVisibility={setVisibility}
                                 comparePass={comparePass}
@@ -318,18 +319,18 @@ const CustomizeFile = ({
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} />
                     <div className={styles.buttonsWrap}>
-                        <div className={styles.cancel} onClick={close}>Отмена</div>
+                        <div className={styles.cancel} onClick={close}>{ __('Отмена') }</div>
                         <div
                             className={`${file || items.length > 1 ? styles.add : styles.buttonDisabled}`}
                             onClick={() => {
                                 if(!filePick.several) onAddFile();
                                 if(filePick.several) addToAwaitingFiles();
                             }}
-                        >Сохранить</div>
+                        >{ __('Сохранить') }</div>
                     </div>
                 </div>
             </PopUp>
-            {error && <Error error={error} set={closeComponent} message='Файл не изменен' />}
+            {error && <Error error={error} set={closeComponent} message={ __('Файл не изменен') } />}
         </div>
     )
 }

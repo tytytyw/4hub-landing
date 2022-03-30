@@ -5,8 +5,10 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import General from "./General";
 import Security from "./Security";
 import PrevVersions from "./PrevVersions";
+import {useLocales} from "react-localized";
 
 const ProjectProperty = ({ close, project, getIcon }) => {
+	const { __ } = useLocales();
 	const [inset, setInset] = useState("general");
 	return (
 		<PopUp set={close}>
@@ -20,7 +22,7 @@ const ProjectProperty = ({ close, project, getIcon }) => {
 						}`}
 						onClick={() => setInset("general")}
 					>
-						Общие
+						{ __('Общие') }
 					</div>
 					<div
 						className={`${styles.inset} ${
@@ -28,7 +30,7 @@ const ProjectProperty = ({ close, project, getIcon }) => {
 						}`}
 						onClick={() => setInset("security")}
 					>
-						Доступы
+						{ __('Доступы') }
 					</div>
 					<div
 						className={`${styles.inset} ${
@@ -36,7 +38,7 @@ const ProjectProperty = ({ close, project, getIcon }) => {
 						}`}
 						onClick={() => setInset("prev")}
 					>
-						Предыдущие версии
+						{ __('Предыдущие версии') }
 					</div>
 				</div>
 				{inset === "general" ? <General project={project} getIcon={getIcon} /> : null}
@@ -44,10 +46,10 @@ const ProjectProperty = ({ close, project, getIcon }) => {
 				{inset === "prev" ? <PrevVersions project={project} getIcon={getIcon} /> : null}
 				<div className={styles.buttonsWrap}>
 					<div className={styles.cancel} onClick={close}>
-						Отмена
+						{ __('Отмена') }
 					</div>
 					<div className={`${styles.add}`} onClick={close}>
-						Готово
+						{ __('Готово') }
 					</div>
 				</div>
 			</div>

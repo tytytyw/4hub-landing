@@ -4,8 +4,10 @@ import styles from "./PrevVersions.module.sass";
 import SafeIcon from "../../../../Safe/SafeIcon";
 import InputField from "../../../../../../../generalComponents/InputField";
 import {imageSrc} from '../../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const PrevVersions = ({ safe }) => {
+	const { __ } = useLocales();
 	return (
 		<div className={styles.prevVersionsWrap}>
 			<div className={styles.nameBlock}>
@@ -18,7 +20,7 @@ const PrevVersions = ({ safe }) => {
 			</div>
 			<div className={styles.prevChanged}>
 				<div className={styles.infoWrap}>
-					<span className={styles.name}>Дата изменения:</span>
+					<span className={styles.name}>{ __('Дата изменения:') }</span>
 					<span className={styles.value}>{safe.ctime}</span>
 				</div>
 				<div className={styles.prevFileBlock}>
@@ -46,17 +48,16 @@ const PrevVersions = ({ safe }) => {
 							) : null}
 							<div className={styles.safeInfoText}>
 								<span className={styles.sizeNow}>{safe.size_now}</span>
-								<span></span>
+								<span/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className={styles.description}>
-					Вы можете восстановить старую версию файла из резервной копии для
-					восстановления старого файла нажмите кнопку восстановить
+					{ __('Вы можете восстановить старую версию файла из резервной копии для восстановления старого файла нажмите кнопку восстановить') }
 				</div>
 				<div className={styles.restoreWrap}>
-					<div className={styles.restore}>Восстановить</div>
+					<div className={styles.restore}>{ __('Восстановить') }</div>
 				</div>
 			</div>
 		</div>

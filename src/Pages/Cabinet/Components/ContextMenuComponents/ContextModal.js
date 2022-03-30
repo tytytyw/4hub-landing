@@ -9,10 +9,6 @@ import DownloadFile from "./ContextMenuFile/DownloadFile/DownloadFile";
 import PrintFile from "./ContextMenuFile/PrintFile/PrintFile";
 import DeleteFile from "./ContextMenuFile/DeleteFile/DeleteFIle";
 
-// action_type, items = [{}, {}], filesPage?, title, filePick?, menuItem; via props - setCustomizeSeveralFiles
-
-
-
 function ContextModal({saveCustomizeSeveralFiles}) {
 
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);

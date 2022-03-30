@@ -7,8 +7,10 @@ import { ReactComponent as EyeIco } from "../../../../../../assets/PrivateCabine
 import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 function StoragePeriod({ safe, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue}) {
+	const { __ } = useLocales();
 	const curretDate = new Date().toLocaleDateString('ru-RU')
 	const [showCalendar, setShowCalendar] = useState(false);
 	const [hours, setHours] = useState(timeValue.hours);
@@ -84,25 +86,25 @@ function StoragePeriod({ safe, setDisplayStotagePeriod, dateValue, setDateValue,
 			<div className={styles.date_wrap}>
 				<div className={styles.title_wrap}>
 					<CalendarIco />
-					<h5 className={styles.title}>Укажите даты хранения</h5>
+					<h5 className={styles.title}>{ __('Укажите даты хранения') }</h5>
 				</div>
 				<div className={styles.inputs_wrap}>
-					<span className={styles.from}>C</span>
+					<span className={styles.from}>{ __('C') }</span>
 					<input className={styles.date} value={curretDate} type="text" disabled></input>
-					<span className={styles.to}>До</span>
-					<input className={styles.date} type="text" value={dateValue} placeholder='_ _._ _._ _ _ _'  onChange={(e) => onDateChange(e)} />
+					<span className={styles.to}>{ __('До') }</span>
+					<input className={styles.date} type="text" value={dateValue} placeholder={ __('_ _._ _._ _ _ _') }  onChange={(e) => onDateChange(e)} />
 					<span
 						className={styles.open_calendar}
 						onClick={() => setShowCalendar(true)}
 					>
-						Открыть календарь
+						{ __('Открыть календарь') }
 					</span>
 				</div>
 			</div>
 			<div className={styles.time_wrap}>
 				<div className={styles.title_wrap}>
 					<EyeIco />
-					<h5 className={styles.title}>Укажите время хранения</h5>
+					<h5 className={styles.title}>{ __('Укажите время хранения') }</h5>
 				</div>
 				<div
 					className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}
@@ -113,15 +115,14 @@ function StoragePeriod({ safe, setDisplayStotagePeriod, dateValue, setDateValue,
 				</div>
 			</div>
 			<p className={classNames(styles.hint, styles.border_bottom)}>
-				После завершения срока хранения в 23:59 ссылка автоматитески будет
-				недоступна
+				{ __('После завершения срока хранения в 23:59 ссылка автоматитески будет недоступна') }
 			</p>
 			<div className={styles.buttonsWrap}>
 				<div
 					onClick={() => setDisplayStotagePeriod(false)}
 					className={styles.add}
 				>
-					Готово
+					{ __('Готово') }
 				</div>
 			</div>
 			{showCalendar && <PopUp set={setShowCalendar} zIndex={102}>
