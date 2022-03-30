@@ -9,13 +9,12 @@ import Profile from "../../Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
 import { getDeviceIconName } from "../../../../../generalComponents/collections";
-// import ActionApproval from '../../../../../generalComponents/ActionApproval'
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({ listCollapsed, setMultiple }) => {
-	// const dispatch = useDispatch();
+	const { __ } = useLocales();
 	const selectedDevice = useSelector((state) => state.Cabinet.selectedDevice);
 	const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
-	// const nullifyAction = () => setAction({type: '', name: '', text: ''});
 
 	return (
 		<>
@@ -79,48 +78,48 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
 										</div>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Система</span>
+										<span className={styles.itemName}>{ __('Система') }</span>
 										<span className={styles.description}>
 											{selectedDevice?.platform}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Браузер</span>
+										<span className={styles.itemName}>{ __('Браузер') }</span>
 										<span className={styles.description}>
 											{selectedDevice?.browser}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Регион</span>
+										<span className={styles.itemName}>{ __('Регион') }</span>
 										<span className={styles.description}>
 											{selectedDevice?.country}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Адрес</span>
+										<span className={styles.itemName}>{ __('Адрес') }</span>
 										<span className={styles.address}>
 											{selectedDevice?.adr}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>iP адрес</span>
+										<span className={styles.itemName}>{ __('iP адрес') }</span>
 										<span className={styles.description}>
 											{selectedDevice?.ip}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Провайдер</span>
+										<span className={styles.itemName}>{ __('Провайдер') }</span>
 										<span className={styles.description}>
 											{selectedDevice?.provider}
 										</span>
 									</div>
 									<div className={styles.infoFileItem}>
-										<span className={styles.itemName}>Активность</span>
+										<span className={styles.itemName}>{ __('Активность') }</span>
 										<span className={styles.description}>
                                         {selectedDevice?.last_visit?.split('-').reverse().join('.')}
 										</span>
 									</div>
-                                    <div className={styles.disableBtn}>Отключить</div>
+                                    <div className={styles.disableBtn}>{ __('Отключить') }</div>
 								</>
 							</div>
 						</div>

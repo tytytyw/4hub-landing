@@ -7,6 +7,7 @@ import classNames from "classnames";
 import ContactItem from "../ContactItem";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import LoadingFailed from '../LoadingFailed'
+import {useLocales} from "react-localized";
 
 const ConnectedContacts = ({
 	listCollapsed,
@@ -16,6 +17,7 @@ const ConnectedContacts = ({
 	loadingFailed,
 	getConnectedContacts,
 }) => {
+	const { __ } = useLocales();
 	const connectedContacts = useSelector(
 		(state) => state.Cabinet.connectedContacts
 	);
@@ -53,7 +55,7 @@ const ConnectedContacts = ({
 				onClick={() => setCollapse(!collapse)}
 			>
 				<span
-					title={listCollapsed ? "Подключенные пользователи" : ""}
+					title={listCollapsed ? __("Подключенные пользователи") : ""}
 					className={styles.title}
 				>
 					Подключенные пользователи
@@ -63,7 +65,7 @@ const ConnectedContacts = ({
 						[styles.playButton]: true,
 						[styles.revert]: collapse,
 					})}
-					title={collapse ? "Свернуть" : "Развернуть"}
+					title={collapse ? __("Свернуть") : __("Развернуть")}
 				/>
 			</div>
 			<div

@@ -26,8 +26,10 @@ import successImg from "../../../../assets/BusinessCabinet/WelcomePage/mail-desk
 import api from "../../../../api";
 import OptionButtomLine from "./OptionButtomLine";
 import LoadingFailed from "./LoadingFailed";
+import {useLocales} from "react-localized";
 
 const Devices = () => {
+	const { __ } = useLocales();
 	const contextMenuDevice = useContextMenuDevice();
 	const contextMenuDeviceUser = useContextMenuDeviceUser();
 	const dispatch = useDispatch();
@@ -41,7 +43,6 @@ const Devices = () => {
 	const [listCollapsed, setListCollapsed] = useState("");
 
 	const [mouseParams, setMouseParams] = useState(null);
-	// const [action, setAction] = useState({type: '', name: '', text: ''})
 
 	const [successBlocked, setSuccessBlocked] = useState(false);
 	const [multiple, setMultiple] = useState(false);
@@ -72,12 +73,6 @@ const Devices = () => {
 	const renderDevicesList = () => {
 		if (!devices) return null;
 		return devices.map((dev, i) => {
-			// if (
-			// dev?.is_block === '1'
-			// || dev?.is_online === 0
-			// ) {
-			//     return null
-			// }
 			return (
 				<DeviceItem
 					key={i + dev.name}
@@ -173,7 +168,7 @@ const Devices = () => {
 		<div className={styles.workAreaWrap}>
 			<List
 				icon={false}
-				title="Мои устройства"
+				title={ __("Мои устройства") }
 				setListCollapsed={setListCollapsed}
 				listCollapsed={listCollapsed}
 			>
@@ -238,7 +233,7 @@ const Devices = () => {
 			)}
 
 			{successBlocked && (
-				<SuccessPopup title="Устройство заблокировано" set={setSuccessBlocked}>
+				<SuccessPopup title={ __("Устройство заблокировано") } set={setSuccessBlocked}>
 					<img src={successImg} alt="Success" />
 				</SuccessPopup>
 			)}
