@@ -16,12 +16,13 @@ import {ReactComponent as ErrorIcon} from '../../../../assets/PrivateCabinet/exc
 import {ReactComponent as CheckIcon} from '../../../../assets/PrivateCabinet/check.svg';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {loadDest} from "../../../../generalComponents/collections";
+import {useLocales} from "react-localized";
 
 const FileLoader = ({
         awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, loaded, setLoaded,
         setFileAddCustomization, fileAddCustomization, fileErrors, setFileErrors, menuItem
 }) => {
-
+    const { __ } = useLocales();
     const [collapsed, setCollapsed] = useState(false);
     const [processing, setProcessing] = useState(0);
     const [closeApprove, setCloseApprove] = useState(true);
@@ -69,7 +70,7 @@ const FileLoader = ({
 
     useEffect(() => {
         if(awaitingFiles.length > 1 && !fileAddCustomization.several) {
-            dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: [...awaitingFiles], title: 'Редактировать выбранные файлы', filePick: {several: true}, menuItem}))
+            dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: [...awaitingFiles], title: __('Редактировать выбранные файлы'), filePick: {several: true}, menuItem}))
             setFileAddCustomization({...fileAddCustomization, several: true, files: [...awaitingFiles]});
             setAwaitingFiles([]);
         } else if(awaitingFiles.length > 1 && fileAddCustomization.several) {
@@ -262,8 +263,8 @@ const FileLoader = ({
         >
             <div className={styles.header}>
                 {!collapsed ? <span className={`${collapsed ? '' : styles.loadBar}`} style={{width: `${processing}%`}} /> : null}
-                {(loadingFile.length > 0 || awaitingFiles.length > 0) && !collapsed ? <span>Загрузка {loadingFile.length + awaitingFiles.length} файлов</span> : null}
-                {loadingFile.length === 0 && awaitingFiles.length === 0 && !collapsed ? <span>Загрузка завершена</span> : null}
+                {(loadingFile.length > 0 || awaitingFiles.length > 0) && !collapsed ? <span>{ __(`Загрузка ${loadingFile.length + awaitingFiles.length} файлов`) }</span> : null}
+                {loadingFile.length === 0 && awaitingFiles.length === 0 && !collapsed ? <span>{ __('Загрузка завершена') }</span> : null}
                 <div className={`${styles.optionsWrap} ${collapsed ? styles.optionFull : styles.optionSmall}`}>
                     <div className={styles.progressBarWrap}>
                         {collapsed && processing ? <>
@@ -282,7 +283,7 @@ const FileLoader = ({
             </div>
             <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
                 {awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? <div className={styles.timeLeft}>
-                    <div>{timeLeft !== undefined ? <span className={styles.time}>{timeLeft < 1 ? `Осталось меньше минуты` : timeLeft > 59 ? `Осталось около 1 часа` : `Осталось ${timeLeft} мин.`}</span> : null}</div>
+                    <div>{timeLeft !== undefined ? <span className={styles.time}>{timeLeft < 1 ? __(`Осталось меньше минуты`) : timeLeft > 59 ? __(`Осталось около 1 часа`) : __(`Осталось ${timeLeft} мин.`)}</span> : null}</div>
                     <span
                         className={styles.cancel}
                         onClick={() => {
@@ -297,7 +298,7 @@ const FileLoader = ({
                                 setFileErrors([]);
                             }
                         }}
-                    >{(awaitingFiles.length > 0 || loadingFile.length > 0) ? 'Отмена' : 'Повторить'}</span>
+                    >{(awaitingFiles.length > 0 || loadingFile.length > 0) ? __('Отмена') : __('Повторить')}</span>
                 </div> : <div className={styles.timeLeft} />}
                 <div className={styles.scrollFileLoaderWrap}>
                     {loaded.length > 0 ? renderList(loaded, true, 0, setLoaded, false) : null}
@@ -307,7 +308,7 @@ const FileLoader = ({
                 </div>
             </div>
         </div>
-            {!closeApprove ? <ActionApproval name={'Закрыть загрузки'} text={'Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены'} set={offCloseApprove} callback={clearLoadFiles} approve={'Закрыть'}>
+            {!closeApprove ? <ActionApproval name={ __('Закрыть загрузки') } text={ __('Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены') } set={offCloseApprove} callback={clearLoadFiles} approve={ __('Закрыть') }>
                 <ErrorIcon className={styles.mark} />
             </ActionApproval> : null}
         </>

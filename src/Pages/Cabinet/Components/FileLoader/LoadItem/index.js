@@ -11,8 +11,8 @@ import {ReactComponent as UploadArrowIcon} from '../../../../../assets/PrivateCa
 
 const LoadItem = ({
               list, index, set, loaded, processing, name, ext, color, options, startLoading,
-              setProcessing, setFileAddCustomization, error, fileErrors, setFileErrors,
-              awaitingFiles, setAwaitingFiles, loadingFile, setLoadingFile, collapsed,
+              setProcessing, error, fileErrors, setFileErrors, awaitingFiles, setAwaitingFiles,
+              loadingFile, setLoadingFile, collapsed,
 }) => {
 
     const [data, setData] = useState({strokeDasharray: `150 150`, strokeDashoffset: `288`})
