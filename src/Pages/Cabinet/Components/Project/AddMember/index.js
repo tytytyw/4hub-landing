@@ -17,9 +17,10 @@ import {
 import ContactSearch from '../../MyProfile/Contacts/ContactList/ContactSearch/ContactSearch'
 import Button from '../../MyProfile/Button'
 import {isCorrectData} from '../../MyProfile/Input/validation'
+import {useLocales} from "react-localized";
 
 const AddMember = ({set, selectedItem}) => {
-
+    const { __ } = useLocales()
     const contacts = useSelector(state => state.Cabinet.contactList)
 
     const [fields, setFields] = useState({})
@@ -100,7 +101,7 @@ const AddMember = ({set, selectedItem}) => {
                             src={selectedItem?.icon?.[0] || emptyProfileImage}
                             alt='pie-chart'
                         />
-                        <span>Дабавьте участника (ов)</span>
+                        <span>{ __('Дабавьте участника (ов)') }</span>
                     </div>
                     <span
                         className={styles.close}
@@ -113,11 +114,11 @@ const AddMember = ({set, selectedItem}) => {
                 <div className={styles.inputsBlock}>
 
                     <div className={styles.block}>
-                        <label className={styles.label} htmlFor='name'>Имя Фамилия:</label>
+                        <label className={styles.label} htmlFor='name'>{ __('Имя Фамилия:') }</label>
                         <input
                             type='text'
                             className={styles.input}
-                            placeholder='Введите Ваше Имя и Фамилию'
+                            placeholder={ __('Введите Ваше Имя и Фамилию') }
                             value={fields?.name || ''}
                             onChange={onChangeHandler}
                             onBlur={onBlurHandler}
@@ -125,11 +126,11 @@ const AddMember = ({set, selectedItem}) => {
                     </div>
 
                     <div className={styles.block}>
-                        <label className={styles.label} htmlFor='email'>Email:</label>
+                        <label className={styles.label} htmlFor='email'>{ __('Email:') }</label>
                         <input
                             type='text'
                             className={styles.input}
-                            placeholder='Электронная почта '
+                            placeholder={ __('Электронная почта ') }
                             value={fields?.email || ''}
                             onChange={onChangeHandler}
                             onBlur={onBlurHandler}
@@ -137,11 +138,11 @@ const AddMember = ({set, selectedItem}) => {
                     </div>
 
                     <div className={styles.block}>
-                        <label className={styles.label} htmlFor='phone'>Телефон:</label>
+                        <label className={styles.label} htmlFor='phone'>{ __('Телефон:') }</label>
                         <input
                             type='text'
                             className={styles.input}
-                            placeholder='Введите Ваш номер телефона'
+                            placeholder={ __('Введите Ваш номер телефона') }
                             value={fields?.phone || ''}
                             onChange={onChangeHandler}
                             onBlur={onBlurHandler}
@@ -153,7 +154,7 @@ const AddMember = ({set, selectedItem}) => {
                 <div className={styles.share}>
                     <div className={styles.blockTitle}>
                         <span className={styles.titleIcon}><ChatIcon/></span>
-                        <span className={styles.info}>Поделиться с помощью:</span>
+                        <span className={styles.info}>{ __('Поделиться с помощью:') }</span>
                     </div>
                     <ul className={styles.socials}>
                         <li
@@ -196,7 +197,7 @@ const AddMember = ({set, selectedItem}) => {
                                 src={`${imageSrc}/assets/PrivateCabinet/more.svg`}
                                 alt='Email'
                             />
-                            <p>Ещё</p>
+                            <p>{ __('Ещё') }</p>
                         </li>
                     </ul>
                 </div>
@@ -207,7 +208,7 @@ const AddMember = ({set, selectedItem}) => {
 
                         <div className={styles.contactsTop}>
                             <div className={styles.blockTitle}>
-                                <span className={styles.info}>Контакты</span>
+                                <span className={styles.info}>{ __('Контакты') }</span>
                             </div>
                             <div className={styles.search}>
                                 <ContactSearch
@@ -243,7 +244,7 @@ const AddMember = ({set, selectedItem}) => {
                         type='submit'
                         className={styles.actionBtn}
                     >
-                        Отправить
+                        { __('Отправить') }
                     </Button>
                 </div>
 

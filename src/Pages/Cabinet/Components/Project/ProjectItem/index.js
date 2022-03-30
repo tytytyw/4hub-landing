@@ -9,13 +9,14 @@ import {onChooseProject, onGetProjectFolders} from '../../../../../Store/actions
 import CustomItem from '../CustomItem'
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import {getIcon} from "../helpers";
+import {useLocales} from "react-localized";
 
 const ProjectItem = ({
         project, listCollapsed, setMouseParams, size,
         chosenFolder, setChosenFolder, setSelectedProject, chosen,
         setNewFolder, params, setParams, listRef
     }) => {
-
+    const { __ } = useLocales()
     const dispatch = useDispatch()
     const folders = useSelector(state => state.Cabinet.project.projectFolders)
     const [collapse, setCollapse] = useState(false)
@@ -156,7 +157,7 @@ const ProjectItem = ({
                         badge={project?.tasks}
                         onClick={() => {}}
                         item={{
-                            name: 'Создать лист',
+                            name: __('Создать лист'),
                             img: `${imageSrc}assets/PrivateCabinet/documentGrey.svg`,
                             symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
                         }}
@@ -166,7 +167,7 @@ const ProjectItem = ({
                         listSize={size}
                         onClick={() => setNewFolder(true)}
                         item={{
-                            name: 'Создать новую папку',
+                            name: __('Создать новую папку'),
                             img: `${imageSrc}/assets/PrivateCabinet/folders/folder-grey.svg`,
                             symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
                         }}

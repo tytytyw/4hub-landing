@@ -35,11 +35,13 @@ import CreateFile from "../CreateFile";
 import CreateSafePassword from "../CreateSafePassword";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import {getIcon} from "./helpers";
+import {useLocales} from "react-localized";
 
 const Project = ({
 		 setLoadingType, setMenuItem, fileAddCustomization, setFileAddCustomization, awaitingFiles, setAwaitingFiles,
 		 loaded, setLoaded, loadingFile, fileErrors, setLoadingFile, menuItem, fileSelect, saveCustomizeSeveralFiles
 }) => {
+	const { __ } = useLocales();
 	const contextMenuSubFolder = useContextMenuSubFolder();
 	const contextMenuProjects = useContextMenuProjects();
 	const dispatch = useDispatch();
@@ -73,37 +75,37 @@ const Project = ({
 	const callbackArrMain = [
 		{
 			type: "addMember",
-			name: "Добавить участника",
+			name: __("Добавить участника"),
 			text: ``,
 			callback: () => setAddMember(true),
 		},
 		{
 			type: "addFolder",
-			name: "Добавить папку",
+			name: __("Добавить папку"),
 			text: ``,
 			callback: () => setNewFolder(true),
 		},
 		{
 			type: "copyLink",
-			name: "Скопировать ссылку и поделиться",
+			name: __("Скопировать ссылку и поделиться"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
-			name: "Редактирование проекта",
+			name: __("Редактирование проекта"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "archive",
-			name: "Добавить файл в архив",
-			text: `Вы действительно хотите архивировать проект ${selectedProject?.name}?`,
+			name: __("Добавить файл в архив"),
+			text: __(`Вы действительно хотите архивировать проект ${selectedProject?.name}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "propertiesProject",
-			name: "Свойства",
+			name: __("Свойства"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
@@ -112,14 +114,14 @@ const Project = ({
 	const additionalMenuItems = [
 		{
 			type: "delete",
-			name: "Удаление проекта",
-			text: `Вы действительно хотите удалить проект ${selectedProject?.name}?`,
+			name: __("Удаление проекта"),
+			text: __(`Вы действительно хотите удалить проект ${selectedProject?.name}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "leave",
-			name: "Покинуть проект",
-			text: `Вы действительно покинуть проект ${selectedProject?.name}?`,
+			name: __("Покинуть проект"),
+			text: __(`Вы действительно покинуть проект ${selectedProject?.name}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -127,26 +129,26 @@ const Project = ({
 	const callbackArrSub = [
 		{
 			type: "customizeFolder",
-			name: "Редактирование папки",
+			name: __("Редактирование папки"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "setAccessFolder",
-			name: "Доступ и экспорт",
+			name: __("Доступ и экспорт"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "propertiesFolder",
-			name: "Свойства",
+			name: __("Свойства"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "deleteFolder",
-			name: "Удаление папки",
-			text: `Вы действительно хотите удалить выбранную папку?`,
+			name: __("Удаление папки"),
+			text: __(`Вы действительно хотите удалить выбранную папку?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -217,7 +219,7 @@ const Project = ({
 			.post(`/ajax/project_del.php?uid=${uid}&id_project=${selectedProject.id}`)
 			.then((res) => {
 				if (res.data.ok === 1) {
-					setShowSuccessMessage("Проект удален");
+					setShowSuccessMessage( __("Проект удален") );
 					dispatch(onGetProjects());
 				} else {
 					console.log(res);
@@ -237,10 +239,10 @@ const Project = ({
 					dispatch(onGetProjectFolders(selectedProject.id));
 					setChosenFolder({ ...chosenFolder, open: false });
 				} else {
-					setError("Папка не удалена. Попробуйте еще раз!");
+					setError( __("Папка не удалена. Попробуйте еще раз!") );
 				}
 			})
-			.catch(() => setError("Папка не удалена. Попробуйте еще раз!"));
+			.catch(() => setError( __("Папка не удалена. Попробуйте еще раз!") ));
 	};
 
 	const onSafePassword = (boolean) => setSafePassword(state => ({...state, open: boolean}));
@@ -248,7 +250,7 @@ const Project = ({
 	return (
 		<div className={styles.workAreaWrap}>
 			<List
-				title="Создать проект"
+				title={ __("Создать проект") }
 				src="add_project.svg"
 				className={styles.listWrap}
 				onCreate={setCreateProject}
@@ -263,7 +265,7 @@ const Project = ({
 							src={`${imageSrc}/assets/PrivateCabinet/create_arrow.svg`}
 							alt="Create Arrow"
 						/>
-						<h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый проект</h4>
+						<h4 className={styles.emptyTitle}>{ __('СОЗДАЙТЕ Ваш первый проект') }</h4>
 					</div>
 				) : (
 					<div className={styles.folderWrap}>{renderProjects()}</div>
@@ -322,7 +324,7 @@ const Project = ({
 
 			{createProject && (
 				<CreateProject
-					title="Создание проекта"
+					title={ __("Создание проекта") }
 					onCreate={setCreateProject}
 					setLoadingType={setLoadingType}
 				/>
@@ -333,7 +335,7 @@ const Project = ({
 					setError={setError}
 					projectId={selectedProject.id}
 					parentFolder={chosenFolder}
-					title="Новая папка"
+					title={ __("Новая папка") }
 					setGLoader={setGLoader}
 				/>
 			)}
@@ -343,7 +345,7 @@ const Project = ({
 					setError={setError}
 					projectId={selectedProject.id}
 					folder={chosenFolder}
-					title="Редактировать папку"
+					title={ __("Редактировать папку") }
 					setGLoader={setGLoader}
 				/>
 			) : null}
@@ -360,7 +362,7 @@ const Project = ({
 					name={action.name}
 					text={action.text}
 					set={nullifyAction}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 					callback={deleteProject}
 				>
 					<div className={styles.fileActionWrap}>
@@ -374,7 +376,7 @@ const Project = ({
 					text={action.text}
 					set={nullifyAction}
 					callback={nullifyAction}
-					approve={"Покинуть"}
+					approve={ __("Покинуть") }
 				>
 					<div className={styles.fileActionWrap}>
 						{getIcon(selectedProject)}
@@ -387,7 +389,7 @@ const Project = ({
 					text={action.text}
 					set={nullifyAction}
 					callback={nullifyAction}
-					approve={"Архивировать"}
+					approve={ __("Архивировать") }
 				>
 					<div className={styles.fileActionWrap}>
 						{getIcon(selectedProject)}
@@ -396,7 +398,7 @@ const Project = ({
 			) : null}
 			{action.type === "customize" ? (
 				<CustomizeProject
-					title="Редатирование проекта"
+					title={ __("Редатирование проекта") }
 					onCreate={nullifyAction}
 					project={selectedProject}
 					setLoadingType={setLoadingType}
@@ -427,7 +429,7 @@ const Project = ({
 					text={action.text}
 					set={nullifyAction}
 					callback={deleteFolder}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 				>
 					<div className={styles.fileActionWrap}>
 						<FolderIcon className={styles.innerFolderIcon} />
@@ -441,7 +443,7 @@ const Project = ({
 
 			{fileAddCustomization.show && (
 				<CreateFile
-					title={fileAddCustomization.create ? "Создать файл" : "Добавить файл"}
+					title={fileAddCustomization.create ? __("Создать файл") : __("Добавить файл")}
 					info={{...selectedProject, dir: chosenFolder.name}}
 					blob={fileAddCustomization.file}
 					setBlob={setFileAddCustomization}
@@ -458,7 +460,7 @@ const Project = ({
 				/>
 			)}
 			{fileAddCustomization.several ? <CustomizeFile
-				title={`Редактировать выбранные файлы` }
+				title={ __(`Редактировать выбранные файлы`) }
 				info={{...selectedProject, dir: chosenFolder.name}}
 				fileAddCustomization={fileAddCustomization}
 				setFileAddCustomization={setFileAddCustomization}
@@ -469,7 +471,7 @@ const Project = ({
 
 			{safePassword.open && <CreateSafePassword
 				onToggle={onSafePassword}
-				title='Создайте пароль для сейфа'
+				title={ __('Создайте пароль для сейфа') }
 			/>}
 
 			{error && <Error error={error} set={setError} message={error} />}

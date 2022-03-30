@@ -17,12 +17,13 @@ import {useElementResize} from "../../../../../generalComponents/Hooks";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import classnames from "classnames";
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({
    setMouseParams, addMember, setAddMember, fileSelect, chosenFolder, menuItem, setParams, setSelectedProject, mouseParams,
    listCollapsed
 }) => {
-
+    const { __ } = useLocales()
     const files = useSelector(state => state.Cabinet.project.files)
     const recentFiles = useSelector(state => state.Cabinet.recentFiles)
     const [filePick, setFilePick] = useState({show: false, files: []})
@@ -97,7 +98,7 @@ const WorkSpace = ({
                 fileCollapsed={fileCollapsed}
             >
                 <div className={styles.fileListHeader}>
-                    <span>{fileCollapsed ? 'Файлы' : 'Файлы проекта'}</span>
+                    <span>{fileCollapsed ? __('Файлы') : __('Файлы проекта')}</span>
                     <img
                         className={styles.icon}
                         src={`${imageSrc}assets/PrivateCabinet/${fileCollapsed ? 'play-blue.svg' : 'play-grey.svg'}`}

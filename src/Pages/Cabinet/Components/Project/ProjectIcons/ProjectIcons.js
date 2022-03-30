@@ -10,10 +10,15 @@ import {ReactComponent as PenIcon} from '../../../../../assets/PrivateCabinet/pr
 import {ReactComponent as RocketIcon} from '../../../../../assets/PrivateCabinet/project/rocket.svg'
 import {ReactComponent as SuitcaseIcon} from '../../../../../assets/PrivateCabinet/project/suitcase.svg'
 import {ReactComponent as ThunderIcon} from '../../../../../assets/PrivateCabinet/project/thunder.svg'
+import {useLocales} from "react-localized";
 
 
-const ProjectIcons = ({color, icon, setIcon, title = 'Выберите иконку', editableClass = ''}) => {
+const ProjectIcons = ({color, icon, setIcon, title , editableClass = ''}) => {
+    const { __ } = useLocales()
 
+    if(!title) {
+        title = __('Выберите иконку')
+    }
     const set = (el) => icon === el ? setIcon('') : setIcon(el);
     const renderIcons = () => {
         const getIcon = (icon) => {

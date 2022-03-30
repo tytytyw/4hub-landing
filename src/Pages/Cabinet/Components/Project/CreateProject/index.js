@@ -12,8 +12,10 @@ import Signs from '../../../../../generalComponents/Elements/Signs'
 import Emoji from '../../../../../generalComponents/Elements/Emoji'
 import ProjectIcons from '../ProjectIcons/ProjectIcons'
 import {onGetProjects} from '../../../../../Store/actions/CabinetActions'
+import {useLocales} from "react-localized";
 
 const CreateProject = ({onCreate, title, setLoadingType}) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const [name, setName] = useState('');
@@ -56,10 +58,10 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                     dispatch(onGetProjects())
                     closeComponent()
                 } else if ((res.data.error === "name exists")) {
-					setError("Проект с таким именем уже существует");
+					setError( __("Проект с таким именем уже существует") );
                     setNoNameError(true)
 				} else {
-					setError("Что-то пошло не так. Повторите попытку позже");
+					setError( __("Что-то пошло не так. Повторите попытку позже") );
 				}
             })
             .catch(error => console.log(error))
@@ -106,7 +108,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                             
                             value={name}
                             set={setName}
-                            placeholder='Имя проекта'
+                            placeholder={ __('Имя проекта') }
                             mistake={noNameError}
                         />
                     </div>
@@ -114,10 +116,9 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                     <div className={styles.inputWrap}>
                         <InputField
                             model='text'
-                            
                             value={target}
                             set={setTarget}
-                            placeholder='Цель проекта'
+                            placeholder={ __('Цель проекта') }
                         />
                     </div>
 
@@ -127,7 +128,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                             value={members}
                             set={setMembers}
                             
-                            placeholder='Участники (введите email или из списка)'
+                            placeholder={ __('Участники (введите email или из списка)') }
                         />
                         <img
                             src={`${imageSrc}/assets/PrivateCabinet/input-arrow.svg`}
@@ -141,7 +142,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                         <input
                             className={styles.inputField}
                             type='text'
-                            placeholder='Добавьте #Тег'
+                            placeholder={ __('Добавьте #Тег') }
                             value={tagOption.chosen}
                             onChange={(e) => onChangeTag(e.target.value)}
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -160,10 +161,9 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                         <InputField
                             model='password'
                             switcher={true}
-                            
                             value={password}
                             set={setPassword}
-                            placeholder='Установить пароль'
+                            placeholder={ __('Установить пароль') }
                             onSwitch={onSwitch}
                             isPass={showRepeat}
                             visibility={visibility}
@@ -179,7 +179,7 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                             
                             value={passwordRepeat}
                             set={setPasswordRepeat}
-                            placeholder='Повторите пароль'
+                            placeholder={ __('Повторите пароль') }
                             visibility={visibility}
                             setVisibility={setVisibility}
                             comparePass={comparePass}
@@ -193,8 +193,8 @@ const CreateProject = ({onCreate, title, setLoadingType}) => {
                 <Signs sign={sign} setSign={setSign} />
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={() => onCreate(false)}>Отмена</div>
-                    <div className={styles.add} onClick={() => onAddProject()}>Создать</div>
+                    <div className={styles.cancel} onClick={() => onCreate(false)}>{ __('Отмена') }</div>
+                    <div className={styles.add} onClick={() => onAddProject()}>{ __('Создать') }</div>
                 </div>
             </div>
         </PopUp>
