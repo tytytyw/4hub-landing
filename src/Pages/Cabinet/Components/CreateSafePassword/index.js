@@ -10,8 +10,10 @@ import Colors from '../../../../generalComponents/Elements/Colors';
 import '../../../../generalComponents/colors.sass';
 import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
+import {useLocales} from "react-localized";
 
-const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => {
+const CreateSafePassword = ({onToggle, title }) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -20,6 +22,10 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
     const [sign, setSign] = useState('');
     const [emoji, setEmoji] = useState('');
     const [error, setError] = useState(false);
+
+    if(!title) {
+        title = __('Выберите цвет');
+    }
 
     const renderTags = () => {
         return tags.map((tag, i) => {
@@ -39,7 +45,6 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
           }
       } else {
           return {
-              //height: '110px',
               marginBottom: '10px'
           }
       }
@@ -73,7 +78,7 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
                         <SafeIcon className={styles.safeIcon} />
                     </div>
                     <div className={styles.picPreview}>
-                        <div className={styles.folderName}>{name === '' ? 'Пароли' : name}</div>
+                        <div className={styles.folderName}>{name === '' ? __('Пароли') : name}</div>
                         {tagOption.chosen && <div
                             className={`${styles.minitagWrap} ${styles.redCross}`}
                             onClick={() => setTagOption({...tagOption, chosen: ''})}
@@ -93,7 +98,7 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
                             height={width >= 1440 ? '40px' : '30px'}
                             value={name}
                             set={setName}
-                            placeholder='Имя сейфа (по умолчанию Пароли)'
+                            placeholder={ __('Имя сейфа (по умолчанию Пароли)') }
                         />
                     </div>
                     <div className={styles.tagPicker}>
@@ -101,7 +106,7 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
                         <input
                             className={styles.inputField}
                             type='text'
-                            placeholder='Добавте #Тег'
+                            placeholder={ __('Добавте #Тег') }
                             value={tagOption.chosen}
                             onChange={(e) => onChangeTag(e.target.value)}
                             onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -121,22 +126,22 @@ const CreateSafePassword = ({onToggle, title = 'Выберите цвет'}) => 
                             height={width >= 1440 ? '40px' : '30px'}
                             value={phoneNumber}
                             set={setPhoneNumber}
-                            placeholder='Введите Ваш номер телефона'
+                            placeholder={ __('Введите Ваш номер телефона') }
                             phone={true}
                         />
                     </div>
                 </div>
-                <span className={styles.description}>Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу</span>
+                <span className={styles.description}>{ __('Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу') }</span>
                 <Colors color={color} setColor={setColor} />
                 <Signs sign={sign} setSign={setSign} />
                 <Emoji emoji={emoji} setEmoji={setEmoji} />
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancel} onClick={() => onToggle(false)}>Отмена</div>
-                    <div className={styles.add}>Сохранить</div>
+                    <div className={styles.cancel} onClick={() => onToggle(false)}>{ __('Отмена') }</div>
+                    <div className={styles.add}>{ __('Сохранить') }</div>
                 </div>
             </div>
         </PopUp>
-        {error && <Error error={error} set={closeComponent} message='Пароль для сейфа не создан' />}
+        {error && <Error error={error} set={closeComponent} message={ __('Пароль для сейфа не создан') } />}
         </>
     )
 }
