@@ -18,8 +18,10 @@ import BottomPanel from "../BottomPanel";
 import FilesGroup from '../Archive/WorkElements/FilesGroup/FilesGroup'
 
 import { months } from "../../../../generalComponents/CalendarHelper";
+import {useLocales} from "react-localized";
 
 const Cart = () => {
+    const { __ } = useLocales()
     const contextMenuFile = useContextMenuFile()
     const workElementsView = useSelector((state) => state.Cabinet.view);
     const [search, setSearch] = useState(null)
@@ -39,38 +41,38 @@ const Cart = () => {
     const nullifyAction = () => setAction({type: "", name: "", text: ""});
 
     const callbackArrMain = [
-        {type: 'resend', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'share', name: '', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'copyLink', name: '', text: ``, callback: () => {}},
-        {type: 'customize', name: 'Редактирование файла', text: ``, callback: (list, index) => setAction(list[index])},
-        {type: 'customizeSeveral', name: `Редактирование файлов`, text: ``, callback: () => {}},
+        {type: 'resend', name: __(''), text: __(''), callback: (list, index) => setAction(list[index])},
+        {type: 'share', name: __(''), text: __(''), callback: (list, index) => setAction(list[index])},
+        {type: 'copyLink', name: __(''), text: __(''), callback: () => {}},
+        {type: 'customize', name: __('Редактирование файла'), text: __(``), callback: (list, index) => setAction(list[index])},
+        {type: 'customizeSeveral', name: __(`Редактирование файлов`), text: __(``), callback: () => {}},
         {
             type: 'archive',
-            name: 'Добавить файл в архив',
-            text: `Вы действительно хотите архивировать файл ${chosenFile?.name}?`,
+            name: __('Добавить файл в архив'),
+            text: __(`Вы действительно хотите архивировать файл ${chosenFile?.name}?`),
             callback: (list, index) => setAction(list[index])
         },
         {
             type: 'intoZip',
-            name: 'Сжать в ZIP',
-            text: ``,
+            name: __('Сжать в ZIP'),
+            text: __(``),
             callback: (list, index) => setAction({...action, type: list[index].type, name: list[index].name})
         },
         {
             type: 'properties',
-            name: 'Свойства',
+            name: __('Свойства'),
             text: ``,
-            callback: () => setAction({...action, type: 'properties', name: 'Свойства'})
+            callback: () => setAction({...action, type: 'properties', name: __('Свойства')})
         },
-        {type: 'download', name: 'Загрузка файла', text: ``, callback: () => {}},
-        {type: 'print', name: 'Распечатать файл', text: ``, callback: () => {}},
+        {type: 'download', name: __('Загрузка файла'), text: __(``), callback: () => {}},
+        {type: 'print', name: __('Распечатать файл'), text: __(``), callback: () => {}},
     ]
 
     const additionalMenuItems = [
         {
             type: 'delete',
-            name: 'Удаление файла',
-            text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
+            name: __('Удаление файла'),
+            text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`),
             callback: (list, index) => setAction(list[index])
         },
     ]
@@ -140,27 +142,11 @@ const Cart = () => {
 
                  <div className={styles.workSpaceWrap}>
 
-                    {/* {workElementsView === "workLinesPreview" && (
-						<div className={styles.workSpace}>
-							<SideList>
-								{month
-									? renderFilesGroup(months()[month - 1].name, 0)
-									: months().map((item, i) => renderFilesGroup(item.name, i))}
-							</SideList>
-							<div className={styles.filePreviewWrap}>
-								<WorkLinesPreview
-									file={chosenFile}
-									hideFileList={true}
-									filePick={filePick}
-								/>
-							</div>
-						</div>
-					)} */}
-                    <div className={styles.FilesList}>
+                     <div className={styles.FilesList}>
                         {month
                             ? renderFilesGroup(months()[month - 1].name, 0)
                             : months().map((item, i) => renderFilesGroup(item.name, i))}
-                    </div>
+                     </div>
 
                 </div>
 
@@ -188,7 +174,7 @@ const Cart = () => {
                     set={nullifyAction}
                     callback={() => {
                     }}
-                    approve={"Удалить"}
+                    approve={ __("Удалить") }
                 >
                     <div className={styles.fileActionWrap}>
                         <File format={chosenFile?.ext} color={chosenFile?.color}/>
