@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 const FileItem = ({
 	file,
 	listCollapsed,
-	mouseParams,
 	setMouseParams,
 	setChosenFile,
 	setFilePreview,

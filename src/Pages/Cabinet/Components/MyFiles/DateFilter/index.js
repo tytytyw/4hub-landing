@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./DateFilter.module.sass";
 import Select from "../../../../../generalComponents/Select/Select";
-import { getDays, getYears, months } from "./helper";
+import {useMonths, useGetYears, useGetDays} from "./helper";
 import classNames from "classnames";
 
 const DateFilter = ({dateFilter, setDateFilter}) => {
-
+	const months = useMonths();
+	const getYears = useGetYears();
+	const getDays = useGetDays();
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.searchWrap}>

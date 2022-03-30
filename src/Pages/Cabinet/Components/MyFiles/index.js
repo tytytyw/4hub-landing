@@ -16,6 +16,7 @@ import {useScrollElementOnScreen} from "../../../../generalComponents/Hooks";
 import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
 import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
+import {useLocales} from "react-localized";
 
 const MyFiles = ({
 	filePreview,
@@ -38,6 +39,7 @@ const MyFiles = ({
 	fileErrors,
 	setLoadingFile,
 }) => {
+	const { __ } = useLocales();
 	const periods = usePeriods();
 	const dispatch = useDispatch();
 	const [chosenFile, setChosenFile] = useState(null);
@@ -105,7 +107,7 @@ const MyFiles = ({
 				setChosenFile={setChosenFile}
 				filePick={filePick}
 				setFilePick={setFilePick}
-				title={periods[k] ?? "Более года назад"}
+				title={periods[k] ?? __("Более года назад")}
 				setAction={setAction}
 				setMouseParams={setMouseParams}
 				//WorkLinesPreview
@@ -169,7 +171,7 @@ const MyFiles = ({
 		<div className={styles.workAreaWrap}>
 			{workElementsView === "workLinesPreview" && (
 				<List
-					title="Загрузить файл"
+					title={ __("Загрузить файл") }
 					src="add-file.svg"
 					setListCollapsed={setListCollapsed}
 					listCollapsed={listCollapsed}
@@ -227,7 +229,7 @@ const MyFiles = ({
 				menuItem={menuItem}
 			/>
 			{fileAddCustomization.show ? <CreateFile
-				title={fileAddCustomization.create ? 'Создать файл' : 'Добавление файла'}
+				title={fileAddCustomization.create ? __('Создать файл') : __('Добавление файла')}
 				info={chosenFolder}
 				blob={fileAddCustomization.file}
 				setBlob={setFileAddCustomization}
@@ -248,7 +250,7 @@ const MyFiles = ({
 			{safePassword.open && (
 				<CreateSafePassword
 					onToggle={onSafePassword}
-					title="Создайте пароль для Сейфа с паролями"
+					title={ __("Создайте пароль для Сейфа с паролями") }
 				/>
 			)}
 			{showSuccessMessage && (

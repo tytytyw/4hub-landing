@@ -14,6 +14,7 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import {useElementResize} from "../../../../../generalComponents/Hooks";
 import {onAddRecentFiles, onChooseFiles, onGetArchiveFiles} from "../../../../../Store/actions/CabinetActions";
 import DateFilter from '../DateFilter'
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({
 	chosenFile,
@@ -40,6 +41,7 @@ const WorkSpace = ({
     setGLoader,
 	menuItem
 }) => {
+	const { __ } = useLocales();
 	const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
 	const fileRef = useRef(null);
 	const dispatch = useDispatch();
@@ -159,7 +161,7 @@ const WorkSpace = ({
 						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? 'Сжать в Zip' : 'Редактировать'}
+						actionName={filePick.intoZip ? __('Сжать в Zip') : __('Редактировать')}
 						setAction={setAction}
 						action={action}
 						nullifyFilePick={nullifyFilePick}
