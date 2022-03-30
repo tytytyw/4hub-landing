@@ -15,12 +15,14 @@ import Emoji from '../../../../generalComponents/Elements/Emoji';
 import File from '../../../../generalComponents/Files';
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {onAddRecentFiles, onChooseFiles, onCustomizeFile} from "../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const CreateFile = ({
                 title, loaded, setLoaded, blob, setBlob, onToggleSafePassword, setAwaitingFiles,
                 awaitingFiles, loadingFile, fileErrors, setLoadingFile, create, setGLoader, menuItem,
                 initFolder, showChoiceFolders, info
 }) => {
+    const { __ } = useLocales();
     const tags = useTags();
     const uid = useSelector(state => state.user.uid);
     const fileList = useSelector(state => state.Cabinet.fileList);
@@ -202,10 +204,9 @@ const CreateFile = ({
                         <div className={styles.inputWrap}>
                             <InputField
                                 model='text'
-                                
                                 value={name}
                                 set={setName}
-                                placeholder='Имя файла'
+                                placeholder={ __('Имя файла') }
                             />
                         </div>
                         <div className={styles.tagPicker}>
@@ -213,7 +214,7 @@ const CreateFile = ({
                             <input
                                 className={styles.inputField}
                                 type='text'
-                                placeholder='Добавьте #Тег'
+                                placeholder={ __('Добавьте #Тег') }
                                 value={tagOption.chosen}
                                 onChange={(e) => onChangeTag(e.target.value)}
                                 onFocus={() => {setTagOption({...tagOption, show: true})}}
@@ -242,7 +243,7 @@ const CreateFile = ({
                                 
                                 value={password}
                                 set={setPassword}
-                                placeholder='Пароль'
+                                placeholder={ __('Пароль') }
                                 onSwitch={onSwitch}
                                 isPass={showRepeat}
                                 visibility={visibility}
@@ -254,7 +255,6 @@ const CreateFile = ({
                             <InputField
                                 model='password'
                                 switcher={false}
-                                
                                 value={passwordRepeat}
                                 set={setPasswordRepeat}
                                 placeholder='Повторите пароль'
@@ -274,19 +274,19 @@ const CreateFile = ({
                                 }}
                             >{isSafe && <img src={`${imageSrc}assets/PrivateCabinet/tick-green.svg`} alt='tick' />}</div>
                         </div>
-                        <div className={styles.safeText}>Сохранить пароль во вкладку сейф с паролями</div>
+                        <div className={styles.safeText}>{ __('Сохранить пароль во вкладку сейф с паролями') }</div>
                     </div>
                     <Colors title='Выберите цвет файла' color={color} setColor={setColor} />
                     <Signs sign={sign} setSign={setSign} />
                     <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? 'create' : ''} />
                     <div className={`${styles.buttonsWrap} ${create ? '' : styles.buttonsWrapSmall}`}>
-                        <div className={`${styles.cancel} ${create ? styles.onCreate : ''}`} onClick={() => setBlob({...blob, file: null, show: false})}>Отмена</div>
-                        <div className={`${styles.add} ${create ? styles.onCreate : ''}`} onClick={onAddFile}>{create ? 'Создать' : 'Добавить'}</div>
-                        {create ? <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>Создать и открыть в редакторе</div> : null}
+                        <div className={`${styles.cancel} ${create ? styles.onCreate : ''}`} onClick={() => setBlob({...blob, file: null, show: false})}>{ __('Отмена') }</div>
+                        <div className={`${styles.add} ${create ? styles.onCreate : ''}`} onClick={onAddFile}>{create ? __('Создать') : __('Добавить')}</div>
+                        {create ? <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>{ __('Создать и открыть в редакторе') }</div> : null}
                     </div>
                 </div>
             </PopUp>
-            {error && <Error error={error} set={closeComponent} message='Файл не добавлен' />}
+            {error && <Error error={error} set={closeComponent} message={ __('Файл не добавлен') } />}
         </div>
     )
 }
