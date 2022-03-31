@@ -66,7 +66,7 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
         document.cookie = `id_company=${id_company};expires=${date}`;
         stayOnline(0);
         setLoadingType('');
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line
 
     //Loading multiple files info
     const inputRef = useRef();

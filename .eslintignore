@@ -1,0 +1,22 @@
+# Always ignored
+build/
+project/
+public/
+translations/
+
+babel.config.js
+gulpfile.js
+vercel.json
+robots.txt
+src/locales/
+src/api/
+src/assets/
+src/fonts/
+
+# Files that needs to be checked and then deleted from the list
+src/generalComponents/
+src/Pages/Cabinet/
+src/Pages/Cabinet/Components/
+src/Pages/Guest/
+src/Pages/StartPage/
+src/Store/

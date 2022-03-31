@@ -66,11 +66,12 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
+    "eslint-plugin-react": "^7.29.4",
     "ftp-deploy": "^2.4.1",
+    "gettext-parser": "^5.1.1",
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.1",
     "jest-css-modules": "^2.1.0",
-    "gettext-parser": "^5.1.1",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0"
   },

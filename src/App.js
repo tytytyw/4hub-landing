@@ -23,14 +23,14 @@ function App() {
     useEffect(() => {
         const uid = document?.cookie.match(/uid=[a-zA-Z0-9]*/g);
         const id_company = document?.cookie.match(/id_company=[a-zA-Z0-9]*/g);
-        if (!!uid) {
+        if (uid) {
             const data = {uid: uid?.[0].split('=')[1], id_company: id_company?.[0].split('=')[1]}
             dispatch(onLog(data));
         }
         if(!getStorageItem('lang')) {
             setStorageItem('lang', 'ru');
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line
 
     return (
         <LocalizedProvider
