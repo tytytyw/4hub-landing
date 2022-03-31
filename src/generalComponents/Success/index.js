@@ -2,8 +2,10 @@ import React from 'react';
 
 import styles from './Success.module.sass';
 import PopUp from '../PopUp';
+import {useLocales} from "react-localized";
 
 const Success = ({success, set, message, title, icon}) => {
+    const { __ } = useLocales();
     return (
         <>
             {success && <PopUp set={set}>
@@ -25,7 +27,7 @@ const Success = ({success, set, message, title, icon}) => {
                     <div className={styles.infoSuccess}>
                         <span>{message}</span>
                     </div>
-                    <div className={styles.button} onClick={() => set(false)}>Продолжить</div>
+                    <div className={styles.button} onClick={() => set(false)}>{ __('Продолжить') }</div>
                 </div>
             </PopUp>}
         </>
