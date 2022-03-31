@@ -15,7 +15,6 @@
     "chart.js": "^3.3.2",
     "classnames": "^2.2.6",
     "emoji-picker-react": "^3.4.8",
-    "gettext-parser": "^5.1.1",
     "html2canvas": "^1.3.2",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
@@ -26,9 +25,6 @@
     "react-dom": "^17.0.1",
     "react-flow-renderer": "^9.6.9",
     "react-image-crop": "^10.0.0",
-    "react-localized": "^3.2.0",
-    "react-localized-extractor": "^2.1.0",
-    "react-localized-loader": "^1.1.0",
     "react-moment": "^1.1.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
@@ -73,7 +69,10 @@
     "ftp-deploy": "^2.4.1",
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.1",
-    "jest-css-modules": "^2.1.0"
+    "jest-css-modules": "^2.1.0",
+    "gettext-parser": "^5.1.1",
+    "react-localized": "^3.2.0",
+    "react-localized-extractor": "^2.1.0"
   },
   "jest": {
     "clearMocks": false,
