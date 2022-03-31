@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import SideList from "../SideList";
+import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
@@ -81,7 +81,7 @@ const SideMenu = ({
 export default SideMenu;
 
 SideMenu.propTypes = {
-  sideMenuCollapsed: PropTypes,
+  sideMenuCollapsed: PropTypes.bool,
   setSideMenuCollapsed: PropTypes.func,
   sideMenuChosenItem: PropTypes.string,
   setSideMenuChosenItem: PropTypes.func,

@@ -24,7 +24,7 @@ import FileProperty from "../ContextMenuComponents/ContextMenuFile/FileProperty"
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
-import SideMenu from "./SideMenu";
+import SideMenu from "./SideMenu/SideMenu";
 import { useMonths } from "../../../../generalComponents/CalendarHelper";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
