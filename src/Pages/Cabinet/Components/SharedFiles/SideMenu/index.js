@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import SideList from "../SideList";
+import {useLocales} from "react-localized";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
 // import { months } from "../../../../../generalComponents/CalendarHelper";
@@ -17,9 +18,8 @@ const SideMenu = ({
 	setSideMenuChosenItem,
 	filesSharedMe,
 	filesSharedI,
-	// renderFilesGroup,
-	// month,
 }) => {
+	const { __ } = useLocales();
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 
 	return (
@@ -32,12 +32,12 @@ const SideMenu = ({
 			<div className={styles.header}>
 				<div className={styles.headerName}>
 					<SharedFilesIcon id={styles.headerIcon} title="" />
-					{sideMenuCollapsed ? null : <span>Расшаренные файлы</span>}
+					{sideMenuCollapsed ? null : <span>{ __('Расшаренные файлы') }</span>}
 				</div>
 				<FolderIcon
 					onClick={() => setSideMenuCollapsed((value) => !value)}
 					id={styles.headerArrow}
-					title={sideMenuCollapsed ? "развернуть" : "свернуть"}
+					title={sideMenuCollapsed ? __("развернуть") : __("свернуть")}
 				/>
 			</div>
 
@@ -49,7 +49,7 @@ const SideMenu = ({
 						[styles.active]: sideMenuChosenItem === "sharedI",
 					})}
 				>
-					{!sideMenuCollapsed ? "Файлы которые расшарил я" : "Я"}
+					{!sideMenuCollapsed ? __("Файлы которые расшарил я") : __("Я")}
 					<span className={styles.count}>
 						({filesSharedI?.files?.length || "0"})
 					</span>
@@ -61,7 +61,7 @@ const SideMenu = ({
 						[styles.active]: sideMenuChosenItem === "sharedMe",
 					})}
 				>
-					{!sideMenuCollapsed ? "Файлы расшаренные мне" : "Мне"}
+					{!sideMenuCollapsed ? __("Файлы расшаренные мне") : __("Мне")}
 					<span className={styles.count}>
 						({filesSharedMe?.files?.length || "0"})
 					</span>

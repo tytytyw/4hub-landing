@@ -3,16 +3,14 @@ import React from "react";
 import styles from "./FileLine.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
-// import {ReactComponent as DownLoadIcon} from '../../../../../../assets/PrivateCabinet/download.svg'
 import { ReactComponent as PrintIcon } from "../../../../../../assets/PrivateCabinet/print.svg";
-// import {ReactComponent as SettingsIcon} from '../../../../../../assets/PrivateCabinet/settings.svg'
-// import {ReactComponent as DeleteIcon} from '../../../../../../assets/PrivateCabinet/delete.svg'
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { ReactComponent as ArrowIcon } from "../../../../../../assets/PrivateCabinet/play-grey.svg";
 import { colors } from "../../../../../../generalComponents/collections";
+import {useLocales} from "react-localized";
 
 const FileLine = ({
 	file,
@@ -29,6 +27,7 @@ const FileLine = ({
 	openFolderMenu,
 	sideMenuChosenItem,
 }) => {
+	const { __ } = useLocales();
 	const size = useSelector((state) => state.Cabinet.size);
 
 	const printFile = () => {
@@ -161,8 +160,8 @@ const FileLine = ({
 			</div>
 			<div className={styles.actionBlock}>
 				<div className={styles.settingWrap}>
-					{sideMenuChosenItem === "sharedI" && <span></span>}
-					<button className={styles.setting}>Только просмотр</button>
+					{sideMenuChosenItem === "sharedI" && <span/>}
+					<button className={styles.setting}>{ __('Только просмотр') }</button>
 					{sideMenuChosenItem === "sharedI" ? (
 						<span className={styles.arrowIcon}>
 							<ArrowIcon />
@@ -176,7 +175,7 @@ const FileLine = ({
 					title={file.user_name + " " + file.user_sname}
 				/>
 				<span className={styles.storageInfo}>
-					Срок хранения: Осталось (8дней)
+					{ __('Срок хранения: Осталось (8дней)') }
 				</span>
 				<div className={styles.optionsWrap}>
 					{file?.ext !== "ZIP" && file?.is_dir !== 1 && (

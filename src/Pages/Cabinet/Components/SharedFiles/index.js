@@ -28,6 +28,7 @@ import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import SideMenu from "./SideMenu";
 import { months } from "../../../../generalComponents/CalendarHelper";
+import {useLocales} from "react-localized";
 
 const SharedFiles = ({
 	filePreview,
@@ -36,6 +37,7 @@ const SharedFiles = ({
 	setLoadingType,
 	setMenuItem,
 }) => {
+	const { __ } = useLocales();
 	const contextMenuSharedFiles = useContextMenuSharedFiles();
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState("");
@@ -93,53 +95,53 @@ const SharedFiles = ({
 	const callbackArrMain = [
 		{
 			type: "share",
-			name: "",
-			text: ``,
+			name: __(""),
+			text: __(""),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "copyLink",
-			name: "",
-			text: ``,
+			name: __(""),
+			text: __(""),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customize",
-			name: "Редактирование файла",
-			text: ``,
+			name: __("Редактирование файла"),
+			text: __(""),
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customizeSeveral",
-			name: `Редактирование файлов`,
-			text: ``,
+			name: __(`Редактирование файлов`),
+			text: __(""),
 			callback: () => setFilePick({ ...filePick, show: true }),
 		},
 		{
 			type: "properties",
-			name: "Свойства",
-			text: ``,
+			name: __("Свойства"),
+			text: __(""),
 			callback: () =>
 				setAction({ ...action, type: "properties", name: "Свойства" }),
 		},
 		{
 			type: "download",
-			name: "Загрузка файла",
-			text: ``,
+			name: __("Загрузка файла"),
+			text: __(""),
 			callback: () => document.downloadFile.submit(),
 		},
 		{
 			type: "print",
-			name: "Распечатать файл",
-			text: ``,
+			name: __("Распечатать файл"),
+			text: __(""),
 			callback: () => checkMimeTypes(),
 		},
 	];
 	const additionalMenuItems = [
 		{
 			type: "delete",
-			name: "Удаление файла",
-			text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`,
+			name: __("Удаление файла"),
+			text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -271,93 +273,6 @@ const SharedFiles = ({
 	const nullifyFilePick = () =>
 		setFilePick({ show: false, files: [], customize: false });
 
-	// const cancelArchive = () => {
-	// 	nullifyFilePick();
-	// 	nullifyAction();
-	// };
-
-	// const archiveFile = () => {
-	// 	if (filePick.show) {
-	// 		filePick.files.forEach((fid, i) => {
-	// 			const options = {
-	// 				single: false,
-	// 				several: i === filePick.files.length - 1,
-	// 			};
-	// 			addToArchive(uid, fid, { fid }, options);
-	// 		});
-	// 	} else {
-	// 		addToArchive(uid, chosenFile.fid, chosenFile, {
-	// 			single: true,
-	// 			several: false,
-	// 		});
-	// 	}
-	// };
-
-	// const addToArchive = (uid, fid, file, options) => {
-	// 	setLoadingType("squarify");
-	// 	api
-	// 		.post(`/ajax/file_archive.php?uid=${uid}&fid=${fid}`)
-	// 		.then((res) => {
-	// 			if (res.data.ok === 1) {
-	// 				dispatch(onDeleteFile(file));
-	// 				if (options.single) setShowSuccessMessage("Файл добавлен в архив");
-	// 				if (options.several)
-	// 					setShowSuccessMessage("Выбранные файлы добавлено в архив");
-	// 			} else console.log(res?.error);
-	// 		})
-	// 		.catch((err) => console.log(err))
-	// 		.finally(() => {
-	// 			nullifyAction();
-	// 			setChosenFile(null);
-	// 			setLoadingType("");
-	// 			if (filePick.show) nullifyFilePick();
-	// 		});
-	// };
-
-	// const deleteAccess = (fid, dir, set, msg) => {
-	// 	setLoadingType("squarify");
-	// 	api
-	// 		.post(`/ajax/file_share_del.php`, {
-	// 			fids: [fid],
-	// 			dir,
-	// 			uid,
-	// 			user_to: user.name,
-	// 		})
-	// 		.then((res) => {
-	// 			if (res.data.ok) {
-	// 				dispatch(onGetSharedFiles());
-	// 				if (set) set(msg);
-	// 			} else console.log(res?.error);
-	// 		})
-	// 		.catch((err) => console.log(err))
-	// 		.finally(() => setLoadingType(""));
-	// };
-
-	// const deleteFile = () => {
-	// 	if (filePick.show) {
-	// 		filePick.files.forEach((fid, i, arr) => {
-	// 			const file = fileList.files.filter((file) => file.fid === fid);
-	// 			deleteAccess(
-	// 				fid,
-	// 				file[0].dir,
-	// 				i === arr.length - 1 ? setShowSuccessMessage : "",
-	// 				"Файлы удалены"
-	// 			);
-	// 		});
-	// 		setFilePick({ ...filePick, files: [], show: false });
-	// 	} else {
-	// 		deleteAccess(
-	// 			chosenFile.fid,
-	// 			chosenFile.dir,
-	// 			setShowSuccessMessage,
-	// 			"Файл удален"
-	// 		);
-	// 	}
-	// 	nullifyAction();
-	// 	setChosenFile(null);
-	// 	dispatch(onAddRecentFiles());
-	// };
-
 	return (
 		<div className={styles.wrapper}>
 			<SideMenu
@@ -370,7 +285,6 @@ const SharedFiles = ({
 				filesSharedMe={filesSharedMe}
 				filesSharedI={filesSharedI}
 				renderFilesGroup={renderFilesGroup}
-				// month={month}
 			/>
 
 			<div className={styles.workAreaWrap}>
@@ -428,7 +342,7 @@ const SharedFiles = ({
 						callbackArrMain={callbackArrMain}
 						filePick={filePick}
 						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+						actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
 						setAction={setAction}
 						action={action}
 						nullifyFilePick={nullifyFilePick}
@@ -452,26 +366,6 @@ const SharedFiles = ({
 						</div>
 					</ContextMenu>
 				)}
-				{/* {action.type === "delete" ? (
-					<ActionApproval
-						name={filePick.show ? "Удаление файлов" : action.name}
-						text={
-							filePick.show
-								? "Вы действительно хотите удалить выбранные файлы?"
-								: action.text
-						}
-						set={cancelArchive}
-						callback={deleteFile}
-						approve={"Удалить"}
-					>
-						<div className={styles.fileActionWrap}>
-							<File
-								format={filePick.show ? "FILES" : chosenFile?.ext}
-								color={chosenFile?.color}
-							/>
-						</div>
-					</ActionApproval>
-				) : null} */}
 
 				<BottomPanel />
 				{filePreview?.view ? (
@@ -482,31 +376,6 @@ const SharedFiles = ({
 						setLoadingType={setLoadingType}
 					/>
 				) : null}
-				{/* {action.type === "customize" ||
-				filePick.customize ||
-				fileAddCustomization.several ? (
-					<CustomizeFile
-						title={
-							filePick.customize || fileAddCustomization?.several
-								? `Редактировать выбранные файлы`
-								: action.name
-						}
-						file={chosenFile}
-						close={
-							filePick.customize
-								? nullifyFilePick
-								: fileAddCustomization.several
-								? nullifyAddingSeveralFiles
-								: nullifyAction
-						}
-						filePick={filePick}
-						setFilePick={setFilePick}
-						fileAddCustomization={fileAddCustomization}
-						setFileAddCustomization={setFileAddCustomization}
-						saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-						setLoadingType={setLoadingType}
-					/>
-				) : null} */}
 				<form
 					style={{ display: "none" }}
 					name="downloadFile"
@@ -541,13 +410,6 @@ const SharedFiles = ({
 				{action.type === "properties" ? (
 					<FileProperty close={nullifyAction} file={chosenFile} />
 				) : null}
-				{/* {action.type === "copyLink" ? (
-					<CopyLinkShare
-						nullifyAction={nullifyAction}
-						setShowSuccessMessage={setShowSuccessMessage}
-					/>
-				) : null} */}
-
 				{showSuccessMessage && (
 					<SuccessMessage
 						showSuccessMessage={showSuccessMessage}
