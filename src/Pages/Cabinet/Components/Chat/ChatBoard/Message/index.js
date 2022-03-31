@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Message.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
-import { messageTime } from "../../../../../../generalComponents/chatHelper";
+import {useMessageTime} from "../../../../../../generalComponents/chatHelper";
 import VideoMessagePlayer from "./VideoMessagePlayer";
 import VoiceMessagePlayer from "./VoiceMessagePlayer";
 import FileMessage from "./FileMessage";
@@ -16,6 +16,7 @@ function Message({
 	setMouseParams,
 	contextMenuList = "message",
 }) {
+	const messageTime = useMessageTime();
 	const userId = useSelector((state) => state.Cabinet.chat.userId);
 	const text = message.text.split("\n");
 	const messageType = message.id_user === userId ? "outbox" : "inbox";

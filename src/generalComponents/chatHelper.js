@@ -4,6 +4,7 @@ import {
 	onGetContacts,
 } from "../Store/actions/CabinetActions";
 import {useMonths} from "../generalComponents/CalendarHelper";
+import {useLocales} from "react-localized";
 
 export const contactDelete = (
 	contact,
@@ -39,13 +40,14 @@ const gtmToString = (gmt) => {
 };
 
 export const useCreateContactStatus = () => {
+	const { __ } = useLocales();
 	const months = useMonths();
 	return (isUser,
 			currentDate,
 			contactLastVisitDate,
 			isOnline,
 			gmt) => {
-		if (!isUser) return "Пользователя нет в системе 4Hub";
+		if (!isUser) return __("Пользователя нет в системе 4Hub");
 		if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
 		const lastVisitWithGmt = new Date(
@@ -64,50 +66,53 @@ export const useCreateContactStatus = () => {
 						(currentDate - new Date(lastVisitWithGmt)) / 60000;
 					if (minutesDifference > 12 * 60) {
 						// more than 12 hours ago
-						return `сегодня в ${lastVisitTime}`;
+						return __(`сегодня в ${lastVisitTime}`);
 					} else if (minutesDifference <= 60) {
 						//less than an hour ago
 						const minutes = Math.floor(minutesDifference);
 						//contact online
 						return minutes < 1 || isOnline === 1
-							? "в сети"
-							: `${minutes} мин. назад`;
+							? __("в сети")
+							: __(`${minutes} мин. назад`);
 					} else {
 						//more than an hour and less than 12 hours ago
 						const hours = Math.floor(minutesDifference / 60);
-						let word_ending = "a";
-						if (hours > 4) word_ending = "ов";
+						let word_ending = __("a");
+						if (hours > 4) word_ending = __("ов");
 						if (hours === 1) word_ending = "";
-						return `${hours > 1 ? hours : ""} час${word_ending} назад`;
+						return __(`${hours > 1 ? hours : ""} час${word_ending} назад`);
 					}
 				} else if (currentDate.getDate() - 1 === lastVisitWithGmt.getDate()) {
 					//yesterday
-					return `вчера в ${lastVisitTime}`;
+					return __(`вчера в ${lastVisitTime}`);
 				}
 			}
-			return `был в сети ${lastVisitWithGmt.getDate()} ${
+			return __(`был в сети ${lastVisitWithGmt.getDate()} ${
 				months()[lastVisitWithGmt.getMonth()].declensionName
-			}`;
+			}`);
 		}
 		//not this year
-		return `был в сети ${lastVisitDate}`;
+		return __(`был в сети ${lastVisitDate}`);
 	}
 };
 
-export const messageTime = (currentDate, message_ut, gmt) => {
-	if (!gmt || !message_ut || !currentDate) return "";
+export const useMessageTime = () => {
+	const { __ } = useLocales();
+	return (currentDate, message_ut, gmt) => {
+		if (!gmt || !message_ut || !currentDate) return "";
 
-	const date = new Date(message_ut.replace(" ", "T") + gtmToString(gmt));
-	const time = date.toLocaleTimeString("ru");
-	const minutesDifference = (currentDate - date) / 60000;
-	if (minutesDifference >= 60) {
-		return time.slice(0, time.lastIndexOf(":"));
-	} else {
-		return minutesDifference >= 1
-			? `${Math.floor(minutesDifference)} мин назад`
-			: minutesDifference < 0.5
-			? "только что"
-			: "менее минуты назад";
+		const date = new Date(message_ut.replace(" ", "T") + gtmToString(gmt));
+		const time = date.toLocaleTimeString("ru");
+		const minutesDifference = (currentDate - date) / 60000;
+		if (minutesDifference >= 60) {
+			return time.slice(0, time.lastIndexOf(":"));
+		} else {
+			return minutesDifference >= 1
+				? __(`${Math.floor(minutesDifference)} мин назад`)
+				: minutesDifference < 0.5
+					? __("только что")
+					: __("менее минуты назад");
+		}
 	}
 };
 
