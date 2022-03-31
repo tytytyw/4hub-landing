@@ -7,14 +7,17 @@ import classNames from "classnames";
 import {setStorageItem} from "../StorageHelper";
 import {changeLanguage} from "../../Store/actions/main";
 import {useDispatch, useSelector} from "react-redux";
+import {useLocales} from "react-localized";
 
-const langs = [
-    {lang: 'ru', title: 'ru', name: 'Русский'},
-    {lang: 'uk', title: 'ua', name: 'Украинский'},
-    {lang: 'en', title: 'eng', name: 'Английский'},
-]
+
 
 const LangPicker = () => {
+    const { __ } = useLocales()
+    const langs = [
+        {lang: 'ru', title: 'ru', name: __('Русский')},
+        {lang: 'uk', title: 'ua', name: __('Украинский')},
+        {lang: 'en', title: 'eng', name: __('Английский')},
+    ]
 
     const language = useSelector(s => s.main.personalSettings.lang);
     const [lang, setLang] = useState(langs.filter(el => el.lang === language)[0] ?? langs[0])
