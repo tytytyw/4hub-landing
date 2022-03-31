@@ -631,19 +631,20 @@ export const onChooseProjectFiles = (folder, project, page) => async (
   api
     .get(url)
     .then(res => {
+      console.log(res?.data?.ok === 1);
       if (res?.data?.ok === 1) {
         dispatch({
           type: LOAD_PROJECT_FILES,
           payload: res.data.files
         });
       } else {
-        return {
+        dispatch({
           type: SET_MODALS,
           payload: {
             key: "error",
             value: { open: true, message: "Failed to load project files" }
           }
-        };
+        });
       }
     })
     .catch(() => ({
