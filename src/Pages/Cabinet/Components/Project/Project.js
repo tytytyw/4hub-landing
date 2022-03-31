@@ -37,6 +37,7 @@ import CreateSafePassword from "../CreateSafePassword";
 import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFile";
 import { getIcon } from "./helpers";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const Project = ({
   setLoadingType,
@@ -517,3 +518,20 @@ const Project = ({
 };
 
 export default Project;
+
+Project.propTypes = {
+  setLoadingType: PropTypes.func,
+  setMenuItem: PropTypes.func,
+  fileAddCustomization: PropTypes.object,
+  setFileAddCustomization: PropTypes.func,
+  awaitingFiles: PropTypes.array,
+  setAwaitingFiles: PropTypes.func,
+  loaded: PropTypes.array,
+  setLoaded: PropTypes.func,
+  loadingFile: PropTypes.array,
+  fileErrors: PropTypes.array,
+  setLoadingFile: PropTypes.func,
+  menuItem: PropTypes.string,
+  fileSelect: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func
+};

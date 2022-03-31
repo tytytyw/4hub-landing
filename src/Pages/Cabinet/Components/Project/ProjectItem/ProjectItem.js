@@ -13,6 +13,7 @@ import CustomItem from "../CustomItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getIcon } from "../helpers";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const ProjectItem = ({
   project,
@@ -200,3 +201,18 @@ const ProjectItem = ({
 };
 
 export default ProjectItem;
+
+ProjectItem.propTypes = {
+  project: PropTypes.object,
+  listCollapsed: PropTypes.bool,
+  setMouseParams: PropTypes.func,
+  size: PropTypes.string,
+  chosenFolder: PropTypes,
+  setChosenFolder: PropTypes.func,
+  setSelectedProject: PropTypes.func,
+  chosen: PropTypes.bool,
+  setNewFolder: PropTypes.func,
+  params: PropTypes.object,
+  setParams: PropTypes.func,
+  listRef: PropTypes.any
+};
