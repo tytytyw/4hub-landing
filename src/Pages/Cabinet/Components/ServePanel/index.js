@@ -40,12 +40,14 @@ import Emoji from "../../../../generalComponents/Elements/Emoji";
 import {useLocation} from "react-router";
 import {useWindowSize} from "../../../../generalComponents/Hooks";
 import {share_types} from "../ContextMenuComponents/ContextMenuFileList";
+import {useLocales} from "react-localized";
 
 const ServePanel = ({
         chosenFile, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView,
         addFolder, addFile, setGLoader, setNewFolderInfo, setFilesPage, dateFilter
 }) => {
+    const { __ } = useLocales();
     const contextMenuCreateFile = useContextMenuCreateFile();
     const contextMenuFilters = useContextMenuFilters();
     const [, height] = useWindowSize();
@@ -125,7 +127,7 @@ const ServePanel = ({
 
     const renderSortingItems = (target, callback) => (
         target.map((item, i) => {
-            return pathname !== "/archive" && item.name === "По дате архивирования"
+            return pathname !== "/archive" && item.name === __("По дате архивирования")
             ? ''
             : <div
                 onClick={() => callback(item.ext)}
@@ -216,7 +218,7 @@ const ServePanel = ({
     )
 
     const tempDownload = () => (
-        <label className={styles.downloadButton} onClick={addFile}>Загрузить</label>
+        <label className={styles.downloadButton} onClick={addFile}>{ __('Загрузить') }</label>
     )
 
     const tempTabs = () => (
@@ -247,7 +249,7 @@ const ServePanel = ({
             ref={createRef}
             className={styles.createButton}
             onClick={e => openContextMenu(e, 'createFile')}
-        ><span>Создать</span><div /></div>
+        ><span>{ __('Создать') }</span><div /></div>
     )
 
     const tempAdd = () => (
@@ -285,7 +287,6 @@ const ServePanel = ({
         <div
             className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
             onClick={() => {if(chosenFile) {
-                console.log(pathname.split('/')[1])
                 dispatch(onSetModals('share', {open: true, fids: filePick.show ? filePick.files : chosenFile, action_type: chosenFile.is_dir === 1 ? 'dir_access_add' : share_types[pathname.split('/')[1]], file: chosenFile}))
             }}}
         ><ShareIcon className={styles.iconShare} /></div>
@@ -408,7 +409,6 @@ const ServePanel = ({
     const renderInProject = () => (
         <>
             <div className={styles.groupStart}>
-                {/*{tempTabs()}*/}
                 <div className={styles.filterPanel}>
                     {tempSize()} {disableWorkElementsView ? tempFilter() : null} {disableWorkElementsView ? tempChoose() : null} {disableWorkElementsView ? tempAdd() : null}
                 </div>
