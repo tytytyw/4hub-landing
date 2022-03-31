@@ -6,10 +6,11 @@ import styles from "./SearchField.module.sass";
 import {onChooseFiles, onSearch, onGetSafeFileList, onGetArchiveFiles, onGetChatMessages} from '../../../../Store/actions/CabinetActions';
 import Select from "../../../../generalComponents/Select/Select";
 import { useLocation } from "react-router";
+import {useLocales} from "react-localized";
 
 
 const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
-
+	const { __ } = useLocales();
 	const inputRef = useRef(null);
 	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
 	const searchField = useSelector(state => state.Cabinet?.search);
@@ -43,7 +44,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 		debounceCallback(e.target.value);
 	};
 
-	const [searchArea, setSearhArea] = useState([{text: 'Глобальный', active: true, id:'Глобальный'}, {text: 'Локальный', active: false, id:'Локальный'}])
+	const [searchArea, setSearhArea] = useState([{text: __('Глобальный'), active: true, id: 'global' }, {text: __('Локальный'), active: false, id:'local'}])
 
 	useEffect(() => {onSearch('')}, [path]);
 	if (menuItem === 'safe' && !authorizedSafe) return null
@@ -55,7 +56,7 @@ const SearchField = ({setChosenFile, menuItem, selectable = true}) => {
 				onClick={() => inputRef.current.focus()}
 			/>
 			<input
-				placeholder='Введите название файла/папки'
+				placeholder={ __('Введите название файла/папки') }
 				value={searchField}
 				ref={inputRef}
 				onChange={handleChange}
