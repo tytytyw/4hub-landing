@@ -7,6 +7,7 @@ import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetAction
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
+import {useLocales} from "react-localized";
 
 const WorkBars = ({
 	children,
@@ -20,6 +21,7 @@ const WorkBars = ({
 	loadingFiles,
 	setLoadingFiles,
 }) => {
+	const { __ } = useLocales();
 	const size = useSelector((state) => state.Cabinet.size);
 	const search = useSelector((state) => state.Cabinet.search);
 	const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
@@ -90,7 +92,7 @@ const WorkBars = ({
                 `}
 				>
 					<AddIcon className={styles.addIcon} />
-					<span>Перетащите файл или нажмите загрузить</span>
+					<span>{ __('Перетащите файл или нажмите загрузить') }</span>
 				</div>
 			) : null}
 			{fileList?.length === 0 &&
@@ -120,7 +122,7 @@ const WorkBars = ({
 								: "245px",
 					}}
 				>
-					Нет элементов удовлетворяющих условиям поиска
+					{ __('Нет элементов удовлетворяющих условиям поиска') }
 				</div>
 			) : null}
 			{gLoader ? (
@@ -155,6 +157,6 @@ const WorkBars = ({
 			) : null}
 		</div>
 	);
-};
+}
 
 export default WorkBars;

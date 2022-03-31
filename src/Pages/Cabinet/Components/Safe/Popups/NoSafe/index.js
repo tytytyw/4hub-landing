@@ -4,9 +4,10 @@ import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 import styles from './NoSafe.module.sass'
 import Button from '../../../MyProfile/Button'
+import {useLocales} from "react-localized";
 
 const NoSafe = ({set, setCreateSafe}) => {
-
+    const { __ } = useLocales();
     return (
         <PopUp set={set}>
 
@@ -28,7 +29,7 @@ const NoSafe = ({set, setCreateSafe}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>У Вас еще нет ни одного сейфа</h4>
+                        <h4 className={styles.title}>{ __('У Вас еще нет ни одного сейфа') }</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
@@ -41,7 +42,7 @@ const NoSafe = ({set, setCreateSafe}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте
+                            { __('Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте') }
                         </p>
                     </div>
 
@@ -51,7 +52,7 @@ const NoSafe = ({set, setCreateSafe}) => {
                             className={styles.cancelBtn}
                             onClick={() => set(false)}
                         >
-                            Отмена
+                            { __('Отмена') }
                         </Button>
                         <Button
                             type='submit'
@@ -61,7 +62,7 @@ const NoSafe = ({set, setCreateSafe}) => {
                                 setCreateSafe(true)
                             }}
                         >
-                            Создать
+                            { __('Создать') }
                         </Button>
                     </div>
 

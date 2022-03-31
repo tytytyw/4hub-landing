@@ -7,8 +7,10 @@ import styles from "./RefreshPass.module.sass";
 import Input from "../../../MyProfile/Input";
 import Button from "../../../MyProfile/Button";
 import ErrorPass from "../ErrorPass";
+import {useLocales} from "react-localized";
 
 const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass=false }) => {
+	const { __ } = useLocales();
 	const [password, setPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -27,7 +29,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 				)
 				.then((res) => {
 					if (res.data.ok === 1) {
-						setShowSuccessMessage(`Пароль для сейфа обновлен`);
+						setShowSuccessMessage( __(`Пароль для сейфа обновлен`) );
 						set();
 					} else {
 						if (!res.data.f_pass) {
@@ -46,7 +48,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 				)
 				.then((res) => {
 					if (res.data.ok) {
-						setShowSuccessMessage(`Пароль для сейфа обновлен`);
+						setShowSuccessMessage( __(`Пароль для сейфа обновлен`));
 						set(false);
 					} else {
 						console.log(res);
@@ -84,12 +86,12 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 
 				<div className={styles.content}>
 					<div className={styles.titleWrap}>
-						<h4 className={styles.title}>Обновите пароль</h4>
+						<h4 className={styles.title}>{ __('Обновите пароль') }</h4>
 					</div>
 
 					{!recoverPass && <div className={styles.formItem}>
 						<label htmlFor={styles.inputWrap} className={styles.label}>
-							Старый пароль
+							{ __('Старый пароль') }
 						</label>
 						<div className={styles.inputWrap}>
 							<Input
@@ -106,7 +108,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 
 					<div className={styles.formItem}>
 						<label htmlFor={styles.passInput} className={styles.label}>
-							Новый пароль
+							{ __('Новый пароль') }
 						</label>
 
 						<div className={styles.inputWrap}>
@@ -126,7 +128,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 
 					<div className={styles.formItem}>
 						<label htmlFor={styles.inputWrap} className={styles.label}>
-							Повторить пароль
+							{ __('Повторить пароль') }
 						</label>
 
 						<div className={styles.inputWrap}>
@@ -150,7 +152,7 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 							className={styles.actionBtn}
 							onClick={onSubmit}
 						>
-							Готово
+							{ __('Готово') }
 						</Button>
 					</div>
 				</div>

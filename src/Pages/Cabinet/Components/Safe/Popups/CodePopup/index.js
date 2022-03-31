@@ -12,6 +12,7 @@ import RefreshPass from "../RefreshPass";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const CodePopup = ({
 	safe,
@@ -23,6 +24,7 @@ const CodePopup = ({
 	action,
 	setAction
 }) => {
+	const { __ } = useLocales();
 	const [password, setPassword] = useState("");
 	const [code, setCode] = useState("");
 	const [error, setError] = useState(false);
@@ -36,7 +38,6 @@ const CodePopup = ({
 	const [showSendCode, setShowSendCode] = useState(false);
 	const [showPass, setShowPass] = useState("");
 	const search = useSelector((state) => state.Cabinet.search);
-	const codeSentTo = useSelector((state) => state.Cabinet.safeCodeToTel);
 
 	const dispatch = useDispatch();
 
@@ -142,7 +143,7 @@ const CodePopup = ({
 										style={{ opacity: "0", width: 0, height: 0 }}
 									/>
 									<Input
-										placeholder="Введите пароль"
+										placeholder={ __("Введите пароль") }
 										className={styles.input}
 										isMistake={errors?.password}
 										value={password}
@@ -155,7 +156,7 @@ const CodePopup = ({
 										className={styles.link}
 										onClick={() => setRecoverPass({ show: true, active: true })}
 									>
-										Забыли пароль?
+										{ __('Забыли пароль?') }
 									</span>
 								</div>
 							)}
@@ -165,19 +166,18 @@ const CodePopup = ({
 									<div className={styles.inputWrap}>
 										{!recoverPass.active ? (
 											<p className={styles.orItem}>
-												на номер {codeSentTo} отправлен код-пароль для доступа к
-												сейфу
+												{ __('на номер {codeSentTo} отправлен код-пароль для доступа к сейфу') }
 											</p>
 										) : null}
 										<Input
-											placeholder="Введите код"
+											placeholder={ __("Введите код") }
 											label={false}
 											name="code"
 											className={styles.input}
 											isMistake={errors?.code}
 											onChange={(event) => setCode(event.target.value)}
 										/>
-										<span className={styles.link}>Не пришол код?</span>
+										<span className={styles.link}>{ __('Не пришол код?') }</span>
 									</div>
 								</>
 							)}
@@ -188,7 +188,7 @@ const CodePopup = ({
 									className={styles.actionBtn}
 									onClick={onSubmit}
 								>
-									{showSendCode && !recoverPass.active ? "Войти" : "Далее"}
+									{showSendCode && !recoverPass.active ? __("Войти") : __("Далее") }
 								</Button>
 							</div>
 						</div>

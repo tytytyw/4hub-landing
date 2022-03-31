@@ -4,12 +4,14 @@ import {imageSrc} from '../../../../../../generalComponents/globalVariables';
 
 import styles from './ErrorPass.module.sass'
 import Button from '../../../MyProfile/Button'
+import {useLocales} from "react-localized";
 
 const ErrorPass = ({setError, set, mistake}) => {
+    const { __ } = useLocales();
     const getTaregtString = () => {
         switch (mistake) {
-            case 'code': return 'код';
-            default: return 'пароль'
+            case 'code': return __('код');
+            default: return __('пароль')
         }
     }
 
@@ -34,7 +36,7 @@ const ErrorPass = ({setError, set, mistake}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Неверный {getTaregtString()}</h4>
+                        <h4 className={styles.title}>{ __('Неверный') } {getTaregtString()}</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
@@ -47,7 +49,7 @@ const ErrorPass = ({setError, set, mistake}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            Неверный {getTaregtString()}. Повторите попытку{mistake === 'password' ? ', восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона' : ''}.
+                            { __('Неверный') } {getTaregtString()}. { __('Повторите попытку') }{mistake === 'password' ? __(', восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона') : ''}.
                         </p>
                     </div>
 
@@ -57,14 +59,14 @@ const ErrorPass = ({setError, set, mistake}) => {
                             className={styles.cancelBtn}
                             onClick={() => set(false)}
                         >
-                            Закрыть
+                            { __('Закрыть') }
                         </Button>
                         <Button
                             type='submit'
                             className={styles.submitBtn}
                             onClick={() => setError(false)}
                         >
-                            Повторить
+                            { __('Повторить') }
                         </Button>
                     </div>
 

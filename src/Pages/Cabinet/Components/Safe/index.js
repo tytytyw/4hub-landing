@@ -29,6 +29,7 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import CreateFile from "../CreateFile";
 import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
 import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
+import {useLocales} from "react-localized";
 
 const Safe = ({
 	menuItem,
@@ -48,6 +49,7 @@ const Safe = ({
 	nullifyAddingSeveralFiles,
 	saveCustomizeSeveralFiles,
 }) => {
+	const { __ } = useLocales();
 	const contextMenuSafeItem = useContextMenuSafeItem();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
@@ -125,25 +127,25 @@ const Safe = ({
 		{
 			targetType: "share",
 			type: "requestPassword",
-			name: "Предоставить доступ",
+			name: __("Предоставить доступ"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "customizeSafe",
-			name: "Редактировать",
+			name: __("Редактировать"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "changePass",
-			name: "Сменить пароль",
+			name: __("Сменить пароль"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
 		{
 			type: "propertiesSafe",
-			name: "Свойства",
+			name: __("Свойства"),
 			text: ``,
 			callback: (list, index) => setAction(list[index]),
 		},
@@ -153,8 +155,8 @@ const Safe = ({
 		{
 			targetType: "deleteSafe",
 			type: "requestPassword",
-			name: "Удаление сейфа",
-			text: `Вы действительно хотите удалить сейф ${selectedSafe?.name}?`,
+			name: __("Удаление сейфа"),
+			text: __(`Вы действительно хотите удалить сейф ${selectedSafe?.name}?`),
 			callback: (list, index) => setAction(list[index]),
 		},
 	];
@@ -185,7 +187,7 @@ const Safe = ({
 			.post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
 			.then((res) => {
 				if (res.data.ok === 1) {
-					setShowSuccessMessage("Сейф удален");
+					setShowSuccessMessage( __("Сейф удален") );
 					dispatch(onGetSafes());
 				} else {
 					console.log(res);
@@ -206,7 +208,7 @@ const Safe = ({
 					dispatch,
 					uid,
 					i === arr.length - 1 ? setShowSuccessMessage : "",
-					"Файлы перемещено в корзину"
+					__("Файлы перемещено в корзину")
 				);
 			});
 			setFilePick({ ...filePick, files: [], show: false });
@@ -217,7 +219,7 @@ const Safe = ({
 				dispatch,
 				uid,
 				setShowSuccessMessage,
-				"Файл перемещен в корзину"
+				__("Файл перемещен в корзину")
 			);
 		}
 		nullifyAction();
@@ -233,9 +235,9 @@ const Safe = ({
 			.then((res) => {
 				if (res.data.ok === 1) {
 					dispatch(onDeleteSafeFile(fid));
-					if (options.single) setShowSuccessMessage("Файл добавлен в архив");
+					if (options.single) setShowSuccessMessage( __("Файл добавлен в архив") );
 					if (options.several)
-						setShowSuccessMessage("Выбранные файлы добавлено в архив");
+						setShowSuccessMessage( __("Выбранные файлы добавлено в архив") );
 				} else console.log(res?.error);
 			})
 			.catch((err) => console.log(err))
@@ -314,7 +316,7 @@ const Safe = ({
 								src={`${imageSrc}/assets/PrivateCabinet/create_arrow.svg`}
 								alt="Create Arrow"
 							/>
-							<h4 className={styles.emptyTitle}>СОЗДАЙТЕ Ваш первый СЕЙФ</h4>
+							<h4 className={styles.emptyTitle}>{ __('СОЗДАЙТЕ Ваш первый СЕЙФ') }</h4>
 						</div>
 					) : (
 						<div
@@ -421,7 +423,7 @@ const Safe = ({
 					text={action.text}
 					set={cancelArchive}
 					callback={deleteSafe}
-					approve={"Удалить"}
+					approve={ __("Удалить") }
 				>
 					<div className={styles.fileActionWrap}>
 						<SafeIcon type={selectedSafe.id_color} />
@@ -462,7 +464,7 @@ const Safe = ({
 			)}
 			{fileAddCustomization.show && (
 				<CreateFile
-					title={fileAddCustomization.create ? "Создать файл" : "Добавить файл"}
+					title={fileAddCustomization.create ? __("Создать файл") : __("Добавить файл")}
 					blob={fileAddCustomization.file}
 					setBlob={setFileAddCustomization}
 					awaitingFiles={awaitingFiles}

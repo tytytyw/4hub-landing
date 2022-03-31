@@ -7,10 +7,11 @@ import { ReactComponent as FolderIcon } from '../../../../../assets/PrivateCabin
 import {ReactComponent as PlayIcon} from '../../../../../assets/PrivateCabinet/play-grey.svg';
 import {ReactComponent as AddIcon} from '../../../../../assets/PrivateCabinet/plus-3.svg';
 import {imageSrc} from '../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padding, chosen, subFolder,
                            setNewFolderInfo, setNewFolder, newFolderInfo, setMouseParams}) => {
-
+    const { __ } = useLocales();
     const folderList = useSelector(state => state.Cabinet.folderList);
     const dispatch = useDispatch();
 
@@ -87,7 +88,7 @@ const CustomFolderItem = ({f, setChosenFolder, chosenFolder, listCollapsed, padd
             >
                 <div className={styles.addFolderName}>
                     <FolderIcon style={{width: '17px'}} />
-                    {!listCollapsed && <span>Новая папка</span>}
+                    {!listCollapsed && <span>{ __('Новая папка') }</span>}
                 </div>
                 <AddIcon className={styles.addFolderIcon} />
             </div>

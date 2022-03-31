@@ -6,16 +6,18 @@ import Button from "../../../MyProfile/Button";
 import RefreshPass from "../RefreshPass";
 import Select from "../../../../../../generalComponents/Select/Select";
 import api from "../../../../../../api";
+import {useLocales} from "react-localized";
 
 const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setLoadingType }) => {
+    const { __ } = useLocales();
     const uid = useSelector((state) => state.user.uid);
     const userInfo = useSelector((state) => state.user.userInfo);
     const [selectData, setSelectData] = useState([])
     const [sentCodeto, setSentCodeto] = useState(selectData[0]?.id);
     useEffect(() => {
-        if (userInfo?.email) setSelectData(data => [...data, {text: 'Email', id:'email'}])
-        if (userInfo?.tel) setSelectData(data => [...data, {text: 'Телефон', id:'tel'}])
-    }, [userInfo])
+        if (userInfo?.email) setSelectData(data => [...data, {text: __('Email'), id:'email'}])
+        if (userInfo?.tel) setSelectData(data => [...data, {text: __('Телефон'), id:'tel'}])
+    }, [userInfo]) //eslint-disable-line
 	useEffect(() => {
 		setSentCodeto(selectData[0]?.id)
     }, [selectData])
@@ -51,19 +53,18 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 
 						<div className={styles.content}>
 							<div className={styles.titleWrap}>
-								<h4 className={styles.title}>Восстановление пароля</h4>
+								<h4 className={styles.title}>{ __('Восстановление пароля') }</h4>
 							</div>
 
 							<div className={styles.textWrap}>
 								<p className={styles.text}>
-									Введите Email / Телефон указанный при регистрации, Вам будет
-									направлен код для восстановления пароля
+                                    { __('Введите Email / Телефон указанный при регистрации, Вам будет направлен код для восстановления пароля') }
 								</p>
 							</div>
 
 							<div className={styles.formItem}>
 								<label htmlFor={styles.inputWrap} className={styles.label}>
-                                    Выберите способ восстановления
+                                    { __('Выберите способ восстановления') }
 								</label>
 
 								<div className={styles.inputWrap}>
@@ -83,7 +84,7 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 									className={styles.submitBtn}
                                     onClick={recoverStage1}
 								>
-									Отправить
+                                    { __('Отправить') }
 								</Button>
 							</div>
 						</div>

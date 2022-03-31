@@ -20,6 +20,7 @@ import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/Customize
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
+import {useLocales} from "react-localized";
 
 const WorkSpace = ({
 	menuItem,
@@ -47,6 +48,7 @@ const WorkSpace = ({
 	onSuccessLoading,
 	gLoader,
 }) => {
+	const { __ } = useLocales();
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const size = useSelector((state) => state.Cabinet.size);
 	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
@@ -192,7 +194,7 @@ const WorkSpace = ({
 					<OptionButtomLine
 						filePick={filePick}
 						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? "Сжать в Zip" : "Редактировать"}
+						actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
 						setAction={setAction}
 						action={action}
 						nullifyFilePick={nullifyFilePick}
@@ -218,7 +220,7 @@ const WorkSpace = ({
 				<CustomizeFile
 					title={
 						filePick.customize || fileAddCustomization?.several
-							? `Редактировать выбранные файлы`
+							? __(`Редактировать выбранные файлы`)
 							: action.name
 					}
 					file={chosenFile}

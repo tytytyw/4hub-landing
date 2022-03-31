@@ -8,8 +8,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import styles from './WorkBarsPreview.module.sass';
 import File from '../../../../../../generalComponents/Files';
 import api from '../../../../../../api';
-// import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-
+import {useLocales} from "react-localized";
 
 const WorkBarsPreview = ({
     children,
@@ -21,7 +20,7 @@ const WorkBarsPreview = ({
 	onSuccessLoading,
 	loadingFiles,
 	setLoadingFiles,}) => {
-
+    const { __ } = useLocales();
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
     const uid = useSelector(state => state.user.uid);
@@ -130,7 +129,7 @@ const WorkBarsPreview = ({
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {file ? file.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={file?.ext} color={file?.color} /></div></div> : null}
         </div>

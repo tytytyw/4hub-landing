@@ -5,6 +5,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 
 import styles from './WorkLines.module.sass';
+import {useLocales} from "react-localized";
 
 const WorkLines = ({
     children,
@@ -16,6 +17,7 @@ const WorkLines = ({
 	loadingFiles,
 	setLoadingFiles,
 }) => {
+	const { __ } = useLocales();
 	const size = useSelector((state) => state.Cabinet.size);
 	const search = useSelector((state) => state.Cabinet.search);
 	const dispatch = useDispatch();
@@ -78,7 +80,7 @@ const WorkLines = ({
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {gLoader ? <Loader
                 type='bounceDots'

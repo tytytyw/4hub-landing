@@ -4,9 +4,10 @@ import PopUp from '../../../../../../generalComponents/PopUp'
 import styles from './SuccessPass.module.sass'
 import Button from '../../../MyProfile/Button'
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const SuccessPass = ({set, complete}) => {
-
+    const { __ } = useLocales();
     return (
         <PopUp set={set}>
 
@@ -28,7 +29,7 @@ const SuccessPass = ({set, complete}) => {
                 <div className={styles.content}>
 
                     <div className={styles.titleWrap}>
-                        <h4 className={styles.title}>Ваш пароль обновлён</h4>
+                        <h4 className={styles.title}>{ __('Ваш пароль обновлён') }</h4>
                     </div>
 
                     <div className={styles.imageWrap}>
@@ -41,8 +42,7 @@ const SuccessPass = ({set, complete}) => {
 
                     <div className={styles.textWrap}>
                         <p className={styles.text}>
-                            В целях безопасности, на Email Вашей учетной записи
-                            отправлено подтверждение этого изменения
+                            { __('В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения') }
                         </p>
                     </div>
 
@@ -55,7 +55,7 @@ const SuccessPass = ({set, complete}) => {
                                 set(false)
                             }}
                         >
-                            Продолжить
+                            { __('Продолжить') }
                         </Button>
                     </div>
 

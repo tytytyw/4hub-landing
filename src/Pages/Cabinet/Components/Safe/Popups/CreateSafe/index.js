@@ -15,8 +15,10 @@ import classNames from "classnames";
 import api from "../../../../../../api";
 
 import { useDispatch, useSelector } from "react-redux";
+import {useLocales} from "react-localized";
 
 const CreateSafe = ({ onCreate, setLoadingType }) => {
+	const { __ } = useLocales();
 	const tags = useTags();
 	const dispatch = useDispatch();
 	const uid = useSelector((state) => state.user.uid);
@@ -72,15 +74,15 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 					onCreate(false);
 					dispatch(onGetSafes());
 				} else if (res.data.error === "name exists") {
-					setError("Сейф с таким именем уже существует");
+					setError( __("Сейф с таким именем уже существует") );
 					setErrors({ name: true });
 				} else {
-					setError("Что-то пошло не так. Повторите попытку позже");
+					setError( __("Что-то пошло не так. Повторите попытку позже") );
 				}
 			})
 			.catch((error) => {
 				console.log(error);
-				setError("Что-то пошло не так. Повторите попытку позже");
+				setError( __("Что-то пошло не так. Повторите попытку позже") );
 			})
 			.finally(() => setLoadingType(""));
 	};
@@ -133,7 +135,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 					<span className={styles.cross} onClick={() => onCreate(false)} />
 
 					<div className={styles.content}>
-						<span className={styles.title}>Создание сейфа</span>
+						<span className={styles.title}>{ __('Создание сейфа') }</span>
 						<div className={styles.folderIconWrap}>
 							<div
 								className={classNames({
@@ -196,7 +198,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 							<div className={styles.inputWrap}>
 								<Input
 									name="name"
-									placeholder="Имя сейфа"
+									placeholder={ __("Имя сейфа") }
 									className={styles.input}
 									value={name}
 									onChange={(event) => setName(event.target.value)}
@@ -209,7 +211,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 								<input
 									className={styles.inputField}
 									type="text"
-									placeholder="Добавьте #Тег"
+									placeholder={ __("Добавьте #Тег") }
 									value={tagOption.chosen}
 									onChange={(e) => onChangeTag(e.target.value)}
 									onFocus={() => {
@@ -230,7 +232,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 								<Input
 									type="password"
 									name="password"
-									placeholder="Установить пароль"
+									placeholder={ __("Установить пароль") }
 									showPass={showPass}
 									setShowPass={setShowPass}
 									className={styles.input}
@@ -245,7 +247,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 									autocomplete="off"
 									type="password"
 									name="passwordRepeat"
-									placeholder="Введите повторно пароль"
+									placeholder={ __("Введите повторно пароль") }
 									showPass={showPass}
 									setShowPass={setShowPass}
 									className={styles.input}
@@ -261,15 +263,14 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 									type="phone"
 									phone={1}
 									name="tel"
-									placeholder="Введите Ваш номер телефона"
+									placeholder={ __("Введите Ваш номер телефона") }
 									className={styles.input}
 									value={tel}
 									onChange={(event) => setTel(event.target.value)}
 									isMistake={errors?.tel}
 								/>
 								<p className={styles.inputNote}>
-									Примечание: на указанный контактный номер телефона будет
-									отправлено код-пароль для доступа к сейфу
+									{ __('Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу') }
 								</p>
 							</div>}
 						</div>
@@ -280,10 +281,10 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 
 					<div className={styles.buttonsWrap}>
 						<div className={styles.cancel} onClick={() => onCreate(false)}>
-							Отмена
+							{ __('Отмена') }
 						</div>
 						<div className={styles.add} onClick={() => customizeSafe()}>
-							Добавить
+							{ __('Добавить') }
 						</div>
 					</div>
 				</div>
