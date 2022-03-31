@@ -39,10 +39,12 @@
     "build": "react-scripts build",
     "test": "jest --watchAll",
     "eject": "react-scripts eject",
-    "deploy": "npm run convert-po && npm run build && gulp deploy",
+    "deploy": "npm run lint:fix && npm run convert-po && npm run build && gulp deploy",
     "publish": "gulp publish",
-    "extract-lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations'",
-    "convert-po": "node ./translations/po2json.js"
+    "extract:lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations'",
+    "convert-po": "node ./translations/po2json.js",
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -66,12 +68,21 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-prettier-react": "0.0.24",
+    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "ftp-deploy": "^2.4.1",
     "gettext-parser": "^5.1.1",
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.1",
     "jest-css-modules": "^2.1.0",
+    "prettier": "^1.19.1",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0"
   },
