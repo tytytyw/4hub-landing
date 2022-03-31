@@ -3,6 +3,7 @@ import {imageSrc} from "./globalVariables";
 import api from "../api";
 import axios from "axios";
 import {setCookie} from "./StorageHelper";
+import {useLocales} from "react-localized";
 const CancelToken = axios.CancelToken;
 
 //set image to requested size with maxWidth && maxHeight params
@@ -82,22 +83,25 @@ export const replaceFile = async (uid, info, file) => {
         .catch(e => console.log(e))
 }
 
-export const sendFile = async (uid, file) => {
-    const newFIle = file.preview.replace("image/png", "image/octet-stream");
-    const blob = new Blob([newFIle], {type: 'image/png'});
-    let data = new FormData();
-    data.append('uid', uid);
-    data.append('myfile', blob);
-    data.append('fileName', `Снимок экрана`);
-    data.append('tag', '');
-    data.append('pass', '');
-    data.append('color', '');
-    data.append('symbol', '');
-    data.append('emoji', '');
+export const useSendFile = async () => {
+    const { __ } = useLocales();
+    return (uid, file) => {
+        const newFIle = file.preview.replace("image/png", "image/octet-stream");
+        const blob = new Blob([newFIle], {type: 'image/png'});
+        let data = new FormData();
+        data.append('uid', uid);
+        data.append('myfile', blob);
+        data.append('fileName', __(`Снимок экрана`));
+        data.append('tag', '');
+        data.append('pass', '');
+        data.append('color', '');
+        data.append('symbol', '');
+        data.append('emoji', '');
 
-    api.post(`ajax/project_file_add.php`, data)
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
+        api.post(`ajax/project_file_add.php`, data)
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+    }
 }
 
 //loading media to play (after problems with Safari)

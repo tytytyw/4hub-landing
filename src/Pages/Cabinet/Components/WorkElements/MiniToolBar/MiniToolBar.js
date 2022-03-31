@@ -27,7 +27,7 @@ import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
-import {replaceFile, sendFile} from "../../../../../generalComponents/generalHelpers";
+import {replaceFile, useSendFile} from "../../../../../generalComponents/generalHelpers";
 import {drawCanvas} from "../../Modals/Components/PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
@@ -45,7 +45,7 @@ const MiniToolBar = ({
          canvasWrapRef, title = '', images, saveImageToPanel, isLoading = false,
          isPreview = true, isComment = false, toggleComment = () => {}
 }) => {
-
+    const sendFile = useSendFile();
     const [params, setParams] = useState({edit: false, history: {next: [], previous: []}, showAdditionalTools: false, drawTool: ''});
     const paint = useSelector(state => state.Cabinet.paint);
     const previewWithComments = useSelector(state => state.Cabinet.modals.previewWithComments);
