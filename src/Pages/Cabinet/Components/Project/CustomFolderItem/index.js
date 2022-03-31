@@ -10,6 +10,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { projectFolderStructure } from "../../../../../types/Project";
 
 const CustomFolderItem = ({
   folder,
@@ -113,19 +114,7 @@ const CustomFolderItem = ({
 export default CustomFolderItem;
 
 CustomFolderItem.propTypes = {
-  folder: PropTypes.exact({
-    name: PropTypes.string,
-    id: PropTypes.number,
-    color: PropTypes.string,
-    is_pass: PropTypes.number,
-    tags: PropTypes.string,
-    emo: PropTypes.string,
-    fig: PropTypes.string,
-    is_del: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    is_lock: PropTypes.number,
-    deadline: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    project_folders: PropTypes.array
-  }),
+  folder: projectFolderStructure,
   chosenFolder: PropTypes.object,
   setMouseParams: PropTypes.func,
   listSize: PropTypes.string,
