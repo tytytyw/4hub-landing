@@ -70,5 +70,5 @@ List.propTypes = {
   children: PropTypes.any,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
-  className: PropTypes.object
+  className: PropTypes.string
 };

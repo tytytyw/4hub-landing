@@ -207,7 +207,7 @@ ProjectItem.propTypes = {
   listCollapsed: PropTypes.bool,
   setMouseParams: PropTypes.func,
   size: PropTypes.string,
-  chosenFolder: PropTypes,
+  chosenFolder: PropTypes.object,
   setChosenFolder: PropTypes.func,
   setSelectedProject: PropTypes.func,
   chosen: PropTypes.bool,
