@@ -33,7 +33,6 @@ const ProjectItem = ({
   const folders = useSelector(state => state.Cabinet.project.projectFolders);
   const [collapse, setCollapse] = useState(false);
   const projectRef = useRef(null);
-  const chosenProject = useSelector(s => s.Cabinet.project.chosenProject);
 
   useEffect(() => {
     if (params.fromRecent) {
