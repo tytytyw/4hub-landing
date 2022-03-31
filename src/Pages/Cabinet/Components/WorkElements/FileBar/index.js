@@ -8,7 +8,7 @@ import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet
 import {colors} from "../../../../../generalComponents/collections";
 
 const FileBar = ({
-         file, isLoading, chosen, setChosenFile, setMouseParams, setFilePreview, filePreview, filePick, setFilePick,
+         file, isLoading, chosen, setChosenFile, setMouseParams, filePick, setFilePick,
          folderSelect, openFolderMenu
 }) => {
 

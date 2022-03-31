@@ -3,16 +3,18 @@ import {useSelector} from 'react-redux'
 import styles from "./OptionalDate.module.sass";
 import { useLocation } from "react-router";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const OptionalDate = ({ file }) => {
+	const { __ } = useLocales();
 	const { pathname } = useLocation();
 	const size = useSelector(state => state.Cabinet.size)
 
 	const getText = () => {
 		switch (pathname) {
-			case "/downloaded-files": return {title: "Дата загрузки: ", value: file.ctime?.split(' ')[0] ?? ""}
+			case "/downloaded-files": return {title: __("Дата загрузки: "), value: file.ctime?.split(' ')[0] ?? ""}
 			// TODO: get date of arhive
-			case "/archive": return {title: "Дата архивирования: ", value: file?.date_archive? file.date_archive?.split(' ')[0]??'' : ''}
+			case "/archive": return {title: __("Дата архивирования: "), value: file?.date_archive? file.date_archive?.split(' ')[0]??'' : ''}
 			default: return ""
 		}
 	}

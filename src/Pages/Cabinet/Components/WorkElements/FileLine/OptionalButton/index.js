@@ -5,8 +5,10 @@ import {useHistory, useLocation} from "react-router";
 import {onSetPath, onChooseFiles, onsetInitialChosenFile, onSetModals, onGetArchiveFiles} from '../../../../../../Store/actions/CabinetActions'
 import api from "../../../../../../api";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const OptionalButton = ({file, successLoad}) => {
+	const { __ } = useLocales();
 	const history = useHistory()
 	const { pathname } = useLocation();
 	const size = useSelector(state => state.Cabinet.size)
@@ -28,22 +30,21 @@ const OptionalButton = ({file, successLoad}) => {
 					//TODO: replace to topMessage
 					onGetArchiveFiles('', 1, '', successLoad, '')
 					//TODO: dispatch fileList filter
-					dispatch(onSetModals('topMessage', {open: true, type: 'message', message: 'Файл успешно разархивирован'}))
+					dispatch(onSetModals('topMessage', {open: true, type: 'message', message: __('Файл успешно разархивирован')}))
 				} else throw new Error();
 			})
-			.catch(() => dispatch(onSetModals('error', {open: true, message: 'что-то пошло не так', title: 'ошибка'})))
+			.catch(() => dispatch(onSetModals('error', {open: true, message: __('что-то пошло не так'), title: __('ошибка')})))
 	}
  
 	const renderInSharedFiles = () => (
-		// onSetPath
 		<div className={styles.button} onClick={goToFolder}>
-			<span>Открыть файл в системе 4Hub</span>
+			<span>{ __('Открыть файл в системе 4Hub') }</span>
 		</div>
 	);
 
 	const renderInArchive = () => (
 		<div className={styles.button} onClick={unArchiveFile}>
-			<span>Разархивировать</span>
+			<span>{ __('Разархивировать') }</span>
 		</div>
 	)
 

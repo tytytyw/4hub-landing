@@ -22,6 +22,7 @@ import {
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
 import {usePeriods} from "../../../../../generalComponents/collections";
+import {useLocales} from "react-localized";
 
 const mock = () => {}
 
@@ -32,7 +33,7 @@ const ItemsList = ({
        dateFilter, successLoad
 
 }) => {
-
+    const { __ } = useLocales();
     const periods = usePeriods();
     const fileList = useSelector(state => state.Cabinet.fileList);
     const folderList = useSelector(state => state.Cabinet.folderList);
@@ -103,7 +104,7 @@ const ItemsList = ({
                 setChosenFile={setChosenFile}
                 filePick={filePick}
                 setFilePick={setFilePick}
-                title={periods[k] ?? "Более года назад"}
+                title={periods[k] ?? __("Более года назад")}
                 setAction={setAction}
                 setMouseParams={setMouseParams}
                 //WorkBars

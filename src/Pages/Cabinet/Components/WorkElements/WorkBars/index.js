@@ -7,12 +7,13 @@ import {imageSrc} from '../../../../../generalComponents/globalVariables';
 import Loader from '../../../../../generalComponents/Loaders/4HUB';
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {renderHeight} from "../../../../../generalComponents/generalHelpers";
+import {useLocales} from "react-localized";
 
 const WorkBars = ({
-          children, fileSelect, filePick, hideUploadFile, filesPage, setFilesPage, fileRef,
+          children, fileSelect, filePick, hideUploadFile, filesPage, fileRef,
           gLoader, load, options
 }) => {
-
+    const { __ } = useLocales();
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const size = useSelector(state => state.Cabinet.size);
     const search = useSelector(state => state.Cabinet.search);
@@ -45,7 +46,7 @@ const WorkBars = ({
                 `}
             >
                 <AddIcon className={styles.addIcon} />
-                <span>Перетащите файл или нажмите загрузить</span>
+                <span>{ __('Перетащите файл или нажмите загрузить') }</span>
             </div> : null}
             {!hideUploadFile && (!children || children?.length === 0) && search.length === 0
                 ? <img
@@ -69,7 +70,7 @@ const WorkBars = ({
                                 ? '200px'
                                 : '245px',
                     }}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {gLoader ? <Loader
                 type='bounceDots'

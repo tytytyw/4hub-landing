@@ -9,7 +9,7 @@ import {onChooseFiles, onSetModals} from "../../../../../Store/actions/CabinetAc
 
 const FileLineShort = ({
        file, setChosenFile, chosen, setMouseParams, filePick, setFilePick,
-       setGLoader, folderSelect,  params = null, chooseItemNext, openFolderMenu
+       setGLoader,  params = null, chooseItemNext, openFolderMenu
 }) => {
 
     const size = useSelector(state => state.Cabinet.size);

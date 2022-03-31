@@ -8,6 +8,7 @@ import {getMedia, imageToRatio} from "../../../../../generalComponents/generalHe
 import {useDispatch, useSelector} from "react-redux";
 import {onSetModals} from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
+import {useLocales} from "react-localized";
 
 const Previews = React.forwardRef(({
     file = null,
@@ -15,7 +16,7 @@ const Previews = React.forwardRef(({
     height = undefined,
     errorHandler = () => {}
 }, canvasRef) => {
-
+    const { __ } = useLocales();
     const audioRef = useRef(null);
     const [audio, setAudio] = useState('');
     const [video, setVideo] = useState('');
@@ -89,7 +90,7 @@ const Previews = React.forwardRef(({
             }
             img.onerror = () => {
                 setLoading(false);
-                renderError('Failed to load image, try to open it again')
+                renderError( __('Не удалось загрузить изображение, попробуйте еще раз') )
             }
         }
         if(file.mime_type && file.mime_type.includes('audio') && file.is_preview) {

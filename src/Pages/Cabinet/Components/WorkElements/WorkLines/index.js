@@ -5,11 +5,12 @@ import styles from './WorkLines.module.sass';
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {useScrollElementOnScreen} from "../../../../../generalComponents/Hooks";
 import {renderHeight} from "../../../../../generalComponents/generalHelpers";
+import {useLocales} from "react-localized";
 
 const WorkLines = ({
        children, filePick, fileRef, gLoader, load, options
 }) => {
-
+    const { __ } = useLocales();
     const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
@@ -36,7 +37,7 @@ const WorkLines = ({
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {gLoader ? <Loader
                 type='bounceDots'

@@ -5,19 +5,20 @@ import {onSetModals} from "../../../../../Store/actions/CabinetActions";
 import {useDispatch, useSelector} from "react-redux";
 import {share_types} from "../../ContextMenuComponents/ContextMenuFileList";
 import {useLocation} from "react-router";
+import {useLocales} from "react-localized";
 
 const OptionButtomLine = ({
-      filePick, setAction, action, callbackArrMain, nullifyFilePick, share, chosenFile, archive, filesPage, menuItem
+      filePick, nullifyFilePick, chosenFile, filesPage, menuItem
 }) => {
-
+    const { __ } = useLocales();
     const contextMenuModals = useSelector(s => s.Cabinet.modals.contextMenuModals);
     const dispatch = useDispatch();
 
     const {pathname} = useLocation();
 
-    const onZip = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.files, title: 'Сжать в ZIP', filesPage})) : null;
+    const onZip = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CreateZip', items: filePick.files, title: __('Сжать в ZIP'), filesPage})) : null;
 
-    const onEdit = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.files, title: contextMenuModals.items.length === 1 ? 'Редактирование файла' : 'Редактировать выбранные файлы', filesPage, filePick, menuItem})) : null;
+    const onEdit = () => chosenFile ? dispatch(onSetModals('contextMenuModals', {...contextMenuModals, type: 'CustomizeFile', items: filePick.files, title: contextMenuModals.items.length === 1 ? __('Редактирование файла') : __('Редактировать выбранные файлы'), filesPage, filePick, menuItem})) : null;
 
     const onShare = () => chosenFile ? dispatch(onSetModals('share', {open: true, fids: filePick.files, action_type: share_types[pathname.split('/')[1]]})) : null;
 
@@ -25,23 +26,23 @@ const OptionButtomLine = ({
 
     return (
         <div className={styles.optionBottomLine}>
-            <div className={styles.cancel} onClick={nullifyFilePick}>Отмена</div>
+            <div className={styles.cancel} onClick={nullifyFilePick}>{ __('Отмена') }</div>
             <div
                 className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
                 onClick={onZip}
-            >Сжать в ZIP</div>
+            >{ __('Сжать в ZIP') }</div>
             <div
                 className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
                 onClick={onShare}
-            >Расшарить</div>
+            >{ __('Расшарить') }</div>
             <div
                 className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
                 onClick={onMoveToArchive}
-            >Пер. в архив</div>
+            >{ __('Пер. в архив') }</div>
             <div
                 className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`}
                 onClick={onEdit}
-            >Редактировать</div>
+            >{ __('Редактировать') }</div>
         </div>
     )
 }

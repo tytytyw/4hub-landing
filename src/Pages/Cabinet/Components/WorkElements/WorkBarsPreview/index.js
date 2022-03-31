@@ -10,11 +10,13 @@ import {getMedia, renderHeight} from "../../../../../generalComponents/generalHe
 import {ReactComponent as FolderIcon} from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import {colors} from "../../../../../generalComponents/collections";
 import classNames from "classnames";
+import {useLocales} from "react-localized";
 
 const WorkBarsPreview = ({
     children, file, filePick, fileRef, grouped, chosenFile, load, options,
     gLoader, filesPage, chosenFolder, width = '100%', groupInfo
 }) => {
+    const { __ } = useLocales();
     const recentFiles = useSelector(state => state.Cabinet.recentFiles);
     const [f, setF] = useState(file);
     const search = useSelector(state => state.Cabinet?.search);
@@ -115,10 +117,10 @@ const WorkBarsPreview = ({
             {grouped ? <div
                 className={styles.collapseHeader}
             >
-                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? groupInfo.title ?? 'Выберите группу'}</p>
+                <p className={`${styles.dateName}`}>{chosenFolder.group?.title ?? groupInfo.title ?? __('Выберите группу')}</p>
                 <div className={styles.buttonsWrap}>
                     <button className={`${styles.collapseBtn}`}>
-                        {chosenFolder.group?.amount ?? groupInfo.amount ?? 0} объектов
+                        {chosenFolder.group?.amount ?? groupInfo.amount ?? 0} { __('объектов') }
                     </button>
                     <div
                         className={classNames({
@@ -131,7 +133,7 @@ const WorkBarsPreview = ({
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {loading
                 ? <Loader

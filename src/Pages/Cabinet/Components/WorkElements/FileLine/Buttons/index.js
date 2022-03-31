@@ -8,6 +8,7 @@ import { ReactComponent as SettingsIcon } from "../../../../../../assets/Private
 import { ReactComponent as DeleteIcon } from "../../../../../../assets/PrivateCabinet/delete.svg";
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
 import { useLocation } from "react-router";
+import {useLocales} from "react-localized";
 
 const Buttons = ({
 	file,
@@ -16,6 +17,7 @@ const Buttons = ({
 	openFolderMenu,
 	setMouseParams,
 }) => {
+	const { __ } = useLocales();
 	const { pathname } = useLocation();
 
 	const downloadFile = () => {
@@ -86,8 +88,8 @@ const Buttons = ({
 			onClick={() =>
 				setAction({
 					type: "delete",
-					name: "Удаление файла",
-					text: `Вы действительно хотите удалить файл ${file?.name}?`,
+					name: __("Удаление файла"),
+					text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
 				})
 			}
 		>
