@@ -41,7 +41,7 @@ src/Pages/Cabinet/Components/RecentFiles
 src/Pages/Cabinet/Components/Safe
 src/Pages/Cabinet/Components/SearchField
 src/Pages/Cabinet/Components/ServePanel
-src/Pages/Cabinet/Components/SharedFiles
+#src/Pages/Cabinet/Components/SharedFiles
 src/Pages/Cabinet/Components/SideMenu
 src/Pages/Cabinet/Components/StorageSize
 src/Pages/Cabinet/Components/WorkElements
