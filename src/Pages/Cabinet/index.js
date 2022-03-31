@@ -19,7 +19,7 @@ import Journal from './Components/Journal';
 import CalendarPage from './Components/CalendarPage';
 import Cart from './Components/Cart';
 import Chat from "./Components/Chat";
-import {businessMenu, menu} from "./Components/SideMenu/listHelper";
+import {useBusinessMenu, useMenu} from "./Components/SideMenu/listHelper";
 import api from "../../api";
 import Company from "./Components/Business/Company";
 import {exit} from "../../generalComponents/generalHelpers";
@@ -39,6 +39,8 @@ const PrivateCabinet = ({loadingType, setLoadingType}) => {
     const [fileErrors, setFileErrors] = useState([]);
     const [menuItem, setMenuItem] = useState('');
     const [filesPage, setFilesPage] = useState(1);
+    const menu = useMenu();
+    const businessMenu = useBusinessMenu();
 
     const history = useHistory()
 

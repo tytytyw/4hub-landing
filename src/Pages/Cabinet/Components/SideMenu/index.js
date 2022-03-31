@@ -6,9 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {themes} from "./themes";
 import {imageSrc} from '../../../../generalComponents/globalVariables';
 import {clearRecentFiles} from "../../../../Store/actions/CabinetActions";
+import {useLocales} from "react-localized";
 
 const SideMenu = ({data = [], collapsed, setCollapsed}) => {
-
+    const { __ } = useLocales();
     const {pathname} = useLocation()
     const history = useHistory()
 
@@ -57,7 +58,7 @@ const SideMenu = ({data = [], collapsed, setCollapsed}) => {
         >
             <img className={collapsed ? styles.minIcon : styles.hubIcon} src={`${imageSrc}assets/PrivateCabinet/${collapsed ? '4Hub-min.svg' : '4HUB.svg'}`} alt='4HUB' />
             <div className={`${styles.titleWrap} ${collapsed ? styles.titleWrapCollapsed : undefined}`}>
-                <span className={collapsed ? styles.hidden : undefined}>МЕНЮ</span>
+                <span className={collapsed ? styles.hidden : undefined}>{ __('МЕНЮ') }</span>
                 <img
                     className={`${styles.collapseButton} ${collapsed ? styles.collapseButtonInvert : undefined}`}
                     src={`${imageSrc}assets/PrivateCabinet/signs-2.svg`}
