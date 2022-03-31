@@ -2,12 +2,17 @@ import React from "react";
 
 import styles from "./SearchField.module.sass";
 import { imageSrc } from "../globalVariables";
+import {useLocales} from "react-localized";
 
 const SearchField = ({
 	 value,
 	 setValue,
-	 placeholder = "Введите имя пользователя"
+	 placeholder
 }) => {
+	const { __ } = useLocales();
+	if(!placeholder) {
+		placeholder = __("Введите имя пользователя")
+	}
 	return (
 		<div className={styles.wrapper}>
 			<input
