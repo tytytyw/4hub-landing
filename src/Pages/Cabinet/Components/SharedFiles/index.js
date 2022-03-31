@@ -27,7 +27,7 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import OptionButtomLine from "../WorkElements/OptionButtomLine";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import SideMenu from "./SideMenu";
-import { months } from "../../../../generalComponents/CalendarHelper";
+import { useMonths } from "../../../../generalComponents/CalendarHelper";
 import {useLocales} from "react-localized";
 
 const SharedFiles = ({
@@ -38,6 +38,7 @@ const SharedFiles = ({
 	setMenuItem,
 }) => {
 	const { __ } = useLocales();
+	const months = useMonths();
 	const contextMenuSharedFiles = useContextMenuSharedFiles();
 	const workElementsView = useSelector((state) => state.Cabinet.view);
 	const [search, setSearch] = useState("");

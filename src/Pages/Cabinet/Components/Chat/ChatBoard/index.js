@@ -12,7 +12,7 @@ import Message from "./Message";
 import InfoPanel from "./InfoPanel";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoRecordPreview from "./VideoRecordPreview";
-import { dateToString } from "../../../../../generalComponents/CalendarHelper";
+import {useDateToString} from "../../../../../generalComponents/CalendarHelper";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
@@ -33,6 +33,7 @@ const ChatBoard = ({
 	endMessagesRef,
 	scrollToBottom,
 }) => {
+	const dateToString = useDateToString();
 	const [rightPanelContentType, setRightPanelContentType] = useState("");
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>

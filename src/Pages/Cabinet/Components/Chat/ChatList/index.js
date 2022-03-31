@@ -4,7 +4,7 @@ import styles from "./ChatList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import CustomChatItem from "../CustomChatItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
-import { createContactStatus } from "../../../../../generalComponents/chatHelper";
+import {useCreateContactStatus} from "../../../../../generalComponents/chatHelper";
 import classNames from "classnames";
 import { ReactComponent as GroupsIcon } from "../../../../../assets/PrivateCabinet/men.svg";
 import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateCabinet/bubble-chat.svg";
@@ -25,6 +25,7 @@ const ChatList = ({
 	currentDate,
 }) => {
 	const { __ } = useLocales();
+	const createContactStatus = useCreateContactStatus();
 	const dispatch = useDispatch();
 	const [chatsType, setChatsType] = useState("chats");
 	const [collapseMembersList, setCollapseMembersList] = useState(true);
@@ -104,6 +105,7 @@ const ChatList = ({
 				/>
 			);
 		});
+		//eslint-disable-next-line
 	}, [chatsList, search, selectedContact, setSelectedContact, sideMenuCollapsed, currentDate, gmt, setMouseParams, notificationsCounter]);
 
 	const renderGroupsList = useCallback(() => {

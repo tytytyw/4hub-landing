@@ -7,7 +7,7 @@ import {
 	onGetCompanyContacts,
 } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
-import { createContactStatus } from "../../../../../generalComponents/chatHelper";
+import {useCreateContactStatus} from "../../../../../generalComponents/chatHelper";
 import classNames from "classnames";
 import { ReactComponent as AddContactIcon } from "../../../../../assets/PrivateCabinet/addContact-2.svg";
 import CustomChatItem from "../CustomChatItem";
@@ -22,6 +22,7 @@ const ContactList = ({
 	setMouseParams
 }) => {
 	const { __ } = useLocales();
+	const createContactStatus = useCreateContactStatus();
 	const id_company = useSelector((state) => state.user.id_company);
 	const contactList = useSelector((state) =>
 		id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList

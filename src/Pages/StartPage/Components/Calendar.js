@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react'
 import classnames from 'classnames'
 
 import styles from './Calendar.module.sass'
-import {areEqual, daysOfWeeks, generateCalendar, getDate, months} from '../../../generalComponents/CalendarHelper'
+import {
+    areEqual,
+    getDate,
+    useDaysOfWeeks,
+    useGenerateCalendar,
+    useMonths
+} from '../../../generalComponents/CalendarHelper'
 import Select from '../../../generalComponents/Select/Select'
 import {imageSrc} from '../../../generalComponents/globalVariables';
 import { useLocales } from 'react-localized';
@@ -10,6 +16,9 @@ import { useLocales } from 'react-localized';
 const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
 
     const { __ } = useLocales();
+    const generateCalendar = useGenerateCalendar();
+    const daysOfWeeks = useDaysOfWeeks();
+    const months = useMonths();
     const [date, setDate] = useState(getDate());
     const [daysInMonth, setDaysInMonth] = useState(generateCalendar(6, date));
     const today = getDate();
@@ -71,7 +80,7 @@ const Calendar = ({setShowCalendar, setDateValue, ...props}) => {
         }
     }
 
-    useEffect(() => setDaysInMonth(generateCalendar(6, date)), [date]);
+    useEffect(() => setDaysInMonth(generateCalendar(6, date)), [date]); //eslint-disable-line
 
     const getYears = () => {
         const years = []

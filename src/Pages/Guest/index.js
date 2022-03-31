@@ -10,7 +10,7 @@ import {useContextMenuFile} from "../../generalComponents/collections";
 import ActionApproval from "../../generalComponents/ActionApproval";
 import File from "../../generalComponents/Files";
 import ContextMenuItem from "../../generalComponents/ContextMenu/ContextMenuItem";
-import {getMonthByIndex} from "../../generalComponents/CalendarHelper";
+import {useGetMonthByIndex} from "../../generalComponents/CalendarHelper";
 import FilesGroup from "./WorkElements/FilesGroup/FilesGroup";
 import {onGetGuestFolderFiles} from "../../Store/actions/CabinetActions";
 import CopyLinkShare from "../Cabinet/Components/ContextMenuComponents/generalContextMenuComponents/CopyLinkShare";
@@ -32,8 +32,7 @@ const Guest = () => {
     const contextMenuFile = useContextMenuFile()
     const dispatch = useDispatch()
     const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
-
-
+    const getMonthByIndex = useGetMonthByIndex();
 
     const filteredList = useMemo(() => {
 

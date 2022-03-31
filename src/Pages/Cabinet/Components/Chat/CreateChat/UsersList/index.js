@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CustomChatItem from "../../CustomChatItem";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
-import { createContactStatus } from "../../../../../../generalComponents/chatHelper";
+import {useCreateContactStatus} from "../../../../../../generalComponents/chatHelper";
 
 const UsersList = ({
 	usersList,
@@ -14,7 +14,7 @@ const UsersList = ({
 	currentDate,
 }) => {
 	const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
-
+	const createContactStatus = useCreateContactStatus();
 	return (
 		<>
 			{usersList?.map((contact, i) => {

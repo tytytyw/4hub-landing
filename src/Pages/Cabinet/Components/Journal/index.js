@@ -21,11 +21,12 @@ import {imageSrc} from '../../../../generalComponents/globalVariables';
 
 import FilesGroup from './WorkElements/FilesGroup/FilesGroup'
 
-import { months } from "../../../../generalComponents/CalendarHelper";
+import {useMonths} from "../../../../generalComponents/CalendarHelper";
 import {useLocales} from "react-localized";
 
 const Journal = () => {
     const { __ } = useLocales()
+    const months = useMonths()
     const contextMenuFile = useContextMenuFile()
     const workElementsView = useSelector((state) => state.Cabinet.view);
     const [search, setSearch] = useState(null)
