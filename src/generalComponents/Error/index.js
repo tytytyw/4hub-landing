@@ -2,8 +2,10 @@ import React from 'react';
 
 import styles from './Error.module.sass';
 import PopUp from '../PopUp';
+import {useLocales} from "react-localized";
 
 const Error = ({error, set, message}) => {
+    const { __ } = useLocales();
     return (
         <>
             {error && <PopUp set={set}>
@@ -24,7 +26,7 @@ const Error = ({error, set, message}) => {
                     <div className={styles.infoError}>
                         <span>{message}</span>
                     </div>
-                    <div className={styles.button} onClick={() => set(false)}>Закрыть</div>
+                    <div className={styles.button} onClick={() => set(false)}>{ __('Закрыть') }</div>
                 </div>
             </PopUp>}
         </>

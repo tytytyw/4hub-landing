@@ -5,8 +5,10 @@ import File from "../Files";
 import {imageSrc} from "../globalVariables";
 import {colors} from "../collections";
 import {ReactComponent as FolderIcon} from "../../assets/PrivateCabinet/folder-2.svg";
+import {useLocales} from "react-localized";
 
 function FileInfo({file = {}}) {
+    const { __ } = useLocales();
     return(
         <>
             {file === {} ? null : <div className={styles.wrap}>
@@ -44,7 +46,7 @@ function FileInfo({file = {}}) {
                     </div>
                 </div>
             </div>
-                {file?.ext === 'FILES' ? <div className={styles.severalChosen}>Выбранно {file?.count} файлов/папок</div> : null}
+                {file?.ext === 'FILES' ? <div className={styles.severalChosen}>{ __(`Выбранно ${file?.count} файлов/папок`) }</div> : null}
         </div>}
     </>
     )
