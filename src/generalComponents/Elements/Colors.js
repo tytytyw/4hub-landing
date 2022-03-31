@@ -2,8 +2,13 @@ import React from 'react';
 
 import styles from './Colors.module.sass';
 import { colors } from '../collections';
+import {useLocales} from "react-localized";
 
-const Colors = ({ color, setColor, title = 'Выберите цвет', editableClass }) => {
+const Colors = ({ color, setColor, title, editableClass }) => {
+    const { __ } = useLocales();
+    if(!title) {
+        title = __('Выберите цвет')
+    }
 
     const set = (el) => color === el ? setColor('') : setColor(el);
 

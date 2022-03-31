@@ -4,9 +4,13 @@ import styles from './Emoji.module.sass';
 import { smiles } from '../collections';
 import classnames from 'classnames';
 import {imageSrc} from '../globalVariables';
+import {useLocales} from "react-localized";
 
-const Emoji = ({emoji, setEmoji, title = 'Добавить эмоджи', editableClass = ''}) => {
-
+const Emoji = ({emoji, setEmoji, title, editableClass = ''}) => {
+    const { __ } = useLocales();
+    if(!title) {
+        title = __('Добавить эмоджи')
+    }
     const set = (el) => emoji === el ? setEmoji('') : setEmoji(el);
 
     const renderEmoji = smiles => {

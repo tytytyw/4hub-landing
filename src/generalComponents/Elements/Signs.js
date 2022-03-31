@@ -4,9 +4,13 @@ import styles from './Signs.module.sass';
 import { signs } from '../collections';
 import classnames from "classnames";
 import {imageSrc} from '../globalVariables';
+import {useLocales} from "react-localized";
 
-const Signs = ({sign, setSign, title = 'Добавить знак', editableClass = ''}) => {
-
+const Signs = ({sign, setSign, title, editableClass = ''}) => {
+    const { __ } = useLocales();
+    if(!title) {
+        title = __('Добавить знак')
+    }
     const set = (el) => sign === el ? setSign('') : setSign(el);
 
     const renderSigns = () => {
