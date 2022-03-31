@@ -17,7 +17,7 @@ package-lock.json
 /build
 
 #custom translations
-/translations/*
+/translations/*.po
 # misc
 .DS_Store
 .env.local
