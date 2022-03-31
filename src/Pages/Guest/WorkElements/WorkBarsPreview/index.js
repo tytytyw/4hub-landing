@@ -6,14 +6,14 @@ import {onChooseFiles} from "../../../../../../Store/actions/PrivateCabinetActio
 import File from "../../../../../../generalComponents/Files";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import {imageSrc} from '../../../../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
 const WorkBarsPreview = ({
-    children, file, filePick, page, setPage, fileRef, chosenFolder,
-    gLoader
+    children, file, page, setPage, fileRef, chosenFolder, gLoader
 }) => {
-
+    const { __ } = useLocales();
     const [f, setF] = useState(file);
     const search = useSelector(state => state.Cabinet?.search);
     const size = useSelector(state => state.Cabinet.size);
@@ -96,7 +96,7 @@ const WorkBarsPreview = ({
             {children?.length === 0 && search.length !== 0
                 ? <div
                     className={styles.noSearchResults}
-                >Нет элементов удовлетворяющих условиям поиска</div>
+                >{ __('Нет элементов удовлетворяющих условиям поиска') }</div>
                 : null}
             {f ? f.is_preview === 1 ? renderFilePreview() : <div><div className={styles.filePreviewWrap}><File format={f?.ext} color={f?.color} /></div></div> : null}
         </div>

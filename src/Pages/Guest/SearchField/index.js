@@ -5,8 +5,10 @@ import styles from "./SearchField.module.sass";
 import {onChooseFiles, onSearch} from "../../../Store/actions/CabinetActions";
 import {useDebounce} from "../../../generalComponents/Hooks";
 import {imageSrc} from '../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const SearchField = ({setChosenFile}) => {
+	const { __ } = useLocales();
 	const inputRef = useRef(null);
 	const path = useSelector(state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
 	const searchField = useSelector(state => state.Cabinet?.search);
@@ -30,7 +32,7 @@ const SearchField = ({setChosenFile}) => {
 				onClick={() => inputRef.current.focus()}
 			/>
 			<input
-				placeholder='Введите название файла/папки'
+				placeholder={ __('Введите название файла/папки') }
 				value={searchField}
 				ref={inputRef}
 				onChange={handleChange}

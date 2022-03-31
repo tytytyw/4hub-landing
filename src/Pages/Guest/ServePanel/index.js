@@ -34,16 +34,17 @@ import {
     useContextMenuFilters
 } from "../../../generalComponents/collections";
 import {imageSrc} from '../../../generalComponents/globalVariables';
+import {useLocales} from "react-localized";
 
 const ServePanel = ({
-         chosenFile, setAction, fileSelect, archive, share, chooseSeveral, filePick,
+         chosenFile, setAction, share, chooseSeveral, filePick,
         setFileAddCustomization, fileAddCustomization, disableWorkElementsView, addFolder, addFile
 }) => {
+    const { __ } = useLocales()
     const contextMenuCreateFile = useContextMenuCreateFile();
     const contextMenuFilters = useContextMenuFilters()
     const [mouseParams, setMouseParams] = useState(null);
     const [typeContext, setTypeContext] = useState('');
-    // const [reverseCriterea, setReverseCriterea] = useState({byName: false});
     const filterRef = useRef();
     const createRef = useRef();
     const size = useSelector(state => state.Cabinet.size);
@@ -150,7 +151,7 @@ const ServePanel = ({
                     <span
                         className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton}
                         onClick={chooseSeveral}
-                    >Выбрать</span>
+                    >{ __('Выбрать') }</span>
 
 
                     {addFile && <div
@@ -176,22 +177,13 @@ const ServePanel = ({
                     </div>
 
                     <div className={styles.infoBlock}>
-                        <p>Срок хранения папки ( 1 день  до 12.08.2020, 08:45 )</p>
+                        <p>{ __('Срок хранения папки ( 1 день  до 12.08.2020, 08:45 )') }</p>
                     </div>
 
                 </div>
 
             </div>
             <div className={styles.groupEnd}>
-
-                {/*<div className={styles.buttons}>
-                    <div
-                        ref={createRef}
-                        className={styles.createButton}
-                        onClick={e => openContextMenu(e, 'createFile')}
-                    ><span>Создать</span><div /></div>
-                    <label className={styles.downloadButton} onClick={() => fileSelect()}>Загрузить</label> setBlob({...blob, show: true})
-                </div>*/}
 
                 {chosenFile &&
                 <div className={styles.iconButtons}>
@@ -202,7 +194,7 @@ const ServePanel = ({
                     <div
                         className={styles.iconView}
                         onClick={() => {
-                            if(chosenFile) setAction({type: 'delete', name: 'Удаление файла', text: `Вы действительно хотите удалить файл ${chosenFile?.name}?`});
+                            if(chosenFile) setAction({type: 'delete', name: __('Удаление файла'), text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`)});
                         }}
                     ><DeleteIcon className={styles.iconTrash} /></div>
                 </div>}
@@ -210,9 +202,9 @@ const ServePanel = ({
             </div>
             {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={setMouseParams} itemRef={typeContext === 'createFile' ? createRef : filterRef} customClose={typeContext !== 'createFile'}>
                 {typeContext === 'filter' ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
-                {typeContext === 'filter' ? <Colors color={fileCriterion.filters.color} setColor={setColor} title='По цвету' editableClass='minify' /> : null}
-                {typeContext === 'filter' ? <Signs sign={fileCriterion.filters.figure} setSign={setFigure} title='По значкам' editableClass='minify' /> : null}
-                {typeContext === 'filter' ? <Emoji emoji={fileCriterion.filters.emoji} setEmoji={setEmoji} title='По эмоджи' editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Colors color={fileCriterion.filters.color} setColor={setColor} title={ __('По цвету') } editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Signs sign={fileCriterion.filters.figure} setSign={setFigure} title={ __('По значкам') } editableClass='minify' /> : null}
+                {typeContext === 'filter' ? <Emoji emoji={fileCriterion.filters.emoji} setEmoji={setEmoji} title={ __('По эмоджи') } editableClass='minify' /> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.other, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroup}>{renderMenuItems(contextMenuCreateFile.microsoft, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}
                 {typeContext === 'createFile' ? <div className={styles.createFileGroupLast}>{renderMenuItems(contextMenuCreateFile.google, createFile, `${imageSrc}assets/PrivateCabinet/contextMenuCreateFile/`)}</div> : null}

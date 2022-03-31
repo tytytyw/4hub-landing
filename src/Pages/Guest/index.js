@@ -19,6 +19,7 @@ import {imageSrc} from '../../generalComponents/globalVariables';
 
 import moment from "moment";
 import Loader from "../../generalComponents/Loaders/4HUB";
+import {useLocales} from "react-localized";
 
 const getParam = param => {
     const queryString = window.location.search;
@@ -27,6 +28,7 @@ const getParam = param => {
 }
 
 const Guest = () => {
+    const { __ } = useLocales();
     const contextMenuFile = useContextMenuFile()
     const dispatch = useDispatch()
     const fileList = useSelector((state) => state.Cabinet.guestSharedFiles);
@@ -93,27 +95,27 @@ const Guest = () => {
     const callbackArrMain = [
         {
             type: "share",
-            name: "",
-            text: ``,
+            name: __(""),
+            text: __(""),
             callback: (list, index) => setAction(list[index]),
         },
         {
             type: "copyLink",
-            name: "",
-            text: ``,
+            name: __(""),
+            text: __(""),
             callback: () => setShowLinkCopy(true),
         },
         {
             type: "properties",
-            name: "Свойства",
-            text: ``,
+            name: __("Свойства"),
+            text: __(""),
             callback: () =>
                 setAction({ ...action, type: "properties", name: "Свойства" }),
         },
         {
             type: "download",
-            name: "Загрузка файла",
-            text: ``,
+            name: __("Загрузка файла"),
+            text: __(""),
             callback: () => document.downloadFile.submit(),
         },
     ];
@@ -155,8 +157,8 @@ const Guest = () => {
 
                     <SearchField/>
                     <div className={styles.authActionBlock}>
-                        <button className={styles.authBtn}>Вход</button>
-                        <button className={classNames(styles.authBtn, styles.authBtnReg)}>Регистрация</button>
+                        <button className={styles.authBtn}>{ __('Вход') }</button>
+                        <button className={classNames(styles.authBtn, styles.authBtnReg)}>{ __('Регистрация') }</button>
                     </div>
 
                 </div>
@@ -173,7 +175,7 @@ const Guest = () => {
 
                 <div className={styles.topBlock}>
                     <img src={`${imageSrc}assets/PrivateCabinet/folder-5.svg`} alt="Folder"/>
-                    <p>Дизайн файлообменика</p>
+                    <p>{ __('Дизайн файлообменика') }</p>
                 </div>
 
                 <div className={styles.workSpaceWrap}>
@@ -185,7 +187,7 @@ const Guest = () => {
                         </div>
                         :
                         <div className={styles.centered}>
-                            <h3>{!loadingType && 'Нет файлов...'}</h3>
+                            <h3>{!loadingType && __('Нет файлов...')}</h3>
                         </div>}
 
                 </div>
@@ -206,15 +208,15 @@ const Guest = () => {
             )}
             {action.type === "delete" ? (
                 <ActionApproval
-                    name={filePick.show ? "Удаление файлов" : action.name}
+                    name={filePick.show ? __("Удаление файлов") : action.name}
                     text={
                         filePick.show
-                            ? "Вы действительно хотите удалить выбранные файлы?"
+                            ? __("Вы действительно хотите удалить выбранные файлы?")
                             : action.text
                     }
                     set={() => {}}
                     callback={() => {}}
-                    approve={"Удалить"}
+                    approve={ __("Удалить") }
                 >
                     <div className={styles.fileActionWrap}>
                         <File
