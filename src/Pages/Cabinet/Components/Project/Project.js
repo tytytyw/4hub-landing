@@ -3,7 +3,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import styles from "./Project.module.sass";
 import List from "./List";
 import WorkSpace from "./WorkSpace";
-import ProjectItem from "./ProjectItem";
+import ProjectItem from "./ProjectItem/ProjectItem";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../api";
 import {
