@@ -15,7 +15,6 @@ src/fonts/
 
 # Files that needs to be checked and then deleted from the list
 src/generalComponents/
-src/Pages/Cabinet/
 src/Pages/Cabinet/Components/
 src/Pages/Guest/
 src/Pages/StartPage/
