@@ -38,7 +38,8 @@ const ChatBoard = ({
   setFile,
   socket,
   endMessagesRef,
-  scrollToBottom
+  scrollToBottom,
+  editMessage
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -344,6 +345,7 @@ const ChatBoard = ({
         setFile={setFile}
         scrollToBottom={scrollToBottom}
         socket={socket}
+        editMessage={editMessage}
       />
 
       {videoPreview ? (
@@ -376,5 +378,6 @@ ChatBoard.propTypes = {
   setFile: PropTypes.func.isRequired,
   socket: PropTypes.object,
   endMessagesRef: PropTypes.object.isRequired,
-  scrollToBottom: PropTypes.func.isRequired
+  scrollToBottom: PropTypes.func.isRequired,
+  editMessage: PropTypes.func.isRequired
 };

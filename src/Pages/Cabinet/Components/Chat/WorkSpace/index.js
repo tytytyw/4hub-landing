@@ -13,6 +13,7 @@ import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import PropTypes from "prop-types";
+import { onEditChatMessage } from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -53,23 +54,23 @@ const WorkSpace = ({
   const onWebSocketsMessage = e => {
     const data = JSON.parse(e.data);
 
+    const isForGroups = data.is_group && selectedContact?.isGroup;
+    const isForSecretChat =
+      data.is_secret_chat && selectedContact?.is_secret_chat;
+    const isForChats = !data.is_group && !selectedContact?.isGroup;
+    const isForSelectedGroup =
+      isForGroups && data.id_group === selectedContact?.id;
+    const isForSelectedChat =
+      isForChats &&
+      (data.id_contact === selectedContact?.id ||
+        (data.id_user_to === userId &&
+          data.api.id_user === selectedContact?.id_real_user));
+    const isForSelectedSecretChat =
+      isForSecretChat && data.id_group === selectedContact?.id;
+
     if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
     // PrivateMessage - direct message; PublicMessage- message from group
     if (data.action === "PrivateMessage" || data.action === "PublicMessage") {
-      const isForGroups = data.is_group && selectedContact?.isGroup;
-      const isForSecretChat =
-        data.is_secret_chat && selectedContact?.is_secret_chat;
-      const isForChats = !data.is_group && !selectedContact?.isGroup;
-      const isForSelectedGroup =
-        isForGroups && data.id_group === selectedContact?.id;
-      const isForSelectedChat =
-        isForChats &&
-        (data.id_contact === selectedContact?.id ||
-          (data.id_user_to === userId &&
-            data.api.id_user === selectedContact?.id_real_user));
-      const isForSelectedSecretChat =
-        isForSecretChat && data.id_group === selectedContact?.id;
-
       const newMsg = {
         id: data.api?.id_message,
         id_user: data.api?.id_user,
@@ -104,6 +105,18 @@ const WorkSpace = ({
           });
         }
       }
+    }
+    if (
+      (data.action === "chat_group_message_edit" ||
+        data.action === "chat_message_edit") &&
+      (isForChats || isForSelectedGroup)
+    ) {
+      dispatch(
+        onEditChatMessage(
+          { attachment: data.attachment, text: data.text },
+          { id: data.id_message, day: data.day }
+        )
+      );
     }
   };
 
@@ -141,6 +154,52 @@ const WorkSpace = ({
       );
     }
   };
+
+  const editMessage = (message, newText) => {
+    // TODO: add attachment deleting
+    if (newText && newText !== action.message.text) {
+      const sendSocketMessage = params => {
+        socket.send(
+          JSON.stringify({
+            ...params,
+            attachment: message.attachment,
+            uid,
+            id_message: message.id,
+            text: newText,
+            day: message.day
+          })
+        );
+      };
+
+      sendSocketMessage(
+        message.id_group
+          ? {
+              action: "chat_group_message_edit",
+              id_group: message.id_group,
+              is_group: true
+            }
+          : { action: "chat_message_edit", id_user_to: message.user_to }
+      );
+    }
+  };
+
+  // TODO: dispatch onDeleteChatMessage
+  // const deleteMessage = message => {
+  //   const sendSocketMessage = params => {
+  //     socket.send(JSON.stringify({ ...params, uid, id_message: message.id }));
+  //   };
+
+  //   sendSocketMessage(
+  //     message.id_group
+  //       ? {
+  //           action: "chat_group_message_del",
+  //           id_group: message.id_group
+  //         }
+  //       : {
+  //           action: "chat_message_del"
+  //         }
+  //   );
+  // };
 
   useEffect(() => {
     if (socketReconnect) {
@@ -205,6 +264,7 @@ const WorkSpace = ({
             socket={socket}
             endMessagesRef={endMessagesRef}
             scrollToBottom={scrollToBottom}
+            editMessage={editMessage}
           />
         ) : (
           ""
@@ -240,6 +300,7 @@ const WorkSpace = ({
             set={nullifyAction}
             message={action.message}
             nullifyAction={nullifyAction}
+            // deleteMessage={deleteMessage}
           ></DeleteMessage>
         ) : null}
       </div>

@@ -1157,12 +1157,12 @@ export const onDeleteChatMessage = message => (dispatch, getState) => {
   });
 };
 
-export const onEditChatMessage = editedMessage => (dispatch, getState) => {
+export const onEditChatMessage = (editedData, messageInfo) => (dispatch, getState) => {
   const oldMessages = getState().Cabinet.chat.messages;
   const messages = {
     ...oldMessages,
-    [editedMessage.day]: oldMessages[editedMessage.day].map(msg =>
-      msg.id === editedMessage.id ? editedMessage : msg
+    [messageInfo.day]: oldMessages[messageInfo.day].map(msg =>
+      msg.id === messageInfo.id ? {...msg, ...editedData} : msg
     )
   };
   dispatch({

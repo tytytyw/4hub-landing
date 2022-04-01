@@ -1,13 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../../../../../api";
 import styles from "./TextArea.module.sass";
 import { ReactComponent as SendIcon } from "../../../../../../assets/PrivateCabinet/send.svg";
 import classNames from "classnames";
-import {
-  onSetModals,
-  onEditChatMessage
-} from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
@@ -16,7 +11,8 @@ const TextArea = ({
   action,
   nullifyAction,
   initialTextValue = "",
-  saveTextButtonRef = null
+  saveTextButtonRef = null,
+  editMessage
 }) => {
   const { __ } = useLocales();
   const textAreaRef = useRef();
@@ -25,42 +21,9 @@ const TextArea = ({
   const [editingMessage, setEditingMessage] = useState(false);
   const insertEmodji = useSelector(state => state.Cabinet.chat.insertEmodji);
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
 
   const findCursorPosition = () => {
     setCursorPosition(textAreaRef.current.selectionStart);
-  };
-
-  const editMessage = (message, text) => {
-    // TODO: add attachment handler
-    if (text && text !== action.message.text) {
-      //message text is edited
-      const isGroup = () =>
-        action.message.id_group ? `&id_group=${action.message.id_group}` : "";
-      const formData = new FormData();
-      formData.append("text", text);
-      api
-        .post(
-          `/ajax/chat${
-            isGroup() ? "_group" : ""
-          }_message_edit.php?uid=${uid}&id_message=${message.id}${isGroup()}`,
-          formData
-        )
-        .then(res => {
-          if (res.data.ok) {
-            // TODO: add attachment handler
-            dispatch(onEditChatMessage({ ...message, text: text }));
-          } else throw new Error();
-        })
-        .catch(() =>
-          dispatch(
-            onSetModals("error", {
-              open: true,
-              message: __("Что-то пошло не так, повторите попытку позже")
-            })
-          )
-        );
-    }
   };
 
   const cleareTextArea = () => {
@@ -174,5 +137,6 @@ TextArea.propTypes = {
   action: PropTypes.object,
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
-  saveTextButtonRef: PropTypes.object
+  saveTextButtonRef: PropTypes.object,
+  editMessage: PropTypes.func.isRequired
 };

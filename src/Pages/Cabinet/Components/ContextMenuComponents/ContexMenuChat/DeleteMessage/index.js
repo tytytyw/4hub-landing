@@ -9,8 +9,9 @@ import {
 	onDeleteChatMessage,
 } from "../../../../../../Store/actions/CabinetActions";
 import {useLocales} from "react-localized";
+import PropTypes from "prop-types";
 
-const DeleteMessage = ({ set, message, nullifyAction }) => {
+const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
 	const { __ } = useLocales();
 	const uid = useSelector((state) => state.user.uid);
 	const text = message?.text?.split("\n").slice(0, 5) ?? [];
@@ -18,6 +19,7 @@ const DeleteMessage = ({ set, message, nullifyAction }) => {
 
 	const onAproveBtnHandler = () => {
 		nullifyAction();
+		// deleteMessage(message)
 		api
 			.get(
 				`/ajax/chat${

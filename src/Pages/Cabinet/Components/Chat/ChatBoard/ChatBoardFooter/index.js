@@ -40,7 +40,8 @@ const ChatBoardFooter = ({
   file,
   setFile,
   scrollToBottom,
-  socket
+  socket,
+  editMessage
 }) => {
   const { __ } = useLocales();
   const [messageIsSending, setMessageIsSending] = useState(false);
@@ -224,6 +225,7 @@ const ChatBoardFooter = ({
           onAddMessage={onAddMessage}
           action={action}
           nullifyAction={nullifyAction}
+          editMessage={editMessage}
         />
       )}
       <div
@@ -321,5 +323,6 @@ ChatBoardFooter.propTypes = {
   file: PropTypes.object,
   setFile: PropTypes.func.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
-  socket: PropTypes.object
+  socket: PropTypes.object,
+  editMessage: PropTypes.func.isRequired
 };
