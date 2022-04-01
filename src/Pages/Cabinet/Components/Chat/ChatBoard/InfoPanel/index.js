@@ -1,18 +1,25 @@
-import React, {useState} from "react";
-import styles from './InfoPanel.module.sass'
+import React, { useState } from "react";
+import styles from "./InfoPanel.module.sass";
 
-import MainPanel from './MainPanel'
-import Media from './Media'
+import MainPanel from "./MainPanel";
+import Media from "./Media";
+import PropTypes from "prop-types";
 
-const InfoPanel = ({setAction}) => {
-    const [option, setOption] = useState('main')
+const InfoPanel = ({ setAction }) => {
+  const [option, setOption] = useState("main");
 
-	return (
-        <div className={styles.wrapper}>
-            {option === 'main' ? <MainPanel setAction={setAction} setOption={setOption} /> : null}
-            {option === 'media' ? <Media setOption={setOption} /> : null}
-        </div>
-    )
+  return (
+    <div className={styles.wrapper}>
+      {option === "main" ? (
+        <MainPanel setAction={setAction} setOption={setOption} />
+      ) : null}
+      {option === "media" ? <Media setOption={setOption} /> : null}
+    </div>
+  );
 };
 
 export default InfoPanel;
+
+InfoPanel.propTypes = {
+  setAction: PropTypes.func.isRequired
+};
