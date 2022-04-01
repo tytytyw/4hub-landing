@@ -3,118 +3,147 @@ import { useSelector } from "react-redux";
 import styles from "./FilesGroup.module.sass";
 import WorkBars from "../../WorkElements/WorkBars";
 import WorkBarsPreview from "../../WorkElements/WorkBarsPreview";
-import FileLineShort from "../WorkElements/FileLineShort";
+import FileLineShort from "../WorkElements/FileLineShort/FileLineShort";
 import FileBar from "../../WorkElements/FileBar";
-import FileLine from "../WorkElements/FileLine";
+import FileLine from "../WorkElements/FileLine/FileLine";
 import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
+import PropTypes from "prop-types";
 
 function FilesGroup({
-	fileList,
-	filePreview,
-	setFilePreview,
-	callbackArrMain,
-	chosenFile,
-	setChosenFile,
-	filePick,
-	setFilePick,
-	setAction,
-	setMouseParams,
-	mounthName,
-    index,
-	sideMenuChosenItem,
-	sideMenuCollapsed
+  fileList,
+  filePreview,
+  setFilePreview,
+  callbackArrMain,
+  chosenFile,
+  setChosenFile,
+  filePick,
+  setFilePick,
+  setAction,
+  setMouseParams,
+  mounthName,
+  index,
+  sideMenuChosenItem,
+  sideMenuCollapsed
 }) {
-	const [collapse, setCollapse] = useState(index === 0);
-	const workElementsView = useSelector((state) => state.Cabinet.view);
+  const [collapse, setCollapse] = useState(index === 0);
+  const workElementsView = useSelector(state => state.Cabinet.view);
 
-	const renderFiles = (Type) => {
-		if (!fileList || fileList.length === 0) return null;
-		return fileList.files?.map((file, index) => (
-			<Type
-				key={index}
-				file={file}
-				setChosenFile={setChosenFile}
-				chosenFile={chosenFile}
-				setMouseParams={setMouseParams}
-				setAction={setAction}
-				filePreview={filePreview}
-				setFilePreview={setFilePreview}
-				setFilePick={setFilePick}
-				filePick={filePick}
-				chosen={
-					filePick.show
-						? filePick.files.findIndex((el) => el === file.fid) >= 0
-						: chosenFile?.fid === file?.fid
-				}
-				callbackArrMain={callbackArrMain}
-				sideMenuChosenItem={sideMenuChosenItem}
-				sideMenuCollapsed={sideMenuCollapsed}
-			/>
-		));
-	};
+  const renderFiles = Type => {
+    if (!fileList || fileList.length === 0) return null;
+    return fileList.files?.map((file, index) => (
+      <Type
+        key={index}
+        file={file}
+        setChosenFile={setChosenFile}
+        chosenFile={chosenFile}
+        setMouseParams={setMouseParams}
+        setAction={setAction}
+        filePreview={filePreview}
+        setFilePreview={setFilePreview}
+        setFilePick={setFilePick}
+        filePick={filePick}
+        chosen={
+          filePick.show
+            ? filePick.files.findIndex(el => el === file.fid) >= 0
+            : chosenFile?.fid === file?.fid
+        }
+        callbackArrMain={callbackArrMain}
+        sideMenuChosenItem={sideMenuChosenItem}
+        sideMenuCollapsed={sideMenuCollapsed}
+      />
+    ));
+  };
 
-	return (
-		<div className={styles.fileWrap}>
-			{fileList?.files?.length > 0 && <div
-				onClick={() => {
-					setCollapse(!collapse);
-				}}
-				className={classNames(styles.collapseHeader, styles[workElementsView], sideMenuCollapsed && workElementsView === "workLinesPreview" ? styles.mini : '')}
-			>
-				<p className={styles.dateName}>{mounthName}</p>
-				<div className={styles.buttonsWrap}>
-					{sideMenuCollapsed && workElementsView === "workLinesPreview" ? "" : <button className={styles.collapseBtn}>
-						{fileList?.files?.length ?? 0} объектов
-					</button>}
-					<div
-						className={classNames({
-							[styles.arrowFile]: true,
-							[styles.active]: !!collapse,
-						})}
-					>
-						<PlayIcon
-							className={classNames({
-								[styles.playButton]: true,
-								[styles.revert]: !!collapse,
-							})}
-						/>
-					</div>
-				</div>
-			</div>}
+  return (
+    <div className={styles.fileWrap}>
+      {fileList?.files?.length > 0 && (
+        <div
+          onClick={() => {
+            setCollapse(!collapse);
+          }}
+          className={classNames(
+            styles.collapseHeader,
+            styles[workElementsView],
+            sideMenuCollapsed && workElementsView === "workLinesPreview"
+              ? styles.mini
+              : ""
+          )}
+        >
+          <p className={styles.dateName}>{mounthName}</p>
+          <div className={styles.buttonsWrap}>
+            {sideMenuCollapsed && workElementsView === "workLinesPreview" ? (
+              ""
+            ) : (
+              <button className={styles.collapseBtn}>
+                {fileList?.files?.length ?? 0} объектов
+              </button>
+            )}
+            <div
+              className={classNames({
+                [styles.arrowFile]: true,
+                [styles.active]: !!collapse
+              })}
+            >
+              <PlayIcon
+                className={classNames({
+                  [styles.playButton]: true,
+                  [styles.revert]: !!collapse
+                })}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
-			{collapse &&
-				workElementsView !== "preview" &&
-				workElementsView !== "workLinesPreview" && (
-					<div className={styles.fileDate}>
-						{/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-						{fileList?.files?.length > 0 && <p>10.08.2020</p>}
-					</div>
-				)}
+      {collapse &&
+        workElementsView !== "preview" &&
+        workElementsView !== "workLinesPreview" && (
+          <div className={styles.fileDate}>
+            {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+            {fileList?.files?.length > 0 && <p>10.08.2020</p>}
+          </div>
+        )}
 
-			{workElementsView === "bars" && collapse ? (
-				<WorkBars filePick={filePick} hideUploadFile={true}>{renderFiles(FileBar)}</WorkBars>
-			) : null}
+      {workElementsView === "bars" && collapse ? (
+        <WorkBars filePick={filePick} hideUploadFile={true}>
+          {renderFiles(FileBar)}
+        </WorkBars>
+      ) : null}
 
-			{workElementsView === "lines" && collapse ? (
-				<div className={styles.collapseContent}>
-					{renderFiles(FileLine, true)}
-				</div>
-			) : null}
+      {workElementsView === "lines" && collapse ? (
+        <div className={styles.collapseContent}>
+          {renderFiles(FileLine, true)}
+        </div>
+      ) : null}
 
-			{workElementsView === "preview" && collapse ? (
-				<WorkBarsPreview
-					file={chosenFile}
-					filePick={filePick}
-				>
-					{renderFiles(FileBar)}
-				</WorkBarsPreview>
-			) : null}
-			{workElementsView === "workLinesPreview" && collapse ? (
-				<div>{renderFiles(FileLineShort, true)}</div>
-			) : null}
-		</div>
-	);
+      {workElementsView === "preview" && collapse ? (
+        <WorkBarsPreview file={chosenFile} filePick={filePick}>
+          {renderFiles(FileBar)}
+        </WorkBarsPreview>
+      ) : null}
+      {workElementsView === "workLinesPreview" && collapse ? (
+        <div>{renderFiles(FileLineShort, true)}</div>
+      ) : null}
+    </div>
+  );
 }
 
 export default FilesGroup;
+
+FilesGroup.propTypes = {
+  fileList: PropTypes.object,
+  filePreview: PropTypes.object,
+  setFilePreview: PropTypes.func,
+  callbackArrMain: PropTypes.array,
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  filePick: PropTypes.object,
+  setFilePick: PropTypes.func,
+  setAction: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  mounthName: PropTypes.string,
+  index: PropTypes.number,
+  sideMenuChosenItem: PropTypes.string,
+  sideMenuCollapsed: PropTypes.bool
+};

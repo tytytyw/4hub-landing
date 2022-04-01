@@ -12,8 +12,8 @@ import Programs from "./Components/Programs";
 
 import { Switch, Route, useHistory, Redirect } from "react-router";
 import Settings from "./Components/MyProfile/settings";
-import Project from "./Components/Project";
-import SharedFiles from "./Components/SharedFiles";
+import Project from "./Components/Project/Project";
+import SharedFiles from "./Components/SharedFiles/SharedFiles";
 import { setPreviewTheme } from "../../Store/actions/main";
 import Journal from "./Components/Journal";
 import CalendarPage from "./Components/CalendarPage";
