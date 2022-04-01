@@ -23,5 +23,10 @@
     ],
     "rules": {
     },
-    "ignorePatterns": ["*.test.js"]
+    "ignorePatterns": ["*.test.js"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
 }
