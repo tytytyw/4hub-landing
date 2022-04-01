@@ -1,314 +1,460 @@
-import React, {useEffect, useRef, useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import styles from './MyFolders.module.sass';
-import List from '../List';
-import WorkSpace from './WorkSpace';
-import CreateFolder from '../CreateFolder';
-import CustomizeFolder from '../ContextMenuComponents/ContextMenuFolder/CustomizeFolder';
-import CreateFile from '../CreateFile';
-import CustomFolderItem from './CustomFolderItem';
-import CreateSafePassword from '../CreateSafePassword';
-import RecentFolders from './RecentFolders';
-import FolderProperty from '../ContextMenuComponents/ContextMenuFolder/FolderProperty';
-import ContextMenu from '../../../../generalComponents/ContextMenu';
+import styles from "./MyFolders.module.sass";
+import List from "../List";
+import WorkSpace from "./WorkSpace";
+import CreateFolder from "../CreateFolder";
+import CustomizeFolder from "../ContextMenuComponents/ContextMenuFolder/CustomizeFolder";
+import CreateFile from "../CreateFile";
+import CustomFolderItem from "./CustomFolderItem";
+import CreateSafePassword from "../CreateSafePassword";
+import RecentFolders from "./RecentFolders";
+import FolderProperty from "../ContextMenuComponents/ContextMenuFolder/FolderProperty";
+import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {
-    useContextMenuFolder,
-    useContextMenuFolderGeneral, useFolders
-} from '../../../../generalComponents/collections';
-import ContextMenuItem from '../../../../generalComponents/ContextMenu/ContextMenuItem';
-import ActionApproval from '../../../../generalComponents/ActionApproval';
-import {ReactComponent as FolderIcon} from '../../../../assets/PrivateCabinet/folder-2.svg';
-import api from '../../../../api';
+  useContextMenuFolder,
+  useContextMenuFolderGeneral,
+  useFolders
+} from "../../../../generalComponents/collections";
+import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
+import ActionApproval from "../../../../generalComponents/ActionApproval";
+import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
+import api from "../../../../api";
 import {
-    onAddRecentFiles,
-    onAddRecentFolders,
-    onChooseFiles,
-    onGetFolders,
-    onsetInitialChosenFile
-} from '../../../../Store/actions/CabinetActions';
-import Error from '../../../../generalComponents/Error';
-import SuccessMessage from '../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage';
-import {imageSrc} from '../../../../generalComponents/globalVariables';
-import {onGetUserInfo} from "../../../../Store/actions/startPageAction";
-import {checkBrowser} from '../../../../generalComponents/generalHelpers';
-import {useLocales} from "react-localized";
+  onAddRecentFiles,
+  onAddRecentFolders,
+  onChooseFiles,
+  onGetFolders,
+  onsetInitialChosenFile
+} from "../../../../Store/actions/CabinetActions";
+import Error from "../../../../generalComponents/Error";
+import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
+import { imageSrc } from "../../../../generalComponents/globalVariables";
+import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
+import { checkBrowser } from "../../../../generalComponents/generalHelpers";
+import { useLocales } from "react-localized";
 
 const MyFolders = ({
-               setItem, menuItem, setMenuItem, filePreview, setFilePreview, fileSelect, fileAddCustomization, setFileAddCustomization,
-               setAwaitingFiles, awaitingFiles, loaded, setLoaded, loadingFile, fileErrors, setLoadingFile,
-               nullifyAddingSeveralFiles, saveCustomizeSeveralFiles, setLoadingType, filesPage, setFilesPage
+  setItem,
+  menuItem,
+  setMenuItem,
+  filePreview,
+  setFilePreview,
+  fileSelect,
+  fileAddCustomization,
+  setFileAddCustomization,
+  setAwaitingFiles,
+  awaitingFiles,
+  loaded,
+  setLoaded,
+  loadingFile,
+  fileErrors,
+  setLoadingFile,
+  nullifyAddingSeveralFiles,
+  saveCustomizeSeveralFiles,
+  setLoadingType,
+  filesPage,
+  setFilesPage
 }) => {
-    const { __ } = useLocales();
-    const contextMenuFolder = useContextMenuFolder();
-    const contextMenuFolderGeneral = useContextMenuFolderGeneral();
-    const uid = useSelector(state => state.user.uid);
-    const global = useSelector(state => state.Cabinet.global);
-    const other = useSelector(state => state.Cabinet.other);
-    const recentFolders = useSelector(state => state.Cabinet.recentFolders);
-    const path = useSelector(state => state.Cabinet.folderList?.path);
-    const fileList = useSelector(state => state.Cabinet.fileList);
-    const initialChosenFile = useSelector(state => state.Cabinet.fileList?.chosenFile);
-    const [listCollapsed, setListCollapsed] = useState('');
-    const [newFolder, setNewFolder] = useState(false);
-    //TODO - Need to check object keys and delete useless
-    const [chosenFolder, setChosenFolder] = useState({path: 'global/all', info: null, files_amount: 0, group: null, contextMenuFolder: null, folderWidth: 310});
-    const [chosenSubFolder, ] = useState(null);
-    const [newFolderInfo, setNewFolderInfo] = useState({path: ''});
-    const [safePassword, setSafePassword] = useState({open: false});
-    const [chosenFile, setChosenFile] = useState(null);
-    const [mouseParams, setMouseParams] = useState(null);
-    const [action, setAction] = useState({type: '', name: '', text: ''});
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const dispatch = useDispatch();
-    const [error, setError] = useState({isError: false, message: ''});
-    const [gLoader, setGLoader] = useState(true);
-    const closeError = () => setError({isError: false, message: ''});
-    const nullifyAction = () => setAction({type: '', name: '', text: ''});
-    const folderListWrapRef = useRef(null);
-    const fakeScrollRef = useRef(null);
-    const folders = useFolders()
+  const { __ } = useLocales();
+  const contextMenuFolder = useContextMenuFolder();
+  const contextMenuFolderGeneral = useContextMenuFolderGeneral();
+  const uid = useSelector(state => state.user.uid);
+  const global = useSelector(state => state.Cabinet.global);
+  const other = useSelector(state => state.Cabinet.other);
+  const recentFolders = useSelector(state => state.Cabinet.recentFolders);
+  const path = useSelector(state => state.Cabinet.folderList?.path);
+  const fileList = useSelector(state => state.Cabinet.fileList);
+  const initialChosenFile = useSelector(
+    state => state.Cabinet.fileList?.chosenFile
+  );
+  const [listCollapsed, setListCollapsed] = useState("");
+  const [newFolder, setNewFolder] = useState(false);
+  //TODO - Need to check object keys and delete useless
+  const [chosenFolder, setChosenFolder] = useState({
+    path: "global/all",
+    info: null,
+    files_amount: 0,
+    group: null,
+    contextMenuFolder: null,
+    folderWidth: 310
+  });
+  const [chosenSubFolder] = useState(null);
+  const [newFolderInfo, setNewFolderInfo] = useState({ path: "" });
+  const [safePassword, setSafePassword] = useState({ open: false });
+  const [chosenFile, setChosenFile] = useState(null);
+  const [mouseParams, setMouseParams] = useState(null);
+  const [action, setAction] = useState({ type: "", name: "", text: "" });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const dispatch = useDispatch();
+  const [error, setError] = useState({ isError: false, message: "" });
+  const [gLoader, setGLoader] = useState(true);
+  const closeError = () => setError({ isError: false, message: "" });
+  const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+  const folderListWrapRef = useRef(null);
+  const fakeScrollRef = useRef(null);
+  const folders = useFolders();
 
-
-    //Clear action on change folder
-    useEffect(() => {nullifyAction()}, [path]);
-    const successLoad = () => {
-        setFilesPage(2)
-        setGLoader(false)
+  //Clear action on change folder
+  useEffect(() => {
+    nullifyAction();
+  }, [path]);
+  const successLoad = () => {
+    setFilesPage(2);
+    setGLoader(false);
+  };
+  useEffect(() => {
+    setMenuItem("myFolders");
+    dispatch(onAddRecentFiles());
+    dispatch(onAddRecentFolders(folders));
+    dispatch(onGetFolders("", folders));
+    setFilesPage(0);
+    dispatch(
+      onChooseFiles(
+        initialChosenFile ? initialChosenFile.gdir : "global/all",
+        "",
+        1,
+        "",
+        successLoad
+      )
+    );
+    if (initialChosenFile) {
+      setChosenFile(initialChosenFile);
+      dispatch(onsetInitialChosenFile(null));
     }
-    useEffect(() => {
-        setMenuItem('myFolders')
-        dispatch(onGetUserInfo());
-        dispatch(onAddRecentFiles());
-        dispatch(onAddRecentFolders(folders));
-        dispatch(onGetFolders('', folders));
-        setFilesPage(0)
-        dispatch(onChooseFiles(initialChosenFile ?  initialChosenFile.gdir: 'global/all', '', 1, '', successLoad));
-        if (initialChosenFile) {
-            setChosenFile(initialChosenFile)
-            dispatch(onsetInitialChosenFile(null))
-        }
-        return () => {
-            setMenuItem('')
-            dispatch({type: "CHOOSE_FILES", payload: []}) //cleaning fileList when changing tabs
-        }
-    }, []); //eslint-disable-line
-
-    const renderFolderList = (root, isRecent) => {
-        if(!Array.isArray(root)) return null;
-        return root.map((folder, i) => {
-            return <CustomFolderItem
-                key={i + folder.name}
-                f={folder}
-                listCollapsed={listCollapsed}
-                setNewFolderInfo={setNewFolderInfo}
-                newFolderInfo={newFolderInfo}
-                setNewFolder={setNewFolder}
-                setChosenFolder={setChosenFolder}
-                chosenFolder={chosenFolder}
-                chosen={chosenFolder.path === folder.path}
-                p={25}
-                isRecent={isRecent}
-                subFolder={false}
-                setMouseParams={setMouseParams}
-                setGLoader={setGLoader}
-                setFilesPage={setFilesPage}
-                setError={setError}
-                setShowSuccessMessage={setShowSuccessMessage}
-                openMenu={openFolderMenu}
-            />
-        })
+    return () => {
+      setMenuItem("");
+      dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
     };
+  }, []); //eslint-disable-line
 
-    const onSafePassword = (boolean) => setSafePassword({...safePassword, open: boolean});
+  const renderFolderList = (root, isRecent) => {
+    if (!Array.isArray(root)) return null;
+    return root.map((folder, i) => {
+      return (
+        <CustomFolderItem
+          key={i + folder.name}
+          f={folder}
+          listCollapsed={listCollapsed}
+          setNewFolderInfo={setNewFolderInfo}
+          newFolderInfo={newFolderInfo}
+          setNewFolder={setNewFolder}
+          setChosenFolder={setChosenFolder}
+          chosenFolder={chosenFolder}
+          chosen={chosenFolder.path === folder.path}
+          p={25}
+          isRecent={isRecent}
+          subFolder={false}
+          setMouseParams={setMouseParams}
+          setGLoader={setGLoader}
+          setFilesPage={setFilesPage}
+          setError={setError}
+          setShowSuccessMessage={setShowSuccessMessage}
+          openMenu={openFolderMenu}
+        />
+      );
+    });
+  };
 
-    const openFolderMenu = (e, folder) => {
-        setMouseParams({x: e.clientX, y: e.clientY, width: 200, height: 25})
-        setChosenFolder(state => ({...state, info: folder, contextMenuFolder: folder}))
-        if(folder) setNewFolderInfo(state =>({...state, path: folder.path}))
-    };
+  const onSafePassword = boolean =>
+    setSafePassword({ ...safePassword, open: boolean });
 
-    const closeContextMenu = () => {
-        setMouseParams(null);
-        setChosenFolder(state => ({...state, contextMenuFolder: null}));
+  const openFolderMenu = (e, folder) => {
+    setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 });
+    setChosenFolder(state => ({
+      ...state,
+      info: folder,
+      contextMenuFolder: folder
+    }));
+    if (folder) setNewFolderInfo(state => ({ ...state, path: folder.path }));
+  };
+
+  const closeContextMenu = () => {
+    setMouseParams(null);
+    setChosenFolder(state => ({ ...state, contextMenuFolder: null }));
+  };
+
+  const renderMenuItems = (target, type) => {
+    return target.map((item, i) => {
+      return (
+        <ContextMenuItem
+          key={i}
+          width={mouseParams.width}
+          height={mouseParams.height}
+          text={item.name}
+          callback={() => type[i]?.callback(type, i)}
+          imageSrc={
+            imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`
+          }
+        />
+      );
+    });
+  };
+
+  const callbackArrMain = [
+    {
+      type: "addFolder",
+      name: __("Добавить папку"),
+      text: __(``),
+      callback: () => setNewFolder(true)
+    },
+    {
+      type: "propertiesFolder",
+      name: __("Свойства"),
+      text: __(``),
+      callback: (list, index) => setAction(list[index])
     }
+  ];
 
-    const renderMenuItems = (target, type) => {
-        return target.map((item, i) => {
-            return <ContextMenuItem
-                key={i}
-                width={mouseParams.width}
-                height={mouseParams.height}
-                text={item.name}
-                callback={() => type[i]?.callback(type, i)}
-                imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
-            />
+  const callbackArrOther = [
+    {
+      type: "customizeFolder",
+      name: __("Редактирование папки"),
+      text: __(``),
+      callback: (list, index) => setAction(list[index])
+    },
+    {
+      type: "resendFolder",
+      name: __("Расшарить"),
+      text: __(``),
+      callback: (list, index) => setAction(list[index])
+    },
+    {
+      type: "setAccessFolder",
+      name: __("Настроить доступ"),
+      text: __(``),
+      callback: (list, index) => setAction(list[index])
+    },
+    {
+      type: "addFolder",
+      name: __("Добавить папку"),
+      text: __(``),
+      callback: () => setNewFolder(true)
+    },
+    {
+      type: "propertiesFolder",
+      name: __("Свойства"),
+      text: __(``),
+      callback: (list, index) => setAction(list[index])
+    },
+    {
+      type: "deleteFolder",
+      name: __("Удаление папки"),
+      text: __(`Вы действительно хотите удалить выбранную папку?`),
+      callback: (list, index) => setAction(list[index])
+    }
+  ];
+
+  const deleteFolder = () => {
+    nullifyAction();
+    api
+      .post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
+      .then(res => {
+        if (res.data.ok === 1) {
+          dispatch(onGetFolders("", folders));
+          dispatch(onChooseFiles(fileList?.path, "", 1));
+          setChosenFolder(state => ({ ...state, info: null }));
+        } else {
+          setError({
+            isError: true,
+            message: __("Папка не удалена. Попробуйте еще раз!")
+          });
+        }
+      })
+      .catch(() =>
+        setError({
+          isError: true,
+          message: __("Папка не удалена. Попробуйте еще раз!")
         })
-    };
+      );
+  };
 
-    const callbackArrMain = [
-        {type: 'addFolder', name: __('Добавить папку'), text: __(``), callback: () => setNewFolder(true)},
-        {type: 'propertiesFolder', name: __('Свойства'), text: __(``), callback: (list, index) => setAction(list[index])},
-    ];
-
-    const callbackArrOther = [
-        {type: "customizeFolder", name: __("Редактирование папки"), text: __(``), callback: (list, index) => setAction(list[index])},
-        {type: 'resendFolder', name: __('Расшарить'), text: __(``), callback: (list, index) => setAction(list[index])},
-        {type: 'setAccessFolder', name: __('Настроить доступ'), text: __(``), callback: (list, index) => setAction(list[index])},
-        {type: 'addFolder', name: __('Добавить папку'), text: __(``), callback: () => setNewFolder(true)},
-        {type: 'propertiesFolder', name: __('Свойства'), text: __(``), callback: (list, index) => setAction(list[index])},
-        {type: 'deleteFolder', name: __('Удаление папки'), text: __(`Вы действительно хотите удалить выбранную папку?`), callback: (list, index) => setAction(list[index])},
-    ];
-
-    const deleteFolder = () => {
-        nullifyAction();
-        api.post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
-            .then(res => {if(res.data.ok === 1) {
-                dispatch(onGetFolders('', folders));
-                dispatch(onChooseFiles(fileList?.path, '', 1));
-                setChosenFolder(state =>({...state, info: null}));
-            } else {
-                setError({isError: true, message: __('Папка не удалена. Попробуйте еще раз!')});
-            }})
-            .catch(() => setError({isError: true, message: __('Папка не удалена. Попробуйте еще раз!')}));
-    };
-
-    return (
-        <div className={styles.workAreaWrap}>
-            <List
-                title={ __('Папки') }
-                src='add-folder.svg'
-                listCollapsed={listCollapsed}
-                setListCollapsed={setListCollapsed}
-                onCreate={(boolean) => {setNewFolderInfo(state =>({...state, path: 'other/'})); setNewFolder(boolean);}}
-            >
-                <div
-                    className={styles.topScroll}
-                    ref={fakeScrollRef}
-                    onScroll={() => {
-                        if(folderListWrapRef.current && fakeScrollRef.current) folderListWrapRef.current.scrollLeft = fakeScrollRef.current.scrollLeft
-                    }}
-                    style={{
-                        display: checkBrowser('safari') ? 'none' : 'flex'
-                    }}
-                >
-                    <div style={{width: chosenFolder.folderWidth, minWidth: chosenFolder.folderWidth}} />
-                </div>
-                <div
-                    className={styles.folderListWrap}
-                    ref={folderListWrapRef}
-                    onScroll={() => {
-                        if(folderListWrapRef.current && fakeScrollRef.current) fakeScrollRef.current.scrollLeft = folderListWrapRef.current.scrollLeft;
-                    }}
-                >
-                    {renderFolderList(global, false)}
-                    {renderFolderList(other, false)}
-                    {recentFolders?.length > 0 && <RecentFolders
-                        listCollapsed={listCollapsed}
-                        chosen={chosenFolder.path === 'recent'}
-                        chosenFolder={chosenFolder}
-                        setChosenFolder={setChosenFolder}
-                        renderFolderList={renderFolderList}
-                    />}
-                </div>
-            </List>
-            <WorkSpace
-                chosenFolder={chosenFolder}
-                setSafePassword={setSafePassword}
-                listCollapsed={listCollapsed}
-                setItem={setItem}
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-                chosenFile={chosenFile}
-                setChosenFile={setChosenFile}
-                fileSelect={fileSelect}
-                action={action}
-                setAction={setAction}
-                fileAddCustomization={fileAddCustomization}
-                setFileAddCustomization={setFileAddCustomization}
-                nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
-                saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-                showSuccessMessage={showSuccessMessage}
-                setShowSuccessMessage={setShowSuccessMessage}
-                setLoadingType={setLoadingType}
-                gLoader={gLoader}
-                setGLoader={setGLoader}
-                setNewFolder={setNewFolder}
-                setNewFolderInfo={setNewFolderInfo}
-                newFolderInfo={newFolderInfo}
-                filesPage={filesPage}
-                setFilesPage={setFilesPage}
-                menuItem={menuItem}
-                setChosenFolder={setChosenFolder}
-                openFolderMenu={openFolderMenu}
-            />
-            {newFolder && <CreateFolder
-                onCreate={setNewFolder}
-                title={ __('Создать папку') }
-                info={newFolderInfo}
-                chosenFolder={chosenFolder}
-                setChosenFolder={setChosenFolder}
-                newFolderInfo={newFolderInfo}
-                seetNewFolderInfo={setNewFolderInfo}
-            />}
-            {fileAddCustomization.show ? <CreateFile
-                title={fileAddCustomization.create ? __('Создать файл') : __('Добавление файла')}
-                info={chosenFolder}
-                blob={fileAddCustomization.file}
-                setBlob={setFileAddCustomization}
-                onToggleSafePassword={onSafePassword}
-                awaitingFiles={awaitingFiles}
-                setAwaitingFiles={setAwaitingFiles}
-                loaded={loaded}
-                setLoaded={setLoaded}
-                loadingFile={loadingFile}
-                fileErrors={fileErrors}
-                setLoadingFile={setLoadingFile}
-                create={fileAddCustomization.create}
-                setGLoader={setGLoader}
-                initFolder={chosenFolder}
-                showChoiceFolders={true}
-                menuItem={menuItem}
-            /> : null}
-            {safePassword.open && <CreateSafePassword
-                onToggle={onSafePassword}
-                title={ __('Создайте пароль для сейфа') }
-            />}
-            {mouseParams !== null ? <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
-                <div className={styles.mainMenuItems}>{renderMenuItems(
-                chosenFolder?.contextMenuFolder?.path.indexOf('global') === 0 && chosenFolder?.contextMenuFolder?.path.split('/').length === 2
-                        ? contextMenuFolderGeneral.main
-                        : contextMenuFolder.main,
-                chosenFolder?.contextMenuFolder?.path.indexOf('global') === 0 && chosenFolder?.contextMenuFolder?.path.split('/').length === 2
-                        ? callbackArrMain
-                        : callbackArrOther
-                )}</div>
-            </ContextMenu> : null}
-            {action.type === 'deleteFolder' ? <ActionApproval name={action.name} text={action.text} set={nullifyAction} callback={deleteFolder} approve={ __('Удалить') }>
-                <div className={styles.fileActionWrap}><FolderIcon className={`${styles.innerFolderIcon}`} /></div>
-            </ActionApproval> : null}
-            {action.type === 'propertiesFolder'
-            ? <FolderProperty
-                close={nullifyAction}
-                folder={chosenSubFolder || chosenFolder}
-            />
-            : null}
-            {action.type === "customizeFolder" ? (
-				<CustomizeFolder
-					nullifyAction={nullifyAction}
-					setError={setError}
-					chosenFolder={chosenFolder}
-                    chosenSubFolder={chosenSubFolder}
-					title={ __("Редактировать папку") }
-					setGLoader={setGLoader}
-                    info={newFolderInfo}
-                    successLoad={successLoad}
-				/>
-			) : null}
-            <Error error={error.isError} set={closeError} message={error.message} />
-            {showSuccessMessage && <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />}
+  return (
+    <div className={styles.workAreaWrap}>
+      <List
+        title={__("Папки")}
+        src="add-folder.svg"
+        listCollapsed={listCollapsed}
+        setListCollapsed={setListCollapsed}
+        onCreate={boolean => {
+          setNewFolderInfo(state => ({ ...state, path: "other/" }));
+          setNewFolder(boolean);
+        }}
+      >
+        <div
+          className={styles.topScroll}
+          ref={fakeScrollRef}
+          onScroll={() => {
+            if (folderListWrapRef.current && fakeScrollRef.current)
+              folderListWrapRef.current.scrollLeft =
+                fakeScrollRef.current.scrollLeft;
+          }}
+          style={{
+            display: checkBrowser("safari") ? "none" : "flex"
+          }}
+        >
+          <div
+            style={{
+              width: chosenFolder.folderWidth,
+              minWidth: chosenFolder.folderWidth
+            }}
+          />
         </div>
-    )
-}
+        <div
+          className={styles.folderListWrap}
+          ref={folderListWrapRef}
+          onScroll={() => {
+            if (folderListWrapRef.current && fakeScrollRef.current)
+              fakeScrollRef.current.scrollLeft =
+                folderListWrapRef.current.scrollLeft;
+          }}
+        >
+          {renderFolderList(global, false)}
+          {renderFolderList(other, false)}
+          {recentFolders?.length > 0 && (
+            <RecentFolders
+              listCollapsed={listCollapsed}
+              chosen={chosenFolder.path === "recent"}
+              chosenFolder={chosenFolder}
+              setChosenFolder={setChosenFolder}
+              renderFolderList={renderFolderList}
+            />
+          )}
+        </div>
+      </List>
+      <WorkSpace
+        chosenFolder={chosenFolder}
+        setSafePassword={setSafePassword}
+        listCollapsed={listCollapsed}
+        setItem={setItem}
+        filePreview={filePreview}
+        setFilePreview={setFilePreview}
+        chosenFile={chosenFile}
+        setChosenFile={setChosenFile}
+        fileSelect={fileSelect}
+        action={action}
+        setAction={setAction}
+        fileAddCustomization={fileAddCustomization}
+        setFileAddCustomization={setFileAddCustomization}
+        nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
+        saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+        showSuccessMessage={showSuccessMessage}
+        setShowSuccessMessage={setShowSuccessMessage}
+        setLoadingType={setLoadingType}
+        gLoader={gLoader}
+        setGLoader={setGLoader}
+        setNewFolder={setNewFolder}
+        setNewFolderInfo={setNewFolderInfo}
+        newFolderInfo={newFolderInfo}
+        filesPage={filesPage}
+        setFilesPage={setFilesPage}
+        menuItem={menuItem}
+        setChosenFolder={setChosenFolder}
+        openFolderMenu={openFolderMenu}
+      />
+      {newFolder && (
+        <CreateFolder
+          onCreate={setNewFolder}
+          title={__("Создать папку")}
+          info={newFolderInfo}
+          chosenFolder={chosenFolder}
+          setChosenFolder={setChosenFolder}
+          newFolderInfo={newFolderInfo}
+          seetNewFolderInfo={setNewFolderInfo}
+        />
+      )}
+      {fileAddCustomization.show ? (
+        <CreateFile
+          title={
+            fileAddCustomization.create
+              ? __("Создать файл")
+              : __("Добавление файла")
+          }
+          info={chosenFolder}
+          blob={fileAddCustomization.file}
+          setBlob={setFileAddCustomization}
+          onToggleSafePassword={onSafePassword}
+          awaitingFiles={awaitingFiles}
+          setAwaitingFiles={setAwaitingFiles}
+          loaded={loaded}
+          setLoaded={setLoaded}
+          loadingFile={loadingFile}
+          fileErrors={fileErrors}
+          setLoadingFile={setLoadingFile}
+          create={fileAddCustomization.create}
+          setGLoader={setGLoader}
+          initFolder={chosenFolder}
+          showChoiceFolders={true}
+          menuItem={menuItem}
+        />
+      ) : null}
+      {safePassword.open && (
+        <CreateSafePassword
+          onToggle={onSafePassword}
+          title={__("Создайте пароль для сейфа")}
+        />
+      )}
+      {mouseParams !== null ? (
+        <ContextMenu
+          params={mouseParams}
+          setParams={closeContextMenu}
+          tooltip={true}
+        >
+          <div className={styles.mainMenuItems}>
+            {renderMenuItems(
+              chosenFolder?.contextMenuFolder?.path.indexOf("global") === 0 &&
+                chosenFolder?.contextMenuFolder?.path.split("/").length === 2
+                ? contextMenuFolderGeneral.main
+                : contextMenuFolder.main,
+              chosenFolder?.contextMenuFolder?.path.indexOf("global") === 0 &&
+                chosenFolder?.contextMenuFolder?.path.split("/").length === 2
+                ? callbackArrMain
+                : callbackArrOther
+            )}
+          </div>
+        </ContextMenu>
+      ) : null}
+      {action.type === "deleteFolder" ? (
+        <ActionApproval
+          name={action.name}
+          text={action.text}
+          set={nullifyAction}
+          callback={deleteFolder}
+          approve={__("Удалить")}
+        >
+          <div className={styles.fileActionWrap}>
+            <FolderIcon className={`${styles.innerFolderIcon}`} />
+          </div>
+        </ActionApproval>
+      ) : null}
+      {action.type === "propertiesFolder" ? (
+        <FolderProperty
+          close={nullifyAction}
+          folder={chosenSubFolder || chosenFolder}
+        />
+      ) : null}
+      {action.type === "customizeFolder" ? (
+        <CustomizeFolder
+          nullifyAction={nullifyAction}
+          setError={setError}
+          chosenFolder={chosenFolder}
+          chosenSubFolder={chosenSubFolder}
+          title={__("Редактировать папку")}
+          setGLoader={setGLoader}
+          info={newFolderInfo}
+          successLoad={successLoad}
+        />
+      ) : null}
+      <Error error={error.isError} set={closeError} message={error.message} />
+      {showSuccessMessage && (
+        <SuccessMessage
+          showSuccessMessage={showSuccessMessage}
+          setShowSuccessMessage={setShowSuccessMessage}
+        />
+      )}
+    </div>
+  );
+};
 
 export default MyFolders;
