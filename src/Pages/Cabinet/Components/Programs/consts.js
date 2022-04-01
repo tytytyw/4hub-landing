@@ -51,42 +51,42 @@ export const categories = {
             {
                 name: 'AirMail',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/airmail.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://airmailapp.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'The Bat',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/bat.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.ritlabs.com/en/products/thebat/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Mind Manager',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/mind-manager.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.mindmanager.com/en',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Microsoft Office',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/microsoft-office.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.microsoft.com/en-us',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'ABBYY FineReader',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/abby.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://pdf.abbyy.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'WinScan2PDF',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://winscan2pdf.com/',
                 isFavourite: false,
                 comments: []
             },
@@ -99,7 +99,7 @@ export const categories = {
             {
                 name: 'Adobe Photoshop',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/photoshop.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.adobe.com/products/photoshop.html',
                 isFavourite: true,
                 comments: [
                     {
@@ -131,7 +131,7 @@ export const categories = {
             {
                 name: 'Adobe Illustrator',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/illustrator.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.adobe.com/products/illustrator.html',
                 isFavourite: false,
                 comments: []
             },
@@ -145,14 +145,14 @@ export const categories = {
             {
                 name: 'Adobe Xd',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe/xd.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.adobe.com/products/xd.html',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Adobe Acrobat',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe-acrobat.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.adobe.com/acrobat.html',
                 isFavourite: false,
                 comments: []
             },
@@ -165,21 +165,21 @@ export const categories = {
             {
                 name: 'JetBrains',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/jetbrains.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.jetbrains.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Coda',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/coda-io.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://coda.io/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'DreamWeaver CS3',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/adobe-dreamweaver-cc.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.adobe.com/products/dreamweaver.html',
                 isFavourite: false,
                 comments: []
             },
@@ -193,49 +193,49 @@ export const categories = {
             {
                 name: 'Visual Studio',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/visual-studio.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://visualstudio.microsoft.com/ru/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'PHP',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/php.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.php.net/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Node.js',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/nodejs.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://nodejs.org/en/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Python',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/python.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.python.org/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Go',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/golang.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://go.dev/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Advanced Outlook Repair',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/microsoft-outlook.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.sysinfotools.com/advanced-outlook-recovery.html',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Disk Drill',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/disk-drill.webp`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.disk-drill.com/',
                 isFavourite: false,
                 comments: []
             },
@@ -249,35 +249,35 @@ export const categories = {
             {
                 name: 'Partition Table Doctor',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.easeus.com/data-recovery-software/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Windows',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/windows.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://support.microsoft.com/ru-ru/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Linux',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/linux.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.linux.org/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Docker',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/docker.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.docker.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Crystal Disk Mark',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://crystalmark.info/en/software/crystaldiskmark/',
                 isFavourite: false,
                 comments: []
             },
@@ -291,14 +291,14 @@ export const categories = {
             {
                 name: 'HDD Life',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/hdd.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://hddlife.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'USB Network Gate',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/usb-universal.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.usb-over-network.org/usb-network-gate/',
                 isFavourite: false,
                 comments: []
             },
@@ -312,14 +312,14 @@ export const categories = {
             {
                 name: 'Microsoft Network Monitor',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/prtg-network-monitor.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.microsoft.com/en-us/download/details.aspx?id=4865',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'TeamViewer',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/teamviewer.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.teamviewer.com/ru/',
                 isFavourite: false,
                 comments: []
             },
@@ -340,14 +340,14 @@ export const categories = {
             {
                 name: 'MSSQL',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/microsoft-sql.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.microsoft.com/en-us/sql-server/sql-server-downloads',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Navi Cat',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/navicat.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://navicat.com/en',
                 isFavourite: false,
                 comments: []
             },
@@ -361,119 +361,119 @@ export const categories = {
             {
                 name: 'Avast',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/avast.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.avast.com/index#pc',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Kaspersky',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/kaspersky.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.kaspersky.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'NOD32',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/eset.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.eset.com/uk/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'WinRAR',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/winrar.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.win-rar.com/start.html?&L=4',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: '7Zip',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/7zip.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.7-zip.org/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'UExtractor',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/iphone-backup-extractor.webp`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://chrome.google.com/webstore/detail/universal-extractor-downl/pofafboibjkfombpgmfaeepeehfcfahm',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Acronis Disk Director',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/acronis.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.acronis.com/en-eu/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Chrome',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/google-chrome.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.google.com/chrome/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'FireFox',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/mozilla-firefox.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.mozilla.org/ru/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Opera',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/opera.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.opera.com/ru',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Safari',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/safari.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.apple.com/safari/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Ultra ISO',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/iso.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.ultraiso.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Virtual Clone Drive',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/virtual-clone.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://redfox.bz/virtual-clonedrive.html',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Nero',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/nero.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.nero.com/rus/index.php?vlang=us',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Skype',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/skype.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.skype.com/en/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Telegram',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/telegram.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://web.telegram.org/k/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Discord',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/discord.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://discord.com/',
                 isFavourite: false,
                 comments: []
             },
@@ -486,35 +486,35 @@ export const categories = {
             {
                 name: 'Rebelle',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/rebel-alliance.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.escapemotions.com/products/rebelle/about',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Procreate',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/procreate.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://procreate.art/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Clip Studio Paint Pro',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/clip-studio.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.clipstudio.net/en/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Artweaver',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.artweaver.de/en',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'ArtRage',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/artrage.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.artrage.com/',
                 isFavourite: false,
                 comments: []
             },
@@ -527,14 +527,14 @@ export const categories = {
             {
                 name: 'AIMP',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/aimp.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.aimp.ru/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'KMPPlayer',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/kmplayer.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.kmplayer.com/home',
                 isFavourite: false,
                 comments: []
             },
@@ -547,56 +547,56 @@ export const categories = {
             {
                 name: 'ABBYY FineReader',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/abby.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://pdf.abbyy.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: '3ds Max',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/3ds-max.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.autodesk.com/products/3ds-max/overview?term=1-YEAR&tab=subscription',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'ArchiCad',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/archicad.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://graphisoft.com/solutions/archicad',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'AutoDesk AutoCad',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/autocad.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.autodesk.com/products/autocad/overview',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'CoralDraw Graphics Suite',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://find-your-software.com/corel/coreldraw-2021/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Sketch',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/sketch.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.sketch.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'PDF XChange Editor',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/box-version-pdf.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.tracker-software.com/product/pdf-xchange-viewer',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Boom',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/boom-technology.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://boom.ru/',
                 isFavourite: false,
                 comments: []
             },
@@ -609,35 +609,35 @@ export const categories = {
             {
                 name: 'SPSS',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/spss.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.ibm.com/analytics/spss-statistics-software',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Stata',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/state.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.stata.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'SAS',
                 icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.sas.com/ru_ru/home.html',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'MATLAB',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/matlab.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.mathworks.com/products/matlab.html',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'JMP',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/jmp.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.jmp.com/en_us/home.html',
                 isFavourite: false,
                 comments: []
             },
@@ -650,35 +650,35 @@ export const categories = {
             {
                 name: 'Scholastic Learn at Home',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/scholastic.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://export.scholastic.com/en',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Brainly',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/brainly.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://brainly.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'BrainPop',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/brainpro.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.brainpop.com/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Twinkl',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/twinkl.jpg`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.twinkl.gr/',
                 isFavourite: false,
                 comments: []
             },
             {
                 name: 'Sumdog',
                 icon: `${imageSrc}assets/PrivateCabinet/programs/ixl-icon-sumdog.png`,
-                link: 'https://fs2.mh.net.ua',
+                link: 'https://www.sumdog.com/en/',
                 isFavourite: false,
                 comments: []
             },
