@@ -13,7 +13,10 @@ import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
 import PropTypes from "prop-types";
-import { onEditChatMessage } from "../../../../../Store/actions/CabinetActions";
+import {
+  onEditChatMessage,
+  onDeleteChatMessage
+} from "../../../../../Store/actions/CabinetActions";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -109,7 +112,7 @@ const WorkSpace = ({
     if (
       (data.action === "chat_group_message_edit" ||
         data.action === "chat_message_edit") &&
-      (isForChats || isForSelectedGroup)
+      (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
     ) {
       dispatch(
         onEditChatMessage(
@@ -117,6 +120,13 @@ const WorkSpace = ({
           { id: data.id_message, day: data.day }
         )
       );
+    }
+    if (
+      (data.action === "chat_group_message_del" ||
+        data.action === "chat_message_del") &&
+      (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
+    ) {
+      dispatch(onDeleteChatMessage({ id: data.id_message, day: data.day }));
     }
   };
 
@@ -176,30 +186,40 @@ const WorkSpace = ({
           ? {
               action: "chat_group_message_edit",
               id_group: message.id_group,
-              is_group: true
+              is_group: true,
+              is_secret_chat: !!selectedContact.is_secret_chat
             }
           : { action: "chat_message_edit", id_user_to: message.user_to }
       );
     }
   };
 
-  // TODO: dispatch onDeleteChatMessage
-  // const deleteMessage = message => {
-  //   const sendSocketMessage = params => {
-  //     socket.send(JSON.stringify({ ...params, uid, id_message: message.id }));
-  //   };
+  const deleteMessage = message => {
+    const sendSocketMessage = params => {
+      socket.send(
+        JSON.stringify({
+          ...params,
+          uid,
+          id_message: message.id,
+          day: message.day
+        })
+      );
+    };
 
-  //   sendSocketMessage(
-  //     message.id_group
-  //       ? {
-  //           action: "chat_group_message_del",
-  //           id_group: message.id_group
-  //         }
-  //       : {
-  //           action: "chat_message_del"
-  //         }
-  //   );
-  // };
+    sendSocketMessage(
+      message.id_group
+        ? {
+            action: "chat_group_message_del",
+            id_group: message.id_group,
+            is_group: true,
+            is_secret_chat: !!selectedContact.is_secret_chat
+          }
+        : {
+            action: "chat_message_del",
+            id_user_to: message.user_to
+          }
+    );
+  };
 
   useEffect(() => {
     if (socketReconnect) {
@@ -300,7 +320,7 @@ const WorkSpace = ({
             set={nullifyAction}
             message={action.message}
             nullifyAction={nullifyAction}
-            // deleteMessage={deleteMessage}
+            deleteMessage={deleteMessage}
           ></DeleteMessage>
         ) : null}
       </div>
