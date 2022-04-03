@@ -65,6 +65,6 @@ Button.propTypes = {
   borderRadius: PropTypes.string,
   childrenColor: PropTypes.string,
   backgroundColor: PropTypes.string,
-  boxShadow: PropTypes.bool,
+  boxShadow: PropTypes.string,
   hoverEffect: PropTypes.bool
 };

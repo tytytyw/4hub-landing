@@ -24,6 +24,7 @@ const CreateCameraMedia = ({
   const [stream, setStream] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageFinal, setImageFinal] = useState(null);
   const [quality, setQuality] = useState(720);
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -111,7 +112,9 @@ const CreateCameraMedia = ({
     canvas.height = video.videoHeight;
     canvas.width = video.videoWidth;
     context.drawImage(video, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    const imageSrc = canvas.toDataURL("image/png");
+    setImagePreview(imageSrc);
+    setImageFinal(imageSrc);
     cleareStreamTracks();
     setState("readyToSend");
   };
@@ -178,8 +181,8 @@ const CreateCameraMedia = ({
 
   const reflectCanvas = () => {
     const canvas = canvasRef.current;
-    const width = canvas.width;
-    const height = canvas.height;
+    const width = imageRef.current.naturalWidth;
+    const height = imageRef.current.naturalHeight;
     const context = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
@@ -191,7 +194,7 @@ const CreateCameraMedia = ({
 
   const onSendFile = () => {
     setgloader(true);
-    const getFileFromUrl = fetch(videoPreview || imagePreview)
+    const getFileFromUrl = fetch(videoPreview || imageFinal)
       .then(res => res.blob())
       .then(
         blobFile =>
@@ -230,6 +233,12 @@ const CreateCameraMedia = ({
           setgloader(false);
         });
     });
+  };
+
+  const saveImageChanges = () => setImageFinal(imagePreview);
+  const cancelImageChanges = additionalFunc => {
+    setImagePreview(imageFinal);
+    additionalFunc && additionalFunc();
   };
 
   useEffect(() => {
@@ -354,6 +363,9 @@ const CreateCameraMedia = ({
         onSendFile={onSendFile}
         textMessage={textMessage}
         setTextMessage={setTextMessage}
+        setImageFinal={setImageFinal}
+        saveImageChanges={saveImageChanges}
+        cancelImageChanges={cancelImageChanges}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

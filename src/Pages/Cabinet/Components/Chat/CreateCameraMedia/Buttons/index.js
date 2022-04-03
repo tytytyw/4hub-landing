@@ -37,7 +37,10 @@ const Buttons = ({
   onMirrorClick,
   onSendFile,
   textMessage,
-  setTextMessage
+  setTextMessage,
+  saveImageChanges,
+  cancelImageChanges
+  // setImageFinal
 }) => {
   const { __ } = useLocales();
   const [activeOption, setActiveOption] = useState(null);
@@ -99,7 +102,11 @@ const Buttons = ({
   };
 
   const onBackButtonhandler = () =>
-    activeOption ? setActiveOption(null) : setInitialState();
+    activeOption
+      ? activeOption === "transformOptions"
+        ? cancelImageChanges(() => setActiveOption(null))
+        : setActiveOption(null)
+      : setInitialState();
 
   const renderCentralBtns = () => {
     if (isRecording)
@@ -173,6 +180,22 @@ const Buttons = ({
       return (
         <Button
           clickCallback={() => saveTextButtonRef.current?.click()}
+          width={38}
+          height={38}
+          borderRadius="50%"
+          childrenColor="white"
+          backgroundColor="#4086F1"
+        >
+          <CheckIcon title={__("Сохранить")} height={14} width={19} />
+        </Button>
+      );
+    if (activeOption === "transformOptions")
+      return (
+        <Button
+          clickCallback={() => {
+            saveImageChanges();
+            setActiveOption(null);
+          }}
           width={38}
           height={38}
           borderRadius="50%"
@@ -294,5 +317,8 @@ Buttons.propTypes = {
   onMirrorClick: PropTypes.func.isRequired,
   onSendFile: PropTypes.func.isRequired,
   textMessage: PropTypes.string,
-  setTextMessage: PropTypes.func.isRequired
+  setTextMessage: PropTypes.func.isRequired,
+  saveImageChanges: PropTypes.func.isRequired,
+  setImageFinal: PropTypes.func.isRequired,
+  cancelImageChanges: PropTypes.func.isRequired
 };
