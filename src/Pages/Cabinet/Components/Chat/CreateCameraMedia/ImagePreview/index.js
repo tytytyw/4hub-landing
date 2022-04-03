@@ -1,8 +1,19 @@
 import React from "react";
 import styles from "./ImagePreview.module.sass";
 import PropTypes from "prop-types";
+import СhooseAspectRatio from "../СhooseAspectRatio";
 
-const ImagePreview = ({ image, visualEffects, imageRef, width, height }) => {
+const ImagePreview = ({
+  image,
+  visualEffects,
+  imageRef,
+  width,
+  height,
+  imageAspectRatio,
+  setImageAspectRatio,
+  openCropImage,
+  setOpenCropImage
+}) => {
   return (
     <div className={styles.wrapper} style={{ height, width }}>
       <img
@@ -14,6 +25,15 @@ const ImagePreview = ({ image, visualEffects, imageRef, width, height }) => {
         }}
         ref={imageRef}
       />
+      {!imageAspectRatio && openCropImage ? (
+        <СhooseAspectRatio
+          set={setImageAspectRatio}
+          originalAspect={1}
+          cancel={() => setOpenCropImage(null)}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
@@ -25,5 +45,9 @@ ImagePreview.propTypes = {
   visualEffects: PropTypes.object,
   imageRef: PropTypes.object,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
+  imageAspectRatio: PropTypes.number,
+  setImageAspectRatio: PropTypes.func,
+  openCropImage: PropTypes.bool,
+  setOpenCropImage: PropTypes.func.isRequired
 };

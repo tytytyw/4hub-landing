@@ -138,5 +138,5 @@ TextArea.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,
-  editMessage: PropTypes.func.isRequired
+  editMessage: PropTypes.func
 };

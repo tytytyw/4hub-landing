@@ -39,7 +39,8 @@ const Buttons = ({
   textMessage,
   setTextMessage,
   saveImageChanges,
-  cancelImageChanges
+  cancelImageChanges,
+  setOpenCropImage
   // setImageFinal
 }) => {
   const { __ } = useLocales();
@@ -79,7 +80,7 @@ const Buttons = ({
         },
         {
           name: "crop",
-          clickCallback: () => {},
+          clickCallback: () => {setOpenCropImage(true)},
           icon: <CropIcon />
         }
       ]
@@ -320,5 +321,6 @@ Buttons.propTypes = {
   setTextMessage: PropTypes.func.isRequired,
   saveImageChanges: PropTypes.func.isRequired,
   setImageFinal: PropTypes.func.isRequired,
-  cancelImageChanges: PropTypes.func.isRequired
+  cancelImageChanges: PropTypes.func.isRequired,
+  setOpenCropImage: PropTypes.func.isRequired
 };
