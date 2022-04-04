@@ -14,7 +14,8 @@ const Button = ({
   childrenColor = "black",
   backgroundColor = "#EDEDED",
   boxShadow = false,
-  hoverEffect = false
+  hoverEffect = false,
+  active
 }) => {
   return (
     <div
@@ -23,7 +24,8 @@ const Button = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.recording]: mouseDownCallback && isRecording,
-        [styles.hoverEffect]: hoverEffect
+        [styles.hoverEffect]: hoverEffect,
+        [styles.active]: active
       })}
       style={{
         width,
@@ -52,7 +54,8 @@ Button.defautProps = {
   childrenColor: "black",
   backgroundColor: "#EDEDED",
   boxShadow: false,
-  hoverEffect: false
+  hoverEffect: false,
+  active: false
 };
 
 Button.propTypes = {
@@ -66,5 +69,6 @@ Button.propTypes = {
   childrenColor: PropTypes.string,
   backgroundColor: PropTypes.string,
   boxShadow: PropTypes.string,
-  hoverEffect: PropTypes.bool
+  hoverEffect: PropTypes.bool,
+  active: PropTypes.bool
 };

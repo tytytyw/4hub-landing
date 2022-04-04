@@ -148,50 +148,55 @@ const CreateCameraMedia = ({
     const image = imageRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    canvas.height = image.naturalWidth;
+    canvas.height = image?.naturalWidth;
     canvas.width = image.naturalHeight;
     context.translate(canvas.width / 2, canvas.height / 2);
     context.rotate((-90 * Math.PI) / 180);
     context.translate(-canvas.height / 2, -canvas.width / 2);
-    context.drawImage(imageRef.current, 0, 0);
+    context.drawImage(image, 0, 0);
     setImagePreview(canvas.toDataURL("image/png"));
   };
 
   const onRotateClick = () => {
-    setVisualEffects(prevEffects => ({
-      ...prevEffects,
-      transform: {
-        ...prevEffects.transform,
-        rotate:
-          prevEffects.transform.rotate === 270
-            ? 0
-            : prevEffects.transform.rotate + 90
-      }
-    }));
-    if (imageRef.current) rotateCanvas();
+    if (!openCropImage && imageAspectRatio) {
+      setVisualEffects(prevEffects => ({
+        ...prevEffects,
+        transform: {
+          ...prevEffects.transform,
+          rotate:
+            prevEffects.transform.rotate === 270
+              ? 0
+              : prevEffects.transform.rotate + 90
+        }
+      }));
+      if (imageRef.current) rotateCanvas();
+    }
   };
 
   const onMirrorClick = () => {
-    setVisualEffects(prevEffects => ({
-      ...prevEffects,
-      transform: {
-        ...prevEffects.transform,
-        scale: prevEffects.transform.scale ? "" : "scale(-1, 1)"
-      }
-    }));
-    if (imageRef.current) reflectCanvas();
+    if (!openCropImage && imageAspectRatio) {
+      setVisualEffects(prevEffects => ({
+        ...prevEffects,
+        transform: {
+          ...prevEffects.transform,
+          scale: prevEffects.transform.scale ? "" : "scale(-1, 1)"
+        }
+      }));
+      if (imageRef.current) reflectCanvas();
+    }
   };
 
   const reflectCanvas = () => {
     const canvas = canvasRef.current;
-    const width = imageRef.current.naturalWidth;
-    const height = imageRef.current.naturalHeight;
+    const image = imageRef.current;
+    const width = image?.naturalWidth;
+    const height = image?.naturalHeight;
     const context = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
     context.scale(-1, 1);
     context.translate(-canvas.width, 0);
-    context.drawImage(imageRef.current, 0, 0);
+    context.drawImage(image, 0, 0);
     setImagePreview(canvas.toDataURL("image/png"));
   };
 
@@ -276,6 +281,10 @@ const CreateCameraMedia = ({
       };
     }
   }, [isRecording]);
+
+  useEffect(() => {
+    if (openCropImage && imageAspectRatio) setImageAspectRatio(null);
+  }, [openCropImage]);
 
   return gloader ? (
     <Loader
@@ -382,6 +391,7 @@ const CreateCameraMedia = ({
         saveImageChanges={saveImageChanges}
         cancelImageChanges={cancelImageChanges}
         setOpenCropImage={setOpenCropImage}
+        openCropImage={openCropImage}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

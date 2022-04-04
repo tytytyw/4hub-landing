@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import Button from "./Button";
 import styles from "./Buttons.module.sass";
@@ -40,11 +40,13 @@ const Buttons = ({
   setTextMessage,
   saveImageChanges,
   cancelImageChanges,
-  setOpenCropImage
+  setOpenCropImage,
+  openCropImage
   // setImageFinal
 }) => {
   const { __ } = useLocales();
   const [activeOption, setActiveOption] = useState(null);
+  const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
 
   const [centralButtons] = useState([
@@ -80,7 +82,12 @@ const Buttons = ({
         },
         {
           name: "crop",
-          clickCallback: () => {setOpenCropImage(true)},
+          clickCallback: () => {
+            setOpenCropImage(true);
+            setActiveButton(activeButton =>
+              activeButton === "crop" ? "" : "crop"
+            );
+          },
           icon: <CropIcon />
         }
       ]
@@ -157,8 +164,11 @@ const Buttons = ({
             childrenColor="black"
             backgroundColor="#fff"
             boxShadow="0px 2px 4px #DEDEDE"
-            hoverEffect={true}
+            hoverEffect={
+              activeButton === "crop" ? activeButton === btn.name : true
+            }
             key={btn.name}
+            active={btn.name === activeButton}
           >
             {btn.icon}
           </Button>
@@ -224,6 +234,11 @@ const Buttons = ({
         </Button>
       );
   };
+
+  useEffect(() => {
+    if (!openCropImage && activeButton) setActiveButton(null);
+    if (!activeButton && openCropImage) setOpenCropImage(false);
+  }, [openCropImage, activeButton]);
 
   return (
     <div className={styles.wrapper}>
@@ -322,5 +337,6 @@ Buttons.propTypes = {
   saveImageChanges: PropTypes.func.isRequired,
   setImageFinal: PropTypes.func.isRequired,
   cancelImageChanges: PropTypes.func.isRequired,
-  setOpenCropImage: PropTypes.func.isRequired
+  setOpenCropImage: PropTypes.func.isRequired,
+  openCropImage: PropTypes.bool
 };

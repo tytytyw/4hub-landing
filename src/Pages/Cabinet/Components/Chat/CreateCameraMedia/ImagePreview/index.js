@@ -14,6 +14,9 @@ const ImagePreview = ({
   openCropImage,
   setOpenCropImage
 }) => {
+  const ratio =
+    imageRef.current?.naturalWidth / imageRef.current?.naturalHeight;
+  const originalAspect = ratio || width / height;
   return (
     <div className={styles.wrapper} style={{ height, width }}>
       <img
@@ -28,7 +31,7 @@ const ImagePreview = ({
       {!imageAspectRatio && openCropImage ? (
         <СhooseAspectRatio
           set={setImageAspectRatio}
-          originalAspect={1}
+          originalAspect={originalAspect}
           cancel={() => setOpenCropImage(null)}
         />
       ) : (
