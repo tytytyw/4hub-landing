@@ -2,11 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./СhooseAspectRatio.module.sass";
 import TextButton from "../../../../../../generalComponents/TextButton";
+import { useLocales } from "react-localized";
 
 const СhooseAspectRatio = ({ set, originalAspect, cancel }) => {
+  const { __ } = useLocales();
   const values = [
-    { label: "Оригинал", value: originalAspect },
-    { label: "Квадрат", value: 1 },
+    { label: __("Оригинал"), value: originalAspect },
+    { label: __("Квадрат"), value: 1 },
     { label: "2:3", value: 2 / 3 },
     { label: "5:3", value: 5 / 3 },
     { label: "4:3", value: 4 / 3 },
@@ -29,7 +31,7 @@ const СhooseAspectRatio = ({ set, originalAspect, cancel }) => {
             </div>
           ))}
       </div>
-      <TextButton text="Отмена" type="cancel" callback={cancel} />
+      <TextButton text={__("Отмена")} type="cancel" callback={cancel} />
     </div>
   );
 };

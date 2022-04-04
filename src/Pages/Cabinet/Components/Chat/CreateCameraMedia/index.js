@@ -158,7 +158,7 @@ const CreateCameraMedia = ({
   };
 
   const onRotateClick = () => {
-    if (!openCropImage && imageAspectRatio) {
+    if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
         transform: {
@@ -174,7 +174,7 @@ const CreateCameraMedia = ({
   };
 
   const onMirrorClick = () => {
-    if (!openCropImage && imageAspectRatio) {
+    if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
         transform: {
@@ -244,6 +244,14 @@ const CreateCameraMedia = ({
   };
 
   const saveImageChanges = () => setImageFinal(imagePreview);
+  const saveCropChanges = () => {
+    const canvas = canvasRef.current;
+    const canvasDataUrl = canvas.toDataURL("image/png");
+    setImagePreview(canvasDataUrl);
+    // setImageFinal(canvasDataUrl);
+    setOpenCropImage(false);
+  };
+
   const cancelImageChanges = additionalFunc => {
     setImagePreview(imageFinal);
     additionalFunc && additionalFunc();
@@ -388,7 +396,7 @@ const CreateCameraMedia = ({
         textMessage={textMessage}
         setTextMessage={setTextMessage}
         setImageFinal={setImageFinal}
-        saveImageChanges={saveImageChanges}
+        saveImageChanges={openCropImage ? saveCropChanges : saveImageChanges}
         cancelImageChanges={cancelImageChanges}
         setOpenCropImage={setOpenCropImage}
         openCropImage={openCropImage}

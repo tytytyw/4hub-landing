@@ -4,13 +4,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import PropTypes from "prop-types";
 
 const CropImage = ({ aspect, canvasRef, imageSrc }) => {
-  const [crop, setCrop] = useState({
-    unit: "%",
-    x: 25,
-    y: 25,
-    width: 50,
-    height: 50
-  });
+  const [crop, setCrop] = useState();
   const [completedCrop, setCompletedCrop] = useState();
   const imgRef = useRef();
 
@@ -83,8 +77,8 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
 
   useDebounceEffect(
     async () => {
-      if (imgRef.current && canvasRef.current && completedCrop)
-        canvasPreview(imgRef.current, canvasRef.current, completedCrop);
+      if (imgRef.current && canvasRef.current && crop)
+        canvasPreview(imgRef.current, canvasRef.current, completedCrop ?? crop);
     },
     100,
     [completedCrop]
@@ -100,17 +94,6 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       >
         <img ref={imgRef} src={imageSrc} onLoad={onImageLoad} />
       </ReactCrop>
-
-      <div>
-        {completedCrop && (
-          <canvas
-            ref={canvasRef}
-            style={{
-              display: "none"
-            }}
-          />
-        )}
-      </div>
     </div>
   );
 };

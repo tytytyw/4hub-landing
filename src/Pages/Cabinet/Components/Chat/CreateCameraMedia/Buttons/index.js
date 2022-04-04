@@ -205,7 +205,7 @@ const Buttons = ({
         <Button
           clickCallback={() => {
             saveImageChanges();
-            setActiveOption(null);
+            activeButton !== "crop" && setActiveOption(null);
           }}
           width={38}
           height={38}
