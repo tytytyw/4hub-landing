@@ -301,7 +301,6 @@ const CreateCameraMedia = ({
   useEffect(() => {
     if (openCropImage && imageAspectRatio) setImageAspectRatio(null);
   }, [openCropImage]);
-  console.log("rerender");
 
   return gloader ? (
     <Loader
@@ -324,6 +323,7 @@ const CreateCameraMedia = ({
                 images={imageDrawSrc}
                 params={{ isLoading: false }}
                 setParams={() => {}}
+                mainWidth="auto"
               />
             ) : videoPreview ? (
               <VideoPlayer
