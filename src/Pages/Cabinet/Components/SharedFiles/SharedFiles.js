@@ -6,7 +6,7 @@ import WorkLinesPreview from "../WorkElements/WorkLinesPreview";
 import SearchField from "../SearchField";
 import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
-import Profile from "../Profile";
+import Profile from "../Profile/Profile";
 import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
 import DateFilter from "../MyFiles/DateFilter";

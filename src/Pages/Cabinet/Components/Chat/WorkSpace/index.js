@@ -8,7 +8,7 @@ import ChatBoard from "../ChatBoard";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
-import Profile from "../../Profile";
+import Profile from "../../Profile/Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
