@@ -49,9 +49,14 @@ function ProgramItem({ program }) {
           />
           <div className={styles.programName}>{program?.name}</div>
         </div>
-        <div className={styles.centerGroup}>
+        <a
+          className={styles.centerGroup}
+          href={program.link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <div className={styles.copyLink}>{program.link}</div>
-        </div>
+        </a>
         <div className={styles.rightGroup}>
           <div
             className={classNames({
