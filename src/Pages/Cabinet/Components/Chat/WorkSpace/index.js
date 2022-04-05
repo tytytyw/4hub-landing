@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
@@ -225,6 +225,16 @@ const WorkSpace = ({
     );
   };
 
+  const renderCreateCameraMedia = useCallback(
+    <CreateCameraMedia
+      nullifyAction={nullifyAction}
+      addMessage={addMessage}
+      socket={socket}
+      scrollToBottom={scrollToBottom}
+    />,
+    [action]
+  );
+
   useEffect(() => {
     if (socketReconnect) {
       setSocketReconnect(false);
@@ -328,16 +338,7 @@ const WorkSpace = ({
           ></DeleteMessage>
         ) : null}
       </div>
-      {action?.type === "createMediaFromCamera" ? (
-        <CreateCameraMedia
-          nullifyAction={nullifyAction}
-          addMessage={addMessage}
-          socket={socket}
-          scrollToBottom={scrollToBottom}
-        />
-      ) : (
-        ""
-      )}
+      {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
 
       <BottomPanel />
     </div>

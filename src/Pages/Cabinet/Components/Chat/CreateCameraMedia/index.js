@@ -13,6 +13,7 @@ import api from "../../../../../api";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import CropImage from "../CropImage";
+import DrawZone from "../../Modals/Components/MutualEdit/DrawZone/DrawZone";
 
 const CreateCameraMedia = ({
   nullifyAction,
@@ -48,6 +49,7 @@ const CreateCameraMedia = ({
       result: ""
     }
   });
+  const [drawImage, setDrawImage] = useState(false);
   const uid = useSelector(state => state.user.uid);
 
   const streamPreviewRef = useRef();
@@ -55,6 +57,10 @@ const CreateCameraMedia = ({
   const canvasRef = useRef();
   const imageRef = useRef();
   const previewSize = useRef();
+  const contentWrapperRef = useRef();
+  const drawCanvasRef = useRef();
+
+  const imageDrawSrc = { loaded: [imagePreview] };
 
   const constraints = {
     audio: true,
@@ -158,6 +164,7 @@ const CreateCameraMedia = ({
   };
 
   const onRotateClick = () => {
+    console.log(imageRef.current);
     if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
@@ -174,6 +181,7 @@ const CreateCameraMedia = ({
   };
 
   const onMirrorClick = () => {
+    console.log(openCropImage, imageAspectRatio);
     if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
@@ -293,6 +301,7 @@ const CreateCameraMedia = ({
   useEffect(() => {
     if (openCropImage && imageAspectRatio) setImageAspectRatio(null);
   }, [openCropImage]);
+  console.log("rerender");
 
   return gloader ? (
     <Loader
@@ -307,8 +316,16 @@ const CreateCameraMedia = ({
     <PopUp set={nullifyAction}>
       <div className={styles.contentWrapper}>
         <div className={styles.contentPreview}>
-          <div className={styles.videoWrapper}>
-            {videoPreview ? (
+          <div className={styles.videoWrapper} ref={contentWrapperRef}>
+            {drawImage ? (
+              <DrawZone
+                canvasRef={drawCanvasRef}
+                mainRef={contentWrapperRef}
+                images={imageDrawSrc}
+                params={{ isLoading: false }}
+                setParams={() => {}}
+              />
+            ) : videoPreview ? (
               <VideoPlayer
                 source={videoPreview}
                 videoPlayerRef={videoPreviewRef}
@@ -400,6 +417,10 @@ const CreateCameraMedia = ({
         cancelImageChanges={cancelImageChanges}
         setOpenCropImage={setOpenCropImage}
         openCropImage={openCropImage}
+        setDrawImage={setDrawImage}
+        drawCanvasRef={drawCanvasRef}
+        contentWrapperRef={contentWrapperRef}
+        imagePreview={[imagePreview]}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

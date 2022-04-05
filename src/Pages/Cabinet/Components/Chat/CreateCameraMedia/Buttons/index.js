@@ -18,6 +18,7 @@ import TextArea from "../../ChatBoard/TextArea";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 
 const Buttons = ({
   state,
@@ -41,7 +42,11 @@ const Buttons = ({
   saveImageChanges,
   cancelImageChanges,
   setOpenCropImage,
-  openCropImage
+  openCropImage,
+  setDrawImage,
+  drawCanvasRef,
+  contentWrapperRef,
+  imagePreview
   // setImageFinal
 }) => {
   const { __ } = useLocales();
@@ -59,6 +64,7 @@ const Buttons = ({
     {
       name: "addСaption",
       clickCallback: () => {
+        setDrawImage(true);
         setActiveOption(prevState =>
           prevState === "addСaption" ? null : "addСaption"
         );
@@ -128,6 +134,16 @@ const Buttons = ({
         >
           {ducationTimerToString(ducationTimer)}
         </Button>
+      );
+    if (activeOption === "addСaption")
+      return (
+        <MiniToolBar
+          canvasRef={drawCanvasRef}
+          canvasWrapRef={contentWrapperRef}
+          toolBarType="mutualEdit"
+          images={imagePreview}
+          saveImageToPanel={() => console.log("() => saveImage")}
+        />
       );
     if (state === "init")
       return (
@@ -338,5 +354,9 @@ Buttons.propTypes = {
   setImageFinal: PropTypes.func.isRequired,
   cancelImageChanges: PropTypes.func.isRequired,
   setOpenCropImage: PropTypes.func.isRequired,
-  openCropImage: PropTypes.bool
+  openCropImage: PropTypes.bool,
+  setDrawImage: PropTypes.func,
+  drawCanvasRef: PropTypes.object,
+  contentWrapperRef: PropTypes.object,
+  imagePreview: PropTypes.array
 };
