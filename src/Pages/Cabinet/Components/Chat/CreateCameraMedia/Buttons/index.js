@@ -140,9 +140,8 @@ const Buttons = ({
         <MiniToolBar
           canvasRef={drawCanvasRef}
           canvasWrapRef={contentWrapperRef}
-          toolBarType="mutualEdit"
+          toolBarType="toolsOnly"
           images={imagePreview}
-          saveImageToPanel={() => console.log("() => saveImage")}
         />
       );
     if (state === "init")

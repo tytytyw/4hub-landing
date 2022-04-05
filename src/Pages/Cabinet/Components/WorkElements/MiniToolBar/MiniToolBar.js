@@ -38,6 +38,7 @@ import Magnifier from "./Tools/Magnifier";
 import BlackMan from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo0.png'
 import WhiteMan from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png'
 import Woman from '../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png'
+import classNames from 'classnames';
 
 
 const MiniToolBar = ({
@@ -136,9 +137,8 @@ const MiniToolBar = ({
         }
         setParams(state => ({...state, edit: !state.edit}));
     }
-
     const standardEditToolBar = () => (
-        <div className={styles.standardToolBarWrap}>
+        <div className={classNames({[styles.standardToolBarWrap]: true, [styles.bigSize]: toolBarType === 'toolsOnly'})}>
             <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit || params.history.previous.length === 0 ? styles.inActive : ''}`}>&larr;</div>, 'previous', true, previousImage)}</div>
             <div className={styles.customWrap}>{addButton(<div className={`${styles.arrow} ${!params.edit || params.history.next.length === 0 ? styles.inActive : ''}`}>&rarr;</div>, 'next', true, nextImage)}</div>
             <div className={styles.customWrap}>{addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil, addTool)}</div>
@@ -281,6 +281,7 @@ const MiniToolBar = ({
             {toolBarType === 'general' ? setPreviewFileOrder() : null}
             {toolBarType === 'previewFile' ? setPreviewFileProject() : null}
             {toolBarType === 'mutualEdit' ? setPreviewMutualEdit() : null}
+            {toolBarType === 'toolsOnly' ? standardEditToolBar() : null}
 
             {params.edit && paint.tool?.name === 'text' ? <TextDraw
                 canvas={canvasRef?.current}
