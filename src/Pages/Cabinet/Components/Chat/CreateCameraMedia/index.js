@@ -12,6 +12,8 @@ import ImagePreview from "./ImagePreview";
 import api from "../../../../../api";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import CropImage from "../CropImage";
+import DrawZone from "../../Modals/Components/MutualEdit/DrawZone/DrawZone";
 
 const CreateCameraMedia = ({
   nullifyAction,
@@ -24,12 +26,15 @@ const CreateCameraMedia = ({
   const [stream, setStream] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageFinal, setImageFinal] = useState(null);
   const [quality, setQuality] = useState(720);
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [ducationTimer, setDucationTimer] = useState(0);
   const [textMessage, setTextMessage] = useState("");
   const [gloader, setgloader] = useState(false);
+  const [openCropImage, setOpenCropImage] = useState(false);
+  const [imageAspectRatio, setImageAspectRatio] = useState(null);
   const [visualEffects, setVisualEffects] = useState({
     transform: { scale: "", rotate: 0 },
     filter: {
@@ -44,6 +49,7 @@ const CreateCameraMedia = ({
       result: ""
     }
   });
+  const [drawImage, setDrawImage] = useState(false);
   const uid = useSelector(state => state.user.uid);
 
   const streamPreviewRef = useRef();
@@ -51,6 +57,10 @@ const CreateCameraMedia = ({
   const canvasRef = useRef();
   const imageRef = useRef();
   const previewSize = useRef();
+  const contentWrapperRef = useRef();
+  const drawCanvasRef = useRef();
+
+  const imageDrawSrc = { loaded: [imagePreview] };
 
   const constraints = {
     audio: true,
@@ -111,7 +121,9 @@ const CreateCameraMedia = ({
     canvas.height = video.videoHeight;
     canvas.width = video.videoWidth;
     context.drawImage(video, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    const imageSrc = canvas.toDataURL("image/png");
+    setImagePreview(imageSrc);
+    setImageFinal(imageSrc);
     cleareStreamTracks();
     setState("readyToSend");
   };
@@ -142,56 +154,63 @@ const CreateCameraMedia = ({
     const image = imageRef.current;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    canvas.height = image.naturalWidth;
+    canvas.height = image?.naturalWidth;
     canvas.width = image.naturalHeight;
     context.translate(canvas.width / 2, canvas.height / 2);
     context.rotate((-90 * Math.PI) / 180);
     context.translate(-canvas.height / 2, -canvas.width / 2);
-    context.drawImage(imageRef.current, 0, 0);
+    context.drawImage(image, 0, 0);
     setImagePreview(canvas.toDataURL("image/png"));
   };
 
   const onRotateClick = () => {
-    setVisualEffects(prevEffects => ({
-      ...prevEffects,
-      transform: {
-        ...prevEffects.transform,
-        rotate:
-          prevEffects.transform.rotate === 270
-            ? 0
-            : prevEffects.transform.rotate + 90
-      }
-    }));
-    if (imageRef.current) rotateCanvas();
+    console.log(imageRef.current);
+    if (!openCropImage && !imageAspectRatio) {
+      setVisualEffects(prevEffects => ({
+        ...prevEffects,
+        transform: {
+          ...prevEffects.transform,
+          rotate:
+            prevEffects.transform.rotate === 270
+              ? 0
+              : prevEffects.transform.rotate + 90
+        }
+      }));
+      if (imageRef.current) rotateCanvas();
+    }
   };
 
   const onMirrorClick = () => {
-    setVisualEffects(prevEffects => ({
-      ...prevEffects,
-      transform: {
-        ...prevEffects.transform,
-        scale: prevEffects.transform.scale ? "" : "scale(-1, 1)"
-      }
-    }));
-    if (imageRef.current) reflectCanvas();
+    console.log(openCropImage, imageAspectRatio);
+    if (!openCropImage && !imageAspectRatio) {
+      setVisualEffects(prevEffects => ({
+        ...prevEffects,
+        transform: {
+          ...prevEffects.transform,
+          scale: prevEffects.transform.scale ? "" : "scale(-1, 1)"
+        }
+      }));
+      if (imageRef.current) reflectCanvas();
+    }
   };
 
   const reflectCanvas = () => {
     const canvas = canvasRef.current;
-    const width = canvas.width;
-    const height = canvas.height;
+    const image = imageRef.current;
+    const width = image?.naturalWidth;
+    const height = image?.naturalHeight;
     const context = canvas.getContext("2d");
     canvas.width = width;
     canvas.height = height;
     context.scale(-1, 1);
     context.translate(-canvas.width, 0);
-    context.drawImage(imageRef.current, 0, 0);
+    context.drawImage(image, 0, 0);
     setImagePreview(canvas.toDataURL("image/png"));
   };
 
   const onSendFile = () => {
     setgloader(true);
-    const getFileFromUrl = fetch(videoPreview || imagePreview)
+    const getFileFromUrl = fetch(videoPreview || imageFinal)
       .then(res => res.blob())
       .then(
         blobFile =>
@@ -232,6 +251,20 @@ const CreateCameraMedia = ({
     });
   };
 
+  const saveImageChanges = () => setImageFinal(imagePreview);
+  const saveCropChanges = () => {
+    const canvas = canvasRef.current;
+    const canvasDataUrl = canvas.toDataURL("image/png");
+    setImagePreview(canvasDataUrl);
+    // setImageFinal(canvasDataUrl);
+    setOpenCropImage(false);
+  };
+
+  const cancelImageChanges = additionalFunc => {
+    setImagePreview(imageFinal);
+    additionalFunc && additionalFunc();
+  };
+
   useEffect(() => {
     getStream();
     return () => cleareStreamTracks();
@@ -265,6 +298,10 @@ const CreateCameraMedia = ({
     }
   }, [isRecording]);
 
+  useEffect(() => {
+    if (openCropImage && imageAspectRatio) setImageAspectRatio(null);
+  }, [openCropImage]);
+
   return gloader ? (
     <Loader
       type="bounceDots"
@@ -278,8 +315,17 @@ const CreateCameraMedia = ({
     <PopUp set={nullifyAction}>
       <div className={styles.contentWrapper}>
         <div className={styles.contentPreview}>
-          <div className={styles.videoWrapper}>
-            {videoPreview ? (
+          <div className={styles.videoWrapper} ref={contentWrapperRef}>
+            {drawImage ? (
+              <DrawZone
+                canvasRef={drawCanvasRef}
+                mainRef={contentWrapperRef}
+                images={imageDrawSrc}
+                params={{ isLoading: false }}
+                setParams={() => {}}
+                mainWidth="auto"
+              />
+            ) : videoPreview ? (
               <VideoPlayer
                 source={videoPreview}
                 videoPlayerRef={videoPreviewRef}
@@ -289,14 +335,26 @@ const CreateCameraMedia = ({
                 }}
               />
             ) : imagePreview ? (
-              <ImagePreview
-                image={imagePreview}
-                visualEffects={visualEffects}
-                imageRef={imageRef}
-                streamPreviewRef={streamPreviewRef}
-                height={previewSize.current?.height}
-                width={previewSize.current?.width}
-              />
+              openCropImage && imageAspectRatio ? (
+                <CropImage
+                  aspect={imageAspectRatio}
+                  canvasRef={canvasRef}
+                  imageSrc={imagePreview}
+                />
+              ) : (
+                <ImagePreview
+                  image={imagePreview}
+                  visualEffects={visualEffects}
+                  imageRef={imageRef}
+                  streamPreviewRef={streamPreviewRef}
+                  height={previewSize.current?.height}
+                  width={previewSize.current?.width}
+                  imageAspectRatio={imageAspectRatio}
+                  setImageAspectRatio={setImageAspectRatio}
+                  openCropImage={openCropImage}
+                  setOpenCropImage={setOpenCropImage}
+                />
+              )
             ) : null}
             {!videoPreview && !imagePreview ? (
               <video
@@ -354,6 +412,15 @@ const CreateCameraMedia = ({
         onSendFile={onSendFile}
         textMessage={textMessage}
         setTextMessage={setTextMessage}
+        setImageFinal={setImageFinal}
+        saveImageChanges={openCropImage ? saveCropChanges : saveImageChanges}
+        cancelImageChanges={cancelImageChanges}
+        setOpenCropImage={setOpenCropImage}
+        openCropImage={openCropImage}
+        setDrawImage={setDrawImage}
+        drawCanvasRef={drawCanvasRef}
+        contentWrapperRef={contentWrapperRef}
+        imagePreview={[imagePreview]}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

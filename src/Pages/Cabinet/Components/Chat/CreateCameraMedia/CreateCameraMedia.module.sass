@@ -1,10 +1,8 @@
 @keyframes appearance
-  0%
-    width: 1px
-    // height: 1px
-  99%
-    width: 54vw
-    // height: 720px
+    0%
+        width: 1px
+    99%
+        width: 54vw
 .contentWrapper
     background: #fff
     user-select: none
@@ -13,24 +11,23 @@
     position: relative
     border-radius: 7px
     .select
-      position: absolute
-      right: 50%
-      transform: translateX(100px)
-      bottom: 41px
-      background: #fff
-      width: 54px
-      height: 34px
-      border-radius: 3px
-      text-align: center
-      -webkit-appearance: none
-      -moz-appearance: none
-      &::-ms-expand
+        position: absolute
+        right: 50%
+        transform: translateX(100px)
+        bottom: 41px
+        background: #fff
+        width: 54px
+        height: 34px
+        border-radius: 3px
+        text-align: center
+        -webkit-appearance: none
+        -moz-appearance: none
+    &::-ms-expand
         display: none
     .contentPreview
         animation: appearance .2s ease
-        width: 54vw
-        // height: calc( 50vw * 3 / 4 )
+        max-width: 54vw
         padding: 20px
         .videoWrapper
-            // background: lightgrey
+            text-align: center
             height: 100%

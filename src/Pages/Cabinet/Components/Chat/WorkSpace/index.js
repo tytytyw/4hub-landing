@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./WorkSpace.module.sass";
@@ -65,9 +65,8 @@ const WorkSpace = ({
       isForGroups && data.id_group === selectedContact?.id;
     const isForSelectedChat =
       isForChats &&
-      (data.id_contact === selectedContact?.id ||
-        (data.id_user_to === userId &&
-          data.api.id_user === selectedContact?.id_real_user));
+      (data.id_contact === selectedContact?.id || data.id_user_to === userId);
+    // && data.api.id_user === selectedContact?.id_real_user
     const isForSelectedSecretChat =
       isForSecretChat && data.id_group === selectedContact?.id;
 
@@ -112,7 +111,7 @@ const WorkSpace = ({
     if (
       (data.action === "chat_group_message_edit" ||
         data.action === "chat_message_edit") &&
-      (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
+      (isForSelectedGroup || isForSelectedSecretChat || isForSelectedChat)
     ) {
       dispatch(
         onEditChatMessage(
@@ -189,7 +188,11 @@ const WorkSpace = ({
               is_group: true,
               is_secret_chat: !!selectedContact.is_secret_chat
             }
-          : { action: "chat_message_edit", id_user_to: message.user_to }
+          : {
+              action: "chat_message_edit",
+              id_user_to: selectedContact?.id_real_user,
+              id_contact: selectedContact?.id
+            }
       );
     }
   };
@@ -216,10 +219,21 @@ const WorkSpace = ({
           }
         : {
             action: "chat_message_del",
-            id_user_to: message.user_to
+            id_user_to: selectedContact?.id_real_user,
+            id_contact: selectedContact?.id
           }
     );
   };
+
+  const renderCreateCameraMedia = useCallback(
+    <CreateCameraMedia
+      nullifyAction={nullifyAction}
+      addMessage={addMessage}
+      socket={socket}
+      scrollToBottom={scrollToBottom}
+    />,
+    [action]
+  );
 
   useEffect(() => {
     if (socketReconnect) {
@@ -324,16 +338,7 @@ const WorkSpace = ({
           ></DeleteMessage>
         ) : null}
       </div>
-      {action?.type === "createMediaFromCamera" ? (
-        <CreateCameraMedia
-          nullifyAction={nullifyAction}
-          addMessage={addMessage}
-          socket={socket}
-          scrollToBottom={scrollToBottom}
-        />
-      ) : (
-        ""
-      )}
+      {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
 
       <BottomPanel />
     </div>

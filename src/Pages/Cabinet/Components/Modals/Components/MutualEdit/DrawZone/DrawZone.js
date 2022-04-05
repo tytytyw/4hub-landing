@@ -7,7 +7,7 @@ import {ReactComponent as AddIcon} from "../../../../../../../assets/PrivateCabi
 import classnames from "classnames";
 import {useLocales} from "react-localized";
 
-function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
+function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef, mainWidth}) {
     const { __ } = useLocales();
     const paintImage = async (images) => {
         setParams(s => ({...s, isLoading: true}));
@@ -37,7 +37,7 @@ function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
 
     const fileSelect = () => {if(inputRef?.current) inputRef.current.click()};
 
-    return <main className={styles.paintField} ref={mainRef}>
+    return <main className={styles.paintField} ref={mainRef} style={{width: mainWidth}}>
         <div className={styles.canvasWrap}>
             {params.isLoading ? <Loader
                 type='bounceDots'
@@ -51,8 +51,8 @@ function DrawZone({params, canvasRef, mainRef, images, setParams, inputRef}) {
             <canvas
                 ref={canvasRef}
                 className={styles.canvas}
-                width={mainRef?.current?.getBoundingClientRect().width - 30}
-                height={mainRef?.current?.getBoundingClientRect().height - 30}
+                width={mainRef?.current?.getBoundingClientRect().width - (!mainWidth ? 30 : 0)}
+                height={mainRef?.current?.getBoundingClientRect().height - (!mainWidth ? 30 : 0)}
             />
             {images?.loaded?.length > 1 ? <div className={styles.verticalDivider}/> : null}
             {images?.loaded?.length > 2 ? <div className={styles.horizontalDivider}/> : null}

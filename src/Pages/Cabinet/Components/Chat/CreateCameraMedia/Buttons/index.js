@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import Button from "./Button";
 import styles from "./Buttons.module.sass";
@@ -18,6 +18,7 @@ import TextArea from "../../ChatBoard/TextArea";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 
 const Buttons = ({
   state,
@@ -37,10 +38,20 @@ const Buttons = ({
   onMirrorClick,
   onSendFile,
   textMessage,
-  setTextMessage
+  setTextMessage,
+  saveImageChanges,
+  cancelImageChanges,
+  setOpenCropImage,
+  openCropImage,
+  setDrawImage,
+  drawCanvasRef,
+  contentWrapperRef,
+  imagePreview
+  // setImageFinal
 }) => {
   const { __ } = useLocales();
   const [activeOption, setActiveOption] = useState(null);
+  const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
 
   const [centralButtons] = useState([
@@ -53,6 +64,7 @@ const Buttons = ({
     {
       name: "addСaption",
       clickCallback: () => {
+        setDrawImage(true);
         setActiveOption(prevState =>
           prevState === "addСaption" ? null : "addСaption"
         );
@@ -76,7 +88,12 @@ const Buttons = ({
         },
         {
           name: "crop",
-          clickCallback: () => {},
+          clickCallback: () => {
+            setOpenCropImage(true);
+            setActiveButton(activeButton =>
+              activeButton === "crop" ? "" : "crop"
+            );
+          },
           icon: <CropIcon />
         }
       ]
@@ -99,7 +116,11 @@ const Buttons = ({
   };
 
   const onBackButtonhandler = () =>
-    activeOption ? setActiveOption(null) : setInitialState();
+    activeOption
+      ? activeOption === "transformOptions"
+        ? cancelImageChanges(() => setActiveOption(null))
+        : setActiveOption(null)
+      : setInitialState();
 
   const renderCentralBtns = () => {
     if (isRecording)
@@ -113,6 +134,15 @@ const Buttons = ({
         >
           {ducationTimerToString(ducationTimer)}
         </Button>
+      );
+    if (activeOption === "addСaption")
+      return (
+        <MiniToolBar
+          canvasRef={drawCanvasRef}
+          canvasWrapRef={contentWrapperRef}
+          toolBarType="toolsOnly"
+          images={imagePreview}
+        />
       );
     if (state === "init")
       return (
@@ -149,8 +179,11 @@ const Buttons = ({
             childrenColor="black"
             backgroundColor="#fff"
             boxShadow="0px 2px 4px #DEDEDE"
-            hoverEffect={true}
+            hoverEffect={
+              activeButton === "crop" ? activeButton === btn.name : true
+            }
             key={btn.name}
+            active={btn.name === activeButton}
           >
             {btn.icon}
           </Button>
@@ -182,6 +215,22 @@ const Buttons = ({
           <CheckIcon title={__("Сохранить")} height={14} width={19} />
         </Button>
       );
+    if (activeOption === "transformOptions")
+      return (
+        <Button
+          clickCallback={() => {
+            saveImageChanges();
+            activeButton !== "crop" && setActiveOption(null);
+          }}
+          width={38}
+          height={38}
+          borderRadius="50%"
+          childrenColor="white"
+          backgroundColor="#4086F1"
+        >
+          <CheckIcon title={__("Сохранить")} height={14} width={19} />
+        </Button>
+      );
     if (state === "readyToSend")
       return (
         <Button
@@ -200,6 +249,11 @@ const Buttons = ({
         </Button>
       );
   };
+
+  useEffect(() => {
+    if (!openCropImage && activeButton) setActiveButton(null);
+    if (!activeButton && openCropImage) setOpenCropImage(false);
+  }, [openCropImage, activeButton]);
 
   return (
     <div className={styles.wrapper}>
@@ -294,5 +348,14 @@ Buttons.propTypes = {
   onMirrorClick: PropTypes.func.isRequired,
   onSendFile: PropTypes.func.isRequired,
   textMessage: PropTypes.string,
-  setTextMessage: PropTypes.func.isRequired
+  setTextMessage: PropTypes.func.isRequired,
+  saveImageChanges: PropTypes.func.isRequired,
+  setImageFinal: PropTypes.func.isRequired,
+  cancelImageChanges: PropTypes.func.isRequired,
+  setOpenCropImage: PropTypes.func.isRequired,
+  openCropImage: PropTypes.bool,
+  setDrawImage: PropTypes.func,
+  drawCanvasRef: PropTypes.object,
+  contentWrapperRef: PropTypes.object,
+  imagePreview: PropTypes.array
 };
