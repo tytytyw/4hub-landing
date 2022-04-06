@@ -12,6 +12,9 @@
 /src/api
 /src/assets
 /src/fonts
+/src/*.test.js
+/src/types
+/src/setupTests.js
 
 # Files that needs to be checked and then deleted from the list
 /src/Pages/Cabinet/Components/Accordion

@@ -14,7 +14,7 @@ import BottomPanel from "../BottomPanel";
 import TellFriend from "./TellFriends/TellFriend";
 import Support from "./Support";
 import DataMemory from "./DataMemory";
-import Personal from "./Personal";
+import Personal from "./Personal/Personal";
 import Confident from "./Confident";
 import PrimaryButton from "./PrimaryButton";
 import TariffPlan from "./TariffPlan/increase_storage";

@@ -649,7 +649,7 @@ export const onChooseProjectFiles = (folder, project, page) => async (
     .catch(() => ({
       type: SET_MODALS,
       payload: {
-        key: "erro",
+        key: "error",
         value: { open: true, message: "Failed to load project files" }
       }
     }));
@@ -1157,12 +1157,15 @@ export const onDeleteChatMessage = message => (dispatch, getState) => {
   });
 };
 
-export const onEditChatMessage = (editedData, messageInfo) => (dispatch, getState) => {
+export const onEditChatMessage = (editedData, messageInfo) => (
+  dispatch,
+  getState
+) => {
   const oldMessages = getState().Cabinet.chat.messages;
   const messages = {
     ...oldMessages,
     [messageInfo.day]: oldMessages[messageInfo.day].map(msg =>
-      msg.id === messageInfo.id ? {...msg, ...editedData} : msg
+      msg.id === messageInfo.id ? { ...msg, ...editedData } : msg
     )
   };
   dispatch({

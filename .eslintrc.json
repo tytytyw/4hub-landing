@@ -1,8 +1,11 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "node": true,
+        "es2021": true,
+        "jest": true
     },
+    "root": true,
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
@@ -13,17 +16,15 @@
             "modules": true,
             "classes": true,
             "blockBindings": true
-
         },
-        "ecmaVersion": 2021,
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 12
     },
     "plugins": [
         "react"
     ],
     "rules": {
     },
-    "ignorePatterns": ["*.test.js"],
     "settings": {
         "react": {
             "version": "detect"
