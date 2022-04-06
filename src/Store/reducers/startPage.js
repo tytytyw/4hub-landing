@@ -1,9 +1,12 @@
 import { LOG_DATA, UPDATE_SETTINGS, USER_INFO } from "../types";
+import { getStorageItem } from "../../generalComponents/StorageHelper";
 
 const INITIAL_STATE = {
   uid: "",
   id_company: false,
-  userInfo: null
+  userInfo: {
+    lang: getStorageItem("lang")
+  }
 };
 
 export default function startPage(state = INITIAL_STATE, action) {

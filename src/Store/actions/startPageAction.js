@@ -15,6 +15,9 @@ export const onGetUserInfo = () => (dispatch, getState) => {
   api
     .get(`/ajax/user_get.php?uid=${getState().user.uid}`)
     .then(res => {
+      if (res.data?.lang) {
+        setStorageItem("lang", res.data?.lang);
+      }
       dispatch({
         type: USER_INFO,
         payload: res.data

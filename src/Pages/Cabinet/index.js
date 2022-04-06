@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import styles from "./PrivateCabinet.module.sass";
 import SideMenu from "./Components/SideMenu";
@@ -10,11 +10,10 @@ import MyProfile from "./Components/MyProfile";
 import MyFiles from "./Components/MyFiles";
 import Programs from "./Components/Programs";
 
-import { Switch, Route, useHistory, Redirect } from "react-router";
+import { Switch, Route, Redirect } from "react-router";
 import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
-import { setPreviewTheme } from "../../Store/actions/main";
 import Journal from "./Components/Journal";
 import CalendarPage from "./Components/CalendarPage";
 import Cart from "./Components/Cart";
@@ -34,7 +33,6 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
     state => state.Cabinet.project?.chosenFolder
   );
   const project = useSelector(state => state.Cabinet.project?.chosenProject);
-  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const [filePreview, setFilePreview] = useState({
     view: false,
@@ -52,15 +50,6 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [filesPage, setFilesPage] = useState(1);
   const menu = useMenu();
   const businessMenu = useBusinessMenu();
-
-  const history = useHistory();
-
-  history.listen(() => {
-    const route = history?.location.pathname;
-    if (route !== "settings") {
-      dispatch(setPreviewTheme(null));
-    }
-  });
 
   const stayOnline = time => {
     setTimeout(() => {

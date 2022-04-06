@@ -18,7 +18,6 @@ import Personal from "./Personal/Personal";
 import Confident from "./Confident";
 import PrimaryButton from "./PrimaryButton";
 import TariffPlan from "./TariffPlan/increase_storage";
-import { setPreviewTheme } from "../../../../Store/actions/main";
 import { useLocales } from "react-localized";
 
 const Settings = () => {
@@ -26,9 +25,6 @@ const Settings = () => {
   const dispatch = useDispatch();
   const [pageOption, setPageOption] = useState("confident");
   const [popup, setPopup] = useState(false);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => dispatch(setPreviewTheme(null)), [pageOption]);
 
   useEffect(() => {
     dispatch(onGetContacts());
