@@ -202,7 +202,6 @@ const Personal = () => {
                     lang: currentParams?.lang,
                     notify: currentParams?.notify
                   });
-                  console.log(currentParams?.lang);
                 }}
               >
                 {__("Отмена")}
