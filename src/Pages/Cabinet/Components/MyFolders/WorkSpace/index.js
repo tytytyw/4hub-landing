@@ -20,7 +20,6 @@ import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList
 import { useLocales } from "react-localized";
 
 const WorkSpace = ({
-  fileLoading,
   chosenFile,
   setChosenFile,
   chosenFolder,
@@ -134,7 +133,6 @@ const WorkSpace = ({
           filePreview={filePreview}
           setFilePick={setFilePick}
           chosenFile={chosenFile}
-          fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           chosenFolder={chosenFolder}

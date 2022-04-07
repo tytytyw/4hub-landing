@@ -31,7 +31,6 @@ import {
 import Error from "../../../../generalComponents/Error";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
-import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 

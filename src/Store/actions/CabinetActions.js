@@ -68,6 +68,7 @@ import {
   CHOOSE_CATEGORY
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
+import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
 
 const CancelToken = axios.CancelToken;
 
@@ -795,36 +796,22 @@ export const onSearch = value => {
 };
 
 // SHARED FILES
-export const onGetSharedFiles = (type, dateFilter) => async (
-  dispatch,
-  getState
-) => {
-  const dateFiltered = dateFilter
-    ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : ""}${
-        dateFilter?.m ? `&m=${dateFilter?.m}` : ""
-      }${dateFilter?.y ? `&y=${dateFilter?.y}` : ""}`
-    : "";
-  const url = () => {
-    switch (type) {
-      case "sharedMe":
-        return "file_share_get";
-      // case 'sharedI'
-      default:
-        return "file_share_mylist";
-    }
+export const onGetSharedFiles = type => async (dispatch, getState) => {
+  const url = {
+    [SHARED_FILES.FILES_USER_SHARED]: "file_share_mylist",
+    [SHARED_FILES.FILES_SHARED_TO_USER]: "file_share_get"
   };
   try {
     const res = await api.get(
-      `/ajax/${url(type)}.php?uid=${getState().user.uid}}${dateFiltered}`
+      `/ajax/${url[type]}.php?uid=${getState().user.uid}`
     );
+    console.log(res.data.data);
     dispatch({
-      type: CHOOSE_SHARED_FILES,
-      payload:
-        type === "sharedI"
-          ? { files: res.data.data, key: type }
-          : { files: res.data.data, key: type }
+      type: CHOOSE_FILES,
+      payload: { files: res.data.data, path: "global/all" }
     });
   } catch (e) {
+    onSetModals(MODALS.ERROR, { open: true, message: "Files failed to load." });
     console.log(e);
   }
 };

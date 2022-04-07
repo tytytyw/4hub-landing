@@ -239,16 +239,9 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
             path="/shared-files"
             render={() => (
               <SharedFiles
-                filePreview={filePreview}
-                setFilePreview={setFilePreview}
-                fileSelect={fileSelect}
-                fileAddCustomization={fileAddCustomization}
-                nullifyAddingSeveralFiles={nullifyAddingSeveralFiles}
-                setFileAddCustomization={setFileAddCustomization}
-                saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-                loadingType={loadingType}
-                setLoadingType={setLoadingType}
                 setMenuItem={setMenuItem}
+                setFilesPage={setFilesPage}
+                filesPage={filesPage}
               />
             )}
           />

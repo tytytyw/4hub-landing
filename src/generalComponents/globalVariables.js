@@ -5,5 +5,13 @@ export const projectSrc =
 
 export const MODALS = {
   ERROR: "error",
-  SUCCESS: "success"
+  SUCCESS: "success",
+  LOADER: "loader",
+  FILE_PREVIEW: "previewFile"
+};
+
+//Shared files
+export const SHARED_FILES = {
+  FILES_USER_SHARED: "sharedI",
+  FILES_SHARED_TO_USER: "sharedMe"
 };

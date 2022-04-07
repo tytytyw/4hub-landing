@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./SideMenu.module.sass";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -7,6 +7,7 @@ import { ReactComponent as SharedFilesIcon } from "../../../../../assets/Private
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
+import { onGetSharedFiles } from "../../../../../Store/actions/CabinetActions";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
 // import { months } from "../../../../../generalComponents/CalendarHelper";
@@ -15,12 +16,11 @@ const SideMenu = ({
   sideMenuCollapsed,
   setSideMenuCollapsed,
   sideMenuChosenItem,
-  setSideMenuChosenItem,
-  filesSharedMe,
-  filesSharedI
+  setSideMenuChosenItem
 }) => {
   const { __ } = useLocales();
   const workElementsView = useSelector(state => state.Cabinet.view);
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -43,28 +43,30 @@ const SideMenu = ({
 
       <div className={styles.menu}>
         <div
-          onClick={() => setSideMenuChosenItem("sharedI")}
+          onClick={() => {
+            dispatch(onGetSharedFiles("sharedI", ""));
+            setSideMenuChosenItem("sharedI");
+          }}
           className={classNames({
             [styles.menuItem]: true,
             [styles.active]: sideMenuChosenItem === "sharedI"
           })}
         >
           {!sideMenuCollapsed ? __("Файлы которые расшарил я") : __("Я")}
-          <span className={styles.count}>
-            ({filesSharedI?.files?.length || "0"})
-          </span>
+          <span className={styles.count}>({"0"})</span>
         </div>
         <div
-          onClick={() => setSideMenuChosenItem("sharedMe")}
+          onClick={() => {
+            dispatch(onGetSharedFiles("sharedMe", ""));
+            setSideMenuChosenItem("sharedMe");
+          }}
           className={classNames({
             [styles.menuItem]: true,
             [styles.active]: sideMenuChosenItem === "sharedMe"
           })}
         >
           {!sideMenuCollapsed ? __("Файлы расшаренные мне") : __("Мне")}
-          <span className={styles.count}>
-            ({filesSharedMe?.files?.length || "0"})
-          </span>
+          <span className={styles.count}>({"0"})</span>
         </div>
         {workElementsView === "workLinesPreview" && (
           <SideList>
