@@ -805,7 +805,6 @@ export const onGetSharedFiles = type => async (dispatch, getState) => {
     const res = await api.get(
       `/ajax/${url[type]}.php?uid=${getState().user.uid}`
     );
-    console.log(res.data.data);
     dispatch({
       type: CHOOSE_FILES,
       payload: { files: res.data.data, path: "global/all" }
