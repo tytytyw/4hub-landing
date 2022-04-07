@@ -121,7 +121,9 @@ const Buttons = ({
     activeOption
       ? activeOption === "transformOptions"
         ? cancelImageChanges(() => setActiveOption(null))
-        : setActiveOption(null)
+        : drawImage
+          ? cancelImageChanges(() => {setActiveOption(null), setDrawImage(false)})
+          : setActiveOption(null)
       : setInitialState();
 
   const renderCentralBtns = () => {
