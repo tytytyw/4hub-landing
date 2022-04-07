@@ -108,6 +108,8 @@ const CreateCameraMedia = ({
     setIsRecording(false);
     mediaRecorder.stop();
   };
+  
+  const canvasToImagePreview = (canvas) => setImagePreview(canvas.toDataURL("image/png"))
 
   const takePicture = () => {
     const video = streamPreviewRef.current;
@@ -122,7 +124,7 @@ const CreateCameraMedia = ({
     canvas.width = video.videoWidth;
     context.drawImage(video, 0, 0);
     const imageSrc = canvas.toDataURL("image/png");
-    setImagePreview(imageSrc);
+    canvasToImagePreview(canvas)
     setImageFinal(imageSrc);
     cleareStreamTracks();
     setState("readyToSend");
@@ -160,7 +162,7 @@ const CreateCameraMedia = ({
     context.rotate((-90 * Math.PI) / 180);
     context.translate(-canvas.height / 2, -canvas.width / 2);
     context.drawImage(image, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    canvasToImagePreview(canvas)
   };
 
   const onRotateClick = () => {
@@ -205,7 +207,7 @@ const CreateCameraMedia = ({
     context.scale(-1, 1);
     context.translate(-canvas.width, 0);
     context.drawImage(image, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    canvasToImagePreview(canvas)
   };
 
   const onSendFile = () => {
@@ -251,11 +253,9 @@ const CreateCameraMedia = ({
     });
   };
 
-  const saveImageChanges = () => setImageFinal(imagePreview);
+  const saveImageChanges = (image) => setImageFinal(image??imagePreview);
   const saveCropChanges = () => {
-    const canvas = canvasRef.current;
-    const canvasDataUrl = canvas.toDataURL("image/png");
-    setImagePreview(canvasDataUrl);
+    canvasToImagePreview(canvasRef.current)
     // setImageFinal(canvasDataUrl);
     setOpenCropImage(false);
   };
@@ -421,6 +421,8 @@ const CreateCameraMedia = ({
         drawCanvasRef={drawCanvasRef}
         contentWrapperRef={contentWrapperRef}
         imagePreview={[imagePreview]}
+        canvasToImagePreview={canvasToImagePreview}
+        drawImage={drawImage}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

@@ -46,7 +46,9 @@ const Buttons = ({
   setDrawImage,
   drawCanvasRef,
   contentWrapperRef,
-  imagePreview
+  imagePreview,
+  canvasToImagePreview,
+  drawImage,
   // setImageFinal
 }) => {
   const { __ } = useLocales();
@@ -232,7 +234,23 @@ const Buttons = ({
         </Button>
       );
     if (state === "readyToSend")
-      return (
+      return drawImage ? (
+        <Button
+          clickCallback={() => {
+            canvasToImagePreview(drawCanvasRef.current);
+            saveImageChanges(drawCanvasRef.current.toDataURL("image/png"))
+            setActiveOption(null)
+            setDrawImage(false)
+          }}
+          width={38}
+          height={38}
+          borderRadius="50%"
+          childrenColor="white"
+          backgroundColor="#4086F1"
+        >
+          <CheckIcon title={__("Сохранить")} height={14} width={19} />
+        </Button>
+      ) : ( 
         <Button
           clickCallback={onSendFile}
           width={38}
@@ -357,5 +375,7 @@ Buttons.propTypes = {
   setDrawImage: PropTypes.func,
   drawCanvasRef: PropTypes.object,
   contentWrapperRef: PropTypes.object,
-  imagePreview: PropTypes.array
+  imagePreview: PropTypes.array,
+  canvasToImagePreview: PropTypes.func.isRequired,
+  drawImage: PropTypes.bool
 };
