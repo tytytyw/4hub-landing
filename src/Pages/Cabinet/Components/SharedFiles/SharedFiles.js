@@ -14,7 +14,6 @@ import {
   onSetWorkElementsView
 } from "../../../../Store/actions/CabinetActions";
 import SideMenu from "./SideMenu/SideMenu";
-// import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import {
   MODALS,
@@ -24,7 +23,6 @@ import ItemsList from "../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../generalComponents/Hooks";
 
 const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
-  // const { __ } = useLocales();
   const [sideMenuChosenItem, setSideMenuChosenItem] = useState(
     SHARED_FILES.FILES_USER_SHARED
   );
