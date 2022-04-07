@@ -25,7 +25,9 @@ import { useElementResize } from "../../../../generalComponents/Hooks";
 
 const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
   // const { __ } = useLocales();
-  const [sideMenuChosenItem, setSideMenuChosenItem] = useState("sharedI");
+  const [sideMenuChosenItem, setSideMenuChosenItem] = useState(
+    SHARED_FILES.FILES_USER_SHARED
+  );
   const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
   const [search, setSearch] = useState("");
   const [chosenFile, setChosenFile] = useState(null);

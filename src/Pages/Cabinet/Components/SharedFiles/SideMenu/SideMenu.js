@@ -8,6 +8,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
 import { onGetSharedFiles } from "../../../../../Store/actions/CabinetActions";
+import { SHARED_FILES } from "../../../../../generalComponents/globalVariables";
 
 //TODO: заменить при получении сгрупированного на даты списка файлов
 // import { months } from "../../../../../generalComponents/CalendarHelper";
@@ -44,12 +45,13 @@ const SideMenu = ({
       <div className={styles.menu}>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles("sharedI", ""));
-            setSideMenuChosenItem("sharedI");
+            dispatch(onGetSharedFiles(SHARED_FILES.FILES_USER_SHARED, ""));
+            setSideMenuChosenItem(SHARED_FILES.FILES_USER_SHARED);
           }}
           className={classNames({
             [styles.menuItem]: true,
-            [styles.active]: sideMenuChosenItem === "sharedI"
+            [styles.active]:
+              sideMenuChosenItem === SHARED_FILES.FILES_USER_SHARED
           })}
         >
           {!sideMenuCollapsed ? __("Файлы которые расшарил я") : __("Я")}
@@ -57,12 +59,13 @@ const SideMenu = ({
         </div>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles("sharedMe", ""));
-            setSideMenuChosenItem("sharedMe");
+            dispatch(onGetSharedFiles(SHARED_FILES.FILES_SHARED_TO_USER, ""));
+            setSideMenuChosenItem(SHARED_FILES.FILES_SHARED_TO_USER);
           }}
           className={classNames({
             [styles.menuItem]: true,
-            [styles.active]: sideMenuChosenItem === "sharedMe"
+            [styles.active]:
+              sideMenuChosenItem === SHARED_FILES.FILES_SHARED_TO_USER
           })}
         >
           {!sideMenuCollapsed ? __("Файлы расшаренные мне") : __("Мне")}
@@ -86,7 +89,5 @@ SideMenu.propTypes = {
   sideMenuCollapsed: PropTypes.bool,
   setSideMenuCollapsed: PropTypes.func,
   sideMenuChosenItem: PropTypes.string,
-  setSideMenuChosenItem: PropTypes.func,
-  filesSharedMe: PropTypes.object,
-  filesSharedI: PropTypes.object
+  setSideMenuChosenItem: PropTypes.func
 };
