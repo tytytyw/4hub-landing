@@ -39,7 +39,7 @@ function Message({
     }
     if (
       message.attachment?.kind === "file" ||
-      message.attachment?.kind === "image"
+      message.attachment?.kind?.includes("image")
     ) {
       return <FileMessage file={message.attachment} />;
     }
