@@ -17,7 +17,7 @@ import {
 function App() {
   const [loadingType, setLoadingType] = useState("bounceDots");
   const uid = useSelector(state => state.user.uid);
-  const lang = useSelector(state => state.main.personalSettings.lang);
+  const lang = useSelector(s => s.user.userInfo?.lang) ?? "ru";
   const dispatch = useDispatch();
 
   const [options, setOptions] = useState({ guest: false });

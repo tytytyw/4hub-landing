@@ -1,10 +1,8 @@
-import { combineReducers } from 'redux';
-import startPage from './startPage';
-import Cabinet from './Cabinet';
-import main from "./main";
+import { combineReducers } from "redux";
+import startPage from "./startPage";
+import Cabinet from "./Cabinet";
 
 export default combineReducers({
-    main: main,
-    user: startPage,
-    Cabinet: Cabinet,
-})
+  user: startPage,
+  Cabinet: Cabinet
+});

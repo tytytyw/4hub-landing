@@ -5,7 +5,7 @@ import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
-import Profile from "../../Profile";
+import Profile from "../../Profile/Profile";
 import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
 import WorkLinesPreview from "../WorkElements/WorkLinesPreview";
@@ -20,228 +20,239 @@ import CustomizeFile from "../../ContextMenuComponents/ContextMenuFile/Customize
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
-import {useLocales} from "react-localized";
+import { useLocales } from "react-localized";
 
 const WorkSpace = ({
-	menuItem,
-	chosenFile,
-	setChosenFile,
-	listCollapsed,
-	setFilePreview,
-	filePreview,
-	fileSelect,
-	action,
-	setAction,
-	fileList,
-	filePick,
-	setFilePick,
-	fileAddCustomization,
-	setFileAddCustomization,
-	nullifyFilePick,
-	nullifyAddingSeveralFiles,
-	saveCustomizeSeveralFiles,
-	setLoadingType,
-	filesPage,
-	setFilesPage,
-	loadingFiles,
-	setLoadingFiles,
-	onSuccessLoading,
-	gLoader,
+  menuItem,
+  chosenFile,
+  setChosenFile,
+  listCollapsed,
+  setFilePreview,
+  filePreview,
+  fileSelect,
+  action,
+  setAction,
+  fileList,
+  filePick,
+  setFilePick,
+  fileAddCustomization,
+  setFileAddCustomization,
+  nullifyFilePick,
+  nullifyAddingSeveralFiles,
+  saveCustomizeSeveralFiles,
+  setLoadingType,
+  filesPage,
+  setFilesPage,
+  loadingFiles,
+  setLoadingFiles,
+  onSuccessLoading,
+  gLoader
 }) => {
-	const { __ } = useLocales();
-	const workElementsView = useSelector((state) => state.Cabinet.view);
-	const size = useSelector((state) => state.Cabinet.size);
-	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const { __ } = useLocales();
+  const workElementsView = useSelector(state => state.Cabinet.view);
+  const size = useSelector(state => state.Cabinet.size);
+  const authorizedSafe = useSelector(
+    state => state.Cabinet.safe.authorizedSafe
+  );
 
-	const [mouseParams, setMouseParams] = useState(null);
+  const [mouseParams, setMouseParams] = useState(null);
 
-	const nullifyAction = () => setAction({ type: "", name: "", text: "" });
+  const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-	const fileRef = useRef(null);
+  const fileRef = useRef(null);
 
-	// Types of Files view
-	const renderFiles = (Type) => {
-		if (!fileList?.files) return null;
-		return fileList.files.map((file, i) => {
-			return (
-				<Type
-					key={i}
-					file={file}
-					setChosenFile={setChosenFile}
-					chosen={
-						filePick.show
-							? filePick.files.findIndex((el) => el === file.fid) >= 0
-							: chosenFile?.fid === file?.fid
-					}
-					chosenFile={chosenFile}
-					setMouseParams={setMouseParams}
-					setAction={setAction}
-					setFilePreview={setFilePreview}
-					filePreview={filePreview}
-					filePick={filePick}
-					setFilePick={setFilePick}
-					size={size}
-				/>
-			);
-		});
-	};
+  // Types of Files view
+  const renderFiles = Type => {
+    if (!fileList?.files) return null;
+    return fileList.files.map((file, i) => {
+      return (
+        <Type
+          key={i}
+          file={file}
+          setChosenFile={setChosenFile}
+          chosen={
+            filePick.show
+              ? filePick.files.findIndex(el => el === file.fid) >= 0
+              : chosenFile?.fid === file?.fid
+          }
+          chosenFile={chosenFile}
+          setMouseParams={setMouseParams}
+          setAction={setAction}
+          setFilePreview={setFilePreview}
+          filePreview={filePreview}
+          filePick={filePick}
+          setFilePick={setFilePick}
+          size={size}
+        />
+      );
+    });
+  };
 
-	useEffect(() => {
-		if (fileList?.files?.length <= 10) {
-			setFilesPage(2);
-			if (fileRef.current) {
-				fileRef.current.scrollTop = 0;
-			}
-		}
-	}, [fileList?.files]); //eslint-disable-line
+  useEffect(() => {
+    if (fileList?.files?.length <= 10) {
+      setFilesPage(2);
+      if (fileRef.current) {
+        fileRef.current.scrollTop = 0;
+      }
+    }
+  }, [fileList?.files]); //eslint-disable-line
 
-	return (
-		<>
-			<div
-				className={classNames({
-					[styles.workSpaceWrap]: true,
-					[styles.workSpaceWrapCollapsed]: !!listCollapsed,
-					[styles.workSpaceWrapUncollapsed]: !listCollapsed,
-				})}
-			>
-				<div className={styles.header}>
-					<SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
-					<div></div>
-					<div className={styles.infoHeader}>
-						<StorageSize />
-						<Notifications />
-						<Profile />
-					</div>
-				</div>
-				<ServePanel
-					chosenFile={chosenFile}
-					setAction={setAction}
-					chooseSeveral={() =>
-						setFilePick({ ...filePick, files: [], show: !filePick.show })
-					}
-					filePick={filePick}
-					fileAddCustomization={fileAddCustomization}
-					setFileAddCustomization={setFileAddCustomization}
-					addFile={fileSelect}
-				/>
+  return (
+    <>
+      <div
+        className={classNames({
+          [styles.workSpaceWrap]: true,
+          [styles.workSpaceWrapCollapsed]: !!listCollapsed,
+          [styles.workSpaceWrapUncollapsed]: !listCollapsed
+        })}
+      >
+        <div className={styles.header}>
+          <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
+          <div></div>
+          <div className={styles.infoHeader}>
+            <StorageSize />
+            <Notifications />
+            <Profile />
+          </div>
+        </div>
+        <ServePanel
+          chosenFile={chosenFile}
+          setAction={setAction}
+          chooseSeveral={() =>
+            setFilePick({ ...filePick, files: [], show: !filePick.show })
+          }
+          filePick={filePick}
+          fileAddCustomization={fileAddCustomization}
+          setFileAddCustomization={setFileAddCustomization}
+          addFile={fileSelect}
+        />
 
-				{workElementsView === "bars" && (
-					<WorkBars
-						file={chosenFile}
-						filePick={filePick}
-						filesPage={filesPage}
-						loadingFiles={loadingFiles}
-						setLoadingFiles={setLoadingFiles}
-						onSuccessLoading={onSuccessLoading}
-						fileRef={fileRef}
-						gLoader={gLoader}
-					>
-						{renderFiles(FileBar)}
-					</WorkBars>
-				)}
+        {workElementsView === "bars" && (
+          <WorkBars
+            file={chosenFile}
+            filePick={filePick}
+            filesPage={filesPage}
+            loadingFiles={loadingFiles}
+            setLoadingFiles={setLoadingFiles}
+            onSuccessLoading={onSuccessLoading}
+            fileRef={fileRef}
+            gLoader={gLoader}
+          >
+            {renderFiles(FileBar)}
+          </WorkBars>
+        )}
 
-				{workElementsView === "lines" && (
-					<WorkLines
-						file={chosenFile}
-						filePick={filePick}
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						loadingFiles={loadingFiles}
-						setLoadingFiles={setLoadingFiles}
-						onSuccessLoading={onSuccessLoading}
-						fileRef={fileRef}
-						gLoader={gLoader}
-					>
-						{renderFiles(FileLine)}
-					</WorkLines>
-				)}
+        {workElementsView === "lines" && (
+          <WorkLines
+            file={chosenFile}
+            filePick={filePick}
+            filesPage={filesPage}
+            setFilesPage={setFilesPage}
+            loadingFiles={loadingFiles}
+            setLoadingFiles={setLoadingFiles}
+            onSuccessLoading={onSuccessLoading}
+            fileRef={fileRef}
+            gLoader={gLoader}
+          >
+            {renderFiles(FileLine)}
+          </WorkLines>
+        )}
 
-				{workElementsView === "preview" && (
-					<WorkBarsPreview
-						file={chosenFile}
-						filePick={filePick}
-						setLoadingType={setLoadingType}
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						loadingFiles={loadingFiles}
-						setLoadingFiles={setLoadingFiles}
-						onSuccessLoading={onSuccessLoading}
-						fileRef={fileRef}
-						gLoader={gLoader}
-					>
-						{renderFiles(FileBar)}
-					</WorkBarsPreview>
-				)}
+        {workElementsView === "preview" && (
+          <WorkBarsPreview
+            file={chosenFile}
+            filePick={filePick}
+            setLoadingType={setLoadingType}
+            filesPage={filesPage}
+            setFilesPage={setFilesPage}
+            loadingFiles={loadingFiles}
+            setLoadingFiles={setLoadingFiles}
+            onSuccessLoading={onSuccessLoading}
+            fileRef={fileRef}
+            gLoader={gLoader}
+          >
+            {renderFiles(FileBar)}
+          </WorkBarsPreview>
+        )}
 
-				{workElementsView === "workLinesPreview" && (
-					<WorkLinesPreview
-						file={chosenFile}
-						filePick={filePick}
-						setLoadingType={setLoadingType}
-						filesPage={filesPage}
-						setFilesPage={setFilesPage}
-						loadingFiles={loadingFiles}
-						setLoadingFiles={setLoadingFiles}
-						onSuccessLoading={onSuccessLoading}
-						fileRef={fileRef}
-						gLoader={gLoader}
-					>
-						{renderFiles(FileLineShort)}
-					</WorkLinesPreview>
-				)}
+        {workElementsView === "workLinesPreview" && (
+          <WorkLinesPreview
+            file={chosenFile}
+            filePick={filePick}
+            setLoadingType={setLoadingType}
+            filesPage={filesPage}
+            setFilesPage={setFilesPage}
+            loadingFiles={loadingFiles}
+            setLoadingFiles={setLoadingFiles}
+            onSuccessLoading={onSuccessLoading}
+            fileRef={fileRef}
+            gLoader={gLoader}
+          >
+            {renderFiles(FileLineShort)}
+          </WorkLinesPreview>
+        )}
 
-				{filePick.show ? (
-					<OptionButtomLine
-						filePick={filePick}
-						setFilePick={setFilePick}
-						actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
-						setAction={setAction}
-						action={action}
-						nullifyFilePick={nullifyFilePick}
-					/>
-				) : null}
+        {filePick.show ? (
+          <OptionButtomLine
+            filePick={filePick}
+            setFilePick={setFilePick}
+            actionName={
+              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
+            }
+            setAction={setAction}
+            action={action}
+            nullifyFilePick={nullifyFilePick}
+          />
+        ) : null}
 
-				<BottomPanel />
-			</div>
+        <BottomPanel />
+      </div>
 
-			{mouseParams !== null ? (
-				<ContextMenu
-					params={mouseParams}
-					setParams={setMouseParams}
-					tooltip={true}
-				>
-					<ContextMenuFileList filePick={filePick} file={chosenFile} mouseParams={mouseParams} filesPage={filesPage} menuItem={menuItem} authorizedSafe={authorizedSafe} />
-				</ContextMenu>
-			) : null}
+      {mouseParams !== null ? (
+        <ContextMenu
+          params={mouseParams}
+          setParams={setMouseParams}
+          tooltip={true}
+        >
+          <ContextMenuFileList
+            filePick={filePick}
+            file={chosenFile}
+            mouseParams={mouseParams}
+            filesPage={filesPage}
+            menuItem={menuItem}
+            authorizedSafe={authorizedSafe}
+          />
+        </ContextMenu>
+      ) : null}
 
-			{action.type === "customize" ||
-			filePick.customize ||
-			fileAddCustomization.several ? (
-				<CustomizeFile
-					title={
-						filePick.customize || fileAddCustomization?.several
-							? __(`Редактировать выбранные файлы`)
-							: action.name
-					}
-					file={chosenFile}
-					close={
-						filePick.customize
-							? nullifyFilePick
-							: fileAddCustomization.several
-							? nullifyAddingSeveralFiles
-							: nullifyAction
-					}
-					filePick={filePick}
-					setFilePick={setFilePick}
-					fileAddCustomization={fileAddCustomization}
-					setFileAddCustomization={setFileAddCustomization}
-					saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
-					setLoadingType={setLoadingType}
-					menuItem={menuItem}
-				/>
-			) : null}
-		</>
-	);
+      {action.type === "customize" ||
+      filePick.customize ||
+      fileAddCustomization.several ? (
+        <CustomizeFile
+          title={
+            filePick.customize || fileAddCustomization?.several
+              ? __(`Редактировать выбранные файлы`)
+              : action.name
+          }
+          file={chosenFile}
+          close={
+            filePick.customize
+              ? nullifyFilePick
+              : fileAddCustomization.several
+              ? nullifyAddingSeveralFiles
+              : nullifyAction
+          }
+          filePick={filePick}
+          setFilePick={setFilePick}
+          fileAddCustomization={fileAddCustomization}
+          setFileAddCustomization={setFileAddCustomization}
+          saveCustomizeSeveralFiles={saveCustomizeSeveralFiles}
+          setLoadingType={setLoadingType}
+          menuItem={menuItem}
+        />
+      ) : null}
+    </>
+  );
 };
 
 export default WorkSpace;

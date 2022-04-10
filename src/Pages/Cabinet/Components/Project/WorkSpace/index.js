@@ -4,7 +4,7 @@ import styles from "./WorkSpace.module.sass";
 import SearchField from "../../SearchField";
 import StorageSize from "../../StorageSize";
 import Notifications from "../../Notifications";
-import Profile from "../../Profile";
+import Profile from "../../Profile/Profile";
 import ServePanel from "../../ServePanel";
 import RecentFiles from "../../RecentFiles";
 import WorkLinesPreview from "../WorkElements/WorkLinesPreview/WorkLinesPreview";

@@ -7,156 +7,239 @@ import { ReactComponent as PrintIcon } from "../../../../../../assets/PrivateCab
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/settings.svg";
 import { ReactComponent as DeleteIcon } from "../../../../../../assets/PrivateCabinet/delete.svg";
 import { ReactComponent as ShareIcon } from "../../../../../../assets/PrivateCabinet/share.svg";
+import { ReactComponent as ZipIcon } from "../../../../../../assets/PrivateCabinet/zip.svg";
 import { useLocation } from "react-router";
-import {useLocales} from "react-localized";
+import { useLocales } from "react-localized";
+import { useDispatch, useSelector } from "react-redux";
+import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
+import {
+  CONTEXT_MENU_FILE,
+  MODALS
+} from "../../../../../../generalComponents/globalVariables";
+import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 
 const Buttons = ({
-	file,
-	callbackArrMain,
-	setAction,
-	openFolderMenu,
-	setMouseParams,
+  file,
+  // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
+  setAction,
+  openFolderMenu,
+  setMouseParams
 }) => {
-	const { __ } = useLocales();
-	const { pathname } = useLocation();
+  const { __ } = useLocales();
+  const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const contextMenuModals = useSelector(
+    s => s.Cabinet.modals.contextMenuModals
+  );
+  const authorizedSafe = useSelector(
+    state => state.Cabinet.safe.authorizedSafe
+  );
 
-	const downloadFile = () => {
-		// TODO - api for downloading folder
-		if (file?.is_dir === 0) {
-			setTimeout(() => {
-				callbackArrMain.forEach((item) => {
-					if (item.type === "download") item.callback();
-				});
-			}, 0);
-		}
-	};
+  const downloadFile = () => {
+    // TODO - api for downloading folder
+    if (file?.is_dir === 0) {
+      dispatch(
+        onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+          ...contextMenuModals,
+          type: CONTEXT_MENU_FILE.DOWNLOAD_FILE,
+          items: [file],
+          authorizedSafe
+        })
+      );
+      // TODO - Need to delete after testing in folders, files, safe, download-files, archive
+      // setTimeout(() => {
+      //   callbackArrMain.forEach(item => {
+      //     if (item.type === "download") item.callback();
+      //   });
+      // }, 0);
+    }
+  };
 
-	const printFile = () => {
-		setTimeout(() => {
-			callbackArrMain.forEach((item) => {
-				if (item.type === "print") item.callback(file);
-			});
-		}, 0);
-	};
+  const printFile = () => {
+    dispatch(
+      onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+        ...contextMenuModals,
+        type: CONTEXT_MENU_FILE.PRINT_FILE,
+        items: [file],
+        authorizedSafe
+      })
+    );
+    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
+    // setTimeout(() => {
+    //   callbackArrMain.forEach(item => {
+    //     if (item.type === "print") item.callback(file);
+    //   });
+    // }, 0);
+  };
 
-	const onPropertiesFile = () => {
-		setTimeout(() => {
-			callbackArrMain.forEach((item, index) => {
-				if (item.type === "customize") item.callback(callbackArrMain, index);
-			});
-		}, 0);
-	};
+  const onPropertiesFile = () => {
+    dispatch(
+      onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+        ...contextMenuModals,
+        type: CONTEXT_MENU_FILE.FILE_PROPERTY,
+        items: [file]
+      })
+    );
+    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
+    // setTimeout(() => {
+    //   callbackArrMain.forEach((item, index) => {
+    //     if (item.type === "customize") item.callback(callbackArrMain, index);
+    //   });
+    // }, 0);
+  };
 
-	const onShareFile = () => {
-		setTimeout(() => {
-			callbackArrMain.forEach((item) => {
-				if (item.type === "share") setAction(item);
-			});
-		}, 0);
-	};
+  const onShareFile = () => {
+    dispatch(
+      onSetModals(MODALS.SHARE, {
+        open: true,
+        fids: file,
+        action_type:
+          file.is_dir === 1
+            ? "dir_access_add"
+            : share_types[pathname.split("/")[1]],
+        file
+      })
+    );
+    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
+    // setTimeout(() => {
+    //   callbackArrMain.forEach(item => {
+    //     if (item.type === "share") setAction(item);
+    //   });
+    // }, 0);
+  };
 
-	const renderDownloadBtn = () => (
-		<div className={styles.iconView}>
-			<DownLoadIcon onClick={downloadFile} />
-		</div>
-	);
-	const renderPrintBtn = () =>
-		file?.ext !== "ZIP" && file?.is_dir !== 1 ? (
-			<div className={styles.iconView}>
-				<PrintIcon onClick={printFile} />
-			</div>
-		) : (
-			<div className={classNames(styles.iconView, styles.hidden)}></div>
-		);
+  const renderDownloadBtn = () => (
+    <div className={styles.iconView}>
+      <DownLoadIcon onClick={downloadFile} />
+    </div>
+  );
 
-	const renderSettingBtn = () => (
-		<div
-			className={classNames({
-				[styles.iconView]: true,
-				[styles.iconSettings]: true,
-				[styles.disable]: file?.is_write === "0",
-			})}
-		>
-			<SettingsIcon
-				onClick={file?.is_write === "0" ? null : onPropertiesFile}
-			/>
-		</div>
-	);
-	const renderDeleteBtn = () => (
-		<div
-			className={classNames(styles.iconView, styles.iconTrash)}
-			onClick={() =>
-				setAction({
-					type: "delete",
-					name: __("Удаление файла"),
-					text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
-				})
-			}
-		>
-			<DeleteIcon />
-		</div>
-	);
-	const renderShareBtn = () => (
-		<div className={classNames(styles.iconView, styles.iconShare)}>
-			<ShareIcon onClick={onShareFile} />
-		</div>
-	);
-	const renderContexMenuBtn = () => (
-		<div
-			className={styles.menuWrap}
-			onClick={(e) => {
-				file?.is_dir
-					? openFolderMenu(e, file)
-					: setMouseParams({
-							x: e.clientX,
-							y: e.clientY,
-							width: 240,
-							height: 25,
-					  });
-			}}
-		>
-			<span className={styles.menu} />
-		</div>
-	);
+  const renderPrintBtn = () =>
+    file?.ext !== "ZIP" && file?.is_dir !== 1 ? (
+      <div className={styles.iconView}>
+        <PrintIcon onClick={printFile} />
+      </div>
+    ) : (
+      <div className={classNames(styles.iconView, styles.hidden)}></div>
+    );
 
-	const renderMyFilesButtons = () => (
-		<>
-			{renderPrintBtn()}
-			{renderDownloadBtn()}
-			{renderSettingBtn()}
-			{renderDeleteBtn()}
-			{renderShareBtn()}
-			{renderContexMenuBtn()}
-		</>
-	);
+  const renderSettingBtn = () => (
+    <div
+      className={classNames({
+        [styles.iconView]: true,
+        [styles.iconSettings]: true,
+        [styles.disable]: file?.is_write === "0"
+      })}
+    >
+      <SettingsIcon
+        onClick={file?.is_write === "0" ? null : onPropertiesFile}
+      />
+    </div>
+  );
+  const renderDeleteBtn = () => (
+    <div
+      className={classNames(styles.iconView, styles.iconTrash)}
+      onClick={() =>
+        setAction({
+          type: "delete",
+          name: __("Удаление файла"),
+          text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
+        })
+      }
+    >
+      <DeleteIcon />
+    </div>
+  );
+  const renderShareBtn = () => (
+    <div className={classNames(styles.iconView, styles.iconShare)}>
+      <ShareIcon onClick={onShareFile} />
+    </div>
+  );
 
-	const renderArchiveButtons = () => (
-		<>
-			{renderPrintBtn()}
-			{renderDownloadBtn()}
-			{renderDeleteBtn()}
-			{renderShareBtn()}
-		</>
-	);
+  const renderIntoZipBtn = () => (
+    <div
+      className={classNames(styles.iconView)}
+      onClick={() => {
+        dispatch(
+          onSetModals(MODALS.CONTEXT_MENU_MODAL, {
+            ...contextMenuModals,
+            type: CONTEXT_MENU_FILE.CREATE_ZIP,
+            items: [file],
+            title: __("Сжать в ZIP")
+          })
+        );
+      }}
+    >
+      <ZipIcon />
+    </div>
+  );
 
-	const renderMyDownloadedFileButtons = () => (
-		<>
-			{renderPrintBtn()}
-			{renderDownloadBtn()}
-			{renderSettingBtn()}
-			{renderContexMenuBtn()}
-		</>
-	);
+  const renderContextMenuBtn = () => (
+    <div
+      className={styles.menuWrap}
+      onClick={e => {
+        file?.is_dir
+          ? openFolderMenu(e, file)
+          : setMouseParams({
+              x: e.clientX,
+              y: e.clientY,
+              width: 240,
+              height: 25
+            });
+      }}
+    >
+      <span className={styles.menu} />
+    </div>
+  );
 
-	return (
-		<div className={styles.optionsWrap}>
-			{pathname === "/folders" && renderMyFilesButtons()}
-			{pathname === "/files" && renderMyFilesButtons()}
-			{pathname === "/safe" && renderMyFilesButtons()}
-			{pathname === "/downloaded-files" && renderMyDownloadedFileButtons()}
-			{pathname === "/archive" && renderArchiveButtons()}
-		</div>
-	);
+  const renderMyFilesButtons = () => (
+    <>
+      {renderPrintBtn()}
+      {renderDownloadBtn()}
+      {renderSettingBtn()}
+      {renderDeleteBtn()}
+      {renderShareBtn()}
+      {renderContextMenuBtn()}
+    </>
+  );
+
+  const renderArchiveButtons = () => (
+    <>
+      {renderPrintBtn()}
+      {renderDownloadBtn()}
+      {renderDeleteBtn()}
+      {renderShareBtn()}
+    </>
+  );
+
+  const renderSharedFilesButtons = () => (
+    <>
+      {renderPrintBtn()}
+      {renderIntoZipBtn()}
+      {renderShareBtn()}
+    </>
+  );
+
+  const renderMyDownloadedFileButtons = () => (
+    <>
+      {renderPrintBtn()}
+      {renderDownloadBtn()}
+      {renderSettingBtn()}
+      {renderContextMenuBtn()}
+    </>
+  );
+
+  return (
+    <div className={styles.optionsWrap}>
+      {pathname.startsWith("/folders") && renderMyFilesButtons()}
+      {pathname.startsWith("/files") && renderMyFilesButtons()}
+      {pathname.startsWith("/safe") && renderMyFilesButtons()}
+      {pathname.startsWith("/downloaded-files") &&
+        renderMyDownloadedFileButtons()}
+      {pathname.startsWith("/archive") && renderArchiveButtons()}
+      {pathname.startsWith("/shared-files") && renderSharedFilesButtons()}
+    </div>
+  );
 };
 
 export default Buttons;
