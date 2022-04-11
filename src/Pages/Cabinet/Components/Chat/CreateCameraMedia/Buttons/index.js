@@ -259,7 +259,12 @@ const Buttons = ({
         </Button>
       ) : (
         <Button
-          clickCallback={() => onSendFile("image/png", nullifyAction)}
+          clickCallback={() =>
+            onSendFile(
+              contentType === "image" ? "image/png" : contentType,
+              nullifyAction
+            )
+          }
           width={38}
           height={38}
           borderRadius="50%"
