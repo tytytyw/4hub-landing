@@ -3,6 +3,8 @@ import styles from "./SharedFilesInfo.module.sass";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
+import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
+import { diffDays } from "@fullcalendar/react";
 
 const useAccessRightsConst = () => {
   const { __ } = useLocales();
@@ -27,8 +29,22 @@ function SharedFilesInfo({ file, isChosen }) {
     text: ACCESS_RIGHTS.WATCH
   });
 
+  //TODO - Need to replace with real data
+  const isEdited = file.user_name !== "tytyty2@";
+
+  const compareDates = endDate => {
+    const today = new Date();
+    if (endDate.getTime() - today.getTime() < 0) {
+      return __("Бессрочно");
+    }
+    return __(`Осталось (${diffDays(today, endDate).toFixed()} дней)`);
+  };
+
   const renderFileAccessRights = () => (
-    <div className={styles.reviewOptions}>
+    <div
+      className={styles.reviewOptions}
+      onMouseLeave={() => setContext(CONTEXT.EMPTY)}
+    >
       <div
         className={styles.reviewOption}
         onClick={() => {
@@ -80,27 +96,47 @@ function SharedFilesInfo({ file, isChosen }) {
   );
 
   return (
-    <div
-      className={classnames({
-        [styles.review]: true,
-        [styles.chosen]: isChosen
-      })}
-      onClick={() => setContext(CONTEXT.CHANGE_FILE_ACCESS_RIGHTS)}
-    >
-      <span>{accessRights.text}</span>
-      <img
-        src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-        alt="copy"
-        className={
-          context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
-            ? styles.imageReverse
-            : ""
-        }
-      />
-      {context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
-        ? renderFileAccessRights()
-        : null}
-    </div>
+    <>
+      <div
+        className={classnames({
+          [styles.review]: true,
+          [styles.chosen]: isChosen
+        })}
+        onClick={() => {
+          if (isEdited) {
+            setContext(s =>
+              s === CONTEXT.EMPTY
+                ? CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
+                : CONTEXT.EMPTY
+            );
+          }
+        }}
+      >
+        <span>{accessRights.text}</span>
+        {isEdited ? (
+          <img
+            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
+            alt="copy"
+            className={
+              context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
+                ? styles.imageReverse
+                : ""
+            }
+          />
+        ) : null}
+        {context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
+          ? renderFileAccessRights()
+          : null}
+      </div>
+      {isEdited ? null : file.user_icon[0] ? (
+        <img src={file.user_icon[0]} />
+      ) : (
+        <UserIcon title={file.user_name} />
+      )}
+      <div className={styles.endTime}>
+        {__(`Срок хранения: ${compareDates(new Date(file.deadline))}`)}
+      </div>
+    </>
   );
 }
 
