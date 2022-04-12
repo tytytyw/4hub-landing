@@ -17,8 +17,6 @@ package-lock.json
 /build
 
 #custom translations
-translations/*
-!translations/po2json.js
 
 # misc
 .DS_Store

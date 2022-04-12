@@ -134,7 +134,7 @@ function SharedFilesInfo({ file, isChosen }) {
         <UserIcon title={file.user_name} />
       )}
       <div className={styles.endTime}>
-        {__(`Срок хранения: ${compareDates(new Date(file.deadline))}`)}
+        {__(`Срок пользования: ${compareDates(new Date(file.deadline))}`)}
       </div>
     </>
   );

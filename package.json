@@ -42,7 +42,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run lint:fix && npm run convert-po && npm run build && gulp deploy",
     "publish": "gulp publish",
-    "extract:lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations'",
+    "extract:lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l pl -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l de -a.gettext __ -a.ngettext __n -o './translations'",
     "convert-po": "node ./translations/po2json.js",
     "lint:fix": "eslint . --fix",
     "lint": "eslint ."
