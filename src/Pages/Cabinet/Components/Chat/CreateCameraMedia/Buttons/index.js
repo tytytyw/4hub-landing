@@ -17,7 +17,7 @@ import FilterSettings from "./FilterSettings";
 import TextArea from "../../ChatBoard/TextArea";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
-import PropTypes from "prop-types";
+import PropTypes, { oneOfType } from "prop-types";
 import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 
 const Buttons = ({
@@ -46,13 +46,24 @@ const Buttons = ({
   setDrawImage,
   drawCanvasRef,
   contentWrapperRef,
-  imagePreview
+  imagePreview,
+  canvasToImagePreview,
+  drawImage,
+  videoPreviewRef
   // setImageFinal
 }) => {
   const { __ } = useLocales();
   const [activeOption, setActiveOption] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
+
+  const onAddСaptionClick = () => {
+    takePicture(videoPreviewRef.current);
+    setDrawImage(true);
+    setActiveOption(prevState =>
+      prevState === "addСaption" ? null : "addСaption"
+    );
+  };
 
   const [centralButtons] = useState([
     {
@@ -63,12 +74,7 @@ const Buttons = ({
     },
     {
       name: "addСaption",
-      clickCallback: () => {
-        setDrawImage(true);
-        setActiveOption(prevState =>
-          prevState === "addСaption" ? null : "addСaption"
-        );
-      },
+      clickCallback: onAddСaptionClick,
       icon: <PencilIcon strole="none" />
     },
     {
@@ -119,6 +125,10 @@ const Buttons = ({
     activeOption
       ? activeOption === "transformOptions"
         ? cancelImageChanges(() => setActiveOption(null))
+        : drawImage
+        ? cancelImageChanges(() => {
+            setActiveOption(null), setDrawImage(false);
+          })
         : setActiveOption(null)
       : setInitialState();
 
@@ -167,8 +177,7 @@ const Buttons = ({
       if (!buttons?.length) return null;
 
       return buttons.map(btn =>
-        contentType === "video" &&
-        (btn?.name === "crop" || btn?.name === "addСaption") ? (
+        contentType === "video" && btn?.name === "crop" ? (
           ""
         ) : (
           <Button
@@ -232,9 +241,30 @@ const Buttons = ({
         </Button>
       );
     if (state === "readyToSend")
-      return (
+      return drawImage ? (
         <Button
-          clickCallback={onSendFile}
+          clickCallback={() => {
+            canvasToImagePreview(drawCanvasRef.current);
+            saveImageChanges(drawCanvasRef.current.toDataURL("image/png"));
+            setActiveOption(null);
+            setDrawImage("sendFile");
+          }}
+          width={38}
+          height={38}
+          borderRadius="50%"
+          childrenColor="white"
+          backgroundColor="#4086F1"
+        >
+          <CheckIcon title={__("Сохранить")} height={14} width={19} />
+        </Button>
+      ) : (
+        <Button
+          clickCallback={() =>
+            onSendFile(
+              contentType === "image" ? "image/png" : contentType,
+              nullifyAction
+            )
+          }
           width={38}
           height={38}
           borderRadius="50%"
@@ -357,5 +387,8 @@ Buttons.propTypes = {
   setDrawImage: PropTypes.func,
   drawCanvasRef: PropTypes.object,
   contentWrapperRef: PropTypes.object,
-  imagePreview: PropTypes.array
+  imagePreview: PropTypes.array,
+  canvasToImagePreview: PropTypes.func.isRequired,
+  drawImage: oneOfType([PropTypes.bool, PropTypes.string]),
+  videoPreviewRef: PropTypes.object
 };

@@ -60,7 +60,11 @@ const CreateCameraMedia = ({
   const contentWrapperRef = useRef();
   const drawCanvasRef = useRef();
 
-  const imageDrawSrc = { loaded: [imagePreview] };
+  const [imageDrawSrc, setImageDrawSrc] = useState(null);
+
+  useEffect(() => {
+    if (imagePreview) setImageDrawSrc({ loaded: [imagePreview] });
+  }, [imagePreview, drawImage]);
 
   const constraints = {
     audio: true,
@@ -109,20 +113,22 @@ const CreateCameraMedia = ({
     mediaRecorder.stop();
   };
 
-  const takePicture = () => {
-    const video = streamPreviewRef.current;
+  const canvasToImagePreview = canvas =>
+    setImagePreview(canvas.toDataURL("image/png"));
+
+  const takePicture = videoRef => {
+    const video = videoRef ?? streamPreviewRef.current;
     previewSize.current = {
       height: video.clientHeight,
       width: video.clientWidth
     };
-
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     canvas.height = video.videoHeight;
     canvas.width = video.videoWidth;
     context.drawImage(video, 0, 0);
     const imageSrc = canvas.toDataURL("image/png");
-    setImagePreview(imageSrc);
+    canvasToImagePreview(canvas);
     setImageFinal(imageSrc);
     cleareStreamTracks();
     setState("readyToSend");
@@ -160,7 +166,7 @@ const CreateCameraMedia = ({
     context.rotate((-90 * Math.PI) / 180);
     context.translate(-canvas.height / 2, -canvas.width / 2);
     context.drawImage(image, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    canvasToImagePreview(canvas);
   };
 
   const onRotateClick = () => {
@@ -181,7 +187,6 @@ const CreateCameraMedia = ({
   };
 
   const onMirrorClick = () => {
-    console.log(openCropImage, imageAspectRatio);
     if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
@@ -205,12 +210,14 @@ const CreateCameraMedia = ({
     context.scale(-1, 1);
     context.translate(-canvas.width, 0);
     context.drawImage(image, 0, 0);
-    setImagePreview(canvas.toDataURL("image/png"));
+    canvasToImagePreview(canvas);
   };
 
-  const onSendFile = () => {
+  const onSendFile = (contentType, nullifyCallback) => {
     setgloader(true);
-    const getFileFromUrl = fetch(videoPreview || imageFinal)
+    const getFileFromUrl = fetch(
+      contentType.includes("image") ? imageFinal : videoPreview
+    )
       .then(res => res.blob())
       .then(
         blobFile =>
@@ -245,17 +252,15 @@ const CreateCameraMedia = ({
           }
         })
         .finally(() => {
-          nullifyAction();
+          nullifyCallback && nullifyAction();
           setgloader(false);
         });
     });
   };
 
-  const saveImageChanges = () => setImageFinal(imagePreview);
+  const saveImageChanges = image => setImageFinal(image ?? imagePreview);
   const saveCropChanges = () => {
-    const canvas = canvasRef.current;
-    const canvasDataUrl = canvas.toDataURL("image/png");
-    setImagePreview(canvasDataUrl);
+    canvasToImagePreview(canvasRef.current);
     // setImageFinal(canvasDataUrl);
     setOpenCropImage(false);
   };
@@ -264,6 +269,13 @@ const CreateCameraMedia = ({
     setImagePreview(imageFinal);
     additionalFunc && additionalFunc();
   };
+
+  useEffect(() => {
+    if (drawImage === "sendFile") {
+      onSendFile("image/png");
+      setDrawImage(false);
+    }
+  }, [drawImage]);
 
   useEffect(() => {
     getStream();
@@ -316,7 +328,7 @@ const CreateCameraMedia = ({
       <div className={styles.contentWrapper}>
         <div className={styles.contentPreview}>
           <div className={styles.videoWrapper} ref={contentWrapperRef}>
-            {drawImage ? (
+            {drawImage && imageDrawSrc ? (
               <DrawZone
                 canvasRef={drawCanvasRef}
                 mainRef={contentWrapperRef}
@@ -421,6 +433,9 @@ const CreateCameraMedia = ({
         drawCanvasRef={drawCanvasRef}
         contentWrapperRef={contentWrapperRef}
         imagePreview={[imagePreview]}
+        canvasToImagePreview={canvasToImagePreview}
+        drawImage={drawImage}
+        videoPreviewRef={videoPreviewRef}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
     </PopUp>

@@ -111,7 +111,8 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
           }}
         />
         <span className={classNames(styles.time, styles.durationTime)}>
-          {videoPlayerRef.current?.duration > 0
+          {videoPlayerRef.current?.duration !== Infinity &&
+          videoPlayerRef.current?.duration > 0
             ? ducationTimerToString(videoPlayerRef.current?.duration)
             : ""}
         </span>
