@@ -1,0 +1,69 @@
+@mixin review
+  width: 141px
+  height: 30px
+  display: flex
+  justify-content: center
+  align-items: center
+  box-sizing: border-box
+  background: rgb(230, 237, 248)
+  font-size: 11px
+  border-radius: 20px
+  cursor: pointer
+  position: relative
+  img
+    margin: 0 0 0 10px
+    width: 6px
+    transform: rotate(270deg)
+  .imageReverse
+    transform: rotateZ(90deg)
+
+@mixin reviewOptions
+  position: absolute
+  top: 45px
+  right: 0
+  width: 392px
+  height: 139px
+  background: white
+  border-radius: 5px
+  box-shadow: 0 0 2px #c4c3c3
+  box-sizing: border-box
+  padding: 10px
+  font-family: "SF Pro Regular", sans-serif
+  font-size: 14px
+  z-index: 1
+  &:before
+    content: ''
+    position: absolute
+    top: -16px
+    right: 10px
+    border: 8px solid transparent
+    border-bottom: 8px solid white
+  .reviewOption
+    display: flex
+    align-items: center
+    margin: 15px
+    .radio
+      width: 16px
+      height: 16px
+      border-radius: 50%
+      border: 1px solid grey
+      margin: 0 10px 0 0
+    .radioChosen
+      width: 16px
+      height: 16px
+      border-radius: 50%
+      border: 1px solid rgb(64, 134, 241)
+      background: rgb(64, 134, 241)
+  .reviewOptionLast
+    margin-bottom: 5px
+  .descr
+    margin: 0 0 0 40px
+    font-size: 11px
+    color: grey
+
+.review
+  @include review
+.chosen
+  background: #FFFFFF
+.reviewOptions
+  @include reviewOptions
