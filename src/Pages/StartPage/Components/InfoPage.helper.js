@@ -1,7 +1,7 @@
 import {imageSrc} from '../../../generalComponents/globalVariables';
 import { useLocales } from 'react-localized'
 
-export default function() { //eslint-disable-line
+export function useInfoPageHelper() { //eslint-disable-line
     const { __ } = useLocales()
 
        return [

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./FileLine.module.sass";
 
 import classNames from "classnames";
@@ -10,6 +10,7 @@ import Buttons from "./Buttons";
 import OptionalButton from "./OptionalButton";
 import OptionalDate from "./OptionalDate";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
+import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 
 const FileLine = ({
   file,
@@ -28,6 +29,7 @@ const FileLine = ({
   const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const [params, setParams] = useState({ isChosen: false });
 
   const onPickFile = () => {
     if (filePick.show) {
@@ -63,6 +65,8 @@ const FileLine = ({
     <div
       onClick={onPickFile}
       onDoubleClick={handleDoubleClick}
+      onMouseOver={() => setParams(s => ({ ...s, isChosen: true }))}
+      onMouseLeave={() => setParams(s => ({ ...s, isChosen: false }))}
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosen,
@@ -75,6 +79,9 @@ const FileLine = ({
         <div />
         {pathname.startsWith("/downloaded-files") && renderAdditionalItems()}
         {pathname.startsWith("/archive") && renderAdditionalItems()}
+        {pathname.startsWith("/shared-files") && (
+          <SharedFilesInfo file={file} isChosen={params.isChosen || chosen} />
+        )}
         <Buttons
           file={file}
           callbackArrMain={callbackArrMain}

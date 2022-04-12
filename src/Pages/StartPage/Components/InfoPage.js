@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import info from './InfoPage.helper';
+import {useInfoPageHelper} from './InfoPage.helper';
 import styles from './InfoPage.module.sass';
 import PopUp from '../../../generalComponents/PopUp';
 import {imageSrc} from '../../../generalComponents/globalVariables';
@@ -8,6 +8,7 @@ import { useLocales } from 'react-localized';
 
 const InfoPage = ({setPage}) => {
     const { __ } = useLocales()
+    const info = useInfoPageHelper();
     const [form, setForm] = useState({name: '', email: '', text: ''})
     const [success, setSucсess] = useState(false);
 

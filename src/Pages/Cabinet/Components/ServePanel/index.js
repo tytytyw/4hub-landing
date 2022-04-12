@@ -335,7 +335,7 @@ const ServePanel = ({
       }
       onClick={chooseSeveral}
     >
-      Выбрать
+      {__('Выбрать')}
     </span>
   );
 
