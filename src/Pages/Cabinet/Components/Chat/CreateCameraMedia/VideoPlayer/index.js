@@ -9,13 +9,14 @@ const VideoPlayer = ({
   source,
   videoPlayerRef,
   visualEffects,
-  videoCutParams
-  // setVideoCutParams
+  videoCutParams,
+  setVideoCutParams
 }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
   const inputRange = useRef();
+  const [dragbbleCutBorder, setDragbbleCutBorder] = useState(null);
 
   const onSeek = e => {
     videoPlayerRef.current.currentTime =
@@ -62,17 +63,45 @@ const VideoPlayer = ({
       }
     };
 
-    // video.addEventListener("timeupdate", onTimeUpdate);
     video.addEventListener("ended", videoEnded);
     video.addEventListener("loadedmetadata", fixInfinityDuration);
 
     return () => {
-      // video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("ended", videoEnded);
       video.removeEventListener("loadedmetadata", fixInfinityDuration);
     };
     // eslint-disable-next-line
   }, []);
+
+  const onBorderDragStart = e => {
+    setDragbbleCutBorder(e.target.id);
+  };
+
+  const onBorderDrag = e => {
+    const percent = Math.ceil(
+      (e.offsetX / inputRange.current.clientWidth) * 100
+    );
+    if (
+      (dragbbleCutBorder === "from" &&
+        videoCutParams.to.percent - percent > 0) ||
+      (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 0)
+    )
+      setVideoCutParams(prev => ({
+        ...prev,
+        [dragbbleCutBorder]: {
+          percent
+        }
+      }));
+  };
+  const onBorderDragEnd = () => setDragbbleCutBorder(null);
+
+  useEffect(() => {
+    if (dragbbleCutBorder) {
+      inputRange.current.addEventListener("mousemove", onBorderDrag);
+      return () =>
+        inputRange.current.removeEventListener("mousemove", onBorderDrag);
+    }
+  }, [dragbbleCutBorder]);
 
   return (
     <div className={styles.wrapper}>
@@ -91,7 +120,12 @@ const VideoPlayer = ({
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
       </div>
-      <div className={styles.seekPanel} ref={seekPanelRef}>
+      <div
+        className={styles.seekPanel}
+        ref={seekPanelRef}
+        onMouseUp={onBorderDragEnd}
+        onMouseLeave={onBorderDragEnd}
+      >
         <span className={classNames(styles.time, styles.currentTime)}>
           {videoPlayerRef.current?.duration >= 0
             ? ducationTimerToString(
@@ -125,18 +159,26 @@ const VideoPlayer = ({
           // border of start video
           <div
             className={styles.borderHolder}
+            id="from"
             style={{
-              left: `calc(${videoCutParams.from.percent}% + 10px - 2px)`
+              transform: `translateX(${(inputRange.current?.clientWidth *
+                videoCutParams.from.percent) /
+                100}px)`
             }}
+            onMouseDown={onBorderDragStart}
           />
         )}
         {videoCutParams && (
           // border of end video
           <div
             className={styles.borderHolder}
+            id="to"
             style={{
-              left: `calc(${videoCutParams.to.percent}% - 10px - 2px)`
+              transform: `translateX(${(inputRange.current?.clientWidth *
+                videoCutParams.to.percent) /
+                100}px)`
             }}
+            onMouseDown={onBorderDragStart}
           />
         )}
         <span className={classNames(styles.time, styles.durationTime)}>
