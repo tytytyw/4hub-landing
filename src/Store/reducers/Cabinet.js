@@ -330,7 +330,7 @@ export default function startPage(state = INITIAL_STATE, action) {
             return {...state, chat: {...state.chat, secretChatsList: secretChats}}
         }
         case GET_MESSAGES: {
-            return {...state, chat: {...state.chat, messages: action.payload}}
+            return {...state, chat: {...state.chat, messages: {today: [], ...action.payload}}}
         }
         case GET_PREVIUS_MESSAGES: {
             let messages = {...state.chat.messages}
