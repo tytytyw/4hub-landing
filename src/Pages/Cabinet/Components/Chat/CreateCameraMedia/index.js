@@ -50,6 +50,10 @@ const CreateCameraMedia = ({
     }
   });
   const [drawImage, setDrawImage] = useState(false);
+  const [videoCutParams, setVideoCutParams] = useState({
+    from: { percent: 0, time: "" },
+    to: { percent: 100, time: "" }
+  });
   const uid = useSelector(state => state.user.uid);
 
   const streamPreviewRef = useRef();
@@ -345,6 +349,8 @@ const CreateCameraMedia = ({
                   filter: visualEffects.filter.result,
                   transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`
                 }}
+                videoCutParams={videoCutParams}
+                setVideoCutParams={setVideoCutParams}
               />
             ) : imagePreview ? (
               openCropImage && imageAspectRatio ? (

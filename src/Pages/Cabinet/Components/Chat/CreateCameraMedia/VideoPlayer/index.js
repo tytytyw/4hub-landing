@@ -5,10 +5,17 @@ import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
 
-const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
+const VideoPlayer = ({
+  source,
+  videoPlayerRef,
+  visualEffects,
+  videoCutParams
+  // setVideoCutParams
+}) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
+  const inputRange = useRef();
 
   const onSeek = e => {
     videoPlayerRef.current.currentTime =
@@ -94,6 +101,7 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
         </span>
         <input
           className={styles.inputRange}
+          ref={inputRange}
           onChange={e => setProgress(e.target.value)}
           onMouseDown={() => setPlaying(false)}
           onClick={onSeek}
@@ -102,14 +110,35 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
           max="99"
           step="1"
         />
-        <div
-          className={styles.seekHolder}
-          style={{
-            transform: `translateX(${(seekPanelRef.current?.clientWidth *
-              progress) /
-              100}px)`
-          }}
-        />
+        {progress > 0 && (
+          <div
+            className={styles.seekHolder}
+            style={{
+              transform: `translateX(${(inputRange.current?.offsetWidth *
+                progress) /
+                100 -
+                2}px)`
+            }}
+          />
+        )}
+        {videoCutParams && (
+          // border of start video
+          <div
+            className={styles.borderHolder}
+            style={{
+              left: `calc(${videoCutParams.from.percent}% + 10px - 2px)`
+            }}
+          />
+        )}
+        {videoCutParams && (
+          // border of end video
+          <div
+            className={styles.borderHolder}
+            style={{
+              left: `calc(${videoCutParams.to.percent}% - 10px - 2px)`
+            }}
+          />
+        )}
         <span className={classNames(styles.time, styles.durationTime)}>
           {videoPlayerRef.current?.duration !== Infinity &&
           videoPlayerRef.current?.duration > 0
@@ -130,5 +159,7 @@ VideoPlayer.defaultProps = {
 VideoPlayer.propTypes = {
   source: PropTypes.string.isRequired,
   videoPlayerRef: PropTypes.object,
-  visualEffects: PropTypes.object
+  visualEffects: PropTypes.object,
+  videoCutParams: PropTypes.object,
+  setVideoCutParams: PropTypes.func
 };
