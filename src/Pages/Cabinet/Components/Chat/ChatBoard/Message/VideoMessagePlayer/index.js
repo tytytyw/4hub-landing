@@ -40,9 +40,8 @@ const VideoMessagePlayer = ({ video }) => {
 
   const renderRemainder = () => {
     if (
-      !videoRef?.current ||
       !videoRef?.current?.duration ||
-      !videoRef?.current?.duration === Infinity
+      videoRef?.current?.duration === Infinity
     )
       return "";
     const remainder = Math.ceil(
