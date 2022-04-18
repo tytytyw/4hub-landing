@@ -67,7 +67,8 @@ import {
   INSERT_EMODJI,
   CHAT_GROUP_DELETE,
   SET_MODALS,
-  CHOOSE_CATEGORY
+  CHOOSE_CATEGORY,
+  NULLIFY_FILES
 } from "../types";
 
 const INITIAL_STATE = {
@@ -210,6 +211,9 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case CHOOSE_FILES: {
       return { ...state, fileList: { ...action.payload } };
+    }
+    case NULLIFY_FILES: {
+      return { ...state, fileList: action.payload };
     }
     case CHOOSE_FILES_NEXT: {
       return {

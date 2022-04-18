@@ -65,7 +65,8 @@ import {
   GET_MESSAGES,
   GET_PREVIUS_MESSAGES,
   SET_MODALS,
-  CHOOSE_CATEGORY
+  CHOOSE_CATEGORY,
+  NULLIFY_FILES
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -298,7 +299,7 @@ export const clearRecentFiles = () => {
 
 export const clearFileList = () => {
   return {
-    type: CHOOSE_FILES,
+    type: NULLIFY_FILES,
     payload: null
   };
 };
