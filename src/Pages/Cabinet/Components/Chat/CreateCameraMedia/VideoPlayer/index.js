@@ -17,6 +17,7 @@ const VideoPlayer = ({
   const seekPanelRef = useRef();
   const inputRange = useRef();
   const [dragbbleCutBorder, setDragbbleCutBorder] = useState(null);
+  const [videoDuration, setVideoDuration] = useState(null);
 
   const onSeek = e => {
     videoPlayerRef.current.currentTime =
@@ -54,6 +55,7 @@ const VideoPlayer = ({
     //TODO - fix Chorome bug with Infinity duration
     const fixInfinityDuration = () => {
       const getDuration = () => {
+        setVideoDuration(videoPlayerRef.current?.duration);
         video.currentTime = 0;
         video.removeEventListener("timeupdate", getDuration);
       };
@@ -78,18 +80,20 @@ const VideoPlayer = ({
   };
 
   const onBorderDrag = e => {
-    const percent = Math.ceil(
+    const percent = Math.round(
       (e.offsetX / inputRange.current.clientWidth) * 100
     );
+    const time = (videoPlayerRef.current.duration * percent) / 100;
     if (
       (dragbbleCutBorder === "from" &&
-        videoCutParams.to.percent - percent > 0) ||
-      (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 0)
+        videoCutParams.to.percent - percent > 1) ||
+      (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 1)
     )
       setVideoCutParams(prev => ({
         ...prev,
         [dragbbleCutBorder]: {
-          percent
+          percent,
+          time
         }
       }));
   };
@@ -97,14 +101,32 @@ const VideoPlayer = ({
 
   useEffect(() => {
     if (dragbbleCutBorder) {
+      inputRange.current.style.cursor = "e-resize";
       inputRange.current.addEventListener("mousemove", onBorderDrag);
-      return () =>
+      return () => {
+        inputRange.current.style.cursor = "default";
         inputRange.current.removeEventListener("mousemove", onBorderDrag);
+      };
     }
   }, [dragbbleCutBorder]);
 
+  useEffect(() => {
+    if (videoCutParams)
+      setVideoCutParams(prev => ({
+        ...prev,
+        to: {
+          percent: 100,
+          time: videoDuration
+        }
+      }));
+  }, [videoDuration]);
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onMouseUp={onBorderDragEnd}
+      onMouseLeave={onBorderDragEnd}
+    >
       <video
         ref={videoPlayerRef}
         src={source}
@@ -120,16 +142,18 @@ const VideoPlayer = ({
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
       </div>
-      <div
-        className={styles.seekPanel}
-        ref={seekPanelRef}
-        onMouseUp={onBorderDragEnd}
-        onMouseLeave={onBorderDragEnd}
-      >
-        <span className={classNames(styles.time, styles.currentTime)}>
+      <div className={styles.seekPanel} ref={seekPanelRef}>
+        <span
+          className={classNames(styles.time, styles.currentTime)}
+          style={{
+            left: `${videoCutParams?.from?.percent ?? 0}%`,
+            transform: `translateX(${videoCutParams ? "-50%" : "0"})`
+          }}
+        >
           {videoPlayerRef.current?.duration >= 0
             ? ducationTimerToString(
-                progress === 0 ? 0 : videoPlayerRef.current?.currentTime
+                videoCutParams?.from?.time ??
+                  (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
               )
             : ""}
         </span>
@@ -161,9 +185,7 @@ const VideoPlayer = ({
             className={styles.borderHolder}
             id="from"
             style={{
-              transform: `translateX(${(inputRange.current?.clientWidth *
-                videoCutParams.from.percent) /
-                100}px)`
+              left: `${videoCutParams.from?.percent}%`
             }}
             onMouseDown={onBorderDragStart}
           />
@@ -174,17 +196,21 @@ const VideoPlayer = ({
             className={styles.borderHolder}
             id="to"
             style={{
-              transform: `translateX(${(inputRange.current?.clientWidth *
-                videoCutParams.to.percent) /
-                100}px)`
+              left: `${videoCutParams.to?.percent}%`,
+              transform: "translateX(-100%)"
             }}
             onMouseDown={onBorderDragStart}
           />
         )}
-        <span className={classNames(styles.time, styles.durationTime)}>
-          {videoPlayerRef.current?.duration !== Infinity &&
-          videoPlayerRef.current?.duration > 0
-            ? ducationTimerToString(videoPlayerRef.current?.duration)
+        <span
+          className={classNames(styles.time, styles.durationTime)}
+          style={{
+            left: `${videoCutParams?.to?.percent ?? 100}%`,
+            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`
+          }}
+        >
+          {videoDuration !== Infinity && videoDuration > 0
+            ? ducationTimerToString(videoCutParams?.to.time || videoDuration)
             : ""}
         </span>
       </div>

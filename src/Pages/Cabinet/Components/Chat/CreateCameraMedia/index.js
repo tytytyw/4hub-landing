@@ -51,8 +51,8 @@ const CreateCameraMedia = ({
   });
   const [drawImage, setDrawImage] = useState(false);
   const [videoCutParams, setVideoCutParams] = useState({
-    from: { percent: 0, time: "" },
-    to: { percent: 100, time: "" }
+    from: { percent: 0, time: 0 },
+    to: { percent: 100, time: null }
   });
   const uid = useSelector(state => state.user.uid);
 
@@ -233,8 +233,21 @@ const CreateCameraMedia = ({
     getFileFromUrl.then(file => {
       const formData = new FormData();
       formData.append("myfile", file);
+      formData.append("uid", uid);
+      const isVideo = contentType === "video";
+      const videoIsCut =
+        videoCutParams.from.percent !== 0 || videoCutParams.to.percent !== 100;
+      const apiUrl = isVideo ? "file_video_cut" : "chat_file_upload";
+      if (file.type.includes("webm")) {
+        formData.append("type_from", "webm");
+        formData.append("type_to", "mp4");
+      }
+      if (videoIsCut) {
+        formData.append("time_start", videoCutParams.from.time);
+        formData.append("time_end", videoCutParams.to.time);
+      }
       api
-        .post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+        .post(`/ajax/${apiUrl}.php`, formData)
         .then(res => {
           if (res.data.ok) {
             const attachment = {
