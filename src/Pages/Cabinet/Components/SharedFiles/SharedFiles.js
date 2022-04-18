@@ -40,7 +40,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
   const [view, setView] = useState({ prev: "", cur: "lines" });
   const globalSearch = useSelector(s => s.Cabinet.search);
 
-  useEffect(() => {
+  useEffect(async () => {
     setMenuItem("SharedFiles");
     dispatch(
       onChooseFiles(
@@ -56,10 +56,10 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
     setView(s => ({ ...s, prev: fileView }));
     dispatch(onSetWorkElementsView(view.cur));
     setFilesPage(0);
-    return () => {
+    return async () => {
       setMenuItem("");
-      dispatch(onSetWorkElementsView(view.prev));
-      dispatch(clearFileList());
+      await dispatch(onSetWorkElementsView(view.prev));
+      await dispatch(clearFileList());
     };
   }, []); // eslint-disable-line
 
