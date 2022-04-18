@@ -1,33 +1,22 @@
 {
     "env": {
         "browser": true,
-        "node": true,
-        "es2021": true,
-        "jest": true
+        "es2021": true
     },
-    "root": true,
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true,
-            "modules": true,
-            "classes": true,
-            "blockBindings": true
+            "jsx": true
         },
-        "sourceType": "module",
-        "ecmaVersion": 12
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
     "rules": {
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
     }
 }
