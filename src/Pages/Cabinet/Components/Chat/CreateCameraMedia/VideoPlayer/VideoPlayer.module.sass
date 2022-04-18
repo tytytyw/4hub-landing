@@ -40,11 +40,23 @@
             bottom: -5px
             border-radius: 10px
             transition: transform .2s linear
+            z-index: 2
         .borderHolder
             background: #fff
             transition: none
             cursor: e-resize
             border: 1px solid rgba(64, 134, 241, 0.2)
+        .framesWrapper
+            position: absolute
+            bottom: 0px
+            left: 50%
+            transform: translateX(-50%)
+            width: 100%
+            height: 100%
+            border-radius: 10px
+            overflow: hidden
+            z-index: -1
+            white-space: nowrap
     .playButton
         position: absolute
         top: 50%

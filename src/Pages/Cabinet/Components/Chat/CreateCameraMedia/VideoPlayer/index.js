@@ -10,14 +10,17 @@ const VideoPlayer = ({
   videoPlayerRef,
   visualEffects,
   videoCutParams,
-  setVideoCutParams
+  setVideoCutParams,
+  canvasRef
 }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
   const inputRange = useRef();
+  const videoFrameRef = useRef();
   const [dragbbleCutBorder, setDragbbleCutBorder] = useState(null);
   const [videoDuration, setVideoDuration] = useState(null);
+  const [videoFrames, setVideoFrames] = useState([]);
 
   const onSeek = e => {
     videoPlayerRef.current.currentTime =
@@ -99,6 +102,29 @@ const VideoPlayer = ({
   };
   const onBorderDragEnd = () => setDragbbleCutBorder(null);
 
+  const createFrames = () => {
+    const repeats = 10;
+    const video = videoFrameRef.current;
+    const canvas = canvasRef.current;
+    const height = seekPanelRef.current.clientHeight;
+    const width = Math.ceil(seekPanelRef.current.clientWidth / repeats);
+    if (video) {
+      video.play();
+      for (let i = 1; i <= repeats; i++) {
+        setTimeout(() => {
+          video.currentTime = (videoDuration / repeats) * i;
+          canvas.height = height;
+          canvas.width = width;
+          const context = canvas.getContext("2d");
+          context.drawImage(video, 0, 0, width, height);
+          setVideoFrames(prev => [...prev, canvas.toDataURL("image/png")]);
+        }, 500 * i);
+      }
+      video.pause();
+    }
+    videoFrameRef.current.removeEventListener("canplay", createFrames);
+  };
+
   useEffect(() => {
     if (dragbbleCutBorder) {
       inputRange.current.style.cursor = "e-resize";
@@ -111,7 +137,7 @@ const VideoPlayer = ({
   }, [dragbbleCutBorder]);
 
   useEffect(() => {
-    if (videoCutParams)
+    if (videoCutParams) {
       setVideoCutParams(prev => ({
         ...prev,
         to: {
@@ -119,7 +145,13 @@ const VideoPlayer = ({
           time: videoDuration
         }
       }));
+    }
   }, [videoDuration]);
+
+  useEffect(() => {
+    if (videoFrameRef?.current)
+      videoFrameRef.current.addEventListener("canplay", createFrames);
+  }, [videoFrameRef?.current]);
 
   return (
     <div
@@ -213,6 +245,19 @@ const VideoPlayer = ({
             ? ducationTimerToString(videoCutParams?.to.time || videoDuration)
             : ""}
         </span>
+        {videoCutParams && videoDuration && (
+          <div className={styles.framesWrapper}>
+            <video
+              ref={videoFrameRef}
+              style={{ display: "none" }}
+              src={source}
+              muted
+            />
+            {videoFrames.map((frame, i) => (
+              <img src={frame} key={i} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -229,5 +274,6 @@ VideoPlayer.propTypes = {
   videoPlayerRef: PropTypes.object,
   visualEffects: PropTypes.object,
   videoCutParams: PropTypes.object,
-  setVideoCutParams: PropTypes.func
+  setVideoCutParams: PropTypes.func,
+  canvasRef: PropTypes.object
 };
