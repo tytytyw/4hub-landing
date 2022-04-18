@@ -27,8 +27,8 @@ export const CONTEXT_MENU_FILE = {
 };
 
 export const SHARED_FILES = {
-  FILES_USER_SHARED: "sharedI",
-  FILES_SHARED_TO_USER: "sharedMe",
+  FILES_USER_SHARED: "file_share_mylist", // used for fileList endPoint
+  FILES_SHARED_TO_USER: "file_share_get", // used for fileList endPoint
   API_FILES_USER_SHARED_AMOUNT: "/ajax/file_share_mylist_col.php",
   API_FILES_SHARED_TO_USER_AMOUNT: "/ajax/file_share_list_col.php"
 };

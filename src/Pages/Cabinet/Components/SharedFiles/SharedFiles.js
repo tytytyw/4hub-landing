@@ -9,7 +9,7 @@ import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
 import BottomPanel from "../BottomPanel";
 import {
-  onGetSharedFiles,
+  onChooseFiles,
   onSetModals,
   onSetWorkElementsView
 } from "../../../../Store/actions/CabinetActions";
@@ -37,10 +37,21 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
   const [containerRef, width] = useElementResize();
   const fileView = useSelector(s => s.Cabinet.view);
   const [view, setView] = useState({ prev: "", cur: "lines" });
+  const globalSearch = useSelector(s => s.Cabinet.search);
 
   useEffect(() => {
     setMenuItem("SharedFiles");
-    dispatch(onGetSharedFiles(SHARED_FILES.FILES_USER_SHARED, ""));
+    dispatch(
+      onChooseFiles(
+        "global/all",
+        globalSearch,
+        1,
+        () => {},
+        () => {},
+        "",
+        SHARED_FILES.FILES_USER_SHARED
+      )
+    );
     setView(s => ({ ...s, prev: fileView }));
     dispatch(onSetWorkElementsView(view.cur));
     setFilesPage(0);

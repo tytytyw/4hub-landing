@@ -8,7 +8,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
 import {
-  onGetSharedFiles,
+  onChooseFiles,
   onSetModals
 } from "../../../../../Store/actions/CabinetActions";
 import {
@@ -39,6 +39,7 @@ const SideMenu = ({
     [SHARED_FILES.FILES_SHARED_TO_USER]:
       getStorageItem(`${SHARED_FILES.FILES_SHARED_TO_USER}-${uid}`) ?? 0
   });
+  const globalSearch = useSelector(s => s.Cabinet.search);
   const dispatch = useDispatch();
 
   const getFIlesAmount = url => api.get(`${url}?uid=${uid}`);
@@ -104,7 +105,17 @@ const SideMenu = ({
       <div className={styles.menu}>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles(SHARED_FILES.FILES_USER_SHARED, ""));
+            dispatch(
+              onChooseFiles(
+                "global/all",
+                globalSearch,
+                1,
+                () => {},
+                () => {},
+                "",
+                SHARED_FILES.FILES_USER_SHARED
+              )
+            );
             setSideMenuChosenItem(SHARED_FILES.FILES_USER_SHARED);
           }}
           className={classNames({
@@ -120,7 +131,17 @@ const SideMenu = ({
         </div>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles(SHARED_FILES.FILES_SHARED_TO_USER, ""));
+            dispatch(
+              onChooseFiles(
+                "global/all",
+                globalSearch,
+                1,
+                () => {},
+                () => {},
+                "",
+                SHARED_FILES.FILES_SHARED_TO_USER
+              )
+            );
             setSideMenuChosenItem(SHARED_FILES.FILES_SHARED_TO_USER);
           }}
           className={classNames({

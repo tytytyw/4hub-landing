@@ -160,8 +160,9 @@ export const onChooseFiles = (
       ? `&sort_reverse=1`
       : "";
   const cancelChooseFiles = CancelToken.source();
-  const downloadedFiles =
-    pathname === "/downloaded-files" ? "&is_uploaded=1" : "";
+  const downloadedFiles = pathname?.startsWith("/downloaded-files")
+    ? "&is_uploaded=1"
+    : "";
   window.cancellationTokens = { cancelChooseFiles };
   const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${
     getState().user.uid
