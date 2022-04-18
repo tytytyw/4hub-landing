@@ -22,6 +22,7 @@ import ActionApproval from "../../../../generalComponents/ActionApproval";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 import api from "../../../../api";
 import {
+  clearFileList,
   onAddRecentFiles,
   onAddRecentFolders,
   onChooseFiles,
@@ -103,12 +104,12 @@ const MyFolders = ({
     setFilesPage(2);
     setGLoader(false);
   };
-  useEffect(() => {
+  useEffect(async () => {
     setMenuItem("myFolders");
     dispatch(onAddRecentFiles());
     dispatch(onAddRecentFolders(folders));
     dispatch(onGetFolders("", folders));
-    setFilesPage(0);
+    await setFilesPage(1);
     dispatch(
       onChooseFiles(
         initialChosenFile ? initialChosenFile.gdir : "global/all",
@@ -118,12 +119,14 @@ const MyFolders = ({
         successLoad
       )
     );
+    await setFilesPage(0);
     if (initialChosenFile) {
       setChosenFile(initialChosenFile);
       dispatch(onsetInitialChosenFile(null));
     }
-    return () => {
+    return async () => {
       setMenuItem("");
+      await dispatch(clearFileList());
       dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
     };
   }, []); //eslint-disable-line

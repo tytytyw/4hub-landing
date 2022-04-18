@@ -46,12 +46,6 @@ const Buttons = ({
           authorizedSafe
         })
       );
-      // TODO - Need to delete after testing in folders, files, safe, download-files, archive
-      // setTimeout(() => {
-      //   callbackArrMain.forEach(item => {
-      //     if (item.type === "download") item.callback();
-      //   });
-      // }, 0);
     }
   };
 
@@ -64,12 +58,6 @@ const Buttons = ({
         authorizedSafe
       })
     );
-    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
-    // setTimeout(() => {
-    //   callbackArrMain.forEach(item => {
-    //     if (item.type === "print") item.callback(file);
-    //   });
-    // }, 0);
   };
 
   const onPropertiesFile = () => {
@@ -80,12 +68,6 @@ const Buttons = ({
         items: [file]
       })
     );
-    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
-    // setTimeout(() => {
-    //   callbackArrMain.forEach((item, index) => {
-    //     if (item.type === "customize") item.callback(callbackArrMain, index);
-    //   });
-    // }, 0);
   };
 
   const onShareFile = () => {
@@ -100,12 +82,6 @@ const Buttons = ({
         file
       })
     );
-    // TODO - Need to delete after testing in folders, files, safe, download-files, archive
-    // setTimeout(() => {
-    //   callbackArrMain.forEach(item => {
-    //     if (item.type === "share") setAction(item);
-    //   });
-    // }, 0);
   };
 
   const renderDownloadBtn = () => (
@@ -215,7 +191,6 @@ const Buttons = ({
   const renderSharedFilesButtons = () => (
     <>
       {renderPrintBtn()}
-      {renderIntoZipBtn()}
       {renderShareBtn()}
     </>
   );

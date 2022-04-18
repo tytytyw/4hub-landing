@@ -5,10 +5,9 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
 import {
-  onGetSharedFiles,
+  onChooseFiles,
   onSetModals
 } from "../../../../../Store/actions/CabinetActions";
 import {
@@ -21,9 +20,6 @@ import {
   setStorageItem
 } from "../../../../../generalComponents/StorageHelper";
 
-//TODO: заменить при получении сгрупированного на даты списка файлов
-// import { months } from "../../../../../generalComponents/CalendarHelper";
-
 const SideMenu = ({
   sideMenuCollapsed,
   setSideMenuCollapsed,
@@ -32,16 +28,16 @@ const SideMenu = ({
 }) => {
   const { __ } = useLocales();
   const uid = useSelector(s => s.user.uid);
-  const workElementsView = useSelector(state => state.Cabinet.view);
   const [filesAmount, setFilesAmount] = useState({
     [SHARED_FILES.FILES_USER_SHARED]:
       getStorageItem(`${SHARED_FILES.FILES_USER_SHARED}-${uid}`) ?? 0,
     [SHARED_FILES.FILES_SHARED_TO_USER]:
       getStorageItem(`${SHARED_FILES.FILES_SHARED_TO_USER}-${uid}`) ?? 0
   });
+  const globalSearch = useSelector(s => s.Cabinet.search);
   const dispatch = useDispatch();
 
-  const getFIlesAmount = url => api.get(`${url}?uid=${uid}`);
+  const getFilesAmount = url => api.get(`${url}?uid=${uid}`);
 
   const setTopError = message =>
     dispatch(
@@ -54,8 +50,8 @@ const SideMenu = ({
 
   useEffect(() => {
     Promise.allSettled([
-      getFIlesAmount(SHARED_FILES.API_FILES_USER_SHARED_AMOUNT),
-      getFIlesAmount(SHARED_FILES.API_FILES_SHARED_TO_USER_AMOUNT)
+      getFilesAmount(SHARED_FILES.API_FILES_USER_SHARED_AMOUNT),
+      getFilesAmount(SHARED_FILES.API_FILES_SHARED_TO_USER_AMOUNT)
     ])
       .then(([userShared, sharedToUser]) => {
         if (
@@ -104,7 +100,17 @@ const SideMenu = ({
       <div className={styles.menu}>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles(SHARED_FILES.FILES_USER_SHARED, ""));
+            dispatch(
+              onChooseFiles(
+                "global/all",
+                globalSearch,
+                1,
+                () => {},
+                () => {},
+                "",
+                SHARED_FILES.FILES_USER_SHARED
+              )
+            );
             setSideMenuChosenItem(SHARED_FILES.FILES_USER_SHARED);
           }}
           className={classNames({
@@ -120,7 +126,17 @@ const SideMenu = ({
         </div>
         <div
           onClick={() => {
-            dispatch(onGetSharedFiles(SHARED_FILES.FILES_SHARED_TO_USER, ""));
+            dispatch(
+              onChooseFiles(
+                "global/all",
+                globalSearch,
+                1,
+                () => {},
+                () => {},
+                "",
+                SHARED_FILES.FILES_SHARED_TO_USER
+              )
+            );
             setSideMenuChosenItem(SHARED_FILES.FILES_SHARED_TO_USER);
           }}
           className={classNames({
@@ -134,13 +150,6 @@ const SideMenu = ({
             ({filesAmount[SHARED_FILES.FILES_SHARED_TO_USER]})
           </span>
         </div>
-        {workElementsView === "workLinesPreview" && (
-          <SideList>
-            {/* {month
-							? renderFilesGroup(months()[month - 1].name, 0)
-							: months().map((item, i) => renderFilesGroup(item.name, i))} */}
-          </SideList>
-        )}
       </div>
     </div>
   );

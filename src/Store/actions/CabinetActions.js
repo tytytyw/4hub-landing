@@ -65,7 +65,8 @@ import {
   GET_MESSAGES,
   GET_PREVIUS_MESSAGES,
   SET_MODALS,
-  CHOOSE_CATEGORY
+  CHOOSE_CATEGORY,
+  NULLIFY_FILES
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -160,8 +161,9 @@ export const onChooseFiles = (
       ? `&sort_reverse=1`
       : "";
   const cancelChooseFiles = CancelToken.source();
-  const downloadedFiles =
-    pathname === "/downloaded-files" ? "&is_uploaded=1" : "";
+  const downloadedFiles = pathname?.startsWith("/downloaded-files")
+    ? "&is_uploaded=1"
+    : "";
   window.cancellationTokens = { cancelChooseFiles };
   const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${
     getState().user.uid
@@ -291,6 +293,13 @@ export const onAddRecentFiles = url => async (dispatch, getState) => {
 export const clearRecentFiles = () => {
   return {
     type: ADD_RECENT_FILES,
+    payload: null
+  };
+};
+
+export const clearFileList = () => {
+  return {
+    type: NULLIFY_FILES,
     payload: null
   };
 };
