@@ -15,7 +15,6 @@
     "chart.js": "^3.3.2",
     "classnames": "^2.2.6",
     "emoji-picker-react": "^3.4.8",
-    "eslint": "^8.12.0",
     "html2canvas": "^1.3.2",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
@@ -50,8 +49,11 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "shared-config"
+    ],
+    "rules": {
+      "additional-rule": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -69,6 +71,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
+    "eslint": "^8.13.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^4.3.0",
     "eslint-config-prettier-react": "0.0.24",
