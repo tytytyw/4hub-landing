@@ -53,11 +53,19 @@ const ChatBoardFooter = ({
   const upLoadFile = (blob, fileName, kind) => {
     setMessageIsSending(true);
     const sendingFile = file ?? new File([blob], fileName, { type: blob.type });
+    const isWebmVideo =
+      kind === "video_message" && sendingFile.type.includes("webm");
     const formData = new FormData();
     formData.append("myfile", sendingFile);
+    formData.append("uid", uid);
+    const apiUrl = isWebmVideo ? "file_video_convert" : "chat_file_upload";
+    if (isWebmVideo) {
+      formData.append("type_from", "webm");
+      formData.append("type_to", "mp4");
+    }
     createHistogramData(audioFrequencyData).then(histogramData => {
       api
-        .post(`/ajax/chat_file_upload.php?uid=${uid}`, formData)
+        .post(`/ajax/${apiUrl}.php`, formData)
         .then(res => {
           if (res.data.ok) {
             const attachment = {

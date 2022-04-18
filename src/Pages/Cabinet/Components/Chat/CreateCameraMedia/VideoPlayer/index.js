@@ -5,10 +5,19 @@ import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
 
-const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
+const VideoPlayer = ({
+  source,
+  videoPlayerRef,
+  visualEffects,
+  videoCutParams,
+  setVideoCutParams
+}) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
+  const inputRange = useRef();
+  const [dragbbleCutBorder, setDragbbleCutBorder] = useState(null);
+  const [videoDuration, setVideoDuration] = useState(null);
 
   const onSeek = e => {
     videoPlayerRef.current.currentTime =
@@ -46,6 +55,7 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
     //TODO - fix Chorome bug with Infinity duration
     const fixInfinityDuration = () => {
       const getDuration = () => {
+        setVideoDuration(videoPlayerRef.current?.duration);
         video.currentTime = 0;
         video.removeEventListener("timeupdate", getDuration);
       };
@@ -55,20 +65,68 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
       }
     };
 
-    // video.addEventListener("timeupdate", onTimeUpdate);
     video.addEventListener("ended", videoEnded);
     video.addEventListener("loadedmetadata", fixInfinityDuration);
 
     return () => {
-      // video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("ended", videoEnded);
       video.removeEventListener("loadedmetadata", fixInfinityDuration);
     };
     // eslint-disable-next-line
   }, []);
 
+  const onBorderDragStart = e => {
+    setDragbbleCutBorder(e.target.id);
+  };
+
+  const onBorderDrag = e => {
+    const percent = Math.round(
+      (e.offsetX / inputRange.current.clientWidth) * 100
+    );
+    const time = (videoPlayerRef.current.duration * percent) / 100;
+    if (
+      (dragbbleCutBorder === "from" &&
+        videoCutParams.to.percent - percent > 1) ||
+      (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 1)
+    )
+      setVideoCutParams(prev => ({
+        ...prev,
+        [dragbbleCutBorder]: {
+          percent,
+          time
+        }
+      }));
+  };
+  const onBorderDragEnd = () => setDragbbleCutBorder(null);
+
+  useEffect(() => {
+    if (dragbbleCutBorder) {
+      inputRange.current.style.cursor = "e-resize";
+      inputRange.current.addEventListener("mousemove", onBorderDrag);
+      return () => {
+        inputRange.current.style.cursor = "default";
+        inputRange.current.removeEventListener("mousemove", onBorderDrag);
+      };
+    }
+  }, [dragbbleCutBorder]);
+
+  useEffect(() => {
+    if (videoCutParams)
+      setVideoCutParams(prev => ({
+        ...prev,
+        to: {
+          percent: 100,
+          time: videoDuration
+        }
+      }));
+  }, [videoDuration]);
+
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onMouseUp={onBorderDragEnd}
+      onMouseLeave={onBorderDragEnd}
+    >
       <video
         ref={videoPlayerRef}
         src={source}
@@ -85,15 +143,23 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
       </div>
       <div className={styles.seekPanel} ref={seekPanelRef}>
-        <span className={classNames(styles.time, styles.currentTime)}>
+        <span
+          className={classNames(styles.time, styles.currentTime)}
+          style={{
+            left: `${videoCutParams?.from?.percent ?? 0}%`,
+            transform: `translateX(${videoCutParams ? "-50%" : "0"})`
+          }}
+        >
           {videoPlayerRef.current?.duration >= 0
             ? ducationTimerToString(
-                progress === 0 ? 0 : videoPlayerRef.current?.currentTime
+                videoCutParams?.from?.time ??
+                  (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
               )
             : ""}
         </span>
         <input
           className={styles.inputRange}
+          ref={inputRange}
           onChange={e => setProgress(e.target.value)}
           onMouseDown={() => setPlaying(false)}
           onClick={onSeek}
@@ -102,18 +168,49 @@ const VideoPlayer = ({ source, videoPlayerRef, visualEffects }) => {
           max="99"
           step="1"
         />
-        <div
-          className={styles.seekHolder}
+        {progress > 0 && (
+          <div
+            className={styles.seekHolder}
+            style={{
+              transform: `translateX(${(inputRange.current?.offsetWidth *
+                progress) /
+                100 -
+                2}px)`
+            }}
+          />
+        )}
+        {videoCutParams && (
+          // border of start video
+          <div
+            className={styles.borderHolder}
+            id="from"
+            style={{
+              left: `${videoCutParams.from?.percent}%`
+            }}
+            onMouseDown={onBorderDragStart}
+          />
+        )}
+        {videoCutParams && (
+          // border of end video
+          <div
+            className={styles.borderHolder}
+            id="to"
+            style={{
+              left: `${videoCutParams.to?.percent}%`,
+              transform: "translateX(-100%)"
+            }}
+            onMouseDown={onBorderDragStart}
+          />
+        )}
+        <span
+          className={classNames(styles.time, styles.durationTime)}
           style={{
-            transform: `translateX(${(seekPanelRef.current?.clientWidth *
-              progress) /
-              100}px)`
+            left: `${videoCutParams?.to?.percent ?? 100}%`,
+            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`
           }}
-        />
-        <span className={classNames(styles.time, styles.durationTime)}>
-          {videoPlayerRef.current?.duration !== Infinity &&
-          videoPlayerRef.current?.duration > 0
-            ? ducationTimerToString(videoPlayerRef.current?.duration)
+        >
+          {videoDuration !== Infinity && videoDuration > 0
+            ? ducationTimerToString(videoCutParams?.to.time || videoDuration)
             : ""}
         </span>
       </div>
@@ -130,5 +227,7 @@ VideoPlayer.defaultProps = {
 VideoPlayer.propTypes = {
   source: PropTypes.string.isRequired,
   videoPlayerRef: PropTypes.object,
-  visualEffects: PropTypes.object
+  visualEffects: PropTypes.object,
+  videoCutParams: PropTypes.object,
+  setVideoCutParams: PropTypes.func
 };

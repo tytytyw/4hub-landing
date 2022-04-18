@@ -1,6 +1,7 @@
 .wrapper
     position: relative
     overflow: hidden
+    display: flex
     .seekPanel
         position: absolute
         bottom: 20px
@@ -19,20 +20,19 @@
             position: absolute
             bottom: 50px
             font-size: 13px
+            width: max-content
+            text-shadow: #414141 0 0 1px
             &.curentTime
                 left: 0
             &.durationTime
                 right: 0
-
         .inputRange
             width: 100%
             height: 100%
             opacity: 0
-            position: absolute
-            z-index: 2
             margin: 0
             padding: 0
-        .seekHolder
+        .seekHolder, .borderHolder
             width: 4px
             height: 50px
             background: rgb(64, 134, 241)
@@ -40,6 +40,11 @@
             bottom: -5px
             border-radius: 10px
             transition: transform .2s linear
+        .borderHolder
+            background: #fff
+            transition: none
+            cursor: e-resize
+            border: 1px solid rgba(64, 134, 241, 0.2)
     .playButton
         position: absolute
         top: 50%

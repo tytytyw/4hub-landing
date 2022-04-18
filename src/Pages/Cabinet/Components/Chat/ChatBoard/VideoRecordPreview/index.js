@@ -76,7 +76,7 @@ VideoRecordPreview.defaultProps = {
 };
 
 VideoRecordPreview.propTypes = {
-  isVideoMessage: PropTypes.bool,
+  isVideoMessage: PropTypes.object,
   ducationTimer: PropTypes.number,
   timeLimit: PropTypes.number,
   recordEnd: PropTypes.func.isRequired
