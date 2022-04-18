@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ReactComponent as SharedFilesIcon } from "../../../../../assets/PrivateCabinet/sharedFiles.svg";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
-import SideList from "../SideList/SideList";
 import { useLocales } from "react-localized";
 import {
   onChooseFiles,
@@ -21,9 +20,6 @@ import {
   setStorageItem
 } from "../../../../../generalComponents/StorageHelper";
 
-//TODO: заменить при получении сгрупированного на даты списка файлов
-// import { months } from "../../../../../generalComponents/CalendarHelper";
-
 const SideMenu = ({
   sideMenuCollapsed,
   setSideMenuCollapsed,
@@ -32,7 +28,6 @@ const SideMenu = ({
 }) => {
   const { __ } = useLocales();
   const uid = useSelector(s => s.user.uid);
-  const workElementsView = useSelector(state => state.Cabinet.view);
   const [filesAmount, setFilesAmount] = useState({
     [SHARED_FILES.FILES_USER_SHARED]:
       getStorageItem(`${SHARED_FILES.FILES_USER_SHARED}-${uid}`) ?? 0,
@@ -155,13 +150,6 @@ const SideMenu = ({
             ({filesAmount[SHARED_FILES.FILES_SHARED_TO_USER]})
           </span>
         </div>
-        {workElementsView === "workLinesPreview" && (
-          <SideList>
-            {/* {month
-							? renderFilesGroup(months()[month - 1].name, 0)
-							: months().map((item, i) => renderFilesGroup(item.name, i))} */}
-          </SideList>
-        )}
       </div>
     </div>
   );
