@@ -37,7 +37,7 @@ const SideMenu = ({
   const globalSearch = useSelector(s => s.Cabinet.search);
   const dispatch = useDispatch();
 
-  const getFIlesAmount = url => api.get(`${url}?uid=${uid}`);
+  const getFilesAmount = url => api.get(`${url}?uid=${uid}`);
 
   const setTopError = message =>
     dispatch(
@@ -50,8 +50,8 @@ const SideMenu = ({
 
   useEffect(() => {
     Promise.allSettled([
-      getFIlesAmount(SHARED_FILES.API_FILES_USER_SHARED_AMOUNT),
-      getFIlesAmount(SHARED_FILES.API_FILES_SHARED_TO_USER_AMOUNT)
+      getFilesAmount(SHARED_FILES.API_FILES_USER_SHARED_AMOUNT),
+      getFilesAmount(SHARED_FILES.API_FILES_SHARED_TO_USER_AMOUNT)
     ])
       .then(([userShared, sharedToUser]) => {
         if (
