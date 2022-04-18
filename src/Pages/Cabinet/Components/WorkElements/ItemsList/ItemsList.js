@@ -23,6 +23,7 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import FilesGroup from "../FilesGroup/FilesGroup";
 import { usePeriods } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
+import classnames from "classnames";
 
 const mock = () => {};
 
@@ -286,11 +287,13 @@ const ItemsList = ({
       workElementsView !== "workLinesPreview" &&
       workElementsView !== "preview" ? (
         <div
-          className={`${styles.FilesList} ${renderHeight(
-            recentFiles,
-            filePick,
-            styles
-          )}`}
+          className={classnames(
+            renderHeight(recentFiles, filePick, styles),
+            styles.FilesList,
+            {
+              [styles.shared_files]: pathname.startsWith("/shared-files")
+            }
+          )}
         >
           {renderGroups(FileBar, fileList?.files)}
           {!gLoader ? (

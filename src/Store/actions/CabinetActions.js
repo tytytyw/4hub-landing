@@ -296,6 +296,13 @@ export const clearRecentFiles = () => {
   };
 };
 
+export const clearFileList = () => {
+  return {
+    type: CHOOSE_FILES,
+    payload: null
+  };
+};
+
 export const onChooseRecentFile = file => {
   return {
     type: CHOOSE_RECENT_FILES,

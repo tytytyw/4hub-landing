@@ -9,6 +9,7 @@ import ServePanel from "../ServePanel";
 import { useDispatch, useSelector } from "react-redux";
 import BottomPanel from "../BottomPanel";
 import {
+  clearFileList,
   onChooseFiles,
   onSetModals,
   onSetWorkElementsView
@@ -58,6 +59,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
     return () => {
       setMenuItem("");
       dispatch(onSetWorkElementsView(view.prev));
+      dispatch(clearFileList());
     };
   }, []); // eslint-disable-line
 
