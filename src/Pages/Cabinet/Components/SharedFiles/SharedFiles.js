@@ -122,6 +122,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
             gLoader={gLoader}
             fileRef={fileRef}
             width={width}
+            sharedFilesInfo={sideMenuChosenItem}
           />
         </div>
         <BottomPanel />

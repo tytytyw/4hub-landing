@@ -23,7 +23,8 @@ const FileLine = ({
   callbackArrMain,
   folderSelect,
   openFolderMenu,
-  successLoad
+  successLoad,
+  sharedFilesInfo
 }) => {
   const size = useSelector(state => state.Cabinet.size);
   const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
@@ -80,7 +81,11 @@ const FileLine = ({
         {pathname.startsWith("/downloaded-files") && renderAdditionalItems()}
         {pathname.startsWith("/archive") && renderAdditionalItems()}
         {pathname.startsWith("/shared-files") && (
-          <SharedFilesInfo file={file} isChosen={params.isChosen || chosen} />
+          <SharedFilesInfo
+            file={file}
+            isChosen={params.isChosen || chosen}
+            sharedFilesInfo={sharedFilesInfo}
+          />
         )}
         <Buttons
           file={file}
@@ -88,6 +93,7 @@ const FileLine = ({
           setAction={setAction}
           openFolderMenu={openFolderMenu}
           setMouseParams={setMouseParams}
+          sharedFilesInfo={sharedFilesInfo}
         />
       </div>
     </div>

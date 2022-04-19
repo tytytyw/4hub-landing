@@ -50,7 +50,8 @@ const ItemsList = ({
   openFolderMenu = mock,
   menuItem,
   dateFilter,
-  successLoad
+  successLoad,
+  sharedFilesInfo
 }) => {
   const { __ } = useLocales();
   const periods = usePeriods();
@@ -109,6 +110,7 @@ const ItemsList = ({
           chooseItemNext={chooseItemNext}
           openFolderMenu={openFolderMenu}
           successLoad={successLoad}
+          sharedFilesInfo={sharedFilesInfo}
         />
       );
     });

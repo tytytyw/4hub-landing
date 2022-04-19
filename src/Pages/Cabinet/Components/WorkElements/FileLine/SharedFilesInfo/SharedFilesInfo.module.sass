@@ -29,7 +29,7 @@
   padding: 10px
   font-family: "SF Pro Regular", sans-serif
   font-size: 14px
-  z-index: 1
+  z-index: 5
   background: #FFFFFF
   &:before
     content: ''
@@ -67,6 +67,29 @@
   background: #FFFFFF
 .reviewOptions
   @include reviewOptions
+.iconWrap
+  width: 30px
+  height: 30px
+  display: flex
+  justify-content: center
+  align-items: center
+  box-sizing: border-box
+  font-size: 11px
+  cursor: pointer
+  position: relative
+  .userIconWrap
+    width: 30px
+    height: 30px
+    background: #e6edf8
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+  .shownUsers
+    position: absolute
+    z-index: 1
+  .hiddenUsers
+    display: none
 .endTime
   font-size: 13px
   color: #49494B
