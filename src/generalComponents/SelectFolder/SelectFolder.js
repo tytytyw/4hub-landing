@@ -39,7 +39,7 @@ const SelectFolder = ({initValue, initFolder = '', onChange = () => {}, setNewFo
     const renderPath = () => {
         let newPath = initFolder?.path ?? path;
         if(newPath.includes('global') && newPath.indexOf('global') === 0) {
-            useFolders.forEach(el => {
+            useFolders().forEach(el => {
                 newPath = newPath.replace(el.path, '/' + el.nameRu)
             })
         }
