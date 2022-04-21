@@ -18,5 +18,13 @@
         "react"
     ],
     "rules": {
+    },
+    "settings": {
+        "react": {
+            "createClass": "createReactClass",
+            "pragma": "React",
+            "fragment": "Fragment",
+            "flowVersion": "0.53"
+        }
     }
 }
