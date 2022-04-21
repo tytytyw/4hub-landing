@@ -6,6 +6,7 @@ import Comments from "../Comments/Comments";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 function ProgramItem({ program }) {
   const { __ } = useLocales();
@@ -14,7 +15,6 @@ function ProgramItem({ program }) {
     openedComments: false
   });
   const dispatch = useDispatch();
-
   const onSetFavourite = () => {
     setParams(s => ({ ...s, isFavourite: !s.isFavourite }));
     if (!params.isFavourite) {
@@ -32,15 +32,13 @@ function ProgramItem({ program }) {
   };
   const onToggleComments = () =>
     setParams(s => ({ ...s, openedComments: !s.openedComments }));
-
   return (
     <>
       <div
         className={classNames({
           [styles.itemWrap]: true,
           [styles.chosenItem]: params.openedComments
-        })}
-      >
+        })}>
         <div className={styles.leftGroup}>
           <img
             src={program.icon || `${imageSrc}assets/PrivateCabinet/more.svg`}
@@ -53,8 +51,7 @@ function ProgramItem({ program }) {
           className={styles.centerGroup}
           href={program.link}
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
           <div className={styles.copyLink}>{program.link}</div>
         </a>
         <div className={styles.rightGroup}>
@@ -63,8 +60,7 @@ function ProgramItem({ program }) {
               [styles.openComments]: true,
               [styles.openedComments]: params.openedComments
             })}
-            onClick={onToggleComments}
-          >
+            onClick={onToggleComments}>
             <span>{__("Отзывы")}</span>&nbsp;
             <span>({program.comments.length})</span>
           </div>
@@ -92,3 +88,13 @@ function ProgramItem({ program }) {
 }
 
 export default ProgramItem;
+
+ProgramItem.propTypes = {
+  program: PropTypes.shape({
+    icon: PropTypes.string,
+    name: PropTypes.string,
+    link: PropTypes.string,
+    comments: PropTypes.array,
+    isFavourite: PropTypes.bool
+  })
+};

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import ProgramItem from "../ProgramItem/ProgramItem";
 import Profile from "../../Profile/Profile";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const WorkSpace = ({ listCollapsed }) => {
   const { __ } = useLocales();
@@ -30,8 +31,7 @@ const WorkSpace = ({ listCollapsed }) => {
           [styles.workSpaceWrap]: true,
           [styles.collapsed]: listCollapsed,
           [styles.notCollapsed]: !listCollapsed
-        })}
-      >
+        })}>
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -53,3 +53,7 @@ const WorkSpace = ({ listCollapsed }) => {
 };
 
 export default WorkSpace;
+
+WorkSpace.propTypes = {
+  listCollapsed: PropTypes.bool
+};
