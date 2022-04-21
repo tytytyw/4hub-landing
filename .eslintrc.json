@@ -24,7 +24,8 @@
             "createClass": "createReactClass",
             "pragma": "React",
             "fragment": "Fragment",
-            "flowVersion": "0.53"
+            "flowVersion": "0.53",
+            "version": "detect"
         }
     }
 }
