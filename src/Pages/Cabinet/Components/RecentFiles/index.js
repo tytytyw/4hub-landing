@@ -20,8 +20,6 @@ const RecentFiles = ({
   const dispatch = useDispatch();
   const containerRef = useRef();
 
-  console.log(menuItem, onDoubleClickCallback);
-
   const renderIcon = file => {
     if (menuItem === "project") return getIcon(file);
     return <File color={file.id_color} format={file.ext} />;

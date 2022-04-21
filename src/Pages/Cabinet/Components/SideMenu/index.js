@@ -7,6 +7,7 @@ import { themes } from "./themes";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { clearRecentFiles } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   const { __ } = useLocales();
@@ -36,8 +37,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
           onClick={() => {
             history.push(item.path);
             dispatch(clearRecentFiles());
-          }}
-        >
+          }}>
           <img
             className={`${styles.icons} ${
               collapsed ? styles.iconsCollapsed : undefined
@@ -58,8 +58,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
       className={collapsed ? styles.collapsed : styles.asideWrap}
       style={{
         background: getThemeBg()
-      }}
-    >
+      }}>
       <img
         className={collapsed ? styles.minIcon : styles.hubIcon}
         src={`${imageSrc}assets/PrivateCabinet/${
@@ -70,8 +69,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
       <div
         className={`${styles.titleWrap} ${
           collapsed ? styles.titleWrapCollapsed : undefined
-        }`}
-      >
+        }`}>
         <span className={collapsed ? styles.hidden : undefined}>
           {__("МЕНЮ")}
         </span>
@@ -90,3 +88,13 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
 };
 
 export default SideMenu;
+
+SideMenu.propTypes = {
+  data: PropTypes.array,
+  collapsed: PropTypes.bool,
+  setCollapsed: PropTypes.func
+};
+
+SideMenu.defaultTypes = {
+  data: []
+};
