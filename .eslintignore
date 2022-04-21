@@ -17,7 +17,7 @@
 /src/setupTests.js
 
 # Files that needs to be checked and then deleted from the list
-/src/Pages/Cabinet/Components/Accordion
+# src/Pages/Cabinet/Components/Accordion
 /src/Pages/Cabinet/Components/Archive
 # src/Pages/Cabinet/Components/BottomPanel
 /src/Pages/Cabinet/Components/Business
@@ -40,7 +40,7 @@
 # /src/Pages/Cabinet/Components/Profile
 /src/Pages/Cabinet/Components/Programs
 # src/Pages/Cabinet/Components/Project
-/src/Pages/Cabinet/Components/RecentFiles
+# src/Pages/Cabinet/Components/RecentFiles
 /src/Pages/Cabinet/Components/Safe
 /src/Pages/Cabinet/Components/SearchField
 /src/Pages/Cabinet/Components/ServePanel
