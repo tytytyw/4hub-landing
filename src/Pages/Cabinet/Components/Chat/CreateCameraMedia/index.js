@@ -364,6 +364,7 @@ const CreateCameraMedia = ({
                 }}
                 videoCutParams={videoCutParams}
                 setVideoCutParams={setVideoCutParams}
+                canvasRef={canvasRef}
               />
             ) : imagePreview ? (
               openCropImage && imageAspectRatio ? (

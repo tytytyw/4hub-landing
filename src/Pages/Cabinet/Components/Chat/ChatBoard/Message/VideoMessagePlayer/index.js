@@ -39,7 +39,11 @@ const VideoMessagePlayer = ({ video }) => {
   };
 
   const renderRemainder = () => {
-    if (!videoRef?.current) return "";
+    if (
+      !videoRef?.current?.duration ||
+      videoRef?.current?.duration === Infinity
+    )
+      return "";
     const remainder = Math.ceil(
       videoRef?.current?.duration - videoRef?.current?.currentTime
     );
