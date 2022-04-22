@@ -148,8 +148,7 @@ const Company = () => {
 
         <div
           style={{ position: loadingType ? "relative" : "" }}
-          className={styles.content}
-        >
+          className={styles.content}>
           {pageOption.name === "welcome" && (
             <WelcomeCard setPageOption={setPageOption} />
           )}
