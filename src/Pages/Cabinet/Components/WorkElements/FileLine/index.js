@@ -73,8 +73,7 @@ const FileLine = ({
         [styles.active]: chosen,
         [styles?.[`wrapper_${size}`]]: size !== "medium",
         [styles.shortWidth]: pathname === "/downloaded-files"
-      })}
-    >
+      })}>
       <FileInfo file={file} />
       <div className={styles.flexContainer}>
         <div />

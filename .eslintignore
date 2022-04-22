@@ -22,7 +22,7 @@
 # src/Pages/Cabinet/Components/BottomPanel
 /src/Pages/Cabinet/Components/Business
 /src/Pages/Cabinet/Components/CalendarPage
-/src/Pages/Cabinet/Components/Cart
+# src/Pages/Cabinet/Components/Cart
 # src/Pages/Cabinet/Components/Chat
 /src/Pages/Cabinet/Components/ContextMenuComponents
 /src/Pages/Cabinet/Components/CreateFile

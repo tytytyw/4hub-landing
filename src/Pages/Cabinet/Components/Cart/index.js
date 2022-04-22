@@ -156,9 +156,7 @@ const Cart = () => {
           <Profile />
         </div>
       </div>
-
       <ServePanel view={workElementsView} />
-
       <div className={styles.wrapper}>
         <DateBlock
           search={search}
@@ -177,13 +175,11 @@ const Cart = () => {
           </div>
         </div>
       </div>
-
       {mouseParams !== null && (
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuFile.main, callbackArrMain)}
           </div>
@@ -192,15 +188,13 @@ const Cart = () => {
           </div>
         </ContextMenu>
       )}
-
       {action.type === "delete" && (
         <ActionApproval
           name={action.name}
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}
-        >
+          approve={__("Удалить")}>
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>

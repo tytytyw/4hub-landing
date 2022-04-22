@@ -110,8 +110,7 @@ const WorkSpace = ({
                 : styles.workSpaceWrapShort
               : undefined
           }`}
-        ref={containerRef}
-      >
+        ref={containerRef}>
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
