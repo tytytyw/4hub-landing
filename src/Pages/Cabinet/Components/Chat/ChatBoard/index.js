@@ -39,7 +39,8 @@ const ChatBoard = ({
   socket,
   endMessagesRef,
   scrollToBottom,
-  editMessage
+  editMessage,
+  showSettings
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -235,7 +236,7 @@ const ChatBoard = ({
       onMouseLeave={recordCancel}
       onMouseUp={mouseUpHandler}
     >
-      {selectedContact ? (
+      {selectedContact && !showSettings ? (
         <ServePanel
           selectedContact={selectedContact}
           setAction={setAction}
@@ -326,7 +327,7 @@ const ChatBoard = ({
           ) : null}
         </div>
       </main>
-      <ChatBoardFooter
+      {!showSettings && <ChatBoardFooter
         footerRef={footerRef}
         isRecording={isRecording}
         ducationTimer={ducationTimer}
@@ -346,7 +347,7 @@ const ChatBoard = ({
         scrollToBottom={scrollToBottom}
         socket={socket}
         editMessage={editMessage}
-      />
+      />}
 
       {videoPreview ? (
         <VideoRecordPreview
@@ -379,5 +380,6 @@ ChatBoard.propTypes = {
   socket: PropTypes.object,
   endMessagesRef: PropTypes.object.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
-  editMessage: PropTypes.func.isRequired
+  editMessage: PropTypes.func.isRequired,
+  showSettings: PropTypes.bool
 };

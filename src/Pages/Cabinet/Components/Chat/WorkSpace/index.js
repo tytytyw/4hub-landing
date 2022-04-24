@@ -147,18 +147,18 @@ const WorkSpace = ({
       sendMessage(
         selectedContact?.isGroup
           ? {
-              action: "chat_group_message_add",
-              id_group: selectedContact?.id_group,
-              is_group: true
-            }
+            action: "chat_group_message_add",
+            id_group: selectedContact?.id_group,
+            is_group: true
+          }
           : selectedContact.is_secret_chat
-          ? {
+            ? {
               action: "chat_group_message_add",
               id_group: selectedContact?.id_group,
               is_secret_chat: true,
               deadline: messageLifeTime
             }
-          : {
+            : {
               action: "chat_message_send",
               id_user_to: selectedContact?.id_real_user,
               id_contact: selectedContact?.id
@@ -186,16 +186,16 @@ const WorkSpace = ({
       sendSocketMessage(
         message.id_group
           ? {
-              action: "chat_group_message_edit",
-              id_group: message.id_group,
-              is_group: true,
-              is_secret_chat: !!selectedContact.is_secret_chat
-            }
+            action: "chat_group_message_edit",
+            id_group: message.id_group,
+            is_group: true,
+            is_secret_chat: !!selectedContact.is_secret_chat
+          }
           : {
-              action: "chat_message_edit",
-              id_user_to: selectedContact?.id_real_user,
-              id_contact: selectedContact?.id
-            }
+            action: "chat_message_edit",
+            id_user_to: selectedContact?.id_real_user,
+            id_contact: selectedContact?.id
+          }
       );
     }
   };
@@ -215,16 +215,16 @@ const WorkSpace = ({
     sendSocketMessage(
       message.id_group
         ? {
-            action: "chat_group_message_del",
-            id_group: message.id_group,
-            is_group: true,
-            is_secret_chat: !!selectedContact.is_secret_chat
-          }
+          action: "chat_group_message_del",
+          id_group: message.id_group,
+          is_group: true,
+          is_secret_chat: !!selectedContact.is_secret_chat
+        }
         : {
-            action: "chat_message_del",
-            id_user_to: selectedContact?.id_real_user,
-            id_contact: selectedContact?.id
-          }
+          action: "chat_message_del",
+          id_user_to: selectedContact?.id_real_user,
+          id_contact: selectedContact?.id
+        }
     );
   };
 
@@ -283,10 +283,10 @@ const WorkSpace = ({
         </div>
       </div>
       {showSettings && <Settings close={() => setShowSettings(false)} />}
-      <div className={styles.main}>
+      <div className={styles.main} style={showSettings ? { height: 'calc(100% - 179px - 90px)' } : {}}>
         {selectedContact &&
-        action.type !== "addChat" &&
-        action.type !== "editChatGroup" ? (
+          action.type !== "addChat" &&
+          action.type !== "editChatGroup" ? (
           <ChatBoard
             sideMenuCollapsed={sideMenuCollapsed}
             boardOption={boardOption}
@@ -303,6 +303,7 @@ const WorkSpace = ({
             endMessagesRef={endMessagesRef}
             scrollToBottom={scrollToBottom}
             editMessage={editMessage}
+            showSettings={showSettings}
           />
         ) : (
           ""
