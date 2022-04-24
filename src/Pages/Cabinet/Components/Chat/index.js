@@ -62,6 +62,7 @@ const Chat = ({ setMenuItem }) => {
   const contextMenuModals = useSelector(
     state => state.Cabinet.modals.contextMenuModals
   );
+  const [showSettings, setShowSettings] = useState(false)
   const fileInputRef = useRef();
 
   const closeContextMenu = () => {
@@ -460,10 +461,8 @@ const Chat = ({ setMenuItem }) => {
             title={__("Чаты")}
           />
           <SettingsIcon
-            className={`${styles.option} ${
-              boardOption === "settings" ? styles.selected : ""
-            }`}
-            onClick={() => setBoardOption("settings")}
+            className={classNames({[styles.selected]: showSettings, [styles.option]: true})}
+            onClick={() => setShowSettings(prevBool => !prevBool)}
             title={__("Настройки")}
           />
         </div>
@@ -516,6 +515,8 @@ const Chat = ({ setMenuItem }) => {
         setMouseParams={setMouseParams}
         file={file}
         setFile={setFile}
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
       />
       {action.type === "addContact" ? (
         <AddContact

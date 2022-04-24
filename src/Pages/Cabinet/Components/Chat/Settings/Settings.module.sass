@@ -1,0 +1,53 @@
+.wrapper
+    font-size: 15px
+    padding-bottom: 20px
+    border-bottom: 1px solid #E5E5E5
+    .topPanel
+        display: flex
+        justify-content: space-between
+        align-items: center
+        border-bottom: 1px solid #E5E5E5
+        padding: 25px
+        .button
+            color: #4086F1
+            padding: 0
+            margin-left: 10px
+            &:hover
+                color: #3b6dcb
+        .text
+            margin: 0
+        .backButtonWrapper
+            display: flex
+            align-items: center
+            svg
+                path
+                    fill: #CFCFCF
+            &:hover
+                svg
+                    path
+                        fill: #3b6dcb
+    .colorPicker
+        display: flex
+        align-items: center
+        justify-content: center
+        .colorWrapper
+            margin: 8px 5px 0 5px
+            .flexWrapper
+                display: flex
+                align-items: center
+                font-size: 13px
+                .radio
+                    width: 20px
+                    height: 20px
+                    border-radius: 50%
+                    border: 1px solid #979797
+                    margin-right: 10px
+                    cursor: pointer
+                    &.chosen
+                        background: #50AE1D
+            .colorPreview
+                width: 130px
+                height: 40px
+                border-radius: 10px
+                border: 1px solid #fff
+                filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15))

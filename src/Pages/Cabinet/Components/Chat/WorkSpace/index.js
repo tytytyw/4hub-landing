@@ -12,6 +12,7 @@ import Profile from "../../Profile/Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
+import Settings from '../Settings'
 import PropTypes from "prop-types";
 import {
   onEditChatMessage,
@@ -28,7 +29,9 @@ const WorkSpace = ({
   setAction,
   setMouseParams,
   file,
-  setFile
+  setFile,
+  showSettings,
+  setShowSettings
 }) => {
   const [socket, setSocket] = useState(null);
   const [socketReconnect, setSocketReconnect] = useState(true);
@@ -279,6 +282,7 @@ const WorkSpace = ({
           <Profile />
         </div>
       </div>
+      {showSettings && <Settings close={() => setShowSettings(false)} />}
       <div className={styles.main}>
         {selectedContact &&
         action.type !== "addChat" &&
@@ -357,5 +361,7 @@ WorkSpace.propTypes = {
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
   file: PropTypes.object,
-  setFile: PropTypes.func.isRequired
+  setFile: PropTypes.func.isRequired,
+  showSettings: PropTypes.bool,
+  setShowSettings: PropTypes.func.isRequired
 };
