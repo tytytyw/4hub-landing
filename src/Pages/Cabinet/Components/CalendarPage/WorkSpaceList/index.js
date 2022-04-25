@@ -1,113 +1,107 @@
-import React from 'react'
-import styles from './WorkSpace.module.sass'
-import {hexToRgb, hours, eventTypesColor, monthNameType} from '../helper'
-import TableListTaskItem from '../TableListTaskItem'
-import {useSelector} from 'react-redux'
-import {useLocales} from "react-localized";
+import React from "react";
+import styles from "./WorkSpace.module.sass";
+import { hexToRgb, hours, eventTypesColor, monthNameType } from "../helper";
+import TableListTaskItem from "../TableListTaskItem";
+import { useSelector } from "react-redux";
+import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
-const WorkSpaceList = ({events}) => {
-    const { __ } = useLocales()
-    const calendarDate = useSelector(state => state.Cabinet.calendarDate)
-
-    const checkDateEvent = event => {
-
-        if (!event)
-            return false
-
-        return event?.date?.getFullYear() === calendarDate.getFullYear() &&
-               event?.date?.getMonth() === calendarDate.getMonth() &&
-               event?.date?.getDate() === calendarDate.getDate()
-
-    }
-
-    const getTask = hour => {
-
-        const event = events?.find(item => {
-            const itemHour = item?.date.getHours()
-            return itemHour === hour
-        })
-
-        if (checkDateEvent(event)) {
-            return event
-        }
-
-        return false
-    }
-
-    const renderTask = hour => {
-        const task = getTask(hour)
-        if (task) {
-            return <TableListTaskItem task={task}/>
-        }
-    }
-
-    const getStrDate = () => {
-        return __(`${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`)
-    }
-
-    const getEventsCount = () => {
-        const findEvents = events.filter(event => {
-            return event?.date.getDate() === calendarDate.getDate()
-        })
-        return findEvents?.length
-    }
+const WorkSpaceList = ({ events }) => {
+  const { __ } = useLocales();
+  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
+  const checkDateEvent = event => {
+    if (!event) return false;
 
     return (
-        <div className={styles.wrapper}>
+      event?.date?.getFullYear() === calendarDate.getFullYear() &&
+      event?.date?.getMonth() === calendarDate.getMonth() &&
+      event?.date?.getDate() === calendarDate.getDate()
+    );
+  };
 
-            <div className={styles.headerBlock}>
+  const getTask = hour => {
+    const event = events?.find(item => {
+      const itemHour = item?.date.getHours();
+      return itemHour === hour;
+    });
 
-                <p className={styles.date}>{getStrDate()}</p>
+    if (checkDateEvent(event)) {
+      return event;
+    }
 
-                <div className={styles.headerBtnWrap}>
-                    <button className={styles.headerBtn}>
-                        {getEventsCount()} { __('задач') }
-                    </button>
-                </div>
-                <div className={styles.headerBtnWrap}>
-                    <button className={styles.headerBtn}>
-                        { __('1 новая задача') }
-                    </button>
-                    <span className={styles.badge}>3</span>
-                </div>
-                <div className={styles.headerBtnWrap}>
-                    <button className={styles.headerBtn}>
-                        { __('1 напоминание') }
-                    </button>
-                </div>
-            </div>
+    return false;
+  };
 
-            <div className={styles.list}>
-                {hours?.map((hour, index) => {
-                    const event = getTask(hour.value)
-                    const color = eventTypesColor?.[event?.type]
-                    const rgba = hexToRgb(color)
-                    return event ? (
-                        <div
-                            key={index}
-                            className={styles.listItemActive}
-                            style={{
-                                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
-                            }}
-                        >
-                            <div className={styles.hour}>{hour.text}</div>
-                            <div className={styles.hourItem}>
-                                {renderTask(hour.value)}
-                            </div>
-                        </div>
-                    ) : (
-                        <div key={index} className={styles.listItem}>
-                            <div className={styles.hour}>{hour.text}</div>
-                            <div className={styles.hourItem}>
+  const renderTask = hour => {
+    const task = getTask(hour);
+    if (task) {
+      return <TableListTaskItem task={task} />;
+    }
+  };
 
-                            </div>
-                        </div>
-                    )
-                })}
-            </div>
+  const getStrDate = () => {
+    return __(
+      `${calendarDate?.getDate()} ${
+        monthNameType?.[calendarDate.getMonth()]
+      }  ${calendarDate.getFullYear()} г`
+    );
+  };
 
+  const getEventsCount = () => {
+    const findEvents = events.filter(event => {
+      return event?.date.getDate() === calendarDate.getDate();
+    });
+    return findEvents?.length;
+  };
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.headerBlock}>
+        <p className={styles.date}>{getStrDate()}</p>
+
+        <div className={styles.headerBtnWrap}>
+          <button className={styles.headerBtn}>
+            {getEventsCount()} {__("задач")}
+          </button>
         </div>
-    )
-}
+        <div className={styles.headerBtnWrap}>
+          <button className={styles.headerBtn}>{__("1 новая задача")}</button>
+          <span className={styles.badge}>3</span>
+        </div>
+        <div className={styles.headerBtnWrap}>
+          <button className={styles.headerBtn}>{__("1 напоминание")}</button>
+        </div>
+      </div>
 
-export default WorkSpaceList
+      <div className={styles.list}>
+        {hours?.map((hour, index) => {
+          const event = getTask(hour.value);
+          const color = eventTypesColor?.[event?.type];
+          const rgba = hexToRgb(color);
+          return event ? (
+            <div
+              key={index}
+              className={styles.listItemActive}
+              style={{
+                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
+              }}>
+              <div className={styles.hour}>{hour.text}</div>
+              <div className={styles.hourItem}>{renderTask(hour.value)}</div>
+            </div>
+          ) : (
+            <div key={index} className={styles.listItem}>
+              <div className={styles.hour}>{hour.text}</div>
+              <div className={styles.hourItem}></div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default WorkSpaceList;
+
+WorkSpaceList.propTypes = {
+  events: PropTypes.array
+};
