@@ -27,7 +27,7 @@
 /src/Pages/Cabinet/Components/ContextMenuComponents
 # src/Pages/Cabinet/Components/CreateFile
 # src/Pages/Cabinet/Components/CreateFolder
-/src/Pages/Cabinet/Components/CreateSafePassword
+# src/Pages/Cabinet/Components/CreateSafePassword
 /src/Pages/Cabinet/Components/Devices
 /src/Pages/Cabinet/Components/FileLoader
 /src/Pages/Cabinet/Components/Journal
