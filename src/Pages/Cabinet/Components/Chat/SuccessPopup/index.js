@@ -6,7 +6,7 @@ import successImg from "../../../../../assets/BusinessCabinet/WelcomePage/succes
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const SuccessPopup = ({ title, text, buttonText, set }) => {
+const SuccessPopup = ({ title, text, buttonText, set, style = {} }) => {
   const { __ } = useLocales();
   if (!buttonText) {
     buttonText = __("Готово");
@@ -14,7 +14,7 @@ const SuccessPopup = ({ title, text, buttonText, set }) => {
 
   return (
     <Popup set={set}>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} style={style}>
         <div className={styles.contentWrapper}>
           <img
             onClick={set}
@@ -53,5 +53,6 @@ SuccessPopup.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
   buttonText: PropTypes.string,
-  set: PropTypes.func.isRequired
+  set: PropTypes.func.isRequired,
+  style: PropTypes.object
 };

@@ -23,6 +23,13 @@ const Settings = ({ close }) => {
         close()
     }
     const saveSettings = () => initialTheme.current.saved = true
+    const renderColorName = (name) => {
+        switch (name) {
+            case 'white': return __('Белый')
+            case 'dark': return __('Темный')
+            default: return ''
+        }
+    }
 
     useEffect(() => {
         if (activeTheme) initialTheme.current.theme = activeTheme
@@ -33,7 +40,7 @@ const Settings = ({ close }) => {
 
 
     return (
-        <div className={styles.wrapper}>
+        <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: activeTheme.name === 'dark' })}>
             <div className={styles.topPanel}>
                 <div className={styles.backButtonWrapper}><Arrow />
                     <button className={styles.button} onClick={onExit}>{__('Назад')}</button>
@@ -43,10 +50,10 @@ const Settings = ({ close }) => {
             </div>
             <div className={styles.colorPicker}>
                 {themes.map(theme => (
-                    <div className={styles.colorWrapper} key={theme.title} onClick={() => themeHandler(theme)}>
+                    <div className={styles.colorWrapper} key={theme.name} onClick={() => themeHandler(theme)}>
                         <div className={styles.flexWrapper}>
                             <div className={classNames({ [styles.radio]: true, [styles.chosen]: activeTheme.name === theme.name })}></div>
-                            <p className={styles.colorName}>{theme.title}</p>
+                            <p className={styles.colorName}>{renderColorName(theme.name)}</p>
                         </div>
                         <div style={{ background: theme.background }} className={styles.colorPreview}></div>
                     </div>))}

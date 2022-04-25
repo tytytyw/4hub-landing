@@ -27,6 +27,7 @@ const CreateChat = ({
   initialUser
 }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const [search, setSearch] = useState("");
   const [selectedContacts, setSelectedContact] = useState(
     initialUser ? [initialUser] : []
@@ -148,10 +149,10 @@ const CreateChat = ({
     const apiUrl =
       showActionApproval.type === "secretChat"
         ? // secret chat
-          //TODO: remove deadline
-          `/ajax/chat_group_sec_add.php?uid=${uid}&name=${selectedContacts[0].name}&deadline=2042-01-28 10:37:35`
+        //TODO: remove deadline
+        `/ajax/chat_group_sec_add.php?uid=${uid}&name=${selectedContacts[0].name}&deadline=2042-01-28 10:37:35`
         : // group		    //_ add or _edit
-          `/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`;
+        `/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`;
     api
       .post(apiUrl, formData)
       .then(res => {
@@ -179,7 +180,7 @@ const CreateChat = ({
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div className={styles.header}>
         <div
           className={classNames(styles.backBtn, styles.button)}
@@ -191,10 +192,9 @@ const CreateChat = ({
         <div className={styles.title}>
           {maxCountUsers > 1 && step === "one"
             ? __(
-                `Выберите пользователей ${
-                  selectedContacts.length
-                }/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
-              )
+              `Выберите пользователей ${selectedContacts.length
+              }/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
+            )
             : ""}
           {maxCountUsers === 1 ? title : ""}
           {step === "two" ? title : ""}
@@ -260,7 +260,7 @@ const CreateChat = ({
             search={search}
             selectedUsers={selectedContacts}
             setSelectedUsers={
-              step === "one" ? changeSelectedContacts : () => {}
+              step === "one" ? changeSelectedContacts : () => { }
             }
             userContextMenu={step === "one" ? "checkBox" : ""}
             disableHover={step === "two"}
@@ -298,7 +298,7 @@ const CreateChat = ({
           zIndex={10000}
           containerType="bounceDots"
           type="bounceDots"
-          background="white"
+          background="transparent"
           animation={false}
           width="100px"
           height="100px"

@@ -275,7 +275,7 @@ const ChatBoard = ({
                 <Loader
                   type="bounceDots"
                   position="absolute"
-                  background="white"
+                  background="transparent"
                   zIndex={5}
                   width="100px"
                   height="100px"

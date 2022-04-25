@@ -549,6 +549,7 @@ const Chat = ({ setMenuItem }) => {
             title={showSuccessPopup?.title}
             text={showSuccessPopup?.text}
             set={() => setShowSuccessPopup(false)}
+            style={chatTheme.name === 'dark' ? { background: '#272727', color: '#fff' } : {}}
           />
         ) : (
           ""
@@ -584,6 +585,7 @@ const Chat = ({ setMenuItem }) => {
                 : deleteSecretChat
             }
             approve={__("Удалить")}
+            style={chatTheme.name === 'dark' ? { background: '#272727', color: '#fff' } : {}}
           >
             <div className={styles.groupLogoWrap}>
               <img

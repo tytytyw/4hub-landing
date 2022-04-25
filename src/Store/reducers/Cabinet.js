@@ -177,7 +177,15 @@ const INITIAL_STATE = {
     messages: null,
     messageLifeTime: 3600,
     insertEmodji: "",
-    theme: { name: 'white', textColor: '', iconColor: '#B8B8B8', inputBgColor: '#F7F7F7' }
+    theme: {
+      name: 'white',
+      background: '#fff',
+      textColor: '#49494B',
+      iconColor: '#B8B8B8',
+      inputBgColor: '#F7F7F7',
+      inputColor: '#AEAEAE',
+      accentColor: ''
+    }
   },
 
   //GLOBAL MODALS
