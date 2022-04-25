@@ -3,6 +3,7 @@ import styles from "./CustomChatItem.module.sass";
 import classNames from "classnames";
 import { ReactComponent as LockIcon } from "../../../../../assets/PrivateCabinet/password.svg";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const CustomChatItem = ({
   selectedContact,
@@ -22,6 +23,7 @@ const CustomChatItem = ({
   paddingRight,
   notificationsCounter
 }) => {
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const onChatItemClick = (e, isMenu) => {
     if (isMenu)
       setMouseParams({
@@ -46,7 +48,8 @@ const CustomChatItem = ({
           selectedContact &&
           selectedContact?.id === chatItem.id &&
           !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
-        [styles.disableHover]: disableHover
+        [styles.disableHover]: disableHover,
+        [styles.darkTheme]: chatTheme.name === 'dark'
       })}
       style={{ paddingRight }}
       onClick={onChatItemClick}
@@ -117,7 +120,7 @@ CustomChatItem.defaultProps = {
   isSubList: false,
   contextMenu: "contextMenu",
   disableHover: false,
-  setMouseParams: () => {},
+  setMouseParams: () => { },
   contextMenuList: "",
   paddingRight: "",
   notificationsCounter: null

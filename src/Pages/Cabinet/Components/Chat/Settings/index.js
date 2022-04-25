@@ -11,8 +11,8 @@ const Settings = ({ close }) => {
     const { __ } = useLocales();
     const activeTheme = useSelector(state => state.Cabinet.chat.theme)
     const themes = [
-        { name: 'white', background: '#fff', title: __('Белый'), textColor: '', iconColor: '#B8B8B8', inputBgColor: '#F7F7F7', accentColor: '' },
-        { name: 'dark', background: '#323232', title: __('Темный'), textColor: '#fff', iconColor: '#ff', inputBgColor: '#292929', accentColor: '#272727' }
+        { name: 'white', background: '#fff', title: __('Белый'), textColor: '#49494B', iconColor: '#B8B8B8', inputBgColor: '#F7F7F7', inputColor: '#AEAEAE', accentColor: '' },
+        { name: 'dark', background: '#323232', title: __('Темный'), textColor: '#fff', iconColor: '#fff', inputBgColor: '#292929', inputColor: '#fff', accentColor: '#272727' }
     ];
     const initialTheme = useRef({ intialTheme: null, saved: false })
     const dispatch = useDispatch()

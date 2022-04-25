@@ -43,7 +43,7 @@
             display: flex
             align-items: center
             font-size: 16px
-            color: rgb(73, 73, 73)
+            // color: rgb(73, 73, 73)
             max-width: 100%
             text-overflow: ellipsis
             overflow: hidden
@@ -104,6 +104,10 @@
         &.sideMenuCollapsed
             padding-left: 25px
             padding-right: 10px
+.item.darkTheme
+    border-color: #4E4E4E
+    &:hover, &.active
+        background-color: rgba(196, 196, 196, .1)
 .sideMenuCollapsed
     .groupName
         position: relative
@@ -133,7 +137,7 @@
         animation: showCounter 2.2s ease-in-out
         &.hidden
             display: none
-            
+
 @media (max-width: 1440px)
     .item
         .info

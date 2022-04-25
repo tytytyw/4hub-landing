@@ -23,19 +23,19 @@ const ServePanel = ({
   setRightPanelContentType
 }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const dispatch = useDispatch();
   const paint = useSelector(state => state.Cabinet.paint);
   const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
 
   return (
-    <div className={styles.chatBoardHeader}>
+    <div className={classNames({ [styles.chatBoardHeader]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       {selectedContact ? (
         <div className={styles.groupName}>
           <img
             src={
               selectedContact?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/${
-                selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
+              `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
               }.svg`
             }
             alt="img"
@@ -52,17 +52,17 @@ const ServePanel = ({
         <div className={styles.headerOptions}>
           {(selectedContact.id_real_user &&
             selectedContact.id_real_user !== "0") ||
-          selectedContact.isGroup ? (
+            selectedContact.isGroup ? (
             <div
               onClick={() =>
                 setAction(
                   selectedContact?.isGroup
                     ? { type: "addUsersToGroup" }
                     : {
-                        type: "addChat",
-                        chatsType: "groups",
-                        initialUser: selectedContact
-                      }
+                      type: "addChat",
+                      chatsType: "groups",
+                      initialUser: selectedContact
+                    }
                 )
               }
               className={styles.iconView}
@@ -107,8 +107,8 @@ const ServePanel = ({
                 printScreen.open
                   ? null
                   : dispatch(
-                      onSetModals("printScreen", { ...printScreen, open: true })
-                    )
+                    onSetModals("printScreen", { ...printScreen, open: true })
+                  )
               }
               className={classNames({
                 [styles.iconView]: true,

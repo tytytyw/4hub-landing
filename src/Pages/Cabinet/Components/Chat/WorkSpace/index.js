@@ -18,6 +18,7 @@ import {
   onEditChatMessage,
   onDeleteChatMessage
 } from "../../../../../Store/actions/CabinetActions";
+import classNames from "classnames";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -40,6 +41,7 @@ const WorkSpace = ({
   const id_company = useSelector(state => state.user.id_company);
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const selectedContact = useSelector(
     state => state.Cabinet.chat.selectedContact
@@ -273,7 +275,7 @@ const WorkSpace = ({
   }, [socket, selectedContact]); //eslint-disable-line
 
   return (
-    <div className={styles.chatWorkSpaceWrap}>
+    <div className={classNames({ [styles.chatWorkSpaceWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div className={styles.header}>
         <SearchField />
         <div className={styles.infoHeader}>

@@ -64,6 +64,7 @@ const Chat = ({ setMenuItem }) => {
   );
   const [showSettings, setShowSettings] = useState(false)
   const fileInputRef = useRef();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const closeContextMenu = () => {
     setMouseParams(null);
@@ -119,7 +120,7 @@ const Chat = ({ setMenuItem }) => {
           imageSrc={
             item.img !== undefined
               ? imageSrc +
-                `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`
+              `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`
               : null
           }
         />
@@ -420,7 +421,10 @@ const Chat = ({ setMenuItem }) => {
   }, [selectedContact]); //eslint-disable-line
 
   return (
-    <div className={styles.chatComponent}>
+    <div
+      className={classNames({ [styles.chatComponent]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}
+      style={{ background: chatTheme.background, color: chatTheme.textColor }}
+    >
       <div
         className={classNames({
           [styles.sideMenu]: true,
@@ -440,42 +444,46 @@ const Chat = ({ setMenuItem }) => {
         </div>
         <div className={styles.boardOptions}>
           <ContactsIcon
-            className={`${styles.option} ${
-              boardOption === "contacts" ? styles.selected : ""
-            }`}
+            className={classNames({
+              [styles.option]: true,
+              [styles.selected]: boardOption === 'contacts'
+            })}
             onClick={() => setBoardOption("contacts")}
             title={__("Контакты")}
           />
           <PhoneIcon
-            className={`${styles.option} ${
-              boardOption === "calls" ? styles.selected : ""
-            }`}
+            className={classNames({
+              [styles.option]: true,
+              [styles.selected]: boardOption === 'calls'
+            })}
             onClick={() => setBoardOption("calls")}
             title={__("Недавние звонки")}
           />
           <ChatIcon
-            className={`${styles.option} ${
-              boardOption === "chats" ? styles.selected : ""
-            }`}
+            className={classNames({
+              [styles.option]: true,
+              [styles.selected]: boardOption === 'chats'
+            })}
             onClick={() => setBoardOption("chats")}
             title={__("Чаты")}
           />
           <SettingsIcon
-            className={classNames({[styles.selected]: showSettings, [styles.option]: true})}
+            className={classNames({ [styles.selected]: showSettings, [styles.option]: true })}
             onClick={() => setShowSettings(prevBool => !prevBool)}
             title={__("Настройки")}
           />
         </div>
         {sideMenuCollapsed ? null : (
           <div className={styles.borderBottom}>
-            <SearchField value={search} setValue={setSearch} />
+            <SearchField value={search} setValue={setSearch} style={{ background: chatTheme.inputBgColor, color: chatTheme.inputColor }} />
           </div>
         )}
         <div
           style={{
-            height: `calc(100% - 68px - 68px - ${
-              sideMenuCollapsed ? "0" : "60"
-            }px)`
+            height: `calc(100% - 68px - 68px - ${sideMenuCollapsed ? "0" : "60"
+              }px)`,
+            background: chatTheme.background,
+            color: chatTheme.textColor
           }}
         >
           {boardOption === "contacts" ? (
@@ -518,129 +526,144 @@ const Chat = ({ setMenuItem }) => {
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />
-      {action.type === "addContact" ? (
-        <AddContact
-          action={action}
-          nullifyAction={nullifyAction}
-          setShowSuccessPopup={setShowSuccessPopup}
-        />
-      ) : null}
-      {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
-      )}
-      {showSuccessPopup ? (
-        <SuccessPopup
-          title={showSuccessPopup?.title}
-          text={showSuccessPopup?.text}
-          set={() => setShowSuccessPopup(false)}
-        />
-      ) : (
-        ""
-      )}
-      {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={false}
-          withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
-        >
-          <div className={styles.ContextMenuItems}>
-            {renderContextMenuItems(
-              filterContextMenu(contextMenuChat[mouseParams.contextMenuList]),
-              filterContextMenu(callbackArr[mouseParams.contextMenuList])
-            )}
-          </div>
-        </ContextMenu>
-      ) : null}
-      {action.type === "deleteChatGroup" ||
-      action.type === "deleteSecretChat" ? (
-        <ActionApproval
-          name={action.name}
-          text={action.text}
-          set={closeContextMenu}
-          callback={
-            action.type === "deleteChatGroup"
-              ? deleteChatGroup
-              : deleteSecretChat
-          }
-          approve={__("Удалить")}
-        >
-          <div className={styles.groupLogoWrap}>
-            <img
-              className={styles.groupLogo}
-              src={
-                selectedContact?.icon?.[0] ||
-                `${imageSrc}assets/PrivateCabinet/${
-                  action.type === "deleteChatGroup"
+      {
+        action.type === "addContact" ? (
+          <AddContact
+            action={action}
+            nullifyAction={nullifyAction}
+            setShowSuccessPopup={setShowSuccessPopup}
+          />
+        ) : null
+      }
+      {
+        showSuccessMessage && (
+          <SuccessMessage
+            showSuccessMessage={showSuccessMessage}
+            setShowSuccessMessage={setShowSuccessMessage}
+          />
+        )
+      }
+      {
+        showSuccessPopup ? (
+          <SuccessPopup
+            title={showSuccessPopup?.title}
+            text={showSuccessPopup?.text}
+            set={() => setShowSuccessPopup(false)}
+          />
+        ) : (
+          ""
+        )
+      }
+      {
+        mouseParams !== null ? (
+          <ContextMenu
+            params={mouseParams}
+            setParams={setMouseParams}
+            tooltip={false}
+            withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
+          >
+            <div className={styles.ContextMenuItems}>
+              {renderContextMenuItems(
+                filterContextMenu(contextMenuChat[mouseParams.contextMenuList]),
+                filterContextMenu(callbackArr[mouseParams.contextMenuList])
+              )}
+            </div>
+          </ContextMenu>
+        ) : null
+      }
+      {
+        action.type === "deleteChatGroup" ||
+          action.type === "deleteSecretChat" ? (
+          <ActionApproval
+            name={action.name}
+            text={action.text}
+            set={closeContextMenu}
+            callback={
+              action.type === "deleteChatGroup"
+                ? deleteChatGroup
+                : deleteSecretChat
+            }
+            approve={__("Удалить")}
+          >
+            <div className={styles.groupLogoWrap}>
+              <img
+                className={styles.groupLogo}
+                src={
+                  selectedContact?.icon?.[0] ||
+                  `${imageSrc}assets/PrivateCabinet/${action.type === "deleteChatGroup"
                     ? "chatGroup"
                     : "profile-noPhoto"
-                }.svg`
-              }
-              alt="group logo"
-            />
-          </div>
-        </ActionApproval>
-      ) : null}
-      {action.type === "leaveFromChatGroup" ? (
-        <ActionApproval
-          name={action.name}
-          text={action.text}
-          set={closeContextMenu}
-          callback={leaveChatGroup}
-          approve={__("Покинуть")}
-        >
-          <div className={styles.groupLogoWrap}>
-            <img
-              className={styles.groupLogo}
-              src={
-                selectedContact?.icon?.[0] ||
-                `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
-              }
-              alt="group logo"
-            />
-          </div>
-        </ActionApproval>
-      ) : null}
-      {action.type === "deleteContact" ? (
-        <ActionApproval
-          name={action.name}
-          text={action.text}
-          set={nullifyAction}
-          callback={() =>
-            contactDelete(
-              selectedContact,
-              id_company,
-              dispatch,
-              uid,
-              nullifyAction
-            )
-          }
-          approve={__("Удалить")}
-        >
-          <div className={styles.groupLogoWrap}>
-            <img
-              className={styles.groupLogo}
-              src={
-                selectedContact?.icon?.[0] ||
-                `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-              }
-              alt="group logo"
-            />
-          </div>
-        </ActionApproval>
-      ) : null}
-      {action.type === "addUsersToGroup" ? (
-        <AddUserToGroup group={selectedContact} nullifyAction={nullifyAction} />
-      ) : (
-        ""
-      )}
+                  }.svg`
+                }
+                alt="group logo"
+              />
+            </div>
+          </ActionApproval>
+        ) : null
+      }
+      {
+        action.type === "leaveFromChatGroup" ? (
+          <ActionApproval
+            name={action.name}
+            text={action.text}
+            set={closeContextMenu}
+            callback={leaveChatGroup}
+            approve={__("Покинуть")}
+          >
+            <div className={styles.groupLogoWrap}>
+              <img
+                className={styles.groupLogo}
+                src={
+                  selectedContact?.icon?.[0] ||
+                  `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
+                }
+                alt="group logo"
+              />
+            </div>
+          </ActionApproval>
+        ) : null
+      }
+      {
+        action.type === "deleteContact" ? (
+          <ActionApproval
+            name={action.name}
+            text={action.text}
+            set={nullifyAction}
+            callback={() =>
+              contactDelete(
+                selectedContact,
+                id_company,
+                dispatch,
+                uid,
+                nullifyAction
+              )
+            }
+            approve={__("Удалить")}
+          >
+            <div className={styles.groupLogoWrap}>
+              <img
+                className={styles.groupLogo}
+                src={
+                  selectedContact?.icon?.[0] ||
+                  `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+                }
+                alt="group logo"
+              />
+            </div>
+          </ActionApproval>
+        ) : null
+      }
+      {
+        action.type === "addUsersToGroup" ? (
+          <AddUserToGroup group={selectedContact} nullifyAction={nullifyAction} />
+        ) : (
+          ""
+        )
+      }
       <div style={{ display: "none" }}>
         <input type="file" onChange={onInputFiles} ref={fileInputRef} />
       </div>
-    </div>
+    </div >
   );
 };
 

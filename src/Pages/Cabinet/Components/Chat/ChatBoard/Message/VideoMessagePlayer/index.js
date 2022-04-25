@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import styles from "./VideoMessagePlayer.module.sass";
 import { ReactComponent as SpeakerIcon } from "../../../../../../../assets/PrivateCabinet/speaker.svg";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
 
 const VideoMessagePlayer = ({ video }) => {
   const circleRadius = 150;
@@ -12,6 +14,7 @@ const VideoMessagePlayer = ({ video }) => {
   const [progress, setProgress] = useState(0);
   const [circleOffset, setCircleOffset] = useState(circumference);
   const [mute, setMute] = useState(false);
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const playHandler = () => {
     !playing ? videoRef.current.play() : videoRef.current.pause();
@@ -136,7 +139,7 @@ const VideoMessagePlayer = ({ video }) => {
           (numToSquare(clickRadius) +
             numToSquare(clickRadius) -
             numToSquare(valueBaseTriangle)) /
-            (2 * multiplyNum(clickRadius, clickRadius))
+          (2 * multiplyNum(clickRadius, clickRadius))
         );
       const calcProgress = range => (range / circumference) * 100;
       if (clickCoordinats.x === 0) setProgress(clickCoordinats.y > 0 ? 0 : 50);
@@ -159,14 +162,14 @@ const VideoMessagePlayer = ({ video }) => {
   };
 
   return (
-    <div className={styles.wrapper} onClick={clickHandler}>
+    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })} onClick={clickHandler}>
       <div className={styles.videoWrapper}>
         <svg width={circleRadius * 2} height={circleRadius * 2}>
           <circle
             cx={circleRadius}
             cy={circleRadius}
             r={circleRadius}
-            fill="#F5F9FE"
+            fill={chatTheme.name === 'dark' ? '#323232' : "#F5F9FE"}
           />
           <circle
             className={styles.progressCircle}

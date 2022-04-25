@@ -64,6 +64,7 @@ const ChatBoard = ({
   const [scrollPosition, setScrollPosition] = useState(0);
   const search = useSelector(state => state.Cabinet.search);
   const dispatch = useDispatch();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const messages = useSelector(state => state.Cabinet.chat.messages);
 
@@ -231,7 +232,8 @@ const ChatBoard = ({
     <div
       className={classNames({
         [styles.chatBoardWrap]: true,
-        [styles.recoring]: isRecording
+        [styles.recoring]: isRecording,
+        [styles.darkTheme]: chatTheme.name === 'dark'
       })}
       onMouseLeave={recordCancel}
       onMouseUp={mouseUpHandler}
