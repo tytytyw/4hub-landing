@@ -61,7 +61,7 @@
     overflow-y: auto
     width: 100%
     max-height: 0
-    background: #fff
+    background: inherit
     border-radius: 0 0 5px 5px
     box-shadow: 0 4px 5px rgba(151, 151, 151, 0.5)
 
@@ -93,3 +93,11 @@
         padding: 5px 12px
         &:hover
           background: #F0F6FF
+
+.darkTheme.selectWrap
+  .contentWrap
+    box-shadow: rgb(39, 39, 39,) 0px 2px 5px
+    .content
+      .option.active,
+      .option:hover
+        background: rgba(196, 196, 196, 0.1)

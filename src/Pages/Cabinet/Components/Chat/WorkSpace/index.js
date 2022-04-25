@@ -277,11 +277,11 @@ const WorkSpace = ({
   return (
     <div className={classNames({ [styles.chatWorkSpaceWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div className={styles.header}>
-        <SearchField />
+        <SearchField theme={chatTheme.name} />
         <div className={styles.infoHeader}>
           <StorageSize />
           <Notifications />
-          <Profile />
+          <Profile theme={chatTheme.name} />
         </div>
       </div>
       {showSettings && <Settings close={() => setShowSettings(false)} />}

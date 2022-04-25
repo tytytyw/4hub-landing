@@ -80,6 +80,5 @@ const Media = ({ setOption }) => {
 export default Media;
 
 Media.propTypes = {
-  setAction: PropTypes.func.isRequired,
   setOption: PropTypes.func.isRequired
 };

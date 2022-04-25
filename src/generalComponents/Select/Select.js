@@ -6,8 +6,9 @@ import classNames from "classnames";
 const Select = ({
   data = [],
   initValue = "",
-  onChange = () => {},
-  cleareFilter = () => {},
+  onChange = () => { },
+  cleareFilter = () => { },
+  theme,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,8 @@ const Select = ({
       className={classNames({
         [styles.selectWrap]: true,
         [props.className]: true,
-        [styles.active]: !!open
+        [styles.active]: !!open,
+        [styles.darkTheme]: theme === 'dark'
       })}
     >
       <div
@@ -89,21 +91,21 @@ const Select = ({
         <ul className={styles.content}>
           {data.length > 1
             ? data.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setOpen(false);
-                    setValue(item.id);
-                    onChange(item.id);
-                  }}
-                  className={classNames({
-                    [styles.option]: true,
-                    [styles.active]: value === item.id
-                  })}
-                >
-                  {item.text}
-                </li>
-              ))
+              <li
+                key={index}
+                onClick={() => {
+                  setOpen(false);
+                  setValue(item.id);
+                  onChange(item.id);
+                }}
+                className={classNames({
+                  [styles.option]: true,
+                  [styles.active]: value === item.id
+                })}
+              >
+                {item.text}
+              </li>
+            ))
             : null}
         </ul>
       </div>

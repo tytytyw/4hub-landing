@@ -8,8 +8,9 @@ import { useHistory } from "react-router";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { exit } from "../../../../generalComponents/generalHelpers";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
+import PropTypes from "prop-types";
 
-const Profile = () => {
+const Profile = ({ theme }) => {
   const contextMenuProfile = useContextMenuProfile();
   const user = useSelector(state => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
@@ -75,6 +76,7 @@ const Profile = () => {
           setParams={setMouseParams}
           itemRef={profileRef}
           movehorizontal={window.innerWidth <= 1406 ? -30 : 0}
+          style={theme === 'dark' ? { boxShadow: ' 0 2px 5px #272727' } : {}}
         >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuProfile.main, mainCallBacks)}
@@ -92,3 +94,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
+Profile.propTypes = {
+  theme: PropTypes.string
+}

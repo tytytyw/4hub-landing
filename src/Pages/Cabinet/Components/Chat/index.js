@@ -562,6 +562,7 @@ const Chat = ({ setMenuItem }) => {
             setParams={setMouseParams}
             tooltip={false}
             withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
+            style={{ boxShadow: ' 0 2px 5px #272727' }}
           >
             <div className={styles.ContextMenuItems}>
               {renderContextMenuItems(

@@ -1,8 +1,8 @@
 @keyframes open
-    0%
-        transform: translateX(200px)
-    99%
-        transform: translateX(0)
+  0%
+    transform: translateX(200px)
+  99%
+    transform: translateX(0)
 
 .emojiAreaWrap
   animation: open .2s ease-in-out
@@ -13,9 +13,16 @@
   height: 100%
   width: 200px
   background: rgb(241, 241, 241)
+  border-left: 1px solid #DFDFDF
   .titleName
     font-family: "SF Pro Regular", sans-serif
     font-size: 15px
     color: black
     box-sizing: border-box
     padding: 15px 0
+
+.darkTheme.emojiAreaWrap
+  background-color: #323232
+  border-left: 1px solid #4E4E4E
+  .titleName
+    color: #fff

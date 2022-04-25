@@ -70,13 +70,12 @@ const WorkSpace = ({
     <>
       <div
         className={`${styles.workSpaceWrap} 
-                ${
-                  typeof listCollapsed === "boolean"
-                    ? listCollapsed
-                      ? styles.workSpaceWrapCollapsed
-                      : styles.workSpaceWrapUncollapsed
-                    : undefined
-                }`}
+                ${typeof listCollapsed === "boolean"
+            ? listCollapsed
+              ? styles.workSpaceWrapCollapsed
+              : styles.workSpaceWrapUncollapsed
+            : undefined
+          }`}
         ref={containerRef}
       >
         <div className={styles.header}>

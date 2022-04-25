@@ -61,7 +61,7 @@
                 width: 5px
                 height: 7px
                 transform: rotate(180deg)
-            cursor: pointer
+                cursor: pointer
             &:hover:not(.hoverDisable)
                 background-color: #EBF1FD
             &.hoverDisable
@@ -69,7 +69,6 @@
         .menuItem.positionRelative
             position: relative
             .switcher
-                background: red
                 width: 24px
                 height: 14px
                 background: #F2F2F2
@@ -90,3 +89,21 @@
                     background: #39B31E
                     transform: translateX(115%)
                     transition: transform 0.1s ease-in-out
+
+.darkTheme.wrapper
+    color: #fff
+    .borderBottom
+        border-color: #4E4E4E
+    .borderTop
+        border-color: #4E4E4E
+    .menu
+        .menuItem
+            &:hover:not(.hoverDisable)
+                background-color: rgba(196, 196, 196, 0.1)
+        .menuItem.positionRelative
+            .switcher
+                background: #292929
+                .switch
+                    background: #C4C4C4
+                .switchActive
+                    background: #39B31E
