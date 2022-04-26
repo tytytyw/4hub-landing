@@ -19,20 +19,20 @@ import Programs from "./Programs";
 import TellFriend from "./TellFriends/TellFriend";
 import PrimaryButton from "./PrimaryButton";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
-const MyProfile = ({ defaultPageOption = "personal_data" }) => {
+const MyProfile = ({ defaultPageOption }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
   const [pageOption, setPageOption] = useState(null);
   const [popup, setPopup] = useState(false);
-
   useEffect(() => {
     setPageOption(defaultPageOption);
   }, [defaultPageOption]);
 
   useEffect(() => {
     dispatch(onGetContacts());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -100,3 +100,11 @@ const MyProfile = ({ defaultPageOption = "personal_data" }) => {
 };
 
 export default MyProfile;
+
+MyProfile.propTypes = {
+  defaultPageOption: PropTypes.string
+};
+
+MyProfile.defaultProps = {
+  defaultPageOption: "personal_data"
+};
