@@ -279,8 +279,7 @@ const ItemsList = ({
           gLoader={gLoader}
           hideUploadFile={fileList === null}
           load={load}
-          options={options}
-        >
+          options={options}>
           {renderFiles(FileBar, fileList?.files)}
         </WorkBars>
       ) : null}
@@ -295,8 +294,7 @@ const ItemsList = ({
             {
               [styles.shared_files]: pathname.startsWith("/shared-files")
             }
-          )}
-        >
+          )}>
           {renderGroups(FileBar, fileList?.files)}
           {!gLoader ? (
             <div
@@ -304,8 +302,7 @@ const ItemsList = ({
                 filesPage === 0 ? styles.bottomLineHidden : ""
               }`}
               style={{ height: "100%" }}
-              ref={scrollRef}
-            >
+              ref={scrollRef}>
               <Loader
                 type="bounceDots"
                 position="absolute"
@@ -330,8 +327,7 @@ const ItemsList = ({
           chosenFolder={chosenFolder}
           gLoader={gLoader}
           load={load}
-          options={options}
-        >
+          options={options}>
           {renderFiles(FileLine, fileList?.files)}
         </WorkLines>
       ) : null}
@@ -350,8 +346,7 @@ const ItemsList = ({
           chosenFile={chosenFile}
           load={load}
           options={options}
-          groupInfo={groupInfo}
-        >
+          groupInfo={groupInfo}>
           {Array.isArray(fileList?.files)
             ? renderFiles(FileBar, fileList?.files)
             : renderGroups(FileBar, fileList?.files)}
@@ -371,8 +366,7 @@ const ItemsList = ({
           options={options}
           renderFiles={renderFiles}
           renderGroups={renderGroups}
-          menuItem={menuItem}
-        >
+          menuItem={menuItem}>
           {Array.isArray(fileList?.files)
             ? renderFiles(FileLineShort, fileList?.files)
             : renderGroups(FileLineShort, fileList?.files)}

@@ -69,7 +69,7 @@ const MyFolders = ({
   const initialChosenFile = useSelector(
     state => state.Cabinet.fileList?.chosenFile
   );
-  const [listCollapsed, setListCollapsed] = useState("");
+  const [listCollapsed, setListCollapsed] = useState(false);
   const [newFolder, setNewFolder] = useState(false);
   //TODO - Need to check object keys and delete useless
   const [chosenFolder, setChosenFolder] = useState({
@@ -282,8 +282,7 @@ const MyFolders = ({
         onCreate={boolean => {
           setNewFolderInfo(state => ({ ...state, path: "other/" }));
           setNewFolder(boolean);
-        }}
-      >
+        }}>
         <div
           className={styles.topScroll}
           ref={fakeScrollRef}
@@ -294,8 +293,7 @@ const MyFolders = ({
           }}
           style={{
             display: checkBrowser("safari") ? "none" : "flex"
-          }}
-        >
+          }}>
           <div
             style={{
               width: chosenFolder.folderWidth,
@@ -310,8 +308,7 @@ const MyFolders = ({
             if (folderListWrapRef.current && fakeScrollRef.current)
               fakeScrollRef.current.scrollLeft =
                 folderListWrapRef.current.scrollLeft;
-          }}
-        >
+          }}>
           {renderFolderList(global, false)}
           {renderFolderList(other, false)}
           {recentFolders?.length > 0 && (
@@ -401,8 +398,7 @@ const MyFolders = ({
         <ContextMenu
           params={mouseParams}
           setParams={closeContextMenu}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(
               chosenFolder?.contextMenuFolder?.path.indexOf("global") === 0 &&
@@ -423,8 +419,7 @@ const MyFolders = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFolder}
-          approve={__("Удалить")}
-        >
+          approve={__("Удалить")}>
           <div className={styles.fileActionWrap}>
             <FolderIcon className={`${styles.innerFolderIcon}`} />
           </div>

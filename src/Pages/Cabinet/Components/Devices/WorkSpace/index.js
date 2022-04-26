@@ -10,6 +10,7 @@ import ServePanel from "../../ServePanel";
 import BottomPanel from "../../BottomPanel";
 import { getDeviceIconName } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const WorkSpace = ({ listCollapsed, setMultiple }) => {
   const { __ } = useLocales();
@@ -25,8 +26,7 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
               ? styles.workSpaceWrapCollapsed
               : styles.workSpaceWrapUncollapsed
             : undefined
-        }`}
-      >
+        }`}>
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -143,3 +143,8 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
 };
 
 export default WorkSpace;
+
+WorkSpace.propTypes = {
+  setMultiple: PropTypes.func,
+  listCollapsed: PropTypes.bool
+};

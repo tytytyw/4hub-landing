@@ -1,64 +1,65 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from "react";
 
-import styles from './Select.module.sass'
-import classNames from 'classnames'
+import styles from "./Select.module.sass";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
-const Select = ({data = [], initValue, value, onChange = () => {}, ...props}) => {
+const Select = ({ value, ...props }) => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
 
-    const [open, setOpen] = useState(false)
+  useEffect(() => setOpen(false), [value]);
 
-    const ref = useRef()
+  useEffect(() => {
+    const onClick = event => {
+      if (!ref.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("click", onClick);
+    return () => window.removeEventListener("click", onClick);
+  }, []);
 
-    useEffect(() => setOpen(false), [value])
-
-    useEffect(() => {
-        const onClick = (event) => {
-            if (!ref.current?.contains(event.target)) {
-                setOpen(false)
-            }
-        }
-        window.addEventListener('click', onClick)
-        return () => window.removeEventListener('click', onClick)
-    }, [])
-
-    const getValue = () => {
-
-        if (!value) {
-            return props.placeholder
-        }
-
-        return value
+  const getValue = () => {
+    if (!value) {
+      return props.placeholder;
     }
 
-    return (
-        <div
-            ref={ref}
-            className={classNames({
-                [styles.selectWrap]: true,
-                [styles.active]: !!open
-            })}
-        >
+    return value;
+  };
 
-            <div
-                onClick={() => setOpen(!open)}
-                className={styles.select}
-            >
-                <span className={styles.selectInput}>{getValue()}</span>
-                <span className={classNames({
-                    [styles.arrow]: true,
-                    [styles.active]: !!open
-                })}/>
-            </div>
+  return (
+    <div
+      ref={ref}
+      className={classNames({
+        [styles.selectWrap]: true,
+        [styles.active]: !!open
+      })}>
+      <div onClick={() => setOpen(!open)} className={styles.select}>
+        <span className={styles.selectInput}>{getValue()}</span>
+        <span
+          className={classNames({
+            [styles.arrow]: true,
+            [styles.active]: !!open
+          })}
+        />
+      </div>
 
-            <div className={classNames({
-                [styles.contentWrap]: true,
-                [styles.active]: !!open
-            })}>
-                {props.children}
-            </div>
+      <div
+        className={classNames({
+          [styles.contentWrap]: true,
+          [styles.active]: !!open
+        })}>
+        {props.children}
+      </div>
+    </div>
+  );
+};
 
-        </div>
-    )
-}
+export default Select;
 
-export default Select
+Select.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  children: PropTypes.node
+};
