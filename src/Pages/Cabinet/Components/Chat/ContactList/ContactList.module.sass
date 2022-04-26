@@ -37,7 +37,7 @@
   .addContact
     justify-content: flex-start
     cursor: pointer
-    color: #49494B
+    // color: #49494B
     position: relative
     .iconWrap
       font-size: 16.5px
@@ -45,6 +45,22 @@
       width: 30px
       text-align: center
       height: 22px
+
+.listWrap.darkTheme
+  .item
+    border-color: #4E4E4E
+    &:hover, &.active
+      background-color: rgba(196, 196, 196, .1)
+  .list
+    scrollbar-color: #272727 #323232
+    &::-webkit-scrollbar-track
+      background: #272727
+      &::-webkit-scrollbar-track
+        background-color: #272727
+        &::-webkit-scrollbar
+          background-color: #323232
+        &::-webkit-scrollbar-thumb
+          background-color: #323232
 
 @media (max-width: 1440px)
   .listWrap

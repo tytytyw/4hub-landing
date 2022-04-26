@@ -18,6 +18,7 @@ function Message({
   contextMenuList
 }) {
   const messageTime = useMessageTime();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const userId = useSelector(state => state.Cabinet.chat.userId);
   const text = message.text.split("\n");
   const messageType = message.id_user === userId ? "outbox" : "inbox";
@@ -56,7 +57,7 @@ function Message({
   };
 
   return (
-    <div className={classNames(styles.wrapper, styles[messageType])}>
+    <div className={classNames({ [styles.wrapper]: true, [styles[messageType]]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       {messageType === "inbox" ? (
         <img
           src={

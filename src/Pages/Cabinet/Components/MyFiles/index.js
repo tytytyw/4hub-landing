@@ -231,9 +231,8 @@ const MyFiles = ({
                 : renderGroups(FileItem, fileList?.files)}
               {!gLoader ? (
                 <div
-                  className={`${styles.bottomLine} ${
-                    filesPage === 0 ? styles.bottomLineHidden : ""
-                  }`}
+                  className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""
+                    }`}
                   style={{ height: "100px" }}
                   ref={scrollRef}>
                   <Loader

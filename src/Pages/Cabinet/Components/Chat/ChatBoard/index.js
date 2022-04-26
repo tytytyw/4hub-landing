@@ -39,7 +39,8 @@ const ChatBoard = ({
   socket,
   endMessagesRef,
   scrollToBottom,
-  editMessage
+  editMessage,
+  showSettings
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -63,6 +64,7 @@ const ChatBoard = ({
   const [scrollPosition, setScrollPosition] = useState(0);
   const search = useSelector(state => state.Cabinet.search);
   const dispatch = useDispatch();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const messages = useSelector(state => state.Cabinet.chat.messages);
 
@@ -230,12 +232,13 @@ const ChatBoard = ({
     <div
       className={classNames({
         [styles.chatBoardWrap]: true,
-        [styles.recoring]: isRecording
+        [styles.recoring]: isRecording,
+        [styles.darkTheme]: chatTheme.name === 'dark'
       })}
       onMouseLeave={recordCancel}
       onMouseUp={mouseUpHandler}
     >
-      {selectedContact ? (
+      {selectedContact && !showSettings ? (
         <ServePanel
           selectedContact={selectedContact}
           setAction={setAction}
@@ -272,7 +275,7 @@ const ChatBoard = ({
                 <Loader
                   type="bounceDots"
                   position="absolute"
-                  background="white"
+                  background="transparent"
                   zIndex={5}
                   width="100px"
                   height="100px"
@@ -326,7 +329,7 @@ const ChatBoard = ({
           ) : null}
         </div>
       </main>
-      <ChatBoardFooter
+      {!showSettings && <ChatBoardFooter
         footerRef={footerRef}
         isRecording={isRecording}
         ducationTimer={ducationTimer}
@@ -346,7 +349,7 @@ const ChatBoard = ({
         scrollToBottom={scrollToBottom}
         socket={socket}
         editMessage={editMessage}
-      />
+      />}
 
       {videoPreview ? (
         <VideoRecordPreview
@@ -379,5 +382,6 @@ ChatBoard.propTypes = {
   socket: PropTypes.object,
   endMessagesRef: PropTypes.object.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
-  editMessage: PropTypes.func.isRequired
+  editMessage: PropTypes.func.isRequired,
+  showSettings: PropTypes.bool
 };

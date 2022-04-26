@@ -188,7 +188,7 @@
         height: 34px
         border-radius: 50%
         border: 1px solid #4086F1
-        background: #fff
+        // background: #fff
         cursor: pointer
         transition: background .3s ease
         &:not(:last-child)
@@ -222,3 +222,24 @@
       -moz-user-select: none
       -ms-user-select: none
       user-select: none
+
+.chatBoardWrap.darkTheme
+  .chatBoardMessageList
+    .chatAreaWrapper
+      .chatArea
+        .dateGroup
+          .date
+            .text
+              color: #AEAEAE
+              background: #323232
+  .chatBoardFooter
+    border-color: #4E4E4E
+    .recordHint, .duration
+      color: #fff
+    .downloadOptions::after,
+    .sendOptions::before
+      background: #4E4E4E
+    .sendOptions
+      svg
+        path
+          fill: #fff

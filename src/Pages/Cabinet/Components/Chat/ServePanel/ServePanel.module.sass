@@ -24,7 +24,7 @@
       font-family: "SF Pro Regular", sans-serif
       .name
         font-size: 16px
-        color: rgb(73, 73, 73)
+        // color: rgb(73, 73, 73)
       .status
         font-size: 11px
         color: rgb(133, 133, 133)
@@ -81,6 +81,30 @@
         width: 1px
         height: 18px
         background: #DFDFDF
+
+.chatBoardHeader.darkTheme
+  border-color: #4E4E4E
+  .iconView
+    box-shadow: 0 2px 4px #272727
+    svg
+      height: 16px
+      path, polygon
+        fill: #fff
+    .addContactIcon
+      path:last-child:not(:nth-child(4))
+        fill: #323232
+        stroke: #323232
+    &.disable
+      cursor: default
+      svg
+        opacity: .3
+      &:hover
+        background: #fff
+        path, polygon
+          fill: #BABABA
+  .headerOptions
+    .separating
+      background: #272727
 
 @media (max-width: 1440px)
   .chatBoardHeader

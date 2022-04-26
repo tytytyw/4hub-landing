@@ -15,6 +15,7 @@ const MainPanel = ({ setAction, setOption }) => {
   );
   const [notificationsMute, setNotificationsMute] = useState(false);
   const userId = useSelector(state => state.Cabinet.chat.userId);
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const deleteBtnType = () => {
     if (selectedContact?.isGroup) {
@@ -58,14 +59,13 @@ const MainPanel = ({ setAction, setOption }) => {
   const getAvatarSrc = () => {
     return (
       selectedContact?.icon?.[0] ||
-      `${imageSrc}assets/PrivateCabinet/${
-        selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
+      `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
       }.svg`
     );
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
         <div
           style={{ backgroundImage: `url(${getAvatarSrc()})` }}
@@ -138,10 +138,10 @@ const MainPanel = ({ setAction, setOption }) => {
                     selectedContact?.isGroup
                       ? { type: "addUsersToGroup" }
                       : {
-                          type: "addChat",
-                          chatsType: "groups",
-                          initialUser: selectedContact
-                        }
+                        type: "addChat",
+                        chatsType: "groups",
+                        initialUser: selectedContact
+                      }
                   )
                 }
               >

@@ -23,6 +23,7 @@ const ContactList = ({
   setMouseParams
 }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const createContactStatus = useCreateContactStatus();
   const id_company = useSelector(state => state.user.id_company);
   const contactList = useSelector(state =>
@@ -80,12 +81,12 @@ const ContactList = ({
     });
 
   return (
-    <div className={styles.listWrap}>
+    <div className={classNames({ [styles.listWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div
         className={classNames({
           [styles.item]: true,
           [styles.active]: false,
-          [styles.addContact]: true
+          [styles.addContact]: true,
         })}
         onClick={() => {
           setAction({

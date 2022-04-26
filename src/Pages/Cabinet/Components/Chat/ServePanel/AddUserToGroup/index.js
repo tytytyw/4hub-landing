@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 
 const AddUserToGroup = ({ group, nullifyAction }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const [search, setSearch] = useState("");
   const [loadingType, setLoadingType] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -65,8 +66,9 @@ const AddUserToGroup = ({ group, nullifyAction }) => {
       approve={__("Добавить")}
       childrenWidth={457}
       disableActionBtn={!selectedUsers?.length}
+      style={chatTheme.name === 'dark' ? { background: '#272727', color: '#fff' } : {}}
     >
-      <SearchField value={search} setValue={setSearch} />
+      <SearchField value={search} setValue={setSearch} style={chatTheme.name === 'dark' ? { background: '#292929', color: '#fff' } : {}} />
       <div className={styles.usersList}>
         {usersList.length ? (
           <UsersList

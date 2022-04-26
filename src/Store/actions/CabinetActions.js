@@ -66,7 +66,8 @@ import {
   GET_PREVIUS_MESSAGES,
   SET_MODALS,
   CHOOSE_CATEGORY,
-  NULLIFY_FILES
+  NULLIFY_FILES,
+  SET_CHAT_THEME
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
@@ -155,9 +156,9 @@ export const onChooseFiles = (
   const searched = search ? `&search=${search}` : "";
   const sortReverse =
     getState().Cabinet.fileCriterion.reverse &&
-    getState().Cabinet.fileCriterion?.reverse[
+      getState().Cabinet.fileCriterion?.reverse[
       getState().Cabinet.fileCriterion.sorting
-    ]
+      ]
       ? `&sort_reverse=1`
       : "";
   const cancelChooseFiles = CancelToken.source();
@@ -165,11 +166,9 @@ export const onChooseFiles = (
     ? "&is_uploaded=1"
     : "";
   window.cancellationTokens = { cancelChooseFiles };
-  const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${
-    getState().user.uid
-  }&dir=${allFiles ? "" : path}${searched}&page=${page}&per_page=${30}&sort=${
-    getState().Cabinet.fileCriterion.sorting
-  }${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
+  const url = `/ajax/${allFiles ?? "lsjson"}.php?uid=${getState().user.uid
+    }&dir=${allFiles ? "" : path}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting
+    }${sortReverse}${emoji}${sign}${color}${downloadedFiles}`;
   await api
     .get(url, {
       cancelToken: cancelChooseFiles.token
@@ -178,23 +177,23 @@ export const onChooseFiles = (
       if (loadedFilesType === "next") {
         page > 1
           ? dispatch({
-              type: LOAD_FILES_NEXT,
-              payload: { files: files.data }
-            })
+            type: LOAD_FILES_NEXT,
+            payload: { files: files.data }
+          })
           : dispatch({
-              type: CHOOSE_FILES_NEXT,
-              payload: { files: files.data, path }
-            });
+            type: CHOOSE_FILES_NEXT,
+            payload: { files: files.data, path }
+          });
       } else {
         page > 1
           ? dispatch({
-              type: LOAD_FILES,
-              payload: { files: files.data }
-            })
+            type: LOAD_FILES,
+            payload: { files: files.data }
+          })
           : dispatch({
-              type: CHOOSE_FILES,
-              payload: { files: files.data, path }
-            });
+            type: CHOOSE_FILES,
+            payload: { files: files.data, path }
+          });
       }
       if (typeof set === "function") set(files.data.length ?? files.data);
       if (setLoad) setLoad(false);
@@ -370,19 +369,17 @@ export const onGetSafeFileList = (
   const searched = search ? `&search=${search}` : "";
   const sortReverse =
     getState().Cabinet.fileCriterion.reverse &&
-    getState().Cabinet.fileCriterion?.reverse[
+      getState().Cabinet.fileCriterion?.reverse[
       getState().Cabinet.fileCriterion.sorting
-    ]
+      ]
       ? `&sort_reverse=1`
       : "";
   const cancelChooseFiles = CancelToken.source();
   window.cancellationTokens = { cancelChooseFiles };
 
-  const url = `/ajax/safe_file_list.php?uid=${
-    getState().user.uid
-  }&code=${code}&id_safe=${id_safe}${searched}&page=${page}&per_page=${30}&sort=${
-    getState().Cabinet.fileCriterion.sorting
-  }${sortReverse}${emoji}${sign}${color}`;
+  const url = `/ajax/safe_file_list.php?uid=${getState().user.uid
+    }&code=${code}&id_safe=${id_safe}${searched}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting
+    }${sortReverse}${emoji}${sign}${color}`;
 
   await api
     .get(url, {
@@ -393,13 +390,13 @@ export const onGetSafeFileList = (
         dispatch(onAuthorizedSafe(id_safe, code, password));
         page > 1
           ? dispatch({
-              type: LOAD_SAFE_FILELIST,
-              payload: { files: res.data.files }
-            })
+            type: LOAD_SAFE_FILELIST,
+            payload: { files: res.data.files }
+          })
           : dispatch({
-              type: CHOOSE_SAFE_FILELIST,
-              payload: { files: res.data.files }
-            });
+            type: CHOOSE_SAFE_FILELIST,
+            payload: { files: res.data.files }
+          });
       } else {
         setErrPass("code");
       }
@@ -607,8 +604,7 @@ export const onGetProjects = () => async (dispatch, getState) => {
 export const onGetProjectFolders = projectId => async (dispatch, getState) => {
   api
     .get(
-      `/ajax/project_folders_list.php?uid=${
-        getState().user.uid
+      `/ajax/project_folders_list.php?uid=${getState().user.uid
       }&id_project=${projectId}`
     )
     .then(res => {
@@ -635,9 +631,8 @@ export const onChooseProjectFiles = (folder, project, page) => async (
   dispatch,
   getState
 ) => {
-  const url = `ajax/project_file_list.php?uid=${
-    getState().user.uid
-  }&id_project=${project.id}&dir=${folder.name}`;
+  const url = `ajax/project_file_list.php?uid=${getState().user.uid
+    }&id_project=${project.id}&dir=${folder.name}`;
   api
     .get(url)
     .then(res => {
@@ -896,24 +891,21 @@ export const onGetArchiveFiles = (
     : "";
   const searched = search ? `&search=${search}` : "";
   const dateFiltered = dateFilter
-    ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : ""}${
-        dateFilter?.m ? `&m=${dateFilter?.m}` : ""
-      }${dateFilter?.y ? `&y=${dateFilter?.y}` : ""}`
+    ? `${dateFilter?.d ? `&d=${dateFilter?.d}` : ""}${dateFilter?.m ? `&m=${dateFilter?.m}` : ""
+    }${dateFilter?.y ? `&y=${dateFilter?.y}` : ""}`
     : "";
   const sortReverse =
     getState().Cabinet.fileCriterion.reverse &&
-    getState().Cabinet.fileCriterion?.reverse[
+      getState().Cabinet.fileCriterion?.reverse[
       getState().Cabinet.fileCriterion.sorting
-    ]
+      ]
       ? `&sort_reverse=1`
       : "";
   const cancelChooseFiles = CancelToken.source();
   window.cancellationTokens = { cancelChooseFiles };
-  const url = `/ajax/archive_list.php?uid=${
-    getState().user.uid
-  }${searched}${dateFiltered}&page=${page}&per_page=${30}&sort=${
-    getState().Cabinet.fileCriterion.sorting
-  }${sortReverse}${emoji}${sign}${color}`;
+  const url = `/ajax/archive_list.php?uid=${getState().user.uid
+    }${searched}${dateFiltered}&page=${page}&per_page=${30}&sort=${getState().Cabinet.fileCriterion.sorting
+    }${sortReverse}${emoji}${sign}${color}`;
   await api
     .get(url, {
       cancelToken: cancelChooseFiles.token
@@ -922,23 +914,23 @@ export const onGetArchiveFiles = (
       if (loadedFilesType === "next") {
         page > 1
           ? dispatch({
-              type: LOAD_FILES_NEXT,
-              payload: { files: files.data }
-            })
+            type: LOAD_FILES_NEXT,
+            payload: { files: files.data }
+          })
           : dispatch({
-              type: CHOOSE_FILES_NEXT,
-              payload: { files: files.data }
-            });
+            type: CHOOSE_FILES_NEXT,
+            payload: { files: files.data }
+          });
       } else {
         page > 1
           ? dispatch({
-              type: LOAD_FILES,
-              payload: { files: files.data }
-            })
+            type: LOAD_FILES,
+            payload: { files: files.data }
+          })
           : dispatch({
-              type: CHOOSE_FILES,
-              payload: { files: files.data }
-            });
+            type: CHOOSE_FILES,
+            payload: { files: files.data }
+          });
       }
       if (typeof set === "function") set(files.data.length ?? files.data);
       if (setLoad) setLoad(false);
@@ -1080,14 +1072,11 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (
 
   api
     .get(
-      `/ajax/chat${
-        isGroup || is_secret_chat ? "_group" : ""
-      }_message_get.php?uid=${uid}&is_group=1${
-        search ? `&search=${search}` : ""
-      }${
-        isGroup || is_secret_chat
-          ? `&id_group=${target.id}`
-          : `&id_user_to=${target.id_real_user}`
+      `/ajax/chat${isGroup || is_secret_chat ? "_group" : ""
+      }_message_get.php?uid=${uid}&is_group=1${search ? `&search=${search}` : ""
+      }${isGroup || is_secret_chat
+        ? `&id_group=${target.id}`
+        : `&id_user_to=${target.id_real_user}`
       }&page=${page || 1}&per_page=10`
     )
     .then(response => {
@@ -1096,13 +1085,13 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (
           const messages = response.data?.data ?? {};
           page > 1
             ? dispatch({
-                type: GET_PREVIUS_MESSAGES,
-                payload: messages
-              })
+              type: GET_PREVIUS_MESSAGES,
+              payload: messages
+            })
             : dispatch({
-                type: GET_MESSAGES,
-                payload: messages
-              });
+              type: GET_MESSAGES,
+              payload: messages
+            });
           if (typeof loadingMessages === "function") loadingMessages(messages);
         }
       }
@@ -1168,6 +1157,34 @@ export const onEditChatMessage = (editedData, messageInfo) => (
     payload: messages
   });
 };
+
+export const changeChatTheme = (theme) => async (dispatch) => {
+  dispatch({
+    type: SET_CHAT_THEME,
+    payload: theme
+  });
+}
+
+export const saveChatTheme = (themeName) => async (dispatch, getState) => {
+  const formData = new FormData();
+  formData.set("uid", getState().user.uid);
+  formData.set("chat_theme", themeName);
+
+  api
+    .post(`/ajax/user_edit2.php`, formData)
+    .then(res => {
+      if (!res.data.ok) throw new Error()
+    })
+    .catch(() =>
+      dispatch({
+        type: SET_MODALS,
+        payload: {
+          key: "topMessage",
+          value: { open: true, type: "error", message: "Error" }
+        }
+      })
+    );
+}
 
 // COMPANY
 export const onGetCompanyContacts = (setShowSuccessMessage, message) => async (

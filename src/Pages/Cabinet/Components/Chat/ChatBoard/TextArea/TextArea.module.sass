@@ -6,11 +6,12 @@
     width: 80%
     padding: 4px 30px 4px 20px
     position: relative
-    
+
     .messageImg
         width: 22px
         height: 22px
         padding: 2px 0
+        cursor: pointer
         path
             fill: #DCDCDC
     .messageImg.active
@@ -29,3 +30,11 @@
         max-height: 400px
         overflow-y: scroll
         overflow-x: hidden
+
+.textMessage.darkTheme
+    .messageImg
+        path
+            fill: #fff
+    .textInput
+        background: #323232
+        color: #fff

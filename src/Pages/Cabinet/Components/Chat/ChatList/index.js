@@ -26,6 +26,7 @@ const ChatList = ({
   currentDate
 }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const createContactStatus = useCreateContactStatus();
   const dispatch = useDispatch();
   const [chatsType, setChatsType] = useState("chats");
@@ -102,9 +103,9 @@ const ChatList = ({
           contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
           notificationsCounter={
             notificationsCounter[
-              chat.is_secret_chat
-                ? `group_${chat.id_group}`
-                : `chat_${chat.id_real_user}`
+            chat.is_secret_chat
+              ? `group_${chat.id_group}`
+              : `chat_${chat.id_real_user}`
             ]
           }
         />
@@ -131,7 +132,7 @@ const ChatList = ({
         return (
           <CustomChatItem
             selectedContact={selectedContact}
-            setSelectedContact={() => {}}
+            setSelectedContact={() => { }}
             sideMenuCollapsed={sideMenuCollapsed}
             chatItem={member}
             key={chatId + "_user_" + member.id}
@@ -180,8 +181,7 @@ const ChatList = ({
             }
             setCollapseMembersList={setCollapseMembersList}
             status={__(
-              `${group?.users?.length || 0} участников группы ( ${
-                group.users.filter(user => user?.is_online === 1).length
+              `${group?.users?.length || 0} участников группы ( ${group.users.filter(user => user?.is_online === 1).length
               } онлайн )`
             )}
             setMouseParams={setMouseParams}
@@ -222,7 +222,7 @@ const ChatList = ({
   }, [selectedContact]); //eslint-disable-line
 
   return (
-    <div className={styles.listWrap}>
+    <div className={classNames({ [styles.listWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <div
         className={classNames({
           [styles.item]: true,
@@ -233,9 +233,8 @@ const ChatList = ({
         onClick={() => {
           setAction({
             type: "addChat",
-            name: `${
-              chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
-            } `,
+            name: `${chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
+              } `,
             text: "",
             chatsType
           });
@@ -243,10 +242,9 @@ const ChatList = ({
         title={
           sideMenuCollapsed
             ? __(
-                `Создать ${
-                  chatsType === "chats" ? __("секретный") : __("групповой")
-                } чат`
-              )
+              `Создать ${chatsType === "chats" ? __("секретный") : __("групповой")
+              } чат`
+            )
             : ""
         }
       >
@@ -267,8 +265,7 @@ const ChatList = ({
         {!sideMenuCollapsed ? (
           <span className={styles.text}>
             {__(
-              `Создать ${
-                chatsType === "chats" ? __("секретный") : __("групповой")
+              `Создать ${chatsType === "chats" ? __("секретный") : __("групповой")
               } чат`
             )}
           </span>

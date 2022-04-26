@@ -3,7 +3,7 @@
     height: 100%
     font-family: "SF Pro Light", sans-serif
     font-size: 18px
-    color: #49494B
+    // color: #49494B
     position: relative
     .avatar
         width: 36px
@@ -15,6 +15,7 @@
         justify-content: space-between
         align-items: center
         border-bottom: 1px solid #DFDFDF
+        border-color: inherit
         padding: 0px 20px
         height: 68px
         .button
@@ -134,6 +135,41 @@
             height: 36px
             margin-right: 10px
             object-fit: cover
+
+.wrapper.darkTheme
+    .header
+        border-color: #4E4E4E
+    .main
+        .contactsList
+            scrollbar-color: #272727 #323232
+            &::-webkit-scrollbar-track
+                background: #272727
+            &::-webkit-scrollbar-track
+                background-color: #272727
+            &::-webkit-scrollbar
+                background-color: #323232
+            &::-webkit-scrollbar-thumb
+                background-color: #323232
+        .inputAreaWrap
+            border-color: #4E4E4E
+            .inputArea
+                background: #292929
+                .scrollContainer
+                    scrollbar-color: #272727 #323232
+                    &::-webkit-scrollbar-track
+                        background: #272727
+                    &::-webkit-scrollbar-track
+                        background-color: #272727
+                    &::-webkit-scrollbar
+                        background-color: #323232
+                    &::-webkit-scrollbar-thumb
+                        background-color: #323232
+                    .contact_wrap
+                        background: #4E4E4E
+                    .input
+                        background: #292929
+    .groupSettings
+        border-color: #4E4E4E
 
 @media (max-width: 1440px)
     .wrapper

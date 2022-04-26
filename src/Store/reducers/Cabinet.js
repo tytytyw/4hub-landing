@@ -68,7 +68,8 @@ import {
   CHAT_GROUP_DELETE,
   SET_MODALS,
   CHOOSE_CATEGORY,
-  NULLIFY_FILES
+  NULLIFY_FILES,
+  SET_CHAT_THEME
 } from "../types";
 
 const INITIAL_STATE = {
@@ -175,7 +176,16 @@ const INITIAL_STATE = {
     userId: null,
     messages: null,
     messageLifeTime: 3600,
-    insertEmodji: ""
+    insertEmodji: "",
+    theme: {
+      name: 'white',
+      background: '#fff',
+      textColor: '#49494B',
+      iconColor: '#B8B8B8',
+      inputBgColor: '#F7F7F7',
+      inputColor: '#AEAEAE',
+      accentColor: ''
+    }
   },
 
   //GLOBAL MODALS
@@ -373,14 +383,14 @@ export default function startPage(state = INITIAL_STATE, action) {
       };
     }
     case GET_MESSAGES: {
-      return {...state, chat: {...state.chat, messages: {today: [], ...action.payload}}}
+      return { ...state, chat: { ...state.chat, messages: { today: [], ...action.payload } } }
     }
     case GET_PREVIUS_MESSAGES: {
-      let messages = {...state.chat.messages}
-      for(let key in action.payload) {
+      let messages = { ...state.chat.messages }
+      for (let key in action.payload) {
         messages[key] = messages[key] ? [...messages[key].filter(oldMsg => !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)), ...action.payload[key]] : [...action.payload[key]];
       }
-      return {...state, chat: {...state.chat, messages: messages}}
+      return { ...state, chat: { ...state.chat, messages: messages } }
     }
     case MESSAGE_DELETE: {
       return { ...state, chat: { ...state.chat, messages: action.payload } };
@@ -448,6 +458,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         chat: { ...state.chat, insertEmodji: action.payload }
       };
     }
+    case SET_CHAT_THEME: { return { ...state, chat: { ...state.chat, theme: action.payload } } }
+
     //SORT FILES
     case SORT_FILES: {
       return {

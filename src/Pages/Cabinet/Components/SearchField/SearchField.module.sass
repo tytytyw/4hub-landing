@@ -5,13 +5,16 @@
   width: 365px
   height: 40px
   border: 1px solid #d0d0d0
+  border-color: inherit
   padding: 0 0 0 10px
+  background-color: inherit
   .select
     width: 155px
     box-shadow: none
     position: relative
+    background-color: inherit
     span
-      color: #606060
+      color: inherit
       opacity: 0.7
     div:first-child
       background: none
@@ -23,14 +26,20 @@
       justify-content: flex-start
       align-items: center
       padding-left: 10px
-  .select::before
+
+  .select::before,
+  .select::after
     content: ''
-    width: 1px
-    height: 70%
-    background: #DFDFDF
+    width: 4px
+    height: 20%
+    background: inherit
     position: absolute
-    top: 50%
-    transform: translateY(-50%)
+    left: -2px
+  .select::before
+    top: 0
+  .select::after
+    bottom: 0
+
   input
     border: none
     outline: none
@@ -38,6 +47,8 @@
     height: 90%
     margin: 0 21px 0 0
     box-sizing: border-box
+    background: transparent
+    color: inherit
   input::placeholder
     font-family: "SF Pro Light", sans-serif
     font-size: 10px
@@ -47,7 +58,6 @@
     cursor: pointer
     margin-right: 9px
 
-    
 @media (max-width: 1420px)
   .searchWrap
     width: 250px

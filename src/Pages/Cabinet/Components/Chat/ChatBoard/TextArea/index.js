@@ -15,6 +15,8 @@ const TextArea = ({
   editMessage
 }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+
   const textAreaRef = useRef();
   const [cursorPosition, setCursorPosition] = useState(0);
   const [textAreaValue, setTextAreaValue] = useState(initialTextValue);
@@ -100,7 +102,7 @@ const TextArea = ({
   }, [textAreaValue]);
 
   return (
-    <div className={styles.textMessage}>
+    <div className={classNames({ [styles.textMessage]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       <textarea
         ref={textAreaRef}
         type="text"

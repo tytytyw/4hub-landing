@@ -3,8 +3,8 @@ import {
 	onGetCompanyContacts,
 	onGetContacts,
 } from "../Store/actions/CabinetActions";
-import {useMonths} from "../generalComponents/CalendarHelper";
-import {useLocales} from "react-localized";
+import { useMonths } from "../generalComponents/CalendarHelper";
+import { useLocales } from "react-localized";
 
 export const contactDelete = (
 	contact,
@@ -17,8 +17,7 @@ export const contactDelete = (
 	const addOrgParams = () => (id_company ? `&id_company=${id_company}` : "");
 	api
 		.post(
-			`/ajax/${id_company ? "org_" : ""}contacts_del.php?uid=${uid}&id=${
-				contact.id
+			`/ajax/${id_company ? "org_" : ""}contacts_del.php?uid=${uid}&id=${contact.id
 			}${addOrgParams()}`
 		)
 		.then((res) => {
@@ -43,10 +42,10 @@ export const useCreateContactStatus = () => {
 	const { __ } = useLocales();
 	const months = useMonths();
 	return (isUser,
-			currentDate,
-			contactLastVisitDate,
-			isOnline,
-			gmt) => {
+		currentDate,
+		contactLastVisitDate,
+		isOnline,
+		gmt) => {
 		if (!isUser) return __("Пользователя нет в системе 4Hub");
 		if (!gmt || !contactLastVisitDate || !currentDate) return "";
 
@@ -87,9 +86,8 @@ export const useCreateContactStatus = () => {
 					return __(`вчера в ${lastVisitTime}`);
 				}
 			}
-			return __(`был в сети ${lastVisitWithGmt.getDate()} ${
-				months()[lastVisitWithGmt.getMonth()].declensionName
-			}`);
+			return __(`был в сети ${lastVisitWithGmt.getDate()} ${months()[lastVisitWithGmt.getMonth()].declensionName
+				}`);
 		}
 		//not this year
 		return __(`был в сети ${lastVisitDate}`);
@@ -122,8 +120,8 @@ export const wantMimeType = (constraints) => {
 			? "video/webm;codecs=vp8,opus"
 			: "video/mp4"
 		: MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-		? "audio/webm;codecs=opus"
-		: "audio/mp3";
+			? "audio/webm;codecs=opus"
+			: "audio/mp3";
 };
 
 export const cameraAccess = async (constraints = { audio: true, video: true }) => {
@@ -140,13 +138,16 @@ export const cameraAccess = async (constraints = { audio: true, video: true }) =
 };
 
 export const ducationTimerToString = (seconds) => (
-	`${
-		Math.floor(seconds / 60) < 10
-			? `0${Math.floor(seconds / 60)}`
-			: Math.floor(seconds / 60)
-	}:${
-		seconds % 60 < 10
-			? `0${Math.floor(seconds % 60)}`
-			: Math.floor(seconds % 60)
+	`${Math.floor(seconds / 60) < 10
+		? `0${Math.floor(seconds / 60)}`
+		: Math.floor(seconds / 60)
+	}:${seconds % 60 < 10
+		? `0${Math.floor(seconds % 60)}`
+		: Math.floor(seconds % 60)
 	}`
 )
+
+export const themes = [
+	{ name: 'white', background: '#fff', textColor: '#49494B', iconColor: '#B8B8B8', inputBgColor: '#F7F7F7', inputColor: '#AEAEAE', accentColor: '' },
+	{ name: 'dark', background: '#323232', textColor: '#fff', iconColor: '#fff', inputBgColor: '#292929', inputColor: '#fff', accentColor: '#272727' }
+]
