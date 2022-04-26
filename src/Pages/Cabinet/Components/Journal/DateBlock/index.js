@@ -4,6 +4,7 @@ import Select from "../../../../../generalComponents/Select/Select";
 import { useMonths, useGetYears, useGetDays } from "../../Archive/helper";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const DateBlock = ({ month, setMonth }) => {
   const { __ } = useLocales();
@@ -52,3 +53,8 @@ const DateBlock = ({ month, setMonth }) => {
 };
 
 export default DateBlock;
+
+DateBlock.propTypes = {
+  month: PropTypes.string,
+  setMonth: PropTypes.func
+};

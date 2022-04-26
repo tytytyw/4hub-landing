@@ -30,7 +30,7 @@
 # src/Pages/Cabinet/Components/CreateSafePassword
 # src/Pages/Cabinet/Components/Devices
 /src/Pages/Cabinet/Components/FileLoader
-/src/Pages/Cabinet/Components/Journal
+# src/Pages/Cabinet/Components/Journal
 /src/Pages/Cabinet/Components/List
 /src/Pages/Cabinet/Components/Modals
 /src/Pages/Cabinet/Components/MyFiles

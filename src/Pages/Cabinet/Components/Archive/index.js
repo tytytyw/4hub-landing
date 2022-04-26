@@ -23,7 +23,6 @@ import { useLocales } from "react-localized";
 
 const Archive = () => {
   const { __ } = useLocales();
-
   const workElementsView = useSelector(state => state.Cabinet.view);
 
   const [search, setSearch] = useState(null);
@@ -188,8 +187,7 @@ const Archive = () => {
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuFile.main, callbackArrMain)}
           </div>
@@ -205,8 +203,7 @@ const Archive = () => {
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}
-        >
+          approve={__("Удалить")}>
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>
