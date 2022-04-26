@@ -71,7 +71,6 @@ import {
 } from "../types";
 import { categories } from "../../Pages/Cabinet/Components/Programs/consts";
 import { MODALS, SHARED_FILES } from "../../generalComponents/globalVariables";
-import { themes } from "../../Pages/Cabinet/Components/SideMenu/themes";
 
 const CancelToken = axios.CancelToken;
 
@@ -1164,6 +1163,27 @@ export const changeChatTheme = (theme) => async (dispatch) => {
     type: SET_CHAT_THEME,
     payload: theme
   });
+}
+
+export const saveChatTheme = (themeName) => async (dispatch, getState) => {
+  const formData = new FormData();
+  formData.set("uid", getState().user.uid);
+  formData.set("chat_theme", themeName);
+
+  api
+    .post(`/ajax/user_edit2.php`, formData)
+    .then(res => {
+      if (!res.data.ok) throw new Error()
+    })
+    .catch(() =>
+      dispatch({
+        type: SET_MODALS,
+        payload: {
+          key: "topMessage",
+          value: { open: true, type: "error", message: "Error" }
+        }
+      })
+    );
 }
 
 // COMPANY

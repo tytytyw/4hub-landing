@@ -1,7 +1,8 @@
 import api from "../../api";
 import { LOG_DATA, UPDATE_SETTINGS, USER_INFO } from "../types";
-import { onSetModals } from "./CabinetActions";
+import { onSetModals, changeChatTheme } from "./CabinetActions";
 import { MODALS } from "../../generalComponents/globalVariables";
+import { themes } from '../../generalComponents/chatHelper'
 import { setStorageItem } from "../../generalComponents/StorageHelper";
 
 export const onLog = data => {
@@ -22,6 +23,10 @@ export const onGetUserInfo = () => (dispatch, getState) => {
         type: USER_INFO,
         payload: res.data
       });
+      if (res.data?.chat_theme) {
+        const chatTheme = themes.find(theme => theme.name === res.data?.chat_theme)
+        dispatch(changeChatTheme(chatTheme))
+      }
     })
     .catch(err => console.log(err));
 };

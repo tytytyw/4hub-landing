@@ -5,15 +5,12 @@ import { useLocales } from "react-localized";
 import { ReactComponent as Arrow } from "../../../../../assets/PrivateCabinet/icons/arrow-2.svg";
 import classNames from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
-import { changeChatTheme } from '../../../../../Store/actions/CabinetActions'
+import { changeChatTheme, saveChatTheme } from '../../../../../Store/actions/CabinetActions'
+import { themes } from '../../../../../generalComponents/chatHelper'
 
 const Settings = ({ close }) => {
     const { __ } = useLocales();
     const activeTheme = useSelector(state => state.Cabinet.chat.theme)
-    const themes = [
-        { name: 'white', background: '#fff', title: __('Белый'), textColor: '#49494B', iconColor: '#B8B8B8', inputBgColor: '#F7F7F7', inputColor: '#AEAEAE', accentColor: '' },
-        { name: 'dark', background: '#323232', title: __('Темный'), textColor: '#fff', iconColor: '#fff', inputBgColor: '#292929', inputColor: '#fff', accentColor: '#272727' }
-    ];
     const initialTheme = useRef({ intialTheme: null, saved: false })
     const dispatch = useDispatch()
 
@@ -22,7 +19,11 @@ const Settings = ({ close }) => {
         themeHandler(initialTheme.current.theme);
         close()
     }
-    const saveSettings = () => initialTheme.current.saved = true
+    const saveSettings = () => {
+        initialTheme.current.saved = true
+        dispatch(saveChatTheme(activeTheme.name))
+        close()
+    }
     const renderColorName = (name) => {
         switch (name) {
             case 'white': return __('Белый')
