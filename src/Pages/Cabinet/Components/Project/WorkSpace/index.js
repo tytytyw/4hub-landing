@@ -75,8 +75,7 @@ const WorkSpace = ({
         [styles.collapsed]: listCollapsed,
         [styles.notCollapsed]: !listCollapsed
       })}
-      ref={containerRef}
-    >
+      ref={containerRef}>
       <div className={styles.header}>
         <SearchField />
         <div className={styles.infoHeader}>
@@ -110,8 +109,7 @@ const WorkSpace = ({
         <WorkLinesPreview
           recentFiles={recentFiles}
           chosenFile={chosenFile}
-          fileCollapsed={fileCollapsed}
-        >
+          fileCollapsed={fileCollapsed}>
           <div className={styles.fileListHeader}>
             <span>{fileCollapsed ? __("Файлы") : __("Файлы проекта")}</span>
             <img
@@ -133,8 +131,7 @@ const WorkSpace = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}

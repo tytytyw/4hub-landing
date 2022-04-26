@@ -122,7 +122,6 @@ const Journal = () => {
 
   useEffect(() => {
     dispatch(onGetJournalFolders());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderMenuItems = (target, type) => {
@@ -214,8 +213,7 @@ const Journal = () => {
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuFile.main)}
           </div>
@@ -231,8 +229,7 @@ const Journal = () => {
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}
-        >
+          approve={__("Удалить")}>
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>

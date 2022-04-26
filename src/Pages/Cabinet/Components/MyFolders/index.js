@@ -34,6 +34,7 @@ import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMess
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const MyFolders = ({
   setItem,
@@ -455,3 +456,30 @@ const MyFolders = ({
 };
 
 export default MyFolders;
+
+MyFolders.propTypes = {
+  setItem: PropTypes.func,
+  menuItem: PropTypes.string,
+  setMenuItem: PropTypes.func,
+  filePreview: PropTypes.shape({
+    view: PropTypes.bool,
+    file: PropTypes.any,
+    create: PropTypes.bool
+  }),
+  setFilePreview: PropTypes.func,
+  fileSelect: PropTypes.func,
+  fileAddCustomization: PropTypes.object,
+  setFileAddCustomization: PropTypes.func,
+  setAwaitingFiles: PropTypes.func,
+  awaitingFiles: PropTypes.array,
+  loaded: PropTypes.array,
+  setLoaded: PropTypes.func,
+  loadingFile: PropTypes.array,
+  fileErrors: PropTypes.array,
+  setLoadingFile: PropTypes.func,
+  nullifyAddingSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func
+};
