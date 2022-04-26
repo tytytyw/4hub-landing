@@ -2,10 +2,11 @@ import classNames from "classnames";
 import React from "react";
 import styles from "./Button.module.sass";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const Button = ({
   children,
-  clickCallback = () => {},
+  clickCallback = () => { },
   mouseDownCallback,
   isRecording,
   width = 0,
@@ -17,6 +18,9 @@ const Button = ({
   hoverEffect = false,
   active
 }) => {
+
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+
   return (
     <div
       onMouseUp={clickCallback ? clickCallback : null}
@@ -25,7 +29,8 @@ const Button = ({
         [styles.wrapper]: true,
         [styles.recording]: mouseDownCallback && isRecording,
         [styles.hoverEffect]: hoverEffect,
-        [styles.active]: active
+        [styles.active]: active,
+        [styles.darkTheme]: chatTheme.name === 'dark'
       })}
       style={{
         width,
@@ -47,7 +52,7 @@ const Button = ({
 export default Button;
 
 Button.defautProps = {
-  clickCallback: () => {},
+  clickCallback: () => { },
   width: 0,
   height: 0,
   borderRadius: "2px",

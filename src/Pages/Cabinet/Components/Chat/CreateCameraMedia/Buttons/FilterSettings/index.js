@@ -3,9 +3,11 @@ import styles from "./FilterSettings.module.sass";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   const { __ } = useLocales();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const [options, setOptions] = useState([
     {
       name: __("Яркость"),
@@ -126,7 +128,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       </div>
     ));
 
-  return <div className={styles.wrapper}>{renderOptions()}</div>;
+  return <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>{renderOptions()}</div>;
 };
 
 export default FilterSettings;
