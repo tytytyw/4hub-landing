@@ -36,14 +36,14 @@
 /src/Pages/Cabinet/Components/MyFiles
 # src/Pages/Cabinet/Components/MyFolders
 /src/Pages/Cabinet/Components/MyProfile
-/src/Pages/Cabinet/Components/Notifications
+# src/Pages/Cabinet/Components/Notifications
 # src/Pages/Cabinet/Components/Profile
 # src/Pages/Cabinet/Components/Programs
 # src/Pages/Cabinet/Components/Project
 # src/Pages/Cabinet/Components/RecentFiles
 /src/Pages/Cabinet/Components/Safe
 /src/Pages/Cabinet/Components/SearchField
-/src/Pages/Cabinet/Components/ServePanel
+# src/Pages/Cabinet/Components/ServePanel
 # src/Pages/Cabinet/Components/SharedFiles
 # src/Pages/Cabinet/Components/SideMenu
 # src/Pages/Cabinet/Components/StorageSize
