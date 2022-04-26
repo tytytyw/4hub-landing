@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./DeleteMessage.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
@@ -8,45 +8,17 @@ import PropTypes from "prop-types";
 
 const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
 	const { __ } = useLocales();
-	const uid = useSelector((state) => state.user.uid);
 	const text = message?.text?.split("\n").slice(0, 5) ?? [];
-	const dispatch = useDispatch();
+	const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
 	const onAproveBtnHandler = () => {
 		nullifyAction();
 		deleteMessage(message)
-		// api
-		// 	.get(
-		// 		`/ajax/chat${
-		// 			message.id_group ? "_group" : ""
-		// 		}_message_del.php?uid=${uid}&id_message=${message.id}${
-		// 			message.id_group ? `&id_group=${message.id_group}` : ""
-		// 		}`
-		// 	)
-		// 	.then((res) => {
-		// 		if (res.data.ok) {
-		// 			dispatch(onDeleteChatMessage(message));
-		// 			dispatch(
-		// 				onSetModals("topMessage", {
-		// 					open: true,
-		// 					type: "message",
-		// 					message: __("Сообщение удалено"),
-		// 				})
-		// 			);
-		// 		} else {
-		// 			dispatch(
-		// 				onSetModals("error", {
-		// 					open: true,
-		// 					message: __("Что-то пошло не так, повторите попытку позже"),
-		// 				})
-		// 			);
-		// 		}
-		// 	});
 	};
 
 	return (
-		<PopUp set={set}>
-			<div className={styles.wrap}>
+		<PopUp set={set} background={chatTheme.name === 'dark' ? '#292929' : ''}>
+			<div className={classNames({ [styles.wrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
 				<div className={styles.cross} onClick={set} />
 				<span className={styles.title}>Удалить сообщение</span>
 				<div className={styles.subTitle}>
