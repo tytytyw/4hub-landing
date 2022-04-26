@@ -155,6 +155,7 @@ const Buttons = ({
           canvasWrapRef={contentWrapperRef}
           toolBarType="toolsOnly"
           images={imagePreview}
+          buttonsStyle={{ boxShadow: '0 0 0 1px #4E4E4E' }}
         />
       );
     if (state === "init")
