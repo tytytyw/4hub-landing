@@ -9,19 +9,18 @@ const Input = ({
   type,
   disabled,
   className,
-  showEye = true,
-  isMistake = false,
-  showPass = false,
+  showEye,
+  isMistake,
+  showPass,
   phone,
   isName,
-  setShowPass = () => {},
-  onChange = () => {},
-  onKeyPress = () => {},
+  setShowPass,
+  onChange,
+  onKeyPress,
   ...props
 }) => {
   const inputType = type ?? "text";
   const htmlFor = `${inputType}-${Math.random()}`;
-
   const getType = () => {
     switch (type) {
       case "password":

@@ -19,6 +19,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const WorkSpace = ({
   chosenFile,
@@ -33,7 +34,7 @@ const WorkSpace = ({
   setFilePreview,
   filePreview,
   fileSelect,
-  fileLoading,
+  // fileLoading,
   filePick,
   setFilePick,
   chosenFolder,
@@ -158,7 +159,7 @@ const WorkSpace = ({
           setFilePick={setFilePick}
           callbackArrMain={callbackArrMain}
           chosenFile={chosenFile}
-          fileLoading={fileLoading}
+          // fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           chosenFolder={chosenFolder}
@@ -190,3 +191,37 @@ const WorkSpace = ({
 };
 
 export default WorkSpace;
+
+WorkSpace.propTypes = {
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  listCollapsed: PropTypes.bool,
+  setItem: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  action: PropTypes.shape({
+    type: PropTypes.string,
+    name: PropTypes.string,
+    text: PropTypes.string
+  }),
+  setAction: PropTypes.func,
+  nullifyFilePick: PropTypes.func,
+  callbackArrMain: PropTypes.array,
+  setFilePreview: PropTypes.func,
+  filePreview: PropTypes.object,
+  fileSelect: PropTypes.func,
+  // fileLoading: Profile.any,
+  filePick: PropTypes.shape({
+    show: PropTypes.bool,
+    files: PropTypes.array,
+    intoZip: PropTypes.bool
+  }),
+  setFilePick: PropTypes.func,
+  chosenFolder: PropTypes.object,
+  fileAddCustomization: PropTypes.object,
+  setFileAddCustomization: PropTypes.func,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  gLoader: PropTypes.bool,
+  setGLoader: PropTypes.func,
+  menuItem: PropTypes.string
+};

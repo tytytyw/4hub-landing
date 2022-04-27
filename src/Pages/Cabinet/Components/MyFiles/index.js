@@ -17,6 +17,7 @@ import FilesGroup from "../WorkElements/FilesGroup/FilesGroup";
 import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const MyFiles = ({
   filePreview,
@@ -160,7 +161,7 @@ const MyFiles = ({
     threshold: 0
   };
 
-  const loadё = entry => {
+  const load = entry => {
     if (!gLoader) {
       if (
         entry.isIntersecting &&
@@ -231,8 +232,9 @@ const MyFiles = ({
                 : renderGroups(FileItem, fileList?.files)}
               {!gLoader ? (
                 <div
-                  className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""
-                    }`}
+                  className={`${styles.bottomLine} ${
+                    filesPage === 0 ? styles.bottomLineHidden : ""
+                  }`}
                   style={{ height: "100px" }}
                   ref={scrollRef}>
                   <Loader
@@ -335,3 +337,34 @@ const MyFiles = ({
 };
 
 export default MyFiles;
+MyFiles.propTypes = {
+  filePreview: PropTypes.shape({
+    view: PropTypes.bool,
+    file: PropTypes.any,
+    create: PropTypes.bool
+  }),
+  setFilePreview: PropTypes.func,
+  setFileAddCustomization: PropTypes.func,
+  fileSelect: PropTypes.func,
+  fileAddCustomization: PropTypes.shape({
+    show: PropTypes.bool,
+    file: PropTypes.object,
+    several: PropTypes.bool,
+    files: PropTypes.array,
+    create: PropTypes.bool
+  }),
+  menuItem: PropTypes.string,
+  setMenuItem: PropTypes.func,
+  nullifyAddingSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  awaitingFiles: PropTypes.array,
+  setAwaitingFiles: PropTypes.func,
+  loaded: PropTypes.array,
+  setLoaded: PropTypes.func,
+  loadingFile: PropTypes.array,
+  fileErrors: PropTypes.array,
+  setLoadingFile: PropTypes.func
+};
