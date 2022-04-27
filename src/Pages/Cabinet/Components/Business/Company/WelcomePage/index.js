@@ -1,21 +1,9 @@
-import React, {useState} from 'react'
+import React from "react";
 
-import styles from './WelcomePage.module.sass'
-import WelcomeCard from './WelcomeCard'
-import GiveAccess from './GiveAccess'
-import SuccessSend from "./SuccessSend";
+import styles from "./WelcomePage.module.sass";
 
 const WelcomePage = () => {
+  return <div className={styles.parentWrapper}></div>;
+};
 
-
-
-    return (
-        <div className={styles.parentWrapper}>
-
-
-
-        </div>
-    )
-}
-
-export default WelcomePage
+export default WelcomePage;

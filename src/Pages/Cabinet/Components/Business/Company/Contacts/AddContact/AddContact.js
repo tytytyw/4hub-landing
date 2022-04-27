@@ -9,6 +9,8 @@ import ProfileUpload from "../../../../MyProfile/UserForm/ProfileUpload";
 import api from "../../../../../../../api";
 import { onGetCompanyContacts } from "../../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { businessSelectedItem } from "../../../../../../../types/Business/SelectedItem";
 
 const AddContact = ({
   nullifyAction,
@@ -113,7 +115,8 @@ const AddContact = ({
   };
 
   const onSubmit = () => {
-    if (!!userData.name) {
+    let isUserData = !!userData.name;
+    if (isUserData) {
       setLoadingType("squarify");
       const createSocialPatams = social => {
         let socials = [];
@@ -261,3 +264,11 @@ const AddContact = ({
 };
 
 export default AddContact;
+
+AddContact.propTypes = {
+  nullifyAction: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func,
+  selectedItem: businessSelectedItem,
+  type: PropTypes.string
+};

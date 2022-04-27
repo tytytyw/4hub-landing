@@ -1,34 +1,32 @@
-import classNames from 'classnames'
-import React, { useState } from 'react'
+import classNames from "classnames";
+import React, { useState } from "react";
 
-import styles from './AccessRadio.module.sass'
+import styles from "./AccessRadio.module.sass";
+import PropTypes from "prop-types";
 
-const AccessRadio = ({data = [], name, onChange}) => {
-  const [value, setValue] = useState('')
+const AccessRadio = ({ data = [], name, onChange }) => {
+  const [value, setValue] = useState("");
 
   const handleCheck = item => {
-    setValue(item.value)
-    onChange(item.value)
-  }
+    setValue(item.value);
+    onChange(item.value);
+  };
 
   return (
     <>
-      
       {data.map((item, index) => {
-
-        const id = `${name}_${index}`
+        const id = `${name}_${index}`;
 
         return (
-          <div 
+          <div
             key={item.value}
             className={classNames({
               [styles.radio]: true,
               [styles.checked]: value === item.value
-            })}
-          >
-            <input 
+            })}>
+            <input
               id={id}
-              type="radio" 
+              type="radio"
               name={name}
               onChange={() => handleCheck(item)}
             />
@@ -37,11 +35,19 @@ const AccessRadio = ({data = [], name, onChange}) => {
               <span>{item.info}</span>
             </label>
           </div>
-        )
+        );
       })}
-
     </>
-  )
-}
+  );
+};
 
-export default AccessRadio
+export default AccessRadio;
+
+AccessRadio.propTypes = {
+  name: PropTypes.string,
+  data: PropTypes.array,
+  onChange: PropTypes.func
+};
+AccessRadio.defaultProps = {
+  data: []
+};
