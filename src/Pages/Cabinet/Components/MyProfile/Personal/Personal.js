@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import styles from "./Personal.module.sass";
 import { ReactComponent as BellIcon } from "../../../../../assets/PrivateCabinet/bell.svg";
@@ -59,8 +59,7 @@ const Personal = () => {
                   className={styles.switcher}
                   onClick={() =>
                     setParams(s => ({ ...params, notify: !s?.notify }))
-                  }
-                >
+                  }>
                   <div
                     className={classNames({
                       [styles.switch]: true,
@@ -78,8 +77,7 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("blue");
-                  }}
-                >
+                  }}>
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -103,8 +101,7 @@ const Personal = () => {
                   <button
                     type="button"
                     style={{ background: "#4086F1" }}
-                    className={styles.button}
-                  >
+                    className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -113,8 +110,7 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("orange");
-                  }}
-                >
+                  }}>
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -138,8 +134,7 @@ const Personal = () => {
                   <button
                     type="button"
                     style={{ background: "#F58338" }}
-                    className={styles.button}
-                  >
+                    className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -148,8 +143,7 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("turquoise");
-                  }}
-                >
+                  }}>
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -173,8 +167,7 @@ const Personal = () => {
                   <button
                     type="button"
                     style={{ background: "#10AADC" }}
-                    className={styles.button}
-                  >
+                    className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -202,8 +195,7 @@ const Personal = () => {
                     lang: currentParams?.lang,
                     notify: currentParams?.notify
                   });
-                }}
-              >
+                }}>
                 {__("Отмена")}
               </Button>
               <Button
@@ -211,8 +203,7 @@ const Personal = () => {
                 className={classNames({
                   [styles.submitBtn]: !disabledButton,
                   [styles.cancelBtn]: disabledButton
-                })}
-              >
+                })}>
                 {__("Сохранить")}
               </Button>
             </div>

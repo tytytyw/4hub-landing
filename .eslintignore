@@ -35,7 +35,7 @@
 /src/Pages/Cabinet/Components/Modals
 /src/Pages/Cabinet/Components/MyFiles
 # src/Pages/Cabinet/Components/MyFolders
-/src/Pages/Cabinet/Components/MyProfile
+# src/Pages/Cabinet/Components/MyProfile
 # src/Pages/Cabinet/Components/Notifications
 # src/Pages/Cabinet/Components/Profile
 # src/Pages/Cabinet/Components/Programs

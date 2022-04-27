@@ -72,7 +72,6 @@ const AddMember = ({ set, selectedItem }) => {
   };
 
   //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
-
   const onSubmit = event => {
     event.preventDefault();
   };
@@ -154,8 +153,7 @@ const AddMember = ({ set, selectedItem }) => {
               className={classNames({
                 [styles.socialsItem]: true,
                 [styles.active]: selectedSoc === "email"
-              })}
-            >
+              })}>
               <img
                 className={styles.socialIcon}
                 src={`${imageSrc}/assets/PrivateCabinet/email.svg`}
@@ -170,8 +168,7 @@ const AddMember = ({ set, selectedItem }) => {
                   [styles.socialsItem]: true,
                   [styles.active]: selectedSoc === item?.type
                 })}
-                key={index}
-              >
+                key={index}>
                 <img
                   className={styles.socialIcon}
                   src={messengersIcons[item?.type]}

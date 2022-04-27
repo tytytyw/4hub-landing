@@ -1,41 +1,47 @@
-import React, {useEffect, useState} from 'react'
-import styles from './Contacts.module.sass'
+import React, { useEffect, useState } from "react";
+import styles from "./Contacts.module.sass";
 
-import ContactList from './ContactList/ContactList'
-import ContactsData from './ContactsData/ContactsData'
+import ContactList from "./ContactList/ContactList";
+import ContactsData from "./ContactsData/ContactsData";
+import PropTypes from "prop-types";
 
+const ContactsAll = ({ data }) => {
+  const [selectedContact, setSelectedContact] = useState(data?.[0]);
 
-const ContactsAll = ({data = []}) => {
+  useEffect(() => {
+    const newSelectedContact = data?.find(
+      contact => contact?.id === selectedContact?.id
+    );
+    newSelectedContact && setSelectedContact(newSelectedContact);
+  }, [data]);
 
-    const [selectedContact, setSelectedContact] = useState(data?.[0])
+  return (
+    <>
+      <div className={styles.contactList}>
+        <ContactList
+          data={data}
+          selectedItem={selectedContact}
+          setSelectedItem={setSelectedContact}
+        />
+      </div>
 
-    useEffect(() => {
-        const newSelectedContact = data?.find(contact => contact?.id === selectedContact?.id)
-        newSelectedContact && setSelectedContact(newSelectedContact)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data])
+      <div className={styles.contactData}>
+        <ContactsData
+          data={data}
+          selectedItem={selectedContact}
+          setSelectedItem={setSelectedContact}
+        />
+      </div>
+    </>
+  );
+};
 
-    return (
-        <>
-            <div className={styles.contactList}>
-                <ContactList
-                    data={data}
-                    selectedItem={selectedContact}
-                    setSelectedItem={setSelectedContact}
-                />
-            </div>
+export default ContactsAll;
 
-            <div className={styles.contactData}>
-                <ContactsData
-                    data={data}
-                    selectedItem={selectedContact}
-                    setSelectedItem={setSelectedContact}
-                />
-            </div>
-        </>
-    )
+ContactsAll.propTypes = {
+  data: PropTypes.array
+};
 
-}
-
-
-export default ContactsAll
+ContactsAll.defaultProps = {
+  data: []
+};
