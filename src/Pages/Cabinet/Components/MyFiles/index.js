@@ -160,7 +160,7 @@ const MyFiles = ({
     threshold: 0
   };
 
-  const load = entry => {
+  const loadё = entry => {
     if (!gLoader) {
       if (
         entry.isIntersecting &&

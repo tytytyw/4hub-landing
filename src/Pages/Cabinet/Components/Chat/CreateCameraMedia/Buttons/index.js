@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import TextButton from "../../../../../../generalComponents/TextButton";
 import Button from "./Button";
 import styles from "./Buttons.module.sass";
@@ -10,7 +11,8 @@ import { ReactComponent as RotateIcon } from "../../../../../../assets/PrivateCa
 import { ReactComponent as MirrorIcon } from "../../../../../../assets/PrivateCabinet/chat/mirror.svg";
 import { ReactComponent as SettingsIcon } from "../../../../../../assets/PrivateCabinet/chat/settings.svg";
 import { ReactComponent as CropIcon } from "../../../../../../assets/PrivateCabinet/chat/crop.svg";
-import { ReactComponent as CheckIcon } from "../../../../../../assets/PrivateCabinet//check-mark.svg";
+import { ReactComponent as CheckIcon } from "../../../../../../assets/PrivateCabinet/check-mark.svg";
+import { ReactComponent as BackIcon } from "../../../../../../assets/PrivateCabinet/arrow-2.svg";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import FilterSettings from "./FilterSettings";
@@ -56,6 +58,7 @@ const Buttons = ({
   const [activeOption, setActiveOption] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const onAddСaptionClick = () => {
     takePicture(videoPreviewRef.current);
@@ -126,10 +129,10 @@ const Buttons = ({
       ? activeOption === "transformOptions"
         ? cancelImageChanges(() => setActiveOption(null))
         : drawImage
-        ? cancelImageChanges(() => {
+          ? cancelImageChanges(() => {
             setActiveOption(null), setDrawImage(false);
           })
-        : setActiveOption(null)
+          : setActiveOption(null)
       : setInitialState();
 
   const renderCentralBtns = () => {
@@ -152,6 +155,7 @@ const Buttons = ({
           canvasWrapRef={contentWrapperRef}
           toolBarType="toolsOnly"
           images={imagePreview}
+          buttonsStyle={{ boxShadow: '0 0 0 1px #4E4E4E' }}
         />
       );
     if (state === "init")
@@ -163,7 +167,9 @@ const Buttons = ({
           width={48}
           height={48}
           borderRadius="50%"
-          childrenColor="white"
+          childrenColor={'white'}
+          backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#D8D8D8'}
+          boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
         >
           {contentType === "video" && <CameraIcon />}
           {contentType === "image" && <VideoIcon />}
@@ -185,9 +191,9 @@ const Buttons = ({
             width={54}
             height={34}
             borderRadius="2px"
-            childrenColor="black"
-            backgroundColor="#fff"
-            boxShadow="0px 2px 4px #DEDEDE"
+            childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
+            backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
+            boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : "0px 2px 4px #DEDEDE"}
             hoverEffect={
               activeButton === "crop" ? activeButton === btn.name : true
             }
@@ -208,7 +214,13 @@ const Buttons = ({
           text={__("Отмена")}
           type="cancel"
           callback={nullifyAction}
-          style={{ width: 116, height: 34 }}
+          style={{
+            width: 116,
+            height: 34,
+            backgroundColor: chatTheme.name === 'dark' ? '#272727' : '',
+            borderColor: chatTheme.name === 'dark' ? '#4E4E4E' : '',
+            color: chatTheme.name === 'dark' ? '#fff' : ''
+          }}
         />
       );
     if (activeOption === "addText")
@@ -286,7 +298,7 @@ const Buttons = ({
   }, [openCropImage, activeButton]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
       {activeOption === "addText" && (
         <div className={classNames(styles.optionsWrapper, styles.textWrapper)}>
           <TextArea
@@ -313,14 +325,11 @@ const Buttons = ({
               width={38}
               height={38}
               borderRadius="50%"
-              childrenColor="white"
-              backgroundColor="#EDEDED"
+              childrenColor={chatTheme.name === 'dark' ? "white" : 'black'}
+              boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ""}
+              backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#EDEDED'}
             >
-              <img
-                alt="back"
-                style={{ transform: "translateX(-1px)" }}
-                src={imageSrc + "assets/PrivateCabinet/arrow-2.svg"}
-              />
+              <BackIcon />
             </Button>
           )}
         </div>
@@ -337,7 +346,9 @@ const Buttons = ({
                 width={48}
                 height={48}
                 borderRadius="50%"
-                backgroundColor="#fff"
+                backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
+                childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
+                boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
                 isRecording={isRecording}
               >
                 {contentType === "image" && <CameraIcon />}

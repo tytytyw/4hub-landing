@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import CropImage from "../CropImage";
 import DrawZone from "../../Modals/Components/MutualEdit/DrawZone/DrawZone";
+import classNames from "classnames";
 
 const CreateCameraMedia = ({
   nullifyAction,
@@ -55,7 +56,7 @@ const CreateCameraMedia = ({
     to: { percent: 100, time: null }
   });
   const uid = useSelector(state => state.user.uid);
-
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
   const streamPreviewRef = useRef();
   const videoPreviewRef = useRef();
   const canvasRef = useRef();
@@ -174,7 +175,6 @@ const CreateCameraMedia = ({
   };
 
   const onRotateClick = () => {
-    console.log(imageRef.current);
     if (!openCropImage && !imageAspectRatio) {
       setVisualEffects(prevEffects => ({
         ...prevEffects,
@@ -341,8 +341,8 @@ const CreateCameraMedia = ({
       containerType="bounceDots"
     />
   ) : (
-    <PopUp set={nullifyAction}>
-      <div className={styles.contentWrapper}>
+    <PopUp set={nullifyAction} background={chatTheme.name === 'dark' ? '#292929' : ''}>
+      <div className={classNames({ [styles.contentWrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
         <div className={styles.contentPreview}>
           <div className={styles.videoWrapper} ref={contentWrapperRef}>
             {drawImage && imageDrawSrc ? (
@@ -351,7 +351,7 @@ const CreateCameraMedia = ({
                 mainRef={contentWrapperRef}
                 images={imageDrawSrc}
                 params={{ isLoading: false }}
-                setParams={() => {}}
+                setParams={() => { }}
                 mainWidth="auto"
               />
             ) : videoPreview ? (
