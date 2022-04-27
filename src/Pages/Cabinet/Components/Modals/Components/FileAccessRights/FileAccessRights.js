@@ -139,6 +139,10 @@ function FileAccessRights() {
           </div>
         </div>
         <FileAccessUserList users={users} />
+        <div className={styles.buttons}>
+          <div className={`${styles.cancel}`}>{__("Отмена")}</div>
+          <div className={`${styles.add}`}>{__("Сохранить")}</div>
+        </div>
       </div>
       <input ref={linkRef} type="text" style={{ display: "none" }} />
     </PopUp>
