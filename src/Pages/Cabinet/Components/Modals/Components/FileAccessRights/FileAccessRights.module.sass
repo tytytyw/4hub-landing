@@ -2,3 +2,96 @@
   display: flex
   width: 660px
   height: 505px
+  flex-direction: column
+  align-items: center
+  font-family: "SF Pro Regular", sans-serif
+  position: relative
+  .cross
+    position: absolute
+    top: 20px
+    right: 11px
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(45deg)
+    cursor: pointer
+  .cross:before
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    width: 18px
+    height: 2px
+    background: #a7a4a4
+    transform: rotate(90deg)
+  header
+    display: flex
+    width: 95%
+    flex-direction: column
+    .header
+      display: flex
+      padding: 10px 20px
+      align-items: center
+      &:hover .circle
+        background: rgb(64, 134, 241)
+      &:hover .copyIcon path:first-child
+        fill: #FFF
+      &:hover .copyIcon path:nth-child(2),
+      &:hover .copyIcon path:last-child
+        fill: #4086F1
+      .copyIcon path:nth-child(2)
+        fill: rgb(235, 247, 232)
+      .copyIcon path:last-child
+        fill: rgb(235, 247, 232)
+      .copyIcon path:first-child
+        fill: #A4A4A4
+      .circle
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+        background: rgb(235, 247, 232)
+        width: 50px
+        height: 50px
+        margin: 0 15px 0 0
+      .details
+        display: flex
+        flex-direction: column
+        .title
+          font-family: "SF Pro Regular", sans-serif
+          color: rgb(41, 53, 63)
+          font-size: 15px
+          margin-bottom: 4px
+        .description
+          font-family: "SF Pro Regular", sans-serif
+          color: rgb(129, 129, 129)
+          font-size: 11px
+    .copyLink
+      display: flex
+      justify-content: space-between
+      padding: 0 20px 10px 20px
+
+      .link
+        min-width: 60%
+        width: max-content
+        max-width: 70%
+        background: rgb(235, 247, 232)
+        padding: 5px 10px
+        box-sizing: border-box
+        border-radius: 20px
+        font-size: 13px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        line-height: 20px
+      .copy
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 141px
+        height: 30px
+        background: rgb(64, 134, 241)
+        color: white
+        font-size: 11px
+        border-radius: 20px
+        cursor: pointer
