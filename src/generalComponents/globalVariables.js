@@ -43,3 +43,9 @@ export const TOP_MESSAGE_TYPE = {
 export const FILE_ACCESS_RIGHTS = {
   API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php"
 };
+
+export const SHARED_ACCESS_RIGHTS = {
+  WATCH: "0",
+  EDIT: "1",
+  DOWNLOAD: "2"
+};

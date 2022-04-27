@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./SharedFilesInfo.module.sass";
 import {
   MODALS,
+  SHARED_ACCESS_RIGHTS,
   SHARED_FILES
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -11,15 +12,7 @@ import { diffDays } from "@fullcalendar/react";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
-
-const useAccessRightsConst = () => {
-  const { __ } = useLocales();
-  return {
-    WATCH: __("Просмотр"),
-    DOWNLOAD: __("Скачивание"),
-    EDIT: __("Редактировать")
-  };
-};
+import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
 
 const CONTEXT = {
   EMPTY: "",
@@ -31,7 +24,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
   const ACCESS_RIGHTS = useAccessRightsConst();
 
   const uid = useSelector(s => s.user.uid);
-  const [context, setContext] = useState(CONTEXT.EMPTY);
   const [accessRights, setAccessRights] = useState({
     text: ACCESS_RIGHTS.WATCH
   });
@@ -46,6 +38,15 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
         message
       })
     );
+
+  const showAccess = access => {
+    for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
+      if (value === access) {
+        return ACCESS_RIGHTS[key];
+        break;
+      }
+    }
+  };
 
   useEffect(() => {
     if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
@@ -126,7 +127,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
             {__("Настройка доступа")}
           </span>
         ) : (
-          <span>{accessRights.text}</span>
+          <span>{showAccess(file.is_write)}</span>
         )}
       </div>
       <div className={styles.iconWrap}>
