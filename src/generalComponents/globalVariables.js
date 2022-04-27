@@ -39,3 +39,7 @@ export const TOP_MESSAGE_TYPE = {
   ERROR: "error",
   MESSAGE: "message"
 };
+
+export const FILE_ACCESS_RIGHTS = {
+  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php"
+};

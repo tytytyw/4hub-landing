@@ -5,11 +5,16 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import {
+  FILE_ACCESS_RIGHTS,
   MODALS,
   TOP_MESSAGE_TYPE
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
+import FileAccessUserList from "./FileAccessUserList/FileAccessUserList";
+import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
+import api from "../../../../../../api";
+import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -17,7 +22,9 @@ function FileAccessRights() {
   const dispatch = useDispatch();
   const fileAccessRights = useSelector(s => s.Cabinet.modals.fileAccessRights);
   const [url, setUrl] = useState(__("Загрузка..."));
+  const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
+  const uid = useSelector(s => s.user.uid);
 
   const closeModal = () =>
     dispatch(
@@ -41,8 +48,34 @@ function FileAccessRights() {
         ) && setUrl(__("Ошибка"));
   };
 
+  const loadUserList = () => {
+    api
+      .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
+        params: {
+          uid,
+          fid: fileAccessRights.file.fid
+        }
+      })
+      .then(res => {
+        if (checkResponseStatus(res.data.ok)) {
+          setUsers(res.data.access);
+        } else {
+          setTopMessage(
+            TOP_MESSAGE_TYPE.ERROR,
+            __("Не удалось загузить список пользователей")
+          );
+        }
+      })
+      .catch(err => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
+  };
+
+  // file_share_list дайт список пользователей,
+  // которым файл расшарен, file_share_del -
+  // удаляет доступ, file_share - добавляет доступ
+
   useEffect(() => {
     getLink();
+    loadUserList();
   }, []); // eslint-disable-line
 
   const copyLink = () => {
@@ -94,6 +127,18 @@ function FileAccessRights() {
             </div>
           </div>
         </header>
+        <div className={styles.infoWrap}>
+          <div className={styles.circle}>
+            <UserIcon className={styles.userIcon} />
+          </div>
+          <div className={styles.details}>
+            <div className={styles.title}>{__("Доступ к ссылке")}</div>
+            <div className={styles.description}>
+              {__("Список пользователей, у кого есть доступ к ссылке")}
+            </div>
+          </div>
+        </div>
+        <FileAccessUserList users={users} />
       </div>
       <input ref={linkRef} type="text" style={{ display: "none" }} />
     </PopUp>
