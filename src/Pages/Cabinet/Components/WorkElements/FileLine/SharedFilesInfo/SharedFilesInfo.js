@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SharedFilesInfo.module.sass";
 import {
-  imageSrc,
   MODALS,
   SHARED_FILES
 } from "../../../../../../generalComponents/globalVariables";
@@ -82,61 +81,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
     return __(`Осталось (${diffDays(today, endDate).toFixed()} дней)`);
   };
 
-  const renderFileAccessRights = () => (
-    <div
-      className={styles.reviewOptions}
-      onMouseLeave={() => setContext(CONTEXT.EMPTY)}
-    >
-      <div
-        className={styles.reviewOption}
-        onClick={() => {
-          setAccessRights(s => ({ ...s, text: ACCESS_RIGHTS.WATCH }));
-          //getLink("watch");
-        }}
-      >
-        <div
-          className={`${styles.radio} ${
-            accessRights.text === ACCESS_RIGHTS.WATCH ? styles.radioChosen : ""
-          }`}
-        />
-        <div className={styles.description}>{ACCESS_RIGHTS.WATCH}</div>
-      </div>
-      <div
-        className={styles.reviewOption}
-        onClick={() => {
-          setAccessRights(s => ({ ...s, text: ACCESS_RIGHTS.DOWNLOAD }));
-          // getLink("download");
-        }}
-      >
-        <div
-          className={`${styles.radio} ${
-            accessRights.text === ACCESS_RIGHTS.DOWNLOAD
-              ? styles.radioChosen
-              : ""
-          }`}
-        />
-        <div>Скачивание</div>
-      </div>
-      <div
-        className={`${styles.reviewOption} ${styles.reviewOptionLast}`}
-        onClick={() => {
-          setAccessRights(s => ({ ...s, text: ACCESS_RIGHTS.EDIT }));
-          // getLink("write");
-        }}
-      >
-        <div
-          className={`${styles.radio} ${
-            accessRights.text === ACCESS_RIGHTS.EDIT ? styles.radioChosen : ""
-          }`}
-        />
-        <div>{ACCESS_RIGHTS.EDIT}</div>
-      </div>
-      <span className={styles.descr}>
-        {__("Может упорядочивать, добавлять и редактировать файл")}
-      </span>
-    </div>
-  );
-
   const renderUser = file => {
     return file?.user_icon?.[0] ? (
       <img src={file?.user_icon?.[0]} />
@@ -176,33 +120,16 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
           [styles.review]: true,
           [styles.chosen]: isChosen
         })}
-        onClick={() => {
-          if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
-            setContext(s =>
-              s === CONTEXT.EMPTY
-                ? CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
-                : CONTEXT.EMPTY
-            );
-          }
-        }}
       >
-        <span>{accessRights.text}</span>
         {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? (
-          <img
-            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-            alt="copy"
-            className={
-              context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
-                ? styles.imageReverse
-                : ""
-            }
-          />
-        ) : null}
-        {context === CONTEXT.CHANGE_FILE_ACCESS_RIGHTS
-          ? renderFileAccessRights()
-          : null}
+          <span onClick={openFileAccessRightsModal}>
+            {__("Настройка доступа")}
+          </span>
+        ) : (
+          <span>{accessRights.text}</span>
+        )}
       </div>
-      <div className={styles.iconWrap} onClick={openFileAccessRightsModal}>
+      <div className={styles.iconWrap}>
         {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED
           ? renderUsers()
           : renderUser(file)}
