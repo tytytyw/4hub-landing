@@ -163,6 +163,12 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
         ))
       : null;
 
+  const openFileAccessRightsModal = () => {
+    if (sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED) {
+      dispatch(onSetModals(MODALS.FILE_ACCESS_RIGHTS, { open: true, file }));
+    }
+  };
+
   return (
     <>
       <div
@@ -196,7 +202,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
           ? renderFileAccessRights()
           : null}
       </div>
-      <div className={styles.iconWrap}>
+      <div className={styles.iconWrap} onClick={openFileAccessRightsModal}>
         {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED
           ? renderUsers()
           : renderUser(file)}
