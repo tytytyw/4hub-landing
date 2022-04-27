@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import styles from "./FileAccessRights.module.sass";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import { MODALS } from "../../../../../../generalComponents/globalVariables";
+import {
+  MODALS,
+  TOP_MESSAGE_TYPE
+} from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
-import api from "../../../../../../api";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -15,6 +17,7 @@ function FileAccessRights() {
   const dispatch = useDispatch();
   const fileAccessRights = useSelector(s => s.Cabinet.modals.fileAccessRights);
   const [url, setUrl] = useState(__("Загрузка..."));
+  const linkRef = useRef(null);
 
   const closeModal = () =>
     dispatch(
@@ -33,7 +36,7 @@ function FileAccessRights() {
     fileAccessRights.file?.file_link
       ? setUrl(fileAccessRights.file.file_link)
       : setTopMessage(
-          MODALS.ERROR,
+          TOP_MESSAGE_TYPE.ERROR,
           __(`Ссылка на файл не найдена. Попробуйте еще раз`)
         ) && setUrl(__("Ошибка"));
   };
@@ -41,6 +44,27 @@ function FileAccessRights() {
   useEffect(() => {
     getLink();
   }, []); // eslint-disable-line
+
+  const copyLink = () => {
+    if (url) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url);
+      } else {
+        linkRef.current.value = url;
+        linkRef.current.focus();
+        linkRef.current.select();
+        document.execCommand("copy");
+        linkRef.current.value = "";
+      }
+      dispatch(
+        onSetModals(MODALS.TOP_MESSAGE, {
+          open: true,
+          type: TOP_MESSAGE_TYPE.MESSAGE,
+          message: __("Ссылка скопирована")
+        })
+      );
+    }
+  };
 
   return (
     <PopUp set={closeModal}>
@@ -62,11 +86,16 @@ function FileAccessRights() {
             </div>
           </div>
           <div className={styles.copyLink}>
-            <div className={styles.link}>{url}</div>
-            <div className={styles.copy}>{__("Копировать ссылку")}</div>
+            <div className={styles.link} onClick={copyLink}>
+              {url}
+            </div>
+            <div className={styles.copy} onClick={copyLink}>
+              {__("Копировать ссылку")}
+            </div>
           </div>
         </header>
       </div>
+      <input ref={linkRef} type="text" style={{ display: "none" }} />
     </PopUp>
   );
 }

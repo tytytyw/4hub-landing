@@ -6,6 +6,7 @@
   align-items: center
   font-family: "SF Pro Regular", sans-serif
   position: relative
+  cursor: default
   .cross
     position: absolute
     top: 20px
@@ -84,6 +85,11 @@
         white-space: nowrap
         text-overflow: ellipsis
         line-height: 20px
+        cursor: pointer
+        transition: background-color 0.1s ease-in-out
+        &:hover
+          transition: background-color 0.1s ease-in-out
+          background-color: rgb(203, 212, 200)
       .copy
         display: flex
         justify-content: center

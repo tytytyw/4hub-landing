@@ -34,3 +34,8 @@ export const SHARED_FILES = {
   API_FILES_SHARED_TO_USER_AMOUNT: "/ajax/file_share_list_col.php",
   API_USERLIST_FILES_USER_SHARED: "/ajax/file_share_list.php"
 };
+
+export const TOP_MESSAGE_TYPE = {
+  ERROR: "error",
+  MESSAGE: "message"
+};
