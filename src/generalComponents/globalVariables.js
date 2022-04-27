@@ -12,7 +12,8 @@ export const MODALS = {
   FILE_PREVIEW_COMMENTS: "previewWithComments",
   PRINT_SCREEN: "printScreen",
   TOP_MESSAGE: "topMessage",
-  CONTEXT_MENU_MODAL: "contextMenuModals"
+  CONTEXT_MENU_MODAL: "contextMenuModals",
+  FILE_ACCESS_RIGHTS: "fileAccessRights"
 };
 
 export const CONTEXT_MENU_FILE = {

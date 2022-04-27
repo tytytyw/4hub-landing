@@ -178,13 +178,13 @@ const INITIAL_STATE = {
     messageLifeTime: 3600,
     insertEmodji: "",
     theme: {
-      name: 'white',
-      background: '#fff',
-      textColor: '#49494B',
-      iconColor: '#B8B8B8',
-      inputBgColor: '#F7F7F7',
-      inputColor: '#AEAEAE',
-      accentColor: ''
+      name: "white",
+      background: "#fff",
+      textColor: "#49494B",
+      iconColor: "#B8B8B8",
+      inputBgColor: "#F7F7F7",
+      inputColor: "#AEAEAE",
+      accentColor: ""
     }
   },
 
@@ -198,6 +198,7 @@ const INITIAL_STATE = {
     printScreen: { open: false, result: "" },
     previewFile: { open: false, file: null },
     topMessage: { open: false, type: "message", message: "" }, //type = message(default) || error
+    fileAccessRights: { open: false, file: {} },
     contextMenuModals: {
       type: "",
       items: [],
@@ -383,14 +384,25 @@ export default function startPage(state = INITIAL_STATE, action) {
       };
     }
     case GET_MESSAGES: {
-      return { ...state, chat: { ...state.chat, messages: { today: [], ...action.payload } } }
+      return {
+        ...state,
+        chat: { ...state.chat, messages: { today: [], ...action.payload } }
+      };
     }
     case GET_PREVIUS_MESSAGES: {
-      let messages = { ...state.chat.messages }
+      let messages = { ...state.chat.messages };
       for (let key in action.payload) {
-        messages[key] = messages[key] ? [...messages[key].filter(oldMsg => !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)), ...action.payload[key]] : [...action.payload[key]];
+        messages[key] = messages[key]
+          ? [
+              ...messages[key].filter(
+                oldMsg =>
+                  !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)
+              ),
+              ...action.payload[key]
+            ]
+          : [...action.payload[key]];
       }
-      return { ...state, chat: { ...state.chat, messages: messages } }
+      return { ...state, chat: { ...state.chat, messages: messages } };
     }
     case MESSAGE_DELETE: {
       return { ...state, chat: { ...state.chat, messages: action.payload } };
@@ -458,7 +470,9 @@ export default function startPage(state = INITIAL_STATE, action) {
         chat: { ...state.chat, insertEmodji: action.payload }
       };
     }
-    case SET_CHAT_THEME: { return { ...state, chat: { ...state.chat, theme: action.payload } } }
+    case SET_CHAT_THEME: {
+      return { ...state, chat: { ...state.chat, theme: action.payload } };
+    }
 
     //SORT FILES
     case SORT_FILES: {
