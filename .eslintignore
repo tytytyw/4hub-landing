@@ -33,7 +33,7 @@
 # src/Pages/Cabinet/Components/Journal
 /src/Pages/Cabinet/Components/List
 /src/Pages/Cabinet/Components/Modals
-/src/Pages/Cabinet/Components/MyFiles
+# src/Pages/Cabinet/Components/MyFiles
 # src/Pages/Cabinet/Components/MyFolders
 # src/Pages/Cabinet/Components/MyProfile
 # src/Pages/Cabinet/Components/Notifications
