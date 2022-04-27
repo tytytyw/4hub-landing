@@ -11,6 +11,7 @@ import { ReactComponent as PlayIcon } from "../../../../assets/PrivateCabinet/pl
 import SideList from "../../../Cabinet/Components/SharedFiles/SideList/SideList";
 import WorkLinesPreview from "../../../Cabinet/Components/Archive/WorkElements/WorkLinesPreview";
 import FileLine from "../../../Cabinet/Components/Archive/WorkElements/FileLine";
+import PropTypes from "prop-types";
 
 function FilesGroup({
   fileList,
@@ -61,8 +62,7 @@ function FilesGroup({
           onClick={() => {
             setCollapse(!collapse);
           }}
-          className={styles.collapseHeader}
-        >
+          className={styles.collapseHeader}>
           <p className={styles.dateName}>{mounthName}</p>
           <div className={styles.buttonsWrap}>
             <button className={styles.collapseBtn}>
@@ -72,8 +72,7 @@ function FilesGroup({
               className={classNames({
                 [styles.arrowFile]: true,
                 [styles.active]: !!collapse
-              })}
-            >
+              })}>
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
@@ -113,16 +112,14 @@ function FilesGroup({
               <WorkBarsPreview
                 fileList={fileList}
                 file={chosenFile}
-                filePick={filePick}
-              >
+                filePick={filePick}>
                 {renderFiles(FileBar)}
               </WorkBarsPreview>
             </div>
           )}
           {workElementsView === "workLinesPreview" && (
             <div
-              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}
-            >
+              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
               <SideList>{renderFiles(FileLineShort, true)}</SideList>
               <div className={styles.filePreviewWrap}>
                 <WorkLinesPreview
@@ -141,3 +138,17 @@ function FilesGroup({
 }
 
 export default FilesGroup;
+FilesGroup.propTypes = {
+  fileList: PropTypes.object,
+  filePreview: PropTypes.object,
+  setFilePreview: PropTypes.func,
+  callbackArrMain: PropTypes.array,
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  filePick: PropTypes.object,
+  setFilePick: PropTypes.func,
+  setAction: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  mounthName: PropTypes.string,
+  index: PropTypes.number
+};

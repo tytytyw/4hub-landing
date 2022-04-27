@@ -49,6 +49,6 @@
 # src/Pages/Cabinet/Components/StorageSize
 /src/Pages/Cabinet/Components/WorkElements
 /src/generalComponents
-/src/Pages/Guest
+# src/Pages/Guest
 # src/Pages/StartPage
 /src/Store

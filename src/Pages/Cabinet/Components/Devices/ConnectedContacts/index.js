@@ -18,7 +18,6 @@ const ConnectedContacts = ({
   loadingFailed,
   getConnectedContacts
 }) => {
-  console.log(loadingFailed);
   const { __ } = useLocales();
   const connectedContacts = useSelector(
     state => state.Cabinet.connectedContacts

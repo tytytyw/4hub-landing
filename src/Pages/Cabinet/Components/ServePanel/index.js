@@ -699,7 +699,7 @@ ServePanel.propTypes = {
   }),
   setFileAddCustomization: PropTypes.func,
   fileAddCustomization: PropTypes.object,
-  disableWorkElementsView: PropTypes.string,
+  disableWorkElementsView: PropTypes.bool,
   addFolder: PropTypes.func,
   addFile: PropTypes.func,
   setGLoader: PropTypes.func,
