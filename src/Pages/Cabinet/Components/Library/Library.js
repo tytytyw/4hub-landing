@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./Library.module.sass";
+import List from "../List";
+import { useLocales } from "react-localized";
 
 function Library() {
-  return <div className={styles.libraryWrap}>Library works!</div>;
+  const { __ } = useLocales();
+  const [listCollapsed, setListCollapsed] = useState(false);
+
+  return (
+    <div className={styles.libraryWrap}>
+      <List
+        title={__("Библиотека")}
+        icon={false}
+        leftIconSrc="book.svg"
+        listCollapsed={listCollapsed}
+        setListCollapsed={setListCollapsed}
+      ></List>
+    </div>
+  );
 }
 
 export default Library;
