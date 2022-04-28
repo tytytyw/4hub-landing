@@ -6,6 +6,8 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../types/FileProps";
+import { filePreviewProps } from "../../../../../types/FilePreviewProps";
 
 const FileItem = ({
   file,
@@ -128,27 +130,12 @@ const FileItem = ({
 export default FileItem;
 
 FileItem.propTypes = {
-  file: PropTypes.shape({
-    fid: PropTypes.string,
-    ext: PropTypes.string,
-    color: PropTypes.any,
-    name: PropTypes.string,
-    size_now: PropTypes.string,
-    is_pass: PropTypes.number,
-    fig: PropTypes.string,
-    tag: PropTypes.any,
-    emo: PropTypes.string,
-    ctime: PropTypes.string
-  }),
+  file: fileProps,
   listCollapsed: PropTypes.bool,
   setMouseParams: PropTypes.func,
   setChosenFile: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.shape({
-    creat: PropTypes.bool,
-    file: PropTypes.any,
-    view: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   filePick: PropTypes.shape({
     show: PropTypes.bool,
     files: PropTypes.array

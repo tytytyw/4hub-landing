@@ -5,6 +5,8 @@ import styles from "./FileBar.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/FileProps";
+import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
 
 const FileBar = ({
   file,
@@ -113,18 +115,7 @@ const FileBar = ({
 export default FileBar;
 
 FileBar.propTypes = {
-  file: PropTypes.shape({
-    fid: PropTypes.string,
-    ext: PropTypes.string,
-    color: PropTypes.any,
-    name: PropTypes.string,
-    mtime: PropTypes.string,
-    size_now: PropTypes.string,
-    is_pass: PropTypes.number,
-    fig: PropTypes.string,
-    tag: PropTypes.any,
-    emo: PropTypes.string
-  }),
+  file: fileProps,
   isLoading: PropTypes.bool,
   chosen: PropTypes.bool,
   setChosenFile: PropTypes.func,
@@ -132,9 +123,5 @@ FileBar.propTypes = {
   filePick: PropTypes.object,
   setFilePick: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  })
+  filePreview: filePreviewProps
 };

@@ -9,6 +9,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/FileProps";
 
 const WorkLinesPreview = ({
   fileList,
@@ -309,10 +310,7 @@ const WorkLinesPreview = ({
 export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
-  file: PropTypes.shape({
-    fid: PropTypes.string,
-    color: PropTypes.any
-  }),
+  file: fileProps,
   fileList: PropTypes.shape({
     files: PropTypes.array,
     path: PropTypes.string,

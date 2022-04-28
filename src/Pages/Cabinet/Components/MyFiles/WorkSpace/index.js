@@ -20,6 +20,7 @@ import {
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../../types/FilePreviewProps";
 
 const WorkSpace = ({
   chosenFile,
@@ -207,7 +208,7 @@ WorkSpace.propTypes = {
   nullifyFilePick: PropTypes.func,
   callbackArrMain: PropTypes.array,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.object,
+  filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
   // fileLoading: Profile.any,
   filePick: PropTypes.shape({

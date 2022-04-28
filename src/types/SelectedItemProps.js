@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const businessSelectedItem = PropTypes.exact({
+export const selectedItemProps = PropTypes.exact({
   id: PropTypes.string,
   name: PropTypes.string,
   tel: PropTypes.array,

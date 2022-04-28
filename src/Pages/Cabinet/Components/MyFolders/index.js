@@ -35,6 +35,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../types/FilePreviewProps";
 
 const MyFolders = ({
   setItem,
@@ -461,11 +462,7 @@ MyFolders.propTypes = {
   setItem: PropTypes.func,
   menuItem: PropTypes.string,
   setMenuItem: PropTypes.func,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   fileSelect: PropTypes.func,
   fileAddCustomization: PropTypes.object,

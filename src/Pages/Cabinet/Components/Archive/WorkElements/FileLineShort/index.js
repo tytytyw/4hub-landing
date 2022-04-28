@@ -6,6 +6,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/FileProps";
+import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
 
 const FileLineShort = ({
   file,
@@ -140,27 +142,12 @@ const FileLineShort = ({
 export default FileLineShort;
 
 FileLineShort.propTypes = {
-  file: PropTypes.shape({
-    fid: PropTypes.string,
-    name: PropTypes.string,
-    ext: PropTypes.string,
-    is_write: PropTypes.any,
-    color: PropTypes.any,
-    mtime: PropTypes.string,
-    size_now: PropTypes.string,
-    is_pass: PropTypes.number,
-    fig: PropTypes.string,
-    emo: PropTypes.string
-  }),
+  file: fileProps,
   setChosenFile: PropTypes.func,
   chosen: PropTypes.bool,
   setMouseParams: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   filePick: PropTypes.shape({
     show: PropTypes.bool,
     files: PropTypes.array
