@@ -13,6 +13,7 @@ import WorkLinesPreview from "../../../Cabinet/Components/Archive/WorkElements/W
 import FileLine from "../../../Cabinet/Components/Archive/WorkElements/FileLine";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../types/FilePickProps";
 
 function FilesGroup({
   fileList,
@@ -146,7 +147,7 @@ FilesGroup.propTypes = {
   callbackArrMain: PropTypes.array,
   chosenFile: PropTypes.object,
   setChosenFile: PropTypes.func,
-  filePick: PropTypes.object,
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   setAction: PropTypes.func,
   setMouseParams: PropTypes.func,

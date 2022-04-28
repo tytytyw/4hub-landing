@@ -10,6 +10,7 @@ import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/FileProps";
+import { filePickProps } from "../../../../../../types/FilePickProps";
 
 const WorkLinesPreview = ({
   fileList,
@@ -320,10 +321,7 @@ WorkLinesPreview.propTypes = {
   fileRef: PropTypes.shape({
     current: PropTypes.string
   }),
-  filePick: PropTypes.shape({
-    show: PropTypes.bool,
-    files: PropTypes.array
-  }),
+  filePick: filePickProps,
   setPage: PropTypes.func,
   gLoader: PropTypes.bool,
   chosenFolder: PropTypes.shape({

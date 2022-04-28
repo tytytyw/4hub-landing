@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../../types/FilePickProps";
 
 const FileLineShort = ({
   file,
@@ -52,8 +53,7 @@ const FileLineShort = ({
         [styles.wrapper]: true,
         [styles.active]: chosen,
         [styles?.[`wrapper_${size}`]]: size !== "medium"
-      })}
-    >
+      })}>
       <div className={styles.fileAbout}>
         <div className={styles.file}>
           <File
@@ -139,8 +139,7 @@ const FileLineShort = ({
                 width: 260,
                 height: 25
               });
-            }}
-          >
+            }}>
             <span
               className={styles.menu}
               onClick={e => {
@@ -167,7 +166,7 @@ FileLineShort.propTypes = {
   setChosenFile: PropTypes.func,
   chosen: PropTypes.bool,
   setMouseParams: PropTypes.func,
-  filePick: PropTypes.object,
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   fileCollapsed: PropTypes.bool
 };

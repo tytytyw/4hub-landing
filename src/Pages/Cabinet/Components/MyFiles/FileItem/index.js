@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/FileProps";
 import { filePreviewProps } from "../../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../../types/FilePickProps";
 
 const FileItem = ({
   file,
@@ -136,10 +137,7 @@ FileItem.propTypes = {
   setChosenFile: PropTypes.func,
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
-  filePick: PropTypes.shape({
-    show: PropTypes.bool,
-    files: PropTypes.array
-  }),
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   chosen: PropTypes.bool
 };

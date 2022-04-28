@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 export const fileProps = PropTypes.exact({
-  adate: PropTypes.bool,
+  adate: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   color: PropTypes.string,
   ctime: PropTypes.string,
   date: PropTypes.number,
@@ -18,6 +18,7 @@ export const fileProps = PropTypes.exact({
   file_link: PropTypes.string,
   fname: PropTypes.string,
   gdir: PropTypes.string,
+  is_del: PropTypes.number,
   is_archive: PropTypes.string,
   is_dir: PropTypes.number,
   is_pass: PropTypes.number,

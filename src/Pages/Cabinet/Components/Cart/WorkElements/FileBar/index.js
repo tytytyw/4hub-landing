@@ -7,6 +7,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/FileProps";
 import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../../../types/FilePickProps";
 
 const FileBar = ({
   file,
@@ -120,7 +121,7 @@ FileBar.propTypes = {
   chosen: PropTypes.bool,
   setChosenFile: PropTypes.func,
   setMouseParams: PropTypes.func,
-  filePick: PropTypes.object,
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps
