@@ -1,2 +1,47 @@
-.wrap
-  display: flex
+@keyframes collapse
+  0%
+    width: calc(100% - 311px)
+    min-width: calc(100% - 311px)
+    max-width: calc(100% - 311px)
+  100%
+    min-width: calc(100% - 121px)
+    max-width: calc(100% - 121px)
+    width: calc(100% - 121px)
+@keyframes uncollapse
+  0%
+    min-width: calc(100% - 121px)
+    max-width: calc(100% - 121px)
+    width: calc(100% - 121px)
+  100%
+    width: calc(100% - 311px)
+    min-width: calc(100% - 311px)
+    max-width: calc(100% - 311px)
+.workSpaceWrapCollapsed
+  min-width: calc(100% - 121px)
+  width: calc(100% - 121px)
+  animation: collapse 0.3s ease-in-out
+.workSpaceWrapUncollapsed
+  animation: uncollapse 0.3s ease-in-out
+.workSpaceWrap
+  max-width: calc(100% - 311px)
+  flex-grow: 1
+  height: 100%
+  background-color: #fff
+  .header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    height: 90px
+    border-bottom: 1px solid #e5e5e5
+    box-sizing: border-box
+    padding: 0 39px 0 17px
+    border-color: #DFDFDF
+    background: inherit
+    .infoHeader
+      display: flex
+      justify-content: space-between
+      align-items: center
+      min-width: 340px
+      width: 400px
+      max-width: 400px
+      background: inherit

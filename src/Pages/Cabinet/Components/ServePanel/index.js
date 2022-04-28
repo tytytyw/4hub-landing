@@ -186,7 +186,8 @@ const ServePanel = ({
         <div
           onClick={() => callback(item.ext)}
           className={styles.contextSortingItem}
-          key={i}>
+          key={i}
+        >
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
               <img
@@ -201,7 +202,8 @@ const ServePanel = ({
           {item.ext === "byName" ? (
             <div
               className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              onClick={() => dispatch(onSetReverseCriterion(item.ext))}
+            >
               <img
                 src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
                 alt="img"
@@ -332,7 +334,8 @@ const ServePanel = ({
       className={
         filePick?.show ? styles.chooseButtonActive : styles.chooseButton
       }
-      onClick={chooseSeveral}>
+      onClick={chooseSeveral}
+    >
       {__("Выбрать")}
     </span>
   );
@@ -341,7 +344,8 @@ const ServePanel = ({
     <div
       ref={filterRef}
       className={classNames(styles.iconView, styles.iconViewArrow)}
-      onClick={e => openContextMenu(e, "filter")}>
+      onClick={e => openContextMenu(e, "filter")}
+    >
       <MenuIcon className={styles.iconSVG} />
       <div />
     </div>
@@ -360,21 +364,24 @@ const ServePanel = ({
           onClick={() => dispatch(onSetWorkElementsView("bars"))}
           className={`${
             view === "bars" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <BarsIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("lines"))}
           className={`${
             view === "lines" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <LinesIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("preview"))}
           className={`${
             view === "preview" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <PreviewIcon />
         </div>
         <div
@@ -383,7 +390,8 @@ const ServePanel = ({
             view === "workLinesPreview"
               ? styles.iconViewChosen
               : styles.iconView
-          }`}>
+          }`}
+        >
           <VerticalLinesIcon />
         </div>
       </div>
@@ -398,7 +406,8 @@ const ServePanel = ({
                 ${size === "small" ? styles.samllSize : null} 
                 ${size === "medium" ? styles.mediumSize : null} 
                 ${size === "big" ? styles.bigSize : null} 
-            `}>
+            `}
+    >
       <FileSize className={styles.iconSVG} />
     </div>
   );
@@ -407,7 +416,8 @@ const ServePanel = ({
     <div
       ref={createRef}
       className={styles.createButton}
-      onClick={e => openContextMenu(e, "createFile")}>
+      onClick={e => openContextMenu(e, "createFile")}
+    >
       <span>{__("Создать")}</span>
       <div />
     </div>
@@ -421,7 +431,8 @@ const ServePanel = ({
           if (setNewFolderInfo)
             setNewFolderInfo(s => ({ ...s, path: fileList?.path }));
         }}
-        className={classNames(styles.iconView, styles.addIcon)}>
+        className={classNames(styles.iconView, styles.addIcon)}
+      >
         <AddFolderIcon className={styles.iconSVG} />
       </div>
     );
@@ -440,7 +451,8 @@ const ServePanel = ({
             })
           );
         }
-      }}>
+      }}
+    >
       <DeleteIcon className={styles.iconTrash} />
     </div>
   );
@@ -448,7 +460,8 @@ const ServePanel = ({
   const tempDisconnect = () => (
     <div
       className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-      onClick={() => console.log("click on disconnect btn")}>
+      onClick={() => console.log("click on disconnect btn")}
+    >
       <PowerOffIcon className={styles.iconTrash} />
     </div>
   );
@@ -470,7 +483,8 @@ const ServePanel = ({
             })
           );
         }
-      }}>
+      }}
+    >
       <ShareIcon className={styles.iconShare} />
     </div>
   );
@@ -489,7 +503,8 @@ const ServePanel = ({
             })
           );
         }
-      }}>
+      }}
+    >
       <SafeIcon className={styles.iconSafe} />
     </div>
   );
@@ -610,6 +625,22 @@ const ServePanel = ({
     </>
   );
 
+  const renderInLibrary = () => (
+    <>
+      <div className={styles.groupStart}>
+        {tempTabs()}
+        <div className={styles.filterPanel}>
+          {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+        </div>
+      </div>
+      <div className={styles.groupEnd}>
+        <div className={styles.iconButtons}>
+          {tempArchive()} {tempShare()} {tempDelete()}
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <div className={styles.servePanelWrap}>
       {pathname.startsWith("/folders") && renderInFolders()}
@@ -621,13 +652,15 @@ const ServePanel = ({
       {pathname.startsWith("/shared-files") && renderInSharedFiles()}
       {pathname.startsWith("/downloaded-files") && renderInSharedFiles()}
       {pathname.startsWith("/archive") && renderInArchive()}
+      {pathname.startsWith("/libary") && renderInLibrary()}
 
       {mouseParams !== null ? (
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
           itemRef={typeContext === "createFile" ? createRef : filterRef}
-          customClose={typeContext !== "createFile"}>
+          customClose={typeContext !== "createFile"}
+        >
           {typeContext === "filter" ? (
             <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
           ) : null}

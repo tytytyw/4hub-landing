@@ -4,8 +4,9 @@ import styles from "./Library.module.sass";
 import List from "../List";
 import { useLocales } from "react-localized";
 import WorkSpace from "./WorkSpace/WorkSpace";
+import PropTypes from "prop-types";
 
-function Library() {
+function Library({ menuItem, filesPage, setFilesPage, fileSelect }) {
   const { __ } = useLocales();
   const [listCollapsed, setListCollapsed] = useState(false);
 
@@ -18,9 +19,23 @@ function Library() {
         listCollapsed={listCollapsed}
         setListCollapsed={setListCollapsed}
       ></List>
-      <WorkSpace />
+      <WorkSpace
+        listCollapsed={listCollapsed}
+        menuItem={menuItem}
+        filesPage={filesPage}
+        setFilesPage={setFilesPage}
+        fileSelect={fileSelect}
+      />
     </div>
   );
 }
 
 export default Library;
+
+Library.propTypes = {
+  listCollapsed: PropTypes.bool,
+  menuItem: PropTypes.string,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  fileSelect: PropTypes.func
+};
