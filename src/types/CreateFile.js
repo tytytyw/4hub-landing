@@ -17,3 +17,9 @@ export const blobProps = PropTypes.exact({
   file: blobFileProps,
   options: blobOptionProps
 });
+
+export const createFilesProps = PropTypes.exact({
+  open: PropTypes.bool,
+  path: PropTypes.string,
+  subPath: PropTypes.string
+});

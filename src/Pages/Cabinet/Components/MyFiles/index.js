@@ -18,7 +18,7 @@ import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/FilePreviewProps";
+import { filePreviewProps } from "../../../../types/WorkElements";
 
 const MyFiles = ({
   filePreview,

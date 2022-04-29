@@ -12,8 +12,10 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/FileProps";
-import { filePreviewProps } from "../../../../../../types/FileProps";
+import {
+  filePreviewProps,
+  fileProps
+} from "../../../../../../types/WorkElements";
 
 const FileLine = ({
   file,

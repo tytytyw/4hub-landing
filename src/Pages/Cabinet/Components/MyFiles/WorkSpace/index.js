@@ -20,8 +20,10 @@ import {
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../../types/FilePreviewProps";
-import { filePickProps } from "../../../../../types/FilePickProps";
+import {
+  filePickProps,
+  filePreviewProps
+} from "../../../../../types/WorkElements";
 const WorkSpace = ({
   chosenFile,
   setChosenFile,

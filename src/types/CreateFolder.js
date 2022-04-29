@@ -16,17 +16,11 @@ const folderInfoProps = PropTypes.exact({
   ut: PropTypes.string
 });
 
-export const folderProps = PropTypes.exact({
+export const chosenFolderProps = PropTypes.exact({
   contextMenuFolder: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   folderWidth: PropTypes.number,
   group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   info: folderInfoProps,
   path: PropTypes.string
-});
-
-export const folderCreateFilesProps = PropTypes.exact({
-  open: PropTypes.bool,
-  path: PropTypes.string,
-  subPath: PropTypes.string
 });

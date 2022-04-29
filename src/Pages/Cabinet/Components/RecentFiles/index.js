@@ -7,7 +7,7 @@ import File from "../../../../generalComponents/Files";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { getIcon } from "../Project/helpers";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/FilePreviewProps";
+import { filePreviewProps } from "../../../../types/WorkElements";
 
 const RecentFiles = ({
   setFilePreview,

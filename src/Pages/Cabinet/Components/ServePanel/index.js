@@ -43,7 +43,7 @@ import { useLocation } from "react-router";
 import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePickProps } from "../../../../types/FilePickProps";
+import { filePickProps } from "../../../../types/WorkElements";
 
 const ServePanel = ({
   chosenFile,

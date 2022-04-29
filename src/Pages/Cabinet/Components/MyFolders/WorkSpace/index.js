@@ -19,7 +19,7 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../../types/FilePreviewProps";
+import { filePreviewProps } from "../../../../../types/WorkElements";
 
 const WorkSpace = ({
   chosenFile,

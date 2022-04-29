@@ -10,7 +10,7 @@ import api from "../../../../../../../api";
 import { onGetCompanyContacts } from "../../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { selectedItemProps } from "../../../../../../../types/selectedItem/SelectedItemProps";
+import { selectedItemProps } from "../../../../../../../types/Contacts";
 
 const AddContact = ({
   nullifyAction,

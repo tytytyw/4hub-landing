@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { eventShowProps } from "../../../../../types/event/EventShowProps";
+import { eventShowProps } from "../../../../../types/CalendarPage";
 
 const ListTaskItem = ({ event, collapsed }) => {
   const { __ } = useLocales();

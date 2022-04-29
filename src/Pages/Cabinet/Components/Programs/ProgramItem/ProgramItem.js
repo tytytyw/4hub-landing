@@ -6,7 +6,7 @@ import Comments from "../Comments/Comments";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import { useLocales } from "react-localized";
-import { programItemProps } from "../../../../../types/ProgramItemProps";
+import { programItemProps } from "../../../../../types/Programs";
 
 function ProgramItem({ program }) {
   const { __ } = useLocales();
