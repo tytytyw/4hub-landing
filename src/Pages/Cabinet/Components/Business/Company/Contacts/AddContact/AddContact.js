@@ -10,7 +10,7 @@ import api from "../../../../../../../api";
 import { onGetCompanyContacts } from "../../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { businessSelectedItem } from "../../../../../../../types/Business/SelectedItem";
+import { selectedItemProps } from "../../../../../../../types/selectedItem/SelectedItemProps";
 
 const AddContact = ({
   nullifyAction,
@@ -269,6 +269,6 @@ AddContact.propTypes = {
   nullifyAction: PropTypes.func,
   setLoadingType: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  selectedItem: businessSelectedItem,
+  selectedItem: selectedItemProps,
   type: PropTypes.string
 };

@@ -20,7 +20,8 @@ import {
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-
+import { filePreviewProps } from "../../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../../types/FilePickProps";
 const WorkSpace = ({
   chosenFile,
   setChosenFile,
@@ -207,14 +208,10 @@ WorkSpace.propTypes = {
   nullifyFilePick: PropTypes.func,
   callbackArrMain: PropTypes.array,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.object,
+  filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
   // fileLoading: Profile.any,
-  filePick: PropTypes.shape({
-    show: PropTypes.bool,
-    files: PropTypes.array,
-    intoZip: PropTypes.bool
-  }),
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   chosenFolder: PropTypes.object,
   fileAddCustomization: PropTypes.object,

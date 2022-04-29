@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { ReactComponent as PointerMenuImg } from "../../../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import { imageSrc } from "../../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { businessSelectedItem } from "../../../../../../../../types/Business/SelectedItem";
+import { selectedItemProps } from "../../../../../../../../types/selectedItem/SelectedItemProps";
 
 const SearchList = ({
   data,
@@ -58,7 +58,7 @@ export default SearchList;
 
 SearchList.propTypes = {
   data: PropTypes.array,
-  selectedItem: businessSelectedItem,
+  selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   getContactName: PropTypes.func,
   setMouseParams: PropTypes.func

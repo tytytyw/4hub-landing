@@ -6,12 +6,12 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { calendarPageTaskProps } from "../../../../../../types/CalendarPageTaskProps";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
   const color = eventTypesColor?.[task?.type];
   const rgba = hexToRgb(color);
-
   return (
     <div
       className={classNames({
@@ -86,15 +86,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
 export default PopoverTaskItem;
 
 PopoverTaskItem.propTypes = {
-  task: PropTypes.shape({
-    type: PropTypes.number,
-    name: PropTypes.string,
-    term: PropTypes.string,
-    tag: PropTypes.string,
-    sender: PropTypes.string,
-    ctime: PropTypes.string,
-    avatar: PropTypes.string
-  }),
+  task: calendarPageTaskProps,
   reverseSide: PropTypes.bool,
   reverse: PropTypes.bool
 };

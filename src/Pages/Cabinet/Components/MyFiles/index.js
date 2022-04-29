@@ -18,6 +18,7 @@ import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../types/FilePreviewProps";
 
 const MyFiles = ({
   filePreview,
@@ -338,11 +339,7 @@ const MyFiles = ({
 
 export default MyFiles;
 MyFiles.propTypes = {
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileSelect: PropTypes.func,

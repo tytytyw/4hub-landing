@@ -5,7 +5,7 @@ import { eventTypesColor } from "../helper";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
-import PropTypes from "prop-types";
+import { calendarPageTaskProps } from "../../../../../types/CalendarPageTaskProps";
 
 const TableListTaskItem = ({ task }) => {
   const { __ } = useLocales();
@@ -106,11 +106,5 @@ const TableListTaskItem = ({ task }) => {
 export default TableListTaskItem;
 
 TableListTaskItem.propTypes = {
-  task: PropTypes.shape({
-    type: PropTypes.number,
-    name: PropTypes.string,
-    term: PropTypes.string,
-    tag: PropTypes.string,
-    sender: PropTypes.string
-  })
+  task: calendarPageTaskProps
 };

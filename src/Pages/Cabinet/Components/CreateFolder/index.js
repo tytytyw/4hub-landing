@@ -24,6 +24,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import SelectFolder from "../../../../generalComponents/SelectFolder/SelectFolder";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { initFolderProps } from "../../../../types/InitFolderProps";
 
 const CreateFolder = ({
   onCreate,
@@ -302,9 +303,7 @@ CreateFolder.propTypes = {
   onCreate: PropTypes.func,
   title: PropTypes.string,
   showChoiceFolders: PropTypes.bool,
-  chosenFolder: PropTypes.shape({
-    path: PropTypes.string
-  }),
+  chosenFolder: initFolderProps,
   newFolderInfo: PropTypes.object,
   setGLoader: PropTypes.func,
   setNewFolderInfo: PropTypes.func

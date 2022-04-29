@@ -11,6 +11,7 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
+import { fProps } from "../../../../../types/FProps";
 
 const CustomFolderItem = ({
   f,
@@ -27,7 +28,6 @@ const CustomFolderItem = ({
 }) => {
   const folderList = useSelector(state => state.Cabinet.folderList);
   const dispatch = useDispatch();
-  console.log(f);
   const openFolder = e => {
     let boolean = false;
     e.target?.viewportElement?.classList.forEach(el => {
@@ -179,16 +179,7 @@ const CustomFolderItem = ({
 export default CustomFolderItem;
 
 CustomFolderItem.propTypes = {
-  f: PropTypes.shape({
-    path: PropTypes.string,
-    folders: PropTypes.array,
-    color: PropTypes.bool,
-    is_pass: PropTypes.number,
-    name: PropTypes.string,
-    tags: PropTypes.bool,
-    emo: PropTypes.bool,
-    fig: PropTypes.bool
-  }),
+  f: fProps,
   setChosenFolder: PropTypes.func,
   chosenFolder: PropTypes.object,
   listCollapsed: PropTypes.bool,

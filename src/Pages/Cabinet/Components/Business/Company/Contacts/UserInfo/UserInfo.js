@@ -9,7 +9,7 @@ import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateC
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { businessSelectedItem } from "../../../../../../../types/Business/SelectedItem";
+import { selectedItemProps } from "../../../../../../../types/selectedItem/SelectedItemProps";
 
 function UserInfo({ selectedItem, setAction }) {
   const { __ } = useLocales();
@@ -106,6 +106,6 @@ function UserInfo({ selectedItem, setAction }) {
 export default UserInfo;
 
 UserInfo.propTypes = {
-  selectedItem: businessSelectedItem,
+  selectedItem: selectedItemProps,
   setAction: PropTypes.func
 };

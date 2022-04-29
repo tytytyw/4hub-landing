@@ -12,6 +12,8 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../../../types/FilePickProps";
 
 function FilesGroup({
   fileList,
@@ -136,12 +138,12 @@ export default FilesGroup;
 
 FilesGroup.propTypes = {
   fileList: PropTypes.object,
-  filePreview: PropTypes.object,
+  filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   callbackArrMain: PropTypes.array,
   chosenFile: PropTypes.object,
   setChosenFile: PropTypes.func,
-  filePick: PropTypes.object,
+  filePick: filePickProps,
   setFilePick: PropTypes.func,
   setAction: PropTypes.func,
   setMouseParams: PropTypes.func,

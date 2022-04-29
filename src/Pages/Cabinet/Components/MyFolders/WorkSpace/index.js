@@ -19,6 +19,7 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../../types/FilePreviewProps";
 
 const WorkSpace = ({
   chosenFile,
@@ -206,11 +207,7 @@ WorkSpace.propTypes = {
   chosenFolder: PropTypes.object,
   listCollapsed: PropTypes.bool,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.shape({
-    creat: PropTypes.bool,
-    file: PropTypes.any,
-    view: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
   action: PropTypes.shape({
     type: PropTypes.string,

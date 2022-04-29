@@ -24,6 +24,7 @@ import {
 } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fProps } from "../../../../../types/FProps";
 
 const CustomFolderItem = ({
   f,
@@ -355,17 +356,7 @@ const CustomFolderItem = ({
 export default CustomFolderItem;
 
 CustomFolderItem.propTypes = {
-  f: PropTypes.shape({
-    path: PropTypes.string,
-    folders: PropTypes.array,
-    color: PropTypes.any,
-    is_pass: PropTypes.number,
-    name: PropTypes.string,
-    nameRu: PropTypes.string,
-    tags: PropTypes.any,
-    emo: PropTypes.any,
-    fig: PropTypes.any
-  }),
+  f: fProps,
   setChosenFolder: PropTypes.func,
   chosenFolder: PropTypes.object,
   listCollapsed: PropTypes.bool,
