@@ -4,7 +4,7 @@ import styles from "./TariffCard.module.sass";
 import Button from "../../Button";
 import classnames from "classnames";
 import { useLocales } from "react-localized";
-import PropTypes from "prop-types";
+import { tariffCardItemProps } from "../../../../../../types/TariffCardItemProps";
 
 const TariffCard = ({ item }) => {
   const { __ } = useLocales();
@@ -60,13 +60,5 @@ const TariffCard = ({ item }) => {
 export default TariffCard;
 
 TariffCard.propTypes = {
-  item: PropTypes.shape({
-    dayOffer: PropTypes.bool,
-    tariff: PropTypes.string,
-    oldPrice: PropTypes.number,
-    price: PropTypes.number,
-    desc: PropTypes.string,
-    options: PropTypes.array,
-    current: PropTypes.bool
-  })
+  item: tariffCardItemProps
 };
