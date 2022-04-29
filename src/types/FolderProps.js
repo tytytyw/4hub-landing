@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const initFolderInfoProps = PropTypes.exact({
+const folderInfoProps = PropTypes.exact({
   folders: PropTypes.array,
   name: PropTypes.string,
   color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -16,16 +16,16 @@ const initFolderInfoProps = PropTypes.exact({
   ut: PropTypes.string
 });
 
-export const initFolderProps = PropTypes.exact({
+export const folderProps = PropTypes.exact({
   contextMenuFolder: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   folderWidth: PropTypes.number,
   group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  info: initFolderInfoProps,
+  info: folderInfoProps,
   path: PropTypes.string
 });
 
-export const initFolderCreateFilesProps = PropTypes.exact({
+export const folderCreateFilesProps = PropTypes.exact({
   open: PropTypes.bool,
   path: PropTypes.string,
   subPath: PropTypes.string
