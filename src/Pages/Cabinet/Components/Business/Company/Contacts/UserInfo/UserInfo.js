@@ -9,7 +9,7 @@ import { ReactComponent as MailIcon } from "../../../../../../../assets/PrivateC
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { selectedItemProps } from "../../../../../../../types/SelectedItemProps";
+import { selectedItemProps } from "../../../../../../../types/selectedItem/SelectedItemProps";
 
 function UserInfo({ selectedItem, setAction }) {
   const { __ } = useLocales();

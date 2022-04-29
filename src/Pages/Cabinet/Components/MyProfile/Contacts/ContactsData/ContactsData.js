@@ -28,6 +28,7 @@ import FormContact from "../FormContact/FormContact";
 import SendFriend from "../../TellFriends/SendFriend";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { selectedItemContactsDataProps } from "../../../../../../types/selectedItem/SelectedItemContactsDataProps";
 
 const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
   const { __ } = useLocales();
@@ -318,21 +319,10 @@ export default ContactsData;
 
 ContactsData.propTypes = {
   data: PropTypes.array,
-  selectedItem: PropTypes.shape({
-    id: PropTypes.string,
-    icon: PropTypes.array,
-    name: PropTypes.string,
-    ut: PropTypes.string,
-    prim: PropTypes.string,
-    tel: PropTypes.array,
-    email: PropTypes.array,
-    bdate: PropTypes.string,
-    company: PropTypes.string,
-    soc: PropTypes.array,
-    mes: PropTypes.array
-  }),
+  selectedItem: selectedItemContactsDataProps,
   setSelectedItem: PropTypes.func
 };
+
 ContactsData.defaultProps = {
   data: []
 };

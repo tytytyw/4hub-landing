@@ -23,3 +23,9 @@ export const initFolderProps = PropTypes.exact({
   info: initFolderInfoProps,
   path: PropTypes.string
 });
+
+export const initFolderCreateFilesProps = PropTypes.exact({
+  open: PropTypes.bool,
+  path: PropTypes.string,
+  subPath: PropTypes.string
+});

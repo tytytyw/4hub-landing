@@ -22,3 +22,9 @@ export const infoProps = PropTypes.exact({
   info: infoInfoProps,
   path: PropTypes.string
 });
+
+export const infoCreateFilesProps = PropTypes.exact({
+  open: PropTypes.bool,
+  path: PropTypes.string,
+  subPath: PropTypes.string
+});
