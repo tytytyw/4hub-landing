@@ -188,7 +188,7 @@ const Personal = () => {
                         setTheme("dark");
                       }}
                     />
-                    <label htmlFor="dark">{__("Темная")}</label>
+                    <label htmlFor="dark">{__("Темный")}</label>
                   </div>
                   <div
                     style={{
