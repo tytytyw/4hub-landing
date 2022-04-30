@@ -21,6 +21,12 @@ import {
 } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { blobProps } from "../../../../types/BlobProps";
+import {
+  initFolderProps,
+  initFolderCreateFilesProps
+} from "../../../../types/InitFolderProps";
+import { infoProps, infoCreateFilesProps } from "../../../../types/InfoProps";
 
 const CreateFile = ({
   title,
@@ -466,20 +472,7 @@ CreateFile.propTypes = {
   title: PropTypes.string,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  blob: PropTypes.shape({
-    file: PropTypes.shape({
-      name: PropTypes.string,
-      size: PropTypes.number,
-      fid: PropTypes.string
-    }),
-    options: PropTypes.shape({
-      name: PropTypes.string,
-      color: PropTypes.string,
-      tag: PropTypes.string,
-      symbol: PropTypes.string,
-      emoji: PropTypes.string
-    })
-  }),
+  blob: blobProps,
   setBlob: PropTypes.func,
   onToggleSafePassword: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
@@ -490,17 +483,10 @@ CreateFile.propTypes = {
   create: PropTypes.bool,
   setGLoader: PropTypes.func,
   menuItem: PropTypes.string,
-  initFolder: PropTypes.shape({
-    path: PropTypes.string,
-    open: PropTypes.bool,
-    subPath: PropTypes.string
-  }),
+  initFolder: PropTypes.oneOfType([
+    initFolderProps,
+    initFolderCreateFilesProps
+  ]),
   showChoiceFolders: PropTypes.bool,
-  info: PropTypes.shape({
-    path: PropTypes.string,
-    open: PropTypes.bool,
-    subPath: PropTypes.string,
-    dir: PropTypes.any,
-    id: PropTypes.number
-  })
+  info: PropTypes.oneOfType([infoProps, infoCreateFilesProps])
 };

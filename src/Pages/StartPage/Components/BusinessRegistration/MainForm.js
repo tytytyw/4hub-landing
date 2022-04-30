@@ -7,6 +7,7 @@ import { useValidateForm } from "./validation";
 import api from "../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { compareProps } from "../../../../types/CompareProps";
 
 const requiredInputs = ["company_name"];
 
@@ -146,9 +147,7 @@ MainForm.propTypes = {
   mainFields: PropTypes.object,
   setMainFields: PropTypes.func,
   setStep: PropTypes.func,
-  compare: PropTypes.shape({
-    isAgreed: PropTypes.bool
-  }),
+  compare: compareProps,
   setCompare: PropTypes.func,
   setLoadingType: PropTypes.func
 };

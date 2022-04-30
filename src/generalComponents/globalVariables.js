@@ -12,7 +12,8 @@ export const MODALS = {
   FILE_PREVIEW_COMMENTS: "previewWithComments",
   PRINT_SCREEN: "printScreen",
   TOP_MESSAGE: "topMessage",
-  CONTEXT_MENU_MODAL: "contextMenuModals"
+  CONTEXT_MENU_MODAL: "contextMenuModals",
+  FILE_ACCESS_RIGHTS: "fileAccessRights"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -32,4 +33,19 @@ export const SHARED_FILES = {
   API_FILES_USER_SHARED_AMOUNT: "/ajax/file_share_mylist_col.php",
   API_FILES_SHARED_TO_USER_AMOUNT: "/ajax/file_share_list_col.php",
   API_USERLIST_FILES_USER_SHARED: "/ajax/file_share_list.php"
+};
+
+export const TOP_MESSAGE_TYPE = {
+  ERROR: "error",
+  MESSAGE: "message"
+};
+
+export const FILE_ACCESS_RIGHTS = {
+  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php"
+};
+
+export const SHARED_ACCESS_RIGHTS = {
+  WATCH: "0",
+  EDIT: "1",
+  DOWNLOAD: "2"
 };

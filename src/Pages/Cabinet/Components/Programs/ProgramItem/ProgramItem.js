@@ -6,7 +6,7 @@ import Comments from "../Comments/Comments";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import { useLocales } from "react-localized";
-import PropTypes from "prop-types";
+import { programItemProps } from "../../../../../types/ProgramItemProps";
 
 function ProgramItem({ program }) {
   const { __ } = useLocales();
@@ -90,11 +90,5 @@ function ProgramItem({ program }) {
 export default ProgramItem;
 
 ProgramItem.propTypes = {
-  program: PropTypes.shape({
-    icon: PropTypes.string,
-    name: PropTypes.string,
-    link: PropTypes.string,
-    comments: PropTypes.array,
-    isFavourite: PropTypes.bool
-  })
+  program: programItemProps
 };

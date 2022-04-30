@@ -6,12 +6,12 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { eventShowProps } from "../../../../../types/event/EventShowProps";
 
 const ListTaskItem = ({ event, collapsed }) => {
   const { __ } = useLocales();
   const color = eventTypesColor?.[event?.type];
   const rgba = hexToRgb(color);
-
   return (
     <>
       {!collapsed ? (
@@ -105,14 +105,6 @@ const ListTaskItem = ({ event, collapsed }) => {
 export default ListTaskItem;
 
 ListTaskItem.propTypes = {
-  event: PropTypes.shape({
-    type: PropTypes.number,
-    ctime: PropTypes.string,
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-    term: PropTypes.string,
-    tag: PropTypes.string,
-    sender: PropTypes.string
-  }),
+  event: eventShowProps,
   collapsed: PropTypes.bool
 };

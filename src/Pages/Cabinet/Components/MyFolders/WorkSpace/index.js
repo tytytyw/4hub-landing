@@ -18,6 +18,8 @@ import FolderPath from "../FolderPath";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../../types/FilePreviewProps";
 
 const WorkSpace = ({
   chosenFile,
@@ -70,14 +72,14 @@ const WorkSpace = ({
     <>
       <div
         className={`${styles.workSpaceWrap} 
-                ${typeof listCollapsed === "boolean"
-            ? listCollapsed
-              ? styles.workSpaceWrapCollapsed
-              : styles.workSpaceWrapUncollapsed
-            : undefined
-          }`}
-        ref={containerRef}
-      >
+                ${
+                  typeof listCollapsed === "boolean"
+                    ? listCollapsed
+                      ? styles.workSpaceWrapCollapsed
+                      : styles.workSpaceWrapUncollapsed
+                    : undefined
+                }`}
+        ref={containerRef}>
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
@@ -160,8 +162,7 @@ const WorkSpace = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -199,3 +200,36 @@ const WorkSpace = ({
 };
 
 export default WorkSpace;
+
+WorkSpace.propTypes = {
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  chosenFolder: PropTypes.object,
+  listCollapsed: PropTypes.bool,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps,
+  fileSelect: PropTypes.func,
+  action: PropTypes.shape({
+    type: PropTypes.string,
+    name: PropTypes.string,
+    text: PropTypes.string
+  }),
+  setAction: PropTypes.func,
+  fileAddCustomization: PropTypes.object,
+  setFileAddCustomization: PropTypes.func,
+  showSuccessMessage: PropTypes.bool,
+  setShowSuccessMessage: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  gLoader: PropTypes.bool,
+  setGLoader: PropTypes.func,
+  setNewFolder: PropTypes.func,
+  setNewFolderInfo: PropTypes.func,
+  newFolderInfo: PropTypes.shape({
+    path: PropTypes.string
+  }),
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  menuItem: PropTypes.string,
+  setChosenFolder: PropTypes.func,
+  openFolderMenu: PropTypes.func
+};

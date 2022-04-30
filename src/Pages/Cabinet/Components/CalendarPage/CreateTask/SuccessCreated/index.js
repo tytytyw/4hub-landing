@@ -6,6 +6,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { eventCreateProps } from "../../../../../../types/event/EventCreateProps";
 
 const SuccessCreated = ({ set, event }) => {
   const { __ } = useLocales();
@@ -103,22 +104,5 @@ export default SuccessCreated;
 
 SuccessCreated.propTypes = {
   set: PropTypes.func,
-  event: PropTypes.shape({
-    name: PropTypes.string,
-    sign: PropTypes.string,
-    emoji: PropTypes.string,
-    color: PropTypes.shape({
-      color: PropTypes.string,
-      dark: PropTypes.string,
-      light: PropTypes.string,
-      name: PropTypes.string
-    }),
-    dateFrom: PropTypes.string,
-    dateTo: PropTypes.string,
-    tagOption: PropTypes.shape({
-      chosen: PropTypes.string,
-      count: PropTypes.number
-    }),
-    desc: PropTypes.string
-  })
+  event: eventCreateProps
 };

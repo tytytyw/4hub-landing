@@ -12,6 +12,9 @@ import { ReactComponent as PlayIcon } from "../../../../../../assets/PrivateCabi
 import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
+import { filePickProps } from "../../../../../../types/FilePickProps";
 
 function FilesGroup({
   fileList,
@@ -63,8 +66,7 @@ function FilesGroup({
           onClick={() => {
             setCollapse(!collapse);
           }}
-          className={styles.collapseHeader}
-        >
+          className={styles.collapseHeader}>
           <p className={styles.dateName}>{mounthName}</p>
           <div className={styles.buttonsWrap}>
             <button className={styles.collapseBtn}>
@@ -74,8 +76,7 @@ function FilesGroup({
               className={classNames({
                 [styles.arrowFile]: true,
                 [styles.active]: !!collapse
-              })}
-            >
+              })}>
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
@@ -119,8 +120,7 @@ function FilesGroup({
           )}
           {workElementsView === "workLinesPreview" && (
             <div
-              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}
-            >
+              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
               <SideList>{renderFiles(FileLineShort, true)}</SideList>
               <div className={styles.filePreviewWrap}>
                 <WorkLinesPreview
@@ -138,3 +138,18 @@ function FilesGroup({
 }
 
 export default FilesGroup;
+
+FilesGroup.propTypes = {
+  fileList: PropTypes.object,
+  filePreview: filePreviewProps,
+  setFilePreview: PropTypes.func,
+  callbackArrMain: PropTypes.array,
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  setAction: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  mounthName: PropTypes.string,
+  index: PropTypes.number
+};

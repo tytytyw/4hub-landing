@@ -12,6 +12,8 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/FileProps";
+import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
 
 const FileLine = ({
   file,
@@ -157,17 +159,7 @@ const FileLine = ({
 export default FileLine;
 
 FileLine.propTypes = {
-  file: PropTypes.shape({
-    fid: PropTypes.string,
-    ext: PropTypes.string,
-    color: PropTypes.any,
-    name: PropTypes.string,
-    mtime: PropTypes.string,
-    size_now: PropTypes.string,
-    is_pass: PropTypes.number,
-    fig: PropTypes.string,
-    emo: PropTypes.string
-  }),
+  file: fileProps,
   setChosenFile: PropTypes.func,
   chosenFile: PropTypes.shape({
     fid: PropTypes.string
@@ -175,9 +167,5 @@ FileLine.propTypes = {
   setMouseParams: PropTypes.func,
   setAction: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  })
+  filePreview: filePreviewProps
 };

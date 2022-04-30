@@ -24,6 +24,7 @@ import Company from "./Components/Business/Company";
 import { exit } from "../../generalComponents/generalHelpers";
 import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
+import Library from "./Components/Library/Library";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector(state => state.user.uid);
@@ -253,6 +254,18 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
           <Route path="/calendar" render={() => <CalendarPage />} />
 
           <Route path="/tasks" render={() => ""} />
+
+          <Route
+            path="/libary"
+            render={() => (
+              <Library
+                menuItem={menuItem}
+                filesPage={filesPage}
+                setFilesPage={setFilesPage}
+                fileSelect={fileSelect}
+              />
+            )}
+          />
 
           <Route
             path="/chat-page"
