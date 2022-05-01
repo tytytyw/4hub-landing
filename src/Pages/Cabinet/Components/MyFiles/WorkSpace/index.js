@@ -15,7 +15,8 @@ import { useElementResize } from "../../../../../generalComponents/Hooks";
 import {
   onAddRecentFiles,
   onChooseFiles,
-  onGetArchiveFiles
+  onGetArchiveFiles,
+  onGetCartFiles
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -56,7 +57,6 @@ const WorkSpace = ({
   const [containerRef, width] = useElementResize();
   const { pathname } = useLocation();
   const [dateFilter, setDateFilter] = useState({});
-
   const successLoad = () => {
     setFilesPage(2);
     setGLoader(false);
@@ -73,6 +73,8 @@ const WorkSpace = ({
       );
     if (pathname === "/archive")
       dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+    if (pathname === "/cart")
+      dispatch(onGetCartFiles("", 1, "", successLoad, "", pathname));
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")
       dispatch(
@@ -92,7 +94,7 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
     };
-  }, [pathname]); //eslint-disable-line
+  }, [pathname]);
 
   const onActiveCallbackArrMain = type => {
     let index;
@@ -147,7 +149,7 @@ const WorkSpace = ({
           setFilesPage={setFilesPage}
           dateFilter={dateFilter}
         />
-        {pathname === "/archive" && (
+        {(pathname === "/archive" || pathname === "/cart") && (
           <DateFilter dateFilter={dateFilter} setDateFilter={setDateFilter} />
         )}
         <ItemsList

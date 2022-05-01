@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const WorkBars = ({ children, fileSelect }) => {
   const size = useSelector(state => state.Cabinet.size);
-
+  console.log(fileSelect);
   return (
     <div className={styles.workBarsWrap} style={{}}>
       <div
