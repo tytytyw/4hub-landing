@@ -1,0 +1,51 @@
+.selectFileWrapper
+    width: 420px
+    height: 680px
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    position: relative
+    animation: showPopup 0.2s ease-in-out
+    cursor: default
+    padding: 20px 0
+
+    .crossWrapper
+        cursor: pointer
+        position: absolute
+        top: 13px
+        right: 8px
+        width: 18px
+        height: 18px
+        .cross
+            &::before, &::after
+                content: ''
+                position: absolute
+                top: 0
+                right: 8px
+                width: 2px
+                height: 18px
+                border-radius: 10px
+                background: #C7C7C7
+            &::before
+                transform: rotate(45deg)
+
+            &::after
+                transform: rotate(135deg)
+    .title
+        font-size: 18px
+        font-family: "SF Pro Medium", sans-serif
+        margin: 0
+        color: #2B353E
+
+    .filesWrapper
+        flex-grow: 1
+        width: 100%
+        padding: 50px 0
+
+    .buttonsWrap
+        display: flex
+        align-items: center
+        justify-content: center
+        .cancelButtonWrapper
+            margin-right: 8px
