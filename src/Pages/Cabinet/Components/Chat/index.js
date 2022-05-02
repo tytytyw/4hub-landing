@@ -45,7 +45,8 @@ const Chat = ({ setMenuItem }) => {
   const selectedContact = useSelector(
     state => state.Cabinet.chat.selectedContact
   );
-  const [action, setAction] = useState({ type: "", name: "", text: "" });
+  //TODO:
+  const [action, setAction] = useState({ type: "selectFile", title: __("Выберите файл"), name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -325,12 +326,13 @@ const Chat = ({ setMenuItem }) => {
       },
       {
         name: __("Файлы с системы 4Hub"),
-        type: "add4hubFile",
-        callback: () => setAction({ type: "add4hubFile" })
+        type: "selectFile",
+        callback: () => setAction({ type: "selectFile" })
       },
       {
         name: __("Файлы с компьютера"),
         type: "addPcFile",
+        title: __("Выберите файл"),
         callback: () => fileInputRef.current.click()
       }
     ]

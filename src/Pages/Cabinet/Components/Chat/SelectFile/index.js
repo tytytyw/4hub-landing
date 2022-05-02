@@ -1,14 +1,107 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './SelectFile.module.sass'
 import PopUp from "../../../../../generalComponents/PopUp";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import TextButton from '../../../../../generalComponents/TextButton';
+import CustomFolderItem from '../../MyFolders/CustomFolderItem';
+import FileLineShort from "../../WorkElements/FileLineShort";
+import { onGetFolders, onChooseFiles, clearFileList, onSortFile } from '../../../../../Store/actions/CabinetActions';
+import { useFolders } from '../../../../../generalComponents/collections';
+
 
 const SelectFile = ({ nullifyAction, title }) => {
 
     const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+    const global = useSelector(state => state.Cabinet.global);
+    const other = useSelector(state => state.Cabinet.other);
+    const folders = useFolders();
+    const fileList = useSelector(state => state.Cabinet.fileList?.files);
+    const path = useSelector(state => state.Cabinet.fileList?.path);
+    const dispatch = useDispatch();
 
+    const [chosenFolder, setChosenFolder] = useState(null);
+    const [chosenFile, setChosenFile] = useState(null)
+
+
+    const renderFiles = (files, folder) => {
+        if (!files) return null;
+        return files.map((file, i) => {
+            return (
+                <FileLineShort
+                    key={i}
+                    file={file}
+                    setChosenFile={setChosenFile}
+                    chosen={chosenFile?.fid === file?.fid}
+                    setMouseParams={null}
+                    setAction={null}
+                    setFilePreview={null}
+                    filePreview={null}
+                    filePick={null}
+                    setFilePick={null}
+                    callbackArrMain={null}
+                    folderSelect={null}
+                    setGLoader={null}
+                    filesSize='small'
+                    style={{ width: 420, paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0 }}
+                    disablexContexMenu={true}
+                />
+            );
+        });
+    };
+
+
+    const renderFolderList = (root) => {
+        if (!Array.isArray(root)) return null;
+        return root.map((folder, i) => {
+            return <div key={i + folder.name}>
+                <CustomFolderItem
+                    key={folder.name}
+                    f={folder}
+                    listCollapsed={false}
+                    isSelectFolder={true}
+                    setChosenFolder={setChosenFolder}
+                    chosenFolder={chosenFolder}
+                    chosen={chosenFolder?.info?.path === folder.path}
+                    p={25}
+                    isRecent={false}
+                    subFolder={false}
+                    offDispatch={true}
+                    foldersWidth={420}
+                    renderFiles={renderFiles}
+                    disableChosenFolderStyles={true}
+                >
+                    {chosenFolder?.info?.path === folder.path && Array.isArray(fileList) && fileList.length ? renderFiles(fileList, folder) : null}
+                </CustomFolderItem>
+            </div>
+        })
+    }
+
+    useEffect(async () => {
+        dispatch(onGetFolders("", folders));
+        await dispatch(onSortFile("byName&sort_reverse=0"))
+        return async () => {
+            dispatch(onSortFile("byDateCreated&sort_reverse=1&group=ctime"))
+            await dispatch(clearFileList());
+            dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
+        };
+    }, []); //eslint-disable-line
+
+    useEffect(() => {
+        dispatch(
+            onChooseFiles(
+                path,
+                "",
+                1,
+                "",
+                ""
+            )
+        );
+    }, [path])
+
+    // useEffect(() => {
+    //     console.log(fileList)
+    // }, [fileList])
 
     return (
         <PopUp set={nullifyAction} background={chatTheme.name === 'dark' ? '#292929' : ''}>
@@ -18,10 +111,17 @@ const SelectFile = ({ nullifyAction, title }) => {
                     <span className={styles.cross} />
                 </div>
 
-                <div className={styles.filesWrapper}></div>
+                <div className={styles.contentWrap}>
+                    <div className={styles.folderListWrap}>
+                        {renderFolderList(global)}
+                        {renderFolderList(other)}
+                    </div>
+                </div>
 
                 <div className={styles.buttonsWrap}>
-                    <div className={styles.cancelButtonWrapper}><TextButton text='Отмена' type='cancel' /></div>
+                    <div className={styles.cancelButtonWrapper}>
+                        <TextButton text='Отмена' type='cancel' callback={nullifyAction} />
+                    </div>
                     <TextButton text='Отправить' type='ok' />
                 </div>
             </div>

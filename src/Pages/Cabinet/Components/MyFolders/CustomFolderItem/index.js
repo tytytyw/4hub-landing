@@ -43,7 +43,11 @@ const CustomFolderItem = ({
   setShowSuccessMessage,
   openMenu,
   isRecent,
-  offDispatch
+  offDispatch,
+  foldersWidth,
+  children,
+  renderFiles,
+  disableChosenFolderStyles
 }) => {
   const { __ } = useLocales();
   const [filesQuantity, setFilesQuantity] = useState(0);
@@ -97,15 +101,15 @@ const CustomFolderItem = ({
       getQuantity();
   }, [fileList?.files?.length]); // eslint-disable-line
 
-  const openFolder = e => {
-    let boolean = false;
+  const openFolder = (e, bool) => {
+    let boolean = !!bool;
     e.target?.viewportElement
       ? e.target?.viewportElement?.classList.forEach(el => {
-          if (el.toString().search("playButton")) boolean = true;
-        })
+        if (el.toString().search("playButton")) boolean = true;
+      })
       : e.target.classList.forEach(el => {
-          if (el?.includes("playButton")) boolean = true;
-        });
+        if (el?.includes("playButton")) boolean = true;
+      });
     if (boolean) open();
     dispatch(onChooseFolder(f.folders.folders, f.path));
   };
@@ -116,7 +120,7 @@ const CustomFolderItem = ({
       ...state,
       open: typeof isOpen === "boolean" ? true : !state.open
     }));
-    const folderWidth =
+    const folderWidth = foldersWidth ??
       (offDispatch ? 360 : 310) +
       (open ? p * (f.path?.split("/").length - 1) : 0);
     setChosenFolder(state => ({ ...state, info: f, folderWidth }));
@@ -148,18 +152,23 @@ const CustomFolderItem = ({
           setNewFolderInfo={setNewFolderInfo}
           setNewFolder={setNewFolder}
           offDispatch={offDispatch}
-        />
+          foldersWidth={foldersWidth}
+          disableChosenFolderStyles={disableChosenFolderStyles}
+        >
+          {renderFiles && chosenFolder?.info?.path === f.path && Array.isArray(fileList.files) && fileList.files.length ? renderFiles(fileList.files, f) : null}
+        </CustomFolderItem>
       );
     });
   };
 
   const clickHandle = async e => {
-    const currentPath = fileList?.path
-      ?.split("/")
-      .slice(0, f.path?.split("/").length)
-      .join("/");
-    if (!isRecent && !offDispatch) openFolder(e, currentPath);
-
+    // const currentPath = fileList?.path
+    //   ?.split("/")
+    //   .slice(0, f.path?.split("/").length)
+    //   .join("/");
+    if (!isRecent && !offDispatch) openFolder(e);
+    //for SelectFile in Chat
+    if (renderFiles && offDispatch) openFolder(e, true);
     if (!fileList?.path !== f.path) {
       const cancel = new Promise(resolve => {
         resolve(cancelRequest("cancelChooseFiles"));
@@ -219,23 +228,22 @@ const CustomFolderItem = ({
   return (
     <>
       <div
-        className={`${styles.innerFolderWrap} ${
-          fileList?.path?.includes(f?.path)
-            ? styles.chosenSubFolderWrap
-            : undefined
-        }`}
+        className={`${styles.innerFolderWrap} ${fileList?.path?.includes(f?.path) && !disableChosenFolderStyles
+          ? styles.chosenSubFolderWrap
+          : undefined
+          }`}
         onClick={clickHandle}
         onDrop={handleDrop}
         style={{
-          width: chosenFolder.folderWidth,
-          minWidth: chosenFolder.folderWidth,
-          maxWidth: chosenFolder.folderWidth
+          width: chosenFolder?.folderWidth,
+          minWidth: chosenFolder?.folderWidth,
+          maxWidth: chosenFolder?.folderWidth
         }}>
         <div
           className={styles.innerFolder}
           style={{
             padding: `0 15px 0 0`,
-            maxWidth: chosenFolder.folderWidth
+            maxWidth: chosenFolder?.folderWidth
           }}>
           <div className={styles.innerFolderName}>
             <div
@@ -255,9 +263,8 @@ const CustomFolderItem = ({
                 />
               ) : (
                 <FolderIcon
-                  className={`${styles.innerFolderIcon} ${
-                    colors.filter(el => el.color === f.color)[0]?.name
-                  }`}
+                  className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name
+                    }`}
                 />
               )}
               {f.is_pass === 1 && (
@@ -295,11 +302,10 @@ const CustomFolderItem = ({
             )}
             {isRecent ? null : (
               <PlayIcon
-                className={`${styles.playButton} ${
-                  fileList?.path?.includes(f.path) && folderParams.open
-                    ? styles.revert
-                    : undefined
-                }`}
+                className={`${styles.playButton} ${fileList?.path?.includes(f.path) && folderParams.open
+                  ? styles.revert
+                  : undefined
+                  }`}
               />
             )}
             {offDispatch ? null : (
@@ -313,30 +319,27 @@ const CustomFolderItem = ({
       {isRecent ? null : (
         <div
           style={{
-            height: `${
-              fileList?.path?.includes(f.path) && folderParams.open
-                ? "max-content"
-                : "0px"
-            }`,
-            minHeight: `${
-              fileList?.path?.includes(f.path) && folderParams.open
-                ? "max-content"
-                : "0px"
-            }`,
-            maxWidth: chosenFolder.folderWidth
+            height: `${fileList?.path?.includes(f.path) && folderParams.open
+              ? "max-content"
+              : "0px"
+              }`,
+            minHeight: `${fileList?.path?.includes(f.path) && folderParams.open
+              ? "max-content"
+              : "0px"
+              }`,
+            maxWidth: chosenFolder?.folderWidth
           }}
-          className={`${styles.innerFolders} ${
-            fileList?.path?.includes(f.path) && folderParams.open
-              ? undefined
-              : styles.hidden
-          }`}>
+          className={`${styles.innerFolders} ${fileList?.path?.includes(f.path) && folderParams.open
+            ? undefined
+            : styles.hidden
+            }`}>
           {offDispatch ? null : (
             <div
               className={styles.addFolderToFolder}
               style={{
                 padding: `0 15px 0 ${p * f.path?.split("/").length ?? 0}px`,
-                width: chosenFolder.folderWidth,
-                minWidth: chosenFolder.folderWidth
+                width: chosenFolder?.folderWidth,
+                minWidth: chosenFolder?.folderWidth
               }}
               onClick={handleAddFolder}>
               <div className={styles.addFolderName}>
@@ -346,6 +349,7 @@ const CustomFolderItem = ({
               <AddIcon className={styles.addFolderIcon} />
             </div>
           )}
+          {children}
           {renderInnerFolders()}
         </div>
       )}
@@ -373,9 +377,14 @@ CustomFolderItem.propTypes = {
   setShowSuccessMessage: PropTypes.func,
   openMenu: PropTypes.func,
   isRecent: PropTypes.any,
-  offDispatch: PropTypes.any
+  offDispatch: PropTypes.any,
+  foldersWidth: PropTypes.number,
+  children: PropTypes.array,
+  renderFiles: PropTypes.func,
+  disableChosenFolderStyles: PropTypes.bool
 };
 
 CustomFolderItem.defaultProps = {
-  p: 25
+  p: 25,
+  disableChosenFolderStyles: false
 };

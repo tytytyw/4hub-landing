@@ -12,6 +12,7 @@ import Profile from "../../Profile/Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
+import SelectFile from '../SelectFile'
 import Settings from '../Settings'
 import PropTypes from "prop-types";
 import {
@@ -346,6 +347,7 @@ const WorkSpace = ({
         ) : null}
       </div>
       {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
+      {action?.type === "selectFile" ? <SelectFile nullifyAction={nullifyAction} title={action?.title} /> : ""}
 
       <BottomPanel />
     </div>
