@@ -6,6 +6,8 @@ import Calendar from "../../../../../StartPage/Components/Calendar";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 function StoragePeriod({
   file,
@@ -156,3 +158,15 @@ function StoragePeriod({
 }
 
 export default StoragePeriod;
+
+StoragePeriod.propTypes = {
+  file: fileProps,
+  setDisplayStotagePeriod: PropTypes.func,
+  dateValue: PropTypes.string,
+  setDateValue: PropTypes.func,
+  timeValue: PropTypes.shape({
+    hours: PropTypes.string,
+    minutes: PropTypes.string
+  }),
+  setTimeValue: PropTypes.func
+};

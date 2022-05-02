@@ -14,6 +14,8 @@ import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { arrayForPhpRequest } from "../../../../../../generalComponents/generalHelpers";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
   const { __ } = useLocales();
@@ -32,6 +34,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
   const uid = useSelector(state => state.user.uid);
   const share = useSelector(state => state.Cabinet.modals.share);
   const file = useSelector(state => state.Cabinet.modals.share.file);
+
   const dispatch = useDispatch();
   const [data, setData] = useState({
     uid,
@@ -93,7 +96,8 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
     api
       .post(`/ajax/${action_type || share.action_type}.php?${newData}`)
       .then(res => {
-        if (!!res.data.ok) {
+        let isBool = !!res.data.ok;
+        if (isBool) {
           setShowSuccessMessage
             ? setShowSuccessMessage(__("Отправлено"))
             : dispatch(
@@ -286,3 +290,10 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
 }
 
 export default Share;
+
+Share.propTypes = {
+  files: fileProps,
+  action_type: PropTypes.string,
+  setShowSuccessMessage: PropTypes.func,
+  setLoadingType: PropTypes.func
+};

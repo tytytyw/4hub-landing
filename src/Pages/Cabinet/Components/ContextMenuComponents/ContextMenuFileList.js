@@ -29,7 +29,6 @@ function ContextMenuFileList({
   menuItem,
   authorizedSafe
 }) {
-  console.log(authorizedSafe);
   const { __ } = useLocales();
   const copy_link_types = {
     myFolders: file?.is_dir === 1 ? "dir_access_add" : ""

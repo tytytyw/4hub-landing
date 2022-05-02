@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
 
-export const projectProps = PropTypes.exact({
-  icon: PropTypes.string,
+export const safeProps = PropTypes.exact({
+  code_tmp: PropTypes.any,
   id: PropTypes.string,
   id_color: PropTypes.string,
   id_emo: PropTypes.string,
   id_fig: PropTypes.string,
   id_user: PropTypes.string,
-  is_archive: PropTypes.string,
   is_del: PropTypes.string,
   is_my: PropTypes.number,
   link: PropTypes.string,

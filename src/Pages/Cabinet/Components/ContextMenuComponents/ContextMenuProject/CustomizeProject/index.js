@@ -14,6 +14,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import ProjectIcons from "../../../Project/ProjectIcons/ProjectIcons";
 import { onGetProjects } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { projectFolderStructure } from "../../../../../../types/Project";
 
 const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
   const { __ } = useLocales();
@@ -210,3 +212,10 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
 };
 
 export default CustomizeProject;
+
+CustomizeProject.propTypes = {
+  onCreate: PropTypes.func,
+  title: PropTypes.string,
+  project: projectFolderStructure,
+  setLoadingType: PropTypes.func
+};
