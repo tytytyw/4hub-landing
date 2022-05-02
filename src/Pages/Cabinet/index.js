@@ -16,7 +16,6 @@ import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
 import Journal from "./Components/Journal";
 import CalendarPage from "./Components/CalendarPage";
-// import Cart from "./Components/Cart";
 import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
 import api from "../../api";
