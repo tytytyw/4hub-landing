@@ -11,7 +11,7 @@ import { onGetFolders, onChooseFiles, clearFileList, onSortFile } from '../../..
 import { useFolders } from '../../../../../generalComponents/collections';
 
 
-const SelectFile = ({ nullifyAction, title }) => {
+const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) => {
 
     const chatTheme = useSelector(state => state.Cabinet.chat.theme)
     const global = useSelector(state => state.Cabinet.global);
@@ -93,6 +93,11 @@ const SelectFile = ({ nullifyAction, title }) => {
         })
     }
 
+    const onSubmit = () => {
+        if (chosenFile && !(attachedFiles && attachedFiles.some(f => f.fid === chosenFile.fid))) setAttachedFiles(prevFiles => prevFiles ? [...prevFiles, { ...chosenFile, kind: 'file' }] : [{ ...chosenFile, kind: 'file' }])
+        nullifyAction()
+    }
+
     useEffect(async () => {
         dispatch(onGetFolders("", folders));
         await dispatch(onSortFile("byName&sort_reverse=0"))
@@ -134,7 +139,7 @@ const SelectFile = ({ nullifyAction, title }) => {
                     <div className={styles.cancelButtonWrapper}>
                         <TextButton text='Отмена' type='cancel' callback={nullifyAction} />
                     </div>
-                    <TextButton text='Отправить' type='ok' disabled={!chosenFile} />
+                    <TextButton text='Отправить' type='ok' disabled={!chosenFile} callback={onSubmit} />
                 </div>
             </div>
 
@@ -145,5 +150,7 @@ export default SelectFile
 
 SelectFile.propTypes = {
     nullifyAction: PropTypes.func.isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    attachedFiles: PropTypes.array,
+    setAttachedFiles: PropTypes.func.isRequired
 };

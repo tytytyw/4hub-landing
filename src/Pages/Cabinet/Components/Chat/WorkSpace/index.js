@@ -43,6 +43,7 @@ const WorkSpace = ({
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
   const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const [attachedFiles, setAttachedFiles] = useState(null)
 
   const selectedContact = useSelector(
     state => state.Cabinet.chat.selectedContact
@@ -307,6 +308,8 @@ const WorkSpace = ({
             scrollToBottom={scrollToBottom}
             editMessage={editMessage}
             showSettings={showSettings}
+            attachedFiles={attachedFiles}
+            setAttachedFiles={setAttachedFiles}
           />
         ) : (
           ""
@@ -347,7 +350,7 @@ const WorkSpace = ({
         ) : null}
       </div>
       {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
-      {action?.type === "selectFile" ? <SelectFile nullifyAction={nullifyAction} title={action?.title} /> : ""}
+      {action?.type === "selectFile" ? <SelectFile nullifyAction={nullifyAction} title={action?.title} attachedFiles={attachedFiles} setAttachedFiles={setAttachedFiles} /> : ""}
 
       <BottomPanel />
     </div>
