@@ -47,7 +47,8 @@ const CustomFolderItem = ({
   foldersWidth,
   children,
   renderFiles,
-  disableChosenFolderStyles
+  disableChosenFolderStyles,
+  renderLoader
 }) => {
   const { __ } = useLocales();
   const [filesQuantity, setFilesQuantity] = useState(0);
@@ -154,8 +155,10 @@ const CustomFolderItem = ({
           offDispatch={offDispatch}
           foldersWidth={foldersWidth}
           disableChosenFolderStyles={disableChosenFolderStyles}
+          renderLoader={renderLoader}
         >
           {renderFiles && chosenFolder?.info?.path === f.path && Array.isArray(fileList.files) && fileList.files.length ? renderFiles(fileList.files, f) : null}
+          {renderFiles && chosenFolder?.info?.path === f.path && !fileList?.files ? renderLoader() : null}
         </CustomFolderItem>
       );
     });
@@ -381,7 +384,8 @@ CustomFolderItem.propTypes = {
   foldersWidth: PropTypes.number,
   children: PropTypes.array,
   renderFiles: PropTypes.func,
-  disableChosenFolderStyles: PropTypes.bool
+  disableChosenFolderStyles: PropTypes.bool,
+  renderLoader: PropTypes.func
 };
 
 CustomFolderItem.defaultProps = {

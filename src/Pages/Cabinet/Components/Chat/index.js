@@ -45,8 +45,7 @@ const Chat = ({ setMenuItem }) => {
   const selectedContact = useSelector(
     state => state.Cabinet.chat.selectedContact
   );
-  //TODO:
-  const [action, setAction] = useState({ type: "selectFile", title: __("Выберите файл"), name: "", text: "" });
+  const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);

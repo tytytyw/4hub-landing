@@ -273,7 +273,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_FILES_PATH: {
       return {
         ...state,
-        fileList: { ...state.fileList, files: [], path: action.payload }
+        fileList: { ...state.fileList, files: null, path: action.payload }
       };
     }
     case SET_CHOSEN_FILE: {

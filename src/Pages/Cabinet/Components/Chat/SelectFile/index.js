@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TextButton from '../../../../../generalComponents/TextButton';
 import CustomFolderItem from '../../MyFolders/CustomFolderItem';
 import FileLineShort from "../../WorkElements/FileLineShort";
+import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { onGetFolders, onChooseFiles, clearFileList, onSortFile } from '../../../../../Store/actions/CabinetActions';
 import { useFolders } from '../../../../../generalComponents/collections';
 
@@ -23,6 +24,19 @@ const SelectFile = ({ nullifyAction, title }) => {
     const [chosenFolder, setChosenFolder] = useState(null);
     const [chosenFile, setChosenFile] = useState(null)
 
+    const renderLoader = () => (
+        <div style={{ width: '420px' }}>
+            <Loader
+                type="bounceDots"
+                position="relative"
+                background="transparent"
+                zIndex={5}
+                width="100px"
+                height="100px"
+                containerType="bounceDots"
+            />
+        </div>
+    )
 
     const renderFiles = (files, folder) => {
         if (!files) return null;
@@ -50,13 +64,12 @@ const SelectFile = ({ nullifyAction, title }) => {
         });
     };
 
-
     const renderFolderList = (root) => {
         if (!Array.isArray(root)) return null;
         return root.map((folder, i) => {
-            return <div key={i + folder.name}>
+            return (
                 <CustomFolderItem
-                    key={folder.name}
+                    key={i + folder.name}
                     f={folder}
                     listCollapsed={false}
                     isSelectFolder={true}
@@ -70,10 +83,13 @@ const SelectFile = ({ nullifyAction, title }) => {
                     foldersWidth={420}
                     renderFiles={renderFiles}
                     disableChosenFolderStyles={true}
+                    renderLoader={renderLoader}
                 >
                     {chosenFolder?.info?.path === folder.path && Array.isArray(fileList) && fileList.length ? renderFiles(fileList, folder) : null}
+                    {chosenFolder?.info?.path === folder.path && !fileList ? renderLoader() : null}
+
                 </CustomFolderItem>
-            </div>
+            )
         })
     }
 
@@ -88,7 +104,7 @@ const SelectFile = ({ nullifyAction, title }) => {
     }, []); //eslint-disable-line
 
     useEffect(() => {
-        dispatch(
+        if (path) dispatch(
             onChooseFiles(
                 path,
                 "",
@@ -98,10 +114,6 @@ const SelectFile = ({ nullifyAction, title }) => {
             )
         );
     }, [path])
-
-    // useEffect(() => {
-    //     console.log(fileList)
-    // }, [fileList])
 
     return (
         <PopUp set={nullifyAction} background={chatTheme.name === 'dark' ? '#292929' : ''}>
@@ -122,7 +134,7 @@ const SelectFile = ({ nullifyAction, title }) => {
                     <div className={styles.cancelButtonWrapper}>
                         <TextButton text='Отмена' type='cancel' callback={nullifyAction} />
                     </div>
-                    <TextButton text='Отправить' type='ok' />
+                    <TextButton text='Отправить' type='ok' disabled={!chosenFile} />
                 </div>
             </div>
 
