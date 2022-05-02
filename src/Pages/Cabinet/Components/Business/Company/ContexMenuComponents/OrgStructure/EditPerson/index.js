@@ -9,6 +9,7 @@ import Select from "../../../AddEmployee/Select/Select";
 import { usePersonStatus } from "../../../../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { personProps } from "../../../../../../../../types/Company";
 
 const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
   const { __ } = useLocales();
@@ -255,22 +256,9 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
 };
 
 export default EditPerson;
+
 EditPerson.propTypes = {
-  person: PropTypes.shape({
-    data: PropTypes.shape({
-      info: PropTypes.shape({
-        name: PropTypes.string,
-        surname: PropTypes.string,
-        middleName: PropTypes.string,
-        position: PropTypes.string,
-        status: PropTypes.object,
-        phone: PropTypes.string,
-        phone2: PropTypes.string,
-        email: PropTypes.string,
-        email2: PropTypes.string
-      })
-    })
-  }),
+  person: personProps,
   nullifyAction: PropTypes.func,
   editPerson: PropTypes.func,
   disableСhanges: PropTypes.bool

@@ -17,7 +17,8 @@ import {
   onChooseFolder,
   onGetArchiveFiles,
   onSetNextFilesToPrevious,
-  onSetPath
+  onSetPath,
+  onGetCartFiles
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -62,7 +63,6 @@ const ItemsList = ({
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
-
   const folderSelect = folder => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
@@ -167,7 +167,11 @@ const ItemsList = ({
       );
       setFilesPage(1);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    if (pathname === "/cart") {
+      dispatch(onGetCartFiles(search, 1, onSuccessLoading, "", "", dateFilter));
+      setFilesPage(1);
+    }
   }, [dateFilter]);
 
   const onSuccessLoading = result => {
@@ -264,7 +268,6 @@ const ItemsList = ({
   };
 
   const [scrollRef] = useScrollElementOnScreen(options, load);
-
   return (
     <>
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
@@ -289,7 +292,12 @@ const ItemsList = ({
       workElementsView !== "preview" ? (
         <div
           className={classnames(
-            renderHeight(recentFiles, filePick, styles),
+            renderHeight(
+              recentFiles,
+              filePick,
+              styles,
+              pathname === "/archive" || pathname === "/cart"
+            ),
             styles.FilesList,
             {
               [styles.shared_files]: pathname.startsWith("/shared-files")

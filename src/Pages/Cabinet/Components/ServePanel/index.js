@@ -43,7 +43,7 @@ import { useLocation } from "react-router";
 import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePickProps } from "../../../../types/FilePickProps";
+import { filePickProps } from "../../../../types/WorkElements";
 
 const ServePanel = ({
   chosenFile,
@@ -627,6 +627,21 @@ const ServePanel = ({
     </>
   );
 
+  const renderInCart = () => (
+    <>
+      <div className={styles.groupStart}>
+        {tempTabs()}
+        <div className={styles.filterPanel}>
+          {tempSize()} {tempFilter()} {tempChoose()} {tempAdd()}
+        </div>
+      </div>
+      <div className={styles.groupEnd}>
+        <div className={styles.iconButtons}>
+          {tempArchive()} {tempShare()} {tempDelete()}
+        </div>
+      </div>
+    </>
+  );
   return (
     <div className={styles.servePanelWrap}>
       {pathname.startsWith("/folders") && renderInFolders()}
@@ -639,6 +654,7 @@ const ServePanel = ({
       {pathname.startsWith("/downloaded-files") && renderInSharedFiles()}
       {pathname.startsWith("/archive") && renderInArchive()}
       {pathname.startsWith("/libary") && renderInLibrary()}
+      {pathname.startsWith("/cart") && renderInCart()}
 
       {mouseParams !== null ? (
         <ContextMenu

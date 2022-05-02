@@ -36,7 +36,7 @@ import {
 import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../types/FilePickProps";
+import { filePickProps } from "../../../types/WorkElements";
 
 const ServePanel = ({
   chosenFile,

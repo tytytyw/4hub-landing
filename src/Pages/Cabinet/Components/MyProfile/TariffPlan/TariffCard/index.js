@@ -4,7 +4,7 @@ import styles from "./TariffCard.module.sass";
 import Button from "../../Button";
 import classnames from "classnames";
 import { useLocales } from "react-localized";
-import { tariffCardItemProps } from "../../../../../../types/TariffCardItemProps";
+import { tariffCardProps } from "../../../../../../types/TariffCard";
 
 const TariffCard = ({ item }) => {
   const { __ } = useLocales();
@@ -60,5 +60,5 @@ const TariffCard = ({ item }) => {
 export default TariffCard;
 
 TariffCard.propTypes = {
-  item: tariffCardItemProps
+  item: tariffCardProps
 };

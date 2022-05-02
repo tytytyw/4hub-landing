@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const fProps = PropTypes.exact({
+export const fileProps = PropTypes.exact({
   name: PropTypes.string,
   path: PropTypes.string,
   ut: PropTypes.string,

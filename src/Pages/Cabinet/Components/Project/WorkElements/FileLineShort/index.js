@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../../types/FilePickProps";
+import { filePickProps } from "../../../../../../types/WorkElements";
 
 const FileLineShort = ({
   file,

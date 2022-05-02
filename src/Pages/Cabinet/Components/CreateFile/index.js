@@ -21,12 +21,8 @@ import {
 } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { blobProps } from "../../../../types/BlobProps";
-import {
-  initFolderProps,
-  initFolderCreateFilesProps
-} from "../../../../types/InitFolderProps";
-import { infoProps, infoCreateFilesProps } from "../../../../types/InfoProps";
+import { blobProps, createFilesProps } from "../../../../types/CreateFile";
+import { chosenFolderProps } from "../../../../types/CreateFolder";
 
 const CreateFile = ({
   title,
@@ -483,10 +479,7 @@ CreateFile.propTypes = {
   create: PropTypes.bool,
   setGLoader: PropTypes.func,
   menuItem: PropTypes.string,
-  initFolder: PropTypes.oneOfType([
-    initFolderProps,
-    initFolderCreateFilesProps
-  ]),
+  initFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
   showChoiceFolders: PropTypes.bool,
-  info: PropTypes.oneOfType([infoProps, infoCreateFilesProps])
+  info: PropTypes.oneOfType([chosenFolderProps, createFilesProps])
 };

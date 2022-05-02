@@ -1,5 +1,18 @@
 import PropTypes from "prop-types";
 
+export const filePickProps = PropTypes.exact({
+  show: PropTypes.bool,
+  files: PropTypes.array,
+  customize: PropTypes.bool,
+  intoZip: PropTypes.bool
+});
+
+export const filePreviewProps = PropTypes.exact({
+  view: PropTypes.bool,
+  file: PropTypes.any,
+  create: PropTypes.bool
+});
+
 export const fileProps = PropTypes.exact({
   adate: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   color: PropTypes.string,

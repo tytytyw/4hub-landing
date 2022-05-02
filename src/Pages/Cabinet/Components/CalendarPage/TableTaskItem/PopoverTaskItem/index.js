@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { calendarPageTaskProps } from "../../../../../../types/CalendarPageTaskProps";
+import { taskProps } from "../../../../../../types/CalendarPage";
 
 const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
   const { __ } = useLocales();
@@ -86,7 +86,7 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
 export default PopoverTaskItem;
 
 PopoverTaskItem.propTypes = {
-  task: calendarPageTaskProps,
+  task: taskProps,
   reverseSide: PropTypes.bool,
   reverse: PropTypes.bool
 };

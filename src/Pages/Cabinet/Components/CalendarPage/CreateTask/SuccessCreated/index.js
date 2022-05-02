@@ -6,7 +6,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { eventCreateProps } from "../../../../../../types/event/EventCreateProps";
+import { eventProps } from "../../../../../../types/CalendarPage";
 
 const SuccessCreated = ({ set, event }) => {
   const { __ } = useLocales();
@@ -104,5 +104,5 @@ export default SuccessCreated;
 
 SuccessCreated.propTypes = {
   set: PropTypes.func,
-  event: eventCreateProps
+  event: eventProps
 };

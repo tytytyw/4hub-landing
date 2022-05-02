@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const tariffCardItemProps = PropTypes.exact({
+export const tariffCardProps = PropTypes.exact({
   dayOffer: PropTypes.bool,
   tariff: PropTypes.string,
   oldPrice: PropTypes.number,

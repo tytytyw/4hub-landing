@@ -35,7 +35,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/FilePreviewProps";
+import { filePreviewProps } from "../../../../types/WorkElements";
 
 const MyFolders = ({
   setItem,

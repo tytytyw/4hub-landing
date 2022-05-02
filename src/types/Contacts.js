@@ -20,5 +20,8 @@ export const selectedItemProps = PropTypes.exact({
   id_real_user: PropTypes.string,
   date_message: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   is_user: PropTypes.number,
-  is_user_q: PropTypes.string
+  is_user_q: PropTypes.string,
+  is_online: PropTypes.number,
+  real_user_date_gmt: PropTypes.number,
+  real_user_date_last: PropTypes.string
 });

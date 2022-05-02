@@ -150,8 +150,8 @@ export const exit = () => {
 };
 
 //Count height of fields for files (WorkBars, WorkLines, WorkBarsPreview, WorkLinesPreview)
-export const renderHeight = (recentFiles, filePick, styles, dateFilter) =>
-  recentFiles?.length > 0
+export const renderHeight = (recentFiles, filePick, styles, dateFilter) => {
+  return recentFiles?.length || dateFilter > 0
     ? filePick.show
       ? styles.showFilePickWithRecentFiles
       : styles.hideFilePickWithRecentFiles
@@ -160,6 +160,7 @@ export const renderHeight = (recentFiles, filePick, styles, dateFilter) =>
     : filePick.show
     ? styles.showFilePick
     : styles.hideFilePick;
+};
 
 //Moves file to another folder
 export const moveFile = (folder, file, uid) => {

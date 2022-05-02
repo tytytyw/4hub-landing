@@ -55,6 +55,6 @@ const DateBlock = ({ month, setMonth }) => {
 export default DateBlock;
 
 DateBlock.propTypes = {
-  month: PropTypes.string,
+  month: PropTypes.number,
   setMonth: PropTypes.func
 };
