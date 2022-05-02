@@ -275,8 +275,7 @@ const Project = ({
         onCreate={setCreateProject}
         ref={listRef}
         listCollapsed={listCollapsed}
-        setListCollapsed={setListCollapsed}
-      >
+        setListCollapsed={setListCollapsed}>
         {projects?.length < 1 ? (
           <div className={styles.emptyBlock}>
             <img
@@ -310,8 +309,7 @@ const Project = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuSubFolder.main, callbackArrSub)}
           </div>
@@ -322,8 +320,7 @@ const Project = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderProjectMenuItems(contextMenuProjects.main, callbackArrMain)}
           </div>
@@ -384,8 +381,7 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           approve={__("Удалить")}
-          callback={deleteProject}
-        >
+          callback={deleteProject}>
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -397,8 +393,7 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={nullifyAction}
-          approve={__("Покинуть")}
-        >
+          approve={__("Покинуть")}>
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -410,8 +405,7 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={nullifyAction}
-          approve={__("Архивировать")}
-        >
+          approve={__("Архивировать")}>
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -450,8 +444,7 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFolder}
-          approve={__("Удалить")}
-        >
+          approve={__("Удалить")}>
           <div className={styles.fileActionWrap}>
             <FolderIcon className={styles.innerFolderIcon} />
           </div>

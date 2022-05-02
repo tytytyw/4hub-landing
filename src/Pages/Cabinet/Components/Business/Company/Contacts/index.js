@@ -11,6 +11,7 @@ import { onGetCompanyContacts } from "../../../../../../Store/actions/CabinetAct
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 const Contacts = ({
   setLoadingType,
@@ -147,7 +148,7 @@ export default Contacts;
 Contacts.propTypes = {
   setLoadingType: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func
 };

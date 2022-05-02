@@ -10,6 +10,9 @@ import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileProps, filePickProps } from "../../../../types/WorkElements";
+import { mouseParamsProps } from "../../../../types/MouseParams";
 
 export const share_types = {
   myFolders: "file_share",
@@ -19,13 +22,14 @@ export const share_types = {
 };
 
 function ContextMenuFileList({
-  file = {},
+  file,
   filePick,
   mouseParams,
   filesPage,
   menuItem,
-  authorizedSafe = null
+  authorizedSafe
 }) {
+  console.log(authorizedSafe);
   const { __ } = useLocales();
   const copy_link_types = {
     myFolders: file?.is_dir === 1 ? "dir_access_add" : ""
@@ -312,3 +316,17 @@ function ContextMenuFileList({
 }
 
 export default ContextMenuFileList;
+
+ContextMenuFileList.propTypes = {
+  file: fileProps,
+  filePick: filePickProps,
+  mouseParams: mouseParamsProps,
+  filesPage: PropTypes.number,
+  menuItem: PropTypes.string,
+  authorizedSafe: PropTypes.any
+};
+
+ContextMenuFileList.defaultProps = {
+  file: {},
+  authorizedSafe: null
+};

@@ -4,6 +4,7 @@ import UploadFile from "../UploadFile/UploadFile";
 import { onGetCompanyDocument } from "../../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 const DocPreview = ({
   pageOption,
@@ -64,7 +65,7 @@ DocPreview.propTypes = {
   }),
   setPageOption: PropTypes.func,
   setLoadingType: PropTypes.func,
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
   action: PropTypes.object,
