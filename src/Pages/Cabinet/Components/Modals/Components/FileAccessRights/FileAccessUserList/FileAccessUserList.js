@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./FileAccessUserList.module.sass";
 import { userFileAccess } from "../../../../../../../types/FileAccessRights";
@@ -8,14 +8,22 @@ import { useLocales } from "react-localized";
 import {
   ACCESS_RIGHTS_GRANTED,
   imageSrc,
+  NO_ELEMENT,
   SHARED_ACCESS_RIGHTS
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 
-function FileAccessUserList({ users, deleteUser }) {
+function FileAccessUserList({
+  users,
+  deleteUser,
+  changeUserAccessRightsInUsers
+}) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
+
+  const [accessRightsModal, setAccessRightsModal] = useState(NO_ELEMENT);
+  const closeAccessRightsModal = () => setAccessRightsModal(NO_ELEMENT);
 
   const renderUserIcon = user => {
     return user?.user_icon?.[0] ? (
@@ -61,7 +69,7 @@ function FileAccessUserList({ users, deleteUser }) {
             className={styles.imageReverse}
           />
         </div>
-        <div className={styles.copy}>
+        <div className={styles.copy} onClick={() => setAccessRightsModal(i)}>
           <span>{showUserAccessStatus(user)}</span>
           <img
             src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
@@ -69,10 +77,14 @@ function FileAccessUserList({ users, deleteUser }) {
             className={styles.imageReverse}
           />
         </div>
-        <FileAccessEdit
-          user={user}
-          showUserAccessStatus={showUserAccessStatus}
-        />
+        {accessRightsModal === i ? (
+          <FileAccessEdit
+            user={user}
+            showUserAccessStatus={showUserAccessStatus}
+            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+            closeAccessRightsModal={closeAccessRightsModal}
+          />
+        ) : null}
       </div>
     ));
 
@@ -83,5 +95,6 @@ export default FileAccessUserList;
 
 FileAccessUserList.propTypes = {
   users: PropTypes.arrayOf(userFileAccess),
-  deleteUser: PropTypes.func
+  deleteUser: PropTypes.func,
+  changeUserAccessRightsInUsers: PropTypes.func
 };
