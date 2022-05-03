@@ -197,7 +197,7 @@ const ChatBoard = ({
   const renderAttachedFiles = () => {
     return attachedFiles.map(file => (
       <div className={styles.attachedFileWrap} key={file.fid}>
-        <FileMessage file={file} size={'small'} />
+        <FileMessage file={file} size={'small'} style={{ margin: 0 }} />
         <div className={styles.remove} onClick={() => removeAttachedFile(file.fid)}></div>
       </div>
     ))

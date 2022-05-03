@@ -7,7 +7,7 @@ import { previewFormats } from "../../../../../../../generalComponents/collectio
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const FileMessage = ({ file, size }) => {
+const FileMessage = ({ file, size, style }) => {
   const dispatch = useDispatch();
   const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
   const ext = file.name.slice(file.name.lastIndexOf(".") + 1);
@@ -39,7 +39,7 @@ const FileMessage = ({ file, size }) => {
   };
 
   return (
-    <div className={styles.wrapper} onClick={onFileClick}>
+    <div className={styles.wrapper} onClick={onFileClick} style={style}>
       <div className={classNames(styles.fileBar, styles[size])}>
         <div className={styles.file}>
           <File
@@ -63,5 +63,6 @@ export default FileMessage;
 
 FileMessage.propTypes = {
   file: PropTypes.object.isRequired,
-  size: PropTypes.string
+  size: PropTypes.string,
+  style: PropTypes.object
 };
