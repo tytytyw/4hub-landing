@@ -75,10 +75,6 @@ function FileAccessRights() {
       .catch(err => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
   };
 
-  // file_share_list дайт список пользователей,
-  // которым файл расшарен, file_share_del -
-  // удаляет доступ, file_share - добавляет доступ
-
   useEffect(() => {
     getLink();
     loadUserList();
