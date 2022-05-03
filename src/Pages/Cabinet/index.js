@@ -15,7 +15,7 @@ import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
 import Journal from "./Components/Journal";
-import CalendarPage from "./Components/CalendarPage";
+import CalendarPage from "./Components/Calendar";
 // import Cart from "./Components/Cart";
 import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
