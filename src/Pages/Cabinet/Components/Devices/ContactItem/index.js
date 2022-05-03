@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProfileImage } from "../../MyProfile/Contacts/consts";
 import PropTypes from "prop-types";
+import { contactProps } from "../../../../../types/Device";
 
 const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
   const dispatch = useDispatch();
@@ -72,11 +73,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
 export default ContactItem;
 
 ContactItem.propTypes = {
-  contact: PropTypes.shape({
-    icon: PropTypes.array,
-    id_user: PropTypes.string,
-    user_name: PropTypes.string
-  }),
+  contact: contactProps,
   setMouseParams: PropTypes.func,
   listCollapsed: PropTypes.bool,
   listSize: PropTypes.string

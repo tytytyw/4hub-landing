@@ -3,6 +3,7 @@ import styles from "./CustomFolderItem.module.sass";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
+import { projectFolderStructure } from "../../../../../types/Project";
 
 const FolderItem = ({
   folder,
@@ -55,11 +56,7 @@ const FolderItem = ({
 export default FolderItem;
 
 FolderItem.propTypes = {
-  folder: PropTypes.shape({
-    id: PropTypes.number,
-    icon: PropTypes.string,
-    name: PropTypes.name
-  }),
+  folder: projectFolderStructure,
   chosenFolder: PropTypes.func,
   setChosenFolder: PropTypes.func,
   setMouseParams: PropTypes.func

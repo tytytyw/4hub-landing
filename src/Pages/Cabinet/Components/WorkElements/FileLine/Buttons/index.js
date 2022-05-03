@@ -105,8 +105,7 @@ const Buttons = ({
         [styles.iconView]: true,
         [styles.iconSettings]: true,
         [styles.disable]: file?.is_write === "0"
-      })}
-    >
+      })}>
       <SettingsIcon
         onClick={file?.is_write === "0" ? null : onPropertiesFile}
       />
@@ -121,8 +120,7 @@ const Buttons = ({
           name: __("Удаление файла"),
           text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
         })
-      }
-    >
+      }>
       <DeleteIcon />
     </div>
   );
@@ -144,8 +142,7 @@ const Buttons = ({
             title: __("Сжать в ZIP")
           })
         );
-      }}
-    >
+      }}>
       <ZipIcon />
     </div>
   );
@@ -162,8 +159,7 @@ const Buttons = ({
               width: 240,
               height: 25
             });
-      }}
-    >
+      }}>
       <span className={styles.menu} />
     </div>
   );
@@ -204,6 +200,16 @@ const Buttons = ({
     </>
   );
 
+  const renderCartButtons = () => (
+    <>
+      {renderDownloadBtn()}
+      {renderPrintBtn()}
+      {renderIntoZipBtn()}
+      {renderDeleteBtn()}
+      {renderShareBtn()}
+    </>
+  );
+
   return (
     <div className={styles.optionsWrap}>
       {pathname.startsWith("/folders") && renderMyFilesButtons()}
@@ -213,6 +219,7 @@ const Buttons = ({
         renderMyDownloadedFileButtons()}
       {pathname.startsWith("/archive") && renderArchiveButtons()}
       {pathname.startsWith("/shared-files") && renderSharedFilesButtons()}
+      {pathname.startsWith("/cart") && renderCartButtons()}
     </div>
   );
 };

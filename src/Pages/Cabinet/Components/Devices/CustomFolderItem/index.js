@@ -11,7 +11,8 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { fProps } from "../../../../../types/FProps";
+import { fileProps } from "../../../../../types/CustomFolderItem";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const CustomFolderItem = ({
   f,
@@ -179,9 +180,9 @@ const CustomFolderItem = ({
 export default CustomFolderItem;
 
 CustomFolderItem.propTypes = {
-  f: fProps,
+  f: fileProps,
   setChosenFolder: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: chosenFolderProps,
   listCollapsed: PropTypes.bool,
   padding: PropTypes.string,
   chosen: PropTypes.bool,

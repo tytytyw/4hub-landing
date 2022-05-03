@@ -16,6 +16,7 @@
     width: 100%
     padding: 10px 0 10px 30px
     height: max-content
+    position: relative
     .iconWrap
       width: 36px
       height: 36px
@@ -46,4 +47,32 @@
         transform: rotate(270deg)
         .imageReverse
           transform: rotateZ(90deg)
-
+    .cross
+      position: absolute
+      left: 11px
+      width: 18px
+      height: 2px
+      background: #a7a4a4
+      transform: rotate(45deg)
+      cursor: pointer
+      visibility: hidden
+      &:before
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        width: 18px
+        height: 2px
+        background: #a7a4a4
+        transform: rotate(90deg)
+        visibility: hidden
+    &:hover .cross
+      visibility: visible
+      &:before
+        visibility: visible
+    .userIcon
+      width: 30px
+      height: 30px
+      max-width: 30px
+      max-height: 30px
+      border-radius: 50%

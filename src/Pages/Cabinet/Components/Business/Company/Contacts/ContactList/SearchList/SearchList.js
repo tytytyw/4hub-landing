@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { ReactComponent as PointerMenuImg } from "../../../../../../../../assets/BusinessCabinet/pointer-menu.svg";
 import { imageSrc } from "../../../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { selectedItemProps } from "../../../../../../../../types/selectedItem/SelectedItemProps";
+import { selectedItemProps } from "../../../../../../../../types/Contacts";
 
 const SearchList = ({
   data,

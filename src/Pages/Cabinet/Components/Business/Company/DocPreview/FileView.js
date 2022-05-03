@@ -18,6 +18,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 const FileView = ({
   pageOption,
@@ -161,7 +162,7 @@ FileView.propTypes = {
   pageOption: PropTypes.shape({
     name: PropTypes.string
   }),
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
   previewSrc: PropTypes.string,

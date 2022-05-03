@@ -9,8 +9,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/FileProps";
-import { filePickProps } from "../../../../../../types/FilePickProps";
+import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
+import { chosenFolderProps } from "../../../../../../types/CreateFolder";
 
 const WorkLinesPreview = ({
   fileList,
@@ -324,10 +324,7 @@ WorkLinesPreview.propTypes = {
   filePick: filePickProps,
   setPage: PropTypes.func,
   gLoader: PropTypes.bool,
-  chosenFolder: PropTypes.shape({
-    path: PropTypes.string,
-    files_amount: PropTypes.number
-  }),
+  chosenFolder: chosenFolderProps,
   hideFileList: PropTypes.true,
   page: PropTypes.string
 };

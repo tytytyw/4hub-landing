@@ -16,6 +16,7 @@ import EditPerson from "../ContexMenuComponents/OrgStructure/EditPerson";
 import { ReactComponent as Plus } from "../../../../../../assets/PrivateCabinet/plus-3.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 function OrgStructure({
   mouseParams,
@@ -363,7 +364,7 @@ function OrgStructure({
 
 export default OrgStructure;
 OrgStructure.propTypes = {
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
   setAction: PropTypes.func,

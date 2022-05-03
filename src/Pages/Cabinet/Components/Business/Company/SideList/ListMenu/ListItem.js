@@ -4,6 +4,7 @@ import styles from "./ListMenu.module.sass";
 import { ReactComponent as ArrowIcon } from "../../../../../../../assets/BusinessCabinet/SideList/arrow.svg";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { itemProps } from "../../../../../../../types/Company";
 
 const ListItem = ({ item, page, setPage, isSub, render }) => {
   const [collapse, setCollapse] = useState(false);
@@ -13,7 +14,6 @@ const ListItem = ({ item, page, setPage, isSub, render }) => {
     setPage(item.name === "get_info" && !collapse ? item.children[0] : item);
     if (hasChild) setCollapse(!collapse);
   };
-
   return (
     <div className={styles.itemWrap}>
       <div
@@ -48,12 +48,7 @@ const ListItem = ({ item, page, setPage, isSub, render }) => {
 export default ListItem;
 
 ListItem.propTypes = {
-  item: PropTypes.shape({
-    children: PropTypes.array,
-    name: PropTypes.string,
-    icon: PropTypes.object,
-    label: PropTypes.string
-  }),
+  item: itemProps,
   page: PropTypes.object,
   setPage: PropTypes.func,
   isSub: PropTypes.bool,

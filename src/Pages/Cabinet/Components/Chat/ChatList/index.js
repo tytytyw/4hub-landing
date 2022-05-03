@@ -15,6 +15,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../types/MouseParams";
 
 const ChatList = ({
   search,
@@ -26,7 +27,7 @@ const ChatList = ({
   currentDate
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
   const dispatch = useDispatch();
   const [chatsType, setChatsType] = useState("chats");
@@ -103,9 +104,9 @@ const ChatList = ({
           contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
           notificationsCounter={
             notificationsCounter[
-            chat.is_secret_chat
-              ? `group_${chat.id_group}`
-              : `chat_${chat.id_real_user}`
+              chat.is_secret_chat
+                ? `group_${chat.id_group}`
+                : `chat_${chat.id_real_user}`
             ]
           }
         />
@@ -132,7 +133,7 @@ const ChatList = ({
         return (
           <CustomChatItem
             selectedContact={selectedContact}
-            setSelectedContact={() => { }}
+            setSelectedContact={() => {}}
             sideMenuCollapsed={sideMenuCollapsed}
             chatItem={member}
             key={chatId + "_user_" + member.id}
@@ -181,7 +182,8 @@ const ChatList = ({
             }
             setCollapseMembersList={setCollapseMembersList}
             status={__(
-              `${group?.users?.length || 0} участников группы ( ${group.users.filter(user => user?.is_online === 1).length
+              `${group?.users?.length || 0} участников группы ( ${
+                group.users.filter(user => user?.is_online === 1).length
               } онлайн )`
             )}
             setMouseParams={setMouseParams}
@@ -222,7 +224,11 @@ const ChatList = ({
   }, [selectedContact]); //eslint-disable-line
 
   return (
-    <div className={classNames({ [styles.listWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.listWrap]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}>
       <div
         className={classNames({
           [styles.item]: true,
@@ -233,8 +239,9 @@ const ChatList = ({
         onClick={() => {
           setAction({
             type: "addChat",
-            name: `${chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
-              } `,
+            name: `${
+              chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
+            } `,
             text: "",
             chatsType
           });
@@ -242,12 +249,12 @@ const ChatList = ({
         title={
           sideMenuCollapsed
             ? __(
-              `Создать ${chatsType === "chats" ? __("секретный") : __("групповой")
-              } чат`
-            )
+                `Создать ${
+                  chatsType === "chats" ? __("секретный") : __("групповой")
+                } чат`
+              )
             : ""
-        }
-      >
+        }>
         <div className={styles.iconWrap}>
           {sideMenuCollapsed ? (
             <span className={styles.text}>Создать</span>
@@ -265,7 +272,8 @@ const ChatList = ({
         {!sideMenuCollapsed ? (
           <span className={styles.text}>
             {__(
-              `Создать ${chatsType === "chats" ? __("секретный") : __("групповой")
+              `Создать ${
+                chatsType === "chats" ? __("секретный") : __("групповой")
               } чат`
             )}
           </span>
@@ -278,8 +286,7 @@ const ChatList = ({
         className={classNames({
           [styles.chatsSwitcher]: true,
           [styles.collapsed]: sideMenuCollapsed
-        })}
-      >
+        })}>
         <div
           className={classNames({
             [styles.item]: true,
@@ -287,8 +294,7 @@ const ChatList = ({
             [styles.addChat]: true
           })}
           onClick={() => setChatsType("chats")}
-          title={sideMenuCollapsed ? __("Чаты") : ""}
-        >
+          title={sideMenuCollapsed ? __("Чаты") : ""}>
           <span className={styles.text}>Чаты</span>
         </div>
         <div
@@ -298,8 +304,7 @@ const ChatList = ({
             [styles.addChat]: true
           })}
           onClick={() => setChatsType("groups")}
-          title={sideMenuCollapsed ? __("Группы") : ""}
-        >
+          title={sideMenuCollapsed ? __("Группы") : ""}>
           <span className={styles.text}>Группы</span>
         </div>
       </div>
@@ -318,7 +323,7 @@ ChatList.propTypes = {
   sideMenuCollapsed: PropTypes.bool,
   setSelectedContact: PropTypes.func.isRequired,
   setAction: PropTypes.func.isRequired,
-  mouseParams: PropTypes.object,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func.isRequired,
   currentDate: PropTypes.object.isRequired
 };

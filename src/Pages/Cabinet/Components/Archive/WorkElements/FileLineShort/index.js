@@ -6,9 +6,11 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/FileProps";
-import { filePreviewProps } from "../../../../../../types/FilePreviewProps";
-import { filePickProps } from "../../../../../../types/FilePickProps";
+import {
+  filePickProps,
+  filePreviewProps,
+  fileProps
+} from "../../../../../../types/WorkElements";
 
 const FileLineShort = ({
   file,

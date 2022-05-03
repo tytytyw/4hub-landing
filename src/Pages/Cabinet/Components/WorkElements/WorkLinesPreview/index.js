@@ -180,7 +180,7 @@ const WorkLinesPreview = ({
         recentFiles,
         filePick,
         styles,
-        pathname === "/archive"
+        pathname === "/archive" || pathname === "/cart"
       )}`}>
       {!hideFileList && menuItem !== "myFiles" && (
         <div className={styles.fileListWrap} ref={fileRef}>

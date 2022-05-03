@@ -73,8 +73,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
         set={nullifyAction}
         callback={onSubmit}
         approve={__("Добавить")}
-        childrenWidth={"100%"}
-      >
+        childrenWidth={"100%"}>
         <div className={styles.inputWrap}>
           <InputField
             mistake={requiredInputError && !name}

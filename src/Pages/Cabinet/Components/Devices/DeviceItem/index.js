@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getDeviceIconName } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
+import { deviceItemDeviceProps } from "../../../../../types/DeviceItemDeviceProps";
 
 const DeviceItem = ({
   device,
@@ -73,11 +74,7 @@ const DeviceItem = ({
 export default DeviceItem;
 
 DeviceItem.propTypes = {
-  device: PropTypes.shape({
-    name: PropTypes.string,
-    device: PropTypes.string,
-    is_online: PropTypes.number
-  }),
+  device: deviceItemDeviceProps,
   chosen: PropTypes.bool,
   onClick: PropTypes.func,
   setMouseParams: PropTypes.func,

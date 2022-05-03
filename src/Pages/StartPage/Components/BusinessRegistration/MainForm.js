@@ -7,7 +7,7 @@ import { useValidateForm } from "./validation";
 import api from "../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { compareProps } from "../../../../types/CompareProps";
+import { compareProps } from "../../../../types/BuisnessRegistration";
 
 const requiredInputs = ["company_name"];
 

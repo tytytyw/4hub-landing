@@ -9,12 +9,12 @@ import DownloadFile from "./ContextMenuFile/DownloadFile/DownloadFile";
 import PrintFile from "./ContextMenuFile/PrintFile/PrintFile";
 import DeleteFile from "./ContextMenuFile/DeleteFile/DeleteFIle";
 import { CONTEXT_MENU_FILE } from "../../../../generalComponents/globalVariables";
+import PropTypes from "prop-types";
 
 function ContextModal({ saveCustomizeSeveralFiles }) {
   const contextMenuModals = useSelector(
     s => s.Cabinet.modals.contextMenuModals
   );
-
   return (
     <>
       {contextMenuModals.type === CONTEXT_MENU_FILE.CREATE_ZIP ? (
@@ -46,3 +46,7 @@ function ContextModal({ saveCustomizeSeveralFiles }) {
 }
 
 export default ContextModal;
+
+ContextModal.propTypes = {
+  saveCustomizeSeveralFiles: PropTypes.func
+};

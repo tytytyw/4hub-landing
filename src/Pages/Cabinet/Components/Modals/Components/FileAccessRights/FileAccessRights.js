@@ -5,6 +5,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import {
+  NO_ELEMENT,
   FILE_ACCESS_RIGHTS,
   MODALS,
   TOP_MESSAGE_TYPE
@@ -15,6 +16,7 @@ import FileAccessUserList from "./FileAccessUserList/FileAccessUserList";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import api from "../../../../../../api";
 import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
+import classNames from "classnames";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -25,6 +27,10 @@ function FileAccessRights() {
   const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
   const uid = useSelector(s => s.user.uid);
+  const [params, setParams] = useState({
+    usersToDelete: [],
+    usersToChangeAccessRights: []
+  });
 
   const closeModal = () =>
     dispatch(
@@ -69,10 +75,6 @@ function FileAccessRights() {
       .catch(err => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
   };
 
-  // file_share_list дайт список пользователей,
-  // которым файл расшарен, file_share_del -
-  // удаляет доступ, file_share - добавляет доступ
-
   useEffect(() => {
     getLink();
     loadUserList();
@@ -98,6 +100,90 @@ function FileAccessRights() {
       );
     }
   };
+
+  const deleteUserFromUsers = user => {
+    setParams(s => ({
+      ...s,
+      usersToDelete: [
+        ...s.usersToDelete,
+        ...users.filter(it => it.uid === user.uid)
+      ]
+    }));
+    setUsers(s => s.filter(it => it.uid !== user.uid));
+  };
+
+  const deleteUsers = async () => {
+    for await (let user of params.usersToDelete) {
+      await api
+        .post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
+          params: {
+            uid,
+            fids: [fileAccessRights.file.fid],
+            dir: fileAccessRights.file.gdir,
+            user_to: user.email
+          }
+        })
+        .catch(() => {
+          setTopMessage(
+            TOP_MESSAGE_TYPE.ERROR,
+            __(`Не удалось удалить права пользователя ${user.name} к файлу`)
+          );
+        });
+    }
+  };
+
+  const changeUserAccessRightsInUsers = user => {
+    const idxInUsers = users.findIndex(it => it.uid === user.uid);
+    const idxInParams = params.usersToChangeAccessRights.findIndex(
+      it => it.uid === user.uid
+    );
+    setUsers(s => s.map((it, idx) => (idx === idxInUsers ? user : it)));
+    setParams(s => ({
+      ...s,
+      usersToChangeAccessRights:
+        idxInParams === NO_ELEMENT
+          ? [...s.usersToChangeAccessRights, user]
+          : s.usersToChangeAccessRights.map((it, idx) =>
+              idx === idxInUsers ? user : it
+            )
+    }));
+  };
+
+  const changeUserAccessRights = async () => {
+    for await (let user of params.usersToChangeAccessRights) {
+      await api
+        .post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
+          params: {
+            uid,
+            fids: [fileAccessRights.file.fid],
+            dir: fileAccessRights.file.gdir,
+            user_to: user.email,
+            is_write: user.is_write,
+            is_download: user.is_download,
+            deadline: user.deadline, //TODO - wait for BE
+            prim: user.prim, //TODO - wait for BE
+            pass: user.pass //TODO - wait for BE
+          }
+        })
+        .catch(() => {
+          setTopMessage(
+            TOP_MESSAGE_TYPE.ERROR,
+            __(`Не удалось изменить права пользователя ${user.name}`)
+          );
+        });
+    }
+  };
+
+  const approveChanges = async () => {
+    if (isChanges) {
+      await deleteUsers();
+      await changeUserAccessRights();
+    }
+  };
+
+  const isChanges = () =>
+    params.usersToDelete.length > 0 ||
+    params.usersToChangeAccessRights.length > 0;
 
   return (
     <PopUp set={closeModal}>
@@ -138,10 +224,24 @@ function FileAccessRights() {
             </div>
           </div>
         </div>
-        <FileAccessUserList users={users} />
+        <FileAccessUserList
+          users={users}
+          deleteUser={deleteUserFromUsers}
+          changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+        />
         <div className={styles.buttons}>
-          <div className={`${styles.cancel}`}>{__("Отмена")}</div>
-          <div className={`${styles.add}`}>{__("Сохранить")}</div>
+          <div className={`${styles.cancel}`} onClick={closeModal}>
+            {__("Отмена")}
+          </div>
+          <div
+            className={classNames({
+              [styles.buttonDisabled]: !isChanges(),
+              [styles.add]: isChanges()
+            })}
+            onClick={approveChanges}
+          >
+            {__("Сохранить")}
+          </div>
         </div>
       </div>
       <input ref={linkRef} type="text" style={{ display: "none" }} />
