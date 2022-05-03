@@ -6,6 +6,7 @@ import { useLocales } from "react-localized";
 import WorkSpace from "./WorkSpace/WorkSpace";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 function Library({
   menuItem,
@@ -52,7 +53,7 @@ Library.propTypes = {
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   fileSelect: PropTypes.func,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps

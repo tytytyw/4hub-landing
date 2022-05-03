@@ -19,6 +19,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const FileLoader = ({
   awaitingFiles,
@@ -33,10 +34,6 @@ const FileLoader = ({
   setFileErrors,
   menuItem
 }) => {
-  console.log(fileAddCustomization);
-  console.log(fileErrors);
-  console.log(menuItem);
-
   const { __ } = useLocales();
   const [collapsed, setCollapsed] = useState(false);
   const [processing, setProcessing] = useState(0);
@@ -576,12 +573,7 @@ FileLoader.propTypes = {
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
-  fileAddCustomization: PropTypes.shape({
-    file: PropTypes.object,
-    files: PropTypes.array,
-    several: PropTypes.bool,
-    show: PropTypes.bool
-  }),
+  fileAddCustomization: fileAddCustomizationProps,
   fileErrors: PropTypes.array,
   setFileErrors: PropTypes.func,
   menuItem: PropTypes.string

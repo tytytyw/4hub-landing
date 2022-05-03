@@ -38,6 +38,7 @@ import CustomizeFile from "../ContextMenuComponents/ContextMenuFile/CustomizeFil
 import { getIcon } from "./helpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const Project = ({
   setLoadingType,
@@ -515,7 +516,7 @@ export default Project;
 Project.propTypes = {
   setLoadingType: PropTypes.func,
   setMenuItem: PropTypes.func,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   awaitingFiles: PropTypes.array,
   setAwaitingFiles: PropTypes.func,

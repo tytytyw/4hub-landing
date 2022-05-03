@@ -37,6 +37,7 @@ import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../types/FileAddCustomization";
 
 const ServePanel = ({
   chosenFile,
@@ -362,7 +363,7 @@ ServePanel.propTypes = {
   chooseSeveral: PropTypes.func,
   filePick: filePickProps,
   setFileAddCustomization: PropTypes.func,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   disableWorkElementsView: PropTypes.bool,
   addFolder: PropTypes.func,
   addFile: PropTypes.func,
