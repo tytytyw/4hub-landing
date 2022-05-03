@@ -159,10 +159,10 @@ function FileAccessRights() {
             dir: fileAccessRights.file.gdir,
             user_to: user.email,
             is_write: user.is_write,
-            is_download: user.is_download, //TODO - wait for BE
-            deadline: "", //TODO - wait for BE
-            prim: "", //TODO - wait for BE
-            pass: "" //TODO - wait for BE
+            is_download: user.is_download,
+            deadline: user.deadline, //TODO - wait for BE
+            prim: user.prim, //TODO - wait for BE
+            pass: user.pass //TODO - wait for BE
           }
         })
         .catch(() => {

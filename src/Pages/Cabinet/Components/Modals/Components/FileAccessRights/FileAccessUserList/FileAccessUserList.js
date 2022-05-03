@@ -13,6 +13,7 @@ import {
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
+import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 
 function FileAccessUserList({
   users,
@@ -24,6 +25,7 @@ function FileAccessUserList({
 
   const [accessRightsModal, setAccessRightsModal] = useState(NO_ELEMENT);
   const closeAccessRightsModal = () => setAccessRightsModal(NO_ELEMENT);
+  const [changePeriodModal, setChangePeriodModal] = useState(NO_ELEMENT);
 
   const renderUserIcon = user => {
     return user?.user_icon?.[0] ? (
@@ -61,7 +63,13 @@ function FileAccessUserList({
         <div className={styles.userName}>
           {user.name} {user.sname}
         </div>
-        <div className={styles.copy}>
+        <div
+          className={styles.copy}
+          onClick={() => {
+            setAccessRightsModal(NO_ELEMENT);
+            setChangePeriodModal(i);
+          }}
+        >
           <span>{__(`Срок хранения ${showEndDate(user.date_last)}`)}</span>
           <img
             src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
@@ -69,7 +77,14 @@ function FileAccessUserList({
             className={styles.imageReverse}
           />
         </div>
-        <div className={styles.copy} onClick={() => setAccessRightsModal(i)}>
+        {changePeriodModal === i ? <FilePeriodEdit /> : <FilePeriodEdit />}
+        <div
+          className={styles.copy}
+          onClick={() => {
+            setChangePeriodModal(NO_ELEMENT);
+            setAccessRightsModal(i);
+          }}
+        >
           <span>{showUserAccessStatus(user)}</span>
           <img
             src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
