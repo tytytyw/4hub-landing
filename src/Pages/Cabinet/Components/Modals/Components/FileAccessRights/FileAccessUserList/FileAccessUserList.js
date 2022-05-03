@@ -6,10 +6,12 @@ import PropTypes from "prop-types";
 import { ReactComponent as UserIcon } from "../../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { useLocales } from "react-localized";
 import {
+  ACCESS_RIGHTS_GRANTED,
   imageSrc,
   SHARED_ACCESS_RIGHTS
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
+import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 
 function FileAccessUserList({ users, deleteUser }) {
   const { __ } = useLocales();
@@ -33,13 +35,14 @@ function FileAccessUserList({ users, deleteUser }) {
     return __("Бесконечный");
   };
 
-  const showAccess = access => {
-    for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
-      if (value === access) {
-        return ACCESS_RIGHTS[key];
-        break;
-      }
+  const showUserAccessStatus = user => {
+    if (user.is_write === ACCESS_RIGHTS_GRANTED) {
+      return ACCESS_RIGHTS[SHARED_ACCESS_RIGHTS.EDIT];
     }
+    if (user.is_download === ACCESS_RIGHTS_GRANTED) {
+      return ACCESS_RIGHTS[SHARED_ACCESS_RIGHTS.DOWNLOAD];
+    }
+    return ACCESS_RIGHTS[SHARED_ACCESS_RIGHTS.WATCH];
   };
 
   const renderUsers = () =>
@@ -59,13 +62,17 @@ function FileAccessUserList({ users, deleteUser }) {
           />
         </div>
         <div className={styles.copy}>
-          <span>{showAccess(user.is_write)}</span>
+          <span>{showUserAccessStatus(user)}</span>
           <img
             src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
             alt="copy"
             className={styles.imageReverse}
           />
         </div>
+        <FileAccessEdit
+          user={user}
+          showUserAccessStatus={showUserAccessStatus}
+        />
       </div>
     ));
 

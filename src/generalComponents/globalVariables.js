@@ -46,7 +46,10 @@ export const FILE_ACCESS_RIGHTS = {
 };
 
 export const SHARED_ACCESS_RIGHTS = {
-  WATCH: "0",
-  EDIT: "1",
-  DOWNLOAD: "2"
+  WATCH: "WATCH",
+  EDIT: "EDIT",
+  DOWNLOAD: "DOWNLOAD"
 };
+
+export const ACCESS_RIGHTS_GRANTED = "1";
+export const ACCESS_RIGHTS_FORBIDDEN = "0";
