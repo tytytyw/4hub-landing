@@ -31,7 +31,7 @@
 # src/Pages/Cabinet/Components/Devices
 /src/Pages/Cabinet/Components/FileLoader
 # src/Pages/Cabinet/Components/Journal
-/src/Pages/Cabinet/Components/List
+# src/Pages/Cabinet/Components/List
 /src/Pages/Cabinet/Components/Modals
 # src/Pages/Cabinet/Components/MyFiles
 # src/Pages/Cabinet/Components/MyFolders
@@ -47,7 +47,7 @@
 # src/Pages/Cabinet/Components/SharedFiles
 # src/Pages/Cabinet/Components/SideMenu
 # src/Pages/Cabinet/Components/StorageSize
-/src/Pages/Cabinet/Components/WorkElements
+src/Pages/Cabinet/Components/WorkElements
 /src/generalComponents
 # src/Pages/Guest
 # src/Pages/StartPage
