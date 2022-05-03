@@ -114,14 +114,21 @@ function FileAccessRights() {
 
   const deleteUsers = async () => {
     for await (let user of params.usersToDelete) {
-      await api.post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
-        params: {
-          uid,
-          fids: [fileAccessRights.file.fid],
-          dir: fileAccessRights.file.gdir,
-          user_to: user.email
-        }
-      });
+      await api
+        .post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
+          params: {
+            uid,
+            fids: [fileAccessRights.file.fid],
+            dir: fileAccessRights.file.gdir,
+            user_to: user.email
+          }
+        })
+        .catch(() => {
+          setTopMessage(
+            TOP_MESSAGE_TYPE.ERROR,
+            __(`Не удалось удалить права пользователя ${user.name} к файлу`)
+          );
+        });
     }
   };
 
@@ -144,19 +151,26 @@ function FileAccessRights() {
 
   const changeUserAccessRights = async () => {
     for await (let user of params.usersToChangeAccessRights) {
-      await api.post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
-        params: {
-          uid,
-          fids: [fileAccessRights.file.fid],
-          dir: fileAccessRights.file.gdir,
-          user_to: user.email,
-          is_write: user.is_write,
-          is_download: user.is_download, //TODO - wait for BE
-          deadline: "", //TODO - wait for BE
-          prim: "", //TODO - wait for BE
-          pass: "" //TODO - wait for BE
-        }
-      });
+      await api
+        .post(FILE_ACCESS_RIGHTS.API_ADD_USER_ACCESS_RIGHTS, {
+          params: {
+            uid,
+            fids: [fileAccessRights.file.fid],
+            dir: fileAccessRights.file.gdir,
+            user_to: user.email,
+            is_write: user.is_write,
+            is_download: user.is_download, //TODO - wait for BE
+            deadline: "", //TODO - wait for BE
+            prim: "", //TODO - wait for BE
+            pass: "" //TODO - wait for BE
+          }
+        })
+        .catch(() => {
+          setTopMessage(
+            TOP_MESSAGE_TYPE.ERROR,
+            __(`Не удалось изменить права пользователя ${user.name}`)
+          );
+        });
     }
   };
 
