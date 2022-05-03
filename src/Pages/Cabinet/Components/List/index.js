@@ -16,7 +16,6 @@ const List = ({
   icon,
   leftIconSrc
 }) => {
-  console.log(leftIconSrc);
   const { __ } = useLocales();
   return (
     <div
