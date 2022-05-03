@@ -22,7 +22,17 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
     const dispatch = useDispatch();
 
     const [chosenFolder, setChosenFolder] = useState(null);
-    const [chosenFile, setChosenFile] = useState(null)
+    const [chosenFiles, setChosenFiles] = useState(attachedFiles ?? [])
+
+    const FileIsChosen = (file) => chosenFiles.some(chosenFile => chosenFile.fid === file.fid);
+
+    const addChosenFile = (f) => {
+        const file = { ...f, kind: 'file' }
+
+        setChosenFiles(prevFiles => FileIsChosen(f)
+            ? prevFiles.filter(prveFile => prveFile.fid !== file.fid)
+            : [...prevFiles, file])
+    }
 
     const renderLoader = () => (
         <div style={{ width: '420px' }}>
@@ -45,8 +55,8 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
                 <FileLineShort
                     key={i}
                     file={file}
-                    setChosenFile={setChosenFile}
-                    chosen={chosenFile?.fid === file?.fid}
+                    setChosenFile={addChosenFile}
+                    chosen={FileIsChosen(file)}
                     setMouseParams={null}
                     setAction={null}
                     setFilePreview={null}
@@ -85,7 +95,9 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
                     disableChosenFolderStyles={true}
                     renderLoader={renderLoader}
                 >
-                    {chosenFolder?.info?.path === folder.path && Array.isArray(fileList) && fileList.length ? renderFiles(fileList, folder) : null}
+                    {chosenFolder?.info?.path === folder.path && Array.isArray(fileList) && fileList.length
+                        ? renderFiles(fileList, folder)
+                        : null}
                     {chosenFolder?.info?.path === folder.path && !fileList ? renderLoader() : null}
 
                 </CustomFolderItem>
@@ -94,7 +106,7 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
     }
 
     const onSubmit = () => {
-        if (chosenFile && !(attachedFiles && attachedFiles.some(f => f.fid === chosenFile.fid))) setAttachedFiles(prevFiles => prevFiles ? [...prevFiles, { ...chosenFile, kind: 'file' }] : [{ ...chosenFile, kind: 'file' }])
+        if (chosenFiles && !(attachedFiles && attachedFiles.some(f => f.fid === chosenFiles.fid))) setAttachedFiles(chosenFiles)
         nullifyAction()
     }
 
@@ -139,7 +151,7 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
                     <div className={styles.cancelButtonWrapper}>
                         <TextButton text='Отмена' type='cancel' callback={nullifyAction} />
                     </div>
-                    <TextButton text='Отправить' type='ok' disabled={!chosenFile} callback={onSubmit} />
+                    <TextButton text='Отправить' type='ok' disabled={!chosenFiles} callback={onSubmit} />
                 </div>
             </div>
 
