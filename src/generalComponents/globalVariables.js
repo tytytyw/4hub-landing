@@ -41,11 +41,18 @@ export const TOP_MESSAGE_TYPE = {
 };
 
 export const FILE_ACCESS_RIGHTS = {
-  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php"
+  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php",
+  API_DELETE_USER_ACCESS_RIGHTS: "/ajax/file_share_del.php",
+  API_ADD_USER_ACCESS_RIGHTS: "/ajax/file_share.php"
 };
 
 export const SHARED_ACCESS_RIGHTS = {
-  WATCH: "0",
-  EDIT: "1",
-  DOWNLOAD: "2"
+  WATCH: "WATCH",
+  EDIT: "EDIT",
+  DOWNLOAD: "DOWNLOAD"
 };
+
+export const ACCESS_RIGHTS_GRANTED = "1";
+export const ACCESS_RIGHTS_FORBIDDEN = "0";
+
+export const NO_ELEMENT = -1;

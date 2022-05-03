@@ -15,7 +15,7 @@ import Settings from "./Components/MyProfile/settings";
 import Project from "./Components/Project/Project";
 import SharedFiles from "./Components/SharedFiles/SharedFiles";
 import Journal from "./Components/Journal";
-import CalendarPage from "./Components/CalendarPage";
+import CalendarPage from "./Components/Calendar";
 import Chat from "./Components/Chat";
 import { useBusinessMenu, useMenu } from "./Components/SideMenu/listHelper";
 import api from "../../api";
@@ -260,6 +260,10 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
                 filesPage={filesPage}
                 setFilesPage={setFilesPage}
                 fileSelect={fileSelect}
+                fileAddCustomization={fileAddCustomization}
+                setFileAddCustomization={setFileAddCustomization}
+                setFilePreview={setFilePreview}
+                filePreview={filePreview}
               />
             )}
           />

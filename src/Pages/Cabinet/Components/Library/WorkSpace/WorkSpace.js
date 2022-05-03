@@ -14,13 +14,18 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
+import { filePreviewProps } from "../../../../../types/WorkElements";
 
 function WorkSpace({
   listCollapsed,
   menuItem,
   setFilesPage,
   fileSelect,
-  filesPage
+  filesPage,
+  fileAddCustomization,
+  setFileAddCustomization,
+  setFilePreview,
+  filePreview
 }) {
   const { __ } = useLocales();
   const [containerRef, width] = useElementResize();
@@ -35,6 +40,7 @@ function WorkSpace({
   });
   const [gLoader, setGLoader] = useState(false); //TODO - default must be true
   const [mouseParams, setMouseParams] = useState(null);
+  const [action, setAction] = useState({ type: "", name: "", text: "" });
 
   const nullifyFilePick = () =>
     setFilePick({ show: false, files: [], customize: false, intoZip: false });
@@ -63,15 +69,15 @@ function WorkSpace({
         <ServePanel
           view={workElementsView}
           chosenFile={chosenFile}
-          // setAction={setAction}
+          setAction={setAction}
           fileSelect={fileSelect}
           addFile={fileSelect}
           chooseSeveral={() =>
             setFilePick({ ...filePick, files: [], show: !filePick.show })
           }
           filePick={filePick}
-          // fileAddCustomization={fileAddCustomization}
-          // setFileAddCustomization={setFileAddCustomization}
+          fileAddCustomization={fileAddCustomization}
+          setFileAddCustomization={setFileAddCustomization}
           // setGLoader={setGLoader}
           setFilesPage={setFilesPage}
           menuItem={menuItem}
@@ -79,22 +85,19 @@ function WorkSpace({
         <ItemsList
           setGLoader={setGLoader}
           setFilesPage={setFilesPage}
-          // setChosenFolder={setChosenFolder}
           setChosenFile={setChosenFile}
           filePick={filePick}
           setMouseParams={setMouseParams}
-          // setAction={setAction}
-          // setFilePreview={setFilePreview}
-          // filePreview={filePreview}
+          setAction={setAction}
+          setFilePreview={setFilePreview}
+          filePreview={filePreview}
           setFilePick={setFilePick}
           chosenFile={chosenFile}
           fileSelect={fileSelect}
           filesPage={filesPage}
-          // chosenFolder={chosenFolder}
           gLoader={gLoader}
           fileRef={fileRef}
           width={width}
-          // openFolderMenu={openFolderMenu}
         />
         {filePick.show ? (
           <OptionButtomLine
@@ -102,8 +105,8 @@ function WorkSpace({
             actionName={
               filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
             }
-            // setAction={setAction}
-            // action={action}
+            setAction={setAction}
+            action={action}
             nullifyFilePick={nullifyFilePick}
             chosenFile={chosenFile}
             menuItem={menuItem}
@@ -138,5 +141,9 @@ WorkSpace.propTypes = {
   menuItem: PropTypes.string,
   setFilesPage: PropTypes.func,
   fileSelect: PropTypes.func,
-  filesPage: PropTypes.number
+  filesPage: PropTypes.number,
+  fileAddCustomization: PropTypes.object,
+  setFileAddCustomization: PropTypes.func,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps
 };
