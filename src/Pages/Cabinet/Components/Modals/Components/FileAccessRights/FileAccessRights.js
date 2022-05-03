@@ -15,6 +15,7 @@ import FileAccessUserList from "./FileAccessUserList/FileAccessUserList";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import api from "../../../../../../api";
 import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
+import classNames from "classnames";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -125,8 +126,12 @@ function FileAccessRights() {
   };
 
   const approveChanges = async () => {
-    await deleteUsers();
+    if (isChanges) {
+      await deleteUsers();
+    }
   };
+
+  const isChanges = () => params.usersToDelete.length > 0;
 
   return (
     <PopUp set={closeModal}>
@@ -172,7 +177,13 @@ function FileAccessRights() {
           <div className={`${styles.cancel}`} onClick={closeModal}>
             {__("Отмена")}
           </div>
-          <div className={`${styles.add}`} onClick={approveChanges}>
+          <div
+            className={classNames({
+              [styles.buttonDisabled]: !isChanges(),
+              [styles.add]: isChanges()
+            })}
+            onClick={approveChanges}
+          >
             {__("Сохранить")}
           </div>
         </div>
