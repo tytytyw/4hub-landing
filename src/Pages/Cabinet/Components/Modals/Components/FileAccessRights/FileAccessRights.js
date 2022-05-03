@@ -25,6 +25,7 @@ function FileAccessRights() {
   const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
   const uid = useSelector(s => s.user.uid);
+  const [params, setParams] = useState({ usersToDelete: [] });
 
   const closeModal = () =>
     dispatch(
@@ -99,6 +100,34 @@ function FileAccessRights() {
     }
   };
 
+  const deleteUserFromUsers = user => {
+    setParams(s => ({
+      ...s,
+      usersToDelete: [
+        ...s.usersToDelete,
+        ...users.filter(it => it.uid === user.uid)
+      ]
+    }));
+    setUsers(s => s.filter(it => it.uid !== user.uid));
+  };
+
+  const deleteUsers = async () => {
+    for await (let user of params.usersToDelete) {
+      await api.post(FILE_ACCESS_RIGHTS.API_DELETE_USER_ACCESS_RIGHTS, {
+        params: {
+          uid,
+          fids: [user.fid],
+          dir: fileAccessRights.file.gdir,
+          user_to: user.email
+        }
+      });
+    }
+  };
+
+  const approveChanges = async () => {
+    await deleteUsers();
+  };
+
   return (
     <PopUp set={closeModal}>
       <div className={styles.fileAccessRightsWrap}>
@@ -138,10 +167,14 @@ function FileAccessRights() {
             </div>
           </div>
         </div>
-        <FileAccessUserList users={users} />
+        <FileAccessUserList users={users} deleteUser={deleteUserFromUsers} />
         <div className={styles.buttons}>
-          <div className={`${styles.cancel}`}>{__("Отмена")}</div>
-          <div className={`${styles.add}`}>{__("Сохранить")}</div>
+          <div className={`${styles.cancel}`} onClick={closeModal}>
+            {__("Отмена")}
+          </div>
+          <div className={`${styles.add}`} onClick={approveChanges}>
+            {__("Сохранить")}
+          </div>
         </div>
       </div>
       <input ref={linkRef} type="text" style={{ display: "none" }} />

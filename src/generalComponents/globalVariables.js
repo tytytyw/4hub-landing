@@ -41,7 +41,8 @@ export const TOP_MESSAGE_TYPE = {
 };
 
 export const FILE_ACCESS_RIGHTS = {
-  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php"
+  API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php",
+  API_DELETE_USER_ACCESS_RIGHTS: "/ajax/file_share_del.php"
 };
 
 export const SHARED_ACCESS_RIGHTS = {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styles from "./FileAccessUserList.module.sass";
 import { userFileAccess } from "../../../../../../../types/FileAccessRights";
@@ -11,7 +11,7 @@ import {
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 
-function FileAccessUserList({ users }) {
+function FileAccessUserList({ users, deleteUser }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
@@ -45,6 +45,7 @@ function FileAccessUserList({ users }) {
   const renderUsers = () =>
     users.map((user, i) => (
       <div key={i} className={styles.user}>
+        <span className={styles.cross} onClick={() => deleteUser(user)} />
         <div className={styles.iconWrap}>{renderUserIcon(user)}</div>
         <div className={styles.userName}>
           {user.name} {user.sname}
@@ -74,5 +75,6 @@ function FileAccessUserList({ users }) {
 export default FileAccessUserList;
 
 FileAccessUserList.propTypes = {
-  users: PropTypes.arrayOf(userFileAccess)
+  users: PropTypes.arrayOf(userFileAccess),
+  deleteUser: PropTypes.func
 };
