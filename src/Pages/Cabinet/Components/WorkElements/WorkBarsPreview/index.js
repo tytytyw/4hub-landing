@@ -29,7 +29,7 @@ const WorkBarsPreview = ({
   options,
   gLoader,
   filesPage,
-  chosenFolder,
+  chosenFolder = {},
   width = "100%",
   groupInfo
 }) => {
@@ -103,7 +103,8 @@ const WorkBarsPreview = ({
             controls
             src={video ? video : ""}
             type={f.mime_type}
-            onError={e => console.log(e)}>
+            onError={e => console.log(e)}
+          >
             <source src={video ? video : ""} type={f.mime_type} />
           </video>
         );
@@ -116,7 +117,8 @@ const WorkBarsPreview = ({
               src={audio ? audio : ""}
               type={f.mime_type}
               controls
-              onError={e => console.log(e)}>
+              onError={e => console.log(e)}
+            >
               <source src={audio ? audio : ""} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
@@ -192,29 +194,32 @@ const WorkBarsPreview = ({
             : "repeat(auto-fill, 205px)",
         gridAutoRows:
           size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-      }}>
+      }}
+    >
       <div
         className={`${styles.preview} ${grouped ? styles.groupedPreview : ""} ${
           chosenFile?.name ? "" : styles.noFile
         }`}
         style={{ height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)` }}
-        ref={previewRef}>
+        ref={previewRef}
+      >
         {grouped ? (
           <div className={styles.collapseHeader}>
             <p className={`${styles.dateName}`}>
-              {chosenFolder.group?.title ??
+              {chosenFolder?.group?.title ??
                 groupInfo.title ??
                 __("Выберите группу")}
             </p>
             <div className={styles.buttonsWrap}>
               <button className={`${styles.collapseBtn}`}>
-                {chosenFolder.group?.amount ?? groupInfo.amount ?? 0}{" "}
+                {chosenFolder?.group?.amount ?? groupInfo.amount ?? 0}{" "}
                 {__("объектов")}
               </button>
               <div
                 className={classNames({
                   [styles.arrowFile]: true
-                })}></div>
+                })}
+              ></div>
             </div>
           </div>
         ) : null}
@@ -261,7 +266,8 @@ const WorkBarsPreview = ({
                 filesPage === 0 ? styles.rightLineHidden : ""
               }`}
               style={{ height: "100%" }}
-              ref={containerRef}>
+              ref={containerRef}
+            >
               <Loader
                 type="bounceDots"
                 position="absolute"

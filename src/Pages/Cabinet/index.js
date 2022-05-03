@@ -261,6 +261,10 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
                 filesPage={filesPage}
                 setFilesPage={setFilesPage}
                 fileSelect={fileSelect}
+                fileAddCustomization={fileAddCustomization}
+                setFileAddCustomization={setFileAddCustomization}
+                setFilePreview={setFilePreview}
+                filePreview={filePreview}
               />
             )}
           />
