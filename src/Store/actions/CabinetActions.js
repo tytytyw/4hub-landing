@@ -29,7 +29,6 @@ import {
   GET_PROJECTS,
   GET_JOURNAL_FOLDERS,
   SEARCH,
-  CHOOSE_SHARED_FILES,
   SET_CALENDAR_DATE,
   SET_CALENDAR_EVENTS,
   SORT_FILES,
@@ -632,7 +631,7 @@ export const onGetProjectFolders = projectId => async (dispatch, getState) => {
     });
 };
 
-export const onChooseProjectFiles = (folder, project, page) => async (
+export const onChooseProjectFiles = (folder, project) => async (
   dispatch,
   getState
 ) => {
@@ -682,7 +681,7 @@ export const onChooseProject = project => {
 
 // JOURNAL
 
-export const onGetJournalFolders = folders => ({
+export const onGetJournalFolders = () => ({
   type: GET_JOURNAL_FOLDERS,
   payload: [
     {
@@ -760,7 +759,7 @@ export const setCalendarDate = date => {
   };
 };
 
-export const setCalendarEvents = events => {
+export const setCalendarEvents = () => {
   return {
     type: SET_CALENDAR_EVENTS,
     payload: [
@@ -1120,7 +1119,7 @@ export const onGetChatMessages = (target, search, page, loadingMessages) => (
     });
 };
 
-export const addNewChatMessage = msg => (dispatch, getState) => {
+export const addNewChatMessage = msg => dispatch => {
   dispatch({
     type: ADD_NEW_MESSAGE,
     payload: msg
