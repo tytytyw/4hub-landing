@@ -28,7 +28,7 @@ function Library({
         leftIconSrc="book.svg"
         listCollapsed={listCollapsed}
         setListCollapsed={setListCollapsed}
-      ></List>
+      />
       <WorkSpace
         listCollapsed={listCollapsed}
         menuItem={menuItem}
