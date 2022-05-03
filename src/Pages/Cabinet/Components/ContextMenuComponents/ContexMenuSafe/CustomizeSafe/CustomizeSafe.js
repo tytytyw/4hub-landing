@@ -19,6 +19,8 @@ import api from "../../../../../../api";
 import { useSelector, useDispatch } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { safeProps } from "../../../../../../types/Safe";
 
 const CustomizeSafe = ({ safe, close, setLoadingType }) => {
   const { __ } = useLocales();
@@ -281,3 +283,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
 };
 
 export default CustomizeSafe;
+CustomizeSafe.propTypes = {
+  safe: safeProps,
+  close: PropTypes.func,
+  setLoadingType: PropTypes.func
+};

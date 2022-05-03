@@ -19,6 +19,7 @@ import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList
 import classnames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../types/MouseParams";
 
 const WorkSpace = ({
   setMouseParams,
@@ -156,6 +157,6 @@ WorkSpace.propTypes = {
   menuItem: PropTypes.string,
   setParams: PropTypes.func,
   setSelectedProject: PropTypes.func,
-  mouseParams: PropTypes.object,
+  mouseParams: mouseParamsProps,
   listCollapsed: PropTypes.bool
 };

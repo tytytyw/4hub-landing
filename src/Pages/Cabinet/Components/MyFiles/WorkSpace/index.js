@@ -15,8 +15,7 @@ import { useElementResize } from "../../../../../generalComponents/Hooks";
 import {
   onAddRecentFiles,
   onChooseFiles,
-  onGetArchiveFiles,
-  onGetCartFiles
+  onGetArchiveFiles
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
@@ -74,7 +73,8 @@ const WorkSpace = ({
     if (pathname === "/archive")
       dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
     if (pathname === "/cart")
-      dispatch(onGetCartFiles("", 1, "", successLoad, "", pathname));
+      dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")
       dispatch(

@@ -1,79 +1,82 @@
 import React from "react";
 import styles from "./ShareToMessengers.module.sass";
 import classNames from "classnames";
-import {imageSrc} from '../../../../../../generalComponents/globalVariables';
-
+import { imageSrc } from "../../../../../../generalComponents/globalVariables";
+import PropTypes from "prop-types";
 
 const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
-	//TODO: add safe link
-	const safe_link = `http://fs2.mh.net.ua`;
-	const HrefSocial = (selectedSoc) => {
-		switch (selectedSoc) {
-            case "email":
-                return(`mailto:${user_to}?body=${safe_link}`);
-			case "telegram":
-				return(`https://t.me/share/url?url=${safe_link}`);
-			case "whatsapp":
-				return(`https://api.whatsapp.com/send/?text=${safe_link}`);
-			case "viber":
-				return(`viber://forward?text=${safe_link}`);
-			default:
-				return("");
-		}
-	}
+  //TODO: add safe link
+  const safe_link = `http://fs2.mh.net.ua`;
+  const HrefSocial = selectedSoc => {
+    switch (selectedSoc) {
+      case "email":
+        return `mailto:${user_to}?body=${safe_link}`;
+      case "telegram":
+        return `https://t.me/share/url?url=${safe_link}`;
+      case "whatsapp":
+        return `https://api.whatsapp.com/send/?text=${safe_link}`;
+      case "viber":
+        return `viber://forward?text=${safe_link}`;
+      default:
+        return "";
+    }
+  };
 
-	const messengersData = [
-		{
-			label: "Email",
-			type: "email",
-			icon: `${imageSrc}/assets/PrivateCabinet/socials/mail.svg`,
-		},
-		{
-			label: "Viber",
-			type: "viber",
-			icon: `${imageSrc}/assets/PrivateCabinet/socials/viber.svg`,
-		},
-		{
-			label: "WhatsApp",
-			type: "whatsapp",
-			icon: `${imageSrc}/assets/PrivateCabinet/socials/whatsapp.svg`,
-		},
-		{
-			label: "Telegram",
-			type: "telegram",
-			icon: `${imageSrc}/assets/PrivateCabinet/socials/telegram.svg`,
-		},
-        //TODO: skype, slack
-	];
+  const messengersData = [
+    {
+      label: "Email",
+      type: "email",
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/mail.svg`
+    },
+    {
+      label: "Viber",
+      type: "viber",
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/viber.svg`
+    },
+    {
+      label: "WhatsApp",
+      type: "whatsapp",
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/whatsapp.svg`
+    },
+    {
+      label: "Telegram",
+      type: "telegram",
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/telegram.svg`
+    }
+    //TODO: skype, slack
+  ];
 
-	return (
-		<div className={styles.share}>
-			<div className={styles.socials}>
-				{messengersData.map((item, index) => (
-					<li
-						className={classNames({
-							[styles.socialsItem]: true,
-						})}
-						key={index}
-					>
-                        <a target='_blanck' href={HrefSocial(item?.type)}>
-                            <img
-                                className={styles.socialIcon}
-                                src={item.icon}
-                                alt={item.label}
-                            />
-                        </a>
-					</li>
-				))}
-				<span
-					className={styles.close}
-					onClick={() => setDisplayMessengers(false)}
-				>
-					<span className={styles.times} />
-				</span>
-			</div>
-		</div>
-	);
+  return (
+    <div className={styles.share}>
+      <div className={styles.socials}>
+        {messengersData.map((item, index) => (
+          <li
+            className={classNames({
+              [styles.socialsItem]: true
+            })}
+            key={index}>
+            <a target="_blanck" href={HrefSocial(item?.type)}>
+              <img
+                className={styles.socialIcon}
+                src={item.icon}
+                alt={item.label}
+              />
+            </a>
+          </li>
+        ))}
+        <span
+          className={styles.close}
+          onClick={() => setDisplayMessengers(false)}>
+          <span className={styles.times} />
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default ShareToMessengers;
+
+ShareToMessengers.propTypes = {
+  setDisplayMessengers: PropTypes.func,
+  user_to: PropTypes.string
+};

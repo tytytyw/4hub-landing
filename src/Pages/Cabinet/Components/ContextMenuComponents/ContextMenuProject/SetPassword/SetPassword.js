@@ -6,6 +6,8 @@ import InputField from "../../../../../../generalComponents/InputField";
 import Error from "../../../../../../generalComponents/Error";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { chosenFolderProps } from "../../../../../../types/CreateFolder";
 
 function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
   const { __ } = useLocales();
@@ -40,11 +42,11 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
     if (password) {
       api
         .post("", data /*"/ajax/file_edit.php", data*/)
-        .then(res => {
+        .then(() => {
           setShowSuccessMessage(__("пароль установлен"));
           closeComponent();
         })
-        .catch(err => {
+        .catch(() => {
           setError(true);
         });
     }
@@ -119,3 +121,9 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
 }
 
 export default SetPassword;
+
+SetPassword.propTypes = {
+  folder: chosenFolderProps,
+  setDisplaySetPassword: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func
+};

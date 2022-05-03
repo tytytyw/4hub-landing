@@ -12,6 +12,7 @@ import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/CustomFolderItem";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const CustomFolderItem = ({
   f,
@@ -181,7 +182,7 @@ export default CustomFolderItem;
 CustomFolderItem.propTypes = {
   f: fileProps,
   setChosenFolder: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: chosenFolderProps,
   listCollapsed: PropTypes.bool,
   padding: PropTypes.string,
   chosen: PropTypes.bool,

@@ -5,6 +5,7 @@ import { ReactComponent as ArrowIcon } from "../../../../../../../assets/Busines
 import ContextMenu from "../../../../../../../generalComponents/ContextMenu";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../../types/MouseParams";
 
 const AddLogo = ({
   mouseParams,
@@ -79,7 +80,7 @@ const AddLogo = ({
 export default AddLogo;
 
 AddLogo.propTypes = {
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
   setAction: PropTypes.func,

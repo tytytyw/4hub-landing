@@ -4,6 +4,7 @@ import styles from "./SideList.module.sass";
 import ListMenu from "./ListMenu";
 import AddLogo from "./AddLogo";
 import PropTypes from "prop-types";
+import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 const SideList = ({
   data = [],
@@ -47,7 +48,7 @@ SideList.propTypes = {
   data: PropTypes.array,
   pageOption: PropTypes.object,
   setPageOption: PropTypes.func,
-  mouseParams: PropTypes.any,
+  mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
   setAction: PropTypes.func,
