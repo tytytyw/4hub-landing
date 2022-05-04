@@ -29,7 +29,7 @@
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^5.0.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "web-vitals": "^1.0.1"
@@ -39,16 +39,21 @@
     "build": "react-scripts build",
     "test": "jest --watchAll",
     "eject": "react-scripts eject",
-    "deploy": "npm run convert-po && npm run build && gulp deploy",
+    "deploy": "npm run lint:fix && npm run convert-po && npm run build && gulp deploy",
     "publish": "gulp publish",
     "extract:lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l pl -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l de -a.gettext __ -a.ngettext __n -o './translations'",
-    "convert-po": "node ./translations/po2json.js"
+    "convert-po": "node ./translations/po2json.js",
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "shared-config"
+    ],
+    "rules": {
+      "additional-rule": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -66,16 +71,22 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-prettier-react": "0.0.24",
+    "eslint-plugin-html": "^5.0.5",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "ftp-deploy": "^2.4.1",
     "gettext-parser": "^5.1.1",
     "gulp": "^4.0.2",
     "gulp-git": "^2.10.1",
     "jest-css-modules": "^2.1.0",
-    "prettier": "^2.6.2",
-    "prettier-eslint": "^10.1.0",
+    "prettier": "^1.19.1",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0"
   },
