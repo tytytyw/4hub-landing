@@ -6,6 +6,8 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../types/WorkElements";
 
 const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesPage }) => {
   const { __ } = useLocales();
@@ -63,3 +65,12 @@ const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesP
 };
 
 export default WorkLines;
+WorkLines.propTypes = {
+  children: PropTypes.node,
+  filePick: filePickProps,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  load: PropTypes.func,
+  options: PropTypes.object,
+  filesPage: PropTypes.number
+};

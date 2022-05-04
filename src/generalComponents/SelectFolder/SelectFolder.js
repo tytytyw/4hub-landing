@@ -7,7 +7,7 @@ import CustomFolderItem from "../../Pages/Cabinet/Components/MyFolders/CustomFol
 import { useFolders } from "../collections";
 import PropTypes from "prop-types";
 
-const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewFolderInfo = null, ...props }) => {
+const SelectFolder = ({ initValue, initFolder = "", setNewFolderInfo = null, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value] = useState(initValue);
   const global = useSelector((state) => state.Cabinet.global);

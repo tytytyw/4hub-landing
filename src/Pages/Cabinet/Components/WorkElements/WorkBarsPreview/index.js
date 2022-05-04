@@ -11,6 +11,9 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const WorkBarsPreview = ({
   children,
@@ -23,8 +26,8 @@ const WorkBarsPreview = ({
   options,
   gLoader,
   filesPage,
-  chosenFolder = {},
-  width = "100%",
+  chosenFolder,
+  width,
   groupInfo
 }) => {
   const { __ } = useLocales();
@@ -246,3 +249,22 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+WorkBarsPreview.propTypes = {
+  children: PropTypes.node,
+  file: fileProps,
+  filePick: filePickProps,
+  fileRef: PropTypes.object,
+  grouped: PropTypes.array,
+  chosenFile: PropTypes.object,
+  load: PropTypes.func,
+  options: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filesPage: PropTypes.number,
+  chosenFolder: chosenFolderProps,
+  width: PropTypes.string,
+  groupInfo: PropTypes.object
+};
+WorkBarsPreview.defaultProps = {
+  chosenFolder: {},
+  width: "100%"
+};

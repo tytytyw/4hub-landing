@@ -11,6 +11,8 @@ import { getMedia, renderHeight } from "../../../../../generalComponents/general
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
 const WorkLinesPreview = ({
   file,
@@ -298,3 +300,17 @@ const WorkLinesPreview = ({
 };
 
 export default WorkLinesPreview;
+WorkLinesPreview.propTypes = {
+  file: fileProps,
+  children: PropTypes.node,
+  hideFileList: PropTypes.bool,
+  filesPage: PropTypes.number,
+  fileRef: PropTypes.object,
+  filePick: filePickProps,
+  gLoader: PropTypes.bool,
+  load: PropTypes.func,
+  options: PropTypes.object,
+  renderFiles: PropTypes.func,
+  renderGroups: PropTypes.func,
+  menuItem: PropTypes.string
+};

@@ -63,7 +63,7 @@ export const handlePrintScreen = async (ref, set) => {
 
 export const htmlToCanvas = async (element, ref, set) => {
   await html2canvas(element, { allowTaint: true, proxy: imageSrc })
-    .then(function (canvas) {
+    .then((canvas) => {
       const data = canvas.toDataURL("image/png");
       ref.setAttribute("src", data);
       if (set) set("block", data);
@@ -122,7 +122,7 @@ export const getMedia = (url, type, set = () => {}, setLoading = () => {}, setEr
       let objectURL = URL.createObjectURL(blob);
       set(objectURL);
     })
-    .catch((err) => setError("Failed to load media"))
+    .catch(() => setError("Failed to load media"))
     .finally(() => {
       setLoading(false);
     });
