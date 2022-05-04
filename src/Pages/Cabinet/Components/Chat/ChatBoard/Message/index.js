@@ -36,7 +36,9 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       (Array.isArray(message.attachment) && message.attachment[0].kind === "file") ||
       (Array.isArray(message.attachment) && message.attachment[0].kind?.includes("image"))
     ) {
-      return message.attachment.map((file) => <FileMessage key={file.fid} file={file} />);
+      return message.attachment.map((file) => (
+        <FileMessage key={file.fid} file={file} size={message.attachment.length > 1 ? "small" : null} />
+      ));
     }
     if (Array.isArray(message.attachment) && message.attachment[0].kind === "video") {
       return (
