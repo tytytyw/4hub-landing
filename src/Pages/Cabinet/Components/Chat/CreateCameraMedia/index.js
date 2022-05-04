@@ -123,20 +123,22 @@ const CreateCameraMedia = ({
 
   const takePicture = videoRef => {
     const video = videoRef ?? streamPreviewRef.current;
-    previewSize.current = {
-      height: video.clientHeight,
-      width: video.clientWidth
-    };
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    canvas.height = video.videoHeight;
-    canvas.width = video.videoWidth;
-    context.drawImage(video, 0, 0);
-    const imageSrc = canvas.toDataURL("image/png");
-    canvasToImagePreview(canvas);
-    setImageFinal(imageSrc);
-    cleareStreamTracks();
-    setState("readyToSend");
+    if (video) {
+      previewSize.current = {
+        height: video.clientHeight,
+        width: video.clientWidth
+      };
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+      canvas.height = video.videoHeight;
+      canvas.width = video.videoWidth;
+      context.drawImage(video, 0, 0);
+      const imageSrc = canvas.toDataURL("image/png");
+      canvasToImagePreview(canvas);
+      setImageFinal(imageSrc);
+      cleareStreamTracks();
+      setState("readyToSend");
+    }
   };
 
   const setInitialState = () => {

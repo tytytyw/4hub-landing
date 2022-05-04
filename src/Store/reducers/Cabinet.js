@@ -273,7 +273,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_FILES_PATH: {
       return {
         ...state,
-        fileList: { ...state.fileList, files: [], path: action.payload }
+        fileList: { ...state.fileList, files: null, path: action.payload }
       };
     }
     case SET_CHOSEN_FILE: {
@@ -394,12 +394,12 @@ export default function startPage(state = INITIAL_STATE, action) {
       for (let key in action.payload) {
         messages[key] = messages[key]
           ? [
-              ...messages[key].filter(
-                oldMsg =>
-                  !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)
-              ),
-              ...action.payload[key]
-            ]
+            ...messages[key].filter(
+              oldMsg =>
+                !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)
+            ),
+            ...action.payload[key]
+          ]
           : [...action.payload[key]];
       }
       return { ...state, chat: { ...state.chat, messages: messages } };

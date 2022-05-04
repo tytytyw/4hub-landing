@@ -23,6 +23,7 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
 import PropTypes from "prop-types";
+import FileMessage from "./Message/FileMessage";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -40,7 +41,9 @@ const ChatBoard = ({
   endMessagesRef,
   scrollToBottom,
   editMessage,
-  showSettings
+  showSettings,
+  attachedFiles,
+  setAttachedFiles
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -189,6 +192,17 @@ const ChatBoard = ({
     mediaRecorder?.stop();
   };
 
+  const removeAttachedFile = (fid) => setAttachedFiles(prevFiles => prevFiles.filter(file => file.fid !== fid))
+
+  const renderAttachedFiles = () => {
+    return attachedFiles.map(file => (
+      <div className={styles.attachedFileWrap} key={file.fid}>
+        <FileMessage file={file} size={'small'} style={{ margin: 0 }} />
+        <div className={styles.remove} onClick={() => removeAttachedFile(file.fid)}></div>
+      </div>
+    ))
+  }
+
   useEffect(() => {
     if (isRecording) {
       const timer = setInterval(() => {
@@ -321,6 +335,22 @@ const ChatBoard = ({
           ) : (
             ""
           )}
+          {Array.isArray(attachedFiles) && attachedFiles.length && !action?.type ? (
+            <div
+              className={styles.attachedFiles}
+              style={{
+                width: rightPanelContentType
+                  ? "calc(100% - 65px)"
+                  : "calc(100% - 200px - 65px)"
+              }}
+            >
+              {renderAttachedFiles()}
+              <div className={styles.close} onClick={() => setAttachedFiles(null)} />
+            </div>
+          ) : (
+            ""
+          )}
+
         </div>
         <div className={styles.rightPanelContentType}>
           {rightPanelContentType === "emo" ? <EmojiArea /> : null}
@@ -383,5 +413,7 @@ ChatBoard.propTypes = {
   endMessagesRef: PropTypes.object.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
   editMessage: PropTypes.func.isRequired,
-  showSettings: PropTypes.bool
+  showSettings: PropTypes.bool,
+  attachedFiles: PropTypes.array,
+  setAttachedFiles: PropTypes.func
 };

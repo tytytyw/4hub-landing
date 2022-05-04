@@ -325,12 +325,13 @@ const Chat = ({ setMenuItem }) => {
       },
       {
         name: __("Файлы с системы 4Hub"),
-        type: "add4hubFile",
-        callback: () => setAction({ type: "add4hubFile" })
+        type: "selectFile",
+        callback: () => setAction({ type: "selectFile" })
       },
       {
         name: __("Файлы с компьютера"),
         type: "addPcFile",
+        title: __("Выберите файл"),
         callback: () => fileInputRef.current.click()
       }
     ]

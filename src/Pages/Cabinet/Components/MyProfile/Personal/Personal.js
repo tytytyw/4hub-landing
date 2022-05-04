@@ -171,6 +171,40 @@ const Personal = () => {
                     {__("Кнопка")}
                   </button>
                 </div>
+
+                <div
+                  className={styles.radioBlock}
+                  onClick={() => {
+                    setTheme("dark");
+                  }}>
+                  <div className={styles.radio}>
+                    <input
+                      name="theme"
+                      id="dark"
+                      type="radio"
+                      className={styles.radioInput}
+                      checked={params?.theme === "dark"}
+                      onChange={() => {
+                        setTheme("dark");
+                      }}
+                    />
+                    <label htmlFor="dark">{__("Темный")}</label>
+                  </div>
+                  <div
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(180deg, #222222 0%, #3F3F3F 100%)"
+                    }}
+                    className={styles.colorBlock}
+                  />
+                  <button
+                    type="button"
+                    style={{ background: "#2C2C2C" }}
+                    className={styles.button}>
+                    {__("Кнопка")}
+                  </button>
+                </div>
+
               </div>
             </div>
 

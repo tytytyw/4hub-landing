@@ -61,7 +61,7 @@ const Buttons = ({
   const chatTheme = useSelector(state => state.Cabinet.chat.theme)
 
   const onAddСaptionClick = () => {
-    takePicture(videoPreviewRef.current);
+    if (videoPreviewRef.current) takePicture(videoPreviewRef.current);
     setDrawImage(true);
     setActiveOption(prevState =>
       prevState === "addСaption" ? null : "addСaption"
@@ -259,7 +259,7 @@ const Buttons = ({
             canvasToImagePreview(drawCanvasRef.current);
             saveImageChanges(drawCanvasRef.current.toDataURL("image/png"));
             setActiveOption(null);
-            setDrawImage("sendFile");
+            if (contentType === 'video') setDrawImage("sendFile");
           }}
           width={38}
           height={38}
