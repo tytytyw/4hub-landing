@@ -1,8 +1,9 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./Colors.module.sass";
 import { colors } from "../collections";
 import { useLocales } from "react-localized";
+import { colorType } from "../../types/Color";
 
 const Colors = ({ color, setColor, title, editableClass }) => {
   const { __ } = useLocales();
@@ -46,3 +47,10 @@ const Colors = ({ color, setColor, title, editableClass }) => {
 };
 
 export default Colors;
+
+Colors.propTypes = {
+  color: colorType,
+  setColor: PropTypes.func,
+  title: PropTypes.string,
+  editableClass: PropTypes.string
+};

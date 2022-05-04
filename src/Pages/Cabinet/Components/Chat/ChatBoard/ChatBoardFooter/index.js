@@ -37,7 +37,8 @@ const ChatBoardFooter = ({
   setFile,
   scrollToBottom,
   socket,
-  editMessage
+  editMessage,
+  attachedFiles
 }) => {
   const { __ } = useLocales();
   const [messageIsSending, setMessageIsSending] = useState(false);
@@ -201,7 +202,13 @@ const ChatBoardFooter = ({
       {isRecording ? (
         <div className={styles.recordHint}>{__("Для отмены отпустите курсор вне поля")}</div>
       ) : (
-        <TextArea onAddMessage={onAddMessage} action={action} nullifyAction={nullifyAction} editMessage={editMessage} />
+        <TextArea
+          onAddMessage={onAddMessage}
+          action={action}
+          nullifyAction={nullifyAction}
+          editMessage={editMessage}
+          attachedFiles={!!attachedFiles?.length}
+        />
       )}
       <div
         className={classNames({
@@ -295,5 +302,6 @@ ChatBoardFooter.propTypes = {
   setFile: PropTypes.func.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
   socket: PropTypes.object,
-  editMessage: PropTypes.func.isRequired
+  editMessage: PropTypes.func.isRequired,
+  attachedFiles: PropTypes.array
 };

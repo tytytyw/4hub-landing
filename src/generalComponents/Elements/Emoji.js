@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./Emoji.module.sass";
 import { smiles } from "../collections";
 import classnames from "classnames";
@@ -40,3 +40,10 @@ const Emoji = ({ emoji, setEmoji, title, editableClass = "" }) => {
 };
 
 export default Emoji;
+
+Emoji.propTypes = {
+  emoji: PropTypes.string,
+  setEmoji: PropTypes.func,
+  title: PropTypes.string,
+  editableClass: PropTypes.string
+};

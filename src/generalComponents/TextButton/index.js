@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import styles from "./TextButton.module.sass";
+import PropTypes from "prop-types";
 
 const TextButton = ({ text = "", type = "ok" || "cancel", callback = () => {}, disabled = false, style = {} }) => {
   return (
@@ -19,3 +20,11 @@ const TextButton = ({ text = "", type = "ok" || "cancel", callback = () => {}, d
 };
 
 export default TextButton;
+
+TextButton.propTypes = {
+  text: PropTypes.string,
+  type: PropTypes.string,
+  callback: PropTypes.func,
+  disabled: PropTypes.bool,
+  style: PropTypes.object
+};

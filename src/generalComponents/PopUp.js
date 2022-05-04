@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const PopUp = (props) => {
   const [targetClick, setTargetClick] = useState("");
@@ -54,3 +55,11 @@ const PopUp = (props) => {
 };
 
 export default PopUp;
+
+PopUp.propTypes = {
+  set: PropTypes.func,
+  padding: PropTypes.string,
+  zIndex: PropTypes.number,
+  background: PropTypes.string,
+  children: PropTypes.element.isRequired
+};

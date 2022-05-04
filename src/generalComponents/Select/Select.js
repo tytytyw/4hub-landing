@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import styles from "./Select.module.sass";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter = () => {}, theme, ...props }) => {
   const [open, setOpen] = useState(false);
@@ -107,3 +108,14 @@ const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter =
 };
 
 export default Select;
+
+Select.propTypes = {
+  data: PropTypes.array,
+  initValue: PropTypes.string,
+  onChange: PropTypes.func,
+  cleareFilter: PropTypes.func,
+  theme: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  classNameSelect: PropTypes.string
+};

@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./ContextMenuItem.module.sass";
 
 const ContextMenuItem = ({ width, height, color, text, imageSrc, callback }) => {
@@ -18,3 +18,12 @@ const ContextMenuItem = ({ width, height, color, text, imageSrc, callback }) => 
 };
 
 export default ContextMenuItem;
+
+ContextMenuItem.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  imageSrc: PropTypes.string,
+  callback: PropTypes.func
+};

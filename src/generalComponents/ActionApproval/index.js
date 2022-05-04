@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./ActionApproval.module.sass";
 import PopUp from "../PopUp";
 import classNames from "classnames";
@@ -44,3 +44,15 @@ const ActionApproval = ({
 };
 
 export default ActionApproval;
+
+ActionApproval.propTypes = {
+  set: PropTypes.func,
+  text: PropTypes.string,
+  name: PropTypes.string,
+  children: PropTypes.element,
+  callback: PropTypes.func,
+  approve: PropTypes.string,
+  childrenWidth: PropTypes.string,
+  disableActionBtn: PropTypes.bool,
+  style: PropTypes.object
+};

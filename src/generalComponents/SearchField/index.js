@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./SearchField.module.sass";
 import { imageSrc } from "../globalVariables";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const SearchField = ({ value, setValue, placeholder, style }) => {
   const { __ } = useLocales();
@@ -30,3 +31,10 @@ const SearchField = ({ value, setValue, placeholder, style }) => {
 };
 
 export default SearchField;
+
+SearchField.propTypes = {
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+  placeholder: PropTypes.string,
+  style: PropTypes.object
+};

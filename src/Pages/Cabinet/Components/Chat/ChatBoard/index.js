@@ -335,6 +335,7 @@ const ChatBoard = ({
           scrollToBottom={scrollToBottom}
           socket={socket}
           editMessage={editMessage}
+          attachedFiles={attachedFiles}
         />
       )}
 

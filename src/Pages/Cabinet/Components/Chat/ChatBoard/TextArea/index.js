@@ -13,7 +13,8 @@ const TextArea = ({
   nullifyAction,
   initialTextValue = "",
   saveTextButtonRef = null,
-  editMessage
+  editMessage,
+  attachedFiles
 }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -116,7 +117,7 @@ const TextArea = ({
         <SendIcon
           className={classNames({
             [styles.messageImg]: true,
-            [styles.active]: textAreaValue.length
+            [styles.active]: textAreaValue.length || attachedFiles
           })}
         />
       </span>
@@ -137,5 +138,6 @@ TextArea.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,
-  editMessage: PropTypes.func
+  editMessage: PropTypes.func,
+  attachedFiles: PropTypes.bool
 };

@@ -6,6 +6,7 @@ import { imageSrc } from "../globalVariables";
 import { colors } from "../collections";
 import { ReactComponent as FolderIcon } from "../../assets/PrivateCabinet/folder-2.svg";
 import { useLocales } from "react-localized";
+import { fileProps } from "../../types/WorkElements";
 
 function FileInfo({ file = {} }) {
   const { __ } = useLocales();
@@ -53,3 +54,7 @@ function FileInfo({ file = {} }) {
 }
 
 export default FileInfo;
+
+FileInfo.propTypes = {
+  file: fileProps
+};

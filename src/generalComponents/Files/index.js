@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
-
+import PropTypes from "prop-types";
 import styles from "./Files.module.sass";
 
 const File = ({ format, color, fileSize }) => {
@@ -22,7 +22,9 @@ const File = ({ format, color, fileSize }) => {
     "pptx"
   ];
 
-  const size = fileSize ?? useSelector((state) => state.Cabinet.size);
+  const storeSize = useSelector((state) => state.Cabinet.size);
+
+  const size = fileSize ?? storeSize;
 
   const isFormat = () => formats.indexOf(format);
 
@@ -33,8 +35,9 @@ const File = ({ format, color, fileSize }) => {
         setFormatSize(node.getBoundingClientRect().width);
       }
     },
+    // eslint-disable-next-line
     [size]
-  ); // eslint-disable-line
+  );
   const fontSize = formatSize > 40 ? "12px" : formatSize > 30 ? "10px" : "7px";
 
   return (
@@ -65,3 +68,9 @@ const File = ({ format, color, fileSize }) => {
 };
 
 export default File;
+
+File.propTypes = {
+  format: PropTypes.string,
+  color: PropTypes.string,
+  fileSize: PropTypes.string
+};

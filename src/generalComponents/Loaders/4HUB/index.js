@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./FourHUB.module.sass";
 
 const Loader = ({ type, position, background, width, height, zIndex, containerType = "", animation = true }) => {
@@ -30,3 +30,14 @@ const Loader = ({ type, position, background, width, height, zIndex, containerTy
 };
 
 export default Loader;
+
+Loader.propTypes = {
+  type: PropTypes.string.isRequired,
+  position: PropTypes.string,
+  background: PropTypes.string,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  zIndex: PropTypes.number,
+  containerType: PropTypes.string,
+  animation: PropTypes.bool
+};

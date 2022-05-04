@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-
+import PropTypes from "prop-types";
 import styles from "./ContextMenu.module.sass";
+import { mouseParamsProps } from "../../types/MouseParams";
 
 const ContextMenu = ({
   children,
@@ -22,9 +23,11 @@ const ContextMenu = ({
       if (navigator.userAgent.includes("Chrome")) {
         const isBackground =
           e.path.filter((el) => {
-            if (typeof el?.classList === "object" && typeof el?.classList[0] === "string")
+            if (typeof el?.classList === "object" && typeof el?.classList[0] === "string") {
               return el.classList[0].includes(styles.background);
-          }).length > 0; //eslint-disable-line
+            }
+            return false;
+          }).length > 0;
         if (isBackground) setParams(null);
       }
     }
@@ -104,3 +107,16 @@ const ContextMenu = ({
 };
 
 export default ContextMenu;
+
+ContextMenu.propTypes = {
+  children: PropTypes.element.isRequired,
+  params: mouseParamsProps,
+  setParams: PropTypes.func,
+  tooltip: PropTypes.bool,
+  itemRef: PropTypes.element,
+  customClose: PropTypes.bool,
+  movehorizontal: PropTypes.number,
+  disableAutohide: PropTypes.bool,
+  withoutOffset: PropTypes.bool,
+  style: PropTypes.object
+};
