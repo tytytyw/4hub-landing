@@ -294,7 +294,7 @@ const CreateCameraMedia = ({
       onSendFile("image/png");
       setDrawImage(false);
     }
-  }, [drawImage]);
+  }, [drawImage]); // eslint-disable-line
 
   useEffect(() => {
     getStream();
@@ -331,7 +331,7 @@ const CreateCameraMedia = ({
 
   useEffect(() => {
     if (openCropImage && imageAspectRatio) setImageAspectRatio(null);
-  }, [openCropImage]);
+  }, [openCropImage]); // eslint-disable-line
 
   return gloader ? (
     <Loader

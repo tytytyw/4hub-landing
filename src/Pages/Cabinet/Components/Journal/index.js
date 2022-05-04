@@ -126,7 +126,7 @@ const Journal = () => {
 
   useEffect(() => {
     dispatch(onGetJournalFolders());
-  }, []);
+  }, []); // eslint-disable-line
 
   const renderMenuItems = (target, type) => {
     return target.map((item, i) => {

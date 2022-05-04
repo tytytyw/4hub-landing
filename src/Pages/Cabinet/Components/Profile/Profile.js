@@ -42,7 +42,7 @@ const Profile = ({ theme }) => {
 
   useEffect(() => {
     dispatch(onGetUserInfo());
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>

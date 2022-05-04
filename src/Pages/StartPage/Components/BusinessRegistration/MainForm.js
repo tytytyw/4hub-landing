@@ -33,11 +33,11 @@ const MainForm = ({
     if (mainFields?.main) {
       setFields(mainFields?.main);
     }
-  }, []);
+  }, []); // eslint-disable-line
   useEffect(() => {
     if (userInfo && !mainFields.main?.company_name)
       onChange(userInfo.id_company, "company_name");
-  }, [userInfo]);
+  }, [userInfo]); // eslint-disable-line
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -51,11 +51,6 @@ const MainForm = ({
             "emp_num"
           )}&type=${getValue("activity_field")}`
         )
-        // .then((res) => {
-        // 	if (res.data.ok === 1) {
-
-        // 	}
-        // })
         .catch((err) => {
           console.log(err);
         })

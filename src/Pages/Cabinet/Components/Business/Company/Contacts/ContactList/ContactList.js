@@ -35,6 +35,7 @@ const ContactList = ({
       return name.includes(searchValue);
     });
     setContactList(searchResult);
+    //eslint-disable-next-line
   }, [search]);
 
   const onAddContact = () => {

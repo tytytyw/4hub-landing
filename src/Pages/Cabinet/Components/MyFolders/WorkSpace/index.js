@@ -66,8 +66,8 @@ const WorkSpace = ({
 
   useEffect(
     () => setChosenFile(null),
-    [chosenFolder.path, chosenFolder.subPath]
-  ); // eslint-disable-line react-hooks/exhaustive-deps
+    [chosenFolder.path, chosenFolder.subPath] // eslint-disable-line
+  );
 
   return (
     <>

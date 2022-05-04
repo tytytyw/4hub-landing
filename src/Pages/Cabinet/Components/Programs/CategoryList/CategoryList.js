@@ -38,7 +38,7 @@ function CategoryList({ listCollapsed, setListCollapsed }) {
 
   useEffect(() => {
     dispatch(onGetCategories());
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <List

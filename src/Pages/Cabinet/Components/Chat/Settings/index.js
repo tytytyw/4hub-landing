@@ -42,9 +42,9 @@ const Settings = ({ close }) => {
     if (activeTheme) initialTheme.current.theme = activeTheme;
     return () => {
       if (!initialTheme.current.saved && initialTheme.current.theme)
-        themeHandler(initialTheme.current.theme);
+        themeHandler(initialTheme.current.theme); // eslint-disable-line
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <div

@@ -233,13 +233,15 @@ const WorkSpace = ({
   };
 
   const renderCreateCameraMedia = useCallback(
-    <CreateCameraMedia
-      nullifyAction={nullifyAction}
-      addMessage={addMessage}
-      socket={socket}
-      scrollToBottom={scrollToBottom}
-    />,
-    [action]
+    () => (
+      <CreateCameraMedia
+        nullifyAction={nullifyAction}
+        addMessage={addMessage}
+        socket={socket}
+        scrollToBottom={scrollToBottom}
+      />
+    ),
+    [action] // eslint-disable-line
   );
 
   useEffect(() => {

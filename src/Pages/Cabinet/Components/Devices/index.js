@@ -62,7 +62,7 @@ const Devices = () => {
     dispatch(onGetUserInfo());
     getConnectedContacts();
     dispatch(onGetDevices(setDevicesListLoading, setErrors));
-  }, []);
+  }, []); // eslint-disable-line
 
   const getConnectedContacts = () =>
     dispatch(

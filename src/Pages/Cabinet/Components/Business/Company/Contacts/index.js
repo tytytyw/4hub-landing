@@ -78,6 +78,7 @@ const Contacts = ({
             contactList.filter((item) => item.id === selectedItem.id)[0]
           )
         : "",
+    //eslint-disable-next-line
     [contactList]
   );
 

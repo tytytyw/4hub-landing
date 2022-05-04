@@ -107,6 +107,7 @@ const MyFolders = ({
     setFilesPage(2);
     setGLoader(false);
   };
+  // eslint-disable-next-line
   useEffect(async () => {
     setMenuItem("myFolders");
     dispatch(onAddRecentFiles());

@@ -131,10 +131,10 @@ const VideoPlayer = ({
       inputRange.current.addEventListener("mousemove", onBorderDrag);
       return () => {
         inputRange.current.style.cursor = "default";
-        inputRange.current.removeEventListener("mousemove", onBorderDrag);
+        inputRange.current.removeEventListener("mousemove", onBorderDrag); // eslint-disable-line
       };
     }
-  }, [dragbbleCutBorder]);
+  }, [dragbbleCutBorder]); // eslint-disable-line
 
   useEffect(() => {
     if (videoCutParams) {
@@ -146,12 +146,12 @@ const VideoPlayer = ({
         },
       }));
     }
-  }, [videoDuration]);
+  }, [videoDuration]); // eslint-disable-line
 
   useEffect(() => {
     if (videoFrameRef?.current)
       videoFrameRef.current.addEventListener("canplay", createFrames);
-  }, [videoFrameRef?.current]);
+  }, [videoFrameRef?.current]); // eslint-disable-line
 
   return (
     <div
@@ -253,7 +253,7 @@ const VideoPlayer = ({
               muted
             />
             {videoFrames.map((frame, i) => (
-              <img src={frame} key={i} />
+              <img src={frame} alt="img" key={i} />
             ))}
           </div>
         )}

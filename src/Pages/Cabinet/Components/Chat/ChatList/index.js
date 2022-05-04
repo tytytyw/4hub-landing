@@ -200,8 +200,8 @@ const ChatList = ({
         </div>
       );
     });
+    //eslint-disable-next-line
   }, [
-    //eslint-disable-line
     groupsList,
     userId,
     selectedContact,

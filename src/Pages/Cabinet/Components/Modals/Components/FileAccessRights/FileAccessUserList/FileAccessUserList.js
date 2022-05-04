@@ -30,7 +30,7 @@ function FileAccessUserList({
 
   const renderUserIcon = (user) => {
     return user?.user_icon?.[0] ? (
-      <img src={user?.user_icon?.[0]} className={styles.userIcon} />
+      <img src={user?.user_icon?.[0]} alt="img" className={styles.userIcon} />
     ) : (
       <UserIcon />
     );

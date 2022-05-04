@@ -76,7 +76,7 @@ const SideMenu = ({
         }
       })
       .catch(() => setTopError(__("Ошибка загрузки количества файлов")));
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <div

@@ -26,7 +26,7 @@ const DocPreview = ({
 
   useEffect(() => {
     dispatch(onGetCompanyDocument(pageOption.name, setLoadingType));
-  }, [pageOption]);
+  }, [pageOption]); //eslint-disable-line
 
   return (
     <>

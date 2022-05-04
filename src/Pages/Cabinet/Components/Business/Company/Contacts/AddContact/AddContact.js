@@ -195,6 +195,7 @@ const AddContact = ({
       if (selectedItem.icon) setPreview(selectedItem.icon[0]);
     }
     return () => onExit();
+    //eslint-disable-next-line
   }, []);
 
   return (

@@ -131,6 +131,8 @@ const SelectFile = ({
     nullifyAction();
   };
 
+  // TODO - Need to fix
+  // eslint-disable-next-line
   useEffect(async () => {
     dispatch(onGetFolders("", folders));
     await dispatch(onSortFile("byName&sort_reverse=0"));
@@ -143,7 +145,7 @@ const SelectFile = ({
 
   useEffect(() => {
     if (path) dispatch(onChooseFiles(path, "", 1, "", ""));
-  }, [path]);
+  }, [path]); // eslint-disable-line
 
   return (
     <PopUp

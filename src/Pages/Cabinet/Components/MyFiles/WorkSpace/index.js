@@ -95,7 +95,7 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime",
       });
     };
-  }, [pathname]);
+  }, [pathname]); // eslint-disable-line
 
   const onActiveCallbackArrMain = (type) => {
     let index;

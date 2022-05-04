@@ -17,7 +17,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
       newData.push({ type, link });
     });
     setSocialValues(newData);
-  }, []);
+  }, []); // eslint-disable-line
 
   const onChange = (event, item) => {
     // получение ссылки от соц. сети

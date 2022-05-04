@@ -16,7 +16,7 @@ const SidebarTasks = ({ data, listCollapsed }) => {
 
   const [events, setEvents] = useState(getEventsByDay(data));
 
-  useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]);
+  useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
 
   const getStrDate = () => {
     const day =

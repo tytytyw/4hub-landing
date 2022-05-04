@@ -29,7 +29,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         setHrefSoc("");
       //TODO: skype, slack
     }
-  }, [selectedSoc]);
+  }, [selectedSoc]); // eslint-disable-line
 
   return (
     <PopUp set={setDisplayMessengers}>

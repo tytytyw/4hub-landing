@@ -19,7 +19,7 @@ function TopMessage() {
         })
       );
     }, 3000);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>

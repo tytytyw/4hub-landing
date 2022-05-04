@@ -39,7 +39,7 @@ const SendFriend = ({ set, selectedItem }) => {
     });
 
     setContactList(filterArray);
-  }, [search]);
+  }, [search]); // eslint-disable-line
 
   const onSubmit = (event) => {
     event.preventDefault();

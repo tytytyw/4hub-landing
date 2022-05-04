@@ -13,7 +13,7 @@ const ContactsAll = ({ data }) => {
       (contact) => contact?.id === selectedContact?.id
     );
     newSelectedContact && setSelectedContact(newSelectedContact);
-  }, [data]);
+  }, [data]); // eslint-disable-line
 
   return (
     <>

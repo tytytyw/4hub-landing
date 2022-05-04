@@ -40,6 +40,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
   const [view, setView] = useState({ prev: "", cur: "lines" });
   const globalSearch = useSelector((s) => s.Cabinet.search);
 
+  // eslint-disable-next-line
   useEffect(async () => {
     setMenuItem("SharedFiles");
     dispatch(

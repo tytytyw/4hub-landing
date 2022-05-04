@@ -49,7 +49,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       return () => {
         clearTimeout(t);
       };
-    }, deps);
+    }, deps); // eslint-disable-line
   };
 
   const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
@@ -92,7 +92,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
         onComplete={(c) => setCompletedCrop(c)}
         aspect={aspect}
       >
-        <img ref={imgRef} src={imageSrc} onLoad={onImageLoad} />
+        <img ref={imgRef} src={imageSrc} alt="img" onLoad={onImageLoad} />
       </ReactCrop>
     </div>
   );

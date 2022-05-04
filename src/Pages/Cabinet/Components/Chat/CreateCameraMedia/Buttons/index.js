@@ -300,7 +300,7 @@ const Buttons = ({
   useEffect(() => {
     if (!openCropImage && activeButton) setActiveButton(null);
     if (!activeButton && openCropImage) setOpenCropImage(false);
-  }, [openCropImage, activeButton]);
+  }, [openCropImage, activeButton]); // eslint-disable-line
 
   return (
     <div
