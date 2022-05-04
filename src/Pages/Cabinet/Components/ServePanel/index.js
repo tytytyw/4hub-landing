@@ -44,6 +44,7 @@ import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import { filePickProps } from "../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const ServePanel = ({
   chosenFile,
@@ -729,7 +730,7 @@ ServePanel.propTypes = {
   chooseSeveral: PropTypes.func,
   filePick: filePickProps,
   setFileAddCustomization: PropTypes.func,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   disableWorkElementsView: PropTypes.bool,
   addFolder: PropTypes.func,
   addFile: PropTypes.func,

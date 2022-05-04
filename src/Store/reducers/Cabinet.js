@@ -575,7 +575,7 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.safe,
           safeFileList: {
             ...state.safe.safeFileList,
-            files: [...state.safe.safeFileList?.files, ...action.payload.files]
+            files: [...state.safe.safeFileList.files, ...action.payload.files]
           }
         }
       };
@@ -587,12 +587,13 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
 
     //PROJECT
-    case GET_PROJECT_FOLDER:
+    case GET_PROJECT_FOLDER: {
       const projectFolders = { ...state.project.projectFolders };
       projectFolders[action.payload.projectId] = [
         ...action.payload.projectFolders
       ];
       return { ...state, project: { ...state.project, projectFolders } };
+    }
     case GET_PROJECTS:
       return {
         ...state,

@@ -24,6 +24,7 @@ import {
   filePickProps,
   filePreviewProps
 } from "../../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 const WorkSpace = ({
   chosenFile,
   setChosenFile,
@@ -218,7 +219,7 @@ WorkSpace.propTypes = {
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   chosenFolder: PropTypes.object,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,

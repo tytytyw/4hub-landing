@@ -19,6 +19,7 @@ import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const MyFiles = ({
   filePreview,
@@ -343,13 +344,7 @@ MyFiles.propTypes = {
   setFilePreview: PropTypes.func,
   setFileAddCustomization: PropTypes.func,
   fileSelect: PropTypes.func,
-  fileAddCustomization: PropTypes.shape({
-    show: PropTypes.bool,
-    file: PropTypes.object,
-    several: PropTypes.bool,
-    files: PropTypes.array,
-    create: PropTypes.bool
-  }),
+  fileAddCustomization: fileAddCustomizationProps,
   menuItem: PropTypes.string,
   setMenuItem: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,

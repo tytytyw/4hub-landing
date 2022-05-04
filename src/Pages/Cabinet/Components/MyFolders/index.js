@@ -36,6 +36,7 @@ import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const MyFolders = ({
   setItem,
@@ -465,7 +466,7 @@ MyFolders.propTypes = {
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   fileSelect: PropTypes.func,
-  fileAddCustomization: PropTypes.object,
+  fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.array,

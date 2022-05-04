@@ -4,6 +4,7 @@ import styles from "./List.module.sass";
 import classNames from "classnames";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const List = ({
   title,
@@ -12,7 +13,7 @@ const List = ({
   listCollapsed,
   children,
   onCreate,
-  icon = true,
+  icon,
   leftIconSrc
 }) => {
   const { __ } = useLocales();
@@ -22,8 +23,7 @@ const List = ({
         [styles.listWrap]: true,
         [styles.listWrapCollapsed]: !!listCollapsed
       })}
-      title={listCollapsed ? title : ""}
-    >
+      title={listCollapsed ? title : ""}>
       <div className={styles.header}>
         {!!leftIconSrc && (
           <img
@@ -61,3 +61,18 @@ const List = ({
 };
 
 export default List;
+
+List.propTypes = {
+  title: PropTypes.string,
+  src: PropTypes.string,
+  setListCollapsed: PropTypes.func,
+  listCollapsed: PropTypes.bool,
+  children: PropTypes.node,
+  onCreate: PropTypes.func,
+  icon: PropTypes.bool,
+  leftIconSrc: PropTypes.string
+};
+
+List.defaultProps = {
+  icon: true
+};

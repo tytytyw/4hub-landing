@@ -13,6 +13,8 @@ import PreviewFile from "./Components/PreviewFile/PreviewFile";
 import TopMessage from "./Components/TopMessage/TopMessage";
 import ContextModal from "../ContextMenuComponents/ContextModal";
 import FileAccessRights from "./Components/FileAccessRights/FileAccessRights";
+import PropTypes from "prop-types";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 function Modals({
   awaitingFiles,
@@ -102,3 +104,18 @@ function Modals({
 }
 
 export default Modals;
+
+Modals.propTypes = {
+  awaitingFiles: PropTypes.array,
+  setAwaitingFiles: PropTypes.func,
+  loadingFile: PropTypes.array,
+  setLoadingFile: PropTypes.func,
+  loaded: PropTypes.array,
+  setLoaded: PropTypes.func,
+  setFileAddCustomization: PropTypes.func,
+  fileAddCustomization: fileAddCustomizationProps,
+  fileErrors: PropTypes.array,
+  setFileErrors: PropTypes.func,
+  menuItem: PropTypes.string,
+  saveCustomizeSeveralFiles: PropTypes.func
+};
