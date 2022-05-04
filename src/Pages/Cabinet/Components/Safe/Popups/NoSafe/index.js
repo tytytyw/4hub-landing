@@ -5,6 +5,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import styles from "./NoSafe.module.sass";
 import Button from "../../../MyProfile/Button";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const NoSafe = ({ set, setCreateSafe }) => {
   const { __ } = useLocales();
@@ -60,3 +61,7 @@ const NoSafe = ({ set, setCreateSafe }) => {
 };
 
 export default NoSafe;
+NoSafe.propTypes = {
+  set: PropTypes.func,
+  setCreateSafe: PropTypes.func
+};

@@ -16,8 +16,9 @@ import { useDateToString } from "../../../../../generalComponents/CalendarHelper
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
-import PropTypes from "prop-types";
 import FileMessage from "./Message/FileMessage";
+import PropTypes from "prop-types";
+import { actionProps } from "../../../../../types/Action";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -358,7 +359,7 @@ ChatBoard.propTypes = {
   sideMenuCollapsed: PropTypes.bool,
   boardOption: PropTypes.string,
   setShowSuccessPopup: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
   currentDate: PropTypes.object.isRequired,

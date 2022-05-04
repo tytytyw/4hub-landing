@@ -4,6 +4,8 @@ import styles from "./SafeItem.module.sass";
 import classNames from "classnames";
 import SafeIcon from "../SafeIcon";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import PropTypes from "prop-types";
+import { safeProps } from "../../../../../types/Safe";
 
 const SafeItem = ({ safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe }) => {
   return (
@@ -70,3 +72,11 @@ const SafeItem = ({ safe, chosen, setMouseParams, onClick, listSize, setSelected
 };
 
 export default SafeItem;
+SafeItem.propTypes = {
+  safe: safeProps,
+  chosen: PropTypes.bool,
+  setMouseParams: PropTypes.func,
+  onClick: PropTypes.func,
+  listSize: PropTypes.string,
+  setSelectedSafe: PropTypes.func
+};

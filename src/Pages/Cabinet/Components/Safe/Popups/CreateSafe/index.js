@@ -16,6 +16,7 @@ import api from "../../../../../../api";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const CreateSafe = ({ onCreate, setLoadingType }) => {
   const { __ } = useLocales();
@@ -265,3 +266,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 };
 
 export default CreateSafe;
+CreateSafe.propTypes = {
+  onCreate: PropTypes.func,
+  setLoadingType: PropTypes.func
+};

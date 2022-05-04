@@ -5,6 +5,7 @@ import { onGetCompanyDocument } from "../../../../../../Store/actions/CabinetAct
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
+import { actionProps } from "../../../../../../types/Action";
 
 const DocPreview = ({
   pageOption,
@@ -66,7 +67,7 @@ DocPreview.propTypes = {
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
   renderMenuItems: PropTypes.func,
-  action: PropTypes.object,
+  action: actionProps,
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
   setShowSuccessMessage: PropTypes.func

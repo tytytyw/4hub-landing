@@ -8,8 +8,10 @@ import Input from "../../../MyProfile/Input";
 import Button from "../../../MyProfile/Button";
 import ErrorPass from "../ErrorPass";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { safeProps } from "../../../../../../types/Safe";
 
-const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass = false }) => {
+const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass }) => {
   const { __ } = useLocales();
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -160,3 +162,14 @@ const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recover
 };
 
 export default RefreshPass;
+RefreshPass.propTypes = {
+  safe: safeProps,
+  set: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  recoverPass: PropTypes.bool
+};
+
+RefreshPass.defaultProps = {
+  recoverPass: false
+};

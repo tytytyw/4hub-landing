@@ -12,11 +12,11 @@ import Profile from "../../Profile/Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
-import SelectFile from "../SelectFile";
 import Settings from "../Settings";
 import PropTypes from "prop-types";
 import { onEditChatMessage, onDeleteChatMessage } from "../../../../../Store/actions/CabinetActions";
 import classNames from "classnames";
+import { actionProps } from "../../../../../types/Action";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -40,7 +40,6 @@ const WorkSpace = ({
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
-  const [attachedFiles, setAttachedFiles] = useState(null);
 
   const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
@@ -361,7 +360,7 @@ WorkSpace.propTypes = {
   boardOption: PropTypes.string,
   setShowSuccessPopup: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   currentDate: PropTypes.object.isRequired,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,

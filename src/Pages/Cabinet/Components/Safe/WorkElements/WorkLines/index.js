@@ -6,6 +6,8 @@ import { useScrollElementOnScreen } from "../../../../../../generalComponents/Ho
 
 import styles from "./WorkLines.module.sass";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../../types/WorkElements";
 
 const WorkLines = ({
   children,
@@ -105,3 +107,14 @@ const WorkLines = ({
 };
 
 export default WorkLines;
+
+WorkLines.propTypes = {
+  children: PropTypes.node,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filePick: filePickProps,
+  filesPage: PropTypes.number,
+  onSuccessLoading: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func
+};

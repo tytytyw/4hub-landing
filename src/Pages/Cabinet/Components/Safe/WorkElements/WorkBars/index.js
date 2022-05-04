@@ -8,6 +8,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../../types/WorkElements";
 
 const WorkBars = ({
   children,
@@ -143,3 +145,15 @@ const WorkBars = ({
 };
 
 export default WorkBars;
+WorkBars.propTypes = {
+  children: PropTypes.node,
+  fileSelect: PropTypes.func,
+  hideUploadFile: PropTypes.bool,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filePick: filePickProps,
+  filesPage: PropTypes.number,
+  onSuccessLoading: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func
+};

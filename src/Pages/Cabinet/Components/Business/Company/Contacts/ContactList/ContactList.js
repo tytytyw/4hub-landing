@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
+const ContactList = ({ data, selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
   const { __ } = useLocales();
   const [search, setSearch] = useState("");
   const [contactList, setContactList] = useState("");

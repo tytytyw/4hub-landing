@@ -41,7 +41,7 @@
 # src/Pages/Cabinet/Components/Programs
 # src/Pages/Cabinet/Components/Project
 # src/Pages/Cabinet/Components/RecentFiles
-/src/Pages/Cabinet/Components/Safe
+# src/Pages/Cabinet/Components/Safe
 # src/Pages/Cabinet/Components/SearchField
 # src/Pages/Cabinet/Components/ServePanel
 # src/Pages/Cabinet/Components/SharedFiles

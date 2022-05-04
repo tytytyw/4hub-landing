@@ -5,6 +5,7 @@ import styles from "./SuccessPass.module.sass";
 import Button from "../../../MyProfile/Button";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const SuccessPass = ({ set, complete }) => {
   const { __ } = useLocales();
@@ -57,3 +58,8 @@ const SuccessPass = ({ set, complete }) => {
 };
 
 export default SuccessPass;
+
+SuccessPass.propTypes = {
+  set: PropTypes.func,
+  complete: PropTypes.func
+};

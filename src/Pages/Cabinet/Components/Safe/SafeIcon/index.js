@@ -1,5 +1,6 @@
 import React from "react";
 import { colors } from "../../../../../generalComponents/collections";
+import PropTypes from "prop-types";
 
 const getColorObj = (type) => colors?.find((item) => item.name === type);
 
@@ -211,3 +212,11 @@ const SafeIcon = ({ type = "blue", ...props }) => {
 };
 
 export default SafeIcon;
+SafeIcon.propTypes = {
+  className: PropTypes.any,
+  type: PropTypes.string
+};
+
+SafeIcon.defaultProps = {
+  type: "blue"
+};

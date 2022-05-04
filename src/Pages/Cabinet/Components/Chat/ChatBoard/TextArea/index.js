@@ -5,6 +5,7 @@ import { ReactComponent as SendIcon } from "../../../../../../assets/PrivateCabi
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { actionProps } from "../../../../../../types/Action";
 
 const TextArea = ({
   onAddMessage,
@@ -133,7 +134,7 @@ TextArea.defaultProps = {
 
 TextArea.propTypes = {
   onAddMessage: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,

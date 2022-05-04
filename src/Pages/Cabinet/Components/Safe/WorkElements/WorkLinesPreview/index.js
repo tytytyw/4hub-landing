@@ -11,6 +11,8 @@ import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetAction
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
 
 const WorkLinesPreview = ({
   file,
@@ -235,3 +237,17 @@ const WorkLinesPreview = ({
 };
 
 export default WorkLinesPreview;
+
+WorkLinesPreview.propTypes = {
+  file: fileProps,
+  children: PropTypes.node,
+  hideFileList: PropTypes.bool,
+  setLoadingType: PropTypes.func,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filesPage: PropTypes.number,
+  onSuccessLoading: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func,
+  filePick: filePickProps
+};

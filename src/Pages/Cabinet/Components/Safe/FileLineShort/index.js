@@ -4,6 +4,8 @@ import styles from "./FileLineShort.module.sass";
 import File from "../../../../../generalComponents/Files";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
+import PropTypes from "prop-types";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
 
 const FileLineShort = ({
   file,
@@ -118,3 +120,15 @@ const FileLineShort = ({
 };
 
 export default FileLineShort;
+
+FileLineShort.propTypes = {
+  file: fileProps,
+  setChosenFile: PropTypes.func,
+  chosen: PropTypes.bool,
+  setMouseParams: PropTypes.func,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  size: PropTypes.string
+};

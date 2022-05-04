@@ -9,6 +9,8 @@ import styles from "./WorkBarsPreview.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 const WorkBarsPreview = ({
   children,
@@ -85,7 +87,6 @@ const WorkBarsPreview = ({
     }
     renderFilePreview();
     setPreviewReq({ sent: false, data: null });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
   const load = (entry) => {
@@ -180,3 +181,14 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+WorkBarsPreview.propTypes = {
+  children: PropTypes.node,
+  file: fileProps,
+  setLoadingType: PropTypes.func,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filesPage: PropTypes.number,
+  onSuccessLoading: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func
+};

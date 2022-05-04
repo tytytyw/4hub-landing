@@ -7,6 +7,8 @@ import RefreshPass from "../RefreshPass";
 import Select from "../../../../../../generalComponents/Select/Select";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { safeProps } from "../../../../../../types/Safe";
 
 const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setLoadingType }) => {
   const { __ } = useLocales();
@@ -93,3 +95,12 @@ const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, 
 };
 
 export default RecoverPass;
+
+RecoverPass.propTypes = {
+  set: PropTypes.func,
+  safe: safeProps,
+  refreshPass: PropTypes.bool,
+  setRefreshPass: PropTypes.func,
+  setShowSendCode: PropTypes.func,
+  setLoadingType: PropTypes.func
+};

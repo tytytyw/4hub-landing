@@ -4,6 +4,7 @@ import { ReactComponent as CheckedIcon } from "../../../../../../../assets/Priva
 import classNames from "classnames";
 import { hasNumOrChar, hasUpperLowerCase } from "./helper";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
   const { __ } = useLocales();
@@ -103,3 +104,10 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
 };
 
 export default PassInfo;
+
+PassInfo.propTypes = {
+  setVisible: PropTypes.func,
+  value: PropTypes.string,
+  inputRef: PropTypes.object,
+  setEnable: PropTypes.func
+};

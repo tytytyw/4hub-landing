@@ -5,6 +5,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import styles from "./ErrorPass.module.sass";
 import Button from "../../../MyProfile/Button";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const ErrorPass = ({ setError, set, mistake }) => {
   const { __ } = useLocales();
@@ -68,3 +69,8 @@ const ErrorPass = ({ setError, set, mistake }) => {
 };
 
 export default ErrorPass;
+ErrorPass.propTypes = {
+  setError: PropTypes.func,
+  set: PropTypes.func,
+  mistake: PropTypes.string
+};
