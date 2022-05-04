@@ -16,30 +16,26 @@ import {
 } from "../../../../Store/actions/CabinetActions";
 import SideMenu from "./SideMenu/SideMenu";
 import PropTypes from "prop-types";
-import {
-  MODALS,
-  SHARED_FILES
-} from "../../../../generalComponents/globalVariables";
+import { MODALS, SHARED_FILES } from "../../../../generalComponents/globalVariables";
 import ItemsList from "../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../generalComponents/Hooks";
 
 const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
-  const [sideMenuChosenItem, setSideMenuChosenItem] = useState(
-    SHARED_FILES.FILES_USER_SHARED
-  );
+  const [sideMenuChosenItem, setSideMenuChosenItem] = useState(SHARED_FILES.FILES_USER_SHARED);
   const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
   const [search, setSearch] = useState("");
   const [chosenFile, setChosenFile] = useState(null);
   const dispatch = useDispatch();
   const [filePick, setFilePick] = useState({ show: false, files: [] });
-  const setGLoader = value => dispatch(onSetModals(MODALS.LOADER, value));
-  const gLoader = useSelector(s => s.Cabinet.modals.loader);
+  const setGLoader = (value) => dispatch(onSetModals(MODALS.LOADER, value));
+  const gLoader = useSelector((s) => s.Cabinet.modals.loader);
   const fileRef = useRef(null);
   const [containerRef, width] = useElementResize();
-  const fileView = useSelector(s => s.Cabinet.view);
+  const fileView = useSelector((s) => s.Cabinet.view);
   const [view, setView] = useState({ prev: "", cur: "lines" });
-  const globalSearch = useSelector(s => s.Cabinet.search);
+  const globalSearch = useSelector((s) => s.Cabinet.search);
 
+  // eslint-disable-next-line
   useEffect(async () => {
     setMenuItem("SharedFiles");
     dispatch(
@@ -53,7 +49,7 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
         SHARED_FILES.FILES_USER_SHARED
       )
     );
-    setView(s => ({ ...s, prev: fileView }));
+    setView((s) => ({ ...s, prev: fileView }));
     dispatch(onSetWorkElementsView(view.cur));
     setFilesPage(0);
     return async () => {
@@ -96,19 +92,13 @@ const SharedFiles = ({ setMenuItem, setFilesPage, filesPage }) => {
         </div>
 
         <ServePanel
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
         />
         <div
           className={styles.workSpace}
           style={{
-            height: `${
-              filePick.show
-                ? "calc(100% - 90px - 55px - 80px)"
-                : "calc(100% - 90px - 55px)"
-            }`
+            height: `${filePick.show ? "calc(100% - 90px - 55px - 80px)" : "calc(100% - 90px - 55px)"}`
           }}
         >
           <ItemsList

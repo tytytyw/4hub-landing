@@ -35,9 +35,7 @@ const SuccessPass = ({ set, complete }) => {
 
           <div className={styles.textWrap}>
             <p className={styles.text}>
-              {__(
-                "В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения"
-              )}
+              {__("В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения")}
             </p>
           </div>
 
@@ -48,7 +46,8 @@ const SuccessPass = ({ set, complete }) => {
               onClick={() => {
                 complete();
                 set(false);
-              }}>
+              }}
+            >
               {__("Продолжить")}
             </Button>
           </div>

@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 
 const Profile = ({ theme }) => {
   const contextMenuProfile = useContextMenuProfile();
-  const user = useSelector(state => state.user.userInfo);
+  const user = useSelector((state) => state.user.userInfo);
   const [mouseParams, setMouseParams] = useState(null);
   const profileRef = useRef();
   const history = useHistory();
@@ -42,14 +42,14 @@ const Profile = ({ theme }) => {
 
   useEffect(() => {
     dispatch(onGetUserInfo());
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>
       <div
         ref={profileRef}
         className={styles.profileWrap}
-        onClick={e => {
+        onClick={(e) => {
           setMouseParams({
             x: e.clientX,
             y: e.clientY,
@@ -60,11 +60,7 @@ const Profile = ({ theme }) => {
       >
         <img
           className={styles.profileImg}
-          src={
-            user?.icon?.[0]
-              ? imageSrc + user?.icon?.[0]
-              : imageSrc + "/assets/PrivateCabinet/profile-noPhoto.svg"
-          }
+          src={user?.icon?.[0] ? imageSrc + user?.icon?.[0] : imageSrc + "/assets/PrivateCabinet/profile-noPhoto.svg"}
           alt="pie-chart"
         />
         <span>{user?.name ? user.name : "User"}</span>
@@ -76,16 +72,11 @@ const Profile = ({ theme }) => {
           setParams={setMouseParams}
           itemRef={profileRef}
           movehorizontal={window.innerWidth <= 1406 ? -30 : 0}
-          style={theme === 'dark' ? { boxShadow: ' 0 2px 5px #272727' } : {}}
+          style={theme === "dark" ? { boxShadow: " 0 2px 5px #272727" } : {}}
         >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuProfile.main, mainCallBacks)}
-          </div>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuProfile.main, mainCallBacks)}</div>
           <div className={styles.additionalMenuItems}>
-            {renderMenuItems(
-              contextMenuProfile.additional,
-              additionalCallBacks
-            )}
+            {renderMenuItems(contextMenuProfile.additional, additionalCallBacks)}
           </div>
         </ContextMenu>
       ) : null}
@@ -97,4 +88,4 @@ export default Profile;
 
 Profile.propTypes = {
   theme: PropTypes.string
-}
+};

@@ -6,16 +6,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const List = ({
-  title,
-  src,
-  setListCollapsed,
-  listCollapsed,
-  children,
-  onCreate,
-  icon,
-  leftIconSrc
-}) => {
+const List = ({ title, src, setListCollapsed, listCollapsed, children, onCreate, icon, leftIconSrc }) => {
   const { __ } = useLocales();
   return (
     <div
@@ -23,7 +14,8 @@ const List = ({
         [styles.listWrap]: true,
         [styles.listWrapCollapsed]: !!listCollapsed
       })}
-      title={listCollapsed ? title : ""}>
+      title={listCollapsed ? title : ""}
+    >
       <div className={styles.header}>
         {!!leftIconSrc && (
           <img
@@ -37,9 +29,7 @@ const List = ({
         <span />
         <div className={styles.imgWrap}>
           <img
-            className={`${styles.playButton} ${
-              listCollapsed ? styles.playButtonReverse : undefined
-            }`}
+            className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
             src={`${imageSrc}assets/PrivateCabinet/play-grey.svg`}
             alt="play"
             onClick={() => setListCollapsed(!listCollapsed)}

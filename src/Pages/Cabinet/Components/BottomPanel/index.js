@@ -19,7 +19,7 @@ const BottomPanel = () => {
   const links = ["", "/calendar", "/chat", "", "", "", "/programs"];
 
   const history = useHistory();
-  const theme = useSelector(state => state.user.userInfo?.theme);
+  const theme = useSelector((state) => state.user.userInfo?.theme);
 
   const [notifications] = useState({
     "mail.svg": "14",
@@ -38,12 +38,8 @@ const BottomPanel = () => {
     return images.map((el, i) => {
       return (
         <div className={styles.notificationsWrap} key={el}>
-          <img
-            src={`${imageSrc}assets/PrivateCabinet/${el}`}
-            alt="icon"
-            onClick={() => history.push(links?.[i])}
-          />
-          {Object.keys(notifications).some(item => item === el) && (
+          <img src={`${imageSrc}assets/PrivateCabinet/${el}`} alt="icon" onClick={() => history.push(links?.[i])} />
+          {Object.keys(notifications).some((item) => item === el) && (
             <span className={styles.counter}>{notifications[el]}</span>
           )}
         </div>

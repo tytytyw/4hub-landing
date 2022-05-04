@@ -20,16 +20,8 @@ const RegistrationSuccess = ({ setPage, sendRequest }) => {
         <span className={styles.cross} onClick={() => setPage("init")} />
         <span className={styles.title}>{__("Регистрация прошла успешно")}</span>
         <div className={styles.imageWrap}>
-          <img
-            src={imageSrc + "assets/StartPage/success-file-send.svg"}
-            alt="computer"
-            className={styles.computer}
-          />
-          <img
-            src={imageSrc + "assets/StartPage/envelope.svg"}
-            alt="envelope"
-            className={styles.envelope}
-          />
+          <img src={imageSrc + "assets/StartPage/success-file-send.svg"} alt="computer" className={styles.computer} />
+          <img src={imageSrc + "assets/StartPage/envelope.svg"} alt="envelope" className={styles.envelope} />
           <img
             src={imageSrc + "assets/StartPage/paper-plane-left.svg"}
             alt="paper-plane"
@@ -42,17 +34,13 @@ const RegistrationSuccess = ({ setPage, sendRequest }) => {
           />
         </div>
         <span className={styles.info}>
-          {__(
-            "Для подтверждения Email Вам было отправлено контрольное письмо, перейдя по ссылке Вы сможете завершить"
-          )}{" "}
+          {__("Для подтверждения Email Вам было отправлено контрольное письмо, перейдя по ссылке Вы сможете завершить")}{" "}
           <br />
           {__("процесс регистрации")}
         </span>
         <div className={styles.repeat}>
           {__("Не пришло письмо ?")}
-          <span onClick={() => sendRequest("&retry=1")}>
-            {__("Отправить заново")}
-          </span>
+          <span onClick={() => sendRequest("&retry=1")}>{__("Отправить заново")}</span>
         </div>
       </div>
     </div>

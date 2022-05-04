@@ -11,15 +11,8 @@ import { compareProps } from "../../../../types/BuisnessRegistration";
 
 const requiredInputs = ["company_name"];
 
-const MainForm = ({
-  mainFields,
-  setMainFields,
-  setStep,
-  compare,
-  setCompare,
-  setLoadingType
-}) => {
-  const userInfo = useSelector(state => state.user.userInfo);
+const MainForm = ({ mainFields, setMainFields, setStep, compare, setCompare, setLoadingType }) => {
+  const userInfo = useSelector((state) => state.user.userInfo);
   const { __ } = useLocales();
   const { fields, setFields, errors, onChange, checkErrors } = useValidateForm(
     {
@@ -33,13 +26,12 @@ const MainForm = ({
     if (mainFields?.main) {
       setFields(mainFields?.main);
     }
-  }, []);
+  }, []); // eslint-disable-line
   useEffect(() => {
-    if (userInfo && !mainFields.main?.company_name)
-      onChange(userInfo.id_company, "company_name");
-  }, [userInfo]);
+    if (userInfo && !mainFields.main?.company_name) onChange(userInfo.id_company, "company_name");
+  }, [userInfo]); // eslint-disable-line
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (checkErrors()) {
@@ -47,16 +39,9 @@ const MainForm = ({
       api
         .get(
           `/ajax/org_edit.php?id_company=${userInfo.id_company}
-                &company=${getValue("company_name")}&col=${getValue(
-            "emp_num"
-          )}&type=${getValue("activity_field")}`
+                &company=${getValue("company_name")}&col=${getValue("emp_num")}&type=${getValue("activity_field")}`
         )
-        // .then((res) => {
-        // 	if (res.data.ok === 1) {
-
-        // 	}
-        // })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
@@ -67,7 +52,7 @@ const MainForm = ({
     }
   };
 
-  const getValue = name => fields?.[name] || "";
+  const getValue = (name) => fields?.[name] || "";
 
   return (
     <div className={styles.formWrap}>
@@ -83,20 +68,18 @@ const MainForm = ({
             placeholder="ООО Компании"
             name="company_name"
             value={getValue("company_name")}
-            onChange={e => onChange(e.target.value, "company_name")}
+            onChange={(e) => onChange(e.target.value, "company_name")}
           />
         </div>
 
         <div className={styles.formItem}>
-          <label className={styles.label}>
-            {__("Количество сотрудников в компании")}
-          </label>
+          <label className={styles.label}>{__("Количество сотрудников в компании")}</label>
           <div className={styles.selectWrap}>
             <Select
               data={[__("более 10"), __("более 50"), __("более 100")]}
               placeholder="более 50"
               initValue={getValue("emp_num") || mainFields?.main?.emp_num}
-              onChange={value => onChange(value, "emp_num")}
+              onChange={(value) => onChange(value, "emp_num")}
             />
           </div>
         </div>
@@ -108,19 +91,14 @@ const MainForm = ({
             placeholder={__("IT")}
             name="activity_field"
             value={getValue("activity_field")}
-            onChange={e => onChange(e.target.value, "activity_field")}
+            onChange={(e) => onChange(e.target.value, "activity_field")}
           />
         </div>
 
         <div className={styles.agreementWrap}>
           <div className={styles.agreement}>
-            <div
-              onClick={() =>
-                setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }>
-              {compare.isAgreed && (
-                <img src="./assets/StartPage/tick.svg" alt="tick" />
-              )}
+            <div onClick={() => setCompare({ ...compare, isAgreed: !compare.isAgreed })}>
+              {compare.isAgreed && <img src="./assets/StartPage/tick.svg" alt="tick" />}
             </div>
           </div>
           <div className={styles.agreementsText}>
@@ -132,9 +110,7 @@ const MainForm = ({
         </div>
 
         <div className={styles.actionBlock}>
-          <button className={styles.submitBtn}>
-            {__("Сохранить и продолжить")}
-          </button>
+          <button className={styles.submitBtn}>{__("Сохранить и продолжить")}</button>
         </div>
       </form>
     </div>

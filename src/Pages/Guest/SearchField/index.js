@@ -11,15 +11,13 @@ import PropTypes from "prop-types";
 const SearchField = ({ setChosenFile }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
-  const path = useSelector(
-    state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
-  );
-  const searchField = useSelector(state => state.Cabinet?.search);
+  const path = useSelector((state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
+  const searchField = useSelector((state) => state.Cabinet?.search);
   const dispatch = useDispatch();
 
-  const search = query => dispatch(onChooseFiles(path, query));
+  const search = (query) => dispatch(onChooseFiles(path, query));
   const debounceCallback = useDebounce(search, 500);
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (setChosenFile) setChosenFile(null);
     dispatch(onSearch(e.target.value));
     debounceCallback(e.target.value);

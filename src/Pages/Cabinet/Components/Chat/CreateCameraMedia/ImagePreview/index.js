@@ -14,8 +14,7 @@ const ImagePreview = ({
   openCropImage,
   setOpenCropImage
 }) => {
-  const ratio =
-    imageRef.current?.naturalWidth / imageRef.current?.naturalHeight;
+  const ratio = imageRef.current?.naturalWidth / imageRef.current?.naturalHeight;
   const originalAspect = ratio || width / height;
   return (
     <div className={styles.wrapper} style={{ height, width }}>

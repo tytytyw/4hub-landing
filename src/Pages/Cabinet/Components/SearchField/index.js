@@ -15,31 +15,20 @@ import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const SearchField = ({
-  setChosenFile,
-  menuItem,
-  selectable = true,
-  theme = ""
-}) => {
+const SearchField = ({ setChosenFile, menuItem, selectable = true, theme = "" }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
-  const path = useSelector(
-    state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
-  );
-  const searchField = useSelector(state => state.Cabinet?.search);
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
-  const selectedChat = useSelector(state => state.Cabinet.chat.selectedContact);
+  const path = useSelector((state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
+  const searchField = useSelector((state) => state.Cabinet?.search);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const selectedChat = useSelector((state) => state.Cabinet.chat.selectedContact);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const search = query => {
+  const search = (query) => {
     if (pathname === "/folders") dispatch(onChooseFiles(path, query, 1));
-    if (pathname.includes("files"))
-      dispatch(onChooseFiles("", query, 1, "", "", "", "file_list_all"));
-    if (pathname === "/archive")
-      dispatch(onGetArchiveFiles(query, 1, "", "", "")); //TODO: add date filter
+    if (pathname.includes("files")) dispatch(onChooseFiles("", query, 1, "", "", "", "file_list_all"));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles(query, 1, "", "", "")); //TODO: add date filter
     if (pathname === "/safe")
       dispatch(
         onGetSafeFileList(
@@ -54,11 +43,10 @@ const SearchField = ({
           ""
         )
       );
-    if (pathname === "/chat-page")
-      dispatch(onGetChatMessages(selectedChat, query));
+    if (pathname === "/chat-page") dispatch(onGetChatMessages(selectedChat, query));
   };
   const debounceCallback = useDebounce(search, 500);
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (setChosenFile) setChosenFile(null);
     dispatch(onSearch(e.target.value));
     debounceCallback(e.target.value);
@@ -88,7 +76,7 @@ const SearchField = ({
       />
       {selectable && (
         <Select
-          placeholder={searchArea.filter(item => item.active)[0].text}
+          placeholder={searchArea.filter((item) => item.active)[0].text}
           className={styles.select}
           classNameSelect={styles.SearchType}
           setSearhArea={setSearhArea}

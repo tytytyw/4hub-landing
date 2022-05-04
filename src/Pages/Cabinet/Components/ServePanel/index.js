@@ -30,10 +30,7 @@ import { ReactComponent as DeleteIcon } from "../../../../assets/PrivateCabinet/
 import { ReactComponent as PowerOffIcon } from "../../../../assets/PrivateCabinet/powerOff.svg";
 import { ReactComponent as FileSize } from "../../../../assets/PrivateCabinet/file_size.svg";
 import { ReactComponent as AddFolderIcon } from "../../../../assets/PrivateCabinet/add_folder.svg";
-import {
-  useContextMenuCreateFile,
-  useContextMenuFilters
-} from "../../../../generalComponents/collections";
+import { useContextMenuCreateFile, useContextMenuFilters } from "../../../../generalComponents/collections";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Colors from "../../../../generalComponents/Elements/Colors";
@@ -68,26 +65,19 @@ const ServePanel = ({
   const [typeContext, setTypeContext] = useState("");
   const filterRef = useRef();
   const createRef = useRef();
-  const size = useSelector(state => state.Cabinet.size);
-  const view = useSelector(state => state.Cabinet.view);
-  const search = useSelector(state => state.Cabinet.search);
-  const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
-  const contextMenuModals = useSelector(
-    state => state.Cabinet.modals.contextMenuModals
-  );
+  const size = useSelector((state) => state.Cabinet.size);
+  const view = useSelector((state) => state.Cabinet.view);
+  const search = useSelector((state) => state.Cabinet.search);
+  const fileCriterion = useSelector((state) => state.Cabinet.fileCriterion);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
 
-  const changeSize = s => {
-    const sizes =
-      window.innerHeight > 693
-        ? ["small", "medium", "big"]
-        : ["small", "medium"];
+  const changeSize = (s) => {
+    const sizes = window.innerHeight > 693 ? ["small", "medium", "big"] : ["small", "medium"];
     if (s === sizes[sizes.length - 1]) return sizes[0];
     return sizes[sizes.indexOf(s) + 1];
   };
@@ -102,30 +92,13 @@ const ServePanel = ({
     setTypeContext(type);
   };
 
-  const setFilter = sorting => {
+  const setFilter = (sorting) => {
     if (setGLoader) setGLoader(true);
     dispatch(onSortFile(sorting));
-    if (pathname === "/folders")
-      dispatch(
-        onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname)
-      );
-    if (pathname === "/archive")
-      dispatch(
-        onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname)
-      );
+    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, pathname));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname.includes("files"))
-      dispatch(
-        onChooseFiles(
-          fileList.path,
-          search,
-          1,
-          "",
-          setGLoader,
-          "",
-          "file_list_all",
-          pathname
-        )
-      );
+      dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader, "", "file_list_all", pathname));
     if (pathname === "/safe") {
       dispatch(
         onGetSafeFileList(
@@ -144,7 +117,7 @@ const ServePanel = ({
     if (setFilesPage) setFilesPage(2);
   };
 
-  const createFile = ext => {
+  const createFile = (ext) => {
     const file = {
       file: { name: `No Name.${ext}`, size: 0 },
       options: {}
@@ -181,60 +154,31 @@ const ServePanel = ({
 
   const renderSortingItems = (target, callback) =>
     target.map((item, i) => {
-      return pathname !== "/archive" &&
-        item.name === __("По дате архивирования") ? (
+      return pathname !== "/archive" && item.name === __("По дате архивирования") ? (
         ""
       ) : (
-        <div
-          onClick={() => callback(item.ext)}
-          className={styles.contextSortingItem}
-          key={i}>
+        <div onClick={() => callback(item.ext)} className={styles.contextSortingItem} key={i}>
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/check.svg`}
-                alt="check"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />
             ) : null}
           </div>
-          <div>
-            {fileCriterion.reverse[item.ext] ? item.reverseName : item.name}
-          </div>
+          <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
           {item.ext === "byName" ? (
-            <div
-              className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
-                alt="img"
-              />
+            <div className={styles.switch} onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
             </div>
           ) : null}
         </div>
       );
     });
 
-  const setFigure = value => {
+  const setFigure = (value) => {
     dispatch(onChangeFilterFigure(value));
-    if (pathname === "/folders")
-      dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive")
-      dispatch(
-        onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname)
-      );
+    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname.includes("files"))
-      dispatch(
-        onChooseFiles(
-          fileList.path,
-          search,
-          1,
-          "",
-          "",
-          "",
-          "file_list_all",
-          pathname
-        )
-      );
+      dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
       dispatch(
         onGetSafeFileList(
@@ -252,27 +196,12 @@ const ServePanel = ({
     }
     if (setFilesPage) setFilesPage(2);
   };
-  const setColor = value => {
+  const setColor = (value) => {
     dispatch(onChangeFilterColor(value));
-    if (pathname === "/folders")
-      dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive")
-      dispatch(
-        onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname)
-      );
+    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname.includes("files"))
-      dispatch(
-        onChooseFiles(
-          fileList.path,
-          search,
-          1,
-          "",
-          "",
-          "",
-          "file_list_all",
-          pathname
-        )
-      );
+      dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
       dispatch(
         onGetSafeFileList(
@@ -290,27 +219,12 @@ const ServePanel = ({
     }
     if (setFilesPage) setFilesPage(2);
   };
-  const setEmoji = value => {
+  const setEmoji = (value) => {
     dispatch(onChangeFilterEmoji(value));
-    if (pathname === "/folders")
-      dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
-    if (pathname === "/archive")
-      dispatch(
-        onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname)
-      );
+    if (pathname === "/folders") dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles(search, 1, "", setGLoader, "", dateFilter, pathname));
     if (pathname.includes("files"))
-      dispatch(
-        onChooseFiles(
-          fileList.path,
-          search,
-          1,
-          "",
-          "",
-          "",
-          "file_list_all",
-          pathname
-        )
-      );
+      dispatch(onChooseFiles(fileList.path, search, 1, "", "", "", "file_list_all", pathname));
     if (pathname === "/safe") {
       dispatch(
         onGetSafeFileList(
@@ -330,11 +244,7 @@ const ServePanel = ({
   };
 
   const tempChoose = () => (
-    <span
-      className={
-        filePick?.show ? styles.chooseButtonActive : styles.chooseButton
-      }
-      onClick={chooseSeveral}>
+    <span className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton} onClick={chooseSeveral}>
       {__("Выбрать")}
     </span>
   );
@@ -343,7 +253,8 @@ const ServePanel = ({
     <div
       ref={filterRef}
       className={classNames(styles.iconView, styles.iconViewArrow)}
-      onClick={e => openContextMenu(e, "filter")}>
+      onClick={(e) => openContextMenu(e, "filter")}
+    >
       <MenuIcon className={styles.iconSVG} />
       <div />
     </div>
@@ -360,32 +271,26 @@ const ServePanel = ({
       <div className={styles.viewPanel}>
         <div
           onClick={() => dispatch(onSetWorkElementsView("bars"))}
-          className={`${
-            view === "bars" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          className={`${view === "bars" ? styles.iconViewChosen : styles.iconView}`}
+        >
           <BarsIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("lines"))}
-          className={`${
-            view === "lines" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          className={`${view === "lines" ? styles.iconViewChosen : styles.iconView}`}
+        >
           <LinesIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("preview"))}
-          className={`${
-            view === "preview" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          className={`${view === "preview" ? styles.iconViewChosen : styles.iconView}`}
+        >
           <PreviewIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("workLinesPreview"))}
-          className={`${
-            view === "workLinesPreview"
-              ? styles.iconViewChosen
-              : styles.iconView
-          }`}>
+          className={`${view === "workLinesPreview" ? styles.iconViewChosen : styles.iconView}`}
+        >
           <VerticalLinesIcon />
         </div>
       </div>
@@ -400,16 +305,14 @@ const ServePanel = ({
                 ${size === "small" ? styles.samllSize : null} 
                 ${size === "medium" ? styles.mediumSize : null} 
                 ${size === "big" ? styles.bigSize : null} 
-            `}>
+            `}
+    >
       <FileSize className={styles.iconSVG} />
     </div>
   );
 
   const tempCreate = () => (
-    <div
-      ref={createRef}
-      className={styles.createButton}
-      onClick={e => openContextMenu(e, "createFile")}>
+    <div ref={createRef} className={styles.createButton} onClick={(e) => openContextMenu(e, "createFile")}>
       <span>{__("Создать")}</span>
       <div />
     </div>
@@ -420,10 +323,10 @@ const ServePanel = ({
       <div
         onClick={() => {
           addFolder(true);
-          if (setNewFolderInfo)
-            setNewFolderInfo(s => ({ ...s, path: fileList?.path }));
+          if (setNewFolderInfo) setNewFolderInfo((s) => ({ ...s, path: fileList?.path }));
         }}
-        className={classNames(styles.iconView, styles.addIcon)}>
+        className={classNames(styles.iconView, styles.addIcon)}
+      >
         <AddFolderIcon className={styles.iconSVG} />
       </div>
     );
@@ -442,7 +345,8 @@ const ServePanel = ({
             })
           );
         }
-      }}>
+      }}
+    >
       <DeleteIcon className={styles.iconTrash} />
     </div>
   );
@@ -450,7 +354,8 @@ const ServePanel = ({
   const tempDisconnect = () => (
     <div
       className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-      onClick={() => console.log("click on disconnect btn")}>
+      onClick={() => console.log("click on disconnect btn")}
+    >
       <PowerOffIcon className={styles.iconTrash} />
     </div>
   );
@@ -464,15 +369,13 @@ const ServePanel = ({
             onSetModals("share", {
               open: true,
               fids: filePick.show ? filePick.files : chosenFile,
-              action_type:
-                chosenFile.is_dir === 1
-                  ? "dir_access_add"
-                  : share_types[pathname.split("/")[1]],
+              action_type: chosenFile.is_dir === 1 ? "dir_access_add" : share_types[pathname.split("/")[1]],
               file: chosenFile
             })
           );
         }
-      }}>
+      }}
+    >
       <ShareIcon className={styles.iconShare} />
     </div>
   );
@@ -491,7 +394,8 @@ const ServePanel = ({
             })
           );
         }
-      }}>
+      }}
+    >
       <SafeIcon className={styles.iconSafe} />
     </div>
   );
@@ -594,8 +498,7 @@ const ServePanel = ({
     <>
       <div className={styles.groupStart}>
         <div className={styles.filterPanel}>
-          {tempSize()} {disableWorkElementsView ? tempFilter() : null}{" "}
-          {disableWorkElementsView ? tempChoose() : null}{" "}
+          {tempSize()} {disableWorkElementsView ? tempFilter() : null} {disableWorkElementsView ? tempChoose() : null}{" "}
           {disableWorkElementsView ? tempAdd() : null}
         </div>
       </div>
@@ -662,33 +565,17 @@ const ServePanel = ({
           params={mouseParams}
           setParams={setMouseParams}
           itemRef={typeContext === "createFile" ? createRef : filterRef}
-          customClose={typeContext !== "createFile"}>
+          customClose={typeContext !== "createFile"}
+        >
+          {typeContext === "filter" ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
           {typeContext === "filter" ? (
-            <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
+            <Colors color={fileCriterion.filters.color} setColor={setColor} title="По цвету" editableClass="minify" />
           ) : null}
           {typeContext === "filter" ? (
-            <Colors
-              color={fileCriterion.filters.color}
-              setColor={setColor}
-              title="По цвету"
-              editableClass="minify"
-            />
+            <Signs sign={fileCriterion.filters.figure} setSign={setFigure} title="По значкам" editableClass="minify" />
           ) : null}
           {typeContext === "filter" ? (
-            <Signs
-              sign={fileCriterion.filters.figure}
-              setSign={setFigure}
-              title="По значкам"
-              editableClass="minify"
-            />
-          ) : null}
-          {typeContext === "filter" ? (
-            <Emoji
-              emoji={fileCriterion.filters.emoji}
-              setEmoji={setEmoji}
-              title="По эмоджи"
-              editableClass="minify"
-            />
+            <Emoji emoji={fileCriterion.filters.emoji} setEmoji={setEmoji} title="По эмоджи" editableClass="minify" />
           ) : null}
           {typeContext === "createFile" ? (
             <div className={styles.createFileGroup}>

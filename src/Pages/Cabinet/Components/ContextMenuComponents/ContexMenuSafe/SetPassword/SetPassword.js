@@ -12,8 +12,8 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
   const [passwordCoincide, setPasswordCoincide] = useState(false);
   const [showRepeat, setShowRepeat] = useState(true);
   const [visibility, setVisibility] = useState("password");
-  const onSwitch = boolean => setShowRepeat(boolean);
-  const comparePass = val => {
+  const onSwitch = (boolean) => setShowRepeat(boolean);
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = pass.length === passRepeat.length;
@@ -37,10 +37,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
     <div style={{ display: `block` }}>
       <PopUp set={setDisplaySetPassword}>
         <div className={styles.wrap}>
-          <span
-            className={styles.cross}
-            onClick={() => setDisplaySetPassword(false)}
-          />
+          <span className={styles.cross} onClick={() => setDisplaySetPassword(false)} />
           <span className={styles.title}>Установить пароль</span>
           <div className={styles.inputFieldsWrap}>
             <InputField
@@ -54,7 +51,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
               visibility={visibility}
               setVisibility={setVisibility}
               disabled={!showRepeat}
-              onChange={e => comparePass(e.target.value)}
+              onChange={(e) => comparePass(e.target.value)}
             />
             {showRepeat && (
               <InputField
@@ -72,16 +69,15 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
             )}
           </div>
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => setDisplaySetPassword(false)}>
+            <div className={styles.cancel} onClick={() => setDisplaySetPassword(false)}>
               {__("Отмена")}
             </div>
             <div
               className={styles.add}
               onClick={() => {
                 if (passwordCoincide || password === "") closeComponent();
-              }}>
+              }}
+            >
               {__("Установить")}
             </div>
           </div>

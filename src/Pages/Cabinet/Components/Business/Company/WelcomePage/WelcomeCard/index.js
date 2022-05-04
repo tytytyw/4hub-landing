@@ -36,15 +36,11 @@ const WelcomeCard = ({ setPageOption }) => {
             </div>
 
             <p className={styles.cardText}>
-              {__(
-                "Ввести все поля самостоятельно закерепив за собой все права администратора"
-              )}
+              {__("Ввести все поля самостоятельно закерепив за собой все права администратора")}
             </p>
           </div>
 
-          <div
-            onClick={() => setPageOption("give-access")}
-            className={styles.cardItem}>
+          <div onClick={() => setPageOption("give-access")} className={styles.cardItem}>
             <div className={styles.card}>
               <p>{__("Предоставить доступ")}</p>
               <div className={styles.bgImg}>
@@ -53,9 +49,7 @@ const WelcomeCard = ({ setPageOption }) => {
             </div>
 
             <p className={styles.cardText}>
-              {__(
-                "предоставления доступа дает возможность третим лицам заполнять данные о компании"
-              )}
+              {__("предоставления доступа дает возможность третим лицам заполнять данные о компании")}
             </p>
           </div>
 

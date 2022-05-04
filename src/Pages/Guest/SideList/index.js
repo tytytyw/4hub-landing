@@ -5,14 +5,15 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 
 function SideList({ children }) {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   return (
     <div
       className={classNames({
         [styles.wrapper]: true,
         [styles?.[`wrapper_${size}`]]: size !== "medium"
-      })}>
+      })}
+    >
       {children}
     </div>
   );

@@ -50,8 +50,8 @@ const WorkSpace = ({
   openFolderMenu
 }) => {
   const { __ } = useLocales();
-  const workElementsView = useSelector(state => state.Cabinet.view);
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [mouseParams, setMouseParams] = useState(null);
   const [filePick, setFilePick] = useState({
     show: false,
@@ -60,15 +60,14 @@ const WorkSpace = ({
     intoZip: false
   });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-  const nullifyFilePick = () =>
-    setFilePick({ show: false, files: [], customize: false, intoZip: false });
+  const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
   const fileRef = useRef(null);
   const [containerRef, width] = useElementResize();
 
-  useEffect(() => setChosenFile(null), [
-    chosenFolder.path,
-    chosenFolder.subPath
-  ]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(
+    () => setChosenFile(null),
+    [chosenFolder.path, chosenFolder.subPath] // eslint-disable-line
+  );
 
   return (
     <>
@@ -81,7 +80,8 @@ const WorkSpace = ({
                       : styles.workSpaceWrapUncollapsed
                     : undefined
                 }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
@@ -91,25 +91,19 @@ const WorkSpace = ({
           </div>
         </div>
         {recentFiles?.length > 0 && (
-          <RecentFiles
-            setFilePreview={setFilePreview}
-            filePreview={filePreview}
-            width={width}
-          />
+          <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} width={width} />
         )}
         <ServePanel
           view={workElementsView}
           chosenFile={chosenFile}
           setAction={setAction}
           fileSelect={fileSelect}
-          addFolder={boolean => {
+          addFolder={(boolean) => {
             setNewFolder(boolean);
             setNewFolderInfo({ ...newFolderInfo, path: "" });
           }}
           addFile={fileSelect}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -147,9 +141,7 @@ const WorkSpace = ({
         {filePick.show ? (
           <OptionButtomLine
             filePick={filePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}
@@ -161,10 +153,7 @@ const WorkSpace = ({
         <BottomPanel />
       </div>
       {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -179,9 +168,7 @@ const WorkSpace = ({
           file={action.type === "resendFolder" ? chosenFolder.info : chosenFile}
           files={action.type === "resendFolder" ? [] : filePick.files}
           close={nullifyAction}
-          action_type={
-            action.type === "resendFolder" ? "dir_access_add" : "file_share"
-          }
+          action_type={action.type === "resendFolder" ? "dir_access_add" : "file_share"}
           showSuccessMessage={showSuccessMessage}
           setShowSuccessMessage={setShowSuccessMessage}
           setLoadingType={setLoadingType}
@@ -192,9 +179,7 @@ const WorkSpace = ({
           nullifyAction={nullifyAction}
           setShowSuccessMessage={setShowSuccessMessage}
           item={action.type === "copyLink" ? chosenFile : chosenFolder.info}
-          action_type={
-            action.type === "copyLink" ? "file_share" : "dir_access_add"
-          }
+          action_type={action.type === "copyLink" ? "file_share" : "dir_access_add"}
         />
       ) : null}
     </>

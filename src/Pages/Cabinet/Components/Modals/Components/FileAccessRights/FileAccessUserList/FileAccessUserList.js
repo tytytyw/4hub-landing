@@ -15,11 +15,7 @@ import { useAccessRightsConst } from "../../../../../../../generalComponents/col
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 
-function FileAccessUserList({
-  users,
-  deleteUser,
-  changeUserAccessRightsInUsers
-}) {
+function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
@@ -28,15 +24,15 @@ function FileAccessUserList({
   const [changePeriodModal, setChangePeriodModal] = useState(NO_ELEMENT);
   const closeChangePeriodModal = () => setChangePeriodModal(NO_ELEMENT);
 
-  const renderUserIcon = user => {
+  const renderUserIcon = (user) => {
     return user?.user_icon?.[0] ? (
-      <img src={user?.user_icon?.[0]} className={styles.userIcon} />
+      <img src={user?.user_icon?.[0]} alt="img" className={styles.userIcon} />
     ) : (
       <UserIcon />
     );
   };
 
-  const showEndDate = date => {
+  const showEndDate = (date) => {
     if (new Date(date).getTime() > new Date().getTime()) {
       return __(`до ${date.split(" ")[0]}`);
     }
@@ -46,7 +42,7 @@ function FileAccessUserList({
     return __("Бесконечный");
   };
 
-  const showUserAccessStatus = user => {
+  const showUserAccessStatus = (user) => {
     if (user.is_write === ACCESS_RIGHTS_GRANTED) {
       return ACCESS_RIGHTS[SHARED_ACCESS_RIGHTS.EDIT];
     }
@@ -72,15 +68,9 @@ function FileAccessUserList({
           }}
         >
           <span>{__(`Срок хранения ${showEndDate(user.date_last)}`)}</span>
-          <img
-            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-            alt="copy"
-            className={styles.imageReverse}
-          />
+          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
         </div>
-        {changePeriodModal === i ? (
-          <FilePeriodEdit closeChangePeriodModal={closeChangePeriodModal} />
-        ) : null}
+        {changePeriodModal === i ? <FilePeriodEdit closeChangePeriodModal={closeChangePeriodModal} /> : null}
         <div
           className={styles.copy}
           onClick={() => {
@@ -89,11 +79,7 @@ function FileAccessUserList({
           }}
         >
           <span>{showUserAccessStatus(user)}</span>
-          <img
-            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-            alt="copy"
-            className={styles.imageReverse}
-          />
+          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
         </div>
         {accessRightsModal === i ? (
           <FileAccessEdit

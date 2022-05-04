@@ -12,7 +12,8 @@ const List = ({ title, setListCollapsed, listCollapsed, children }) => {
       className={classNames({
         [styles.listWrap]: true,
         [styles.listWrapCollapsed]: !!listCollapsed
-      })}>
+      })}
+    >
       <div className={styles.header}>
         <div className={styles.titleWrap}>
           <FolderIcon className={styles.folderIcon} />

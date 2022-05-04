@@ -14,7 +14,8 @@ const ContactMenu = ({ data, pageOption }) => {
             [styles.menuItem]: true,
             [styles.menuItemActive]: pageOption === item.id
           })}
-          key={index}>
+          key={index}
+        >
           <span className={styles.icon}>
             <img src={item.icon} alt={item.id} />
           </span>

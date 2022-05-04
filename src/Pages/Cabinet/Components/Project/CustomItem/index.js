@@ -31,9 +31,7 @@ const CustomItem = ({ item, badge, onClick, listSize, collapsed }) => {
         <div className={styles.innerFolderMedia}>
           {badge > 0 && <span className={styles.badge}>{badge}</span>}
 
-          {item.symbol && (
-            <img className={styles.symbols} src={item?.symbol} alt="emoji" />
-          )}
+          {item.symbol && <img className={styles.symbols} src={item?.symbol} alt="emoji" />}
         </div>
       </div>
     </div>

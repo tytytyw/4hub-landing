@@ -79,9 +79,7 @@ const Settings = () => {
 
         {pageOption === "confident" && <Confident />}
         {pageOption === "personal" && <Personal />}
-        {pageOption === "data_memory" && (
-          <DataMemory setPageOption={setPageOption} />
-        )}
+        {pageOption === "data_memory" && <DataMemory setPageOption={setPageOption} />}
         {pageOption === "questions" && <Support />}
 
         {pageOption === "tariff_plan" && <TariffPlan />}

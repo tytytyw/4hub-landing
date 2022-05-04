@@ -29,9 +29,7 @@ function CustomNodeComponent({ data }) {
           />
         </div>
         <div className={styles.text}>
-          <p className={styles.name}>
-            {data.info.name + " " + data.info.middleName}
-          </p>
+          <p className={styles.name}>{data.info.name + " " + data.info.middleName}</p>
           <p className={styles.position}>{data.info.position}</p>
         </div>
         <div className={styles.menuWrap}>

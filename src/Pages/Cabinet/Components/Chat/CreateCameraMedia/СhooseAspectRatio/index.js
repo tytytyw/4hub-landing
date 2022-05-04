@@ -21,12 +21,8 @@ const СhooseAspectRatio = ({ set, originalAspect, cancel }) => {
     <div className={styles.wrapper}>
       <div className={styles.valueItemsWrapper}>
         {values &&
-          values.map(item => (
-            <div
-              className={styles.valueItem}
-              key={item.label}
-              onClick={() => set(item.value)}
-            >
+          values.map((item) => (
+            <div className={styles.valueItem} key={item.label} onClick={() => set(item.value)}>
               {item.label}
             </div>
           ))}

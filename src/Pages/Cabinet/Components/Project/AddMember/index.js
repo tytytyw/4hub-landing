@@ -22,7 +22,7 @@ import PropTypes from "prop-types";
 
 const AddMember = ({ set, selectedItem }) => {
   const { __ } = useLocales();
-  const contacts = useSelector(state => state.Cabinet.contactList);
+  const contacts = useSelector((state) => state.Cabinet.contactList);
 
   const [fields, setFields] = useState({});
 
@@ -39,7 +39,7 @@ const AddMember = ({ set, selectedItem }) => {
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
-    const filterArray = contacts?.filter(item => {
+    const filterArray = contacts?.filter((item) => {
       console.log(getContactName(item));
       const name = getContactName(item).toLowerCase();
       const searchValue = search.toLowerCase();
@@ -53,7 +53,7 @@ const AddMember = ({ set, selectedItem }) => {
 
   const requiredInputs = ["name", "sname", "email", "pass", "password_r"];
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value, name } = event.target;
 
     if (!isCorrectData(value, name, fields, requiredInputs)) {
@@ -66,13 +66,13 @@ const AddMember = ({ set, selectedItem }) => {
     setFields({ ...fields, [name]: value });
   };
 
-  const onBlurHandler = event => {
+  const onBlurHandler = (event) => {
     const { name } = event.target;
     setBlur({ ...blur, [name]: true });
   };
 
   //const isMistake = name => (errors?.[name] && blur?.[name]) || submitErrors?.[name]
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
   };
 
@@ -81,11 +81,7 @@ const AddMember = ({ set, selectedItem }) => {
       <form noValidate onSubmit={onSubmit} className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.profileWrap}>
-            <img
-              className={styles.profileImg}
-              src={selectedItem?.icon?.[0] || emptyProfileImage}
-              alt="pie-chart"
-            />
+            <img className={styles.profileImg} src={selectedItem?.icon?.[0] || emptyProfileImage} alt="pie-chart" />
             <span>{__("Дабавьте участника (ов)")}</span>
           </div>
           <span className={styles.close} onClick={() => set(false)}>
@@ -153,12 +149,9 @@ const AddMember = ({ set, selectedItem }) => {
               className={classNames({
                 [styles.socialsItem]: true,
                 [styles.active]: selectedSoc === "email"
-              })}>
-              <img
-                className={styles.socialIcon}
-                src={`${imageSrc}/assets/PrivateCabinet/email.svg`}
-                alt="Email"
-              />
+              })}
+            >
+              <img className={styles.socialIcon} src={`${imageSrc}/assets/PrivateCabinet/email.svg`} alt="Email" />
               <p>Email</p>
             </li>
             {messengersData.map((item, index) => (
@@ -168,21 +161,14 @@ const AddMember = ({ set, selectedItem }) => {
                   [styles.socialsItem]: true,
                   [styles.active]: selectedSoc === item?.type
                 })}
-                key={index}>
-                <img
-                  className={styles.socialIcon}
-                  src={messengersIcons[item?.type]}
-                  alt={titlesSoc[item?.type]}
-                />
+                key={index}
+              >
+                <img className={styles.socialIcon} src={messengersIcons[item?.type]} alt={titlesSoc[item?.type]} />
                 <p>{titlesSoc[item?.type]}</p>
               </li>
             ))}
             <li className={styles.socialsItem}>
-              <img
-                className={styles.socialIcon}
-                src={`${imageSrc}/assets/PrivateCabinet/more.svg`}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={`${imageSrc}/assets/PrivateCabinet/more.svg`} alt="Email" />
               <p>{__("Ещё")}</p>
             </li>
           </ul>
@@ -195,7 +181,7 @@ const AddMember = ({ set, selectedItem }) => {
                 <span className={styles.info}>{__("Контакты")}</span>
               </div>
               <div className={styles.search}>
-                <ContactSearch onChangeHandler={value => setSearch(value)} />
+                <ContactSearch onChangeHandler={(value) => setSearch(value)} />
               </div>
             </div>
 

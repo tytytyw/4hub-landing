@@ -24,12 +24,10 @@ const WorkBarsPreview = ({
   setLoadingFiles
 }) => {
   const { __ } = useLocales();
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
-  const uid = useSelector(state => state.user.uid);
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const uid = useSelector((state) => state.user.uid);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
   const [previewReq, setPreviewReq] = useState({ sent: false, data: null });
   const dispatch = useDispatch();
 
@@ -56,12 +54,12 @@ const WorkBarsPreview = ({
             responseType: "blob"
           }
         )
-        .then(res => {
+        .then((res) => {
           const blob = new Blob([res.data]);
           let objectURL = URL.createObjectURL(blob);
           setPreviewReq({ sent: false, data: objectURL });
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
         .finally(() => setLoadingType(false));
     }
   };
@@ -89,10 +87,9 @@ const WorkBarsPreview = ({
     }
     renderFilePreview();
     setPreviewReq({ sent: false, data: null });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
-  const load = entry => {
+  const load = (entry) => {
     if (!gLoader && authorizedSafe) {
       if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
         setLoadingFiles(true);
@@ -136,16 +133,12 @@ const WorkBarsPreview = ({
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-      }}>
-      <div
-        className={styles.preview}
-        style={{ height: `calc(100% - ${innerFilesHeight()} - 40px)` }}>
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+      }}
+    >
+      <div className={styles.preview} style={{ height: `calc(100% - ${innerFilesHeight()} - 40px)` }}>
         {children?.length === 0 && search.length !== 0 ? (
-          <div className={styles.noSearchResults}>
-            {__("Нет элементов удовлетворяющих условиям поиска")}
-          </div>
+          <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
         ) : null}
         {file ? (
           file.is_preview === 1 ? (
@@ -165,11 +158,10 @@ const WorkBarsPreview = ({
             {!gLoader && children}
             {!gLoader ? (
               <div
-                className={`${styles.rightLine} ${
-                  filesPage === 0 ? styles.rightLineHidden : ""
-                }`}
+                className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ""}`}
                 style={{ height: "100%" }}
-                ref={containerRef}>
+                ref={containerRef}
+              >
                 <Loader
                   type="bounceDots"
                   position="absolute"

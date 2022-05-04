@@ -22,13 +22,13 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
   const [date, setDate] = useState(getDate());
   const [daysInMonth, setDaysInMonth] = useState(generateCalendar(6, date));
   const today = getDate();
-  const chooseDate = e => {
+  const chooseDate = (e) => {
     const newDate = { ...date, day: Number(e.target.innerHTML) };
     setDate(newDate);
   };
 
   const cannotInterAct = () => false;
-  const switchMonth = e => {
+  const switchMonth = (e) => {
     const day = e?.target?.innerHTML ? Number(e.target.innerHTML) : e;
     if (day >= 15) {
       if (date.month === "1")
@@ -57,14 +57,12 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
     }
   };
 
-  const switchYear = status => {
-    status === "increase"
-      ? setDate({ ...date, year: date.year + 1 })
-      : setDate({ ...date, year: date.year - 1 });
+  const switchYear = (status) => {
+    status === "increase" ? setDate({ ...date, year: date.year + 1 }) : setDate({ ...date, year: date.year - 1 });
   };
 
   const renderCal = (obj, classCustom, func, canInteract) => {
-    return obj.map(day => {
+    return obj.map((day) => {
       const eachDate = { ...date, day };
       return (
         <div
@@ -74,7 +72,8 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
             [styles.today]: canInteract(today, eachDate),
             [styles.chosen]: canInteract(date, eachDate)
           })}
-          onClick={e => func(e)}>
+          onClick={(e) => func(e)}
+        >
           {day}
         </div>
       );
@@ -112,15 +111,13 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
               placeholder={__("Год")}
               initValue={date.year}
               data={getYears()}
-              onChange={value => setDate({ ...date, year: value })}
+              onChange={(value) => setDate({ ...date, year: value })}
             />
           </div>
           <div style={{ transform: "translateX(-35px)" }}>
             <span>Календарь</span>
           </div>
-          <span
-            className={styles.cross}
-            onClick={() => setShowCalendar(false)}></span>
+          <span className={styles.cross} onClick={() => setShowCalendar(false)}></span>
         </div>
       ) : (
         <div className={styles.header}>
@@ -131,27 +128,16 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
           <div className={styles.yearPicker}>
             <div className={styles.yearDecrease} onClick={() => switchYear()} />
             <span>{date.year}</span>
-            <div
-              className={styles.yearIncrease}
-              onClick={() => switchYear("increase")}
-            />
+            <div className={styles.yearIncrease} onClick={() => switchYear("increase")} />
           </div>
-          <span
-            className={styles.cross}
-            onClick={() => setShowCalendar(false)}></span>
+          <span className={styles.cross} onClick={() => setShowCalendar(false)}></span>
         </div>
       )}
 
       <div className={styles.main}>
         <div className={styles.switcher}>
-          <img
-            src={imageSrc + "assets/StartPage/play-3.svg"}
-            alt="Previous"
-            onClick={() => switchMonth(32)}
-          />
-          <div className={styles.month}>
-            {months(date.year)[date.month - 1].name}
-          </div>
+          <img src={imageSrc + "assets/StartPage/play-3.svg"} alt="Previous" onClick={() => switchMonth(32)} />
+          <div className={styles.month}>{months(date.year)[date.month - 1].name}</div>
           <img
             className={styles.switchReverse}
             src={imageSrc + "assets/StartPage/play-3.svg"}

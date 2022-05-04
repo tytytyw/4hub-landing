@@ -320,7 +320,7 @@ export function useContextMenuSubFolder() {
 }
 
 // Devices
-export const getDeviceIconName = device => {
+export const getDeviceIconName = (device) => {
   switch (device) {
     case "Mobile":
       return "iphone";
@@ -417,15 +417,7 @@ export const previewTypes = ["application/msword", "application/excel"];
 export const previewFormats = ["doc", "xls", "ppt", "rtf", "xlt", "csv"];
 
 //Project
-export const projectIcons = [
-  "lamp",
-  "coworking",
-  "rocket",
-  "suitcase",
-  "clipboard",
-  "thunder",
-  "pen"
-];
+export const projectIcons = ["lamp", "coworking", "rocket", "suitcase", "clipboard", "thunder", "pen"];
 
 export const figuresPaint = [
   { id: 1, figure: "font" },
@@ -483,9 +475,7 @@ export function useContextMenuChat() {
         type: "leaveFromChatGroup"
       }
     ],
-    secretChat: [
-      { name: __("Удалить"), img: "garbage", type: "deleteSecretChat" }
-    ],
+    secretChat: [{ name: __("Удалить"), img: "garbage", type: "deleteSecretChat" }],
     userInGroup: [
       { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
       { name: __("Заблокировать"), img: "block-user", type: "blockUser" },
@@ -647,13 +637,13 @@ export const loadDest = {
 export function usePeriods() {
   const { __ } = useLocales();
   return {
-    "1": __("Сегодня"),
-    "7": __("На этой неделе"),
-    "14": __("Более недели"),
-    "30": __("В этом месяце"),
-    "60": __("В прошлом месяце"),
-    "365": __("В этом году"),
-    "999": __("Папки")
+    1: __("Сегодня"),
+    7: __("На этой неделе"),
+    14: __("Более недели"),
+    30: __("В этом месяце"),
+    60: __("В прошлом месяце"),
+    365: __("В этом году"),
+    999: __("Папки")
   };
 }
 

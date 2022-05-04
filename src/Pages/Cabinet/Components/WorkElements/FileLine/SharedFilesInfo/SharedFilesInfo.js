@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SharedFilesInfo.module.sass";
-import {
-  MODALS,
-  SHARED_ACCESS_RIGHTS,
-  SHARED_FILES
-} from "../../../../../../generalComponents/globalVariables";
+import { MODALS, SHARED_ACCESS_RIGHTS, SHARED_FILES } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
@@ -23,14 +19,14 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
-  const uid = useSelector(s => s.user.uid);
+  const uid = useSelector((s) => s.user.uid);
   const [accessRights, setAccessRights] = useState({
     text: ACCESS_RIGHTS.WATCH
   });
   const [sharedUsers, setSharedUsers] = useState([]);
   const dispatch = useDispatch();
 
-  const showError = message =>
+  const showError = (message) =>
     dispatch(
       onSetModals(MODALS.TOP_MESSAGE, {
         open: true,
@@ -39,7 +35,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       })
     );
 
-  const showAccess = access => {
+  const showAccess = (access) => {
     for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
       if (value === access) {
         return ACCESS_RIGHTS[key];
@@ -53,28 +49,20 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
       const params = `?uid=${uid}&fid=${file.fid}`;
       api
         .get(SHARED_FILES.API_USERLIST_FILES_USER_SHARED + params)
-        .then(response => {
+        .then((response) => {
           if (response.data.ok) {
             setSharedUsers(response.data.access);
           } else {
-            showError(
-              __(
-                `Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`
-              )
-            );
+            showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
           }
         })
         .catch(() => {
-          showError(
-            __(
-              `Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`
-            )
-          );
+          showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
         });
     }
   }, []);
 
-  const compareDates = endDate => {
+  const compareDates = (endDate) => {
     const today = new Date();
     if (endDate.getTime() - today.getTime() < 0) {
       return __("Бессрочно");
@@ -82,7 +70,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
     return __(`Осталось (${diffDays(today, endDate).toFixed()} дней)`);
   };
 
-  const renderUser = file => {
+  const renderUser = (file) => {
     return file?.user_icon?.[0] ? (
       <img src={file?.user_icon?.[0]} className={styles.userIcon} />
     ) : (
@@ -123,21 +111,15 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
         })}
       >
         {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? (
-          <span onClick={openFileAccessRightsModal}>
-            {__("Настройка доступа")}
-          </span>
+          <span onClick={openFileAccessRightsModal}>{__("Настройка доступа")}</span>
         ) : (
           <span>{showAccess(file.is_write)}</span>
         )}
       </div>
       <div className={styles.iconWrap}>
-        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED
-          ? renderUsers()
-          : renderUser(file)}
+        {sharedFilesInfo === SHARED_FILES.FILES_USER_SHARED ? renderUsers() : renderUser(file)}
       </div>
-      <div className={styles.endTime}>
-        {__(`Срок пользования: ${compareDates(new Date(file.deadline))}`)}
-      </div>
+      <div className={styles.endTime}>{__(`Срок пользования: ${compareDates(new Date(file.deadline))}`)}</div>
     </>
   );
 }

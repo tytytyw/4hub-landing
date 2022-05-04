@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const Button = ({
   children,
-  clickCallback = () => { },
+  clickCallback = () => {},
   mouseDownCallback,
   isRecording,
   width = 0,
@@ -18,8 +18,7 @@ const Button = ({
   hoverEffect = false,
   active
 }) => {
-
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   return (
     <div
@@ -30,7 +29,7 @@ const Button = ({
         [styles.recording]: mouseDownCallback && isRecording,
         [styles.hoverEffect]: hoverEffect,
         [styles.active]: active,
-        [styles.darkTheme]: chatTheme.name === 'dark'
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
       style={{
         width,
@@ -40,11 +39,7 @@ const Button = ({
         boxShadow: boxShadow ?? ""
       }}
     >
-      <div
-        className={classNames(styles.childrenWrapper, styles[childrenColor])}
-      >
-        {children}
-      </div>
+      <div className={classNames(styles.childrenWrapper, styles[childrenColor])}>{children}</div>
     </div>
   );
 };
@@ -52,7 +47,7 @@ const Button = ({
 export default Button;
 
 Button.defautProps = {
-  clickCallback: () => { },
+  clickCallback: () => {},
   width: 0,
   height: 0,
   borderRadius: "2px",

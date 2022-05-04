@@ -30,36 +30,25 @@ function Modals({
   menuItem,
   saveCustomizeSeveralFiles
 }) {
-  const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
-  const error = useSelector(state => state.Cabinet.modals.error);
-  const success = useSelector(state => state.Cabinet.modals.success);
-  const loader = useSelector(state => state.Cabinet.modals.loader);
-  const share = useSelector(state => state.Cabinet.modals.share);
-  const previewImageWithComment = useSelector(
-    state => state.Cabinet.modals.previewWithComments
-  );
-  const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
-  const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
-  const topMessage = useSelector(state => state.Cabinet.modals.topMessage);
-  const fileAccessRights = useSelector(
-    state => state.Cabinet.modals.fileAccessRights
-  );
+  const mutualEdit = useSelector((state) => state.Cabinet.paint.mutualEdit);
+  const error = useSelector((state) => state.Cabinet.modals.error);
+  const success = useSelector((state) => state.Cabinet.modals.success);
+  const loader = useSelector((state) => state.Cabinet.modals.loader);
+  const share = useSelector((state) => state.Cabinet.modals.share);
+  const previewImageWithComment = useSelector((state) => state.Cabinet.modals.previewWithComments);
+  const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
+  const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
+  const topMessage = useSelector((state) => state.Cabinet.modals.topMessage);
+  const fileAccessRights = useSelector((state) => state.Cabinet.modals.fileAccessRights);
   const dispatch = useDispatch();
 
-  const closeError = () =>
-    dispatch(onSetModals("error", { open: false, message: "" }));
-  const closeSuccess = () =>
-    dispatch(
-      onSetModals("success", { open: false, message: "", title: "", icon: "" })
-    );
+  const closeError = () => dispatch(onSetModals("error", { open: false, message: "" }));
+  const closeSuccess = () => dispatch(onSetModals("success", { open: false, message: "", title: "", icon: "" }));
 
   return (
     <>
       {mutualEdit.open ? <MutualEdit /> : null}
-      {awaitingFiles.length > 0 ||
-      loadingFile.length > 0 ||
-      loaded.length > 0 ||
-      fileErrors.length > 0 ? (
+      {awaitingFiles.length > 0 || loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0 ? (
         <FileLoader
           awaitingFiles={awaitingFiles}
           setAwaitingFiles={setAwaitingFiles}

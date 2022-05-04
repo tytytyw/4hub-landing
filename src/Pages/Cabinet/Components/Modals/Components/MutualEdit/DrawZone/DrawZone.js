@@ -8,21 +8,11 @@ import classnames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-function DrawZone({
-  params,
-  canvasRef,
-  mainRef,
-  images,
-  setParams,
-  inputRef,
-  mainWidth
-}) {
+function DrawZone({ params, canvasRef, mainRef, images, setParams, inputRef, mainWidth }) {
   const { __ } = useLocales();
-  const paintImage = async images => {
-    setParams(s => ({ ...s, isLoading: true }));
-    canvasRef.current
-      .getContext("2d")
-      .clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+  const paintImage = async (images) => {
+    setParams((s) => ({ ...s, isLoading: true }));
+    canvasRef.current.getContext("2d").clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
     if (images.length === 1) {
       await drawCanvasPosition(canvasRef.current, images[0]);
@@ -81,7 +71,7 @@ function DrawZone({
         );
       }
     }
-    setParams(s => ({ ...s, isLoading: false }));
+    setParams((s) => ({ ...s, isLoading: false }));
   };
 
   useEffect(() => {
@@ -93,10 +83,7 @@ function DrawZone({
   };
 
   return (
-    <main
-      className={styles.paintField}
-      ref={mainRef}
-      style={{ width: mainWidth }}>
+    <main className={styles.paintField} ref={mainRef} style={{ width: mainWidth }}>
       <div className={styles.canvasWrap}>
         {params.isLoading ? (
           <Loader
@@ -112,21 +99,11 @@ function DrawZone({
         <canvas
           ref={canvasRef}
           className={styles.canvas}
-          width={
-            mainRef?.current?.getBoundingClientRect().width -
-            (!mainWidth ? 30 : 0)
-          }
-          height={
-            mainRef?.current?.getBoundingClientRect().height -
-            (!mainWidth ? 30 : 0)
-          }
+          width={mainRef?.current?.getBoundingClientRect().width - (!mainWidth ? 30 : 0)}
+          height={mainRef?.current?.getBoundingClientRect().height - (!mainWidth ? 30 : 0)}
         />
-        {images?.loaded?.length > 1 ? (
-          <div className={styles.verticalDivider} />
-        ) : null}
-        {images?.loaded?.length > 2 ? (
-          <div className={styles.horizontalDivider} />
-        ) : null}
+        {images?.loaded?.length > 1 ? <div className={styles.verticalDivider} /> : null}
+        {images?.loaded?.length > 2 ? <div className={styles.horizontalDivider} /> : null}
         {images?.loaded?.length === 3 || images?.loaded?.length === 0 ? (
           <div
             className={classnames({
@@ -142,7 +119,8 @@ function DrawZone({
                 images?.loaded?.length === 0
                   ? "calc(100%-30px)"
                   : canvasRef?.current?.getBoundingClientRect().height / 2 || 0
-            }}>
+            }}
+          >
             <div onClick={fileSelect} className={styles.addFile}>
               <AddIcon className={styles.addIcon} />
               <span>{__("Загрузите файл для сравнения")}</span>

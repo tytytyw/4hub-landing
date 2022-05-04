@@ -8,12 +8,7 @@ import { imageToRatio } from "../../../../../../generalComponents/generalHelpers
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 
-const WorkLinesPreview = ({
-  recentFiles,
-  children,
-  chosenFile,
-  fileCollapsed
-}) => {
+const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) => {
   const [toolBar] = useState(false);
   const canvasRef = useRef();
   const previewRef = useRef();
@@ -25,59 +20,50 @@ const WorkLinesPreview = ({
     imgHeight: 0
   });
   const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [, setUndoList] = useState([]);
 
   useEffect(() => {
-    if (
-      chosenFile?.mime_type &&
-      chosenFile?.mime_type?.split("/")[0] === "image"
-    ) {
+    if (chosenFile?.mime_type && chosenFile?.mime_type?.split("/")[0] === "image") {
       const canvas = canvasRef.current.getContext("2d");
       canvas.clearRect(0, 0, 0, 0);
       const img = new Image();
       img.src = chosenFile.preview;
-      img.onload = async e => {
+      img.onload = async (e) => {
         const sizes = imageToRatio(
           e.target.naturalWidth,
           e.target.naturalHeight,
           previewRef.current?.offsetWidth - 60,
           previewRef.current?.offsetHeight - 50
         );
-        await setDrawParams(state => ({
+        await setDrawParams((state) => ({
           ...state,
           imgWidth: sizes.width.toFixed(),
           imgHeight: sizes.height.toFixed()
         }));
-        canvas.drawImage(
-          img,
-          0,
-          0,
-          sizes.width.toFixed(),
-          sizes.height.toFixed()
-        );
+        canvas.drawImage(img, 0, 0, sizes.width.toFixed(), sizes.height.toFixed());
       };
-      img.onerror = e => console.log(e);
+      img.onerror = (e) => console.log(e);
     }
   }, [chosenFile, fileCollapsed]); //eslint-disable-line
 
   const mouseUpHandler = () => {
     if (toolBar) {
-      setMouse(mouse => ({ ...mouse, down: false }));
+      setMouse((mouse) => ({ ...mouse, down: false }));
       sendDraw();
     }
   };
 
-  const mouseDownHandler = e => {
+  const mouseDownHandler = (e) => {
     if (toolBar) {
-      setMouse(mouse => ({ ...mouse, down: true }));
+      setMouse((mouse) => ({ ...mouse, down: true }));
       ctx.beginPath();
       ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-      setUndoList(state => [...state, canvasRef.current.toDataURL()]);
+      setUndoList((state) => [...state, canvasRef.current.toDataURL()]);
     }
   };
 
-  const mouseMoveHandler = e => {
+  const mouseMoveHandler = (e) => {
     if (toolBar && mouse.down) {
       draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     }
@@ -93,11 +79,11 @@ const WorkLinesPreview = ({
   const sendDraw = () => {
     api
       .post(
-        `/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${
-          drawParams.color
-        }&width=${drawParams.imgWidth}&height=${drawParams.imgHeight}`
+        `/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${drawParams.color}&width=${
+          drawParams.imgWidth
+        }&height=${drawParams.imgHeight}`
       )
-      .then(res => console.log(res));
+      .then((res) => console.log(res));
   };
 
   const renderFilePreview = () => {
@@ -117,15 +103,8 @@ const WorkLinesPreview = ({
       }
       case "video": {
         return (
-          <video
-            controls
-            src={`${projectSrc}${chosenFile.preview}`}
-            type={chosenFile.mime_type}
-          >
-            <source
-              src={`${projectSrc}${chosenFile.preview}`}
-              type={chosenFile.mime_type}
-            />
+          <video controls src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type}>
+            <source src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type} />
           </video>
         );
       }
@@ -155,11 +134,7 @@ const WorkLinesPreview = ({
     <div
       className={styles.workLinesPreviewWrap}
       style={{
-        height: `${
-          recentFiles?.length > 0
-            ? "calc(100% - 90px - 55px - 78px)"
-            : "calc(100% - 90px - 55px)"
-        }`
+        height: `${recentFiles?.length > 0 ? "calc(100% - 90px - 55px - 78px)" : "calc(100% - 90px - 55px)"}`
       }}
     >
       <div
@@ -173,8 +148,7 @@ const WorkLinesPreview = ({
 
       <div className={styles.previewFileWrap}>
         <div className={styles.previewContent}>
-          {chosenFile?.mime_type &&
-          chosenFile?.mime_type?.split("/")[0] === "image" ? (
+          {chosenFile?.mime_type && chosenFile?.mime_type?.split("/")[0] === "image" ? (
             <MiniToolBar
               direction="row"
               drawParams={drawParams}

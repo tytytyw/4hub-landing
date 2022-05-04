@@ -236,8 +236,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       const addFiles = () => {
         let f = { ...state.fileList.files };
         for (let key in f) {
-          if (action.payload.files[key] && Array.isArray(f[key]))
-            f[key] = [...f[key], ...action.payload.files[key]];
+          if (action.payload.files[key] && Array.isArray(f[key])) f[key] = [...f[key], ...action.payload.files[key]];
         }
         return f;
       };
@@ -250,8 +249,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       const addFiles = () => {
         let f = { ...state.fileList.files };
         for (let key in f) {
-          if (action.payload.files[key])
-            f[key] = [...f[key], ...action.payload.files[key]];
+          if (action.payload.files[key]) f[key] = [...f[key], ...action.payload.files[key]];
         }
         return f;
       };
@@ -273,7 +271,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_FILES_PATH: {
       return {
         ...state,
-        fileList: { ...state.fileList, files: [], path: action.payload }
+        fileList: { ...state.fileList, files: null, path: action.payload }
       };
     }
     case SET_CHOSEN_FILE: {
@@ -284,9 +282,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case FILE_DELETE: {
       if (Array.isArray(state.fileList.files)) {
-        const files = state.fileList.files.filter(
-          el => el.fid !== action.payload.fid
-        );
+        const files = state.fileList.files.filter((el) => el.fid !== action.payload.fid);
         return { ...state, fileList: { ...state.fileList, files } };
       } else {
         let files = state.fileList.files;
@@ -312,7 +308,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, chosenRecentFile: action.payload };
     case CUSTOMIZE_FILE: {
       if (Array.isArray(state.fileList.files)) {
-        const files = state.fileList.files.map(file => {
+        const files = state.fileList.files.map((file) => {
           if (file.fid !== action.payload.fid) return file;
           return action.payload;
         });
@@ -329,7 +325,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, fileList: { ...state.fileList, files } };
     }
     case CUSTOMIZE_SAFE_FILE: {
-      const safeFiles = state.safe.safeFileList.map(file => {
+      const safeFiles = state.safe.safeFileList.map((file) => {
         if (file.fid !== action.payload.fid) return file;
         return action.payload;
       });
@@ -369,15 +365,11 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, chat: { ...state.chat, userId: action.payload } };
     }
     case CHAT_GROUP_DELETE: {
-      const groups = state.chat.groupsList.filter(
-        gr => gr.id !== action.payload.id
-      );
+      const groups = state.chat.groupsList.filter((gr) => gr.id !== action.payload.id);
       return { ...state, chat: { ...state.chat, groupsList: groups } };
     }
     case SECRET_CHAT_DELETE: {
-      const secretChats = state.chat.secretChatsList.filter(
-        gr => gr.id !== action.payload.id
-      );
+      const secretChats = state.chat.secretChatsList.filter((gr) => gr.id !== action.payload.id);
       return {
         ...state,
         chat: { ...state.chat, secretChatsList: secretChats }
@@ -394,10 +386,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       for (let key in action.payload) {
         messages[key] = messages[key]
           ? [
-              ...messages[key].filter(
-                oldMsg =>
-                  !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)
-              ),
+              ...messages[key].filter((oldMsg) => !action.payload[key].some((newMsg) => newMsg.id === oldMsg.id)),
               ...action.payload[key]
             ]
           : [...action.payload[key]];
@@ -414,9 +403,7 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.chat,
           messages: {
             ...state.chat.messages,
-            today: state.chat.messages.today
-              ? [action.payload, ...state.chat.messages.today]
-              : [action.payload]
+            today: state.chat.messages.today ? [action.payload, ...state.chat.messages.today] : [action.payload]
           }
         }
       };
@@ -452,8 +439,7 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.chat,
           notificationsCounter: {
             ...state.chat.notificationsCounter,
-            [action.payload]:
-              (state.chat.notificationsCounter[action.payload] || 0) + 1
+            [action.payload]: (state.chat.notificationsCounter[action.payload] || 0) + 1
           }
         }
       };
@@ -580,18 +566,14 @@ export default function startPage(state = INITIAL_STATE, action) {
         }
       };
     case SAFE_FILE_DELETE: {
-      const files = state.safe.safeFileList.files.filter(
-        el => el.fid !== action.payload
-      );
+      const files = state.safe.safeFileList.files.filter((el) => el.fid !== action.payload);
       return { ...state, safe: { ...state.safe, safeFileList: files } };
     }
 
     //PROJECT
     case GET_PROJECT_FOLDER: {
       const projectFolders = { ...state.project.projectFolders };
-      projectFolders[action.payload.projectId] = [
-        ...action.payload.projectFolders
-      ];
+      projectFolders[action.payload.projectId] = [...action.payload.projectFolders];
       return { ...state, project: { ...state.project, projectFolders } };
     }
     case GET_PROJECTS:

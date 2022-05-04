@@ -14,7 +14,7 @@ const InfoPage = ({ setPage }) => {
   const [success, setSucсess] = useState(false);
 
   const renderInfos = () => {
-    return info.map(el => {
+    return info.map((el) => {
       return (
         <div key={el.name} className={styles.info}>
           <img src={el.image} alt="img" width={el.width} />
@@ -51,13 +51,13 @@ const InfoPage = ({ setPage }) => {
               type="name"
               placeholder={__("Имя")}
               value={form.name}
-              onChange={e => setForm({ ...form, name: e.target.value })}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
             <input
               type="email"
               placeholder={__("Email")}
               value={form.email}
-              onChange={e => setForm({ ...form, email: e.target.value })}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
           <textarea
@@ -66,7 +66,7 @@ const InfoPage = ({ setPage }) => {
             cols="30"
             rows="10"
             value={form.text}
-            onChange={e => setForm({ ...form, text: e.target.value })}
+            onChange={(e) => setForm({ ...form, text: e.target.value })}
           />
           <div className={styles.submitButton} onClick={sendQuestion}>
             Отправить
@@ -77,20 +77,14 @@ const InfoPage = ({ setPage }) => {
         <PopUp set={setSucсess}>
           <div className={styles.sendSuccess}>
             <span className={styles.cross} onClick={() => setSucсess(false)} />
-            <span className={styles.title}>
-              {__("Запрос успешно отправлен")}
-            </span>
+            <span className={styles.title}>{__("Запрос успешно отправлен")}</span>
             <div className={styles.imageWrap}>
               <img
                 src={imageSrc + "assets/StartPage/success-file-send.svg"}
                 alt="computer"
                 className={styles.computer}
               />
-              <img
-                src={imageSrc + "assets/StartPage/envelope.svg"}
-                alt="envelope"
-                className={styles.envelope}
-              />
+              <img src={imageSrc + "assets/StartPage/envelope.svg"} alt="envelope" className={styles.envelope} />
               <img
                 src={imageSrc + "assets/StartPage/paper-plane-left.svg"}
                 alt="paper-plane"
@@ -102,9 +96,7 @@ const InfoPage = ({ setPage }) => {
                 className={styles.planeRight}
               />
             </div>
-            <div
-              className={styles.closeButton}
-              onClick={() => setSucсess(false)}>
+            <div className={styles.closeButton} onClick={() => setSucсess(false)}>
               {__("Закрыть")}
             </div>
           </div>

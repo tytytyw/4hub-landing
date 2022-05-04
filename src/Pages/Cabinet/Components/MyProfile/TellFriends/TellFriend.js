@@ -14,10 +14,10 @@ import PropTypes from "prop-types";
 
 const TellFriend = ({ set, contact }) => {
   const { __ } = useLocales();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
   const [selectedSoc, setSelectedSoc] = useState(null);
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     api
@@ -31,7 +31,7 @@ const TellFriend = ({ set, contact }) => {
       .then(() => {
         set(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -62,12 +62,9 @@ const TellFriend = ({ set, contact }) => {
               className={classNames({
                 [styles.socialsItem]: true,
                 [styles.active]: selectedSoc === "email"
-              })}>
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/email.svg"}
-                alt="Email"
-              />
+              })}
+            >
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/email.svg"} alt="Email" />
               <p>Email</p>
             </li>
             {messengersData.map((item, index) => (
@@ -77,21 +74,14 @@ const TellFriend = ({ set, contact }) => {
                   [styles.socialsItem]: true,
                   [styles.active]: selectedSoc === item?.type
                 })}
-                key={index}>
-                <img
-                  className={styles.socialIcon}
-                  src={item.icon}
-                  alt={item.label}
-                />
+                key={index}
+              >
+                <img className={styles.socialIcon} src={item.icon} alt={item.label} />
                 <p>{item.label}</p>
               </li>
             ))}
             <li className={styles.socialsItem}>
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/more.svg"}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/more.svg"} alt="Email" />
               <p>{__("Ещё")}</p>
             </li>
           </div>

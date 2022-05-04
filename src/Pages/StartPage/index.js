@@ -37,55 +37,36 @@ function StartPage({ setOptions, setLoadingType }) {
     setLoadingType("");
   }, []); //eslint-disable-line
 
-  const isLanding = () =>
-    pageOption === "landing" || pageOption === "business-landing";
+  const isLanding = () => pageOption === "landing" || pageOption === "business-landing";
 
   const onRegister = () => {
     setPage("register");
   };
 
   return (
-    <div
-      className={`${styles.wrapper} ${pageOption === "info" &&
-        styles.longWrap} ${isLanding() && styles.longWrap}`}>
+    <div className={`${styles.wrapper} ${pageOption === "info" && styles.longWrap} ${isLanding() && styles.longWrap}`}>
       <header className={styles.header}>
         {isLanding() && (
           <a className={styles.logo} href="./">
-            <img
-              className={styles.logo_img}
-              src={imageSrc + "assets/StartPage/logo.svg"}
-              alt="4hub logo"></img>
+            <img className={styles.logo_img} src={imageSrc + "assets/StartPage/logo.svg"} alt="4hub logo"></img>
           </a>
         )}
-        <InfoIcon
-          className={`${styles.listItem} ${styles.info}`}
-          onClick={() => setPage("info")}
-        />
+        <InfoIcon className={`${styles.listItem} ${styles.info}`} onClick={() => setPage("info")} />
         <LangPicker />
         <div className={styles.listItem} onClick={() => setPage("enter")}>
           {__("Вход")}
         </div>
-        <div
-          className={`${styles.registerButton} ${styles.listItem}`}
-          onClick={onRegister}>
+        <div className={`${styles.registerButton} ${styles.listItem}`} onClick={onRegister}>
           {__("Регистрация")}
         </div>
       </header>
       <main className={styles.main}>
-        {pageOption === "init" && (
-          <Intro setPage={setPage} setOptions={setOptions} />
-        )}
+        {pageOption === "init" && <Intro setPage={setPage} setOptions={setOptions} />}
         {pageOption === "sendFile" && <UploadFile setPage={setPage} />}
         {pageOption === "develop" && (
           <div className={styles.main}>
-            <img
-              className={styles.hubIcon}
-              src={imageSrc + "assets/StartPage/4HUB.svg"}
-              alt="4HUB"
-            />
-            <div style={{ fontSize: "5vw", margin: "3vw 0" }}>
-              {__("Cтраница в разработке")}
-            </div>
+            <img className={styles.hubIcon} src={imageSrc + "assets/StartPage/4HUB.svg"} alt="4HUB" />
+            <div style={{ fontSize: "5vw", margin: "3vw 0" }}>{__("Cтраница в разработке")}</div>
             <div className={styles.buttonBack} onClick={() => setPage("init")}>
               {__("Назад на главную")}
             </div>
@@ -96,31 +77,18 @@ function StartPage({ setOptions, setLoadingType }) {
         {pageOption === "info" && <Infopage setPage={setPage} />}
         {pageOption === "downloadFile" && <DownloadFile setPage={setPage} />}
         {pageOption === "downloadFolder" && (
-          <DownloadFolder
-            setPage={setPage}
-            setOptions={setOptions}
-            loader={loader}
-            setLoader={setLoader}
-          />
+          <DownloadFolder setPage={setPage} setOptions={setOptions} loader={loader} setLoader={setLoader} />
         )}
         {pageOption === "enter" && <EnterProfile setPage={setPage} />}
         {(pageOption === "register" || pageOption === "registerSuccess") && (
           <RegisterProfile setPage={setPage} pageOption={pageOption} />
         )}
-        {pageOption === "business-register" && (
-          <BusinessRegistration setPage={setPage} pageOption={pageOption} />
-        )}
+        {pageOption === "business-register" && <BusinessRegistration setPage={setPage} pageOption={pageOption} />}
 
-        {pageOption === "forgotPassword" && (
-          <ForgotPassword setPage={setPage} />
-        )}
+        {pageOption === "forgotPassword" && <ForgotPassword setPage={setPage} />}
         {pageOption === "renewPassword" && <RenewPassword setPage={setPage} />}
         {pageOption === "errorEnter" && (
-          <Error
-            error={true}
-            message={__("Неверный логин или пароль")}
-            set={() => setPage("enter")}
-          />
+          <Error error={true} message={__("Неверный логин или пароль")} set={() => setPage("enter")} />
         )}
       </main>
     </div>

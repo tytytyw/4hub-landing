@@ -12,18 +12,11 @@ import RecentFiles from "../../RecentFiles";
 import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import { useElementResize } from "../../../../../generalComponents/Hooks";
-import {
-  onAddRecentFiles,
-  onChooseFiles,
-  onGetArchiveFiles
-} from "../../../../../Store/actions/CabinetActions";
+import { onAddRecentFiles, onChooseFiles, onGetArchiveFiles } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps
-} from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps } from "../../../../../types/WorkElements";
 import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 
@@ -53,7 +46,7 @@ const WorkSpace = ({
   menuItem
 }) => {
   const { __ } = useLocales();
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const fileRef = useRef(null);
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
@@ -69,20 +62,13 @@ const WorkSpace = ({
     setChosenFile(null);
     pathname === "/files" && dispatch(onAddRecentFiles());
     //TODO - Need to change request after server changes
-    if (pathname === "/files")
-      dispatch(
-        onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname)
-      );
-    if (pathname === "/archive")
-      dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
-    if (pathname === "/cart")
-      dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+    if (pathname === "/files") dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
+    if (pathname === "/archive") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
+    if (pathname === "/cart") dispatch(onGetArchiveFiles("", 1, "", successLoad, "", pathname));
 
     //TODO: need dispatch downloaded-files
     if (pathname === "/downloaded-files")
-      dispatch(
-        onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname)
-      );
+      dispatch(onChooseFiles("", "", 1, "", successLoad, "", "file_list_all", pathname));
     dispatch({
       type: "SORT_FILES",
       payload:
@@ -97,13 +83,11 @@ const WorkSpace = ({
         payload: "byDateCreated&sort_reverse=1&group=ctime"
       });
     };
-  }, [pathname]);
+  }, [pathname]); // eslint-disable-line
 
-  const onActiveCallbackArrMain = type => {
+  const onActiveCallbackArrMain = (type) => {
     let index;
-    callbackArrMain.forEach((el, i) =>
-      el.type === type ? (index = i) : undefined
-    );
+    callbackArrMain.forEach((el, i) => (el.type === type ? (index = i) : undefined));
     callbackArrMain[index].callback(callbackArrMain, index);
   };
 
@@ -119,7 +103,8 @@ const WorkSpace = ({
                 : styles.workSpaceWrapShort
               : undefined
           }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
@@ -129,11 +114,7 @@ const WorkSpace = ({
           </div>
         </div>
         {pathname === "/files" && recentFiles?.length > 0 && (
-          <RecentFiles
-            setFilePreview={setFilePreview}
-            filePreview={filePreview}
-            width={width}
-          />
+          <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} width={width} />
         )}
         <ServePanel
           chosenFile={chosenFile}
@@ -141,9 +122,7 @@ const WorkSpace = ({
           fileSelect={fileSelect}
           archive={() => onActiveCallbackArrMain("archive")}
           share={() => onActiveCallbackArrMain("share")}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -184,9 +163,7 @@ const WorkSpace = ({
             callbackArrMain={callbackArrMain}
             filePick={filePick}
             setFilePick={setFilePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}

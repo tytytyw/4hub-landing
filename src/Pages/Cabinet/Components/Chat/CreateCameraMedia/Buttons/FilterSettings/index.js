@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const [options, setOptions] = useState([
     {
       name: __("Яркость"),
@@ -84,16 +84,12 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   ]);
 
   const innerFilterEffects = () =>
-    options
-      .map(option => `${option.filterName}(${option.value}${option.unit})`)
-      .join(" ");
+    options.map((option) => `${option.filterName}(${option.value}${option.unit})`).join(" ");
 
   useEffect(() => {
     const newFilterParams = { ...visualEffects.filter };
-    options.forEach(
-      option => (newFilterParams[option.filterName] = option.value)
-    );
-    setVisualEffects(prevEffects => ({
+    options.forEach((option) => (newFilterParams[option.filterName] = option.value));
+    setVisualEffects((prevEffects) => ({
       ...prevEffects,
       filter: { ...newFilterParams, result: innerFilterEffects() }
     }));
@@ -101,34 +97,39 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   }, [options]);
 
   const renderOptions = () =>
-    options.map(option => (
+    options.map((option) => (
       <div className={styles.optionWrapper} key={option.name}>
         <p className={styles.title}>{option.name}</p>
         <input
           className={classNames({
             [styles.input]: true,
             [styles.defaultDash]:
-              option.filterName === "brightness" ||
-              option.filterName === "contrast" ||
-              option.filterName === "saturate"
+              option.filterName === "brightness" || option.filterName === "contrast" || option.filterName === "saturate"
           })}
           min={option.min}
           max={option.max}
           step={option.step}
           value={option.value}
           type="range"
-          onChange={e =>
-            setOptions(prevOptions => [
-              ...prevOptions.map(item =>
-                item === option ? { ...option, value: e.target.value } : item
-              )
+          onChange={(e) =>
+            setOptions((prevOptions) => [
+              ...prevOptions.map((item) => (item === option ? { ...option, value: e.target.value } : item))
             ])
           }
         />
       </div>
     ));
 
-  return <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>{renderOptions()}</div>;
+  return (
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
+      {renderOptions()}
+    </div>
+  );
 };
 
 export default FilterSettings;

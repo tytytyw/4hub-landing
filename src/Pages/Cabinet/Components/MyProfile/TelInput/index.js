@@ -18,7 +18,7 @@ const TellInput = ({ ...props }) => {
   //   }
   // };
 
-  const maskPhoneNumber = number => {
+  const maskPhoneNumber = (number) => {
     const tempValue = number.replace(/\D/gim, "");
 
     return tempValue.replace(
@@ -34,7 +34,7 @@ const TellInput = ({ ...props }) => {
     );
   };
 
-  const onTelChange = event => {
+  const onTelChange = (event) => {
     const inp = event.target;
     inp.value = maskPhoneNumber(inp.value);
 

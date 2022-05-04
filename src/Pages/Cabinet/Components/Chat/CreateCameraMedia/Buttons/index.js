@@ -58,14 +58,12 @@ const Buttons = ({
   const [activeOption, setActiveOption] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const onAddСaptionClick = () => {
-    takePicture(videoPreviewRef.current);
+    if (videoPreviewRef.current) takePicture(videoPreviewRef.current);
     setDrawImage(true);
-    setActiveOption(prevState =>
-      prevState === "addСaption" ? null : "addСaption"
-    );
+    setActiveOption((prevState) => (prevState === "addСaption" ? null : "addСaption"));
   };
 
   const [centralButtons] = useState([
@@ -99,9 +97,7 @@ const Buttons = ({
           name: "crop",
           clickCallback: () => {
             setOpenCropImage(true);
-            setActiveButton(activeButton =>
-              activeButton === "crop" ? "" : "crop"
-            );
+            setActiveButton((activeButton) => (activeButton === "crop" ? "" : "crop"));
           },
           icon: <CropIcon />
         }
@@ -110,9 +106,7 @@ const Buttons = ({
     {
       name: "filterSettings",
       clickCallback: () => {
-        setActiveOption(prevState =>
-          prevState === "filterSettings" ? null : "filterSettings"
-        );
+        setActiveOption((prevState) => (prevState === "filterSettings" ? null : "filterSettings"));
       },
       icon: <SettingsIcon />,
       subButtons: []
@@ -129,22 +123,17 @@ const Buttons = ({
       ? activeOption === "transformOptions"
         ? cancelImageChanges(() => setActiveOption(null))
         : drawImage
-          ? cancelImageChanges(() => {
-            setActiveOption(null), setDrawImage(false);
+        ? cancelImageChanges(() => {
+            setActiveOption(null);
+            setDrawImage(false);
           })
-          : setActiveOption(null)
+        : setActiveOption(null)
       : setInitialState();
 
   const renderCentralBtns = () => {
     if (isRecording)
       return (
-        <Button
-          width={64}
-          height={34}
-          borderRadius="2px"
-          childrenColor="white"
-          backgroundColor="#EB1F1F"
-        >
+        <Button width={64} height={34} borderRadius="2px" childrenColor="white" backgroundColor="#EB1F1F">
           {ducationTimerToString(ducationTimer)}
         </Button>
       );
@@ -155,21 +144,19 @@ const Buttons = ({
           canvasWrapRef={contentWrapperRef}
           toolBarType="toolsOnly"
           images={imagePreview}
-          buttonsStyle={{ boxShadow: '0 0 0 1px #4E4E4E' }}
+          buttonsStyle={{ boxShadow: "0 0 0 1px #4E4E4E" }}
         />
       );
     if (state === "init")
       return (
         <Button
-          clickCallback={() =>
-            setContentType(state => (state === "image" ? "video" : "image"))
-          }
+          clickCallback={() => setContentType((state) => (state === "image" ? "video" : "image"))}
           width={48}
           height={48}
           borderRadius="50%"
-          childrenColor={'white'}
-          backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#D8D8D8'}
-          boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
+          childrenColor={"white"}
+          backgroundColor={chatTheme.name === "dark" ? "#272727" : "#D8D8D8"}
+          boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
         >
           {contentType === "video" && <CameraIcon />}
           {contentType === "image" && <VideoIcon />}
@@ -177,12 +164,10 @@ const Buttons = ({
       );
 
     if (state === "readyToSend") {
-      const buttons =
-        centralButtons.filter(btn => btn?.name === activeOption)[0]
-          ?.subButtons || centralButtons;
+      const buttons = centralButtons.filter((btn) => btn?.name === activeOption)[0]?.subButtons || centralButtons;
       if (!buttons?.length) return null;
 
-      return buttons.map(btn =>
+      return buttons.map((btn) =>
         contentType === "video" && btn?.name === "crop" ? (
           ""
         ) : (
@@ -191,12 +176,10 @@ const Buttons = ({
             width={54}
             height={34}
             borderRadius="2px"
-            childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
-            backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
-            boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : "0px 2px 4px #DEDEDE"}
-            hoverEffect={
-              activeButton === "crop" ? activeButton === btn.name : true
-            }
+            childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+            backgroundColor={chatTheme.name === "dark" ? "#272727" : "#fff"}
+            boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : "0px 2px 4px #DEDEDE"}
+            hoverEffect={activeButton === "crop" ? activeButton === btn.name : true}
             key={btn.name}
             active={btn.name === activeButton}
           >
@@ -217,9 +200,9 @@ const Buttons = ({
           style={{
             width: 116,
             height: 34,
-            backgroundColor: chatTheme.name === 'dark' ? '#272727' : '',
-            borderColor: chatTheme.name === 'dark' ? '#4E4E4E' : '',
-            color: chatTheme.name === 'dark' ? '#fff' : ''
+            backgroundColor: chatTheme.name === "dark" ? "#272727" : "",
+            borderColor: chatTheme.name === "dark" ? "#4E4E4E" : "",
+            color: chatTheme.name === "dark" ? "#fff" : ""
           }}
         />
       );
@@ -259,7 +242,7 @@ const Buttons = ({
             canvasToImagePreview(drawCanvasRef.current);
             saveImageChanges(drawCanvasRef.current.toDataURL("image/png"));
             setActiveOption(null);
-            setDrawImage("sendFile");
+            if (contentType === "video") setDrawImage("sendFile");
           }}
           width={38}
           height={38}
@@ -271,12 +254,7 @@ const Buttons = ({
         </Button>
       ) : (
         <Button
-          clickCallback={() =>
-            onSendFile(
-              contentType === "image" ? "image/png" : contentType,
-              nullifyAction
-            )
-          }
+          clickCallback={() => onSendFile(contentType === "image" ? "image/png" : contentType, nullifyAction)}
           width={38}
           height={38}
           borderRadius="50%"
@@ -295,10 +273,15 @@ const Buttons = ({
   useEffect(() => {
     if (!openCropImage && activeButton) setActiveButton(null);
     if (!activeButton && openCropImage) setOpenCropImage(false);
-  }, [openCropImage, activeButton]);
+  }, [openCropImage, activeButton]); // eslint-disable-line
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
       {activeOption === "addText" && (
         <div className={classNames(styles.optionsWrapper, styles.textWrapper)}>
           <TextArea
@@ -311,10 +294,7 @@ const Buttons = ({
       )}
       {activeOption === "filterSettings" && (
         <div className={styles.optionsWrapper}>
-          <FilterSettings
-            visualEffects={visualEffects}
-            setVisualEffects={setVisualEffects}
-          />
+          <FilterSettings visualEffects={visualEffects} setVisualEffects={setVisualEffects} />
         </div>
       )}
       <div className={styles.buttonsWrapper}>
@@ -325,9 +305,9 @@ const Buttons = ({
               width={38}
               height={38}
               borderRadius="50%"
-              childrenColor={chatTheme.name === 'dark' ? "white" : 'black'}
-              boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ""}
-              backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#EDEDED'}
+              childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+              boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
+              backgroundColor={chatTheme.name === "dark" ? "#272727" : "#EDEDED"}
             >
               <BackIcon />
             </Button>
@@ -338,26 +318,17 @@ const Buttons = ({
             <div className={styles.actionButton}>
               <Button
                 clickCallback={onClickHandler}
-                mouseDownCallback={() =>
-                  !isRecording &&
-                  contentType === "video" &&
-                  onActionBtnHandler()
-                }
+                mouseDownCallback={() => !isRecording && contentType === "video" && onActionBtnHandler()}
                 width={48}
                 height={48}
                 borderRadius="50%"
-                backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
-                childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
-                boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
+                backgroundColor={chatTheme.name === "dark" ? "#272727" : "#fff"}
+                childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+                boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
                 isRecording={isRecording}
               >
                 {contentType === "image" && <CameraIcon />}
-                {contentType === "video" &&
-                  (isRecording ? (
-                    <div className={styles.square} />
-                  ) : (
-                    <VideoIcon />
-                  ))}
+                {contentType === "video" && (isRecording ? <div className={styles.square} /> : <VideoIcon />)}
               </Button>
             </div>
           )}

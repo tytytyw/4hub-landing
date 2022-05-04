@@ -34,8 +34,8 @@ const WorkSpace = ({
   listCollapsed
 }) => {
   const { __ } = useLocales();
-  const files = useSelector(state => state.Cabinet.project.files);
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const files = useSelector((state) => state.Cabinet.project.files);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [filePick, setFilePick] = useState({ show: false, files: [] });
   const [workElementsView, setWorkElementsView] = useState("");
   const [chosenFile, setChosenFile] = useState(null);
@@ -43,7 +43,7 @@ const WorkSpace = ({
   const [fileCollapsed, setFileCollapsed] = useState(false);
   const [containerRef, width] = useElementResize();
 
-  const renderFiles = Type => {
+  const renderFiles = (Type) => {
     if (!files) return null;
     return files.map((file, i) => {
       return (
@@ -64,9 +64,9 @@ const WorkSpace = ({
     });
   };
 
-  const chooseProjectFromRecent = project => {
+  const chooseProjectFromRecent = (project) => {
     setSelectedProject(project);
-    setParams(state => ({ ...state, fromRecent: true }));
+    setParams((state) => ({ ...state, fromRecent: true }));
   };
 
   return (
@@ -76,7 +76,8 @@ const WorkSpace = ({
         [styles.collapsed]: listCollapsed,
         [styles.notCollapsed]: !listCollapsed
       })}
-      ref={containerRef}>
+      ref={containerRef}
+    >
       <div className={styles.header}>
         <SearchField />
         <div className={styles.infoHeader}>
@@ -99,25 +100,18 @@ const WorkSpace = ({
       <ServePanel
         disableWorkElementsView={!!chosenFolder?.name}
         addFile={fileSelect}
-        chooseSeveral={() =>
-          setFilePick({ ...filePick, files: [], show: !filePick.show })
-        }
+        chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
         chosenFile={chosenFile}
         filePick={filePick}
       />
 
       {chosenFolder?.name ? (
-        <WorkLinesPreview
-          recentFiles={recentFiles}
-          chosenFile={chosenFile}
-          fileCollapsed={fileCollapsed}>
+        <WorkLinesPreview recentFiles={recentFiles} chosenFile={chosenFile} fileCollapsed={fileCollapsed}>
           <div className={styles.fileListHeader}>
             <span>{fileCollapsed ? __("Файлы") : __("Файлы проекта")}</span>
             <img
               className={styles.icon}
-              src={`${imageSrc}assets/PrivateCabinet/${
-                fileCollapsed ? "play-blue.svg" : "play-grey.svg"
-              }`}
+              src={`${imageSrc}assets/PrivateCabinet/${fileCollapsed ? "play-blue.svg" : "play-grey.svg"}`}
               alt="icon"
               onClick={() => setFileCollapsed(!fileCollapsed)}
             />
@@ -129,10 +123,7 @@ const WorkSpace = ({
       {addMember && <AddMember set={setAddMember} />}
       <BottomPanel />
       {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}

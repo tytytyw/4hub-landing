@@ -6,15 +6,8 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  useTags,
-  colors,
-  useFolders
-} from "../../../../../../generalComponents/collections";
-import {
-  onChooseFiles,
-  onGetFolders
-} from "../../../../../../Store/actions/CabinetActions";
+import { useTags, colors, useFolders } from "../../../../../../generalComponents/collections";
+import { onChooseFiles, onGetFolders } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
@@ -36,9 +29,9 @@ const CustomizeFolder = ({
   console.log(chosenSubFolder);
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const folderList = useSelector(state => state.Cabinet.folderList);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const uid = useSelector((state) => state.user.uid);
+  const folderList = useSelector((state) => state.Cabinet.folderList);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const folder = chosenSubFolder || chosenFolder;
 
   const [name, setName] = useState(folder.info?.name);
@@ -50,9 +43,7 @@ const CustomizeFolder = ({
     chosen: folder?.info.tags || "",
     count: 30
   });
-  const [color, setColor] = useState(
-    colors?.filter(el => el.color === folder?.info.color)[0] || colors[0]
-  );
+  const [color, setColor] = useState(colors?.filter((el) => el.color === folder?.info.color)[0] || colors[0]);
   const [sign, setSign] = useState(folder?.info.fig || "");
   const [emoji, setEmoji] = useState(folder?.info.emo || "");
   const [visibility, setVisibility] = useState("password");
@@ -60,7 +51,7 @@ const CustomizeFolder = ({
   const dispatch = useDispatch();
   const folders = useFolders();
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -92,18 +83,13 @@ const CustomizeFolder = ({
     setGLoader(true);
     //TODO: check api
     const params = `uid=${uid}&dir_name=${name}&parent=${
-      chosenFolder?.info?.path
-        ? chosenFolder?.info.path.slice(
-            0,
-            chosenFolder?.info.path.lastIndexOf("/")
-          )
-        : "other"
+      chosenFolder?.info?.path ? chosenFolder?.info.path.slice(0, chosenFolder?.info.path.lastIndexOf("/")) : "other"
     }&tag=${tagOption.chosen}&pass=${passwordCoincide ? password : ""}&color=${
       color?.color
     }&symbol=${sign}&emoji=${emoji}`;
     api
       .post(`/ajax/dir_edit.php?${params}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok !== 1) {
           setError(__("Папка не добавлена"));
         }
@@ -114,8 +100,7 @@ const CustomizeFolder = ({
       .finally(() => {
         setGLoader(false);
         dispatch(onGetFolders(folderList.path, folders));
-        if (fileList.path !== chosenFolder?.info?.path)
-          dispatch(onChooseFiles(fileList.path, "", 1, "", successLoad));
+        if (fileList.path !== chosenFolder?.info?.path) dispatch(onChooseFiles(fileList.path, "", 1, "", successLoad));
       });
     nullifyAction();
   };
@@ -125,12 +110,12 @@ const CustomizeFolder = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -151,9 +136,7 @@ const CustomizeFolder = ({
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === color?.color)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === color?.color)[0]?.name}`}
               />
             </div>
             <div className={styles.picPreview}>
@@ -162,17 +145,17 @@ const CustomizeFolder = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color?.color !== "grey" ? styles.colorWrapTap : ""
-                  } ${color?.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  className={`${styles.colorWrap} ${color?.color !== "grey" ? styles.colorWrapTap : ""} ${
+                    color?.color !== "grey" ? styles.redCross : ""
+                  }`}
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
@@ -183,29 +166,17 @@ const CustomizeFolder = ({
                 </div>
                 {sign && (
                   <div className={styles.redCross} onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
@@ -226,7 +197,7 @@ const CustomizeFolder = ({
                 type="text"
                 placeholder={__("Добавте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -267,9 +238,7 @@ const CustomizeFolder = ({
           <Signs sign={sign} setSign={setSign} />
           <Emoji emoji={emoji} setEmoji={setEmoji} />
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => closeComponent(false)}>
+            <div className={styles.cancel} onClick={() => closeComponent(false)}>
               {__("Отмена")}
             </div>
             <div className={styles.add} onClick={() => onCustomizeFolder()}>

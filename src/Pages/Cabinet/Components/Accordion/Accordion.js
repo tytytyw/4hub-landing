@@ -22,12 +22,12 @@ const Accordion = () => {
 
   const [active, setActive] = useState("");
 
-  const onAccordionClick = item => {
+  const onAccordionClick = (item) => {
     if (active === item.id) setActive("");
     else setActive(item.id);
   };
 
-  const isActive = item => {
+  const isActive = (item) => {
     return active === item.id;
   };
 
@@ -51,7 +51,8 @@ const Accordion = () => {
               className={classnames({
                 [styles.content]: true,
                 [styles.toggled]: isActive(item)
-              })}>
+              })}
+            >
               <div className={styles.answer}>{item.answer}</div>
             </div>
           </li>

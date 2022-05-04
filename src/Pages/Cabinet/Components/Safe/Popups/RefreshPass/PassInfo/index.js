@@ -35,21 +35,15 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
   ]);
 
   const checkEnable = useCallback(() => {
-    return (
-      value?.length >= 8 && hasUpperLowerCase(value) && hasNumOrChar(value)
-    );
+    return value?.length >= 8 && hasUpperLowerCase(value) && hasNumOrChar(value);
   }, [value]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setEnable(checkEnable()), [checkEnable]);
 
   useEffect(() => {
-    const onClick = event => {
-      if (
-        !ref.current?.contains(event.target) &&
-        !inputRef.current?.contains(event.target) &&
-        checkEnable()
-      )
+    const onClick = (event) => {
+      if (!ref.current?.contains(event.target) && !inputRef.current?.contains(event.target) && checkEnable())
         setVisible(false);
     };
     window.addEventListener("click", onClick);

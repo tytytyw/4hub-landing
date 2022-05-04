@@ -10,59 +10,53 @@ import { ReactComponent as CameraIcon } from "../../../../../assets/PrivateCabin
 import { ReactComponent as InfoIcon } from "../../../../../assets/PrivateCabinet/info-2.svg";
 import { ReactComponent as CopyLinkIcon } from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import { ReactComponent as PictureIcon } from "../../../../../assets/PrivateCabinet/picture-2.svg";
-import {
-  onSetPaint,
-  onSetModals
-} from "../../../../../Store/actions/CabinetActions";
+import { onSetPaint, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ServePanel = ({
-  selectedContact,
-  setAction,
-  setRightPanelContentType
-}) => {
+const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const dispatch = useDispatch();
-  const paint = useSelector(state => state.Cabinet.paint);
-  const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
+  const paint = useSelector((state) => state.Cabinet.paint);
+  const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
 
   return (
-    <div className={classNames({ [styles.chatBoardHeader]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.chatBoardHeader]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
       {selectedContact ? (
         <div className={styles.groupName}>
           <img
             src={
               selectedContact?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
-              }.svg`
+              `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"}.svg`
             }
             alt="img"
             className={styles.avatar}
           />
           <div className={styles.info}>
-            <div className={styles.name}>{`${selectedContact?.sname ||
-              ""} ${selectedContact?.name || ""}`}</div>
+            <div className={styles.name}>{`${selectedContact?.sname || ""} ${selectedContact?.name || ""}`}</div>
             <div className={styles.status}>{selectedContact?.status || ""}</div>
           </div>
         </div>
       ) : null}
       {selectedContact ? (
         <div className={styles.headerOptions}>
-          {(selectedContact.id_real_user &&
-            selectedContact.id_real_user !== "0") ||
-            selectedContact.isGroup ? (
+          {(selectedContact.id_real_user && selectedContact.id_real_user !== "0") || selectedContact.isGroup ? (
             <div
               onClick={() =>
                 setAction(
                   selectedContact?.isGroup
                     ? { type: "addUsersToGroup" }
                     : {
-                      type: "addChat",
-                      chatsType: "groups",
-                      initialUser: selectedContact
-                    }
+                        type: "addChat",
+                        chatsType: "groups",
+                        initialUser: selectedContact
+                      }
                 )
               }
               className={styles.iconView}
@@ -104,11 +98,7 @@ const ServePanel = ({
           {!selectedContact?.is_secret_chat ? (
             <div
               onClick={() =>
-                printScreen.open
-                  ? null
-                  : dispatch(
-                    onSetModals("printScreen", { ...printScreen, open: true })
-                  )
+                printScreen.open ? null : dispatch(onSetModals("printScreen", { ...printScreen, open: true }))
               }
               className={classNames({
                 [styles.iconView]: true,
@@ -122,11 +112,7 @@ const ServePanel = ({
           )}
           <div
             className={styles.iconView}
-            onClick={() =>
-              setRightPanelContentType(state =>
-                state === "info" ? "" : "info"
-              )
-            }
+            onClick={() => setRightPanelContentType((state) => (state === "info" ? "" : "info"))}
           >
             <InfoIcon />
           </div>

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const AccessRadio = ({ data = [], name, onChange }) => {
   const [value, setValue] = useState("");
 
-  const handleCheck = item => {
+  const handleCheck = (item) => {
     setValue(item.value);
     onChange(item.value);
   };
@@ -23,13 +23,9 @@ const AccessRadio = ({ data = [], name, onChange }) => {
             className={classNames({
               [styles.radio]: true,
               [styles.checked]: value === item.value
-            })}>
-            <input
-              id={id}
-              type="radio"
-              name={name}
-              onChange={() => handleCheck(item)}
-            />
+            })}
+          >
+            <input id={id} type="radio" name={name} onChange={() => handleCheck(item)} />
             <label htmlFor={id}>
               <p>{item.label}</p>
               <span>{item.info}</span>

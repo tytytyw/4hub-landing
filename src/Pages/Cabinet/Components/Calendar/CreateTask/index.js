@@ -46,17 +46,17 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
 
   const width = window.innerWidth;
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const getEventName = id => {
-    const event = events.find(item => item.id === id);
+  const getEventName = (id) => {
+    const event = events.find((item) => item.id === id);
     return event?.name;
   };
 
-  const maskDate = date => {
+  const maskDate = (date) => {
     const tempValue = date.replace(/\D/gim, "");
     return tempValue.replace(
       ...({
@@ -71,13 +71,13 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
     );
   };
 
-  const onChangeDateFrom = event => {
+  const onChangeDateFrom = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
     setDateFrom(event.target.value);
   };
 
-  const onChangeDateTo = event => {
+  const onChangeDateTo = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
     setDateTo(event.target.value);
@@ -94,16 +94,10 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
 
             <div className={styles.inputFieldsWrap}>
               <div className={styles.selectWrap}>
-                <Select
-                  placeholder={__("Выбрать")}
-                  data={events}
-                  value={getEventName(eventType)}>
+                <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
                   <ul className={styles.eventsList}>
                     {events.map((event, index) => (
-                      <li
-                        key={index}
-                        onClick={() => setEventType(event?.id)}
-                        className={styles.eventItem}>
+                      <li key={index} onClick={() => setEventType(event?.id)} className={styles.eventItem}>
                         <div className={styles.eventIconWrap}>
                           <img
                             className={styles.eventIcon}
@@ -150,9 +144,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   height={width >= 1440 ? "40px" : "30px"}
                   value={members}
                   set={setMembers}
-                  placeholder={__(
-                    "Участники (введите email или выбирите из списка)"
-                  )}
+                  placeholder={__("Участники (введите email или выбирите из списка)")}
                 />
                 <img
                   src={`${imageSrc}assets/PrivateCabinet/input-arrow.svg`}
@@ -168,7 +160,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   type="text"
                   placeholder={__("Добавте #Тег")}
                   value={tagOption.chosen}
-                  onChange={e => onChangeTag(e.target.value)}
+                  onChange={(e) => onChangeTag(e.target.value)}
                   onFocus={() => {
                     setTagOption({ ...tagOption, show: true });
                   }}
@@ -181,8 +173,9 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 <textarea
                   placeholder={__("Опишите задачу")}
                   className={styles.description}
-                  onChange={event => setDesc(event.target.value)}
-                  value={desc}>
+                  onChange={(event) => setDesc(event.target.value)}
+                  value={desc}
+                >
                   {desc}
                 </textarea>
               </div>
@@ -212,7 +205,8 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 });
                 onCreate(false);
                 setSuccess(true);
-              }}>
+              }}
+            >
               {__("Создать")}
             </div>
           </div>

@@ -4,23 +4,12 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import styles from "./CustomFolderItem.module.sass";
 import classNames from "classnames";
-import {
-  onChooseProjectFiles,
-  setChosenFolderProject
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseProjectFiles, setChosenFolderProject } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
 
-const CustomFolderItem = ({
-  folder,
-  chosenFolder,
-  setMouseParams,
-  listSize,
-  setChosenFolder,
-  project,
-  collapsed
-}) => {
+const CustomFolderItem = ({ folder, chosenFolder, setMouseParams, listSize, setChosenFolder, project, collapsed }) => {
   const dispatch = useDispatch();
 
   const onClickHandler = () => {
@@ -46,17 +35,10 @@ const CustomFolderItem = ({
       >
         <div className={styles.innerFolderName}>
           <FolderIcon
-            className={classNames(
-              styles.innerFolderIcon,
-              colors.filter(el => el.name === folder.color)[0]?.name
-            )}
+            className={classNames(styles.innerFolderIcon, colors.filter((el) => el.name === folder.color)[0]?.name)}
           />
           {folder.is_pass === 1 && (
-            <img
-              className={styles.lock}
-              src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-              alt="emoji"
-            />
+            <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="emoji" />
           )}
           {collapsed ? null : (
             <div className={styles.nameWrap}>
@@ -92,7 +74,7 @@ const CustomFolderItem = ({
 
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setMouseParams({
                 x: e.clientX,

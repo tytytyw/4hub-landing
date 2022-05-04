@@ -6,16 +6,9 @@ import api from "../../../../api";
 import PopUp from "../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../generalComponents/InputField";
-import {
-  colors,
-  useFolders,
-  useTags
-} from "../../../../generalComponents/collections";
+import { colors, useFolders, useTags } from "../../../../generalComponents/collections";
 import Error from "../../../../generalComponents/Error";
-import {
-  onChooseFiles,
-  onGetFolders
-} from "../../../../Store/actions/CabinetActions";
+import { onChooseFiles, onGetFolders } from "../../../../Store/actions/CabinetActions";
 import Colors from "../../../../generalComponents/Elements/Colors";
 import "../../../../generalComponents/colors.sass";
 import Signs from "../../../../generalComponents/Elements/Signs";
@@ -37,9 +30,9 @@ const CreateFolder = ({
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const search = useSelector(state => state.Cabinet.search);
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet.search);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -56,11 +49,11 @@ const CreateFolder = ({
   const dispatch = useDispatch();
   const folders = useFolders();
 
-  const onAddName = name => {
+  const onAddName = (name) => {
     setNoNameError(false);
     setName(name);
   };
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -75,17 +68,13 @@ const CreateFolder = ({
   const onAddFolder = () => {
     if (name) {
       const modifiedPath =
-        path.split("/").length === 2 && path.split("/")[1] === ""
-          ? path.slice(0, path.indexOf("/"))
-          : path;
-      const params = `uid=${uid}&dir_name=${name}&parent=${modifiedPath}&tag=${
-        tagOption.chosen
-      }&pass=${passwordCoincide ? password : ""}&color=${
-        color.color
-      }&symbol=${sign}&emoji=${emoji}`;
+        path.split("/").length === 2 && path.split("/")[1] === "" ? path.slice(0, path.indexOf("/")) : path;
+      const params = `uid=${uid}&dir_name=${name}&parent=${modifiedPath}&tag=${tagOption.chosen}&pass=${
+        passwordCoincide ? password : ""
+      }&color=${color.color}&symbol=${sign}&emoji=${emoji}`;
       api
         .post(`/ajax/dir_add.php?${params}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             onCreate(false);
           } else {
@@ -109,12 +98,12 @@ const CreateFolder = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -136,18 +125,13 @@ const CreateFolder = ({
   return (
     <>
       <PopUp set={onCreate}>
-        <div
-          className={`${styles.createFolderWrap} ${
-            showRepeat ? "" : styles.crateFolderMin
-          }`}>
+        <div className={`${styles.createFolderWrap} ${showRepeat ? "" : styles.crateFolderMin}`}>
           <span className={styles.cross} onClick={() => onCreate(false)} />
           <span className={styles.title}>{title}</span>
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === color.color)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === color.color)[0]?.name}`}
               />
             </div>
             <div className={styles.picPreview}>
@@ -156,17 +140,17 @@ const CreateFolder = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.color !== "grey" ? styles.colorWrapTap : ""
-                  } ${color.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  className={`${styles.colorWrap} ${color.color !== "grey" ? styles.colorWrapTap : ""} ${
+                    color.color !== "grey" ? styles.redCross : ""
+                  }`}
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
@@ -177,29 +161,17 @@ const CreateFolder = ({
                 </div>
                 {sign && (
                   <div className={styles.redCross} onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
@@ -220,16 +192,13 @@ const CreateFolder = ({
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div
-                className={styles.tagList}
-                ref={tagRef}
-                onClick={handleChoose}>
+              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                 {renderTags()}
               </div>
             </div>
@@ -286,13 +255,7 @@ const CreateFolder = ({
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Папка не добавлена")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Папка не добавлена")} />}
     </>
   );
 };

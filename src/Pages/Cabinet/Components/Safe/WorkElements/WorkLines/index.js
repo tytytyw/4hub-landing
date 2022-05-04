@@ -20,14 +20,12 @@ const WorkLines = ({
   setLoadingFiles
 }) => {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
-  const search = useSelector(state => state.Cabinet.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const search = useSelector((state) => state.Cabinet.search);
   const dispatch = useDispatch();
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
-  const load = entry => {
+  const load = (entry) => {
     if (!gLoader && authorizedSafe) {
       if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
         setLoadingFiles(true);
@@ -65,24 +63,18 @@ const WorkLines = ({
       className={styles.workLinesWrap}
       ref={fileRef}
       style={{
-        height: `${
-          filePick.show
-            ? "calc(100% - 90px - 55px - 90px)"
-            : "calc(100% - 90px - 55px)"
-        }`,
+        height: `${filePick.show ? "calc(100% - 90px - 55px - 90px)" : "calc(100% - 90px - 55px)"}`,
         gridTemplateColumns:
           size === "small"
             ? "repeat(auto-fill, 118px)"
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-      }}>
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+      }}
+    >
       {children?.length === 0 && search.length !== 0 ? (
-        <div className={styles.noSearchResults}>
-          {__("Нет элементов удовлетворяющих условиям поиска")}
-        </div>
+        <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
       ) : null}
       {gLoader ? (
         <Loader
@@ -96,10 +88,7 @@ const WorkLines = ({
         children
       )}
       {!gLoader ? (
-        <div
-          className={styles.bottomLine}
-          style={{ height: "100px" }}
-          ref={containerRef}>
+        <div className={styles.bottomLine} style={{ height: "100px" }} ref={containerRef}>
           {loadingFiles && (
             <Loader
               type="bounceDots"

@@ -32,7 +32,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
     minutes: "",
     seconds: ""
   });
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [data, setData] = useState({
     user_to: "",
     prim: "",
@@ -45,17 +45,17 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
   const setTime = (time, limit) => {
     return time < limit ? (time < 10 ? `0${time}` : time) : time[0];
   };
-  const switchOn = value => {
-    setData(data => ({ ...data, [value]: data[value] ? 0 : 1 }));
+  const switchOn = (value) => {
+    setData((data) => ({ ...data, [value]: data[value] ? 0 : 1 }));
   };
 
   useEffect(() => {
-    setData(data => ({
+    setData((data) => ({
       ...data,
       deadline: dateValue
-        ? `${dateValue} ${
-            timeValue.hours ? setTime(timeValue.hours, 24) : "23"
-          }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"}`
+        ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : "23"}:${
+            timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"
+          }`
         : ""
     }));
   }, [dateValue, timeValue]);
@@ -66,14 +66,13 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
       .get(
         `/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&pass=${data.pass}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           setShowSuccessMessage(__("Отправлено"));
           close();
         } else if (res.data.error) {
           setError(
-            res.data.error.includes("user_to") &&
-              res.data.error.includes("not found")
+            res.data.error.includes("user_to") && res.data.error.includes("not found")
               ? __("Пользователь не найден")
               : res.data.error
           );
@@ -82,14 +81,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
           console.log(res);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err}`);
       })
       .finally(() => setLoadingType(""));
   };
 
-  const onAddPass = password => {
-    setData(data => ({ ...data, pass: password }));
+  const onAddPass = (password) => {
+    setData((data) => ({ ...data, pass: password }));
   };
 
   return (
@@ -110,20 +109,15 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                       className={classNames({
                         [styles.tagBlock]: true,
                         [styles.stag]: !!safe?.tags
-                      })}>
+                      })}
+                    >
                       {safe?.tags && `#${safe.tags}`}
                     </div>
                     {safe.id_fig && (
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.id_fig}.svg`}
-                        alt="sign"
-                      />
+                      <img src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.id_fig}.svg`} alt="sign" />
                     )}
                     {safe.id_emo && (
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.id_emo}.svg`}
-                        alt="emoji"
-                      />
+                      <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.id_emo}.svg`} alt="emoji" />
                     )}
                   </div>
                 </div>
@@ -132,19 +126,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
           }
           <div className={classNames(styles.recipient, styles.border_bottom)}>
             <p className={styles.recipient_title}>
-              {displayMessengers
-                ? __("Предоставить доступ с помощью")
-                : __("Кому")}
-              :
+              {displayMessengers ? __("Предоставить доступ с помощью") : __("Кому")}:
             </p>
             {!displayMessengers && (
               <div className={styles.recipient_mail}>
                 <input
                   className={emptyField ? styles.empty : ""}
                   onClick={() => setEmptyField(false)}
-                  onChange={e =>
-                    setData(data => ({ ...data, user_to: e.target.value }))
-                  }
+                  onChange={(e) => setData((data) => ({ ...data, user_to: e.target.value }))}
                   value={data.user_to}
                   placeholder={__("Эл.адрес или имя")}
                   type="text"
@@ -152,24 +141,17 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               </div>
             )}
             {displayMessengers && (
-              <ShareToMessengers
-                setDisplayMessengers={setDisplayMessengers}
-                user_to={data.user_to}
-              />
+              <ShareToMessengers setDisplayMessengers={setDisplayMessengers} user_to={data.user_to} />
             )}
             {!displayMessengers && (
               <div className={styles.recipient_messenger}>
-                <span onClick={() => setDisplayMessengers(true)}>
-                  {__("Отправить через мессенджер")}
-                </span>
+                <span onClick={() => setDisplayMessengers(true)}>{__("Отправить через мессенджер")}</span>
               </div>
             )}
           </div>
           <div className={classNames(styles.comment, styles.border_bottom)}>
             <textarea
-              onChange={e =>
-                setData(data => ({ ...data, prim: e.target.value }))
-              }
+              onChange={(e) => setData((data) => ({ ...data, prim: e.target.value }))}
               value={data.prim}
               placeholder={__("Добавить комментарий к Сейфу")}
               type="text"
@@ -182,14 +164,10 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
             <div className={styles.input_wrap}>
               <p className={styles.input_title}>{__("Временный пароль")}</p>
               <span className={styles.input_descrp}>
-                {__(
-                  "Установите временный пароль для выбранного Вами пользователя"
-                )}
+                {__("Установите временный пароль для выбранного Вами пользователя")}
               </span>
             </div>
-            <span
-              onClick={() => setDisplaySetPassword(true)}
-              className={styles.set_btn}>
+            <span onClick={() => setDisplaySetPassword(true)} className={styles.set_btn}>
               {__("Установить")}
             </span>
           </div>
@@ -200,21 +178,15 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
             <div className={styles.input_wrap}>
               <p className={styles.input_title}>Срок доступа к сейфу</p>
               <span className={styles.input_descrp}>
-                {__(
-                  "Установите срок доступа к сейфу для выбранного Вами пользователя"
-                )}
+                {__("Установите срок доступа к сейфу для выбранного Вами пользователя")}
               </span>
             </div>
-            <span
-              onClick={() => setDisplayStotagePeriod(true)}
-              className={styles.set_btn}>
+            <span onClick={() => setDisplayStotagePeriod(true)} className={styles.set_btn}>
               {__("Установить")}
             </span>
           </div>
           <div className={classNames(styles.share_link, styles.border_bottom)}>
-            <h5 className={styles.share_link_title}>
-              {__("Взаимодействие с информацией в сейфе")}
-            </h5>
+            <h5 className={styles.share_link_title}>{__("Взаимодействие с информацией в сейфе")}</h5>
             <div className={styles.row_item}>
               <div className={styles.ico_wrap}>
                 <Pensil width={17} height={17} className={styles.row_ico} />
@@ -222,9 +194,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div className={styles.input_wrap}>
                 <p className={styles.input_title}>Редактирование</p>
                 <span className={styles.input_descrp}>
-                  {__(
-                    "Все пользователи, которым предоставлен доступ к сейфу, могут редактировать его содержание"
-                  )}
+                  {__("Все пользователи, которым предоставлен доступ к сейфу, могут редактировать его содержание")}
                 </span>
               </div>
               <div
@@ -232,7 +202,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                   [styles.switcherActive]: data?.is_write,
                   [styles.switcher]: true
                 })}
-                onClick={() => switchOn("is_write")}>
+                onClick={() => switchOn("is_write")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_write,
@@ -248,9 +219,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div className={styles.input_wrap}>
                 <p className={styles.input_title}>Просмотр</p>
                 <span className={styles.input_descrp}>
-                  {__(
-                    "Все пользователи, которым предоставлен доступ к сейфу, могут просматривать содержание сейфа"
-                  )}
+                  {__("Все пользователи, которым предоставлен доступ к сейфу, могут просматривать содержание сейфа")}
                 </span>
               </div>
               <div
@@ -258,7 +227,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                   [styles.switcherActive]: data?.is_read,
                   [styles.switcher]: true
                 })}
-                onClick={() => switchOn("is_read")}>
+                onClick={() => switchOn("is_read")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_read,
@@ -274,9 +244,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div className={styles.input_wrap}>
                 <p className={styles.input_title}>{__("Скачивание")}</p>
                 <span className={styles.input_descrp}>
-                  {__(
-                    "Все пользователи, которым предоставлен доступ к сейфу, могут скачать содержание сейфа"
-                  )}
+                  {__("Все пользователи, которым предоставлен доступ к сейфу, могут скачать содержание сейфа")}
                 </span>
               </div>
               <div
@@ -284,7 +252,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                   [styles.switcherActive]: data?.is_download,
                   [styles.switcher]: true
                 })}
-                onClick={() => switchOn("is_download")}>
+                onClick={() => switchOn("is_download")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_download,
@@ -302,7 +271,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               className={styles.add}
               onClick={() => {
                 data.user_to ? onShareSafe() : setEmptyField(true);
-              }}>
+              }}
+            >
               {__("Отправить")}
             </div>
           </div>
@@ -321,12 +291,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
         />
       )}
 
-      {displaySetPassword && (
-        <SetPassword
-          onAddPass={onAddPass}
-          setDisplaySetPassword={setDisplaySetPassword}
-        />
-      )}
+      {displaySetPassword && <SetPassword onAddPass={onAddPass} setDisplaySetPassword={setDisplaySetPassword} />}
     </PopUp>
   );
 }

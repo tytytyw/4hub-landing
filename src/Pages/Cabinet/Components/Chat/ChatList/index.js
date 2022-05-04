@@ -27,31 +27,21 @@ const ChatList = ({
   currentDate
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
   const dispatch = useDispatch();
   const [chatsType, setChatsType] = useState("chats");
   const [collapseMembersList, setCollapseMembersList] = useState(true);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
-  const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
-  );
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
 
-  const recentChatsList = useSelector(
-    state => state.Cabinet.chat.recentChatsList
-  );
-  const secretChatsList = useSelector(
-    state => state.Cabinet.chat.secretChatsList
-  );
+  const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
+  const secretChatsList = useSelector((state) => state.Cabinet.chat.secretChatsList);
   const [chatsList, setChatList] = useState([]);
-  const groupsList = useSelector(state => state.Cabinet.chat.groupsList);
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
-  const recentGroupsMessages = useSelector(
-    state => state.Cabinet.chat.recentGroupsMessages
-  );
-  const notificationsCounter = useSelector(
-    state => state.Cabinet.chat.notificationsCounter
-  );
+  const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
+  const recentGroupsMessages = useSelector((state) => state.Cabinet.chat.recentGroupsMessages);
+  const notificationsCounter = useSelector((state) => state.Cabinet.chat.notificationsCounter);
 
   useEffect(() => {
     dispatch(onGetChatGroups());
@@ -66,7 +56,7 @@ const ChatList = ({
   const renderChatsList = useCallback(() => {
     if (!chatsList) return null;
 
-    return chatsList.map(chat => {
+    return chatsList.map((chat) => {
       if (
         !(
           chat?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -82,32 +72,13 @@ const ChatList = ({
           chatItem={chat}
           key={chat.id + (chat.is_secret_chat ? "_secretChat" : "")}
           title={`${chat?.sname || ""} ${chat?.name}`}
-          subtitle={createContactStatus(
-            chat.is_user,
-            currentDate,
-            chat.real_user_date_last,
-            chat.is_online,
-            gmt
-          )}
-          status={createContactStatus(
-            chat.is_user,
-            currentDate,
-            chat.real_user_date_last,
-            chat.is_online,
-            gmt
-          )}
-          avatar={
-            chat?.icon?.[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+          status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+          avatar={chat?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           setMouseParams={setMouseParams}
           contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
           notificationsCounter={
-            notificationsCounter[
-              chat.is_secret_chat
-                ? `group_${chat.id_group}`
-                : `chat_${chat.id_real_user}`
-            ]
+            notificationsCounter[chat.is_secret_chat ? `group_${chat.id_group}` : `chat_${chat.id_real_user}`]
           }
         />
       );
@@ -128,7 +99,7 @@ const ChatList = ({
   const renderGroupsList = useCallback(() => {
     const renderMembersList = (members, chatId) => {
       if (!members) return null;
-      return members.map(member => {
+      return members.map((member) => {
         if (member.id_user === userId) return null;
         return (
           <CustomChatItem
@@ -138,17 +109,8 @@ const ChatList = ({
             chatItem={member}
             key={chatId + "_user_" + member.id}
             title={member?.name}
-            subtitle={createContactStatus(
-              1,
-              currentDate,
-              member.date_last,
-              member.is_online,
-              gmt
-            )}
-            avatar={
-              member?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online, gmt)}
+            avatar={member?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             isSubList={true}
             setMouseParams={setMouseParams}
             contextMenuList={"userInGroup"}
@@ -158,7 +120,7 @@ const ChatList = ({
     };
 
     if (!groupsList) return null;
-    return groupsList.map(group => {
+    return groupsList.map((group) => {
       if (
         !(
           group?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -176,21 +138,16 @@ const ChatList = ({
             key={group.id}
             title={group?.name}
             subtitle={recentGroupsMessages[group.id_group] || ""}
-            avatar={
-              group?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
-            }
+            avatar={group?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`}
             setCollapseMembersList={setCollapseMembersList}
             status={__(
               `${group?.users?.length || 0} участников группы ( ${
-                group.users.filter(user => user?.is_online === 1).length
+                group.users.filter((user) => user?.is_online === 1).length
               } онлайн )`
             )}
             setMouseParams={setMouseParams}
             contextMenuList={"group"}
-            notificationsCounter={
-              notificationsCounter[`group_${group.id_group}`]
-            }
+            notificationsCounter={notificationsCounter[`group_${group.id_group}`]}
           />
           {selectedContact?.id === group.id && !collapseMembersList ? (
             <div key={"member_wrap" + group.id} className={styles.membersList}>
@@ -200,8 +157,8 @@ const ChatList = ({
         </div>
       );
     });
+    //eslint-disable-next-line
   }, [
-    //eslint-disable-line
     groupsList,
     userId,
     selectedContact,
@@ -228,7 +185,8 @@ const ChatList = ({
       className={classNames({
         [styles.listWrap]: true,
         [styles.darkTheme]: chatTheme.name === "dark"
-      })}>
+      })}
+    >
       <div
         className={classNames({
           [styles.item]: true,
@@ -239,43 +197,22 @@ const ChatList = ({
         onClick={() => {
           setAction({
             type: "addChat",
-            name: `${
-              chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
-            } `,
+            name: `${chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")} `,
             text: "",
             chatsType
           });
         }}
-        title={
-          sideMenuCollapsed
-            ? __(
-                `Создать ${
-                  chatsType === "chats" ? __("секретный") : __("групповой")
-                } чат`
-              )
-            : ""
-        }>
+        title={sideMenuCollapsed ? __(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`) : ""}
+      >
         <div className={styles.iconWrap}>
-          {sideMenuCollapsed ? (
-            <span className={styles.text}>Создать</span>
-          ) : (
-            ""
-          )}
-          {chatsType === "groups" ? (
-            <GroupsIcon width={19} height={22} />
-          ) : null}
-          {chatsType === "chats" ? (
-            <SecretChatIcon width={19} height={22} />
-          ) : null}
+          {sideMenuCollapsed ? <span className={styles.text}>Создать</span> : ""}
+          {chatsType === "groups" ? <GroupsIcon width={19} height={22} /> : null}
+          {chatsType === "chats" ? <SecretChatIcon width={19} height={22} /> : null}
         </div>
 
         {!sideMenuCollapsed ? (
           <span className={styles.text}>
-            {__(
-              `Создать ${
-                chatsType === "chats" ? __("секретный") : __("групповой")
-              } чат`
-            )}
+            {__(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`)}
           </span>
         ) : (
           ""
@@ -286,7 +223,8 @@ const ChatList = ({
         className={classNames({
           [styles.chatsSwitcher]: true,
           [styles.collapsed]: sideMenuCollapsed
-        })}>
+        })}
+      >
         <div
           className={classNames({
             [styles.item]: true,
@@ -294,7 +232,8 @@ const ChatList = ({
             [styles.addChat]: true
           })}
           onClick={() => setChatsType("chats")}
-          title={sideMenuCollapsed ? __("Чаты") : ""}>
+          title={sideMenuCollapsed ? __("Чаты") : ""}
+        >
           <span className={styles.text}>Чаты</span>
         </div>
         <div
@@ -304,7 +243,8 @@ const ChatList = ({
             [styles.addChat]: true
           })}
           onClick={() => setChatsType("groups")}
-          title={sideMenuCollapsed ? __("Группы") : ""}>
+          title={sideMenuCollapsed ? __("Группы") : ""}
+        >
           <span className={styles.text}>Группы</span>
         </div>
       </div>

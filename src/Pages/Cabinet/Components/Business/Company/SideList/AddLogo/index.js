@@ -21,7 +21,7 @@ const AddLogo = ({
   const contextMenuLogo = [
     { name: __("Загрузить Лого"), img: "download-blue", type: "uploadLogo" },
     { name: __("Редактировать"), img: "edit", type: "editLogo" }
-  ].filter(menuItem => (companyLogo ? true : menuItem.type !== "editLogo"));
+  ].filter((menuItem) => (companyLogo ? true : menuItem.type !== "editLogo"));
 
   const callbackArrMain = [
     {
@@ -48,12 +48,12 @@ const AddLogo = ({
           placeholder={defaultTitle}
           value={companyName}
           className={styles.title}
-          onChange={e => setCompanyName(e.target.value)}
+          onChange={(e) => setCompanyName(e.target.value)}
         />
       )}
       <ArrowIcon
         className={styles.arrow}
-        onClick={e => {
+        onClick={(e) => {
           setMouseParams({
             x: e.clientX,
             y: e.clientY,
@@ -64,13 +64,8 @@ const AddLogo = ({
         }}
       />
       {mouseParams !== null && mouseParams.type === "contextMenuLogo" ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={false}>
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuLogo, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuLogo, callbackArrMain)}</div>
         </ContextMenu>
       ) : null}
     </div>

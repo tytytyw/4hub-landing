@@ -3,21 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Select.module.sass";
 import classNames from "classnames";
 
-const Select = ({
-  data = [],
-  initValue = "",
-  onChange = () => { },
-  cleareFilter = () => { },
-  theme,
-  ...props
-}) => {
+const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter = () => {}, theme, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initValue);
 
   const ref = useRef();
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -35,7 +28,7 @@ const Select = ({
       return props.placeholder;
     }
 
-    const valueItem = data.find(item => item?.id === value);
+    const valueItem = data.find((item) => item?.id === value);
     return valueItem?.text;
   };
 
@@ -51,7 +44,7 @@ const Select = ({
         [styles.selectWrap]: true,
         [props.className]: true,
         [styles.active]: !!open,
-        [styles.darkTheme]: theme === 'dark'
+        [styles.darkTheme]: theme === "dark"
       })}
     >
       <div
@@ -91,21 +84,21 @@ const Select = ({
         <ul className={styles.content}>
           {data.length > 1
             ? data.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => {
-                  setOpen(false);
-                  setValue(item.id);
-                  onChange(item.id);
-                }}
-                className={classNames({
-                  [styles.option]: true,
-                  [styles.active]: value === item.id
-                })}
-              >
-                {item.text}
-              </li>
-            ))
+                <li
+                  key={index}
+                  onClick={() => {
+                    setOpen(false);
+                    setValue(item.id);
+                    onChange(item.id);
+                  }}
+                  className={classNames({
+                    [styles.option]: true,
+                    [styles.active]: value === item.id
+                  })}
+                >
+                  {item.text}
+                </li>
+              ))
             : null}
         </ul>
       </div>

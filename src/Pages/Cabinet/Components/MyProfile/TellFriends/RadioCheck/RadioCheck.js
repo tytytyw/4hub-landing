@@ -12,7 +12,8 @@ const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
       className={classnames({
         [styles.wrapper]: true,
         [styles.active]: item?.id === selected?.id
-      })}>
+      })}
+    >
       <input
         id={htmlFor}
         type="radio"

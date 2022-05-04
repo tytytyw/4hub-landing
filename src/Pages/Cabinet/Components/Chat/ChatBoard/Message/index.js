@@ -10,19 +10,13 @@ import FileMessage from "./FileMessage";
 import VideoPlayer from "../../CreateCameraMedia/VideoPlayer";
 import PropTypes from "prop-types";
 
-function Message({
-  message,
-  selectedContact,
-  currentDate,
-  setMouseParams,
-  contextMenuList
-}) {
+function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
   const messageTime = useMessageTime();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
-  const userId = useSelector(state => state.Cabinet.chat.userId);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
   const text = message.text.split("\n");
   const messageType = message.id_user === userId ? "outbox" : "inbox";
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const videoPlayerRef = useRef();
 
   const renderAttachment = () => {
@@ -38,10 +32,7 @@ function Message({
     if (message.attachment?.kind === "video_message") {
       return <VideoMessagePlayer video={message.attachment} />;
     }
-    if (
-      message.attachment?.kind === "file" ||
-      message.attachment?.kind?.includes("image")
-    ) {
+    if (message.attachment?.kind === "file" || message.attachment?.kind?.includes("image")) {
       return <FileMessage file={message.attachment} />;
     }
     if (message.attachment?.kind === "video") {
@@ -57,13 +48,16 @@ function Message({
   };
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles[messageType]]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles[messageType]]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
       {messageType === "inbox" ? (
         <img
-          src={
-            selectedContact?.icon?.[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           alt="avatar"
           className={styles.avatar}
         />
@@ -78,11 +72,8 @@ function Message({
             <div
               className={classNames({
                 [styles.content]: true,
-                [styles.file_content]:
-                  message.attachment?.kind === "image" ||
-                  message.attachment?.kind === "file",
-                [styles.audio_content]:
-                  message.attachment?.kind === "audio_message",
+                [styles.file_content]: message.attachment?.kind === "image" || message.attachment?.kind === "file",
+                [styles.audio_content]: message.attachment?.kind === "audio_message",
                 [styles.video_content]: message.attachment?.kind === "video"
               })}
             >
@@ -100,7 +91,7 @@ function Message({
             <div className={styles.menuWrapper}>
               <div
                 className={styles.menu}
-                onClick={e => {
+                onClick={(e) => {
                   setMouseParams({
                     x: e.clientX,
                     y: e.clientY,
@@ -118,9 +109,7 @@ function Message({
             ""
           )}
         </div>
-        <div className={styles.time}>
-          {messageTime(currentDate, message.ut, gmt)}
-        </div>
+        <div className={styles.time}>{messageTime(currentDate, message.ut, gmt)}</div>
       </div>
     </div>
   );

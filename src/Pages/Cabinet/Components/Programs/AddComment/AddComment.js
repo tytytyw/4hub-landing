@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 function AddComment({ close, program, onAddComment }) {
   const [params, setParams] = useState({ comment: "" });
-  const enterText = e => setParams(s => ({ ...s, comment: e.target.value }));
+  const enterText = (e) => setParams((s) => ({ ...s, comment: e.target.value }));
   //TODO - Need to replace after api is added
   const createNewComment = () => ({
     icon: `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`,
@@ -41,7 +41,8 @@ function AddComment({ close, program, onAddComment }) {
               [styles.add]: true,
               [styles.inactive]: params.comment.length === 0
             })}
-            onClick={onAdd}>
+            onClick={onAdd}
+          >
             Добавить
           </div>
         </div>

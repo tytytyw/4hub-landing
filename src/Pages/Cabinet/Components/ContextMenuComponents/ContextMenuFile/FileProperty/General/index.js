@@ -15,11 +15,7 @@ const General = ({ file }) => {
           <File format={file.ext} color={file.color} />
         </div>
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={file.fname.slice(0, file.fname.lastIndexOf("."))}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={file.fname.slice(0, file.fname.lastIndexOf("."))} disabled={true} />
         </div>
       </div>
       <div className={styles.typeBlock}>

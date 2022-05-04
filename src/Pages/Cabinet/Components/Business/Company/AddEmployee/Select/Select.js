@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Select.module.sass";
 import classNames from "classnames";
-import {
-  usePersonPositions,
-  usePersonStatus
-} from "../../../../../../../generalComponents/collections";
+import { usePersonPositions, usePersonStatus } from "../../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -30,9 +27,10 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
           })}
           key={index}
           onClick={() => {
-            setValue(personStatus.filter(i => i.text === item.text)[0]);
+            setValue(personStatus.filter((i) => i.text === item.text)[0]);
             setOpen(false);
-          }}>
+          }}
+        >
           <div className={styles.colorWrap}>
             <div style={{ background: `${item.color}` }}></div>
           </div>
@@ -47,18 +45,13 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
     return (
       <div className={styles.positionWrap}>
         <div className={styles.searchWrap}>
-          <img
-            src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
-            alt="magnify"
-          />
+          <img src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="magnify" />
           <input
             placeholder={__("введите название должности")}
             className={styles.searchInput}
-            onChange={e =>
+            onChange={(e) =>
               setFiltredPositions(
-                personPositions.filter(position =>
-                  position.toLowerCase().includes(e.target.value.toLowerCase())
-                )
+                personPositions.filter((position) => position.toLowerCase().includes(e.target.value.toLowerCase()))
               )
             }
           />
@@ -72,7 +65,8 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
                 onClick={() => {
                   setValue(item);
                   setOpen(false);
-                }}>
+                }}
+              >
                 <span>{item}</span>
               </div>
             );
@@ -83,7 +77,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
   };
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -98,7 +92,8 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
       className={classNames({
         [styles.selectWrap]: true,
         [styles.active]: !!open
-      })}>
+      })}
+    >
       <div
         onClick={() => {
           if (!disableСhanges) setOpen(!open);
@@ -106,19 +101,19 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
         className={classNames({
           [styles.select]: true,
           [styles.disabled]: disableСhanges
-        })}>
+        })}
+      >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
               [styles.selectInput]: true
-            })}>
+            })}
+          >
             {selectFor === "status" && (
               <div className={styles.colorWrap}>
                 <div
                   style={{
-                    background: `${
-                      personStatus.filter(i => i.text === value)[0].color
-                    }`
+                    background: `${personStatus.filter((i) => i.text === value)[0].color}`
                   }}
                 />
               </div>
@@ -128,20 +123,11 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
             ) : (
               <input
                 className={styles.positionInput}
-                placeholder={
-                  !disableСhanges
-                    ? __("Выберите из списка или введите вручную")
-                    : __("не указана")
-                }
+                placeholder={!disableСhanges ? __("Выберите из списка или введите вручную") : __("не указана")}
                 value={value}
                 disabled={disableСhanges}
-                onChange={e =>
-                  setValue(
-                    e.target.value
-                      ? e.target.value[0].toUpperCase() +
-                          e.target.value.slice(1)
-                      : ""
-                  )
+                onChange={(e) =>
+                  setValue(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : "")
                 }
               />
             )}
@@ -162,7 +148,8 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
           [styles.contentWrap]: true,
           [styles.active]: !!open,
           [styles.position]: selectFor === "position"
-        })}>
+        })}
+      >
         {open && selectFor === "status" ? renderStatus() : renderPositions()}
       </div>
     </div>

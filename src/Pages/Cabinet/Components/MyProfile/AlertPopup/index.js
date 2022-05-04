@@ -26,7 +26,8 @@ const Index = ({ set, text, title, setShowCodePopup }) => {
             set(false);
             setShowCodePopup(true);
             // index.js:27 Uncaught TypeError: setShowCodePopup is not a function
-          }}>
+          }}
+        >
           {__("Продолжить")}
         </div>
       </div>

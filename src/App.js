@@ -9,15 +9,12 @@ import Guest from "./Pages/Guest";
 import Loader from "./generalComponents/Loaders/4HUB";
 import { LocalizedProvider } from "react-localized";
 import locales from "./locales";
-import {
-  getStorageItem,
-  setStorageItem
-} from "./generalComponents/StorageHelper";
+import { getStorageItem, setStorageItem } from "./generalComponents/StorageHelper";
 
 function App() {
   const [loadingType, setLoadingType] = useState("bounceDots");
-  const uid = useSelector(state => state.user.uid);
-  const lang = useSelector(s => s.user.userInfo?.lang) ?? "ru";
+  const uid = useSelector((state) => state.user.uid);
+  const lang = useSelector((s) => s.user.userInfo?.lang) ?? "ru";
   const dispatch = useDispatch();
 
   const [options, setOptions] = useState({ guest: false });
@@ -52,17 +49,11 @@ function App() {
         localeReady ? (
           <>
             {!uid && !options.guest && !options.business ? (
-              <StartPage
-                setOptions={setOptions}
-                setLoadingType={setLoadingType}
-              />
+              <StartPage setOptions={setOptions} setLoadingType={setLoadingType} />
             ) : null}
             {!uid && options.guest && !options.business ? <Guest /> : null}
             {!options.guest && uid && !options.business ? (
-              <Cabinet
-                loadingType={loadingType}
-                setLoadingType={setLoadingType}
-              />
+              <Cabinet loadingType={loadingType} setLoadingType={setLoadingType} />
             ) : null}
             {loadingType ? (
               <Loader

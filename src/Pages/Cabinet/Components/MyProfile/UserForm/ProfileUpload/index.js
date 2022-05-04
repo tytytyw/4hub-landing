@@ -5,14 +5,7 @@ import avatarImg from "../../../../../../assets/PrivateCabinet/avatar2.svg";
 import classnames from "classnames";
 import { PropTypes } from "prop-types";
 
-const Index = ({
-  name,
-  disabled,
-  onChange = () => {},
-  preview,
-  background = { avatarImg },
-  ...props
-}) => {
+const Index = ({ name, disabled, onChange = () => {}, preview, background = { avatarImg }, ...props }) => {
   const inputId = `userPhoto-${Math.random()}`;
   const getImage = () => preview ?? background;
 

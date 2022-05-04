@@ -5,14 +5,7 @@ import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
 
-const VideoPlayer = ({
-  source,
-  videoPlayerRef,
-  visualEffects,
-  videoCutParams,
-  setVideoCutParams,
-  canvasRef
-}) => {
+const VideoPlayer = ({ source, videoPlayerRef, visualEffects, videoCutParams, setVideoCutParams, canvasRef }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
@@ -22,17 +15,13 @@ const VideoPlayer = ({
   const [videoDuration, setVideoDuration] = useState(null);
   const [videoFrames, setVideoFrames] = useState([]);
 
-  const onSeek = e => {
-    videoPlayerRef.current.currentTime =
-      (videoPlayerRef.current.duration * +e.target.value) / 100;
+  const onSeek = (e) => {
+    videoPlayerRef.current.currentTime = (videoPlayerRef.current.duration * +e.target.value) / 100;
     setPlaying(true);
   };
 
   const onTimeUpdate = () => {
-    setProgress(
-      (videoPlayerRef.current.currentTime / videoPlayerRef.current.duration) *
-        100
-    );
+    setProgress((videoPlayerRef.current.currentTime / videoPlayerRef.current.duration) * 100);
   };
   const videoEnded = () => {
     setPlaying(false);
@@ -78,21 +67,18 @@ const VideoPlayer = ({
     // eslint-disable-next-line
   }, []);
 
-  const onBorderDragStart = e => {
+  const onBorderDragStart = (e) => {
     setDragbbleCutBorder(e.target.id);
   };
 
-  const onBorderDrag = e => {
-    const percent = Math.round(
-      (e.offsetX / inputRange.current.clientWidth) * 100
-    );
+  const onBorderDrag = (e) => {
+    const percent = Math.round((e.offsetX / inputRange.current.clientWidth) * 100);
     const time = (videoPlayerRef.current.duration * percent) / 100;
     if (
-      (dragbbleCutBorder === "from" &&
-        videoCutParams.to.percent - percent > 1) ||
+      (dragbbleCutBorder === "from" && videoCutParams.to.percent - percent > 1) ||
       (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 1)
     )
-      setVideoCutParams(prev => ({
+      setVideoCutParams((prev) => ({
         ...prev,
         [dragbbleCutBorder]: {
           percent,
@@ -117,7 +103,7 @@ const VideoPlayer = ({
           canvas.width = width;
           const context = canvas.getContext("2d");
           context.drawImage(video, 0, 0, width, height);
-          setVideoFrames(prev => [...prev, canvas.toDataURL("image/png")]);
+          setVideoFrames((prev) => [...prev, canvas.toDataURL("image/png")]);
         }, 500 * i);
       }
       video.pause();
@@ -131,14 +117,14 @@ const VideoPlayer = ({
       inputRange.current.addEventListener("mousemove", onBorderDrag);
       return () => {
         inputRange.current.style.cursor = "default";
-        inputRange.current.removeEventListener("mousemove", onBorderDrag);
+        inputRange.current.removeEventListener("mousemove", onBorderDrag); // eslint-disable-line
       };
     }
-  }, [dragbbleCutBorder]);
+  }, [dragbbleCutBorder]); // eslint-disable-line
 
   useEffect(() => {
     if (videoCutParams) {
-      setVideoCutParams(prev => ({
+      setVideoCutParams((prev) => ({
         ...prev,
         to: {
           percent: 100,
@@ -146,31 +132,21 @@ const VideoPlayer = ({
         }
       }));
     }
-  }, [videoDuration]);
+  }, [videoDuration]); // eslint-disable-line
 
   useEffect(() => {
-    if (videoFrameRef?.current)
-      videoFrameRef.current.addEventListener("canplay", createFrames);
-  }, [videoFrameRef?.current]);
+    if (videoFrameRef?.current) videoFrameRef.current.addEventListener("canplay", createFrames);
+  }, [videoFrameRef?.current]); // eslint-disable-line
 
   return (
-    <div
-      className={styles.wrapper}
-      onMouseUp={onBorderDragEnd}
-      onMouseLeave={onBorderDragEnd}
-    >
-      <video
-        ref={videoPlayerRef}
-        src={source}
-        className={styles.video}
-        style={visualEffects}
-      />
+    <div className={styles.wrapper} onMouseUp={onBorderDragEnd} onMouseLeave={onBorderDragEnd}>
+      <video ref={videoPlayerRef} src={source} className={styles.video} style={visualEffects} />
       <div
         className={classNames({
           [styles.playButton]: true,
           [styles.paused]: playing === false
         })}
-        onClick={() => setPlaying(prevValue => !prevValue)}
+        onClick={() => setPlaying((prevValue) => !prevValue)}
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
       </div>
@@ -184,15 +160,14 @@ const VideoPlayer = ({
         >
           {videoPlayerRef.current?.duration >= 0
             ? ducationTimerToString(
-                videoCutParams?.from?.time ??
-                  (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
+                videoCutParams?.from?.time ?? (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
               )
             : ""}
         </span>
         <input
           className={styles.inputRange}
           ref={inputRange}
-          onChange={e => setProgress(e.target.value)}
+          onChange={(e) => setProgress(e.target.value)}
           onMouseDown={() => setPlaying(false)}
           onClick={onSeek}
           type="range"
@@ -204,10 +179,7 @@ const VideoPlayer = ({
           <div
             className={styles.seekHolder}
             style={{
-              transform: `translateX(${(inputRange.current?.offsetWidth *
-                progress) /
-                100 -
-                2}px)`
+              transform: `translateX(${(inputRange.current?.offsetWidth * progress) / 100 - 2}px)`
             }}
           />
         )}
@@ -247,14 +219,9 @@ const VideoPlayer = ({
         </span>
         {videoCutParams && videoDuration && (
           <div className={styles.framesWrapper}>
-            <video
-              ref={videoFrameRef}
-              style={{ display: "none" }}
-              src={source}
-              muted
-            />
+            <video ref={videoFrameRef} style={{ display: "none" }} src={source} muted />
             {videoFrames.map((frame, i) => (
-              <img src={frame} key={i} />
+              <img src={frame} alt="img" key={i} />
             ))}
           </div>
         )}

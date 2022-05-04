@@ -10,24 +10,15 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { safeProps } from "../../../../../../types/Safe";
 
-const RecoverPass = ({
-  set,
-  safe,
-  refreshPass,
-  setRefreshPass,
-  setShowSendCode,
-  setLoadingType
-}) => {
+const RecoverPass = ({ set, safe, refreshPass, setRefreshPass, setShowSendCode, setLoadingType }) => {
   const { __ } = useLocales();
-  const uid = useSelector(state => state.user.uid);
-  const userInfo = useSelector(state => state.user.userInfo);
+  const uid = useSelector((state) => state.user.uid);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [selectData, setSelectData] = useState([]);
   const [sentCodeto, setSentCodeto] = useState(selectData[0]?.id);
   useEffect(() => {
-    if (userInfo?.email)
-      setSelectData(data => [...data, { text: __("Email"), id: "email" }]);
-    if (userInfo?.tel)
-      setSelectData(data => [...data, { text: __("Телефон"), id: "tel" }]);
+    if (userInfo?.email) setSelectData((data) => [...data, { text: __("Email"), id: "email" }]);
+    if (userInfo?.tel) setSelectData((data) => [...data, { text: __("Телефон"), id: "tel" }]);
   }, [userInfo]); //eslint-disable-line
   useEffect(() => {
     setSentCodeto(selectData[0]?.id);
@@ -36,16 +27,14 @@ const RecoverPass = ({
   const recoverStage1 = () => {
     setLoadingType("squarify");
     api
-      .get(
-        `/ajax/safe_pass_restore1.php?uid=${uid}&id_safe=${safe.id}&send_to=${sentCodeto}`
-      )
-      .then(res => {
+      .get(`/ajax/safe_pass_restore1.php?uid=${uid}&id_safe=${safe.id}&send_to=${sentCodeto}`)
+      .then((res) => {
         if (res.data.ok) {
           setShowSendCode(true);
           set({ show: false, active: true });
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
   return (
@@ -55,9 +44,7 @@ const RecoverPass = ({
           <div className={styles.wrapper}>
             <div className={styles.top}>
               <div className={styles.closeWrap}>
-                <div
-                  className={styles.close}
-                  onClick={() => set({ show: false, active: false })}>
+                <div className={styles.close} onClick={() => set({ show: false, active: false })}>
                   <span className={styles.times} />
                 </div>
               </div>
@@ -86,17 +73,14 @@ const RecoverPass = ({
                     setSelectData={setSelectData}
                     data={selectData}
                     initValue={sentCodeto}
-                    onChange={value => setSentCodeto(value)}
+                    onChange={(value) => setSentCodeto(value)}
                     placeholder={selectData[0]?.text}
                   />
                 </div>
               </div>
 
               <div className={styles.actionBlock}>
-                <Button
-                  type="submit"
-                  className={styles.submitBtn}
-                  onClick={recoverStage1}>
+                <Button type="submit" className={styles.submitBtn} onClick={recoverStage1}>
                   {__("Отправить")}
                 </Button>
               </div>

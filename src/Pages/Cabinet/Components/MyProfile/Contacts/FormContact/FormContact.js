@@ -23,7 +23,7 @@ import PropTypes from "prop-types";
 const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
   const [formChanged, setFormChanged] = useState(true);
   const [blur, setBlur] = useState({});
@@ -46,7 +46,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
   const formRef = useRef();
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -75,12 +75,12 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     setSubmitErrors({});
   };
 
-  const onBlurHandler = event => {
+  const onBlurHandler = (event) => {
     const { name } = event.target;
     setBlur({ ...blur, [name]: true });
   };
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value, name } = event.target;
 
     if (!isCorrectData(value, name, fields, ["name"])) {
@@ -93,9 +93,9 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     setFields({ ...fields, [name]: value });
   };
 
-  const filterArray = array => {
+  const filterArray = (array) => {
     const result = [];
-    array.forEach(item => {
+    array.forEach((item) => {
       let isBool = !!item;
       if (isBool) {
         result.push(item);
@@ -104,7 +104,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     return result;
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (formChanged && formIsValid(fields, setSubmitErrors, ["name"])) {
@@ -125,16 +125,15 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
           set(false);
           type !== "edit" && setPageOption("ContactsAll");
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
   };
 
-  const isMistake = name =>
-    (errors?.[name] && blur?.[name]) || submitErrors?.[name];
+  const isMistake = (name) => (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
-  const setDateValue = dateValue => {
+  const setDateValue = (dateValue) => {
     setFields({ ...fields, bdate: dateValue });
   };
 
@@ -147,7 +146,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
         noValidate
         onSubmit={onSubmit}
         onChange={() => setFormChanged(true)}
-        className={styles.wrapper}>
+        className={styles.wrapper}
+      >
         <div className={styles.top}>
           <span className={styles.close} onClick={() => set(false)}>
             <span className={styles.times} />
@@ -156,17 +156,9 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
         <div className={styles.content}>
           <div className={styles.header}>
-            <p className={styles.title}>
-              {type === "edit"
-                ? __("Редактировать контакт")
-                : __("Добавить контакт")}
-            </p>
+            <p className={styles.title}>{type === "edit" ? __("Редактировать контакт") : __("Добавить контакт")}</p>
             <div className={styles.uploadBlock}>
-              <ProfileUpload
-                name="profileImg"
-                preview={preview}
-                onChange={uploadImage}
-              />
+              <ProfileUpload name="profileImg" preview={preview} onChange={uploadImage} />
             </div>
           </div>
 
@@ -177,7 +169,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                   className={classnames({
                     [styles.info]: true,
                     [styles.errorInfo]: isMistake("name")
-                  })}>
+                  })}
+                >
                   {__("Имя:")}
                 </span>
                 <Input
@@ -197,7 +190,8 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                   className={classnames({
                     [styles.info]: true,
                     [styles.errorInfo]: isMistake("sname")
-                  })}>
+                  })}
+                >
                   {__("Фамилия:")}
                 </span>
                 <Input
@@ -235,14 +229,12 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                       }}
                       className={styles.minusBtn}
                     />
-                    <span className={styles.info}>
-                      {__("Введите номер телефона:")}
-                    </span>
+                    <span className={styles.info}>{__("Введите номер телефона:")}</span>
                   </div>
                   <Input
                     phone={true}
                     //name={`number-${index}`}
-                    onChange={event => {
+                    onChange={(event) => {
                       numbers[index] = event.target.value;
                       setNumbers([...numbers]);
                     }}
@@ -256,15 +248,10 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                   [styles.formBlock]: true,
                   [styles.clickable]: true
                 })}
-                onClick={() => setNumbers([...numbers, ""])}>
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
-                <span className={styles.info}>
-                  {__("Добавить номер телефона:")}
-                </span>
+                onClick={() => setNumbers([...numbers, ""])}
+              >
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
+                <span className={styles.info}>{__("Добавить номер телефона:")}</span>
               </div>
             </div>
 
@@ -281,7 +268,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                   <span className={styles.info}>{__("Введите @mail:")}</span>
                   <Input
                     type="email"
-                    onChange={event => {
+                    onChange={(event) => {
                       mails[index] = event.target.value;
                       setMails([...mails]);
                     }}
@@ -295,30 +282,18 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                   [styles.formBlock]: true,
                   [styles.clickable]: true
                 })}
-                onClick={() => setMails([...mails, ""])}>
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
+                onClick={() => setMails([...mails, ""])}
+              >
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
                 <span className={styles.info}>{__("Добавить @mail:")}</span>
               </div>
             </div>
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить день рождения:")}
-                </span>
-                <Input
-                  name="bdate"
-                  onChange={onChangeHandler}
-                  value={fields?.bdate || ""}
-                  className={styles.input}
-                />
-                <div
-                  onClick={() => setShowCalendar(true)}
-                  className={styles.icon}>
+                <span className={styles.info}>{__("Добавить день рождения:")}</span>
+                <Input name="bdate" onChange={onChangeHandler} value={fields?.bdate || ""} className={styles.input} />
+                <div onClick={() => setShowCalendar(true)} className={styles.icon}>
                   <img src={calendarImage} alt="Calendar" />
                 </div>
               </div>
@@ -332,11 +307,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                     (item, index) =>
                       !!item.link && (
                         <li key={index}>
-                          <img
-                            src={socialsIcons[item.type]}
-                            alt={item.type}
-                            className={styles.socialsImg}
-                          />
+                          <img src={socialsIcons[item.type]} alt={item.type} className={styles.socialsImg} />
                         </li>
                       )
                   )}
@@ -349,19 +320,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить мессенджеры:")}
-                </span>
+                <span className={styles.info}>{__("Добавить мессенджеры:")}</span>
                 <ul className={styles.socialsList}>
                   {messengers.map(
                     (item, index) =>
                       !!item.link && (
                         <li key={index}>
-                          <img
-                            src={messengersIcons[item.type]}
-                            alt={item.type}
-                            className={styles.socialsImg}
-                          />
+                          <img src={messengersIcons[item.type]} alt={item.type} className={styles.socialsImg} />
                         </li>
                       )
                   )}
@@ -393,30 +358,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
         </div>
       </form>
 
-      {socPopup && (
-        <AddSocials
-          type="soc"
-          values={socials}
-          setValues={setSocials}
-          set={setSocPopup}
-        />
-      )}
+      {socPopup && <AddSocials type="soc" values={socials} setValues={setSocials} set={setSocPopup} />}
 
-      {messPopup && (
-        <AddSocials
-          values={messengers}
-          setValues={setMessengers}
-          set={setMessPopup}
-        />
-      )}
+      {messPopup && <AddSocials values={messengers} setValues={setMessengers} set={setMessPopup} />}
 
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar
-            datePicker={true}
-            setShowCalendar={setShowCalendar}
-            setDateValue={setDateValue}
-          />
+          <Calendar datePicker={true} setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
     </PopUp>

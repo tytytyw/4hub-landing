@@ -19,9 +19,7 @@ const ConnectedContacts = ({
   getConnectedContacts
 }) => {
   const { __ } = useLocales();
-  const connectedContacts = useSelector(
-    state => state.Cabinet.connectedContacts
-  );
+  const connectedContacts = useSelector((state) => state.Cabinet.connectedContacts);
   const [collapse, setCollapse] = useState(true);
 
   const renderContacts = () => {
@@ -45,17 +43,17 @@ const ConnectedContacts = ({
         [styles.wrapper]: true,
         [styles.hidden]: collapse,
         [styles.loadingFailed]: loadingFailed
-      })}>
+      })}
+    >
       <div
         className={classNames({
           [styles.titleWrap]: true,
           [styles.titleCollapsed]: !!listCollapsed,
           [styles.titleWrapChosen]: !!collapse
         })}
-        onClick={() => setCollapse(!collapse)}>
-        <span
-          title={listCollapsed ? __("Подключенные пользователи") : ""}
-          className={styles.title}>
+        onClick={() => setCollapse(!collapse)}
+      >
+        <span title={listCollapsed ? __("Подключенные пользователи") : ""} className={styles.title}>
           Подключенные пользователи
         </span>
         <PlayIcon
@@ -69,14 +67,16 @@ const ConnectedContacts = ({
       <div
         className={classNames({
           [styles.innerContacts]: true
-        })}>
+        })}
+      >
         {connectedContactsListLoading ? (
           <div
             style={{
               height: "54px",
               position: "relative",
               overflow: "hidden"
-            }}>
+            }}
+          >
             <Loader
               type="bounceDots"
               position="absolute"
@@ -88,9 +88,7 @@ const ConnectedContacts = ({
             />
           </div>
         ) : null}
-        {loadingFailed
-          ? collapse && <LoadingFailed callback={getConnectedContacts} />
-          : null}
+        {loadingFailed ? collapse && <LoadingFailed callback={getConnectedContacts} /> : null}
 
         {collapse && renderContacts()}
 

@@ -14,17 +14,11 @@ const General = ({ folder }) => {
       <div className={styles.nameBlock}>
         <div className={styles.folderWrap}>
           <FolderIcon
-            className={`${styles.folderWrap} ${
-              colors.filter(el => el.color === folder.info.color)[0]?.name
-            }`}
+            className={`${styles.folderWrap} ${colors.filter((el) => el.color === folder.info.color)[0]?.name}`}
           />
         </div>
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={folder.info.name}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={folder.info.name} disabled={true} />
         </div>
       </div>
       <div className={styles.typeBlock}>

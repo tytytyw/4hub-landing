@@ -22,10 +22,7 @@ import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import {
-  filePreviewProps,
-  filePickProps
-} from "../../../../../types/WorkElements";
+import { filePreviewProps, filePickProps } from "../../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 import { actionProps } from "../../../../../types/Action";
 
@@ -56,11 +53,9 @@ const WorkSpace = ({
   gLoader
 }) => {
   const { __ } = useLocales();
-  const workElementsView = useSelector(state => state.Cabinet.view);
-  const size = useSelector(state => state.Cabinet.size);
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
+  const workElementsView = useSelector((state) => state.Cabinet.view);
+  const size = useSelector((state) => state.Cabinet.size);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
   const [mouseParams, setMouseParams] = useState(null);
 
@@ -69,7 +64,7 @@ const WorkSpace = ({
   const fileRef = useRef(null);
 
   // Types of Files view
-  const renderFiles = Type => {
+  const renderFiles = (Type) => {
     if (!fileList?.files) return null;
     return fileList.files.map((file, i) => {
       return (
@@ -78,9 +73,7 @@ const WorkSpace = ({
           file={file}
           setChosenFile={setChosenFile}
           chosen={
-            filePick.show
-              ? filePick.files.findIndex(el => el === file.fid) >= 0
-              : chosenFile?.fid === file?.fid
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
           }
           chosenFile={chosenFile}
           setMouseParams={setMouseParams}
@@ -111,7 +104,8 @@ const WorkSpace = ({
           [styles.workSpaceWrap]: true,
           [styles.workSpaceWrapCollapsed]: !!listCollapsed,
           [styles.workSpaceWrapUncollapsed]: !listCollapsed
-        })}>
+        })}
+      >
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div></div>
@@ -124,9 +118,7 @@ const WorkSpace = ({
         <ServePanel
           chosenFile={chosenFile}
           setAction={setAction}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -142,7 +134,8 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}>
+            gLoader={gLoader}
+          >
             {renderFiles(FileBar)}
           </WorkBars>
         )}
@@ -157,7 +150,8 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}>
+            gLoader={gLoader}
+          >
             {renderFiles(FileLine)}
           </WorkLines>
         )}
@@ -173,7 +167,8 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}>
+            gLoader={gLoader}
+          >
             {renderFiles(FileBar)}
           </WorkBarsPreview>
         )}
@@ -189,7 +184,8 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}>
+            gLoader={gLoader}
+          >
             {renderFiles(FileLineShort)}
           </WorkLinesPreview>
         )}
@@ -198,9 +194,7 @@ const WorkSpace = ({
           <OptionButtomLine
             filePick={filePick}
             setFilePick={setFilePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}
@@ -211,10 +205,7 @@ const WorkSpace = ({
       </div>
 
       {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -226,14 +217,10 @@ const WorkSpace = ({
         </ContextMenu>
       ) : null}
 
-      {action.type === "customize" ||
-      filePick.customize ||
-      fileAddCustomization.several ? (
+      {action.type === "customize" || filePick.customize || fileAddCustomization.several ? (
         <CustomizeFile
           title={
-            filePick.customize || fileAddCustomization?.several
-              ? __(`Редактировать выбранные файлы`)
-              : action.name
+            filePick.customize || fileAddCustomization?.several ? __(`Редактировать выбранные файлы`) : action.name
           }
           file={chosenFile}
           close={

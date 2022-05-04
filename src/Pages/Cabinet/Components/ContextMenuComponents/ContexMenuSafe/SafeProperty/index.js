@@ -19,24 +19,21 @@ const SafeProperty = ({ close, safe }) => {
         <span className={styles.title}>Свойства: {safe?.name}</span>
         <div className={styles.insetWrap}>
           <div
-            className={`${styles.inset} ${
-              inset === "general" ? styles.chosen : null
-            }`}
-            onClick={() => setInset("general")}>
+            className={`${styles.inset} ${inset === "general" ? styles.chosen : null}`}
+            onClick={() => setInset("general")}
+          >
             Общие
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "security" ? styles.chosen : null
-            }`}
-            onClick={() => setInset("security")}>
+            className={`${styles.inset} ${inset === "security" ? styles.chosen : null}`}
+            onClick={() => setInset("security")}
+          >
             Доступы
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "prev" ? styles.chosen : null
-            }`}
-            onClick={() => setInset("prev")}>
+            className={`${styles.inset} ${inset === "prev" ? styles.chosen : null}`}
+            onClick={() => setInset("prev")}
+          >
             Предыдущие версии
           </div>
         </div>

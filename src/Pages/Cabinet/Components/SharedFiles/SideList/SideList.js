@@ -5,7 +5,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 
 function SideList({ children }) {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   return (
     <div

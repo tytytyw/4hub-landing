@@ -18,17 +18,15 @@ function UserInfo({ selectedItem, setAction }) {
     return array.map((value, index) => {
       return (
         <div className={styles.inputWrap} key={type + index}>
-          <div className={styles.iconWrap}>
-            {type === "phone" ? <PhoneIcon /> : <MailIcon />}
-          </div>
+          <div className={styles.iconWrap}>{type === "phone" ? <PhoneIcon /> : <MailIcon />}</div>
           <input readOnly className={styles.input} value={value} />
         </div>
       );
     });
   };
-  const renderSocialItem = array => {
+  const renderSocialItem = (array) => {
     if (!array) return null;
-    return array.map(item => {
+    return array.map((item) => {
       if (item.type === "skype") item.type = "skype-2";
       return (
         <div className={styles.inputWrap} key={item.type}>
@@ -53,10 +51,7 @@ function UserInfo({ selectedItem, setAction }) {
         <div className={styles.avatar}>
           <img
             className={styles.picture}
-            src={
-              selectedItem?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            src={selectedItem?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             alt="avatar"
           />
         </div>
@@ -65,11 +60,7 @@ function UserInfo({ selectedItem, setAction }) {
             <ShareIcon className={styles.iconShare} />
           </div>
 
-          <div
-            className={styles.iconView}
-            onClick={() =>
-              setAction({ type: "editContact", name: "", text: "" })
-            }>
+          <div className={styles.iconView} onClick={() => setAction({ type: "editContact", name: "", text: "" })}>
             <EditIcon className={styles.iconShare} />
           </div>
 
@@ -79,11 +70,10 @@ function UserInfo({ selectedItem, setAction }) {
               setAction({
                 type: "deleteContact",
                 name: __("Удаление контакта"),
-                text: __(
-                  `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`
-                )
+                text: __(`Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`)
               })
-            }>
+            }
+          >
             <DeleteIcon height={17} className={styles.iconTrash} />
           </div>
         </div>

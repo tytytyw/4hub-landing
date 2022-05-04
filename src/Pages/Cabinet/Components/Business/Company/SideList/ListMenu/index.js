@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const ListMenu = ({ menuData = [], page, setPage, setPageOption }) => {
   const renderItems = (data, isSub = false) => {
-    return data.map(item => (
+    return data.map((item) => (
       <ListItem
         page={page}
         setPage={setPage}

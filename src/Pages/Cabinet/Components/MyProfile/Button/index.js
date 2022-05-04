@@ -4,13 +4,7 @@ import styles from "./Button.module.sass";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const Button = ({
-  children,
-  type = "button",
-  disabled = false,
-  className,
-  onClick = () => {}
-}) => {
+const Button = ({ children, type = "button", disabled = false, className, onClick = () => {} }) => {
   return (
     <button
       type={type}
@@ -19,7 +13,8 @@ const Button = ({
         [styles.button]: true,
         [className]: true
       })}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {children}
     </button>
   );

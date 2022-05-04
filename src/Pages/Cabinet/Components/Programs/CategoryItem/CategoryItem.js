@@ -17,31 +17,22 @@ const CategoryItem = ({ category, listCollapsed, listSize, chosen }) => {
         [styles.innerFolderWrap]: true,
         [styles.active]: chosen
       })}
-      onClick={onClickHandler}>
+      onClick={onClickHandler}
+    >
       <div
         className={classNames({
           [styles.innerFolder]: true,
           [styles?.[`innerFolder_${listSize}`]]: !!listSize
-        })}>
+        })}
+      >
         <div className={styles.innerFolderName}>
           {category?.image ? (
-            <img
-              src={category.image}
-              alt="icon"
-              className={styles.innerFolderIcon}
-            />
+            <img src={category.image} alt="icon" className={styles.innerFolderIcon} />
           ) : (
-            <FolderIcon
-              fill={category?.color}
-              className={styles.innerFolderIcon}
-            />
+            <FolderIcon fill={category?.color} className={styles.innerFolderIcon} />
           )}
           <div className={styles.nameWrap}>
-            <div className={styles.Name}>
-              {!listCollapsed && (
-                <div className={styles.name}>{category.name}</div>
-              )}
-            </div>
+            <div className={styles.Name}>{!listCollapsed && <div className={styles.name}>{category.name}</div>}</div>
           </div>
         </div>
         <div className={styles.innerFolderMedia}>({category.list.length})</div>

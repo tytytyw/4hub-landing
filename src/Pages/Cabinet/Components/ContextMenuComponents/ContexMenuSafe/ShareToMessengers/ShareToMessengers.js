@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
   //TODO: add safe link
   const safe_link = `http://fs2.mh.net.ua`;
-  const HrefSocial = selectedSoc => {
+  const HrefSocial = (selectedSoc) => {
     switch (selectedSoc) {
       case "email":
         return `mailto:${user_to}?body=${safe_link}`;
@@ -54,19 +54,14 @@ const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
             className={classNames({
               [styles.socialsItem]: true
             })}
-            key={index}>
+            key={index}
+          >
             <a target="_blanck" href={HrefSocial(item?.type)}>
-              <img
-                className={styles.socialIcon}
-                src={item.icon}
-                alt={item.label}
-              />
+              <img className={styles.socialIcon} src={item.icon} alt={item.label} />
             </a>
           </li>
         ))}
-        <span
-          className={styles.close}
-          onClick={() => setDisplayMessengers(false)}>
+        <span className={styles.close} onClick={() => setDisplayMessengers(false)}>
           <span className={styles.times} />
         </span>
       </div>

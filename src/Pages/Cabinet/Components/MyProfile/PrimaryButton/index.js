@@ -10,7 +10,8 @@ const PrimaryButton = ({ onClick, active, ...props }) => (
     className={classnames({
       [styles.button]: true,
       [styles.active]: active
-    })}>
+    })}
+  >
     {props.text}
     {props.icon && <span className={styles.buttonIcon}>{props.icon}</span>}
   </button>

@@ -8,42 +8,19 @@ import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
 import { useLocales } from "react-localized";
-
-let requiredInputs = [
-  "surname",
-  "name",
-  "middle_name",
-  "phone",
-  "email",
-  "password",
-  "password_r"
-];
-
 import PropTypes from "prop-types";
 
-const AdminForm = ({
-  mainFields,
-  setMainFields,
-  setStep,
-  compare,
-  setCompare,
-  setLoadingType
-}) => {
+let requiredInputs = ["surname", "name", "middle_name", "phone", "email", "password", "password_r"];
+
+const AdminForm = ({ mainFields, setMainFields, setStep, compare, setCompare, setLoadingType }) => {
   const [checkPhone, setCheckPhone] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [confirmPass, setConfirmPass] = useState(true);
   const [showPass, setShowPass] = useState(false);
   const [disablePass, setDisablePass] = useState(false);
-  const id_company = useSelector(state => state.user.userInfo.id_company);
+  const id_company = useSelector((state) => state.user.userInfo.id_company);
   const { __ } = useLocales();
-  const {
-    fields,
-    setFields,
-    errors,
-    onChange,
-    checkErrors,
-    blurs
-  } = useValidateForm({ admin: 1 }, requiredInputs);
+  const { fields, setFields, errors, onChange, checkErrors, blurs } = useValidateForm({ admin: 1 }, requiredInputs);
 
   useEffect(() => {
     if (mainFields?.admin) {
@@ -54,24 +31,16 @@ const AdminForm = ({
   useEffect(() => {
     setDisablePass(!fields.admin);
     !fields.admin
-      ? (requiredInputs = requiredInputs.filter(
-          item => !item.includes("password")
-        ))
+      ? (requiredInputs = requiredInputs.filter((item) => !item.includes("password")))
       : requiredInputs.push("password", "password_r");
   }, [fields.admin]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    if (
-      checkErrors() &&
-      (confirmPass || disablePass) &&
-      checkEmail &&
-      checkPhone
-    ) {
+    if (checkErrors() && (confirmPass || disablePass) && checkEmail && checkPhone) {
       setLoadingType("squarify");
-      setMainFields(prev => ({ ...prev, admin: fields }));
-      const sentPass = () =>
-        disablePass ? "" : `&pass=${getValue("password")}`;
+      setMainFields((prev) => ({ ...prev, admin: fields }));
+      const sentPass = () => (disablePass ? "" : `&pass=${getValue("password")}`);
 
       api
         .get(
@@ -80,12 +49,12 @@ const AdminForm = ({
 				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}
 				${sentPass()}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             setStep("complete");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => setLoadingType(""));
@@ -97,14 +66,11 @@ const AdminForm = ({
     setStep("main");
   };
 
-  const getValue = name => fields?.[name] || "";
+  const getValue = (name) => fields?.[name] || "";
 
-  const isPhone = () =>
-    (errors.includes("phone") || !checkPhone) && blurs.includes("phone");
-  const isEmail = () =>
-    (errors.includes("email") || !checkEmail) && blurs.includes("email");
-  const isConfirmPass = () =>
-    (errors.includes("password_r") || !confirmPass) && blurs.includes("email");
+  const isPhone = () => (errors.includes("phone") || !checkPhone) && blurs.includes("phone");
+  const isEmail = () => (errors.includes("email") || !checkEmail) && blurs.includes("email");
+  const isConfirmPass = () => (errors.includes("password_r") || !confirmPass) && blurs.includes("email");
 
   return (
     <div className={styles.formWrap}>
@@ -114,14 +80,12 @@ const AdminForm = ({
         <div className={styles.formItem}>
           <label className={styles.label}>
             {__("Передача прав Администратора")}
-            {requiredInputs.includes("admin") && (
-              <span className={styles.required}>*</span>
-            )}
+            {requiredInputs.includes("admin") && <span className={styles.required}>*</span>}
           </label>
           <AdminSelect
             initValue={getValue("admin")}
             error={errors?.includes("admin")}
-            onSelect={value => onChange(value, "admin")}
+            onSelect={(value) => onChange(value, "admin")}
             data={[
               {
                 id: 1,
@@ -153,7 +117,7 @@ const AdminForm = ({
               placeholder={__("Фамилия")}
               name="surname"
               value={getValue("surname")}
-              onChange={e => onChange(e.target.value, "surname")}
+              onChange={(e) => onChange(e.target.value, "surname")}
             />
           </div>
 
@@ -166,7 +130,7 @@ const AdminForm = ({
               placeholder={__("Имя")}
               name="name"
               value={getValue("name")}
-              onChange={e => onChange(e.target.value, "name")}
+              onChange={(e) => onChange(e.target.value, "name")}
             />
           </div>
 
@@ -179,7 +143,7 @@ const AdminForm = ({
               placeholder={__("Отчество")}
               name="middle_name"
               value={getValue("middle_name")}
-              onChange={e => onChange(e.target.value, "middle_name")}
+              onChange={(e) => onChange(e.target.value, "middle_name")}
             />
           </div>
         </div>
@@ -194,7 +158,7 @@ const AdminForm = ({
             placeholder={__("Телефон")}
             name="phone"
             value={getValue("phone")}
-            onChange={e => {
+            onChange={(e) => {
               const phone = e.target.value;
               setCheckPhone(phone?.length === 18);
               onChange(phone, "phone");
@@ -211,7 +175,7 @@ const AdminForm = ({
             placeholder={__("Email")}
             name="email"
             value={getValue("email")}
-            onChange={e => {
+            onChange={(e) => {
               const email = e.target.value;
               setCheckEmail(validateEmail(email));
               onChange(email, "email");
@@ -231,7 +195,7 @@ const AdminForm = ({
                 name="password"
                 type="password"
                 value={getValue("password")}
-                onChange={e => onChange(e.target.value, "password")}
+                onChange={(e) => onChange(e.target.value, "password")}
                 showPass={showPass}
                 setShowPass={setShowPass}
               />
@@ -247,7 +211,7 @@ const AdminForm = ({
                 name="password_r"
                 type="password"
                 value={getValue("password_r")}
-                onChange={event => {
+                onChange={(event) => {
                   const value = event.target.value;
                   setConfirmPass(value === getValue("password"));
                   onChange(value, "password_r");
@@ -262,18 +226,12 @@ const AdminForm = ({
 
         <div className={styles.agreementWrap}>
           <div className={styles.agreement}>
-            <div
-              onClick={() =>
-                setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }>
-              {compare.isAgreed && (
-                <img src="./assets/StartPage/tick.svg" alt="tick" />
-              )}
+            <div onClick={() => setCompare({ ...compare, isAgreed: !compare.isAgreed })}>
+              {compare.isAgreed && <img src="./assets/StartPage/tick.svg" alt="tick" />}
             </div>
           </div>
           <div className={styles.agreementsText}>
-            <>{__(`Я принимаю`)}</> <span> {__(`Условия использования`)}</span>{" "}
-            {__(`4Hub`)}
+            <>{__(`Я принимаю`)}</> <span> {__(`Условия использования`)}</span> {__(`4Hub`)}
             <span> {__(`Политику конфиденциальности`)} </span> {__(`и`)}
             <span>{__(`Политику интелектуальной собственности`)}</span>
           </div>
@@ -283,10 +241,7 @@ const AdminForm = ({
           <button type="button" onClick={backStep} className={styles.roundBtn}>
             <img src={arrowImg} alt="Arrow" />
           </button>
-          <button
-            disabled={!compare.isAgreed}
-            type="submit"
-            className={styles.submitBtn}>
+          <button disabled={!compare.isAgreed} type="submit" className={styles.submitBtn}>
             {__(`Сохранить и продолжить`)}
           </button>
         </div>

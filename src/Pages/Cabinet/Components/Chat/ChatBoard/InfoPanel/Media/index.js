@@ -33,7 +33,7 @@ const Media = ({ setOption }) => {
     "8.png"
   ];
 
-  const renderImages = images => {
+  const renderImages = (images) => {
     return images.map((src, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
@@ -47,7 +47,7 @@ const Media = ({ setOption }) => {
     <div className={styles.wrapper}>
       <Header setOption={setOption} title={__("Мультимедиа")} />
       <div className={styles.subOptions}>
-        {options.map(item => {
+        {options.map((item) => {
           return (
             <SubOptionButton
               name={item.name}
@@ -67,9 +67,7 @@ const Media = ({ setOption }) => {
           </div>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("04.11.2021")}</h5>
-            <div className={styles.picturesWrap}>
-              {renderImages([images[2], images[4]])}
-            </div>
+            <div className={styles.picturesWrap}>{renderImages([images[2], images[4]])}</div>
           </div>
         </div>
       ) : null}

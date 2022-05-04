@@ -14,8 +14,8 @@ import { useLocales } from "react-localized";
 
 const UserForm = () => {
   const { __ } = useLocales();
-  const user = useSelector(state => state.user.userInfo);
-  const uid = useSelector(state => state.user.uid);
+  const user = useSelector((state) => state.user.userInfo);
+  const uid = useSelector((state) => state.user.uid);
 
   const [fields, setFields] = useState(user);
 
@@ -36,7 +36,7 @@ const UserForm = () => {
   const fileInputRef = useRef();
   const formRef = useRef();
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -79,7 +79,7 @@ const UserForm = () => {
     setSubmitErrors({});
   };
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value, name } = event.target;
 
     if (!isCorrectData(value, name, fields, requiredInputs)) {
@@ -92,12 +92,12 @@ const UserForm = () => {
     setFields({ ...fields, [name]: value });
   };
 
-  const onBlurHandler = event => {
+  const onBlurHandler = (event) => {
     const { name } = event.target;
     setBlur({ ...blur, [name]: true });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
@@ -110,32 +110,21 @@ const UserForm = () => {
           setSuccess(true);
           resetForm(true);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
   };
 
-  const isMistake = name =>
-    (errors?.[name] && blur?.[name]) || submitErrors?.[name];
+  const isMistake = (name) => (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
   return (
     <div className={styles.formWrap}>
       <div className={styles.uploadBlock}>
-        <ProfileUpload
-          inputRef={fileInputRef}
-          preview={preview}
-          onChange={uploadImage}
-          disabled={!editForm}
-        />
+        <ProfileUpload inputRef={fileInputRef} preview={preview} onChange={uploadImage} disabled={!editForm} />
       </div>
 
-      <form
-        ref={formRef}
-        noValidate
-        onSubmit={onSubmit}
-        onChange={() => setFormChanged(true)}
-      >
+      <form ref={formRef} noValidate onSubmit={onSubmit} onChange={() => setFormChanged(true)}>
         <div className={styles.fields}>
           <div className={styles.row}>
             <div className={`${styles.field} ${styles.flex50}`}>
@@ -230,10 +219,7 @@ const UserForm = () => {
           <div className={styles.submitBlock}>
             {editForm && (
               <>
-                <Button
-                  className={styles.cancelBtn}
-                  onClick={() => resetForm()}
-                >
+                <Button className={styles.cancelBtn} onClick={() => resetForm()}>
                   {__("Отмена")}
                 </Button>
                 <Button type="submit" className={styles.submitBtn}>
@@ -242,10 +228,7 @@ const UserForm = () => {
               </>
             )}
             {!editForm && (
-              <Button
-                className={styles.editBtn}
-                onClick={() => setEditForm(true)}
-              >
+              <Button className={styles.editBtn} onClick={() => setEditForm(true)}>
                 {__("Редактировать")}
               </Button>
             )}
@@ -257,9 +240,7 @@ const UserForm = () => {
         <AlertPopup
           set={setSuccess}
           title={__("Данные успешно обновлены")}
-          text={__(
-            "В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения"
-          )}
+          text={__("В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения")}
           setShowCodePopup={setShowCodePopup}
           onGetUserInfo={onGetUserInfo}
         />

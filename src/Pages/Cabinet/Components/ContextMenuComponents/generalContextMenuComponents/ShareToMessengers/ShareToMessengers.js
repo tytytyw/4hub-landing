@@ -29,7 +29,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         setHrefSoc("");
       //TODO: skype, slack
     }
-  }, [selectedSoc]);
+  }, [selectedSoc]); // eslint-disable-line
 
   return (
     <PopUp set={setDisplayMessengers}>
@@ -43,9 +43,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         </div>
         <div className={styles.border} />
         <span className={styles.aboutInfo}>
-          {__(
-            "При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве"
-          )}
+          {__("При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве")}
         </span>
         <div className={styles.socials}>
           {messengersData.map((item, index) => {
@@ -58,12 +56,9 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
                     [styles.socialsItem]: true,
                     [styles.active]: selectedSoc === item?.type
                   })}
-                  key={index}>
-                  <img
-                    className={styles.socialIcon}
-                    src={item.icon}
-                    alt={item.label}
-                  />
+                  key={index}
+                >
+                  <img className={styles.socialIcon} src={item.icon} alt={item.label} />
                   <p>{item.label}</p>
                 </li>
               );
@@ -71,9 +66,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         </div>
 
         <div className={styles.actionBlock}>
-          <Button
-            onClick={() => setDisplayMessengers(false)}
-            className={styles.backBtn}>
+          <Button onClick={() => setDisplayMessengers(false)} className={styles.backBtn}>
             {__("Назад")}
           </Button>
           <a target="_blank" rel="noreferrer" href={hrefSoc}>

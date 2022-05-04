@@ -29,10 +29,7 @@ import Emoji from "../../../generalComponents/Elements/Emoji";
 import ContextMenuItem from "../../../generalComponents/ContextMenu/ContextMenuItem";
 import { onSetWorkElementsView } from "../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../generalComponents/ContextMenu";
-import {
-  useContextMenuCreateFile,
-  useContextMenuFilters
-} from "../../../generalComponents/collections";
+import { useContextMenuCreateFile, useContextMenuFilters } from "../../../generalComponents/collections";
 import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -58,13 +55,13 @@ const ServePanel = ({
   const [typeContext, setTypeContext] = useState("");
   const filterRef = useRef();
   const createRef = useRef();
-  const size = useSelector(state => state.Cabinet.size);
-  const view = useSelector(state => state.Cabinet.view);
-  const search = useSelector(state => state.Cabinet.search);
-  const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const size = useSelector((state) => state.Cabinet.size);
+  const view = useSelector((state) => state.Cabinet.view);
+  const search = useSelector((state) => state.Cabinet.search);
+  const fileCriterion = useSelector((state) => state.Cabinet.fileCriterion);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const dispatch = useDispatch();
-  const changeSize = s => {
+  const changeSize = (s) => {
     const sizes = ["small", "medium", "big"];
     if (s === sizes[sizes.length - 1]) return sizes[0];
     return sizes[sizes.indexOf(s) + 1];
@@ -77,12 +74,12 @@ const ServePanel = ({
     setTypeContext(type);
   };
 
-  const setFilter = sorting => {
+  const setFilter = (sorting) => {
     dispatch(onSortFile(sorting));
     dispatch(onChooseFiles(fileList.path, search, 1, "", ""));
   };
 
-  const createFile = ext => {
+  const createFile = (ext) => {
     const file = {
       file: { name: `No Name.${ext}`, size: 0 },
       options: {}
@@ -120,44 +117,31 @@ const ServePanel = ({
   const renderSortingItems = (target, callback) =>
     target.map((item, i) => {
       return (
-        <div
-          onClick={() => callback(item.ext)}
-          className={styles.contextSortingItem}
-          key={i}>
+        <div onClick={() => callback(item.ext)} className={styles.contextSortingItem} key={i}>
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/check.svg`}
-                alt="check"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />
             ) : null}
           </div>
-          <div>
-            {fileCriterion.reverse[item.ext] ? item.reverseName : item.name}
-          </div>
+          <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
           {item.ext === "byName" ? (
-            <div
-              className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
-                alt="img"
-              />
+            <div className={styles.switch} onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
             </div>
           ) : null}
         </div>
       );
     });
 
-  const setFigure = value => {
+  const setFigure = (value) => {
     dispatch(onChangeFilterFigure(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
-  const setColor = value => {
+  const setColor = (value) => {
     dispatch(onChangeFilterColor(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
-  const setEmoji = value => {
+  const setEmoji = (value) => {
     dispatch(onChangeFilterEmoji(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
@@ -169,34 +153,26 @@ const ServePanel = ({
           <div className={styles.viewPanel}>
             <div
               onClick={() => dispatch(onSetWorkElementsView("bars"))}
-              className={`${
-                view === "bars" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              className={`${view === "bars" ? styles.iconViewChosen : styles.iconView}`}
+            >
               <BarsIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("lines"))}
-              className={`${
-                view === "lines" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              className={`${view === "lines" ? styles.iconViewChosen : styles.iconView}`}
+            >
               <LinesIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("preview"))}
-              className={`${
-                view === "preview" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              className={`${view === "preview" ? styles.iconViewChosen : styles.iconView}`}
+            >
               <PreviewIcon />
             </div>
             <div
-              onClick={() =>
-                dispatch(onSetWorkElementsView("workLinesPreview"))
-              }
-              className={`${
-                view === "workLinesPreview"
-                  ? styles.iconViewChosen
-                  : styles.iconView
-              }`}>
+              onClick={() => dispatch(onSetWorkElementsView("workLinesPreview"))}
+              className={`${view === "workLinesPreview" ? styles.iconViewChosen : styles.iconView}`}
+            >
               <VerticalLinesIcon />
             </div>
           </div>
@@ -210,52 +186,36 @@ const ServePanel = ({
                             ${size === "small" ? styles.samllSize : null} 
                             ${size === "medium" ? styles.mediumSize : null} 
                             ${size === "big" ? styles.bigSize : null} 
-                        `}>
+                        `}
+          >
             <FileSize className={styles.iconSVG} />
           </div>
-          <div
-            ref={filterRef}
-            className={styles.iconView}
-            onClick={e => openContextMenu(e, "filter")}>
+          <div ref={filterRef} className={styles.iconView} onClick={(e) => openContextMenu(e, "filter")}>
             <MenuIcon className={styles.iconSVG} />
             <div />
           </div>
-          <span
-            className={
-              filePick?.show ? styles.chooseButtonActive : styles.chooseButton
-            }
-            onClick={chooseSeveral}>
+          <span className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton} onClick={chooseSeveral}>
             {__("Выбрать")}
           </span>
 
           {addFile && (
-            <div
-              onClick={() => addFile()}
-              className={classNames(styles.iconView, styles.addIcon)}>
+            <div onClick={() => addFile()} className={classNames(styles.iconView, styles.addIcon)}>
               <AddFileIcon className={styles.iconSVG} />
             </div>
           )}
 
           {addFolder && (
-            <div
-              onClick={() => addFolder(true)}
-              className={classNames(styles.iconView, styles.addIcon)}>
+            <div onClick={() => addFolder(true)} className={classNames(styles.iconView, styles.addIcon)}>
               <AddFolderIcon className={styles.iconSVG} />
             </div>
           )}
 
           <div className={classNames(styles.iconViewAF)}>
-            <img
-              src={imageSrc + "assets/PrivateCabinet/file-plus.svg"}
-              alt="File plus"
-            />
+            <img src={imageSrc + "assets/PrivateCabinet/file-plus.svg"} alt="File plus" />
           </div>
 
           <div className={classNames(styles.iconViewAF)}>
-            <img
-              src={imageSrc + "assets/PrivateCabinet/folder-plus.svg"}
-              alt="File plus"
-            />
+            <img src={imageSrc + "assets/PrivateCabinet/folder-plus.svg"} alt="File plus" />
           </div>
 
           <div className={styles.infoBlock}>
@@ -270,7 +230,8 @@ const ServePanel = ({
               className={styles.iconView}
               onClick={() => {
                 if (chosenFile) share();
-              }}>
+              }}
+            >
               <ShareIcon className={styles.iconShare} />
             </div>
             <div
@@ -280,11 +241,10 @@ const ServePanel = ({
                   setAction({
                     type: "delete",
                     name: __("Удаление файла"),
-                    text: __(
-                      `Вы действительно хотите удалить файл ${chosenFile?.name}?`
-                    )
+                    text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`)
                   });
-              }}>
+              }}
+            >
               <DeleteIcon className={styles.iconTrash} />
             </div>
           </div>
@@ -295,10 +255,9 @@ const ServePanel = ({
           params={mouseParams}
           setParams={setMouseParams}
           itemRef={typeContext === "createFile" ? createRef : filterRef}
-          customClose={typeContext !== "createFile"}>
-          {typeContext === "filter" ? (
-            <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
-          ) : null}
+          customClose={typeContext !== "createFile"}
+        >
+          {typeContext === "filter" ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
           {typeContext === "filter" ? (
             <Colors
               color={fileCriterion.filters.color}

@@ -14,7 +14,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   const { pathname } = useLocation();
   const history = useHistory();
 
-  const theme = useSelector(state => state.user.userInfo?.theme);
+  const theme = useSelector((state) => state.user.userInfo?.theme);
   const dispatch = useDispatch();
 
   const getThemeBg = () => {
@@ -25,7 +25,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   };
 
   const renderMenuItems = () => {
-    return data.map(item => {
+    return data.map((item) => {
       return (
         <div
           className={`
@@ -37,17 +37,14 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
           onClick={() => {
             history.push(item.path);
             dispatch(clearRecentFiles());
-          }}>
+          }}
+        >
           <img
-            className={`${styles.icons} ${
-              collapsed ? styles.iconsCollapsed : undefined
-            }`}
+            className={`${styles.icons} ${collapsed ? styles.iconsCollapsed : undefined}`}
             src={item.src}
             alt="icon"
           />
-          <span className={collapsed ? styles.hidden : undefined}>
-            {item.name}
-          </span>
+          <span className={collapsed ? styles.hidden : undefined}>{item.name}</span>
         </div>
       );
     });
@@ -58,25 +55,17 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
       className={collapsed ? styles.collapsed : styles.asideWrap}
       style={{
         background: getThemeBg()
-      }}>
+      }}
+    >
       <img
         className={collapsed ? styles.minIcon : styles.hubIcon}
-        src={`${imageSrc}assets/PrivateCabinet/${
-          collapsed ? "4Hub-min.svg" : "4HUB.svg"
-        }`}
+        src={`${imageSrc}assets/PrivateCabinet/${collapsed ? "4Hub-min.svg" : "4HUB.svg"}`}
         alt="4HUB"
       />
-      <div
-        className={`${styles.titleWrap} ${
-          collapsed ? styles.titleWrapCollapsed : undefined
-        }`}>
-        <span className={collapsed ? styles.hidden : undefined}>
-          {__("МЕНЮ")}
-        </span>
+      <div className={`${styles.titleWrap} ${collapsed ? styles.titleWrapCollapsed : undefined}`}>
+        <span className={collapsed ? styles.hidden : undefined}>{__("МЕНЮ")}</span>
         <img
-          className={`${styles.collapseButton} ${
-            collapsed ? styles.collapseButtonInvert : undefined
-          }`}
+          className={`${styles.collapseButton} ${collapsed ? styles.collapseButtonInvert : undefined}`}
           src={`${imageSrc}assets/PrivateCabinet/signs-2.svg`}
           alt="play"
           onClick={() => setCollapsed(!collapsed)}

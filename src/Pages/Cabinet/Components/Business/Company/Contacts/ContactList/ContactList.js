@@ -8,20 +8,12 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ContactList = ({
-  data,
-  selectedItem,
-  setSelectedItem,
-  action,
-  setAction,
-  setMouseParams
-}) => {
+const ContactList = ({ data, selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
   const { __ } = useLocales();
   const [search, setSearch] = useState("");
   const [contactList, setContactList] = useState("");
 
-  const getContactName = contact =>
-    `${contact?.name?.trim() || ""} ${contact?.sname.trim() || ""}`;
+  const getContactName = (contact) => `${contact?.name?.trim() || ""} ${contact?.sname.trim() || ""}`;
 
   useEffect(() => {
     setContactList(data);
@@ -29,12 +21,13 @@ const ContactList = ({
   }, [data]);
 
   useEffect(() => {
-    const searchResult = data?.filter(item => {
+    const searchResult = data?.filter((item) => {
       const name = getContactName(item).toLowerCase();
       const searchValue = search.toLowerCase();
       return name.includes(searchValue);
     });
     setContactList(searchResult);
+    //eslint-disable-next-line
   }, [search]);
 
   const onAddContact = () => {
@@ -45,10 +38,7 @@ const ContactList = ({
   return (
     <div className={styles.sideBar}>
       <div className={styles.search}>
-        <ContactSearch
-          value={search}
-          onChangeHandler={value => setSearch(value)}
-        />
+        <ContactSearch value={search} onChangeHandler={(value) => setSearch(value)} />
       </div>
 
       <div
@@ -56,7 +46,8 @@ const ContactList = ({
           [styles.addContact]: true,
           [styles.active]: action === "addContact"
         })}
-        onClick={onAddContact}>
+        onClick={onAddContact}
+      >
         <div className={styles.iconWrap}>
           <AddContactIcon width={12} height={14} />
         </div>
@@ -83,16 +74,16 @@ const ContactList = ({
   );
 };
 
-const getGrouppedArray = initialArray => {
+const getGrouppedArray = (initialArray) => {
   if (initialArray?.length < 1) {
     return [];
   }
 
   const groupedArray = [];
   let contactsItem = [];
-  initialArray?.forEach(item => {
+  initialArray?.forEach((item) => {
     let firstLetter = item.name?.charAt(0);
-    let findByGroup = groupedArray.find(item => item.group === firstLetter);
+    let findByGroup = groupedArray.find((item) => item.group === firstLetter);
 
     if (!findByGroup) {
       contactsItem = [];

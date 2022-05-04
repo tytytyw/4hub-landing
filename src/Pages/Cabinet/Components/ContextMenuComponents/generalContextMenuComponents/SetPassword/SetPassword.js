@@ -19,8 +19,8 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
   const [visibility, setVisibility] = useState("password");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const onSwitch = boolean => setShowRepeat(boolean);
-  const comparePass = val => {
+  const onSwitch = (boolean) => setShowRepeat(boolean);
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -58,11 +58,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
               </div>
               <div className={styles.input_wrap}>
                 <p className={styles.input_title}>Пароль</p>
-                <input
-                  id={"input_pass"}
-                  value={__("Вы можете установить пароль на данный файл")}
-                  type="button"
-                />
+                <input id={"input_pass"} value={__("Вы можете установить пароль на данный файл")} type="button" />
               </div>
             </div>
             <div className={styles.border} />
@@ -102,29 +98,22 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
               </div>
             </div>
             <div className={styles.buttonsWrap}>
-              <div
-                className={styles.cancel}
-                onClick={() => setDisplaySetPassword(false)}>
+              <div className={styles.cancel} onClick={() => setDisplaySetPassword(false)}>
                 {__("Отмена")}
               </div>
               <div
                 className={`${file ? styles.add : styles.buttonDisabled}`}
                 onClick={() => {
                   if (file) onAddPass();
-                }}>
+                }}
+              >
                 {__("Установить")}
               </div>
             </div>
           </div>
         </PopUp>
       ) : null}
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Пароль не добавлен")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Пароль не добавлен")} />}
       {success && (
         <Success
           set={closeComponent}

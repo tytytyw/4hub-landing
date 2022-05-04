@@ -32,12 +32,7 @@ const SideList = ({
         />
       </div>
 
-      <ListMenu
-        page={pageOption}
-        setPage={setPageOption}
-        menuData={data}
-        setPageOption={setPageOption}
-      />
+      <ListMenu page={pageOption} setPage={setPageOption} menuData={data} setPageOption={setPageOption} />
     </div>
   );
 };

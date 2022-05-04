@@ -7,10 +7,7 @@ import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { useContextMenuDocFile } from "../../../../../../generalComponents/collections";
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
-import {
-  onDeleteCompanyDocument,
-  onGetCompanyDocument
-} from "../../../../../../Store/actions/CabinetActions";
+import { onDeleteCompanyDocument, onGetCompanyDocument } from "../../../../../../Store/actions/CabinetActions";
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
@@ -39,7 +36,7 @@ const FileView = ({
   const dispatch = useDispatch();
   const [editFile, setEditFile] = useState(false);
 
-  const onContextClick = e => {
+  const onContextClick = (e) => {
     setMouseParams({
       type: "contextMenuFile",
       x: e.clientX,
@@ -65,13 +62,7 @@ const FileView = ({
 
   const deleteFile = () => {
     nullifyAction();
-    dispatch(
-      onDeleteCompanyDocument(
-        pageOption.name,
-        setShowSuccessMessage,
-        __("документ удален")
-      )
-    );
+    dispatch(onDeleteCompanyDocument(pageOption.name, setShowSuccessMessage, __("документ удален")));
   };
   const openFileEditor = () => {
     nullifyAction();
@@ -108,19 +99,13 @@ const FileView = ({
         </button>
       </div>
       <div className={classNames(styles.btnWrapper, styles.downloadBtn)}>
-        <button
-          title="Download"
-          onClick={() => downloadFile()}
-          className={styles.contextBtn}>
+        <button title="Download" onClick={() => downloadFile()} className={styles.contextBtn}>
           <DownloadIco title="Download" />
         </button>
       </div>
 
       <div className={styles.content}>
-        <embed
-          style={{ height: "100%", width: "100%" }}
-          type="application/pdf"
-          src={projectSrc + previewSrc}></embed>
+        <embed style={{ height: "100%", width: "100%" }} type="application/pdf" src={projectSrc + previewSrc}></embed>
       </div>
       {mouseParams !== null && mouseParams?.type === "contextMenuFile" ? (
         <ContextMenu
@@ -128,10 +113,9 @@ const FileView = ({
           setParams={setMouseParams}
           tooltip={false}
           customClose={true}
-          disableAutohide={true}>
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuDocFile, callbackArr)}
-          </div>
+          disableAutohide={true}
+        >
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuDocFile, callbackArr)}</div>
         </ContextMenu>
       ) : null}
       {action?.type === "deleteFile" ? (
@@ -140,17 +124,15 @@ const FileView = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFile}
-          approve={"Удалить"}>
+          approve={"Удалить"}
+        >
           {renderIcon()}
         </ActionApproval>
       ) : null}
       {editFile ? (
         <PopUp set={onCloseFileEditor}>
           <div className={styles.editFile}>
-            <iframe
-              title={pageOption.name}
-              frameBorder="0"
-              src={editSrc}></iframe>
+            <iframe title={pageOption.name} frameBorder="0" src={editSrc}></iframe>
           </div>
         </PopUp>
       ) : null}

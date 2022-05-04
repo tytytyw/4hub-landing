@@ -17,19 +17,15 @@ const ForgotPassword = ({ setPage }) => {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const setOnLogin = val => {
+  const setOnLogin = (val) => {
     let number;
     if (val[0] === "+") {
       const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
       const length = newVal.length;
-      number = `+${newVal.substring(0, 2)}${
-        length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)
-      }${length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)}${
-        length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)
-      }${
-        length > 10
-          ? "-" + newVal.substring(10, newVal.length)
-          : newVal.substring(10, newVal.length)
+      number = `+${newVal.substring(0, 2)}${length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)}${
+        length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)
+      }${length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)}${
+        length > 10 ? "-" + newVal.substring(10, newVal.length) : newVal.substring(10, newVal.length)
       }`;
     } else {
       number = val;
@@ -37,7 +33,7 @@ const ForgotPassword = ({ setPage }) => {
     setLogin(number);
   };
 
-  const checkLogin = input => {
+  const checkLogin = (input) => {
     let boolean = false;
     if (input.value[0] === "+") {
       const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, "");
@@ -50,14 +46,12 @@ const ForgotPassword = ({ setPage }) => {
   };
 
   const signIn = () => {
-    const mSuccess = __(
-      "В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения"
-    );
+    const mSuccess = __("В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения");
 
     if (login && !compare) {
       api
         .post(`/ajax/user_pass_remember.php?name=${login}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1 && res.data.send === true) {
             setMessage(mSuccess);
             setSuccess(true);
@@ -66,7 +60,7 @@ const ForgotPassword = ({ setPage }) => {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setMessage(err.toString());
           setError(true);
         });
@@ -103,8 +97,8 @@ const ForgotPassword = ({ setPage }) => {
               type="text"
               id="login"
               value={login}
-              onChange={e => setOnLogin(e.target.value)}
-              onBlur={e => checkLogin(e.target)}
+              onChange={(e) => setOnLogin(e.target.value)}
+              onBlur={(e) => checkLogin(e.target)}
             />
           </div>
           <div className={styles.button} onClick={signIn}>
@@ -113,14 +107,7 @@ const ForgotPassword = ({ setPage }) => {
         </div>
       </div>
       {error && <Error error={error} set={setError} message={message} />}
-      {success && (
-        <Success
-          success={success}
-          set={setSuccess}
-          message={message}
-          title={__("Ваш пароль обновлён")}
-        />
-      )}
+      {success && <Success success={success} set={setSuccess} message={message} title={__("Ваш пароль обновлён")} />}
     </>
   );
 };

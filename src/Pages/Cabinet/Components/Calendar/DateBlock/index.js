@@ -10,17 +10,17 @@ import PropTypes from "prop-types";
 
 const DateBlock = ({ setViewType }) => {
   const { __ } = useLocales();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const dispatch = useDispatch();
 
-  const onChangeDay = day => {
+  const onChangeDay = (day) => {
     const date = new Date(calendarDate);
     date.setDate(day);
     dispatch(setCalendarDate(date));
     setViewType("list");
   };
 
-  const onChangeMonth = item => {
+  const onChangeMonth = (item) => {
     const date = new Date(calendarDate);
     if (date.getDate() === 31) {
       date.setDate(1);
@@ -30,7 +30,7 @@ const DateBlock = ({ setViewType }) => {
     setViewType("full");
   };
 
-  const onChangeYear = year => {
+  const onChangeYear = (year) => {
     const date = new Date(calendarDate);
     date.setFullYear(year);
     dispatch(setCalendarDate(date));
@@ -46,7 +46,7 @@ const DateBlock = ({ setViewType }) => {
               className={styles.select}
               classNameSelect={styles.selectContentYear}
               data={getYears()}
-              onChange={value => onChangeYear(value)}
+              onChange={(value) => onChangeYear(value)}
             />
           </div>
 
@@ -56,7 +56,7 @@ const DateBlock = ({ setViewType }) => {
               className={styles.select}
               classNameSelect={styles.selectContent}
               data={getDays()}
-              onChange={value => onChangeDay(value)}
+              onChange={(value) => onChangeDay(value)}
             />
           </div>
         </div>
@@ -70,7 +70,8 @@ const DateBlock = ({ setViewType }) => {
             className={classNames({
               [styles.button]: true,
               [styles.active]: item.id === calendarDate.getMonth()
-            })}>
+            })}
+          >
             {item.text}
           </button>
         ))}

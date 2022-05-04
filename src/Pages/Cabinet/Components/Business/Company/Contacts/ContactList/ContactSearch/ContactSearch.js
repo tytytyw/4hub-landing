@@ -12,15 +12,11 @@ const ContactSearch = ({ value, onChangeHandler = () => {}, placeholder }) => {
   }
   return (
     <div className={styles.searchWrap}>
-      <img
-        className={styles.icon}
-        src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
-        alt="Search"
-      />
+      <img className={styles.icon} src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="Search" />
       <input
         type="search"
         value={value}
-        onChange={event => onChangeHandler(event.target.value)}
+        onChange={(event) => onChangeHandler(event.target.value)}
         className={styles.input}
         placeholder={placeholder}
       />

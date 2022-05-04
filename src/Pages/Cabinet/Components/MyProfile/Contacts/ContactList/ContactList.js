@@ -15,7 +15,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   }, [data]);
 
   useEffect(() => {
-    const searchResult = data?.filter(item => {
+    const searchResult = data?.filter((item) => {
       const name = getContactName(item).toLowerCase();
       const searchValue = search.toLowerCase();
       return name.includes(searchValue);
@@ -29,10 +29,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   return (
     <div className={styles.content}>
       <div className={styles.search}>
-        <ContactSearch
-          value={search}
-          onChangeHandler={value => setSearch(value)}
-        />
+        <ContactSearch value={search} onChangeHandler={(value) => setSearch(value)} />
       </div>
 
       <div className={styles.contactListWrap}>
@@ -40,11 +37,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
           {getGrouppedArray(contactList).map((contact, index) => (
             <li key={index}>
               <p className={styles.group}>{contact.group}</p>
-              <SearchList
-                data={contact.contacts}
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-              />
+              <SearchList data={contact.contacts} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
             </li>
           ))}
         </ul>
@@ -53,16 +46,16 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   );
 };
 
-const getGrouppedArray = initialArray => {
+const getGrouppedArray = (initialArray) => {
   if (initialArray?.length < 1) {
     return [];
   }
 
   const groupedArray = [];
   let contactsItem = [];
-  initialArray?.forEach(item => {
+  initialArray?.forEach((item) => {
     let firstLetter = item.name?.charAt(0);
-    let findByGroup = groupedArray.find(item => item.group === firstLetter);
+    let findByGroup = groupedArray.find((item) => item.group === firstLetter);
 
     if (!findByGroup) {
       contactsItem = [];

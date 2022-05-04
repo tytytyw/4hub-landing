@@ -13,18 +13,13 @@ import PropTypes from "prop-types";
 
 const FullCalendarTable = ({ events }) => {
   const calendarRef = useRef();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
-  const renderEventContent = eventInfo => {
-    return (
-      <TableTaskItem
-        date={eventInfo?.event.start}
-        task={eventInfo.event?.extendedProps}
-      />
-    );
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  const renderEventContent = (eventInfo) => {
+    return <TableTaskItem date={eventInfo?.event.start} task={eventInfo.event?.extendedProps} />;
   };
 
-  const renderHeaderCell = eventInfo => {
-    const day = days.find(item => item.id === eventInfo.date.getDay());
+  const renderHeaderCell = (eventInfo) => {
+    const day = days.find((item) => item.id === eventInfo.date.getDay());
     const date = eventInfo.date.getDate();
     return (
       <div className={styles.dayItem}>

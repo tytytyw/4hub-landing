@@ -2,7 +2,7 @@ import React from "react";
 import { colors } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 
-const getColorObj = type => colors?.find(item => item.name === type);
+const getColorObj = (type) => colors?.find((item) => item.name === type);
 
 const FolderIcon = ({ type, fill, ...props }) => {
   const lightColor = getColorObj(type)?.light;
@@ -19,7 +19,8 @@ const FolderIcon = ({ type, fill, ...props }) => {
       height="17px"
       viewBox="0 0 19 17"
       version="1.1"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g id="folder-2">
         <path
           fill={getFill()}

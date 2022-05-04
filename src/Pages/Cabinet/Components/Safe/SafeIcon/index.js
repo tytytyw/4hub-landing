@@ -2,7 +2,7 @@ import React from "react";
 import { colors } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 
-const getColorObj = type => colors?.find(item => item.name === type);
+const getColorObj = (type) => colors?.find((item) => item.name === type);
 
 const SafeIcon = ({ type = "blue", ...props }) => {
   const lightColor = getColorObj(type)?.light;
@@ -15,7 +15,8 @@ const SafeIcon = ({ type = "blue", ...props }) => {
       height="45px"
       viewBox="0 0 45 45"
       version="1.1"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g id="bank">
         <g id="light">
           <path

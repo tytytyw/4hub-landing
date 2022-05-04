@@ -28,12 +28,12 @@ const Journal = () => {
   const { __ } = useLocales();
   const months = useMonths();
   const contextMenuFile = useContextMenuFile();
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
   const [search, setSearch] = useState(null);
 
   const dispatch = useDispatch();
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const journalFolders = useSelector(state => state.Cabinet.journalFolders);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const journalFolders = useSelector((state) => state.Cabinet.journalFolders);
 
   const [year, setYear] = useState(null);
 
@@ -78,9 +78,7 @@ const Journal = () => {
     {
       type: "archive",
       name: __("Добавить файл в архив"),
-      text: __(
-        `Вы действительно хотите архивировать файл ${chosenFile?.name}?`
-      ),
+      text: __(`Вы действительно хотите архивировать файл ${chosenFile?.name}?`),
       callback: (list, index) => setAction(list[index])
     },
     {
@@ -88,14 +86,17 @@ const Journal = () => {
       name: __("Сжать в ZIP"),
       text: __(""),
       callback: (list, index) =>
-        setAction({ ...action, type: list[index].type, name: list[index].name })
+        setAction({
+          ...action,
+          type: list[index].type,
+          name: list[index].name
+        })
     },
     {
       type: "properties",
       name: __("Свойства"),
       text: __(""),
-      callback: () =>
-        setAction({ ...action, type: "properties", name: __("Свойства") })
+      callback: () => setAction({ ...action, type: "properties", name: __("Свойства") })
     },
     {
       type: "download",
@@ -122,7 +123,7 @@ const Journal = () => {
 
   useEffect(() => {
     dispatch(onGetJournalFolders());
-  }, []);
+  }, []); // eslint-disable-line
 
   const renderMenuItems = (target, type) => {
     return target.map((item, i) => {
@@ -210,13 +211,8 @@ const Journal = () => {
       </div>
 
       {mouseParams !== null && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}>
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuFile.main)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main)}</div>
           <div className={styles.additionalMenuItems}>
             {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
           </div>
@@ -229,7 +225,8 @@ const Journal = () => {
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>

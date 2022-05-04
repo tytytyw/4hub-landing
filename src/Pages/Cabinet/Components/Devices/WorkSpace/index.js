@@ -14,8 +14,8 @@ import PropTypes from "prop-types";
 
 const WorkSpace = ({ listCollapsed, setMultiple }) => {
   const { __ } = useLocales();
-  const selectedDevice = useSelector(state => state.Cabinet.selectedDevice);
-  const selectedUser = useSelector(state => state.Cabinet.selectedUser);
+  const selectedDevice = useSelector((state) => state.Cabinet.selectedDevice);
+  const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
 
   return (
     <>
@@ -26,7 +26,8 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
               ? styles.workSpaceWrapCollapsed
               : styles.workSpaceWrapUncollapsed
             : undefined
-        }`}>
+        }`}
+      >
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -36,25 +37,15 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
           </div>
         </div>
 
-        <ServePanel
-          chosenFile={selectedDevice || selectedUser}
-          chooseSeveral={setMultiple}
-        />
+        <ServePanel chosenFile={selectedDevice || selectedUser} chooseSeveral={setMultiple} />
 
         {selectedDevice && (
           <div className={styles.contentWrapper}>
             <div className={styles.previewWrapper}>
               {selectedDevice && (
                 <img
-                  src={`./assets/PrivateCabinet/devices/${getDeviceIconName(
-                    selectedDevice.device
-                  )}.svg`}
-                  onError={e =>
-                    e.target.setAttribute(
-                      "src",
-                      "./assets/PrivateCabinet/devices/unknown.svg"
-                    )
-                  }
+                  src={`./assets/PrivateCabinet/devices/${getDeviceIconName(selectedDevice.device)}.svg`}
+                  onError={(e) => e.target.setAttribute("src", "./assets/PrivateCabinet/devices/unknown.svg")}
                   alt="device icon"
                 />
               )}
@@ -67,66 +58,42 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
                     <div className={styles.filePreviewWrap}>
                       <div className={styles.content}>
                         <img
-                          src={`./assets/PrivateCabinet/devices/${getDeviceIconName(
-                            selectedDevice.device
-                          )}.svg`}
-                          onError={e =>
-                            e.target.setAttribute(
-                              "src",
-                              "./assets/PrivateCabinet/devices/unknown.svg"
-                            )
-                          }
+                          src={`./assets/PrivateCabinet/devices/${getDeviceIconName(selectedDevice.device)}.svg`}
+                          onError={(e) => e.target.setAttribute("src", "./assets/PrivateCabinet/devices/unknown.svg")}
                           alt="device icon"
                         />
-                        <p className={styles.contentInfo}>
-                          {selectedDevice.name}
-                        </p>
+                        <p className={styles.contentInfo}>{selectedDevice.name}</p>
                       </div>
                     </div>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Система")}</span>
-                    <span className={styles.description}>
-                      {selectedDevice?.platform}
-                    </span>
+                    <span className={styles.description}>{selectedDevice?.platform}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Браузер")}</span>
-                    <span className={styles.description}>
-                      {selectedDevice?.browser}
-                    </span>
+                    <span className={styles.description}>{selectedDevice?.browser}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Регион")}</span>
-                    <span className={styles.description}>
-                      {selectedDevice?.country}
-                    </span>
+                    <span className={styles.description}>{selectedDevice?.country}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Адрес")}</span>
-                    <span className={styles.address}>
-                      {selectedDevice?.adr}
-                    </span>
+                    <span className={styles.address}>{selectedDevice?.adr}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("iP адрес")}</span>
-                    <span className={styles.description}>
-                      {selectedDevice?.ip}
-                    </span>
+                    <span className={styles.description}>{selectedDevice?.ip}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Провайдер")}</span>
-                    <span className={styles.description}>
-                      {selectedDevice?.provider}
-                    </span>
+                    <span className={styles.description}>{selectedDevice?.provider}</span>
                   </div>
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Активность")}</span>
                     <span className={styles.description}>
-                      {selectedDevice?.last_visit
-                        ?.split("-")
-                        .reverse()
-                        .join(".")}
+                      {selectedDevice?.last_visit?.split("-").reverse().join(".")}
                     </span>
                   </div>
                   <div className={styles.disableBtn}>{__("Отключить")}</div>

@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 const CreateProject = ({ onCreate, title, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState("");
   const [target, setTarget] = useState("");
   const [members, setMembers] = useState("");
@@ -40,7 +40,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
     if (name) setNoNameError(false);
   }, [name]);
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -54,14 +54,13 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
 
   const onAddProject = () => {
     if (!name) return setNoNameError(true);
-    if (showRepeat && password !== passwordRepeat)
-      return setPasswordCoincide(false);
+    if (showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
     setLoadingType("squarify");
     api
       .get(
         `/ajax/project_add.php/?uid=${uid}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetProjects());
           closeComponent();
@@ -72,7 +71,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
 
@@ -81,12 +80,12 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -124,12 +123,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
             </div>
 
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={target}
-                set={setTarget}
-                placeholder={__("Цель проекта")}
-              />
+              <InputField model="text" value={target} set={setTarget} placeholder={__("Цель проекта")} />
             </div>
 
             <div className={styles.inputWrap}>
@@ -153,17 +147,13 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
               />
               <span className={styles.count}>{tagOption.count}/30</span>
-              <div
-                className={styles.tagList}
-                ref={tagRef}
-                onClick={handleChoose}
-              >
+              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                 {renderTags()}
               </div>
             </div>

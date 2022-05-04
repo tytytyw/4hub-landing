@@ -19,7 +19,8 @@ const ListTaskItem = ({ event, collapsed }) => {
           className={styles.wrapper}
           style={{
             background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
-          }}>
+          }}
+        >
           <p className={styles.timeBlock}>{event?.ctime}</p>
 
           <div className={styles.leftBlock}>
@@ -65,7 +66,8 @@ const ListTaskItem = ({ event, collapsed }) => {
           className={classNames(styles.wrapper, styles.wrapperCollapsed)}
           style={{
             background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
-          }}>
+          }}
+        >
           <p className={styles.timeBlock}>{event?.ctime}</p>
 
           <div className={styles.topBlock}>

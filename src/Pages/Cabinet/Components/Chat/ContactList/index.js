@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 
 import styles from "./ContactList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onGetContacts,
-  onGetCompanyContacts
-} from "../../../../../Store/actions/CabinetActions";
+import { onGetContacts, onGetCompanyContacts } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useCreateContactStatus } from "../../../../../generalComponents/chatHelper";
 import classNames from "classnames";
@@ -14,25 +11,16 @@ import CustomChatItem from "../CustomChatItem";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ContactList = ({
-  search,
-  sideMenuCollapsed,
-  setSelectedContact,
-  setAction,
-  currentDate,
-  setMouseParams
-}) => {
+const ContactList = ({ search, sideMenuCollapsed, setSelectedContact, setAction, currentDate, setMouseParams }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
-  const id_company = useSelector(state => state.user.id_company);
-  const contactList = useSelector(state =>
+  const id_company = useSelector((state) => state.user.id_company);
+  const contactList = useSelector((state) =>
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
-  const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
-  );
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +28,7 @@ const ContactList = ({
   }, []); //eslint-disable-line
 
   const renderContactList = () =>
-    contactList.map(contact => {
+    contactList.map((contact) => {
       if (
         !(
           contact?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -70,10 +58,7 @@ const ContactList = ({
             contact.is_online,
             gmt
           )}
-          avatar={
-            contact?.icon?.[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          avatar={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           setMouseParams={setMouseParams}
           contextMenuList={"contact"}
         />
@@ -81,12 +66,17 @@ const ContactList = ({
     });
 
   return (
-    <div className={classNames({ [styles.listWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.listWrap]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
       <div
         className={classNames({
           [styles.item]: true,
           [styles.active]: false,
-          [styles.addContact]: true,
+          [styles.addContact]: true
         })}
         onClick={() => {
           setAction({
@@ -101,15 +91,9 @@ const ContactList = ({
         <div className={styles.iconWrap}>
           <AddContactIcon width={19} height={22} />
         </div>
-        {sideMenuCollapsed ? (
-          ""
-        ) : (
-          <span className={styles.text}>{__("Добавить контакт")}</span>
-        )}
+        {sideMenuCollapsed ? "" : <span className={styles.text}>{__("Добавить контакт")}</span>}
       </div>
-      {contactList ? (
-        <div className={styles.list}>{renderContactList()}</div>
-      ) : null}
+      {contactList ? <div className={styles.list}>{renderContactList()}</div> : null}
     </div>
   );
 };

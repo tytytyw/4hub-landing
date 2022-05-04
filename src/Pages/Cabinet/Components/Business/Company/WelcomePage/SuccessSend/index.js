@@ -17,17 +17,11 @@ const SuccessSend = ({ setPageOption }) => {
         </div>
 
         <div className={styles.infoBlock}>
-          <p>
-            {__(
-              "Письмо с правами доступа отправленно на указанный вами email mailgmail@gmail.com"
-            )}
-          </p>
+          <p>{__("Письмо с правами доступа отправленно на указанный вами email mailgmail@gmail.com")}</p>
         </div>
 
         <div className={styles.actionBlock}>
-          <button onClick={() => setPageOption("welcome")}>
-            {__("Готово")}
-          </button>
+          <button onClick={() => setPageOption("welcome")}>{__("Готово")}</button>
         </div>
       </div>
     </div>

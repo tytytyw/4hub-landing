@@ -14,11 +14,11 @@ const UsersList = ({
   disableHover,
   currentDate
 }) => {
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const createContactStatus = useCreateContactStatus();
   return (
     <>
-      {usersList?.map(contact => {
+      {usersList?.map((contact) => {
         if (
           !(
             contact?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -48,10 +48,7 @@ const UsersList = ({
               contact.is_online,
               gmt
             )}
-            avatar={
-              contact?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            avatar={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             contextMenu={userContextMenu}
             disableHover={disableHover}
             paddingRight={0}

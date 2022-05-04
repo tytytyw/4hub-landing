@@ -11,20 +11,12 @@ import PropTypes from "prop-types";
 
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
-const WorkBarsPreview = ({
-  children,
-  file,
-  page,
-  setPage,
-  fileRef,
-  chosenFolder,
-  gLoader
-}) => {
+const WorkBarsPreview = ({ children, file, page, setPage, fileRef, chosenFolder, gLoader }) => {
   const { __ } = useLocales();
   const [f, setF] = useState(file);
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const [loadingFiles, setLoadingFiles] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,24 +33,20 @@ const WorkBarsPreview = ({
     onCheckFilesPerPage();
   }, [size, page, chosenFolder?.files_amount]); // eslint-disable-line
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     setLoadingFiles(false);
-    result > 0 ? setPage(page => page + 1) : setPage(0);
+    result > 0 ? setPage((page) => page + 1) : setPage(0);
   };
 
   const loadFiles = (e, access) => {
     if (
       !loadingFiles &&
-      (e?.target?.scrollHeight - e?.target?.offsetHeight - 200 <
-        e?.target?.scrollTop ||
-        access) &&
+      (e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop || access) &&
       page > 0
     ) {
       if (chosenFolder?.files_amount > fileList?.files.length) {
         setLoadingFiles(true);
-        dispatch(
-          onChooseFiles(fileList?.path, search, page, onSuccessLoading, "")
-        );
+        dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ""));
       }
     }
   };
@@ -80,28 +68,16 @@ const WorkBarsPreview = ({
       }
       case "video": {
         return (
-          <video
-            controls
-            src={`https://fs2.mh.net.ua${f.preview}`}
-            type={f.mime_type}>
-            <source
-              src={`https://fs2.mh.net.ua${f.preview}`}
-              type={f.mime_type}
-            />
+          <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
+            <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type} />
           </video>
         );
       }
       case "audio": {
         return (
           <>
-            <audio
-              controls
-              ref={audioRef}
-              src={`https://fs2.mh.net.ua${f.preview}`}>
-              <source
-                src={`https://fs2.mh.net.ua${f.preview}`}
-                type={f.mime_type}
-              />
+            <audio controls ref={audioRef} src={`https://fs2.mh.net.ua${f.preview}`}>
+              <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
               <img
@@ -156,14 +132,12 @@ const WorkBarsPreview = ({
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-      }}>
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+      }}
+    >
       <div className={styles.preview}>
         {children?.length === 0 && search.length !== 0 ? (
-          <div className={styles.noSearchResults}>
-            {__("Нет элементов удовлетворяющих условиям поиска")}
-          </div>
+          <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
         ) : null}
         {f ? (
           f.is_preview === 1 ? (
@@ -181,28 +155,14 @@ const WorkBarsPreview = ({
         <div ref={fileRef} className={styles.innerFiles} onScroll={loadFiles}>
           {!gLoader && children}
         </div>
-        <div
-          className={styles.bottomLine}
-          style={{ width: loadingFiles ? "100px" : "40px" }}>
+        <div className={styles.bottomLine} style={{ width: loadingFiles ? "100px" : "40px" }}>
           {loadingFiles && !gLoader ? (
-            <Loader
-              type="switch"
-              position="absolute"
-              background="white"
-              zIndex={5}
-              width="100px"
-              height="100px"
-            />
+            <Loader type="switch" position="absolute" background="white" zIndex={5} width="100px" height="100px" />
           ) : null}
         </div>
       </div>
       {gLoader ? (
-        <Loader
-          type="squarify"
-          position="absolute"
-          background="rgba(255, 255, 255, 0.75)"
-          zIndex={5}
-        />
+        <Loader type="squarify" position="absolute" background="rgba(255, 255, 255, 0.75)" zIndex={5} />
       ) : null}
     </div>
   );

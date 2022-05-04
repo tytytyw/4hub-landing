@@ -12,10 +12,7 @@ import SideList from "../../../Cabinet/Components/SharedFiles/SideList/SideList"
 import WorkLinesPreview from "../../../Cabinet/Components/Archive/WorkElements/WorkLinesPreview";
 import FileLine from "../../../Cabinet/Components/Archive/WorkElements/FileLine";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps
-} from "../../../../types/WorkElements";
+import { filePickProps, filePreviewProps } from "../../../../types/WorkElements";
 
 function FilesGroup({
   fileList,
@@ -32,7 +29,7 @@ function FilesGroup({
   index
 }) {
   const [collapse, setCollapse] = useState(index === 0);
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
 
   const renderFiles = (Type, shareLink) => {
     if (!fileList || fileList.length === 0) return null;
@@ -48,11 +45,7 @@ function FilesGroup({
         setFilePreview={setFilePreview}
         setFilePick={setFilePick}
         filePick={filePick}
-        chosen={
-          filePick.show
-            ? filePick.files.findIndex(el => el === file.fid) >= 0
-            : chosenFile?.fid === file?.fid
-        }
+        chosen={filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
         callbackArrMain={callbackArrMain}
         shareLink={shareLink}
       />
@@ -66,17 +59,17 @@ function FilesGroup({
           onClick={() => {
             setCollapse(!collapse);
           }}
-          className={styles.collapseHeader}>
+          className={styles.collapseHeader}
+        >
           <p className={styles.dateName}>{mounthName}</p>
           <div className={styles.buttonsWrap}>
-            <button className={styles.collapseBtn}>
-              {fileList?.length ?? 0} объектов
-            </button>
+            <button className={styles.collapseBtn}>{fileList?.length ?? 0} объектов</button>
             <div
               className={classNames({
                 [styles.arrowFile]: true,
                 [styles.active]: !!collapse
-              })}>
+              })}
+            >
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
@@ -88,14 +81,12 @@ function FilesGroup({
         </div>
       )}
 
-      {collapse &&
-        workElementsView !== "preview" &&
-        workElementsView !== "workLinesPreview" && (
-          <div className={styles.fileDate}>
-            {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-            {fileList?.length > 0 && <p>10.08.2020</p>}
-          </div>
-        )}
+      {collapse && workElementsView !== "preview" && workElementsView !== "workLinesPreview" && (
+        <div className={styles.fileDate}>
+          {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+          {fileList?.length > 0 && <p>10.08.2020</p>}
+        </div>
+      )}
 
       {collapse && (
         <>
@@ -105,33 +96,20 @@ function FilesGroup({
             </WorkBars>
           )}
 
-          {workElementsView === "lines" && (
-            <div className={styles.collapseContent}>
-              {renderFiles(FileLine, true)}
-            </div>
-          )}
+          {workElementsView === "lines" && <div className={styles.collapseContent}>{renderFiles(FileLine, true)}</div>}
 
           {workElementsView === "preview" && (
             <div className={styles.workSpace}>
-              <WorkBarsPreview
-                fileList={fileList}
-                file={chosenFile}
-                filePick={filePick}>
+              <WorkBarsPreview fileList={fileList} file={chosenFile} filePick={filePick}>
                 {renderFiles(FileBar)}
               </WorkBarsPreview>
             </div>
           )}
           {workElementsView === "workLinesPreview" && (
-            <div
-              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
+            <div className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
               <SideList>{renderFiles(FileLineShort, true)}</SideList>
               <div className={styles.filePreviewWrap}>
-                <WorkLinesPreview
-                  fileList={fileList}
-                  file={chosenFile}
-                  hideFileList={true}
-                  filePick={filePick}
-                />
+                <WorkLinesPreview fileList={fileList} file={chosenFile} hideFileList={true} filePick={filePick} />
               </div>
             </div>
           )}

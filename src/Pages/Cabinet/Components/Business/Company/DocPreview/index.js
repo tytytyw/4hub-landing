@@ -20,14 +20,12 @@ const DocPreview = ({
   setShowSuccessMessage
 }) => {
   const [blob, setBlob] = useState({});
-  const companyDocuments = useSelector(
-    state => state.Cabinet.company.documents
-  );
+  const companyDocuments = useSelector((state) => state.Cabinet.company.documents);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(onGetCompanyDocument(pageOption.name, setLoadingType));
-  }, [pageOption]);
+  }, [pageOption]); //eslint-disable-line
 
   return (
     <>

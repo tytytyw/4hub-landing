@@ -6,10 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  colors,
-  useTags
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { onGetProjectFolders } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -20,17 +17,10 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../../types/Project";
 
-const CreateFolder = ({
-  onCreate,
-  title,
-  setError,
-  projectId,
-  parentFolder,
-  setGLoader
-}) => {
+const CreateFolder = ({ onCreate, title, setError, projectId, parentFolder, setGLoader }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -44,11 +34,11 @@ const CreateFolder = ({
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
 
-  const onAddName = name => {
+  const onAddName = (name) => {
     setNoNameError(false);
     setName(name);
   };
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -65,13 +55,12 @@ const CreateFolder = ({
       setGLoader(true);
       console.log(parentFolder);
       //TODO: parent folder
-      const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${
-        tagOption.chosen
-      }&pass=${passwordCoincide ? password : ""}&color=${color?.name ||
-        "grey"}&symbol=${sign}&emoji=${emoji}`;
+      const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${tagOption.chosen}&pass=${
+        passwordCoincide ? password : ""
+      }&color=${color?.name || "grey"}&symbol=${sign}&emoji=${emoji}`;
       api
         .post(`/ajax/project_folders_add.php?${params}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok !== 1) {
             setError(__("Папка не добавлена"));
           }
@@ -94,12 +83,12 @@ const CreateFolder = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -118,9 +107,7 @@ const CreateFolder = ({
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === color.name)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === color.name)[0]?.name}`}
               />
             </div>
             <div className={styles.picPreview}>
@@ -129,17 +116,17 @@ const CreateFolder = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.name !== "grey" ? styles.colorWrapTap : ""
-                  } ${color.name !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  className={`${styles.colorWrap} ${color.name !== "grey" ? styles.colorWrapTap : ""} ${
+                    color.name !== "grey" ? styles.redCross : ""
+                  }`}
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
@@ -150,29 +137,17 @@ const CreateFolder = ({
                 </div>
                 {sign && (
                   <div className={styles.redCross} onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
@@ -193,7 +168,7 @@ const CreateFolder = ({
                 type="text"
                 placeholder={__("Добавте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -233,9 +208,7 @@ const CreateFolder = ({
           <Signs sign={sign} setSign={setSign} />
           <Emoji emoji={emoji} setEmoji={setEmoji} />
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => closeComponent(false)}>
+            <div className={styles.cancel} onClick={() => closeComponent(false)}>
               Отмена
             </div>
             <div className={styles.add} onClick={() => onAddFolder()}>

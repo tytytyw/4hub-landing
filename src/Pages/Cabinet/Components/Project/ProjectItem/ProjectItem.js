@@ -5,10 +5,7 @@ import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import CustomFolderItem from "../CustomFolderItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onChooseProject,
-  onGetProjectFolders
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseProject, onGetProjectFolders } from "../../../../../Store/actions/CabinetActions";
 import CustomItem from "../CustomItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getIcon } from "../helpers";
@@ -31,7 +28,7 @@ const ProjectItem = ({
 }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const folders = useSelector(state => state.Cabinet.project.projectFolders);
+  const folders = useSelector((state) => state.Cabinet.project.projectFolders);
   const [collapse, setCollapse] = useState(false);
   const projectRef = useRef(null);
 
@@ -49,7 +46,7 @@ const ProjectItem = ({
         setCollapse(false);
       }
       setSelectedProject(project);
-      setParams(state => ({ ...state, fromRecent: false }));
+      setParams((state) => ({ ...state, fromRecent: false }));
     }
   }, [params.fromRecent]); //eslint-disable-line
 
@@ -80,11 +77,7 @@ const ProjectItem = ({
   };
 
   return (
-    <div
-      onClick={handleOpenProject}
-      className={styles.parentWrap}
-      ref={projectRef}
-    >
+    <div onClick={handleOpenProject} className={styles.parentWrap} ref={projectRef}>
       <div
         className={classNames({
           [styles.wrapper]: true,
@@ -98,10 +91,7 @@ const ProjectItem = ({
             [styles.titleWrapChosen]: !!collapse
           })}
         >
-          <div
-            onClick={() => setCollapse(!collapse)}
-            className={styles.leftWrap}
-          >
+          <div onClick={() => setCollapse(!collapse)} className={styles.leftWrap}>
             <div className={styles.leftTitleWrap}>
               {getIcon(project)}
               {!listCollapsed ? (
@@ -151,7 +141,7 @@ const ProjectItem = ({
 
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setMouseParams({
                 x: e.clientX,

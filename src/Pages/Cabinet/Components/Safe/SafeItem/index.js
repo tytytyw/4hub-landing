@@ -7,14 +7,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { safeProps } from "../../../../../types/Safe";
 
-const SafeItem = ({
-  safe,
-  chosen,
-  setMouseParams,
-  onClick,
-  listSize,
-  setSelectedSafe
-}) => {
+const SafeItem = ({ safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe }) => {
   return (
     <>
       <div
@@ -22,10 +15,11 @@ const SafeItem = ({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
           [styles?.[`wrapper_${listSize}`]]: true
-        })}>
+        })}
+      >
         <div
           className={styles.menuWrap}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
@@ -33,7 +27,8 @@ const SafeItem = ({
               height: 25
             });
             setSelectedSafe(safe);
-          }}>
+          }}
+        >
           <span className={styles.menu} />
         </div>
 
@@ -64,7 +59,8 @@ const SafeItem = ({
             className={classNames({
               [styles.tagBlock]: true,
               [styles.ftag]: !!safe?.tags
-            })}>
+            })}
+          >
             {safe?.tags && `#${safe.tags}`}
           </div>
 

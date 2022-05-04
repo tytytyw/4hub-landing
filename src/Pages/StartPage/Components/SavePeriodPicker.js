@@ -5,16 +5,9 @@ import { imageSrc } from "../../../generalComponents/globalVariables";
 import styles from "./SavePeriodPicker.module.sass";
 import PropTypes from "prop-types";
 
-const SavePeriodPicker = ({
-  set,
-  setShowCalendar,
-  dateValue,
-  setDateValue,
-  timeValue,
-  setTimeValue
-}) => {
+const SavePeriodPicker = ({ set, setShowCalendar, dateValue, setDateValue, timeValue, setTimeValue }) => {
   const { __ } = useLocales();
-  const onDateChange = e => {
+  const onDateChange = (e) => {
     let val = e.target.value.trim();
     let length = e.target.value.length;
     if (/[0-9]/.test(val) || length === 0) {
@@ -53,43 +46,28 @@ const SavePeriodPicker = ({
       </div>
       <div className={styles.main}>
         <div className={styles.titleName}>
-          <img
-            src={imageSrc + "assets/StartPage/calendar-grey.svg"}
-            alt="calendar"
-          />
+          <img src={imageSrc + "assets/StartPage/calendar-grey.svg"} alt="calendar" />
           <span>{__("Укажите даты хранения")}</span>
         </div>
         <div className={styles.inputDiv}>
           <div>
             <span>{__("До")}</span>
-            <input
-              type="text"
-              placeholder="_ _._ _._ _ _ _"
-              onChange={e => onDateChange(e)}
-              value={dateValue}
-            />
+            <input type="text" placeholder="_ _._ _._ _ _ _" onChange={(e) => onDateChange(e)} value={dateValue} />
           </div>
-          <span onClick={() => setShowCalendar(true)}>
-            {__("Открыть календарь")}
-          </span>
+          <span onClick={() => setShowCalendar(true)}>{__("Открыть календарь")}</span>
         </div>
         <div className={styles.titleName}>
           <img src={imageSrc + "assets/StartPage/clock.svg"} alt="calendar" />
           <span>{__("Укажите время хранения")}</span>
         </div>
         <div className={styles.inputHM}>
-          <input
-            type="text"
-            placeholder="ЧЧ"
-            value={hours}
-            onChange={e => onTime(e.target.value, setHours, 24)}
-          />
+          <input type="text" placeholder="ЧЧ" value={hours} onChange={(e) => onTime(e.target.value, setHours, 24)} />
           <span> : </span>
           <input
             type="text"
             placeholder="ММ"
             value={minutes}
-            onChange={e => onTime(e.target.value, setMinutes, 60)}
+            onChange={(e) => onTime(e.target.value, setMinutes, 60)}
           />
         </div>
         <div className={styles.notion}>
@@ -104,7 +82,8 @@ const SavePeriodPicker = ({
           onClick={() => {
             setTimeValue({ hours, minutes });
             set(false);
-          }}>
+          }}
+        >
           {__("Готово")}
         </div>
       </div>

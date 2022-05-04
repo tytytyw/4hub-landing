@@ -1,4 +1,4 @@
-import { createLocale } from 'react-localized';
+import { createLocale } from "react-localized";
 
 const extra = {};
 

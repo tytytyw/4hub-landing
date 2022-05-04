@@ -112,8 +112,7 @@ export const categories = {
             from: "Alexey",
             date: "03.01.2022",
             icon: `${imageSrc}assets/PrivateCabinet/avatars/a2.svg`,
-            text:
-              "большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
+            text: "большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
           },
           {
             from: "Dmitriy Kolesnikov",
@@ -320,8 +319,7 @@ export const categories = {
       {
         name: "Screw Drivers",
         icon: `${imageSrc}assets/PrivateCabinet/more.svg`,
-        link:
-          "https://www.tricerat.com/screwdrivers-for-windows-virtual-desktop",
+        link: "https://www.tricerat.com/screwdrivers-for-windows-virtual-desktop",
         isFavourite: false,
         comments: []
       },
@@ -377,8 +375,7 @@ export const categories = {
       {
         name: "UExtractor",
         icon: `${imageSrc}assets/PrivateCabinet/programs/iphone-backup-extractor.webp`,
-        link:
-          "https://chrome.google.com/webstore/detail/universal-extractor-downl/pofafboibjkfombpgmfaeepeehfcfahm",
+        link: "https://chrome.google.com/webstore/detail/universal-extractor-downl/pofafboibjkfombpgmfaeepeehfcfahm",
         isFavourite: false,
         comments: []
       },
@@ -536,8 +533,7 @@ export const categories = {
       {
         name: "3ds Max",
         icon: `${imageSrc}assets/PrivateCabinet/programs/3ds-max.png`,
-        link:
-          "https://www.autodesk.com/products/3ds-max/overview?term=1-YEAR&tab=subscription",
+        link: "https://www.autodesk.com/products/3ds-max/overview?term=1-YEAR&tab=subscription",
         isFavourite: false,
         comments: []
       },

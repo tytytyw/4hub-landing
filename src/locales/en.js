@@ -1,5 +1,5 @@
-import { createLocale } from 'react-localized';
-import messages from './en.json';
+import { createLocale } from "react-localized";
+import messages from "./en.json";
 
 const extra = {};
 

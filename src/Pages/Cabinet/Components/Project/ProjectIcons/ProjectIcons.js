@@ -19,9 +19,9 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
   if (!title) {
     title = __("Выберите иконку");
   }
-  const set = el => (icon === el ? setIcon("") : setIcon(el));
+  const set = (el) => (icon === el ? setIcon("") : setIcon(el));
   const renderIcons = () => {
-    const getIcon = icon => {
+    const getIcon = (icon) => {
       switch (icon) {
         case "clipboard":
           return <ClipboardIcon className={color.name} alt="icon" />;
@@ -58,11 +58,7 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
   };
 
   return (
-    <div
-      className={`${styles.iconsWrap} ${
-        editableClass ? styles[editableClass] : ""
-      }`}
-    >
+    <div className={`${styles.iconsWrap} ${editableClass ? styles[editableClass] : ""}`}>
       <span className={styles.title}>{title}</span>
       <div>{renderIcons()}</div>
     </div>

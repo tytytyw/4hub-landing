@@ -24,15 +24,10 @@ const TableTaskItem = ({ task, date }) => {
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
       style={{ background: color }}
-      className={styles.wrapper}>
+      className={styles.wrapper}
+    >
       <p className={styles.name}>{task?.name}</p>
-      {visible && (
-        <PopoverTaskItem
-          task={task}
-          reverse={checkReverse()}
-          reverseSide={checkReverseSide()}
-        />
-      )}
+      {visible && <PopoverTaskItem task={task} reverse={checkReverse()} reverseSide={checkReverseSide()} />}
     </div>
   );
 };

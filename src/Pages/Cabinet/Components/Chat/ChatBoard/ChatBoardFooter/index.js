@@ -11,11 +11,7 @@ import { ReactComponent as TimerIcon } from "../../../../../../assets/PrivateCab
 import TextArea from "../TextArea";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import api from "../../../../../../api";
-import {
-  cameraAccess,
-  wantMimeType,
-  ducationTimerToString
-} from "../../../../../../generalComponents/chatHelper";
+import { cameraAccess, wantMimeType, ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
@@ -45,16 +41,13 @@ const ChatBoardFooter = ({
 }) => {
   const { __ } = useLocales();
   const [messageIsSending, setMessageIsSending] = useState(false);
-  const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
-  );
-  const uid = useSelector(state => state.user.uid);
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+  const uid = useSelector((state) => state.user.uid);
 
   const upLoadFile = (blob, fileName, kind) => {
     setMessageIsSending(true);
     const sendingFile = file ?? new File([blob], fileName, { type: blob.type });
-    const isWebmVideo =
-      kind === "video_message" && sendingFile.type.includes("webm");
+    const isWebmVideo = kind === "video_message" && sendingFile.type.includes("webm");
     const formData = new FormData();
     formData.append("myfile", sendingFile);
     formData.append("uid", uid);
@@ -63,10 +56,10 @@ const ChatBoardFooter = ({
       formData.append("type_from", "webm");
       formData.append("type_to", "mp4");
     }
-    createHistogramData(audioFrequencyData).then(histogramData => {
+    createHistogramData(audioFrequencyData).then((histogramData) => {
       api
         .post(`/ajax/${apiUrl}.php`, formData)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok) {
             const attachment = {
               ...res.data.files.myfile,
@@ -91,7 +84,7 @@ const ChatBoardFooter = ({
     setIsRecording(true);
     audioFrequencyData = [];
     cameraAccess(constraints)
-      .then(stream => {
+      .then((stream) => {
         if (type === "message") {
           // for audio/video messages
           const recorder = new MediaRecorder(stream, {
@@ -109,8 +102,7 @@ const ChatBoardFooter = ({
             }
           } else {
             // get audio frequency data for histogram
-            const audioContext = new (window.AudioContext ||
-              window.webkitAudioContext)();
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const processor = audioContext.createScriptProcessor(256, 1, 1);
             const analyser = audioContext.createAnalyser();
             const source = audioContext.createMediaStreamSource(stream);
@@ -125,16 +117,9 @@ const ChatBoardFooter = ({
                   (previousValue, currentValue) => previousValue + currentValue,
                   0
                 );
-                const averageFrequencyValue = Math.floor(
-                  sumFrequencyValues / audioData.length
-                );
-                if (averageFrequencyValue)
-                  audioFrequencyData.push(averageFrequencyValue);
-              } else
-                processor.removeEventListener(
-                  "audioprocess",
-                  getAudioFrequencyData
-                );
+                const averageFrequencyValue = Math.floor(sumFrequencyValues / audioData.length);
+                if (averageFrequencyValue) audioFrequencyData.push(averageFrequencyValue);
+              } else processor.removeEventListener("audioprocess", getAudioFrequencyData);
             };
             processor.addEventListener("audioprocess", getAudioFrequencyData);
           }
@@ -146,50 +131,41 @@ const ChatBoardFooter = ({
       });
   };
 
-  const createHistogramData = async data => {
+  const createHistogramData = async (data) => {
     if (data.length) {
       const result = [];
       const columnDataLength = Math.floor(data.length / 50);
       for (let i = 0; i < 50; i++) {
         const columnData = data.splice(0, columnDataLength);
-        const columnValue = Math.floor(
-          columnData.reduce((p, c) => p + c, 0) / columnDataLength
-        );
-        result.push(
-          columnValue > 120 ? 100 : columnValue < 5 ? 0 : columnValue
-        );
+        const columnValue = Math.floor(columnData.reduce((p, c) => p + c, 0) / columnDataLength);
+        result.push(columnValue > 120 ? 100 : columnValue < 5 ? 0 : columnValue);
       }
       return result;
     }
   };
 
-  const onDataAviable = e => {
+  const onDataAviable = (e) => {
     if (isRecording) {
       const data = e.data;
-      if (data.type.includes("audio"))
-        upLoadFile(data, __("аудио сообщение"), "audio_message");
-      if (data.type.includes("video"))
-        upLoadFile(data, __("видео сообщение"), "video_message");
+      if (data.type.includes("audio")) upLoadFile(data, __("аудио сообщение"), "audio_message");
+      if (data.type.includes("video")) upLoadFile(data, __("видео сообщение"), "video_message");
       setMediaRecorder(null);
       recordCancel();
     }
     setIsRecording(false);
   };
 
-  const onAddMessage = text => {
+  const onAddMessage = (text) => {
     addMessage(text);
     scrollToBottom();
   };
 
   useEffect(() => {
     if (mediaRecorder) {
-      isRecording
-        ? mediaRecorder.addEventListener("dataavailable", onDataAviable)
-        : recordCancel();
+      isRecording ? mediaRecorder.addEventListener("dataavailable", onDataAviable) : recordCancel();
     }
     return () => {
-      if (mediaRecorder)
-        mediaRecorder.removeEventListener("dataavailable", onDataAviable);
+      if (mediaRecorder) mediaRecorder.removeEventListener("dataavailable", onDataAviable);
     };
     // eslint-disable-next-line
   }, [mediaRecorder]);
@@ -204,15 +180,13 @@ const ChatBoardFooter = ({
       {isRecording ? (
         <div className={styles.leftContainer}>
           <div className={styles.recordIcon}></div>
-          <span className={styles.duration}>
-            {ducationTimerToString(ducationTimer)}
-          </span>
+          <span className={styles.duration}>{ducationTimerToString(ducationTimer)}</span>
         </div>
       ) : (
         <div className={styles.downloadOptions}>
           <AddIcon
             title={__("Вставить файл")}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
@@ -225,16 +199,9 @@ const ChatBoardFooter = ({
         </div>
       )}
       {isRecording ? (
-        <div className={styles.recordHint}>
-          {__("Для отмены отпустите курсор вне поля")}
-        </div>
+        <div className={styles.recordHint}>{__("Для отмены отпустите курсор вне поля")}</div>
       ) : (
-        <TextArea
-          onAddMessage={onAddMessage}
-          action={action}
-          nullifyAction={nullifyAction}
-          editMessage={editMessage}
-        />
+        <TextArea onAddMessage={onAddMessage} action={action} nullifyAction={nullifyAction} editMessage={editMessage} />
       )}
       <div
         className={classNames({
@@ -272,9 +239,7 @@ const ChatBoardFooter = ({
                 [styles.button]: true,
                 [styles.pressed]: isRecording
               })}
-              onMouseDown={() =>
-                onRecording("message", { audio: true, video: true })
-              }
+              onMouseDown={() => onRecording("message", { audio: true, video: true })}
             >
               <PlayIcon className={styles.triangle} />
             </div>
@@ -283,9 +248,7 @@ const ChatBoardFooter = ({
         <div
           title={__("Смайлики")}
           className={styles.button}
-          onClick={() =>
-            setRightPanelContentType(state => (state === "emo" ? "" : "emo"))
-          }
+          onClick={() => setRightPanelContentType((state) => (state === "emo" ? "" : "emo"))}
         >
           <SmileIcon title="" />
         </div>
@@ -293,7 +256,7 @@ const ChatBoardFooter = ({
           <div
             title={__("Таймер сообщений")}
             className={styles.button}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,

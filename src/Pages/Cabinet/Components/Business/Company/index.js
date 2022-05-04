@@ -32,8 +32,8 @@ const Company = () => {
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
   const [businessRegistration, setBusinessRegistration] = useState(false);
-  const id_company = useSelector(state => state.user.id_company);
-  const col_admins = useSelector(state => state.user.userInfo?.col_admins);
+  const id_company = useSelector((state) => state.user.id_company);
+  const col_admins = useSelector((state) => state.user.userInfo?.col_admins);
   const [companyName, setCompanyName] = useState("");
   const [companyLogo, setCompanyLogo] = useState(null);
   const dispatch = useDispatch();
@@ -117,9 +117,7 @@ const Company = () => {
   return (
     <div className={styles.wrapper}>
       {id_company && businessRegistration ? (
-        <BusinessRegistration
-          setBusinessRegistration={setBusinessRegistration}
-        />
+        <BusinessRegistration setBusinessRegistration={setBusinessRegistration} />
       ) : null}
 
       <SideList
@@ -146,21 +144,11 @@ const Company = () => {
           </div>
         </div>
 
-        <div
-          style={{ position: loadingType ? "relative" : "" }}
-          className={styles.content}>
-          {pageOption.name === "welcome" && (
-            <WelcomeCard setPageOption={setPageOption} />
-          )}
-          {pageOption.name === "give-access" && (
-            <GiveAccess setPageOption={setPageOption} />
-          )}
-          {pageOption.name === "success-mail" && (
-            <SuccessSend setPageOption={setPageOption} />
-          )}
-          {(pageOption.name === "standards" ||
-            pageOption.name === "mission" ||
-            pageOption.name === "viziya") && (
+        <div style={{ position: loadingType ? "relative" : "" }} className={styles.content}>
+          {pageOption.name === "welcome" && <WelcomeCard setPageOption={setPageOption} />}
+          {pageOption.name === "give-access" && <GiveAccess setPageOption={setPageOption} />}
+          {pageOption.name === "success-mail" && <SuccessSend setPageOption={setPageOption} />}
+          {(pageOption.name === "standards" || pageOption.name === "mission" || pageOption.name === "viziya") && (
             <DocPreview
               setPageOption={setPageOption}
               pageOption={pageOption}
@@ -196,12 +184,7 @@ const Company = () => {
           )}
 
           {action.type === "uploadLogo" || action.type === "editLogo" ? (
-            <UploadLogo
-              nullifyAction={nullifyAction}
-              setCompanyLogo={setCompanyLogo}
-              blob={blob}
-              setBlob={setBlob}
-            />
+            <UploadLogo nullifyAction={nullifyAction} setCompanyLogo={setCompanyLogo} blob={blob} setBlob={setBlob} />
           ) : null}
           {loadingType ? (
             <Loader
@@ -218,10 +201,7 @@ const Company = () => {
         </div>
       </div>
       {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
+        <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
       )}
     </div>
   );

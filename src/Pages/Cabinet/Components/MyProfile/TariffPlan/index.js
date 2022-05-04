@@ -22,10 +22,7 @@ const TariffPlan = ({ currentTariff = "Free", balance = 100 }) => {
         </div>
         <div className={styles.headerRight}>
           <div className={styles.balance}>
-            <img
-              src={imageSrc + "assets/PrivateCabinet/credit-card-payment.svg"}
-              alt="Credit card"
-            />
+            <img src={imageSrc + "assets/PrivateCabinet/credit-card-payment.svg"} alt="Credit card" />
             <p>
               {__("Баланс:")}&nbsp;<span>{balance}$</span>
             </p>
@@ -33,10 +30,7 @@ const TariffPlan = ({ currentTariff = "Free", balance = 100 }) => {
           <div className={styles.addBalance}>
             <Button className={styles.addBalanceBtn}>
               {__("Пополнить баланс")}
-              <img
-                src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                alt="Plus"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="Plus" />
             </Button>
           </div>
         </div>

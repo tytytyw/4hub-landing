@@ -6,10 +6,7 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
-import {
-  colors,
-  useTags
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
@@ -25,21 +22,19 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
-  const [color, setColor] = useState(
-    colors?.find(item => item.name === "blue")
-  );
+  const [color, setColor] = useState(colors?.find((item) => item.name === "blue"));
   const [sign, setSign] = useState("");
   const [tel, setTel] = useState("");
   const [emoji, setEmoji] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(false);
 
-  const codeToTel = useSelector(state => state.Cabinet.safe.safeCodeToTel);
+  const codeToTel = useSelector((state) => state.Cabinet.safe.safeCodeToTel);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -64,9 +59,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
 
   const formIsValid = () => {
     addErrors();
-    return (
-      name && password && password === passwordRepeat && (tel || codeToTel)
-    );
+    return name && password && password === passwordRepeat && (tel || codeToTel);
   };
 
   const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
@@ -75,7 +68,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
       .get(
         `/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}&tel=${tel}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok) {
           onCreate(false);
           dispatch(onGetSafes());
@@ -86,7 +79,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setError(__("Что-то пошло не так. Повторите попытку позже"));
       })
@@ -104,18 +97,11 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
         emo: emoji
       };
 
-      onCustomizeSafe(
-        safeObj.name,
-        safeObj.password,
-        safeObj.tag,
-        safeObj.color,
-        safeObj.sign,
-        safeObj.emo
-      );
+      onCustomizeSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo);
     }
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
@@ -148,47 +134,30 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   [styles.folder]: true,
                   [styles.redCross]: color.color !== "grey"
                 })}
-                onClick={() => setColor(colors[0])}>
+                onClick={() => setColor(colors[0])}
+              >
                 <SafeIcon type={color?.name} className={styles.safeIcon} />
               </div>
               <div className={styles.picPreview}>
                 <div className={styles.folderName}>{name}</div>
                 <div className={styles.folderOptions}>
                   {tagOption.chosen && (
-                    <div
-                      className={classNames(
-                        styles.minitagWrap,
-                        styles.redCross
-                      )}>
-                      <div
-                        className={styles.minitag}
-                        onClick={() =>
-                          setTagOption({ ...tagOption, chosen: "" })
-                        }>
+                    <div className={classNames(styles.minitagWrap, styles.redCross)}>
+                      <div className={styles.minitag} onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
                         # {tagOption.chosen}
                       </div>
                     </div>
                   )}
 
                   {sign && (
-                    <div
-                      className={classNames(styles.sign, styles.redCross)}
-                      onClick={() => setSign("")}>
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.sign, styles.redCross)} onClick={() => setSign("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                     </div>
                   )}
 
                   {emoji && (
-                    <div
-                      className={classNames(styles.redCross, styles.emodji)}
-                      onClick={() => setEmoji("")}>
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.redCross, styles.emodji)} onClick={() => setEmoji("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                     </div>
                   )}
                 </div>
@@ -202,7 +171,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   placeholder={__("Имя сейфа")}
                   className={styles.input}
                   value={name}
-                  onChange={event => setName(event.target.value)}
+                  onChange={(event) => setName(event.target.value)}
                   isMistake={errors?.name}
                 />
               </div>
@@ -214,16 +183,13 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   type="text"
                   placeholder={__("Добавьте #Тег")}
                   value={tagOption.chosen}
-                  onChange={e => onChangeTag(e.target.value)}
+                  onChange={(e) => onChangeTag(e.target.value)}
                   onFocus={() => {
                     setTagOption({ ...tagOption, show: true });
                   }}
                 />
                 <span>{tagOption.count}/30</span>
-                <div
-                  className={styles.tagList}
-                  ref={tagRef}
-                  onClick={handleChoose}>
+                <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                   {renderTags()}
                 </div>
               </div>
@@ -237,7 +203,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   setShowPass={setShowPass}
                   className={styles.input}
                   value={password}
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                   isMistake={errors?.password}
                 />
               </div>
@@ -252,7 +218,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   setShowPass={setShowPass}
                   className={styles.input}
                   value={passwordRepeat}
-                  onChange={event => setPasswordRepeat(event.target.value)}
+                  onChange={(event) => setPasswordRepeat(event.target.value)}
                   isMistake={errors?.passwordRepeat}
                 />
               </div>
@@ -267,7 +233,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                     placeholder={__("Введите Ваш номер телефона")}
                     className={styles.input}
                     value={tel}
-                    onChange={event => setTel(event.target.value)}
+                    onChange={(event) => setTel(event.target.value)}
                     isMistake={errors?.tel}
                   />
                   <p className={styles.inputNote}>

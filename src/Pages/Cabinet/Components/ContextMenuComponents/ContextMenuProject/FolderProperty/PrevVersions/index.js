@@ -14,18 +14,10 @@ const PrevVersions = ({ folder }) => {
     <div className={styles.prevVersionsWrap}>
       <div className={styles.nameBlock}>
         <div className={styles.folderWrap}>
-          <FolderIcon
-            className={`${styles.folderWrap} ${
-              colors.filter(el => el.color === folder.color)[0]?.name
-            }`}
-          />
+          <FolderIcon className={`${styles.folderWrap} ${colors.filter((el) => el.color === folder.color)[0]?.name}`} />
         </div>
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={folder.name.slice(0, folder.name.lastIndexOf("."))}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={folder.name.slice(0, folder.name.lastIndexOf("."))} disabled={true} />
         </div>
       </div>
       <div className={styles.prevChanged}>
@@ -36,9 +28,7 @@ const PrevVersions = ({ folder }) => {
         <div className={styles.prevFileBlock}>
           <div className={styles.folderWrap}>
             <FolderIcon
-              className={`${styles.folderWrap} ${
-                colors.filter(el => el.color === folder.color)[0]?.name
-              }`}
+              className={`${styles.folderWrap} ${colors.filter((el) => el.color === folder.color)[0]?.name}`}
             />
           </div>
           <div className={styles.infoFile}>
@@ -47,16 +37,10 @@ const PrevVersions = ({ folder }) => {
               {folder.fig || folder.emo ? (
                 <div className={styles.signs}>
                   {folder.fig ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${folder.fig}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${folder.fig}.svg`} alt="emoji" />
                   ) : null}
                   {folder.emo ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${folder.emo}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${folder.emo}.svg`} alt="emoji" />
                   ) : null}
                 </div>
               ) : null}

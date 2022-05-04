@@ -10,7 +10,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
   const ref = useRef();
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -24,7 +24,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
       return props.placeholder;
     }
 
-    const valueItem = data.find(item => item === value);
+    const valueItem = data.find((item) => item === value);
     return valueItem;
   };
   return (
@@ -33,18 +33,21 @@ const Select = ({ data, initValue, onChange, ...props }) => {
       className={classNames({
         [styles.selectWrap]: true,
         [styles.active]: !!open
-      })}>
+      })}
+    >
       <div
         onClick={() => setOpen(!open)}
         className={classNames({
           [styles.select]: true,
           [styles.selected]: !!value
-        })}>
+        })}
+      >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
               [styles.selectInput]: true
-            })}>
+            })}
+          >
             {getValue()}
           </span>
         </div>
@@ -60,7 +63,8 @@ const Select = ({ data, initValue, onChange, ...props }) => {
         className={classNames({
           [styles.contentWrap]: true,
           [styles.active]: !!open
-        })}>
+        })}
+      >
         <ul className={styles.content}>
           {data.map((item, index) => (
             <li
@@ -72,7 +76,8 @@ const Select = ({ data, initValue, onChange, ...props }) => {
               }}
               className={classNames({
                 [styles.option]: true
-              })}>
+              })}
+            >
               {item}
             </li>
           ))}

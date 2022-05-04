@@ -22,11 +22,7 @@ const TableListTaskItem = ({ task }) => {
             }}
             className={styles.circle}
           />
-          <img
-            className={styles.suitCase}
-            src={imageSrc + "./assets/PrivateCabinet/suitcase.svg"}
-            alt="Suitcase"
-          />
+          <img className={styles.suitCase} src={imageSrc + "./assets/PrivateCabinet/suitcase.svg"} alt="Suitcase" />
         </div>
 
         <div className={styles.infoBlock}>
@@ -46,11 +42,7 @@ const TableListTaskItem = ({ task }) => {
           </div>
 
           <div className={classNames(styles.infoItem, styles.infoItemSender)}>
-            <img
-              className={styles.avatarImg}
-              src={imageSrc + "./assets/PrivateCabinet/avatars/a1.svg"}
-              alt="Avatar"
-            />
+            <img className={styles.avatarImg} src={imageSrc + "./assets/PrivateCabinet/avatars/a1.svg"} alt="Avatar" />
             <div>
               <p className={styles.option}>{__("Отправитель")}</p>
               <p className={styles.value}>{task?.sender}</p>
@@ -59,16 +51,8 @@ const TableListTaskItem = ({ task }) => {
         </div>
 
         <div className={styles.rightIcons}>
-          <img
-            className={styles.icon}
-            src={imageSrc + "./assets/PrivateCabinet/smiles/cool.svg"}
-            alt="Notification"
-          />
-          <img
-            className={styles.icon}
-            src={imageSrc + "./assets/PrivateCabinet/notification.svg"}
-            alt="Notification"
-          />
+          <img className={styles.icon} src={imageSrc + "./assets/PrivateCabinet/smiles/cool.svg"} alt="Notification" />
+          <img className={styles.icon} src={imageSrc + "./assets/PrivateCabinet/notification.svg"} alt="Notification" />
         </div>
 
         <div className={styles.arrowWrap}>
@@ -93,9 +77,7 @@ const TableListTaskItem = ({ task }) => {
           </div>
 
           <div className={styles.actionBlock}>
-            <button className={styles.actionBtn}>
-              {__("Перейти к задаче")}
-            </button>
+            <button className={styles.actionBtn}>{__("Перейти к задаче")}</button>
           </div>
         </div>
       )}

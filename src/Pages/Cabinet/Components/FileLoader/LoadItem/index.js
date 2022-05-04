@@ -36,7 +36,7 @@ const LoadItem = ({
     strokeDashoffset: `288`
   });
   const circleRef = useRef();
-  const onProgress = processing => {
+  const onProgress = (processing) => {
     const radius = circleRef?.current?.r?.baseVal?.value;
     const circumference = 2 * Math.PI * radius;
     setData({
@@ -79,15 +79,10 @@ const LoadItem = ({
             <CrossIcon className={styles.cross} onClick={deleteItem} />
           </span>
         ) : null}
-        {!loaded && !processing && !error ? (
-          <CrossIcon className={styles.crossIcon} onClick={deleteItem} />
-        ) : null}
+        {!loaded && !processing && !error ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
         {processing && !error ? (
           <div className={styles.progress}>
-            <svg
-              viewBox="0 0 100 100"
-              width="20px"
-              className={styles.progressBar}>
+            <svg viewBox="0 0 100 100" width="20px" className={styles.progressBar}>
               <circle className={styles.load} cx="50" cy="50" r="45" />
               <circle
                 className={styles.loaded}
@@ -99,9 +94,7 @@ const LoadItem = ({
                 strokeDashoffset={data.strokeDashoffset}
               />
             </svg>
-            {collapsed ? (
-              <UploadArrowIcon className={styles.uploadIcon} />
-            ) : null}
+            {collapsed ? <UploadArrowIcon className={styles.uploadIcon} /> : null}
             <span className={styles.crossUpload}>
               <CrossIcon
                 className={styles.cross}

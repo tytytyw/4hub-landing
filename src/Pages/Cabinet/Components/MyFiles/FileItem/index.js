@@ -6,11 +6,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps,
-  fileProps
-} from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
 
 const FileItem = ({
   file,
@@ -23,14 +19,14 @@ const FileItem = ({
   filePick,
   setFilePick
 }) => {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
   const onPickFile = () => {
     if (filePick.show) {
-      const isPicked = filePick.files.filter(el => el === file.fid);
+      const isPicked = filePick.files.filter((el) => el === file.fid);
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
+            files: filePick.files.filter((el) => el !== file.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
@@ -38,39 +34,18 @@ const FileItem = ({
   };
 
   const renderEmoji = () => (
-    <div>
-      {file?.emo ? (
-        <img
-          src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-          alt="emoji"
-        />
-      ) : null}
-    </div>
+    <div>{file?.emo ? <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt="emoji" /> : null}</div>
   );
 
   const renderSign = () => (
-    <div>
-      {file?.fig ? (
-        <img
-          src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-          alt="fig"
-        />
-      ) : null}
-    </div>
+    <div>{file?.fig ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="fig" /> : null}</div>
   );
 
   const renderLock = () => (
-    <div>
-      {file?.is_pass ? (
-        <img
-          src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-          alt="lock"></img>
-      ) : null}
-    </div>
+    <div>{file?.is_pass ? <img src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock"></img> : null}</div>
   );
 
-  const renderTag = () =>
-    file?.tag ? <div className={styles.file_tag}>#{file?.tag}</div> : null;
+  const renderTag = () => (file?.tag ? <div className={styles.file_tag}>#{file?.tag}</div> : null);
   return (
     <div
       className={classNames({
@@ -80,9 +55,8 @@ const FileItem = ({
         [styles.bigSize]: size === "big"
       })}
       onClick={onPickFile}
-      onDoubleClick={() =>
-        setFilePreview({ ...filePreview, view: true, file })
-      }>
+      onDoubleClick={() => setFilePreview({ ...filePreview, view: true, file })}
+    >
       <div className={styles.file_icon}>
         <File color={file.color} format={file.ext} />
       </div>
@@ -115,14 +89,15 @@ const FileItem = ({
 
         <div
           className={styles.file_menu}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 200,
               height: 25
             });
-          }}>
+          }}
+        >
           <span className={styles.dots} />
         </div>
       </div>

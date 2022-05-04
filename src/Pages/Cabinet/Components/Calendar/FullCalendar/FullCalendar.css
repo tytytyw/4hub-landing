@@ -1,25 +1,25 @@
 .fc {
-    height: auto;
+  height: auto;
 }
 
 .fc-scrollgrid {
-    border: none!important;
+  border: none !important;
 }
 
 .fc-theme-standard th {
-    border: none;
+  border: none;
 }
 
 .fc-view-harness {
-    height: calc(45px * 24 + 30px)!important;
+  height: calc(45px * 24 + 30px) !important;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .fc .fc-scroller {
-    overflow: hidden!important;
+  overflow: hidden !important;
 }
 
 /*.fc .fc-timegrid-col, .fc .fc-col-header-cell {
@@ -27,26 +27,26 @@
 }*/
 
 .fc .fc-timegrid-col.fc-day-today {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .fc .fc-timegrid-slot {
-    height: 45px;
+  height: 45px;
 }
 
 .fc .fc-timegrid-axis {
-    width: 50px;
+  width: 50px;
 }
 
 .fc-timegrid-slots table tr td:first-child {
-    border: none;
-    width: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  border: none;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fc-timegrid-event {
-    background: none;
-    border: none;
+  background: none;
+  border: none;
 }

@@ -57,7 +57,7 @@ const CreateSafePassword = ({ onToggle, title }) => {
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
@@ -79,20 +79,18 @@ const CreateSafePassword = ({ onToggle, title }) => {
           <span className={styles.title}>{title}</span>
           <div className={styles.folderIconWrap}>
             <div
-              className={`${styles.folder} ${
-                color.color !== "grey" ? styles.redCross : undefined
-              }`}
-              onClick={() => setColor(colors[0])}>
+              className={`${styles.folder} ${color.color !== "grey" ? styles.redCross : undefined}`}
+              onClick={() => setColor(colors[0])}
+            >
               <SafeIcon className={styles.safeIcon} />
             </div>
             <div className={styles.picPreview}>
-              <div className={styles.folderName}>
-                {name === "" ? __("Пароли") : name}
-              </div>
+              <div className={styles.folderName}>{name === "" ? __("Пароли") : name}</div>
               {tagOption.chosen && (
                 <div
                   className={`${styles.minitagWrap} ${styles.redCross}`}
-                  onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                  onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                >
                   <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                 </div>
               )}
@@ -115,16 +113,13 @@ const CreateSafePassword = ({ onToggle, title }) => {
                 type="text"
                 placeholder={__("Добавте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div
-                className={styles.tagList}
-                ref={tagRef}
-                onClick={handleChoose}>
+              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                 {renderTags()}
               </div>
             </div>
@@ -140,9 +135,7 @@ const CreateSafePassword = ({ onToggle, title }) => {
             </div>
           </div>
           <span className={styles.description}>
-            {__(
-              "Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу"
-            )}
+            {__("Примечание: на указанный контактный номер телефона будет отправлено код-пароль для доступа к сейфу")}
           </span>
           <Colors color={color} setColor={setColor} />
           <Signs sign={sign} setSign={setSign} />
@@ -155,13 +148,7 @@ const CreateSafePassword = ({ onToggle, title }) => {
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Пароль для сейфа не создан")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Пароль для сейфа не создан")} />}
     </>
   );
 };

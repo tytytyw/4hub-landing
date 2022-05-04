@@ -20,19 +20,18 @@ const PopoverTaskItem = ({ task, reverseSide, reverse }) => {
         [styles.reverseWrap]: reverse,
         [styles.contentSideWrap]: !reverseSide,
         [styles.reverseSideWrap]: reverseSide
-      })}>
+      })}
+    >
       <div
         className={styles.content}
         style={{
           background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
-        }}>
+        }}
+      >
         <div className={styles.flexBlock}>
           <div className={styles.leftBlock}>
             <div className={styles.topIcons}>
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`}
-                alt="Suitcase"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/suitcase.svg`} alt="Suitcase" />
               <span
                 style={{
                   background: `${color}`

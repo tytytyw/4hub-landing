@@ -14,10 +14,7 @@ import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMess
 import CreateCameraMedia from "../CreateCameraMedia";
 import Settings from "../Settings";
 import PropTypes from "prop-types";
-import {
-  onEditChatMessage,
-  onDeleteChatMessage
-} from "../../../../../Store/actions/CabinetActions";
+import { onEditChatMessage, onDeleteChatMessage } from "../../../../../Store/actions/CabinetActions";
 import classNames from "classnames";
 import { actionProps } from "../../../../../types/Action";
 
@@ -37,19 +34,15 @@ const WorkSpace = ({
 }) => {
   const [socket, setSocket] = useState(null);
   const [socketReconnect, setSocketReconnect] = useState(true);
-  const uid = useSelector(state => state.user.uid);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
-  const id_company = useSelector(state => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
+  const id_company = useSelector((state) => state.user.id_company);
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
-  const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
-  );
-  const messageLifeTime = useSelector(
-    state => state.Cabinet.chat.messageLifeTime
-  );
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+  const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
 
   const scrollToBottom = () => {
     endMessagesRef?.current?.scrollIntoView();
@@ -60,21 +53,16 @@ const WorkSpace = ({
     socket.send(JSON.stringify({ action: "uid", uid }));
   };
 
-  const onWebSocketsMessage = e => {
+  const onWebSocketsMessage = (e) => {
     const data = JSON.parse(e.data);
 
     const isForGroups = data.is_group && selectedContact?.isGroup;
-    const isForSecretChat =
-      data.is_secret_chat && selectedContact?.is_secret_chat;
+    const isForSecretChat = data.is_secret_chat && selectedContact?.is_secret_chat;
     const isForChats = !data.is_group && !selectedContact?.isGroup;
-    const isForSelectedGroup =
-      isForGroups && data.id_group === selectedContact?.id;
-    const isForSelectedChat =
-      isForChats &&
-      (data.id_contact === selectedContact?.id || data.id_user_to === userId);
+    const isForSelectedGroup = isForGroups && data.id_group === selectedContact?.id;
+    const isForSelectedChat = isForChats && (data.id_contact === selectedContact?.id || data.id_user_to === userId);
     // && data.api.id_user === selectedContact?.id_real_user
-    const isForSelectedSecretChat =
-      isForSecretChat && data.id_group === selectedContact?.id;
+    const isForSelectedSecretChat = isForSecretChat && data.id_group === selectedContact?.id;
 
     if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
     // PrivateMessage - direct message; PublicMessage- message from group
@@ -115,37 +103,30 @@ const WorkSpace = ({
       }
     }
     if (
-      (data.action === "chat_group_message_edit" ||
-        data.action === "chat_message_edit") &&
+      (data.action === "chat_group_message_edit" || data.action === "chat_message_edit") &&
       (isForSelectedGroup || isForSelectedSecretChat || isForSelectedChat)
     ) {
       dispatch(
-        onEditChatMessage(
-          { attachment: data.attachment, text: data.text },
-          { id: data.id_message, day: data.day }
-        )
+        onEditChatMessage({ attachment: data.attachment, text: data.text }, { id: data.id_message, day: data.day })
       );
     }
     if (
-      (data.action === "chat_group_message_del" ||
-        data.action === "chat_message_del") &&
+      (data.action === "chat_group_message_del" || data.action === "chat_message_del") &&
       (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
     ) {
       dispatch(onDeleteChatMessage({ id: data.id_message, day: data.day }));
     }
   };
 
-  const onConnectClose = e => {
+  const onConnectClose = (e) => {
     console.log("connection closed", e);
     setSocketReconnect(true);
   };
 
   const addMessage = (text, attachment) => {
     if ((text || attachment) && socket) {
-      const sendMessage = params => {
-        socket.send(
-          JSON.stringify({ ...params, uid, id_company, text, attachment })
-        );
+      const sendMessage = (params) => {
+        socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
       };
       sendMessage(
         selectedContact?.isGroup
@@ -173,7 +154,7 @@ const WorkSpace = ({
   const editMessage = (message, newText) => {
     // TODO: add attachment deleting
     if (newText && newText !== action.message.text) {
-      const sendSocketMessage = params => {
+      const sendSocketMessage = (params) => {
         socket.send(
           JSON.stringify({
             ...params,
@@ -203,8 +184,8 @@ const WorkSpace = ({
     }
   };
 
-  const deleteMessage = message => {
-    const sendSocketMessage = params => {
+  const deleteMessage = (message) => {
+    const sendSocketMessage = (params) => {
       socket.send(
         JSON.stringify({
           ...params,
@@ -232,13 +213,15 @@ const WorkSpace = ({
   };
 
   const renderCreateCameraMedia = useCallback(
-    <CreateCameraMedia
-      nullifyAction={nullifyAction}
-      addMessage={addMessage}
-      socket={socket}
-      scrollToBottom={scrollToBottom}
-    />,
-    [action]
+    () => (
+      <CreateCameraMedia
+        nullifyAction={nullifyAction}
+        addMessage={addMessage}
+        socket={socket}
+        scrollToBottom={scrollToBottom}
+      />
+    ),
+    [action] // eslint-disable-line
   );
 
   useEffect(() => {
@@ -280,7 +263,8 @@ const WorkSpace = ({
       className={classNames({
         [styles.chatWorkSpaceWrap]: true,
         [styles.darkTheme]: chatTheme.name === "dark"
-      })}>
+      })}
+    >
       <div className={styles.header}>
         <SearchField theme={chatTheme.name} />
         <div className={styles.infoHeader}>
@@ -290,12 +274,8 @@ const WorkSpace = ({
         </div>
       </div>
       {showSettings && <Settings close={() => setShowSettings(false)} />}
-      <div
-        className={styles.main}
-        style={showSettings ? { height: "calc(100% - 179px - 90px)" } : {}}>
-        {selectedContact &&
-        action.type !== "addChat" &&
-        action.type !== "editChatGroup" ? (
+      <div className={styles.main} style={showSettings ? { height: "calc(100% - 179px - 90px)" } : {}}>
+        {selectedContact && action.type !== "addChat" && action.type !== "editChatGroup" ? (
           <ChatBoard
             sideMenuCollapsed={sideMenuCollapsed}
             boardOption={boardOption}
@@ -313,6 +293,8 @@ const WorkSpace = ({
             scrollToBottom={scrollToBottom}
             editMessage={editMessage}
             showSettings={showSettings}
+            attachedFiles={attachedFiles}
+            setAttachedFiles={setAttachedFiles}
           />
         ) : (
           ""
@@ -348,10 +330,21 @@ const WorkSpace = ({
             set={nullifyAction}
             message={action.message}
             nullifyAction={nullifyAction}
-            deleteMessage={deleteMessage}></DeleteMessage>
+            deleteMessage={deleteMessage}
+          ></DeleteMessage>
         ) : null}
       </div>
       {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
+      {action?.type === "selectFile" ? (
+        <SelectFile
+          nullifyAction={nullifyAction}
+          title={action?.title}
+          attachedFiles={attachedFiles}
+          setAttachedFiles={setAttachedFiles}
+        />
+      ) : (
+        ""
+      )}
 
       <BottomPanel />
     </div>

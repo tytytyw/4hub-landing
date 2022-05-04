@@ -17,7 +17,8 @@ const OptionButtomLine = ({ selectedDevices, onSubmit, onCancel }) => {
           [styles.buttonDisabled]: true,
           [styles.edit]: selectedDevices.length > 0
         })}
-        onClick={() => onSubmit()}>
+        onClick={() => onSubmit()}
+      >
         {__("Блокировать")}
       </div>
     </div>

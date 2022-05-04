@@ -17,18 +17,15 @@ const LangPicker = () => {
     { lang: "en", title: "eng", name: __("Английский") }
   ];
 
-  const language =
-    useSelector(s => s.user?.userInfo?.lang) || getStorageItem("lang");
-  const [lang, setLang] = useState(
-    langs.filter(el => el.lang === language)[0] ?? langs[0]
-  );
+  const language = useSelector((s) => s.user?.userInfo?.lang) || getStorageItem("lang");
+  const [lang, setLang] = useState(langs.filter((el) => el.lang === language)[0] ?? langs[0]);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const ref = useRef();
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -51,7 +48,7 @@ const LangPicker = () => {
           <ArrowIcon className={styles.arrow} />
         </div>
         <ul className={styles.list}>
-          {langs.map(item => (
+          {langs.map((item) => (
             <li
               onClick={() => {
                 setOpen(false);

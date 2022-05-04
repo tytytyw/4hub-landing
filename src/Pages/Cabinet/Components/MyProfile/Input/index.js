@@ -31,11 +31,9 @@ const Input = ({
   };
 
   const getEyeImg = () =>
-    showPass
-      ? `${imageSrc}assets/StartPage/eye.svg`
-      : `${imageSrc}assets/StartPage/invisible.svg`;
+    showPass ? `${imageSrc}assets/StartPage/eye.svg` : `${imageSrc}assets/StartPage/invisible.svg`;
 
-  const maskPhoneNumber = number => {
+  const maskPhoneNumber = (number) => {
     const tempValue = number.replace(/\D/gim, "");
 
     return tempValue.replace(
@@ -55,14 +53,13 @@ const Input = ({
     );
   };
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value } = event.target;
     if (phone) {
       event.target.value = maskPhoneNumber(value);
     }
     if (isName && event.target.value) {
-      event.target.value =
-        event.target.value[0].toUpperCase() + event.target.value.slice(1);
+      event.target.value = event.target.value[0].toUpperCase() + event.target.value.slice(1);
     }
     onChange(event);
   };
@@ -96,12 +93,7 @@ const Input = ({
           //{...props}
         />
         {type === "password" && showEye && (
-          <img
-            src={getEyeImg()}
-            alt="eye"
-            className={styles.eye}
-            onClick={() => !disabled && setShowPass(!showPass)}
-          />
+          <img src={getEyeImg()} alt="eye" className={styles.eye} onClick={() => !disabled && setShowPass(!showPass)} />
         )}
       </div>
     </>

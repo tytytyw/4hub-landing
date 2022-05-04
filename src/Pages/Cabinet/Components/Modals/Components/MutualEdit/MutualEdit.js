@@ -6,10 +6,7 @@ import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import ImagePanel from "./ImagePanel/ImagePanel";
 import DrawZone from "./DrawZone/DrawZone";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  onSetModals,
-  onSetPaint
-} from "../../../../../../Store/actions/CabinetActions";
+import { onSetModals, onSetPaint } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { loadDest } from "../../../../../../generalComponents/collections";
 import { dataURLintoBlobImage } from "../../../../../../generalComponents/generalHelpers";
@@ -22,35 +19,35 @@ function MutualEdit({ menuItem }) {
   const canvasWrapRef = useRef();
   const mainRef = useRef();
   const inputRef = useRef();
-  const uid = useSelector(s => s.user.uid);
-  const authorizedSafe = useSelector(state => state.Cabinet.authorizedSafe);
-  const mutualEdit = useSelector(s => s.Cabinet.paint.mutualEdit);
-  const project = useSelector(s => s.Cabinet.project);
+  const uid = useSelector((s) => s.user.uid);
+  const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
+  const mutualEdit = useSelector((s) => s.Cabinet.paint.mutualEdit);
+  const project = useSelector((s) => s.Cabinet.project);
   const [images, setImages] = useState({ loaded: [], saved: [], chosen: [] });
   const dispatch = useDispatch();
 
   const [params, setParams] = useState({ isLoading: false, isChoosing: false });
 
-  const pushLoaded = files => {
-    setImages(s => ({ ...s, loaded: [...s.loaded, ...files].slice(0, 4) }));
+  const pushLoaded = (files) => {
+    setImages((s) => ({ ...s, loaded: [...s.loaded, ...files].slice(0, 4) }));
   };
 
-  const deleteLoaded = i => {
-    setImages(s => ({
+  const deleteLoaded = (i) => {
+    setImages((s) => ({
       ...s,
       loaded: s.loaded.filter((el, index) => i !== index)
     }));
   };
 
-  const addToChosen = fid => {
+  const addToChosen = (fid) => {
     if (images.chosen.indexOf(fid) === -1) {
-      setImages(s => ({ ...s, chosen: [...s.chosen, fid] }));
+      setImages((s) => ({ ...s, chosen: [...s.chosen, fid] }));
     } else {
-      setImages(s => ({ ...s, chosen: deleteChosen(fid) }));
+      setImages((s) => ({ ...s, chosen: deleteChosen(fid) }));
     }
   };
 
-  const deleteChosen = fid => {
+  const deleteChosen = (fid) => {
     let chosen = [...images.chosen];
     if ([...images.chosen].indexOf(fid) !== -1) {
       chosen.splice([...images.chosen].indexOf(fid), 1);
@@ -58,19 +55,16 @@ function MutualEdit({ menuItem }) {
     return chosen;
   };
 
-  const deleteSaved = i => {
-    setImages(s => ({
+  const deleteSaved = (i) => {
+    setImages((s) => ({
       ...s,
       saved: s.saved.filter((el, index) => i !== index),
       chosen: deleteChosen(images.saved[i].fid)
     }));
   };
 
-  const saveImage = async file => {
-    const image = new File(
-      [dataURLintoBlobImage(file)],
-      __("Совместное редактирование.png")
-    );
+  const saveImage = async (file) => {
+    const image = new File([dataURLintoBlobImage(file)], __("Совместное редактирование.png"));
 
     let data = new FormData();
     data.append("uid", uid);
@@ -91,13 +85,13 @@ function MutualEdit({ menuItem }) {
       data.append("id_project", project?.chosenProject?.id);
     }
 
-    setParams(s => ({ ...s, isLoading: true }));
+    setParams((s) => ({ ...s, isLoading: true }));
     return await api
       .post(`/ajax/${loadDest[menuItem] ?? ""}file_add.php`, data)
-      .then(res => {
+      .then((res) => {
         let isOk = !!res?.data?.ok;
         if (isOk) {
-          setImages(s => ({
+          setImages((s) => ({
             ...s,
             saved: [...s.saved, { src: file, fid: res?.data?.fid || "" }]
           }));
@@ -110,10 +104,10 @@ function MutualEdit({ menuItem }) {
           );
         }
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(onSetModals("error", { open: true, message: `${err}` }));
       })
-      .finally(() => setParams(s => ({ ...s, isLoading: false })));
+      .finally(() => setParams((s) => ({ ...s, isLoading: false })));
   };
 
   useLayoutEffect(() => {
@@ -176,18 +170,13 @@ function MutualEdit({ menuItem }) {
             </div>
             <div className={styles.buttonsWrap}>
               <div
-                className={`${styles.sendSavedButton} ${
-                  params.isChoosing ? styles.choosing : ""
-                }`}
-                onClick={() =>
-                  setParams(s => ({ ...s, isChoosing: !params.isChoosing }))
-                }>
+                className={`${styles.sendSavedButton} ${params.isChoosing ? styles.choosing : ""}`}
+                onClick={() => setParams((s) => ({ ...s, isChoosing: !params.isChoosing }))}
+              >
                 {__("Выбрать")}
               </div>
               <div
-                className={`${styles.sendSavedButton} ${
-                  images.chosen.length === 0 ? styles.notActive : ""
-                }`}
+                className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ""}`}
                 onClick={() => {
                   if (images.chosen.length > 0) {
                     dispatch(
@@ -198,7 +187,8 @@ function MutualEdit({ menuItem }) {
                       })
                     );
                   }
-                }}>
+                }}
+              >
                 {__("Отправить")}
               </div>
             </div>

@@ -26,17 +26,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
     ctx.translate(-cropX, -cropY);
     ctx.translate(centerX, centerY);
     ctx.translate(-centerX, -centerY);
-    ctx.drawImage(
-      image,
-      0,
-      0,
-      image.naturalWidth,
-      image.naturalHeight,
-      0,
-      0,
-      image.naturalWidth,
-      image.naturalHeight
-    );
+    ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight, 0, 0, image.naturalWidth, image.naturalHeight);
     ctx.restore();
   };
 
@@ -49,7 +39,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       return () => {
         clearTimeout(t);
       };
-    }, deps);
+    }, deps); // eslint-disable-line
   };
 
   const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
@@ -68,7 +58,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
     );
   };
 
-  const onImageLoad = e => {
+  const onImageLoad = (e) => {
     if (aspect) {
       const { width, height } = e.currentTarget;
       setCrop(centerAspectCrop(width, height, aspect));
@@ -89,10 +79,10 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       <ReactCrop
         crop={crop}
         onChange={(_, percentCrop) => setCrop(percentCrop)}
-        onComplete={c => setCompletedCrop(c)}
+        onComplete={(c) => setCompletedCrop(c)}
         aspect={aspect}
       >
-        <img ref={imgRef} src={imageSrc} onLoad={onImageLoad} />
+        <img ref={imgRef} src={imageSrc} alt="img" onLoad={onImageLoad} />
       </ReactCrop>
     </div>
   );

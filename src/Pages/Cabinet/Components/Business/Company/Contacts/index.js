@@ -13,36 +13,26 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
-const Contacts = ({
-  setLoadingType,
-  setShowSuccessMessage,
-  mouseParams,
-  setMouseParams,
-  renderMenuItems
-}) => {
+const Contacts = ({ setLoadingType, setShowSuccessMessage, mouseParams, setMouseParams, renderMenuItems }) => {
   const { __ } = useLocales();
   const [selectedItem, setSelectedItem] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-  const id_company = useSelector(state => state.user.id_company);
-  const uid = useSelector(state => state.user.uid);
-  const contactList = useSelector(state => state.Cabinet.companyContactList);
+  const id_company = useSelector((state) => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
+  const contactList = useSelector((state) => state.Cabinet.companyContactList);
   const dispatch = useDispatch();
 
   const deleteContact = () => {
     nullifyAction();
     api
-      .get(
-        `/ajax/org_contacts_del.php?uid=${uid}&id_company=${id_company}&id=${selectedItem.id}`
-      )
+      .get(`/ajax/org_contacts_del.php?uid=${uid}&id_company=${id_company}&id=${selectedItem.id}`)
       .then(() => {
-        dispatch(
-          onGetCompanyContacts(setShowSuccessMessage, __("Контакт удален"))
-        );
+        dispatch(onGetCompanyContacts(setShowSuccessMessage, __("Контакт удален")));
         setSelectedItem(null);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -56,9 +46,7 @@ const Contacts = ({
     {
       type: "deleteContact",
       name: __("Удаление контакта"),
-      text: __(
-        `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`
-      ),
+      text: __(`Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`),
       callback: (list, index) => setAction(list[index])
     },
     {
@@ -73,11 +61,8 @@ const Contacts = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
     () =>
-      contactList && selectedItem
-        ? setSelectedItem(
-            contactList.filter(item => item.id === selectedItem.id)[0]
-          )
-        : "",
+      contactList && selectedItem ? setSelectedItem(contactList.filter((item) => item.id === selectedItem.id)[0]) : "",
+    //eslint-disable-next-line
     [contactList]
   );
 
@@ -119,25 +104,18 @@ const Contacts = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteContact}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <img
             className={styles.avatar}
-            src={
-              selectedItem?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            src={selectedItem?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             alt="avatar"
           />
         </ActionApproval>
       ) : null}
       {mouseParams !== null && mouseParams.type === "contextMenuContact" ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={false}>
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuContact, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuContact, callbackArrMain)}</div>
         </ContextMenu>
       ) : null}
     </div>

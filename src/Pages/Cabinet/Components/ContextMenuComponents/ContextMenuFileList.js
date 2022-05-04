@@ -1,10 +1,6 @@
 import React from "react";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-import {
-  CONTEXT_MENU_FILE,
-  imageSrc,
-  MODALS
-} from "../../../../generalComponents/globalVariables";
+import { CONTEXT_MENU_FILE, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import { previewFormats } from "../../../../generalComponents/collections";
 import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,33 +17,22 @@ export const share_types = {
   "shared-files": "file_share"
 };
 
-function ContextMenuFileList({
-  file,
-  filePick,
-  mouseParams,
-  filesPage,
-  menuItem,
-  authorizedSafe
-}) {
+function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem, authorizedSafe }) {
   const { __ } = useLocales();
   const copy_link_types = {
     myFolders: file?.is_dir === 1 ? "dir_access_add" : ""
   };
 
-  const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const filterContextMenu = (location, array) => {
     if (location === "archive") {
-      return array.filter(item =>
-        ["share", "download", "print"].includes(item.type)
-      );
+      return array.filter((item) => ["share", "download", "print"].includes(item.type));
     }
     if (location === "safe") {
-      return array.filter(item => !["share", "copyLink"].includes(item.type));
+      return array.filter((item) => !["share", "copyLink"].includes(item.type));
     }
     return array;
   };
@@ -63,8 +48,7 @@ function ContextMenuFileList({
           onSetModals(MODALS.SHARE, {
             open: true,
             fids: filePick.show ? filePick.files : file,
-            action_type:
-              file.is_dir === 1 ? "dir_access_add" : share_types[menuItem],
+            action_type: file.is_dir === 1 ? "dir_access_add" : share_types[menuItem],
             file
           })
         );
@@ -98,9 +82,7 @@ function ContextMenuFileList({
             type: CONTEXT_MENU_FILE.CUSTOMIZE_FILE,
             items: filePick.show ? filePick.files : [file],
             title:
-              contextMenuModals.items.length === 1
-                ? __("Редактирование файла")
-                : __("Редактировать выбранные файлы"),
+              contextMenuModals.items.length === 1 ? __("Редактирование файла") : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
             menuItem
@@ -119,10 +101,7 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.CUSTOMIZE_FILE,
             items: filePick.show ? filePick.files : [file],
-            title:
-              contextMenuModals.items.length === 1
-                ? "Редактирование файла"
-                : __("Редактировать выбранные файлы"),
+            title: contextMenuModals.items.length === 1 ? "Редактирование файла" : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
             menuItem
@@ -260,18 +239,13 @@ function ContextMenuFileList({
           case "audio":
             return ["print"];
           case "application": {
-            return file.mime_type === "application/x-compressed"
-              ? ["print", "intoZip", "intoZipSeveral"]
-              : [];
+            return file.mime_type === "application/x-compressed" ? ["print", "intoZip", "intoZipSeveral"] : [];
           }
           default:
             return ["print"];
         }
       }
-      if (
-        previewFormats.filter(ext => file?.ext.toLowerCase().includes(ext))[0]
-      )
-        return [];
+      if (previewFormats.filter((ext) => file?.ext.toLowerCase().includes(ext))[0]) return [];
       return ["print"];
     }
   };
@@ -280,7 +254,7 @@ function ContextMenuFileList({
     const eItems = excessItems();
     let filteredMenu = [...target];
     filteredMenu.forEach((el, i, arr) => {
-      eItems.forEach(excess => {
+      eItems.forEach((excess) => {
         if (excess === el.type) delete arr[i];
       });
     });
@@ -292,7 +266,7 @@ function ContextMenuFileList({
           height={mouseParams?.height}
           text={item.name}
           callback={() =>
-            type.forEach(el => {
+            type.forEach((el) => {
               if (el.type === item.type) {
                 el.callback();
               }
@@ -307,9 +281,7 @@ function ContextMenuFileList({
   return (
     <>
       <div>{renderMenuItems(callbackArrMain, callbackArrMain)}</div>
-      <div style={{ margin: "10px 0 10px 0" }}>
-        {renderMenuItems(additionalMenuItems, additionalMenuItems)}
-      </div>
+      <div style={{ margin: "10px 0 10px 0" }}>{renderMenuItems(additionalMenuItems, additionalMenuItems)}</div>
     </>
   );
 }

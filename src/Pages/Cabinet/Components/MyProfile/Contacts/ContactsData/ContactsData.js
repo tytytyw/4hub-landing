@@ -13,12 +13,7 @@ import { ReactComponent as SpeechIcon } from "../../../../../../assets/PrivateCa
 import { ReactComponent as PhoneIcon } from "../../../../../../assets/PrivateCabinet/phone-3.svg";
 import { ReactComponent as CameraIcon } from "../../../../../../assets/PrivateCabinet/video-camera.svg";
 import { ReactComponent as MailIcon } from "../../../../../../assets/PrivateCabinet/mail-3.svg";
-import {
-  emptyProfileImage,
-  getContactName,
-  messengersIcons,
-  socialsIcons
-} from "../consts";
+import { emptyProfileImage, getContactName, messengersIcons, socialsIcons } from "../consts";
 
 import api from "../../../../../../api";
 
@@ -33,11 +28,11 @@ import { selectedItemProps } from "../../../../../../types/Contacts";
 const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
-  const getFavourites = contacts => {
+  const getFavourites = (contacts) => {
     const favouritesData = [];
-    contacts?.forEach(contact => {
+    contacts?.forEach((contact) => {
       if (contact?.is_fav === "1") {
         favouritesData.push(contact?.id);
       }
@@ -55,7 +50,7 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
 
   const selectOtherContact = () => {
     const newContacts = [];
-    data.forEach(contactItem => {
+    data.forEach((contactItem) => {
       if (contactItem.id !== selectedItem.id) {
         newContacts.push(contactItem);
       }
@@ -78,7 +73,7 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
       .then(() => {
         dispatch(onGetContacts());
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -96,14 +91,14 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
         selectOtherContact();
         setDelConfirm(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const profileImage = selectedItem?.icon?.[0] || emptyProfileImage;
 
-  const getDate = date => {
+  const getDate = (date) => {
     return date ? new Date(date).toLocaleDateString() : __("Не задан");
   };
 
@@ -111,16 +106,10 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
     <div className={styles.contactsData}>
       <div className={styles.header}>
         <div className={styles.profileData}>
-          <img
-            className={styles.profileImg}
-            src={profileImage}
-            alt={selectedItem?.name}
-          />
+          <img className={styles.profileImg} src={profileImage} alt={selectedItem?.name} />
           <div>
             <p className={styles.profileName}>{getContactName(selectedItem)}</p>
-            <span className={styles.date}>
-              Дата добавления: {getDate(selectedItem?.ut)}
-            </span>
+            <span className={styles.date}>Дата добавления: {getDate(selectedItem?.ut)}</span>
           </div>
         </div>
         <div>
@@ -137,15 +126,11 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
               <ShareIcon className={styles.iconShare} />
             </div>
 
-            <div
-              onClick={() => setContactPopup(true)}
-              className={styles.iconView}>
+            <div onClick={() => setContactPopup(true)} className={styles.iconView}>
               <EditIcon className={styles.iconShare} />
             </div>
 
-            <div
-              onClick={() => setDelConfirm(true)}
-              className={styles.iconView}>
+            <div onClick={() => setDelConfirm(true)} className={styles.iconView}>
               <DeleteIcon className={styles.iconTrash} />
             </div>
 
@@ -153,18 +138,11 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
               <ActionApproval
                 name={__("Удаление контакта")}
                 approve={__("Удалить")}
-                text={__(
-                  `Вы действительно хотите удалить контакт ${getContactName(
-                    selectedItem
-                  )}?`
-                )}
+                text={__(`Вы действительно хотите удалить контакт ${getContactName(selectedItem)}?`)}
                 set={() => setDelConfirm(false)}
-                callback={onDeleteConfirm}>
-                <img
-                  className={styles.profileImg}
-                  src={profileImage}
-                  alt="Contact"
-                />
+                callback={onDeleteConfirm}
+              >
+                <img className={styles.profileImg} src={profileImage} alt="Contact" />
               </ActionApproval>
             )}
           </div>
@@ -255,7 +233,8 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
                 className={classnames({
                   [styles.info]: true,
                   [styles.links]: true
-                })}>
+                })}
+              >
                 {__("Профиль соц. сетей:")}
               </span>
               <div className={styles.value}>
@@ -278,7 +257,8 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
                 className={classnames({
                   [styles.info]: true,
                   [styles.links]: true
-                })}>
+                })}
+              >
                 {__("Мессенджеры:")}
               </span>
               <div className={styles.value}>
@@ -286,10 +266,7 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
                   {selectedItem?.mes.map((item, index) => (
                     <li key={index}>
                       <a href={item?.link} className={styles.socialsLink}>
-                        <img
-                          src={messengersIcons[item?.type]}
-                          alt={item?.type}
-                        />
+                        <img src={messengersIcons[item?.type]} alt={item?.type} />
                       </a>
                     </li>
                   ))}
@@ -300,17 +277,9 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
         </div>
       </div>
 
-      {contactPopup && (
-        <FormContact
-          type="edit"
-          set={setContactPopup}
-          selectedItem={selectedItem}
-        />
-      )}
+      {contactPopup && <FormContact type="edit" set={setContactPopup} selectedItem={selectedItem} />}
 
-      {sendPopup && (
-        <SendFriend set={setSendPopup} selectedItem={selectedItem} />
-      )}
+      {sendPopup && <SendFriend set={setSendPopup} selectedItem={selectedItem} />}
     </div>
   );
 };

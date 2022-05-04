@@ -31,7 +31,7 @@ function WorkSpace({
   const { __ } = useLocales();
   const [containerRef, width] = useElementResize();
   const fileRef = useRef(null);
-  const workElementsView = useSelector(s => s.Cabinet.view);
+  const workElementsView = useSelector((s) => s.Cabinet.view);
   const [chosenFile, setChosenFile] = useState(null);
   const [filePick, setFilePick] = useState({
     show: false,
@@ -43,8 +43,7 @@ function WorkSpace({
   const [mouseParams, setMouseParams] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
 
-  const nullifyFilePick = () =>
-    setFilePick({ show: false, files: [], customize: false, intoZip: false });
+  const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
 
   return (
     <>
@@ -57,7 +56,8 @@ function WorkSpace({
                       : styles.workSpaceWrapUncollapsed
                     : undefined
                 }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -72,9 +72,7 @@ function WorkSpace({
           setAction={setAction}
           fileSelect={fileSelect}
           addFile={fileSelect}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -102,9 +100,7 @@ function WorkSpace({
         {filePick.show ? (
           <OptionButtomLine
             filePick={filePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}
@@ -114,10 +110,7 @@ function WorkSpace({
           />
         ) : null}
         {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-          <ContextMenu
-            params={mouseParams}
-            setParams={setMouseParams}
-            tooltip={true}>
+          <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
             <ContextMenuFileList
               filePick={filePick}
               file={chosenFile}

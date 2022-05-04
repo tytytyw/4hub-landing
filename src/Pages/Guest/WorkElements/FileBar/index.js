@@ -5,11 +5,7 @@ import styles from "./FileBar.module.sass";
 import File from "../../../../generalComponents/Files";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps,
-  fileProps
-} from "../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../types/WorkElements";
 
 const FileBar = ({
   file,
@@ -22,15 +18,15 @@ const FileBar = ({
   filePick,
   setFilePick
 }) => {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   const onPickFile = () => {
     if (filePick?.show) {
-      const isPicked = filePick.files.filter(el => el === file.fid);
+      const isPicked = filePick.files.filter((el) => el === file.fid);
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
+            files: filePick.files.filter((el) => el !== file.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
@@ -59,56 +55,40 @@ const FileBar = ({
             setChosenFile(file);
           }
         }}
-        onDoubleClick={() =>
-          setFilePreview({ ...filePreview, view: true, file })
-        }>
+        onDoubleClick={() => setFilePreview({ ...filePreview, view: true, file })}
+      >
         <div
           className={styles.menu}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 200,
               height: 25
             });
-          }}>
+          }}
+        >
           <span />
         </div>
         <div className={styles.symbols}>
           <div>
             {file?.fig && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                alt="fig"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="fig" />
             ) : null}
           </div>
           <div>
             {file?.emo && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-                alt="emoji"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt="emoji" />
             ) : null}
           </div>
         </div>
         <div className={styles.file}>
-          <File
-            color={file.color}
-            format={file.ext}
-            className={styles.mainFile}
-          />
+          <File color={file.color} format={file.ext} className={styles.mainFile} />
           {file?.is_pass && !isLoading ? (
-            <img
-              className={styles.locked}
-              src={imageSrc + "assets/PrivateCabinet/locked.svg"}
-              alt="lock"
-            />
+            <img className={styles.locked} src={imageSrc + "assets/PrivateCabinet/locked.svg"} alt="lock" />
           ) : null}
         </div>
-        <div className={file.tag ? styles.ftag : styles.fEmtyTag}>
-          {file.tag ? `#${file.tag}` : null}
-        </div>
+        <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag ? `#${file.tag}` : null}</div>
         <div className={styles.fname}>{file.name}</div>
         <div className={styles.fileInfo}>
           <div>{file.size_now}</div>

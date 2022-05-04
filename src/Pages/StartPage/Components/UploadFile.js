@@ -19,9 +19,7 @@ const UploadFile = ({ setPage }) => {
   const [password, setPassword] = useState({ text: "", active: false });
   const [showPeriod, setShowPeriod] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [dateValue, setDateValue] = useState(
-    Object.values(getDate(0)).join(".")
-  );
+  const [dateValue, setDateValue] = useState(Object.values(getDate(0)).join("."));
   const [timeValue, setTimeValue] = useState({ hours: "", minutes: "" });
   const [blob, setBlob] = useState("");
   const [email, setEmail] = useState({ receiver: "", sender: "" });
@@ -55,9 +53,9 @@ const UploadFile = ({ setPage }) => {
 
   const renderExpireDate = () => {
     return dateValue
-      ? `${dateValue} ${
-          timeValue.hours ? setTime(timeValue.hours, 24) : "00"
-        }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "00"}`
+      ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : "00"}:${
+          timeValue.minutes ? setTime(timeValue.minutes, 60) : "00"
+        }`
       : __("Без ограничений");
   };
 
@@ -74,21 +72,21 @@ const UploadFile = ({ setPage }) => {
       form.append("recipient", email.receiver);
       form.append(
         "deadline",
-        `${dateValue} ${
-          timeValue.hours ? setTime(timeValue.hours, 24) : "00"
-        }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "00"}`
+        `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : "00"}:${
+          timeValue.minutes ? setTime(timeValue.minutes, 60) : "00"
+        }`
       );
 
       api
         .post("/ajax/start_add.php", form)
-        .then(res => {
+        .then((res) => {
           if (res.status === 200) {
             setResponse(res.data);
           } else {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setError(true);
         })
@@ -109,15 +107,8 @@ const UploadFile = ({ setPage }) => {
         />
         {!blob && (
           <div className={styles.uploadWrap}>
-            <input
-              type="file"
-              className={styles.inputFile}
-              onChange={e => setBlob(e.target.files[0])}
-            />
-            <img
-              src={imageSrc + "assets/StartPage/down-arrow-2.svg"}
-              alt="Upload file"
-            />
+            <input type="file" className={styles.inputFile} onChange={(e) => setBlob(e.target.files[0])} />
+            <img src={imageSrc + "assets/StartPage/down-arrow-2.svg"} alt="Upload file" />
             <span>
               {__("Перетащите Файл или Нажмите")}
               <span className={styles.download}>{__("Загрузить")}</span>
@@ -137,14 +128,9 @@ const UploadFile = ({ setPage }) => {
         <div className={styles.fieldsWrap}>
           <div className={styles.fieldWrapper}>
             <span>{__("Срок хранения")}</span>
-            <div
-              className={`${styles.fields} ${styles.choose}`}
-              onClick={() => setShowPeriod(!showPeriod)}>
+            <div className={`${styles.fields} ${styles.choose}`} onClick={() => setShowPeriod(!showPeriod)}>
               <div>{renderExpireDate()}</div>
-              <img
-                src={imageSrc + "assets/StartPage/play-button.svg"}
-                alt="Open PopUp"
-              />
+              <img src={imageSrc + "assets/StartPage/play-button.svg"} alt="Open PopUp" />
             </div>
           </div>
           <div className={styles.fieldWrapper}>
@@ -156,37 +142,22 @@ const UploadFile = ({ setPage }) => {
                   <input
                     type={visibility}
                     placeholder="Введите пароль"
-                    onChange={e =>
-                      setPassword({ ...password, text: e.target.value })
-                    }
+                    onChange={(e) => setPassword({ ...password, text: e.target.value })}
                     value={password.text}
                   />
                   {visibility === "text" && (
-                    <EyeIcon
-                      className={styles.eyeIcon}
-                      onClick={() => setVisibility("password")}
-                    />
+                    <EyeIcon className={styles.eyeIcon} onClick={() => setVisibility("password")} />
                   )}
                   {visibility === "password" && (
-                    <InvisibleIcon
-                      className={styles.invisible}
-                      onClick={() => setVisibility("text")}
-                    />
+                    <InvisibleIcon className={styles.invisible} onClick={() => setVisibility("text")} />
                   )}
                 </>
               )}
               <div
-                className={
-                  password.active ? styles.switcherActive : styles.switcher
-                }
-                onClick={() =>
-                  setPassword({ ...password, active: !password.active })
-                }>
-                <div
-                  className={
-                    password.active ? styles.switchActive : styles.switch
-                  }
-                />
+                className={password.active ? styles.switcherActive : styles.switcher}
+                onClick={() => setPassword({ ...password, active: !password.active })}
+              >
+                <div className={password.active ? styles.switchActive : styles.switch} />
               </div>
             </div>
           </div>
@@ -196,7 +167,7 @@ const UploadFile = ({ setPage }) => {
               type="email"
               name="email"
               value={email.receiver}
-              onChange={e => setEmail({ ...email, receiver: e.target.value })}
+              onChange={(e) => setEmail({ ...email, receiver: e.target.value })}
               className={styles.emailField}
               placeholder={__("Email получателя")}
             />
@@ -207,7 +178,7 @@ const UploadFile = ({ setPage }) => {
               type="email"
               name="email"
               value={email.sender}
-              onChange={e => setEmail({ ...email, sender: e.target.value })}
+              onChange={(e) => setEmail({ ...email, sender: e.target.value })}
               className={styles.emailField}
               placeholder={__("Email отправителя")}
             />
@@ -231,10 +202,7 @@ const UploadFile = ({ setPage }) => {
       )}
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar
-            setShowCalendar={setShowCalendar}
-            setDateValue={setDateValue}
-          />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
       {error && (
@@ -243,7 +211,8 @@ const UploadFile = ({ setPage }) => {
             style={{
               width: "max-content",
               padding: "20px"
-            }}>
+            }}
+          >
             {__("Упс.... что-то пошло не так. Попробуй еще раз!")}
           </div>
         </PopUp>

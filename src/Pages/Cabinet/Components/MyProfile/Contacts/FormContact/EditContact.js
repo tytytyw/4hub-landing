@@ -32,7 +32,7 @@ const EditContact = ({ set }) => {
 
   const formRef = useRef();
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -52,14 +52,12 @@ const EditContact = ({ set }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     const formData = new FormData(formRef.current);
 
-    socials.forEach(({ type, link }) =>
-      formData.append(`socials[${type}]`, link)
-    );
+    socials.forEach(({ type, link }) => formData.append(`socials[${type}]`, link));
 
     const formValues = {};
     for (let [name, value] of formData.entries()) {
@@ -71,11 +69,7 @@ const EditContact = ({ set }) => {
 
   return (
     <PopUp set={set}>
-      <form
-        ref={formRef}
-        noValidate
-        onSubmit={onSubmit}
-        className={styles.wrapper}>
+      <form ref={formRef} noValidate onSubmit={onSubmit} className={styles.wrapper}>
         <div className={styles.top}>
           <span className={styles.close} onClick={() => set(false)}>
             <span className={styles.times} />
@@ -86,11 +80,7 @@ const EditContact = ({ set }) => {
           <div className={styles.header}>
             <p className={styles.title}>Добавить контакт</p>
             <div className={styles.uploadBlock}>
-              <ProfileUpload
-                name="profileImg"
-                preview={preview}
-                onChange={uploadImage}
-              />
+              <ProfileUpload name="profileImg" preview={preview} onChange={uploadImage} />
             </div>
           </div>
 
@@ -126,13 +116,11 @@ const EditContact = ({ set }) => {
                     }}
                     className={styles.minusBtn}
                   />
-                  <span className={styles.info}>
-                    {__("Введите номер телефона:")}
-                  </span>
+                  <span className={styles.info}>{__("Введите номер телефона:")}</span>
                   <Input
                     phone={true}
                     name="number[]"
-                    onChange={event => {
+                    onChange={(event) => {
                       numbers[index] = event.target.value;
                       setNumbers([...numbers]);
                     }}
@@ -147,15 +135,10 @@ const EditContact = ({ set }) => {
                   [styles.formBlock]: true,
                   [styles.clickable]: true
                 })}
-                onClick={() => setNumbers([...numbers, ""])}>
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
-                <span className={styles.info}>
-                  {__("Добавить номер телефона:")}
-                </span>
+                onClick={() => setNumbers([...numbers, ""])}
+              >
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
+                <span className={styles.info}>{__("Добавить номер телефона:")}</span>
               </div>
             </div>
 
@@ -173,7 +156,7 @@ const EditContact = ({ set }) => {
                   <input
                     name="email[]"
                     type="email"
-                    onChange={event => {
+                    onChange={(event) => {
                       mails[index] = event.target.value;
                       setMails([...mails]);
                     }}
@@ -187,30 +170,23 @@ const EditContact = ({ set }) => {
                   [styles.formBlock]: true,
                   [styles.clickable]: true
                 })}
-                onClick={() => setMails([...mails, ""])}>
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
+                onClick={() => setMails([...mails, ""])}
+              >
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
                 <span className={styles.info}>{__("Добавить @mail:")}</span>
               </div>
             </div>
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить день рождения:")}
-                </span>
+                <span className={styles.info}>{__("Добавить день рождения:")}</span>
                 <input
                   name="date_birth"
-                  onChange={event => setDateValue(event.target.value)}
+                  onChange={(event) => setDateValue(event.target.value)}
                   value={dateValue}
                   className={styles.input}
                 />
-                <div
-                  onClick={() => setShowCalendar(true)}
-                  className={styles.icon}>
+                <div onClick={() => setShowCalendar(true)} className={styles.icon}>
                   <img src={calendarImage} alt="Calendar" />
                 </div>
               </div>
@@ -218,19 +194,14 @@ const EditContact = ({ set }) => {
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить профиль соц.сети:")}
-                </span>
+                <span className={styles.info}>{__("Добавить профиль соц.сети:")}</span>
                 <ul className={styles.socialsList}>
                   {socials.map(
                     (item, index) =>
                       !!item.link && (
                         <li key={index}>
                           <a href={item.link} className={styles.socialsLink}>
-                            <img
-                              src={socialsIcons[item.type]}
-                              alt={item.type}
-                            />
+                            <img src={socialsIcons[item.type]} alt={item.type} />
                           </a>
                         </li>
                       )
@@ -256,16 +227,11 @@ const EditContact = ({ set }) => {
         </div>
       </form>
 
-      {socPopup && (
-        <AddSocials values={socials} setValues={setSocials} set={setSocPopup} />
-      )}
+      {socPopup && <AddSocials values={socials} setValues={setSocials} set={setSocPopup} />}
 
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar
-            setShowCalendar={setShowCalendar}
-            setDateValue={setDateValue}
-          />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
     </PopUp>

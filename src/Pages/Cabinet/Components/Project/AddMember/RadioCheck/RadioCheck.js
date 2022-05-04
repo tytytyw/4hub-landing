@@ -2,10 +2,7 @@ import React from "react";
 
 import styles from "./RadioCheck.module.sass";
 import classnames from "classnames";
-import {
-  emptyProfileImage,
-  getContactName
-} from "../../../MyProfile/Contacts/consts";
+import { emptyProfileImage, getContactName } from "../../../MyProfile/Contacts/consts";
 import PropTypes from "prop-types";
 
 const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {

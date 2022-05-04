@@ -4,16 +4,7 @@ import styles from "./Textarea.module.sass";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const Textarea = ({
-  type,
-  label,
-  value,
-  name,
-  isMistake,
-  readonly,
-  onChange,
-  onBlur
-}) => {
+const Textarea = ({ type, label, value, name, isMistake, readonly, onChange, onBlur }) => {
   const inputType = type || "text";
   const htmlFor = `${inputType}-${Math.random()}`;
   return (
@@ -33,7 +24,8 @@ const Textarea = ({
         onBlur={onBlur}
         onKeyUp={onBlur}
         readOnly={readonly}
-        value={value}></textarea>
+        value={value}
+      ></textarea>
     </div>
   );
 };

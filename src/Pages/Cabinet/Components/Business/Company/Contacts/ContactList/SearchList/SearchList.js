@@ -7,13 +7,7 @@ import { imageSrc } from "../../../../../../../../generalComponents/globalVariab
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../../../types/Contacts";
 
-const SearchList = ({
-  data,
-  selectedItem,
-  setSelectedItem,
-  getContactName,
-  setMouseParams
-}) => {
+const SearchList = ({ data, selectedItem, setSelectedItem, getContactName, setMouseParams }) => {
   return (
     <ul className={styles.menuList}>
       {data.map((item, index) => (
@@ -23,22 +17,17 @@ const SearchList = ({
             [styles.menuItem]: true,
             [styles.activeItem]: selectedItem?.id === item?.id
           })}
-          key={index}>
+          key={index}
+        >
           <div className={styles.info}>
             <span className={styles.icon}>
-              <img
-                src={
-                  item?.icon?.[0] ||
-                  `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-                }
-                alt={item.id}
-              />
+              <img src={item?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt={item.id} />
             </span>
             <p>{getContactName(item)}</p>
           </div>
           <PointerMenuImg
             className={styles.contextMenuIcon}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,

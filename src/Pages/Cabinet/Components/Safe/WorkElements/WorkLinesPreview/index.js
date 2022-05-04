@@ -28,21 +28,19 @@ const WorkLinesPreview = ({
   filePick
 }) => {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
-  const search = useSelector(state => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const search = useSelector((state) => state.Cabinet?.search);
 
   const [color, setColor] = useState(null);
   const [f, setF] = useState(file);
-  const uid = useSelector(state => state.user.uid);
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
+  const uid = useSelector((state) => state.user.uid);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
   const [previewReq, setPreviewReq] = useState({ sent: false, data: null });
   const dispatch = useDispatch();
 
   useEffect(() => {
     setF(file);
-    const newColor = colors.filter(c => c.color === file?.color);
+    const newColor = colors.filter((c) => c.color === file?.color);
     setColor(newColor[0]);
   }, [file]);
 
@@ -50,13 +48,7 @@ const WorkLinesPreview = ({
     if (f?.mime_type) {
       switch (f.mime_type.split("/")[0]) {
         case "image": {
-          return (
-            <img
-              src={previewReq.data}
-              alt="filePrieview"
-              className={hideFileList ? styles.big_pic : ""}
-            />
-          );
+          return <img src={previewReq.data} alt="filePrieview" className={hideFileList ? styles.big_pic : ""} />;
         }
         default: {
           return (
@@ -81,12 +73,12 @@ const WorkLinesPreview = ({
             responseType: "blob"
           }
         )
-        .then(res => {
+        .then((res) => {
           const blob = new Blob([res.data]);
           let objectURL = URL.createObjectURL(blob);
           setPreviewReq({ sent: false, data: objectURL });
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
         .finally(() => setLoadingType(false));
     }
   };
@@ -100,7 +92,7 @@ const WorkLinesPreview = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
 
-  const load = entry => {
+  const load = (entry) => {
     if (!gLoader && authorizedSafe) {
       if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
         setLoadingFiles(true);
@@ -137,32 +129,24 @@ const WorkLinesPreview = ({
     <div className={styles.workLinesPreviewWrap}>
       {!hideFileList && authorizedSafe && (
         <div
-          className={classNames(
-            styles.fileListWrap,
-            styles[`fileListWrap_${size}`]
-          )}
+          className={classNames(styles.fileListWrap, styles[`fileListWrap_${size}`])}
           style={{
-            height: `${
-              filePick.show
-                ? "calc(100% - 90px - 55px - 90px)"
-                : "calc(100% - 90px - 55px)"
-            }`,
+            height: `${filePick.show ? "calc(100% - 90px - 55px - 90px)" : "calc(100% - 90px - 55px)"}`,
             gridTemplateColumns:
               size === "small"
                 ? "repeat(auto-fill, 118px)"
                 : size === "medium"
                 ? "repeat(auto-fill, 160px)"
                 : "repeat(auto-fill, 205px)",
-            gridAutoRows:
-              size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-          }}>
+            gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+          }}
+        >
           {!gLoader && children}
           {!gLoader ? (
             <div
-              className={`${styles.bottomLine} ${
-                filesPage === 0 ? styles.bottomLineHidden : ""
-              }`}
-              ref={containerRef}>
+              className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
+              ref={containerRef}
+            >
               <Loader
                 type="bounceDots"
                 position="absolute"
@@ -199,9 +183,7 @@ const WorkLinesPreview = ({
                 {f.tag ? (
                   <span className={styles.tagName}>#{f.tag}</span>
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить тег")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить тег")}</span>
                 )}
               </div>
               <div className={styles.infoFileItem}>
@@ -215,64 +197,36 @@ const WorkLinesPreview = ({
                     }}
                   />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить цвет")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить цвет")}</span>
                 )}
               </div>
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Знаки")}</span>
                 {f?.fig ? (
-                  <img
-                    src={`${imageSrc}/assets/PrivateCabinet/signs/${f.fig}.svg`}
-                    alt="sign"
-                  />
+                  <img src={`${imageSrc}/assets/PrivateCabinet/signs/${f.fig}.svg`} alt="sign" />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить знаки")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить знаки")}</span>
                 )}
               </div>
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Эмоджи")}</span>
                 {f?.emo ? (
-                  <img
-                    src={`${imageSrc}/assets/PrivateCabinet/smiles/${f.emo}.svg`}
-                    alt="sign"
-                  />
+                  <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${f.emo}.svg`} alt="sign" />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить эмоджи")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить эмоджи")}</span>
                 )}
               </div>
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Создан")}</span>
-                {f?.mtime ? (
-                  <span className={styles.description}>
-                    {f.mtime.split(" ")[0]}
-                  </span>
-                ) : (
-                  ""
-                )}
+                {f?.mtime ? <span className={styles.description}>{f.mtime.split(" ")[0]}</span> : ""}
               </div>
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Изменен")}</span>
-                {f?.ctime ? (
-                  <span className={styles.description}>
-                    {f.ctime.split(" ")[0]}
-                  </span>
-                ) : (
-                  ""
-                )}
+                {f?.ctime ? <span className={styles.description}>{f.ctime.split(" ")[0]}</span> : ""}
               </div>
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Размеры")}</span>
-                {f?.size_now ? (
-                  <span className={styles.description}>{f.size_now}</span>
-                ) : (
-                  ""
-                )}
+                {f?.size_now ? <span className={styles.description}>{f.size_now}</span> : ""}
               </div>
             </>
           ) : null}

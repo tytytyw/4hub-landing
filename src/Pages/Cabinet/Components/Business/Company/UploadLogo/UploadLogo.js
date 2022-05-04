@@ -58,9 +58,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
       canvas.width,
       canvas.height
     );
-    const newImageUrl = canvas
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
+    const newImageUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
     const newImage = new Image();
     newImage.src = newImageUrl;
     setCompanyLogo(newImage);
@@ -68,8 +66,8 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
     nullifyAction();
   };
 
-  const onAddFile = e => {
-    const validateFile = file => {
+  const onAddFile = (e) => {
+    const validateFile = (file) => {
       return file.size < 5252000 && file.type.includes("image/");
     };
     if (validateFile(e.target.files[0])) {
@@ -104,11 +102,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
               </span>
             </span>
           </div>
-          {error ? (
-            <p className={styles.fileError}>
-              {__("необходимо загрузить изображение менее 5мб")}
-            </p>
-          ) : null}
+          {error ? <p className={styles.fileError}>{__("необходимо загрузить изображение менее 5мб")}</p> : null}
         </form>
 
         {blob && (
@@ -129,7 +123,8 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
               [styles.action]: true,
               [styles.disableBtn]: !blob
             })}
-            onClick={createNewImage}>
+            onClick={createNewImage}
+          >
             {__("Сохранить")}
           </div>
         </div>

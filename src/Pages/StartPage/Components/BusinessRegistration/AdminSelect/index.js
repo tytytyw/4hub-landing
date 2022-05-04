@@ -12,7 +12,7 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
   const ref = useRef();
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -26,11 +26,11 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
       return props.placeholder;
     }
 
-    const valueItem = data.find(item => item?.id === value);
+    const valueItem = data.find((item) => item?.id === value);
     return valueItem?.text;
   };
 
-  const onSelectOption = item => {
+  const onSelectOption = (item) => {
     setOpen(false);
     setValue(item.id);
     onSelect(item.id);
@@ -43,7 +43,8 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
         [styles.wrapper]: true,
         [styles.active]: !!open,
         [styles.error]: !!error
-      })}>
+      })}
+    >
       <div onClick={() => setOpen(!open)} className={styles.select}>
         <p className={styles.value}>{getValue()}</p>
         <span className={styles.arrow} />
@@ -57,13 +58,10 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
             className={classNames({
               [styles.option]: true,
               [styles.active]: value === item.id
-            })}>
+            })}
+          >
             <div className={styles.radioCheck}>
-              {value === item.id ? (
-                <img src={checkedImg} alt="checked" />
-              ) : (
-                <span className={styles.circle} />
-              )}
+              {value === item.id ? <img src={checkedImg} alt="checked" /> : <span className={styles.circle} />}
             </div>
             <div className={styles.content}>
               <h4 className={styles.optionTitle}>{item.text}</h4>

@@ -63,15 +63,13 @@ const MyFolders = ({
   const { __ } = useLocales();
   const contextMenuFolder = useContextMenuFolder();
   const contextMenuFolderGeneral = useContextMenuFolderGeneral();
-  const uid = useSelector(state => state.user.uid);
-  const global = useSelector(state => state.Cabinet.global);
-  const other = useSelector(state => state.Cabinet.other);
-  const recentFolders = useSelector(state => state.Cabinet.recentFolders);
-  const path = useSelector(state => state.Cabinet.folderList?.path);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const initialChosenFile = useSelector(
-    state => state.Cabinet.fileList?.chosenFile
-  );
+  const uid = useSelector((state) => state.user.uid);
+  const global = useSelector((state) => state.Cabinet.global);
+  const other = useSelector((state) => state.Cabinet.other);
+  const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
+  const path = useSelector((state) => state.Cabinet.folderList?.path);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const initialChosenFile = useSelector((state) => state.Cabinet.fileList?.chosenFile);
   const [listCollapsed, setListCollapsed] = useState(false);
   const [newFolder, setNewFolder] = useState(false);
   //TODO - Need to check object keys and delete useless
@@ -107,21 +105,14 @@ const MyFolders = ({
     setFilesPage(2);
     setGLoader(false);
   };
+  // eslint-disable-next-line
   useEffect(async () => {
     setMenuItem("myFolders");
     dispatch(onAddRecentFiles());
     dispatch(onAddRecentFolders(folders));
     dispatch(onGetFolders("", folders));
     await setFilesPage(1);
-    dispatch(
-      onChooseFiles(
-        initialChosenFile ? initialChosenFile.gdir : "global/all",
-        "",
-        1,
-        "",
-        successLoad
-      )
-    );
+    dispatch(onChooseFiles(initialChosenFile ? initialChosenFile.gdir : "global/all", "", 1, "", successLoad));
     await setFilesPage(0);
     if (initialChosenFile) {
       setChosenFile(initialChosenFile);
@@ -162,22 +153,21 @@ const MyFolders = ({
     });
   };
 
-  const onSafePassword = boolean =>
-    setSafePassword({ ...safePassword, open: boolean });
+  const onSafePassword = (boolean) => setSafePassword({ ...safePassword, open: boolean });
 
   const openFolderMenu = (e, folder) => {
     setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 });
-    setChosenFolder(state => ({
+    setChosenFolder((state) => ({
       ...state,
       info: folder,
       contextMenuFolder: folder
     }));
-    if (folder) setNewFolderInfo(state => ({ ...state, path: folder.path }));
+    if (folder) setNewFolderInfo((state) => ({ ...state, path: folder.path }));
   };
 
   const closeContextMenu = () => {
     setMouseParams(null);
-    setChosenFolder(state => ({ ...state, contextMenuFolder: null }));
+    setChosenFolder((state) => ({ ...state, contextMenuFolder: null }));
   };
 
   const renderMenuItems = (target, type) => {
@@ -189,9 +179,7 @@ const MyFolders = ({
           height={mouseParams.height}
           text={item.name}
           callback={() => type[i]?.callback(type, i)}
-          imageSrc={
-            imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`
-          }
+          imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
         />
       );
     });
@@ -255,11 +243,11 @@ const MyFolders = ({
     nullifyAction();
     api
       .post(`/ajax/dir_del.php?uid=${uid}&dir=${chosenFolder?.info?.path}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetFolders("", folders));
           dispatch(onChooseFiles(fileList?.path, "", 1));
-          setChosenFolder(state => ({ ...state, info: null }));
+          setChosenFolder((state) => ({ ...state, info: null }));
         } else {
           setError({
             isError: true,
@@ -282,21 +270,22 @@ const MyFolders = ({
         src="add-folder.svg"
         listCollapsed={listCollapsed}
         setListCollapsed={setListCollapsed}
-        onCreate={boolean => {
-          setNewFolderInfo(state => ({ ...state, path: "other/" }));
+        onCreate={(boolean) => {
+          setNewFolderInfo((state) => ({ ...state, path: "other/" }));
           setNewFolder(boolean);
-        }}>
+        }}
+      >
         <div
           className={styles.topScroll}
           ref={fakeScrollRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)
-              folderListWrapRef.current.scrollLeft =
-                fakeScrollRef.current.scrollLeft;
+              folderListWrapRef.current.scrollLeft = fakeScrollRef.current.scrollLeft;
           }}
           style={{
             display: checkBrowser("safari") ? "none" : "flex"
-          }}>
+          }}
+        >
           <div
             style={{
               width: chosenFolder.folderWidth,
@@ -309,9 +298,9 @@ const MyFolders = ({
           ref={folderListWrapRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)
-              fakeScrollRef.current.scrollLeft =
-                folderListWrapRef.current.scrollLeft;
-          }}>
+              fakeScrollRef.current.scrollLeft = folderListWrapRef.current.scrollLeft;
+          }}
+        >
           {renderFolderList(global, false)}
           {renderFolderList(other, false)}
           {recentFolders?.length > 0 && (
@@ -368,11 +357,7 @@ const MyFolders = ({
       )}
       {fileAddCustomization.show ? (
         <CreateFile
-          title={
-            fileAddCustomization.create
-              ? __("Создать файл")
-              : __("Добавление файла")
-          }
+          title={fileAddCustomization.create ? __("Создать файл") : __("Добавление файла")}
           info={chosenFolder}
           blob={fileAddCustomization.file}
           setBlob={setFileAddCustomization}
@@ -391,17 +376,9 @@ const MyFolders = ({
           menuItem={menuItem}
         />
       ) : null}
-      {safePassword.open && (
-        <CreateSafePassword
-          onToggle={onSafePassword}
-          title={__("Создайте пароль для сейфа")}
-        />
-      )}
+      {safePassword.open && <CreateSafePassword onToggle={onSafePassword} title={__("Создайте пароль для сейфа")} />}
       {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={closeContextMenu}
-          tooltip={true}>
+        <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(
               chosenFolder?.contextMenuFolder?.path.indexOf("global") === 0 &&
@@ -422,17 +399,15 @@ const MyFolders = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFolder}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <FolderIcon className={`${styles.innerFolderIcon}`} />
           </div>
         </ActionApproval>
       ) : null}
       {action.type === "propertiesFolder" ? (
-        <FolderProperty
-          close={nullifyAction}
-          folder={chosenSubFolder || chosenFolder}
-        />
+        <FolderProperty close={nullifyAction} folder={chosenSubFolder || chosenFolder} />
       ) : null}
       {action.type === "customizeFolder" ? (
         <CustomizeFolder
@@ -448,10 +423,7 @@ const MyFolders = ({
       ) : null}
       <Error error={error.isError} set={closeError} message={error.message} />
       {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
+        <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
       )}
     </div>
   );

@@ -12,31 +12,19 @@ const ContactsFav = ({ data = [] }) => {
   useEffect(() => setContacts(getFavourites(data)), [data]);
 
   useEffect(() => {
-    const newSelectedContact = contacts.find(
-      contact => contact?.id === selectedContact?.id
-    );
-    newSelectedContact
-      ? setSelectedContact(newSelectedContact)
-      : setSelectedContact(contacts?.[0]);
+    const newSelectedContact = contacts.find((contact) => contact?.id === selectedContact?.id);
+    newSelectedContact ? setSelectedContact(newSelectedContact) : setSelectedContact(contacts?.[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
 
   return (
     <>
       <div className={styles.contactList}>
-        <ContactList
-          data={contacts}
-          selectedItem={selectedContact}
-          setSelectedItem={setSelectedContact}
-        />
+        <ContactList data={contacts} selectedItem={selectedContact} setSelectedItem={setSelectedContact} />
       </div>
 
       <div className={styles.contactData}>
-        <ContactsData
-          data={contacts}
-          selectedItem={selectedContact}
-          setSelectedItem={setSelectedContact}
-        />
+        <ContactsData data={contacts} selectedItem={selectedContact} setSelectedItem={setSelectedContact} />
       </div>
     </>
   );
@@ -44,7 +32,7 @@ const ContactsFav = ({ data = [] }) => {
 
 const getFavourites = (data = []) => {
   const newData = [];
-  data.forEach(item => {
+  data.forEach((item) => {
     if (item.is_fav === "1") {
       newData.push(item);
     }

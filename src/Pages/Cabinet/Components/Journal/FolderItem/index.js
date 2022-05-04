@@ -5,12 +5,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
 
-const FolderItem = ({
-  folder,
-  chosenFolder,
-  setChosenFolder,
-  setMouseParams
-}) => {
+const FolderItem = ({ folder, chosenFolder, setChosenFolder, setMouseParams }) => {
   const onClickHandler = () => {
     setChosenFolder(folder?.id);
   };
@@ -21,7 +16,8 @@ const FolderItem = ({
         [styles.wrapper]: true,
         [styles.active]: chosenFolder === folder?.id
       })}
-      onClick={onClickHandler}>
+      onClick={onClickHandler}
+    >
       <div className={styles.innerFolder}>
         <div className={styles.innerFolderName}>
           <img
@@ -37,14 +33,15 @@ const FolderItem = ({
         <div className={styles.innerFolderMedia}>
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
                 height: 25
               });
-            }}>
+            }}
+          >
             <span className={styles.menu} />
           </div>
         </div>

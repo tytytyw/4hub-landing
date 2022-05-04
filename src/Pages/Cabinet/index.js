@@ -26,13 +26,11 @@ import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
-  const uid = useSelector(state => state.user.uid);
-  const id_company = useSelector(state => state.user.id_company);
-  const path = useSelector(state => state.Cabinet.fileList?.path);
-  const projectFolder = useSelector(
-    state => state.Cabinet.project?.chosenFolder
-  );
-  const project = useSelector(state => state.Cabinet.project?.chosenProject);
+  const uid = useSelector((state) => state.user.uid);
+  const id_company = useSelector((state) => state.user.id_company);
+  const path = useSelector((state) => state.Cabinet.fileList?.path);
+  const projectFolder = useSelector((state) => state.Cabinet.project?.chosenFolder);
+  const project = useSelector((state) => state.Cabinet.project?.chosenProject);
   const [collapsed, setCollapsed] = useState(false);
   const [filePreview, setFilePreview] = useState({
     view: false,
@@ -51,11 +49,11 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const menu = useMenu();
   const businessMenu = useBusinessMenu();
 
-  const stayOnline = time => {
+  const stayOnline = (time) => {
     setTimeout(() => {
       api
         .post(`ajax/user_alive.php?uid=${uid}`)
-        .then(res => {
+        .then((res) => {
           if (res.data?.is_block) exit();
         })
         .finally(() => stayOnline(60000));
@@ -69,21 +67,16 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
     document.cookie = `id_company=${id_company};expires=${date}`;
     stayOnline(0);
     setLoadingType("");
-  }, []);
+  }, []); // eslint-disable-line
 
   //Loading multiple files info
   const inputRef = useRef();
   const [awaitingFiles, setAwaitingFiles] = useState([]);
   const [loadingFile, setLoadingFile] = useState([]);
   const [loaded, setLoaded] = useState([]);
-  const onInputFiles = e => {
-    const dir =
-      menuItem === "myFolders" || menuItem === "myFiles"
-        ? path
-          ? path
-          : "global/all"
-        : projectFolder ?? "";
-    const files = [...e.target.files].map(file => ({
+  const onInputFiles = (e) => {
+    const dir = menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : projectFolder ?? "";
+    const files = [...e.target.files].map((file) => ({
       file,
       options: {
         filePath: path,
@@ -98,7 +91,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
   const fileSelect = () => inputRef.current.click();
 
-  const handleDragOver = e => e.preventDefault();
+  const handleDragOver = (e) => e.preventDefault();
 
   const nullifyAddingSeveralFiles = () =>
     setFileAddCustomization({
@@ -107,8 +100,8 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
       files: []
     });
 
-  const saveCustomizeSeveralFiles = options => {
-    const arr = fileAddCustomization.files.map(obj => ({
+  const saveCustomizeSeveralFiles = (options) => {
+    const arr = fileAddCustomization.files.map((obj) => ({
       file: obj.file,
       options: { ...obj.options, ...options }
     }));
@@ -117,11 +110,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
   return (
     <div className={styles.mainWrap} onDragOver={handleDragOver}>
-      <SideMenu
-        data={id_company ? businessMenu : menu}
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-      />
+      <SideMenu data={id_company ? businessMenu : menu} collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={styles.workArea}>
         <Switch>
           <Redirect exact from="/" to={id_company ? "/company" : "/folders"} />
@@ -132,10 +121,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route path="/personal-data" component={MyProfile} />
 
-          <Route
-            path="/support"
-            render={() => <MyProfile defaultPageOption="support" />}
-          />
+          <Route path="/support" render={() => <MyProfile defaultPageOption="support" />} />
 
           <Route path="/settings" component={Settings} />
 
@@ -237,13 +223,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route
             path="/shared-files"
-            render={() => (
-              <SharedFiles
-                setMenuItem={setMenuItem}
-                setFilesPage={setFilesPage}
-                filesPage={filesPage}
-              />
-            )}
+            render={() => <SharedFiles setMenuItem={setMenuItem} setFilesPage={setFilesPage} filesPage={filesPage} />}
           />
 
           <Route path="/journal" render={() => <Journal />} />
@@ -268,10 +248,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
             )}
           />
 
-          <Route
-            path="/chat-page"
-            render={() => <Chat setMenuItem={setMenuItem} />}
-          />
+          <Route path="/chat-page" render={() => <Chat setMenuItem={setMenuItem} />} />
 
           <Route
             path="/folders"
@@ -302,12 +279,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
         </Switch>
       </div>
       <div style={{ display: "none" }}>
-        <input
-          type="file"
-          multiple="multiple"
-          onChange={onInputFiles}
-          ref={inputRef}
-        />
+        <input type="file" multiple="multiple" onChange={onInputFiles} ref={inputRef} />
       </div>
       <Modals
         awaitingFiles={awaitingFiles}

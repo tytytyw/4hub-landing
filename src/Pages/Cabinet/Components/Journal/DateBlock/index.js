@@ -43,7 +43,8 @@ const DateBlock = ({ month, setMonth }) => {
             className={classNames({
               [styles.button]: true,
               [styles.active]: item.id === month
-            })}>
+            })}
+          >
             {item.text}
           </button>
         ))}

@@ -7,25 +7,30 @@ import classNames from "classnames";
 
 const EmojiArea = () => {
   const dispatch = useDispatch();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
-  const onEmojiClick = (event, emojiObject) => dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji })
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const onEmojiClick = (event, emojiObject) => dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji });
 
   return (
-    <div className={classNames({ [styles.emojiAreaWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.emojiAreaWrap]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}
+    >
       <span className={styles.titleName}>Эмодзи</span>
       <EmojiPicker
         disableSearchBar={true}
         pickerStyle={{
-          width: '100%',
-          height: '95%',
-          background: chatTheme.name === 'dark' ? '#323232' : '',
-          boxShadow: 'none',
-          border: 'none'
+          width: "100%",
+          height: "95%",
+          background: chatTheme.name === "dark" ? "#323232" : "",
+          boxShadow: "none",
+          border: "none"
         }}
         onEmojiClick={onEmojiClick}
       />
     </div>
-  )
+  );
 };
 
 export default EmojiArea;

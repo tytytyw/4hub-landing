@@ -7,30 +7,18 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 
-const WorkLines = ({
-  children,
-  filePick,
-  fileRef,
-  gLoader,
-  load,
-  options,
-  filesPage
-}) => {
+const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesPage }) => {
   const { __ } = useLocales();
-  const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
+  const recentFiles = useSelector((state) => state.Cabinet?.recentFiles);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
 
   const [containerRef] = useScrollElementOnScreen(options, load);
 
   return (
     <div
       ref={fileRef}
-      className={`${styles.workLinesWrap} ${renderHeight(
-        recentFiles,
-        filePick,
-        styles
-      )}`}
+      className={`${styles.workLinesWrap} ${renderHeight(recentFiles, filePick, styles)}`}
       style={{
         gridTemplateColumns:
           size === "small"
@@ -38,14 +26,11 @@ const WorkLines = ({
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
       }}
     >
       {children?.length === 0 && search.length !== 0 ? (
-        <div className={styles.noSearchResults}>
-          {__("Нет элементов удовлетворяющих условиям поиска")}
-        </div>
+        <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
       ) : null}
       {gLoader ? (
         <Loader
@@ -60,11 +45,7 @@ const WorkLines = ({
       )}
       {!gLoader ? (
         filesPage > 0 ? (
-          <div
-            className={styles.bottomLine}
-            style={{ height: "100px" }}
-            ref={containerRef}
-          >
+          <div className={styles.bottomLine} style={{ height: "100px" }} ref={containerRef}>
             <Loader
               type="bounceDots"
               position="absolute"

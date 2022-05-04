@@ -23,10 +23,10 @@ import { useLocales } from "react-localized";
 
 const Archive = () => {
   const { __ } = useLocales();
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
 
   const [search, setSearch] = useState(null);
-  const fileList = useSelector(state => state.Cabinet.arhiveFileList);
+  const fileList = useSelector((state) => state.Cabinet.arhiveFileList);
 
   const [year, setYear] = useState(null);
   const [month, setMonth] = useState(null);
@@ -74,9 +74,7 @@ const Archive = () => {
     {
       type: "archive",
       name: __("Добавить файл в архив"),
-      text: __(
-        `Вы действительно хотите архивировать файл ${chosenFile?.name}?`
-      ),
+      text: __(`Вы действительно хотите архивировать файл ${chosenFile?.name}?`),
       callback: (list, index) => setAction(list[index])
     },
     {
@@ -84,14 +82,17 @@ const Archive = () => {
       name: __("Сжать в ZIP"),
       text: __(``),
       callback: (list, index) =>
-        setAction({ ...action, type: list[index].type, name: list[index].name })
+        setAction({
+          ...action,
+          type: list[index].type,
+          name: list[index].name
+        })
     },
     {
       type: "properties",
       name: __("Свойства"),
       text: __(``),
-      callback: () =>
-        setAction({ ...action, type: "properties", name: __("Свойства") })
+      callback: () => setAction({ ...action, type: "properties", name: __("Свойства") })
     },
     {
       type: "download",
@@ -184,13 +185,8 @@ const Archive = () => {
       </div>
 
       {mouseParams !== null && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}>
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuFile.main, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
           <div className={styles.additionalMenuItems}>
             {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
           </div>
@@ -203,7 +199,8 @@ const Archive = () => {
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>

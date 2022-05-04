@@ -8,14 +8,7 @@ import { getDeviceIconName } from "../../../../../generalComponents/collections"
 import PropTypes from "prop-types";
 import { deviceItemDeviceProps } from "../../../../../types/DeviceItemDeviceProps";
 
-const DeviceItem = ({
-  device,
-  chosen,
-  onClick,
-  setMouseParams,
-  listSize,
-  listCollapsed
-}) => {
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCollapsed }) => {
   return (
     <>
       <div
@@ -25,24 +18,15 @@ const DeviceItem = ({
           [styles?.[`wrapper_${listSize}`]]: !!listSize
         })}
         onClick={onClick}
-        title={listCollapsed ? device.name : ""}>
+        title={listCollapsed ? device.name : ""}
+      >
         <div className={styles.titleWrap}>
           <div className={styles.titleImg}>
             <img
-              src={
-                imageSrc +
-                `assets/PrivateCabinet/devices/${getDeviceIconName(
-                  device.device
-                )}.svg`
-              }
+              src={imageSrc + `assets/PrivateCabinet/devices/${getDeviceIconName(device.device)}.svg`}
               alt="icon"
               className={styles.icon}
-              onError={e =>
-                e.target.setAttribute(
-                  "src",
-                  "./assets/PrivateCabinet/devices/unknown.svg"
-                )
-              }
+              onError={(e) => e.target.setAttribute("src", "./assets/PrivateCabinet/devices/unknown.svg")}
             />
             {device.is_online ? <span className={styles.active} /> : null}
           </div>
@@ -55,14 +39,15 @@ const DeviceItem = ({
         <div className={styles.functionWrap}>
           <div
             className={styles.menuWrap}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
                 height: 25
               })
-            }>
+            }
+          >
             <span className={styles.menu} />
           </div>
         </div>

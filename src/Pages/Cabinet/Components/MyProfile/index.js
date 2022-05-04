@@ -32,7 +32,7 @@ const MyProfile = ({ defaultPageOption }) => {
 
   useEffect(() => {
     dispatch(onGetContacts());
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <div className={styles.wrapper}>

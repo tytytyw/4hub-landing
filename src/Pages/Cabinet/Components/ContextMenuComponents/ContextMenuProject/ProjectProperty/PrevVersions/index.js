@@ -30,16 +30,10 @@ const PrevVersions = ({ project, getIcon }) => {
               {project.fig || project.emo ? (
                 <div className={styles.signs}>
                   {project.fig ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${project.fig}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${project.fig}.svg`} alt="emoji" />
                   ) : null}
                   {project.emo ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${project.emo}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${project.emo}.svg`} alt="emoji" />
                   ) : null}
                 </div>
               ) : null}

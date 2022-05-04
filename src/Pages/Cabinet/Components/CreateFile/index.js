@@ -14,11 +14,7 @@ import Signs from "../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../generalComponents/Elements/Emoji";
 import File from "../../../../generalComponents/Files";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
-import {
-  onAddRecentFiles,
-  onChooseFiles,
-  onCustomizeFile
-} from "../../../../Store/actions/CabinetActions";
+import { onAddRecentFiles, onChooseFiles, onCustomizeFile } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { blobProps, createFilesProps } from "../../../../types/CreateFile";
@@ -45,9 +41,9 @@ const CreateFile = ({
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const search = useSelector(state => state.Cabinet.search);
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet.search);
   const [name, setName] = useState(
     blob?.options?.name
       ? blob.options.name.slice(0, blob.options.name.lastIndexOf("."))
@@ -58,27 +54,21 @@ const CreateFile = ({
   const [passwordCoincide, setPasswordCoincide] = useState(false);
   const [showRepeat, setShowRepeat] = useState(false);
   const [color, setColor] = useState(
-    blob?.options?.color
-      ? colors.find(c => c.color === blob.options.color)
-      : colors[0]
+    blob?.options?.color ? colors.find((c) => c.color === blob.options.color) : colors[0]
   );
   const [tagOption, setTagOption] = useState({
     chosen: blob?.options?.tag ? blob.options.tag : "",
     count: 30
   });
-  const [sign, setSign] = useState(
-    blob?.options?.symbol ? blob.options.symbol : ""
-  );
-  const [emoji, setEmoji] = useState(
-    blob?.options?.emoji ? blob.options.emoji : ""
-  );
+  const [sign, setSign] = useState(blob?.options?.symbol ? blob.options.symbol : "");
+  const [emoji, setEmoji] = useState(blob?.options?.emoji ? blob.options.emoji : "");
   const [error, setError] = useState(false);
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
   const [isSafe, setIsSafe] = useState(false);
   const [path, setPath] = useState(fileList?.path);
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -90,23 +80,16 @@ const CreateFile = ({
     });
   };
 
-  const onAddFile = open => {
+  const onAddFile = (open) => {
     let options = {
-      name: `${name}.${
-        getName(blob?.options?.name ? blob.options.name : blob.file.name).format
-      }`,
+      name: `${name}.${getName(blob?.options?.name ? blob.options.name : blob.file.name).format}`,
       tag: tagOption.chosen,
       pass: passwordCoincide ? password : "",
       color: color.color,
       symbol: sign,
       emoji: emoji,
       destination: menuItem,
-      dir:
-        menuItem === "myFolders" || menuItem === "myFiles"
-          ? path
-            ? path
-            : "global/all"
-          : info?.dir ?? ""
+      dir: menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : info?.dir ?? ""
     };
     if (menuItem === "project") options["id_project"] = info.id;
 
@@ -136,13 +119,11 @@ const CreateFile = ({
       };
       api
         .post(`/ajax/${menuItem === "Safe" ? "safe_" : ""}file_edit.php`, data)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             dispatch(onCustomizeFile(newFile));
             dispatch(onAddRecentFiles());
-            let files = loaded.map(el =>
-              el.file.fid === newFile.fid ? { file: newFile, options } : el
-            );
+            let files = loaded.map((el) => (el.file.fid === newFile.fid ? { file: newFile, options } : el));
             setLoaded(files);
           } else {
             setError(true);
@@ -156,14 +137,12 @@ const CreateFile = ({
       const url = `/ajax/file_new.php/?uid=${uid}&fileName=${options.name.slice(
         0,
         options.name.lastIndexOf(".")
-      )}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${
-        options.color
-      }&symbol=${options.symbol}&emoji=${
-        options.emoji
-      }&ext=${options.name.slice(options.name.lastIndexOf(".") + 1)}`;
+      )}&dir=${fileList.path}&tag=${options.tag}&pass=${options.pass}&color=${options.color}&symbol=${
+        options.symbol
+      }&emoji=${options.emoji}&ext=${options.name.slice(options.name.lastIndexOf(".") + 1)}`;
       api
         .post(url)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             if (open === true) window.open(res.data.edit_url);
             dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader));
@@ -181,8 +160,7 @@ const CreateFile = ({
       } else {
         setLoadingFile([{ ...blob, options }]);
       }
-      if (loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0)
-        closeComponent();
+      if (loadingFile.length > 0 || loaded.length > 0 || fileErrors.length > 0) closeComponent();
     }
   };
 
@@ -191,12 +169,12 @@ const CreateFile = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -208,7 +186,7 @@ const CreateFile = ({
 
   const onCloseTab = () => setBlob({ ...blob, file: null, show: false });
 
-  const getName = val => {
+  const getName = (val) => {
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
@@ -236,57 +214,39 @@ const CreateFile = ({
     <div style={{ display: `block` }}>
       <PopUp set={onCloseTab}>
         <div className={styles.createFolderWrap}>
-          <span
-            className={styles.cross}
-            onClick={() => setBlob({ ...blob, file: null, show: false })}
-          />
-          <span className={`${create ? styles.titleCreate : styles.title}`}>
-            {title}
-          </span>
+          <span className={styles.cross} onClick={() => setBlob({ ...blob, file: null, show: false })} />
+          <span className={`${create ? styles.titleCreate : styles.title}`}>{title}</span>
           <div className={styles.fileIconWrap}>
             <div className={`${styles.fileWrap}`}>
               <div className={styles.file}>
                 <File
                   color={color.light}
-                  format={
-                    getName(
-                      blob?.options?.name ? blob.options.name : blob.file.name
-                    ).format
-                  }
+                  format={getName(blob?.options?.name ? blob.options.name : blob.file.name).format}
                 />
               </div>
             </div>
             <div className={styles.picPreview}>
               <div className={styles.format}>
-                {
-                  getName(
-                    blob?.options?.name ? blob.options.name : blob.file.name
-                  ).format
-                }{" "}
-                {setSize()}
+                {getName(blob?.options?.name ? blob.options.name : blob.file.name).format} {setSize()}
               </div>
               <div className={styles.name}>
-                {
-                  getName(
-                    blob?.options?.name ? blob.options.name : blob.file.name
-                  ).name
-                }
+                {getName(blob?.options?.name ? blob.options.name : blob.file.name).name}
               </div>
               <div className={styles.fileOptions}>
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.color !== "grey" ? styles.colorWrapTap : undefined
-                  } ${styles.redCross}`}
-                  onClick={() => setColor(colors[0])}>
+                  className={`${styles.colorWrap} ${color.color !== "grey" ? styles.colorWrapTap : undefined} ${
+                    styles.redCross
+                  }`}
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
@@ -296,46 +256,24 @@ const CreateFile = ({
                   />
                 </div>
                 {sign && (
-                  <div
-                    className={`${styles.signWrap} ${styles.redCross}`}
-                    onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                  <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setSign("")}>
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
-                  <div
-                    className={`${styles.signWrap} ${styles.redCross}`}
-                    onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                  <div className={`${styles.signWrap} ${styles.redCross}`} onClick={() => setEmoji("")}>
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat &&
-                  password.length > 0 && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && password.length > 0 && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
           <div className={styles.inputFieldsWrap}>
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={name}
-                set={setName}
-                placeholder={__("Имя файла")}
-              />
+              <InputField model="text" value={name} set={setName} placeholder={__("Имя файла")} />
             </div>
             <div className={styles.tagPicker}>
               <span>#</span>
@@ -344,27 +282,19 @@ const CreateFile = ({
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
               />
               <span>{tagOption.count}/30</span>
-              <div
-                className={styles.tagList}
-                ref={tagRef}
-                onClick={handleChoose}>
+              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                 {renderTags()}
               </div>
             </div>
             {showChoiceFolders && (
               <div className={styles.inputWrap}>
-                <SelectFolder
-                  className={styles.select}
-                  path={path}
-                  setPath={setPath}
-                  initFolder={initFolder}
-                />
+                <SelectFolder className={styles.select} path={path} setPath={setPath} initFolder={initFolder} />
               </div>
             )}
             <div className={styles.inputWrap}>
@@ -403,61 +333,35 @@ const CreateFile = ({
                 onClick={() => {
                   setIsSafe(!isSafe);
                   onToggleSafePassword(!isSafe);
-                }}>
-                {isSafe && (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/tick-green.svg`}
-                    alt="tick"
-                  />
-                )}
+                }}
+              >
+                {isSafe && <img src={`${imageSrc}assets/PrivateCabinet/tick-green.svg`} alt="tick" />}
               </div>
             </div>
-            <div className={styles.safeText}>
-              {__("Сохранить пароль во вкладку сейф с паролями")}
-            </div>
+            <div className={styles.safeText}>{__("Сохранить пароль во вкладку сейф с паролями")}</div>
           </div>
-          <Colors
-            title="Выберите цвет файла"
-            color={color}
-            setColor={setColor}
-          />
+          <Colors title="Выберите цвет файла" color={color} setColor={setColor} />
           <Signs sign={sign} setSign={setSign} />
-          <Emoji
-            emoji={emoji}
-            setEmoji={setEmoji}
-            editableClass={create ? "create" : ""}
-          />
-          <div
-            className={`${styles.buttonsWrap} ${
-              create ? "" : styles.buttonsWrapSmall
-            }`}>
+          <Emoji emoji={emoji} setEmoji={setEmoji} editableClass={create ? "create" : ""} />
+          <div className={`${styles.buttonsWrap} ${create ? "" : styles.buttonsWrapSmall}`}>
             <div
               className={`${styles.cancel} ${create ? styles.onCreate : ""}`}
-              onClick={() => setBlob({ ...blob, file: null, show: false })}>
+              onClick={() => setBlob({ ...blob, file: null, show: false })}
+            >
               {__("Отмена")}
             </div>
-            <div
-              className={`${styles.add} ${create ? styles.onCreate : ""}`}
-              onClick={onAddFile}>
+            <div className={`${styles.add} ${create ? styles.onCreate : ""}`} onClick={onAddFile}>
               {create ? __("Создать") : __("Добавить")}
             </div>
             {create ? (
-              <div
-                className={`${styles.addOpen}`}
-                onClick={() => onAddFile(true)}>
+              <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>
                 {__("Создать и открыть в редакторе")}
               </div>
             ) : null}
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Файл не добавлен")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Файл не добавлен")} />}
     </div>
   );
 };

@@ -5,10 +5,7 @@ import styles from "./CreateZip.module.sass";
 import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  colors,
-  useTags
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import Error from "../../../../../../generalComponents/Error";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -16,11 +13,7 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
-import {
-  onChooseFiles,
-  onGetSafeFileList,
-  onSetModals
-} from "../../../../../../Store/actions/CabinetActions";
+import { onChooseFiles, onGetSafeFileList, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -28,21 +21,13 @@ import PropTypes from "prop-types";
 const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const { title, items, filesPage } = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
-  );
+  const { title, items, filesPage } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   console.log(items);
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
-  );
-  const topMessage = useSelector(s => s.Cabinet.modals.topMessage);
-  const [name, setName] = useState(
-    items.length === 1
-      ? items[0].fname.slice(0, items[0].fname.lastIndexOf("."))
-      : ""
-  );
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const topMessage = useSelector((s) => s.Cabinet.modals.topMessage);
+  const [name, setName] = useState(items.length === 1 ? items[0].fname.slice(0, items[0].fname.lastIndexOf(".")) : "");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [passwordCoincide, setPasswordCoincide] = useState(false);
@@ -55,9 +40,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
-  );
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
   const close = () => {
     dispatch(
@@ -71,7 +54,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
     );
   };
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -131,12 +114,12 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
       .finally(() => setLoadingType());
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -146,7 +129,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
     setPasswordCoincide(boolean);
   };
 
-  const getName = val => {
+  const getName = (val) => {
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
@@ -172,24 +155,22 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
               </div>
             </div>
             <div className={styles.picPreview}>
-              <div className={styles.name}>
-                {items.length === 1 ? getName(items[0].fname).name : ""}
-              </div>
+              <div className={styles.name}>{items.length === 1 ? getName(items[0].fname).name : ""}</div>
               <div className={styles.fileOptions}>
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.color !== "grey" ? styles.colorWrapTap : ""
-                  } ${color.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  className={`${styles.colorWrap} ${color.color !== "grey" ? styles.colorWrapTap : ""} ${
+                    color.color !== "grey" ? styles.redCross : ""
+                  }`}
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
@@ -201,40 +182,23 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
                 {/*<div className={styles.circle} style={{background: color.light, border: `1px solid ${color.dark}`}} />*/}
                 {sign && (
                   <div className={styles.redCross} onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
           <div className={styles.inputFieldsWrap}>
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={name}
-                set={setName}
-                placeholder={__("Имя файла")}
-              />
+              <InputField model="text" value={name} set={setName} placeholder={__("Имя файла")} />
             </div>
             <div className={styles.tagPicker}>
               <span>#</span>
@@ -243,7 +207,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -294,13 +258,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={close}
-          message={__("Файл не удалось сжать в ZIP архив")}
-        />
-      )}
+      {error && <Error error={error} set={close} message={__("Файл не удалось сжать в ZIP архив")} />}
     </div>
   );
 };

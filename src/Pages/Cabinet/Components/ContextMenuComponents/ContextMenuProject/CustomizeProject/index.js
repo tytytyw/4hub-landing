@@ -20,7 +20,7 @@ import { projectFolderStructure } from "../../../../../../types/Project";
 const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState(project.name);
   const [target, setTarget] = useState("");
   const [members, setMembers] = useState("");
@@ -40,7 +40,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
   const [error, setError] = useState(false);
   const [visibility, setVisibility] = useState("password");
   const dispatch = useDispatch();
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -54,18 +54,15 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
 
   const onCustomize = () => {
     if (!name) return setNoNameError(true);
-    if (showRepeat && password !== passwordRepeat)
-      return setPasswordCoincide(false);
+    if (showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
     setLoadingType("squarify");
     api
       .get(
-        `/ajax/project_edit.php/?uid=${uid}&id_project=${
-          project.id
-        }&name=${name}&icon=${icon || "clipboard"}&tag=${
+        `/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon || "clipboard"}&tag=${
           tagOption.chosen
         }&color=${color.name || "grey"}&symbol=${sign}&emoji=${emoji}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetProjects());
           closeComponent();
@@ -76,7 +73,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
 
@@ -85,12 +82,12 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -109,22 +106,11 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
 
           <div className={styles.inputFieldsWrap}>
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={name}
-                set={setName}
-                placeholder="Имя проекта"
-                mistake={noNameError}
-              />
+              <InputField model="text" value={name} set={setName} placeholder="Имя проекта" mistake={noNameError} />
             </div>
 
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={target}
-                set={setTarget}
-                placeholder={__("Цель проекта")}
-              />
+              <InputField model="text" value={target} set={setTarget} placeholder={__("Цель проекта")} />
             </div>
 
             <div className={styles.inputWrap}>
@@ -148,7 +134,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -200,13 +186,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Папка не добавлена")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Папка не добавлена")} />}
     </>
   );
 };

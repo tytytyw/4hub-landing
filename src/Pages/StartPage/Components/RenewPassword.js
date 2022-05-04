@@ -19,27 +19,21 @@ const RenewPassword = ({ setPage }) => {
   });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(
-    __("Упс.... что-то пошло не так. Попробуй еще раз!")
-  );
+  const [message, setMessage] = useState(__("Упс.... что-то пошло не так. Попробуй еще раз!"));
   const [userInfo, setUserInfo] = useState({ confirm: "", login: "" });
 
   useEffect(() => {
-    const confirm = window.location.search
-      .match(/confirm_pass=\d*/)[0]
-      .split("=")[1];
+    const confirm = window.location.search.match(/confirm_pass=\d*/)[0].split("=")[1];
     const login = window.location.search.match(/name=.*/)[0].split("=")[1];
     setUserInfo({ ...userInfo, confirm, login });
     return () => window.history.pushState("", "", "/");
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const checkPass = input => {
-    input.value === ""
-      ? setCompare({ ...compare, isPass: true })
-      : setCompare({ ...compare, isPass: false });
+  const checkPass = (input) => {
+    input.value === "" ? setCompare({ ...compare, isPass: true }) : setCompare({ ...compare, isPass: false });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = info.pass.split("");
     const passRepeat = val.split("");
     let boolean = false;
@@ -51,18 +45,11 @@ const RenewPassword = ({ setPage }) => {
 
   const sendRequest = () => {
     const isFilled =
-      !compare.isPass &&
-      !compare.isCoincidePass &&
-      info.pass &&
-      info.repeatPass &&
-      userInfo.confirm &&
-      userInfo.login;
+      !compare.isPass && !compare.isCoincidePass && info.pass && info.repeatPass && userInfo.confirm && userInfo.login;
     if (isFilled) {
       api
-        .post(
-          `/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`
-        )
-        .then(res => {
+        .post(`/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`)
+        .then((res) => {
           if (res.data.ok === 1) {
             setMessage(__("Пароль успешно обновлен"));
             setSuccess(true);
@@ -71,14 +58,14 @@ const RenewPassword = ({ setPage }) => {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setMessage(err.toString());
           setError(true);
         });
     }
   };
 
-  const backToEnterProfile = boolean => {
+  const backToEnterProfile = (boolean) => {
     setSuccess(boolean);
     setPage("enter");
   };
@@ -107,7 +94,7 @@ const RenewPassword = ({ setPage }) => {
               })}
               type={visibility}
               value={info.pass}
-              onChange={e => {
+              onChange={(e) => {
                 setInfo({ ...info, pass: e.target.value });
                 checkPass(e.target);
               }}
@@ -132,9 +119,7 @@ const RenewPassword = ({ setPage }) => {
           <div className={styles.inputWrap}>
             <label className={styles.inputName}>
               {__("Повторите пароль")}
-              {compare.isCoincidePass && (
-                <span>{__("Некорректный ввод данных")}</span>
-              )}
+              {compare.isCoincidePass && <span>{__("Некорректный ввод данных")}</span>}
             </label>
             <input
               className={classnames({
@@ -143,7 +128,7 @@ const RenewPassword = ({ setPage }) => {
               })}
               type={visibility}
               value={info.repeatPass}
-              onChange={e => {
+              onChange={(e) => {
                 setInfo({ ...info, repeatPass: e.target.value });
                 comparePass(e.target.value);
               }}
@@ -172,12 +157,7 @@ const RenewPassword = ({ setPage }) => {
       </div>
       {error && <Error error={error} set={setError} message={message} />}
       {success && (
-        <Success
-          success={success}
-          set={backToEnterProfile}
-          message={message}
-          title={__("Ваш пароль обновлён")}
-        />
+        <Success success={success} set={backToEnterProfile} message={message} title={__("Ваш пароль обновлён")} />
       )}
     </>
   );

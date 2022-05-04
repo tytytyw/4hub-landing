@@ -14,7 +14,7 @@ const CodePopup = ({ setShowCodePopup }) => {
   const { __ } = useLocales();
   const [code, setCode] = useState("");
   const [errors] = useState({});
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const dispatch = useDispatch();
 
   const sentCode = () => {
@@ -24,7 +24,7 @@ const CodePopup = ({ setShowCodePopup }) => {
         dispatch(onGetUserInfo());
         setShowCodePopup(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -34,9 +34,7 @@ const CodePopup = ({ setShowCodePopup }) => {
       <div className={styles.wrapper}>
         <div className={styles.top}>
           <div className={styles.closeWrap}>
-            <div
-              className={styles.close}
-              onClick={() => setShowCodePopup(false)}>
+            <div className={styles.close} onClick={() => setShowCodePopup(false)}>
               <span className={styles.times} />
             </div>
           </div>
@@ -44,16 +42,14 @@ const CodePopup = ({ setShowCodePopup }) => {
 
         <div className={styles.content}>
           <div className={styles.inputWrap}>
-            <p className={styles.orItem}>
-              {__("на ваш контактный email отправлен код-пароль")}
-            </p>
+            <p className={styles.orItem}>{__("на ваш контактный email отправлен код-пароль")}</p>
             <Input
               placeholder={__("Введите код")}
               label={false}
               name="code"
               className={styles.input}
               isMistake={errors?.code}
-              onChange={event => setCode(event.target.value)}
+              onChange={(event) => setCode(event.target.value)}
             />
             <span className={styles.link}>{__("Не пришел код?")}</span>
           </div>

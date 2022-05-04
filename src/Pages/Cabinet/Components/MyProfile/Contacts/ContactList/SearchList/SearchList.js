@@ -15,7 +15,8 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
             [styles.menuItem]: true,
             [styles.activeItem]: selectedItem?.id === item?.id
           })}
-          key={index}>
+          key={index}
+        >
           <span className={styles.icon}>
             <img src={item?.icon?.[0] || emptyProfileImage} alt={item.id} />
           </span>

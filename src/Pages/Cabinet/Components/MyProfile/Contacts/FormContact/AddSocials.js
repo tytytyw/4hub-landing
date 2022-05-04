@@ -17,13 +17,13 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
       newData.push({ type, link });
     });
     setSocialValues(newData);
-  }, []);
+  }, []); // eslint-disable-line
 
   const onChange = (event, item) => {
     // получение ссылки от соц. сети
     const link = event.target.value;
     // проверка на наличие соц. сети в общем массиве
-    const socItem = socialValues.find(social => social.type === item.type);
+    const socItem = socialValues.find((social) => social.type === item.type);
 
     //если соц. сеть не имеется в общем массиве, добавляется иначе меняется только ссылка на нее
     if (!socItem) {
@@ -45,14 +45,14 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
     setSocialValues(newSocials);
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
     setValues(socialValues);
     set(false);
   };
 
-  const getValue = item => {
-    const valueItem = socialValues.find(socItem => socItem.type === item.type);
+  const getValue = (item) => {
+    const valueItem = socialValues.find((socItem) => socItem.type === item.type);
     return valueItem?.link ? valueItem.link : "";
   };
 
@@ -92,7 +92,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
                   {props.type ? (
                     <input
                       value={getValue(item)}
-                      onChange={event => onChange(event, item)}
+                      onChange={(event) => onChange(event, item)}
                       name={item?.type}
                       className={styles.input}
                     />
@@ -101,7 +101,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
                       phone={true}
                       name={item?.type}
                       value={getValue(item)}
-                      onChange={event => onChange(event, item)}
+                      onChange={(event) => onChange(event, item)}
                       className={styles.input}
                     />
                   )}

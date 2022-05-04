@@ -31,9 +31,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     isСompany: false
   });
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(
-    __("Упс.... что-то пошло не так. Попробуй еще раз!")
-  );
+  const [errorMessage, setErrorMessage] = useState(__("Упс.... что-то пошло не так. Попробуй еще раз!"));
 
   const renderRegTypes = () =>
     regTypes.map((el, i) => (
@@ -48,24 +46,21 @@ const RegisterProfile = ({ setPage, pageOption }) => {
           [styles.toggleBtn]: true,
           [styles.active]: el.name === info.regType
         })}
-        onClick={() => setInfo({ ...info, regType: el.name })}>
+        onClick={() => setInfo({ ...info, regType: el.name })}
+      >
         {el.title}
       </button>
     ));
 
-  const setLogin = val => {
+  const setLogin = (val) => {
     let number;
     if (val[0] === "+") {
       const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
       const length = newVal.length;
-      number = `+${newVal.substring(0, 2)}${
-        length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)
-      }${length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)}${
-        length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)
-      }${
-        length > 10
-          ? "-" + newVal.substring(10, newVal.length)
-          : newVal.substring(10, newVal.length)
+      number = `+${newVal.substring(0, 2)}${length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)}${
+        length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)
+      }${length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)}${
+        length > 10 ? "-" + newVal.substring(10, newVal.length) : newVal.substring(10, newVal.length)
       }`;
     } else {
       number = val;
@@ -73,7 +68,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setInfo({ ...info, login: number });
   };
 
-  const checkLogin = input => {
+  const checkLogin = (input) => {
     let boolean = false;
     if (input.value[0] === "+") {
       const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, "");
@@ -84,13 +79,11 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setCompare({ ...compare, isLogin: boolean });
   };
 
-  const checkPass = input => {
-    input.value === ""
-      ? setCompare({ ...compare, isPass: true })
-      : setCompare({ ...compare, isPass: false });
+  const checkPass = (input) => {
+    input.value === "" ? setCompare({ ...compare, isPass: true }) : setCompare({ ...compare, isPass: false });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = info.pass.split("");
     const passRepeat = val.split("");
     let boolean = false;
@@ -100,43 +93,28 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setCompare({ ...compare, isCoincidePass: boolean });
   };
 
-  const checkCompany = input => {
+  const checkCompany = (input) => {
     if (input.value === "") return setCompare({ ...compare, isСompany: true });
     return setCompare({ ...compare, isСompany: false });
   };
 
-  const sendRequest = retry => {
-    if (
-      !compare.isLogin &&
-      !compare.isPass &&
-      !compare.isCoincidePass &&
-      compare.isAgreed
-    ) {
-      const login =
-        info.login.indexOf("@") > -1
-          ? info.login
-          : info.login.replace(/(\()*(\))*\s*-*/g, "");
-      const company =
-        info.regType === "Бизнес версия" ? `&company=${info.company}` : "";
+  const sendRequest = (retry) => {
+    if (!compare.isLogin && !compare.isPass && !compare.isCoincidePass && compare.isAgreed) {
+      const login = info.login.indexOf("@") > -1 ? info.login : info.login.replace(/(\()*(\))*\s*-*/g, "");
+      const company = info.regType === "Бизнес версия" ? `&company=${info.company}` : "";
       api
-        .post(
-          `/ajax/user_reg.php?name=${login}&pass=${info.pass}${
-            retry ? retry : ""
-          }${company}`
-        )
-        .then(res => {
+        .post(`/ajax/user_reg.php?name=${login}&pass=${info.pass}${retry ? retry : ""}${company}`)
+        .then((res) => {
           if (res.data.ok === 1) {
             setPage("registerSuccess");
           } else {
             res.data.error
               ? setErrorMessage(res.data.error)
-              : setErrorMessage(
-                  __("Упс.... что-то пошло не так. Попробуй еще раз!")
-                );
+              : setErrorMessage(__("Упс.... что-то пошло не так. Попробуй еще раз!"));
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setErrorMessage(err);
           setError(true);
@@ -164,10 +142,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                   className={styles.regList}
               >{renderRegTypes()}</div>
           </div>*/}
-          <div
-            className={`${styles.registerWrap} ${
-              info.regType === __("Бизнес версия") ? styles.business : ""
-            }`}>
+          <div className={`${styles.registerWrap} ${info.regType === __("Бизнес версия") ? styles.business : ""}`}>
             <span className={styles.cross} onClick={() => setPage("init")} />
             <span className={styles.title}>{__("Регистрация")}</span>
 
@@ -177,9 +152,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
               <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
                 <label className={styles.inputName}>
                   {__("Имя компании")}
-                  {compare.isСompany && (
-                    <span>{__("Некорректный ввод данных")}</span>
-                  )}
+                  {compare.isСompany && <span>{__("Некорректный ввод данных")}</span>}
                 </label>
                 <input
                   className={classnames({
@@ -188,20 +161,18 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                   })}
                   type="text"
                   value={info.company}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInfo({ ...info, company: e.target.value });
                     checkCompany(e.target);
                   }}
-                  onBlur={e => checkCompany(e.target)}
+                  onBlur={(e) => checkCompany(e.target)}
                 />
               </div>
             ) : null}
             <div className={`${styles.inputWrap} ${styles.marginWrap}`}>
               <label className={styles.inputName}>
                 {__("Email / Телефон")}
-                {compare.isLogin && (
-                  <span>{__("Некорректный ввод данных")}</span>
-                )}
+                {compare.isLogin && <span>{__("Некорректный ввод данных")}</span>}
               </label>
               <input
                 className={classnames({
@@ -211,16 +182,14 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                 type="text"
                 autoСomplete="new-password"
                 value={info.login}
-                onChange={e => setLogin(e.target.value)}
-                onBlur={e => checkLogin(e.target)}
+                onChange={(e) => setLogin(e.target.value)}
+                onBlur={(e) => checkLogin(e.target)}
               />
             </div>
             <div className={styles.inputWrap}>
               <label className={styles.inputName}>
                 {__("Пароль")}
-                {compare.isPass && (
-                  <span>{__("Некорректный ввод данных")}</span>
-                )}
+                {compare.isPass && <span>{__("Некорректный ввод данных")}</span>}
               </label>
               <input
                 className={classnames({
@@ -230,7 +199,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                 type={visibility}
                 autoСomplete="new-password"
                 value={info.pass}
-                onChange={e => {
+                onChange={(e) => {
                   setInfo({ ...info, pass: e.target.value });
                   checkPass(e.target);
                 }}
@@ -255,9 +224,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
             <div className={styles.inputWrap}>
               <label className={styles.inputName}>
                 Повторите пароль
-                {compare.isCoincidePass && (
-                  <span>{__("Некорректный ввод данных")}</span>
-                )}
+                {compare.isCoincidePass && <span>{__("Некорректный ввод данных")}</span>}
               </label>
               <input
                 className={classnames({
@@ -267,7 +234,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                 type={visibility}
                 autoСomplete="new-password"
                 value={info.repeatPass}
-                onChange={e => {
+                onChange={(e) => {
                   setInfo({ ...info, repeatPass: e.target.value });
                   comparePass(e.target.value);
                 }}
@@ -275,13 +242,8 @@ const RegisterProfile = ({ setPage, pageOption }) => {
             </div>
             <div className={styles.agreementWrap}>
               <div className={styles.agreement}>
-                <div
-                  onClick={() =>
-                    setCompare({ ...compare, isAgreed: !compare.isAgreed })
-                  }>
-                  {compare.isAgreed && (
-                    <img src="./assets/StartPage/tick.svg" alt="tick" />
-                  )}
+                <div onClick={() => setCompare({ ...compare, isAgreed: !compare.isAgreed })}>
+                  {compare.isAgreed && <img src="./assets/StartPage/tick.svg" alt="tick" />}
                 </div>
               </div>
               <div className={styles.agreementsText}>
@@ -323,9 +285,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
           </div>
         </div>
       )}
-      {pageOption === "registerSuccess" && (
-        <RegistrationSuccess setPage={setPage} sendRequest={sendRequest} />
-      )}
+      {pageOption === "registerSuccess" && <RegistrationSuccess setPage={setPage} sendRequest={sendRequest} />}
       <Error error={error} set={setError} message={errorMessage} />
     </>
   );

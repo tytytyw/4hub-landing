@@ -11,19 +11,13 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { safeProps } from "../../../../../../types/Safe";
 
-const RefreshPass = ({
-  safe,
-  set,
-  setShowSuccessMessage,
-  setLoadingType,
-  recoverPass
-}) => {
+const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass }) => {
   const { __ } = useLocales();
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [errors, setErrors] = useState({});
   const [displayErrorPass, setDisplayErrorPass] = useState(false);
 
@@ -35,7 +29,7 @@ const RefreshPass = ({
           .post(
             `/ajax/safe_pass_change.php?uid=${uid}&pass=${oldPassword}&pass_new=${passwordRepeat}&id_safe=${safe.id}`
           )
-          .then(res => {
+          .then((res) => {
             if (res.data.ok === 1) {
               setShowSuccessMessage(__(`Пароль для сейфа обновлен`));
               set();
@@ -47,14 +41,12 @@ const RefreshPass = ({
               console.log(res);
             }
           })
-          .catch(err => console.log(err))
+          .catch((err) => console.log(err))
           .finally(() => setLoadingType(""));
       } else {
         api
-          .get(
-            `/ajax/safe_pass_restore2.php?uid=${uid}&pass=${passwordRepeat}&id_safe=${safe.id}&code=${recoverPass}`
-          )
-          .then(res => {
+          .get(`/ajax/safe_pass_restore2.php?uid=${uid}&pass=${passwordRepeat}&id_safe=${safe.id}&code=${recoverPass}`)
+          .then((res) => {
             if (res.data.ok) {
               setShowSuccessMessage(__(`Пароль для сейфа обновлен`));
               set(false);
@@ -62,7 +54,7 @@ const RefreshPass = ({
               console.log(res);
             }
           })
-          .catch(err => console.log(err))
+          .catch((err) => console.log(err))
           .finally(() => setLoadingType(""));
       }
     }
@@ -107,7 +99,7 @@ const RefreshPass = ({
                   type="password"
                   className={styles.passInput}
                   value={oldPassword}
-                  onChange={event => setOldPassword(event.target.value)}
+                  onChange={(event) => setOldPassword(event.target.value)}
                   isMistake={errors?.oldPassword}
                   showPass={showPass}
                   setShowPass={setShowPass}
@@ -127,7 +119,7 @@ const RefreshPass = ({
                 type="password"
                 className={styles.passInput}
                 value={password}
-                onChange={event => setPassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
                 isMistake={errors?.password}
                 showPass={showPass}
                 setShowPass={setShowPass}
@@ -147,7 +139,7 @@ const RefreshPass = ({
                 type="password"
                 className={styles.passInput}
                 value={passwordRepeat}
-                onChange={event => setPasswordRepeat(event.target.value)}
+                onChange={(event) => setPasswordRepeat(event.target.value)}
                 isMistake={errors?.passwordRepeat}
                 showPass={showPass}
                 setShowPass={setShowPass}
@@ -157,19 +149,14 @@ const RefreshPass = ({
           </div>
 
           <div className={styles.actionBlock}>
-            <Button
-              type="submit"
-              className={styles.actionBtn}
-              onClick={onSubmit}>
+            <Button type="submit" className={styles.actionBtn} onClick={onSubmit}>
               {__("Готово")}
             </Button>
           </div>
         </div>
       </div>
 
-      {displayErrorPass && (
-        <ErrorPass setError={setDisplayErrorPass} set={set} />
-      )}
+      {displayErrorPass && <ErrorPass setError={setDisplayErrorPass} set={set} />}
     </PopUp>
   );
 };
