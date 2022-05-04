@@ -26,18 +26,18 @@ function WorkSpace({
   fileAddCustomization,
   setFileAddCustomization,
   setFilePreview,
-  filePreview
+  filePreview,
 }) {
   const { __ } = useLocales();
   const [containerRef, width] = useElementResize();
   const fileRef = useRef(null);
-  const workElementsView = useSelector(s => s.Cabinet.view);
+  const workElementsView = useSelector((s) => s.Cabinet.view);
   const [chosenFile, setChosenFile] = useState(null);
   const [filePick, setFilePick] = useState({
     show: false,
     files: [],
     customize: false,
-    intoZip: false
+    intoZip: false,
   });
   const [gLoader, setGLoader] = useState(false); //TODO - default must be true
   const [mouseParams, setMouseParams] = useState(null);
@@ -57,7 +57,8 @@ function WorkSpace({
                       : styles.workSpaceWrapUncollapsed
                     : undefined
                 }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -117,7 +118,8 @@ function WorkSpace({
           <ContextMenu
             params={mouseParams}
             setParams={setMouseParams}
-            tooltip={true}>
+            tooltip={true}
+          >
             <ContextMenuFileList
               filePick={filePick}
               file={chosenFile}
@@ -144,5 +146,5 @@ WorkSpace.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
 };

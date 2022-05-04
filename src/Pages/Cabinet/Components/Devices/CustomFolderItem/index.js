@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./CustomFolderItem.module.sass";
 import {
   onChooseFiles,
-  onChooseFolder
+  onChooseFolder,
 } from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
@@ -25,13 +25,13 @@ const CustomFolderItem = ({
   setNewFolderInfo,
   setNewFolder,
   newFolderInfo,
-  setMouseParams
+  setMouseParams,
 }) => {
-  const folderList = useSelector(state => state.Cabinet.folderList);
+  const folderList = useSelector((state) => state.Cabinet.folderList);
   const dispatch = useDispatch();
-  const openFolder = e => {
+  const openFolder = (e) => {
     let boolean = false;
-    e.target?.viewportElement?.classList.forEach(el => {
+    e.target?.viewportElement?.classList.forEach((el) => {
       if (el.toString().search("playButton")) boolean = true;
     });
     if (boolean) {
@@ -40,20 +40,20 @@ const CustomFolderItem = ({
             ...chosenFolder,
             path: f.path,
             open: !chosenFolder.open,
-            subPath: ""
+            subPath: "",
           })
         : setChosenFolder({
             ...chosenFolder,
             path: f.path,
             open: true,
-            subPath: ""
+            subPath: "",
           });
     } else {
       setChosenFolder({
         ...chosenFolder,
         path: f.path,
         open: false,
-        subPath: ""
+        subPath: "",
       });
     }
     dispatch(onChooseFolder(f.folders, f.path));
@@ -84,12 +84,13 @@ const CustomFolderItem = ({
         className={`${styles.innerFolderWrap} ${
           chosen ? styles.chosenSubFolderWrap : undefined
         }`}
-        onClick={e => {
+        onClick={(e) => {
           subFolder
             ? setChosenFolder({ ...chosenFolder, subPath: f.path })
             : openFolder(e);
           dispatch(onChooseFiles(f.path));
-        }}>
+        }}
+      >
         <div className={styles.innerFolder} style={{ padding }}>
           <div className={styles.innerFolderName}>
             <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
@@ -132,14 +133,15 @@ const CustomFolderItem = ({
             ) : null}
             <div
               className={styles.menuWrap}
-              onClick={e => {
+              onClick={(e) => {
                 setMouseParams({
                   x: e.clientX,
                   y: e.clientY,
                   width: 200,
-                  height: 25
+                  height: 25,
                 });
-              }}>
+              }}
+            >
               <span className={styles.menu} />
             </div>
           </div>
@@ -153,17 +155,19 @@ const CustomFolderItem = ({
             }px`,
             minHeight: `${
               chosen && chosenFolder.open ? f.folders.length * 50 + 50 : 0
-            }px`
+            }px`,
           }}
           className={`${styles.innerFolders} ${
             chosen && chosenFolder.open ? undefined : styles.hidden
-          }`}>
+          }`}
+        >
           <div
             className={styles.addFolderToFolder}
             onClick={() => {
               setNewFolderInfo({ ...newFolderInfo, path: f.path });
               setNewFolder(true);
-            }}>
+            }}
+          >
             <div className={styles.addFolderName}>
               <FolderIcon style={{ width: "17px" }} />
               {!listCollapsed && <span>Новая папка</span>}
@@ -190,5 +194,5 @@ CustomFolderItem.propTypes = {
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
   newFolderInfo: PropTypes.object,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
 };

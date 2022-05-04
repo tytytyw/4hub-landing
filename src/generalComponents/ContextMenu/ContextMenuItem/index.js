@@ -8,7 +8,7 @@ const ContextMenuItem = ({
   color,
   text,
   imageSrc,
-  callback
+  callback,
 }) => {
   return (
     <div
@@ -16,7 +16,8 @@ const ContextMenuItem = ({
       style={{ width, height, color }}
       onClick={() => {
         if (callback) callback();
-      }}>
+      }}
+    >
       {imageSrc ? (
         <img src={imageSrc} alt="img" />
       ) : (

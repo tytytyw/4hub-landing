@@ -11,17 +11,17 @@ import PropTypes from "prop-types";
 const MainPanel = ({ setAction, setOption }) => {
   const { __ } = useLocales();
   const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
+    (state) => state.Cabinet.chat.selectedContact
   );
   const [notificationsMute, setNotificationsMute] = useState(false);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const deleteBtnType = () => {
     if (selectedContact?.isGroup) {
       const admins = selectedContact.users
-        .filter(u => u.is_admin)
-        .map(u => u.id_user);
+        .filter((u) => u.is_admin)
+        .map((u) => u.id_user);
       if (admins.includes(userId)) {
         // user is admin
         return {
@@ -32,8 +32,8 @@ const MainPanel = ({ setAction, setOption }) => {
                 `Вы действительно хотите удалить группу ${selectedContact?.name}?`
               ),
               type: __("deleteChatGroup"),
-              name: __("Удалить")
-            })
+              name: __("Удалить"),
+            }),
         };
       } else {
         // user not admin
@@ -45,27 +45,33 @@ const MainPanel = ({ setAction, setOption }) => {
                 `Вы действительно хотите покинуть группу ${selectedContact?.name}?`
               ),
               type: "leaveFromChatGroup",
-              name: __("Покинуть")
-            })
+              name: __("Покинуть"),
+            }),
         };
       }
     }
     return {
       text: __("Очистить историю"),
-      callback: () => console.log("clear messages")
+      callback: () => console.log("clear messages"),
     };
   };
 
   const getAvatarSrc = () => {
     return (
       selectedContact?.icon?.[0] ||
-      `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
+      `${imageSrc}assets/PrivateCabinet/${
+        selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
       }.svg`
     );
   };
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
         <div
           style={{ backgroundImage: `url(${getAvatarSrc()})` }}
@@ -138,10 +144,10 @@ const MainPanel = ({ setAction, setOption }) => {
                     selectedContact?.isGroup
                       ? { type: "addUsersToGroup" }
                       : {
-                        type: "addChat",
-                        chatsType: "groups",
-                        initialUser: selectedContact
-                      }
+                          type: "addChat",
+                          chatsType: "groups",
+                          initialUser: selectedContact,
+                        }
                   )
                 }
               >
@@ -165,12 +171,12 @@ const MainPanel = ({ setAction, setOption }) => {
             </div>
             <div
               className={classNames(styles.switcher)}
-              onClick={() => setNotificationsMute(state => !state)}
+              onClick={() => setNotificationsMute((state) => !state)}
             >
               <div
                 className={classNames({
                   [styles.switchActive]: !notificationsMute,
-                  [styles.switch]: true
+                  [styles.switch]: true,
                 })}
               />
             </div>
@@ -195,5 +201,5 @@ export default MainPanel;
 
 MainPanel.propTypes = {
   setAction: PropTypes.func.isRequired,
-  setOption: PropTypes.func.isRequired
+  setOption: PropTypes.func.isRequired,
 };

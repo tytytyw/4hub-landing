@@ -11,7 +11,7 @@ import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateC
 import {
   onGetChatGroups,
   onGetReсentChatsList,
-  onGetSecretChatsList
+  onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -24,33 +24,33 @@ const ChatList = ({
   setAction,
   mouseParams,
   setMouseParams,
-  currentDate
+  currentDate,
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
   const dispatch = useDispatch();
   const [chatsType, setChatsType] = useState("chats");
   const [collapseMembersList, setCollapseMembersList] = useState(true);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
   const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
+    (state) => state.Cabinet.chat.selectedContact
   );
 
   const recentChatsList = useSelector(
-    state => state.Cabinet.chat.recentChatsList
+    (state) => state.Cabinet.chat.recentChatsList
   );
   const secretChatsList = useSelector(
-    state => state.Cabinet.chat.secretChatsList
+    (state) => state.Cabinet.chat.secretChatsList
   );
   const [chatsList, setChatList] = useState([]);
-  const groupsList = useSelector(state => state.Cabinet.chat.groupsList);
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const recentGroupsMessages = useSelector(
-    state => state.Cabinet.chat.recentGroupsMessages
+    (state) => state.Cabinet.chat.recentGroupsMessages
   );
   const notificationsCounter = useSelector(
-    state => state.Cabinet.chat.notificationsCounter
+    (state) => state.Cabinet.chat.notificationsCounter
   );
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const ChatList = ({
   const renderChatsList = useCallback(() => {
     if (!chatsList) return null;
 
-    return chatsList.map(chat => {
+    return chatsList.map((chat) => {
       if (
         !(
           chat?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -122,13 +122,13 @@ const ChatList = ({
     currentDate,
     gmt,
     setMouseParams,
-    notificationsCounter
+    notificationsCounter,
   ]);
 
   const renderGroupsList = useCallback(() => {
     const renderMembersList = (members, chatId) => {
       if (!members) return null;
-      return members.map(member => {
+      return members.map((member) => {
         if (member.id_user === userId) return null;
         return (
           <CustomChatItem
@@ -158,7 +158,7 @@ const ChatList = ({
     };
 
     if (!groupsList) return null;
-    return groupsList.map(group => {
+    return groupsList.map((group) => {
       if (
         !(
           group?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -183,7 +183,7 @@ const ChatList = ({
             setCollapseMembersList={setCollapseMembersList}
             status={__(
               `${group?.users?.length || 0} участников группы ( ${
-                group.users.filter(user => user?.is_online === 1).length
+                group.users.filter((user) => user?.is_online === 1).length
               } онлайн )`
             )}
             setMouseParams={setMouseParams}
@@ -213,7 +213,7 @@ const ChatList = ({
     setSelectedContact,
     recentGroupsMessages,
     notificationsCounter,
-    collapseMembersList
+    collapseMembersList,
   ]);
 
   useEffect(() => {
@@ -227,14 +227,15 @@ const ChatList = ({
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.darkTheme]: chatTheme.name === "dark"
-      })}>
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <div
         className={classNames({
           [styles.item]: true,
           [styles.active]: false,
           [styles.addChat]: true,
-          [styles.collapsed]: sideMenuCollapsed
+          [styles.collapsed]: sideMenuCollapsed,
         })}
         onClick={() => {
           setAction({
@@ -243,7 +244,7 @@ const ChatList = ({
               chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
             } `,
             text: "",
-            chatsType
+            chatsType,
           });
         }}
         title={
@@ -254,7 +255,8 @@ const ChatList = ({
                 } чат`
               )
             : ""
-        }>
+        }
+      >
         <div className={styles.iconWrap}>
           {sideMenuCollapsed ? (
             <span className={styles.text}>Создать</span>
@@ -285,26 +287,29 @@ const ChatList = ({
       <div
         className={classNames({
           [styles.chatsSwitcher]: true,
-          [styles.collapsed]: sideMenuCollapsed
-        })}>
+          [styles.collapsed]: sideMenuCollapsed,
+        })}
+      >
         <div
           className={classNames({
             [styles.item]: true,
             [styles.active]: chatsType === "chats",
-            [styles.addChat]: true
+            [styles.addChat]: true,
           })}
           onClick={() => setChatsType("chats")}
-          title={sideMenuCollapsed ? __("Чаты") : ""}>
+          title={sideMenuCollapsed ? __("Чаты") : ""}
+        >
           <span className={styles.text}>Чаты</span>
         </div>
         <div
           className={classNames({
             [styles.item]: true,
             [styles.active]: chatsType === "groups",
-            [styles.addChat]: true
+            [styles.addChat]: true,
           })}
           onClick={() => setChatsType("groups")}
-          title={sideMenuCollapsed ? __("Группы") : ""}>
+          title={sideMenuCollapsed ? __("Группы") : ""}
+        >
           <span className={styles.text}>Группы</span>
         </div>
       </div>
@@ -325,5 +330,5 @@ ChatList.propTypes = {
   setAction: PropTypes.func.isRequired,
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func.isRequired,
-  currentDate: PropTypes.object.isRequired
+  currentDate: PropTypes.object.isRequired,
 };

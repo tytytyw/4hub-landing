@@ -12,11 +12,11 @@ function ProgramItem({ program }) {
   const { __ } = useLocales();
   const [params, setParams] = useState({
     isFavourite: program.isFavourite,
-    openedComments: false
+    openedComments: false,
   });
   const dispatch = useDispatch();
   const onSetFavourite = () => {
-    setParams(s => ({ ...s, isFavourite: !s.isFavourite }));
+    setParams((s) => ({ ...s, isFavourite: !s.isFavourite }));
     if (!params.isFavourite) {
       dispatch(
         onSetModals("success", {
@@ -25,20 +25,21 @@ function ProgramItem({ program }) {
             "Программа появится в списке во вкладке избраные программы"
           ),
           title: __("Программа успешно добавлена в избранные"),
-          icon: `${imageSrc}assets/PrivateCabinet/programs/star.svg`
+          icon: `${imageSrc}assets/PrivateCabinet/programs/star.svg`,
         })
       );
     }
   };
   const onToggleComments = () =>
-    setParams(s => ({ ...s, openedComments: !s.openedComments }));
+    setParams((s) => ({ ...s, openedComments: !s.openedComments }));
   return (
     <>
       <div
         className={classNames({
           [styles.itemWrap]: true,
-          [styles.chosenItem]: params.openedComments
-        })}>
+          [styles.chosenItem]: params.openedComments,
+        })}
+      >
         <div className={styles.leftGroup}>
           <img
             src={program.icon || `${imageSrc}assets/PrivateCabinet/more.svg`}
@@ -51,16 +52,18 @@ function ProgramItem({ program }) {
           className={styles.centerGroup}
           href={program.link}
           target="_blank"
-          rel="noopener noreferrer">
+          rel="noopener noreferrer"
+        >
           <div className={styles.copyLink}>{program.link}</div>
         </a>
         <div className={styles.rightGroup}>
           <div
             className={classNames({
               [styles.openComments]: true,
-              [styles.openedComments]: params.openedComments
+              [styles.openedComments]: params.openedComments,
             })}
-            onClick={onToggleComments}>
+            onClick={onToggleComments}
+          >
             <span>{__("Отзывы")}</span>&nbsp;
             <span>({program.comments.length})</span>
           </div>
@@ -90,5 +93,5 @@ function ProgramItem({ program }) {
 export default ProgramItem;
 
 ProgramItem.propTypes = {
-  program: programItemProps
+  program: programItemProps,
 };

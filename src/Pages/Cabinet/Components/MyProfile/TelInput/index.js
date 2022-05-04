@@ -18,7 +18,7 @@ const TellInput = ({ ...props }) => {
   //   }
   // };
 
-  const maskPhoneNumber = number => {
+  const maskPhoneNumber = (number) => {
     const tempValue = number.replace(/\D/gim, "");
 
     return tempValue.replace(
@@ -29,12 +29,12 @@ const TellInput = ({ ...props }) => {
         6: [/(\d{2})(\d{3})(\d{0,2})/g, "$1 $2-$3"],
         7: [/(\d{2})(\d{3})(\d{2})/g, "$1 $2-$3"],
         8: [/(\d{2})(\d{3})(\d{2})(\d{1,2})/g, "$1 $2-$3-$4"],
-        9: [/(\d{2})(\d{3})(\d{2})(\d{2})/g, "$1 $2-$3-$4"]
+        9: [/(\d{2})(\d{3})(\d{2})(\d{2})/g, "$1 $2-$3-$4"],
       }[tempValue.length] || [])
     );
   };
 
-  const onTelChange = event => {
+  const onTelChange = (event) => {
     const inp = event.target;
     inp.value = maskPhoneNumber(inp.value);
 

@@ -15,14 +15,14 @@ import { useElementResize } from "../../../../../generalComponents/Hooks";
 import {
   onAddRecentFiles,
   onChooseFiles,
-  onGetArchiveFiles
+  onGetArchiveFiles,
 } from "../../../../../Store/actions/CabinetActions";
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import {
   filePickProps,
-  filePreviewProps
+  filePreviewProps,
 } from "../../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 const WorkSpace = ({
@@ -48,10 +48,10 @@ const WorkSpace = ({
   setFilesPage,
   gLoader,
   setGLoader,
-  menuItem
+  menuItem,
 }) => {
   const { __ } = useLocales();
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const fileRef = useRef(null);
   const dispatch = useDispatch();
   const [containerRef, width] = useElementResize();
@@ -86,18 +86,18 @@ const WorkSpace = ({
       payload:
         pathname === "/archive"
           ? "byDateArchived&sort_reverse=1&group=date_archive"
-          : "byDateCreated&sort_reverse=1&group=ctime"
+          : "byDateCreated&sort_reverse=1&group=ctime",
     });
     return () => {
       dispatch({ type: "CHOOSE_FILES", payload: [] }); //cleaning fileList when changing tabs
       dispatch({
         type: "SORT_FILES",
-        payload: "byDateCreated&sort_reverse=1&group=ctime"
+        payload: "byDateCreated&sort_reverse=1&group=ctime",
       });
     };
   }, [pathname]);
 
-  const onActiveCallbackArrMain = type => {
+  const onActiveCallbackArrMain = (type) => {
     let index;
     callbackArrMain.forEach((el, i) =>
       el.type === type ? (index = i) : undefined
@@ -117,7 +117,8 @@ const WorkSpace = ({
                 : styles.workSpaceWrapShort
               : undefined
           }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
@@ -207,7 +208,7 @@ WorkSpace.propTypes = {
   action: PropTypes.shape({
     type: PropTypes.string,
     name: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
   }),
   setAction: PropTypes.func,
   nullifyFilePick: PropTypes.func,
@@ -225,5 +226,5 @@ WorkSpace.propTypes = {
   setFilesPage: PropTypes.func,
   gLoader: PropTypes.bool,
   setGLoader: PropTypes.func,
-  menuItem: PropTypes.string
+  menuItem: PropTypes.string,
 };

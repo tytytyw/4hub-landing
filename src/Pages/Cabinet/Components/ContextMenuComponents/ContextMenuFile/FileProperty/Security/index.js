@@ -10,14 +10,14 @@ import { fileProps } from "../../../../../../../types/WorkElements";
 
 const Security = ({ file }) => {
   const { __ } = useLocales();
-  const userInfo = useSelector(state => state.user.userInfo);
-  const uid = useSelector(state => state.user.uid);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const uid = useSelector((state) => state.user.uid);
 
   const [userList, setUserList] = useState([]);
 
   // const userList = ['Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
   // const userListRestriction = ['Коваленко Артем', 'Коваленко Артем', 'Надельская Ангелина', 'Филь Сергей', 'Филь Сергей', 'Надельская Ангелина'];
-  const renderUsers = userList => {
+  const renderUsers = (userList) => {
     return userList.map((user, id) => {
       return (
         <span key={id} className={styles.user}>
@@ -36,12 +36,12 @@ const Security = ({ file }) => {
       );
     }
     fetchUsers()
-      .then(res => {
+      .then((res) => {
         if (!!res.data.ok && res?.data?.access) {
           setUserList(res.data.access);
         }
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, []); //eslint-disable-line
 
   return (
@@ -80,5 +80,5 @@ const Security = ({ file }) => {
 export default Security;
 
 Security.propTypes = {
-  file: fileProps
+  file: fileProps,
 };

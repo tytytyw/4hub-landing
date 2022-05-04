@@ -15,7 +15,7 @@ const ContactSearch = ({ value, onChangeHandler = () => {}, placeholder }) => {
       <input
         type="search"
         value={value}
-        onChange={event => onChangeHandler(event.target.value)}
+        onChange={(event) => onChangeHandler(event.target.value)}
         className={styles.input}
         placeholder={placeholder}
       />
@@ -33,8 +33,8 @@ export default ContactSearch;
 ContactSearch.propTypes = {
   value: PropTypes.string,
   onChangeHandler: PropTypes.func,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 ContactSearch.defaultProps = {
-  onChangeHandler: () => {}
+  onChangeHandler: () => {},
 };

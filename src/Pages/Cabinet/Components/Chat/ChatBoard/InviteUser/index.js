@@ -14,7 +14,7 @@ function InviteUser({ contact, setShowSuccessPopup }) {
   const [sentInvite, setSentInvite] = useState(false);
   const [selectedSoc, setSelectedSoc] = useState(null);
   const [messengers, setMessengers] = useState([]);
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
   const onSendInvite = () => {
     if (selectedSoc === "email" || selectedSoc === "tel") {
@@ -23,17 +23,17 @@ function InviteUser({ contact, setShowSuccessPopup }) {
         .get(
           `/ajax/user_invite.php?uid=${uid}&${selectedSoc}=${contact[selectedSoc][0]}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok) {
             setShowSuccessPopup({
               title: __("Приглашение успешно отправлено"),
               text: __(
                 `${contact.sname} ${contact.name} получил(а) приглашение на добавление в сеть 4Hub`
-              )
+              ),
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     } else if (selectedSoc) {
@@ -42,7 +42,7 @@ function InviteUser({ contact, setShowSuccessPopup }) {
       link.rel = "noreferrer";
       link.setAttribute(
         "href",
-        messengers.filter(soc => soc.type === selectedSoc)[0].link
+        messengers.filter((soc) => soc.type === selectedSoc)[0].link
       );
       link.click();
       setSentInvite(false);
@@ -52,12 +52,12 @@ function InviteUser({ contact, setShowSuccessPopup }) {
   useEffect(() => {
     setMessengers(messengersData);
     if (!contact?.email?.length || !contact?.email[0]?.length)
-      setMessengers(messengersData =>
-        messengersData.filter(item => item.type !== "email")
+      setMessengers((messengersData) =>
+        messengersData.filter((item) => item.type !== "email")
       );
     if (!contact?.tel?.length || !contact?.tel[0]?.length)
-      setMessengers(messengersData =>
-        messengersData.filter(item => item.type !== "tel")
+      setMessengers((messengersData) =>
+        messengersData.filter((item) => item.type !== "tel")
       );
   }, [contact]); //eslint-disable-line
 
@@ -99,7 +99,7 @@ function InviteUser({ contact, setShowSuccessPopup }) {
                         onClick={() => setSelectedSoc(item?.type)}
                         className={classNames({
                           [styles.socialsItem]: true,
-                          [styles.active]: selectedSoc === item?.type
+                          [styles.active]: selectedSoc === item?.type,
                         })}
                         key={index}
                       >
@@ -118,7 +118,7 @@ function InviteUser({ contact, setShowSuccessPopup }) {
                     onClick={onSendInvite}
                     className={classNames({
                       [styles.completeBtn]: true,
-                      [styles.disabledBtn]: !selectedSoc
+                      [styles.disabledBtn]: !selectedSoc,
                     })}
                   >
                     {__("Отправить")}
@@ -139,5 +139,5 @@ export default InviteUser;
 
 InviteUser.propTypes = {
   contact: PropTypes.object.isRequired,
-  setShowSuccessPopup: PropTypes.func.isRequired
+  setShowSuccessPopup: PropTypes.func.isRequired,
 };

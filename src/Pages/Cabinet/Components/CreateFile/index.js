@@ -17,7 +17,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import {
   onAddRecentFiles,
   onChooseFiles,
-  onCustomizeFile
+  onCustomizeFile,
 } from "../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -41,13 +41,13 @@ const CreateFile = ({
   menuItem,
   initFolder,
   showChoiceFolders,
-  info
+  info,
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const search = useSelector(state => state.Cabinet.search);
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet.search);
   const [name, setName] = useState(
     blob?.options?.name
       ? blob.options.name.slice(0, blob.options.name.lastIndexOf("."))
@@ -59,12 +59,12 @@ const CreateFile = ({
   const [showRepeat, setShowRepeat] = useState(false);
   const [color, setColor] = useState(
     blob?.options?.color
-      ? colors.find(c => c.color === blob.options.color)
+      ? colors.find((c) => c.color === blob.options.color)
       : colors[0]
   );
   const [tagOption, setTagOption] = useState({
     chosen: blob?.options?.tag ? blob.options.tag : "",
-    count: 30
+    count: 30,
   });
   const [sign, setSign] = useState(
     blob?.options?.symbol ? blob.options.symbol : ""
@@ -78,7 +78,7 @@ const CreateFile = ({
   const [isSafe, setIsSafe] = useState(false);
   const [path, setPath] = useState(fileList?.path);
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -90,7 +90,7 @@ const CreateFile = ({
     });
   };
 
-  const onAddFile = open => {
+  const onAddFile = (open) => {
     let options = {
       name: `${name}.${
         getName(blob?.options?.name ? blob.options.name : blob.file.name).format
@@ -106,7 +106,7 @@ const CreateFile = ({
           ? path
             ? path
             : "global/all"
-          : info?.dir ?? ""
+          : info?.dir ?? "",
     };
     if (menuItem === "project") options["id_project"] = info.id;
 
@@ -121,7 +121,7 @@ const CreateFile = ({
         pass: options.password,
         color: options.color,
         symbol: options.symbol,
-        emoji: options.emoji
+        emoji: options.emoji,
       };
 
       const newFile = {
@@ -132,15 +132,15 @@ const CreateFile = ({
         emo: options.emoji,
         fig: options.symbol,
         is_pass: options.password ? 1 : 0,
-        ext: options.name.slice(options.name.lastIndexOf("."))
+        ext: options.name.slice(options.name.lastIndexOf(".")),
       };
       api
         .post(`/ajax/${menuItem === "Safe" ? "safe_" : ""}file_edit.php`, data)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             dispatch(onCustomizeFile(newFile));
             dispatch(onAddRecentFiles());
-            let files = loaded.map(el =>
+            let files = loaded.map((el) =>
               el.file.fid === newFile.fid ? { file: newFile, options } : el
             );
             setLoaded(files);
@@ -163,7 +163,7 @@ const CreateFile = ({
       }&ext=${options.name.slice(options.name.lastIndexOf(".") + 1)}`;
       api
         .post(url)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             if (open === true) window.open(res.data.edit_url);
             dispatch(onChooseFiles(fileList.path, search, 1, "", setGLoader));
@@ -191,12 +191,12 @@ const CreateFile = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -208,11 +208,11 @@ const CreateFile = ({
 
   const onCloseTab = () => setBlob({ ...blob, file: null, show: false });
 
-  const getName = val => {
+  const getName = (val) => {
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
-      format: val.substring(i + 1)
+      format: val.substring(i + 1),
     };
   };
 
@@ -276,7 +276,8 @@ const CreateFile = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
                     <div className={`${styles.minitag}`}>
                       #{tagOption.chosen}
                     </div>
@@ -286,19 +287,21 @@ const CreateFile = ({
                   className={`${styles.colorWrap} ${
                     color.color !== "grey" ? styles.colorWrapTap : undefined
                   } ${styles.redCross}`}
-                  onClick={() => setColor(colors[0])}>
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
                       background: color.light,
-                      border: `1px solid ${color.dark}`
+                      border: `1px solid ${color.dark}`,
                     }}
                   />
                 </div>
                 {sign && (
                   <div
                     className={`${styles.signWrap} ${styles.redCross}`}
-                    onClick={() => setSign("")}>
+                    onClick={() => setSign("")}
+                  >
                     <img
                       src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
                       alt="emoji"
@@ -308,7 +311,8 @@ const CreateFile = ({
                 {emoji && (
                   <div
                     className={`${styles.signWrap} ${styles.redCross}`}
-                    onClick={() => setEmoji("")}>
+                    onClick={() => setEmoji("")}
+                  >
                     <img
                       src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
                       alt="emoji"
@@ -344,7 +348,7 @@ const CreateFile = ({
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -353,7 +357,8 @@ const CreateFile = ({
               <div
                 className={styles.tagList}
                 ref={tagRef}
-                onClick={handleChoose}>
+                onClick={handleChoose}
+              >
                 {renderTags()}
               </div>
             </div>
@@ -403,7 +408,8 @@ const CreateFile = ({
                 onClick={() => {
                   setIsSafe(!isSafe);
                   onToggleSafePassword(!isSafe);
-                }}>
+                }}
+              >
                 {isSafe && (
                   <img
                     src={`${imageSrc}assets/PrivateCabinet/tick-green.svg`}
@@ -430,21 +436,25 @@ const CreateFile = ({
           <div
             className={`${styles.buttonsWrap} ${
               create ? "" : styles.buttonsWrapSmall
-            }`}>
+            }`}
+          >
             <div
               className={`${styles.cancel} ${create ? styles.onCreate : ""}`}
-              onClick={() => setBlob({ ...blob, file: null, show: false })}>
+              onClick={() => setBlob({ ...blob, file: null, show: false })}
+            >
               {__("Отмена")}
             </div>
             <div
               className={`${styles.add} ${create ? styles.onCreate : ""}`}
-              onClick={onAddFile}>
+              onClick={onAddFile}
+            >
               {create ? __("Создать") : __("Добавить")}
             </div>
             {create ? (
               <div
                 className={`${styles.addOpen}`}
-                onClick={() => onAddFile(true)}>
+                onClick={() => onAddFile(true)}
+              >
                 {__("Создать и открыть в редакторе")}
               </div>
             ) : null}
@@ -481,5 +491,5 @@ CreateFile.propTypes = {
   menuItem: PropTypes.string,
   initFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
   showChoiceFolders: PropTypes.bool,
-  info: PropTypes.oneOfType([chosenFolderProps, createFilesProps])
+  info: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
 };

@@ -9,7 +9,7 @@ import { projectSrc } from "../../../../../../generalComponents/globalVariables"
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import {
   onDeleteCompanyDocument,
-  onGetCompanyDocument
+  onGetCompanyDocument,
 } from "../../../../../../Store/actions/CabinetActions";
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
@@ -31,20 +31,20 @@ const FileView = ({
   setAction,
   nullifyAction,
   setShowSuccessMessage,
-  downloadFileSrc
+  downloadFileSrc,
 }) => {
   const { __ } = useLocales();
   const contextMenuDocFile = useContextMenuDocFile();
   const dispatch = useDispatch();
   const [editFile, setEditFile] = useState(false);
 
-  const onContextClick = e => {
+  const onContextClick = (e) => {
     setMouseParams({
       type: "contextMenuFile",
       x: e.clientX,
       y: e.clientY,
       width: 163,
-      height: 45
+      height: 45,
     });
   };
   const callbackArr = [
@@ -52,14 +52,14 @@ const FileView = ({
       type: "editFile",
       name: __("Редактировать файл"),
       text: ``,
-      callback: () => openFileEditor()
+      callback: () => openFileEditor(),
     },
     {
       type: "deleteFile",
       name: __("Удаление файла"),
       text: __(`Вы действительно хотите удалить файл?`),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const deleteFile = () => {
@@ -110,7 +110,8 @@ const FileView = ({
         <button
           title="Download"
           onClick={() => downloadFile()}
-          className={styles.contextBtn}>
+          className={styles.contextBtn}
+        >
           <DownloadIco title="Download" />
         </button>
       </div>
@@ -119,7 +120,8 @@ const FileView = ({
         <embed
           style={{ height: "100%", width: "100%" }}
           type="application/pdf"
-          src={projectSrc + previewSrc}></embed>
+          src={projectSrc + previewSrc}
+        ></embed>
       </div>
       {mouseParams !== null && mouseParams?.type === "contextMenuFile" ? (
         <ContextMenu
@@ -127,7 +129,8 @@ const FileView = ({
           setParams={setMouseParams}
           tooltip={false}
           customClose={true}
-          disableAutohide={true}>
+          disableAutohide={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuDocFile, callbackArr)}
           </div>
@@ -139,7 +142,8 @@ const FileView = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFile}
-          approve={"Удалить"}>
+          approve={"Удалить"}
+        >
           {renderIcon()}
         </ActionApproval>
       ) : null}
@@ -149,7 +153,8 @@ const FileView = ({
             <iframe
               title={pageOption.name}
               frameBorder="0"
-              src={editSrc}></iframe>
+              src={editSrc}
+            ></iframe>
           </div>
         </PopUp>
       ) : null}
@@ -160,7 +165,7 @@ const FileView = ({
 export default FileView;
 FileView.propTypes = {
   pageOption: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
   }),
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
@@ -171,5 +176,5 @@ FileView.propTypes = {
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  downloadFileSrc: PropTypes.string
+  downloadFileSrc: PropTypes.string,
 };

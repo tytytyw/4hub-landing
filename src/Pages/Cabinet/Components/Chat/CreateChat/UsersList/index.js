@@ -12,13 +12,13 @@ const UsersList = ({
   setSelectedUsers,
   userContextMenu,
   disableHover,
-  currentDate
+  currentDate,
 }) => {
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const createContactStatus = useCreateContactStatus();
   return (
     <>
-      {usersList?.map(contact => {
+      {usersList?.map((contact) => {
         if (
           !(
             contact?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,5 +71,5 @@ UsersList.propTypes = {
   setSelectedUsers: PropTypes.func.isRequired,
   userContextMenu: PropTypes.string,
   disableHover: PropTypes.bool,
-  currentDate: PropTypes.object
+  currentDate: PropTypes.object,
 };

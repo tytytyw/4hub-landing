@@ -4,7 +4,7 @@ import styles from "./RadioCheck.module.sass";
 import classnames from "classnames";
 import {
   emptyProfileImage,
-  getContactName
+  getContactName,
 } from "../../../MyProfile/Contacts/consts";
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
     <div
       className={classnames({
         [styles.wrapper]: true,
-        [styles.active]: item?.id === selected?.id
+        [styles.active]: item?.id === selected?.id,
       })}
     >
       <input
@@ -42,5 +42,5 @@ RadioCheck.propTypes = {
   item: PropTypes.object,
   name: PropTypes.string,
   selected: PropTypes.object,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };

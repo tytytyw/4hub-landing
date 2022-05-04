@@ -15,9 +15,10 @@ const OptionButtomLine = ({ selectedDevices, onSubmit, onCancel }) => {
       <div
         className={classNames({
           [styles.buttonDisabled]: true,
-          [styles.edit]: selectedDevices.length > 0
+          [styles.edit]: selectedDevices.length > 0,
         })}
-        onClick={() => onSubmit()}>
+        onClick={() => onSubmit()}
+      >
         {__("Блокировать")}
       </div>
     </div>
@@ -29,5 +30,5 @@ export default OptionButtomLine;
 OptionButtomLine.propTypes = {
   selectedDevices: PropTypes.array,
   onSubmit: PropTypes.func,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };

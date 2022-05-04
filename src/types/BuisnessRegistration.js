@@ -5,5 +5,5 @@ export const compareProps = PropTypes.exact({
   isCoincidePass: PropTypes.bool,
   isLogin: PropTypes.bool,
   isPass: PropTypes.bool,
-  isСompany: PropTypes.bool
+  isСompany: PropTypes.bool,
 });

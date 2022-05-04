@@ -35,7 +35,7 @@ const Input = ({
       ? `${imageSrc}assets/StartPage/eye.svg`
       : `${imageSrc}assets/StartPage/invisible.svg`;
 
-  const maskPhoneNumber = number => {
+  const maskPhoneNumber = (number) => {
     const tempValue = number.replace(/\D/gim, "");
 
     return tempValue.replace(
@@ -50,12 +50,12 @@ const Input = ({
         9: [/(\d{2})(\d{3})(\d{3})(\d{0,2})/g, "+$1($2) $3 $4"],
         10: [/(\d{2})(\d{3})(\d{3})(\d{2})/g, "+$1($2) $3 $4"],
         11: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{0,2})/g, "+$1($2) $3 $4 $5"],
-        12: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/g, "+$1($2) $3 $4 $5"]
+        12: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/g, "+$1($2) $3 $4 $5"],
       }[tempValue.length] || [])
     );
   };
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value } = event.target;
     if (phone) {
       event.target.value = maskPhoneNumber(value);
@@ -81,7 +81,7 @@ const Input = ({
           className={classnames({
             [styles.input]: true,
             [className]: !!className,
-            [styles.redBorder]: isMistake && !disabled
+            [styles.redBorder]: isMistake && !disabled,
           })}
           id={htmlFor}
           type={getType()}
@@ -127,7 +127,7 @@ Input.propTypes = {
   name: PropTypes.string,
   required: PropTypes.any,
   maxLength: PropTypes.number,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -136,5 +136,5 @@ Input.defaultProps = {
   showPass: false,
   setShowPass: () => {},
   onChange: () => {},
-  onKeyPress: () => {}
+  onKeyPress: () => {},
 };

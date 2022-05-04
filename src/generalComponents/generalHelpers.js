@@ -38,7 +38,7 @@ export const handlePrintScreen = async (ref, set) => {
 
   await navigator.mediaDevices
     .getDisplayMedia(options)
-    .then(stream => {
+    .then((stream) => {
       video.srcObject = stream;
       video.play();
 
@@ -56,19 +56,19 @@ export const handlePrintScreen = async (ref, set) => {
         }, 500);
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log("An error occurred: " + err);
     });
 };
 
 export const htmlToCanvas = async (element, ref, set) => {
   await html2canvas(element, { allowTaint: true, proxy: imageSrc })
-    .then(function(canvas) {
+    .then(function (canvas) {
       const data = canvas.toDataURL("image/png");
       ref.setAttribute("src", data);
       if (set) set("block", data);
     })
-    .catch(e => console.log(e));
+    .catch((e) => console.log(e));
 };
 
 export const replaceFile = async (uid, info, file) => {
@@ -81,8 +81,8 @@ export const replaceFile = async (uid, info, file) => {
   data.append("dir", info.gdir);
   api
     .post(`/ajax/file_replace.php`, data)
-    .then(res => console.log(res))
-    .catch(e => console.log(e));
+    .then((res) => console.log(res))
+    .catch((e) => console.log(e));
 };
 
 export const useSendFile = async () => {
@@ -102,8 +102,8 @@ export const useSendFile = async () => {
 
     api
       .post(`ajax/project_file_add.php`, data)
-      .then(res => console.log(res))
-      .catch(e => console.log(e));
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
   };
 };
 
@@ -121,14 +121,14 @@ export const getMedia = (
   api
     .get(url, {
       responseType: "blob",
-      cancelToken: cancelLoadMedia.token
+      cancelToken: cancelLoadMedia.token,
     })
-    .then(res => {
+    .then((res) => {
       const blob = new Blob([res.data], { type });
       let objectURL = URL.createObjectURL(blob);
       set(objectURL);
     })
-    .catch(err => setError("Failed to load media"))
+    .catch((err) => setError("Failed to load media"))
     .finally(() => {
       setLoading(false);
     });
@@ -137,7 +137,7 @@ export const getMedia = (
 //Exit Profile
 export const exit = () => {
   const cookies = document.cookie.split(";");
-  cookies.forEach(cookie =>
+  cookies.forEach((cookie) =>
     cookie.split("=")[0].trim() === "uid"
       ? setCookie(
           cookie.split("=")[0].trim(),
@@ -166,7 +166,7 @@ export const renderHeight = (recentFiles, filePick, styles, dateFilter) => {
 export const moveFile = (folder, file, uid) => {
   return api
     .post(`/ajax/file_move.php?uid=${uid}&fid=${file.fid}&dir=${folder.path}`)
-    .then(res => {
+    .then((res) => {
       return !!res.data.ok;
     })
     .catch(() => false);
@@ -182,7 +182,7 @@ export const moveFolder = (folder, folderToMove, uid) => {
     .post(
       `/ajax/dir_move.php?uid=${uid}&dir=${folderToMove.name}&parent=${folderToMove.gdir}&dir_new=${folder.path}`
     )
-    .then(res => {
+    .then((res) => {
       return !!res.data.ok;
     })
     .catch(() => false);
@@ -229,7 +229,7 @@ export function dataURLintoBlobImage(dataURL) {
   return new Blob([new Uint8Array(array)], { type: "image/png" });
 }
 
-export const checkResponseStatus = status => {
+export const checkResponseStatus = (status) => {
   if (typeof status === "number") {
     return status === 1;
   }

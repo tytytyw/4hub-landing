@@ -9,7 +9,7 @@ const FolderItem = ({
   folder,
   chosenFolder,
   setChosenFolder,
-  setMouseParams
+  setMouseParams,
 }) => {
   const onClickHandler = () => {
     setChosenFolder(folder?.id);
@@ -19,9 +19,10 @@ const FolderItem = ({
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.active]: chosenFolder === folder?.id
+        [styles.active]: chosenFolder === folder?.id,
       })}
-      onClick={onClickHandler}>
+      onClick={onClickHandler}
+    >
       <div className={styles.innerFolder}>
         <div className={styles.innerFolderName}>
           <img
@@ -37,14 +38,15 @@ const FolderItem = ({
         <div className={styles.innerFolderMedia}>
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
-                height: 25
+                height: 25,
               });
-            }}>
+            }}
+          >
             <span className={styles.menu} />
           </div>
         </div>
@@ -59,5 +61,5 @@ FolderItem.propTypes = {
   folder: projectFolderStructure,
   chosenFolder: PropTypes.func,
   setChosenFolder: PropTypes.func,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
 };

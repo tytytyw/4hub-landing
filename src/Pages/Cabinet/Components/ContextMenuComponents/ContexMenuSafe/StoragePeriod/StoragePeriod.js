@@ -17,7 +17,7 @@ function StoragePeriod({
   dateValue,
   setDateValue,
   timeValue,
-  setTimeValue
+  setTimeValue,
 }) {
   const { __ } = useLocales();
   const curretDate = new Date().toLocaleDateString("ru-RU");
@@ -37,7 +37,7 @@ function StoragePeriod({
     };
   }, [hours, minutes]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const onDateChange = e => {
+  const onDateChange = (e) => {
     let val = e.target.value.trim();
     let length = e.target.value.length;
     if (/[0-9]/.test(val) || length === 0) {
@@ -85,7 +85,8 @@ function StoragePeriod({
         <div className={styles.buttons_wrap}>
           <div
             className={styles.close_wrap}
-            onClick={() => setDisplayStotagePeriod(false)}>
+            onClick={() => setDisplayStotagePeriod(false)}
+          >
             <span className={styles.close} />
           </div>
         </div>
@@ -101,18 +102,20 @@ function StoragePeriod({
             className={styles.date}
             value={curretDate}
             type="text"
-            disabled></input>
+            disabled
+          ></input>
           <span className={styles.to}>{__("До")}</span>
           <input
             className={styles.date}
             type="text"
             value={dateValue}
             placeholder={__("_ _._ _._ _ _ _")}
-            onChange={e => onDateChange(e)}
+            onChange={(e) => onDateChange(e)}
           />
           <span
             className={styles.open_calendar}
-            onClick={() => setShowCalendar(true)}>
+            onClick={() => setShowCalendar(true)}
+          >
             {__("Открыть календарь")}
           </span>
         </div>
@@ -123,13 +126,14 @@ function StoragePeriod({
           <h5 className={styles.title}>{__("Укажите время хранения")}</h5>
         </div>
         <div
-          className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}>
+          className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}
+        >
           <input
             className={styles.time_count}
             type="text"
             placeholder="ЧЧ"
             value={hours}
-            onChange={e => onTime(e.target.value, setHours, 24)}
+            onChange={(e) => onTime(e.target.value, setHours, 24)}
           />
           <span>:</span>
           <input
@@ -137,7 +141,7 @@ function StoragePeriod({
             type="text"
             placeholder="ММ"
             value={minutes}
-            onChange={e => onTime(e.target.value, setMinutes, 60)}
+            onChange={(e) => onTime(e.target.value, setMinutes, 60)}
           />
         </div>
       </div>
@@ -149,7 +153,8 @@ function StoragePeriod({
       <div className={styles.buttonsWrap}>
         <div
           onClick={() => setDisplayStotagePeriod(false)}
-          className={styles.add}>
+          className={styles.add}
+        >
           {__("Готово")}
         </div>
       </div>
@@ -174,7 +179,7 @@ StoragePeriod.propTypes = {
   setDateValue: PropTypes.func,
   timeValue: PropTypes.shape({
     hours: PropTypes.string,
-    minutes: PropTypes.string
+    minutes: PropTypes.string,
   }),
-  setTimeValue: PropTypes.func
+  setTimeValue: PropTypes.func,
 };

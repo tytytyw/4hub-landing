@@ -22,7 +22,7 @@ import CreateSafe from "./Popups/CreateSafe";
 import {
   onGetSafes,
   onExitSafe,
-  onDeleteSafeFile
+  onDeleteSafeFile,
 } from "../../../../Store/actions/CabinetActions";
 import api from "../../../../api";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
@@ -47,21 +47,21 @@ const Safe = ({
   fileErrors,
   setLoadingFile,
   nullifyAddingSeveralFiles,
-  saveCustomizeSeveralFiles
+  saveCustomizeSeveralFiles,
 }) => {
   const { __ } = useLocales();
   const contextMenuSafeItem = useContextMenuSafeItem();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
-  const path = useSelector(state => state.Cabinet.folderList?.path);
+  const uid = useSelector((state) => state.user.uid);
+  const path = useSelector((state) => state.Cabinet.folderList?.path);
   const [chosenFile, setChosenFile] = useState(null);
   const [mouseParams, setMouseParams] = useState(null);
 
-  const safes = useSelector(state => state.Cabinet.safe.safes);
-  const fileList = useSelector(state => state.Cabinet.safe.safeFileList);
-  const size = useSelector(state => state.Cabinet.size);
+  const safes = useSelector((state) => state.Cabinet.safe.safes);
+  const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
+  const size = useSelector((state) => state.Cabinet.size);
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
   const [listCollapsed, setListCollapsed] = useState("");
   const [selectedSafe, setSelectedSafe] = useState(null);
@@ -131,26 +131,26 @@ const Safe = ({
       type: "requestPassword",
       name: __("Предоставить доступ"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "customizeSafe",
       name: __("Редактировать"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "changePass",
       name: __("Сменить пароль"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "propertiesSafe",
       name: __("Свойства"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const additionalMenuItems = [
@@ -159,8 +159,8 @@ const Safe = ({
       type: "requestPassword",
       name: __("Удаление сейфа"),
       text: __(`Вы действительно хотите удалить сейф ${selectedSafe?.name}?`),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const renderMenuItems = (target, type) => {
@@ -187,7 +187,7 @@ const Safe = ({
     nullifyAction();
     api
       .post(`/ajax/safe_del.php?uid=${uid}&id_safe=${selectedSafe.id}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           setShowSuccessMessage(__("Сейф удален"));
           dispatch(onGetSafes());
@@ -195,10 +195,10 @@ const Safe = ({
           console.log(res);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  const onSafePassword = boolean =>
+  const onSafePassword = (boolean) =>
     setSafePassword({ ...safePassword, open: boolean });
 
   const deleteFile = () => {
@@ -234,7 +234,7 @@ const Safe = ({
       .post(
         `/ajax/safe_file_archive.php?uid=${uid}&fid=${fid}&id_safe=${authorizedSafe.id_safe}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onDeleteSafeFile(fid));
           if (options.single)
@@ -243,7 +243,7 @@ const Safe = ({
             setShowSuccessMessage(__("Выбранные файлы добавлено в архив"));
         } else console.log(res?.error);
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
       .finally(() => {
         nullifyAction();
         setChosenFile(null);
@@ -257,21 +257,21 @@ const Safe = ({
       filePick.files.forEach((fid, i) => {
         const options = {
           single: false,
-          several: i === filePick.files.length - 1
+          several: i === filePick.files.length - 1,
         };
         addToArchive(uid, fid, { fid }, options);
       });
     } else {
       addToArchive(uid, chosenFile.fid, chosenFile, {
         single: true,
-        several: false
+        several: false,
       });
     }
   };
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     setTimeout(() => {
-      result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+      result > 0 ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
       setLoadingFiles(false);
     }, 50); // 50ms needed to prevent recursion of ls_json requests
   };
@@ -287,8 +287,9 @@ const Safe = ({
         className={classNames({
           [styles.listWrap]: true,
           [styles.listWrapCollapsed]: !!listCollapsed,
-          [styles?.[`listWrapCollapsed_${size}`]]: !!listCollapsed && !!size
-        })}>
+          [styles?.[`listWrapCollapsed_${size}`]]: !!listCollapsed && !!size,
+        })}
+      >
         <div className={styles.header}>
           {!listCollapsed && <span>Создать сейф</span>}
           <div className={styles.imgWrap}>
@@ -309,7 +310,8 @@ const Safe = ({
           </div>
         </div>
         <div
-          className={classNames(styles.children, styles?.[`children_${size}`])}>
+          className={classNames(styles.children, styles?.[`children_${size}`])}
+        >
           {safes?.length < 1 ? (
             <div className={styles.emptyBlock}>
               <img
@@ -327,8 +329,9 @@ const Safe = ({
                 [styles.folderListWrap]: true,
                 [styles?.[`folderListWrap_${size}`]]: !!size,
                 [styles?.[`folderListWrapCollapsed_${size}`]]:
-                  !!listCollapsed && !!size
-              })}>
+                  !!listCollapsed && !!size,
+              })}
+            >
               {renderSafesList()}
             </div>
           )}
@@ -377,7 +380,8 @@ const Safe = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuSafeItem.main, callbackArrMain)}
           </div>
@@ -424,7 +428,8 @@ const Safe = ({
           text={action.text}
           set={cancelArchive}
           callback={deleteSafe}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <SafeIcon type={selectedSafe.id_color} />
           </div>

@@ -6,7 +6,7 @@ import styles from "./CustomFolderItem.module.sass";
 import classNames from "classnames";
 import {
   onChooseProjectFiles,
-  setChosenFolderProject
+  setChosenFolderProject,
 } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ const CustomFolderItem = ({
   listSize,
   setChosenFolder,
   project,
-  collapsed
+  collapsed,
 }) => {
   const dispatch = useDispatch();
 
@@ -34,21 +34,21 @@ const CustomFolderItem = ({
       className={classNames({
         [styles.innerFolderWrap]: true,
         [styles.active]: folder?.id && chosenFolder === folder?.id,
-        [styles?.[`wrapper_${listSize}`]]: !!listSize
+        [styles?.[`wrapper_${listSize}`]]: !!listSize,
       })}
       onClick={onClickHandler}
     >
       <div
         className={classNames({
           [styles.innerFolder]: true,
-          [styles.collapsed]: collapsed
+          [styles.collapsed]: collapsed,
         })}
       >
         <div className={styles.innerFolderName}>
           <FolderIcon
             className={classNames(
               styles.innerFolderIcon,
-              colors.filter(el => el.name === folder.color)[0]?.name
+              colors.filter((el) => el.name === folder.color)[0]?.name
             )}
           />
           {folder.is_pass === 1 && (
@@ -64,7 +64,7 @@ const CustomFolderItem = ({
               <div
                 className={classNames({
                   [styles.tagBlock]: true,
-                  [styles.ftag]: !!folder?.tags
+                  [styles.ftag]: !!folder?.tags,
                 })}
               >
                 {folder?.tags && `#${folder.tags}`}
@@ -92,14 +92,14 @@ const CustomFolderItem = ({
 
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "menu"
+                type: "menu",
               });
             }}
           >
@@ -120,5 +120,5 @@ CustomFolderItem.propTypes = {
   listSize: PropTypes.string,
   setChosenFolder: PropTypes.func,
   project: PropTypes.object,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
 };

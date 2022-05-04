@@ -15,7 +15,7 @@ import {
   onChangeFilterColor,
   onSetReverseCriterion,
   onGetSafeFileList,
-  onSetModals
+  onSetModals,
 } from "../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { onSetWorkElementsView } from "../../../../Store/actions/CabinetActions";
@@ -32,7 +32,7 @@ import { ReactComponent as FileSize } from "../../../../assets/PrivateCabinet/fi
 import { ReactComponent as AddFolderIcon } from "../../../../assets/PrivateCabinet/add_folder.svg";
 import {
   useContextMenuCreateFile,
-  useContextMenuFilters
+  useContextMenuFilters,
 } from "../../../../generalComponents/collections";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
@@ -58,7 +58,7 @@ const ServePanel = ({
   setGLoader,
   setNewFolderInfo,
   setFilesPage,
-  dateFilter
+  dateFilter,
 }) => {
   const { __ } = useLocales();
   const contextMenuCreateFile = useContextMenuCreateFile();
@@ -68,22 +68,22 @@ const ServePanel = ({
   const [typeContext, setTypeContext] = useState("");
   const filterRef = useRef();
   const createRef = useRef();
-  const size = useSelector(state => state.Cabinet.size);
-  const view = useSelector(state => state.Cabinet.view);
-  const search = useSelector(state => state.Cabinet.search);
-  const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const size = useSelector((state) => state.Cabinet.size);
+  const view = useSelector((state) => state.Cabinet.view);
+  const search = useSelector((state) => state.Cabinet.search);
+  const fileCriterion = useSelector((state) => state.Cabinet.fileCriterion);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
   const contextMenuModals = useSelector(
-    state => state.Cabinet.modals.contextMenuModals
+    (state) => state.Cabinet.modals.contextMenuModals
   );
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
 
-  const changeSize = s => {
+  const changeSize = (s) => {
     const sizes =
       window.innerHeight > 693
         ? ["small", "medium", "big"]
@@ -102,7 +102,7 @@ const ServePanel = ({
     setTypeContext(type);
   };
 
-  const setFilter = sorting => {
+  const setFilter = (sorting) => {
     if (setGLoader) setGLoader(true);
     dispatch(onSortFile(sorting));
     if (pathname === "/folders")
@@ -144,16 +144,16 @@ const ServePanel = ({
     if (setFilesPage) setFilesPage(2);
   };
 
-  const createFile = ext => {
+  const createFile = (ext) => {
     const file = {
       file: { name: `No Name.${ext}`, size: 0 },
-      options: {}
+      options: {},
     };
     setFileAddCustomization({
       ...fileAddCustomization,
       show: true,
       file,
-      create: true
+      create: true,
     });
     setTypeContext("");
   };
@@ -188,7 +188,8 @@ const ServePanel = ({
         <div
           onClick={() => callback(item.ext)}
           className={styles.contextSortingItem}
-          key={i}>
+          key={i}
+        >
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
               <img
@@ -203,7 +204,8 @@ const ServePanel = ({
           {item.ext === "byName" ? (
             <div
               className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              onClick={() => dispatch(onSetReverseCriterion(item.ext))}
+            >
               <img
                 src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
                 alt="img"
@@ -214,7 +216,7 @@ const ServePanel = ({
       );
     });
 
-  const setFigure = value => {
+  const setFigure = (value) => {
     dispatch(onChangeFilterFigure(value));
     if (pathname === "/folders")
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
@@ -252,7 +254,7 @@ const ServePanel = ({
     }
     if (setFilesPage) setFilesPage(2);
   };
-  const setColor = value => {
+  const setColor = (value) => {
     dispatch(onChangeFilterColor(value));
     if (pathname === "/folders")
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
@@ -290,7 +292,7 @@ const ServePanel = ({
     }
     if (setFilesPage) setFilesPage(2);
   };
-  const setEmoji = value => {
+  const setEmoji = (value) => {
     dispatch(onChangeFilterEmoji(value));
     if (pathname === "/folders")
       dispatch(onChooseFiles(fileList.path, search, 1, "", "", pathname));
@@ -334,7 +336,8 @@ const ServePanel = ({
       className={
         filePick?.show ? styles.chooseButtonActive : styles.chooseButton
       }
-      onClick={chooseSeveral}>
+      onClick={chooseSeveral}
+    >
       {__("Выбрать")}
     </span>
   );
@@ -343,7 +346,8 @@ const ServePanel = ({
     <div
       ref={filterRef}
       className={classNames(styles.iconView, styles.iconViewArrow)}
-      onClick={e => openContextMenu(e, "filter")}>
+      onClick={(e) => openContextMenu(e, "filter")}
+    >
       <MenuIcon className={styles.iconSVG} />
       <div />
     </div>
@@ -362,21 +366,24 @@ const ServePanel = ({
           onClick={() => dispatch(onSetWorkElementsView("bars"))}
           className={`${
             view === "bars" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <BarsIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("lines"))}
           className={`${
             view === "lines" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <LinesIcon />
         </div>
         <div
           onClick={() => dispatch(onSetWorkElementsView("preview"))}
           className={`${
             view === "preview" ? styles.iconViewChosen : styles.iconView
-          }`}>
+          }`}
+        >
           <PreviewIcon />
         </div>
         <div
@@ -385,7 +392,8 @@ const ServePanel = ({
             view === "workLinesPreview"
               ? styles.iconViewChosen
               : styles.iconView
-          }`}>
+          }`}
+        >
           <VerticalLinesIcon />
         </div>
       </div>
@@ -400,7 +408,8 @@ const ServePanel = ({
                 ${size === "small" ? styles.samllSize : null} 
                 ${size === "medium" ? styles.mediumSize : null} 
                 ${size === "big" ? styles.bigSize : null} 
-            `}>
+            `}
+    >
       <FileSize className={styles.iconSVG} />
     </div>
   );
@@ -409,7 +418,8 @@ const ServePanel = ({
     <div
       ref={createRef}
       className={styles.createButton}
-      onClick={e => openContextMenu(e, "createFile")}>
+      onClick={(e) => openContextMenu(e, "createFile")}
+    >
       <span>{__("Создать")}</span>
       <div />
     </div>
@@ -421,9 +431,10 @@ const ServePanel = ({
         onClick={() => {
           addFolder(true);
           if (setNewFolderInfo)
-            setNewFolderInfo(s => ({ ...s, path: fileList?.path }));
+            setNewFolderInfo((s) => ({ ...s, path: fileList?.path }));
         }}
-        className={classNames(styles.iconView, styles.addIcon)}>
+        className={classNames(styles.iconView, styles.addIcon)}
+      >
         <AddFolderIcon className={styles.iconSVG} />
       </div>
     );
@@ -438,11 +449,12 @@ const ServePanel = ({
               ...contextMenuModals,
               type: "DeleteFile",
               items: filePick.show ? filePick.files : [chosenFile],
-              filePick
+              filePick,
             })
           );
         }
-      }}>
+      }}
+    >
       <DeleteIcon className={styles.iconTrash} />
     </div>
   );
@@ -450,7 +462,8 @@ const ServePanel = ({
   const tempDisconnect = () => (
     <div
       className={`${chosenFile ? styles.iconView : styles.iconDisabled}`}
-      onClick={() => console.log("click on disconnect btn")}>
+      onClick={() => console.log("click on disconnect btn")}
+    >
       <PowerOffIcon className={styles.iconTrash} />
     </div>
   );
@@ -468,11 +481,12 @@ const ServePanel = ({
                 chosenFile.is_dir === 1
                   ? "dir_access_add"
                   : share_types[pathname.split("/")[1]],
-              file: chosenFile
+              file: chosenFile,
             })
           );
         }
-      }}>
+      }}
+    >
       <ShareIcon className={styles.iconShare} />
     </div>
   );
@@ -487,11 +501,12 @@ const ServePanel = ({
               ...contextMenuModals,
               type: "MoveToArchive",
               items: filePick.files,
-              filePick
+              filePick,
             })
           );
         }
-      }}>
+      }}
+    >
       <SafeIcon className={styles.iconSafe} />
     </div>
   );
@@ -662,7 +677,8 @@ const ServePanel = ({
           params={mouseParams}
           setParams={setMouseParams}
           itemRef={typeContext === "createFile" ? createRef : filterRef}
-          customClose={typeContext !== "createFile"}>
+          customClose={typeContext !== "createFile"}
+        >
           {typeContext === "filter" ? (
             <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
           ) : null}
@@ -737,5 +753,5 @@ ServePanel.propTypes = {
   setGLoader: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
   setFilesPage: PropTypes.func,
-  dateFilter: PropTypes.object
+  dateFilter: PropTypes.object,
 };

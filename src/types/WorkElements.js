@@ -4,13 +4,13 @@ export const filePickProps = PropTypes.exact({
   show: PropTypes.bool,
   files: PropTypes.array,
   customize: PropTypes.bool,
-  intoZip: PropTypes.bool
+  intoZip: PropTypes.bool,
 });
 
 export const filePreviewProps = PropTypes.exact({
   view: PropTypes.bool,
   file: PropTypes.any,
-  create: PropTypes.bool
+  create: PropTypes.bool,
 });
 
 export const fileProps = PropTypes.exact({
@@ -45,5 +45,5 @@ export const fileProps = PropTypes.exact({
   size: PropTypes.number,
   size_now: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  tag2: PropTypes.string
+  tag2: PropTypes.string,
 });

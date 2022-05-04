@@ -31,7 +31,7 @@ const folderInfoProps = PropTypes.exact({
   tag: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   tag2: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   tags: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  ut: PropTypes.string
+  ut: PropTypes.string,
 });
 
 export const chosenFolderProps = PropTypes.exact({
@@ -40,5 +40,5 @@ export const chosenFolderProps = PropTypes.exact({
   folderWidth: PropTypes.number,
   group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   info: folderInfoProps,
-  path: PropTypes.string
+  path: PropTypes.string,
 });

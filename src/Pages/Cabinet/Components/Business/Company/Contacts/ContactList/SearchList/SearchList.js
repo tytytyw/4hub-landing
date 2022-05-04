@@ -12,7 +12,7 @@ const SearchList = ({
   selectedItem,
   setSelectedItem,
   getContactName,
-  setMouseParams
+  setMouseParams,
 }) => {
   return (
     <ul className={styles.menuList}>
@@ -21,9 +21,10 @@ const SearchList = ({
           onClick={() => setSelectedItem(item)}
           className={classnames({
             [styles.menuItem]: true,
-            [styles.activeItem]: selectedItem?.id === item?.id
+            [styles.activeItem]: selectedItem?.id === item?.id,
           })}
-          key={index}>
+          key={index}
+        >
           <div className={styles.info}>
             <span className={styles.icon}>
               <img
@@ -38,13 +39,13 @@ const SearchList = ({
           </div>
           <PointerMenuImg
             className={styles.contextMenuIcon}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 158,
                 height: 38,
-                type: "contextMenuContact"
+                type: "contextMenuContact",
               })
             }
           />
@@ -61,5 +62,5 @@ SearchList.propTypes = {
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   getContactName: PropTypes.func,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
 };

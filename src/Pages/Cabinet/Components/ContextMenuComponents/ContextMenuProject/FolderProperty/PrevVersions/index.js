@@ -16,7 +16,7 @@ const PrevVersions = ({ folder }) => {
         <div className={styles.folderWrap}>
           <FolderIcon
             className={`${styles.folderWrap} ${
-              colors.filter(el => el.color === folder.color)[0]?.name
+              colors.filter((el) => el.color === folder.color)[0]?.name
             }`}
           />
         </div>
@@ -37,7 +37,7 @@ const PrevVersions = ({ folder }) => {
           <div className={styles.folderWrap}>
             <FolderIcon
               className={`${styles.folderWrap} ${
-                colors.filter(el => el.color === folder.color)[0]?.name
+                colors.filter((el) => el.color === folder.color)[0]?.name
               }`}
             />
           </div>
@@ -83,5 +83,5 @@ const PrevVersions = ({ folder }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  folder: projectFolderStructure
+  folder: projectFolderStructure,
 };

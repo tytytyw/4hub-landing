@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import {
   CONTEXT_MENU_FILE,
-  MODALS
+  MODALS,
 } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 
@@ -23,16 +23,16 @@ const Buttons = ({
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
   setAction,
   openFolderMenu,
-  setMouseParams
+  setMouseParams,
 }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
 
   const downloadFile = () => {
@@ -43,7 +43,7 @@ const Buttons = ({
           ...contextMenuModals,
           type: CONTEXT_MENU_FILE.DOWNLOAD_FILE,
           items: [file],
-          authorizedSafe
+          authorizedSafe,
         })
       );
     }
@@ -55,7 +55,7 @@ const Buttons = ({
         ...contextMenuModals,
         type: CONTEXT_MENU_FILE.PRINT_FILE,
         items: [file],
-        authorizedSafe
+        authorizedSafe,
       })
     );
   };
@@ -65,7 +65,7 @@ const Buttons = ({
       onSetModals(MODALS.CONTEXT_MENU_MODAL, {
         ...contextMenuModals,
         type: CONTEXT_MENU_FILE.FILE_PROPERTY,
-        items: [file]
+        items: [file],
       })
     );
   };
@@ -79,7 +79,7 @@ const Buttons = ({
           file.is_dir === 1
             ? "dir_access_add"
             : share_types[pathname.split("/")[1]],
-        file
+        file,
       })
     );
   };
@@ -104,8 +104,9 @@ const Buttons = ({
       className={classNames({
         [styles.iconView]: true,
         [styles.iconSettings]: true,
-        [styles.disable]: file?.is_write === "0"
-      })}>
+        [styles.disable]: file?.is_write === "0",
+      })}
+    >
       <SettingsIcon
         onClick={file?.is_write === "0" ? null : onPropertiesFile}
       />
@@ -118,9 +119,10 @@ const Buttons = ({
         setAction({
           type: "delete",
           name: __("Удаление файла"),
-          text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
+          text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
         })
-      }>
+      }
+    >
       <DeleteIcon />
     </div>
   );
@@ -139,10 +141,11 @@ const Buttons = ({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.CREATE_ZIP,
             items: [file],
-            title: __("Сжать в ZIP")
+            title: __("Сжать в ZIP"),
           })
         );
-      }}>
+      }}
+    >
       <ZipIcon />
     </div>
   );
@@ -150,16 +153,17 @@ const Buttons = ({
   const renderContextMenuBtn = () => (
     <div
       className={styles.menuWrap}
-      onClick={e => {
+      onClick={(e) => {
         file?.is_dir
           ? openFolderMenu(e, file)
           : setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 240,
-              height: 25
+              height: 25,
             });
-      }}>
+      }}
+    >
       <span className={styles.menu} />
     </div>
   );

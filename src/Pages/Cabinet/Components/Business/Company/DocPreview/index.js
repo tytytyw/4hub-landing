@@ -16,11 +16,11 @@ const DocPreview = ({
   action,
   setAction,
   nullifyAction,
-  setShowSuccessMessage
+  setShowSuccessMessage,
 }) => {
   const [blob, setBlob] = useState({});
   const companyDocuments = useSelector(
-    state => state.Cabinet.company.documents
+    (state) => state.Cabinet.company.documents
   );
   const dispatch = useDispatch();
 
@@ -61,7 +61,7 @@ export default DocPreview;
 
 DocPreview.propTypes = {
   pageOption: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
   }),
   setPageOption: PropTypes.func,
   setLoadingType: PropTypes.func,
@@ -71,5 +71,5 @@ DocPreview.propTypes = {
   action: PropTypes.object,
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
-  setShowSuccessMessage: PropTypes.func
+  setShowSuccessMessage: PropTypes.func,
 };

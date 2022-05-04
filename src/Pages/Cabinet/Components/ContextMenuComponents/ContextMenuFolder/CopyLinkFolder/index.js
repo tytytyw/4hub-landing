@@ -20,12 +20,12 @@ function CopyLinkFolder({
   nullifyAction,
   folder,
   setShowSuccessMessage,
-  setLoadingType
+  setLoadingType,
 }) {
   const { __ } = useLocales();
-  const uid = useSelector(state => state.user.uid);
-  const contactList = useSelector(state => state.Cabinet.contactList);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const uid = useSelector((state) => state.user.uid);
+  const contactList = useSelector((state) => state.Cabinet.contactList);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const [url, setUrl] = useState(__("Загрузка..."));
   const [review, setReview] = useState({ text: __("Просмотр") });
   const [access, setAccess] = useState({ text: "limited" });
@@ -41,9 +41,9 @@ function CopyLinkFolder({
     nullifyAction();
   };
 
-  const checkContextMenu = e => {
+  const checkContextMenu = (e) => {
     if (!context) {
-      e.nativeEvent.path.forEach(el => {
+      e.nativeEvent.path.forEach((el) => {
         if (
           typeof el.className === "string" &&
           el.className.includes(styles.contacts)
@@ -62,7 +62,7 @@ function CopyLinkFolder({
       });
     } else {
       let block = false;
-      e.nativeEvent.path.forEach(el => {
+      e.nativeEvent.path.forEach((el) => {
         if (
           typeof el.className === "string" &&
           el.className.includes(styles.contactsList)
@@ -73,15 +73,15 @@ function CopyLinkFolder({
     }
   };
 
-  const getLink = status => {
+  const getLink = (status) => {
     setUrl(__("Загрузка..."));
     let stat = "$&is_read=1";
     if (status === "write") stat = "$&is_read=0";
     const url = `/ajax/dir_access_add.php?uid=${uid}&dir=${folder.path}&email=$GUEST${stat}`;
     api
       .get(url)
-      .then(res => setUrl(res.data.link_shere_to_user))
-      .catch(err => console.log(err));
+      .then((res) => setUrl(res.data.link_shere_to_user))
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -120,13 +120,14 @@ function CopyLinkFolder({
         />
       );
     return contactList.map((contact, i) => {
-      const index = chosenContacts?.findIndex(c => c.id === contact.id);
+      const index = chosenContacts?.findIndex((c) => c.id === contact.id);
       return (
         <div
           key={i}
           className={styles.contact}
           // TODO - Need to optimize code - too long rendering changeContact
-          onClick={() => chooseContact(contact, index)}>
+          onClick={() => chooseContact(contact, index)}
+        >
           <div
             className={`${styles.radioContact} ${
               index > -1 ? styles.radioContactChosen : ""
@@ -149,7 +150,8 @@ function CopyLinkFolder({
         onClick={() => {
           setReview({ ...review, text: __("Просмотр") });
           getLink();
-        }}>
+        }}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Просмотр") ? styles.radioChosen : ""
@@ -159,7 +161,8 @@ function CopyLinkFolder({
       </div>
       <div
         className={styles.reviewOption}
-        onClick={() => setReview({ ...review, text: __("Скачивание") })}>
+        onClick={() => setReview({ ...review, text: __("Скачивание") })}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Скачивание") ? styles.radioChosen : ""
@@ -172,7 +175,8 @@ function CopyLinkFolder({
         onClick={() => {
           setReview({ ...review, text: __("Редактировать") });
           getLink("write");
-        }}>
+        }}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Редактировать") ? styles.radioChosen : ""
@@ -194,7 +198,7 @@ function CopyLinkFolder({
     }
   };
 
-  const deleteContact = index => {
+  const deleteContact = (index) => {
     let list = chosenContacts;
     list.splice(index, 1);
     setChosenContacts(list);
@@ -221,14 +225,14 @@ function CopyLinkFolder({
         .get(
           `/ajax/dir_access_add.php?uid=${uid}&dir=${path}&email=${c.email[0]}&is_read=${access}&prim=${prim}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             console.log("success");
           } else {
             console.log("fail");
           }
         })
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
         .finally(() => {
           if (chosenContacts.length - 1 === i) {
             setLoadingType("");
@@ -246,7 +250,8 @@ function CopyLinkFolder({
           <header>
             <div
               className={styles.backbutton}
-              onClick={() => setSendAccess(false)}>
+              onClick={() => setSendAccess(false)}
+            >
               <img src="./assets/PrivateCabinet/arrow.svg" alt="img" />
             </div>
             <div className={styles.details}>
@@ -271,7 +276,8 @@ function CopyLinkFolder({
               </div>
               <div
                 className={styles.notificationUserWrap}
-                onClick={() => setNotify(!notify)}>
+                onClick={() => setNotify(!notify)}
+              >
                 <div
                   className={
                     notify ? styles.notifyEnable : styles.notifyDisable
@@ -283,13 +289,14 @@ function CopyLinkFolder({
                 <textarea
                   placeholder="Добавить сообщение"
                   value={prim}
-                  onChange={e => setPrim(e.target.value)}
+                  onChange={(e) => setPrim(e.target.value)}
                 />
               </div>
               <div className={`${styles.folder}`}>
                 <FolderIcon
                   className={`${styles.folderIcon} ${
-                    colors.filter(el => el.color === folder.info.color)[0]?.name
+                    colors.filter((el) => el.color === folder.info.color)[0]
+                      ?.name
                   }`}
                 />
                 <div className={styles.folderInfo}>{folder.info.name}</div>
@@ -297,7 +304,8 @@ function CopyLinkFolder({
               <div className={styles.buttonsWrap}>
                 <div
                   className={styles.cancel}
-                  onClick={() => setSendAccess(false)}>
+                  onClick={() => setSendAccess(false)}
+                >
                   {__("Отмена")}
                 </div>
                 <div className={styles.send} onClick={sendFolder}>
@@ -387,7 +395,8 @@ function CopyLinkFolder({
                             ? styles.button
                             : styles.buttonDisabled
                         }`}
-                        onClick={() => setSendAccess(true)}>
+                        onClick={() => setSendAccess(true)}
+                      >
                         {__("Готово")}
                       </div>
                     </div>
@@ -420,7 +429,8 @@ function CopyLinkFolder({
                   <div className={styles.reviewOptions}>
                     <div
                       className={styles.reviewOption}
-                      onClick={() => setAccess({ ...access, text: "limited" })}>
+                      onClick={() => setAccess({ ...access, text: "limited" })}
+                    >
                       <div
                         className={`${styles.radio} ${
                           access.text === "limited" ? styles.radioChosen : ""
@@ -432,7 +442,8 @@ function CopyLinkFolder({
                     </div>
                     <div
                       className={styles.reviewOption}
-                      onClick={() => setAccess({ ...access, text: "onLink" })}>
+                      onClick={() => setAccess({ ...access, text: "onLink" })}
+                    >
                       <div
                         className={`${styles.radio} ${
                           access.text === "onLink" ? styles.radioChosen : ""
@@ -477,5 +488,5 @@ CopyLinkFolder.propTypes = {
   nullifyAction: PropTypes.func,
   folder: projectFolderStructure,
   setShowSuccessMessage: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

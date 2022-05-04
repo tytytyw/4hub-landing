@@ -56,9 +56,10 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
                   onClick={() => setSelectedSoc(item?.type)}
                   className={classNames({
                     [styles.socialsItem]: true,
-                    [styles.active]: selectedSoc === item?.type
+                    [styles.active]: selectedSoc === item?.type,
                   })}
-                  key={index}>
+                  key={index}
+                >
                   <img
                     className={styles.socialIcon}
                     src={item.icon}
@@ -73,7 +74,8 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         <div className={styles.actionBlock}>
           <Button
             onClick={() => setDisplayMessengers(false)}
-            className={styles.backBtn}>
+            className={styles.backBtn}
+          >
             {__("Назад")}
           </Button>
           <a target="_blank" rel="noreferrer" href={hrefSoc}>
@@ -93,5 +95,5 @@ ShareToMessengers.propTypes = {
   setDisplayMessengers: PropTypes.func,
   close: PropTypes.func,
   fid: PropTypes.string,
-  file: fileProps
+  file: fileProps,
 };

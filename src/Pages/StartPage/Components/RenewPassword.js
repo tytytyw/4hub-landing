@@ -15,7 +15,7 @@ const RenewPassword = ({ setPage }) => {
   const [info, setInfo] = useState({ pass: "", repeatPass: "" });
   const [compare, setCompare] = useState({
     isPass: false,
-    isCoincidePass: false
+    isCoincidePass: false,
   });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,13 +33,13 @@ const RenewPassword = ({ setPage }) => {
     return () => window.history.pushState("", "", "/");
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const checkPass = input => {
+  const checkPass = (input) => {
     input.value === ""
       ? setCompare({ ...compare, isPass: true })
       : setCompare({ ...compare, isPass: false });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = info.pass.split("");
     const passRepeat = val.split("");
     let boolean = false;
@@ -62,7 +62,7 @@ const RenewPassword = ({ setPage }) => {
         .post(
           `/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             setMessage(__("Пароль успешно обновлен"));
             setSuccess(true);
@@ -71,14 +71,14 @@ const RenewPassword = ({ setPage }) => {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setMessage(err.toString());
           setError(true);
         });
     }
   };
 
-  const backToEnterProfile = boolean => {
+  const backToEnterProfile = (boolean) => {
     setSuccess(boolean);
     setPage("enter");
   };
@@ -103,11 +103,11 @@ const RenewPassword = ({ setPage }) => {
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare.isPass
+                [styles.redBorder]: compare.isPass,
               })}
               type={visibility}
               value={info.pass}
-              onChange={e => {
+              onChange={(e) => {
                 setInfo({ ...info, pass: e.target.value });
                 checkPass(e.target);
               }}
@@ -139,11 +139,11 @@ const RenewPassword = ({ setPage }) => {
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare.isCoincidePass
+                [styles.redBorder]: compare.isCoincidePass,
               })}
               type={visibility}
               value={info.repeatPass}
-              onChange={e => {
+              onChange={(e) => {
                 setInfo({ ...info, repeatPass: e.target.value });
                 comparePass(e.target.value);
               }}
@@ -186,5 +186,5 @@ const RenewPassword = ({ setPage }) => {
 export default RenewPassword;
 
 RenewPassword.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

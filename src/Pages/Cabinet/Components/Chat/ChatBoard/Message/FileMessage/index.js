@@ -9,14 +9,17 @@ import classNames from "classnames";
 
 const FileMessage = ({ file, size, style }) => {
   const dispatch = useDispatch();
-  const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
+  const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const ext = file.name.slice(file.name.lastIndexOf(".") + 1);
   const mime_type = file.type ?? file.mime_type;
-  const preview = (file.link || file.preview).replace("https://fs2.mh.net.ua", "");
+  const preview = (file.link || file.preview).replace(
+    "https://fs2.mh.net.ua",
+    ""
+  );
 
   const checkPreviewFormat = () => {
     return previewFormats.some(
-      item => item.toLocaleLowerCase() === ext.toLocaleLowerCase()
+      (item) => item.toLocaleLowerCase() === ext.toLocaleLowerCase()
     ) ||
       mime_type?.includes("audio") ||
       mime_type?.includes("video") ||
@@ -31,7 +34,7 @@ const FileMessage = ({ file, size, style }) => {
       ext,
       mime_type,
       preview,
-      is_preview: checkPreviewFormat()
+      is_preview: checkPreviewFormat(),
     };
     dispatch(
       onSetModals("previewFile", { ...previewFile, open: true, file: fileInfo })
@@ -64,5 +67,5 @@ export default FileMessage;
 FileMessage.propTypes = {
   file: PropTypes.object.isRequired,
   size: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };

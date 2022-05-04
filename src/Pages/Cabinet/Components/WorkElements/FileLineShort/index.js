@@ -7,7 +7,7 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import {
   onChooseFiles,
-  onSetModals
+  onSetModals,
 } from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
@@ -23,10 +23,10 @@ const FileLineShort = ({
   openFolderMenu,
   filesSize,
   style,
-  disablexContexMenu = false
+  disablexContexMenu = false,
 }) => {
-  const size = filesSize ?? useSelector(state => state.Cabinet.size);
-  const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
+  const size = filesSize ?? useSelector((state) => state.Cabinet.size);
+  const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
 
   const onPickFile = () => {
@@ -34,12 +34,12 @@ const FileLineShort = ({
       chooseItemNext(file);
     } else {
       if (filePick?.show) {
-        const isPicked = filePick.files.filter(el => el === file.fid);
+        const isPicked = filePick.files.filter((el) => el === file.fid);
         isPicked.length > 0
           ? setFilePick({
-            ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
-          })
+              ...filePick,
+              files: filePick.files.filter((el) => el !== file.fid),
+            })
           : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
       }
       if (file.is_dir) {
@@ -72,15 +72,20 @@ const FileLineShort = ({
       style={style}
     >
       <div
-        className={`${styles.infoWrap} ${chosen ? styles.fileChosenTriangle : ""
-          }`}>
+        className={`${styles.infoWrap} ${
+          chosen ? styles.fileChosenTriangle : ""
+        }`}
+      >
         <div
-          className={`${styles.fileWrap} ${file?.is_dir ? styles.fileFolder : ""
-            }`}>
+          className={`${styles.fileWrap} ${
+            file?.is_dir ? styles.fileFolder : ""
+          }`}
+        >
           {file?.is_dir ? (
             <FolderIcon
-              className={`${styles.folderIcon} ${colors.filter(el => el.color === file.color)[0]?.name
-                }`}
+              className={`${styles.folderIcon} ${
+                colors.filter((el) => el.color === file.color)[0]?.name
+              }`}
             />
           ) : (
             <File
@@ -92,20 +97,25 @@ const FileLineShort = ({
         </div>
         <div className={styles.fileName}>{file.name}</div>
       </div>
-      {!disablexContexMenu ? <div
-        className={styles.menuWrap}
-        onClick={e => {
-          file.is_dir
-            ? openFolderMenu(e, file)
-            : setMouseParams({
-              x: e.clientX,
-              y: e.clientY,
-              width: 240,
-              height: 25
-            });
-        }}>
-        <span className={styles.menu} />
-      </div> : ''}
+      {!disablexContexMenu ? (
+        <div
+          className={styles.menuWrap}
+          onClick={(e) => {
+            file.is_dir
+              ? openFolderMenu(e, file)
+              : setMouseParams({
+                  x: e.clientX,
+                  y: e.clientY,
+                  width: 240,
+                  height: 25,
+                });
+          }}
+        >
+          <span className={styles.menu} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

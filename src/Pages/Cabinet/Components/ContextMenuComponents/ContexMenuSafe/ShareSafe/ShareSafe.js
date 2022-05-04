@@ -30,9 +30,9 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
   const [timeValue, setTimeValue] = useState({
     hours: "",
     minutes: "",
-    seconds: ""
+    seconds: "",
   });
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [data, setData] = useState({
     user_to: "",
     prim: "",
@@ -40,23 +40,23 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
     pass: "",
     is_read: 1,
     is_write: 1,
-    is_download: 1
+    is_download: 1,
   });
   const setTime = (time, limit) => {
     return time < limit ? (time < 10 ? `0${time}` : time) : time[0];
   };
-  const switchOn = value => {
-    setData(data => ({ ...data, [value]: data[value] ? 0 : 1 }));
+  const switchOn = (value) => {
+    setData((data) => ({ ...data, [value]: data[value] ? 0 : 1 }));
   };
 
   useEffect(() => {
-    setData(data => ({
+    setData((data) => ({
       ...data,
       deadline: dateValue
         ? `${dateValue} ${
             timeValue.hours ? setTime(timeValue.hours, 24) : "23"
           }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"}`
-        : ""
+        : "",
     }));
   }, [dateValue, timeValue]);
 
@@ -66,7 +66,7 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
       .get(
         `/ajax/safe_share.php?uid=${uid}&id_safe=${safe.id}&pass=${data.pass}&user_to=${data.user_to}&prim=${data.prim}&deadline=${data.deadline}&is_read=${data.is_read}&is_write=${data.is_write}&is_download=${data.is_download}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           setShowSuccessMessage(__("Отправлено"));
           close();
@@ -82,14 +82,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
           console.log(res);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err}`);
       })
       .finally(() => setLoadingType(""));
   };
 
-  const onAddPass = password => {
-    setData(data => ({ ...data, pass: password }));
+  const onAddPass = (password) => {
+    setData((data) => ({ ...data, pass: password }));
   };
 
   return (
@@ -109,8 +109,9 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                     <div
                       className={classNames({
                         [styles.tagBlock]: true,
-                        [styles.stag]: !!safe?.tags
-                      })}>
+                        [styles.stag]: !!safe?.tags,
+                      })}
+                    >
                       {safe?.tags && `#${safe.tags}`}
                     </div>
                     {safe.id_fig && (
@@ -142,8 +143,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
                 <input
                   className={emptyField ? styles.empty : ""}
                   onClick={() => setEmptyField(false)}
-                  onChange={e =>
-                    setData(data => ({ ...data, user_to: e.target.value }))
+                  onChange={(e) =>
+                    setData((data) => ({ ...data, user_to: e.target.value }))
                   }
                   value={data.user_to}
                   placeholder={__("Эл.адрес или имя")}
@@ -167,8 +168,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
           </div>
           <div className={classNames(styles.comment, styles.border_bottom)}>
             <textarea
-              onChange={e =>
-                setData(data => ({ ...data, prim: e.target.value }))
+              onChange={(e) =>
+                setData((data) => ({ ...data, prim: e.target.value }))
               }
               value={data.prim}
               placeholder={__("Добавить комментарий к Сейфу")}
@@ -189,7 +190,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
             </div>
             <span
               onClick={() => setDisplaySetPassword(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -207,7 +209,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
             </div>
             <span
               onClick={() => setDisplayStotagePeriod(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -230,13 +233,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div
                 className={classNames({
                   [styles.switcherActive]: data?.is_write,
-                  [styles.switcher]: true
+                  [styles.switcher]: true,
                 })}
-                onClick={() => switchOn("is_write")}>
+                onClick={() => switchOn("is_write")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_write,
-                    [styles.switch]: true
+                    [styles.switch]: true,
                   })}
                 />
               </div>
@@ -256,13 +260,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div
                 className={classNames({
                   [styles.switcherActive]: data?.is_read,
-                  [styles.switcher]: true
+                  [styles.switcher]: true,
                 })}
-                onClick={() => switchOn("is_read")}>
+                onClick={() => switchOn("is_read")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_read,
-                    [styles.switch]: true
+                    [styles.switch]: true,
                   })}
                 />
               </div>
@@ -282,13 +287,14 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               <div
                 className={classNames({
                   [styles.switcherActive]: data?.is_download,
-                  [styles.switcher]: true
+                  [styles.switcher]: true,
                 })}
-                onClick={() => switchOn("is_download")}>
+                onClick={() => switchOn("is_download")}
+              >
                 <div
                   className={classNames({
                     [styles.switchActive]: data?.is_download,
-                    [styles.switch]: true
+                    [styles.switch]: true,
                   })}
                 />
               </div>
@@ -302,7 +308,8 @@ function ShareSafe({ safe, close, setShowSuccessMessage, setLoadingType }) {
               className={styles.add}
               onClick={() => {
                 data.user_to ? onShareSafe() : setEmptyField(true);
-              }}>
+              }}
+            >
               {__("Отправить")}
             </div>
           </div>
@@ -337,5 +344,5 @@ ShareSafe.propTypes = {
   safe: safeProps,
   close: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

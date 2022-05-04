@@ -8,7 +8,7 @@ export function useFolders() {
     { name: "video", nameRu: __("Фильмы"), path: "global/video" },
     { name: "music", nameRu: __("Музыка"), path: "global/music" },
     { name: "images", nameRu: __("Изображения"), path: "global/images" },
-    { name: "docs", nameRu: __("Документы"), path: "global/docs" }
+    { name: "docs", nameRu: __("Документы"), path: "global/docs" },
   ];
 }
 
@@ -23,7 +23,7 @@ export function useTags() {
     __("Развлечения"),
     __("Игры"),
     __("Документы"),
-    __("Другое")
+    __("Другое"),
   ];
 }
 
@@ -33,62 +33,62 @@ export const colors = [
     dark: "#c4aa8f",
     light: "rgb(254, 220, 184)",
     color: "rgb(254, 220, 184)",
-    name: "wheat"
+    name: "wheat",
   },
   {
     dark: "#326bc1",
     light: "rgb(64, 134, 242)",
     color: "rgb(64, 134, 242)",
-    name: "blue"
+    name: "blue",
   },
   {
     dark: "#27967a",
     light: "rgb(52, 198, 162)",
     color: "rgb(52, 198, 162)",
-    name: "green"
+    name: "green",
   },
   {
     dark: "#cb8d40",
     light: "rgb(249, 173, 80)",
     color: "rgb(249, 173, 80)",
-    name: "orange"
+    name: "orange",
   },
   {
     dark: "#c15862",
     light: "rgb(244, 112, 125)",
     color: "rgb(244, 112, 125)",
-    name: "pink"
+    name: "pink",
   },
   {
     dark: "#792794",
     light: "rgb(160, 51, 195)",
     color: "rgb(160, 51, 195)",
-    name: "purple"
+    name: "purple",
   },
   {
     dark: "#992928",
     light: "rgb(194, 52, 51)",
     color: "rgb(194, 52, 51)",
-    name: "red"
+    name: "red",
   },
   {
     dark: "#267d8d",
     light: "rgb(52, 174, 196)",
     color: "rgb(52, 174, 196)",
-    name: "aqua"
+    name: "aqua",
   },
   {
     dark: "rgb(161,98,125)",
     light: "rgb(196, 118, 151)",
     color: "rgb(196, 118, 151)",
-    name: "brown"
+    name: "brown",
   },
   {
     dark: "#40289b",
     light: "rgb(81, 52, 197)",
     color: "rgb(81, 52, 197)",
-    name: "darkblue"
-  }
+    name: "darkblue",
+  },
 ];
 
 export const signs = [
@@ -102,7 +102,7 @@ export const signs = [
   "stop",
   "shield-2",
   "like",
-  "price-tag"
+  "price-tag",
 ];
 
 export const smiles = [
@@ -127,7 +127,7 @@ export const smiles = [
   "suspicious",
   "thinking",
   "tongue-out",
-  "unhappy"
+  "unhappy",
 ];
 
 //Deprecated
@@ -142,20 +142,20 @@ export function useContextMenuFile() {
       {
         name: __("Ред. несколько файлов"),
         img: "editSeveral",
-        type: "customizeSeveral"
+        type: "customizeSeveral",
       },
       { name: __("Переместить в архив"), img: "archive", type: "archive" },
       { name: __("Сжать в Zip"), img: "zip", type: "intoZip" },
       {
         name: __("Сжать несколько файлов в Zip"),
         img: "severalZip",
-        type: "intoZipSeveral"
+        type: "intoZipSeveral",
       },
       { name: __("Свойства"), img: "info", type: "properties" },
       { name: __("Скачать"), img: "download-blue", type: "download" },
-      { name: __("Печать"), img: "print-2", type: "print" }
+      { name: __("Печать"), img: "print-2", type: "print" },
     ],
-    additional: [{ name: __("Удалить"), img: "garbage", type: "delete" }]
+    additional: [{ name: __("Удалить"), img: "garbage", type: "delete" }],
   };
 }
 
@@ -165,9 +165,9 @@ export function useContextMenuProfile() {
     main: [
       { name: __("Мой профиль"), img: "profile-icon" },
       { name: __("Служба поддержки"), img: "question-icon" },
-      { name: __("Настройки"), img: "settings-icon" }
+      { name: __("Настройки"), img: "settings-icon" },
     ],
-    additional: [{ name: __("Выход"), img: "sign-out-icon" }]
+    additional: [{ name: __("Выход"), img: "sign-out-icon" }],
   };
 }
 
@@ -179,58 +179,58 @@ export function useContextMenuFilters() {
         name: __(`По имени от А до Я`),
         reverseName: __("По имени от Я до А"),
         img: "",
-        ext: "byName"
+        ext: "byName",
       },
       {
         name: __(`По дате архивирования`),
         reverseName: __("По дате архивирования"),
         img: "",
-        ext: "byDateArchived&sort_reverse=1&group=date_archive"
+        ext: "byDateArchived&sort_reverse=1&group=date_archive",
       },
       {
         name: __(`По дате добавления/создания`),
         reverseName: __("По дате добавления/создания"),
         img: "",
-        ext: "byDateCreated&sort_reverse=1&group=ctime"
+        ext: "byDateCreated&sort_reverse=1&group=ctime",
       },
       {
         name: __("По дате изменения"),
         reverseName: __("По дате изменения"),
         img: "",
-        ext: "byDateChanged&sort_reverse=1&group=mtime"
+        ext: "byDateChanged&sort_reverse=1&group=mtime",
       },
       {
         name: __("По дате последнего открытия"),
         reverseName: __("По дате последнего открытия"),
         img: "",
-        ext: "byDateOpened"
+        ext: "byDateOpened",
       },
       {
         name: __("По размеру (от больших к малым)"),
         reverseName: __("По размеру (от малых к большим)"),
         img: "",
-        ext: "bySize&sort_reverse=1"
+        ext: "bySize&sort_reverse=1",
       },
       {
         name: __("По размеру (от малых к большим)"),
         reverseName: __(""),
         img: "",
-        ext: "bySize"
+        ext: "bySize",
       },
       {
         name: __("По типу"),
         reverseName: __("По типу U+21FD"),
         img: "",
-        ext: "byType"
+        ext: "byType",
       },
       {
         name: __("По тэгам"),
         reverseName: __("По тэгам"),
         img: "",
-        ext: "byTags"
-      }
+        ext: "byTags",
+      },
     ],
-    additional: []
+    additional: [],
   };
 }
 
@@ -241,13 +241,13 @@ export function useContextMenuCreateFile() {
     microsoft: [
       { name: __("Документ Word"), img: "word", ext: "docx" },
       { name: __("Книга Excel"), img: "excel", ext: "xlsx" },
-      { name: __("Презентация PowerPoint"), img: "powerpoint", ext: "pptx" }
+      { name: __("Презентация PowerPoint"), img: "powerpoint", ext: "pptx" },
     ],
     google: [
       { name: __("Документ Google"), img: "google-doc" },
       { name: __("Таблица Google"), img: "google-table" },
-      { name: __("Презентация Google"), img: "google-presentation" }
-    ]
+      { name: __("Презентация Google"), img: "google-presentation" },
+    ],
   };
 }
 
@@ -265,13 +265,13 @@ export function useContextMenuProjects() {
         name: __("Свойства"),
         img: "property",
         margin: true,
-        type: "propertiesProject"
-      }
+        type: "propertiesProject",
+      },
     ],
     additional: [
       { name: __("Покинуть проект"), img: "leave", type: "leave" },
-      { name: __("Удалить проект"), img: "delete", type: "delete" }
-    ]
+      { name: __("Удалить проект"), img: "delete", type: "delete" },
+    ],
   };
 }
 
@@ -280,9 +280,9 @@ export function useContextMenuFolderGeneral() {
   return {
     main: [
       { name: __("Добавить папку"), img: "settings-work-tool" },
-      { name: __("Свойства"), img: "info" }
+      { name: __("Свойства"), img: "info" },
     ],
-    additional: []
+    additional: [],
   };
 }
 
@@ -295,9 +295,9 @@ export function useContextMenuFolder() {
       { name: __("Скопировать ссылку"), img: "shareFile" },
       { name: __("Добавить папку"), img: "settings-work-tool" },
       { name: __("Свойства"), img: "info" },
-      { name: __("Удалить папку"), img: "garbage" }
+      { name: __("Удалить папку"), img: "garbage" },
     ],
-    additional: []
+    additional: [],
   };
 }
 
@@ -310,17 +310,17 @@ export function useContextMenuSubFolder() {
       {
         name: __("Скопировать ссылку"),
         img: "shareFile",
-        type: "setAccessFolder"
+        type: "setAccessFolder",
       },
       { name: __("Свойства"), img: "info", type: "propertiesFolder" },
-      { name: __("Удалить папку"), img: "garbage", type: "deleteFolder" }
+      { name: __("Удалить папку"), img: "garbage", type: "deleteFolder" },
     ],
-    additional: []
+    additional: [],
   };
 }
 
 // Devices
-export const getDeviceIconName = device => {
+export const getDeviceIconName = (device) => {
   switch (device) {
     case "Mobile":
       return "iphone";
@@ -340,17 +340,17 @@ export function useContextMenuDevice() {
       {
         name: __("Блокировать устройство"),
         img: "edit",
-        type: "disconnectItem"
+        type: "disconnectItem",
       },
       {
         name: __("Блокировать несколько"),
         img: "shareFile",
-        type: "disconnectAllItem"
+        type: "disconnectAllItem",
       },
       { name: __("Отключить"), img: "shareFile", type: "offItem" },
-      { name: __("Отключить несколько"), img: "shareFile", type: "offAllItem" }
+      { name: __("Отключить несколько"), img: "shareFile", type: "offAllItem" },
     ],
-    additional: []
+    additional: [],
   };
 }
 
@@ -361,15 +361,15 @@ export function useContextMenuDeviceUser() {
       {
         name: __("Блокировать пользователя"),
         img: "edit",
-        type: "disconnectItem"
+        type: "disconnectItem",
       },
       {
         name: __("Блокировать несколько"),
         img: "shareFile",
-        type: "disconnectAllUser"
-      }
+        type: "disconnectAllUser",
+      },
     ],
-    additional: []
+    additional: [],
   };
 }
 
@@ -380,9 +380,9 @@ export function useContextMenuSafeItem() {
       { name: __("Предоставить доступ"), img: "download-blue" },
       { name: __("Редактировать"), img: "edit", type: "customizeSafe" },
       { name: __("Сменить пароль"), img: "settings-work-tool" },
-      { name: __("Свойства"), img: "info", type: "propertiesSafe" }
+      { name: __("Свойства"), img: "info", type: "propertiesSafe" },
     ],
-    additional: [{ name: __("Удалить"), img: "garbage" }]
+    additional: [{ name: __("Удалить"), img: "garbage" }],
   };
 }
 
@@ -395,9 +395,9 @@ export function useContextProgramFolder() {
       { name: __("Скопировать ссылку"), img: "link-4" },
       { name: __("Редактировать"), img: "edit" },
       { name: __("Переместить в архив"), img: "archive" },
-      { name: __("Свойства"), img: "info" }
+      { name: __("Свойства"), img: "info" },
     ],
-    additional: [{ name: __("Удалить"), img: "garbage" }]
+    additional: [{ name: __("Удалить"), img: "garbage" }],
   };
 }
 
@@ -407,9 +407,9 @@ export function useContextProgram() {
     main: [
       { name: __("Открыть"), img: "open-file-button" },
       { name: __("Переслать"), img: "resend" },
-      { name: __("Скопировать ссылку"), img: "link-4" }
+      { name: __("Скопировать ссылку"), img: "link-4" },
     ],
-    additional: [{ name: __("Удалить"), img: "garbage" }]
+    additional: [{ name: __("Удалить"), img: "garbage" }],
   };
 }
 
@@ -424,7 +424,7 @@ export const projectIcons = [
   "suitcase",
   "clipboard",
   "thunder",
-  "pen"
+  "pen",
 ];
 
 export const figuresPaint = [
@@ -433,7 +433,7 @@ export const figuresPaint = [
   { id: 3, figure: "square-outlined" },
   { id: 4, figure: "arrow-outlined" },
   { id: 5, figure: "pencil-outlined" },
-  { id: 6, figure: "brush-outlined" }
+  { id: 6, figure: "brush-outlined" },
 ];
 
 export const colorsPaint = [
@@ -445,7 +445,7 @@ export const colorsPaint = [
   { id: 6, color: "#5026B8", colorRGBA: "rgba(80,38,184,0.2)" },
   { id: 7, color: "#04C6F4", colorRGBA: "rgba(4,198,244,0.2)" },
   { id: 8, color: "#6D3FD7", colorRGBA: "rgba(109,63,215,0.2)" },
-  { id: 9, color: "#67AB3E", colorRGBA: "rgba(103,171,62,0.2)" }
+  { id: 9, color: "#67AB3E", colorRGBA: "rgba(103,171,62,0.2)" },
 ];
 
 export const dotsPaint = [
@@ -456,7 +456,7 @@ export const dotsPaint = [
   { id: 5, width: 8 },
   { id: 6, width: 6 },
   { id: 7, width: 5 },
-  { id: 8, width: 2 }
+  { id: 8, width: 2 },
 ];
 
 // Company
@@ -465,7 +465,7 @@ export function useContextMenuDocFile() {
   const { __ } = useLocales();
   return [
     { name: __("Редактировать"), img: "edit", type: "editFile" },
-    { name: __("Удалить"), img: "garbage", type: "deleteFile" }
+    { name: __("Удалить"), img: "garbage", type: "deleteFile" },
   ];
 }
 
@@ -480,11 +480,11 @@ export function useContextMenuChat() {
       {
         name: __("Покинуть группу"),
         img: "garbage",
-        type: "leaveFromChatGroup"
-      }
+        type: "leaveFromChatGroup",
+      },
     ],
     secretChat: [
-      { name: __("Удалить"), img: "garbage", type: "deleteSecretChat" }
+      { name: __("Удалить"), img: "garbage", type: "deleteSecretChat" },
     ],
     userInGroup: [
       { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
@@ -492,8 +492,8 @@ export function useContextMenuChat() {
       {
         name: __("Удалить из группы"),
         img: "garbage",
-        type: "deleteUserFromGroup"
-      }
+        type: "deleteUserFromGroup",
+      },
     ],
     recentChat: [
       { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
@@ -501,8 +501,8 @@ export function useContextMenuChat() {
       {
         name: __("Отметить непрочитанным"),
         img: "mark-unread",
-        type: "markAsUnread"
-      }
+        type: "markAsUnread",
+      },
     ],
     contact: [
       { name: __("Очистить историю"), img: "brush-2", type: "clearMessages" },
@@ -510,9 +510,9 @@ export function useContextMenuChat() {
       {
         name: __("Отметить непрочитанным"),
         img: "mark-unread",
-        type: "markAsUnread"
+        type: "markAsUnread",
       },
-      { name: __("Удалить"), img: "garbage", type: "deleteContact" }
+      { name: __("Удалить"), img: "garbage", type: "deleteContact" },
     ],
     timer: [
       { name: __("1 час") },
@@ -523,18 +523,18 @@ export function useContextMenuChat() {
       { name: __("5 мин.") },
       { name: __("1 мин.") },
       { name: __("30 сек.") },
-      { name: __("20 сек.") }
+      { name: __("20 сек.") },
     ],
     message: [
       { name: __("Редактировать сообщение"), img: "edit", type: "editMessage" },
       { name: __("Скачать"), img: "download-blue", type: "download" },
-      { name: __("Удалить сообщение"), img: "garbage", type: "deleteMessage" }
+      { name: __("Удалить сообщение"), img: "garbage", type: "deleteMessage" },
     ],
     uploadFile: [
       { name: __("Камера"), img: "camera", type: "createMediaFromCamera" },
       { name: __("Файлы с системы 4Hub"), img: "files", type: "add4hubFile" },
-      { name: __("Файлы с компьютера"), img: "files", type: "addPcFile" }
-    ]
+      { name: __("Файлы с компьютера"), img: "files", type: "addPcFile" },
+    ],
   };
 }
 
@@ -546,7 +546,7 @@ export function useContextMenuPerson() {
     { name: __("Добавить сотрудника"), img: "plus-3", type: "add-employee" },
     { name: __("Редактировать"), img: "edit", type: "customize" },
     { name: __("Информация о сотруднике"), img: "info", type: "info" },
-    { name: __("Удалить"), img: "garbage", type: "delete" }
+    { name: __("Удалить"), img: "garbage", type: "delete" },
   ];
 }
 
@@ -557,7 +557,7 @@ export function usePersonStatus() {
     { color: "#20C8D2", name: "aqua", text: __("Отпуск") },
     { color: "#39B31E", name: "green", text: __("Декретный отпуск") },
     { color: "#F4A862", name: "orange", text: __("Открытая вакансия") },
-    { color: "#A30BEB", name: "violet", text: __("Испытательный срок") }
+    { color: "#A30BEB", name: "violet", text: __("Испытательный срок") },
   ];
 }
 
@@ -632,7 +632,7 @@ export function usePersonPositions() {
     __("SMM специалист"),
     __("UX-дизайнер"),
     __("Team leader"),
-    __("Android-разработчик")
+    __("Android-разработчик"),
   ];
 }
 
@@ -641,19 +641,19 @@ export const loadDest = {
   myFolders: "",
   safe: "safe_",
   myFiles: "",
-  project: "project_"
+  project: "project_",
 };
 
 export function usePeriods() {
   const { __ } = useLocales();
   return {
-    "1": __("Сегодня"),
-    "7": __("На этой неделе"),
-    "14": __("Более недели"),
-    "30": __("В этом месяце"),
-    "60": __("В прошлом месяце"),
-    "365": __("В этом году"),
-    "999": __("Папки")
+    1: __("Сегодня"),
+    7: __("На этой неделе"),
+    14: __("Более недели"),
+    30: __("В этом месяце"),
+    60: __("В прошлом месяце"),
+    365: __("В этом году"),
+    999: __("Папки"),
   };
 }
 
@@ -669,13 +669,13 @@ export function useContextMenuSharedFiles() {
       {
         name: __("Ред. несколько файлов"),
         img: "editSeveral",
-        type: "customizeSeveral"
+        type: "customizeSeveral",
       },
       { name: __("Свойства"), img: "info", type: "properties" },
       { name: __("Скачать"), img: "download-blue", type: "download" },
-      { name: __("Печать"), img: "print-2", type: "print" }
+      { name: __("Печать"), img: "print-2", type: "print" },
     ],
-    additional: [{ name: __("Удалить"), img: "garbage", type: "delete" }]
+    additional: [{ name: __("Удалить"), img: "garbage", type: "delete" }],
   };
 }
 
@@ -684,7 +684,7 @@ export function useAccessRightsConst() {
   return {
     WATCH: __("Просмотр"),
     DOWNLOAD: __("Скачивание"),
-    EDIT: __("Редактировать")
+    EDIT: __("Редактировать"),
   };
 }
 
@@ -693,6 +693,6 @@ export function useFileSharedPeriods() {
   return {
     DAY: __("1 день"),
     WEEK: __("1 неделя"),
-    MONTH: __("1 месяц")
+    MONTH: __("1 месяц"),
   };
 }

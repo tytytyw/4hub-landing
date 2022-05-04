@@ -11,23 +11,23 @@ const Accordion = () => {
     {
       id: "question_2",
       question: __("Как увеличить обьем хранилища?"),
-      answer: "Ответ 2"
+      answer: "Ответ 2",
     },
     {
       id: "question_3",
       question: __("Как защитить мои данные?"),
-      answer: "Ответ 3"
-    }
+      answer: "Ответ 3",
+    },
   ];
 
   const [active, setActive] = useState("");
 
-  const onAccordionClick = item => {
+  const onAccordionClick = (item) => {
     if (active === item.id) setActive("");
     else setActive(item.id);
   };
 
-  const isActive = item => {
+  const isActive = (item) => {
     return active === item.id;
   };
 
@@ -42,7 +42,7 @@ const Accordion = () => {
                 onClick={() => onAccordionClick(item)}
                 className={classnames({
                   [styles.openBtn]: true,
-                  [styles.plusBtn]: !isActive(item)
+                  [styles.plusBtn]: !isActive(item),
                 })}
               />
             </div>
@@ -50,8 +50,9 @@ const Accordion = () => {
             <div
               className={classnames({
                 [styles.content]: true,
-                [styles.toggled]: isActive(item)
-              })}>
+                [styles.toggled]: isActive(item),
+              })}
+            >
               <div className={styles.answer}>{item.answer}</div>
             </div>
           </li>

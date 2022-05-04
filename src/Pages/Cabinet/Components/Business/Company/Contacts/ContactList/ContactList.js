@@ -14,13 +14,13 @@ const ContactList = ({
   setSelectedItem,
   action,
   setAction,
-  setMouseParams
+  setMouseParams,
 }) => {
   const { __ } = useLocales();
   const [search, setSearch] = useState("");
   const [contactList, setContactList] = useState("");
 
-  const getContactName = contact =>
+  const getContactName = (contact) =>
     `${contact?.name?.trim() || ""} ${contact?.sname.trim() || ""}`;
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ContactList = ({
   }, [data]);
 
   useEffect(() => {
-    const searchResult = data?.filter(item => {
+    const searchResult = data?.filter((item) => {
       const name = getContactName(item).toLowerCase();
       const searchValue = search.toLowerCase();
       return name.includes(searchValue);
@@ -47,16 +47,17 @@ const ContactList = ({
       <div className={styles.search}>
         <ContactSearch
           value={search}
-          onChangeHandler={value => setSearch(value)}
+          onChangeHandler={(value) => setSearch(value)}
         />
       </div>
 
       <div
         className={classNames({
           [styles.addContact]: true,
-          [styles.active]: action === "addContact"
+          [styles.active]: action === "addContact",
         })}
-        onClick={onAddContact}>
+        onClick={onAddContact}
+      >
         <div className={styles.iconWrap}>
           <AddContactIcon width={12} height={14} />
         </div>
@@ -83,16 +84,16 @@ const ContactList = ({
   );
 };
 
-const getGrouppedArray = initialArray => {
+const getGrouppedArray = (initialArray) => {
   if (initialArray?.length < 1) {
     return [];
   }
 
   const groupedArray = [];
   let contactsItem = [];
-  initialArray?.forEach(item => {
+  initialArray?.forEach((item) => {
     let firstLetter = item.name?.charAt(0);
-    let findByGroup = groupedArray.find(item => item.group === firstLetter);
+    let findByGroup = groupedArray.find((item) => item.group === firstLetter);
 
     if (!findByGroup) {
       contactsItem = [];
@@ -100,7 +101,7 @@ const getGrouppedArray = initialArray => {
 
       groupedArray.push({
         group: firstLetter,
-        contacts: contactsItem
+        contacts: contactsItem,
       });
     } else {
       contactsItem.push(item);
@@ -118,6 +119,6 @@ ContactList.propTypes = {
   setSelectedItem: PropTypes.func,
   action: PropTypes.string,
   setAction: PropTypes.func,
-  setMouseParams: PropTypes.func
+  setMouseParams: PropTypes.func,
 };
 ContactList.defaultProps = { data: [] };

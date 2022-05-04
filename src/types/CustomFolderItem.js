@@ -8,7 +8,7 @@ export const fileProps = PropTypes.exact({
   tags: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]),
   is_pass: PropTypes.number,
   is_lock: PropTypes.number,
@@ -17,13 +17,13 @@ export const fileProps = PropTypes.exact({
   fig: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]),
   emo: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]),
   folders: PropTypes.array,
-  nameRu: PropTypes.string
+  nameRu: PropTypes.string,
 });

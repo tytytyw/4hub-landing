@@ -11,7 +11,7 @@ import {
   onChangeFilterFigure,
   onChangeFilterEmoji,
   onChangeFilterColor,
-  onSetReverseCriterion
+  onSetReverseCriterion,
 } from "../../../Store/actions/CabinetActions";
 import { ReactComponent as BarsIcon } from "../../../assets/PrivateCabinet/bars.svg";
 import { ReactComponent as LinesIcon } from "../../../assets/PrivateCabinet/lines.svg";
@@ -31,7 +31,7 @@ import { onSetWorkElementsView } from "../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../generalComponents/ContextMenu";
 import {
   useContextMenuCreateFile,
-  useContextMenuFilters
+  useContextMenuFilters,
 } from "../../../generalComponents/collections";
 import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -49,7 +49,7 @@ const ServePanel = ({
   fileAddCustomization,
   disableWorkElementsView,
   addFolder,
-  addFile
+  addFile,
 }) => {
   const { __ } = useLocales();
   const contextMenuCreateFile = useContextMenuCreateFile();
@@ -58,13 +58,13 @@ const ServePanel = ({
   const [typeContext, setTypeContext] = useState("");
   const filterRef = useRef();
   const createRef = useRef();
-  const size = useSelector(state => state.Cabinet.size);
-  const view = useSelector(state => state.Cabinet.view);
-  const search = useSelector(state => state.Cabinet.search);
-  const fileCriterion = useSelector(state => state.Cabinet.fileCriterion);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const size = useSelector((state) => state.Cabinet.size);
+  const view = useSelector((state) => state.Cabinet.view);
+  const search = useSelector((state) => state.Cabinet.search);
+  const fileCriterion = useSelector((state) => state.Cabinet.fileCriterion);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const dispatch = useDispatch();
-  const changeSize = s => {
+  const changeSize = (s) => {
     const sizes = ["small", "medium", "big"];
     if (s === sizes[sizes.length - 1]) return sizes[0];
     return sizes[sizes.indexOf(s) + 1];
@@ -77,21 +77,21 @@ const ServePanel = ({
     setTypeContext(type);
   };
 
-  const setFilter = sorting => {
+  const setFilter = (sorting) => {
     dispatch(onSortFile(sorting));
     dispatch(onChooseFiles(fileList.path, search, 1, "", ""));
   };
 
-  const createFile = ext => {
+  const createFile = (ext) => {
     const file = {
       file: { name: `No Name.${ext}`, size: 0 },
-      options: {}
+      options: {},
     };
     setFileAddCustomization({
       ...fileAddCustomization,
       show: true,
       file,
-      create: true
+      create: true,
     });
     setTypeContext("");
   };
@@ -123,7 +123,8 @@ const ServePanel = ({
         <div
           onClick={() => callback(item.ext)}
           className={styles.contextSortingItem}
-          key={i}>
+          key={i}
+        >
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
               <img
@@ -138,7 +139,8 @@ const ServePanel = ({
           {item.ext === "byName" ? (
             <div
               className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              onClick={() => dispatch(onSetReverseCriterion(item.ext))}
+            >
               <img
                 src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
                 alt="img"
@@ -149,15 +151,15 @@ const ServePanel = ({
       );
     });
 
-  const setFigure = value => {
+  const setFigure = (value) => {
     dispatch(onChangeFilterFigure(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
-  const setColor = value => {
+  const setColor = (value) => {
     dispatch(onChangeFilterColor(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
-  const setEmoji = value => {
+  const setEmoji = (value) => {
     dispatch(onChangeFilterEmoji(value));
     dispatch(onChooseFiles(fileList.path, search, 1));
   };
@@ -171,21 +173,24 @@ const ServePanel = ({
               onClick={() => dispatch(onSetWorkElementsView("bars"))}
               className={`${
                 view === "bars" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              }`}
+            >
               <BarsIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("lines"))}
               className={`${
                 view === "lines" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              }`}
+            >
               <LinesIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("preview"))}
               className={`${
                 view === "preview" ? styles.iconViewChosen : styles.iconView
-              }`}>
+              }`}
+            >
               <PreviewIcon />
             </div>
             <div
@@ -196,7 +201,8 @@ const ServePanel = ({
                 view === "workLinesPreview"
                   ? styles.iconViewChosen
                   : styles.iconView
-              }`}>
+              }`}
+            >
               <VerticalLinesIcon />
             </div>
           </div>
@@ -210,13 +216,15 @@ const ServePanel = ({
                             ${size === "small" ? styles.samllSize : null} 
                             ${size === "medium" ? styles.mediumSize : null} 
                             ${size === "big" ? styles.bigSize : null} 
-                        `}>
+                        `}
+          >
             <FileSize className={styles.iconSVG} />
           </div>
           <div
             ref={filterRef}
             className={styles.iconView}
-            onClick={e => openContextMenu(e, "filter")}>
+            onClick={(e) => openContextMenu(e, "filter")}
+          >
             <MenuIcon className={styles.iconSVG} />
             <div />
           </div>
@@ -224,14 +232,16 @@ const ServePanel = ({
             className={
               filePick?.show ? styles.chooseButtonActive : styles.chooseButton
             }
-            onClick={chooseSeveral}>
+            onClick={chooseSeveral}
+          >
             {__("Выбрать")}
           </span>
 
           {addFile && (
             <div
               onClick={() => addFile()}
-              className={classNames(styles.iconView, styles.addIcon)}>
+              className={classNames(styles.iconView, styles.addIcon)}
+            >
               <AddFileIcon className={styles.iconSVG} />
             </div>
           )}
@@ -239,7 +249,8 @@ const ServePanel = ({
           {addFolder && (
             <div
               onClick={() => addFolder(true)}
-              className={classNames(styles.iconView, styles.addIcon)}>
+              className={classNames(styles.iconView, styles.addIcon)}
+            >
               <AddFolderIcon className={styles.iconSVG} />
             </div>
           )}
@@ -270,7 +281,8 @@ const ServePanel = ({
               className={styles.iconView}
               onClick={() => {
                 if (chosenFile) share();
-              }}>
+              }}
+            >
               <ShareIcon className={styles.iconShare} />
             </div>
             <div
@@ -282,9 +294,10 @@ const ServePanel = ({
                     name: __("Удаление файла"),
                     text: __(
                       `Вы действительно хотите удалить файл ${chosenFile?.name}?`
-                    )
+                    ),
                   });
-              }}>
+              }}
+            >
               <DeleteIcon className={styles.iconTrash} />
             </div>
           </div>
@@ -295,7 +308,8 @@ const ServePanel = ({
           params={mouseParams}
           setParams={setMouseParams}
           itemRef={typeContext === "createFile" ? createRef : filterRef}
-          customClose={typeContext !== "createFile"}>
+          customClose={typeContext !== "createFile"}
+        >
           {typeContext === "filter" ? (
             <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
           ) : null}
@@ -368,5 +382,5 @@ ServePanel.propTypes = {
   addFolder: PropTypes.func,
   addFile: PropTypes.func,
   share: PropTypes.func,
-  setAction: PropTypes.func
+  setAction: PropTypes.func,
 };

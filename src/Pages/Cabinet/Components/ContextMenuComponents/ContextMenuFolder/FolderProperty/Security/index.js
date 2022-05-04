@@ -10,12 +10,12 @@ import { projectFolderStructure } from "../../../../../../../types/Project";
 
 const Security = ({ folder }) => {
   const { __ } = useLocales();
-  const userInfo = useSelector(state => state.user.userInfo);
-  const uid = useSelector(state => state.user.uid);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const uid = useSelector((state) => state.user.uid);
 
   const [userList, setUserList] = useState([]);
 
-  const renderUsers = userList => {
+  const renderUsers = (userList) => {
     return userList.map((user, id) => {
       return (
         <span key={id} className={styles.user}>
@@ -34,12 +34,12 @@ const Security = ({ folder }) => {
       );
     }
     fetchUsers()
-      .then(res => {
+      .then((res) => {
         if (!!res.data.ok && res?.data?.access) {
           setUserList(res.data.access);
         }
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, []); //eslint-disable-line
 
   return (

@@ -12,7 +12,7 @@ const WorkLinesPreview = ({
   recentFiles,
   children,
   chosenFile,
-  fileCollapsed
+  fileCollapsed,
 }) => {
   const [toolBar] = useState(false);
   const canvasRef = useRef();
@@ -22,10 +22,10 @@ const WorkLinesPreview = ({
     color: "black",
     width: 2,
     imgWidth: 0,
-    imgHeight: 0
+    imgHeight: 0,
   });
   const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [, setUndoList] = useState([]);
 
   useEffect(() => {
@@ -37,17 +37,17 @@ const WorkLinesPreview = ({
       canvas.clearRect(0, 0, 0, 0);
       const img = new Image();
       img.src = chosenFile.preview;
-      img.onload = async e => {
+      img.onload = async (e) => {
         const sizes = imageToRatio(
           e.target.naturalWidth,
           e.target.naturalHeight,
           previewRef.current?.offsetWidth - 60,
           previewRef.current?.offsetHeight - 50
         );
-        await setDrawParams(state => ({
+        await setDrawParams((state) => ({
           ...state,
           imgWidth: sizes.width.toFixed(),
-          imgHeight: sizes.height.toFixed()
+          imgHeight: sizes.height.toFixed(),
         }));
         canvas.drawImage(
           img,
@@ -57,27 +57,27 @@ const WorkLinesPreview = ({
           sizes.height.toFixed()
         );
       };
-      img.onerror = e => console.log(e);
+      img.onerror = (e) => console.log(e);
     }
   }, [chosenFile, fileCollapsed]); //eslint-disable-line
 
   const mouseUpHandler = () => {
     if (toolBar) {
-      setMouse(mouse => ({ ...mouse, down: false }));
+      setMouse((mouse) => ({ ...mouse, down: false }));
       sendDraw();
     }
   };
 
-  const mouseDownHandler = e => {
+  const mouseDownHandler = (e) => {
     if (toolBar) {
-      setMouse(mouse => ({ ...mouse, down: true }));
+      setMouse((mouse) => ({ ...mouse, down: true }));
       ctx.beginPath();
       ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-      setUndoList(state => [...state, canvasRef.current.toDataURL()]);
+      setUndoList((state) => [...state, canvasRef.current.toDataURL()]);
     }
   };
 
-  const mouseMoveHandler = e => {
+  const mouseMoveHandler = (e) => {
     if (toolBar && mouse.down) {
       draw(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     }
@@ -97,7 +97,7 @@ const WorkLinesPreview = ({
           drawParams.color
         }&width=${drawParams.imgWidth}&height=${drawParams.imgHeight}`
       )
-      .then(res => console.log(res));
+      .then((res) => console.log(res));
   };
 
   const renderFilePreview = () => {
@@ -159,13 +159,13 @@ const WorkLinesPreview = ({
           recentFiles?.length > 0
             ? "calc(100% - 90px - 55px - 78px)"
             : "calc(100% - 90px - 55px)"
-        }`
+        }`,
       }}
     >
       <div
         className={styles.fileListWrap}
         style={{
-          minWidth: fileCollapsed ? 110 : ""
+          minWidth: fileCollapsed ? 110 : "",
         }}
       >
         {children}
@@ -209,5 +209,5 @@ WorkLinesPreview.propTypes = {
   recentFiles: PropTypes.array,
   children: PropTypes.any,
   chosenFile: PropTypes.object,
-  fileCollapsed: PropTypes.bool
+  fileCollapsed: PropTypes.bool,
 };

@@ -15,7 +15,7 @@ const General = ({ folder }) => {
         <div className={styles.folderWrap}>
           <FolderIcon
             className={`${styles.folderWrap} ${
-              colors.filter(el => el.color === folder.info.color)[0]?.name
+              colors.filter((el) => el.color === folder.info.color)[0]?.name
             }`}
           />
         </div>
@@ -58,5 +58,5 @@ const General = ({ folder }) => {
 export default General;
 
 General.propTypes = {
-  folder: projectFolderStructure
+  folder: projectFolderStructure,
 };

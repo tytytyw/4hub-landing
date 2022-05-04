@@ -15,14 +15,14 @@ function Message({
   selectedContact,
   currentDate,
   setMouseParams,
-  contextMenuList
+  contextMenuList,
 }) {
   const messageTime = useMessageTime();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
-  const userId = useSelector(state => state.Cabinet.chat.userId);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
   const text = message.text.split("\n");
   const messageType = message.id_user === userId ? "outbox" : "inbox";
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const videoPlayerRef = useRef();
 
   const renderAttachment = () => {
@@ -57,7 +57,13 @@ function Message({
   };
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles[messageType]]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles[messageType]]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       {messageType === "inbox" ? (
         <img
           src={
@@ -83,7 +89,7 @@ function Message({
                   message.attachment?.kind === "file",
                 [styles.audio_content]:
                   message.attachment?.kind === "audio_message",
-                [styles.video_content]: message.attachment?.kind === "video"
+                [styles.video_content]: message.attachment?.kind === "video",
               })}
             >
               {renderAttachment()}
@@ -100,14 +106,14 @@ function Message({
             <div className={styles.menuWrapper}>
               <div
                 className={styles.menu}
-                onClick={e => {
+                onClick={(e) => {
                   setMouseParams({
                     x: e.clientX,
                     y: e.clientY,
                     width: 215,
                     height: 25,
                     contextMenuList,
-                    message: { ...message, messageType }
+                    message: { ...message, messageType },
                   });
                 }}
               >
@@ -129,7 +135,7 @@ function Message({
 export default Message;
 
 Message.defaultProps = {
-  contextMenuList: "message"
+  contextMenuList: "message",
 };
 
 Message.propTypes = {
@@ -137,5 +143,5 @@ Message.propTypes = {
   selectedContact: PropTypes.object.isRequired,
   currentDate: PropTypes.object.isRequired,
   setMouseParams: PropTypes.func.isRequired,
-  contextMenuList: PropTypes.string
+  contextMenuList: PropTypes.string,
 };

@@ -9,7 +9,7 @@ import {
   ACCESS_RIGHTS_GRANTED,
   imageSrc,
   NO_ELEMENT,
-  SHARED_ACCESS_RIGHTS
+  SHARED_ACCESS_RIGHTS,
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
@@ -18,7 +18,7 @@ import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 function FileAccessUserList({
   users,
   deleteUser,
-  changeUserAccessRightsInUsers
+  changeUserAccessRightsInUsers,
 }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
@@ -28,7 +28,7 @@ function FileAccessUserList({
   const [changePeriodModal, setChangePeriodModal] = useState(NO_ELEMENT);
   const closeChangePeriodModal = () => setChangePeriodModal(NO_ELEMENT);
 
-  const renderUserIcon = user => {
+  const renderUserIcon = (user) => {
     return user?.user_icon?.[0] ? (
       <img src={user?.user_icon?.[0]} className={styles.userIcon} />
     ) : (
@@ -36,7 +36,7 @@ function FileAccessUserList({
     );
   };
 
-  const showEndDate = date => {
+  const showEndDate = (date) => {
     if (new Date(date).getTime() > new Date().getTime()) {
       return __(`до ${date.split(" ")[0]}`);
     }
@@ -46,7 +46,7 @@ function FileAccessUserList({
     return __("Бесконечный");
   };
 
-  const showUserAccessStatus = user => {
+  const showUserAccessStatus = (user) => {
     if (user.is_write === ACCESS_RIGHTS_GRANTED) {
       return ACCESS_RIGHTS[SHARED_ACCESS_RIGHTS.EDIT];
     }
@@ -114,5 +114,5 @@ export default FileAccessUserList;
 FileAccessUserList.propTypes = {
   users: PropTypes.arrayOf(userFileAccess),
   deleteUser: PropTypes.func,
-  changeUserAccessRightsInUsers: PropTypes.func
+  changeUserAccessRightsInUsers: PropTypes.func,
 };

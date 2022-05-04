@@ -62,7 +62,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 isName={true}
                 value={surname}
                 disabled={disableСhanges}
-                onChange={e =>
+                onChange={(e) =>
                   setSurname(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -84,7 +84,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 }
                 value={name}
                 disabled={disableСhanges}
-                onChange={e =>
+                onChange={(e) =>
                   setName(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -107,7 +107,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 }
                 value={middleName}
                 disabled={disableСhanges}
-                onChange={e =>
+                onChange={(e) =>
                   setMiddleName(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -161,7 +161,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 phone={true}
                 value={phone}
                 disabled={disableСhanges}
-                onChange={e => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className={classNames(styles.field, styles.contacts)}>
@@ -179,7 +179,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 phone={true}
                 value={phone2}
                 disabled={disableСhanges}
-                onChange={e => setPhone2(e.target.value)}
+                onChange={(e) => setPhone2(e.target.value)}
               />
             </div>
           </div>
@@ -197,7 +197,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 }
                 value={email}
                 disabled={disableСhanges}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={classNames(styles.field, styles.contacts)}>
@@ -214,7 +214,7 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                 }
                 value={email2}
                 disabled={disableСhanges}
-                onChange={e => setEmail2(e.target.value)}
+                onChange={(e) => setEmail2(e.target.value)}
               />
             </div>
           </div>
@@ -224,7 +224,8 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
           {!disableСhanges && (
             <button
               onClick={() => nullifyAction()}
-              className={styles.cancelBtn}>
+              className={styles.cancelBtn}
+            >
               {__("Отмена")}
             </button>
           )}
@@ -242,11 +243,12 @@ const EditPerson = ({ person, nullifyAction, editPerson, disableСhanges }) => {
                       phone,
                       phone2,
                       email,
-                      email2
-                    }
+                      email2,
+                    },
                   })
                 : nullifyAction();
-            }}>
+            }}
+          >
             {disableСhanges ? __("Готово") : __("Сохранить")}
           </button>
         </div>
@@ -261,5 +263,5 @@ EditPerson.propTypes = {
   person: personProps,
   nullifyAction: PropTypes.func,
   editPerson: PropTypes.func,
-  disableСhanges: PropTypes.bool
+  disableСhanges: PropTypes.bool,
 };

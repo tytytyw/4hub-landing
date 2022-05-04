@@ -6,7 +6,7 @@ import {
   getAllDays,
   getDays,
   getNextMonthDays,
-  getPrevMonthDays
+  getPrevMonthDays,
 } from "./helper";
 import { months, weekDays } from "../helper";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 const ListCalendar = ({ setViewType, collapsed }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
 
   const [prevMonthDays, setPrevMonthDays] = useState(
     getPrevMonthDays(calendarDate)
@@ -38,7 +38,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
 
   const getMonthName = () => {
     const monthItem = months?.find(
-      item => item?.id === calendarDate.getMonth()
+      (item) => item?.id === calendarDate.getMonth()
     );
     return monthItem?.text;
   };
@@ -53,7 +53,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
     setViewType("list");
   };
 
-  const dayActive = day => calendarDate.getDate() === day;
+  const dayActive = (day) => calendarDate.getDate() === day;
 
   return (
     <div className={styles.wrapper}>
@@ -70,7 +70,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
 
       {!collapsed ? (
         <div className={styles.content}>
-          {weekDays?.map(weekDay => (
+          {weekDays?.map((weekDay) => (
             <div className={styles.weekDay} key={weekDay.id}>
               {weekDay.name}
             </div>
@@ -82,7 +82,8 @@ const ListCalendar = ({ setViewType, collapsed }) => {
                 className={classNames(styles.day, styles.anotherDay)}
                 onClick={() =>
                   onChangeDay(itemDay, calendarDate.getMonth() - 1)
-                }>
+                }
+              >
                 {itemDay}
               </span>
             </div>
@@ -93,9 +94,10 @@ const ListCalendar = ({ setViewType, collapsed }) => {
               <span
                 className={classNames({
                   [styles.day]: true,
-                  [styles.selectedDay]: dayActive(itemDay)
+                  [styles.selectedDay]: dayActive(itemDay),
                 })}
-                onClick={() => onChangeDay(itemDay)}>
+                onClick={() => onChangeDay(itemDay)}
+              >
                 {itemDay}
               </span>
             </div>
@@ -107,7 +109,8 @@ const ListCalendar = ({ setViewType, collapsed }) => {
                 className={classNames(styles.day, styles.anotherDay)}
                 onClick={() =>
                   onChangeDay(itemDay, calendarDate.getMonth() + 1)
-                }>
+                }
+              >
                 {itemDay}
               </span>
             </div>
@@ -124,9 +127,10 @@ const ListCalendar = ({ setViewType, collapsed }) => {
                   className={classNames({
                     [styles.day]: true,
                     [styles.anotherDay]: true,
-                    [styles.selectedDay]: dayActive(itemDay)
+                    [styles.selectedDay]: dayActive(itemDay),
                   })}
-                  onClick={() => onChangeDay(itemDay)}>
+                  onClick={() => onChangeDay(itemDay)}
+                >
                   {itemDay}
                 </span>
               </div>
@@ -142,9 +146,9 @@ export default ListCalendar;
 
 ListCalendar.propTypes = {
   setViewType: PropTypes.func,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
 };
 
 ListCalendar.defaultProps = {
-  collapsed: false
+  collapsed: false,
 };

@@ -28,21 +28,21 @@ function Modals({
   fileErrors,
   setFileErrors,
   menuItem,
-  saveCustomizeSeveralFiles
+  saveCustomizeSeveralFiles,
 }) {
-  const mutualEdit = useSelector(state => state.Cabinet.paint.mutualEdit);
-  const error = useSelector(state => state.Cabinet.modals.error);
-  const success = useSelector(state => state.Cabinet.modals.success);
-  const loader = useSelector(state => state.Cabinet.modals.loader);
-  const share = useSelector(state => state.Cabinet.modals.share);
+  const mutualEdit = useSelector((state) => state.Cabinet.paint.mutualEdit);
+  const error = useSelector((state) => state.Cabinet.modals.error);
+  const success = useSelector((state) => state.Cabinet.modals.success);
+  const loader = useSelector((state) => state.Cabinet.modals.loader);
+  const share = useSelector((state) => state.Cabinet.modals.share);
   const previewImageWithComment = useSelector(
-    state => state.Cabinet.modals.previewWithComments
+    (state) => state.Cabinet.modals.previewWithComments
   );
-  const printScreen = useSelector(state => state.Cabinet.modals.printScreen);
-  const previewFile = useSelector(state => state.Cabinet.modals.previewFile);
-  const topMessage = useSelector(state => state.Cabinet.modals.topMessage);
+  const printScreen = useSelector((state) => state.Cabinet.modals.printScreen);
+  const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
+  const topMessage = useSelector((state) => state.Cabinet.modals.topMessage);
   const fileAccessRights = useSelector(
-    state => state.Cabinet.modals.fileAccessRights
+    (state) => state.Cabinet.modals.fileAccessRights
   );
   const dispatch = useDispatch();
 
@@ -117,5 +117,5 @@ Modals.propTypes = {
   fileErrors: PropTypes.array,
   setFileErrors: PropTypes.func,
   menuItem: PropTypes.string,
-  saveCustomizeSeveralFiles: PropTypes.func
+  saveCustomizeSeveralFiles: PropTypes.func,
 };

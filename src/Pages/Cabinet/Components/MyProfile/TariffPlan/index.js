@@ -55,9 +55,9 @@ export default TariffPlan;
 
 TariffPlan.propTypes = {
   currentTariff: PropTypes.string,
-  balance: PropTypes.number
+  balance: PropTypes.number,
 };
 TariffPlan.defaultProps = {
   currentTariff: "Free",
-  balance: 100
+  balance: 100,
 };

@@ -37,5 +37,5 @@ export const userFileAccess = PropTypes.exact({
   uid: PropTypes.string,
   uid2: PropTypes.string,
   ut: PropTypes.string,
-  user_icon: PropTypes.arrayOf(PropTypes.string)
+  user_icon: PropTypes.arrayOf(PropTypes.string),
 });

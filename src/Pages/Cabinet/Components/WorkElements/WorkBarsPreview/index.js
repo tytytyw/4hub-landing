@@ -6,12 +6,12 @@ import File from "../../../../../generalComponents/Files";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import {
   imageSrc,
-  projectSrc
+  projectSrc,
 } from "../../../../../generalComponents/globalVariables";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import {
   getMedia,
-  renderHeight
+  renderHeight,
 } from "../../../../../generalComponents/generalHelpers";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
@@ -31,13 +31,13 @@ const WorkBarsPreview = ({
   filesPage,
   chosenFolder = {},
   width = "100%",
-  groupInfo
+  groupInfo,
 }) => {
   const { __ } = useLocales();
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [f, setF] = useState(file);
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
   const [audio, setAudio] = useState(null);
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -103,7 +103,7 @@ const WorkBarsPreview = ({
             controls
             src={video ? video : ""}
             type={f.mime_type}
-            onError={e => console.log(e)}
+            onError={(e) => console.log(e)}
           >
             <source src={video ? video : ""} type={f.mime_type} />
           </video>
@@ -117,7 +117,7 @@ const WorkBarsPreview = ({
               src={audio ? audio : ""}
               type={f.mime_type}
               controls
-              onError={e => console.log(e)}
+              onError={(e) => console.log(e)}
             >
               <source src={audio ? audio : ""} type={f.mime_type} />
             </audio>
@@ -159,7 +159,7 @@ const WorkBarsPreview = ({
             {f?.is_dir ? (
               <FolderIcon
                 className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === file.color)[0]?.name
+                  colors.filter((el) => el.color === file.color)[0]?.name
                 }`}
               />
             ) : (
@@ -193,7 +193,7 @@ const WorkBarsPreview = ({
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
         gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
       }}
     >
       <div
@@ -217,7 +217,7 @@ const WorkBarsPreview = ({
               </button>
               <div
                 className={classNames({
-                  [styles.arrowFile]: true
+                  [styles.arrowFile]: true,
                 })}
               ></div>
             </div>
@@ -245,7 +245,7 @@ const WorkBarsPreview = ({
                 {f?.is_dir ? (
                   <FolderIcon
                     className={`${styles.folderIcon} ${
-                      colors.filter(el => el?.color === file?.color)[0]?.name
+                      colors.filter((el) => el?.color === file?.color)[0]?.name
                     }`}
                   />
                 ) : (

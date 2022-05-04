@@ -10,13 +10,13 @@ import {
   onGetContacts,
   onGetProjects,
   onGetProjectFolders,
-  onAddRecentFiles
+  onAddRecentFiles,
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {
   useContextMenuProjects,
-  useContextMenuSubFolder
+  useContextMenuSubFolder,
 } from "../../../../generalComponents/collections";
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
@@ -54,15 +54,15 @@ const Project = ({
   setLoadingFile,
   menuItem,
   fileSelect,
-  saveCustomizeSeveralFiles
+  saveCustomizeSeveralFiles,
 }) => {
   const { __ } = useLocales();
   const contextMenuSubFolder = useContextMenuSubFolder();
   const contextMenuProjects = useContextMenuProjects();
   const dispatch = useDispatch();
-  const projects = useSelector(state => state.Cabinet.project.projects);
-  const uid = useSelector(state => state.user.uid);
-  const size = useSelector(state => state.Cabinet.size);
+  const projects = useSelector((state) => state.Cabinet.project.projects);
+  const uid = useSelector((state) => state.user.uid);
+  const size = useSelector((state) => state.Cabinet.size);
   const [chosenFolder, setChosenFolder] = useState(null);
   const [mouseParams, setMouseParams] = useState(null);
   const [contextMenu, setContextMenu] = useState(null);
@@ -92,25 +92,25 @@ const Project = ({
       type: "addMember",
       name: __("Добавить участника"),
       text: ``,
-      callback: () => setAddMember(true)
+      callback: () => setAddMember(true),
     },
     {
       type: "addFolder",
       name: __("Добавить папку"),
       text: ``,
-      callback: () => setNewFolder(true)
+      callback: () => setNewFolder(true),
     },
     {
       type: "copyLink",
       name: __("Скопировать ссылку и поделиться"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "customize",
       name: __("Редактирование проекта"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "archive",
@@ -118,14 +118,14 @@ const Project = ({
       text: __(
         `Вы действительно хотите архивировать проект ${selectedProject?.name}?`
       ),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "propertiesProject",
       name: __("Свойства"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const additionalMenuItems = [
@@ -135,14 +135,14 @@ const Project = ({
       text: __(
         `Вы действительно хотите удалить проект ${selectedProject?.name}?`
       ),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "leave",
       name: __("Покинуть проект"),
       text: __(`Вы действительно покинуть проект ${selectedProject?.name}?`),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const callbackArrSub = [
@@ -150,26 +150,26 @@ const Project = ({
       type: "customizeFolder",
       name: __("Редактирование папки"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "setAccessFolder",
       name: __("Доступ и экспорт"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "propertiesFolder",
       name: __("Свойства"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "deleteFolder",
       name: __("Удаление папки"),
       text: __(`Вы действительно хотите удалить выбранную папку?`),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   const renderMenuItems = (target, type) => {
@@ -236,7 +236,7 @@ const Project = ({
     nullifyAction();
     api
       .post(`/ajax/project_del.php?uid=${uid}&id_project=${selectedProject.id}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           setShowSuccessMessage(__("Проект удален"));
           dispatch(onGetProjects());
@@ -244,7 +244,7 @@ const Project = ({
           console.log(res);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const deleteFolder = () => {
@@ -253,7 +253,7 @@ const Project = ({
       .post(
         `/ajax/project_folders_del.php?uid=${uid}&id_project=${selectedProject.id}&dir_name=${chosenFolder.name}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetProjectFolders(selectedProject.id));
           setChosenFolder({ ...chosenFolder, open: false });
@@ -264,8 +264,8 @@ const Project = ({
       .catch(() => setError(__("Папка не удалена. Попробуйте еще раз!")));
   };
 
-  const onSafePassword = boolean =>
-    setSafePassword(state => ({ ...state, open: boolean }));
+  const onSafePassword = (boolean) =>
+    setSafePassword((state) => ({ ...state, open: boolean }));
 
   return (
     <div className={styles.workAreaWrap}>
@@ -276,7 +276,8 @@ const Project = ({
         onCreate={setCreateProject}
         ref={listRef}
         listCollapsed={listCollapsed}
-        setListCollapsed={setListCollapsed}>
+        setListCollapsed={setListCollapsed}
+      >
         {projects?.length < 1 ? (
           <div className={styles.emptyBlock}>
             <img
@@ -310,7 +311,8 @@ const Project = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuSubFolder.main, callbackArrSub)}
           </div>
@@ -321,7 +323,8 @@ const Project = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderProjectMenuItems(contextMenuProjects.main, callbackArrMain)}
           </div>
@@ -382,7 +385,8 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           approve={__("Удалить")}
-          callback={deleteProject}>
+          callback={deleteProject}
+        >
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -394,7 +398,8 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={nullifyAction}
-          approve={__("Покинуть")}>
+          approve={__("Покинуть")}
+        >
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -406,7 +411,8 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={nullifyAction}
-          approve={__("Архивировать")}>
+          approve={__("Архивировать")}
+        >
           <div className={styles.fileActionWrap}>
             {getIcon(selectedProject)}
           </div>
@@ -445,7 +451,8 @@ const Project = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteFolder}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <FolderIcon className={styles.innerFolderIcon} />
           </div>
@@ -527,5 +534,5 @@ Project.propTypes = {
   setLoadingFile: PropTypes.func,
   menuItem: PropTypes.string,
   fileSelect: PropTypes.func,
-  saveCustomizeSeveralFiles: PropTypes.func
+  saveCustomizeSeveralFiles: PropTypes.func,
 };

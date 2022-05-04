@@ -12,7 +12,7 @@ const ImagePreview = ({
   imageAspectRatio,
   setImageAspectRatio,
   openCropImage,
-  setOpenCropImage
+  setOpenCropImage,
 }) => {
   const ratio =
     imageRef.current?.naturalWidth / imageRef.current?.naturalHeight;
@@ -24,7 +24,7 @@ const ImagePreview = ({
         alt="camera"
         src={image}
         style={{
-          filter: visualEffects.filter.result
+          filter: visualEffects.filter.result,
         }}
         ref={imageRef}
       />
@@ -52,5 +52,5 @@ ImagePreview.propTypes = {
   imageAspectRatio: PropTypes.number,
   setImageAspectRatio: PropTypes.func,
   openCropImage: PropTypes.bool,
-  setOpenCropImage: PropTypes.func.isRequired
+  setOpenCropImage: PropTypes.func.isRequired,
 };

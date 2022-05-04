@@ -70,5 +70,5 @@ const PrevVersions = ({ safe }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  safe: safeProps
+  safe: safeProps,
 };

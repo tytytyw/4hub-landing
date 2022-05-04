@@ -15,11 +15,11 @@ function DrawZone({
   images,
   setParams,
   inputRef,
-  mainWidth
+  mainWidth,
 }) {
   const { __ } = useLocales();
-  const paintImage = async images => {
-    setParams(s => ({ ...s, isLoading: true }));
+  const paintImage = async (images) => {
+    setParams((s) => ({ ...s, isLoading: true }));
     canvasRef.current
       .getContext("2d")
       .clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -81,7 +81,7 @@ function DrawZone({
         );
       }
     }
-    setParams(s => ({ ...s, isLoading: false }));
+    setParams((s) => ({ ...s, isLoading: false }));
   };
 
   useEffect(() => {
@@ -96,7 +96,8 @@ function DrawZone({
     <main
       className={styles.paintField}
       ref={mainRef}
-      style={{ width: mainWidth }}>
+      style={{ width: mainWidth }}
+    >
       <div className={styles.canvasWrap}>
         {params.isLoading ? (
           <Loader
@@ -131,7 +132,7 @@ function DrawZone({
           <div
             className={classnames({
               [styles.addField]: true,
-              [styles.addFieldFull]: images?.loaded?.length === 0
+              [styles.addFieldFull]: images?.loaded?.length === 0,
             })}
             style={{
               width:
@@ -141,8 +142,9 @@ function DrawZone({
               height:
                 images?.loaded?.length === 0
                   ? "calc(100%-30px)"
-                  : canvasRef?.current?.getBoundingClientRect().height / 2 || 0
-            }}>
+                  : canvasRef?.current?.getBoundingClientRect().height / 2 || 0,
+            }}
+          >
             <div onClick={fileSelect} className={styles.addFile}>
               <AddIcon className={styles.addIcon} />
               <span>{__("Загрузите файл для сравнения")}</span>
@@ -159,12 +161,12 @@ export default DrawZone;
 DrawZone.propTypes = {
   params: PropTypes.shape({
     isLoading: PropTypes.bool,
-    isChoosing: PropTypes.bool
+    isChoosing: PropTypes.bool,
   }),
   canvasRef: PropTypes.object,
   mainRef: PropTypes.object,
   images: PropTypes.object,
   setParams: PropTypes.func,
   inputRef: PropTypes.object,
-  mainWidth: PropTypes.any
+  mainWidth: PropTypes.any,
 };

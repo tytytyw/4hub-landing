@@ -52,5 +52,5 @@ const Intro = ({ setPage }) => {
 export default Intro;
 
 Intro.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

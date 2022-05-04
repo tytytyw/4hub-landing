@@ -29,19 +29,19 @@ const LoadItem = ({
   setAwaitingFiles,
   loadingFile,
   setLoadingFile,
-  collapsed
+  collapsed,
 }) => {
   const [data, setData] = useState({
     strokeDasharray: `150 150`,
-    strokeDashoffset: `288`
+    strokeDashoffset: `288`,
   });
   const circleRef = useRef();
-  const onProgress = processing => {
+  const onProgress = (processing) => {
     const radius = circleRef?.current?.r?.baseVal?.value;
     const circumference = 2 * Math.PI * radius;
     setData({
       strokeDasharray: `${circumference} ${circumference}`,
-      strokeDashoffset: `${circumference - (processing / 100) * circumference}`
+      strokeDashoffset: `${circumference - (processing / 100) * circumference}`,
     });
   };
 
@@ -87,7 +87,8 @@ const LoadItem = ({
             <svg
               viewBox="0 0 100 100"
               width="20px"
-              className={styles.progressBar}>
+              className={styles.progressBar}
+            >
               <circle className={styles.load} cx="50" cy="50" r="45" />
               <circle
                 className={styles.loaded}
@@ -160,5 +161,5 @@ LoadItem.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.array,
   setLoadingFile: PropTypes.func,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
 };

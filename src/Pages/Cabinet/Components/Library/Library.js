@@ -16,7 +16,7 @@ function Library({
   fileAddCustomization,
   setFileAddCustomization,
   setFilePreview,
-  filePreview
+  filePreview,
 }) {
   const { __ } = useLocales();
   const [listCollapsed, setListCollapsed] = useState(false);
@@ -56,5 +56,5 @@ Library.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
 };

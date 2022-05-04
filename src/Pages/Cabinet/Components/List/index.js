@@ -14,16 +14,17 @@ const List = ({
   children,
   onCreate,
   icon,
-  leftIconSrc
+  leftIconSrc,
 }) => {
   const { __ } = useLocales();
   return (
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.listWrapCollapsed]: !!listCollapsed
+        [styles.listWrapCollapsed]: !!listCollapsed,
       })}
-      title={listCollapsed ? title : ""}>
+      title={listCollapsed ? title : ""}
+    >
       <div className={styles.header}>
         {!!leftIconSrc && (
           <img
@@ -70,9 +71,9 @@ List.propTypes = {
   children: PropTypes.node,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
-  leftIconSrc: PropTypes.string
+  leftIconSrc: PropTypes.string,
 };
 
 List.defaultProps = {
-  icon: true
+  icon: true,
 };

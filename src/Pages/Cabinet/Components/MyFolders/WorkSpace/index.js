@@ -46,17 +46,17 @@ const WorkSpace = ({
   setFilesPage,
   menuItem,
   setChosenFolder,
-  openFolderMenu
+  openFolderMenu,
 }) => {
   const { __ } = useLocales();
-  const workElementsView = useSelector(state => state.Cabinet.view);
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [mouseParams, setMouseParams] = useState(null);
   const [filePick, setFilePick] = useState({
     show: false,
     files: [],
     customize: false,
-    intoZip: false
+    intoZip: false,
   });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
   const nullifyFilePick = () =>
@@ -64,10 +64,10 @@ const WorkSpace = ({
   const fileRef = useRef(null);
   const [containerRef, width] = useElementResize();
 
-  useEffect(() => setChosenFile(null), [
-    chosenFolder.path,
-    chosenFolder.subPath
-  ]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(
+    () => setChosenFile(null),
+    [chosenFolder.path, chosenFolder.subPath]
+  ); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -80,7 +80,8 @@ const WorkSpace = ({
                       : styles.workSpaceWrapUncollapsed
                     : undefined
                 }`}
-        ref={containerRef}>
+        ref={containerRef}
+      >
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div className={styles.infoHeader}>
@@ -101,7 +102,7 @@ const WorkSpace = ({
           chosenFile={chosenFile}
           setAction={setAction}
           fileSelect={fileSelect}
-          addFolder={boolean => {
+          addFolder={(boolean) => {
             setNewFolder(boolean);
             setNewFolderInfo({ ...newFolderInfo, path: "" });
           }}
@@ -163,7 +164,8 @@ const WorkSpace = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -213,7 +215,7 @@ WorkSpace.propTypes = {
   action: PropTypes.shape({
     type: PropTypes.string,
     name: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
   }),
   setAction: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
@@ -226,11 +228,11 @@ WorkSpace.propTypes = {
   setNewFolder: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
   newFolderInfo: PropTypes.shape({
-    path: PropTypes.string
+    path: PropTypes.string,
   }),
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   menuItem: PropTypes.string,
   setChosenFolder: PropTypes.func,
-  openFolderMenu: PropTypes.func
+  openFolderMenu: PropTypes.func,
 };

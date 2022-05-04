@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import {
   imageSrc,
-  projectSrc
+  projectSrc,
 } from "../../../../../generalComponents/globalVariables";
 import styles from "./WorkLinesPreview.module.sass";
 import { colors } from "../../../../../generalComponents/collections";
@@ -12,7 +12,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import {
   getMedia,
-  renderHeight
+  renderHeight,
 } from "../../../../../generalComponents/generalHelpers";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import FileLineShort from "../FileLineShort";
@@ -30,14 +30,14 @@ const WorkLinesPreview = ({
   options,
   renderFiles,
   renderGroups,
-  menuItem
+  menuItem,
 }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
-  const search = useSelector(state => state.Cabinet?.search);
-  const fileList = useSelector(state => state.Cabinet?.fileList);
-  const filesNext = useSelector(state => state.Cabinet?.fileList?.filesNext);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const fileList = useSelector((state) => state.Cabinet?.fileList);
+  const filesNext = useSelector((state) => state.Cabinet?.fileList?.filesNext);
   const [audio, setAudio] = useState(null);
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const WorkLinesPreview = ({
   const [f, setF] = useState(file);
   useEffect(() => {
     setF(file);
-    const newColor = colors.filter(c => c.color === file?.color);
+    const newColor = colors.filter((c) => c.color === file?.color);
     setColor(newColor[0]);
     if (file) {
       if (
@@ -98,7 +98,8 @@ const WorkLinesPreview = ({
             controls
             src={video ? video : ""}
             type={f.mime_type}
-            onError={e => console.log(e)}>
+            onError={(e) => console.log(e)}
+          >
             <source src={video ? video : ""} type={f.mime_type} />
           </video>
         );
@@ -111,7 +112,8 @@ const WorkLinesPreview = ({
               src={audio ? audio : ""}
               type={f.mime_type}
               controls
-              onError={e => console.log(e)}>
+              onError={(e) => console.log(e)}
+            >
               <source src={audio ? audio : ""} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
@@ -152,7 +154,7 @@ const WorkLinesPreview = ({
             {f?.is_dir ? (
               <FolderIcon
                 className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === file.color)[0]?.name
+                  colors.filter((el) => el.color === file.color)[0]?.name
                 }`}
               />
             ) : (
@@ -167,7 +169,7 @@ const WorkLinesPreview = ({
   const [containerRef] = useScrollElementOnScreen(options, load);
   const [containerNextRef] = useScrollElementOnScreen(options, load);
 
-  const checkFiles = obj => {
+  const checkFiles = (obj) => {
     for (let key in obj) {
       if (obj[key].length > 0) return true;
     }
@@ -181,7 +183,8 @@ const WorkLinesPreview = ({
         filePick,
         styles,
         pathname === "/archive" || pathname === "/cart"
-      )}`}>
+      )}`}
+    >
       {!hideFileList && menuItem !== "myFiles" && (
         <div className={styles.fileListWrap} ref={fileRef}>
           {!gLoader && children}
@@ -190,7 +193,8 @@ const WorkLinesPreview = ({
               className={`${styles.bottomLine} ${
                 filesPage === 0 ? styles.bottomLineHidden : ""
               }`}
-              ref={containerRef}>
+              ref={containerRef}
+            >
               <Loader
                 type="bounceDots"
                 position="absolute"
@@ -212,7 +216,7 @@ const WorkLinesPreview = ({
             ) : (
               renderGroups(FileLineShort, fileList?.filesNext?.files, {
                 next: true,
-                scrollTop: 0
+                scrollTop: 0,
               })
             )
           ) : loading ? null : (
@@ -223,7 +227,8 @@ const WorkLinesPreview = ({
               className={`${styles.bottomLine} ${
                 filesPage === 0 ? styles.bottomLineHidden : ""
               }`}
-              ref={containerNextRef}>
+              ref={containerNextRef}
+            >
               <Loader
                 type="bounceDots"
                 position="absolute"
@@ -267,7 +272,7 @@ const WorkLinesPreview = ({
                       {f?.is_dir ? (
                         <FolderIcon
                           className={`${styles.folderIcon} ${
-                            colors.filter(el => el.color === file.color)[0]
+                            colors.filter((el) => el.color === file.color)[0]
                               ?.name
                           }`}
                         />
@@ -295,7 +300,7 @@ const WorkLinesPreview = ({
                   className={styles.colorCircle}
                   style={{
                     background: color?.light,
-                    border: `1px solid ${color?.dark}`
+                    border: `1px solid ${color?.dark}`,
                   }}
                 />
               ) : (

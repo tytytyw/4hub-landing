@@ -12,10 +12,10 @@ const RecentFolders = ({
   chosenFolder,
   setChosenFolder,
   chosen,
-  renderFolderList
+  renderFolderList,
 }) => {
   const { __ } = useLocales();
-  const recentFolders = useSelector(state => state.Cabinet.recentFolders);
+  const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
   const dispatch = useDispatch();
   return (
     <div className={styles.wrapper}>
@@ -28,10 +28,11 @@ const RecentFolders = ({
             ...chosenFolder,
             path: "recent",
             open: true,
-            subPath: recentFolders[0].path
+            subPath: recentFolders[0].path,
           });
           dispatch(onChooseFiles(recentFolders[0].path));
-        }}>
+        }}
+      >
         <span className={styles.title}>
           {listCollapsed ? __("Недавние") : __("Недавние Папки")}
         </span>
@@ -48,11 +49,12 @@ const RecentFolders = ({
           }px`,
           minHeight: `${
             chosen && chosenFolder.open ? recentFolders.length * 50 : 0
-          }px`
+          }px`,
         }}
         className={`${styles.innerFolders} ${
           chosen && chosenFolder.open ? undefined : styles.hidden
-        }`}>
+        }`}
+      >
         {renderFolderList(recentFolders, true)}
       </div>
     </div>
@@ -66,5 +68,5 @@ RecentFolders.propTypes = {
   chosenFolder: PropTypes.object,
   setChosenFolder: PropTypes.func,
   chosen: PropTypes.bool,
-  renderFolderList: PropTypes.func
+  renderFolderList: PropTypes.func,
 };

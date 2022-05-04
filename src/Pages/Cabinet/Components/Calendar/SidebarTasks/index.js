@@ -7,9 +7,9 @@ import PropTypes from "prop-types";
 
 const SidebarTasks = ({ data, listCollapsed }) => {
   const { __ } = useLocales();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
-  const getEventsByDay = data => {
-    return data.filter(event => {
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  const getEventsByDay = (data) => {
+    return data.filter((event) => {
       return event?.date.getDate() === calendarDate.getDate();
     });
   };
@@ -48,5 +48,5 @@ export default SidebarTasks;
 
 SidebarTasks.propTypes = {
   data: PropTypes.array,
-  listCollapsed: PropTypes.bool
+  listCollapsed: PropTypes.bool,
 };

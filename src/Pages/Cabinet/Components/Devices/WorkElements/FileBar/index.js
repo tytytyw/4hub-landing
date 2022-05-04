@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import {
   filePickProps,
   filePreviewProps,
-  fileProps
+  fileProps,
 } from "../../../../../../types/WorkElements";
 
 const FileBar = ({
@@ -19,16 +19,16 @@ const FileBar = ({
   setFilePreview,
   filePreview,
   filePick,
-  setFilePick
+  setFilePick,
 }) => {
   const [picked, setPicked] = useState(false);
-  const onPickFile = e => {
+  const onPickFile = (e) => {
     e.stopPropagation();
     setPicked(!picked);
     if (!picked === true) {
       setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     } else {
-      const files = filePick.files.filter(el => el !== file.fid);
+      const files = filePick.files.filter((el) => el !== file.fid);
       setFilePick({ ...filePick, files });
     }
   };
@@ -44,17 +44,19 @@ const FileBar = ({
         onClick={() => (!isLoading ? setChosenFile(file) : undefined)}
         onDoubleClick={() =>
           setFilePreview({ ...filePreview, view: true, file })
-        }>
+        }
+      >
         <div
           className={styles.menu}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25
+              height: 25,
             });
-          }}>
+          }}
+        >
           <span />
         </div>
         <div className={styles.symbols}>
@@ -103,7 +105,7 @@ const FileBar = ({
               picked ? styles.filePickBoxPicked : ""
             }`}
             onClick={onPickFile}
-            onDoubleClick={e => e.stopPropagation()}
+            onDoubleClick={(e) => e.stopPropagation()}
           />
         ) : null}
       </div>
@@ -122,5 +124,5 @@ FileBar.propTypes = {
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
 };

@@ -14,28 +14,28 @@ const AddLogo = ({
   setAction,
   companyName,
   setCompanyName,
-  companyLogo
+  companyLogo,
 }) => {
   const { __ } = useLocales();
   const [defaultTitle] = useState("Добавить лого компании");
   const contextMenuLogo = [
     { name: __("Загрузить Лого"), img: "download-blue", type: "uploadLogo" },
-    { name: __("Редактировать"), img: "edit", type: "editLogo" }
-  ].filter(menuItem => (companyLogo ? true : menuItem.type !== "editLogo"));
+    { name: __("Редактировать"), img: "edit", type: "editLogo" },
+  ].filter((menuItem) => (companyLogo ? true : menuItem.type !== "editLogo"));
 
   const callbackArrMain = [
     {
       type: "uploadLogo",
       name: __("Загрузить Лого"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "editLogo",
       name: __("Редактировать"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   return (
@@ -48,18 +48,18 @@ const AddLogo = ({
           placeholder={defaultTitle}
           value={companyName}
           className={styles.title}
-          onChange={e => setCompanyName(e.target.value)}
+          onChange={(e) => setCompanyName(e.target.value)}
         />
       )}
       <ArrowIcon
         className={styles.arrow}
-        onClick={e => {
+        onClick={(e) => {
           setMouseParams({
             x: e.clientX,
             y: e.clientY,
             width: 158,
             height: 38,
-            type: "contextMenuLogo"
+            type: "contextMenuLogo",
           });
         }}
       />
@@ -67,7 +67,8 @@ const AddLogo = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={false}>
+          tooltip={false}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuLogo, callbackArrMain)}
           </div>
@@ -86,5 +87,5 @@ AddLogo.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any
+  companyLogo: PropTypes.any,
 };

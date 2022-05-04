@@ -10,7 +10,7 @@ const ContactsAll = ({ data }) => {
 
   useEffect(() => {
     const newSelectedContact = data?.find(
-      contact => contact?.id === selectedContact?.id
+      (contact) => contact?.id === selectedContact?.id
     );
     newSelectedContact && setSelectedContact(newSelectedContact);
   }, [data]);
@@ -39,9 +39,9 @@ const ContactsAll = ({ data }) => {
 export default ContactsAll;
 
 ContactsAll.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
 };
 
 ContactsAll.defaultProps = {
-  data: []
+  data: [],
 };

@@ -13,8 +13,8 @@ import PropTypes from "prop-types";
 
 const FullCalendarTable = ({ events }) => {
   const calendarRef = useRef();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
-  const renderEventContent = eventInfo => {
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  const renderEventContent = (eventInfo) => {
     return (
       <TableTaskItem
         date={eventInfo?.event.start}
@@ -23,8 +23,8 @@ const FullCalendarTable = ({ events }) => {
     );
   };
 
-  const renderHeaderCell = eventInfo => {
-    const day = days.find(item => item.id === eventInfo.date.getDay());
+  const renderHeaderCell = (eventInfo) => {
+    const day = days.find((item) => item.id === eventInfo.date.getDay());
     const date = eventInfo.date.getDate();
     return (
       <div className={styles.dayItem}>
@@ -50,14 +50,14 @@ const FullCalendarTable = ({ events }) => {
         headerToolbar={{
           left: null,
           center: null,
-          right: null
+          right: null,
         }}
         dayHeaderContent={renderHeaderCell}
         slotDuration="01:00"
         slotLabelFormat={{
           hour: "numeric",
           minute: "2-digit",
-          omitZeroMinute: false
+          omitZeroMinute: false,
         }}
         firstDay={1}
         locale="ru" //TODO - according real location
@@ -70,5 +70,5 @@ const FullCalendarTable = ({ events }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  events: PropTypes.array
+  events: PropTypes.array,
 };

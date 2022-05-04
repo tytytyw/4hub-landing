@@ -74,5 +74,5 @@ const PrevVersions = ({ file }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  file: fileProps
+  file: fileProps,
 };

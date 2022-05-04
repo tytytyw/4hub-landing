@@ -49,5 +49,5 @@ const General = ({ safe }) => {
 export default General;
 
 General.propTypes = {
-  safe: safeProps
+  safe: safeProps,
 };

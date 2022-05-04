@@ -14,17 +14,17 @@ const BottomPanel = () => {
     "round-webcam.svg",
     "calendar-4.svg",
     "picture-1.svg",
-    "shopping-cart.svg"
+    "shopping-cart.svg",
   ];
   const links = ["", "/calendar", "/chat", "", "", "", "/programs"];
 
   const history = useHistory();
-  const theme = useSelector(state => state.user.userInfo?.theme);
+  const theme = useSelector((state) => state.user.userInfo?.theme);
 
   const [notifications] = useState({
     "mail.svg": "14",
     "calendar-5.svg": "2",
-    "sms.svg": "5"
+    "sms.svg": "5",
   });
 
   const getThemeBg = () => {
@@ -43,7 +43,7 @@ const BottomPanel = () => {
             alt="icon"
             onClick={() => history.push(links?.[i])}
           />
-          {Object.keys(notifications).some(item => item === el) && (
+          {Object.keys(notifications).some((item) => item === el) && (
             <span className={styles.counter}>{notifications[el]}</span>
           )}
         </div>
@@ -55,7 +55,7 @@ const BottomPanel = () => {
     <div
       className={styles.buttomPanelWrap}
       style={{
-        background: getThemeBg()
+        background: getThemeBg(),
       }}
     >
       <div className={styles.curtain} />

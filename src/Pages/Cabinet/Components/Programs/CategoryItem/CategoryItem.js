@@ -15,14 +15,16 @@ const CategoryItem = ({ category, listCollapsed, listSize, chosen }) => {
     <div
       className={classNames({
         [styles.innerFolderWrap]: true,
-        [styles.active]: chosen
+        [styles.active]: chosen,
       })}
-      onClick={onClickHandler}>
+      onClick={onClickHandler}
+    >
       <div
         className={classNames({
           [styles.innerFolder]: true,
-          [styles?.[`innerFolder_${listSize}`]]: !!listSize
-        })}>
+          [styles?.[`innerFolder_${listSize}`]]: !!listSize,
+        })}
+      >
         <div className={styles.innerFolderName}>
           {category?.image ? (
             <img
@@ -56,5 +58,5 @@ CategoryItem.propTypes = {
   category: PropTypes.object,
   listCollapsed: PropTypes.bool,
   listSize: PropTypes.string,
-  chosen: PropTypes.bool
+  chosen: PropTypes.bool,
 };

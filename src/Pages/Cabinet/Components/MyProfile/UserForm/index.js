@@ -14,8 +14,8 @@ import { useLocales } from "react-localized";
 
 const UserForm = () => {
   const { __ } = useLocales();
-  const user = useSelector(state => state.user.userInfo);
-  const uid = useSelector(state => state.user.uid);
+  const user = useSelector((state) => state.user.userInfo);
+  const uid = useSelector((state) => state.user.uid);
 
   const [fields, setFields] = useState(user);
 
@@ -36,7 +36,7 @@ const UserForm = () => {
   const fileInputRef = useRef();
   const formRef = useRef();
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -79,7 +79,7 @@ const UserForm = () => {
     setSubmitErrors({});
   };
 
-  const onChangeHandler = event => {
+  const onChangeHandler = (event) => {
     let { value, name } = event.target;
 
     if (!isCorrectData(value, name, fields, requiredInputs)) {
@@ -92,12 +92,12 @@ const UserForm = () => {
     setFields({ ...fields, [name]: value });
   };
 
-  const onBlurHandler = event => {
+  const onBlurHandler = (event) => {
     const { name } = event.target;
     setBlur({ ...blur, [name]: true });
   };
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (formChanged && formIsValid(fields, setSubmitErrors, requiredInputs)) {
@@ -110,13 +110,13 @@ const UserForm = () => {
           setSuccess(true);
           resetForm(true);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
   };
 
-  const isMistake = name =>
+  const isMistake = (name) =>
     (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
   return (

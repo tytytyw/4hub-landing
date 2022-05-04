@@ -9,10 +9,15 @@ import classNames from "classnames";
 
 const InfoPanel = ({ setAction }) => {
   const [option, setOption] = useState("main");
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       {option === "main" ? (
         <MainPanel setAction={setAction} setOption={setOption} />
       ) : null}
@@ -24,5 +29,5 @@ const InfoPanel = ({ setAction }) => {
 export default InfoPanel;
 
 InfoPanel.propTypes = {
-  setAction: PropTypes.func.isRequired
+  setAction: PropTypes.func.isRequired,
 };

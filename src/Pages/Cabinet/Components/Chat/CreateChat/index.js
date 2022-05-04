@@ -10,7 +10,7 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import UsersList from "./UsersList";
 import {
   onGetChatGroups,
-  onGetSecretChatsList
+  onGetSecretChatsList,
 } from "../../../../../Store/actions/CabinetActions";
 import api from "../../../../../api";
 import { useLocales } from "react-localized";
@@ -24,10 +24,10 @@ const CreateChat = ({
   selectedContact,
   componentType,
   currentDate,
-  initialUser
+  initialUser,
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const [search, setSearch] = useState("");
   const [selectedContacts, setSelectedContact] = useState(
     initialUser ? [initialUser] : []
@@ -38,31 +38,33 @@ const CreateChat = ({
   const [groupName, setGroupName] = useState("");
   const [showActionApproval, setShowActionApproval] = useState({
     type: null,
-    show: false
+    show: false,
   });
   const [loadingType, setLoadingType] = useState("");
   const dispatch = useDispatch();
   const inputWrapRef = useRef();
   const [inputWrapHeight, setInputWrapHeight] = useState(0);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
-  const uid = useSelector(state => state.user.uid);
-  const id_company = useSelector(state => state.user.id_company);
-  const contactList = useSelector(state =>
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
+  const uid = useSelector((state) => state.user.uid);
+  const id_company = useSelector((state) => state.user.id_company);
+  const contactList = useSelector((state) =>
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
 
-  const changeSelectedContacts = contact => {
-    const isSelected = selectedContacts.filter(c => c.id === contact.id).length;
-    setSelectedContact(state =>
+  const changeSelectedContacts = (contact) => {
+    const isSelected = selectedContacts.filter(
+      (c) => c.id === contact.id
+    ).length;
+    setSelectedContact((state) =>
       isSelected
-        ? state.filter(item => item.id !== contact.id)
+        ? state.filter((item) => item.id !== contact.id)
         : [contact, ...state]
     );
   };
 
   const renderSelectedContacts = () => {
     if (!selectedContacts) return null;
-    return selectedContacts.map(contact => {
+    return selectedContacts.map((contact) => {
       return (
         <div className={styles.contact_wrap} key={contact.id}>
           <img
@@ -73,14 +75,15 @@ const CreateChat = ({
             }
             alt="avatar"
           />
-          <span className={styles.name}>{`${contact?.sname ||
-            ""} ${contact?.name || ""}`}</span>
+          <span className={styles.name}>{`${contact?.sname || ""} ${
+            contact?.name || ""
+          }`}</span>
         </div>
       );
     });
   };
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     setImage(file && file.type.substr(0, 5) === "image" ? file : null);
   };
@@ -119,7 +122,7 @@ const CreateChat = ({
     if (step === "exit") onExit();
   }, [step]); //eslint-disable-line
 
-  const stepHandler = direction => {
+  const stepHandler = (direction) => {
     // for create group
     if (maxCountUsers > 1) {
       if (direction === "forward" && selectedContacts.length) {
@@ -127,7 +130,7 @@ const CreateChat = ({
         else if (step === "two") onSubmit();
       }
       if (direction === "back") {
-        setStep(step => (step === "two" ? "one" : "exit"));
+        setStep((step) => (step === "two" ? "one" : "exit"));
       }
       // for create secret chat
     } else if (maxCountUsers === 1 && direction === "back") onExit();
@@ -135,13 +138,13 @@ const CreateChat = ({
 
   const onSubmit = () => {
     if (showActionApproval.show)
-      setShowActionApproval(state => {
+      setShowActionApproval((state) => {
         return { ...state, show: false };
       });
     setLoadingType("squarify");
     const formData = new FormData();
     if (image) formData.append("file", image);
-    const users = selectedContacts.map(item => item.id_real_user);
+    const users = selectedContacts.map((item) => item.id_real_user);
     users.push(userId);
     formData.append("id_user_to", JSON.stringify(users));
     if (componentType === "edit")
@@ -149,13 +152,13 @@ const CreateChat = ({
     const apiUrl =
       showActionApproval.type === "secretChat"
         ? // secret chat
-        //TODO: remove deadline
-        `/ajax/chat_group_sec_add.php?uid=${uid}&name=${selectedContacts[0].name}&deadline=2042-01-28 10:37:35`
+          //TODO: remove deadline
+          `/ajax/chat_group_sec_add.php?uid=${uid}&name=${selectedContacts[0].name}&deadline=2042-01-28 10:37:35`
         : // group		    //_ add or _edit
-        `/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`;
+          `/ajax/chat_group_${componentType}.php?uid=${uid}&name=${groupName}`;
     api
       .post(apiUrl, formData)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok) {
           dispatch(
             showActionApproval.type === "secretChat"
@@ -168,19 +171,24 @@ const CreateChat = ({
                 showActionApproval.type === "secretChat"
                   ? __("Секретный чат успешно создан")
                   : __("Новая группа успешно создана"),
-              text: ""
+              text: "",
             });
           onExit();
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       })
       .finally(() => setLoadingType(""));
   };
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <div className={styles.header}>
         <div
           className={classNames(styles.backBtn, styles.button)}
@@ -192,9 +200,10 @@ const CreateChat = ({
         <div className={styles.title}>
           {maxCountUsers > 1 && step === "one"
             ? __(
-              `Выберите пользователей ${selectedContacts.length
-              }/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
-            )
+                `Выберите пользователей ${
+                  selectedContacts.length
+                }/${new Intl.NumberFormat("ru-RU").format(maxCountUsers)}`
+              )
             : ""}
           {maxCountUsers === 1 ? title : ""}
           {step === "two" ? title : ""}
@@ -205,7 +214,7 @@ const CreateChat = ({
               [styles.forwardBtn]: true,
               [styles.button]: true,
               [styles.disable]:
-                !selectedContacts.length || (step === "two" && !groupName)
+                !selectedContacts.length || (step === "two" && !groupName),
             })}
             onClick={() => stepHandler("forward")}
           >
@@ -226,7 +235,7 @@ const CreateChat = ({
                 <input
                   className={styles.input}
                   value={search}
-                  onChange={e => setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value)}
                   placeholder={__("Введите имя пользователя")}
                 />
                 {renderSelectedContacts()}
@@ -245,7 +254,7 @@ const CreateChat = ({
             </div>
             <input
               value={groupName}
-              onChange={e => setGroupName(e.target.value)}
+              onChange={(e) => setGroupName(e.target.value)}
               className={styles.name}
               placeholder={__("Введите имя группы")}
             />
@@ -260,7 +269,7 @@ const CreateChat = ({
             search={search}
             selectedUsers={selectedContacts}
             setSelectedUsers={
-              step === "one" ? changeSelectedContacts : () => { }
+              step === "one" ? changeSelectedContacts : () => {}
             }
             userContextMenu={step === "one" ? "checkBox" : ""}
             disableHover={step === "two"}
@@ -272,8 +281,9 @@ const CreateChat = ({
         <ActionApproval
           name={__("Начать секретный чат")}
           text={__(
-            `Вы действительно хотите создать секртеный чат с ${selectedContacts[0]
-              .name || ""} ${selectedContacts[0].sname || ""}?`
+            `Вы действительно хотите создать секртеный чат с ${
+              selectedContacts[0].name || ""
+            } ${selectedContacts[0].sname || ""}?`
           )}
           set={() => {
             setShowActionApproval(false);
@@ -311,7 +321,7 @@ const CreateChat = ({
 export default CreateChat;
 
 CreateChat.defaultProps = {
-  maxCountUsers: 1000
+  maxCountUsers: 1000,
 };
 
 CreateChat.propTypes = {
@@ -322,5 +332,5 @@ CreateChat.propTypes = {
   selectedContact: PropTypes.object,
   componentType: PropTypes.string,
   currentDate: PropTypes.object.isRequired,
-  initialUser: PropTypes.object
+  initialUser: PropTypes.object,
 };

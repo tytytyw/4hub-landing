@@ -5,8 +5,8 @@ const INITIAL_STATE = {
   uid: "",
   id_company: false,
   userInfo: {
-    lang: getStorageItem("lang")
-  }
+    lang: getStorageItem("lang"),
+  },
 };
 
 export default function startPage(state = INITIAL_STATE, action) {

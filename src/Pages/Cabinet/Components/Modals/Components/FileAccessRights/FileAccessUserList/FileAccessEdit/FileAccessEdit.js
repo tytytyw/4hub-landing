@@ -8,19 +8,19 @@ import { useAccessRightsConst } from "../../../../../../../../generalComponents/
 import classNames from "classnames";
 import {
   ACCESS_RIGHTS_FORBIDDEN,
-  ACCESS_RIGHTS_GRANTED
+  ACCESS_RIGHTS_GRANTED,
 } from "../../../../../../../../generalComponents/globalVariables";
 
 function FileAccessEdit({
   user,
   showUserAccessStatus,
   changeUserAccessRightsInUsers,
-  closeAccessRightsModal
+  closeAccessRightsModal,
 }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
-  const changeAccessRights = accessRights => {
+  const changeAccessRights = (accessRights) => {
     const access = {
       is_write:
         accessRights === ACCESS_RIGHTS.EDIT
@@ -29,7 +29,7 @@ function FileAccessEdit({
       is_download:
         accessRights === ACCESS_RIGHTS.DOWNLOAD
           ? ACCESS_RIGHTS_GRANTED
-          : ACCESS_RIGHTS_FORBIDDEN
+          : ACCESS_RIGHTS_FORBIDDEN,
     };
     return changeUserAccessRightsInUsers({ ...user, ...access });
   };
@@ -46,7 +46,7 @@ function FileAccessEdit({
         <div
           className={classNames(styles.radio, {
             [styles.radioChosen]:
-              showUserAccessStatus(user) === ACCESS_RIGHTS.WATCH
+              showUserAccessStatus(user) === ACCESS_RIGHTS.WATCH,
           })}
         />
         <div className={styles.description}>{__("Просмотр")}</div>
@@ -61,7 +61,7 @@ function FileAccessEdit({
         <div
           className={classNames(styles.radio, {
             [styles.radioChosen]:
-              showUserAccessStatus(user) === ACCESS_RIGHTS.DOWNLOAD
+              showUserAccessStatus(user) === ACCESS_RIGHTS.DOWNLOAD,
           })}
         />
         <div>Скачивание</div>
@@ -76,7 +76,7 @@ function FileAccessEdit({
         <div
           className={classNames(styles.radio, {
             [styles.radioChosen]:
-              showUserAccessStatus(user) === ACCESS_RIGHTS.EDIT
+              showUserAccessStatus(user) === ACCESS_RIGHTS.EDIT,
           })}
         />
         <div>{__("Редактировать")}</div>
@@ -94,5 +94,5 @@ FileAccessEdit.propTypes = {
   user: userFileAccess,
   showUserAccessStatus: PropTypes.func,
   changeUserAccessRightsInUsers: PropTypes.func,
-  closeAccessRightsModal: PropTypes.func
+  closeAccessRightsModal: PropTypes.func,
 };

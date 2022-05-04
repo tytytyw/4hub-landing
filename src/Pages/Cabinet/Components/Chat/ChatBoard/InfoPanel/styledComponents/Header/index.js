@@ -9,10 +9,15 @@ import classNames from "classnames";
 
 const Header = ({ setOption, title }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <div className={styles.backButton} onClick={() => setOption("main")}>
         <TriangleIcon title="" className={styles.triangleIcon} />
       </div>
@@ -28,5 +33,5 @@ export default Header;
 
 Header.propTypes = {
   setOption: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };

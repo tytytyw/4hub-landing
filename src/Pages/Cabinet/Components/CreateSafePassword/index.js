@@ -43,11 +43,11 @@ const CreateSafePassword = ({ onToggle, title }) => {
     if (width >= 1440) {
       return {
         height: "160px",
-        marginBottom: "15px"
+        marginBottom: "15px",
       };
     } else {
       return {
-        marginBottom: "10px"
+        marginBottom: "10px",
       };
     }
   };
@@ -57,7 +57,7 @@ const CreateSafePassword = ({ onToggle, title }) => {
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
@@ -82,7 +82,8 @@ const CreateSafePassword = ({ onToggle, title }) => {
               className={`${styles.folder} ${
                 color.color !== "grey" ? styles.redCross : undefined
               }`}
-              onClick={() => setColor(colors[0])}>
+              onClick={() => setColor(colors[0])}
+            >
               <SafeIcon className={styles.safeIcon} />
             </div>
             <div className={styles.picPreview}>
@@ -92,7 +93,8 @@ const CreateSafePassword = ({ onToggle, title }) => {
               {tagOption.chosen && (
                 <div
                   className={`${styles.minitagWrap} ${styles.redCross}`}
-                  onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                  onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                >
                   <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                 </div>
               )}
@@ -115,7 +117,7 @@ const CreateSafePassword = ({ onToggle, title }) => {
                 type="text"
                 placeholder={__("Добавте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -124,7 +126,8 @@ const CreateSafePassword = ({ onToggle, title }) => {
               <div
                 className={styles.tagList}
                 ref={tagRef}
-                onClick={handleChoose}>
+                onClick={handleChoose}
+              >
                 {renderTags()}
               </div>
             </div>
@@ -170,5 +173,5 @@ export default CreateSafePassword;
 
 CreateSafePassword.propTypes = {
   onToggle: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
 };

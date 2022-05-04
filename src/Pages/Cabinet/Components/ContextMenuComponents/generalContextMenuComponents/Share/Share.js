@@ -28,12 +28,12 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
   const [timeValue, setTimeValue] = useState({
     hours: "",
     minutes: "",
-    seconds: ""
+    seconds: "",
   });
   const [password, setPassword] = useState("");
-  const uid = useSelector(state => state.user.uid);
-  const share = useSelector(state => state.Cabinet.modals.share);
-  const file = useSelector(state => state.Cabinet.modals.share.file);
+  const uid = useSelector((state) => state.user.uid);
+  const share = useSelector((state) => state.Cabinet.modals.share);
+  const file = useSelector((state) => state.Cabinet.modals.share.file);
 
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -50,7 +50,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
     prim: "",
     deadline: "",
     pass: "",
-    is_write: 0
+    is_write: 0,
   });
   const setTime = (time, limit) => {
     return time < limit ? (time < 10 ? `0${time}` : time) : time[0];
@@ -63,18 +63,18 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
   };
 
   useEffect(() => {
-    setData(data => ({
+    setData((data) => ({
       ...data,
       deadline: dateValue
         ? `${dateValue} ${
             timeValue.hours ? setTime(timeValue.hours, 24) : "23"
           }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"}`
-        : ""
+        : "",
     }));
   }, [dateValue, timeValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setData(data => ({ ...data, pass: password }));
+    setData((data) => ({ ...data, pass: password }));
   }, [password]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onShareFile = () => {
@@ -95,7 +95,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
           }&pass=${data.pass}&prim=${data.prim}`;
     api
       .post(`/ajax/${action_type || share.action_type}.php?${newData}`)
-      .then(res => {
+      .then((res) => {
         let isBool = !!res.data.ok;
         if (isBool) {
           setShowSuccessMessage
@@ -103,7 +103,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
             : dispatch(
                 onSetModals("success", {
                   open: true,
-                  message: __("Отправка прошла успешно")
+                  message: __("Отправка прошла успешно"),
                 })
               );
           closeModal();
@@ -117,7 +117,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err}`);
       })
       .finally(() =>
@@ -136,7 +136,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
             open: false,
             fids: [],
             fid: undefined,
-            action_type: ""
+            action_type: "",
           })
         );
   };
@@ -166,8 +166,8 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
               <input
                 className={emptyField ? styles.empty : ""}
                 onClick={() => setEmptyField(false)}
-                onChange={e =>
-                  setData(data => ({ ...data, user_to: e.target.value }))
+                onChange={(e) =>
+                  setData((data) => ({ ...data, user_to: e.target.value }))
                 }
                 value={data.user_to}
                 placeholder={__("Эл.адрес или имя")}
@@ -183,8 +183,8 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
           <div className={styles.border} />
           <div className={classNames(styles.comment, styles.border_bottom)}>
             <textarea
-              onChange={e =>
-                setData(data => ({ ...data, prim: e.target.value }))
+              onChange={(e) =>
+                setData((data) => ({ ...data, prim: e.target.value }))
               }
               value={data.prim}
               placeholder={__("Добавить комментарий к файлу")}
@@ -206,7 +206,8 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
             </div>
             <span
               onClick={() => setDisplaySetPassword(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -223,11 +224,13 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
                 value={__(
                   "Установите срок хранения файла (после завершения файл будет удален)"
                 )}
-                type="button"></input>
+                type="button"
+              ></input>
             </div>
             <span
               onClick={() => setDisplayStotagePeriod(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -239,7 +242,8 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
               className={styles.add}
               onClick={() => {
                 data.user_to ? onShareFile() : setEmptyField(true);
-              }}>
+              }}
+            >
               {__("Отправить")}
             </div>
           </div>
@@ -295,5 +299,5 @@ Share.propTypes = {
   files: fileProps,
   action_type: PropTypes.string,
   setShowSuccessMessage: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

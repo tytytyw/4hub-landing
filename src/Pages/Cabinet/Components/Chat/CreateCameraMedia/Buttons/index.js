@@ -51,19 +51,19 @@ const Buttons = ({
   imagePreview,
   canvasToImagePreview,
   drawImage,
-  videoPreviewRef
+  videoPreviewRef,
   // setImageFinal
 }) => {
   const { __ } = useLocales();
   const [activeOption, setActiveOption] = useState(null);
   const [activeButton, setActiveButton] = useState(null);
   const saveTextButtonRef = useRef();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const onAddСaptionClick = () => {
     if (videoPreviewRef.current) takePicture(videoPreviewRef.current);
     setDrawImage(true);
-    setActiveOption(prevState =>
+    setActiveOption((prevState) =>
       prevState === "addСaption" ? null : "addСaption"
     );
   };
@@ -73,12 +73,12 @@ const Buttons = ({
       name: "addText",
       clickCallback: () => setActiveOption("addText"),
       icon: <MessageIcon />,
-      subButtons: []
+      subButtons: [],
     },
     {
       name: "addСaption",
       clickCallback: onAddСaptionClick,
-      icon: <PencilIcon strole="none" />
+      icon: <PencilIcon strole="none" />,
     },
     {
       name: "transformOptions",
@@ -88,35 +88,35 @@ const Buttons = ({
         {
           name: "rotate",
           clickCallback: onRotateClick,
-          icon: <RotateIcon />
+          icon: <RotateIcon />,
         },
         {
           name: "mirror",
           clickCallback: onMirrorClick,
-          icon: <MirrorIcon />
+          icon: <MirrorIcon />,
         },
         {
           name: "crop",
           clickCallback: () => {
             setOpenCropImage(true);
-            setActiveButton(activeButton =>
+            setActiveButton((activeButton) =>
               activeButton === "crop" ? "" : "crop"
             );
           },
-          icon: <CropIcon />
-        }
-      ]
+          icon: <CropIcon />,
+        },
+      ],
     },
     {
       name: "filterSettings",
       clickCallback: () => {
-        setActiveOption(prevState =>
+        setActiveOption((prevState) =>
           prevState === "filterSettings" ? null : "filterSettings"
         );
       },
       icon: <SettingsIcon />,
-      subButtons: []
-    }
+      subButtons: [],
+    },
   ]);
 
   const onClickHandler = () => {
@@ -129,10 +129,11 @@ const Buttons = ({
       ? activeOption === "transformOptions"
         ? cancelImageChanges(() => setActiveOption(null))
         : drawImage
-          ? cancelImageChanges(() => {
-            setActiveOption(null), setDrawImage(false);
+        ? cancelImageChanges(() => {
+            setActiveOption(null);
+            setDrawImage(false);
           })
-          : setActiveOption(null)
+        : setActiveOption(null)
       : setInitialState();
 
   const renderCentralBtns = () => {
@@ -155,21 +156,21 @@ const Buttons = ({
           canvasWrapRef={contentWrapperRef}
           toolBarType="toolsOnly"
           images={imagePreview}
-          buttonsStyle={{ boxShadow: '0 0 0 1px #4E4E4E' }}
+          buttonsStyle={{ boxShadow: "0 0 0 1px #4E4E4E" }}
         />
       );
     if (state === "init")
       return (
         <Button
           clickCallback={() =>
-            setContentType(state => (state === "image" ? "video" : "image"))
+            setContentType((state) => (state === "image" ? "video" : "image"))
           }
           width={48}
           height={48}
           borderRadius="50%"
-          childrenColor={'white'}
-          backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#D8D8D8'}
-          boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
+          childrenColor={"white"}
+          backgroundColor={chatTheme.name === "dark" ? "#272727" : "#D8D8D8"}
+          boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
         >
           {contentType === "video" && <CameraIcon />}
           {contentType === "image" && <VideoIcon />}
@@ -178,11 +179,11 @@ const Buttons = ({
 
     if (state === "readyToSend") {
       const buttons =
-        centralButtons.filter(btn => btn?.name === activeOption)[0]
+        centralButtons.filter((btn) => btn?.name === activeOption)[0]
           ?.subButtons || centralButtons;
       if (!buttons?.length) return null;
 
-      return buttons.map(btn =>
+      return buttons.map((btn) =>
         contentType === "video" && btn?.name === "crop" ? (
           ""
         ) : (
@@ -191,9 +192,13 @@ const Buttons = ({
             width={54}
             height={34}
             borderRadius="2px"
-            childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
-            backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
-            boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : "0px 2px 4px #DEDEDE"}
+            childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+            backgroundColor={chatTheme.name === "dark" ? "#272727" : "#fff"}
+            boxShadow={
+              chatTheme.name === "dark"
+                ? "0 0 0 1px #4E4E4E"
+                : "0px 2px 4px #DEDEDE"
+            }
             hoverEffect={
               activeButton === "crop" ? activeButton === btn.name : true
             }
@@ -217,9 +222,9 @@ const Buttons = ({
           style={{
             width: 116,
             height: 34,
-            backgroundColor: chatTheme.name === 'dark' ? '#272727' : '',
-            borderColor: chatTheme.name === 'dark' ? '#4E4E4E' : '',
-            color: chatTheme.name === 'dark' ? '#fff' : ''
+            backgroundColor: chatTheme.name === "dark" ? "#272727" : "",
+            borderColor: chatTheme.name === "dark" ? "#4E4E4E" : "",
+            color: chatTheme.name === "dark" ? "#fff" : "",
           }}
         />
       );
@@ -259,7 +264,7 @@ const Buttons = ({
             canvasToImagePreview(drawCanvasRef.current);
             saveImageChanges(drawCanvasRef.current.toDataURL("image/png"));
             setActiveOption(null);
-            if (contentType === 'video') setDrawImage("sendFile");
+            if (contentType === "video") setDrawImage("sendFile");
           }}
           width={38}
           height={38}
@@ -298,7 +303,12 @@ const Buttons = ({
   }, [openCropImage, activeButton]);
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       {activeOption === "addText" && (
         <div className={classNames(styles.optionsWrapper, styles.textWrapper)}>
           <TextArea
@@ -325,9 +335,11 @@ const Buttons = ({
               width={38}
               height={38}
               borderRadius="50%"
-              childrenColor={chatTheme.name === 'dark' ? "white" : 'black'}
-              boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ""}
-              backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#EDEDED'}
+              childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+              boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
+              backgroundColor={
+                chatTheme.name === "dark" ? "#272727" : "#EDEDED"
+              }
             >
               <BackIcon />
             </Button>
@@ -346,9 +358,9 @@ const Buttons = ({
                 width={48}
                 height={48}
                 borderRadius="50%"
-                backgroundColor={chatTheme.name === 'dark' ? '#272727' : '#fff'}
-                childrenColor={chatTheme.name === 'dark' ? 'white' : 'black'}
-                boxShadow={chatTheme.name === 'dark' ? '0 0 0 1px #4E4E4E' : ''}
+                backgroundColor={chatTheme.name === "dark" ? "#272727" : "#fff"}
+                childrenColor={chatTheme.name === "dark" ? "white" : "black"}
+                boxShadow={chatTheme.name === "dark" ? "0 0 0 1px #4E4E4E" : ""}
                 isRecording={isRecording}
               >
                 {contentType === "image" && <CameraIcon />}
@@ -401,5 +413,5 @@ Buttons.propTypes = {
   imagePreview: PropTypes.array,
   canvasToImagePreview: PropTypes.func.isRequired,
   drawImage: oneOfType([PropTypes.bool, PropTypes.string]),
-  videoPreviewRef: PropTypes.object
+  videoPreviewRef: PropTypes.object,
 };

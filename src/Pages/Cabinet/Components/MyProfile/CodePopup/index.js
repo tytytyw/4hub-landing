@@ -14,7 +14,7 @@ const CodePopup = ({ setShowCodePopup }) => {
   const { __ } = useLocales();
   const [code, setCode] = useState("");
   const [errors] = useState({});
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const dispatch = useDispatch();
 
   const sentCode = () => {
@@ -24,7 +24,7 @@ const CodePopup = ({ setShowCodePopup }) => {
         dispatch(onGetUserInfo());
         setShowCodePopup(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -36,7 +36,8 @@ const CodePopup = ({ setShowCodePopup }) => {
           <div className={styles.closeWrap}>
             <div
               className={styles.close}
-              onClick={() => setShowCodePopup(false)}>
+              onClick={() => setShowCodePopup(false)}
+            >
               <span className={styles.times} />
             </div>
           </div>
@@ -53,7 +54,7 @@ const CodePopup = ({ setShowCodePopup }) => {
               name="code"
               className={styles.input}
               isMistake={errors?.code}
-              onChange={event => setCode(event.target.value)}
+              onChange={(event) => setCode(event.target.value)}
             />
             <span className={styles.link}>{__("Не пришел код?")}</span>
           </div>
@@ -71,5 +72,5 @@ const CodePopup = ({ setShowCodePopup }) => {
 export default CodePopup;
 
 CodePopup.propTypes = {
-  setShowCodePopup: PropTypes.func
+  setShowCodePopup: PropTypes.func,
 };

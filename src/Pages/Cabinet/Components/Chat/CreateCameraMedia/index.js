@@ -4,7 +4,7 @@ import styles from "./CreateCameraMedia.module.sass";
 import Buttons from "./Buttons";
 import {
   cameraAccess,
-  wantMimeType
+  wantMimeType,
 } from "../../../../../generalComponents/chatHelper";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import VideoPlayer from "./VideoPlayer";
@@ -20,7 +20,7 @@ const CreateCameraMedia = ({
   nullifyAction,
   addMessage,
   socket,
-  scrollToBottom
+  scrollToBottom,
 }) => {
   const [state, setState] = useState("init");
   const [contentType, setContentType] = useState("image");
@@ -47,16 +47,16 @@ const CreateCameraMedia = ({
       invert: 0,
       sepia: 0,
       blur: 0,
-      result: ""
-    }
+      result: "",
+    },
   });
   const [drawImage, setDrawImage] = useState(false);
   const [videoCutParams, setVideoCutParams] = useState({
     from: { percent: 0, time: 0 },
-    to: { percent: 100, time: null }
+    to: { percent: 100, time: null },
   });
-  const uid = useSelector(state => state.user.uid);
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const uid = useSelector((state) => state.user.uid);
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const streamPreviewRef = useRef();
   const videoPreviewRef = useRef();
   const canvasRef = useRef();
@@ -73,19 +73,19 @@ const CreateCameraMedia = ({
 
   const constraints = {
     audio: true,
-    video: { height: { exact: quality }, facingMode: "user" }
+    video: { height: { exact: quality }, facingMode: "user" },
   };
 
   const getStream = () =>
     cameraAccess(constraints)
-      .then(stream => onStreamReady(stream))
+      .then((stream) => onStreamReady(stream))
       .catch(() => console.log("error access to cam"));
 
   const cleareStreamTracks = () => {
-    if (stream) stream.getTracks().forEach(track => track.stop());
+    if (stream) stream.getTracks().forEach((track) => track.stop());
   };
 
-  const onStreamReady = stream => {
+  const onStreamReady = (stream) => {
     const video = streamPreviewRef.current;
     video.srcObject = stream;
     video.play();
@@ -94,7 +94,7 @@ const CreateCameraMedia = ({
 
   const onRecordVideo = () => {
     const recorder = new MediaRecorder(stream, {
-      mimeType: wantMimeType(constraints)
+      mimeType: wantMimeType(constraints),
     });
     recorder.start();
     setMediaRecorder(recorder);
@@ -107,7 +107,7 @@ const CreateCameraMedia = ({
     }
   };
 
-  const videoDataAviable = e => {
+  const videoDataAviable = (e) => {
     setVideoPreview(URL.createObjectURL(e.data));
     cleareStreamTracks();
     setState("readyToSend");
@@ -118,15 +118,15 @@ const CreateCameraMedia = ({
     mediaRecorder.stop();
   };
 
-  const canvasToImagePreview = canvas =>
+  const canvasToImagePreview = (canvas) =>
     setImagePreview(canvas.toDataURL("image/png"));
 
-  const takePicture = videoRef => {
+  const takePicture = (videoRef) => {
     const video = videoRef ?? streamPreviewRef.current;
     if (video) {
       previewSize.current = {
         height: video.clientHeight,
-        width: video.clientWidth
+        width: video.clientWidth,
       };
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
@@ -158,8 +158,8 @@ const CreateCameraMedia = ({
         invert: 0,
         sepia: 0,
         blur: 0,
-        result: ""
-      }
+        result: "",
+      },
     });
   };
 
@@ -178,15 +178,15 @@ const CreateCameraMedia = ({
 
   const onRotateClick = () => {
     if (!openCropImage && !imageAspectRatio) {
-      setVisualEffects(prevEffects => ({
+      setVisualEffects((prevEffects) => ({
         ...prevEffects,
         transform: {
           ...prevEffects.transform,
           rotate:
             prevEffects.transform.rotate === 270
               ? 0
-              : prevEffects.transform.rotate + 90
-        }
+              : prevEffects.transform.rotate + 90,
+        },
       }));
       if (imageRef.current) rotateCanvas();
     }
@@ -194,12 +194,12 @@ const CreateCameraMedia = ({
 
   const onMirrorClick = () => {
     if (!openCropImage && !imageAspectRatio) {
-      setVisualEffects(prevEffects => ({
+      setVisualEffects((prevEffects) => ({
         ...prevEffects,
         transform: {
           ...prevEffects.transform,
-          scale: prevEffects.transform.scale ? "" : "scale(-1, 1)"
-        }
+          scale: prevEffects.transform.scale ? "" : "scale(-1, 1)",
+        },
       }));
       if (imageRef.current) reflectCanvas();
     }
@@ -224,15 +224,15 @@ const CreateCameraMedia = ({
     const getFileFromUrl = fetch(
       contentType.includes("image") ? imageFinal : videoPreview
     )
-      .then(res => res.blob())
+      .then((res) => res.blob())
       .then(
-        blobFile =>
+        (blobFile) =>
           new File([blobFile], contentType, {
             type:
-              contentType === "video" ? wantMimeType(constraints) : "image/png"
+              contentType === "video" ? wantMimeType(constraints) : "image/png",
           })
       );
-    getFileFromUrl.then(file => {
+    getFileFromUrl.then((file) => {
       const formData = new FormData();
       formData.append("myfile", file);
       formData.append("uid", uid);
@@ -250,19 +250,19 @@ const CreateCameraMedia = ({
       }
       api
         .post(`/ajax/${apiUrl}.php`, formData)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok) {
             const attachment = {
               ...res.data.files.myfile,
               link: res.data.link,
               fid: res.data.fid,
               id: res.data.id,
-              kind: contentType
+              kind: contentType,
             };
             if (contentType === "video")
               attachment.visualEffects = {
                 filter: visualEffects.filter.result,
-                transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`
+                transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
               };
             if (socket?.readyState) {
               addMessage(textMessage, attachment);
@@ -277,14 +277,14 @@ const CreateCameraMedia = ({
     });
   };
 
-  const saveImageChanges = image => setImageFinal(image ?? imagePreview);
+  const saveImageChanges = (image) => setImageFinal(image ?? imagePreview);
   const saveCropChanges = () => {
     canvasToImagePreview(canvasRef.current);
     // setImageFinal(canvasDataUrl);
     setOpenCropImage(false);
   };
 
-  const cancelImageChanges = additionalFunc => {
+  const cancelImageChanges = (additionalFunc) => {
     setImagePreview(imageFinal);
     additionalFunc && additionalFunc();
   };
@@ -320,7 +320,7 @@ const CreateCameraMedia = ({
   useEffect(() => {
     if (isRecording) {
       const timer = setInterval(() => {
-        setDucationTimer(sec => sec + 1);
+        setDucationTimer((sec) => sec + 1);
       }, 1000);
       return () => {
         clearInterval(timer);
@@ -343,8 +343,16 @@ const CreateCameraMedia = ({
       containerType="bounceDots"
     />
   ) : (
-    <PopUp set={nullifyAction} background={chatTheme.name === 'dark' ? '#292929' : ''}>
-      <div className={classNames({ [styles.contentWrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <PopUp
+      set={nullifyAction}
+      background={chatTheme.name === "dark" ? "#292929" : ""}
+    >
+      <div
+        className={classNames({
+          [styles.contentWrapper]: true,
+          [styles.darkTheme]: chatTheme.name === "dark",
+        })}
+      >
         <div className={styles.contentPreview}>
           <div className={styles.videoWrapper} ref={contentWrapperRef}>
             {drawImage && imageDrawSrc ? (
@@ -353,7 +361,7 @@ const CreateCameraMedia = ({
                 mainRef={contentWrapperRef}
                 images={imageDrawSrc}
                 params={{ isLoading: false }}
-                setParams={() => { }}
+                setParams={() => {}}
                 mainWidth="auto"
               />
             ) : videoPreview ? (
@@ -362,7 +370,7 @@ const CreateCameraMedia = ({
                 videoPlayerRef={videoPreviewRef}
                 visualEffects={{
                   filter: visualEffects.filter.result,
-                  transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`
+                  transform: `${visualEffects.transform.scale} rotate(-${visualEffects.transform.rotate}deg)`,
                 }}
                 videoCutParams={videoCutParams}
                 setVideoCutParams={setVideoCutParams}
@@ -403,7 +411,7 @@ const CreateCameraMedia = ({
           <select
             className={styles.select}
             value={quality}
-            onChange={e => setQuality(+e.target.value)}
+            onChange={(e) => setQuality(+e.target.value)}
           >
             <option>1080</option>
             <option>720</option>
@@ -470,5 +478,5 @@ CreateCameraMedia.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
   socket: PropTypes.object,
-  scrollToBottom: PropTypes.func.isRequired
+  scrollToBottom: PropTypes.func.isRequired,
 };

@@ -24,11 +24,11 @@ const DataMemory = ({ setPageOption }) => {
                 backgroundColor: [
                   "rgb(0, 123, 255)",
                   "rgb(54, 184, 23)",
-                  "rgb(219, 187, 149)"
+                  "rgb(219, 187, 149)",
                 ],
-                hoverOffset: 4
-              }
-            ]
+                hoverOffset: 4,
+              },
+            ],
           }}
         />
       </div>
@@ -127,5 +127,5 @@ const DataMemory = ({ setPageOption }) => {
 export default DataMemory;
 
 DataMemory.propTypes = {
-  setPageOption: PropTypes.func
+  setPageOption: PropTypes.func,
 };

@@ -11,7 +11,7 @@ const Select = ({ value, ...props }) => {
   useEffect(() => setOpen(false), [value]);
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -33,14 +33,15 @@ const Select = ({ value, ...props }) => {
       ref={ref}
       className={classNames({
         [styles.selectWrap]: true,
-        [styles.active]: !!open
-      })}>
+        [styles.active]: !!open,
+      })}
+    >
       <div onClick={() => setOpen(!open)} className={styles.select}>
         <span className={styles.selectInput}>{getValue()}</span>
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open
+            [styles.active]: !!open,
           })}
         />
       </div>
@@ -48,8 +49,9 @@ const Select = ({ value, ...props }) => {
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open
-        })}>
+          [styles.active]: !!open,
+        })}
+      >
         {props.children}
       </div>
     </div>
@@ -61,5 +63,5 @@ export default Select;
 Select.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

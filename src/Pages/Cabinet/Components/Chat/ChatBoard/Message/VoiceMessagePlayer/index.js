@@ -11,63 +11,15 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
 
   const renderHistogram = (
     arr = [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]
   ) => {
     return arr.map((value, i) => (
       <div
         className={classNames({
           [styles.column]: true,
-          [styles.lisened]: progress > i * 2
+          [styles.lisened]: progress > i * 2,
         })}
         key={i}
         style={{ height: `${value}%` }}
@@ -75,7 +27,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
     ));
   };
 
-  const buttonHandler = e => {
+  const buttonHandler = (e) => {
     e.preventDefault();
     setPlaying(audio.paused);
     if (audio.paused) {
@@ -105,7 +57,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
     return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
   };
 
-  const onSeek = e => {
+  const onSeek = (e) => {
     audio.pause();
     audio.currentTime = (audio.duration * e.target.value) / 100;
     setPlaying(true);
@@ -147,7 +99,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
         onClick={buttonHandler}
         className={classNames({
           [styles.playButton]: true,
-          [styles.inboxMessage]: inboxMessage
+          [styles.inboxMessage]: inboxMessage,
         })}
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
@@ -155,7 +107,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
       <div
         className={classNames({
           [styles.rightContainer]: true,
-          [styles.inboxMessage]: inboxMessage
+          [styles.inboxMessage]: inboxMessage,
         })}
       >
         <div className={styles.audioHistogram}>
@@ -185,12 +137,12 @@ VoiceMessagePlayer.propTypes = {
         return new Error(
           `invalid prop ${props[propName]} array lenght must be equal to 50. In ${componentName}`
         );
-      } else if (props[propName].some(item => item > 100 || item < 0)) {
+      } else if (props[propName].some((item) => item > 100 || item < 0)) {
         return new Error(
           `incorrect value of an array ${props[propName]} expected value from 0 to 100`
         );
       }
     }
   },
-  inboxMessage: PropTypes.bool
+  inboxMessage: PropTypes.bool,
 };

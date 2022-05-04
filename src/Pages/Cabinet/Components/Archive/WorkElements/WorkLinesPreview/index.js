@@ -21,22 +21,22 @@ const WorkLinesPreview = ({
   setPage,
   fileRef,
   chosenFolder,
-  gLoader
+  gLoader,
 }) => {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
-  const search = useSelector(state => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const search = useSelector((state) => state.Cabinet?.search);
   const [loadingFiles, setLoadingFiles] = useState(false);
   const dispatch = useDispatch();
   const [color, setColor] = useState(null);
   const [f, setF] = useState(null);
   useEffect(() => {
-    if (fileList?.find(item => item?.fid === file?.fid)) {
+    if (fileList?.find((item) => item?.fid === file?.fid)) {
       setF(file);
     } else {
       setF(null);
     }
-    const newColor = colors.filter(c => c.color === file?.color);
+    const newColor = colors.filter((c) => c.color === file?.color);
     setColor(newColor[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
@@ -60,7 +60,8 @@ const WorkLinesPreview = ({
           <video
             controls
             src={`https://fs2.mh.net.ua${f.preview}`}
-            type={f.mime_type}>
+            type={f.mime_type}
+          >
             <source
               src={`https://fs2.mh.net.ua${f.preview}`}
               type={f.mime_type}
@@ -74,7 +75,8 @@ const WorkLinesPreview = ({
             <audio
               controls
               ref={audioRef}
-              src={`https://fs2.mh.net.ua${f.preview}`}>
+              src={`https://fs2.mh.net.ua${f.preview}`}
+            >
               <source
                 src={`https://fs2.mh.net.ua${f.preview}`}
                 type={f.mime_type}
@@ -127,9 +129,9 @@ const WorkLinesPreview = ({
     onCheckFilesPerPage();
   }, [size, page, chosenFolder?.files_amount]); // eslint-disable-line
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     setLoadingFiles(false);
-    result > 0 ? setPage(page => page + 1) : setPage(0);
+    result > 0 ? setPage((page) => page + 1) : setPage(0);
   };
 
   const loadFiles = (e, access) => {
@@ -166,7 +168,8 @@ const WorkLinesPreview = ({
           {!gLoader && children}
           <div
             className={styles.bottomLine}
-            style={{ height: loadingFiles ? "100px" : "40px" }}>
+            style={{ height: loadingFiles ? "100px" : "40px" }}
+          >
             {loadingFiles && !gLoader ? (
               <Loader
                 type="bounceDots"
@@ -216,7 +219,7 @@ const WorkLinesPreview = ({
                     className={styles.colorCircle}
                     style={{
                       background: color?.light,
-                      border: `1px solid ${color?.dark}`
+                      border: `1px solid ${color?.dark}`,
                     }}
                   />
                 ) : (
@@ -315,16 +318,16 @@ WorkLinesPreview.propTypes = {
   fileList: PropTypes.shape({
     files: PropTypes.array,
     path: PropTypes.string,
-    find: PropTypes.func
+    find: PropTypes.func,
   }),
   children: PropTypes.node,
   fileRef: PropTypes.shape({
-    current: PropTypes.string
+    current: PropTypes.string,
   }),
   filePick: filePickProps,
   setPage: PropTypes.func,
   gLoader: PropTypes.bool,
   chosenFolder: chosenFolderProps,
-  hideFileList: PropTypes.true,
-  page: PropTypes.string
+  hideFileList: PropTypes.bool,
+  page: PropTypes.string,
 };

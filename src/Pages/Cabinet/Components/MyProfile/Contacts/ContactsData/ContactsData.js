@@ -17,7 +17,7 @@ import {
   emptyProfileImage,
   getContactName,
   messengersIcons,
-  socialsIcons
+  socialsIcons,
 } from "../consts";
 
 import api from "../../../../../../api";
@@ -33,11 +33,11 @@ import { selectedItemProps } from "../../../../../../types/Contacts";
 const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
-  const getFavourites = contacts => {
+  const getFavourites = (contacts) => {
     const favouritesData = [];
-    contacts?.forEach(contact => {
+    contacts?.forEach((contact) => {
       if (contact?.is_fav === "1") {
         favouritesData.push(contact?.id);
       }
@@ -55,7 +55,7 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
 
   const selectOtherContact = () => {
     const newContacts = [];
-    data.forEach(contactItem => {
+    data.forEach((contactItem) => {
       if (contactItem.id !== selectedItem.id) {
         newContacts.push(contactItem);
       }
@@ -72,13 +72,13 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
         params: {
           uid,
           id: selectedItem?.id,
-          is_fav: isFav
-        }
+          is_fav: isFav,
+        },
       })
       .then(() => {
         dispatch(onGetContacts());
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -88,22 +88,22 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
       .get(`/ajax/contacts_del.php`, {
         params: {
           uid,
-          id: selectedItem?.id
-        }
+          id: selectedItem?.id,
+        },
       })
       .then(() => {
         dispatch(onGetContacts());
         selectOtherContact();
         setDelConfirm(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
   const profileImage = selectedItem?.icon?.[0] || emptyProfileImage;
 
-  const getDate = date => {
+  const getDate = (date) => {
     return date ? new Date(date).toLocaleDateString() : __("Не задан");
   };
 
@@ -139,13 +139,15 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
 
             <div
               onClick={() => setContactPopup(true)}
-              className={styles.iconView}>
+              className={styles.iconView}
+            >
               <EditIcon className={styles.iconShare} />
             </div>
 
             <div
               onClick={() => setDelConfirm(true)}
-              className={styles.iconView}>
+              className={styles.iconView}
+            >
               <DeleteIcon className={styles.iconTrash} />
             </div>
 
@@ -159,7 +161,8 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
                   )}?`
                 )}
                 set={() => setDelConfirm(false)}
-                callback={onDeleteConfirm}>
+                callback={onDeleteConfirm}
+              >
                 <img
                   className={styles.profileImg}
                   src={profileImage}
@@ -254,8 +257,9 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
               <span
                 className={classnames({
                   [styles.info]: true,
-                  [styles.links]: true
-                })}>
+                  [styles.links]: true,
+                })}
+              >
                 {__("Профиль соц. сетей:")}
               </span>
               <div className={styles.value}>
@@ -277,8 +281,9 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
               <span
                 className={classnames({
                   [styles.info]: true,
-                  [styles.links]: true
-                })}>
+                  [styles.links]: true,
+                })}
+              >
                 {__("Мессенджеры:")}
               </span>
               <div className={styles.value}>
@@ -320,9 +325,9 @@ export default ContactsData;
 ContactsData.propTypes = {
   data: PropTypes.array,
   selectedItem: selectedItemProps,
-  setSelectedItem: PropTypes.func
+  setSelectedItem: PropTypes.func,
 };
 
 ContactsData.defaultProps = {
-  data: []
+  data: [],
 };

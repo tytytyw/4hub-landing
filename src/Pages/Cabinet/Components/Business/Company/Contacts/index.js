@@ -18,16 +18,16 @@ const Contacts = ({
   setShowSuccessMessage,
   mouseParams,
   setMouseParams,
-  renderMenuItems
+  renderMenuItems,
 }) => {
   const { __ } = useLocales();
   const [selectedItem, setSelectedItem] = useState(null);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
 
-  const id_company = useSelector(state => state.user.id_company);
-  const uid = useSelector(state => state.user.uid);
-  const contactList = useSelector(state => state.Cabinet.companyContactList);
+  const id_company = useSelector((state) => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
+  const contactList = useSelector((state) => state.Cabinet.companyContactList);
   const dispatch = useDispatch();
 
   const deleteContact = () => {
@@ -42,7 +42,7 @@ const Contacts = ({
         );
         setSelectedItem(null);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -50,7 +50,7 @@ const Contacts = ({
   const contextMenuContact = [
     { name: __("Поделиться"), img: "share", type: "shareContact" },
     { name: __("Редактировать"), img: "edit", type: "editContact" },
-    { name: __("Удалить"), img: "garbage", type: "deleteContact" }
+    { name: __("Удалить"), img: "garbage", type: "deleteContact" },
   ];
   const callbackArrMain = [
     {
@@ -59,14 +59,14 @@ const Contacts = ({
       text: __(
         `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`
       ),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "editContact",
       name: __("Редактировать"),
       text: __(``),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   useEffect(() => (selectedItem ? nullifyAction() : ""), [selectedItem]);
@@ -75,7 +75,7 @@ const Contacts = ({
     () =>
       contactList && selectedItem
         ? setSelectedItem(
-            contactList.filter(item => item.id === selectedItem.id)[0]
+            contactList.filter((item) => item.id === selectedItem.id)[0]
           )
         : "",
     [contactList]
@@ -119,7 +119,8 @@ const Contacts = ({
           text={action.text}
           set={nullifyAction}
           callback={deleteContact}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <img
             className={styles.avatar}
             src={
@@ -134,7 +135,8 @@ const Contacts = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={false}>
+          tooltip={false}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuContact, callbackArrMain)}
           </div>
@@ -150,5 +152,5 @@ Contacts.propTypes = {
   setShowSuccessMessage: PropTypes.func,
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
-  renderMenuItems: PropTypes.func
+  renderMenuItems: PropTypes.func,
 };

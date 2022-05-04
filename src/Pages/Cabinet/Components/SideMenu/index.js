@@ -14,7 +14,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   const { pathname } = useLocation();
   const history = useHistory();
 
-  const theme = useSelector(state => state.user.userInfo?.theme);
+  const theme = useSelector((state) => state.user.userInfo?.theme);
   const dispatch = useDispatch();
 
   const getThemeBg = () => {
@@ -25,7 +25,7 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
   };
 
   const renderMenuItems = () => {
-    return data.map(item => {
+    return data.map((item) => {
       return (
         <div
           className={`
@@ -37,7 +37,8 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
           onClick={() => {
             history.push(item.path);
             dispatch(clearRecentFiles());
-          }}>
+          }}
+        >
           <img
             className={`${styles.icons} ${
               collapsed ? styles.iconsCollapsed : undefined
@@ -57,8 +58,9 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
     <aside
       className={collapsed ? styles.collapsed : styles.asideWrap}
       style={{
-        background: getThemeBg()
-      }}>
+        background: getThemeBg(),
+      }}
+    >
       <img
         className={collapsed ? styles.minIcon : styles.hubIcon}
         src={`${imageSrc}assets/PrivateCabinet/${
@@ -69,7 +71,8 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
       <div
         className={`${styles.titleWrap} ${
           collapsed ? styles.titleWrapCollapsed : undefined
-        }`}>
+        }`}
+      >
         <span className={collapsed ? styles.hidden : undefined}>
           {__("МЕНЮ")}
         </span>
@@ -92,9 +95,9 @@ export default SideMenu;
 SideMenu.propTypes = {
   data: PropTypes.array,
   collapsed: PropTypes.bool,
-  setCollapsed: PropTypes.func
+  setCollapsed: PropTypes.func,
 };
 
 SideMenu.defaultTypes = {
-  data: []
+  data: [],
 };

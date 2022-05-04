@@ -11,15 +11,15 @@ import { chosenFolderProps } from "../../../../../../types/CreateFolder";
 
 function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
   const { __ } = useLocales();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [passwordCoincide, setPasswordCoincide] = useState(false);
   const [showRepeat, setShowRepeat] = useState(true);
   const [visibility, setVisibility] = useState("password");
   const [error, setError] = useState(false);
-  const onSwitch = boolean => setShowRepeat(boolean);
-  const comparePass = val => {
+  const onSwitch = (boolean) => setShowRepeat(boolean);
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -36,7 +36,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
     const data = {
       uid,
       fids: [folder?.info?.fid],
-      pass: password === passwordRepeat ? `${password}` : ""
+      pass: password === passwordRepeat ? `${password}` : "",
     };
 
     if (password) {
@@ -96,14 +96,16 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
           <div className={styles.buttonsWrap}>
             <div
               className={styles.cancel}
-              onClick={() => setDisplaySetPassword(false)}>
+              onClick={() => setDisplaySetPassword(false)}
+            >
               {__("Отмена")}
             </div>
             <div
               className={styles.add}
               onClick={() => {
                 onAddPass();
-              }}>
+              }}
+            >
               {__("Установить")}
             </div>
           </div>
@@ -125,5 +127,5 @@ export default SetPassword;
 SetPassword.propTypes = {
   folder: chosenFolderProps,
   setDisplaySetPassword: PropTypes.func,
-  setShowSuccessMessage: PropTypes.func
+  setShowSuccessMessage: PropTypes.func,
 };

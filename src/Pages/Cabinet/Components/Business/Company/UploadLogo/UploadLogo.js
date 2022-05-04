@@ -68,8 +68,8 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
     nullifyAction();
   };
 
-  const onAddFile = e => {
-    const validateFile = file => {
+  const onAddFile = (e) => {
+    const validateFile = (file) => {
       return file.size < 5252000 && file.type.includes("image/");
     };
     if (validateFile(e.target.files[0])) {
@@ -127,9 +127,10 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
           <div
             className={classNames({
               [styles.action]: true,
-              [styles.disableBtn]: !blob
+              [styles.disableBtn]: !blob,
             })}
-            onClick={createNewImage}>
+            onClick={createNewImage}
+          >
             {__("Сохранить")}
           </div>
         </div>
@@ -144,5 +145,5 @@ UploadLogo.propTypes = {
   nullifyAction: PropTypes.func,
   setCompanyLogo: PropTypes.func,
   blob: PropTypes.object,
-  setBlob: PropTypes.func
+  setBlob: PropTypes.func,
 };

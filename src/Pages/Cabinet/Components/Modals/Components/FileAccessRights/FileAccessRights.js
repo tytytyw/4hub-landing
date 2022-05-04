@@ -8,7 +8,7 @@ import {
   NO_ELEMENT,
   FILE_ACCESS_RIGHTS,
   MODALS,
-  TOP_MESSAGE_TYPE
+  TOP_MESSAGE_TYPE,
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
@@ -22,14 +22,16 @@ function FileAccessRights() {
   const { __ } = useLocales();
 
   const dispatch = useDispatch();
-  const fileAccessRights = useSelector(s => s.Cabinet.modals.fileAccessRights);
+  const fileAccessRights = useSelector(
+    (s) => s.Cabinet.modals.fileAccessRights
+  );
   const [url, setUrl] = useState(__("Загрузка..."));
   const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
-  const uid = useSelector(s => s.user.uid);
+  const uid = useSelector((s) => s.user.uid);
   const [params, setParams] = useState({
     usersToDelete: [],
-    usersToChangeAccessRights: []
+    usersToChangeAccessRights: [],
   });
 
   const closeModal = () =>
@@ -37,7 +39,7 @@ function FileAccessRights() {
       onSetModals(MODALS.FILE_ACCESS_RIGHTS, {
         ...fileAccessRights,
         open: false,
-        file: {}
+        file: {},
       })
     );
 
@@ -59,10 +61,10 @@ function FileAccessRights() {
       .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
         params: {
           uid,
-          fid: fileAccessRights.file.fid
-        }
+          fid: fileAccessRights.file.fid,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (checkResponseStatus(res.data.ok)) {
           setUsers(res.data.access);
         } else {
@@ -72,7 +74,7 @@ function FileAccessRights() {
           );
         }
       })
-      .catch(err => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
+      .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
   };
 
   useEffect(() => {
@@ -95,24 +97,24 @@ function FileAccessRights() {
         onSetModals(MODALS.TOP_MESSAGE, {
           open: true,
           type: TOP_MESSAGE_TYPE.MESSAGE,
-          message: __("Ссылка скопирована")
+          message: __("Ссылка скопирована"),
         })
       );
     }
   };
 
-  const deleteUserFromUsers = user => {
-    setParams(s => ({
+  const deleteUserFromUsers = (user) => {
+    setParams((s) => ({
       ...s,
       usersToDelete: [
         ...s.usersToDelete,
-        ...users.filter(it => it.uid === user.uid)
+        ...users.filter((it) => it.uid === user.uid),
       ],
       usersToChangeAccessRights: s.usersToChangeAccessRights.filter(
-        it => it.uid !== user.uid
-      )
+        (it) => it.uid !== user.uid
+      ),
     }));
-    setUsers(s => s.filter(it => it.uid !== user.uid));
+    setUsers((s) => s.filter((it) => it.uid !== user.uid));
   };
 
   const deleteUsers = async () => {
@@ -123,8 +125,8 @@ function FileAccessRights() {
             uid,
             fids: [fileAccessRights.file.fid],
             dir: fileAccessRights.file.gdir,
-            user_to: user.email
-          }
+            user_to: user.email,
+          },
         })
         .catch(() => {
           setTopMessage(
@@ -135,20 +137,20 @@ function FileAccessRights() {
     }
   };
 
-  const changeUserAccessRightsInUsers = user => {
-    const idxInUsers = users.findIndex(it => it.uid === user.uid);
+  const changeUserAccessRightsInUsers = (user) => {
+    const idxInUsers = users.findIndex((it) => it.uid === user.uid);
     const idxInParams = params.usersToChangeAccessRights.findIndex(
-      it => it.uid === user.uid
+      (it) => it.uid === user.uid
     );
-    setUsers(s => s.map((it, idx) => (idx === idxInUsers ? user : it)));
-    setParams(s => ({
+    setUsers((s) => s.map((it, idx) => (idx === idxInUsers ? user : it)));
+    setParams((s) => ({
       ...s,
       usersToChangeAccessRights:
         idxInParams === NO_ELEMENT
           ? [...s.usersToChangeAccessRights, user]
           : s.usersToChangeAccessRights.map((it, idx) =>
               idx === idxInUsers ? user : it
-            )
+            ),
     }));
   };
 
@@ -165,8 +167,8 @@ function FileAccessRights() {
             is_download: user.is_download,
             deadline: user.deadline, //TODO - wait for BE
             prim: user.prim, //TODO - wait for BE
-            pass: user.pass //TODO - wait for BE
-          }
+            pass: user.pass, //TODO - wait for BE
+          },
         })
         .catch(() => {
           setTopMessage(
@@ -239,7 +241,7 @@ function FileAccessRights() {
           <div
             className={classNames({
               [styles.buttonDisabled]: !isChanges(),
-              [styles.add]: isChanges()
+              [styles.add]: isChanges(),
             })}
             onClick={approveChanges}
           >

@@ -20,7 +20,7 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 
 const CalendarPage = () => {
   const dispatch = useDispatch();
-  const events = useSelector(state => state.Cabinet.calendarEvents);
+  const events = useSelector((state) => state.Cabinet.calendarEvents);
 
   const [viewType, setViewType] = useState("list");
   const [createTask, setCreateTask] = useState(false);

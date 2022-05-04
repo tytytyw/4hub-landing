@@ -14,7 +14,7 @@ const VideoMessagePlayer = ({ video }) => {
   const [progress, setProgress] = useState(0);
   const [circleOffset, setCircleOffset] = useState(circumference);
   const [mute, setMute] = useState(false);
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const playHandler = () => {
     !playing ? videoRef.current.play() : videoRef.current.pause();
@@ -55,7 +55,7 @@ const VideoMessagePlayer = ({ video }) => {
     return `${min < 10 ? `0${min}` : min}:${sec < 10 ? `0${sec}` : sec}`;
   };
 
-  const rewindVideo = value => {
+  const rewindVideo = (value) => {
     const video = videoRef?.current;
     if (video) {
       video.pause();
@@ -96,7 +96,7 @@ const VideoMessagePlayer = ({ video }) => {
     };
   }, []);
 
-  const clickHandler = e => {
+  const clickHandler = (e) => {
     if (
       (typeof e.target.className === "string" &&
         e.target.className.includes("mute")) ||
@@ -116,7 +116,7 @@ const VideoMessagePlayer = ({ video }) => {
     // coordinates relative to center circle
     const clickCoordinats = {
       x: e.clientX - targetCoords.left - circleRadius,
-      y: (e.clientY - targetCoords.top - circleRadius) * -1
+      y: (e.clientY - targetCoords.top - circleRadius) * -1,
     };
     const clickRadius = calcDistanceBetweenPoints(
       { x: 0, y: 0 },
@@ -129,7 +129,7 @@ const VideoMessagePlayer = ({ video }) => {
     );
     if (clickRadius > innerRadius && clickRadius < outerRadius) {
       // click on progress bar
-      const numToSquare = num =>
+      const numToSquare = (num) =>
         (Math.round(num * 10000) * Math.round(num * 10000)) / 100000000;
       const multiplyNum = (a, b) =>
         (Math.round(a * 10000) * Math.round(b * 10000)) / 100000000;
@@ -139,9 +139,9 @@ const VideoMessagePlayer = ({ video }) => {
           (numToSquare(clickRadius) +
             numToSquare(clickRadius) -
             numToSquare(valueBaseTriangle)) /
-          (2 * multiplyNum(clickRadius, clickRadius))
+            (2 * multiplyNum(clickRadius, clickRadius))
         );
-      const calcProgress = range => (range / circumference) * 100;
+      const calcProgress = (range) => (range / circumference) * 100;
       if (clickCoordinats.x === 0) setProgress(clickCoordinats.y > 0 ? 0 : 50);
       if (clickCoordinats.x > 0) rewindVideo(calcProgress(circularArcRange)); // '< 180deg'
       if (clickCoordinats.x < 0)
@@ -158,18 +158,24 @@ const VideoMessagePlayer = ({ video }) => {
   }, [mute]);
 
   const muteHandler = () => {
-    setMute(mute => !mute);
+    setMute((mute) => !mute);
   };
 
   return (
-    <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })} onClick={clickHandler}>
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+      onClick={clickHandler}
+    >
       <div className={styles.videoWrapper}>
         <svg width={circleRadius * 2} height={circleRadius * 2}>
           <circle
             cx={circleRadius}
             cy={circleRadius}
             r={circleRadius}
-            fill={chatTheme.name === 'dark' ? '#323232' : "#F5F9FE"}
+            fill={chatTheme.name === "dark" ? "#323232" : "#F5F9FE"}
           />
           <circle
             className={styles.progressCircle}
@@ -198,5 +204,5 @@ const VideoMessagePlayer = ({ video }) => {
 export default VideoMessagePlayer;
 
 VideoMessagePlayer.propTypes = {
-  video: PropTypes.object.isRequired
+  video: PropTypes.object.isRequired,
 };

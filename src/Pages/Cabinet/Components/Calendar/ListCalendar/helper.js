@@ -1,70 +1,67 @@
-export const getDays = cDay => {
+export const getDays = (cDay) => {
+  const date = new Date(cDay);
+  date.setDate(1);
 
-    const date = new Date(cDay)
-    date.setDate(1)
+  const lastDay = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0
+  ).getDate();
 
-    const lastDay = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-    ).getDate();
+  const result = [];
+  for (let i = 1; i <= lastDay; i++) {
+    result.push(i);
+  }
 
-    const result = []
-    for (let i = 1; i <= lastDay; i++) {
-        result.push(i)
-    }
+  return result;
+};
 
-    return result
-}
+export const getPrevMonthDays = (cDay) => {
+  const date = new Date(cDay);
+  date.setDate(1);
 
-export const getPrevMonthDays = cDay => {
+  const prevLastDay = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    0
+  ).getDate();
 
-    const date = new Date(cDay)
-    date.setDate(1)
+  const firstDayIndex = date.getDay();
 
-    const prevLastDay = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        0
-    ).getDate();
+  const result = [];
+  for (let i = firstDayIndex; i > 0; i--) {
+    result.push(prevLastDay - i + 1);
+  }
 
-    const firstDayIndex = date.getDay();
+  return result;
+};
 
-    const result = []
-    for (let i = firstDayIndex; i > 0; i--) {
-        result.push(prevLastDay - i + 1)
-    }
+export const getNextMonthDays = (cDay) => {
+  const date = new Date(cDay);
+  date.setDate(1);
 
-    return result
-}
+  const lastDayIndex = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0
+  ).getDay();
 
-export const getNextMonthDays = cDay => {
+  const nextDays = 7 - lastDayIndex - 1;
 
-    const date = new Date(cDay)
-    date.setDate(1)
+  const result = [];
+  for (let i = 1; i <= nextDays; i++) {
+    result.push(i);
+  }
 
-    const lastDayIndex = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-    ).getDay();
-
-    const nextDays = 7 - lastDayIndex - 1;
-
-    const result = []
-    for (let i = 1; i <= nextDays; i++) {
-        result.push(i)
-    }
-
-    return result
-}
+  return result;
+};
 
 export const getAllDays = () => {
-    const result = []
-    for (let i = 1; i <= 12; i++) {
-        for (let j = 1; j <= 31; j++) {
-            result.push(j)
-        }
+  const result = [];
+  for (let i = 1; i <= 12; i++) {
+    for (let j = 1; j <= 31; j++) {
+      result.push(j);
     }
-    return result
-}
+  }
+  return result;
+};

@@ -22,7 +22,7 @@ const FileInfo = ({ file }) => {
         {file?.is_dir ? (
           <FolderIcon
             className={`${styles.folderIcon} ${
-              colors.filter(el => el.color === file?.color)[0]?.name
+              colors.filter((el) => el.color === file?.color)[0]?.name
             }`}
           />
         ) : (

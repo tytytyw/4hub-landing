@@ -4,7 +4,7 @@ import ReactFlow, {
   isEdge,
   removeElements,
   addEdge,
-  Controls
+  Controls,
 } from "react-flow-renderer";
 import CustomNodeComponent from "./CustomNodeComponent";
 import ContextMenu from "../../../../../../generalComponents/ContextMenu";
@@ -25,7 +25,7 @@ function OrgStructure({
   setAction,
   nullifyAction,
   setPageOption,
-  action
+  action,
 }) {
   const { __ } = useLocales();
   const contextMenuPerson = useContextMenuPerson();
@@ -44,7 +44,7 @@ function OrgStructure({
           x: e.clientX,
           y: e.clientY,
           width: 220,
-          height: 25
+          height: 25,
         });
       if (
         e.target.tagName === "path" &&
@@ -53,7 +53,7 @@ function OrgStructure({
         setAction({
           type: "add-employee",
           name: __("Добавить сотрудника"),
-          text: ""
+          text: "",
         });
     } else if (isEdge(element)) {
       setChosenLine(element);
@@ -62,7 +62,7 @@ function OrgStructure({
         x: e.clientX,
         y: e.clientY,
         width: 16,
-        height: 19
+        height: 19,
       });
     }
   };
@@ -82,34 +82,35 @@ function OrgStructure({
         setAction({
           type: "add-employee",
           name: __("Добавить сотрудника"),
-          text: ""
-        })
+          text: "",
+        }),
     },
     {
       type: "delete",
       name: __("Удаление сотрудника"),
       text: __(
-        `Вы действительно хотите удалить пользователя ${chosenPerson?.data.info
-          .surname +
+        `Вы действительно хотите удалить пользователя ${
+          chosenPerson?.data.info.surname +
           " " +
           chosenPerson?.data.info.name +
           " " +
-          chosenPerson?.data.info.middleName} из орг структуры компании?`
+          chosenPerson?.data.info.middleName
+        } из орг структуры компании?`
       ),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "info",
       name: __("Информация о сотруднике"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "customize",
       name: __("Редактирование сотрудника"),
       text: ``,
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   useEffect(() => {
@@ -118,17 +119,17 @@ function OrgStructure({
     }
   }, [reactflowInstance, elements.length]);
 
-  const onElementsRemove = useCallback(elementsToRemove => {
-    setElements(els => removeElements(elementsToRemove, els));
+  const onElementsRemove = useCallback((elementsToRemove) => {
+    setElements((els) => removeElements(elementsToRemove, els));
   }, []);
   const onConnect = useCallback(
-    params =>
-      setElements(els =>
+    (params) =>
+      setElements((els) =>
         addEdge(
           {
             ...params,
             type: "step",
-            style: { stroke: "#b1b1b7", strokeWidth: 2 }
+            style: { stroke: "#b1b1b7", strokeWidth: 2 },
           },
           els
         )
@@ -137,7 +138,7 @@ function OrgStructure({
   );
 
   const onLoad = useCallback(
-    rfi => {
+    (rfi) => {
       if (!reactflowInstance) {
         setReactflowInstance(rfi);
         console.log("flow loaded:", rfi);
@@ -147,10 +148,10 @@ function OrgStructure({
   );
 
   const nodeTypes = {
-    special: CustomNodeComponent
+    special: CustomNodeComponent,
   };
 
-  const addPerson = info => {
+  const addPerson = (info) => {
     const newPerson = {
       //TODO: change id
       id: elements.length + 1 + info.middleName + info.surname,
@@ -164,18 +165,18 @@ function OrgStructure({
         y:
           typeof chosenPerson?.position.y === "number"
             ? chosenPerson?.position.y + 34
-            : 10
-      }
+            : 10,
+      },
     };
     const newLine = {
       id: chosenPerson?.id + "line" + elements.length,
       type: "step",
       style: { strokeWidth: 2 },
       source: chosenPerson?.id,
-      target: elements.length + 1 + info.middleName + info.surname
+      target: elements.length + 1 + info.middleName + info.surname,
     };
 
-    const newElements = elements.map(el => {
+    const newElements = elements.map((el) => {
       if (el.position) {
         if (
           el.position.x > newPerson.position.x - 100 &&
@@ -184,7 +185,7 @@ function OrgStructure({
         ) {
           const newEl = {
             ...el,
-            position: { x: el.position.x, y: el.position.y + 75 }
+            position: { x: el.position.x, y: el.position.y + 75 },
           };
           return newEl;
         }
@@ -195,7 +196,7 @@ function OrgStructure({
         ) {
           const newEl = {
             ...el,
-            position: { x: el.position.x, y: el.position.y + 75 }
+            position: { x: el.position.x, y: el.position.y + 75 },
           };
           return newEl;
         }
@@ -210,7 +211,7 @@ function OrgStructure({
 
   const deletePerson = () => {
     const elementsToRemove = elements.filter(
-      el =>
+      (el) =>
         chosenPerson?.id === el.id ||
         chosenPerson?.id === el.source ||
         chosenPerson?.id === el.target
@@ -220,35 +221,35 @@ function OrgStructure({
   };
 
   const deleteLine = () => {
-    const elementsToRemove = elements.filter(el => chosenLine?.id === el.id);
+    const elementsToRemove = elements.filter((el) => chosenLine?.id === el.id);
     onElementsRemove(elementsToRemove);
     nullifyAction();
   };
 
-  const editPerson = newData => {
+  const editPerson = (newData) => {
     const newItem = {
       id: newData.person.id,
       type: newData.person.type,
       data: { info: newData.newInfo },
-      position: newData.person.position
+      position: newData.person.position,
     };
-    setElements(elements =>
-      elements.map(item => (item.id === newItem.id ? newItem : item))
+    setElements((elements) =>
+      elements.map((item) => (item.id === newItem.id ? newItem : item))
     );
     nullifyAction();
   };
 
-  const changeNodeCoorditates = node => {
-    const checkCordinates = position => (position < 0 ? 0 : position);
+  const changeNodeCoorditates = (node) => {
+    const checkCordinates = (position) => (position < 0 ? 0 : position);
     const newItem = {
       ...node,
       position: {
         x: checkCordinates(node.position.x),
-        y: checkCordinates(node.position.y)
-      }
+        y: checkCordinates(node.position.y),
+      },
     };
-    setElements(elements =>
-      elements.map(item => (item.id === newItem.id ? newItem : item))
+    setElements((elements) =>
+      elements.map((item) => (item.id === newItem.id ? newItem : item))
     );
     if (node.position.x < 0 || node.position.y < 0)
       setTimeout(() => reactflowInstance.fitView(), 100);
@@ -271,10 +272,11 @@ function OrgStructure({
         zoomOnDoubleClick={false}
         translateExtent={[
           [0, 0],
-          [Infinity, Infinity]
+          [Infinity, Infinity],
         ]}
         // paneMoveable={false}
-        minZoom={0.1}>
+        minZoom={0.1}
+      >
         <Controls />
         {!elements.length && (
           <div
@@ -283,9 +285,10 @@ function OrgStructure({
               setAction({
                 type: "add-employee",
                 name: __("Добавить сотрудника"),
-                text: ""
+                text: "",
               })
-            }>
+            }
+          >
             <Plus className={styles.plusIco} />
             <span className={styles.tile}>
               {__("Добавить Руководителя компании")}
@@ -299,7 +302,8 @@ function OrgStructure({
           setParams={setMouseParams}
           tooltip={true}
           customClose={true}
-          disableAutohide={true}>
+          disableAutohide={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuPerson, callbackArr)}
           </div>
@@ -312,7 +316,8 @@ function OrgStructure({
           setParams={setMouseParams}
           tooltip={false}
           customClose={true}
-          disableAutohide={true}>
+          disableAutohide={true}
+        >
           <div
             className={styles.menuLine}
             onClick={() => deleteLine(chosenLine)}
@@ -349,7 +354,8 @@ function OrgStructure({
           text={action.text}
           set={nullifyAction}
           callback={deletePerson}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           {/* TODO: past actual avatar */}
           <img
             src={`${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
@@ -373,6 +379,6 @@ OrgStructure.propTypes = {
   action: PropTypes.shape({
     type: PropTypes.string,
     text: PropTypes.string,
-    name: PropTypes.string
-  })
+    name: PropTypes.string,
+  }),
 };

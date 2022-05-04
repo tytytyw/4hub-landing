@@ -22,7 +22,7 @@ function Main({ scrollTop }) {
   SliderItemText1 && SliderItemText1.classList.add(styles.text_item_active);
   let layerYOld = null;
   let deltaYOld = null;
-  const scrollHandler = e => {
+  const scrollHandler = (e) => {
     let scrollingTtimeOut = 700;
     if (
       !isScrolling &&
@@ -33,12 +33,12 @@ function Main({ scrollTop }) {
         : true)
     ) {
       if (e.deltaY > 0 && window.pageYOffset === 0) {
-        setCount(count => count + 1);
+        setCount((count) => count + 1);
       }
 
       if (e.deltaY < 0 && window.pageYOffset < 201) {
         scrollTop();
-        setCount(count => count - 1);
+        setCount((count) => count - 1);
 
         if (document.body.style.overflow === "visible") {
           scrollingTtimeOut += 800;
@@ -59,8 +59,9 @@ function Main({ scrollTop }) {
       setCount(4);
       setTimeout(() => (document.body.style.overflow = "visible"), 1000);
       document.body.style.position = "absolute";
-      document.body.style.top = `-${sliderWrap.offsetHeight +
-        sliderWrap.offsetTop}px`;
+      document.body.style.top = `-${
+        sliderWrap.offsetHeight + sliderWrap.offsetTop
+      }px`;
     }
 
     if (count < 0) {
@@ -126,14 +127,16 @@ function Main({ scrollTop }) {
     <div>
       <div
         className={classNames({
-          [styles.presentation]: true
+          [styles.presentation]: true,
         })}
-        style={{ height: sliderWrapStyles.height }}>
+        style={{ height: sliderWrapStyles.height }}
+      >
         <div className={styles.presentation_wrap}>
           <section className={styles.slide}>
             <div
               id="slide-text_1"
-              className={classNames(styles.text_item, styles.text_item_active)}>
+              className={classNames(styles.text_item, styles.text_item_active)}
+            >
               <h4 className={styles.presentation__title}>
                 {__("Файлообменник")}
               </h4>
@@ -374,5 +377,5 @@ function Main({ scrollTop }) {
 export default Main;
 
 Main.propTypes = {
-  scrollTop: PropTypes.func
+  scrollTop: PropTypes.func,
 };

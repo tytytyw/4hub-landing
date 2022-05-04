@@ -8,7 +8,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
 import {
   colors,
-  useTags
+  useTags,
 } from "../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
@@ -24,13 +24,13 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
   const [color, setColor] = useState(
-    colors?.find(item => item.name === "blue")
+    colors?.find((item) => item.name === "blue")
   );
   const [sign, setSign] = useState("");
   const [tel, setTel] = useState("");
@@ -38,7 +38,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState(false);
 
-  const codeToTel = useSelector(state => state.Cabinet.safe.safeCodeToTel);
+  const codeToTel = useSelector((state) => state.Cabinet.safe.safeCodeToTel);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -57,7 +57,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
       name: !name,
       password: !password,
       passwordRepeat: password !== passwordRepeat,
-      tel: !tel && !codeToTel
+      tel: !tel && !codeToTel,
     });
   };
 
@@ -74,7 +74,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
       .get(
         `/ajax/safe_add.php?uid=${uid}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${fig}&emoji=${emo}&tel=${tel}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok) {
           onCreate(false);
           dispatch(onGetSafes());
@@ -85,7 +85,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setError(__("Что-то пошло не так. Повторите попытку позже"));
       })
@@ -100,7 +100,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
         tag: tagOption?.chosen,
         color: color?.name,
         sign,
-        emo: emoji
+        emo: emoji,
       };
 
       onCustomizeSafe(
@@ -114,7 +114,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
     }
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
@@ -145,9 +145,10 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
               <div
                 className={classNames({
                   [styles.folder]: true,
-                  [styles.redCross]: color.color !== "grey"
+                  [styles.redCross]: color.color !== "grey",
                 })}
-                onClick={() => setColor(colors[0])}>
+                onClick={() => setColor(colors[0])}
+              >
                 <SafeIcon type={color?.name} className={styles.safeIcon} />
               </div>
               <div className={styles.picPreview}>
@@ -158,12 +159,14 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                       className={classNames(
                         styles.minitagWrap,
                         styles.redCross
-                      )}>
+                      )}
+                    >
                       <div
                         className={styles.minitag}
                         onClick={() =>
                           setTagOption({ ...tagOption, chosen: "" })
-                        }>
+                        }
+                      >
                         # {tagOption.chosen}
                       </div>
                     </div>
@@ -172,7 +175,8 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   {sign && (
                     <div
                       className={classNames(styles.sign, styles.redCross)}
-                      onClick={() => setSign("")}>
+                      onClick={() => setSign("")}
+                    >
                       <img
                         src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
                         alt="emoji"
@@ -183,7 +187,8 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   {emoji && (
                     <div
                       className={classNames(styles.redCross, styles.emodji)}
-                      onClick={() => setEmoji("")}>
+                      onClick={() => setEmoji("")}
+                    >
                       <img
                         src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
                         alt="emoji"
@@ -201,7 +206,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   placeholder={__("Имя сейфа")}
                   className={styles.input}
                   value={name}
-                  onChange={event => setName(event.target.value)}
+                  onChange={(event) => setName(event.target.value)}
                   isMistake={errors?.name}
                 />
               </div>
@@ -213,7 +218,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   type="text"
                   placeholder={__("Добавьте #Тег")}
                   value={tagOption.chosen}
-                  onChange={e => onChangeTag(e.target.value)}
+                  onChange={(e) => onChangeTag(e.target.value)}
                   onFocus={() => {
                     setTagOption({ ...tagOption, show: true });
                   }}
@@ -222,7 +227,8 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                 <div
                   className={styles.tagList}
                   ref={tagRef}
-                  onClick={handleChoose}>
+                  onClick={handleChoose}
+                >
                   {renderTags()}
                 </div>
               </div>
@@ -236,7 +242,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   setShowPass={setShowPass}
                   className={styles.input}
                   value={password}
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                   isMistake={errors?.password}
                 />
               </div>
@@ -251,7 +257,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   setShowPass={setShowPass}
                   className={styles.input}
                   value={passwordRepeat}
-                  onChange={event => setPasswordRepeat(event.target.value)}
+                  onChange={(event) => setPasswordRepeat(event.target.value)}
                   isMistake={errors?.passwordRepeat}
                 />
               </div>
@@ -266,7 +272,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                     placeholder={__("Введите Ваш номер телефона")}
                     className={styles.input}
                     value={tel}
-                    onChange={event => setTel(event.target.value)}
+                    onChange={(event) => setTel(event.target.value)}
                     isMistake={errors?.tel}
                   />
                   <p className={styles.inputNote}>

@@ -26,9 +26,9 @@ function UserInfo({ selectedItem, setAction }) {
       );
     });
   };
-  const renderSocialItem = array => {
+  const renderSocialItem = (array) => {
     if (!array) return null;
-    return array.map(item => {
+    return array.map((item) => {
       if (item.type === "skype") item.type = "skype-2";
       return (
         <div className={styles.inputWrap} key={item.type}>
@@ -69,7 +69,8 @@ function UserInfo({ selectedItem, setAction }) {
             className={styles.iconView}
             onClick={() =>
               setAction({ type: "editContact", name: "", text: "" })
-            }>
+            }
+          >
             <EditIcon className={styles.iconShare} />
           </div>
 
@@ -81,9 +82,10 @@ function UserInfo({ selectedItem, setAction }) {
                 name: __("Удаление контакта"),
                 text: __(
                   `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`
-                )
+                ),
               })
-            }>
+            }
+          >
             <DeleteIcon height={17} className={styles.iconTrash} />
           </div>
         </div>
@@ -107,5 +109,5 @@ export default UserInfo;
 
 UserInfo.propTypes = {
   selectedItem: selectedItemProps,
-  setAction: PropTypes.func
+  setAction: PropTypes.func,
 };

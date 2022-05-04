@@ -11,8 +11,9 @@ const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
     <div
       className={classnames({
         [styles.wrapper]: true,
-        [styles.active]: item?.id === selected?.id
-      })}>
+        [styles.active]: item?.id === selected?.id,
+      })}
+    >
       <input
         id={htmlFor}
         type="radio"
@@ -37,9 +38,9 @@ RadioCheck.propTypes = {
   item: PropTypes.object,
   name: PropTypes.string,
   selected: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 RadioCheck.defaultProps = {
-  onChange: () => {}
+  onChange: () => {},
 };

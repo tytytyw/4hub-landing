@@ -40,7 +40,7 @@ const SuccessCreated = ({ set, event }) => {
                 {event?.color && (
                   <span
                     style={{
-                      background: `${event.color?.dark}`
+                      background: `${event.color?.dark}`,
                     }}
                     className={styles.circle}
                   />
@@ -104,5 +104,5 @@ export default SuccessCreated;
 
 SuccessCreated.propTypes = {
   set: PropTypes.func,
-  event: eventProps
+  event: eventProps,
 };

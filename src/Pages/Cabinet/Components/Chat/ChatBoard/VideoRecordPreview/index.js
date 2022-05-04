@@ -7,7 +7,7 @@ const VideoRecordPreview = ({
   isVideoMessage,
   ducationTimer,
   timeLimit,
-  recordEnd
+  recordEnd,
 }) => {
   const circleRadius = 150;
   const circumference = 2 * Math.PI * (circleRadius - 8);
@@ -34,7 +34,7 @@ const VideoRecordPreview = ({
       <div
         className={classNames({
           [styles.videoWrapper]: true,
-          [styles.circle]: isVideoMessage
+          [styles.circle]: isVideoMessage,
         })}
       >
         {isVideoMessage ? (
@@ -72,12 +72,12 @@ const VideoRecordPreview = ({
 export default VideoRecordPreview;
 
 VideoRecordPreview.defaultProps = {
-  timeLimit: 0
+  timeLimit: 0,
 };
 
 VideoRecordPreview.propTypes = {
   isVideoMessage: PropTypes.object,
   ducationTimer: PropTypes.number,
   timeLimit: PropTypes.number,
-  recordEnd: PropTypes.func.isRequired
+  recordEnd: PropTypes.func.isRequired,
 };

@@ -5,7 +5,7 @@ import "../../../../../generalComponents/colors.sass";
 import classNames from "classnames";
 import {
   setSelectedDevice,
-  setSelectedUser
+  setSelectedUser,
 } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProfileImage } from "../../MyProfile/Contacts/consts";
@@ -14,7 +14,7 @@ import { contactProps } from "../../../../../types/Device";
 
 const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
   const dispatch = useDispatch();
-  const selectedUser = useSelector(state => state.Cabinet.selectedUser);
+  const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
   const getImage = () => {
     const strLength = contact.icon?.[0].length;
     if (contact.icon?.[0].charAt(strLength - 1) === ".") {
@@ -29,20 +29,21 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: selectedUser?.id_user === contact.id_user,
-          [styles?.[`wrapper_${listSize}`]]: !!listSize
+          [styles?.[`wrapper_${listSize}`]]: !!listSize,
         })}
         onClick={() => {
           dispatch(setSelectedUser(contact));
           dispatch(setSelectedDevice(null));
         }}
-        title={listCollapsed ? contact?.user_name : ""}>
+        title={listCollapsed ? contact?.user_name : ""}
+      >
         <div className={styles.titleWrap}>
           <div className={styles.imageWrap}>
             <img
               src={getImage(contact.icon?.[0])}
               alt="icon"
               className={styles.icon}
-              onError={e => e.target.setAttribute("src", emptyProfileImage)}
+              onError={(e) => e.target.setAttribute("src", emptyProfileImage)}
             />
             {/* {contact?.active === 1 && <span className={styles.active} />} */}
           </div>
@@ -53,15 +54,16 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
         <div className={styles.functionWrap}>
           <div
             className={styles.menuWrap}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "user"
+                type: "user",
               })
-            }>
+            }
+          >
             <span className={styles.menu} />
           </div>
         </div>
@@ -76,5 +78,5 @@ ContactItem.propTypes = {
   contact: contactProps,
   setMouseParams: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  listSize: PropTypes.string
+  listSize: PropTypes.string,
 };

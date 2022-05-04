@@ -81,14 +81,14 @@ const UploadFile = ({ setPage }) => {
 
       api
         .post("/ajax/start_add.php", form)
-        .then(res => {
+        .then((res) => {
           if (res.status === 200) {
             setResponse(res.data);
           } else {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setError(true);
         })
@@ -112,7 +112,7 @@ const UploadFile = ({ setPage }) => {
             <input
               type="file"
               className={styles.inputFile}
-              onChange={e => setBlob(e.target.files[0])}
+              onChange={(e) => setBlob(e.target.files[0])}
             />
             <img
               src={imageSrc + "assets/StartPage/down-arrow-2.svg"}
@@ -139,7 +139,8 @@ const UploadFile = ({ setPage }) => {
             <span>{__("Срок хранения")}</span>
             <div
               className={`${styles.fields} ${styles.choose}`}
-              onClick={() => setShowPeriod(!showPeriod)}>
+              onClick={() => setShowPeriod(!showPeriod)}
+            >
               <div>{renderExpireDate()}</div>
               <img
                 src={imageSrc + "assets/StartPage/play-button.svg"}
@@ -156,7 +157,7 @@ const UploadFile = ({ setPage }) => {
                   <input
                     type={visibility}
                     placeholder="Введите пароль"
-                    onChange={e =>
+                    onChange={(e) =>
                       setPassword({ ...password, text: e.target.value })
                     }
                     value={password.text}
@@ -181,7 +182,8 @@ const UploadFile = ({ setPage }) => {
                 }
                 onClick={() =>
                   setPassword({ ...password, active: !password.active })
-                }>
+                }
+              >
                 <div
                   className={
                     password.active ? styles.switchActive : styles.switch
@@ -196,7 +198,7 @@ const UploadFile = ({ setPage }) => {
               type="email"
               name="email"
               value={email.receiver}
-              onChange={e => setEmail({ ...email, receiver: e.target.value })}
+              onChange={(e) => setEmail({ ...email, receiver: e.target.value })}
               className={styles.emailField}
               placeholder={__("Email получателя")}
             />
@@ -207,7 +209,7 @@ const UploadFile = ({ setPage }) => {
               type="email"
               name="email"
               value={email.sender}
-              onChange={e => setEmail({ ...email, sender: e.target.value })}
+              onChange={(e) => setEmail({ ...email, sender: e.target.value })}
               className={styles.emailField}
               placeholder={__("Email отправителя")}
             />
@@ -242,8 +244,9 @@ const UploadFile = ({ setPage }) => {
           <div
             style={{
               width: "max-content",
-              padding: "20px"
-            }}>
+              padding: "20px",
+            }}
+          >
             {__("Упс.... что-то пошло не так. Попробуй еще раз!")}
           </div>
         </PopUp>
@@ -260,5 +263,5 @@ const UploadFile = ({ setPage }) => {
 export default UploadFile;
 
 UploadFile.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

@@ -32,8 +32,8 @@ const Company = () => {
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
   const [businessRegistration, setBusinessRegistration] = useState(false);
-  const id_company = useSelector(state => state.user.id_company);
-  const col_admins = useSelector(state => state.user.userInfo?.col_admins);
+  const id_company = useSelector((state) => state.user.id_company);
+  const col_admins = useSelector((state) => state.user.userInfo?.col_admins);
   const [companyName, setCompanyName] = useState("");
   const [companyLogo, setCompanyLogo] = useState(null);
   const dispatch = useDispatch();
@@ -50,8 +50,8 @@ const Company = () => {
         { name: "standards", label: __("Стандарты компании") },
         { name: "mission", label: __("Миссия компании") },
         { name: "viziya", label: __("Визия") },
-        { name: "contacts", label: __("Контакты") }
-      ]
+        { name: "contacts", label: __("Контакты") },
+      ],
     },
     {
       name: "team",
@@ -59,8 +59,8 @@ const Company = () => {
       icon: <TeamIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") }
-      ]
+        { name: "settings_access", label: __("Настройки доступа") },
+      ],
     },
     {
       name: "org_structure",
@@ -68,8 +68,8 @@ const Company = () => {
       icon: <OrgIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") }
-      ]
+        { name: "settings_access", label: __("Настройки доступа") },
+      ],
     },
     {
       name: "settings",
@@ -77,9 +77,9 @@ const Company = () => {
       icon: <SettingsIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") }
-      ]
-    }
+        { name: "settings_access", label: __("Настройки доступа") },
+      ],
+    },
   ];
 
   const renderMenuItems = (target, type) => {
@@ -148,7 +148,8 @@ const Company = () => {
 
         <div
           style={{ position: loadingType ? "relative" : "" }}
-          className={styles.content}>
+          className={styles.content}
+        >
           {pageOption.name === "welcome" && (
             <WelcomeCard setPageOption={setPageOption} />
           )}

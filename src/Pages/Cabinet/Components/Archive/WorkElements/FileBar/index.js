@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import {
   filePickProps,
   filePreviewProps,
-  fileProps
+  fileProps,
 } from "../../../../../../types/WorkElements";
 
 const FileBar = ({
@@ -20,17 +20,17 @@ const FileBar = ({
   setFilePreview,
   filePreview,
   filePick,
-  setFilePick
+  setFilePick,
 }) => {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   const onPickFile = () => {
     if (filePick?.show) {
-      const isPicked = filePick.files.filter(el => el === file.fid);
+      const isPicked = filePick.files.filter((el) => el === file.fid);
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
+            files: filePick.files.filter((el) => el !== file.fid),
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
@@ -61,17 +61,19 @@ const FileBar = ({
         }}
         onDoubleClick={() =>
           setFilePreview({ ...filePreview, view: true, file })
-        }>
+        }
+      >
         <div
           className={styles.menu}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25
+              height: 25,
             });
-          }}>
+          }}
+        >
           <span />
         </div>
         <div className={styles.symbols}>
@@ -126,15 +128,15 @@ FileBar.propTypes = {
   isLoading: PropTypes.bool,
   setMouseParams: PropTypes.func,
   chosenFile: PropTypes.shape({
-    fid: PropTypes.string
+    fid: PropTypes.string,
   }),
   setChosenFile: PropTypes.func,
   setFilePreview: PropTypes.func,
   setFilePick: PropTypes.func,
   filePreview: filePreviewProps,
-  filePick: filePickProps
+  filePick: filePickProps,
 };
 
 FileBar.defaultProps = {
-  isLoading: false
+  isLoading: false,
 };

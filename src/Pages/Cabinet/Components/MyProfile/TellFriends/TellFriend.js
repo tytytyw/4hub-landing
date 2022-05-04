@@ -14,10 +14,10 @@ import PropTypes from "prop-types";
 
 const TellFriend = ({ set, contact }) => {
   const { __ } = useLocales();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
   const [selectedSoc, setSelectedSoc] = useState(null);
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     api
@@ -25,13 +25,13 @@ const TellFriend = ({ set, contact }) => {
         params: {
           uid,
           id: contact?.id,
-          email: contact?.email
-        }
+          email: contact?.email,
+        },
       })
       .then(() => {
         set(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -61,8 +61,9 @@ const TellFriend = ({ set, contact }) => {
               onClick={() => setSelectedSoc("email")}
               className={classNames({
                 [styles.socialsItem]: true,
-                [styles.active]: selectedSoc === "email"
-              })}>
+                [styles.active]: selectedSoc === "email",
+              })}
+            >
               <img
                 className={styles.socialIcon}
                 src={imageSrc + "assets/PrivateCabinet/email.svg"}
@@ -75,9 +76,10 @@ const TellFriend = ({ set, contact }) => {
                 onClick={() => setSelectedSoc(item?.type)}
                 className={classNames({
                   [styles.socialsItem]: true,
-                  [styles.active]: selectedSoc === item?.type
+                  [styles.active]: selectedSoc === item?.type,
                 })}
-                key={index}>
+                key={index}
+              >
                 <img
                   className={styles.socialIcon}
                   src={item.icon}
@@ -113,6 +115,6 @@ TellFriend.propTypes = {
   set: PropTypes.func,
   contact: PropTypes.shape({
     id: PropTypes.number,
-    email: PropTypes.string
-  })
+    email: PropTypes.string,
+  }),
 };

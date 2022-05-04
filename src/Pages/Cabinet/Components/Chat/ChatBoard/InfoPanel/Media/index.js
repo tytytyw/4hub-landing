@@ -12,7 +12,7 @@ const Media = ({ setOption }) => {
   const options = [
     { name: __("Фото"), id: "photo" },
     { name: __("Видео"), id: "video" },
-    { name: __("Gif"), id: "gif" }
+    { name: __("Gif"), id: "gif" },
   ];
 
   //TODO: temp
@@ -30,10 +30,10 @@ const Media = ({ setOption }) => {
     "11.png",
     "a.png",
     "11.png",
-    "8.png"
+    "8.png",
   ];
 
-  const renderImages = images => {
+  const renderImages = (images) => {
     return images.map((src, i) => {
       return (
         <div className={styles.miniPictureWrap} key={i}>
@@ -47,7 +47,7 @@ const Media = ({ setOption }) => {
     <div className={styles.wrapper}>
       <Header setOption={setOption} title={__("Мультимедиа")} />
       <div className={styles.subOptions}>
-        {options.map(item => {
+        {options.map((item) => {
           return (
             <SubOptionButton
               name={item.name}
@@ -80,5 +80,5 @@ const Media = ({ setOption }) => {
 export default Media;
 
 Media.propTypes = {
-  setOption: PropTypes.func.isRequired
+  setOption: PropTypes.func.isRequired,
 };

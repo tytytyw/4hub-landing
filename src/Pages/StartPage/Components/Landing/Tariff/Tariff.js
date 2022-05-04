@@ -13,8 +13,9 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
       <div
         className={classNames({
           [styles.tariff_line]: true,
-          [styles.tariff_line_promo]: !!promo
-        })}>
+          [styles.tariff_line_promo]: !!promo,
+        })}
+      >
         {promo}
       </div>
       <div className={styles.container}>
@@ -53,8 +54,9 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
             className={classNames({
               [styles.tariff_btn]: true,
               [styles.tariff_current_btn]: currentPlan,
-              [styles.tariff_promo_btn]: promo
-            })}>
+              [styles.tariff_promo_btn]: promo,
+            })}
+          >
             {currentPlan ? __("Текущий план") : __("Купить")}
           </button>
         </ul>
@@ -69,5 +71,5 @@ Tariff.propTypes = {
   cost: PropTypes.number,
   currentPlan: PropTypes.bool,
   promo: PropTypes.string,
-  discont: PropTypes.number
+  discont: PropTypes.number,
 };

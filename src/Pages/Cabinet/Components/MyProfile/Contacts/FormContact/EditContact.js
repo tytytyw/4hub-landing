@@ -32,7 +32,7 @@ const EditContact = ({ set }) => {
 
   const formRef = useRef();
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -52,7 +52,7 @@ const EditContact = ({ set }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     const formData = new FormData(formRef.current);
@@ -75,7 +75,8 @@ const EditContact = ({ set }) => {
         ref={formRef}
         noValidate
         onSubmit={onSubmit}
-        className={styles.wrapper}>
+        className={styles.wrapper}
+      >
         <div className={styles.top}>
           <span className={styles.close} onClick={() => set(false)}>
             <span className={styles.times} />
@@ -132,7 +133,7 @@ const EditContact = ({ set }) => {
                   <Input
                     phone={true}
                     name="number[]"
-                    onChange={event => {
+                    onChange={(event) => {
                       numbers[index] = event.target.value;
                       setNumbers([...numbers]);
                     }}
@@ -145,9 +146,10 @@ const EditContact = ({ set }) => {
               <div
                 className={classnames({
                   [styles.formBlock]: true,
-                  [styles.clickable]: true
+                  [styles.clickable]: true,
                 })}
-                onClick={() => setNumbers([...numbers, ""])}>
+                onClick={() => setNumbers([...numbers, ""])}
+              >
                 <img
                   className={styles.infoImg}
                   src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
@@ -173,7 +175,7 @@ const EditContact = ({ set }) => {
                   <input
                     name="email[]"
                     type="email"
-                    onChange={event => {
+                    onChange={(event) => {
                       mails[index] = event.target.value;
                       setMails([...mails]);
                     }}
@@ -185,9 +187,10 @@ const EditContact = ({ set }) => {
               <div
                 className={classnames({
                   [styles.formBlock]: true,
-                  [styles.clickable]: true
+                  [styles.clickable]: true,
                 })}
-                onClick={() => setMails([...mails, ""])}>
+                onClick={() => setMails([...mails, ""])}
+              >
                 <img
                   className={styles.infoImg}
                   src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
@@ -204,13 +207,14 @@ const EditContact = ({ set }) => {
                 </span>
                 <input
                   name="date_birth"
-                  onChange={event => setDateValue(event.target.value)}
+                  onChange={(event) => setDateValue(event.target.value)}
                   value={dateValue}
                   className={styles.input}
                 />
                 <div
                   onClick={() => setShowCalendar(true)}
-                  className={styles.icon}>
+                  className={styles.icon}
+                >
                   <img src={calendarImage} alt="Calendar" />
                 </div>
               </div>
@@ -274,5 +278,5 @@ const EditContact = ({ set }) => {
 
 export default EditContact;
 EditContact.propTypes = {
-  set: PropTypes.func
+  set: PropTypes.func,
 };

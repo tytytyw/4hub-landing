@@ -44,7 +44,8 @@ const WelcomeCard = ({ setPageOption }) => {
 
           <div
             onClick={() => setPageOption("give-access")}
-            className={styles.cardItem}>
+            className={styles.cardItem}
+          >
             <div className={styles.card}>
               <p>{__("Предоставить доступ")}</p>
               <div className={styles.bgImg}>
@@ -82,5 +83,5 @@ const WelcomeCard = ({ setPageOption }) => {
 export default WelcomeCard;
 
 WelcomeCard.propTypes = {
-  setPageOption: PropTypes.func
+  setPageOption: PropTypes.func,
 };

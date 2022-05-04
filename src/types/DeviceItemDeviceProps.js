@@ -13,5 +13,5 @@ export const deviceItemDeviceProps = PropTypes.exact({
   name: PropTypes.string,
   os: PropTypes.string,
   platform: PropTypes.string,
-  provider: PropTypes.string
+  provider: PropTypes.string,
 });

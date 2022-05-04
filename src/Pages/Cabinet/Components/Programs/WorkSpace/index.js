@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 const WorkSpace = ({ listCollapsed }) => {
   const { __ } = useLocales();
-  const category = useSelector(s => s.Cabinet.programs.category);
+  const category = useSelector((s) => s.Cabinet.programs.category);
 
   const renderPrograms = () =>
     category.list.map((program, i) => (
@@ -30,8 +30,9 @@ const WorkSpace = ({ listCollapsed }) => {
         className={classnames({
           [styles.workSpaceWrap]: true,
           [styles.collapsed]: listCollapsed,
-          [styles.notCollapsed]: !listCollapsed
-        })}>
+          [styles.notCollapsed]: !listCollapsed,
+        })}
+      >
         <div className={styles.header}>
           <SearchField />
           <div className={styles.infoHeader}>
@@ -55,5 +56,5 @@ const WorkSpace = ({ listCollapsed }) => {
 export default WorkSpace;
 
 WorkSpace.propTypes = {
-  listCollapsed: PropTypes.bool
+  listCollapsed: PropTypes.bool,
 };

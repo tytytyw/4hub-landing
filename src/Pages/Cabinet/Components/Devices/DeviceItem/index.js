@@ -14,7 +14,7 @@ const DeviceItem = ({
   onClick,
   setMouseParams,
   listSize,
-  listCollapsed
+  listCollapsed,
 }) => {
   return (
     <>
@@ -22,10 +22,11 @@ const DeviceItem = ({
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
-          [styles?.[`wrapper_${listSize}`]]: !!listSize
+          [styles?.[`wrapper_${listSize}`]]: !!listSize,
         })}
         onClick={onClick}
-        title={listCollapsed ? device.name : ""}>
+        title={listCollapsed ? device.name : ""}
+      >
         <div className={styles.titleWrap}>
           <div className={styles.titleImg}>
             <img
@@ -37,7 +38,7 @@ const DeviceItem = ({
               }
               alt="icon"
               className={styles.icon}
-              onError={e =>
+              onError={(e) =>
                 e.target.setAttribute(
                   "src",
                   "./assets/PrivateCabinet/devices/unknown.svg"
@@ -55,14 +56,15 @@ const DeviceItem = ({
         <div className={styles.functionWrap}>
           <div
             className={styles.menuWrap}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
-                height: 25
+                height: 25,
               })
-            }>
+            }
+          >
             <span className={styles.menu} />
           </div>
         </div>
@@ -79,5 +81,5 @@ DeviceItem.propTypes = {
   onClick: PropTypes.func,
   setMouseParams: PropTypes.func,
   listSize: PropTypes.string,
-  listCollapsed: PropTypes.bool
+  listCollapsed: PropTypes.bool,
 };

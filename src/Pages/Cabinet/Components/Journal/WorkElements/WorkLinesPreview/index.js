@@ -19,12 +19,12 @@ const WorkLinesPreview = ({
   setPage,
   fileRef,
   chosenFolder,
-  gLoader
+  gLoader,
 }) => {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
-  const search = useSelector(state => state.Cabinet?.search);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const size = useSelector((state) => state.Cabinet.size);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const [loadingFiles, setLoadingFiles] = useState(false);
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const WorkLinesPreview = ({
   const [f, setF] = useState(file);
   useEffect(() => {
     setF(file);
-    const newColor = colors.filter(c => c.color === file?.color);
+    const newColor = colors.filter((c) => c.color === file?.color);
     setColor(newColor[0]);
   }, [file]);
 
@@ -55,7 +55,8 @@ const WorkLinesPreview = ({
           <video
             controls
             src={`https://fs2.mh.net.ua${f.preview}`}
-            type={f.mime_type}>
+            type={f.mime_type}
+          >
             <source
               src={`https://fs2.mh.net.ua${f.preview}`}
               type={f.mime_type}
@@ -69,7 +70,8 @@ const WorkLinesPreview = ({
             <audio
               controls
               ref={audioRef}
-              src={`https://fs2.mh.net.ua${f.preview}`}>
+              src={`https://fs2.mh.net.ua${f.preview}`}
+            >
               <source
                 src={`https://fs2.mh.net.ua${f.preview}`}
                 type={f.mime_type}
@@ -122,9 +124,9 @@ const WorkLinesPreview = ({
     onCheckFilesPerPage();
   }, [size, page, chosenFolder?.files_amount]); // eslint-disable-line
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     setLoadingFiles(false);
-    result > 0 ? setPage(page => page + 1) : setPage(0);
+    result > 0 ? setPage((page) => page + 1) : setPage(0);
   };
 
   const loadFiles = (e, access) => {
@@ -161,7 +163,8 @@ const WorkLinesPreview = ({
           {!gLoader && children}
           <div
             className={styles.bottomLine}
-            style={{ height: loadingFiles ? "100px" : "40px" }}>
+            style={{ height: loadingFiles ? "100px" : "40px" }}
+          >
             {loadingFiles && !gLoader ? (
               <Loader
                 type="bounceDots"
@@ -211,7 +214,7 @@ const WorkLinesPreview = ({
                     className={styles.colorCircle}
                     style={{
                       background: color?.light,
-                      border: `1px solid ${color?.dark}`
+                      border: `1px solid ${color?.dark}`,
                     }}
                   />
                 ) : (
@@ -309,14 +312,14 @@ WorkLinesPreview.propTypes = {
   file: fileProps,
   children: PropTypes.node,
   fileRef: PropTypes.shape({
-    current: PropTypes.string
+    current: PropTypes.string,
   }),
   chosenFolder: PropTypes.shape({
     path: PropTypes.string,
-    files_amount: PropTypes.number
+    files_amount: PropTypes.number,
   }),
   gLoader: PropTypes.bool,
   setPage: PropTypes.func,
   hideFileList: PropTypes.bool,
-  page: PropTypes.string
+  page: PropTypes.string,
 };

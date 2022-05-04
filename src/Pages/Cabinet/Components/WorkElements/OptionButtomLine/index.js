@@ -12,11 +12,11 @@ const OptionButtomLine = ({
   nullifyFilePick,
   chosenFile,
   filesPage,
-  menuItem
+  menuItem,
 }) => {
   const { __ } = useLocales();
   const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const OptionButtomLine = ({
             type: "CreateZip",
             items: filePick.files,
             title: __("Сжать в ZIP"),
-            filesPage
+            filesPage,
           })
         )
       : null;
@@ -48,7 +48,7 @@ const OptionButtomLine = ({
                 : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
-            menuItem
+            menuItem,
           })
         )
       : null;
@@ -59,7 +59,7 @@ const OptionButtomLine = ({
           onSetModals("share", {
             open: true,
             fids: filePick.files,
-            action_type: share_types[pathname.split("/")[1]]
+            action_type: share_types[pathname.split("/")[1]],
           })
         )
       : null;
@@ -71,7 +71,7 @@ const OptionButtomLine = ({
             ...contextMenuModals,
             type: "MoveToArchive",
             items: filePick.files,
-            filePick
+            filePick,
           })
         )
       : null;
@@ -92,7 +92,8 @@ const OptionButtomLine = ({
         className={`${
           filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
         }`}
-        onClick={onZip}>
+        onClick={onZip}
+      >
         {__("Сжать в ZIP")}
       </div>
     );
@@ -104,7 +105,8 @@ const OptionButtomLine = ({
         className={`${
           filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
         }`}
-        onClick={onEdit}>
+        onClick={onEdit}
+      >
         {__("Редактировать")}
       </div>
     );
@@ -116,7 +118,8 @@ const OptionButtomLine = ({
         className={`${
           filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
         }`}
-        onClick={onShare}>
+        onClick={onShare}
+      >
         {__("Расшарить")}
       </div>
     );
@@ -128,7 +131,8 @@ const OptionButtomLine = ({
         className={`${
           filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
         }`}
-        onClick={onMoveToArchive}>
+        onClick={onMoveToArchive}
+      >
         {__("Пер. в архив")}
       </div>
     );
@@ -140,7 +144,8 @@ const OptionButtomLine = ({
         className={`${
           filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
         }`}
-        onClick={onReestablish}>
+        onClick={onReestablish}
+      >
         {__("Восстановить")}
       </div>
     );

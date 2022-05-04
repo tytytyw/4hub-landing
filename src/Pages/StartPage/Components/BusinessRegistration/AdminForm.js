@@ -8,6 +8,7 @@ import arrowImg from "../../../../assets/BusinessCabinet/arrow.svg";
 import { validateEmail } from "../../../Cabinet/Components/MyProfile/Input/validation";
 import api from "../../../../api";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 let requiredInputs = [
   "surname",
@@ -16,10 +17,8 @@ let requiredInputs = [
   "phone",
   "email",
   "password",
-  "password_r"
+  "password_r",
 ];
-
-import PropTypes from "prop-types";
 
 const AdminForm = ({
   mainFields,
@@ -27,23 +26,17 @@ const AdminForm = ({
   setStep,
   compare,
   setCompare,
-  setLoadingType
+  setLoadingType,
 }) => {
   const [checkPhone, setCheckPhone] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [confirmPass, setConfirmPass] = useState(true);
   const [showPass, setShowPass] = useState(false);
   const [disablePass, setDisablePass] = useState(false);
-  const id_company = useSelector(state => state.user.userInfo.id_company);
+  const id_company = useSelector((state) => state.user.userInfo.id_company);
   const { __ } = useLocales();
-  const {
-    fields,
-    setFields,
-    errors,
-    onChange,
-    checkErrors,
-    blurs
-  } = useValidateForm({ admin: 1 }, requiredInputs);
+  const { fields, setFields, errors, onChange, checkErrors, blurs } =
+    useValidateForm({ admin: 1 }, requiredInputs);
 
   useEffect(() => {
     if (mainFields?.admin) {
@@ -55,12 +48,12 @@ const AdminForm = ({
     setDisablePass(!fields.admin);
     !fields.admin
       ? (requiredInputs = requiredInputs.filter(
-          item => !item.includes("password")
+          (item) => !item.includes("password")
         ))
       : requiredInputs.push("password", "password_r");
   }, [fields.admin]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
     if (
       checkErrors() &&
@@ -69,7 +62,7 @@ const AdminForm = ({
       checkPhone
     ) {
       setLoadingType("squarify");
-      setMainFields(prev => ({ ...prev, admin: fields }));
+      setMainFields((prev) => ({ ...prev, admin: fields }));
       const sentPass = () =>
         disablePass ? "" : `&pass=${getValue("password")}`;
 
@@ -80,12 +73,12 @@ const AdminForm = ({
 				&is_admin=1&sname=${getValue("surname")}&pname=${getValue("middle_name")}
 				${sentPass()}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             setStep("complete");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => setLoadingType(""));
@@ -97,7 +90,7 @@ const AdminForm = ({
     setStep("main");
   };
 
-  const getValue = name => fields?.[name] || "";
+  const getValue = (name) => fields?.[name] || "";
 
   const isPhone = () =>
     (errors.includes("phone") || !checkPhone) && blurs.includes("phone");
@@ -121,14 +114,14 @@ const AdminForm = ({
           <AdminSelect
             initValue={getValue("admin")}
             error={errors?.includes("admin")}
-            onSelect={value => onChange(value, "admin")}
+            onSelect={(value) => onChange(value, "admin")}
             data={[
               {
                 id: 1,
                 text: __("Назначить меня администратором Компании"),
                 info: __(`Вы сможете самостоятельно верифицировать компанию, добавлять и 
                                 редактировать информацию, открывать и закрывать вакансии и добавлять 
-                                кандидатов.`)
+                                кандидатов.`),
               },
               {
                 id: 0,
@@ -136,8 +129,8 @@ const AdminForm = ({
                 info: __(`Вы будете добавлены в Компанию как обычный сотрудник. Ваши 
                                 полномочия и права доступа сможет определить указанный 
                                 Администратор. Указанный Администратор получит на почту 
-                                уведомление о назначении.`)
-              }
+                                уведомление о назначении.`),
+              },
             ]}
             placeholder={__("Назначить меня администратором Компании")}
           />
@@ -153,7 +146,7 @@ const AdminForm = ({
               placeholder={__("Фамилия")}
               name="surname"
               value={getValue("surname")}
-              onChange={e => onChange(e.target.value, "surname")}
+              onChange={(e) => onChange(e.target.value, "surname")}
             />
           </div>
 
@@ -166,7 +159,7 @@ const AdminForm = ({
               placeholder={__("Имя")}
               name="name"
               value={getValue("name")}
-              onChange={e => onChange(e.target.value, "name")}
+              onChange={(e) => onChange(e.target.value, "name")}
             />
           </div>
 
@@ -179,7 +172,7 @@ const AdminForm = ({
               placeholder={__("Отчество")}
               name="middle_name"
               value={getValue("middle_name")}
-              onChange={e => onChange(e.target.value, "middle_name")}
+              onChange={(e) => onChange(e.target.value, "middle_name")}
             />
           </div>
         </div>
@@ -194,7 +187,7 @@ const AdminForm = ({
             placeholder={__("Телефон")}
             name="phone"
             value={getValue("phone")}
-            onChange={e => {
+            onChange={(e) => {
               const phone = e.target.value;
               setCheckPhone(phone?.length === 18);
               onChange(phone, "phone");
@@ -211,7 +204,7 @@ const AdminForm = ({
             placeholder={__("Email")}
             name="email"
             value={getValue("email")}
-            onChange={e => {
+            onChange={(e) => {
               const email = e.target.value;
               setCheckEmail(validateEmail(email));
               onChange(email, "email");
@@ -231,7 +224,7 @@ const AdminForm = ({
                 name="password"
                 type="password"
                 value={getValue("password")}
-                onChange={e => onChange(e.target.value, "password")}
+                onChange={(e) => onChange(e.target.value, "password")}
                 showPass={showPass}
                 setShowPass={setShowPass}
               />
@@ -247,7 +240,7 @@ const AdminForm = ({
                 name="password_r"
                 type="password"
                 value={getValue("password_r")}
-                onChange={event => {
+                onChange={(event) => {
                   const value = event.target.value;
                   setConfirmPass(value === getValue("password"));
                   onChange(value, "password_r");
@@ -265,7 +258,8 @@ const AdminForm = ({
             <div
               onClick={() =>
                 setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }>
+              }
+            >
               {compare.isAgreed && (
                 <img src="./assets/StartPage/tick.svg" alt="tick" />
               )}
@@ -286,7 +280,8 @@ const AdminForm = ({
           <button
             disabled={!compare.isAgreed}
             type="submit"
-            className={styles.submitBtn}>
+            className={styles.submitBtn}
+          >
             {__(`Сохранить и продолжить`)}
           </button>
         </div>
@@ -302,8 +297,8 @@ AdminForm.propTypes = {
   setMainFields: PropTypes.func,
   setStep: PropTypes.func,
   compare: PropTypes.shape({
-    isAgreed: PropTypes.bool
+    isAgreed: PropTypes.bool,
   }),
   setCompare: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

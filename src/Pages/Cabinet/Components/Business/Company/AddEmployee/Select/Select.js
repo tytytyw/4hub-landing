@@ -3,7 +3,7 @@ import styles from "./Select.module.sass";
 import classNames from "classnames";
 import {
   usePersonPositions,
-  usePersonStatus
+  usePersonStatus,
 } from "../../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
@@ -26,13 +26,14 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
         <div
           className={classNames({
             [styles.option]: true,
-            [styles.disabled]: disableСhanges
+            [styles.disabled]: disableСhanges,
           })}
           key={index}
           onClick={() => {
-            setValue(personStatus.filter(i => i.text === item.text)[0]);
+            setValue(personStatus.filter((i) => i.text === item.text)[0]);
             setOpen(false);
-          }}>
+          }}
+        >
           <div className={styles.colorWrap}>
             <div style={{ background: `${item.color}` }}></div>
           </div>
@@ -54,9 +55,9 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
           <input
             placeholder={__("введите название должности")}
             className={styles.searchInput}
-            onChange={e =>
+            onChange={(e) =>
               setFiltredPositions(
-                personPositions.filter(position =>
+                personPositions.filter((position) =>
                   position.toLowerCase().includes(e.target.value.toLowerCase())
                 )
               )
@@ -72,7 +73,8 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
                 onClick={() => {
                   setValue(item);
                   setOpen(false);
-                }}>
+                }}
+              >
                 <span>{item}</span>
               </div>
             );
@@ -83,7 +85,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
   };
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -97,28 +99,31 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
       ref={ref}
       className={classNames({
         [styles.selectWrap]: true,
-        [styles.active]: !!open
-      })}>
+        [styles.active]: !!open,
+      })}
+    >
       <div
         onClick={() => {
           if (!disableСhanges) setOpen(!open);
         }}
         className={classNames({
           [styles.select]: true,
-          [styles.disabled]: disableСhanges
-        })}>
+          [styles.disabled]: disableСhanges,
+        })}
+      >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
-              [styles.selectInput]: true
-            })}>
+              [styles.selectInput]: true,
+            })}
+          >
             {selectFor === "status" && (
               <div className={styles.colorWrap}>
                 <div
                   style={{
                     background: `${
-                      personStatus.filter(i => i.text === value)[0].color
-                    }`
+                      personStatus.filter((i) => i.text === value)[0].color
+                    }`,
                   }}
                 />
               </div>
@@ -135,7 +140,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
                 }
                 value={value}
                 disabled={disableСhanges}
-                onChange={e =>
+                onChange={(e) =>
                   setValue(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -151,7 +156,7 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
           <span
             className={classNames({
               [styles.arrow]: true,
-              [styles.active]: !!open
+              [styles.active]: !!open,
             })}
           />
         )}
@@ -161,8 +166,9 @@ const Select = ({ selectFor, value, setValue, disableСhanges }) => {
         className={classNames({
           [styles.contentWrap]: true,
           [styles.active]: !!open,
-          [styles.position]: selectFor === "position"
-        })}>
+          [styles.position]: selectFor === "position",
+        })}
+      >
         {open && selectFor === "status" ? renderStatus() : renderPositions()}
       </div>
     </div>
@@ -174,5 +180,5 @@ Select.propTypes = {
   selectFor: PropTypes.string,
   value: PropTypes.string,
   setValue: PropTypes.func,
-  disableСhanges: PropTypes.bool
+  disableСhanges: PropTypes.bool,
 };

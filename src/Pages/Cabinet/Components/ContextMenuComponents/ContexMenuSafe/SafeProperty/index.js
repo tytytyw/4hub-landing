@@ -22,21 +22,24 @@ const SafeProperty = ({ close, safe }) => {
             className={`${styles.inset} ${
               inset === "general" ? styles.chosen : null
             }`}
-            onClick={() => setInset("general")}>
+            onClick={() => setInset("general")}
+          >
             Общие
           </div>
           <div
             className={`${styles.inset} ${
               inset === "security" ? styles.chosen : null
             }`}
-            onClick={() => setInset("security")}>
+            onClick={() => setInset("security")}
+          >
             Доступы
           </div>
           <div
             className={`${styles.inset} ${
               inset === "prev" ? styles.chosen : null
             }`}
-            onClick={() => setInset("prev")}>
+            onClick={() => setInset("prev")}
+          >
             Предыдущие версии
           </div>
         </div>
@@ -59,5 +62,5 @@ const SafeProperty = ({ close, safe }) => {
 export default SafeProperty;
 SafeProperty.propTypes = {
   close: PropTypes.func,
-  safe: safeProps
+  safe: safeProps,
 };

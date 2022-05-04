@@ -12,14 +12,14 @@ const SearchField = ({ setChosenFile }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
   const path = useSelector(
-    state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
+    (state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
   );
-  const searchField = useSelector(state => state.Cabinet?.search);
+  const searchField = useSelector((state) => state.Cabinet?.search);
   const dispatch = useDispatch();
 
-  const search = query => dispatch(onChooseFiles(path, query));
+  const search = (query) => dispatch(onChooseFiles(path, query));
   const debounceCallback = useDebounce(search, 500);
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (setChosenFile) setChosenFile(null);
     dispatch(onSearch(e.target.value));
     debounceCallback(e.target.value);
@@ -49,5 +49,5 @@ const SearchField = ({ setChosenFile }) => {
 export default SearchField;
 
 SearchField.propTypes = {
-  setChosenFile: PropTypes.func
+  setChosenFile: PropTypes.func,
 };

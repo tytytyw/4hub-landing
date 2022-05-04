@@ -19,8 +19,8 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
   const [visibility, setVisibility] = useState("password");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const onSwitch = boolean => setShowRepeat(boolean);
-  const comparePass = val => {
+  const onSwitch = (boolean) => setShowRepeat(boolean);
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -104,14 +104,16 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
             <div className={styles.buttonsWrap}>
               <div
                 className={styles.cancel}
-                onClick={() => setDisplaySetPassword(false)}>
+                onClick={() => setDisplaySetPassword(false)}
+              >
                 {__("Отмена")}
               </div>
               <div
                 className={`${file ? styles.add : styles.buttonDisabled}`}
                 onClick={() => {
                   if (file) onAddPass();
-                }}>
+                }}
+              >
                 {__("Установить")}
               </div>
             </div>
@@ -145,5 +147,5 @@ SetPassword.propTypes = {
   file: fileProps,
   setDisplaySetPassword: PropTypes.func,
   password: PropTypes.string,
-  setPassword: PropTypes.func
+  setPassword: PropTypes.func,
 };

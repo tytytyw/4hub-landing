@@ -12,7 +12,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
   const { __ } = useLocales();
   const regTypes = [
     { title: "4Hub", name: __("Обычная версия") },
-    { title: "4Hub (business)", name: __("Бизнес версия") }
+    { title: "4Hub (business)", name: __("Бизнес версия") },
   ];
   const [visibility, setVisibility] = useState("password");
   const [info, setInfo] = useState({
@@ -21,14 +21,14 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     repeatPass: "",
     company: "",
     regType: regTypes[0].name,
-    openRegType: false
+    openRegType: false,
   });
   const [compare, setCompare] = useState({
     isLogin: false,
     isPass: false,
     isCoincidePass: false,
     isAgreed: false,
-    isСompany: false
+    isСompany: false,
   });
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
@@ -46,14 +46,15 @@ const RegisterProfile = ({ setPage, pageOption }) => {
         key={i}
         className={classnames({
           [styles.toggleBtn]: true,
-          [styles.active]: el.name === info.regType
+          [styles.active]: el.name === info.regType,
         })}
-        onClick={() => setInfo({ ...info, regType: el.name })}>
+        onClick={() => setInfo({ ...info, regType: el.name })}
+      >
         {el.title}
       </button>
     ));
 
-  const setLogin = val => {
+  const setLogin = (val) => {
     let number;
     if (val[0] === "+") {
       const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
@@ -73,7 +74,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setInfo({ ...info, login: number });
   };
 
-  const checkLogin = input => {
+  const checkLogin = (input) => {
     let boolean = false;
     if (input.value[0] === "+") {
       const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, "");
@@ -84,13 +85,13 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setCompare({ ...compare, isLogin: boolean });
   };
 
-  const checkPass = input => {
+  const checkPass = (input) => {
     input.value === ""
       ? setCompare({ ...compare, isPass: true })
       : setCompare({ ...compare, isPass: false });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = info.pass.split("");
     const passRepeat = val.split("");
     let boolean = false;
@@ -100,12 +101,12 @@ const RegisterProfile = ({ setPage, pageOption }) => {
     setCompare({ ...compare, isCoincidePass: boolean });
   };
 
-  const checkCompany = input => {
+  const checkCompany = (input) => {
     if (input.value === "") return setCompare({ ...compare, isСompany: true });
     return setCompare({ ...compare, isСompany: false });
   };
 
-  const sendRequest = retry => {
+  const sendRequest = (retry) => {
     if (
       !compare.isLogin &&
       !compare.isPass &&
@@ -124,7 +125,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
             retry ? retry : ""
           }${company}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             setPage("registerSuccess");
           } else {
@@ -136,7 +137,7 @@ const RegisterProfile = ({ setPage, pageOption }) => {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setErrorMessage(err);
           setError(true);
@@ -167,7 +168,8 @@ const RegisterProfile = ({ setPage, pageOption }) => {
           <div
             className={`${styles.registerWrap} ${
               info.regType === __("Бизнес версия") ? styles.business : ""
-            }`}>
+            }`}
+          >
             <span className={styles.cross} onClick={() => setPage("init")} />
             <span className={styles.title}>{__("Регистрация")}</span>
 
@@ -184,15 +186,15 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                 <input
                   className={classnames({
                     [styles.inputField]: true,
-                    [styles.redBorder]: compare.isСompany
+                    [styles.redBorder]: compare.isСompany,
                   })}
                   type="text"
                   value={info.company}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInfo({ ...info, company: e.target.value });
                     checkCompany(e.target);
                   }}
-                  onBlur={e => checkCompany(e.target)}
+                  onBlur={(e) => checkCompany(e.target)}
                 />
               </div>
             ) : null}
@@ -206,13 +208,13 @@ const RegisterProfile = ({ setPage, pageOption }) => {
               <input
                 className={classnames({
                   [styles.inputField]: true,
-                  [styles.redBorder]: compare.isLogin
+                  [styles.redBorder]: compare.isLogin,
                 })}
                 type="text"
                 autoСomplete="new-password"
                 value={info.login}
-                onChange={e => setLogin(e.target.value)}
-                onBlur={e => checkLogin(e.target)}
+                onChange={(e) => setLogin(e.target.value)}
+                onBlur={(e) => checkLogin(e.target)}
               />
             </div>
             <div className={styles.inputWrap}>
@@ -225,12 +227,12 @@ const RegisterProfile = ({ setPage, pageOption }) => {
               <input
                 className={classnames({
                   [styles.inputField]: true,
-                  [styles.redBorder]: compare.isPass
+                  [styles.redBorder]: compare.isPass,
                 })}
                 type={visibility}
                 autoСomplete="new-password"
                 value={info.pass}
-                onChange={e => {
+                onChange={(e) => {
                   setInfo({ ...info, pass: e.target.value });
                   checkPass(e.target);
                 }}
@@ -262,12 +264,12 @@ const RegisterProfile = ({ setPage, pageOption }) => {
               <input
                 className={classnames({
                   [styles.inputField]: true,
-                  [styles.redBorder]: compare.isCoincidePass
+                  [styles.redBorder]: compare.isCoincidePass,
                 })}
                 type={visibility}
                 autoСomplete="new-password"
                 value={info.repeatPass}
-                onChange={e => {
+                onChange={(e) => {
                   setInfo({ ...info, repeatPass: e.target.value });
                   comparePass(e.target.value);
                 }}
@@ -278,7 +280,8 @@ const RegisterProfile = ({ setPage, pageOption }) => {
                 <div
                   onClick={() =>
                     setCompare({ ...compare, isAgreed: !compare.isAgreed })
-                  }>
+                  }
+                >
                   {compare.isAgreed && (
                     <img src="./assets/StartPage/tick.svg" alt="tick" />
                   )}
@@ -335,5 +338,5 @@ export default RegisterProfile;
 
 RegisterProfile.propTypes = {
   setPage: PropTypes.func,
-  pageOption: PropTypes.string
+  pageOption: PropTypes.string,
 };

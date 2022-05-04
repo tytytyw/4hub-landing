@@ -9,12 +9,12 @@ import InputField from "../../../../generalComponents/InputField";
 import {
   colors,
   useFolders,
-  useTags
+  useTags,
 } from "../../../../generalComponents/collections";
 import Error from "../../../../generalComponents/Error";
 import {
   onChooseFiles,
-  onGetFolders
+  onGetFolders,
 } from "../../../../Store/actions/CabinetActions";
 import Colors from "../../../../generalComponents/Elements/Colors";
 import "../../../../generalComponents/colors.sass";
@@ -33,13 +33,13 @@ const CreateFolder = ({
   chosenFolder,
   newFolderInfo,
   setGLoader,
-  setNewFolderInfo
+  setNewFolderInfo,
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const search = useSelector(state => state.Cabinet.search);
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet.search);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
@@ -56,11 +56,11 @@ const CreateFolder = ({
   const dispatch = useDispatch();
   const folders = useFolders();
 
-  const onAddName = name => {
+  const onAddName = (name) => {
     setNoNameError(false);
     setName(name);
   };
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -85,7 +85,7 @@ const CreateFolder = ({
       }&symbol=${sign}&emoji=${emoji}`;
       api
         .post(`/ajax/dir_add.php?${params}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             onCreate(false);
           } else {
@@ -109,12 +109,12 @@ const CreateFolder = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -139,14 +139,15 @@ const CreateFolder = ({
         <div
           className={`${styles.createFolderWrap} ${
             showRepeat ? "" : styles.crateFolderMin
-          }`}>
+          }`}
+        >
           <span className={styles.cross} onClick={() => onCreate(false)} />
           <span className={styles.title}>{title}</span>
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
                 className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === color.color)[0]?.name
+                  colors.filter((el) => el.color === color.color)[0]?.name
                 }`}
               />
             </div>
@@ -156,7 +157,8 @@ const CreateFolder = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
                     <div className={`${styles.minitag}`}>
                       #{tagOption.chosen}
                     </div>
@@ -166,12 +168,13 @@ const CreateFolder = ({
                   className={`${styles.colorWrap} ${
                     color.color !== "grey" ? styles.colorWrapTap : ""
                   } ${color.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
                       background: color.light,
-                      border: `1px solid ${color.dark}`
+                      border: `1px solid ${color.dark}`,
                     }}
                   />
                 </div>
@@ -220,7 +223,7 @@ const CreateFolder = ({
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -229,7 +232,8 @@ const CreateFolder = ({
               <div
                 className={styles.tagList}
                 ref={tagRef}
-                onClick={handleChoose}>
+                onClick={handleChoose}
+              >
                 {renderTags()}
               </div>
             </div>
@@ -306,10 +310,10 @@ CreateFolder.propTypes = {
   chosenFolder: chosenFolderProps,
   newFolderInfo: PropTypes.object,
   setGLoader: PropTypes.func,
-  setNewFolderInfo: PropTypes.func
+  setNewFolderInfo: PropTypes.func,
 };
 
 CreateFolder.defaultProps = {
   showChoiceFolders: true,
-  newFolderInfo: {}
+  newFolderInfo: {},
 };

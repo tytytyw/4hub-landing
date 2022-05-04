@@ -8,7 +8,7 @@ import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabi
 import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
 import {
   onGetContacts,
-  onSetModals
+  onSetModals,
 } from "../../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
@@ -19,13 +19,13 @@ import { useLocales } from "react-localized";
 function CopyLinkShare() {
   const { __ } = useLocales();
   const { items, action_type } = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   const item = items[0];
-  const uid = useSelector(state => state.user.uid);
-  const contactList = useSelector(state => state.Cabinet.contactList);
+  const uid = useSelector((state) => state.user.uid);
+  const contactList = useSelector((state) => state.Cabinet.contactList);
   const contextMenuModals = useSelector(
-    state => state.Cabinet.modals.contextMenuModals
+    (state) => state.Cabinet.modals.contextMenuModals
   );
   const [url, setUrl] = useState(__("Загрузка..."));
   const [review, setReview] = useState({ text: __("Просмотр") });
@@ -37,10 +37,10 @@ function CopyLinkShare() {
   const [prim, setPrim] = useState("");
   const [error, setError] = useState({
     error: false,
-    message: "Request Error"
+    message: "Request Error",
   });
   const closeError = () => {
-    setError(state => ({ ...state, error: false, message: "Request Error" }));
+    setError((state) => ({ ...state, error: false, message: "Request Error" }));
   };
   const dispatch = useDispatch();
 
@@ -50,14 +50,14 @@ function CopyLinkShare() {
         ...contextMenuModals,
         type: "",
         items: [],
-        action_type: ""
+        action_type: "",
       })
     );
   };
 
-  const checkContextMenu = e => {
+  const checkContextMenu = (e) => {
     if (!context) {
-      e.nativeEvent.path.forEach(el => {
+      e.nativeEvent.path.forEach((el) => {
         if (
           typeof el.className === "string" &&
           el.className.includes(styles.contacts)
@@ -71,7 +71,7 @@ function CopyLinkShare() {
       });
     } else {
       let block = false;
-      e.nativeEvent.path.forEach(el => {
+      e.nativeEvent.path.forEach((el) => {
         if (
           typeof el.className === "string" &&
           el.className.includes(styles.contactsList)
@@ -82,15 +82,15 @@ function CopyLinkShare() {
     }
   };
 
-  const getLink = status => {
+  const getLink = (status) => {
     setUrl(__("Загрузка..."));
     if (item?.is_dir === 0) {
       item?.file_link
         ? setUrl(item.file_link)
-        : setError(state => ({
+        : setError((state) => ({
             ...state,
             error: true,
-            message: __(`Ссылка на файл не найдена. Попробуйте еще раз`)
+            message: __(`Ссылка на файл не найдена. Попробуйте еще раз`),
           }));
     } else {
       let stat = "$&is_read=1";
@@ -98,20 +98,20 @@ function CopyLinkShare() {
       const url = `/ajax/${action_type}.php?uid=${uid}&dir=${item?.path}&email=$GUEST${stat}`;
       api
         .get(url)
-        .then(res => {
+        .then((res) => {
           let isBool = !!res.data.ok;
           if (isBool) {
             setUrl(res.data.link_shere_to_user);
           } else {
-            setError(state => ({
+            setError((state) => ({
               ...state,
               error: true,
-              message: `${res?.data?.error ?? error.message}`
+              message: `${res?.data?.error ?? error.message}`,
             }));
           }
         })
-        .catch(err =>
-          setError(state => ({ ...state, error: true, message: `${err}` }))
+        .catch((err) =>
+          setError((state) => ({ ...state, error: true, message: `${err}` }))
         );
     }
   };
@@ -135,7 +135,7 @@ function CopyLinkShare() {
         onSetModals("topMessage", {
           open: true,
           type: "message",
-          message: __("Ссылка скопирована")
+          message: __("Ссылка скопирована"),
         })
       );
     }
@@ -158,13 +158,14 @@ function CopyLinkShare() {
         />
       );
     return contactList.map((contact, i) => {
-      const index = chosenContacts?.findIndex(c => c.id === contact.id);
+      const index = chosenContacts?.findIndex((c) => c.id === contact.id);
       return (
         <div
           key={i}
           className={styles.contact}
           // TODO - Need to optimize code - too long rendering changeContact
-          onClick={() => chooseContact(contact, index)}>
+          onClick={() => chooseContact(contact, index)}
+        >
           <div
             className={`${styles.radioContact} ${
               index > -1 ? styles.radioContactChosen : ""
@@ -193,7 +194,8 @@ function CopyLinkShare() {
         onClick={() => {
           setReview({ ...review, text: __("Просмотр") });
           getLink();
-        }}>
+        }}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Просмотр") ? styles.radioChosen : ""
@@ -203,7 +205,8 @@ function CopyLinkShare() {
       </div>
       <div
         className={styles.reviewOption}
-        onClick={() => setReview({ ...review, text: __("Скачивание") })}>
+        onClick={() => setReview({ ...review, text: __("Скачивание") })}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Скачивание") ? styles.radioChosen : ""
@@ -216,7 +219,8 @@ function CopyLinkShare() {
         onClick={() => {
           setReview({ ...review, text: __("Редактировать") });
           getLink("write");
-        }}>
+        }}
+      >
         <div
           className={`${styles.radio} ${
             review.text === __("Редактировать") ? styles.radioChosen : ""
@@ -238,7 +242,7 @@ function CopyLinkShare() {
     }
   };
 
-  const deleteContact = index => {
+  const deleteContact = (index) => {
     let list = chosenContacts;
     list.splice(index, 1);
     setChosenContacts(list);
@@ -274,7 +278,8 @@ function CopyLinkShare() {
           <header>
             <div
               className={styles.backbutton}
-              onClick={() => setSendAccess(false)}>
+              onClick={() => setSendAccess(false)}
+            >
               <img
                 src={imageSrc + "assets/PrivateCabinet/arrow.svg"}
                 alt="img"
@@ -302,7 +307,8 @@ function CopyLinkShare() {
               </div>
               <div
                 className={styles.notificationUserWrap}
-                onClick={() => setNotify(!notify)}>
+                onClick={() => setNotify(!notify)}
+              >
                 <div
                   className={
                     notify ? styles.notifyEnable : styles.notifyDisable
@@ -314,13 +320,14 @@ function CopyLinkShare() {
                 <textarea
                   placeholder={__("Добавить сообщение")}
                   value={prim}
-                  onChange={e => setPrim(e.target.value)}
+                  onChange={(e) => setPrim(e.target.value)}
                 />
               </div>
               <div className={styles.buttonsWrap}>
                 <div
                   className={styles.cancel}
-                  onClick={() => setSendAccess(false)}>
+                  onClick={() => setSendAccess(false)}
+                >
                   {__("Отмена")}
                 </div>
                 <div className={styles.send} onClick={sendProject}>
@@ -408,7 +415,8 @@ function CopyLinkShare() {
                             ? styles.button
                             : styles.buttonDisabled
                         }`}
-                        onClick={() => setSendAccess(true)}>
+                        onClick={() => setSendAccess(true)}
+                      >
                         {__("Готово")}
                       </div>
                     </div>

@@ -18,7 +18,7 @@ const TableListTaskItem = ({ task }) => {
         <div className={styles.icons}>
           <span
             style={{
-              background: `${color}`
+              background: `${color}`,
             }}
             className={styles.circle}
           />
@@ -75,7 +75,7 @@ const TableListTaskItem = ({ task }) => {
           <span
             className={classNames({
               [styles.arrow]: true,
-              [styles.active]: !!collapse
+              [styles.active]: !!collapse,
             })}
           />
         </div>
@@ -106,5 +106,5 @@ const TableListTaskItem = ({ task }) => {
 export default TableListTaskItem;
 
 TableListTaskItem.propTypes = {
-  task: taskProps
+  task: taskProps,
 };

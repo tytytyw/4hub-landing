@@ -34,7 +34,7 @@ const Index = ({
           <img
             className={classnames({
               [styles.avatar]: true,
-              [styles.profileImg]: !!preview
+              [styles.profileImg]: !!preview,
             })}
             src={getImage()}
             alt="Avatar"
@@ -42,7 +42,7 @@ const Index = ({
           <img
             className={classnames({
               [styles.photo]: true,
-              [styles.uploaded]: !!preview
+              [styles.uploaded]: !!preview,
             })}
             src={cameraImg}
             alt="Camera"
@@ -61,13 +61,13 @@ Index.propTypes = {
   onChange: PropTypes.func,
   preview: PropTypes.string,
   background: PropTypes.shape({
-    avatarImg: PropTypes.string
+    avatarImg: PropTypes.string,
   }),
-  inputRef: PropTypes.object
+  inputRef: PropTypes.object,
 };
 
 Index.defaultProps = {
   name: "file",
   onChange: () => {},
-  background: { avatarImg }
+  background: { avatarImg },
 };

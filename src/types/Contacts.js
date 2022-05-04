@@ -23,5 +23,5 @@ export const selectedItemProps = PropTypes.exact({
   is_user_q: PropTypes.string,
   is_online: PropTypes.number,
   real_user_date_gmt: PropTypes.number,
-  real_user_date_last: PropTypes.string
+  real_user_date_last: PropTypes.string,
 });

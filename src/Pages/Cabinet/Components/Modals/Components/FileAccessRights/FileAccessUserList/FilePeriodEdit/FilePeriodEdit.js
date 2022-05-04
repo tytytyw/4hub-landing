@@ -38,6 +38,6 @@ function FilePeriodEdit({ closeChangePeriodModal }) {
 
 export default FilePeriodEdit;
 
-FilePeriodEdit.proptypes = {
-  closeChangePeriodModal: PropTypes.func
+FilePeriodEdit.propTypes = {
+  closeChangePeriodModal: PropTypes.func,
 };

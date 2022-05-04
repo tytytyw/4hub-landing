@@ -63,7 +63,8 @@ const SendSuccess = ({ data, set }) => {
           className={styles.imgWrap}
           onClick={() =>
             navigator.clipboard.writeText(`http://fs2.mh.net.ua${data.link}`)
-          }>
+          }
+        >
           <img src={imageSrc + "assets/StartPage/link-icon.svg"} alt="copy" />
         </div>
       </div>
@@ -81,9 +82,9 @@ SendSuccess.propTypes = {
     link: PropTypes.string,
     files: PropTypes.shape({
       file: PropTypes.shape({
-        name: string
-      })
-    })
+        name: string,
+      }),
+    }),
   }),
-  set: PropTypes.func
+  set: PropTypes.func,
 };

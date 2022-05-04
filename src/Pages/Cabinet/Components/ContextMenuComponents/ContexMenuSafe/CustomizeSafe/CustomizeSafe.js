@@ -7,7 +7,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import {
   colors,
-  useTags
+  useTags,
 } from "../../../../../../generalComponents/collections";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
@@ -26,12 +26,12 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const dispatch = useDispatch();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState(safe.name);
   const [password, setPassword] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: safe.tags, count: 30 });
   const [color, setColor] = useState(
-    colors?.find(item => item.name === safe.id_color)
+    colors?.find((item) => item.name === safe.id_color)
   );
   const defaultColor = "grey";
   const [sign, setSign] = useState(safe.id_fig);
@@ -54,7 +54,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
   const addErrors = () => {
     setErrors({
       name: !name,
-      password: !password
+      password: !password,
     });
   };
 
@@ -69,7 +69,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
       .get(
         `/ajax/safe_edit.php?uid=${uid}&id_safe=${id_safe}&name=${name}&pass=${pass}&tag=${tag}&color=${color}&symbol=${sign}&emoji=${emo}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok) {
           dispatch(onGetSafes());
           close();
@@ -86,7 +86,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
           }
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
   const AddSafe = () => {
@@ -98,7 +98,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
         color: color?.name || defaultColor,
         sign: sign,
         emo: emoji,
-        id_safe: safe.id
+        id_safe: safe.id,
       };
       onAddSafe(
         safeObj.name,
@@ -112,7 +112,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
     }
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
@@ -143,9 +143,10 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
               <div
                 className={classNames({
                   [styles.folder]: true,
-                  [styles.redCross]: color.color !== "grey"
+                  [styles.redCross]: color.color !== "grey",
                 })}
-                onClick={() => setColor(colors[0])}>
+                onClick={() => setColor(colors[0])}
+              >
                 <SafeIcon
                   type={color?.name || defaultColor}
                   className={styles.safeIcon}
@@ -159,12 +160,14 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                       className={classNames(
                         styles.minitagWrap,
                         styles.redCross
-                      )}>
+                      )}
+                    >
                       <div
                         className={styles.minitag}
                         onClick={() =>
                           setTagOption({ ...tagOption, chosen: "" })
-                        }>
+                        }
+                      >
                         # {tagOption.chosen}
                       </div>
                     </div>
@@ -173,14 +176,15 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   <div
                     className={classNames({
                       [styles.circleWrap]: true,
-                      [styles.redCross]: color.color !== "grey"
+                      [styles.redCross]: color.color !== "grey",
                     })}
-                    onClick={() => setColor(colors[0])}>
+                    onClick={() => setColor(colors[0])}
+                  >
                     <div
                       className={styles.circle}
                       style={{
                         background: color.light,
-                        border: `1px solid ${color.dark}`
+                        border: `1px solid ${color.dark}`,
                       }}
                     />
                   </div>
@@ -188,7 +192,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   {sign && (
                     <div
                       className={classNames(styles.sign, styles.redCross)}
-                      onClick={() => setSign("")}>
+                      onClick={() => setSign("")}
+                    >
                       <img
                         src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
                         alt="emoji"
@@ -199,7 +204,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   {emoji && (
                     <div
                       className={classNames(styles.redCross, styles.emodji)}
-                      onClick={() => setEmoji("")}>
+                      onClick={() => setEmoji("")}
+                    >
                       <img
                         src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
                         alt="emoji"
@@ -217,7 +223,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   placeholder={__("Имя сейфа")}
                   className={styles.input}
                   value={name}
-                  onChange={event => setName(event.target.value)}
+                  onChange={(event) => setName(event.target.value)}
                   isMistake={errors?.name}
                 />
               </div>
@@ -229,7 +235,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   type="text"
                   placeholder={__("Добавьте #Тег")}
                   value={tagOption.chosen}
-                  onChange={e => onChangeTag(e.target.value)}
+                  onChange={(e) => onChangeTag(e.target.value)}
                   onFocus={() => {
                     setTagOption({ ...tagOption, show: true });
                   }}
@@ -238,7 +244,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                 <div
                   className={styles.tagList}
                   ref={tagRef}
-                  onClick={handleChoose}>
+                  onClick={handleChoose}
+                >
                   {renderTags()}
                 </div>
               </div>
@@ -252,7 +259,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   setShowPass={setShowPass}
                   className={styles.input}
                   value={password}
-                  onChange={event => setPassword(event.target.value)}
+                  onChange={(event) => setPassword(event.target.value)}
                   isMistake={errors?.password}
                 />
               </div>
@@ -286,5 +293,5 @@ export default CustomizeSafe;
 CustomizeSafe.propTypes = {
   safe: safeProps,
   close: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

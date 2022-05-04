@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./PrintScreen.module.sass";
 import {
   htmlToCanvas,
-  imageToRatio
+  imageToRatio,
 } from "../../../../../../generalComponents/generalHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 
 const PrintScreen = () => {
-  const printScreen = useSelector(s => s.Cabinet.modals.printScreen);
+  const printScreen = useSelector((s) => s.Cabinet.modals.printScreen);
   const imgRef = useRef(null);
   const [display, setDisplay] = useState("none");
   const [size, setSize] = useState({ width: "200px", height: "150px" });
@@ -34,7 +34,7 @@ const PrintScreen = () => {
       200,
       200
     );
-    setSize(size => ({ ...size, width: sizes.width, height: sizes.height }));
+    setSize((size) => ({ ...size, width: sizes.width, height: sizes.height }));
     setTimeout(() => {
       setDisplay("none");
       dispatch(onSetModals("printScreen", { ...printScreen, open: false }));
@@ -60,7 +60,7 @@ const PrintScreen = () => {
         style={{
           display,
           width: display === "block" ? `${size.width}px` : "",
-          height: display === "block" ? `${size.height}px` : ""
+          height: display === "block" ? `${size.height}px` : "",
         }}
         onClick={handlePreview}
       />

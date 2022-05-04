@@ -14,7 +14,7 @@ import SideList from "../../../SharedFiles/SideList/SideList";
 import PropTypes from "prop-types";
 import {
   filePickProps,
-  filePreviewProps
+  filePreviewProps,
 } from "../../../../../../types/WorkElements";
 
 function FilesGroup({
@@ -29,10 +29,10 @@ function FilesGroup({
   setAction,
   setMouseParams,
   mounthName,
-  index
+  index,
 }) {
   const [collapse, setCollapse] = useState(index === 0);
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
   const renderFiles = (Type, shareLink) => {
     if (!fileList || fileList.length === 0) return null;
     return fileList.files?.map((file, index) => (
@@ -49,7 +49,7 @@ function FilesGroup({
         filePick={filePick}
         chosen={
           filePick.show
-            ? filePick.files.findIndex(el => el === file.fid) >= 0
+            ? filePick.files.findIndex((el) => el === file.fid) >= 0
             : chosenFile?.fid === file?.fid
         }
         callbackArrMain={callbackArrMain}
@@ -65,7 +65,8 @@ function FilesGroup({
           onClick={() => {
             setCollapse(!collapse);
           }}
-          className={styles.collapseHeader}>
+          className={styles.collapseHeader}
+        >
           <p className={styles.dateName}>{mounthName}</p>
           <div className={styles.buttonsWrap}>
             <button className={styles.collapseBtn}>
@@ -74,12 +75,13 @@ function FilesGroup({
             <div
               className={classNames({
                 [styles.arrowFile]: true,
-                [styles.active]: !!collapse
-              })}>
+                [styles.active]: !!collapse,
+              })}
+            >
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
-                  [styles.revert]: !!collapse
+                  [styles.revert]: !!collapse,
                 })}
               />
             </div>
@@ -119,7 +121,8 @@ function FilesGroup({
           )}
           {workElementsView === "workLinesPreview" && (
             <div
-              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
+              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}
+            >
               <SideList>{renderFiles(FileLineShort, true)}</SideList>
               <div className={styles.filePreviewWrap}>
                 <WorkLinesPreview
@@ -150,5 +153,5 @@ FilesGroup.propTypes = {
   setAction: PropTypes.func,
   setMouseParams: PropTypes.func,
   mounthName: PropTypes.string,
-  index: PropTypes.number
+  index: PropTypes.number,
 };

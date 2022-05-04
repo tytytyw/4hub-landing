@@ -14,14 +14,14 @@ const СhooseAspectRatio = ({ set, originalAspect, cancel }) => {
     { label: "4:3", value: 4 / 3 },
     { label: "5:4", value: 5 / 4 },
     { label: "7:5", value: 7 / 5 },
-    { label: "16:9", value: 16 / 9 }
+    { label: "16:9", value: 16 / 9 },
   ];
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.valueItemsWrapper}>
         {values &&
-          values.map(item => (
+          values.map((item) => (
             <div
               className={styles.valueItem}
               key={item.label}
@@ -41,5 +41,5 @@ export default СhooseAspectRatio;
 СhooseAspectRatio.propTypes = {
   set: PropTypes.func.isRequired,
   originalAspect: PropTypes.number.isRequired,
-  cancel: PropTypes.func.isRequired
+  cancel: PropTypes.func.isRequired,
 };

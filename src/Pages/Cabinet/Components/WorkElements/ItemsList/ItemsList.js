@@ -17,7 +17,7 @@ import {
   onChooseFolder,
   onGetArchiveFiles,
   onSetNextFilesToPrevious,
-  onSetPath
+  onSetPath,
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -51,18 +51,18 @@ const ItemsList = ({
   menuItem,
   dateFilter,
   successLoad,
-  sharedFilesInfo
+  sharedFilesInfo,
 }) => {
   const { __ } = useLocales();
   const periods = usePeriods();
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const folderList = useSelector(state => state.Cabinet.folderList);
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const folderList = useSelector((state) => state.Cabinet.folderList);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
-  const folderSelect = folder => {
+  const folderSelect = (folder) => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
     dispatch(onChooseFiles(path, "", 1, "", setGLoader));
@@ -70,12 +70,12 @@ const ItemsList = ({
     if (path.split("/").length === 3) {
       dispatch(onChooseFolder(folderList?.folders, path));
       dispatch(onSetPath(path));
-      setChosenFolder(state => ({ ...state, open: true, subPath: path }));
+      setChosenFolder((state) => ({ ...state, open: true, subPath: path }));
     }
   };
 
   //To render FilePath properly after fileNext is destroyed
-  const chooseItemNext = item => {
+  const chooseItemNext = (item) => {
     const f = { ...item };
     f.is_dir
       ? dispatch(onSetNextFilesToPrevious(f.path, true))
@@ -93,7 +93,7 @@ const ItemsList = ({
           setChosenFile={setChosenFile}
           chosen={
             filePick.show
-              ? filePick.files.findIndex(el => el === file.fid) >= 0
+              ? filePick.files.findIndex((el) => el === file.fid) >= 0
               : chosenFile?.fid === file?.fid
           }
           setMouseParams={setMouseParams}
@@ -153,7 +153,7 @@ const ItemsList = ({
   };
 
   const [loadingFiles, setLoadingFiles] = useState(false);
-  const search = useSelector(state => state.Cabinet.search);
+  const search = useSelector((state) => state.Cabinet.search);
 
   useEffect(() => {
     setLoadingFiles(false);
@@ -175,10 +175,12 @@ const ItemsList = ({
     }
   }, [dateFilter]);
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     if (typeof result === "number") {
       setTimeout(() => {
-        result > 0 ? setFilesPage(filesPage => filesPage + 1) : setFilesPage(0);
+        result > 0
+          ? setFilesPage((filesPage) => filesPage + 1)
+          : setFilesPage(0);
         setLoadingFiles(false);
       }, 50); // 50ms needed to prevent recursion of ls_json requests
     } else if (typeof result === "object") {
@@ -188,7 +190,7 @@ const ItemsList = ({
       }
       setTimeout(() => {
         moreElements
-          ? setFilesPage(filesPage => filesPage + 1)
+          ? setFilesPage((filesPage) => filesPage + 1)
           : setFilesPage(0);
         setLoadingFiles(false);
       }, 500);
@@ -203,10 +205,10 @@ const ItemsList = ({
   const options = {
     root: null,
     rootMargin: "0px",
-    threshold: 0
+    threshold: 0,
   };
 
-  const load = entry => {
+  const load = (entry) => {
     if (!gLoader) {
       if (
         entry.isIntersecting &&
@@ -283,7 +285,8 @@ const ItemsList = ({
           gLoader={gLoader}
           hideUploadFile={fileList === null}
           load={load}
-          options={options}>
+          options={options}
+        >
           {renderFiles(FileBar, fileList?.files)}
         </WorkBars>
       ) : null}
@@ -301,9 +304,10 @@ const ItemsList = ({
             ),
             styles.FilesList,
             {
-              [styles.shared_files]: pathname.startsWith("/shared-files")
+              [styles.shared_files]: pathname.startsWith("/shared-files"),
             }
-          )}>
+          )}
+        >
           {renderGroups(FileBar, fileList?.files)}
           {!gLoader ? (
             <div
@@ -311,7 +315,8 @@ const ItemsList = ({
                 filesPage === 0 ? styles.bottomLineHidden : ""
               }`}
               style={{ height: "100%" }}
-              ref={scrollRef}>
+              ref={scrollRef}
+            >
               <Loader
                 type="bounceDots"
                 position="absolute"
@@ -336,7 +341,8 @@ const ItemsList = ({
           chosenFolder={chosenFolder}
           gLoader={gLoader}
           load={load}
-          options={options}>
+          options={options}
+        >
           {renderFiles(FileLine, fileList?.files)}
         </WorkLines>
       ) : null}
@@ -355,7 +361,8 @@ const ItemsList = ({
           chosenFile={chosenFile}
           load={load}
           options={options}
-          groupInfo={groupInfo}>
+          groupInfo={groupInfo}
+        >
           {Array.isArray(fileList?.files)
             ? renderFiles(FileBar, fileList?.files)
             : renderGroups(FileBar, fileList?.files)}
@@ -375,7 +382,8 @@ const ItemsList = ({
           options={options}
           renderFiles={renderFiles}
           renderGroups={renderGroups}
-          menuItem={menuItem}>
+          menuItem={menuItem}
+        >
           {Array.isArray(fileList?.files)
             ? renderFiles(FileLineShort, fileList?.files)
             : renderGroups(FileLineShort, fileList?.files)}

@@ -31,7 +31,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
     { id: 3, name: __("Встреча online"), icon: "online-meeting" },
     { id: 4, name: __("Встреча offline"), icon: "offline-meeting" },
     { id: 5, name: __("Напоминание"), icon: "reminder" },
-    { id: 6, name: __("Другое"), icon: "other" }
+    { id: 6, name: __("Другое"), icon: "other" },
   ];
 
   const renderTags = () => {
@@ -46,17 +46,17 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
 
   const width = window.innerWidth;
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const getEventName = id => {
-    const event = events.find(item => item.id === id);
+  const getEventName = (id) => {
+    const event = events.find((item) => item.id === id);
     return event?.name;
   };
 
-  const maskDate = date => {
+  const maskDate = (date) => {
     const tempValue = date.replace(/\D/gim, "");
     return tempValue.replace(
       ...({
@@ -66,18 +66,18 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
         5: [/(\d{2})(\d{2})/g, "$1.$2."],
         6: [/(\d{2})(\d{2})(\d{0,4})/g, "$1.$2.$3"],
         7: [/(\d{2})(\d{2})(\d{1,4})/g, "$1.$2.$3"],
-        8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"]
+        8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"],
       }[tempValue.length] || [])
     );
   };
 
-  const onChangeDateFrom = event => {
+  const onChangeDateFrom = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
     setDateFrom(event.target.value);
   };
 
-  const onChangeDateTo = event => {
+  const onChangeDateTo = (event) => {
     let { value } = event.target;
     event.target.value = maskDate(value);
     setDateTo(event.target.value);
@@ -97,13 +97,15 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 <Select
                   placeholder={__("Выбрать")}
                   data={events}
-                  value={getEventName(eventType)}>
+                  value={getEventName(eventType)}
+                >
                   <ul className={styles.eventsList}>
                     {events.map((event, index) => (
                       <li
                         key={index}
                         onClick={() => setEventType(event?.id)}
-                        className={styles.eventItem}>
+                        className={styles.eventItem}
+                      >
                         <div className={styles.eventIconWrap}>
                           <img
                             className={styles.eventIcon}
@@ -168,7 +170,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   type="text"
                   placeholder={__("Добавте #Тег")}
                   value={tagOption.chosen}
-                  onChange={e => onChangeTag(e.target.value)}
+                  onChange={(e) => onChangeTag(e.target.value)}
                   onFocus={() => {
                     setTagOption({ ...tagOption, show: true });
                   }}
@@ -181,8 +183,9 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                 <textarea
                   placeholder={__("Опишите задачу")}
                   className={styles.description}
-                  onChange={event => setDesc(event.target.value)}
-                  value={desc}>
+                  onChange={(event) => setDesc(event.target.value)}
+                  value={desc}
+                >
                   {desc}
                 </textarea>
               </div>
@@ -208,11 +211,12 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   dateFrom,
                   dateTo,
                   tagOption,
-                  desc
+                  desc,
                 });
                 onCreate(false);
                 setSuccess(true);
-              }}>
+              }}
+            >
               {__("Создать")}
             </div>
           </div>
@@ -227,5 +231,5 @@ export default CreateTask;
 CreateTask.propTypes = {
   onCreate: PropTypes.func,
   setSuccess: PropTypes.func,
-  setEvent: PropTypes.func
+  setEvent: PropTypes.func,
 };

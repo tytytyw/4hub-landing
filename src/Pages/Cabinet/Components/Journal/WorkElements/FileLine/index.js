@@ -14,7 +14,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import {
   filePreviewProps,
-  fileProps
+  fileProps,
 } from "../../../../../../types/WorkElements";
 
 const FileLine = ({
@@ -24,10 +24,10 @@ const FileLine = ({
   setMouseParams,
   setAction,
   setFilePreview,
-  filePreview
+  filePreview,
 }) => {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   return (
     <div
@@ -36,8 +36,9 @@ const FileLine = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosenFile?.fid === file?.fid,
-        [styles?.[`wrapper_${size}`]]: size !== "medium"
-      })}>
+        [styles?.[`wrapper_${size}`]]: size !== "medium",
+      })}
+    >
       <div className={styles.fileAbout}>
         <div className={styles.file}>
           <File format={file.ext} color={file.color} />
@@ -133,9 +134,10 @@ const FileLine = ({
             setAction({
               type: "delete",
               name: __("Удаление файла"),
-              text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
+              text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
             })
-          }>
+          }
+        >
           <DeleteIcon />
         </div>
 
@@ -145,14 +147,15 @@ const FileLine = ({
 
         <div
           className={styles.menuWrap}
-          onClick={e => {
+          onClick={(e) => {
             setMouseParams({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25
+              height: 25,
             });
-          }}>
+          }}
+        >
           <span className={styles.menu} />
         </div>
       </div>
@@ -166,10 +169,10 @@ FileLine.propTypes = {
   file: fileProps,
   setChosenFile: PropTypes.func,
   chosenFile: PropTypes.shape({
-    fid: PropTypes.string
+    fid: PropTypes.string,
   }),
   setMouseParams: PropTypes.func,
   setAction: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps
+  filePreview: filePreviewProps,
 };

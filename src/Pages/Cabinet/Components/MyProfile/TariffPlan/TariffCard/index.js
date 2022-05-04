@@ -13,8 +13,9 @@ const TariffCard = ({ item }) => {
       <div
         className={classnames({
           [styles.topBlock]: true,
-          [styles.dayOffer]: item.dayOffer
-        })}>
+          [styles.dayOffer]: item.dayOffer,
+        })}
+      >
         {item.dayOffer && __("Предложение дня")}
       </div>
 
@@ -48,8 +49,9 @@ const TariffCard = ({ item }) => {
         <Button
           className={classnames({
             [styles.actionBtn]: true,
-            [styles.buyBtn]: !item.current
-          })}>
+            [styles.buyBtn]: !item.current,
+          })}
+        >
           {item.current ? __("Текущий план") : __("Купить")}
         </Button>
       </div>
@@ -60,5 +62,5 @@ const TariffCard = ({ item }) => {
 export default TariffCard;
 
 TariffCard.propTypes = {
-  item: tariffCardProps
+  item: tariffCardProps,
 };

@@ -8,13 +8,13 @@ import { useLocales } from "react-localized";
 
 const Security = () => {
   const { __ } = useLocales();
-  const userInfo = useSelector(state => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const userList = [
     "Коваленко Артем",
     "Надельская Ангелина",
     "Филь Сергей",
     "Филь Сергей",
-    "Надельская Ангелина"
+    "Надельская Ангелина",
   ];
   const userListRestriction = [
     "Коваленко Артем",
@@ -22,9 +22,9 @@ const Security = () => {
     "Надельская Ангелина",
     "Филь Сергей",
     "Филь Сергей",
-    "Надельская Ангелина"
+    "Надельская Ангелина",
   ];
-  const renderUsers = userList => {
+  const renderUsers = (userList) => {
     return userList.map((user, id) => {
       return (
         <span key={id} className={styles.user}>

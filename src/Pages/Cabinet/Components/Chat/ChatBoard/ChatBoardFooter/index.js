@@ -14,7 +14,7 @@ import api from "../../../../../../api";
 import {
   cameraAccess,
   wantMimeType,
-  ducationTimerToString
+  ducationTimerToString,
 } from "../../../../../../generalComponents/chatHelper";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -41,14 +41,14 @@ const ChatBoardFooter = ({
   setFile,
   scrollToBottom,
   socket,
-  editMessage
+  editMessage,
 }) => {
   const { __ } = useLocales();
   const [messageIsSending, setMessageIsSending] = useState(false);
   const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
+    (state) => state.Cabinet.chat.selectedContact
   );
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
 
   const upLoadFile = (blob, fileName, kind) => {
     setMessageIsSending(true);
@@ -63,17 +63,17 @@ const ChatBoardFooter = ({
       formData.append("type_from", "webm");
       formData.append("type_to", "mp4");
     }
-    createHistogramData(audioFrequencyData).then(histogramData => {
+    createHistogramData(audioFrequencyData).then((histogramData) => {
       api
         .post(`/ajax/${apiUrl}.php`, formData)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok) {
             const attachment = {
               ...res.data.files.myfile,
               link: res.data.link,
               fid: res.data.fid,
               id: res.data.id,
-              kind
+              kind,
             };
             if (histogramData) attachment.histogramData = histogramData;
             if (socket?.readyState) {
@@ -91,11 +91,11 @@ const ChatBoardFooter = ({
     setIsRecording(true);
     audioFrequencyData = [];
     cameraAccess(constraints)
-      .then(stream => {
+      .then((stream) => {
         if (type === "message") {
           // for audio/video messages
           const recorder = new MediaRecorder(stream, {
-            mimeType: wantMimeType(constraints)
+            mimeType: wantMimeType(constraints),
           });
           recorder.start();
           setMediaRecorder(recorder);
@@ -146,7 +146,7 @@ const ChatBoardFooter = ({
       });
   };
 
-  const createHistogramData = async data => {
+  const createHistogramData = async (data) => {
     if (data.length) {
       const result = [];
       const columnDataLength = Math.floor(data.length / 50);
@@ -163,7 +163,7 @@ const ChatBoardFooter = ({
     }
   };
 
-  const onDataAviable = e => {
+  const onDataAviable = (e) => {
     if (isRecording) {
       const data = e.data;
       if (data.type.includes("audio"))
@@ -176,7 +176,7 @@ const ChatBoardFooter = ({
     setIsRecording(false);
   };
 
-  const onAddMessage = text => {
+  const onAddMessage = (text) => {
     addMessage(text);
     scrollToBottom();
   };
@@ -212,13 +212,13 @@ const ChatBoardFooter = ({
         <div className={styles.downloadOptions}>
           <AddIcon
             title={__("Вставить файл")}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 220,
                 height: 25,
-                contextMenuList: "uploadFile"
+                contextMenuList: "uploadFile",
               })
             }
           />
@@ -239,7 +239,7 @@ const ChatBoardFooter = ({
       <div
         className={classNames({
           [styles.sendOptions]: true,
-          [styles.secretChat]: selectedContact?.is_secret_chat
+          [styles.secretChat]: selectedContact?.is_secret_chat,
         })}
       >
         {messageIsSending ? (
@@ -260,7 +260,7 @@ const ChatBoardFooter = ({
               title={__("Аудио сообщение")}
               className={classNames({
                 [styles.button]: true,
-                [styles.pressed]: isRecording
+                [styles.pressed]: isRecording,
               })}
               onMouseDown={() => onRecording("message", { audio: true })}
             >
@@ -270,7 +270,7 @@ const ChatBoardFooter = ({
               title={__("Видео сообщение")}
               className={classNames({
                 [styles.button]: true,
-                [styles.pressed]: isRecording
+                [styles.pressed]: isRecording,
               })}
               onMouseDown={() =>
                 onRecording("message", { audio: true, video: true })
@@ -284,7 +284,7 @@ const ChatBoardFooter = ({
           title={__("Смайлики")}
           className={styles.button}
           onClick={() =>
-            setRightPanelContentType(state => (state === "emo" ? "" : "emo"))
+            setRightPanelContentType((state) => (state === "emo" ? "" : "emo"))
           }
         >
           <SmileIcon title="" />
@@ -293,13 +293,13 @@ const ChatBoardFooter = ({
           <div
             title={__("Таймер сообщений")}
             className={styles.button}
-            onClick={e =>
+            onClick={(e) =>
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 59,
                 height: 15,
-                contextMenuList: "timer"
+                contextMenuList: "timer",
               })
             }
           >
@@ -332,5 +332,5 @@ ChatBoardFooter.propTypes = {
   setFile: PropTypes.func.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
   socket: PropTypes.object,
-  editMessage: PropTypes.func.isRequired
+  editMessage: PropTypes.func.isRequired,
 };

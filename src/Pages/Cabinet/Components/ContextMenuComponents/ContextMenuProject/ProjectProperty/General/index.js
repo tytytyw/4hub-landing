@@ -48,5 +48,5 @@ export default General;
 
 General.propTypes = {
   project: projectProps,
-  getIcon: PropTypes.func
+  getIcon: PropTypes.func,
 };

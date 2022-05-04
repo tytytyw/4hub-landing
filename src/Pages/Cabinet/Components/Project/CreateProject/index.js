@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 const CreateProject = ({ onCreate, title, setLoadingType }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [name, setName] = useState("");
   const [target, setTarget] = useState("");
   const [members, setMembers] = useState("");
@@ -40,7 +40,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
     if (name) setNoNameError(false);
   }, [name]);
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -61,7 +61,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
       .get(
         `/ajax/project_add.php/?uid=${uid}&name=${name}&icon=${icon}&tag=${tagOption.chosen}&color=${color.name}&symbol=${sign}&emoji=${emoji}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetProjects());
           closeComponent();
@@ -72,7 +72,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
           setError(__("Что-то пошло не так. Повторите попытку позже"));
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
 
@@ -81,12 +81,12 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -153,7 +153,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -222,5 +222,5 @@ export default CreateProject;
 CreateProject.propTypes = {
   onCreate: PropTypes.func,
   title: PropTypes.string,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

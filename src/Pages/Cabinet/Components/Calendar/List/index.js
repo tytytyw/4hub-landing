@@ -11,8 +11,9 @@ const List = ({ title, setListCollapsed, listCollapsed, children }) => {
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.listWrapCollapsed]: !!listCollapsed
-      })}>
+        [styles.listWrapCollapsed]: !!listCollapsed,
+      })}
+    >
       <div className={styles.header}>
         <div className={styles.titleWrap}>
           <FolderIcon className={styles.folderIcon} />
@@ -23,7 +24,7 @@ const List = ({ title, setListCollapsed, listCollapsed, children }) => {
             onClick={() => setListCollapsed(!listCollapsed)}
             className={classNames({
               [styles.playButton]: true,
-              [styles.revert]: !!listCollapsed
+              [styles.revert]: !!listCollapsed,
             })}
           />
         </div>
@@ -40,5 +41,5 @@ List.propTypes = {
   title: PropTypes.string,
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

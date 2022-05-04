@@ -67,5 +67,5 @@ export default PrevVersions;
 
 PrevVersions.propTypes = {
   project: projectProps,
-  getIcon: PropTypes.func
+  getIcon: PropTypes.func,
 };

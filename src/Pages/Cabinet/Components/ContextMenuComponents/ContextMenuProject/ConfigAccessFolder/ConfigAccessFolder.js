@@ -21,9 +21,9 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
   const [timeValue, setTimeValue] = useState({
     hours: "",
     minutes: "",
-    seconds: ""
+    seconds: "",
   });
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [size] = useState("0 MB");
   const [data, setData] = useState({ uid, deadline: "" });
   const linkRef = useRef("");
@@ -32,13 +32,13 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
   };
 
   useEffect(() => {
-    setData(data => ({
+    setData((data) => ({
       ...data,
       deadline: dateValue
         ? `${dateValue} ${
             timeValue.hours ? setTime(timeValue.hours, 24) : "23"
           }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"}`
-        : ""
+        : "",
     }));
   }, [dateValue, timeValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -84,7 +84,8 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
             </div>
             <span
               onClick={() => setDisplayStotagePeriod(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -96,11 +97,13 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
               <p className={styles.input_title}>Пароль</p>
               <input
                 id={"input_pass"}
-                placeholder="Вы можете установить пароль на данный файл"></input>
+                placeholder="Вы можете установить пароль на данный файл"
+              ></input>
             </div>
             <span
               onClick={() => setDisplaySetPassword(true)}
-              className={styles.set_btn}>
+              className={styles.set_btn}
+            >
               {__("Установить")}
             </span>
           </div>
@@ -151,5 +154,5 @@ export default ConfigAccessFolder;
 ConfigAccessFolder.propTypes = {
   folder: chosenFolderProps,
   close: PropTypes.func,
-  setShowSuccessMessage: PropTypes.func
+  setShowSuccessMessage: PropTypes.func,
 };

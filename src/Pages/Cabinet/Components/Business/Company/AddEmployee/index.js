@@ -55,7 +55,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 name="email"
                 placeholder={__("Введите фамилию")}
                 isName={true}
-                onChange={e =>
+                onChange={(e) =>
                   setSurname(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -73,7 +73,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 id="name"
                 name="name"
                 placeholder={__("Введите имя")}
-                onChange={e =>
+                onChange={(e) =>
                   setName(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -92,7 +92,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 id="surname"
                 name="middle_name"
                 placeholder={__("Введите отчество")}
-                onChange={e =>
+                onChange={(e) =>
                   setMiddleName(
                     e.target.value
                       ? e.target.value[0].toUpperCase() +
@@ -140,7 +140,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 name="phone"
                 placeholder={__("+38")}
                 phone={true}
-                onChange={e => setPhone(e.target.value)}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className={classNames(styles.field, styles.contacts)}>
@@ -152,7 +152,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 name="phone2"
                 placeholder={__("Дополнительный телефон")}
                 phone={true}
-                onChange={e => setPhone2(e.target.value)}
+                onChange={(e) => setPhone2(e.target.value)}
               />
             </div>
           </div>
@@ -166,7 +166,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 id="email"
                 name="email"
                 placeholder={__("Введите email")}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className={classNames(styles.field, styles.contacts)}>
@@ -177,7 +177,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 id="email2"
                 name="email2"
                 placeholder={__("Введите запасной email")}
-                onChange={e => setEmail2(e.target.value)}
+                onChange={(e) => setEmail2(e.target.value)}
               />
             </div>
           </div>
@@ -199,9 +199,10 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 phone,
                 phone2,
                 email,
-                email2
+                email2,
               });
-            }}>
+            }}
+          >
             {__("Добавить")}
           </button>
         </div>
@@ -213,7 +214,8 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
           text={__(
             "Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
           )}
-          set={nullifyAction}>
+          set={nullifyAction}
+        >
           <SuccessImg width={40} height={40} />
         </SuccessPopup>
       )}
@@ -225,5 +227,5 @@ export default AddEmployee;
 
 AddEmployee.propTypes = {
   nullifyAction: PropTypes.func,
-  addPerson: PropTypes.func
+  addPerson: PropTypes.func,
 };

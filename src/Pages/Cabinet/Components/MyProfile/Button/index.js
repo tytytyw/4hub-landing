@@ -9,7 +9,7 @@ const Button = ({
   type = "button",
   disabled = false,
   className,
-  onClick = () => {}
+  onClick = () => {},
 }) => {
   return (
     <button
@@ -17,9 +17,10 @@ const Button = ({
       disabled={disabled}
       className={classnames({
         [styles.button]: true,
-        [className]: true
+        [className]: true,
       })}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {children}
     </button>
   );
@@ -32,10 +33,10 @@ Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 Button.defaultProps = {
   type: "button",
   disabled: false,
-  onClick: () => {}
+  onClick: () => {},
 };

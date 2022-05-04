@@ -14,11 +14,11 @@ function ImagePanel({
   inputRef = null,
   isChoosing = false,
   addToChosen = () => {},
-  chosen = []
+  chosen = [],
 }) {
-  const addImages = e => {
+  const addImages = (e) => {
     let files = [];
-    Object.values(e.target.files).forEach(f => {
+    Object.values(e.target.files).forEach((f) => {
       if (f.type.includes("image")) files.push(URL.createObjectURL(f));
     });
     if (files.length > 0) {
@@ -32,10 +32,11 @@ function ImagePanel({
         className={classnames({
           [styles.itemWrap]: true,
           [styles.itemChosen]:
-            typeof image === "object" && chosen.indexOf(image.fid) !== -1
+            typeof image === "object" && chosen.indexOf(image.fid) !== -1,
         })}
         key={i}
-        draggable>
+        draggable
+      >
         {!isChoosing ? (
           <div className={styles.hoverDelete}>
             <div className={styles.deleteWrap} onClick={() => deleteImage(i)}>
@@ -96,7 +97,7 @@ ImagePanel.propTypes = {
   inputRef: PropTypes.any,
   isChoosing: PropTypes.bool,
   addToChosen: PropTypes.func,
-  chosen: PropTypes.array
+  chosen: PropTypes.array,
 };
 
 ImagePanel.defaultProps = {
@@ -107,5 +108,5 @@ ImagePanel.defaultProps = {
   inputRef: null,
   isChoosing: false,
   addToChosen: () => {},
-  chosen: []
+  chosen: [],
 };

@@ -31,11 +31,11 @@ const WorkSpace = ({
   setParams,
   setSelectedProject,
   mouseParams,
-  listCollapsed
+  listCollapsed,
 }) => {
   const { __ } = useLocales();
-  const files = useSelector(state => state.Cabinet.project.files);
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
+  const files = useSelector((state) => state.Cabinet.project.files);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const [filePick, setFilePick] = useState({ show: false, files: [] });
   const [workElementsView, setWorkElementsView] = useState("");
   const [chosenFile, setChosenFile] = useState(null);
@@ -43,7 +43,7 @@ const WorkSpace = ({
   const [fileCollapsed, setFileCollapsed] = useState(false);
   const [containerRef, width] = useElementResize();
 
-  const renderFiles = Type => {
+  const renderFiles = (Type) => {
     if (!files) return null;
     return files.map((file, i) => {
       return (
@@ -64,9 +64,9 @@ const WorkSpace = ({
     });
   };
 
-  const chooseProjectFromRecent = project => {
+  const chooseProjectFromRecent = (project) => {
     setSelectedProject(project);
-    setParams(state => ({ ...state, fromRecent: true }));
+    setParams((state) => ({ ...state, fromRecent: true }));
   };
 
   return (
@@ -74,9 +74,10 @@ const WorkSpace = ({
       className={classnames({
         [styles.wrapper]: true,
         [styles.collapsed]: listCollapsed,
-        [styles.notCollapsed]: !listCollapsed
+        [styles.notCollapsed]: !listCollapsed,
       })}
-      ref={containerRef}>
+      ref={containerRef}
+    >
       <div className={styles.header}>
         <SearchField />
         <div className={styles.infoHeader}>
@@ -110,7 +111,8 @@ const WorkSpace = ({
         <WorkLinesPreview
           recentFiles={recentFiles}
           chosenFile={chosenFile}
-          fileCollapsed={fileCollapsed}>
+          fileCollapsed={fileCollapsed}
+        >
           <div className={styles.fileListHeader}>
             <span>{fileCollapsed ? __("Файлы") : __("Файлы проекта")}</span>
             <img
@@ -132,7 +134,8 @@ const WorkSpace = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -158,5 +161,5 @@ WorkSpace.propTypes = {
   setParams: PropTypes.func,
   setSelectedProject: PropTypes.func,
   mouseParams: mouseParamsProps,
-  listCollapsed: PropTypes.bool
+  listCollapsed: PropTypes.bool,
 };

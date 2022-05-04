@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
   //TODO: add safe link
   const safe_link = `http://fs2.mh.net.ua`;
-  const HrefSocial = selectedSoc => {
+  const HrefSocial = (selectedSoc) => {
     switch (selectedSoc) {
       case "email":
         return `mailto:${user_to}?body=${safe_link}`;
@@ -26,23 +26,23 @@ const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
     {
       label: "Email",
       type: "email",
-      icon: `${imageSrc}/assets/PrivateCabinet/socials/mail.svg`
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/mail.svg`,
     },
     {
       label: "Viber",
       type: "viber",
-      icon: `${imageSrc}/assets/PrivateCabinet/socials/viber.svg`
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/viber.svg`,
     },
     {
       label: "WhatsApp",
       type: "whatsapp",
-      icon: `${imageSrc}/assets/PrivateCabinet/socials/whatsapp.svg`
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/whatsapp.svg`,
     },
     {
       label: "Telegram",
       type: "telegram",
-      icon: `${imageSrc}/assets/PrivateCabinet/socials/telegram.svg`
-    }
+      icon: `${imageSrc}/assets/PrivateCabinet/socials/telegram.svg`,
+    },
     //TODO: skype, slack
   ];
 
@@ -52,9 +52,10 @@ const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
         {messengersData.map((item, index) => (
           <li
             className={classNames({
-              [styles.socialsItem]: true
+              [styles.socialsItem]: true,
             })}
-            key={index}>
+            key={index}
+          >
             <a target="_blanck" href={HrefSocial(item?.type)}>
               <img
                 className={styles.socialIcon}
@@ -66,7 +67,8 @@ const ShareToMessengers = ({ setDisplayMessengers, user_to }) => {
         ))}
         <span
           className={styles.close}
-          onClick={() => setDisplayMessengers(false)}>
+          onClick={() => setDisplayMessengers(false)}
+        >
           <span className={styles.times} />
         </span>
       </div>
@@ -78,5 +80,5 @@ export default ShareToMessengers;
 
 ShareToMessengers.propTypes = {
   setDisplayMessengers: PropTypes.func,
-  user_to: PropTypes.string
+  user_to: PropTypes.string,
 };

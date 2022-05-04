@@ -15,7 +15,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   }, [data]);
 
   useEffect(() => {
-    const searchResult = data?.filter(item => {
+    const searchResult = data?.filter((item) => {
       const name = getContactName(item).toLowerCase();
       const searchValue = search.toLowerCase();
       return name.includes(searchValue);
@@ -31,7 +31,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
       <div className={styles.search}>
         <ContactSearch
           value={search}
-          onChangeHandler={value => setSearch(value)}
+          onChangeHandler={(value) => setSearch(value)}
         />
       </div>
 
@@ -53,16 +53,16 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   );
 };
 
-const getGrouppedArray = initialArray => {
+const getGrouppedArray = (initialArray) => {
   if (initialArray?.length < 1) {
     return [];
   }
 
   const groupedArray = [];
   let contactsItem = [];
-  initialArray?.forEach(item => {
+  initialArray?.forEach((item) => {
     let firstLetter = item.name?.charAt(0);
-    let findByGroup = groupedArray.find(item => item.group === firstLetter);
+    let findByGroup = groupedArray.find((item) => item.group === firstLetter);
 
     if (!findByGroup) {
       contactsItem = [];
@@ -70,7 +70,7 @@ const getGrouppedArray = initialArray => {
 
       groupedArray.push({
         group: firstLetter,
-        contacts: contactsItem
+        contacts: contactsItem,
       });
     } else {
       contactsItem.push(item);
@@ -85,8 +85,8 @@ export default ContactList;
 ContactList.propTypes = {
   data: PropTypes.array,
   selectedItem: PropTypes.object,
-  setSelectedItem: PropTypes.func
+  setSelectedItem: PropTypes.func,
 };
 ContactList.defaultProps = {
-  data: []
+  data: [],
 };

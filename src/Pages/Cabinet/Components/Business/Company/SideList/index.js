@@ -16,7 +16,7 @@ const SideList = ({
   setAction,
   companyName,
   setCompanyName,
-  companyLogo
+  companyLogo,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -54,9 +54,9 @@ SideList.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any
+  companyLogo: PropTypes.any,
 };
 
 SideList.defaultProps = {
-  data: []
+  data: [],
 };

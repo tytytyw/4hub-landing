@@ -18,11 +18,11 @@ const DateFilter = ({ dateFilter, setDateFilter }) => {
             className={styles.select}
             classNameSelect={styles.selectContentYear}
             data={getYears()}
-            onChange={value =>
-              setDateFilter(dateFilter => ({ ...dateFilter, y: value }))
+            onChange={(value) =>
+              setDateFilter((dateFilter) => ({ ...dateFilter, y: value }))
             }
             cleareFilter={() =>
-              setDateFilter(dateFilter => ({ ...dateFilter, y: "" }))
+              setDateFilter((dateFilter) => ({ ...dateFilter, y: "" }))
             }
           />
         </div>
@@ -33,11 +33,11 @@ const DateFilter = ({ dateFilter, setDateFilter }) => {
             className={styles.select}
             classNameSelect={styles.selectContent}
             data={getDays()}
-            onChange={value =>
-              setDateFilter(dateFilter => ({ ...dateFilter, d: value }))
+            onChange={(value) =>
+              setDateFilter((dateFilter) => ({ ...dateFilter, d: value }))
             }
             cleareFilter={() =>
-              setDateFilter(dateFilter => ({ ...dateFilter, d: "" }))
+              setDateFilter((dateFilter) => ({ ...dateFilter, d: "" }))
             }
           />
         </div>
@@ -49,13 +49,14 @@ const DateFilter = ({ dateFilter, setDateFilter }) => {
             key={index}
             onClick={() => {
               if (dateFilter?.m !== item.id)
-                setDateFilter(dateFilter => ({ ...dateFilter, m: item.id }));
-              else setDateFilter(dateFilter => ({ ...dateFilter, m: "" }));
+                setDateFilter((dateFilter) => ({ ...dateFilter, m: item.id }));
+              else setDateFilter((dateFilter) => ({ ...dateFilter, m: "" }));
             }}
             className={classNames({
               [styles.button]: true,
-              [styles.active]: item.id === dateFilter?.m
-            })}>
+              [styles.active]: item.id === dateFilter?.m,
+            })}
+          >
             {item.text}
           </button>
         ))}
@@ -68,5 +69,5 @@ export default DateFilter;
 
 DateFilter.propTypes = {
   dateFilter: PropTypes.object,
-  setDateFilter: PropTypes.func
+  setDateFilter: PropTypes.func,
 };

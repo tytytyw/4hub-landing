@@ -17,14 +17,14 @@ const MainForm = ({
   setStep,
   compare,
   setCompare,
-  setLoadingType
+  setLoadingType,
 }) => {
-  const userInfo = useSelector(state => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const { __ } = useLocales();
   const { fields, setFields, errors, onChange, checkErrors } = useValidateForm(
     {
       emp_num: mainFields?.main?.emp_num || __("более 50"),
-      activity_field: ""
+      activity_field: "",
     },
     requiredInputs
   );
@@ -39,7 +39,7 @@ const MainForm = ({
       onChange(userInfo.id_company, "company_name");
   }, [userInfo]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (checkErrors()) {
@@ -56,7 +56,7 @@ const MainForm = ({
 
         // 	}
         // })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => {
@@ -67,7 +67,7 @@ const MainForm = ({
     }
   };
 
-  const getValue = name => fields?.[name] || "";
+  const getValue = (name) => fields?.[name] || "";
 
   return (
     <div className={styles.formWrap}>
@@ -83,7 +83,7 @@ const MainForm = ({
             placeholder="ООО Компании"
             name="company_name"
             value={getValue("company_name")}
-            onChange={e => onChange(e.target.value, "company_name")}
+            onChange={(e) => onChange(e.target.value, "company_name")}
           />
         </div>
 
@@ -96,7 +96,7 @@ const MainForm = ({
               data={[__("более 10"), __("более 50"), __("более 100")]}
               placeholder="более 50"
               initValue={getValue("emp_num") || mainFields?.main?.emp_num}
-              onChange={value => onChange(value, "emp_num")}
+              onChange={(value) => onChange(value, "emp_num")}
             />
           </div>
         </div>
@@ -108,7 +108,7 @@ const MainForm = ({
             placeholder={__("IT")}
             name="activity_field"
             value={getValue("activity_field")}
-            onChange={e => onChange(e.target.value, "activity_field")}
+            onChange={(e) => onChange(e.target.value, "activity_field")}
           />
         </div>
 
@@ -117,7 +117,8 @@ const MainForm = ({
             <div
               onClick={() =>
                 setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }>
+              }
+            >
               {compare.isAgreed && (
                 <img src="./assets/StartPage/tick.svg" alt="tick" />
               )}
@@ -149,5 +150,5 @@ MainForm.propTypes = {
   setStep: PropTypes.func,
   compare: compareProps,
   setCompare: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

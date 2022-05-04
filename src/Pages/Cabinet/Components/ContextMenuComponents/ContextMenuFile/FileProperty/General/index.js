@@ -53,5 +53,5 @@ const General = ({ file }) => {
 export default General;
 
 General.propTypes = {
-  file: fileProps
+  file: fileProps,
 };

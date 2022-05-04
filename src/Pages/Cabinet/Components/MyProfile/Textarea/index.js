@@ -12,7 +12,7 @@ const Textarea = ({
   isMistake,
   readonly,
   onChange,
-  onBlur
+  onBlur,
 }) => {
   const inputType = type || "text";
   const htmlFor = `${inputType}-${Math.random()}`;
@@ -25,7 +25,7 @@ const Textarea = ({
       <textarea
         className={classnames({
           [styles.textarea]: true,
-          [styles.redBorder]: isMistake
+          [styles.redBorder]: isMistake,
         })}
         id={htmlFor}
         name={name}
@@ -33,7 +33,8 @@ const Textarea = ({
         onBlur={onBlur}
         onKeyUp={onBlur}
         readOnly={readonly}
-        value={value}></textarea>
+        value={value}
+      ></textarea>
     </div>
   );
 };
@@ -48,11 +49,11 @@ Textarea.propTypes = {
   isMistake: PropTypes.bool,
   readonly: PropTypes.bool,
   onChange: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
 };
 Textarea.defaultProps = {
   isMistake: false,
   readonly: false,
   onChange: () => {},
-  onBlur: () => {}
+  onBlur: () => {},
 };

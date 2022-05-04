@@ -6,8 +6,8 @@ import classNames from "classnames";
 const Select = ({
   data = [],
   initValue = "",
-  onChange = () => { },
-  cleareFilter = () => { },
+  onChange = () => {},
+  cleareFilter = () => {},
   theme,
   ...props
 }) => {
@@ -17,7 +17,7 @@ const Select = ({
   const ref = useRef();
 
   useEffect(() => {
-    const onClick = event => {
+    const onClick = (event) => {
       if (!ref.current?.contains(event.target)) {
         setOpen(false);
       }
@@ -35,7 +35,7 @@ const Select = ({
       return props.placeholder;
     }
 
-    const valueItem = data.find(item => item?.id === value);
+    const valueItem = data.find((item) => item?.id === value);
     return valueItem?.text;
   };
 
@@ -51,7 +51,7 @@ const Select = ({
         [styles.selectWrap]: true,
         [props.className]: true,
         [styles.active]: !!open,
-        [styles.darkTheme]: theme === 'dark'
+        [styles.darkTheme]: theme === "dark",
       })}
     >
       <div
@@ -61,14 +61,14 @@ const Select = ({
         }}
         className={classNames({
           [styles.select]: true,
-          [styles.selected]: !!value
+          [styles.selected]: !!value,
         })}
       >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
               [styles.selectInput]: !props.classNameSelect,
-              [props.classNameSelect]: !!props.classNameSelect
+              [props.classNameSelect]: !!props.classNameSelect,
             })}
           >
             {getValue()}
@@ -77,7 +77,7 @@ const Select = ({
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open
+            [styles.active]: !!open,
           })}
         />
       </div>
@@ -85,27 +85,27 @@ const Select = ({
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open
+          [styles.active]: !!open,
         })}
       >
         <ul className={styles.content}>
           {data.length > 1
             ? data.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => {
-                  setOpen(false);
-                  setValue(item.id);
-                  onChange(item.id);
-                }}
-                className={classNames({
-                  [styles.option]: true,
-                  [styles.active]: value === item.id
-                })}
-              >
-                {item.text}
-              </li>
-            ))
+                <li
+                  key={index}
+                  onClick={() => {
+                    setOpen(false);
+                    setValue(item.id);
+                    onChange(item.id);
+                  }}
+                  className={classNames({
+                    [styles.option]: true,
+                    [styles.active]: value === item.id,
+                  })}
+                >
+                  {item.text}
+                </li>
+              ))
             : null}
         </ul>
       </div>

@@ -22,7 +22,7 @@ const CodePopup = ({
   successLoad,
   setShowSuccessMessage,
   action,
-  setAction
+  setAction,
 }) => {
   const { __ } = useLocales();
   const [password, setPassword] = useState("");
@@ -30,14 +30,14 @@ const CodePopup = ({
   const [error, setError] = useState(false);
   const [recoverPass, setRecoverPass] = useState({
     show: false,
-    active: false
+    active: false,
   });
   const [refreshPass, setRefreshPass] = useState(false);
   const [errors, setErrors] = useState({});
-  const uid = useSelector(state => state.user.uid);
+  const uid = useSelector((state) => state.user.uid);
   const [showSendCode, setShowSendCode] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const search = useSelector(state => state.Cabinet.search);
+  const search = useSelector((state) => state.Cabinet.search);
 
   const dispatch = useDispatch();
 
@@ -48,11 +48,11 @@ const CodePopup = ({
         .get(
           `/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.f_pass) setShowSendCode(true);
           else setError("password");
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setLoadingType(""));
     } else setErrors({ password: !password, code: !code });
 
@@ -80,7 +80,7 @@ const CodePopup = ({
       .get(
         `/ajax/safe_pass_restore2.php?uid=${uid}&id_safe=${safe.id}&code=${code}`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.ok) {
           setShowSendCode(false);
           setRefreshPass(true);
@@ -88,7 +88,7 @@ const CodePopup = ({
           setError("code");
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
 
@@ -98,12 +98,12 @@ const CodePopup = ({
       .get(
         `/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}&verify_only=1`
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.f_pass === 1)
           setAction({ ...action, type: action.targetType });
         else setError("password");
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setLoadingType(""));
   };
   const onSubmit = () => {
@@ -148,16 +148,15 @@ const CodePopup = ({
                     className={styles.input}
                     isMistake={errors?.password}
                     value={password}
-                    onChange={event => setPassword(event.target.value)}
+                    onChange={(event) => setPassword(event.target.value)}
                     type="password"
                     showPass={showPass}
                     setShowPass={setShowPass}
                   />
                   <span
                     className={styles.link}
-                    onClick={() =>
-                      setRecoverPass({ show: true, active: true })
-                    }>
+                    onClick={() => setRecoverPass({ show: true, active: true })}
+                  >
                     {__("Забыли пароль?")}
                   </span>
                 </div>
@@ -179,7 +178,7 @@ const CodePopup = ({
                       name="code"
                       className={styles.input}
                       isMistake={errors?.code}
-                      onChange={event => setCode(event.target.value)}
+                      onChange={(event) => setCode(event.target.value)}
                     />
                     <span className={styles.link}>{__("Не пришол код?")}</span>
                   </div>
@@ -190,7 +189,8 @@ const CodePopup = ({
                 <Button
                   type="submit"
                   className={styles.actionBtn}
-                  onClick={onSubmit}>
+                  onClick={onSubmit}
+                >
                   {showSendCode && !recoverPass.active
                     ? __("Войти")
                     : __("Далее")}

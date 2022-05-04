@@ -17,15 +17,15 @@ const AddContact = ({
   setLoadingType,
   setShowSuccessMessage,
   selectedItem,
-  type
+  type,
 }) => {
   const { __ } = useLocales();
   const [userData, setUserData] = useState({ name: "", sname: "", pname: "" });
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [requiredError, setRequiredError] = useState(false);
-  const id_company = useSelector(state => state.user.id_company);
-  const uid = useSelector(state => state.user.uid);
+  const id_company = useSelector((state) => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
   const dispatch = useDispatch();
 
   const messengers = ["viber", "whatsapp", "telegram", "skype"];
@@ -54,10 +54,10 @@ const AddContact = ({
 
     setUserData(
       group
-        ? state => {
+        ? (state) => {
             return { ...state, [group]: { ...state[group], [key]: value } };
           }
-        : state => {
+        : (state) => {
             return { ...state, [key]: value };
           }
     );
@@ -75,7 +75,7 @@ const AddContact = ({
             className={styles.input}
             placeholder={placeholder}
             value={userData?.[type] || ""}
-            onChange={e => onChange(type, e.target.value)}
+            onChange={(e) => onChange(type, e.target.value)}
           />
         </div>
       );
@@ -84,7 +84,7 @@ const AddContact = ({
 
   const renderSocialItem = (array, group) => {
     if (!array) return null;
-    return array.map(item => {
+    return array.map((item) => {
       return (
         <div className={styles.inputWrap} key={item}>
           <div className={classNames(styles.iconWrap, styles.iconWrap_soc)}>
@@ -101,7 +101,7 @@ const AddContact = ({
             className={styles.input}
             placeholder={item[0].toUpperCase() + item.slice(1)}
             value={userData?.[group]?.[item] || ""}
-            onChange={e => onChange(item, e.target.value, group)}
+            onChange={(e) => onChange(item, e.target.value, group)}
           />
         </div>
       );
@@ -118,9 +118,9 @@ const AddContact = ({
     let isUserData = !!userData.name;
     if (isUserData) {
       setLoadingType("squarify");
-      const createSocialPatams = social => {
+      const createSocialPatams = (social) => {
         let socials = [];
-        Object.entries(social).forEach(item =>
+        Object.entries(social).forEach((item) =>
           socials.push({ type: item[0], link: item[1] })
         );
         return JSON.stringify(socials);
@@ -154,14 +154,14 @@ const AddContact = ({
           );
           nullifyAction();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
         .finally(() => setLoadingType(""));
     } else setRequiredError(true);
   };
 
-  const uploadImage = event => {
+  const uploadImage = (event) => {
     const file = event.target.files[0] ?? null;
     if (file && file.type.substr(0, 5) === "image") {
       setImage(file);
@@ -182,9 +182,9 @@ const AddContact = ({
   useEffect(() => {
     if (selectedItem && type === "edit") {
       const data = { ...selectedItem };
-      const normalizeParams = group => {
+      const normalizeParams = (group) => {
         const newObj = {};
-        selectedItem[group].forEach(social => {
+        selectedItem[group].forEach((social) => {
           newObj[social.type] = social.link;
           data[group] = newObj;
         });
@@ -218,11 +218,11 @@ const AddContact = ({
           <input
             className={classNames({
               [styles.input]: true,
-              [styles.requiredInpit]: requiredError
+              [styles.requiredInpit]: requiredError,
             })}
             placeholder={__("Имя")}
             value={userData?.name || ""}
-            onChange={e => onChange("name", e.target.value)}
+            onChange={(e) => onChange("name", e.target.value)}
           />
         </div>
         <div className={styles.inputWrap}>
@@ -230,7 +230,7 @@ const AddContact = ({
             className={styles.input}
             placeholder={__("Фамилия")}
             value={userData?.sname || ""}
-            onChange={e => onChange("sname", e.target.value)}
+            onChange={(e) => onChange("sname", e.target.value)}
           />
         </div>
         <div className={styles.inputWrap}>
@@ -238,7 +238,7 @@ const AddContact = ({
             className={styles.input}
             placeholder={__("Отчество")}
             value={userData?.pname || ""}
-            onChange={e => onChange("pname", e.target.value)}
+            onChange={(e) => onChange("pname", e.target.value)}
           />
         </div>
         {renderContactItem([__("Введите номер телефона")], "tel")}
@@ -253,9 +253,10 @@ const AddContact = ({
         <div
           className={classNames({
             [styles.action]: true,
-            [styles.disableBtn]: !userData?.name
+            [styles.disableBtn]: !userData?.name,
           })}
-          onClick={onSubmit}>
+          onClick={onSubmit}
+        >
           {__("Сохранить")}
         </div>
       </div>
@@ -270,5 +271,5 @@ AddContact.propTypes = {
   setLoadingType: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
   selectedItem: selectedItemProps,
-  type: PropTypes.string
+  type: PropTypes.string,
 };

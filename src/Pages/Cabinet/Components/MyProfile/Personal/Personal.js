@@ -14,20 +14,20 @@ const Personal = () => {
   const langs = [
     { id: "ru", text: __("Русский") },
     { id: "en", text: __("Английский") },
-    { id: "uk", text: __("Украинский") }
+    { id: "uk", text: __("Украинский") },
   ];
 
   const dispatch = useDispatch();
-  const currentParams = useSelector(s => s.user.userInfo);
+  const currentParams = useSelector((s) => s.user.userInfo);
   const [params, setParams] = useState({
     theme: currentParams?.theme,
     lang: currentParams?.lang,
-    notify: currentParams?.notify
+    notify: currentParams?.notify,
   });
   const [disabledButton, setDisabledButton] = useState(false);
   const enableButton = () => setDisabledButton(false);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     if (!disabledButton) {
       event.preventDefault();
       setDisabledButton(true);
@@ -35,8 +35,8 @@ const Personal = () => {
     }
   };
 
-  const handleLangSelect = lang => setParams(s => ({ ...s, lang }));
-  const setTheme = theme => setParams(s => ({ ...s, theme }));
+  const handleLangSelect = (lang) => setParams((s) => ({ ...s, lang }));
+  const setTheme = (theme) => setParams((s) => ({ ...s, theme }));
 
   return (
     <>
@@ -58,12 +58,13 @@ const Personal = () => {
                 <div
                   className={styles.switcher}
                   onClick={() =>
-                    setParams(s => ({ ...params, notify: !s?.notify }))
-                  }>
+                    setParams((s) => ({ ...params, notify: !s?.notify }))
+                  }
+                >
                   <div
                     className={classNames({
                       [styles.switch]: true,
-                      [styles.active]: !!params?.notify
+                      [styles.active]: !!params?.notify,
                     })}
                   />
                 </div>
@@ -77,7 +78,8 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("blue");
-                  }}>
+                  }}
+                >
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -94,14 +96,15 @@ const Personal = () => {
                   <div
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)"
+                        "linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)",
                     }}
                     className={styles.colorBlock}
                   />
                   <button
                     type="button"
                     style={{ background: "#4086F1" }}
-                    className={styles.button}>
+                    className={styles.button}
+                  >
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -110,7 +113,8 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("orange");
-                  }}>
+                  }}
+                >
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -127,14 +131,15 @@ const Personal = () => {
                   <div
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)"
+                        "linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)",
                     }}
                     className={styles.colorBlock}
                   />
                   <button
                     type="button"
                     style={{ background: "#F58338" }}
-                    className={styles.button}>
+                    className={styles.button}
+                  >
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -143,7 +148,8 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("turquoise");
-                  }}>
+                  }}
+                >
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -160,14 +166,15 @@ const Personal = () => {
                   <div
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, #10AADD 0%, #18697C 100%)"
+                        "linear-gradient(180deg, #10AADD 0%, #18697C 100%)",
                     }}
                     className={styles.colorBlock}
                   />
                   <button
                     type="button"
                     style={{ background: "#10AADC" }}
-                    className={styles.button}>
+                    className={styles.button}
+                  >
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -176,7 +183,8 @@ const Personal = () => {
                   className={styles.radioBlock}
                   onClick={() => {
                     setTheme("dark");
-                  }}>
+                  }}
+                >
                   <div className={styles.radio}>
                     <input
                       name="theme"
@@ -193,18 +201,18 @@ const Personal = () => {
                   <div
                     style={{
                       backgroundImage:
-                        "linear-gradient(180deg, #222222 0%, #3F3F3F 100%)"
+                        "linear-gradient(180deg, #222222 0%, #3F3F3F 100%)",
                     }}
                     className={styles.colorBlock}
                   />
                   <button
                     type="button"
                     style={{ background: "#2C2C2C" }}
-                    className={styles.button}>
+                    className={styles.button}
+                  >
                     {__("Кнопка")}
                   </button>
                 </div>
-
               </div>
             </div>
 
@@ -227,17 +235,19 @@ const Personal = () => {
                   setParams({
                     theme: currentParams?.theme,
                     lang: currentParams?.lang,
-                    notify: currentParams?.notify
+                    notify: currentParams?.notify,
                   });
-                }}>
+                }}
+              >
                 {__("Отмена")}
               </Button>
               <Button
                 type="submit"
                 className={classNames({
                   [styles.submitBtn]: !disabledButton,
-                  [styles.cancelBtn]: disabledButton
-                })}>
+                  [styles.cancelBtn]: disabledButton,
+                })}
+              >
                 {__("Сохранить")}
               </Button>
             </div>

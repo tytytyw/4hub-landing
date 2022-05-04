@@ -66,5 +66,5 @@ const SuccessCreated = ({ set }) => {
 export default SuccessCreated;
 
 SuccessCreated.propTypes = {
-  set: PropTypes.func
+  set: PropTypes.func,
 };

@@ -11,7 +11,7 @@ const VideoPlayer = ({
   visualEffects,
   videoCutParams,
   setVideoCutParams,
-  canvasRef
+  canvasRef,
 }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -22,7 +22,7 @@ const VideoPlayer = ({
   const [videoDuration, setVideoDuration] = useState(null);
   const [videoFrames, setVideoFrames] = useState([]);
 
-  const onSeek = e => {
+  const onSeek = (e) => {
     videoPlayerRef.current.currentTime =
       (videoPlayerRef.current.duration * +e.target.value) / 100;
     setPlaying(true);
@@ -78,11 +78,11 @@ const VideoPlayer = ({
     // eslint-disable-next-line
   }, []);
 
-  const onBorderDragStart = e => {
+  const onBorderDragStart = (e) => {
     setDragbbleCutBorder(e.target.id);
   };
 
-  const onBorderDrag = e => {
+  const onBorderDrag = (e) => {
     const percent = Math.round(
       (e.offsetX / inputRange.current.clientWidth) * 100
     );
@@ -92,12 +92,12 @@ const VideoPlayer = ({
         videoCutParams.to.percent - percent > 1) ||
       (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 1)
     )
-      setVideoCutParams(prev => ({
+      setVideoCutParams((prev) => ({
         ...prev,
         [dragbbleCutBorder]: {
           percent,
-          time
-        }
+          time,
+        },
       }));
   };
   const onBorderDragEnd = () => setDragbbleCutBorder(null);
@@ -117,7 +117,7 @@ const VideoPlayer = ({
           canvas.width = width;
           const context = canvas.getContext("2d");
           context.drawImage(video, 0, 0, width, height);
-          setVideoFrames(prev => [...prev, canvas.toDataURL("image/png")]);
+          setVideoFrames((prev) => [...prev, canvas.toDataURL("image/png")]);
         }, 500 * i);
       }
       video.pause();
@@ -138,12 +138,12 @@ const VideoPlayer = ({
 
   useEffect(() => {
     if (videoCutParams) {
-      setVideoCutParams(prev => ({
+      setVideoCutParams((prev) => ({
         ...prev,
         to: {
           percent: 100,
-          time: videoDuration
-        }
+          time: videoDuration,
+        },
       }));
     }
   }, [videoDuration]);
@@ -168,9 +168,9 @@ const VideoPlayer = ({
       <div
         className={classNames({
           [styles.playButton]: true,
-          [styles.paused]: playing === false
+          [styles.paused]: playing === false,
         })}
-        onClick={() => setPlaying(prevValue => !prevValue)}
+        onClick={() => setPlaying((prevValue) => !prevValue)}
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
       </div>
@@ -179,7 +179,7 @@ const VideoPlayer = ({
           className={classNames(styles.time, styles.currentTime)}
           style={{
             left: `${videoCutParams?.from?.percent ?? 0}%`,
-            transform: `translateX(${videoCutParams ? "-50%" : "0"})`
+            transform: `translateX(${videoCutParams ? "-50%" : "0"})`,
           }}
         >
           {videoPlayerRef.current?.duration >= 0
@@ -192,7 +192,7 @@ const VideoPlayer = ({
         <input
           className={styles.inputRange}
           ref={inputRange}
-          onChange={e => setProgress(e.target.value)}
+          onChange={(e) => setProgress(e.target.value)}
           onMouseDown={() => setPlaying(false)}
           onClick={onSeek}
           type="range"
@@ -204,10 +204,9 @@ const VideoPlayer = ({
           <div
             className={styles.seekHolder}
             style={{
-              transform: `translateX(${(inputRange.current?.offsetWidth *
-                progress) /
-                100 -
-                2}px)`
+              transform: `translateX(${
+                (inputRange.current?.offsetWidth * progress) / 100 - 2
+              }px)`,
             }}
           />
         )}
@@ -217,7 +216,7 @@ const VideoPlayer = ({
             className={styles.borderHolder}
             id="from"
             style={{
-              left: `${videoCutParams.from?.percent}%`
+              left: `${videoCutParams.from?.percent}%`,
             }}
             onMouseDown={onBorderDragStart}
           />
@@ -229,7 +228,7 @@ const VideoPlayer = ({
             id="to"
             style={{
               left: `${videoCutParams.to?.percent}%`,
-              transform: "translateX(-100%)"
+              transform: "translateX(-100%)",
             }}
             onMouseDown={onBorderDragStart}
           />
@@ -238,7 +237,7 @@ const VideoPlayer = ({
           className={classNames(styles.time, styles.durationTime)}
           style={{
             left: `${videoCutParams?.to?.percent ?? 100}%`,
-            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`
+            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`,
           }}
         >
           {videoDuration !== Infinity && videoDuration > 0
@@ -266,7 +265,7 @@ const VideoPlayer = ({
 export default VideoPlayer;
 
 VideoPlayer.defaultProps = {
-  visualEffects: {}
+  visualEffects: {},
 };
 
 VideoPlayer.propTypes = {
@@ -275,5 +274,5 @@ VideoPlayer.propTypes = {
   visualEffects: PropTypes.object,
   videoCutParams: PropTypes.object,
   setVideoCutParams: PropTypes.func,
-  canvasRef: PropTypes.object
+  canvasRef: PropTypes.object,
 };

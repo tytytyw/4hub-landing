@@ -11,10 +11,10 @@ const SavePeriodPicker = ({
   dateValue,
   setDateValue,
   timeValue,
-  setTimeValue
+  setTimeValue,
 }) => {
   const { __ } = useLocales();
-  const onDateChange = e => {
+  const onDateChange = (e) => {
     let val = e.target.value.trim();
     let length = e.target.value.length;
     if (/[0-9]/.test(val) || length === 0) {
@@ -65,7 +65,7 @@ const SavePeriodPicker = ({
             <input
               type="text"
               placeholder="_ _._ _._ _ _ _"
-              onChange={e => onDateChange(e)}
+              onChange={(e) => onDateChange(e)}
               value={dateValue}
             />
           </div>
@@ -82,14 +82,14 @@ const SavePeriodPicker = ({
             type="text"
             placeholder="ЧЧ"
             value={hours}
-            onChange={e => onTime(e.target.value, setHours, 24)}
+            onChange={(e) => onTime(e.target.value, setHours, 24)}
           />
           <span> : </span>
           <input
             type="text"
             placeholder="ММ"
             value={minutes}
-            onChange={e => onTime(e.target.value, setMinutes, 60)}
+            onChange={(e) => onTime(e.target.value, setMinutes, 60)}
           />
         </div>
         <div className={styles.notion}>
@@ -104,7 +104,8 @@ const SavePeriodPicker = ({
           onClick={() => {
             setTimeValue({ hours, minutes });
             set(false);
-          }}>
+          }}
+        >
           {__("Готово")}
         </div>
       </div>
@@ -121,7 +122,7 @@ SavePeriodPicker.propTypes = {
   setDateValue: PropTypes.func,
   timeValue: PropTypes.shape({
     hours: PropTypes.string,
-    minutes: PropTypes.string
+    minutes: PropTypes.string,
   }),
-  setTimeValue: PropTypes.func
+  setTimeValue: PropTypes.func,
 };

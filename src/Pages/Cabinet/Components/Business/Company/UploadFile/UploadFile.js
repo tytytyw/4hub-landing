@@ -16,11 +16,11 @@ const UploadFile = ({
   setBlob,
   blob,
   setLoadingType,
-  setPageOption
+  setPageOption,
 }) => {
   const { __ } = useLocales();
-  const id_company = useSelector(state => state.user.id_company);
-  const uid = useSelector(state => state.user.uid);
+  const id_company = useSelector((state) => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
   const dispatch = useDispatch();
   const [formatError, setFormatError] = useState(false);
 
@@ -37,8 +37,8 @@ const UploadFile = ({
     }
   };
 
-  const onAddFile = e => {
-    const validateFile = file => {
+  const onAddFile = (e) => {
+    const validateFile = (file) => {
       return (
         file.name.slice(file.name.lastIndexOf(".")) === ".doc" ||
         file.name.slice(file.name.lastIndexOf(".")) === ".docx"
@@ -63,7 +63,7 @@ const UploadFile = ({
           `/ajax/org_file_upload.php?uid=${uid}&id_company=${id_company}&type=${pageOption.name}`,
           file
         )
-        .then(res =>
+        .then((res) =>
           res.data.ok
             ? dispatch(onGetCompanyDocument(pageOption.name, setLoadingType))
             : ""
@@ -85,7 +85,10 @@ const UploadFile = ({
             {__("Добавьте документ")} {pageOption.label.toLowerCase()}
           </p>
           <div className={styles.uploadBlock}>
-            <p onClick={e => e.stopPropagation()} className={styles.uploadText}>
+            <p
+              onClick={(e) => e.stopPropagation()}
+              className={styles.uploadText}
+            >
               {__("Перетащите сюда файл или")}
               <label htmlFor="Verification-upload"> {__("Загрузите")}</label>
             </p>
@@ -107,15 +110,17 @@ const UploadFile = ({
             onClick={() => {
               setPageOption({ name: "init" });
             }}
-            className={styles.cancelBtn}>
+            className={styles.cancelBtn}
+          >
             {__("Отмена")}
           </button>
           <button
             onClick={sendFile}
             className={classNames({
               [styles.action]: true,
-              [styles.disableBtn]: !blob
-            })}>
+              [styles.disableBtn]: !blob,
+            })}
+          >
             {__("Подтвердить")}
           </button>
         </div>
@@ -129,10 +134,10 @@ export default UploadFile;
 UploadFile.propTypes = {
   pageOption: PropTypes.shape({
     name: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
   }),
   setBlob: PropTypes.func,
   blob: PropTypes.object,
   setLoadingType: PropTypes.func,
-  setPageOption: PropTypes.func
+  setPageOption: PropTypes.func,
 };

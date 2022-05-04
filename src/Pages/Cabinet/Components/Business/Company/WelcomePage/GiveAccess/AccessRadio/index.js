@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 const AccessRadio = ({ data = [], name, onChange }) => {
   const [value, setValue] = useState("");
 
-  const handleCheck = item => {
+  const handleCheck = (item) => {
     setValue(item.value);
     onChange(item.value);
   };
@@ -22,8 +22,9 @@ const AccessRadio = ({ data = [], name, onChange }) => {
             key={item.value}
             className={classNames({
               [styles.radio]: true,
-              [styles.checked]: value === item.value
-            })}>
+              [styles.checked]: value === item.value,
+            })}
+          >
             <input
               id={id}
               type="radio"
@@ -46,8 +47,8 @@ export default AccessRadio;
 AccessRadio.propTypes = {
   name: PropTypes.string,
   data: PropTypes.array,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 AccessRadio.defaultProps = {
-  data: []
+  data: [],
 };

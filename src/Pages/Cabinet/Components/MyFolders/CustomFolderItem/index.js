@@ -7,7 +7,7 @@ import {
   onChooseFiles,
   onChooseFolder,
   onDeleteFile,
-  onSetPath
+  onSetPath,
 } from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
@@ -15,12 +15,12 @@ import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/
 import api, { cancelRequest } from "../../../../../api";
 import {
   getStorageItem,
-  setStorageItem
+  setStorageItem,
 } from "../../../../../generalComponents/StorageHelper";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import {
   moveFile,
-  moveFolder
+  moveFolder,
 } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -48,36 +48,36 @@ const CustomFolderItem = ({
   children,
   renderFiles,
   disableChosenFolderStyles,
-  renderLoader
+  renderLoader,
 }) => {
   const { __ } = useLocales();
   const [filesQuantity, setFilesQuantity] = useState(0);
-  const uid = useSelector(state => state.user.uid);
-  const draggedFile = useSelector(state => state.Cabinet.dragged);
-  const folderList = useSelector(state => state.Cabinet.folderList);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const uid = useSelector((state) => state.user.uid);
+  const draggedFile = useSelector((state) => state.Cabinet.dragged);
+  const folderList = useSelector((state) => state.Cabinet.folderList);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const dispatch = useDispatch();
   const file_amount_controller = useRef(null);
   const [folderParams, setFolderParams] = useState({
     open: false,
-    isGlobal: f.path?.split("/").length === 2 && f.path?.includes("global")
+    isGlobal: f.path?.split("/").length === 2 && f.path?.includes("global"),
   });
 
   const getQuantity = () => {
     api
       .post(`/ajax/get_folder_col.php?uid=${uid}&dir=${f.path}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok === 1) {
           setFilesQuantity(res.data.col);
           if (chosen)
-            setChosenFolder(chosenFolder => ({
+            setChosenFolder((chosenFolder) => ({
               ...chosenFolder,
-              files_amount: res.data.col
+              files_amount: res.data.col,
             }));
           setStorageItem(`${uid}+${f.path}`, res.data.col);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const CustomFolderItem = ({
     if (files_amount) {
       setFilesQuantity(files_amount);
       if (chosen)
-        setChosenFolder(chosenFolder => ({ ...chosenFolder, files_amount }));
+        setChosenFolder((chosenFolder) => ({ ...chosenFolder, files_amount }));
     } else {
       getQuantity();
     }
@@ -105,26 +105,27 @@ const CustomFolderItem = ({
   const openFolder = (e, bool) => {
     let boolean = !!bool;
     e.target?.viewportElement
-      ? e.target?.viewportElement?.classList.forEach(el => {
-        if (el.toString().search("playButton")) boolean = true;
-      })
-      : e.target.classList.forEach(el => {
-        if (el?.includes("playButton")) boolean = true;
-      });
+      ? e.target?.viewportElement?.classList.forEach((el) => {
+          if (el.toString().search("playButton")) boolean = true;
+        })
+      : e.target.classList.forEach((el) => {
+          if (el?.includes("playButton")) boolean = true;
+        });
     if (boolean) open();
     dispatch(onChooseFolder(f.folders.folders, f.path));
   };
 
-  const open = isOpen => {
+  const open = (isOpen) => {
     const open = typeof isOpen === "boolean" ? true : !folderParams.open;
-    setFolderParams(state => ({
+    setFolderParams((state) => ({
       ...state,
-      open: typeof isOpen === "boolean" ? true : !state.open
+      open: typeof isOpen === "boolean" ? true : !state.open,
     }));
-    const folderWidth = foldersWidth ??
+    const folderWidth =
+      foldersWidth ??
       (offDispatch ? 360 : 310) +
-      (open ? p * (f.path?.split("/").length - 1) : 0);
-    setChosenFolder(state => ({ ...state, info: f, folderWidth }));
+        (open ? p * (f.path?.split("/").length - 1) : 0);
+    setChosenFolder((state) => ({ ...state, info: f, folderWidth }));
   };
 
   const renderInnerFolders = () => {
@@ -157,14 +158,23 @@ const CustomFolderItem = ({
           disableChosenFolderStyles={disableChosenFolderStyles}
           renderLoader={renderLoader}
         >
-          {renderFiles && chosenFolder?.info?.path === f.path && Array.isArray(fileList.files) && fileList.files.length ? renderFiles(fileList.files, f) : null}
-          {renderFiles && chosenFolder?.info?.path === f.path && !fileList?.files ? renderLoader() : null}
+          {renderFiles &&
+          chosenFolder?.info?.path === f.path &&
+          Array.isArray(fileList.files) &&
+          fileList.files.length
+            ? renderFiles(fileList.files, f)
+            : null}
+          {renderFiles &&
+          chosenFolder?.info?.path === f.path &&
+          !fileList?.files
+            ? renderLoader()
+            : null}
         </CustomFolderItem>
       );
     });
   };
 
-  const clickHandle = async e => {
+  const clickHandle = async (e) => {
     // const currentPath = fileList?.path
     //   ?.split("/")
     //   .slice(0, f.path?.split("/").length)
@@ -173,7 +183,7 @@ const CustomFolderItem = ({
     //for SelectFile in Chat
     if (renderFiles && offDispatch) openFolder(e, true);
     if (!fileList?.path !== f.path) {
-      const cancel = new Promise(resolve => {
+      const cancel = new Promise((resolve) => {
         resolve(cancelRequest("cancelChooseFiles"));
       });
       await cancel.then(() => {
@@ -187,7 +197,7 @@ const CustomFolderItem = ({
           dispatch(onChooseFiles(f.path, "", 1, "", setGLoader));
         if (!offDispatch) setFilesPage(1);
         if (offDispatch && newFolderInfo?.path)
-          setNewFolderInfo(state => ({ ...state, path: "" }));
+          setNewFolderInfo((state) => ({ ...state, path: "" }));
       });
     }
   };
@@ -200,26 +210,26 @@ const CustomFolderItem = ({
   const handleDrop = async () => {
     if (draggedFile.is_dir === 1) {
       await moveFolder(f, draggedFile, uid)
-        .then(result => {
+        .then((result) => {
           if (!result)
-            setError(state => ({
+            setError((state) => ({
               ...state,
               isError: true,
-              message: "Папка не была перемещена"
+              message: "Папка не была перемещена",
             }));
           if (result) {
             dispatch(onDeleteFile(draggedFile));
             setShowSuccessMessage(__("Папка перемещена"));
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } else {
-      await moveFile(f, draggedFile, uid).then(result => {
+      await moveFile(f, draggedFile, uid).then((result) => {
         if (!result)
-          setError(state => ({
+          setError((state) => ({
             ...state,
             isError: true,
-            message: __("Файл не был перемещен")
+            message: __("Файл не был перемещен"),
           }));
         if (result) {
           dispatch(onDeleteFile(draggedFile));
@@ -231,30 +241,33 @@ const CustomFolderItem = ({
   return (
     <>
       <div
-        className={`${styles.innerFolderWrap} ${fileList?.path?.includes(f?.path) && !disableChosenFolderStyles
-          ? styles.chosenSubFolderWrap
-          : undefined
-          }`}
+        className={`${styles.innerFolderWrap} ${
+          fileList?.path?.includes(f?.path) && !disableChosenFolderStyles
+            ? styles.chosenSubFolderWrap
+            : undefined
+        }`}
         onClick={clickHandle}
         onDrop={handleDrop}
         style={{
           width: chosenFolder?.folderWidth,
           minWidth: chosenFolder?.folderWidth,
-          maxWidth: chosenFolder?.folderWidth
-        }}>
+          maxWidth: chosenFolder?.folderWidth,
+        }}
+      >
         <div
           className={styles.innerFolder}
           style={{
             padding: `0 15px 0 0`,
-            maxWidth: chosenFolder?.folderWidth
-          }}>
+            maxWidth: chosenFolder?.folderWidth,
+          }}
+        >
           <div className={styles.innerFolderName}>
             <div
               style={{
                 width: isRecent ? p : p * (f.path?.split("/").length - 1) ?? 0,
                 minWidth: isRecent
                   ? p
-                  : p * (f.path?.split("/").length - 1) ?? 0
+                  : p * (f.path?.split("/").length - 1) ?? 0,
               }}
             />
             <div className={styles.folderIconWrap}>
@@ -266,8 +279,9 @@ const CustomFolderItem = ({
                 />
               ) : (
                 <FolderIcon
-                  className={`${styles.innerFolderIcon} ${colors.filter(el => el.color === f.color)[0]?.name
-                    }`}
+                  className={`${styles.innerFolderIcon} ${
+                    colors.filter((el) => el.color === f.color)[0]?.name
+                  }`}
                 />
               )}
               {f.is_pass === 1 && (
@@ -305,10 +319,11 @@ const CustomFolderItem = ({
             )}
             {isRecent ? null : (
               <PlayIcon
-                className={`${styles.playButton} ${fileList?.path?.includes(f.path) && folderParams.open
-                  ? styles.revert
-                  : undefined
-                  }`}
+                className={`${styles.playButton} ${
+                  fileList?.path?.includes(f.path) && folderParams.open
+                    ? styles.revert
+                    : undefined
+                }`}
               />
             )}
             {offDispatch ? null : (
@@ -322,29 +337,34 @@ const CustomFolderItem = ({
       {isRecent ? null : (
         <div
           style={{
-            height: `${fileList?.path?.includes(f.path) && folderParams.open
-              ? "max-content"
-              : "0px"
-              }`,
-            minHeight: `${fileList?.path?.includes(f.path) && folderParams.open
-              ? "max-content"
-              : "0px"
-              }`,
-            maxWidth: chosenFolder?.folderWidth
+            height: `${
+              fileList?.path?.includes(f.path) && folderParams.open
+                ? "max-content"
+                : "0px"
+            }`,
+            minHeight: `${
+              fileList?.path?.includes(f.path) && folderParams.open
+                ? "max-content"
+                : "0px"
+            }`,
+            maxWidth: chosenFolder?.folderWidth,
           }}
-          className={`${styles.innerFolders} ${fileList?.path?.includes(f.path) && folderParams.open
-            ? undefined
-            : styles.hidden
-            }`}>
+          className={`${styles.innerFolders} ${
+            fileList?.path?.includes(f.path) && folderParams.open
+              ? undefined
+              : styles.hidden
+          }`}
+        >
           {offDispatch ? null : (
             <div
               className={styles.addFolderToFolder}
               style={{
                 padding: `0 15px 0 ${p * f.path?.split("/").length ?? 0}px`,
                 width: chosenFolder?.folderWidth,
-                minWidth: chosenFolder?.folderWidth
+                minWidth: chosenFolder?.folderWidth,
               }}
-              onClick={handleAddFolder}>
+              onClick={handleAddFolder}
+            >
               <div className={styles.addFolderName}>
                 <FolderIcon style={{ width: "17px" }} />
                 {!listCollapsed && <span>{__("Новая папка")}</span>}
@@ -385,10 +405,10 @@ CustomFolderItem.propTypes = {
   children: PropTypes.array,
   renderFiles: PropTypes.func,
   disableChosenFolderStyles: PropTypes.bool,
-  renderLoader: PropTypes.func
+  renderLoader: PropTypes.func,
 };
 
 CustomFolderItem.defaultProps = {
   p: 25,
-  disableChosenFolderStyles: false
+  disableChosenFolderStyles: false,
 };

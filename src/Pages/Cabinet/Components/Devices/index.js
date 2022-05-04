@@ -9,7 +9,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import { imageSrc } from "../../../../generalComponents/globalVariables";
 import {
   useContextMenuDevice,
-  useContextMenuDeviceUser
+  useContextMenuDeviceUser,
 } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import Loader from "../../../../generalComponents/Loaders/4HUB";
@@ -18,7 +18,7 @@ import {
   onGetDevices,
   setDevices,
   setSelectedDevice,
-  setSelectedUser
+  setSelectedUser,
 } from "../../../../Store/actions/CabinetActions";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import ConnectedContacts from "./ConnectedContacts";
@@ -34,12 +34,12 @@ const Devices = () => {
   const contextMenuDevice = useContextMenuDevice();
   const contextMenuDeviceUser = useContextMenuDeviceUser();
   const dispatch = useDispatch();
-  const devices = useSelector(state => state.Cabinet.devices);
-  const size = useSelector(state => state.Cabinet.size);
-  const uid = useSelector(state => state.user.uid);
+  const devices = useSelector((state) => state.Cabinet.devices);
+  const size = useSelector((state) => state.Cabinet.size);
+  const uid = useSelector((state) => state.user.uid);
 
-  const selectedDevice = useSelector(state => state.Cabinet.selectedDevice);
-  const selectedUser = useSelector(state => state.Cabinet.selectedUser);
+  const selectedDevice = useSelector((state) => state.Cabinet.selectedDevice);
+  const selectedUser = useSelector((state) => state.Cabinet.selectedUser);
 
   const [listCollapsed, setListCollapsed] = useState(false);
 
@@ -50,14 +50,12 @@ const Devices = () => {
   const [selectedDevices, setSelectedDevices] = useState([]);
 
   const [devicesListLoading, setDevicesListLoading] = useState(false);
-  const [
-    connectedContactsListLoading,
-    setConnectedContactsListLoading
-  ] = useState(false);
+  const [connectedContactsListLoading, setConnectedContactsListLoading] =
+    useState(false);
 
   const [errors, setErrors] = useState({
     сonnectedContactsError: false,
-    devicesListError: false
+    devicesListError: false,
   });
 
   useEffect(() => {
@@ -71,9 +69,9 @@ const Devices = () => {
       onGetConnectedContacts(setConnectedContactsListLoading, setErrors)
     );
 
-  const multipleSelect = dev => {
+  const multipleSelect = (dev) => {
     if (selectedDevices.includes(dev.id)) {
-      setSelectedDevices(selectedDevices.filter(i => i !== dev.id));
+      setSelectedDevices(selectedDevices.filter((i) => i !== dev.id));
     } else {
       setSelectedDevices([...selectedDevices, dev.id]);
     }
@@ -111,12 +109,12 @@ const Devices = () => {
     formData.append("id_device", JSON.stringify(selectedDevices));
     api
       .post(`/ajax/devices_block.php`, formData, {
-        params: { uid }
+        params: { uid },
       })
       .then(() => {
         setSuccessBlocked(true);
         dispatch(
-          setDevices(devices.filter(i => !selectedDevices.includes(i.id)))
+          setDevices(devices.filter((i) => !selectedDevices.includes(i.id)))
         );
         setSelectedDevices([]);
         setMultiple(false);
@@ -129,11 +127,13 @@ const Devices = () => {
       formData.append("id_device", JSON.stringify([selectedDevice.id]));
       api
         .post(`/ajax/devices_block.php`, formData, {
-          params: { uid }
+          params: { uid },
         })
         .then(() => {
           setSuccessBlocked(true);
-          dispatch(setDevices(devices.filter(i => i.id !== selectedDevice.id)));
+          dispatch(
+            setDevices(devices.filter((i) => i.id !== selectedDevice.id))
+          );
         });
     } else {
       api
@@ -145,7 +145,7 @@ const Devices = () => {
     }
   };
 
-  const renderMenuItems = contextMenuItemsList => {
+  const renderMenuItems = (contextMenuItemsList) => {
     return contextMenuItemsList.map((item, i) => {
       return (
         <ContextMenuItem
@@ -177,7 +177,8 @@ const Devices = () => {
         icon={false}
         title={__("Мои устройства")}
         setListCollapsed={setListCollapsed}
-        listCollapsed={listCollapsed}>
+        listCollapsed={listCollapsed}
+      >
         <div className={styles.listWrap}>
           <div className={styles.devicesListWrap}>
             {devicesListLoading ? (
@@ -233,7 +234,8 @@ const Devices = () => {
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={false}>
+          tooltip={false}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(
               mouseParams.type === "user"
@@ -247,7 +249,8 @@ const Devices = () => {
       {successBlocked && (
         <SuccessPopup
           title={__("Устройство заблокировано")}
-          set={setSuccessBlocked}>
+          set={setSuccessBlocked}
+        >
           <img src={successImg} alt="Success" />
         </SuccessPopup>
       )}

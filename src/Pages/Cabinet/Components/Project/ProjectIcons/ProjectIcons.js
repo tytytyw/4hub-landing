@@ -19,9 +19,9 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
   if (!title) {
     title = __("Выберите иконку");
   }
-  const set = el => (icon === el ? setIcon("") : setIcon(el));
+  const set = (el) => (icon === el ? setIcon("") : setIcon(el));
   const renderIcons = () => {
-    const getIcon = icon => {
+    const getIcon = (icon) => {
       switch (icon) {
         case "clipboard":
           return <ClipboardIcon className={color.name} alt="icon" />;
@@ -47,7 +47,7 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
           key={i}
           className={classnames({
             [styles.icon]: true,
-            [styles.iconChosen]: icon === el
+            [styles.iconChosen]: icon === el,
           })}
           onClick={() => set(el)}
         >
@@ -76,5 +76,5 @@ ProjectIcons.propTypes = {
   icon: PropTypes.string,
   setIcon: PropTypes.func,
   title: PropTypes.string,
-  editableClass: PropTypes.string
+  editableClass: PropTypes.string,
 };

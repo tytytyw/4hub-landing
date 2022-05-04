@@ -12,7 +12,7 @@ import {
   emptyProfileImage,
   getContactName,
   messengersIcons,
-  titlesSoc
+  titlesSoc,
 } from "../Contacts/consts";
 import api from "../../../../../api";
 import classNames from "classnames";
@@ -21,8 +21,8 @@ import PropTypes from "prop-types";
 
 const SendFriend = ({ set, selectedItem }) => {
   const { __ } = useLocales();
-  const contacts = useSelector(state => state.Cabinet.contactList);
-  const uid = useSelector(state => state.user.uid);
+  const contacts = useSelector((state) => state.Cabinet.contactList);
+  const uid = useSelector((state) => state.user.uid);
 
   const [to, setTo] = useState(null);
   const [selectedSoc, setSelectedSoc] = useState(null);
@@ -32,7 +32,7 @@ const SendFriend = ({ set, selectedItem }) => {
   const [selectedContact, setSelectedContact] = useState(null);
 
   useEffect(() => {
-    const filterArray = contacts.filter(item => {
+    const filterArray = contacts.filter((item) => {
       const name = item.name.toLowerCase();
       const searchValue = search.toLowerCase();
       return name.includes(searchValue);
@@ -41,7 +41,7 @@ const SendFriend = ({ set, selectedItem }) => {
     setContactList(filterArray);
   }, [search]);
 
-  const onSubmit = event => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
     if (selectedSoc && selectedContact) {
@@ -51,13 +51,13 @@ const SendFriend = ({ set, selectedItem }) => {
             uid,
             id: selectedItem?.id,
             to,
-            type: selectedSoc === "email" ? "email" : "sms"
-          }
+            type: selectedSoc === "email" ? "email" : "sms",
+          },
         })
         .then(() => {
           set(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -97,8 +97,9 @@ const SendFriend = ({ set, selectedItem }) => {
               }}
               className={classNames({
                 [styles.socialsItem]: true,
-                [styles.active]: selectedSoc === "email"
-              })}>
+                [styles.active]: selectedSoc === "email",
+              })}
+            >
               <img
                 className={styles.socialIcon}
                 src={imageSrc + "assets/PrivateCabinet/email.svg"}
@@ -111,15 +112,16 @@ const SendFriend = ({ set, selectedItem }) => {
                 onClick={() => {
                   setSelectedSoc(item?.type);
                   const messItem = selectedContact?.mes?.find(
-                    mess => mess?.type === item?.type
+                    (mess) => mess?.type === item?.type
                   );
                   setTo(messItem?.link);
                 }}
                 className={classNames({
                   [styles.socialsItem]: true,
-                  [styles.active]: selectedSoc === item?.type
+                  [styles.active]: selectedSoc === item?.type,
                 })}
-                key={index}>
+                key={index}
+              >
                 <img
                   className={styles.socialIcon}
                   src={messengersIcons[item?.type]}
@@ -146,7 +148,7 @@ const SendFriend = ({ set, selectedItem }) => {
                 <span className={styles.info}>{__("Контакты")}</span>
               </div>
               <div className={styles.search}>
-                <ContactSearch onChangeHandler={value => setSearch(value)} />
+                <ContactSearch onChangeHandler={(value) => setSearch(value)} />
               </div>
             </div>
 
@@ -183,6 +185,6 @@ SendFriend.propTypes = {
   set: PropTypes.func,
   selectedItem: PropTypes.shape({
     id: PropTypes.string,
-    icon: PropTypes.array
-  })
+    icon: PropTypes.array,
+  }),
 };

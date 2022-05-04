@@ -7,7 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
 import {
   colors,
-  useTags
+  useTags,
 } from "../../../../../../generalComponents/collections";
 import Error from "../../../../../../generalComponents/Error";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
@@ -19,7 +19,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import {
   onChooseFiles,
   onGetSafeFileList,
-  onSetModals
+  onSetModals,
 } from "../../../../../../Store/actions/CabinetActions";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
@@ -29,15 +29,15 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const { title, items, filesPage } = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   console.log(items);
-  const uid = useSelector(state => state.user.uid);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const uid = useSelector((state) => state.user.uid);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
-  const topMessage = useSelector(s => s.Cabinet.modals.topMessage);
+  const topMessage = useSelector((s) => s.Cabinet.modals.topMessage);
   const [name, setName] = useState(
     items.length === 1
       ? items[0].fname.slice(0, items[0].fname.lastIndexOf("."))
@@ -56,7 +56,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
 
   const close = () => {
@@ -66,12 +66,12 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
         type: "",
         items: [],
         title: "",
-        filesPage: 0
+        filesPage: 0,
       })
     );
   };
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -93,7 +93,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
       color: color.color,
       emoji: emoji ? emoji : "",
       symbol: sign ? sign : "",
-      fids: items.length === 1 ? [items[0].fid] : items
+      fids: items.length === 1 ? [items[0].fid] : items,
     };
     if (pathname === "/safe") data.id_safe = authorizedSafe.id_safe;
 
@@ -122,7 +122,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
             ...topMessage,
             open: true,
             type: "message",
-            message: __("Выбранные файлы успешно сжато в Zip")
+            message: __("Выбранные файлы успешно сжато в Zip"),
           })
         );
         onCancel();
@@ -131,12 +131,12 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
       .finally(() => setLoadingType());
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -146,11 +146,11 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
     setPasswordCoincide(boolean);
   };
 
-  const getName = val => {
+  const getName = (val) => {
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
-      format: val.substring(i + 1)
+      format: val.substring(i + 1),
     };
   };
 
@@ -179,7 +179,8 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
                     <div className={`${styles.minitag}`}>
                       #{tagOption.chosen}
                     </div>
@@ -189,12 +190,13 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
                   className={`${styles.colorWrap} ${
                     color.color !== "grey" ? styles.colorWrapTap : ""
                   } ${color.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
                       background: color.light,
-                      border: `1px solid ${color.dark}`
+                      border: `1px solid ${color.dark}`,
                     }}
                   />
                 </div>
@@ -243,7 +245,7 @@ const CreateZip = ({ setLoadingType, nullifyFilePick }) => {
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -309,9 +311,9 @@ export default CreateZip;
 
 CreateZip.propTypes = {
   nullifyFilePick: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };
 CreateZip.defaultProps = {
   setLoadingType: () => {},
-  nullifyFilePick: () => {}
+  nullifyFilePick: () => {},
 };

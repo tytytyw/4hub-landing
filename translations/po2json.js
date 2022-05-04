@@ -11,7 +11,7 @@ const de = { file: fs.readFileSync(path.join(__dirname, "uk.po")), name: "de" };
 // const ukJson = gettextParser.po.parse(uk);
 
 function po2json(arrayLang) {
-  arrayLang.forEach(lang => {
+  arrayLang.forEach((lang) => {
     const json = JSON.stringify(gettextParser.po.parse(lang.file));
     const dir = path.join(
       __dirname,
@@ -20,7 +20,7 @@ function po2json(arrayLang) {
       "locales",
       `${lang.name}.json`
     );
-    fs.writeFile(dir, json, err => {
+    fs.writeFile(dir, json, (err) => {
       if (err) {
         console.log(err);
       } else {

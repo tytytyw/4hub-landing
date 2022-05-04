@@ -46,13 +46,13 @@ const WorkSpace = ({
   loadingFiles,
   setLoadingFiles,
   onSuccessLoading,
-  gLoader
+  gLoader,
 }) => {
   const { __ } = useLocales();
-  const workElementsView = useSelector(state => state.Cabinet.view);
-  const size = useSelector(state => state.Cabinet.size);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
+  const size = useSelector((state) => state.Cabinet.size);
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
 
   const [mouseParams, setMouseParams] = useState(null);
@@ -62,7 +62,7 @@ const WorkSpace = ({
   const fileRef = useRef(null);
 
   // Types of Files view
-  const renderFiles = Type => {
+  const renderFiles = (Type) => {
     if (!fileList?.files) return null;
     return fileList.files.map((file, i) => {
       return (
@@ -72,7 +72,7 @@ const WorkSpace = ({
           setChosenFile={setChosenFile}
           chosen={
             filePick.show
-              ? filePick.files.findIndex(el => el === file.fid) >= 0
+              ? filePick.files.findIndex((el) => el === file.fid) >= 0
               : chosenFile?.fid === file?.fid
           }
           chosenFile={chosenFile}
@@ -103,7 +103,7 @@ const WorkSpace = ({
         className={classNames({
           [styles.workSpaceWrap]: true,
           [styles.workSpaceWrapCollapsed]: !!listCollapsed,
-          [styles.workSpaceWrapUncollapsed]: !listCollapsed
+          [styles.workSpaceWrapUncollapsed]: !listCollapsed,
         })}
       >
         <div className={styles.header}>

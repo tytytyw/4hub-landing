@@ -11,13 +11,13 @@ import PropTypes from "prop-types";
 
 function CategoryList({ listCollapsed, setListCollapsed }) {
   const { __ } = useLocales();
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
   const [search, setSearch] = useState("");
   const [newFolderInfo, setNewFolderInfo] = useState({ path: "" });
   const searchPlaceholder = __("Введите название программы");
   const dispatch = useDispatch();
-  const categories = useSelector(s => s.Cabinet.programs.categories);
-  const chosenCategory = useSelector(s => s.Cabinet.programs.category);
+  const categories = useSelector((s) => s.Cabinet.programs.categories);
+  const chosenCategory = useSelector((s) => s.Cabinet.programs.category);
 
   const renderPrograms = () => {
     return categories.map((category, i) => {
@@ -47,7 +47,8 @@ function CategoryList({ listCollapsed, setListCollapsed }) {
       src="add-folder.svg"
       setListCollapsed={setListCollapsed}
       listCollapsed={listCollapsed}
-      onCreate={() => {}}>
+      onCreate={() => {}}
+    >
       {listCollapsed ? null : (
         <div className={styles.borderBottom}>
           <SearchField
@@ -66,5 +67,5 @@ export default CategoryList;
 
 CategoryList.propTypes = {
   listCollapsed: PropTypes.bool,
-  setListCollapsed: PropTypes.func
+  setListCollapsed: PropTypes.func,
 };

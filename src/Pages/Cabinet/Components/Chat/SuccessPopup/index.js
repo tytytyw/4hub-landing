@@ -46,7 +46,7 @@ export default SuccessPopup;
 
 SuccessPopup.defaultProps = {
   title: "",
-  text: ""
+  text: "",
 };
 
 SuccessPopup.propTypes = {
@@ -54,5 +54,5 @@ SuccessPopup.propTypes = {
   text: PropTypes.string,
   buttonText: PropTypes.string,
   set: PropTypes.func.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
 };

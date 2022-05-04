@@ -17,7 +17,7 @@ const ForgotPassword = ({ setPage }) => {
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const setOnLogin = val => {
+  const setOnLogin = (val) => {
     let number;
     if (val[0] === "+") {
       const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
@@ -37,7 +37,7 @@ const ForgotPassword = ({ setPage }) => {
     setLogin(number);
   };
 
-  const checkLogin = input => {
+  const checkLogin = (input) => {
     let boolean = false;
     if (input.value[0] === "+") {
       const newVal = input.value.replace(/(\+)*(\()*(\))*\s*-*/g, "");
@@ -57,7 +57,7 @@ const ForgotPassword = ({ setPage }) => {
     if (login && !compare) {
       api
         .post(`/ajax/user_pass_remember.php?name=${login}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1 && res.data.send === true) {
             setMessage(mSuccess);
             setSuccess(true);
@@ -66,7 +66,7 @@ const ForgotPassword = ({ setPage }) => {
             setError(true);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setMessage(err.toString());
           setError(true);
         });
@@ -98,13 +98,13 @@ const ForgotPassword = ({ setPage }) => {
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare
+                [styles.redBorder]: compare,
               })}
               type="text"
               id="login"
               value={login}
-              onChange={e => setOnLogin(e.target.value)}
-              onBlur={e => checkLogin(e.target)}
+              onChange={(e) => setOnLogin(e.target.value)}
+              onBlur={(e) => checkLogin(e.target)}
             />
           </div>
           <div className={styles.button} onClick={signIn}>
@@ -128,5 +128,5 @@ const ForgotPassword = ({ setPage }) => {
 export default ForgotPassword;
 
 ForgotPassword.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

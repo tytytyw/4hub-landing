@@ -14,12 +14,12 @@ const WorkLines = ({
   gLoader,
   load,
   options,
-  filesPage
+  filesPage,
 }) => {
   const { __ } = useLocales();
-  const recentFiles = useSelector(state => state.Cabinet?.recentFiles);
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
+  const recentFiles = useSelector((state) => state.Cabinet?.recentFiles);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
 
   const [containerRef] = useScrollElementOnScreen(options, load);
 
@@ -39,7 +39,7 @@ const WorkLines = ({
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
         gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
       }}
     >
       {children?.length === 0 && search.length !== 0 ? (

@@ -16,7 +16,7 @@ const List = React.forwardRef(
       children,
       onCreate,
       icon,
-      className
+      className,
     },
     ref
   ) => {
@@ -25,7 +25,7 @@ const List = React.forwardRef(
         className={classNames({
           [styles.listWrap]: true,
           [className]: true,
-          [styles.listWrapCollapsed]: !!listCollapsed
+          [styles.listWrapCollapsed]: !!listCollapsed,
         })}
         ref={ref ?? null}
       >
@@ -59,7 +59,7 @@ const List = React.forwardRef(
 export default List;
 
 List.defaultProps = {
-  icon: true
+  icon: true,
 };
 
 List.propTypes = {
@@ -70,5 +70,5 @@ List.propTypes = {
   children: PropTypes.any,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
 };

@@ -46,15 +46,18 @@ function StartPage({ setOptions, setLoadingType }) {
 
   return (
     <div
-      className={`${styles.wrapper} ${pageOption === "info" &&
-        styles.longWrap} ${isLanding() && styles.longWrap}`}>
+      className={`${styles.wrapper} ${
+        pageOption === "info" && styles.longWrap
+      } ${isLanding() && styles.longWrap}`}
+    >
       <header className={styles.header}>
         {isLanding() && (
           <a className={styles.logo} href="./">
             <img
               className={styles.logo_img}
               src={imageSrc + "assets/StartPage/logo.svg"}
-              alt="4hub logo"></img>
+              alt="4hub logo"
+            ></img>
           </a>
         )}
         <InfoIcon
@@ -67,7 +70,8 @@ function StartPage({ setOptions, setLoadingType }) {
         </div>
         <div
           className={`${styles.registerButton} ${styles.listItem}`}
-          onClick={onRegister}>
+          onClick={onRegister}
+        >
           {__("Регистрация")}
         </div>
       </header>
@@ -131,5 +135,5 @@ export default StartPage;
 
 StartPage.propTypes = {
   setOptions: PropTypes.func,
-  setLoadingType: PropTypes.func
+  setLoadingType: PropTypes.func,
 };

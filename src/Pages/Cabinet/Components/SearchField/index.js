@@ -8,7 +8,7 @@ import {
   onSearch,
   onGetSafeFileList,
   onGetArchiveFiles,
-  onGetChatMessages
+  onGetChatMessages,
 } from "../../../../Store/actions/CabinetActions";
 import Select from "../../../../generalComponents/Select/Select";
 import { useLocation } from "react-router";
@@ -19,22 +19,24 @@ const SearchField = ({
   setChosenFile,
   menuItem,
   selectable = true,
-  theme = ""
+  theme = "",
 }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
   const path = useSelector(
-    state => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
+    (state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
   );
-  const searchField = useSelector(state => state.Cabinet?.search);
+  const searchField = useSelector((state) => state.Cabinet?.search);
   const authorizedSafe = useSelector(
-    state => state.Cabinet.safe.authorizedSafe
+    (state) => state.Cabinet.safe.authorizedSafe
   );
-  const selectedChat = useSelector(state => state.Cabinet.chat.selectedContact);
+  const selectedChat = useSelector(
+    (state) => state.Cabinet.chat.selectedContact
+  );
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const search = query => {
+  const search = (query) => {
     if (pathname === "/folders") dispatch(onChooseFiles(path, query, 1));
     if (pathname.includes("files"))
       dispatch(onChooseFiles("", query, 1, "", "", "", "file_list_all"));
@@ -58,7 +60,7 @@ const SearchField = ({
       dispatch(onGetChatMessages(selectedChat, query));
   };
   const debounceCallback = useDebounce(search, 500);
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (setChosenFile) setChosenFile(null);
     dispatch(onSearch(e.target.value));
     debounceCallback(e.target.value);
@@ -66,7 +68,7 @@ const SearchField = ({
 
   const [searchArea, setSearhArea] = useState([
     { text: __("Глобальный"), active: true, id: "global" },
-    { text: __("Локальный"), active: false, id: "local" }
+    { text: __("Локальный"), active: false, id: "local" },
   ]);
 
   useEffect(() => {
@@ -88,7 +90,7 @@ const SearchField = ({
       />
       {selectable && (
         <Select
-          placeholder={searchArea.filter(item => item.active)[0].text}
+          placeholder={searchArea.filter((item) => item.active)[0].text}
           className={styles.select}
           classNameSelect={styles.SearchType}
           setSearhArea={setSearhArea}
@@ -106,9 +108,9 @@ SearchField.propTypes = {
   setChosenFile: PropTypes.func,
   menuItem: PropTypes.string,
   selectable: PropTypes.bool,
-  theme: PropTypes.string
+  theme: PropTypes.string,
 };
 SearchField.defaultProps = {
   selectable: true,
-  theme: ""
+  theme: "",
 };

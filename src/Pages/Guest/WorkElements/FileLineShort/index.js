@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import {
   filePickProps,
   filePreviewProps,
-  fileProps
+  fileProps,
 } from "../../../../types/WorkElements";
 
 const FileLineShort = ({
@@ -20,24 +20,24 @@ const FileLineShort = ({
   setFilePreview,
   filePreview,
   filePick,
-  setFilePick
+  setFilePick,
 }) => {
-  const size = useSelector(state => state.Cabinet.size);
+  const size = useSelector((state) => state.Cabinet.size);
 
   const onPickFile = () => {
     if (filePick.show) {
-      const isPicked = filePick.files.filter(el => el === file.fid);
+      const isPicked = filePick.files.filter((el) => el === file.fid);
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
+            files: filePick.files.filter((el) => el !== file.fid),
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
     setChosenFile(file);
   };
 
-  const getFileName = file => {
+  const getFileName = (file) => {
     const slicedName =
       file.name && file.name.slice(0, file.name.lastIndexOf("."));
     return slicedName || "(empty name)";
@@ -50,8 +50,9 @@ const FileLineShort = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosen,
-        [styles?.[`wrapper_${size}`]]: size !== "medium"
-      })}>
+        [styles?.[`wrapper_${size}`]]: size !== "medium",
+      })}
+    >
       <div className={styles.fileAbout}>
         <div className={styles.file}>
           <File
@@ -125,15 +126,16 @@ const FileLineShort = ({
         <div className={styles.optionsWrap}>
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 260,
-                height: 25
+                height: 25,
               });
-            }}>
+            }}
+          >
             <span className={styles.menu} />
           </div>
         </div>
@@ -152,5 +154,5 @@ FileLineShort.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   filePick: filePickProps,
-  setFilePick: PropTypes.func
+  setFilePick: PropTypes.func,
 };

@@ -12,16 +12,16 @@ const TextArea = ({
   nullifyAction,
   initialTextValue = "",
   saveTextButtonRef = null,
-  editMessage
+  editMessage,
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const textAreaRef = useRef();
   const [cursorPosition, setCursorPosition] = useState(0);
   const [textAreaValue, setTextAreaValue] = useState(initialTextValue);
   const [editingMessage, setEditingMessage] = useState(false);
-  const insertEmodji = useSelector(state => state.Cabinet.chat.insertEmodji);
+  const insertEmodji = useSelector((state) => state.Cabinet.chat.insertEmodji);
   const dispatch = useDispatch();
 
   const findCursorPosition = () => {
@@ -38,14 +38,14 @@ const TextArea = ({
     });
   };
 
-  const keyPress = e => {
+  const keyPress = (e) => {
     findCursorPosition();
     if (e.keyCode === 13 && !e.shiftKey) {
       sendHandler();
     }
   };
 
-  const onTextAreaChange = e => {
+  const onTextAreaChange = (e) => {
     findCursorPosition();
     setTextAreaValue(e.target.value);
   };
@@ -62,7 +62,7 @@ const TextArea = ({
   useEffect(() => {
     if (insertEmodji) {
       setTextAreaValue(
-        text =>
+        (text) =>
           text.slice(0, cursorPosition) +
           insertEmodji +
           text.slice(cursorPosition)
@@ -75,7 +75,7 @@ const TextArea = ({
         textAreaRef.current.selectionEnd = cursorPosition + 2;
       }, 0);
 
-      setCursorPosition(position => position + 2);
+      setCursorPosition((position) => position + 2);
     }
     // eslint-disable-next-line
   }, [insertEmodji]);
@@ -102,7 +102,12 @@ const TextArea = ({
   }, [textAreaValue]);
 
   return (
-    <div className={classNames({ [styles.textMessage]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.textMessage]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <textarea
         ref={textAreaRef}
         type="text"
@@ -119,7 +124,7 @@ const TextArea = ({
         <SendIcon
           className={classNames({
             [styles.messageImg]: true,
-            [styles.active]: textAreaValue.length
+            [styles.active]: textAreaValue.length,
           })}
         />
       </span>
@@ -131,7 +136,7 @@ export default TextArea;
 
 TextArea.defaultProps = {
   initialTextValue: "",
-  saveTextButtonRef: null
+  saveTextButtonRef: null,
 };
 
 TextArea.propTypes = {
@@ -140,5 +145,5 @@ TextArea.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,
-  editMessage: PropTypes.func
+  editMessage: PropTypes.func,
 };

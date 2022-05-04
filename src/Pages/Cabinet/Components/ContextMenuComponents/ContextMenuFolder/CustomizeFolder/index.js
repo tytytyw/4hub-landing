@@ -9,11 +9,11 @@ import InputField from "../../../../../../generalComponents/InputField";
 import {
   useTags,
   colors,
-  useFolders
+  useFolders,
 } from "../../../../../../generalComponents/collections";
 import {
   onChooseFiles,
-  onGetFolders
+  onGetFolders,
 } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -31,14 +31,14 @@ const CustomizeFolder = ({
   chosenFolder,
   chosenSubFolder,
   setGLoader,
-  successLoad
+  successLoad,
 }) => {
   console.log(chosenSubFolder);
   const { __ } = useLocales();
   const tags = useTags();
-  const uid = useSelector(state => state.user.uid);
-  const folderList = useSelector(state => state.Cabinet.folderList);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const uid = useSelector((state) => state.user.uid);
+  const folderList = useSelector((state) => state.Cabinet.folderList);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const folder = chosenSubFolder || chosenFolder;
 
   const [name, setName] = useState(folder.info?.name);
@@ -48,10 +48,10 @@ const CustomizeFolder = ({
   const [showRepeat, setShowRepeat] = useState(false);
   const [tagOption, setTagOption] = useState({
     chosen: folder?.info.tags || "",
-    count: 30
+    count: 30,
   });
   const [color, setColor] = useState(
-    colors?.filter(el => el.color === folder?.info.color)[0] || colors[0]
+    colors?.filter((el) => el.color === folder?.info.color)[0] || colors[0]
   );
   const [sign, setSign] = useState(folder?.info.fig || "");
   const [emoji, setEmoji] = useState(folder?.info.emo || "");
@@ -60,7 +60,7 @@ const CustomizeFolder = ({
   const dispatch = useDispatch();
   const folders = useFolders();
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
   const renderTags = () => {
     return tags.map((tag, i) => {
@@ -74,7 +74,7 @@ const CustomizeFolder = ({
 
   const addErrors = () => {
     setErrors({
-      name: !name
+      name: !name,
     });
   };
 
@@ -103,7 +103,7 @@ const CustomizeFolder = ({
     }&symbol=${sign}&emoji=${emoji}`;
     api
       .post(`/ajax/dir_edit.php?${params}`)
-      .then(res => {
+      .then((res) => {
         if (res.data.ok !== 1) {
           setError(__("Папка не добавлена"));
         }
@@ -125,12 +125,12 @@ const CustomizeFolder = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -152,7 +152,7 @@ const CustomizeFolder = ({
             <div className={`${styles.folder}`}>
               <FolderIcon
                 className={`${styles.folderIcon} ${
-                  colors.filter(el => el.color === color?.color)[0]?.name
+                  colors.filter((el) => el.color === color?.color)[0]?.name
                 }`}
               />
             </div>
@@ -162,7 +162,8 @@ const CustomizeFolder = ({
                 {tagOption.chosen && (
                   <div
                     className={`${styles.minitagWrap} ${styles.redCross}`}
-                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
+                    onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                  >
                     <div className={`${styles.minitag}`}>
                       #{tagOption.chosen}
                     </div>
@@ -172,12 +173,13 @@ const CustomizeFolder = ({
                   className={`${styles.colorWrap} ${
                     color?.color !== "grey" ? styles.colorWrapTap : ""
                   } ${color?.color !== "grey" ? styles.redCross : ""}`}
-                  onClick={() => setColor(colors[0])}>
+                  onClick={() => setColor(colors[0])}
+                >
                   <div
                     className={styles.circle}
                     style={{
                       background: color?.light,
-                      border: `1px solid ${color?.dark}`
+                      border: `1px solid ${color?.dark}`,
                     }}
                   />
                 </div>
@@ -226,7 +228,7 @@ const CustomizeFolder = ({
                 type="text"
                 placeholder={__("Добавте #Тег")}
                 value={tagOption.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -269,7 +271,8 @@ const CustomizeFolder = ({
           <div className={styles.buttonsWrap}>
             <div
               className={styles.cancel}
-              onClick={() => closeComponent(false)}>
+              onClick={() => closeComponent(false)}
+            >
               {__("Отмена")}
             </div>
             <div className={styles.add} onClick={() => onCustomizeFolder()}>
@@ -291,5 +294,5 @@ CustomizeFolder.propTypes = {
   setGLoader: PropTypes.func,
   chosenFolder: chosenFolderProps,
   chosenSubFolder: PropTypes.any,
-  successLoad: PropTypes.func
+  successLoad: PropTypes.func,
 };

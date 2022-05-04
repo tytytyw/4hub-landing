@@ -14,19 +14,21 @@ const RecentFiles = ({
   filePreview,
   menuItem,
   onDoubleClickCallback,
-  width
+  width,
 }) => {
-  const recentFiles = useSelector(state => state.Cabinet.recentFiles);
-  const chosenRecentFile = useSelector(state => state.Cabinet.chosenRecentFile);
+  const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
+  const chosenRecentFile = useSelector(
+    (state) => state.Cabinet.chosenRecentFile
+  );
   const dispatch = useDispatch();
   const containerRef = useRef();
 
-  const renderIcon = file => {
+  const renderIcon = (file) => {
     if (menuItem === "project") return getIcon(file);
     return <File color={file.id_color} format={file.ext} />;
   };
 
-  const handleDoubleClick = file => {
+  const handleDoubleClick = (file) => {
     if (menuItem === "project") return onDoubleClickCallback(file);
     return setFilePreview({ ...filePreview, view: true, file });
   };
@@ -50,7 +52,8 @@ const RecentFiles = ({
               `}
           key={i}
           onClick={() => dispatch(onChooseRecentFile(file))}
-          onDoubleClick={() => handleDoubleClick(file)}>
+          onDoubleClick={() => handleDoubleClick(file)}
+        >
           <div className={styles.innerFileWrap}>
             {renderIcon(file)}
             {file.is_pass ? (
@@ -95,7 +98,8 @@ const RecentFiles = ({
     <div
       className={styles.wrap}
       ref={containerRef}
-      style={{ width: width - 27 }}>
+      style={{ width: width - 27 }}
+    >
       <div className={styles.recentFilesWrap}>{renderRecent()}</div>
     </div>
   );
@@ -108,9 +112,9 @@ RecentFiles.propTypes = {
   filePreview: filePreviewProps,
   menuItem: PropTypes.string,
   onDoubleClickCallback: PropTypes.func,
-  width: PropTypes.number
+  width: PropTypes.number,
 };
 
 RecentFiles.defaultProps = {
-  width: "100%"
+  width: "100%",
 };

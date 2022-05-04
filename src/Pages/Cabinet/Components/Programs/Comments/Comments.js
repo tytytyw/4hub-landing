@@ -11,17 +11,17 @@ function Comments({ hideComments, comments, program }) {
   const { __ } = useLocales();
   const [params, setParams] = useState({
     newCommentModal: false,
-    commentList: comments
+    commentList: comments,
   });
   const dispatch = useDispatch();
 
   const toggleNewCommentModal = () =>
-    setParams(s => ({ ...s, newCommentModal: !s.newCommentModal }));
-  const onAddComment = newComment => {
-    setParams(s => ({
+    setParams((s) => ({ ...s, newCommentModal: !s.newCommentModal }));
+  const onAddComment = (newComment) => {
+    setParams((s) => ({
       ...s,
       commentList: [...s.commentList, newComment],
-      newCommentModal: false
+      newCommentModal: false,
     }));
     dispatch(
       onSetModals("success", {
@@ -29,7 +29,7 @@ function Comments({ hideComments, comments, program }) {
         message: __(
           `Ваш отзыв о программе ${program?.name ?? ""} успешно добавлен`
         ),
-        title: __("Отзыв успешно добавлен")
+        title: __("Отзыв успешно добавлен"),
       })
     );
   };
@@ -82,11 +82,11 @@ export default Comments;
 Comments.propTypes = {
   hideComments: PropTypes.func,
   comments: PropTypes.array,
-  program: PropTypes.object
+  program: PropTypes.object,
 };
 
 Comments.defaultProps = {
   hideComments: () => {},
   comments: [],
-  program: {}
+  program: {},
 };

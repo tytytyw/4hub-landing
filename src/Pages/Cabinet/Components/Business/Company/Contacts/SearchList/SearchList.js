@@ -13,9 +13,10 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
           onClick={() => setSelectedItem(item)}
           className={classnames({
             [styles.menuItem]: true,
-            [styles.activeItem]: selectedItem?.id === item?.id
+            [styles.activeItem]: selectedItem?.id === item?.id,
           })}
-          key={index}>
+          key={index}
+        >
           <span className={styles.icon}>
             <img src={item?.icon?.[0] || emptyProfileImage} alt={item.id} />
           </span>
@@ -31,5 +32,5 @@ export default SearchList;
 SearchList.propTypes = {
   data: PropTypes.array,
   selectedItem: PropTypes.object,
-  setSelectedItem: PropTypes.func
+  setSelectedItem: PropTypes.func,
 };

@@ -9,13 +9,14 @@ import PropTypes from "prop-types";
 
 function AddComment({ close, program, onAddComment }) {
   const [params, setParams] = useState({ comment: "" });
-  const enterText = e => setParams(s => ({ ...s, comment: e.target.value }));
+  const enterText = (e) =>
+    setParams((s) => ({ ...s, comment: e.target.value }));
   //TODO - Need to replace after api is added
   const createNewComment = () => ({
     icon: `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`,
     from: "Test",
     date: `${getDate(0).day}.${getDate(0).month}.${getDate(0).year}`,
-    text: params.comment
+    text: params.comment,
   });
 
   const onAdd = () => {
@@ -39,9 +40,10 @@ function AddComment({ close, program, onAddComment }) {
           <div
             className={classNames({
               [styles.add]: true,
-              [styles.inactive]: params.comment.length === 0
+              [styles.inactive]: params.comment.length === 0,
             })}
-            onClick={onAdd}>
+            onClick={onAdd}
+          >
             Добавить
           </div>
         </div>
@@ -55,10 +57,10 @@ export default AddComment;
 AddComment.propTypes = {
   close: PropTypes.func,
   program: PropTypes.object,
-  onAddComment: PropTypes.func
+  onAddComment: PropTypes.func,
 };
 
 AddComment.defaultProps = {
   close: () => {},
-  program: {}
+  program: {},
 };

@@ -8,7 +8,7 @@ import { ReactComponent as ContactsDatabaseIcon } from "../../../../../assets/Pr
 import classNames from "classnames";
 import {
   onGetCompanyContacts,
-  onGetContacts
+  onGetContacts,
 } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -20,8 +20,8 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
   const [requiredInputError, setRequiredInputError] = useState(false);
-  const id_company = useSelector(state => state.user.id_company);
-  const uid = useSelector(state => state.user.uid);
+  const id_company = useSelector((state) => state.user.id_company);
+  const uid = useSelector((state) => state.user.uid);
 
   const dispatch = useDispatch();
 
@@ -44,26 +44,26 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
           dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
           setShowSuccessPopup({
             title: __("База контактов успешно добавлена"),
-            text: __("База контактов успешно добавлен в Вашу книгу контактов")
+            text: __("База контактов успешно добавлен в Вашу книгу контактов"),
           });
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     } else setRequiredInputError(true);
   };
 
-  const createContactArray = value => {
+  const createContactArray = (value) => {
     const result = [];
     result.push(value);
     return JSON.stringify(result);
   };
 
-  const checkEmail = email => email?.includes("@") && email?.length > 2;
+  const checkEmail = (email) => email?.includes("@") && email?.length > 2;
 
   useEffect(() => {
-    setName(name ? name => name[0].toUpperCase() + name.slice(1) : "");
-    setSname(sname ? sname => sname[0].toUpperCase() + sname.slice(1) : "");
+    setName(name ? (name) => name[0].toUpperCase() + name.slice(1) : "");
+    setSname(sname ? (sname) => sname[0].toUpperCase() + sname.slice(1) : "");
   }, [name, sname]);
 
   return (
@@ -73,7 +73,8 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
         set={nullifyAction}
         callback={onSubmit}
         approve={__("Добавить")}
-        childrenWidth={"100%"}>
+        childrenWidth={"100%"}
+      >
         <div className={styles.inputWrap}>
           <InputField
             mistake={requiredInputError && !name}
@@ -134,5 +135,5 @@ export default AddContact;
 AddContact.propTypes = {
   action: PropTypes.object,
   nullifyAction: PropTypes.func,
-  setShowSuccessPopup: PropTypes.func
+  setShowSuccessPopup: PropTypes.func,
 };

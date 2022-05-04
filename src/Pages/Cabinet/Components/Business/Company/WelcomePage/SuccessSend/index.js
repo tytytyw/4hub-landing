@@ -37,5 +37,5 @@ const SuccessSend = ({ setPageOption }) => {
 export default SuccessSend;
 
 SuccessSend.propTypes = {
-  setPageOption: PropTypes.func
+  setPageOption: PropTypes.func,
 };

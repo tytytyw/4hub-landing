@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const FilterSettings = ({ visualEffects, setVisualEffects }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const [options, setOptions] = useState([
     {
       name: __("Яркость"),
@@ -16,7 +16,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 2,
       step: 0.02,
       value: visualEffects.filter.brightness,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Контраст"),
@@ -25,7 +25,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 2,
       step: 0.02,
       value: visualEffects.filter.contrast,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Насыщенность"),
@@ -34,7 +34,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 2,
       step: 0.02,
       value: visualEffects.filter.saturate,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Оттенки серого"),
@@ -43,7 +43,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 1,
       step: 0.01,
       value: visualEffects.filter.grayscale,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Смещение цветов"),
@@ -52,7 +52,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 360,
       step: 1,
       value: visualEffects.filter["hue-rotate"],
-      unit: "deg"
+      unit: "deg",
     },
     {
       name: __("Инверсия"),
@@ -61,7 +61,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 1,
       step: 0.01,
       value: visualEffects.filter.invert,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Сепия"),
@@ -70,7 +70,7 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 1,
       step: 0.01,
       value: visualEffects.filter.sepia,
-      unit: ""
+      unit: "",
     },
     {
       name: __("Размытие"),
@@ -79,29 +79,29 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
       max: 10,
       step: 0.1,
       value: visualEffects.filter.blur,
-      unit: "px"
-    }
+      unit: "px",
+    },
   ]);
 
   const innerFilterEffects = () =>
     options
-      .map(option => `${option.filterName}(${option.value}${option.unit})`)
+      .map((option) => `${option.filterName}(${option.value}${option.unit})`)
       .join(" ");
 
   useEffect(() => {
     const newFilterParams = { ...visualEffects.filter };
     options.forEach(
-      option => (newFilterParams[option.filterName] = option.value)
+      (option) => (newFilterParams[option.filterName] = option.value)
     );
-    setVisualEffects(prevEffects => ({
+    setVisualEffects((prevEffects) => ({
       ...prevEffects,
-      filter: { ...newFilterParams, result: innerFilterEffects() }
+      filter: { ...newFilterParams, result: innerFilterEffects() },
     }));
     // eslint-disable-next-line
   }, [options]);
 
   const renderOptions = () =>
-    options.map(option => (
+    options.map((option) => (
       <div className={styles.optionWrapper} key={option.name}>
         <p className={styles.title}>{option.name}</p>
         <input
@@ -110,30 +110,39 @@ const FilterSettings = ({ visualEffects, setVisualEffects }) => {
             [styles.defaultDash]:
               option.filterName === "brightness" ||
               option.filterName === "contrast" ||
-              option.filterName === "saturate"
+              option.filterName === "saturate",
           })}
           min={option.min}
           max={option.max}
           step={option.step}
           value={option.value}
           type="range"
-          onChange={e =>
-            setOptions(prevOptions => [
-              ...prevOptions.map(item =>
+          onChange={(e) =>
+            setOptions((prevOptions) => [
+              ...prevOptions.map((item) =>
                 item === option ? { ...option, value: e.target.value } : item
-              )
+              ),
             ])
           }
         />
       </div>
     ));
 
-  return <div className={classNames({ [styles.wrapper]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>{renderOptions()}</div>;
+  return (
+    <div
+      className={classNames({
+        [styles.wrapper]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
+      {renderOptions()}
+    </div>
+  );
 };
 
 export default FilterSettings;
 
 FilterSettings.propTypes = {
   visualEffects: PropTypes.object.isRequired,
-  setVisualEffects: PropTypes.func.isRequired
+  setVisualEffects: PropTypes.func.isRequired,
 };

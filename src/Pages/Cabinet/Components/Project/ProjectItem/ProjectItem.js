@@ -7,7 +7,7 @@ import CustomFolderItem from "../CustomFolderItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onChooseProject,
-  onGetProjectFolders
+  onGetProjectFolders,
 } from "../../../../../Store/actions/CabinetActions";
 import CustomItem from "../CustomItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
@@ -27,11 +27,11 @@ const ProjectItem = ({
   setNewFolder,
   params,
   setParams,
-  listRef
+  listRef,
 }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
-  const folders = useSelector(state => state.Cabinet.project.projectFolders);
+  const folders = useSelector((state) => state.Cabinet.project.projectFolders);
   const [collapse, setCollapse] = useState(false);
   const projectRef = useRef(null);
 
@@ -42,14 +42,14 @@ const ProjectItem = ({
           setCollapse(true);
           listRef.current.scrollTo({
             top: projectRef.current.offsetTop - 67, // minus height of the header in the list
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }, 0);
       } else {
         setCollapse(false);
       }
       setSelectedProject(project);
-      setParams(state => ({ ...state, fromRecent: false }));
+      setParams((state) => ({ ...state, fromRecent: false }));
     }
   }, [params.fromRecent]); //eslint-disable-line
 
@@ -89,13 +89,13 @@ const ProjectItem = ({
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
-          [styles?.[`wrapper_${size}`]]: !!size
+          [styles?.[`wrapper_${size}`]]: !!size,
         })}
       >
         <div
           className={classNames({
             [styles.titleWrap]: true,
-            [styles.titleWrapChosen]: !!collapse
+            [styles.titleWrapChosen]: !!collapse,
           })}
         >
           <div
@@ -110,7 +110,7 @@ const ProjectItem = ({
                   <div
                     className={classNames({
                       [styles.tagBlock]: true,
-                      [styles.ftag]: !!project?.tags
+                      [styles.ftag]: !!project?.tags,
                     })}
                   >
                     {project?.tags && `#${project.tags}`}
@@ -143,7 +143,7 @@ const ProjectItem = ({
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
-                  [styles.revert]: collapse
+                  [styles.revert]: collapse,
                 })}
               />
             </div>
@@ -151,14 +151,14 @@ const ProjectItem = ({
 
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "project"
+                type: "project",
               });
             }}
           >
@@ -169,7 +169,7 @@ const ProjectItem = ({
         <div
           className={classNames({
             [styles.innerFolders]: true,
-            [styles.hidden]: !collapse
+            [styles.hidden]: !collapse,
           })}
         >
           <CustomItem
@@ -180,7 +180,7 @@ const ProjectItem = ({
             item={{
               name: __("Создать лист"),
               img: `${imageSrc}assets/PrivateCabinet/documentGrey.svg`,
-              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
+              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`,
             }}
           />
           <CustomItem
@@ -190,7 +190,7 @@ const ProjectItem = ({
             item={{
               name: __("Создать новую папку"),
               img: `${imageSrc}/assets/PrivateCabinet/folders/folder-grey.svg`,
-              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
+              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`,
             }}
           />
           {renderFolders()}
@@ -214,5 +214,5 @@ ProjectItem.propTypes = {
   setNewFolder: PropTypes.func,
   params: PropTypes.object,
   setParams: PropTypes.func,
-  listRef: PropTypes.any
+  listRef: PropTypes.any,
 };

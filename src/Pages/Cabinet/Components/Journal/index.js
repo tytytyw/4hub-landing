@@ -28,12 +28,12 @@ const Journal = () => {
   const { __ } = useLocales();
   const months = useMonths();
   const contextMenuFile = useContextMenuFile();
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
   const [search, setSearch] = useState(null);
 
   const dispatch = useDispatch();
-  const fileList = useSelector(state => state.Cabinet.fileList);
-  const journalFolders = useSelector(state => state.Cabinet.journalFolders);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
+  const journalFolders = useSelector((state) => state.Cabinet.journalFolders);
 
   const [year, setYear] = useState(null);
 
@@ -54,26 +54,26 @@ const Journal = () => {
       type: "resend",
       name: __(""),
       text: __(""),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "share",
       name: __(""),
       text: __(""),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     { type: "copyLink", name: __(""), text: __(""), callback: () => {} },
     {
       type: "customize",
       name: __("Редактирование файла"),
       text: __(""),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "customizeSeveral",
       name: __(`Редактирование файлов`),
       text: __(""),
-      callback: () => {}
+      callback: () => {},
     },
     {
       type: "archive",
@@ -81,34 +81,38 @@ const Journal = () => {
       text: __(
         `Вы действительно хотите архивировать файл ${chosenFile?.name}?`
       ),
-      callback: (list, index) => setAction(list[index])
+      callback: (list, index) => setAction(list[index]),
     },
     {
       type: "intoZip",
       name: __("Сжать в ZIP"),
       text: __(""),
       callback: (list, index) =>
-        setAction({ ...action, type: list[index].type, name: list[index].name })
+        setAction({
+          ...action,
+          type: list[index].type,
+          name: list[index].name,
+        }),
     },
     {
       type: "properties",
       name: __("Свойства"),
       text: __(""),
       callback: () =>
-        setAction({ ...action, type: "properties", name: __("Свойства") })
+        setAction({ ...action, type: "properties", name: __("Свойства") }),
     },
     {
       type: "download",
       name: __("Загрузка файла"),
       text: __(""),
-      callback: () => {}
+      callback: () => {},
     },
     {
       type: "print",
       name: __("Распечатать файл"),
       text: __(""),
-      callback: () => {}
-    }
+      callback: () => {},
+    },
   ];
 
   const additionalMenuItems = [
@@ -116,8 +120,8 @@ const Journal = () => {
       type: "delete",
       name: __("Удаление файла"),
       text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`),
-      callback: (list, index) => setAction(list[index])
-    }
+      callback: (list, index) => setAction(list[index]),
+    },
   ];
 
   useEffect(() => {
@@ -213,7 +217,8 @@ const Journal = () => {
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}>
+          tooltip={true}
+        >
           <div className={styles.mainMenuItems}>
             {renderMenuItems(contextMenuFile.main)}
           </div>
@@ -229,7 +234,8 @@ const Journal = () => {
           text={action.text}
           set={nullifyAction}
           callback={() => {}}
-          approve={__("Удалить")}>
+          approve={__("Удалить")}
+        >
           <div className={styles.fileActionWrap}>
             <File format={chosenFile?.ext} color={chosenFile?.color} />
           </div>

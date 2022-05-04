@@ -26,19 +26,19 @@ function FilesGroup({
   params = null,
   menuItem = "",
   renderFileItem = () => {},
-  setGroupInfo = () => {}
+  setGroupInfo = () => {},
 }) {
   const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
-  const workElementsView = useSelector(state => state.Cabinet.view);
+  const workElementsView = useSelector((state) => state.Cabinet.view);
   const workBarsPreviewGroupRef = useRef(null);
   const { pathname } = useLocation();
 
   const handleChangeGroup = () => {
-    setChosenFolder(state => ({
+    setChosenFolder((state) => ({
       ...state,
-      group: { title, amount: fileList?.length }
+      group: { title, amount: fileList?.length },
     }));
-    setGroupInfo(state => ({ ...state, title, amount: fileList?.length }));
+    setGroupInfo((state) => ({ ...state, title, amount: fileList?.length }));
   };
   return (
     <>
@@ -46,7 +46,8 @@ function FilesGroup({
         <div
           className={styles.group}
           ref={workBarsPreviewGroupRef}
-          onClick={handleChangeGroup}>
+          onClick={handleChangeGroup}
+        >
           {renderFiles(FileBar, fileList)}
         </div>
       ) : (
@@ -56,13 +57,15 @@ function FilesGroup({
               onClick={() => {
                 setCollapse(!collapse);
               }}
-              className={styles.collapseHeader}>
+              className={styles.collapseHeader}
+            >
               <p
                 className={`${styles.dateName} ${
                   workElementsView === "workLinesPreview"
                     ? styles.dateNameShort
                     : ""
-                }`}>
+                }`}
+              >
                 {title}
               </p>
               <div className={styles.buttonsWrap}>
@@ -71,18 +74,20 @@ function FilesGroup({
                     workElementsView === "workLinesPreview"
                       ? styles.collapseBtnShort
                       : ""
-                  }`}>
+                  }`}
+                >
                   {fileList.length ?? 0} объектов
                 </button>
                 <div
                   className={classNames({
                     [styles.arrowFile]: true,
-                    [styles.active]: !!collapse
-                  })}>
+                    [styles.active]: !!collapse,
+                  })}
+                >
                   <PlayIcon
                     className={classNames({
                       [styles.playButton]: true,
-                      [styles.revert]: !!collapse
+                      [styles.revert]: !!collapse,
                     })}
                   />
                 </div>
@@ -102,7 +107,8 @@ function FilesGroup({
                   fileRef={fileRef}
                   chosenFolder={chosenFolder}
                   gLoader={gLoader}
-                  hideUploadFile={true}>
+                  hideUploadFile={true}
+                >
                   {renderFiles(FileBar, fileList)}
                 </WorkBars>
               )}

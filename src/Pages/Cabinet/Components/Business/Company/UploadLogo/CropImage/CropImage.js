@@ -17,7 +17,7 @@ function CropImage({ blob, setCropParams, setPicParams }) {
   let cropAreaOffsetTop_initial = cropArea?.offsetTop;
   let cropAreaOffsetLeft_initial = cropArea?.offsetLeft;
 
-  const mouseMoveOnDot = e => {
+  const mouseMoveOnDot = (e) => {
     e.stopPropagation();
     let difference;
     difference = startWidth + e.clientX - startX;
@@ -32,18 +32,20 @@ function CropImage({ blob, setCropParams, setPicParams }) {
 
     initialCordinates = {
       x: e.offsetX,
-      y: e.offsetY
+      y: e.offsetY,
     };
     cropArea.style.width = `${newWidth}px`;
     cropArea.style.height = `${Math.round(newHeight)}px`;
 
     if (dot_vertilal === "top" && cropArea.offsetHeight > 21) {
-      cropArea.style.top = `${cropAreaOffsetTop_initial +
-        Math.round(startHeight - newHeight)}px`;
+      cropArea.style.top = `${
+        cropAreaOffsetTop_initial + Math.round(startHeight - newHeight)
+      }px`;
     }
     if (dot_horizontal === "left" && cropArea.offsetWidth > 63) {
-      cropArea.style.left = `${cropAreaOffsetLeft_initial +
-        Math.round(startWidth - newWidth)}px`;
+      cropArea.style.left = `${
+        cropAreaOffsetLeft_initial + Math.round(startWidth - newWidth)
+      }px`;
     }
   };
 
@@ -69,22 +71,22 @@ function CropImage({ blob, setCropParams, setPicParams }) {
 
   let initialCordinates;
 
-  const moveCropArea = e => {
+  const moveCropArea = (e) => {
     e.stopPropagation();
     if (e.target.id === "crop_area") {
       initialCordinates = {
         x: e.nativeEvent.offsetX,
-        y: e.nativeEvent.offsetY
+        y: e.nativeEvent.offsetY,
       };
       cropArea.addEventListener("mousemove", mouseMoveOnCropArea);
     }
   };
 
-  const mouseMoveOnCropArea = e => {
+  const mouseMoveOnCropArea = (e) => {
     e.stopPropagation();
     const difference = {
       x: e.offsetX - initialCordinates.x,
-      y: initialCordinates.y - e.offsetY
+      y: initialCordinates.y - e.offsetY,
     };
 
     const validateCordinates = (cordinate, type) => {
@@ -101,13 +103,13 @@ function CropImage({ blob, setCropParams, setPicParams }) {
     };
     const newCordinates = {
       x: cropArea.offsetLeft + difference.x,
-      y: cropArea.offsetTop - difference.y
+      y: cropArea.offsetTop - difference.y,
     };
     cropArea.style.top = `${validateCordinates(newCordinates.y, "top")}px`;
     cropArea.style.left = `${validateCordinates(newCordinates.x, "left")}px`;
   };
 
-  const calcNewSize = blob => {
+  const calcNewSize = (blob) => {
     const image = new Image();
     image.src = URL.createObjectURL(blob);
     setTimeout(() => {
@@ -136,7 +138,7 @@ function CropImage({ blob, setCropParams, setPicParams }) {
     }
   }, [blob]);
 
-  const preventDefault = e => e.preventDefault();
+  const preventDefault = (e) => e.preventDefault();
   useEffect(() => {
     document.addEventListener("dragstart", preventDefault);
     return () => document.removeEventListener("dragstart", preventDefault);
@@ -151,10 +153,12 @@ function CropImage({ blob, setCropParams, setPicParams }) {
     <div
       className={styles.picArea}
       onMouseUp={dotMouseUp}
-      onMouseLeave={dotMouseUp}>
+      onMouseLeave={dotMouseUp}
+    >
       <div
         className={styles.picWrap}
-        style={{ width: hiddenPic?.width, height: hiddenPic?.height }}>
+        style={{ width: hiddenPic?.width, height: hiddenPic?.height }}
+      >
         <div
           id="crop_area"
           className={styles.cropArea}
@@ -165,27 +169,28 @@ function CropImage({ blob, setCropParams, setPicParams }) {
             maxWidth: hiddenPic?.width,
             maxHeight: hiddenPic?.height,
             top: `calc(50% - ${cropArea?.height / 2})`,
-            left: `calc(50% - ${cropArea?.width / 2})`
+            left: `calc(50% - ${cropArea?.width / 2})`,
           }}
           onMouseDown={moveCropArea}
           onMouseUp={() => {
             cropArea.removeEventListener("mousemove", mouseMoveOnCropArea);
-          }}>
+          }}
+        >
           <div
             className={classNames(styles.dot, styles.dotLT)}
-            onMouseDown={e => moveDot(e, "top", "left")}
+            onMouseDown={(e) => moveDot(e, "top", "left")}
           />
           <div
             className={classNames(styles.dot, styles.dotRT)}
-            onMouseDown={e => moveDot(e, "top", "right")}
+            onMouseDown={(e) => moveDot(e, "top", "right")}
           />
           <div
             className={classNames(styles.dot, styles.dotLB)}
-            onMouseDown={e => moveDot(e, "bottom", "left")}
+            onMouseDown={(e) => moveDot(e, "bottom", "left")}
           />
           <div
             className={classNames(styles.dot, styles.dotRB)}
-            onMouseDown={e => moveDot(e, "bottom", "right")}
+            onMouseDown={(e) => moveDot(e, "bottom", "right")}
           />
         </div>
         <img
@@ -212,5 +217,5 @@ export default CropImage;
 CropImage.propTypes = {
   setCropParams: PropTypes.func,
   setPicParams: PropTypes.func,
-  blob: PropTypes.object
+  blob: PropTypes.object,
 };

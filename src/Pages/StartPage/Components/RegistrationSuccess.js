@@ -63,5 +63,5 @@ export default RegistrationSuccess;
 
 RegistrationSuccess.propTypes = {
   setPage: PropTypes.func,
-  sendRequest: PropTypes.func
+  sendRequest: PropTypes.func,
 };

@@ -8,8 +8,8 @@ import PropTypes from "prop-types";
 
 const WorkSpaceList = ({ events }) => {
   const { __ } = useLocales();
-  const calendarDate = useSelector(state => state.Cabinet.calendarDate);
-  const checkDateEvent = event => {
+  const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
+  const checkDateEvent = (event) => {
     if (!event) return false;
 
     return (
@@ -19,8 +19,8 @@ const WorkSpaceList = ({ events }) => {
     );
   };
 
-  const getTask = hour => {
-    const event = events?.find(item => {
+  const getTask = (hour) => {
+    const event = events?.find((item) => {
       const itemHour = item?.date.getHours();
       return itemHour === hour;
     });
@@ -32,7 +32,7 @@ const WorkSpaceList = ({ events }) => {
     return false;
   };
 
-  const renderTask = hour => {
+  const renderTask = (hour) => {
     const task = getTask(hour);
     if (task) {
       return <TableListTaskItem task={task} />;
@@ -48,7 +48,7 @@ const WorkSpaceList = ({ events }) => {
   };
 
   const getEventsCount = () => {
-    const findEvents = events.filter(event => {
+    const findEvents = events.filter((event) => {
       return event?.date.getDate() === calendarDate.getDate();
     });
     return findEvents?.length;
@@ -83,8 +83,9 @@ const WorkSpaceList = ({ events }) => {
               key={index}
               className={styles.listItemActive}
               style={{
-                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
-              }}>
+                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`,
+              }}
+            >
               <div className={styles.hour}>{hour.text}</div>
               <div className={styles.hourItem}>{renderTask(hour.value)}</div>
             </div>
@@ -103,5 +104,5 @@ const WorkSpaceList = ({ events }) => {
 export default WorkSpaceList;
 
 WorkSpaceList.propTypes = {
-  events: PropTypes.array
+  events: PropTypes.array,
 };

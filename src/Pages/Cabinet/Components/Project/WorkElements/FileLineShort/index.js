@@ -16,26 +16,26 @@ const FileLineShort = ({
   setMouseParams,
   filePick,
   setFilePick,
-  fileCollapsed
+  fileCollapsed,
 }) => {
-  const size = useSelector(state => state.Cabinet.size);
-  const previewFile = useSelector(s => s.Cabinet.modals.previewFile);
+  const size = useSelector((state) => state.Cabinet.size);
+  const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
 
   const onPickFile = () => {
     if (filePick.show) {
-      const isPicked = filePick.files.filter(el => el === file.fid);
+      const isPicked = filePick.files.filter((el) => el === file.fid);
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter(el => el !== file.fid)
+            files: filePick.files.filter((el) => el !== file.fid),
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
     setChosenFile(file);
   };
 
-  const getFileName = file => {
+  const getFileName = (file) => {
     const slicedName =
       file.name && file.name.slice(0, file.name.lastIndexOf("."));
     return slicedName || "(empty name)";
@@ -52,8 +52,9 @@ const FileLineShort = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosen,
-        [styles?.[`wrapper_${size}`]]: size !== "medium"
-      })}>
+        [styles?.[`wrapper_${size}`]]: size !== "medium",
+      })}
+    >
       <div className={styles.fileAbout}>
         <div className={styles.file}>
           <File
@@ -131,24 +132,25 @@ const FileLineShort = ({
         <div className={styles.optionsWrap}>
           <div
             className={styles.menuWrap}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               setMouseParams({
                 x: e.clientX,
                 y: e.clientY,
                 width: 260,
-                height: 25
+                height: 25,
               });
-            }}>
+            }}
+          >
             <span
               className={styles.menu}
-              onClick={e => {
+              onClick={(e) => {
                 onPickFile();
                 setMouseParams({
                   x: e.clientX,
                   y: e.clientY,
                   width: 240,
-                  height: 25
+                  height: 25,
                 });
               }}
             />
@@ -168,5 +170,5 @@ FileLineShort.propTypes = {
   setMouseParams: PropTypes.func,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
-  fileCollapsed: PropTypes.bool
+  fileCollapsed: PropTypes.bool,
 };

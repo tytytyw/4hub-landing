@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 function ContextModal({ saveCustomizeSeveralFiles }) {
   const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   return (
     <>
@@ -48,5 +48,5 @@ function ContextModal({ saveCustomizeSeveralFiles }) {
 export default ContextModal;
 
 ContextModal.propTypes = {
-  saveCustomizeSeveralFiles: PropTypes.func
+  saveCustomizeSeveralFiles: PropTypes.func,
 };

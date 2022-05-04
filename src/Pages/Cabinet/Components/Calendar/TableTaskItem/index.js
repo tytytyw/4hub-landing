@@ -24,7 +24,8 @@ const TableTaskItem = ({ task, date }) => {
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
       style={{ background: color }}
-      className={styles.wrapper}>
+      className={styles.wrapper}
+    >
       <p className={styles.name}>{task?.name}</p>
       {visible && (
         <PopoverTaskItem
@@ -41,5 +42,5 @@ export default TableTaskItem;
 
 TableTaskItem.propTypes = {
   task: PropTypes.object,
-  date: PropTypes.string
+  date: PropTypes.string,
 };

@@ -27,5 +27,5 @@ const SecretChatStartWallpaper = ({ children }) => {
 export default SecretChatStartWallpaper;
 
 SecretChatStartWallpaper.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };

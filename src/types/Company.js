@@ -4,7 +4,7 @@ export const itemProps = PropTypes.exact({
   children: PropTypes.array,
   name: PropTypes.string,
   icon: PropTypes.object,
-  label: PropTypes.string
+  label: PropTypes.string,
 });
 
 const personInfoProps = PropTypes.exact({
@@ -16,17 +16,17 @@ const personInfoProps = PropTypes.exact({
   phone: PropTypes.string,
   phone2: PropTypes.string,
   email: PropTypes.string,
-  email2: PropTypes.string
+  email2: PropTypes.string,
 });
 
 export const personProps = PropTypes.exact({
   data: PropTypes.shape({
-    info: personInfoProps
+    info: personInfoProps,
   }),
   id: PropTypes.string,
   position: PropTypes.shape({
     x: PropTypes.number,
-    y: PropTypes.number
+    y: PropTypes.number,
   }),
-  type: PropTypes.string
+  type: PropTypes.string,
 });

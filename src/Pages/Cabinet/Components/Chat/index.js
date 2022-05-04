@@ -18,7 +18,7 @@ import {
   onGetReсentChatsList,
   onSetMessageLifeTime,
   onSetSelectedContact,
-  onSetModals
+  onSetModals,
 } from "../../../../Store/actions/CabinetActions";
 import SuccessPopup from "./SuccessPopup";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
@@ -30,7 +30,7 @@ import { useContextMenuChat } from "../../../../generalComponents/collections";
 import {
   groupDelete,
   secretChatDelete,
-  leaveGroup
+  leaveGroup,
 } from "../ContextMenuComponents/ContexMenuChat/ChatMenuHelper";
 import { contactDelete } from "../../../../generalComponents/chatHelper";
 import { useLocales } from "react-localized";
@@ -43,7 +43,7 @@ const Chat = ({ setMenuItem }) => {
   const [search, setSearch] = useState("");
   const [sideMenuCollapsed, setSideMenuCollapsed] = useState(false);
   const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
+    (state) => state.Cabinet.chat.selectedContact
   );
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -52,29 +52,29 @@ const Chat = ({ setMenuItem }) => {
   const [date, setDate] = useState(new Date());
   const dispatch = useDispatch();
   const [mouseParams, setMouseParams] = useState(null);
-  const uid = useSelector(state => state.user.uid);
-  const userId = useSelector(state => state.Cabinet.chat.userId);
+  const uid = useSelector((state) => state.user.uid);
+  const userId = useSelector((state) => state.Cabinet.chat.userId);
   const [file, setFile] = useState(null);
   const messageLifeTime = useSelector(
-    state => state.Cabinet.chat.messageLifeTime
+    (state) => state.Cabinet.chat.messageLifeTime
   );
-  const id_company = useSelector(state => state.user.id_company);
+  const id_company = useSelector((state) => state.user.id_company);
   const contextMenuModals = useSelector(
-    state => state.Cabinet.modals.contextMenuModals
+    (state) => state.Cabinet.modals.contextMenuModals
   );
-  const [showSettings, setShowSettings] = useState(false)
+  const [showSettings, setShowSettings] = useState(false);
   const fileInputRef = useRef();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const closeContextMenu = () => {
     setMouseParams(null);
     nullifyAction();
   };
 
-  const setSelectedContact = contact =>
+  const setSelectedContact = (contact) =>
     selectedContact !== contact ? dispatch(onSetSelectedContact(contact)) : "";
 
-  const onInputFiles = e => {
+  const onInputFiles = (e) => {
     setFile(e.target.files[0]);
     e.target.value = "";
   };
@@ -84,16 +84,16 @@ const Chat = ({ setMenuItem }) => {
     let newType = type;
     if (selectedContact?.isGroup) {
       const admins = selectedContact.users
-        .filter(u => u.is_admin)
-        .map(u => u.id_user);
+        .filter((u) => u.is_admin)
+        .map((u) => u.id_user);
       const filterContextMenu = (arr, filter) =>
-        arr.filter(item => !filter.includes(item.type));
+        arr.filter((item) => !filter.includes(item.type));
       if (!admins.includes(userId)) {
         // user not admin of group
         const onlyAdminItemsTypes = [
           "editChatGroup",
           "deleteUserFromGroup",
-          "deleteChatGroup"
+          "deleteChatGroup",
         ];
         newTarget = filterContextMenu(target, onlyAdminItemsTypes);
         newType = filterContextMenu(type, onlyAdminItemsTypes);
@@ -120,7 +120,7 @@ const Chat = ({ setMenuItem }) => {
           imageSrc={
             item.img !== undefined
               ? imageSrc +
-              `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`
+                `assets/PrivateCabinet/ContextMenuChat/${item.img}.svg`
               : null
           }
         />
@@ -143,16 +143,16 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
-      }
+            name: list[index].name,
+          }),
+      },
     ],
     group: [
       {
         type: "editChatGroup",
         name: __("Редактировать"),
         text: ``,
-        callback: (list, index) => setAction(list[index])
+        callback: (list, index) => setAction(list[index]),
       },
       {
         type: "deleteChatGroup",
@@ -164,8 +164,8 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
+            name: list[index].name,
+          }),
       },
       {
         type: "leaveFromChatGroup",
@@ -177,9 +177,9 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
-      }
+            name: list[index].name,
+          }),
+      },
     ],
     secretChat: [
       {
@@ -192,9 +192,9 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
-      }
+            name: list[index].name,
+          }),
+      },
     ],
     recentChat: [],
     userInGroup: [
@@ -206,8 +206,8 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
+            name: list[index].name,
+          }),
       },
       {
         type: "blockUser",
@@ -217,8 +217,8 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
+            name: list[index].name,
+          }),
       },
       {
         type: "deleteUserFromGroup",
@@ -228,66 +228,66 @@ const Chat = ({ setMenuItem }) => {
           setAction({
             text: list[index].text,
             type: list[index].type,
-            name: list[index].name
-          })
-      }
+            name: list[index].name,
+          }),
+      },
     ],
     timer: [
       {
         name: __("1 час"),
         value: 3600,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("45 мин."),
         value: 2700,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("30 мин."),
         value: 1800,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("15 мин."),
         value: 900,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("10 мин."),
         value: 600,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("5 мин."),
         value: 300,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("1 мин."),
         value: 60,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
 
       {
         name: __("30 сек."),
         value: 30,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
+          dispatch(onSetMessageLifeTime(list[index].value)),
       },
       {
         name: __("20 сек."),
         value: 20,
         callback: (list, index) =>
-          dispatch(onSetMessageLifeTime(list[index].value))
-      }
+          dispatch(onSetMessageLifeTime(list[index].value)),
+      },
     ],
     message: [
       {
@@ -295,7 +295,7 @@ const Chat = ({ setMenuItem }) => {
         type: "editMessage",
         text: __(""),
         callback: () =>
-          setAction({ type: "editMessage", message: mouseParams.message })
+          setAction({ type: "editMessage", message: mouseParams.message }),
       },
       {
         name: __("Скачать"),
@@ -306,56 +306,56 @@ const Chat = ({ setMenuItem }) => {
               ...contextMenuModals,
               type: "DownloadFile",
               items: [mouseParams.message.attachment],
-              authorizedSafe: null
+              authorizedSafe: null,
             })
-          )
+          ),
       },
       {
         name: __("Удалить сообщение"),
         type: "deleteMessage",
         callback: () =>
-          setAction({ type: "deleteMessage", message: mouseParams.message })
-      }
+          setAction({ type: "deleteMessage", message: mouseParams.message }),
+      },
     ],
     uploadFile: [
       {
         name: __("Камера"),
         type: "createMediaFromCamera",
-        callback: () => setAction({ type: "createMediaFromCamera" })
+        callback: () => setAction({ type: "createMediaFromCamera" }),
       },
       {
         name: __("Файлы с системы 4Hub"),
         type: "selectFile",
-        callback: () => setAction({ type: "selectFile" })
+        callback: () => setAction({ type: "selectFile" }),
       },
       {
         name: __("Файлы с компьютера"),
         type: "addPcFile",
         title: __("Выберите файл"),
-        callback: () => fileInputRef.current.click()
-      }
-    ]
+        callback: () => fileInputRef.current.click(),
+      },
+    ],
   };
 
-  const filterContextMenu = arr => {
+  const filterContextMenu = (arr) => {
     let filtredArr = arr;
     if (mouseParams.contextMenuList === "message") {
       if (mouseParams.message.messageType === "outbox") {
         // message without text
-        filtredArr = filtredArr.filter(item =>
+        filtredArr = filtredArr.filter((item) =>
           !mouseParams.message.text ? item.type !== "editMessage" : true
         );
       }
       if (mouseParams.message.messageType === "inbox") {
         // inbox with file
-        filtredArr = filtredArr.filter(item =>
+        filtredArr = filtredArr.filter((item) =>
           mouseParams.message.attachment?.kind === "file"
             ? item.type === "download"
             : false
         );
       }
       // without file
-      filtredArr = filtredArr.filter(item =>
+      filtredArr = filtredArr.filter((item) =>
         mouseParams.message.attachment?.kind !== "file"
           ? item.type !== "download"
           : true
@@ -423,13 +423,16 @@ const Chat = ({ setMenuItem }) => {
 
   return (
     <div
-      className={classNames({ [styles.chatComponent]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}
+      className={classNames({
+        [styles.chatComponent]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
       style={{ background: chatTheme.background, color: chatTheme.textColor }}
     >
       <div
         className={classNames({
           [styles.sideMenu]: true,
-          [styles.sideMenuCollapsed]: sideMenuCollapsed
+          [styles.sideMenuCollapsed]: sideMenuCollapsed,
         })}
       >
         <div className={styles.header}>
@@ -438,7 +441,7 @@ const Chat = ({ setMenuItem }) => {
             {sideMenuCollapsed ? null : <span>Чат</span>}
           </div>
           <FolderIcon
-            onClick={() => setSideMenuCollapsed(value => !value)}
+            onClick={() => setSideMenuCollapsed((value) => !value)}
             id={styles.headerArrow}
             title={sideMenuCollapsed ? __("развернуть") : __("свернуть")}
           />
@@ -447,7 +450,7 @@ const Chat = ({ setMenuItem }) => {
           <ContactsIcon
             className={classNames({
               [styles.option]: true,
-              [styles.selected]: boardOption === 'contacts'
+              [styles.selected]: boardOption === "contacts",
             })}
             onClick={() => setBoardOption("contacts")}
             title={__("Контакты")}
@@ -455,7 +458,7 @@ const Chat = ({ setMenuItem }) => {
           <PhoneIcon
             className={classNames({
               [styles.option]: true,
-              [styles.selected]: boardOption === 'calls'
+              [styles.selected]: boardOption === "calls",
             })}
             onClick={() => setBoardOption("calls")}
             title={__("Недавние звонки")}
@@ -463,28 +466,39 @@ const Chat = ({ setMenuItem }) => {
           <ChatIcon
             className={classNames({
               [styles.option]: true,
-              [styles.selected]: boardOption === 'chats'
+              [styles.selected]: boardOption === "chats",
             })}
             onClick={() => setBoardOption("chats")}
             title={__("Чаты")}
           />
           <SettingsIcon
-            className={classNames({ [styles.selected]: showSettings, [styles.option]: true })}
-            onClick={() => setShowSettings(prevBool => !prevBool)}
+            className={classNames({
+              [styles.selected]: showSettings,
+              [styles.option]: true,
+            })}
+            onClick={() => setShowSettings((prevBool) => !prevBool)}
             title={__("Настройки")}
           />
         </div>
         {sideMenuCollapsed ? null : (
           <div className={styles.borderBottom}>
-            <SearchField value={search} setValue={setSearch} style={{ background: chatTheme.inputBgColor, color: chatTheme.inputColor }} />
+            <SearchField
+              value={search}
+              setValue={setSearch}
+              style={{
+                background: chatTheme.inputBgColor,
+                color: chatTheme.inputColor,
+              }}
+            />
           </div>
         )}
         <div
           style={{
-            height: `calc(100% - 68px - 68px - ${sideMenuCollapsed ? "0" : "60"
-              }px)`,
+            height: `calc(100% - 68px - 68px - ${
+              sideMenuCollapsed ? "0" : "60"
+            }px)`,
             background: chatTheme.background,
-            color: chatTheme.textColor
+            color: chatTheme.textColor,
           }}
         >
           {boardOption === "contacts" ? (
@@ -527,152 +541,147 @@ const Chat = ({ setMenuItem }) => {
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />
-      {
-        action.type === "addContact" ? (
-          <AddContact
-            action={action}
-            nullifyAction={nullifyAction}
-            setShowSuccessPopup={setShowSuccessPopup}
-          />
-        ) : null
-      }
-      {
-        showSuccessMessage && (
-          <SuccessMessage
-            showSuccessMessage={showSuccessMessage}
-            setShowSuccessMessage={setShowSuccessMessage}
-          />
-        )
-      }
-      {
-        showSuccessPopup ? (
-          <SuccessPopup
-            title={showSuccessPopup?.title}
-            text={showSuccessPopup?.text}
-            set={() => setShowSuccessPopup(false)}
-            style={chatTheme.name === 'dark' ? { background: '#272727', color: '#fff' } : {}}
-          />
-        ) : (
-          ""
-        )
-      }
-      {
-        mouseParams !== null ? (
-          <ContextMenu
-            params={mouseParams}
-            setParams={setMouseParams}
-            tooltip={false}
-            withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
-            style={chatTheme.name === 'dark' ? { boxShadow: ' 0 2px 5px #272727' } : {}}
-          >
-            <div className={styles.ContextMenuItems}>
-              {renderContextMenuItems(
-                filterContextMenu(contextMenuChat[mouseParams.contextMenuList]),
-                filterContextMenu(callbackArr[mouseParams.contextMenuList])
-              )}
-            </div>
-          </ContextMenu>
-        ) : null
-      }
-      {
-        action.type === "deleteChatGroup" ||
-          action.type === "deleteSecretChat" ? (
-          <ActionApproval
-            name={action.name}
-            text={action.text}
-            set={closeContextMenu}
-            callback={
-              action.type === "deleteChatGroup"
-                ? deleteChatGroup
-                : deleteSecretChat
-            }
-            approve={__("Удалить")}
-            style={chatTheme.name === 'dark' ? { background: '#272727', color: '#fff' } : {}}
-          >
-            <div className={styles.groupLogoWrap}>
-              <img
-                className={styles.groupLogo}
-                src={
-                  selectedContact?.icon?.[0] ||
-                  `${imageSrc}assets/PrivateCabinet/${action.type === "deleteChatGroup"
+      {action.type === "addContact" ? (
+        <AddContact
+          action={action}
+          nullifyAction={nullifyAction}
+          setShowSuccessPopup={setShowSuccessPopup}
+        />
+      ) : null}
+      {showSuccessMessage && (
+        <SuccessMessage
+          showSuccessMessage={showSuccessMessage}
+          setShowSuccessMessage={setShowSuccessMessage}
+        />
+      )}
+      {showSuccessPopup ? (
+        <SuccessPopup
+          title={showSuccessPopup?.title}
+          text={showSuccessPopup?.text}
+          set={() => setShowSuccessPopup(false)}
+          style={
+            chatTheme.name === "dark"
+              ? { background: "#272727", color: "#fff" }
+              : {}
+          }
+        />
+      ) : (
+        ""
+      )}
+      {mouseParams !== null ? (
+        <ContextMenu
+          params={mouseParams}
+          setParams={setMouseParams}
+          tooltip={false}
+          withoutOffset={mouseParams.contextMenuList === "timer" ? true : false}
+          style={
+            chatTheme.name === "dark" ? { boxShadow: " 0 2px 5px #272727" } : {}
+          }
+        >
+          <div className={styles.ContextMenuItems}>
+            {renderContextMenuItems(
+              filterContextMenu(contextMenuChat[mouseParams.contextMenuList]),
+              filterContextMenu(callbackArr[mouseParams.contextMenuList])
+            )}
+          </div>
+        </ContextMenu>
+      ) : null}
+      {action.type === "deleteChatGroup" ||
+      action.type === "deleteSecretChat" ? (
+        <ActionApproval
+          name={action.name}
+          text={action.text}
+          set={closeContextMenu}
+          callback={
+            action.type === "deleteChatGroup"
+              ? deleteChatGroup
+              : deleteSecretChat
+          }
+          approve={__("Удалить")}
+          style={
+            chatTheme.name === "dark"
+              ? { background: "#272727", color: "#fff" }
+              : {}
+          }
+        >
+          <div className={styles.groupLogoWrap}>
+            <img
+              className={styles.groupLogo}
+              src={
+                selectedContact?.icon?.[0] ||
+                `${imageSrc}assets/PrivateCabinet/${
+                  action.type === "deleteChatGroup"
                     ? "chatGroup"
                     : "profile-noPhoto"
-                  }.svg`
-                }
-                alt="group logo"
-              />
-            </div>
-          </ActionApproval>
-        ) : null
-      }
-      {
-        action.type === "leaveFromChatGroup" ? (
-          <ActionApproval
-            name={action.name}
-            text={action.text}
-            set={closeContextMenu}
-            callback={leaveChatGroup}
-            approve={__("Покинуть")}
-          >
-            <div className={styles.groupLogoWrap}>
-              <img
-                className={styles.groupLogo}
-                src={
-                  selectedContact?.icon?.[0] ||
-                  `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
-                }
-                alt="group logo"
-              />
-            </div>
-          </ActionApproval>
-        ) : null
-      }
-      {
-        action.type === "deleteContact" ? (
-          <ActionApproval
-            name={action.name}
-            text={action.text}
-            set={nullifyAction}
-            callback={() =>
-              contactDelete(
-                selectedContact,
-                id_company,
-                dispatch,
-                uid,
-                nullifyAction
-              )
-            }
-            approve={__("Удалить")}
-          >
-            <div className={styles.groupLogoWrap}>
-              <img
-                className={styles.groupLogo}
-                src={
-                  selectedContact?.icon?.[0] ||
-                  `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-                }
-                alt="group logo"
-              />
-            </div>
-          </ActionApproval>
-        ) : null
-      }
-      {
-        action.type === "addUsersToGroup" ? (
-          <AddUserToGroup group={selectedContact} nullifyAction={nullifyAction} />
-        ) : (
-          ""
-        )
-      }
+                }.svg`
+              }
+              alt="group logo"
+            />
+          </div>
+        </ActionApproval>
+      ) : null}
+      {action.type === "leaveFromChatGroup" ? (
+        <ActionApproval
+          name={action.name}
+          text={action.text}
+          set={closeContextMenu}
+          callback={leaveChatGroup}
+          approve={__("Покинуть")}
+        >
+          <div className={styles.groupLogoWrap}>
+            <img
+              className={styles.groupLogo}
+              src={
+                selectedContact?.icon?.[0] ||
+                `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
+              }
+              alt="group logo"
+            />
+          </div>
+        </ActionApproval>
+      ) : null}
+      {action.type === "deleteContact" ? (
+        <ActionApproval
+          name={action.name}
+          text={action.text}
+          set={nullifyAction}
+          callback={() =>
+            contactDelete(
+              selectedContact,
+              id_company,
+              dispatch,
+              uid,
+              nullifyAction
+            )
+          }
+          approve={__("Удалить")}
+        >
+          <div className={styles.groupLogoWrap}>
+            <img
+              className={styles.groupLogo}
+              src={
+                selectedContact?.icon?.[0] ||
+                `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
+              }
+              alt="group logo"
+            />
+          </div>
+        </ActionApproval>
+      ) : null}
+      {action.type === "addUsersToGroup" ? (
+        <AddUserToGroup group={selectedContact} nullifyAction={nullifyAction} />
+      ) : (
+        ""
+      )}
       <div style={{ display: "none" }}>
         <input type="file" onChange={onInputFiles} ref={fileInputRef} />
       </div>
-    </div >
+    </div>
   );
 };
 
 export default Chat;
 
 Chat.propTypes = {
-  setMenuItem: PropTypes.func.isRequired
+  setMenuItem: PropTypes.func.isRequired,
 };

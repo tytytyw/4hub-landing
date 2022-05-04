@@ -17,7 +17,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
     name: "No folder",
     size: 0,
     is_pass: 0,
-    deadline: "2022-09-06 19:38:00"
+    deadline: "2022-09-06 19:38:00",
   };
 
   const [error, setError] = useState(false);
@@ -28,9 +28,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
 
   const countLeftDays = () => {
     const d1 = new Date(
-      Object.values(getDate(0))
-        .reverse()
-        .join("-") + " 00:00:00"
+      Object.values(getDate(0)).reverse().join("-") + " 00:00:00"
     );
     const d2 = new Date(folder.deadline);
     const days = (d2 - d1) / 86400000;
@@ -42,11 +40,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   };
 
   const showTime = () => {
-    const date = folder.deadline
-      .split(" ")[0]
-      .split("-")
-      .reverse()
-      .join(".");
+    const date = folder.deadline.split(" ")[0].split("-").reverse().join(".");
     const time = folder.deadline.split(" ")[1];
     return time === "00:00:00"
       ? `${date} 23:59`
@@ -65,7 +59,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
     setLoader(true);
     api
       .post(`/ajax/dir_share_download.php?did=${folderId}`)
-      .then(res => {
+      .then((res) => {
         setLoader(false);
         if (res.status === 200 && !res.data?.errors) {
           setFolder({ ...emptyFolder, ...res.data }); // TODO - Need to delete emptyFolder after server added size && date
@@ -86,7 +80,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const switchToGuestCabinet = () => {
-    setOptions(state => ({ ...state, guest: !state.guest }));
+    setOptions((state) => ({ ...state, guest: !state.guest }));
   };
 
   return (
@@ -126,7 +120,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
                     className={styles.password}
                     name="pass"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder={__("Введите пароль указанный на почте")}
                   />
                   {visibility === "password" && (
@@ -156,7 +150,8 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
               {folder.name !== "No folder" ? (
                 <div
                   className={styles.guestButton}
-                  onClick={switchToGuestCabinet}>
+                  onClick={switchToGuestCabinet}
+                >
                   {__("Посмотреть в гостевом режиме")}
                 </div>
               ) : null}
@@ -193,5 +188,5 @@ DownloadFolder.propTypes = {
   setPage: PropTypes.func,
   setOptions: PropTypes.func,
   loader: PropTypes.bool,
-  setLoader: PropTypes.func
+  setLoader: PropTypes.func,
 };

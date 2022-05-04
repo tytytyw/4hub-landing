@@ -16,7 +16,7 @@ const DownloadFile = ({ setPage }) => {
     name: "No file",
     size: 0,
     is_pass: 0,
-    deadline: ""
+    deadline: "",
   };
 
   const [error, setError] = useState(false);
@@ -40,9 +40,7 @@ const DownloadFile = ({ setPage }) => {
 
   const countLeftDays = () => {
     const d1 = new Date(
-      Object.values(getDate(0))
-        .reverse()
-        .join("-") + " 00:00:00"
+      Object.values(getDate(0)).reverse().join("-") + " 00:00:00"
     );
     const d2 = new Date(file.deadline);
     const days = (d2 - d1) / 86400000;
@@ -54,11 +52,7 @@ const DownloadFile = ({ setPage }) => {
   };
 
   const showTime = () => {
-    const date = file.deadline
-      .split(" ")[0]
-      .split("-")
-      .reverse()
-      .join(".");
+    const date = file.deadline.split(" ")[0].split("-").reverse().join(".");
     const time = file.deadline.split(" ")[1];
     return time === "00:00:00"
       ? `${date} 23:59`
@@ -68,7 +62,7 @@ const DownloadFile = ({ setPage }) => {
   useEffect(() => {
     api
       .post(`/ajax/download_start.php?fid=${FileId}&info`)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 && typeof res.data === "object") {
           setFile(res.data);
         } else {
@@ -79,7 +73,7 @@ const DownloadFile = ({ setPage }) => {
           }, 5000);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setError(true);
         setFile(emptyFile);
@@ -94,7 +88,8 @@ const DownloadFile = ({ setPage }) => {
           className={styles.main}
           name="fdownload"
           action="/ajax/download_start.php"
-          method="post">
+          method="post"
+        >
           <img
             className={styles.hubIcon}
             src={imageSrc + "assets/StartPage/4HUB.svg"}
@@ -130,7 +125,7 @@ const DownloadFile = ({ setPage }) => {
                     className={styles.password}
                     name="pass"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder={__("Введите пароль указанный на почте")}
                   />
                   {visibility === "password" && (
@@ -174,5 +169,5 @@ const DownloadFile = ({ setPage }) => {
 export default DownloadFile;
 
 DownloadFile.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

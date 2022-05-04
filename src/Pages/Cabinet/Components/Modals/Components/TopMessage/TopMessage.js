@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 
 function TopMessage() {
-  const topMessage = useSelector(s => s.Cabinet.modals.topMessage);
+  const topMessage = useSelector((s) => s.Cabinet.modals.topMessage);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function TopMessage() {
           ...topMessage,
           open: false,
           type: "message",
-          message: ""
+          message: "",
         })
       );
     }, 3000);

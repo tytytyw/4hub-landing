@@ -18,13 +18,13 @@ const WorkBarsPreview = ({
   setPage,
   fileRef,
   chosenFolder,
-  gLoader
+  gLoader,
 }) => {
   const { __ } = useLocales();
   const [f, setF] = useState(file);
-  const search = useSelector(state => state.Cabinet?.search);
-  const size = useSelector(state => state.Cabinet.size);
-  const fileList = useSelector(state => state.Cabinet.fileList);
+  const search = useSelector((state) => state.Cabinet?.search);
+  const size = useSelector((state) => state.Cabinet.size);
+  const fileList = useSelector((state) => state.Cabinet.fileList);
   const [loadingFiles, setLoadingFiles] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,9 +41,9 @@ const WorkBarsPreview = ({
     onCheckFilesPerPage();
   }, [size, page, chosenFolder?.files_amount]); // eslint-disable-line
 
-  const onSuccessLoading = result => {
+  const onSuccessLoading = (result) => {
     setLoadingFiles(false);
-    result > 0 ? setPage(page => page + 1) : setPage(0);
+    result > 0 ? setPage((page) => page + 1) : setPage(0);
   };
 
   const loadFiles = (e, access) => {
@@ -83,7 +83,8 @@ const WorkBarsPreview = ({
           <video
             controls
             src={`https://fs2.mh.net.ua${f.preview}`}
-            type={f.mime_type}>
+            type={f.mime_type}
+          >
             <source
               src={`https://fs2.mh.net.ua${f.preview}`}
               type={f.mime_type}
@@ -97,7 +98,8 @@ const WorkBarsPreview = ({
             <audio
               controls
               ref={audioRef}
-              src={`https://fs2.mh.net.ua${f.preview}`}>
+              src={`https://fs2.mh.net.ua${f.preview}`}
+            >
               <source
                 src={`https://fs2.mh.net.ua${f.preview}`}
                 type={f.mime_type}
@@ -157,8 +159,9 @@ const WorkBarsPreview = ({
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
         gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
-      }}>
+          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
+      }}
+    >
       <div className={styles.preview}>
         {children?.length === 0 && search.length !== 0 ? (
           <div className={styles.noSearchResults}>
@@ -183,7 +186,8 @@ const WorkBarsPreview = ({
         </div>
         <div
           className={styles.bottomLine}
-          style={{ width: loadingFiles ? "100px" : "40px" }}>
+          style={{ width: loadingFiles ? "100px" : "40px" }}
+        >
           {loadingFiles && !gLoader ? (
             <Loader
               type="switch"
@@ -215,8 +219,8 @@ WorkBarsPreview.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
   fileRef: PropTypes.shape({
-    current: PropTypes.string
+    current: PropTypes.string,
   }),
   chosenFolder: PropTypes.object,
-  gLoader: PropTypes.bool
+  gLoader: PropTypes.bool,
 };

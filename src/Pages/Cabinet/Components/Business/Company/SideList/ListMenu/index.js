@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const ListMenu = ({ menuData = [], page, setPage, setPageOption }) => {
   const renderItems = (data, isSub = false) => {
-    return data.map(item => (
+    return data.map((item) => (
       <ListItem
         page={page}
         setPage={setPage}
@@ -28,9 +28,9 @@ ListMenu.propTypes = {
   menuData: PropTypes.array,
   page: PropTypes.object,
   setPage: PropTypes.func,
-  setPageOption: PropTypes.func
+  setPageOption: PropTypes.func,
 };
 
 ListMenu.defaultProps = {
-  menuData: []
+  menuData: [],
 };

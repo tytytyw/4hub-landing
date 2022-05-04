@@ -7,7 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
 import {
   colors,
-  useTags
+  useTags,
 } from "../../../../../../generalComponents/collections";
 import Error from "../../../../../../generalComponents/Error";
 import {
@@ -16,7 +16,7 @@ import {
   onAddRecentFiles,
   onChooseFiles,
   onGetSafeFileList,
-  onSetModals
+  onSetModals,
 } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -30,21 +30,21 @@ import PropTypes from "prop-types";
 const CustomizeFile = ({
   saveCustomizeSeveralFiles,
   setLoadingType = () => {},
-  info
+  info,
 }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const { title, items, filePick, menuItem } = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   const contextMenuModals = useSelector(
-    s => s.Cabinet.modals.contextMenuModals
+    (s) => s.Cabinet.modals.contextMenuModals
   );
   const file = items[0];
-  const uid = useSelector(state => state.user.uid);
-  const path = useSelector(state => state.Cabinet?.fileList?.path);
-  const fileListAll = useSelector(state => state.Cabinet?.fileListAll);
-  const search = useSelector(state => state.Cabinet?.search);
+  const uid = useSelector((state) => state.user.uid);
+  const path = useSelector((state) => state.Cabinet?.fileList?.path);
+  const fileListAll = useSelector((state) => state.Cabinet?.fileListAll);
+  const search = useSelector((state) => state.Cabinet?.search);
   const [name, setName] = useState(
     items.length === 1 ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
   );
@@ -55,11 +55,11 @@ const CustomizeFile = ({
   const [color, setColor] = useState(
     filePick?.several || items.length > 1
       ? colors[0]
-      : colors.find(c => c.color === file.color) ?? colors[0]
+      : colors.find((c) => c.color === file.color) ?? colors[0]
   );
   const [tagOption, setTagOption] = useState({
     chosen: filePick?.customize || items.length > 1 ? "" : file?.tag || "",
-    count: 30
+    count: 30,
   });
   const [sign, setSign] = useState(
     filePick?.customize || items.length > 1 ? "" : file?.fig
@@ -69,7 +69,9 @@ const CustomizeFile = ({
   );
   const [error, setError] = useState(false);
   const [visibility, setVisibility] = useState("password");
-  const authorizedSafeData = useSelector(state => state.Cabinet.authorizedSafe);
+  const authorizedSafeData = useSelector(
+    (state) => state.Cabinet.authorizedSafe
+  );
   const dispatch = useDispatch();
 
   const close = () => {
@@ -81,14 +83,14 @@ const CustomizeFile = ({
         title: "",
         filesPage: 0,
         filePick: null,
-        menuItem: ""
+        menuItem: "",
       })
     );
   };
 
-  const onSwitch = boolean => setShowRepeat(boolean);
+  const onSwitch = (boolean) => setShowRepeat(boolean);
 
-  const comparePass = val => {
+  const comparePass = (val) => {
     const pass = password.split("");
     const passRepeat = val.split("");
     let boolean = true;
@@ -124,7 +126,7 @@ const CustomizeFile = ({
       pass: password === passwordRepeat ? `${password}` : "",
       color: color?.color === file?.color ? "" : `${color?.color}`,
       symbol: sign === file.fig ? "" : `${sign}`,
-      emoji: emoji === file.emo ? "" : `${emoji}`
+      emoji: emoji === file.emo ? "" : `${emoji}`,
     };
 
     if (
@@ -149,14 +151,14 @@ const CustomizeFile = ({
       emo: data.emoji ? emoji : file.emo,
       fig: data.symbol ? sign : file.fig,
       is_pass: password && passwordRepeat ? 1 : 0,
-      fids: filePick.show ? filePick.files : [file.fid]
+      fids: filePick.show ? filePick.files : [file.fid],
     };
     if (filePick.customize) {
       delete data.fName;
       if (data.pass === "") delete data.pass;
       api
         .post(`/ajax/${menuItem === "Safe" ? "safe_" : ""}file_edit.php`, data)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             if (menuItem === "Safe") {
               dispatch(
@@ -198,7 +200,7 @@ const CustomizeFile = ({
     } else {
       api
         .post(`/ajax/${menuItem === "Safe" ? "safe_" : ""}file_edit.php`, data)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             if (menuItem !== "Safe") {
               dispatch(onAddRecentFiles());
@@ -240,16 +242,16 @@ const CustomizeFile = ({
     setError(false);
   };
 
-  const onChangeTag = chosen => {
+  const onChangeTag = (chosen) => {
     const count = 30 - chosen.length;
     if (count >= 0) setTagOption({ ...tagOption, chosen, count });
   };
 
-  const getName = val => {
+  const getName = (val) => {
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
-      format: val.substring(i + 1)
+      format: val.substring(i + 1),
     };
   };
 
@@ -266,7 +268,7 @@ const CustomizeFile = ({
           ? path
             ? path
             : "global/all"
-          : info?.dir ?? ""
+          : info?.dir ?? "",
     };
     if (menuItem === "project") options["id_project"] = info.id;
     saveCustomizeSeveralFiles(options);
@@ -300,9 +302,8 @@ const CustomizeFile = ({
                   {tagOption.chosen && (
                     <div
                       className={`${styles.minitagWrap} ${styles.redCross}`}
-                      onClick={() =>
-                        setTagOption({ ...tagOption, chosen: "" })
-                      }>
+                      onClick={() => setTagOption({ ...tagOption, chosen: "" })}
+                    >
                       <div className={`${styles.minitag}`}>
                         #{tagOption.chosen}
                       </div>
@@ -312,19 +313,21 @@ const CustomizeFile = ({
                     className={`${styles.colorWrap} ${
                       color?.color !== "grey" ? styles.colorWrapTap : undefined
                     } ${styles.redCross}`}
-                    onClick={() => setColor(colors[0])}>
+                    onClick={() => setColor(colors[0])}
+                  >
                     <div
                       className={styles.circle}
                       style={{
                         background: color?.light,
-                        border: `1px solid ${color?.dark}`
+                        border: `1px solid ${color?.dark}`,
                       }}
                     />
                   </div>
                   {sign && (
                     <div
                       className={styles.redCross}
-                      onClick={() => setSign("")}>
+                      onClick={() => setSign("")}
+                    >
                       <img
                         src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
                         alt="emoji"
@@ -334,7 +337,8 @@ const CustomizeFile = ({
                   {emoji && (
                     <div
                       className={styles.redCross}
-                      onClick={() => setEmoji("")}>
+                      onClick={() => setEmoji("")}
+                    >
                       <img
                         src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
                         alt="emoji"
@@ -370,7 +374,7 @@ const CustomizeFile = ({
                 type="text"
                 placeholder={__("Добавьте #Тег")}
                 value={tagOption?.chosen}
-                onChange={e => onChangeTag(e.target.value)}
+                onChange={(e) => onChangeTag(e.target.value)}
                 onFocus={() => {
                   setTagOption({ ...tagOption, show: true });
                 }}
@@ -422,7 +426,8 @@ const CustomizeFile = ({
               onClick={() => {
                 if (!filePick.several) onAddFile();
                 if (filePick.several) addToAwaitingFiles();
-              }}>
+              }}
+            >
               {__("Сохранить")}
             </div>
           </div>
@@ -444,8 +449,8 @@ export default CustomizeFile;
 CustomizeFile.propTypes = {
   setLoadingType: PropTypes.func,
   saveCustomizeSeveralFiles: PropTypes.func,
-  info: PropTypes.object
+  info: PropTypes.object,
 };
 CustomizeFile.defaultProps = {
-  setLoadingType: () => {}
+  setLoadingType: () => {},
 };

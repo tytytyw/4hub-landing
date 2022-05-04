@@ -69,7 +69,7 @@ import {
   SET_MODALS,
   CHOOSE_CATEGORY,
   NULLIFY_FILES,
-  SET_CHAT_THEME
+  SET_CHAT_THEME,
 } from "../types";
 
 const INITIAL_STATE = {
@@ -92,8 +92,8 @@ const INITIAL_STATE = {
     filters: {
       color: "",
       emoji: "",
-      figure: ""
-    }
+      figure: "",
+    },
   },
 
   //SEARCH
@@ -102,7 +102,7 @@ const INITIAL_STATE = {
   //PROGRAMS
   programs: {
     category: {},
-    categories: []
+    categories: [],
   },
 
   //SAFE
@@ -110,7 +110,7 @@ const INITIAL_STATE = {
     safeFileList: null,
     safes: null,
     authorizedSafe: null,
-    safeCodeToTel: ""
+    safeCodeToTel: "",
   },
 
   //PROJECT
@@ -119,7 +119,7 @@ const INITIAL_STATE = {
     projectFolders: {},
     files: [],
     chosenFolder: "",
-    chosenProject: null
+    chosenProject: null,
   },
 
   //DEVICES
@@ -149,8 +149,8 @@ const INITIAL_STATE = {
     documents: {
       standards: { file: null, preview: null },
       mission: { file: null, preview: null },
-      viziya: { file: null, preview: null }
-    }
+      viziya: { file: null, preview: null },
+    },
   },
 
   //PAINT
@@ -161,8 +161,8 @@ const INITIAL_STATE = {
     mutualEdit: {
       open: false,
       data: [],
-      destination: ""
-    }
+      destination: "",
+    },
   },
 
   //CHAT
@@ -184,8 +184,8 @@ const INITIAL_STATE = {
       iconColor: "#B8B8B8",
       inputBgColor: "#F7F7F7",
       inputColor: "#AEAEAE",
-      accentColor: ""
-    }
+      accentColor: "",
+    },
   },
 
   //GLOBAL MODALS
@@ -207,9 +207,9 @@ const INITIAL_STATE = {
       filesPage: 0,
       filePick: null,
       menuItem: "",
-      authorizedSafe: null
-    } //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
-  }
+      authorizedSafe: null,
+    }, //type name depends on modal to be opened e.g. Share opens Share comp. (see ContextModal comp.)
+  },
 };
 
 export default function startPage(state = INITIAL_STATE, action) {
@@ -229,7 +229,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case CHOOSE_FILES_NEXT: {
       return {
         ...state,
-        fileList: { ...state.fileList, filesNext: action.payload }
+        fileList: { ...state.fileList, filesNext: action.payload },
       };
     }
     case LOAD_FILES: {
@@ -266,26 +266,26 @@ export default function startPage(state = INITIAL_STATE, action) {
         fileList: {
           files: state.fileList.filesNext.files,
           path: action.payload,
-          filesNext: null
-        }
+          filesNext: null,
+        },
       };
     }
     case SET_FILES_PATH: {
       return {
         ...state,
-        fileList: { ...state.fileList, files: null, path: action.payload }
+        fileList: { ...state.fileList, files: null, path: action.payload },
       };
     }
     case SET_CHOSEN_FILE: {
       return {
         ...state,
-        fileList: { ...state.fileList, chosenFile: action.payload }
+        fileList: { ...state.fileList, chosenFile: action.payload },
       };
     }
     case FILE_DELETE: {
       if (Array.isArray(state.fileList.files)) {
         const files = state.fileList.files.filter(
-          el => el.fid !== action.payload.fid
+          (el) => el.fid !== action.payload.fid
         );
         return { ...state, fileList: { ...state.fileList, files } };
       } else {
@@ -312,7 +312,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, chosenRecentFile: action.payload };
     case CUSTOMIZE_FILE: {
       if (Array.isArray(state.fileList.files)) {
-        const files = state.fileList.files.map(file => {
+        const files = state.fileList.files.map((file) => {
           if (file.fid !== action.payload.fid) return file;
           return action.payload;
         });
@@ -329,7 +329,7 @@ export default function startPage(state = INITIAL_STATE, action) {
       return { ...state, fileList: { ...state.fileList, files } };
     }
     case CUSTOMIZE_SAFE_FILE: {
-      const safeFiles = state.safe.safeFileList.map(file => {
+      const safeFiles = state.safe.safeFileList.map((file) => {
         if (file.fid !== action.payload.fid) return file;
         return action.payload;
       });
@@ -350,19 +350,19 @@ export default function startPage(state = INITIAL_STATE, action) {
     case RESENT_CHATS_LIST: {
       return {
         ...state,
-        chat: { ...state.chat, recentChatsList: action.payload }
+        chat: { ...state.chat, recentChatsList: action.payload },
       };
     }
     case SECRET_CHATS_LIST: {
       return {
         ...state,
-        chat: { ...state.chat, secretChatsList: action.payload }
+        chat: { ...state.chat, secretChatsList: action.payload },
       };
     }
     case CHAT_SELECTED_CONTACT: {
       return {
         ...state,
-        chat: { ...state.chat, selectedContact: action.payload }
+        chat: { ...state.chat, selectedContact: action.payload },
       };
     }
     case CHAT_ID_USER: {
@@ -370,23 +370,23 @@ export default function startPage(state = INITIAL_STATE, action) {
     }
     case CHAT_GROUP_DELETE: {
       const groups = state.chat.groupsList.filter(
-        gr => gr.id !== action.payload.id
+        (gr) => gr.id !== action.payload.id
       );
       return { ...state, chat: { ...state.chat, groupsList: groups } };
     }
     case SECRET_CHAT_DELETE: {
       const secretChats = state.chat.secretChatsList.filter(
-        gr => gr.id !== action.payload.id
+        (gr) => gr.id !== action.payload.id
       );
       return {
         ...state,
-        chat: { ...state.chat, secretChatsList: secretChats }
+        chat: { ...state.chat, secretChatsList: secretChats },
       };
     }
     case GET_MESSAGES: {
       return {
         ...state,
-        chat: { ...state.chat, messages: { today: [], ...action.payload } }
+        chat: { ...state.chat, messages: { today: [], ...action.payload } },
       };
     }
     case GET_PREVIUS_MESSAGES: {
@@ -394,12 +394,12 @@ export default function startPage(state = INITIAL_STATE, action) {
       for (let key in action.payload) {
         messages[key] = messages[key]
           ? [
-            ...messages[key].filter(
-              oldMsg =>
-                !action.payload[key].some(newMsg => newMsg.id === oldMsg.id)
-            ),
-            ...action.payload[key]
-          ]
+              ...messages[key].filter(
+                (oldMsg) =>
+                  !action.payload[key].some((newMsg) => newMsg.id === oldMsg.id)
+              ),
+              ...action.payload[key],
+            ]
           : [...action.payload[key]];
       }
       return { ...state, chat: { ...state.chat, messages: messages } };
@@ -416,9 +416,9 @@ export default function startPage(state = INITIAL_STATE, action) {
             ...state.chat.messages,
             today: state.chat.messages.today
               ? [action.payload, ...state.chat.messages.today]
-              : [action.payload]
-          }
-        }
+              : [action.payload],
+          },
+        },
       };
     }
     case NEW_LAST_GROUP_MESSAGE: {
@@ -428,9 +428,9 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.chat,
           recentGroupsMessages: {
             ...state.chat.recentGroupsMessages,
-            [action.payload.id_group]: action.payload.text
-          }
-        }
+            [action.payload.id_group]: action.payload.text,
+          },
+        },
       };
     }
     case SET_NOTIFICATION_COUNTER: {
@@ -440,9 +440,9 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.chat,
           notificationsCounter: {
             ...state.chat.notificationsCounter,
-            [action.payload.id]: action.payload.value
-          }
-        }
+            [action.payload.id]: action.payload.value,
+          },
+        },
       };
     }
     case INCREASE_NOTIFICATION_COUNTER: {
@@ -453,21 +453,21 @@ export default function startPage(state = INITIAL_STATE, action) {
           notificationsCounter: {
             ...state.chat.notificationsCounter,
             [action.payload]:
-              (state.chat.notificationsCounter[action.payload] || 0) + 1
-          }
-        }
+              (state.chat.notificationsCounter[action.payload] || 0) + 1,
+          },
+        },
       };
     }
     case SET_MESSAGE_LIFE_TIME: {
       return {
         ...state,
-        chat: { ...state.chat, messageLifeTime: action.payload }
+        chat: { ...state.chat, messageLifeTime: action.payload },
       };
     }
     case INSERT_EMODJI: {
       return {
         ...state,
-        chat: { ...state.chat, insertEmodji: action.payload }
+        chat: { ...state.chat, insertEmodji: action.payload },
       };
     }
     case SET_CHAT_THEME: {
@@ -478,7 +478,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SORT_FILES: {
       return {
         ...state,
-        fileCriterion: { ...state.fileCriterion, sorting: action.payload }
+        fileCriterion: { ...state.fileCriterion, sorting: action.payload },
       };
     }
     case SET_FILTER_COLOR: {
@@ -486,8 +486,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         fileCriterion: {
           ...state.fileCriterion,
-          filters: { ...state.fileCriterion.filters, color: action.payload }
-        }
+          filters: { ...state.fileCriterion.filters, color: action.payload },
+        },
       };
     }
     case SET_FILTER_FIGURE: {
@@ -495,8 +495,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         fileCriterion: {
           ...state.fileCriterion,
-          filters: { ...state.fileCriterion.filters, figure: action.payload }
-        }
+          filters: { ...state.fileCriterion.filters, figure: action.payload },
+        },
       };
     }
     case SET_FILTER_EMOJI: {
@@ -504,8 +504,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         fileCriterion: {
           ...state.fileCriterion,
-          filters: { ...state.fileCriterion.filters, emoji: action.payload }
-        }
+          filters: { ...state.fileCriterion.filters, emoji: action.payload },
+        },
       };
     }
     case SET_REVERSE_CRITERION: {
@@ -515,9 +515,9 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.fileCriterion,
           reverse: {
             ...state.fileCriterion.reverse,
-            [action.payload]: !state.fileCriterion.reverse[action.payload]
-          }
-        }
+            [action.payload]: !state.fileCriterion.reverse[action.payload],
+          },
+        },
       };
     }
     case NULLIFY_FILTERS: {
@@ -529,9 +529,9 @@ export default function startPage(state = INITIAL_STATE, action) {
           filters: {
             color: "",
             emoji: "",
-            figure: ""
-          }
-        }
+            figure: "",
+          },
+        },
       };
     }
     case SET_DRAGGED: {
@@ -542,31 +542,31 @@ export default function startPage(state = INITIAL_STATE, action) {
     case GET_CATEGORIES:
       return {
         ...state,
-        programs: { ...state.programs, categories: action.payload }
+        programs: { ...state.programs, categories: action.payload },
       };
     case CHOOSE_CATEGORY:
       return {
         ...state,
-        programs: { ...state.programs, category: action.payload }
+        programs: { ...state.programs, category: action.payload },
       };
 
     //SAFE
     case CODE_TEL:
       return {
         ...state,
-        safe: { ...state.safe, safeCodeToTel: action.payload }
+        safe: { ...state.safe, safeCodeToTel: action.payload },
       };
     case GET_SAFES:
       return { ...state, safe: { ...state.safe, safes: action.payload } };
     case AUTHORIZED_SAFE:
       return {
         ...state,
-        safe: { ...state.safe, authorizedSafe: action.payload }
+        safe: { ...state.safe, authorizedSafe: action.payload },
       };
     case CHOOSE_SAFE_FILELIST:
       return {
         ...state,
-        safe: { ...state.safe, safeFileList: { ...action.payload } }
+        safe: { ...state.safe, safeFileList: { ...action.payload } },
       };
     case LOAD_SAFE_FILELIST:
       return {
@@ -575,13 +575,13 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.safe,
           safeFileList: {
             ...state.safe.safeFileList,
-            files: [...state.safe.safeFileList.files, ...action.payload.files]
-          }
-        }
+            files: [...state.safe.safeFileList.files, ...action.payload.files],
+          },
+        },
       };
     case SAFE_FILE_DELETE: {
       const files = state.safe.safeFileList.files.filter(
-        el => el.fid !== action.payload
+        (el) => el.fid !== action.payload
       );
       return { ...state, safe: { ...state.safe, safeFileList: files } };
     }
@@ -590,14 +590,14 @@ export default function startPage(state = INITIAL_STATE, action) {
     case GET_PROJECT_FOLDER: {
       const projectFolders = { ...state.project.projectFolders };
       projectFolders[action.payload.projectId] = [
-        ...action.payload.projectFolders
+        ...action.payload.projectFolders,
       ];
       return { ...state, project: { ...state.project, projectFolders } };
     }
     case GET_PROJECTS:
       return {
         ...state,
-        project: { ...state.project, projects: action.payload }
+        project: { ...state.project, projects: action.payload },
       };
     case LOAD_PROJECT_FILES: {
       return { ...state, project: { ...state.project, files: action.payload } };
@@ -605,13 +605,13 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_CHOSEN_FOLDER: {
       return {
         ...state,
-        project: { ...state.project, chosenFolder: action.payload }
+        project: { ...state.project, chosenFolder: action.payload },
       };
     }
     case SET_CHOSEN_PROJECT: {
       return {
         ...state,
-        project: { ...state.project, chosenProject: action.payload }
+        project: { ...state.project, chosenProject: action.payload },
       };
     }
 
@@ -631,8 +631,8 @@ export default function startPage(state = INITIAL_STATE, action) {
         ...state,
         sharedFiles: {
           ...state.sharedFiles,
-          [action.payload.key]: { files: action.payload.files }
-        }
+          [action.payload.key]: { files: action.payload.files },
+        },
       };
     }
 
@@ -668,16 +668,16 @@ export default function startPage(state = INITIAL_STATE, action) {
           ...state.company,
           documents: {
             ...state.company.documents,
-            [action.payload.type]: action.payload
-          }
-        }
+            [action.payload.type]: action.payload,
+          },
+        },
       };
 
     //PAINT
     case SET_PAINT: {
       return {
         ...state,
-        paint: { ...state.paint, [action.payload.key]: action.payload.value }
+        paint: { ...state.paint, [action.payload.key]: action.payload.value },
       };
     }
 
@@ -685,7 +685,7 @@ export default function startPage(state = INITIAL_STATE, action) {
     case SET_MODALS: {
       return {
         ...state,
-        modals: { ...state.modals, [action.payload.key]: action.payload.value }
+        modals: { ...state.modals, [action.payload.key]: action.payload.value },
       };
     }
   }

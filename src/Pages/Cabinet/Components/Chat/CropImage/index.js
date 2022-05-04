@@ -57,7 +57,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       makeAspectCrop(
         {
           unit: "%",
-          width: 50
+          width: 50,
         },
         aspect,
         mediaWidth,
@@ -68,7 +68,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
     );
   };
 
-  const onImageLoad = e => {
+  const onImageLoad = (e) => {
     if (aspect) {
       const { width, height } = e.currentTarget;
       setCrop(centerAspectCrop(width, height, aspect));
@@ -89,7 +89,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       <ReactCrop
         crop={crop}
         onChange={(_, percentCrop) => setCrop(percentCrop)}
-        onComplete={c => setCompletedCrop(c)}
+        onComplete={(c) => setCompletedCrop(c)}
         aspect={aspect}
       >
         <img ref={imgRef} src={imageSrc} onLoad={onImageLoad} />
@@ -101,11 +101,11 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
 export default CropImage;
 
 CropImage.defaultProps = {
-  aspect: 1
+  aspect: 1,
 };
 
 CropImage.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   aspect: PropTypes.number,
-  canvasRef: PropTypes.object.isRequired
+  canvasRef: PropTypes.object.isRequired,
 };

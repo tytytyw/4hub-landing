@@ -4,7 +4,7 @@ import styles from "./ContactList.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import {
   onGetContacts,
-  onGetCompanyContacts
+  onGetCompanyContacts,
 } from "../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useCreateContactStatus } from "../../../../../generalComponents/chatHelper";
@@ -20,19 +20,19 @@ const ContactList = ({
   setSelectedContact,
   setAction,
   currentDate,
-  setMouseParams
+  setMouseParams,
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const createContactStatus = useCreateContactStatus();
-  const id_company = useSelector(state => state.user.id_company);
-  const contactList = useSelector(state =>
+  const id_company = useSelector((state) => state.user.id_company);
+  const contactList = useSelector((state) =>
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
   const selectedContact = useSelector(
-    state => state.Cabinet.chat.selectedContact
+    (state) => state.Cabinet.chat.selectedContact
   );
-  const gmt = useSelector(state => state?.user?.userInfo?.gmt); // server time zone
+  const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const ContactList = ({
   }, []); //eslint-disable-line
 
   const renderContactList = () =>
-    contactList.map(contact => {
+    contactList.map((contact) => {
       if (
         !(
           contact?.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -81,7 +81,12 @@ const ContactList = ({
     });
 
   return (
-    <div className={classNames({ [styles.listWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.listWrap]: true,
+        [styles.darkTheme]: chatTheme.name === "dark",
+      })}
+    >
       <div
         className={classNames({
           [styles.item]: true,
@@ -92,7 +97,7 @@ const ContactList = ({
           setAction({
             type: "addContact",
             name: __("Добавить контакт"),
-            text: __("")
+            text: __(""),
           });
           setSelectedContact(null);
         }}
@@ -122,5 +127,5 @@ ContactList.propTypes = {
   setSelectedContact: PropTypes.func.isRequired,
   setAction: PropTypes.func.isRequired,
   currentDate: PropTypes.object.isRequired,
-  setMouseParams: PropTypes.func.isRequired
+  setMouseParams: PropTypes.func.isRequired,
 };

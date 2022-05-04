@@ -13,7 +13,7 @@ const ContactsFav = ({ data = [] }) => {
 
   useEffect(() => {
     const newSelectedContact = contacts.find(
-      contact => contact?.id === selectedContact?.id
+      (contact) => contact?.id === selectedContact?.id
     );
     newSelectedContact
       ? setSelectedContact(newSelectedContact)
@@ -44,7 +44,7 @@ const ContactsFav = ({ data = [] }) => {
 
 const getFavourites = (data = []) => {
   const newData = [];
-  data.forEach(item => {
+  data.forEach((item) => {
     if (item.is_fav === "1") {
       newData.push(item);
     }
@@ -55,8 +55,8 @@ const getFavourites = (data = []) => {
 export default ContactsFav;
 
 ContactsFav.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
 };
 ContactsFav.defaultProps = {
-  data: []
+  data: [],
 };

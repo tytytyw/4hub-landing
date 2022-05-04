@@ -16,7 +16,7 @@ const EnterProfile = ({ setPage }) => {
   const [info, setInfo] = useState({ login: "", pass: "" });
   const [compare, setCompare] = useState({ isLogin: false, isPass: false });
 
-  const checkLogin = input => {
+  const checkLogin = (input) => {
     if (input.value[0] === "+") {
       /^\d+$/.test(input.value.slice(1))
         ? setCompare({ ...compare, isLogin: false })
@@ -28,7 +28,7 @@ const EnterProfile = ({ setPage }) => {
     }
   };
 
-  const checkPass = input => {
+  const checkPass = (input) => {
     input.value === ""
       ? setCompare({ ...compare, isPass: true })
       : setCompare({ ...compare, isPass: false });
@@ -38,12 +38,12 @@ const EnterProfile = ({ setPage }) => {
     if (info.login && info.pass) {
       api
         .post(`/ajax/user_login.php?name=${info.login}&pass=${info.pass}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.ok === 1) {
             dispatch(onLog(res.data));
           } else setPage("errorEnter");
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   };
 
@@ -68,15 +68,15 @@ const EnterProfile = ({ setPage }) => {
             className={classnames({
               [styles.inputField]: true,
               [styles.redBorder]: compare.isLogin,
-              [styles.login]: true
+              [styles.login]: true,
             })}
             type="text"
             id="login"
             value={info.login}
-            onChange={e => {
+            onChange={(e) => {
               setInfo({ ...info, login: e.target.value });
             }}
-            onBlur={e => checkLogin(e.target)}
+            onBlur={(e) => checkLogin(e.target)}
           />
         </div>
         <div className={styles.inputWrap}>
@@ -87,12 +87,12 @@ const EnterProfile = ({ setPage }) => {
           <input
             className={classnames({
               [styles.inputField]: true,
-              [styles.redBorder]: compare.isPass
+              [styles.redBorder]: compare.isPass,
             })}
             type={visibility}
             id="pass"
             value={info.pass}
-            onChange={e => {
+            onChange={(e) => {
               setInfo({ ...info, pass: e.target.value });
               checkPass(e.target);
             }}
@@ -116,7 +116,8 @@ const EnterProfile = ({ setPage }) => {
         </div>
         <div
           className={styles.remindPassword}
-          onClick={() => setPage("forgotPassword")}>
+          onClick={() => setPage("forgotPassword")}
+        >
           {__("Забыли пароль?")}
         </div>
         <div className={styles.button} onClick={signIn}>
@@ -155,5 +156,5 @@ const EnterProfile = ({ setPage }) => {
 export default EnterProfile;
 
 EnterProfile.propTypes = {
-  setPage: PropTypes.func
+  setPage: PropTypes.func,
 };

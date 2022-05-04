@@ -21,9 +21,9 @@ const CustomChatItem = ({
   setMouseParams,
   contextMenuList,
   paddingRight,
-  notificationsCounter
+  notificationsCounter,
 }) => {
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const onChatItemClick = (e, isMenu) => {
     if (isMenu)
       setMouseParams({
@@ -31,11 +31,11 @@ const CustomChatItem = ({
         y: e.clientY,
         width: 210,
         height: 25,
-        contextMenuList
+        contextMenuList,
       });
 
     if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
-      setCollapseMembersList(state => !state);
+      setCollapseMembersList((state) => !state);
     } else setSelectedContact({ ...chatItem, status });
   };
   return (
@@ -49,7 +49,7 @@ const CustomChatItem = ({
           selectedContact?.id === chatItem.id &&
           !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
         [styles.disableHover]: disableHover,
-        [styles.darkTheme]: chatTheme.name === 'dark'
+        [styles.darkTheme]: chatTheme.name === "dark",
       })}
       style={{ paddingRight }}
       onClick={onChatItemClick}
@@ -86,7 +86,7 @@ const CustomChatItem = ({
         <div
           className={classNames({
             [styles.notificationsCounter]: true,
-            [styles.hidden]: !notificationsCounter
+            [styles.hidden]: !notificationsCounter,
           })}
         >
           {notificationsCounter}
@@ -94,7 +94,7 @@ const CustomChatItem = ({
         {contextMenu === "contextMenu" ? (
           <div
             className={styles.menuWrap}
-            onClick={e => onChatItemClick(e, true)}
+            onClick={(e) => onChatItemClick(e, true)}
           >
             <span className={styles.menu} />
           </div>
@@ -104,8 +104,8 @@ const CustomChatItem = ({
             className={classNames({
               [styles.radioContact]: true,
               [styles.radioContactChosen]: selectedContact?.filter(
-                c => c.id === chatItem.id
-              ).length
+                (c) => c.id === chatItem.id
+              ).length,
             })}
           />
         ) : null}
@@ -120,10 +120,10 @@ CustomChatItem.defaultProps = {
   isSubList: false,
   contextMenu: "contextMenu",
   disableHover: false,
-  setMouseParams: () => { },
+  setMouseParams: () => {},
   contextMenuList: "",
   paddingRight: "",
-  notificationsCounter: null
+  notificationsCounter: null,
 };
 
 CustomChatItem.propTypes = {
@@ -142,5 +142,5 @@ CustomChatItem.propTypes = {
   setMouseParams: PropTypes.func,
   contextMenuList: PropTypes.string,
   paddingRight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  notificationsCounter: PropTypes.number
+  notificationsCounter: PropTypes.number,
 };
