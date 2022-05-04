@@ -124,11 +124,13 @@ const WorkSpace = ({
     setSocketReconnect(true);
   };
 
-  const addMessage = (text, attachment) => {
-    if ((text || attachment) && socket) {
+  const addMessage = (text, file) => {
+    if ((text || file || attachedFiles?.length) && socket) {
+      const attachment = file ? [file] : attachedFiles?.length ? [...attachedFiles] : undefined;
       const sendMessage = (params) => {
         socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
       };
+      if (attachedFiles?.length) setAttachedFiles(null);
       sendMessage(
         selectedContact?.isGroup
           ? {
@@ -335,7 +337,7 @@ const WorkSpace = ({
           ></DeleteMessage>
         ) : null}
       </div>
-      {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
+      {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia() : ""}
       {action?.type === "selectFile" ? (
         <SelectFile
           nullifyAction={nullifyAction}

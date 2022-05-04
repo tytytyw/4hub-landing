@@ -69,7 +69,7 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
             width: 420,
             paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0
           }}
-          disablexContexMenu={true}
+          disableContextMenu={true}
         />
       );
     });

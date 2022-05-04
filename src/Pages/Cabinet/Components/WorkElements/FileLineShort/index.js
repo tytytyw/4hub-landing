@@ -20,7 +20,7 @@ const FileLineShort = ({
   openFolderMenu,
   filesSize,
   style,
-  disablexContexMenu = false
+  disableContextMenu = false
 }) => {
   const size = filesSize ?? useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
@@ -63,7 +63,7 @@ const FileLineShort = ({
             ${size === "big" ? styles.bigSize : ""}
         `}
       onClick={onPickFile}
-      onDoubleClick={!disablexContexMenu ? handleDoubleClick : null}
+      onDoubleClick={!disableContextMenu ? handleDoubleClick : null}
       style={style}
     >
       <div className={`${styles.infoWrap} ${chosen ? styles.fileChosenTriangle : ""}`}>
@@ -80,7 +80,7 @@ const FileLineShort = ({
         </div>
         <div className={styles.fileName}>{file.name}</div>
       </div>
-      {!disablexContexMenu ? (
+      {!disableContextMenu ? (
         <div
           className={styles.menuWrap}
           onClick={(e) => {
