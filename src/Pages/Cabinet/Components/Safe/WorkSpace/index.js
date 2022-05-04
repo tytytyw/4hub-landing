@@ -21,6 +21,13 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import {
+  filePreviewProps,
+  filePickProps
+} from "../../../../../types/WorkElements";
+import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { actionProps } from "../../../../../types/Action";
 
 const WorkSpace = ({
   menuItem,
@@ -104,8 +111,7 @@ const WorkSpace = ({
           [styles.workSpaceWrap]: true,
           [styles.workSpaceWrapCollapsed]: !!listCollapsed,
           [styles.workSpaceWrapUncollapsed]: !listCollapsed
-        })}
-      >
+        })}>
         <div className={styles.header}>
           <SearchField setChosenFile={setChosenFile} menuItem={menuItem} />
           <div></div>
@@ -136,8 +142,7 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}
-          >
+            gLoader={gLoader}>
             {renderFiles(FileBar)}
           </WorkBars>
         )}
@@ -152,8 +157,7 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}
-          >
+            gLoader={gLoader}>
             {renderFiles(FileLine)}
           </WorkLines>
         )}
@@ -169,8 +173,7 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}
-          >
+            gLoader={gLoader}>
             {renderFiles(FileBar)}
           </WorkBarsPreview>
         )}
@@ -186,8 +189,7 @@ const WorkSpace = ({
             setLoadingFiles={setLoadingFiles}
             onSuccessLoading={onSuccessLoading}
             fileRef={fileRef}
-            gLoader={gLoader}
-          >
+            gLoader={gLoader}>
             {renderFiles(FileLineShort)}
           </WorkLinesPreview>
         )}
@@ -212,8 +214,7 @@ const WorkSpace = ({
         <ContextMenu
           params={mouseParams}
           setParams={setMouseParams}
-          tooltip={true}
-        >
+          tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -256,3 +257,34 @@ const WorkSpace = ({
 };
 
 export default WorkSpace;
+
+WorkSpace.propTypes = {
+  menuItem: PropTypes.string,
+  chosenFile: PropTypes.object,
+  setChosenFile: PropTypes.func,
+  listCollapsed: PropTypes.bool,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps,
+  fileSelect: PropTypes.func,
+  action: actionProps,
+  setAction: PropTypes.func,
+  fileList: PropTypes.shape({
+    files: PropTypes.array,
+    path: PropTypes.string,
+    find: PropTypes.func
+  }),
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  fileAddCustomization: fileAddCustomizationProps,
+  setFileAddCustomization: PropTypes.func,
+  nullifyFilePick: PropTypes.func,
+  nullifyAddingSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func,
+  onSuccessLoading: PropTypes.func,
+  gLoader: PropTypes.bool
+};

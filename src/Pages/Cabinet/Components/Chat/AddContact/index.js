@@ -12,6 +12,7 @@ import {
 } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { actionProps } from "../../../../../types/Action";
 
 function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
   const { __ } = useLocales();
@@ -132,7 +133,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
 export default AddContact;
 
 AddContact.propTypes = {
-  action: PropTypes.object,
+  action: actionProps,
   nullifyAction: PropTypes.func,
   setShowSuccessPopup: PropTypes.func
 };

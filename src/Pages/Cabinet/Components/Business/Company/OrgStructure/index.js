@@ -17,6 +17,7 @@ import { ReactComponent as Plus } from "../../../../../../assets/PrivateCabinet/
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
+import { actionProps } from "../../../../../../types/Action";
 
 function OrgStructure({
   mouseParams,
@@ -370,9 +371,5 @@ OrgStructure.propTypes = {
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
   setPageOption: PropTypes.func,
-  action: PropTypes.shape({
-    type: PropTypes.string,
-    text: PropTypes.string,
-    name: PropTypes.string
-  })
+  action: actionProps
 };

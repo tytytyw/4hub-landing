@@ -23,6 +23,7 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
 import PropTypes from "prop-types";
+import { actionProps } from "../../../../../types/Action";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -64,7 +65,7 @@ const ChatBoard = ({
   const [scrollPosition, setScrollPosition] = useState(0);
   const search = useSelector(state => state.Cabinet.search);
   const dispatch = useDispatch();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
 
   const messages = useSelector(state => state.Cabinet.chat.messages);
 
@@ -233,11 +234,10 @@ const ChatBoard = ({
       className={classNames({
         [styles.chatBoardWrap]: true,
         [styles.recoring]: isRecording,
-        [styles.darkTheme]: chatTheme.name === 'dark'
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
       onMouseLeave={recordCancel}
-      onMouseUp={mouseUpHandler}
-    >
+      onMouseUp={mouseUpHandler}>
       {selectedContact && !showSettings ? (
         <ServePanel
           selectedContact={selectedContact}
@@ -257,20 +257,17 @@ const ChatBoard = ({
           })}
           style={{
             width: rightPanelContentType ? "calc(100% - 200px)" : "100%"
-          }}
-        >
+          }}>
           <div
             className={styles.chatArea}
             ref={chatArea}
-            onScroll={onChatBoardScroll}
-          >
+            onScroll={onChatBoardScroll}>
             <div
               className={classNames({
                 [styles.bottomLine]: true,
                 [styles.bottomLineHidden]: messagesPage === 0
               })}
-              ref={startMessagesRef}
-            >
+              ref={startMessagesRef}>
               {messagesPage !== 1 ? (
                 <Loader
                   type="bounceDots"
@@ -312,8 +309,7 @@ const ChatBoard = ({
                 width: rightPanelContentType
                   ? "calc(100% - 65px)"
                   : "calc(100% - 200px - 65px)"
-              }}
-            >
+              }}>
               <div className={styles.line}></div>
               <p className={styles.text}>{action.message.text}</p>
               <div className={styles.close} onClick={nullifyAction} />
@@ -329,27 +325,29 @@ const ChatBoard = ({
           ) : null}
         </div>
       </main>
-      {!showSettings && <ChatBoardFooter
-        footerRef={footerRef}
-        isRecording={isRecording}
-        ducationTimer={ducationTimer}
-        addMessage={addMessage}
-        action={action}
-        setMouseParams={setMouseParams}
-        nullifyAction={nullifyAction}
-        setRightPanelContentType={setRightPanelContentType}
-        setIsRecording={setIsRecording}
-        mediaRecorder={mediaRecorder}
-        setMediaRecorder={setMediaRecorder}
-        setVideoPreview={setVideoPreview}
-        videoMessagePreview={videoMessagePreview}
-        recordCancel={recordCancel}
-        file={file}
-        setFile={setFile}
-        scrollToBottom={scrollToBottom}
-        socket={socket}
-        editMessage={editMessage}
-      />}
+      {!showSettings && (
+        <ChatBoardFooter
+          footerRef={footerRef}
+          isRecording={isRecording}
+          ducationTimer={ducationTimer}
+          addMessage={addMessage}
+          action={action}
+          setMouseParams={setMouseParams}
+          nullifyAction={nullifyAction}
+          setRightPanelContentType={setRightPanelContentType}
+          setIsRecording={setIsRecording}
+          mediaRecorder={mediaRecorder}
+          setMediaRecorder={setMediaRecorder}
+          setVideoPreview={setVideoPreview}
+          videoMessagePreview={videoMessagePreview}
+          recordCancel={recordCancel}
+          file={file}
+          setFile={setFile}
+          scrollToBottom={scrollToBottom}
+          socket={socket}
+          editMessage={editMessage}
+        />
+      )}
 
       {videoPreview ? (
         <VideoRecordPreview
@@ -371,7 +369,7 @@ ChatBoard.propTypes = {
   sideMenuCollapsed: PropTypes.bool,
   boardOption: PropTypes.string,
   setShowSuccessPopup: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,
   currentDate: PropTypes.object.isRequired,

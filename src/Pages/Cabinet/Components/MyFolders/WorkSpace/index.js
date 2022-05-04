@@ -21,6 +21,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { actionProps } from "../../../../../types/Action";
 
 const WorkSpace = ({
   chosenFile,
@@ -210,11 +211,7 @@ WorkSpace.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
-  action: PropTypes.shape({
-    type: PropTypes.string,
-    name: PropTypes.string,
-    text: PropTypes.string
-  }),
+  action: actionProps,
   setAction: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,

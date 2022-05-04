@@ -19,6 +19,7 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
+import { actionProps } from "../../../../../../types/Action";
 
 const FileView = ({
   pageOption,
@@ -167,7 +168,7 @@ FileView.propTypes = {
   renderMenuItems: PropTypes.func,
   previewSrc: PropTypes.string,
   editSrc: PropTypes.string,
-  action: PropTypes.object,
+  action: actionProps,
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,

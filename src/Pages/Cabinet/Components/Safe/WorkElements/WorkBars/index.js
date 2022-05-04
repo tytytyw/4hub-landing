@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./WorkBars.module.sass";
@@ -7,156 +7,165 @@ import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetAction
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../../generalComponents/Hooks";
-import {useLocales} from "react-localized";
+import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../../types/WorkElements";
 
 const WorkBars = ({
-	children,
-	fileSelect,
-	hideUploadFile,
-	fileRef,
-	gLoader,
-	filePick,
-	filesPage,
-	onSuccessLoading,
-	loadingFiles,
-	setLoadingFiles,
+  children,
+  fileSelect,
+  hideUploadFile,
+  fileRef,
+  gLoader,
+  filePick,
+  filesPage,
+  onSuccessLoading,
+  loadingFiles,
+  setLoadingFiles
 }) => {
-	const { __ } = useLocales();
-	const size = useSelector((state) => state.Cabinet.size);
-	const search = useSelector((state) => state.Cabinet.search);
-	const fileList = useSelector((state) => state.Cabinet.safe.safeFileList);
-	const dispatch = useDispatch();
-	const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
+  const { __ } = useLocales();
+  const size = useSelector(state => state.Cabinet.size);
+  const search = useSelector(state => state.Cabinet.search);
+  const fileList = useSelector(state => state.Cabinet.safe.safeFileList);
+  const dispatch = useDispatch();
+  const authorizedSafe = useSelector(
+    state => state.Cabinet.safe.authorizedSafe
+  );
 
-	const load = (entry) => {
-		if (!gLoader && authorizedSafe) {
+  const load = entry => {
+    if (!gLoader && authorizedSafe) {
+      if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
+        setLoadingFiles(true);
+        dispatch(
+          onGetSafeFileList(
+            authorizedSafe.code,
+            authorizedSafe.id_safe,
+            authorizedSafe.password,
+            onSuccessLoading,
+            "",
+            "",
+            search,
+            filesPage,
+            ""
+          )
+        );
+      }
+    }
+  };
 
-			if (entry.isIntersecting && !loadingFiles && filesPage !==0) {
-				setLoadingFiles(true);
-				dispatch(
-					onGetSafeFileList(
-						authorizedSafe.code,
-						authorizedSafe.id_safe,
-						authorizedSafe.password,
-						onSuccessLoading,
-						"",
-						"",
-						search,
-						filesPage,
-						''
-					)
-				);
-			}
-		}
-	};
+  const options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0
+  };
 
-	const options = {
-		root: null,
-		rootMargin: "0px",
-		threshold: 0,
-	};
+  const [containerRef] = useScrollElementOnScreen(options, load);
 
-	const [containerRef] = useScrollElementOnScreen(options, load);
+  useEffect(() => {
+    setLoadingFiles(false);
+  }, []); //eslint-disable-line
 
-	useEffect(() => {
-        setLoadingFiles(false);
-    }, []) //eslint-disable-line
-
-	return (
-		<div
-			ref={fileRef}
-			className={styles.workBarsWrap}
-			style={{
-				height: `${
-					filePick.show
-						? "calc(100% - 90px - 55px - 90px)"
-						: "calc(100% - 90px - 55px)"
-				}`,
-				gridTemplateColumns:
-					size === "small"
-						? "repeat(auto-fill, 118px)"
-						: size === "medium"
-						? "repeat(auto-fill, 160px)"
-						: "repeat(auto-fill, 205px)",
-				gridAutoRows:
-					size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
-			}}
-		>
-			{fileList?.length === 0 ? (
-				<div
-					onClick={fileSelect}
-					className={`
+  return (
+    <div
+      ref={fileRef}
+      className={styles.workBarsWrap}
+      style={{
+        height: `${
+          filePick.show
+            ? "calc(100% - 90px - 55px - 90px)"
+            : "calc(100% - 90px - 55px)"
+        }`,
+        gridTemplateColumns:
+          size === "small"
+            ? "repeat(auto-fill, 118px)"
+            : size === "medium"
+            ? "repeat(auto-fill, 160px)"
+            : "repeat(auto-fill, 205px)",
+        gridAutoRows:
+          size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
+      }}>
+      {fileList?.length === 0 ? (
+        <div
+          onClick={fileSelect}
+          className={`
                     ${styles.addFile}
                     ${size === "medium" ? styles.mediumSize : null}
                     ${size === "small" ? styles.smallSize : null}
-                `}
-				>
-					<AddIcon className={styles.addIcon} />
-					<span>{ __('Перетащите файл или нажмите загрузить') }</span>
-				</div>
-			) : null}
-			{fileList?.length === 0 &&
-			(!children || children?.length === 0) &&
-			search.length === 0 ? (
-				<img
-					src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
-					alt="addFile"
-					className={
-						size === "big"
-							? styles.textAddIcon
-							: size === "medium"
-							? styles.textAddIconMedium
-							: styles.textAddIconSmall
-					}
-				/>
-			) : null}
-			{children?.length === 0 && (search.length !== 0 || hideUploadFile) ? (
-				<div
-					className={styles.noSearchResults}
-					style={{
-						left:
-							size === "small"
-								? "158px"
-								: size === "medium"
-								? "200px"
-								: "245px",
-					}}
-				>
-					{ __('Нет элементов удовлетворяющих условиям поиска') }
-				</div>
-			) : null}
-			{gLoader ? (
-				<Loader
-					type='bounceDots'
-					position='absolute'
-					background='rgba(255, 255, 255, 0.75)'
-					zIndex={5}
-					containerType='bounceDots'
-				/>
-			) : (
-				children
-			)}
-			{!gLoader ? (
-				<div
-					className={`${styles.bottomLine} ${
-						filesPage === 0 ? styles.bottomLineHidden : ""
-					}`}
-					style={{ height: "100%" }}
-					ref={containerRef}
-				>
-					{loadingFiles && <Loader
-						type="bounceDots"
-						position="absolute"
-						background="white"
-						zIndex={5}
-						width="100px"
-						height="100px"
-						containerType="bounceDots"
-					/>}
-				</div>
-			) : null}
-		</div>
-	);
-}
+                `}>
+          <AddIcon className={styles.addIcon} />
+          <span>{__("Перетащите файл или нажмите загрузить")}</span>
+        </div>
+      ) : null}
+      {fileList?.length === 0 &&
+      (!children || children?.length === 0) &&
+      search.length === 0 ? (
+        <img
+          src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
+          alt="addFile"
+          className={
+            size === "big"
+              ? styles.textAddIcon
+              : size === "medium"
+              ? styles.textAddIconMedium
+              : styles.textAddIconSmall
+          }
+        />
+      ) : null}
+      {children?.length === 0 && (search.length !== 0 || hideUploadFile) ? (
+        <div
+          className={styles.noSearchResults}
+          style={{
+            left:
+              size === "small" ? "158px" : size === "medium" ? "200px" : "245px"
+          }}>
+          {__("Нет элементов удовлетворяющих условиям поиска")}
+        </div>
+      ) : null}
+      {gLoader ? (
+        <Loader
+          type="bounceDots"
+          position="absolute"
+          background="rgba(255, 255, 255, 0.75)"
+          zIndex={5}
+          containerType="bounceDots"
+        />
+      ) : (
+        children
+      )}
+      {!gLoader ? (
+        <div
+          className={`${styles.bottomLine} ${
+            filesPage === 0 ? styles.bottomLineHidden : ""
+          }`}
+          style={{ height: "100%" }}
+          ref={containerRef}>
+          {loadingFiles && (
+            <Loader
+              type="bounceDots"
+              position="absolute"
+              background="white"
+              zIndex={5}
+              width="100px"
+              height="100px"
+              containerType="bounceDots"
+            />
+          )}
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default WorkBars;
+WorkBars.propTypes = {
+  children: PropTypes.node,
+  fileSelect: PropTypes.func,
+  hideUploadFile: PropTypes.bool,
+  fileRef: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filePick: filePickProps,
+  filesPage: PropTypes.number,
+  onSuccessLoading: PropTypes.func,
+  loadingFiles: PropTypes.bool,
+  setLoadingFiles: PropTypes.func
+};

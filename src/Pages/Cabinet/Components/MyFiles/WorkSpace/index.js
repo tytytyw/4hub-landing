@@ -24,7 +24,9 @@ import {
   filePickProps,
   filePreviewProps
 } from "../../../../../types/WorkElements";
+import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+
 const WorkSpace = ({
   chosenFile,
   setChosenFile,
@@ -204,11 +206,7 @@ WorkSpace.propTypes = {
   listCollapsed: PropTypes.bool,
   setItem: PropTypes.func,
   setMouseParams: PropTypes.func,
-  action: PropTypes.shape({
-    type: PropTypes.string,
-    name: PropTypes.string,
-    text: PropTypes.string
-  }),
+  action: actionProps,
   setAction: PropTypes.func,
   nullifyFilePick: PropTypes.func,
   callbackArrMain: PropTypes.array,

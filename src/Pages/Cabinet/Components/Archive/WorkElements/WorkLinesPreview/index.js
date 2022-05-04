@@ -325,6 +325,6 @@ WorkLinesPreview.propTypes = {
   setPage: PropTypes.func,
   gLoader: PropTypes.bool,
   chosenFolder: chosenFolderProps,
-  hideFileList: PropTypes.true,
+  hideFileList: PropTypes.bool,
   page: PropTypes.string
 };

@@ -30,6 +30,8 @@ import CreateFile from "../CreateFile";
 import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 
 const Safe = ({
   menuItem,
@@ -63,7 +65,7 @@ const Safe = ({
   const authorizedSafe = useSelector(
     state => state.Cabinet.safe.authorizedSafe
   );
-  const [listCollapsed, setListCollapsed] = useState("");
+  const [listCollapsed, setListCollapsed] = useState(false);
   const [selectedSafe, setSelectedSafe] = useState(null);
   const [createSafe, setCreateSafe] = useState(false);
   const [codePopup, setCodePopup] = useState(false);
@@ -487,7 +489,6 @@ const Safe = ({
           menuItem={menuItem}
         />
       )}
-      '
       {loadingType ? (
         <Loader
           position="absolute"
@@ -503,3 +504,26 @@ const Safe = ({
 };
 
 export default Safe;
+
+Safe.propTypes = {
+  menuItem: PropTypes.string,
+  filePreview: PropTypes.shape({
+    view: PropTypes.bool,
+    file: PropTypes.any,
+    create: PropTypes.bool
+  }),
+  setFilePreview: PropTypes.func,
+  fileSelect: PropTypes.func,
+  setMenuItem: PropTypes.func,
+  fileAddCustomization: fileAddCustomizationProps,
+  setFileAddCustomization: PropTypes.func,
+  setAwaitingFiles: PropTypes.func,
+  awaitingFiles: PropTypes.array,
+  loaded: PropTypes.array,
+  setLoaded: PropTypes.func,
+  loadingFile: PropTypes.array,
+  fileErrors: PropTypes.array,
+  setLoadingFile: PropTypes.func,
+  nullifyAddingSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func
+};

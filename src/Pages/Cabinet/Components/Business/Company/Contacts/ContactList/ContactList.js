@@ -9,7 +9,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
 const ContactList = ({
-  data = [],
+  data,
   selectedItem,
   setSelectedItem,
   action,

@@ -12,13 +12,14 @@ import Profile from "../../Profile/Profile";
 import { addNewChatMessage } from "../../../../../Store/actions/CabinetActions";
 import DeleteMessage from "../../ContextMenuComponents/ContexMenuChat/DeleteMessage";
 import CreateCameraMedia from "../CreateCameraMedia";
-import Settings from '../Settings'
+import Settings from "../Settings";
 import PropTypes from "prop-types";
 import {
   onEditChatMessage,
   onDeleteChatMessage
 } from "../../../../../Store/actions/CabinetActions";
 import classNames from "classnames";
+import { actionProps } from "../../../../../types/Action";
 
 const WorkSpace = ({
   sideMenuCollapsed,
@@ -41,7 +42,7 @@ const WorkSpace = ({
   const id_company = useSelector(state => state.user.id_company);
   const endMessagesRef = useRef();
   const dispatch = useDispatch();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
 
   const selectedContact = useSelector(
     state => state.Cabinet.chat.selectedContact
@@ -149,18 +150,18 @@ const WorkSpace = ({
       sendMessage(
         selectedContact?.isGroup
           ? {
-            action: "chat_group_message_add",
-            id_group: selectedContact?.id_group,
-            is_group: true
-          }
+              action: "chat_group_message_add",
+              id_group: selectedContact?.id_group,
+              is_group: true
+            }
           : selectedContact.is_secret_chat
-            ? {
+          ? {
               action: "chat_group_message_add",
               id_group: selectedContact?.id_group,
               is_secret_chat: true,
               deadline: messageLifeTime
             }
-            : {
+          : {
               action: "chat_message_send",
               id_user_to: selectedContact?.id_real_user,
               id_contact: selectedContact?.id
@@ -188,16 +189,16 @@ const WorkSpace = ({
       sendSocketMessage(
         message.id_group
           ? {
-            action: "chat_group_message_edit",
-            id_group: message.id_group,
-            is_group: true,
-            is_secret_chat: !!selectedContact.is_secret_chat
-          }
+              action: "chat_group_message_edit",
+              id_group: message.id_group,
+              is_group: true,
+              is_secret_chat: !!selectedContact.is_secret_chat
+            }
           : {
-            action: "chat_message_edit",
-            id_user_to: selectedContact?.id_real_user,
-            id_contact: selectedContact?.id
-          }
+              action: "chat_message_edit",
+              id_user_to: selectedContact?.id_real_user,
+              id_contact: selectedContact?.id
+            }
       );
     }
   };
@@ -217,16 +218,16 @@ const WorkSpace = ({
     sendSocketMessage(
       message.id_group
         ? {
-          action: "chat_group_message_del",
-          id_group: message.id_group,
-          is_group: true,
-          is_secret_chat: !!selectedContact.is_secret_chat
-        }
+            action: "chat_group_message_del",
+            id_group: message.id_group,
+            is_group: true,
+            is_secret_chat: !!selectedContact.is_secret_chat
+          }
         : {
-          action: "chat_message_del",
-          id_user_to: selectedContact?.id_real_user,
-          id_contact: selectedContact?.id
-        }
+            action: "chat_message_del",
+            id_user_to: selectedContact?.id_real_user,
+            id_contact: selectedContact?.id
+          }
     );
   };
 
@@ -275,7 +276,11 @@ const WorkSpace = ({
   }, [socket, selectedContact]); //eslint-disable-line
 
   return (
-    <div className={classNames({ [styles.chatWorkSpaceWrap]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.chatWorkSpaceWrap]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}>
       <div className={styles.header}>
         <SearchField theme={chatTheme.name} />
         <div className={styles.infoHeader}>
@@ -285,10 +290,12 @@ const WorkSpace = ({
         </div>
       </div>
       {showSettings && <Settings close={() => setShowSettings(false)} />}
-      <div className={styles.main} style={showSettings ? { height: 'calc(100% - 179px - 90px)' } : {}}>
+      <div
+        className={styles.main}
+        style={showSettings ? { height: "calc(100% - 179px - 90px)" } : {}}>
         {selectedContact &&
-          action.type !== "addChat" &&
-          action.type !== "editChatGroup" ? (
+        action.type !== "addChat" &&
+        action.type !== "editChatGroup" ? (
           <ChatBoard
             sideMenuCollapsed={sideMenuCollapsed}
             boardOption={boardOption}
@@ -341,8 +348,7 @@ const WorkSpace = ({
             set={nullifyAction}
             message={action.message}
             nullifyAction={nullifyAction}
-            deleteMessage={deleteMessage}
-          ></DeleteMessage>
+            deleteMessage={deleteMessage}></DeleteMessage>
         ) : null}
       </div>
       {action?.type === "createMediaFromCamera" ? renderCreateCameraMedia : ""}
@@ -359,7 +365,7 @@ WorkSpace.propTypes = {
   boardOption: PropTypes.string,
   setShowSuccessPopup: PropTypes.func.isRequired,
   nullifyAction: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   currentDate: PropTypes.object.isRequired,
   setAction: PropTypes.func.isRequired,
   setMouseParams: PropTypes.func.isRequired,

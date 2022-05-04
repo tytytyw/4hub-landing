@@ -5,6 +5,7 @@ import { ReactComponent as SendIcon } from "../../../../../../assets/PrivateCabi
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { actionProps } from "../../../../../../types/Action";
 
 const TextArea = ({
   onAddMessage,
@@ -15,7 +16,7 @@ const TextArea = ({
   editMessage
 }) => {
   const { __ } = useLocales();
-  const chatTheme = useSelector(state => state.Cabinet.chat.theme)
+  const chatTheme = useSelector(state => state.Cabinet.chat.theme);
 
   const textAreaRef = useRef();
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -102,7 +103,11 @@ const TextArea = ({
   }, [textAreaValue]);
 
   return (
-    <div className={classNames({ [styles.textMessage]: true, [styles.darkTheme]: chatTheme.name === 'dark' })}>
+    <div
+      className={classNames({
+        [styles.textMessage]: true,
+        [styles.darkTheme]: chatTheme.name === "dark"
+      })}>
       <textarea
         ref={textAreaRef}
         type="text"
@@ -136,7 +141,7 @@ TextArea.defaultProps = {
 
 TextArea.propTypes = {
   onAddMessage: PropTypes.func.isRequired,
-  action: PropTypes.object,
+  action: actionProps,
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,

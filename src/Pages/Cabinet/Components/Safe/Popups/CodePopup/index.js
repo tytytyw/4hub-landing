@@ -13,6 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { safeProps } from "../../../../../../types/Safe";
+import { actionProps } from "../../../../../../types/Action";
 
 const CodePopup = ({
   safe,
@@ -227,3 +230,14 @@ const CodePopup = ({
 };
 
 export default CodePopup;
+
+CodePopup.propTypes = {
+  safe: safeProps,
+  set: PropTypes.func,
+  setLoadingType: PropTypes.func,
+  filesPage: PropTypes.number,
+  successLoad: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func,
+  action: actionProps,
+  setAction: PropTypes.func
+};

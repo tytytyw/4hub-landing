@@ -15,8 +15,7 @@ function FilePeriodEdit({ closeChangePeriodModal }) {
         className={styles.reviewOption}
         onClick={() => {
           closeChangePeriodModal();
-        }}
-      >
+        }}>
         <div>{it}</div>
       </div>
     ));
@@ -28,8 +27,7 @@ function FilePeriodEdit({ closeChangePeriodModal }) {
         className={styles.reviewOption}
         onClick={() => {
           closeChangePeriodModal();
-        }}
-      >
+        }}>
         <div>{__("Открыть календарь")}</div>
       </div>
     </div>
@@ -38,6 +36,6 @@ function FilePeriodEdit({ closeChangePeriodModal }) {
 
 export default FilePeriodEdit;
 
-FilePeriodEdit.proptypes = {
+FilePeriodEdit.propTypes = {
   closeChangePeriodModal: PropTypes.func
 };
