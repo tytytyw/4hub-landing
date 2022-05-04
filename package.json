@@ -43,12 +43,6 @@
     "extract:lang": "react-localized-extractor -l en -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l uk -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l pl -a.gettext __ -a.ngettext __n -o './translations' && react-localized-extractor -l de -a.gettext __ -a.ngettext __n -o './translations'",
     "convert-po": "node ./translations/po2json.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

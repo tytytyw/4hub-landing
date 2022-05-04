@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "react-app", "prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "react-app", "prettier", "react-app/jest"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -27,7 +27,8 @@
         "htmlWhitespaceSensitivity": "strict",
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "no-unused-vars": ["error", { "vars": "all", "args": "all", "varsIgnorePattern": "^(it|el|element|item)$", "caughtErrors":  "all"}]
   },
   "settings": {
     "react": {

@@ -222,7 +222,7 @@ const Safe = ({
     setChosenFile(null);
   };
 
-  const addToArchive = (uid, fid, file, options) => {
+  const addToArchive = (uid, fid, options) => {
     setLoadingType("squarify");
     api
       .post(`/ajax/safe_file_archive.php?uid=${uid}&fid=${fid}&id_safe=${authorizedSafe.id_safe}`)
@@ -249,10 +249,10 @@ const Safe = ({
           single: false,
           several: i === filePick.files.length - 1
         };
-        addToArchive(uid, fid, { fid }, options);
+        addToArchive(uid, fid, options);
       });
     } else {
-      addToArchive(uid, chosenFile.fid, chosenFile, {
+      addToArchive(uid, chosenFile.fid, {
         single: true,
         several: false
       });

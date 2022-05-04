@@ -122,7 +122,7 @@ export const getMedia = (url, type, set = () => {}, setLoading = () => {}, setEr
       let objectURL = URL.createObjectURL(blob);
       set(objectURL);
     })
-    .catch((err) => setError("Failed to load media"))
+    .catch(() => setError("Failed to load media"))
     .finally(() => {
       setLoading(false);
     });
