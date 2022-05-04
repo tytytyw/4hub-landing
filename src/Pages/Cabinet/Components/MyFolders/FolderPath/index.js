@@ -3,19 +3,13 @@ import React from "react";
 import styles from "./FolderPath.module.sass";
 import { useFolders } from "../../../../../generalComponents/collections";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onChooseFiles,
-  onChooseFolder,
-  onSetPath,
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseFiles, onChooseFolder, onSetPath } from "../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
 
 const FolderPath = ({ width, setFilesPage, setGLoader, setChosenFolder }) => {
   const folders = useFolders();
   const path = useSelector((state) => state.Cabinet.fileList?.path);
-  const filesNextPath = useSelector(
-    (state) => state.Cabinet.fileList?.filesNext?.path
-  );
+  const filesNextPath = useSelector((state) => state.Cabinet.fileList?.filesNext?.path);
   const folderList = useSelector((state) => state.Cabinet?.folderList);
   const globalFolders = useSelector((state) => state.Cabinet?.global);
   const otherFolders = useSelector((state) => state.Cabinet?.other);
@@ -50,7 +44,7 @@ const FolderPath = ({ width, setFilesPage, setGLoader, setChosenFolder }) => {
         path: newPath,
         open: i === 2,
         subPath: "",
-        info: f ?? null,
+        info: f ?? null
       }));
       if (newPath.split("/").length === 2 && newPath === folderList?.path) {
         dispatch(onChooseFolder(folderList?.folders, newPath));
@@ -67,12 +61,7 @@ const FolderPath = ({ width, setFilesPage, setGLoader, setChosenFolder }) => {
   const renderPath = () => {
     const newPath = filesNextPath ? filesNextPath : path;
     return newPath.split("/").map((el, i) => (
-      <div
-        className={`${styles.pathEl} ${
-          i === 0 && (el === "global" || el === "other") ? styles.hide : ""
-        }`}
-        key={i}
-      >
+      <div className={`${styles.pathEl} ${i === 0 && (el === "global" || el === "other") ? styles.hide : ""}`} key={i}>
         {i !== 1 ? <span className={styles.arrowNext}>&gt;</span> : null}
         <div className={styles.pathEl} onClick={() => chooseFolder(i)}>
           {i === 1 ? filterEl(el) : el}
@@ -98,5 +87,5 @@ FolderPath.propTypes = {
   width: PropTypes.number,
   setFilesPage: PropTypes.func,
   setGLoader: PropTypes.func,
-  setChosenFolder: PropTypes.func,
+  setChosenFolder: PropTypes.func
 };

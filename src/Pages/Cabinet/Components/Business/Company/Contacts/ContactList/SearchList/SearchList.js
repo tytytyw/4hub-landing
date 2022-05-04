@@ -7,13 +7,7 @@ import { imageSrc } from "../../../../../../../../generalComponents/globalVariab
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../../../types/Contacts";
 
-const SearchList = ({
-  data,
-  selectedItem,
-  setSelectedItem,
-  getContactName,
-  setMouseParams,
-}) => {
+const SearchList = ({ data, selectedItem, setSelectedItem, getContactName, setMouseParams }) => {
   return (
     <ul className={styles.menuList}>
       {data.map((item, index) => (
@@ -21,19 +15,13 @@ const SearchList = ({
           onClick={() => setSelectedItem(item)}
           className={classnames({
             [styles.menuItem]: true,
-            [styles.activeItem]: selectedItem?.id === item?.id,
+            [styles.activeItem]: selectedItem?.id === item?.id
           })}
           key={index}
         >
           <div className={styles.info}>
             <span className={styles.icon}>
-              <img
-                src={
-                  item?.icon?.[0] ||
-                  `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-                }
-                alt={item.id}
-              />
+              <img src={item?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`} alt={item.id} />
             </span>
             <p>{getContactName(item)}</p>
           </div>
@@ -45,7 +33,7 @@ const SearchList = ({
                 y: e.clientY,
                 width: 158,
                 height: 38,
-                type: "contextMenuContact",
+                type: "contextMenuContact"
               })
             }
           />
@@ -62,5 +50,5 @@ SearchList.propTypes = {
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   getContactName: PropTypes.func,
-  setMouseParams: PropTypes.func,
+  setMouseParams: PropTypes.func
 };

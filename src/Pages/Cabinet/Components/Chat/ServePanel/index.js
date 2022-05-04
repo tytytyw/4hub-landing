@@ -10,18 +10,11 @@ import { ReactComponent as CameraIcon } from "../../../../../assets/PrivateCabin
 import { ReactComponent as InfoIcon } from "../../../../../assets/PrivateCabinet/info-2.svg";
 import { ReactComponent as CopyLinkIcon } from "../../../../../assets/PrivateCabinet/copy-link.svg";
 import { ReactComponent as PictureIcon } from "../../../../../assets/PrivateCabinet/picture-2.svg";
-import {
-  onSetPaint,
-  onSetModals,
-} from "../../../../../Store/actions/CabinetActions";
+import { onSetPaint, onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ServePanel = ({
-  selectedContact,
-  setAction,
-  setRightPanelContentType,
-}) => {
+const ServePanel = ({ selectedContact, setAction, setRightPanelContentType }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const dispatch = useDispatch();
@@ -32,7 +25,7 @@ const ServePanel = ({
     <div
       className={classNames({
         [styles.chatBoardHeader]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       {selectedContact ? (
@@ -40,26 +33,20 @@ const ServePanel = ({
           <img
             src={
               selectedContact?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/${
-                selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
-              }.svg`
+              `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"}.svg`
             }
             alt="img"
             className={styles.avatar}
           />
           <div className={styles.info}>
-            <div className={styles.name}>{`${selectedContact?.sname || ""} ${
-              selectedContact?.name || ""
-            }`}</div>
+            <div className={styles.name}>{`${selectedContact?.sname || ""} ${selectedContact?.name || ""}`}</div>
             <div className={styles.status}>{selectedContact?.status || ""}</div>
           </div>
         </div>
       ) : null}
       {selectedContact ? (
         <div className={styles.headerOptions}>
-          {(selectedContact.id_real_user &&
-            selectedContact.id_real_user !== "0") ||
-          selectedContact.isGroup ? (
+          {(selectedContact.id_real_user && selectedContact.id_real_user !== "0") || selectedContact.isGroup ? (
             <div
               onClick={() =>
                 setAction(
@@ -68,7 +55,7 @@ const ServePanel = ({
                     : {
                         type: "addChat",
                         chatsType: "groups",
-                        initialUser: selectedContact,
+                        initialUser: selectedContact
                       }
                 )
               }
@@ -99,7 +86,7 @@ const ServePanel = ({
                 onSetPaint("mutualEdit", {
                   ...paint.mutualEdit,
                   open: true,
-                  destination: "global/all",
+                  destination: "global/all"
                 })
               )
             }
@@ -111,15 +98,11 @@ const ServePanel = ({
           {!selectedContact?.is_secret_chat ? (
             <div
               onClick={() =>
-                printScreen.open
-                  ? null
-                  : dispatch(
-                      onSetModals("printScreen", { ...printScreen, open: true })
-                    )
+                printScreen.open ? null : dispatch(onSetModals("printScreen", { ...printScreen, open: true }))
               }
               className={classNames({
                 [styles.iconView]: true,
-                [styles.disable]: printScreen?.open,
+                [styles.disable]: printScreen?.open
               })}
             >
               <CameraIcon />
@@ -129,11 +112,7 @@ const ServePanel = ({
           )}
           <div
             className={styles.iconView}
-            onClick={() =>
-              setRightPanelContentType((state) =>
-                state === "info" ? "" : "info"
-              )
-            }
+            onClick={() => setRightPanelContentType((state) => (state === "info" ? "" : "info"))}
           >
             <InfoIcon />
           </div>
@@ -148,5 +127,5 @@ export default ServePanel;
 ServePanel.propTypes = {
   selectedContact: PropTypes.object.isRequired,
   setAction: PropTypes.func.isRequired,
-  setRightPanelContentType: PropTypes.func.isRequired,
+  setRightPanelContentType: PropTypes.func.isRequired
 };

@@ -7,9 +7,7 @@ import { useLocales } from "react-localized";
 function DownloadFile() {
   const { __ } = useLocales();
   const uid = useSelector((s) => s.user.uid);
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const error = useSelector((s) => s.Cabinet.modals.error);
   const dispatch = useDispatch();
   const formRef = useRef();
@@ -24,7 +22,7 @@ function DownloadFile() {
           ...contextMenuModals,
           type: "",
           items: [],
-          authorizedSafe: null,
+          authorizedSafe: null
         })
       );
     }, 0);
@@ -73,25 +71,18 @@ function DownloadFile() {
               onSetModals("error", {
                 ...error,
                 open: true,
-                message: __("Файл не найден"),
+                message: __("Файл не найден")
               })
             )
           }
         >
-          <input
-            style={{ display: "none" }}
-            name="fid"
-            value={contextMenuModals?.items[0]?.fid || ""}
-            readOnly
-          />
+          <input style={{ display: "none" }} name="fid" value={contextMenuModals?.items[0]?.fid || ""} readOnly />
         </form>
       ) : (
         <form
           style={{ display: "none" }}
           name="downloadFile"
-          action={`/ajax/${
-            location === "chat-page" ? "chat_file_" : ""
-          }download.php`}
+          action={`/ajax/${location === "chat-page" ? "chat_file_" : ""}download.php`}
           method="post"
           ref={formRef}
           onError={() =>
@@ -99,17 +90,12 @@ function DownloadFile() {
               onSetModals("error", {
                 ...error,
                 open: true,
-                message: __("Файл не найден"),
+                message: __("Файл не найден")
               })
             )
           }
         >
-          <input
-            style={{ display: "none" }}
-            name="fid"
-            value={contextMenuModals?.items[0]?.fid || ""}
-            readOnly
-          />
+          <input style={{ display: "none" }} name="fid" value={contextMenuModals?.items[0]?.fid || ""} readOnly />
         </form>
       )}
     </>

@@ -6,5 +6,5 @@ export const fileAddCustomizationProps = PropTypes.exact({
   several: PropTypes.bool,
   show: PropTypes.bool,
   create: PropTypes.bool,
-  options: PropTypes.object,
+  options: PropTypes.object
 });

@@ -31,9 +31,7 @@ const Input = ({
   };
 
   const getEyeImg = () =>
-    showPass
-      ? `${imageSrc}assets/StartPage/eye.svg`
-      : `${imageSrc}assets/StartPage/invisible.svg`;
+    showPass ? `${imageSrc}assets/StartPage/eye.svg` : `${imageSrc}assets/StartPage/invisible.svg`;
 
   const maskPhoneNumber = (number) => {
     const tempValue = number.replace(/\D/gim, "");
@@ -50,7 +48,7 @@ const Input = ({
         9: [/(\d{2})(\d{3})(\d{3})(\d{0,2})/g, "+$1($2) $3 $4"],
         10: [/(\d{2})(\d{3})(\d{3})(\d{2})/g, "+$1($2) $3 $4"],
         11: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{0,2})/g, "+$1($2) $3 $4 $5"],
-        12: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/g, "+$1($2) $3 $4 $5"],
+        12: [/(\d{2})(\d{3})(\d{3})(\d{2})(\d{2})/g, "+$1($2) $3 $4 $5"]
       }[tempValue.length] || [])
     );
   };
@@ -61,8 +59,7 @@ const Input = ({
       event.target.value = maskPhoneNumber(value);
     }
     if (isName && event.target.value) {
-      event.target.value =
-        event.target.value[0].toUpperCase() + event.target.value.slice(1);
+      event.target.value = event.target.value[0].toUpperCase() + event.target.value.slice(1);
     }
     onChange(event);
   };
@@ -81,7 +78,7 @@ const Input = ({
           className={classnames({
             [styles.input]: true,
             [className]: !!className,
-            [styles.redBorder]: isMistake && !disabled,
+            [styles.redBorder]: isMistake && !disabled
           })}
           id={htmlFor}
           type={getType()}
@@ -96,12 +93,7 @@ const Input = ({
           //{...props}
         />
         {type === "password" && showEye && (
-          <img
-            src={getEyeImg()}
-            alt="eye"
-            className={styles.eye}
-            onClick={() => !disabled && setShowPass(!showPass)}
-          />
+          <img src={getEyeImg()} alt="eye" className={styles.eye} onClick={() => !disabled && setShowPass(!showPass)} />
         )}
       </div>
     </>
@@ -127,7 +119,7 @@ Input.propTypes = {
   name: PropTypes.string,
   required: PropTypes.any,
   maxLength: PropTypes.number,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string
 };
 
 Input.defaultProps = {
@@ -136,5 +128,5 @@ Input.defaultProps = {
   showPass: false,
   setShowPass: () => {},
   onChange: () => {},
-  onKeyPress: () => {},
+  onKeyPress: () => {}
 };

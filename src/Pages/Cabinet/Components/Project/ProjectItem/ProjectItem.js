@@ -5,10 +5,7 @@ import classNames from "classnames";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import CustomFolderItem from "../CustomFolderItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onChooseProject,
-  onGetProjectFolders,
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseProject, onGetProjectFolders } from "../../../../../Store/actions/CabinetActions";
 import CustomItem from "../CustomItem";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getIcon } from "../helpers";
@@ -27,7 +24,7 @@ const ProjectItem = ({
   setNewFolder,
   params,
   setParams,
-  listRef,
+  listRef
 }) => {
   const { __ } = useLocales();
   const dispatch = useDispatch();
@@ -42,7 +39,7 @@ const ProjectItem = ({
           setCollapse(true);
           listRef.current.scrollTo({
             top: projectRef.current.offsetTop - 67, // minus height of the header in the list
-            behavior: "smooth",
+            behavior: "smooth"
           });
         }, 0);
       } else {
@@ -80,28 +77,21 @@ const ProjectItem = ({
   };
 
   return (
-    <div
-      onClick={handleOpenProject}
-      className={styles.parentWrap}
-      ref={projectRef}
-    >
+    <div onClick={handleOpenProject} className={styles.parentWrap} ref={projectRef}>
       <div
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
-          [styles?.[`wrapper_${size}`]]: !!size,
+          [styles?.[`wrapper_${size}`]]: !!size
         })}
       >
         <div
           className={classNames({
             [styles.titleWrap]: true,
-            [styles.titleWrapChosen]: !!collapse,
+            [styles.titleWrapChosen]: !!collapse
           })}
         >
-          <div
-            onClick={() => setCollapse(!collapse)}
-            className={styles.leftWrap}
-          >
+          <div onClick={() => setCollapse(!collapse)} className={styles.leftWrap}>
             <div className={styles.leftTitleWrap}>
               {getIcon(project)}
               {!listCollapsed ? (
@@ -110,7 +100,7 @@ const ProjectItem = ({
                   <div
                     className={classNames({
                       [styles.tagBlock]: true,
-                      [styles.ftag]: !!project?.tags,
+                      [styles.ftag]: !!project?.tags
                     })}
                   >
                     {project?.tags && `#${project.tags}`}
@@ -143,7 +133,7 @@ const ProjectItem = ({
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
-                  [styles.revert]: collapse,
+                  [styles.revert]: collapse
                 })}
               />
             </div>
@@ -158,7 +148,7 @@ const ProjectItem = ({
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "project",
+                type: "project"
               });
             }}
           >
@@ -169,7 +159,7 @@ const ProjectItem = ({
         <div
           className={classNames({
             [styles.innerFolders]: true,
-            [styles.hidden]: !collapse,
+            [styles.hidden]: !collapse
           })}
         >
           <CustomItem
@@ -180,7 +170,7 @@ const ProjectItem = ({
             item={{
               name: __("Создать лист"),
               img: `${imageSrc}assets/PrivateCabinet/documentGrey.svg`,
-              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`,
+              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
             }}
           />
           <CustomItem
@@ -190,7 +180,7 @@ const ProjectItem = ({
             item={{
               name: __("Создать новую папку"),
               img: `${imageSrc}/assets/PrivateCabinet/folders/folder-grey.svg`,
-              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`,
+              symbol: `${imageSrc}/assets/PrivateCabinet/folders/add.svg`
             }}
           />
           {renderFolders()}
@@ -214,5 +204,5 @@ ProjectItem.propTypes = {
   setNewFolder: PropTypes.func,
   params: PropTypes.object,
   setParams: PropTypes.func,
-  listRef: PropTypes.any,
+  listRef: PropTypes.any
 };

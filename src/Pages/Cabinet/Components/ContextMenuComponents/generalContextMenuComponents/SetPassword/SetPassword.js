@@ -58,11 +58,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
               </div>
               <div className={styles.input_wrap}>
                 <p className={styles.input_title}>Пароль</p>
-                <input
-                  id={"input_pass"}
-                  value={__("Вы можете установить пароль на данный файл")}
-                  type="button"
-                />
+                <input id={"input_pass"} value={__("Вы можете установить пароль на данный файл")} type="button" />
               </div>
             </div>
             <div className={styles.border} />
@@ -102,10 +98,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
               </div>
             </div>
             <div className={styles.buttonsWrap}>
-              <div
-                className={styles.cancel}
-                onClick={() => setDisplaySetPassword(false)}
-              >
+              <div className={styles.cancel} onClick={() => setDisplaySetPassword(false)}>
                 {__("Отмена")}
               </div>
               <div
@@ -120,13 +113,7 @@ function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
           </div>
         </PopUp>
       ) : null}
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Пароль не добавлен")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Пароль не добавлен")} />}
       {success && (
         <Success
           set={closeComponent}
@@ -147,5 +134,5 @@ SetPassword.propTypes = {
   file: fileProps,
   setDisplaySetPassword: PropTypes.func,
   password: PropTypes.string,
-  setPassword: PropTypes.func,
+  setPassword: PropTypes.func
 };

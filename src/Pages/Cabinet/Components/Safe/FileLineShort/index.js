@@ -14,7 +14,7 @@ const FileLineShort = ({
   filePreview,
   filePick,
   setFilePick,
-  size,
+  size
 }) => {
   const onPickFile = () => {
     if (filePick.show) {
@@ -22,7 +22,7 @@ const FileLineShort = ({
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter((el) => el !== file.fid),
+            files: filePick.files.filter((el) => el !== file.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
@@ -36,36 +36,25 @@ const FileLineShort = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosen,
-        [styles?.[`wrapper_${size}`]]: size !== "medium",
+        [styles?.[`wrapper_${size}`]]: size !== "medium"
       })}
     >
       <div>
         <div className={styles.fileAbout}>
           <div className={styles.file}>
-            <File
-              format={file.ext}
-              color={file.is_write === "0" ? "#C1C1C1" : file.color}
-            />
+            <File format={file.ext} color={file.is_write === "0" ? "#C1C1C1" : file.color} />
           </div>
 
           <div className={styles.infoWrap}>
-            <div className={styles.fileName}>
-              {file.name && file.name.slice(0, file.name.lastIndexOf("."))}
-            </div>
+            <div className={styles.fileName}>{file.name && file.name.slice(0, file.name.lastIndexOf("."))}</div>
 
             <div className={styles.fileInfo}>
-              <span className={styles.fileDate}>
-                {file.mtime.split(" ")[0]}
-              </span>
+              <span className={styles.fileDate}>{file.mtime.split(" ")[0]}</span>
               <span className={styles.fileSize}>{file.size_now}</span>
               {size !== "small" && (
                 <div className={styles.symbols}>
                   {file.is_pass === 1 && (
-                    <img
-                      className={styles.locked}
-                      src={`${imageSrc}/assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
+                    <img className={styles.locked} src={`${imageSrc}/assets/PrivateCabinet/locked.svg`} alt="lock" />
                   )}
                   {file.fig && (
                     <img
@@ -89,11 +78,7 @@ const FileLineShort = ({
           {size === "small" && (
             <div className={styles.symbols}>
               {file.is_pass === 1 && (
-                <img
-                  className={styles.locked}
-                  src={`${imageSrc}/assets/PrivateCabinet/locked.svg`}
-                  alt="lock"
-                />
+                <img className={styles.locked} src={`${imageSrc}/assets/PrivateCabinet/locked.svg`} alt="lock" />
               )}
               {file.fig && (
                 <img
@@ -119,7 +104,7 @@ const FileLineShort = ({
                   x: e.clientX,
                   y: e.clientY,
                   width: 260,
-                  height: 25,
+                  height: 25
                 });
               }}
             >

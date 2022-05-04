@@ -17,7 +17,7 @@ const InputField = ({
   setVisibility,
   comparePass,
   phone,
-  disabled = false,
+  disabled = false
 }) => {
   const [isPassword, setIsPassword] = useState(isPass);
 
@@ -34,13 +34,13 @@ const InputField = ({
     <div
       className={classnames({
         [styles.wrap]: true,
-        [styles.redBorder]: mistake,
+        [styles.redBorder]: mistake
       })}
     >
       <input
         className={classnames({
           [styles.inputField]: true,
-          [styles.isPassword]: model === "password",
+          [styles.isPassword]: model === "password"
         })}
         style={{ height }}
         type={model === "password" ? visibility : "text"}
@@ -56,22 +56,10 @@ const InputField = ({
             newVal = newVal.replace(/\D/gim, "");
             const number = newVal.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
             const length = number.length;
-            newVal = `+${number.substring(0, 2)}${
-              length > 2
-                ? " (" + number.substring(2, 5)
-                : number.substring(2, 5)
-            }${
-              length > 5
-                ? ") " + number.substring(5, 8)
-                : number.substring(5, 8)
-            }${
-              length > 8
-                ? "-" + number.substring(8, 10)
-                : number.substring(8, 10)
-            }${
-              length > 10
-                ? "-" + number.substring(10, number.length)
-                : number.substring(10, number.length)
+            newVal = `+${number.substring(0, 2)}${length > 2 ? " (" + number.substring(2, 5) : number.substring(2, 5)}${
+              length > 5 ? ") " + number.substring(5, 8) : number.substring(5, 8)
+            }${length > 8 ? "-" + number.substring(8, 10) : number.substring(8, 10)}${
+              length > 10 ? "-" + number.substring(10, number.length) : number.substring(10, number.length)
             }`;
           }
           set(e.target.value !== "+" ? newVal : "");
@@ -95,10 +83,7 @@ const InputField = ({
         />
       )}
       {switcher && (
-        <div
-          className={isPassword ? styles.switcherActive : styles.switcher}
-          onClick={switchOn}
-        >
+        <div className={isPassword ? styles.switcherActive : styles.switcher} onClick={switchOn}>
           <div className={isPassword ? styles.switchActive : styles.switch} />
         </div>
       )}

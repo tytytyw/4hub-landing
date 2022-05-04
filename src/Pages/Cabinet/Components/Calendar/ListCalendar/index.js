@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./ListCalendar.module.sass";
 import classNames from "classnames";
-import {
-  getAllDays,
-  getDays,
-  getNextMonthDays,
-  getPrevMonthDays,
-} from "./helper";
+import { getAllDays, getDays, getNextMonthDays, getPrevMonthDays } from "./helper";
 import { months, weekDays } from "../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { setCalendarDate } from "../../../../../Store/actions/CabinetActions";
@@ -20,13 +15,9 @@ const ListCalendar = ({ setViewType, collapsed }) => {
   const dispatch = useDispatch();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
 
-  const [prevMonthDays, setPrevMonthDays] = useState(
-    getPrevMonthDays(calendarDate)
-  );
+  const [prevMonthDays, setPrevMonthDays] = useState(getPrevMonthDays(calendarDate));
   const [days, setDays] = useState(getDays(calendarDate));
-  const [nextMonthDays, setNextMonthDays] = useState(
-    getNextMonthDays(calendarDate)
-  );
+  const [nextMonthDays, setNextMonthDays] = useState(getNextMonthDays(calendarDate));
 
   const allDays = getAllDays();
 
@@ -37,9 +28,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
   }, [calendarDate]);
 
   const getMonthName = () => {
-    const monthItem = months?.find(
-      (item) => item?.id === calendarDate.getMonth()
-    );
+    const monthItem = months?.find((item) => item?.id === calendarDate.getMonth());
     return monthItem?.text;
   };
 
@@ -61,11 +50,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
         <p className={styles.month}>
           {getMonthName(calendarDate.getMonth())} {calendarDate.getFullYear()}
         </p>
-        <img
-          src={`${imageSrc}assets/PrivateCabinet/calendar-9.svg`}
-          className={styles.calendarIcon}
-          alt="Calendar"
-        />
+        <img src={`${imageSrc}assets/PrivateCabinet/calendar-9.svg`} className={styles.calendarIcon} alt="Calendar" />
       </div>
 
       {!collapsed ? (
@@ -80,9 +65,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
             <div key={index} className={styles.dayWrap}>
               <span
                 className={classNames(styles.day, styles.anotherDay)}
-                onClick={() =>
-                  onChangeDay(itemDay, calendarDate.getMonth() - 1)
-                }
+                onClick={() => onChangeDay(itemDay, calendarDate.getMonth() - 1)}
               >
                 {itemDay}
               </span>
@@ -94,7 +77,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
               <span
                 className={classNames({
                   [styles.day]: true,
-                  [styles.selectedDay]: dayActive(itemDay),
+                  [styles.selectedDay]: dayActive(itemDay)
                 })}
                 onClick={() => onChangeDay(itemDay)}
               >
@@ -107,9 +90,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
             <div key={index} className={styles.dayWrap}>
               <span
                 className={classNames(styles.day, styles.anotherDay)}
-                onClick={() =>
-                  onChangeDay(itemDay, calendarDate.getMonth() + 1)
-                }
+                onClick={() => onChangeDay(itemDay, calendarDate.getMonth() + 1)}
               >
                 {itemDay}
               </span>
@@ -127,7 +108,7 @@ const ListCalendar = ({ setViewType, collapsed }) => {
                   className={classNames({
                     [styles.day]: true,
                     [styles.anotherDay]: true,
-                    [styles.selectedDay]: dayActive(itemDay),
+                    [styles.selectedDay]: dayActive(itemDay)
                   })}
                   onClick={() => onChangeDay(itemDay)}
                 >
@@ -146,9 +127,9 @@ export default ListCalendar;
 
 ListCalendar.propTypes = {
   setViewType: PropTypes.func,
-  collapsed: PropTypes.bool,
+  collapsed: PropTypes.bool
 };
 
 ListCalendar.defaultProps = {
-  collapsed: false,
+  collapsed: false
 };

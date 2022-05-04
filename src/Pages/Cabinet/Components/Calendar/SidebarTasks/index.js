@@ -19,14 +19,8 @@ const SidebarTasks = ({ data, listCollapsed }) => {
   useEffect(() => setEvents(getEventsByDay(data)), [calendarDate]); //eslint-disable-line
 
   const getStrDate = () => {
-    const day =
-      `${calendarDate.getDate()}`.length < 2
-        ? `0${calendarDate.getDate()}`
-        : calendarDate.getDate();
-    const month =
-      `${calendarDate.getMonth()}`.length < 2
-        ? `0${calendarDate.getMonth()}`
-        : calendarDate.getMonth();
+    const day = `${calendarDate.getDate()}`.length < 2 ? `0${calendarDate.getDate()}` : calendarDate.getDate();
+    const month = `${calendarDate.getMonth()}`.length < 2 ? `0${calendarDate.getMonth()}` : calendarDate.getMonth();
     return `${day}.${month}.${calendarDate.getFullYear()}`;
   };
 
@@ -48,5 +42,5 @@ export default SidebarTasks;
 
 SidebarTasks.propTypes = {
   data: PropTypes.array,
-  listCollapsed: PropTypes.bool,
+  listCollapsed: PropTypes.bool
 };

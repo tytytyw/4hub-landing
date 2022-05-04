@@ -40,7 +40,7 @@ const SuccessCreated = ({ set, event }) => {
                 {event?.color && (
                   <span
                     style={{
-                      background: `${event.color?.dark}`,
+                      background: `${event.color?.dark}`
                     }}
                     className={styles.circle}
                   />
@@ -66,11 +66,7 @@ const SuccessCreated = ({ set, event }) => {
           <div className={styles.itemBlock}>
             <p className={styles.option}>{__("Получатель")}</p>
             <div className={styles.infoWrap}>
-              <img
-                className={styles.avatar}
-                src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`}
-                alt="Avatar"
-              />
+              <img className={styles.avatar} src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`} alt="Avatar" />
               <p className={styles.value}>{__("Мангуш Ирина Николаевна")}</p>
             </div>
           </div>
@@ -104,5 +100,5 @@ export default SuccessCreated;
 
 SuccessCreated.propTypes = {
   set: PropTypes.func,
-  event: eventProps,
+  event: eventProps
 };

@@ -21,14 +21,12 @@ const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
       <div
         className={classNames({
           [styles.wrap]: true,
-          [styles.darkTheme]: chatTheme.name === "dark",
+          [styles.darkTheme]: chatTheme.name === "dark"
         })}
       >
         <div className={styles.cross} onClick={set} />
         <span className={styles.title}>Удалить сообщение</span>
-        <div className={styles.subTitle}>
-          {__("Вы действительно хотите удалить сообщение?")}
-        </div>
+        <div className={styles.subTitle}>{__("Вы действительно хотите удалить сообщение?")}</div>
         {message.text?.length ? (
           <div className={styles.textWrap}>
             {text.map((item, index) => (
@@ -41,10 +39,7 @@ const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
           ""
         )}
         <div className={styles.buttonsWrap}>
-          <div
-            className={classNames(styles.cancel, styles.button)}
-            onClick={set}
-          >
+          <div className={classNames(styles.cancel, styles.button)} onClick={set}>
             {__("Отмена")}
           </div>
           <div
@@ -53,10 +48,7 @@ const DeleteMessage = ({ set, message, nullifyAction, deleteMessage }) => {
           >
             {__("Удалить у меня")}
           </div>
-          <div
-            className={classNames(styles.action, styles.button)}
-            onClick={() => onAproveBtnHandler()}
-          >
+          <div className={classNames(styles.action, styles.button)} onClick={() => onAproveBtnHandler()}>
             {__("Удалить у всех")}
           </div>
         </div>
@@ -71,5 +63,5 @@ DeleteMessage.propTypes = {
   set: PropTypes.func.isRequired,
   message: PropTypes.object.isRequired,
   nullifyAction: PropTypes.func.isRequired,
-  deleteMessage: PropTypes.func.isRequired,
+  deleteMessage: PropTypes.func.isRequired
 };

@@ -69,7 +69,7 @@ const DateBlock = ({ setViewType }) => {
             onClick={() => onChangeMonth(item)}
             className={classNames({
               [styles.button]: true,
-              [styles.active]: item.id === calendarDate.getMonth(),
+              [styles.active]: item.id === calendarDate.getMonth()
             })}
           >
             {item.text}
@@ -83,5 +83,5 @@ const DateBlock = ({ setViewType }) => {
 export default DateBlock;
 
 DateBlock.propTypes = {
-  setViewType: PropTypes.func,
+  setViewType: PropTypes.func
 };

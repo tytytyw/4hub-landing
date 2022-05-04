@@ -9,17 +9,7 @@ import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks
 import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 
-const WorkBars = ({
-  children,
-  fileSelect,
-  filePick,
-  hideUploadFile,
-  filesPage,
-  fileRef,
-  gLoader,
-  load,
-  options,
-}) => {
+const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, fileRef, gLoader, load, options }) => {
   const { __ } = useLocales();
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
   const size = useSelector((state) => state.Cabinet.size);
@@ -31,9 +21,7 @@ const WorkBars = ({
     <div
       ref={fileRef}
       className={`${styles.workBarsWrap} ${
-        hideUploadFile
-          ? styles.workBarsWrapNoScroll
-          : renderHeight(recentFiles, filePick, styles)
+        hideUploadFile ? styles.workBarsWrapNoScroll : renderHeight(recentFiles, filePick, styles)
       }`}
       style={{
         gridTemplateColumns:
@@ -42,13 +30,10 @@ const WorkBars = ({
             : size === "medium"
             ? "repeat(auto-fill, minmax(160px, 1fr))"
             : "repeat(auto-fill, minmax(205px, 1fr))",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
       }}
     >
-      {!hideUploadFile &&
-      (!children || children?.length === 0) &&
-      search.length === 0 ? (
+      {!hideUploadFile && (!children || children?.length === 0) && search.length === 0 ? (
         <div
           onClick={fileSelect}
           className={`
@@ -61,18 +46,12 @@ const WorkBars = ({
           <span>{__("Перетащите файл или нажмите загрузить")}</span>
         </div>
       ) : null}
-      {!hideUploadFile &&
-      (!children || children?.length === 0) &&
-      search.length === 0 ? (
+      {!hideUploadFile && (!children || children?.length === 0) && search.length === 0 ? (
         <img
           src={`${imageSrc}assets/PrivateCabinet/addPropose.png`}
           alt="addFile"
           className={
-            size === "big"
-              ? styles.textAddIcon
-              : size === "medium"
-              ? styles.textAddIconMedium
-              : styles.textAddIconSmall
+            size === "big" ? styles.textAddIcon : size === "medium" ? styles.textAddIconMedium : styles.textAddIconSmall
           }
         />
       ) : null}
@@ -80,12 +59,7 @@ const WorkBars = ({
         <div
           className={styles.noSearchResults}
           style={{
-            left:
-              size === "small"
-                ? "158px"
-                : size === "medium"
-                ? "200px"
-                : "245px",
+            left: size === "small" ? "158px" : size === "medium" ? "200px" : "245px"
           }}
         >
           {__("Нет элементов удовлетворяющих условиям поиска")}
@@ -104,9 +78,7 @@ const WorkBars = ({
       )}
       {hideUploadFile ? null : !gLoader ? (
         <div
-          className={`${styles.bottomLine} ${
-            filesPage === 0 ? styles.bottomLineHidden : ""
-          }`}
+          className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
           style={{ height: "100%" }}
           ref={containerRef}
         >

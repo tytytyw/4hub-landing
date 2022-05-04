@@ -11,15 +11,15 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
 
   const renderHistogram = (
     arr = [
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
   ) => {
     return arr.map((value, i) => (
       <div
         className={classNames({
           [styles.column]: true,
-          [styles.lisened]: progress > i * 2,
+          [styles.lisened]: progress > i * 2
         })}
         key={i}
         style={{ height: `${value}%` }}
@@ -99,7 +99,7 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
         onClick={buttonHandler}
         className={classNames({
           [styles.playButton]: true,
-          [styles.inboxMessage]: inboxMessage,
+          [styles.inboxMessage]: inboxMessage
         })}
       >
         {playing ? <div className={styles.pauseIcon}></div> : <PlayIcon />}
@@ -107,18 +107,11 @@ const VoiceMessagePlayer = ({ src, histogramData, inboxMessage }) => {
       <div
         className={classNames({
           [styles.rightContainer]: true,
-          [styles.inboxMessage]: inboxMessage,
+          [styles.inboxMessage]: inboxMessage
         })}
       >
         <div className={styles.audioHistogram}>
-          <input
-            className={styles.seekBar}
-            type="range"
-            onClick={onSeek}
-            min="0"
-            max="100"
-            step="1"
-          ></input>
+          <input className={styles.seekBar} type="range" onClick={onSeek} min="0" max="100" step="1"></input>
           {renderHistogram(histogramData?.length ? histogramData : undefined)}
         </div>
         <span className={styles.duration}>{renderRemainder()}</span>
@@ -134,15 +127,11 @@ VoiceMessagePlayer.propTypes = {
   histogramData: (props, propName, componentName) => {
     if (Array.isArray(props[propName])) {
       if (props[propName].length !== 50) {
-        return new Error(
-          `invalid prop ${props[propName]} array lenght must be equal to 50. In ${componentName}`
-        );
+        return new Error(`invalid prop ${props[propName]} array lenght must be equal to 50. In ${componentName}`);
       } else if (props[propName].some((item) => item > 100 || item < 0)) {
-        return new Error(
-          `incorrect value of an array ${props[propName]} expected value from 0 to 100`
-        );
+        return new Error(`incorrect value of an array ${props[propName]} expected value from 0 to 100`);
       }
     }
   },
-  inboxMessage: PropTypes.bool,
+  inboxMessage: PropTypes.bool
 };

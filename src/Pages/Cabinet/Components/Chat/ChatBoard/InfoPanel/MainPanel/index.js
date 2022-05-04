@@ -10,30 +10,24 @@ import PropTypes from "prop-types";
 
 const MainPanel = ({ setAction, setOption }) => {
   const { __ } = useLocales();
-  const selectedContact = useSelector(
-    (state) => state.Cabinet.chat.selectedContact
-  );
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const [notificationsMute, setNotificationsMute] = useState(false);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   const deleteBtnType = () => {
     if (selectedContact?.isGroup) {
-      const admins = selectedContact.users
-        .filter((u) => u.is_admin)
-        .map((u) => u.id_user);
+      const admins = selectedContact.users.filter((u) => u.is_admin).map((u) => u.id_user);
       if (admins.includes(userId)) {
         // user is admin
         return {
           text: __("Удалить группу"),
           callback: () =>
             setAction({
-              text: __(
-                `Вы действительно хотите удалить группу ${selectedContact?.name}?`
-              ),
+              text: __(`Вы действительно хотите удалить группу ${selectedContact?.name}?`),
               type: __("deleteChatGroup"),
-              name: __("Удалить"),
-            }),
+              name: __("Удалить")
+            })
         };
       } else {
         // user not admin
@@ -41,27 +35,23 @@ const MainPanel = ({ setAction, setOption }) => {
           text: __("Покинуть группу"),
           callback: () =>
             setAction({
-              text: __(
-                `Вы действительно хотите покинуть группу ${selectedContact?.name}?`
-              ),
+              text: __(`Вы действительно хотите покинуть группу ${selectedContact?.name}?`),
               type: "leaveFromChatGroup",
-              name: __("Покинуть"),
-            }),
+              name: __("Покинуть")
+            })
         };
       }
     }
     return {
       text: __("Очистить историю"),
-      callback: () => console.log("clear messages"),
+      callback: () => console.log("clear messages")
     };
   };
 
   const getAvatarSrc = () => {
     return (
       selectedContact?.icon?.[0] ||
-      `${imageSrc}assets/PrivateCabinet/${
-        selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"
-      }.svg`
+      `${imageSrc}assets/PrivateCabinet/${selectedContact?.isGroup ? "chatGroup" : "profile-noPhoto"}.svg`
     );
   };
 
@@ -69,22 +59,16 @@ const MainPanel = ({ setAction, setOption }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <div className={classNames(styles.avatarWrapper, styles.borderBottom)}>
-        <div
-          style={{ backgroundImage: `url(${getAvatarSrc()})` }}
-          className={styles.blurBackground}
-        ></div>
+        <div style={{ backgroundImage: `url(${getAvatarSrc()})` }} className={styles.blurBackground}></div>
         <img className={styles.avatar} alt="avatar" src={getAvatarSrc()} />
       </div>
       <div className={styles.menu}>
         <div>
-          <div
-            className={classNames(styles.menuItem, styles.borderBottom)}
-            onClick={() => setOption("media")}
-          >
+          <div className={classNames(styles.menuItem, styles.borderBottom)} onClick={() => setOption("media")}>
             <div className={styles.leftSide}>
               <span className={styles.menuItemName}>{__("Мультимедиа")}</span>
             </div>
@@ -125,17 +109,9 @@ const MainPanel = ({ setAction, setOption }) => {
           </div>
 
           {!selectedContact.is_secret_chat ? (
-            <div
-              className={classNames(
-                styles.menuItem,
-                styles.borderBottom,
-                styles.hoverDisable
-              )}
-            >
+            <div className={classNames(styles.menuItem, styles.borderBottom, styles.hoverDisable)}>
               <div className={styles.leftSide}>
-                <span className={styles.menuItemName}>
-                  {__("Добавить участника")}
-                </span>
+                <span className={styles.menuItemName}>{__("Добавить участника")}</span>
               </div>
               <div
                 className={styles.leftSide}
@@ -146,7 +122,7 @@ const MainPanel = ({ setAction, setOption }) => {
                       : {
                           type: "addChat",
                           chatsType: "groups",
-                          initialUser: selectedContact,
+                          initialUser: selectedContact
                         }
                   )
                 }
@@ -159,34 +135,23 @@ const MainPanel = ({ setAction, setOption }) => {
           )}
 
           <div
-            className={classNames(
-              styles.menuItem,
-              styles.borderBottom,
-              styles.positionRelative,
-              styles.hoverDisable
-            )}
+            className={classNames(styles.menuItem, styles.borderBottom, styles.positionRelative, styles.hoverDisable)}
           >
             <div className={styles.leftSide}>
               <span className={styles.menuItemName}>{__("Уведомления")}</span>
             </div>
-            <div
-              className={classNames(styles.switcher)}
-              onClick={() => setNotificationsMute((state) => !state)}
-            >
+            <div className={classNames(styles.switcher)} onClick={() => setNotificationsMute((state) => !state)}>
               <div
                 className={classNames({
                   [styles.switchActive]: !notificationsMute,
-                  [styles.switch]: true,
+                  [styles.switch]: true
                 })}
               />
             </div>
           </div>
         </div>
 
-        <div
-          className={classNames(styles.menuItem, styles.borderTop)}
-          onClick={deleteBtnType()?.callback}
-        >
+        <div className={classNames(styles.menuItem, styles.borderTop)} onClick={deleteBtnType()?.callback}>
           <div className={styles.leftSide}>
             <span className={styles.menuItemName}>{deleteBtnType()?.text}</span>
           </div>
@@ -201,5 +166,5 @@ export default MainPanel;
 
 MainPanel.propTypes = {
   setAction: PropTypes.func.isRequired,
-  setOption: PropTypes.func.isRequired,
+  setOption: PropTypes.func.isRequired
 };

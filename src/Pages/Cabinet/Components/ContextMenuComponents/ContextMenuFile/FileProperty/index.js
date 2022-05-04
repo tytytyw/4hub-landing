@@ -12,9 +12,7 @@ import { useLocales } from "react-localized";
 const FileProperty = () => {
   const { __ } = useLocales();
   const [inset, setInset] = useState("general");
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const file = contextMenuModals.items[0];
   const dispatch = useDispatch();
 
@@ -23,7 +21,7 @@ const FileProperty = () => {
       onSetModals("contextMenuModals", {
         ...contextMenuModals,
         type: "",
-        items: [],
+        items: []
       })
     );
 
@@ -31,30 +29,22 @@ const FileProperty = () => {
     <PopUp set={close}>
       <div className={styles.propertiesWrap}>
         <span className={styles.cross} onClick={close} />
-        <span className={styles.title}>
-          Свойства: {file?.fname.slice(0, file?.fname.lastIndexOf("."))}
-        </span>
+        <span className={styles.title}>Свойства: {file?.fname.slice(0, file?.fname.lastIndexOf("."))}</span>
         <div className={styles.insetWrap}>
           <div
-            className={`${styles.inset} ${
-              inset === "general" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "general" ? styles.chosen : null}`}
             onClick={() => setInset("general")}
           >
             {__("Общие")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "security" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "security" ? styles.chosen : null}`}
             onClick={() => setInset("security")}
           >
             {__("Доступы")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "prev" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "prev" ? styles.chosen : null}`}
             onClick={() => setInset("prev")}
           >
             {__("Предыдущие версии")}

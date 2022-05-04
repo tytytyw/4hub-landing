@@ -19,10 +19,7 @@ const InfoPopover = () => {
 
       <div className={styles.infoFileItem}>
         <span className={styles.itemName}>{__("Эмоджи")}</span>
-        <img
-          src={`${imageSrc}assets/PrivateCabinet/smiles/cool.svg`}
-          alt="sign"
-        />
+        <img src={`${imageSrc}assets/PrivateCabinet/smiles/cool.svg`} alt="sign" />
       </div>
 
       <div className={styles.infoFileItem}>
@@ -58,11 +55,7 @@ const InfoPopover = () => {
       <div className={styles.infoFileItem}>
         <span className={styles.itemName}>{__("Добавил")}</span>
         <span className={styles.itemBlock}>
-          <img
-            className={styles.itemImg}
-            src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`}
-            alt="Avatar"
-          />
+          <img className={styles.itemImg} src={`${imageSrc}assets/PrivateCabinet/avatars/a1.svg`} alt="Avatar" />
           <p className={styles.description}>Недельский Дмитрий</p>
         </span>
       </div>

@@ -40,7 +40,7 @@ const MyFiles = ({
   setLoaded,
   loadingFile,
   fileErrors,
-  setLoadingFile,
+  setLoadingFile
 }) => {
   const { __ } = useLocales();
   const periods = usePeriods();
@@ -57,15 +57,14 @@ const MyFiles = ({
   const [chosenFolder] = useState({
     path: "global/all",
     open: false,
-    subPath: "",
+    subPath: ""
   });
   const [filePick, setFilePick] = useState({ show: false, files: [] });
   const [mouseParams, setMouseParams] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-  const nullifyFilePick = () =>
-    setFilePick({ show: false, files: [], customize: false });
+  const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false });
 
   const [safePassword, setSafePassword] = useState({ open: false });
   const renderFileItem = (Type, list) => {
@@ -78,9 +77,7 @@ const MyFiles = ({
           key={i}
           file={file}
           chosen={
-            filePick.show
-              ? filePick.files.findIndex((el) => el === file.fid) >= 0
-              : chosenFile?.fid === file?.fid
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
           }
           listCollapsed={listCollapsed}
           setMouseParams={setMouseParams}
@@ -123,8 +120,7 @@ const MyFiles = ({
     );
   };
 
-  const onSafePassword = (boolean) =>
-    setSafePassword({ ...safePassword, open: boolean });
+  const onSafePassword = (boolean) => setSafePassword({ ...safePassword, open: boolean });
 
   useEffect(() => {
     dispatch(onGetUserInfo());
@@ -135,9 +131,7 @@ const MyFiles = ({
   const onSuccessLoading = (result) => {
     if (typeof result === "number") {
       setTimeout(() => {
-        result > 0
-          ? setFilesPage((filesPage) => filesPage + 1)
-          : setFilesPage(0);
+        result > 0 ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
         setLoadingFiles(false);
       }, 50); // 50ms needed to prevent recursion of ls_json requests
     } else if (typeof result === "object") {
@@ -146,9 +140,7 @@ const MyFiles = ({
         if (result[key].length > 0) moreElements = true;
       }
       setTimeout(() => {
-        moreElements
-          ? setFilesPage((filesPage) => filesPage + 1)
-          : setFilesPage(0);
+        moreElements ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
         setLoadingFiles(false);
       }, 500);
     } else {
@@ -162,7 +154,7 @@ const MyFiles = ({
   const options = {
     root: null,
     rootMargin: "0px",
-    threshold: 0,
+    threshold: 0
   };
 
   const load = (entry) => {
@@ -174,43 +166,14 @@ const MyFiles = ({
         (pathname.includes("files") || pathname === "/archive")
       ) {
         setLoadingFiles(true);
-        dispatch(
-          onChooseFiles(
-            "",
-            search,
-            filesPage,
-            onSuccessLoading,
-            "",
-            "",
-            "file_list_all",
-            pathname
-          )
-        );
+        dispatch(onChooseFiles("", search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname));
         pathname === "/files" &&
           dispatch(
-            onChooseFiles(
-              fileList?.path,
-              search,
-              filesPage,
-              onSuccessLoading,
-              "",
-              "",
-              "file_list_all",
-              pathname
-            )
+            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
         pathname === "/downloaded-files" &&
           dispatch(
-            onChooseFiles(
-              fileList?.path,
-              search,
-              filesPage,
-              onSuccessLoading,
-              "",
-              "",
-              "file_list_all",
-              pathname
-            )
+            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
       }
     }
@@ -237,9 +200,7 @@ const MyFiles = ({
                 : renderGroups(FileItem, fileList?.files)}
               {!gLoader ? (
                 <div
-                  className={`${styles.bottomLine} ${
-                    filesPage === 0 ? styles.bottomLineHidden : ""
-                  }`}
+                  className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
                   style={{ height: "100px" }}
                   ref={scrollRef}
                 >
@@ -288,11 +249,7 @@ const MyFiles = ({
         />
         {fileAddCustomization.show ? (
           <CreateFile
-            title={
-              fileAddCustomization.create
-                ? __("Создать файл")
-                : __("Добавление файла")
-            }
+            title={fileAddCustomization.create ? __("Создать файл") : __("Добавление файла")}
             info={chosenFolder}
             blob={fileAddCustomization.file}
             setBlob={setFileAddCustomization}
@@ -312,24 +269,14 @@ const MyFiles = ({
           />
         ) : null}
         {safePassword.open && (
-          <CreateSafePassword
-            onToggle={onSafePassword}
-            title={__("Создайте пароль для Сейфа с паролями")}
-          />
+          <CreateSafePassword onToggle={onSafePassword} title={__("Создайте пароль для Сейфа с паролями")} />
         )}
         {showSuccessMessage && (
-          <SuccessMessage
-            showSuccessMessage={showSuccessMessage}
-            setShowSuccessMessage={setShowSuccessMessage}
-          />
+          <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
         )}
       </div>
       {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -363,5 +310,5 @@ MyFiles.propTypes = {
   setLoaded: PropTypes.func,
   loadingFile: PropTypes.array,
   fileErrors: PropTypes.array,
-  setLoadingFile: PropTypes.func,
+  setLoadingFile: PropTypes.func
 };

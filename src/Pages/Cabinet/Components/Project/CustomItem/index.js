@@ -10,13 +10,13 @@ const CustomItem = ({ item, badge, onClick, listSize, collapsed }) => {
       onClick={onClick}
       className={classNames({
         [styles.innerFolderWrap]: true,
-        [styles?.[`wrapper_${listSize}`]]: !!listSize,
+        [styles?.[`wrapper_${listSize}`]]: !!listSize
       })}
     >
       <div
         className={classNames({
           [styles.innerFolder]: true,
-          [styles.collapsed]: collapsed,
+          [styles.collapsed]: collapsed
         })}
       >
         <div className={styles.innerFolderName}>
@@ -31,9 +31,7 @@ const CustomItem = ({ item, badge, onClick, listSize, collapsed }) => {
         <div className={styles.innerFolderMedia}>
           {badge > 0 && <span className={styles.badge}>{badge}</span>}
 
-          {item.symbol && (
-            <img className={styles.symbols} src={item?.symbol} alt="emoji" />
-          )}
+          {item.symbol && <img className={styles.symbols} src={item?.symbol} alt="emoji" />}
         </div>
       </div>
     </div>
@@ -47,5 +45,5 @@ CustomItem.propTypes = {
   badge: PropTypes.number,
   onClick: PropTypes.func,
   listSize: PropTypes.string,
-  collapsed: PropTypes.bool,
+  collapsed: PropTypes.bool
 };

@@ -57,7 +57,7 @@ const Guest = () => {
   const [filePick, setFilePick] = useState({
     show: false,
     files: [],
-    customize: false,
+    customize: false
   });
   const [action, setAction] = useState({ type: "", name: "", text: "" });
   const [mouseParams, setMouseParams] = useState(null);
@@ -98,27 +98,26 @@ const Guest = () => {
       type: "share",
       name: __(""),
       text: __(""),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "copyLink",
       name: __(""),
       text: __(""),
-      callback: () => setShowLinkCopy(true),
+      callback: () => setShowLinkCopy(true)
     },
     {
       type: "properties",
       name: __("Свойства"),
       text: __(""),
-      callback: () =>
-        setAction({ ...action, type: "properties", name: "Свойства" }),
+      callback: () => setAction({ ...action, type: "properties", name: "Свойства" })
     },
     {
       type: "download",
       name: __("Загрузка файла"),
       text: __(""),
-      callback: () => document.downloadFile.submit(),
-    },
+      callback: () => document.downloadFile.submit()
+    }
   ];
 
   const renderFilesGroup = (group, files, i) => {
@@ -146,11 +145,7 @@ const Guest = () => {
       <div className={styles.header}>
         <div className={styles.logoWrap}>
           <div className={styles.logo}>
-            <img
-              className={styles.hubIcon}
-              src={`${imageSrc}assets/PrivateCabinet/4Hub-min.svg`}
-              alt="4HUB"
-            />
+            <img className={styles.hubIcon} src={`${imageSrc}assets/PrivateCabinet/4Hub-min.svg`} alt="4HUB" />
             <p>4Hub</p>
           </div>
         </div>
@@ -159,9 +154,7 @@ const Guest = () => {
           <SearchField />
           <div className={styles.authActionBlock}>
             <button className={styles.authBtn}>{__("Вход")}</button>
-            <button className={classNames(styles.authBtn, styles.authBtnReg)}>
-              {__("Регистрация")}
-            </button>
+            <button className={classNames(styles.authBtn, styles.authBtnReg)}>{__("Регистрация")}</button>
           </div>
         </div>
       </div>
@@ -174,19 +167,14 @@ const Guest = () => {
 
       <div className={styles.main}>
         <div className={styles.topBlock}>
-          <img
-            src={`${imageSrc}assets/PrivateCabinet/folder-5.svg`}
-            alt="Folder"
-          />
+          <img src={`${imageSrc}assets/PrivateCabinet/folder-5.svg`} alt="Folder" />
           <p>{__("Дизайн файлообменика")}</p>
         </div>
 
         <div className={styles.workSpaceWrap}>
           {filteredList?.length !== 0 ? (
             <div className={styles.FilesList}>
-              {filteredList.map((item, i) =>
-                renderFilesGroup(item.group, item.files, i)
-              )}
+              {filteredList.map((item, i) => renderFilesGroup(item.group, item.files, i))}
             </div>
           ) : (
             <div className={styles.centered}>
@@ -197,52 +185,27 @@ const Guest = () => {
       </div>
 
       {mouseParams !== null && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuFile.main, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
         </ContextMenu>
       )}
       {action.type === "delete" ? (
         <ActionApproval
           name={filePick.show ? __("Удаление файлов") : action.name}
-          text={
-            filePick.show
-              ? __("Вы действительно хотите удалить выбранные файлы?")
-              : action.text
-          }
+          text={filePick.show ? __("Вы действительно хотите удалить выбранные файлы?") : action.text}
           set={() => {}}
           callback={() => {}}
           approve={__("Удалить")}
         >
           <div className={styles.fileActionWrap}>
-            <File
-              format={filePick.show ? "FILES" : chosenFile?.ext}
-              color={chosenFile?.color}
-            />
+            <File format={filePick.show ? "FILES" : chosenFile?.ext} color={chosenFile?.color} />
           </div>
         </ActionApproval>
       ) : null}
 
-      {showLinkCopy && (
-        <CopyLinkShare
-          fid={chosenFile?.fid}
-          setShowLinkCopy={setShowLinkCopy}
-        />
-      )}
+      {showLinkCopy && <CopyLinkShare fid={chosenFile?.fid} setShowLinkCopy={setShowLinkCopy} />}
 
-      {loadingType ? (
-        <Loader
-          position="absolute"
-          zIndex={102}
-          containerType="bounceDots"
-          type="bounceDots"
-        />
-      ) : null}
+      {loadingType ? <Loader position="absolute" zIndex={102} containerType="bounceDots" type="bounceDots" /> : null}
     </div>
   );
 };

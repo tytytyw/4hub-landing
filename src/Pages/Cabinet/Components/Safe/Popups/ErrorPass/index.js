@@ -47,27 +47,17 @@ const ErrorPass = ({ setError, set, mistake }) => {
             <p className={styles.text}>
               {__("Неверный")} {getTaregtString()}. {__("Повторите попытку")}
               {mistake === "password"
-                ? __(
-                    ', восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона'
-                  )
+                ? __(', восстановите через вкладку "Забыли пароль" или войдите с помощью Вашего номера телефона')
                 : ""}
               .
             </p>
           </div>
 
           <div className={styles.actionBlock}>
-            <Button
-              type="submit"
-              className={styles.cancelBtn}
-              onClick={() => set(false)}
-            >
+            <Button type="submit" className={styles.cancelBtn} onClick={() => set(false)}>
               {__("Закрыть")}
             </Button>
-            <Button
-              type="submit"
-              className={styles.submitBtn}
-              onClick={() => setError(false)}
-            >
+            <Button type="submit" className={styles.submitBtn} onClick={() => setError(false)}>
               {__("Повторить")}
             </Button>
           </div>

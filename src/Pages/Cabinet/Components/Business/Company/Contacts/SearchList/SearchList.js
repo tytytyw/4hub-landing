@@ -13,7 +13,7 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
           onClick={() => setSelectedItem(item)}
           className={classnames({
             [styles.menuItem]: true,
-            [styles.activeItem]: selectedItem?.id === item?.id,
+            [styles.activeItem]: selectedItem?.id === item?.id
           })}
           key={index}
         >
@@ -32,5 +32,5 @@ export default SearchList;
 SearchList.propTypes = {
   data: PropTypes.array,
   selectedItem: PropTypes.object,
-  setSelectedItem: PropTypes.func,
+  setSelectedItem: PropTypes.func
 };

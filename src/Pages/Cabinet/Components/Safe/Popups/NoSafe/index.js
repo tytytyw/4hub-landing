@@ -21,9 +21,7 @@ const NoSafe = ({ set, setCreateSafe }) => {
 
         <div className={styles.content}>
           <div className={styles.titleWrap}>
-            <h4 className={styles.title}>
-              {__("У Вас еще нет ни одного сейфа")}
-            </h4>
+            <h4 className={styles.title}>{__("У Вас еще нет ни одного сейфа")}</h4>
           </div>
 
           <div className={styles.imageWrap}>
@@ -36,18 +34,12 @@ const NoSafe = ({ set, setCreateSafe }) => {
 
           <div className={styles.textWrap}>
             <p className={styles.text}>
-              {__(
-                "Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте"
-              )}
+              {__("Функция Сейф поможет Вам хранить важные данные и пароли в надежном месте")}
             </p>
           </div>
 
           <div className={styles.actionBlock}>
-            <Button
-              type="submit"
-              className={styles.cancelBtn}
-              onClick={() => set(false)}
-            >
+            <Button type="submit" className={styles.cancelBtn} onClick={() => set(false)}>
               {__("Отмена")}
             </Button>
             <Button

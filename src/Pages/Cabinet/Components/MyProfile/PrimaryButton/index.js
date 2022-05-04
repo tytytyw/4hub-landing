@@ -9,7 +9,7 @@ const PrimaryButton = ({ onClick, active, ...props }) => (
     onClick={onClick}
     className={classnames({
       [styles.button]: true,
-      [styles.active]: active,
+      [styles.active]: active
     })}
   >
     {props.text}
@@ -23,10 +23,10 @@ PrimaryButton.propTypes = {
   onClick: PropTypes.func,
   active: PropTypes.bool,
   text: PropTypes.string,
-  icon: PropTypes.object,
+  icon: PropTypes.object
 };
 
 PrimaryButton.defaultProps = {
   onClick: () => {},
-  active: false,
+  active: false
 };

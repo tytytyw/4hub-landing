@@ -29,21 +29,19 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
   const id_company = useSelector((state) => state.user.id_company);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
-  const projectFolder = useSelector(
-    (state) => state.Cabinet.project?.chosenFolder
-  );
+  const projectFolder = useSelector((state) => state.Cabinet.project?.chosenFolder);
   const project = useSelector((state) => state.Cabinet.project?.chosenProject);
   const [collapsed, setCollapsed] = useState(false);
   const [filePreview, setFilePreview] = useState({
     view: false,
     file: null,
-    create: false,
+    create: false
   });
   const [fileAddCustomization, setFileAddCustomization] = useState({
     show: false,
     file: {},
     several: false,
-    files: [],
+    files: []
   });
   const [fileErrors, setFileErrors] = useState([]);
   const [menuItem, setMenuItem] = useState("");
@@ -77,20 +75,15 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const [loadingFile, setLoadingFile] = useState([]);
   const [loaded, setLoaded] = useState([]);
   const onInputFiles = (e) => {
-    const dir =
-      menuItem === "myFolders" || menuItem === "myFiles"
-        ? path
-          ? path
-          : "global/all"
-        : projectFolder ?? "";
+    const dir = menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : projectFolder ?? "";
     const files = [...e.target.files].map((file) => ({
       file,
       options: {
         filePath: path,
         destination: menuItem,
         dir,
-        id_project: project?.id ?? "",
-      },
+        id_project: project?.id ?? ""
+      }
     }));
     setAwaitingFiles([...awaitingFiles].concat(...files));
     inputRef.current.value = "";
@@ -104,24 +97,20 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
     setFileAddCustomization({
       ...fileAddCustomization,
       several: false,
-      files: [],
+      files: []
     });
 
   const saveCustomizeSeveralFiles = (options) => {
     const arr = fileAddCustomization.files.map((obj) => ({
       file: obj.file,
-      options: { ...obj.options, ...options },
+      options: { ...obj.options, ...options }
     }));
     setAwaitingFiles([...awaitingFiles, ...arr]);
   };
 
   return (
     <div className={styles.mainWrap} onDragOver={handleDragOver}>
-      <SideMenu
-        data={id_company ? businessMenu : menu}
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-      />
+      <SideMenu data={id_company ? businessMenu : menu} collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={styles.workArea}>
         <Switch>
           <Redirect exact from="/" to={id_company ? "/company" : "/folders"} />
@@ -132,10 +121,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route path="/personal-data" component={MyProfile} />
 
-          <Route
-            path="/support"
-            render={() => <MyProfile defaultPageOption="support" />}
-          />
+          <Route path="/support" render={() => <MyProfile defaultPageOption="support" />} />
 
           <Route path="/settings" component={Settings} />
 
@@ -237,13 +223,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
 
           <Route
             path="/shared-files"
-            render={() => (
-              <SharedFiles
-                setMenuItem={setMenuItem}
-                setFilesPage={setFilesPage}
-                filesPage={filesPage}
-              />
-            )}
+            render={() => <SharedFiles setMenuItem={setMenuItem} setFilesPage={setFilesPage} filesPage={filesPage} />}
           />
 
           <Route path="/journal" render={() => <Journal />} />
@@ -268,10 +248,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
             )}
           />
 
-          <Route
-            path="/chat-page"
-            render={() => <Chat setMenuItem={setMenuItem} />}
-          />
+          <Route path="/chat-page" render={() => <Chat setMenuItem={setMenuItem} />} />
 
           <Route
             path="/folders"
@@ -302,12 +279,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
         </Switch>
       </div>
       <div style={{ display: "none" }}>
-        <input
-          type="file"
-          multiple="multiple"
-          onChange={onInputFiles}
-          ref={inputRef}
-        />
+        <input type="file" multiple="multiple" onChange={onInputFiles} ref={inputRef} />
       </div>
       <Modals
         awaitingFiles={awaitingFiles}
@@ -331,5 +303,5 @@ export default PrivateCabinet;
 
 PrivateCabinet.propTypes = {
   loadingType: PropTypes.string,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

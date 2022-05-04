@@ -15,7 +15,7 @@ const Header = ({ setOption, title }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <div className={styles.backButton} onClick={() => setOption("main")}>
@@ -33,5 +33,5 @@ export default Header;
 
 Header.propTypes = {
   setOption: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };

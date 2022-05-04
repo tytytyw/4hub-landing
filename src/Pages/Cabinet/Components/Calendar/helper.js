@@ -26,13 +26,13 @@ export const months = [
   { id: 8, text: "Сентябрь" },
   { id: 9, text: "Октябрь" },
   { id: 10, text: "Ноябрь" },
-  { id: 11, text: "Декабрь" },
+  { id: 11, text: "Декабрь" }
 ];
 
 export const eventTypesColor = {
   1: "#25AB27",
   2: "#E4791C",
-  3: "#A11CE4",
+  3: "#A11CE4"
 };
 
 export const hexToRgb = (hex) => {
@@ -41,7 +41,7 @@ export const hexToRgb = (hex) => {
     ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
+        b: parseInt(result[3], 16)
       }
     : null;
 };
@@ -53,7 +53,7 @@ export const days = [
   { id: 4, day: "Чт" },
   { id: 5, day: "Пт" },
   { id: 6, day: "Сб" },
-  { id: 0, day: "Вс" },
+  { id: 0, day: "Вс" }
 ];
 
 export const hours = [
@@ -71,7 +71,7 @@ export const hours = [
   { text: "20:00", value: 20 },
   { text: "21:00", value: 21 },
   { text: "22:00", value: 22 },
-  { text: "23:00", value: 23 },
+  { text: "23:00", value: 23 }
 ];
 
 export const monthNameType = {
@@ -86,7 +86,7 @@ export const monthNameType = {
   8: "Сентября",
   9: "Октября",
   10: "Ноября",
-  11: "Декабря",
+  11: "Декабря"
 };
 
 export const weekDays = [
@@ -96,5 +96,5 @@ export const weekDays = [
   { id: 4, name: "Ср" },
   { id: 5, name: "Чт" },
   { id: 6, name: "Пт" },
-  { id: 7, name: "Сб" },
+  { id: 7, name: "Сб" }
 ];

@@ -12,7 +12,7 @@ import {
   getContactName,
   messengersData,
   messengersIcons,
-  titlesSoc,
+  titlesSoc
 } from "../../MyProfile/Contacts/consts";
 import ContactSearch from "../../MyProfile/Contacts/ContactList/ContactSearch/ContactSearch";
 import Button from "../../MyProfile/Button";
@@ -81,11 +81,7 @@ const AddMember = ({ set, selectedItem }) => {
       <form noValidate onSubmit={onSubmit} className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.profileWrap}>
-            <img
-              className={styles.profileImg}
-              src={selectedItem?.icon?.[0] || emptyProfileImage}
-              alt="pie-chart"
-            />
+            <img className={styles.profileImg} src={selectedItem?.icon?.[0] || emptyProfileImage} alt="pie-chart" />
             <span>{__("Дабавьте участника (ов)")}</span>
           </div>
           <span className={styles.close} onClick={() => set(false)}>
@@ -152,14 +148,10 @@ const AddMember = ({ set, selectedItem }) => {
               }}
               className={classNames({
                 [styles.socialsItem]: true,
-                [styles.active]: selectedSoc === "email",
+                [styles.active]: selectedSoc === "email"
               })}
             >
-              <img
-                className={styles.socialIcon}
-                src={`${imageSrc}/assets/PrivateCabinet/email.svg`}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={`${imageSrc}/assets/PrivateCabinet/email.svg`} alt="Email" />
               <p>Email</p>
             </li>
             {messengersData.map((item, index) => (
@@ -167,24 +159,16 @@ const AddMember = ({ set, selectedItem }) => {
                 onClick={() => {}}
                 className={classNames({
                   [styles.socialsItem]: true,
-                  [styles.active]: selectedSoc === item?.type,
+                  [styles.active]: selectedSoc === item?.type
                 })}
                 key={index}
               >
-                <img
-                  className={styles.socialIcon}
-                  src={messengersIcons[item?.type]}
-                  alt={titlesSoc[item?.type]}
-                />
+                <img className={styles.socialIcon} src={messengersIcons[item?.type]} alt={titlesSoc[item?.type]} />
                 <p>{titlesSoc[item?.type]}</p>
               </li>
             ))}
             <li className={styles.socialsItem}>
-              <img
-                className={styles.socialIcon}
-                src={`${imageSrc}/assets/PrivateCabinet/more.svg`}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={`${imageSrc}/assets/PrivateCabinet/more.svg`} alt="Email" />
               <p>{__("Ещё")}</p>
             </li>
           </ul>
@@ -233,5 +217,5 @@ export default AddMember;
 
 AddMember.propTypes = {
   set: PropTypes.func,
-  selectedItem: PropTypes.object,
+  selectedItem: PropTypes.object
 };

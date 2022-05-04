@@ -20,25 +20,18 @@ const Signs = ({ sign, setSign, title, editableClass = "" }) => {
           key={i}
           className={classnames({
             [styles.sign]: true,
-            [styles.signChosen]: sign === el,
+            [styles.signChosen]: sign === el
           })}
           onClick={() => set(el)}
         >
-          <img
-            src={`${imageSrc}assets/PrivateCabinet/signs/${el}.svg`}
-            alt="sign"
-          />
+          <img src={`${imageSrc}assets/PrivateCabinet/signs/${el}.svg`} alt="sign" />
         </div>
       );
     });
   };
 
   return (
-    <div
-      className={`${styles.signsWrap} ${
-        editableClass ? styles[editableClass] : ""
-      }`}
-    >
+    <div className={`${styles.signsWrap} ${editableClass ? styles[editableClass] : ""}`}>
       <span className={styles.title}>{title}</span>
       <div>{renderSigns()}</div>
     </div>

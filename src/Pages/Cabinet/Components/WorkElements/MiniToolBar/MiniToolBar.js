@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onSetModals,
-  onSetPaint,
-} from "../../../../../Store/actions/CabinetActions";
+import { onSetModals, onSetPaint } from "../../../../../Store/actions/CabinetActions";
 import styles from "./MiniToolBar.module.sass";
 import { ReactComponent as PencilIcon } from "../../../../../assets/PrivateCabinet/minitoolbar/pencil.svg";
 import { ReactComponent as MarkerIcon } from "../../../../../assets/PrivateCabinet/minitoolbar/marker.svg";
@@ -30,10 +27,7 @@ import Brush from "./Tools/Brush";
 import SizePicker from "./Tools/SizePicker";
 import Square from "./Tools/Square";
 import Circle from "./Tools/Circle";
-import {
-  replaceFile,
-  useSendFile,
-} from "../../../../../generalComponents/generalHelpers";
+import { replaceFile, useSendFile } from "../../../../../generalComponents/generalHelpers";
 import { drawCanvas } from "../../Modals/Components/PreviewFile/paintHelpers";
 import TextDraw from "./Tools/TextDraw";
 import LineDraw from "./Tools/LineDraw/LineDraw";
@@ -60,19 +54,17 @@ const MiniToolBar = ({
   isPreview = true,
   isComment = false,
   toggleComment = () => {},
-  buttonsStyle = {},
+  buttonsStyle = {}
 }) => {
   const sendFile = useSendFile();
   const [params, setParams] = useState({
     edit: false,
     history: { next: [], previous: [] },
     showAdditionalTools: false,
-    drawTool: "",
+    drawTool: ""
   });
   const paint = useSelector((state) => state.Cabinet.paint);
-  const previewWithComments = useSelector(
-    (state) => state.Cabinet.modals.previewWithComments
-  );
+  const previewWithComments = useSelector((state) => state.Cabinet.modals.previewWithComments);
   const project = useSelector((state) => state.Cabinet.project);
   const uid = useSelector((state) => state.user.uid);
   const printScreen = useSelector((s) => s.Cabinet.modals.printScreen);
@@ -87,11 +79,10 @@ const MiniToolBar = ({
       history: {
         ...s.history,
         previous: [...s.history.previous, image],
-        next: [],
-      },
+        next: []
+      }
     }));
-  const imageNavigation = (next, previous) =>
-    setParams((s) => ({ ...s, history: { previous, next } }));
+  const imageNavigation = (next, previous) => setParams((s) => ({ ...s, history: { previous, next } }));
 
   const previousImage = () => {
     if (params.history.previous.length > 0) {
@@ -106,10 +97,7 @@ const MiniToolBar = ({
     if (params.history.next.length > 0) {
       let next = [...params.history.next];
       const image = next.pop();
-      const previous = [
-        ...params.history.previous,
-        canvasRef.current.toDataURL(),
-      ];
+      const previous = [...params.history.previous, canvasRef.current.toDataURL()];
       drawCanvas(canvasRef.current, image, imageNavigation, next, previous);
     }
   };
@@ -123,8 +111,7 @@ const MiniToolBar = ({
     dispatch(onSetPaint("tool", { name }));
   };
 
-  const toggleContextMenu = () =>
-    setParams((s) => ({ ...s, showAdditionalTools: !s.showAdditionalTools }));
+  const toggleContextMenu = () => setParams((s) => ({ ...s, showAdditionalTools: !s.showAdditionalTools }));
 
   const renderAdditionalTools = () => (
     <>
@@ -132,18 +119,14 @@ const MiniToolBar = ({
         <div className={styles.additionalTools}>
           <div
             onClick={() => chooseAdditionalTool("text")}
-            className={`${styles.line} ${
-              "text" === paint.tool?.name && styles.chosen
-            }`}
+            className={`${styles.line} ${"text" === paint.tool?.name && styles.chosen}`}
           >
             <TextIcon className={styles.iconTool} />
             Текст
           </div>
           <div
             onClick={() => chooseAdditionalTool("magnifier")}
-            className={`${styles.line} ${
-              "magnifier" === paint.tool?.name && styles.chosen
-            }`}
+            className={`${styles.line} ${"magnifier" === paint.tool?.name && styles.chosen}`}
           >
             <SearchIcon className={styles.iconTool} />
             Лупа
@@ -151,41 +134,31 @@ const MiniToolBar = ({
           <div className={`${styles.line} ${styles.lineIcons}`}>
             <div
               onClick={() => addTool(Circle)}
-              className={`${styles.toolWrap} ${
-                "circle" === paint.tool?.name && styles.chosen
-              }`}
+              className={`${styles.toolWrap} ${"circle" === paint.tool?.name && styles.chosen}`}
             >
               <Square1Icon />
             </div>
             <div
               onClick={() => addTool(Triangle)}
-              className={`${styles.toolWrap} ${
-                "triangle" === paint.tool?.name && styles.chosen
-              }`}
+              className={`${styles.toolWrap} ${"triangle" === paint.tool?.name && styles.chosen}`}
             >
               <SquareIcon />
             </div>
             <div
               onClick={() => addTool(Square)}
-              className={`${styles.toolWrap} ${
-                "square" === paint.tool?.name && styles.chosen
-              }`}
+              className={`${styles.toolWrap} ${"square" === paint.tool?.name && styles.chosen}`}
             >
               <Square3Icon />{" "}
             </div>
             <div
               onClick={() => chooseAdditionalTool("arrow")}
-              className={`${styles.toolWrap} ${
-                "arrow" === paint.tool?.name && styles.chosen
-              }`}
+              className={`${styles.toolWrap} ${"arrow" === paint.tool?.name && styles.chosen}`}
             >
               <VectorIcon />
             </div>
             <div
               onClick={() => chooseAdditionalTool("line")}
-              className={`${styles.toolWrap} ${
-                "line" === paint.tool?.name && styles.chosen
-              }`}
+              className={`${styles.toolWrap} ${"line" === paint.tool?.name && styles.chosen}`}
             >
               <LineIcon />
             </div>
@@ -201,24 +174,18 @@ const MiniToolBar = ({
         "tool",
         new toolName(canvasRef?.current, {
           color: paint.color,
-          pushInDrawHistory: onFinishDraw,
+          pushInDrawHistory: onFinishDraw
         })
       )
     );
   };
 
-  const addButton = (
-    icon,
-    name = "",
-    options = null,
-    callback = null,
-    itemClass
-  ) => (
+  const addButton = (icon, name = "", options = null, callback = null, itemClass) => (
     <div
       style={buttonsStyle}
-      className={`${styles.buttonWrap} ${
-        !params.edit && styles.buttonWrapInactive
-      } ${name === paint.tool?.name && styles.chosen} ${styles[itemClass]}`}
+      className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${
+        name === paint.tool?.name && styles.chosen
+      } ${styles[itemClass]}`}
       onClick={
         options && callback && params.edit
           ? () => {
@@ -242,8 +209,7 @@ const MiniToolBar = ({
       canvasRef.current.onmouseup = null;
       dispatch(onSetPaint("tool", undefined));
       const preview = canvasRef.current.toDataURL("image/png");
-      if (file?.fid && file?.fid !== "printScreen")
-        replaceFile(uid, file, preview);
+      if (file?.fid && file?.fid !== "printScreen") replaceFile(uid, file, preview);
       if (file?.fid === "printScreen") sendFile(uid, file);
     } else {
       addTool(Pencil);
@@ -254,17 +220,13 @@ const MiniToolBar = ({
     <div
       className={classNames({
         [styles.standardToolBarWrap]: true,
-        [styles.bigSize]: toolBarType === "toolsOnly",
+        [styles.bigSize]: toolBarType === "toolsOnly"
       })}
     >
       <div className={styles.customWrap}>
         {addButton(
           <div
-            className={`${styles.arrow} ${
-              !params.edit || params.history.previous.length === 0
-                ? styles.inActive
-                : ""
-            }`}
+            className={`${styles.arrow} ${!params.edit || params.history.previous.length === 0 ? styles.inActive : ""}`}
           >
             &larr;
           </div>,
@@ -275,13 +237,7 @@ const MiniToolBar = ({
       </div>
       <div className={styles.customWrap}>
         {addButton(
-          <div
-            className={`${styles.arrow} ${
-              !params.edit || params.history.next.length === 0
-                ? styles.inActive
-                : ""
-            }`}
-          >
+          <div className={`${styles.arrow} ${!params.edit || params.history.next.length === 0 ? styles.inActive : ""}`}>
             &rarr;
           </div>,
           "next",
@@ -290,51 +246,25 @@ const MiniToolBar = ({
         )}
       </div>
       <div className={styles.customWrap}>
-        {addButton(
-          <PencilIcon className={`${!params.edit && styles.inActive}`} />,
-          "pencil",
-          Pencil,
-          addTool
-        )}
+        {addButton(<PencilIcon className={`${!params.edit && styles.inActive}`} />, "pencil", Pencil, addTool)}
       </div>
       <div className={styles.customWrap}>
-        {addButton(
-          <MarkerIcon className={`${!params.edit && styles.inActive}`} />,
-          "marker",
-          Marker,
-          addTool
-        )}
+        {addButton(<MarkerIcon className={`${!params.edit && styles.inActive}`} />, "marker", Marker, addTool)}
       </div>
       <div className={styles.customWrap}>
-        {addButton(
-          <BrushIcon className={`${!params.edit && styles.inActive}`} />,
-          "brush",
-          Brush,
-          addTool
-        )}
+        {addButton(<BrushIcon className={`${!params.edit && styles.inActive}`} />, "brush", Brush, addTool)}
       </div>
       <div className={styles.customWrap}>
-        {addButton(
-          <EraserIcon className={`${!params.edit && styles.inActive}`} />,
-          "eraser",
-          Eraser,
-          addTool
-        )}
+        {addButton(<EraserIcon className={`${!params.edit && styles.inActive}`} />, "eraser", Eraser, addTool)}
       </div>
-      <div className={styles.customWrap}>
-        {addButton(<SizePicker isEdit={params.edit} />, "colorPicker")}
-      </div>
+      <div className={styles.customWrap}>{addButton(<SizePicker isEdit={params.edit} />, "colorPicker")}</div>
       <div className={styles.customWrap}>
         {addButton(
           !params.edit ? (
             <div className={styles.inactiveColor} />
           ) : (
             <div style={{ position: "relative" }}>
-              <img
-                src="./assets/PrivateCabinet/Oval.png"
-                alt="palette"
-                onClick={chooseColor}
-              />
+              <img src="./assets/PrivateCabinet/Oval.png" alt="palette" onClick={chooseColor} />
               <ColorPicker colorPickerRef={colorPickerRef} />
             </div>
           ),
@@ -358,11 +288,7 @@ const MiniToolBar = ({
   const renderPhotos = (photos) => (
     <div className={styles.photoWrap}>
       {photos.map((photo, i) => (
-        <div
-          key={i}
-          className={styles.photoUser}
-          style={{ transform: `translateX(${12 * i}px)` }}
-        >
+        <div key={i} className={styles.photoUser} style={{ transform: `translateX(${12 * i}px)` }}>
           <img src={photo} alt="img" />
         </div>
       ))}
@@ -373,7 +299,7 @@ const MiniToolBar = ({
     <div
       className={styles.previewFileToolbar}
       style={{
-        width,
+        width
       }}
     >
       <div className={styles.leftPart}>
@@ -381,9 +307,7 @@ const MiniToolBar = ({
           <div className={styles.imgTitle}>
             {isPreview ? (
               <img
-                src={`${file?.preview}${
-                  file?.fid === "printScreen" ? "" : `?${new Date()}`
-                }`}
+                src={`${file?.preview}${file?.fid === "printScreen" ? "" : `?${new Date()}`}`}
                 style={{ maxWidth: 100, maxHeight: 45 }}
                 alt="img"
               />
@@ -409,14 +333,14 @@ const MiniToolBar = ({
                   ...paint.mutualEdit,
                   open: true,
                   data: [canvasRef.current.toDataURL("image/png")],
-                  destination: file?.gdir || "global/all",
+                  destination: file?.gdir || "global/all"
                 })
               );
               dispatch(
                 onSetModals("previewFile", {
                   ...previewFile,
                   open: false,
-                  file: null,
+                  file: null
                 })
               );
             }
@@ -437,7 +361,7 @@ const MiniToolBar = ({
                 onSetModals("previewFile", {
                   ...previewFile,
                   open: false,
-                  file: null,
+                  file: null
                 })
               );
               dispatch(
@@ -445,17 +369,14 @@ const MiniToolBar = ({
                   ...previewFile,
                   open: false,
                   files: [],
-                  chosenFile: null,
+                  chosenFile: null
                 })
               );
             }}
           >
             Отменить
           </span>
-          <span
-            className={`${styles.button} ${styles.save}`}
-            onClick={handleSaveImage}
-          >
+          <span className={`${styles.button} ${styles.save}`} onClick={handleSaveImage}>
             {params.edit ? "Сохранить" : "Редактировать"}
           </span>
           {share !== null ? (
@@ -467,14 +388,14 @@ const MiniToolBar = ({
                     ...shareStore,
                     open: true,
                     fids: [file.fid],
-                    action_type: "file_share",
+                    action_type: "file_share"
                   })
                 );
                 dispatch(
                   onSetModals("previewFile", {
                     ...previewFile,
                     open: false,
-                    file: null,
+                    file: null
                   })
                 );
               }}
@@ -491,7 +412,7 @@ const MiniToolBar = ({
     <div
       className={styles.previewFileToolbar}
       style={{
-        width,
+        width
       }}
     >
       <div className={styles.leftPart} />
@@ -504,7 +425,7 @@ const MiniToolBar = ({
                 ...previewWithComments,
                 open: true,
                 files: project.files,
-                chosenFile: file,
+                chosenFile: file
               })
             )
           }
@@ -513,15 +434,9 @@ const MiniToolBar = ({
           <div className={styles.unread} />
         </div>
         <div
-          className={`${styles.customWrap} ${
-            printScreen.open && styles.inActive
-          }`}
+          className={`${styles.customWrap} ${printScreen.open && styles.inActive}`}
           onClick={() =>
-            printScreen.open
-              ? null
-              : dispatch(
-                  onSetModals("printScreen", { ...printScreen, open: true })
-                )
+            printScreen.open ? null : dispatch(onSetModals("printScreen", { ...printScreen, open: true }))
           }
         >
           {addButton(<CameraIcon />)}
@@ -535,7 +450,7 @@ const MiniToolBar = ({
                   ...paint.mutualEdit,
                   open: true,
                   data: [file.preview],
-                  destination: file?.gdir || "global/all",
+                  destination: file?.gdir || "global/all"
                 })
               )
             }
@@ -550,17 +465,11 @@ const MiniToolBar = ({
         </div>
         <div
           className={styles.customWrap}
-          onClick={() =>
-            dispatch(
-              onSetModals("previewFile", { ...previewFile, open: true, file })
-            )
-          }
+          onClick={() => dispatch(onSetModals("previewFile", { ...previewFile, open: true, file }))}
         >
           {addButton(<DashedBorderIcon />)}
         </div>
-        <div className={styles.customWrap}>
-          {addButton(<div className={styles.menuDots} />)}
-        </div>
+        <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
         <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
         {renderPhotos([BlackMan, WhiteMan, Woman])}
       </div>
@@ -571,7 +480,7 @@ const MiniToolBar = ({
     <div
       className={`${styles.previewFileToolbar} ${styles.mutualEditWrap}`}
       style={{
-        width,
+        width
       }}
     >
       <div className={styles.leftPart}>
@@ -592,31 +501,21 @@ const MiniToolBar = ({
             "compareWrapChosen"
           )}
         </div>
-        <div className={styles.customWrap}>
-          {addButton(<div className={styles.menuDots} />)}
-        </div>
+        <div className={styles.customWrap}>{addButton(<div className={styles.menuDots} />)}</div>
         <div className={styles.customWrap}>{addButton(<InfoIcon />)}</div>
         {renderPhotos([BlackMan, WhiteMan, Woman])}
         <div className={styles.manageButtons}>
           <span
             className={`${styles.button} ${styles.cancel}`}
             onClick={() => {
-              dispatch(
-                onSetPaint("mutualEdit", { ...paint.mutualEdit, open: false })
-              );
+              dispatch(onSetPaint("mutualEdit", { ...paint.mutualEdit, open: false }));
             }}
           >
             Закрыть
           </span>
           <span
-            className={`${styles.button} ${
-              images?.length > 0 && !isLoading ? styles.save : styles.disabled
-            }`}
-            onClick={() =>
-              !isLoading
-                ? saveImageToPanel(canvasRef.current.toDataURL())
-                : null
-            }
+            className={`${styles.button} ${images?.length > 0 && !isLoading ? styles.save : styles.disabled}`}
+            onClick={() => (!isLoading ? saveImageToPanel(canvasRef.current.toDataURL()) : null)}
           >
             Сохранить
           </span>
@@ -634,7 +533,7 @@ const MiniToolBar = ({
   useEffect(() => {
     setParams((s) => ({
       ...s,
-      history: { ...s.history, previous: [], next: [] },
+      history: { ...s.history, previous: [], next: [] }
     }));
     if (images?.length > 0) {
       setParams((s) => ({ ...s, edit: true }));
@@ -652,14 +551,9 @@ const MiniToolBar = ({
       {toolBarType === "toolsOnly" ? standardEditToolBar() : null}
 
       {params.edit && paint.tool?.name === "text" ? (
-        <TextDraw
-          canvas={canvasRef?.current}
-          onFinishDraw={onFinishDraw}
-          addTool={addTool}
-        />
+        <TextDraw canvas={canvasRef?.current} onFinishDraw={onFinishDraw} addTool={addTool} />
       ) : null}
-      {params.edit &&
-      (paint.tool?.name === "arrow" || paint.tool?.name === "line") ? (
+      {params.edit && (paint.tool?.name === "arrow" || paint.tool?.name === "line") ? (
         <LineDraw
           canvas={canvasRef?.current}
           onFinishDraw={onFinishDraw}
@@ -668,9 +562,7 @@ const MiniToolBar = ({
           isArrow={paint.tool?.name === "arrow"}
         />
       ) : null}
-      {paint.tool?.name === "magnifier" ? (
-        <Magnifier canvas={canvasRef?.current} />
-      ) : null}
+      {paint.tool?.name === "magnifier" ? <Magnifier canvas={canvasRef?.current} /> : null}
     </>
   );
 };

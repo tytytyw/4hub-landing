@@ -102,9 +102,9 @@ const MyProfile = ({ defaultPageOption }) => {
 export default MyProfile;
 
 MyProfile.propTypes = {
-  defaultPageOption: PropTypes.string,
+  defaultPageOption: PropTypes.string
 };
 
 MyProfile.defaultProps = {
-  defaultPageOption: "personal_data",
+  defaultPageOption: "personal_data"
 };

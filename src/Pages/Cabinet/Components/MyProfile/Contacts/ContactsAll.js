@@ -9,28 +9,18 @@ const ContactsAll = ({ data }) => {
   const [selectedContact, setSelectedContact] = useState(data?.[0]);
 
   useEffect(() => {
-    const newSelectedContact = data?.find(
-      (contact) => contact?.id === selectedContact?.id
-    );
+    const newSelectedContact = data?.find((contact) => contact?.id === selectedContact?.id);
     newSelectedContact && setSelectedContact(newSelectedContact);
   }, [data]); // eslint-disable-line
 
   return (
     <>
       <div className={styles.contactList}>
-        <ContactList
-          data={data}
-          selectedItem={selectedContact}
-          setSelectedItem={setSelectedContact}
-        />
+        <ContactList data={data} selectedItem={selectedContact} setSelectedItem={setSelectedContact} />
       </div>
 
       <div className={styles.contactData}>
-        <ContactsData
-          data={data}
-          selectedItem={selectedContact}
-          setSelectedItem={setSelectedContact}
-        />
+        <ContactsData data={data} selectedItem={selectedContact} setSelectedItem={setSelectedContact} />
       </div>
     </>
   );
@@ -39,9 +29,9 @@ const ContactsAll = ({ data }) => {
 export default ContactsAll;
 
 ContactsAll.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.array
 };
 
 ContactsAll.defaultProps = {
-  data: [],
+  data: []
 };

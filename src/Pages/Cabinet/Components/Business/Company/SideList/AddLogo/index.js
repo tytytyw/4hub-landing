@@ -14,13 +14,13 @@ const AddLogo = ({
   setAction,
   companyName,
   setCompanyName,
-  companyLogo,
+  companyLogo
 }) => {
   const { __ } = useLocales();
   const [defaultTitle] = useState("Добавить лого компании");
   const contextMenuLogo = [
     { name: __("Загрузить Лого"), img: "download-blue", type: "uploadLogo" },
-    { name: __("Редактировать"), img: "edit", type: "editLogo" },
+    { name: __("Редактировать"), img: "edit", type: "editLogo" }
   ].filter((menuItem) => (companyLogo ? true : menuItem.type !== "editLogo"));
 
   const callbackArrMain = [
@@ -28,14 +28,14 @@ const AddLogo = ({
       type: "uploadLogo",
       name: __("Загрузить Лого"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "editLogo",
       name: __("Редактировать"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   return (
@@ -59,19 +59,13 @@ const AddLogo = ({
             y: e.clientY,
             width: 158,
             height: 38,
-            type: "contextMenuLogo",
+            type: "contextMenuLogo"
           });
         }}
       />
       {mouseParams !== null && mouseParams.type === "contextMenuLogo" ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={false}
-        >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuLogo, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={false}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuLogo, callbackArrMain)}</div>
         </ContextMenu>
       ) : null}
     </div>
@@ -87,5 +81,5 @@ AddLogo.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any,
+  companyLogo: PropTypes.any
 };

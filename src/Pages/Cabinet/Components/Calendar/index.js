@@ -73,12 +73,7 @@ const CalendarPage = () => {
       </div>
 
       {createTask && (
-        <CreateTask
-          title="Создание проекта"
-          onCreate={setCreateTask}
-          setSuccess={setSuccess}
-          setEvent={setEvent}
-        />
+        <CreateTask title="Создание проекта" onCreate={setCreateTask} setSuccess={setSuccess} setEvent={setEvent} />
       )}
 
       {success && <SuccessCreated event={event} set={setSuccess} />}

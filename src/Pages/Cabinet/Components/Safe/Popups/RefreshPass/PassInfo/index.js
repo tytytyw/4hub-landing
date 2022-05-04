@@ -14,29 +14,27 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
     {
       id: 2,
       label: __("Содержит как строчные (a-z), так и прописные буквы (A-Z)"),
-      checked: false,
+      checked: false
     },
     {
       id: 3,
       label: __("Содержит по крайней мере одну цифру (0-9) или символ"),
-      checked: false,
+      checked: false
     },
     {
       id: 4,
       label: __("Не содержит ваше имя или адрес электронной почты"),
-      checked: false,
+      checked: false
     },
     {
       id: 5,
       label: __("Не часто используется или предыдущий пароль"),
-      info: true,
-    },
+      info: true
+    }
   ]);
 
   const checkEnable = useCallback(() => {
-    return (
-      value?.length >= 8 && hasUpperLowerCase(value) && hasNumOrChar(value)
-    );
+    return value?.length >= 8 && hasUpperLowerCase(value) && hasNumOrChar(value);
   }, [value]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,11 +42,7 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
 
   useEffect(() => {
     const onClick = (event) => {
-      if (
-        !ref.current?.contains(event.target) &&
-        !inputRef.current?.contains(event.target) &&
-        checkEnable()
-      )
+      if (!ref.current?.contains(event.target) && !inputRef.current?.contains(event.target) && checkEnable())
         setVisible(false);
     };
     window.addEventListener("click", onClick);
@@ -60,28 +54,28 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
       {
         id: 1,
         label: __("Cодержит не менее 8 симв."),
-        checked: value?.length >= 8,
+        checked: value?.length >= 8
       },
       {
         id: 2,
         label: __("Содержит как строчные (a-z), так и прописные буквы (A-Z)"),
-        checked: hasUpperLowerCase(value),
+        checked: hasUpperLowerCase(value)
       },
       {
         id: 3,
         label: __("Содержит по крайней мере одну цифру (0-9) или символ"),
-        checked: hasNumOrChar(value),
+        checked: hasNumOrChar(value)
       },
       {
         id: 4,
         label: __("Не содержит ваше имя или адрес электронной почты"),
-        checked: false,
+        checked: false
       },
       {
         id: 5,
         label: __("Не часто используется или предыдущий пароль"),
-        info: true,
-      },
+        info: true
+      }
     ]);
   }, [value]);
 
@@ -94,7 +88,7 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
               <CheckedIcon
                 className={classNames({
                   [styles.uncheck]: true,
-                  [styles.checked]: !!item?.checked,
+                  [styles.checked]: !!item?.checked
                 })}
               />
             ) : (

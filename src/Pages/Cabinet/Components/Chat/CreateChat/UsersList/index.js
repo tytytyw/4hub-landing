@@ -12,7 +12,7 @@ const UsersList = ({
   setSelectedUsers,
   userContextMenu,
   disableHover,
-  currentDate,
+  currentDate
 }) => {
   const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
   const createContactStatus = useCreateContactStatus();
@@ -48,10 +48,7 @@ const UsersList = ({
               contact.is_online,
               gmt
             )}
-            avatar={
-              contact?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            avatar={contact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             contextMenu={userContextMenu}
             disableHover={disableHover}
             paddingRight={0}
@@ -71,5 +68,5 @@ UsersList.propTypes = {
   setSelectedUsers: PropTypes.func.isRequired,
   userContextMenu: PropTypes.string,
   disableHover: PropTypes.bool,
-  currentDate: PropTypes.object,
+  currentDate: PropTypes.object
 };

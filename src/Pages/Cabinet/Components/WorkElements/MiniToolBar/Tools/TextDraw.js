@@ -12,20 +12,15 @@ function TextDraw({ canvas, onFinishDraw, addTool }) {
     heightDif: 0,
     sizeChange: false,
     positionX: "50%",
-    positionY: "50%",
+    positionY: "50%"
   });
   const paint = useSelector((s) => s.Cabinet.paint);
 
-  const handleTextAreaChange = (e) =>
-    setParams((s) => ({ ...s, text: e.target.value }));
+  const handleTextAreaChange = (e) => setParams((s) => ({ ...s, text: e.target.value }));
 
   const handleKeyPress = () => {
-    if (
-      textBlockRef.current.offsetHeight + 3 <
-      textBlockRef.current.scrollHeight
-    ) {
-      textBlockRef.current.style.height =
-        textBlockRef.current.scrollHeight + 5 + "px";
+    if (textBlockRef.current.offsetHeight + 3 < textBlockRef.current.scrollHeight) {
+      textBlockRef.current.style.height = textBlockRef.current.scrollHeight + 5 + "px";
     }
   };
 
@@ -41,7 +36,7 @@ function TextDraw({ canvas, onFinishDraw, addTool }) {
         setParams((s) => ({
           ...s,
           positionX: e.pageX - widthDif,
-          positionY: e.pageY - heightDif,
+          positionY: e.pageY - heightDif
         }));
       };
       window.onmouseup = () => {
@@ -97,7 +92,7 @@ function TextDraw({ canvas, onFinishDraw, addTool }) {
         left: params.positionX,
         zIndex: 3,
         cursor: params.move ? "move" : "text",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: "Arial, sans-serif"
       }}
     />
   );

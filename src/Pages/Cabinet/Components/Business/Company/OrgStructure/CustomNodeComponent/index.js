@@ -16,7 +16,7 @@ function CustomNodeComponent({ data }) {
           width: 10,
           height: 10,
           borderRadius: 50,
-          background: "#4086F1",
+          background: "#4086F1"
         }}
       />
       <div className={styles.person}>
@@ -29,9 +29,7 @@ function CustomNodeComponent({ data }) {
           />
         </div>
         <div className={styles.text}>
-          <p className={styles.name}>
-            {data.info.name + " " + data.info.middleName}
-          </p>
+          <p className={styles.name}>{data.info.name + " " + data.info.middleName}</p>
           <p className={styles.position}>{data.info.position}</p>
         </div>
         <div className={styles.menuWrap}>
@@ -46,7 +44,7 @@ function CustomNodeComponent({ data }) {
           height: 10,
           borderRadius: 50,
           background: "#4086F1",
-          zIndex: 2,
+          zIndex: 2
         }}
       />
       <div className={styles.addButtonWrap}>
@@ -63,5 +61,5 @@ function CustomNodeComponent({ data }) {
 export default CustomNodeComponent;
 
 CustomNodeComponent.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object
 };

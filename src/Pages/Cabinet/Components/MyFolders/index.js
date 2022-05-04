@@ -15,7 +15,7 @@ import ContextMenu from "../../../../generalComponents/ContextMenu";
 import {
   useContextMenuFolder,
   useContextMenuFolderGeneral,
-  useFolders,
+  useFolders
 } from "../../../../generalComponents/collections";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ActionApproval from "../../../../generalComponents/ActionApproval";
@@ -27,7 +27,7 @@ import {
   onAddRecentFolders,
   onChooseFiles,
   onGetFolders,
-  onsetInitialChosenFile,
+  onsetInitialChosenFile
 } from "../../../../Store/actions/CabinetActions";
 import Error from "../../../../generalComponents/Error";
 import SuccessMessage from "../ContextMenuComponents/ContextMenuFile/SuccessMessage/SuccessMessage";
@@ -58,7 +58,7 @@ const MyFolders = ({
   saveCustomizeSeveralFiles,
   setLoadingType,
   filesPage,
-  setFilesPage,
+  setFilesPage
 }) => {
   const { __ } = useLocales();
   const contextMenuFolder = useContextMenuFolder();
@@ -69,9 +69,7 @@ const MyFolders = ({
   const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
   const path = useSelector((state) => state.Cabinet.folderList?.path);
   const fileList = useSelector((state) => state.Cabinet.fileList);
-  const initialChosenFile = useSelector(
-    (state) => state.Cabinet.fileList?.chosenFile
-  );
+  const initialChosenFile = useSelector((state) => state.Cabinet.fileList?.chosenFile);
   const [listCollapsed, setListCollapsed] = useState(false);
   const [newFolder, setNewFolder] = useState(false);
   //TODO - Need to check object keys and delete useless
@@ -81,7 +79,7 @@ const MyFolders = ({
     files_amount: 0,
     group: null,
     contextMenuFolder: null,
-    folderWidth: 310,
+    folderWidth: 310
   });
   const [chosenSubFolder] = useState(null);
   const [newFolderInfo, setNewFolderInfo] = useState({ path: "" });
@@ -114,15 +112,7 @@ const MyFolders = ({
     dispatch(onAddRecentFolders(folders));
     dispatch(onGetFolders("", folders));
     await setFilesPage(1);
-    dispatch(
-      onChooseFiles(
-        initialChosenFile ? initialChosenFile.gdir : "global/all",
-        "",
-        1,
-        "",
-        successLoad
-      )
-    );
+    dispatch(onChooseFiles(initialChosenFile ? initialChosenFile.gdir : "global/all", "", 1, "", successLoad));
     await setFilesPage(0);
     if (initialChosenFile) {
       setChosenFile(initialChosenFile);
@@ -163,15 +153,14 @@ const MyFolders = ({
     });
   };
 
-  const onSafePassword = (boolean) =>
-    setSafePassword({ ...safePassword, open: boolean });
+  const onSafePassword = (boolean) => setSafePassword({ ...safePassword, open: boolean });
 
   const openFolderMenu = (e, folder) => {
     setMouseParams({ x: e.clientX, y: e.clientY, width: 200, height: 25 });
     setChosenFolder((state) => ({
       ...state,
       info: folder,
-      contextMenuFolder: folder,
+      contextMenuFolder: folder
     }));
     if (folder) setNewFolderInfo((state) => ({ ...state, path: folder.path }));
   };
@@ -190,9 +179,7 @@ const MyFolders = ({
           height={mouseParams.height}
           text={item.name}
           callback={() => type[i]?.callback(type, i)}
-          imageSrc={
-            imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`
-          }
+          imageSrc={imageSrc + `assets/PrivateCabinet/contextMenuFile/${item.img}.svg`}
         />
       );
     });
@@ -203,14 +190,14 @@ const MyFolders = ({
       type: "addFolder",
       name: __("Добавить папку"),
       text: __(``),
-      callback: () => setNewFolder(true),
+      callback: () => setNewFolder(true)
     },
     {
       type: "propertiesFolder",
       name: __("Свойства"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const callbackArrOther = [
@@ -218,38 +205,38 @@ const MyFolders = ({
       type: "customizeFolder",
       name: __("Редактирование папки"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "resendFolder",
       name: __("Расшарить"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "setAccessFolder",
       name: __("Настроить доступ"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "addFolder",
       name: __("Добавить папку"),
       text: __(``),
-      callback: () => setNewFolder(true),
+      callback: () => setNewFolder(true)
     },
     {
       type: "propertiesFolder",
       name: __("Свойства"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "deleteFolder",
       name: __("Удаление папки"),
       text: __(`Вы действительно хотите удалить выбранную папку?`),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const deleteFolder = () => {
@@ -264,14 +251,14 @@ const MyFolders = ({
         } else {
           setError({
             isError: true,
-            message: __("Папка не удалена. Попробуйте еще раз!"),
+            message: __("Папка не удалена. Попробуйте еще раз!")
           });
         }
       })
       .catch(() =>
         setError({
           isError: true,
-          message: __("Папка не удалена. Попробуйте еще раз!"),
+          message: __("Папка не удалена. Попробуйте еще раз!")
         })
       );
   };
@@ -293,17 +280,16 @@ const MyFolders = ({
           ref={fakeScrollRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)
-              folderListWrapRef.current.scrollLeft =
-                fakeScrollRef.current.scrollLeft;
+              folderListWrapRef.current.scrollLeft = fakeScrollRef.current.scrollLeft;
           }}
           style={{
-            display: checkBrowser("safari") ? "none" : "flex",
+            display: checkBrowser("safari") ? "none" : "flex"
           }}
         >
           <div
             style={{
               width: chosenFolder.folderWidth,
-              minWidth: chosenFolder.folderWidth,
+              minWidth: chosenFolder.folderWidth
             }}
           />
         </div>
@@ -312,8 +298,7 @@ const MyFolders = ({
           ref={folderListWrapRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)
-              fakeScrollRef.current.scrollLeft =
-                folderListWrapRef.current.scrollLeft;
+              fakeScrollRef.current.scrollLeft = folderListWrapRef.current.scrollLeft;
           }}
         >
           {renderFolderList(global, false)}
@@ -372,11 +357,7 @@ const MyFolders = ({
       )}
       {fileAddCustomization.show ? (
         <CreateFile
-          title={
-            fileAddCustomization.create
-              ? __("Создать файл")
-              : __("Добавление файла")
-          }
+          title={fileAddCustomization.create ? __("Создать файл") : __("Добавление файла")}
           info={chosenFolder}
           blob={fileAddCustomization.file}
           setBlob={setFileAddCustomization}
@@ -395,18 +376,9 @@ const MyFolders = ({
           menuItem={menuItem}
         />
       ) : null}
-      {safePassword.open && (
-        <CreateSafePassword
-          onToggle={onSafePassword}
-          title={__("Создайте пароль для сейфа")}
-        />
-      )}
+      {safePassword.open && <CreateSafePassword onToggle={onSafePassword} title={__("Создайте пароль для сейфа")} />}
       {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={closeContextMenu}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={closeContextMenu} tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderMenuItems(
               chosenFolder?.contextMenuFolder?.path.indexOf("global") === 0 &&
@@ -435,10 +407,7 @@ const MyFolders = ({
         </ActionApproval>
       ) : null}
       {action.type === "propertiesFolder" ? (
-        <FolderProperty
-          close={nullifyAction}
-          folder={chosenSubFolder || chosenFolder}
-        />
+        <FolderProperty close={nullifyAction} folder={chosenSubFolder || chosenFolder} />
       ) : null}
       {action.type === "customizeFolder" ? (
         <CustomizeFolder
@@ -454,10 +423,7 @@ const MyFolders = ({
       ) : null}
       <Error error={error.isError} set={closeError} message={error.message} />
       {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
+        <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
       )}
     </div>
   );
@@ -485,5 +451,5 @@ MyFolders.propTypes = {
   saveCustomizeSeveralFiles: PropTypes.func,
   setLoadingType: PropTypes.func,
   filesPage: PropTypes.number,
-  setFilesPage: PropTypes.func,
+  setFilesPage: PropTypes.func
 };

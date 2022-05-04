@@ -19,11 +19,7 @@ const ContactSearch = ({ value, onChangeHandler = () => {}, placeholder }) => {
         className={styles.input}
         placeholder={placeholder}
       />
-      <img
-        className={styles.icon}
-        src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
-        alt="Search"
-      />
+      <img className={styles.icon} src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="Search" />
     </div>
   );
 };
@@ -33,8 +29,8 @@ export default ContactSearch;
 ContactSearch.propTypes = {
   value: PropTypes.string,
   onChangeHandler: PropTypes.func,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string
 };
 ContactSearch.defaultProps = {
-  onChangeHandler: () => {},
+  onChangeHandler: () => {}
 };

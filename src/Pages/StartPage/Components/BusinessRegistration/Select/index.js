@@ -32,20 +32,20 @@ const Select = ({ data, initValue, onChange, ...props }) => {
       ref={ref}
       className={classNames({
         [styles.selectWrap]: true,
-        [styles.active]: !!open,
+        [styles.active]: !!open
       })}
     >
       <div
         onClick={() => setOpen(!open)}
         className={classNames({
           [styles.select]: true,
-          [styles.selected]: !!value,
+          [styles.selected]: !!value
         })}
       >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
-              [styles.selectInput]: true,
+              [styles.selectInput]: true
             })}
           >
             {getValue()}
@@ -54,7 +54,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open,
+            [styles.active]: !!open
           })}
         />
       </div>
@@ -62,7 +62,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open,
+          [styles.active]: !!open
         })}
       >
         <ul className={styles.content}>
@@ -75,7 +75,7 @@ const Select = ({ data, initValue, onChange, ...props }) => {
                 onChange(item);
               }}
               className={classNames({
-                [styles.option]: true,
+                [styles.option]: true
               })}
             >
               {item}
@@ -93,10 +93,10 @@ Select.propTypes = {
   data: PropTypes.array,
   initValue: PropTypes.string,
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string
 };
 
 Select.defaultProps = {
   data: [],
-  onChange: () => {},
+  onChange: () => {}
 };

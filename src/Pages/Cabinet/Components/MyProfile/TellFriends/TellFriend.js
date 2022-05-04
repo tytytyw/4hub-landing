@@ -25,8 +25,8 @@ const TellFriend = ({ set, contact }) => {
         params: {
           uid,
           id: contact?.id,
-          email: contact?.email,
-        },
+          email: contact?.email
+        }
       })
       .then(() => {
         set(false);
@@ -61,14 +61,10 @@ const TellFriend = ({ set, contact }) => {
               onClick={() => setSelectedSoc("email")}
               className={classNames({
                 [styles.socialsItem]: true,
-                [styles.active]: selectedSoc === "email",
+                [styles.active]: selectedSoc === "email"
               })}
             >
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/email.svg"}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/email.svg"} alt="Email" />
               <p>Email</p>
             </li>
             {messengersData.map((item, index) => (
@@ -76,24 +72,16 @@ const TellFriend = ({ set, contact }) => {
                 onClick={() => setSelectedSoc(item?.type)}
                 className={classNames({
                   [styles.socialsItem]: true,
-                  [styles.active]: selectedSoc === item?.type,
+                  [styles.active]: selectedSoc === item?.type
                 })}
                 key={index}
               >
-                <img
-                  className={styles.socialIcon}
-                  src={item.icon}
-                  alt={item.label}
-                />
+                <img className={styles.socialIcon} src={item.icon} alt={item.label} />
                 <p>{item.label}</p>
               </li>
             ))}
             <li className={styles.socialsItem}>
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/more.svg"}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/more.svg"} alt="Email" />
               <p>{__("Ещё")}</p>
             </li>
           </div>
@@ -115,6 +103,6 @@ TellFriend.propTypes = {
   set: PropTypes.func,
   contact: PropTypes.shape({
     id: PropTypes.number,
-    email: PropTypes.string,
-  }),
+    email: PropTypes.string
+  })
 };

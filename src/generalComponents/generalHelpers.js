@@ -108,20 +108,14 @@ export const useSendFile = async () => {
 };
 
 //loading media to play (after problems with Safari)
-export const getMedia = (
-  url,
-  type,
-  set = () => {},
-  setLoading = () => {},
-  setError = () => {}
-) => {
+export const getMedia = (url, type, set = () => {}, setLoading = () => {}, setError = () => {}) => {
   setLoading(true);
   const cancelLoadMedia = CancelToken.source();
   window.cancellationTokens = { cancelLoadMedia };
   api
     .get(url, {
       responseType: "blob",
-      cancelToken: cancelLoadMedia.token,
+      cancelToken: cancelLoadMedia.token
     })
     .then((res) => {
       const blob = new Blob([res.data], { type });
@@ -139,11 +133,7 @@ export const exit = () => {
   const cookies = document.cookie.split(";");
   cookies.forEach((cookie) =>
     cookie.split("=")[0].trim() === "uid"
-      ? setCookie(
-          cookie.split("=")[0].trim(),
-          cookie.split("=")[1].trim(),
-          "Thu, 01 Jan 1970 00:00:00 GMT"
-        )
+      ? setCookie(cookie.split("=")[0].trim(), cookie.split("=")[1].trim(), "Thu, 01 Jan 1970 00:00:00 GMT")
       : null
   );
   window.location.pathname = "";
@@ -175,13 +165,9 @@ export const moveFile = (folder, file, uid) => {
 //Moves folder to another folder
 export const moveFolder = (folder, folderToMove, uid) => {
   if (folder.path.startsWith(folderToMove.path))
-    return Promise().reject(
-      new Error("Folder cannot be move to itself or to children")
-    );
+    return Promise().reject(new Error("Folder cannot be move to itself or to children"));
   return api
-    .post(
-      `/ajax/dir_move.php?uid=${uid}&dir=${folderToMove.name}&parent=${folderToMove.gdir}&dir_new=${folder.path}`
-    )
+    .post(`/ajax/dir_move.php?uid=${uid}&dir=${folderToMove.name}&parent=${folderToMove.gdir}&dir_new=${folder.path}`)
     .then((res) => {
       return !!res.data.ok;
     })

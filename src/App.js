@@ -9,10 +9,7 @@ import Guest from "./Pages/Guest";
 import Loader from "./generalComponents/Loaders/4HUB";
 import { LocalizedProvider } from "react-localized";
 import locales from "./locales";
-import {
-  getStorageItem,
-  setStorageItem,
-} from "./generalComponents/StorageHelper";
+import { getStorageItem, setStorageItem } from "./generalComponents/StorageHelper";
 
 function App() {
   const [loadingType, setLoadingType] = useState("bounceDots");
@@ -28,7 +25,7 @@ function App() {
     if (uid) {
       const data = {
         uid: uid?.[0].split("=")[1],
-        id_company: id_company?.[0].split("=")[1],
+        id_company: id_company?.[0].split("=")[1]
       };
       dispatch(onLog(data));
     }
@@ -45,24 +42,18 @@ function App() {
         gettext: "__",
         pgettext: "__p",
         ngettext: "__n",
-        npgettext: "__np",
+        npgettext: "__np"
       }}
     >
       {({ localeReady }) =>
         localeReady ? (
           <>
             {!uid && !options.guest && !options.business ? (
-              <StartPage
-                setOptions={setOptions}
-                setLoadingType={setLoadingType}
-              />
+              <StartPage setOptions={setOptions} setLoadingType={setLoadingType} />
             ) : null}
             {!uid && options.guest && !options.business ? <Guest /> : null}
             {!options.guest && uid && !options.business ? (
-              <Cabinet
-                loadingType={loadingType}
-                setLoadingType={setLoadingType}
-              />
+              <Cabinet loadingType={loadingType} setLoadingType={setLoadingType} />
             ) : null}
             {loadingType ? (
               <Loader

@@ -4,16 +4,7 @@ import styles from "./Textarea.module.sass";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const Textarea = ({
-  type,
-  label,
-  value,
-  name,
-  isMistake,
-  readonly,
-  onChange,
-  onBlur,
-}) => {
+const Textarea = ({ type, label, value, name, isMistake, readonly, onChange, onBlur }) => {
   const inputType = type || "text";
   const htmlFor = `${inputType}-${Math.random()}`;
   return (
@@ -25,7 +16,7 @@ const Textarea = ({
       <textarea
         className={classnames({
           [styles.textarea]: true,
-          [styles.redBorder]: isMistake,
+          [styles.redBorder]: isMistake
         })}
         id={htmlFor}
         name={name}
@@ -49,11 +40,11 @@ Textarea.propTypes = {
   isMistake: PropTypes.bool,
   readonly: PropTypes.bool,
   onChange: PropTypes.func,
-  onBlur: PropTypes.func,
+  onBlur: PropTypes.func
 };
 Textarea.defaultProps = {
   isMistake: false,
   readonly: false,
   onChange: () => {},
-  onBlur: () => {},
+  onBlur: () => {}
 };

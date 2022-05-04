@@ -26,7 +26,7 @@ function FilesGroup({
   params = null,
   menuItem = "",
   renderFileItem = () => {},
-  setGroupInfo = () => {},
+  setGroupInfo = () => {}
 }) {
   const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
   const workElementsView = useSelector((state) => state.Cabinet.view);
@@ -36,18 +36,14 @@ function FilesGroup({
   const handleChangeGroup = () => {
     setChosenFolder((state) => ({
       ...state,
-      group: { title, amount: fileList?.length },
+      group: { title, amount: fileList?.length }
     }));
     setGroupInfo((state) => ({ ...state, title, amount: fileList?.length }));
   };
   return (
     <>
       {workElementsView === "preview" ? (
-        <div
-          className={styles.group}
-          ref={workBarsPreviewGroupRef}
-          onClick={handleChangeGroup}
-        >
+        <div className={styles.group} ref={workBarsPreviewGroupRef} onClick={handleChangeGroup}>
           {renderFiles(FileBar, fileList)}
         </div>
       ) : (
@@ -60,20 +56,14 @@ function FilesGroup({
               className={styles.collapseHeader}
             >
               <p
-                className={`${styles.dateName} ${
-                  workElementsView === "workLinesPreview"
-                    ? styles.dateNameShort
-                    : ""
-                }`}
+                className={`${styles.dateName} ${workElementsView === "workLinesPreview" ? styles.dateNameShort : ""}`}
               >
                 {title}
               </p>
               <div className={styles.buttonsWrap}>
                 <button
                   className={`${styles.collapseBtn} ${
-                    workElementsView === "workLinesPreview"
-                      ? styles.collapseBtnShort
-                      : ""
+                    workElementsView === "workLinesPreview" ? styles.collapseBtnShort : ""
                   }`}
                 >
                   {fileList.length ?? 0} объектов
@@ -81,13 +71,13 @@ function FilesGroup({
                 <div
                   className={classNames({
                     [styles.arrowFile]: true,
-                    [styles.active]: !!collapse,
+                    [styles.active]: !!collapse
                   })}
                 >
                   <PlayIcon
                     className={classNames({
                       [styles.playButton]: true,
-                      [styles.revert]: !!collapse,
+                      [styles.revert]: !!collapse
                     })}
                   />
                 </div>
@@ -113,21 +103,13 @@ function FilesGroup({
                 </WorkBars>
               )}
               {workElementsView === "lines" && (
-                <div className={styles.collapseContent}>
-                  {renderFiles(FileLine, fileList)}
-                </div>
+                <div className={styles.collapseContent}>{renderFiles(FileLine, fileList)}</div>
               )}
               {workElementsView === "workLinesPreview" ? (
-                pathname.includes("files") ||
-                pathname === "/archive" ||
-                pathname === "/cart" ? (
-                  <div className={styles.collapseContentFileItem}>
-                    {renderFileItem(FileItem, fileList)}
-                  </div>
+                pathname.includes("files") || pathname === "/archive" || pathname === "/cart" ? (
+                  <div className={styles.collapseContentFileItem}>{renderFileItem(FileItem, fileList)}</div>
                 ) : (
-                  <div className={styles.collapseContentShort}>
-                    {renderFiles(FileLineShort, fileList, params)}
-                  </div>
+                  <div className={styles.collapseContentShort}>{renderFiles(FileLineShort, fileList, params)}</div>
                 )
               ) : null}
             </>

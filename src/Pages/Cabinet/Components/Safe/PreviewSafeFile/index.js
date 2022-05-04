@@ -7,16 +7,9 @@ import styles from "./PreviewSafeFile.module.sass";
 import PopUp from "../../../../../generalComponents/PopUp";
 import File from "../../../../../generalComponents/Files";
 
-const PreviewSafeFile = ({
-  setFilePreview,
-  file,
-  filePreview,
-  setLoadingType,
-}) => {
+const PreviewSafeFile = ({ setFilePreview, file, filePreview, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
-  const authorizedSafe = useSelector(
-    (state) => state.Cabinet.safe.authorizedSafe
-  );
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
   const standardPrev = (
     <div className={styles.filePreviewWrapWrap}>
@@ -38,7 +31,7 @@ const PreviewSafeFile = ({
         .get(
           `/ajax/safe_file_download.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
           {
-            responseType: "blob",
+            responseType: "blob"
           }
         )
         .then((res) => {
@@ -52,18 +45,9 @@ const PreviewSafeFile = ({
   };
 
   const renderOfficePreview = () => {
-    const isFormat =
-      previewFormats.filter((type) => file.ext.toLowerCase().includes(type))
-        .length > 0;
+    const isFormat = previewFormats.filter((type) => file.ext.toLowerCase().includes(type)).length > 0;
     if (isFormat && file.edit_url) {
-      return (
-        <iframe
-          src={previewReq.data}
-          title={file.name}
-          frameBorder="0"
-          scrolling="no"
-        />
-      );
+      return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />;
     } else {
       return standardPrev;
     }
@@ -90,14 +74,7 @@ const PreviewSafeFile = ({
       //     </div>
       // }
       case "application": {
-        return (
-          <iframe
-            src={previewReq.data}
-            title={file.name}
-            frameBorder="0"
-            scrolling="no"
-          />
-        );
+        return <iframe src={previewReq.data} title={file.name} frameBorder="0" scrolling="no" />;
       }
       default: {
         return standardPrev;
@@ -113,11 +90,7 @@ const PreviewSafeFile = ({
   return (
     <PopUp set={set} background={"none"}>
       <div className={styles.preview} onClick={() => set()}>
-        {file
-          ? file.is_preview === 1
-            ? renderFilePreview()
-            : renderOfficePreview()
-          : null}
+        {file ? (file.is_preview === 1 ? renderFilePreview() : renderOfficePreview()) : null}
       </div>
     </PopUp>
   );

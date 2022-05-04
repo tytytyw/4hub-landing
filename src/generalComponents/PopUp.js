@@ -28,7 +28,7 @@ const PopUp = (props) => {
         width: "100%",
         height: "100%",
         background: `rgba(1, 1, 1, 0.5)`,
-        zIndex: `${props.zIndex ? props.zIndex : 11}`,
+        zIndex: `${props.zIndex ? props.zIndex : 11}`
       }}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
@@ -44,7 +44,7 @@ const PopUp = (props) => {
           borderRadius: "7px",
           color: "black",
           zIndex: `${(props.zIndex ? props.zIndex : 100) + 1}`,
-          background: props?.background ? props.background : "white",
+          background: props?.background ? props.background : "white"
         }}
       >
         {props.children}

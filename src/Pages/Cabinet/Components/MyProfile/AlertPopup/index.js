@@ -41,5 +41,5 @@ Index.propTypes = {
   set: PropTypes.func,
   text: PropTypes.string,
   title: PropTypes.string,
-  setShowCodePopup: PropTypes.func,
+  setShowCodePopup: PropTypes.func
 };

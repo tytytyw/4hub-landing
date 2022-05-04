@@ -22,7 +22,7 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
   const [timeValue, setTimeValue] = useState({
     hours: "",
     minutes: "",
-    seconds: "",
+    seconds: ""
   });
   const uid = useSelector((state) => state.user.uid);
   const [size] = useState("0 MB");
@@ -36,10 +36,10 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
     setData((data) => ({
       ...data,
       deadline: dateValue
-        ? `${dateValue} ${
-            timeValue.hours ? setTime(timeValue.hours, 24) : "23"
-          }:${timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"}`
-        : "",
+        ? `${dateValue} ${timeValue.hours ? setTime(timeValue.hours, 24) : "23"}:${
+            timeValue.minutes ? setTime(timeValue.minutes, 60) : "59"
+          }`
+        : ""
     }));
   }, [dateValue, timeValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -57,36 +57,19 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
             </div>
             <div className={styles.input_wrap}>
               <p className={styles.input_title}>Может просматривать</p>
-              <input
-                value={__(
-                  "Все у кого есть эта ссылка, смогут просматривать файл"
-                )}
-                type="button"
-              ></input>
+              <input value={__("Все у кого есть эта ссылка, смогут просматривать файл")} type="button"></input>
             </div>
-            <span className={styles.set_list}>
-              {__("Все у кого есть ссылка")}
-            </span>
+            <span className={styles.set_list}>{__("Все у кого есть ссылка")}</span>
           </div>
           <div className={classNames(styles.row_item, styles.border_bottom)}>
             <div className={styles.ico_wrap}>
               <Calendar className={styles.row_ico} />
             </div>
             <div className={styles.input_wrap}>
-              <p className={styles.input_title}>
-                {__("Срок хранения файла/папки")}
-              </p>
-              <input
-                value={__(
-                  "Установите срок хранения файла (после завершения файл будет удален)"
-                )}
-                type="button"
-              />
+              <p className={styles.input_title}>{__("Срок хранения файла/папки")}</p>
+              <input value={__("Установите срок хранения файла (после завершения файл будет удален)")} type="button" />
             </div>
-            <span
-              onClick={() => setDisplayStotagePeriod(true)}
-              className={styles.set_btn}
-            >
+            <span onClick={() => setDisplayStotagePeriod(true)} className={styles.set_btn}>
               {__("Установить")}
             </span>
           </div>
@@ -96,15 +79,9 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
             </div>
             <div className={styles.input_wrap}>
               <p className={styles.input_title}>{__("Пароль")}</p>
-              <input
-                id={"input_pass"}
-                placeholder={__("Вы можете установить пароль на данный файл")}
-              />
+              <input id={"input_pass"} placeholder={__("Вы можете установить пароль на данный файл")} />
             </div>
-            <span
-              onClick={() => setDisplaySetPassword(true)}
-              className={styles.set_btn}
-            >
+            <span onClick={() => setDisplaySetPassword(true)} className={styles.set_btn}>
               {__("Установить")}
             </span>
           </div>
@@ -114,17 +91,10 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
                 <Pensil className={styles.row_ico} />
               </div>
               <div className={styles.input_wrap}>
-                <p className={styles.input_title}>
-                  {__("Может редактировать")}
-                </p>
-                <input
-                  value={__("Все у кого есть эта ссылка, смогут изменять файл")}
-                  type="button"
-                ></input>
+                <p className={styles.input_title}>{__("Может редактировать")}</p>
+                <input value={__("Все у кого есть эта ссылка, смогут изменять файл")} type="button"></input>
               </div>
-              <span className={styles.set_list}>
-                {__("Все у кого есть ссылка")}
-              </span>
+              <span className={styles.set_list}>{__("Все у кого есть ссылка")}</span>
             </div>
           </div>
         </div>
@@ -156,5 +126,5 @@ export default ConfigAccessFolder;
 ConfigAccessFolder.propTypes = {
   folder: projectFolderStructure,
   close: PropTypes.func,
-  setShowSuccessMessage: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func
 };

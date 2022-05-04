@@ -13,11 +13,7 @@ const General = ({ folder }) => {
     <div className={styles.generalWrap}>
       <div className={styles.nameBlock}>
         <div className={styles.folderWrap}>
-          <FolderIcon
-            className={`${styles.folderWrap} ${
-              colors.filter((el) => el.color === folder.color)[0]?.name
-            }`}
-          />
+          <FolderIcon className={`${styles.folderWrap} ${colors.filter((el) => el.color === folder.color)[0]?.name}`} />
         </div>
         <div className={styles.inputWrap}>
           <InputField height="90%" placeholder={folder.name} disabled={true} />
@@ -54,5 +50,5 @@ const General = ({ folder }) => {
 export default General;
 
 General.propTypes = {
-  folder: projectFolderStructure,
+  folder: projectFolderStructure
 };

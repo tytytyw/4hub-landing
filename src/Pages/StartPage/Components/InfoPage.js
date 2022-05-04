@@ -77,20 +77,14 @@ const InfoPage = ({ setPage }) => {
         <PopUp set={setSucсess}>
           <div className={styles.sendSuccess}>
             <span className={styles.cross} onClick={() => setSucсess(false)} />
-            <span className={styles.title}>
-              {__("Запрос успешно отправлен")}
-            </span>
+            <span className={styles.title}>{__("Запрос успешно отправлен")}</span>
             <div className={styles.imageWrap}>
               <img
                 src={imageSrc + "assets/StartPage/success-file-send.svg"}
                 alt="computer"
                 className={styles.computer}
               />
-              <img
-                src={imageSrc + "assets/StartPage/envelope.svg"}
-                alt="envelope"
-                className={styles.envelope}
-              />
+              <img src={imageSrc + "assets/StartPage/envelope.svg"} alt="envelope" className={styles.envelope} />
               <img
                 src={imageSrc + "assets/StartPage/paper-plane-left.svg"}
                 alt="paper-plane"
@@ -102,10 +96,7 @@ const InfoPage = ({ setPage }) => {
                 className={styles.planeRight}
               />
             </div>
-            <div
-              className={styles.closeButton}
-              onClick={() => setSucсess(false)}
-            >
+            <div className={styles.closeButton} onClick={() => setSucсess(false)}>
               {__("Закрыть")}
             </div>
           </div>
@@ -118,5 +109,5 @@ const InfoPage = ({ setPage }) => {
 export default InfoPage;
 
 InfoPage.propTypes = {
-  setPage: PropTypes.func,
+  setPage: PropTypes.func
 };

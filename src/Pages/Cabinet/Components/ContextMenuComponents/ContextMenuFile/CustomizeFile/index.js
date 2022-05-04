@@ -5,10 +5,7 @@ import styles from "./CustomizeFile.module.sass";
 import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  colors,
-  useTags,
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import Error from "../../../../../../generalComponents/Error";
 import {
   onCustomizeFile,
@@ -16,7 +13,7 @@ import {
   onAddRecentFiles,
   onChooseFiles,
   onGetSafeFileList,
-  onSetModals,
+  onSetModals
 } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -27,51 +24,33 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const CustomizeFile = ({
-  saveCustomizeSeveralFiles,
-  setLoadingType = () => {},
-  info,
-}) => {
+const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType = () => {}, info }) => {
   const { __ } = useLocales();
   const tags = useTags();
-  const { title, items, filePick, menuItem } = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const { title, items, filePick, menuItem } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const file = items[0];
   const uid = useSelector((state) => state.user.uid);
   const path = useSelector((state) => state.Cabinet?.fileList?.path);
   const fileListAll = useSelector((state) => state.Cabinet?.fileListAll);
   const search = useSelector((state) => state.Cabinet?.search);
-  const [name, setName] = useState(
-    items.length === 1 ? file.name.slice(0, file.name.lastIndexOf(".")) : ""
-  );
+  const [name, setName] = useState(items.length === 1 ? file.name.slice(0, file.name.lastIndexOf(".")) : "");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [passwordCoincide, setPasswordCoincide] = useState(false);
   const [showRepeat, setShowRepeat] = useState(false);
   const [color, setColor] = useState(
-    filePick?.several || items.length > 1
-      ? colors[0]
-      : colors.find((c) => c.color === file.color) ?? colors[0]
+    filePick?.several || items.length > 1 ? colors[0] : colors.find((c) => c.color === file.color) ?? colors[0]
   );
   const [tagOption, setTagOption] = useState({
     chosen: filePick?.customize || items.length > 1 ? "" : file?.tag || "",
-    count: 30,
+    count: 30
   });
-  const [sign, setSign] = useState(
-    filePick?.customize || items.length > 1 ? "" : file?.fig
-  );
-  const [emoji, setEmoji] = useState(
-    filePick?.customize || items.length > 1 ? "" : file?.emo
-  );
+  const [sign, setSign] = useState(filePick?.customize || items.length > 1 ? "" : file?.fig);
+  const [emoji, setEmoji] = useState(filePick?.customize || items.length > 1 ? "" : file?.emo);
   const [error, setError] = useState(false);
   const [visibility, setVisibility] = useState("password");
-  const authorizedSafeData = useSelector(
-    (state) => state.Cabinet.authorizedSafe
-  );
+  const authorizedSafeData = useSelector((state) => state.Cabinet.authorizedSafe);
   const dispatch = useDispatch();
 
   const close = () => {
@@ -83,7 +62,7 @@ const CustomizeFile = ({
         title: "",
         filesPage: 0,
         filePick: null,
-        menuItem: "",
+        menuItem: ""
       })
     );
   };
@@ -126,32 +105,23 @@ const CustomizeFile = ({
       pass: password === passwordRepeat ? `${password}` : "",
       color: color?.color === file?.color ? "" : `${color?.color}`,
       symbol: sign === file.fig ? "" : `${sign}`,
-      emoji: emoji === file.emo ? "" : `${emoji}`,
+      emoji: emoji === file.emo ? "" : `${emoji}`
     };
 
-    if (
-      !data.fileName &&
-      !data.tag &&
-      !data.color &&
-      !data.symbol &&
-      !data.emoji &&
-      !data.pass
-    ) {
+    if (!data.fileName && !data.tag && !data.color && !data.symbol && !data.emoji && !data.pass) {
       setLoadingType("");
       return close();
     }
 
     const newFile = {
       ...file,
-      name: data.fileName
-        ? name + file?.fname.slice(file.name.lastIndexOf("."))
-        : file.fname,
+      name: data.fileName ? name + file?.fname.slice(file.name.lastIndexOf(".")) : file.fname,
       tag: data.tag ? tagOption.chosen : file.tag,
       color: data.color ? color?.color : file.color,
       emo: data.emoji ? emoji : file.emo,
       fig: data.symbol ? sign : file.fig,
       is_pass: password && passwordRepeat ? 1 : 0,
-      fids: filePick.show ? filePick.files : [file.fid],
+      fids: filePick.show ? filePick.files : [file.fid]
     };
     if (filePick.customize) {
       delete data.fName;
@@ -161,32 +131,13 @@ const CustomizeFile = ({
         .then((res) => {
           if (res.data.ok === 1) {
             if (menuItem === "Safe") {
-              dispatch(
-                onGetSafeFileList(
-                  authorizedSafeData.code,
-                  authorizedSafeData.id_safe,
-                  "",
-                  "",
-                  ""
-                )
-              );
+              dispatch(onGetSafeFileList(authorizedSafeData.code, authorizedSafeData.id_safe, "", "", ""));
             } else {
               dispatch(onAddRecentFiles());
               //TODO: add sort & filter params to dispatch
               if (menuItem === "myFiles")
-                dispatch(
-                  onChooseFiles(
-                    fileListAll?.path,
-                    search,
-                    1,
-                    "",
-                    "",
-                    "",
-                    "file_list_all"
-                  )
-                );
-              if (menuItem === "myFolders")
-                dispatch(onChooseFiles(path, search, 1, "", ""));
+                dispatch(onChooseFiles(fileListAll?.path, search, 1, "", "", "", "file_list_all"));
+              if (menuItem === "myFolders") dispatch(onChooseFiles(path, search, 1, "", ""));
             }
           }
         })
@@ -208,19 +159,8 @@ const CustomizeFile = ({
                 dispatch(onCustomizeFile(newFile));
               } else {
                 if (menuItem === "myFiles")
-                  dispatch(
-                    onChooseFiles(
-                      fileListAll?.path,
-                      search,
-                      1,
-                      "",
-                      "",
-                      "",
-                      "file_list_all"
-                    )
-                  );
-                if (menuItem === "myFolders")
-                  dispatch(onChooseFiles(path, search, 1, "", ""));
+                  dispatch(onChooseFiles(fileListAll?.path, search, 1, "", "", "", "file_list_all"));
+                if (menuItem === "myFolders") dispatch(onChooseFiles(path, search, 1, "", ""));
               }
             } else dispatch(onCustomizeSafeFile(newFile));
           } else {
@@ -251,7 +191,7 @@ const CustomizeFile = ({
     const i = val.lastIndexOf(".");
     return {
       name: val.substring(0, i),
-      format: val.substring(i + 1),
+      format: val.substring(i + 1)
     };
   };
 
@@ -263,12 +203,7 @@ const CustomizeFile = ({
       symbol: sign === file?.fig ? "" : `${sign}`,
       emoji: emoji === file?.emo ? "" : `${emoji}`,
       destination: menuItem,
-      dir:
-        menuItem === "myFolders" || menuItem === "myFiles"
-          ? path
-            ? path
-            : "global/all"
-          : info?.dir ?? "",
+      dir: menuItem === "myFolders" || menuItem === "myFiles" ? (path ? path : "global/all") : info?.dir ?? ""
     };
     if (menuItem === "project") options["id_project"] = info.id;
     saveCustomizeSeveralFiles(options);
@@ -287,10 +222,7 @@ const CustomizeFile = ({
             <div className={styles.fileIconWrap}>
               <div className={`${styles.fileWrap}`}>
                 <div className={styles.file}>
-                  <File
-                    color={color?.light}
-                    format={file ? getName(file.name).format : ""}
-                  />
+                  <File color={color?.light} format={file ? getName(file.name).format : ""} />
                 </div>
               </div>
               <div className={styles.picPreview}>
@@ -304,53 +236,35 @@ const CustomizeFile = ({
                       className={`${styles.minitagWrap} ${styles.redCross}`}
                       onClick={() => setTagOption({ ...tagOption, chosen: "" })}
                     >
-                      <div className={`${styles.minitag}`}>
-                        #{tagOption.chosen}
-                      </div>
+                      <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                     </div>
                   )}
                   <div
-                    className={`${styles.colorWrap} ${
-                      color?.color !== "grey" ? styles.colorWrapTap : undefined
-                    } ${styles.redCross}`}
+                    className={`${styles.colorWrap} ${color?.color !== "grey" ? styles.colorWrapTap : undefined} ${
+                      styles.redCross
+                    }`}
                     onClick={() => setColor(colors[0])}
                   >
                     <div
                       className={styles.circle}
                       style={{
                         background: color?.light,
-                        border: `1px solid ${color?.dark}`,
+                        border: `1px solid ${color?.dark}`
                       }}
                     />
                   </div>
                   {sign && (
-                    <div
-                      className={styles.redCross}
-                      onClick={() => setSign("")}
-                    >
-                      <img
-                        src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={styles.redCross} onClick={() => setSign("")}>
+                      <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                     </div>
                   )}
                   {emoji && (
-                    <div
-                      className={styles.redCross}
-                      onClick={() => setEmoji("")}
-                    >
-                      <img
-                        src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={styles.redCross} onClick={() => setEmoji("")}>
+                      <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                     </div>
                   )}
                   {file.is_pass ? (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
+                    <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
                   ) : null}
                 </div>
               </div>
@@ -359,12 +273,7 @@ const CustomizeFile = ({
           <div className={`${styles.inputFieldsWrap}`}>
             <div className={styles.inputWrap}>
               {filePick?.customize || items.length > 1 ? null : (
-                <InputField
-                  model="text"
-                  value={name}
-                  set={setName}
-                  placeholder={__("Имя файла")}
-                />
+                <InputField model="text" value={name} set={setName} placeholder={__("Имя файла")} />
               )}
             </div>
             <div className={styles.tagPicker}>
@@ -420,9 +329,7 @@ const CustomizeFile = ({
               {__("Отмена")}
             </div>
             <div
-              className={`${
-                file || items.length > 1 ? styles.add : styles.buttonDisabled
-              }`}
+              className={`${file || items.length > 1 ? styles.add : styles.buttonDisabled}`}
               onClick={() => {
                 if (!filePick.several) onAddFile();
                 if (filePick.several) addToAwaitingFiles();
@@ -433,13 +340,7 @@ const CustomizeFile = ({
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Файл не изменен")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Файл не изменен")} />}
     </div>
   );
 };
@@ -449,8 +350,8 @@ export default CustomizeFile;
 CustomizeFile.propTypes = {
   setLoadingType: PropTypes.func,
   saveCustomizeSeveralFiles: PropTypes.func,
-  info: PropTypes.object,
+  info: PropTypes.object
 };
 CustomizeFile.defaultProps = {
-  setLoadingType: () => {},
+  setLoadingType: () => {}
 };

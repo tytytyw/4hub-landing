@@ -5,21 +5,14 @@ import classNames from "classnames";
 import SafeIcon from "../SafeIcon";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 
-const SafeItem = ({
-  safe,
-  chosen,
-  setMouseParams,
-  onClick,
-  listSize,
-  setSelectedSafe,
-}) => {
+const SafeItem = ({ safe, chosen, setMouseParams, onClick, listSize, setSelectedSafe }) => {
   return (
     <>
       <div
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
-          [styles?.[`wrapper_${listSize}`]]: true,
+          [styles?.[`wrapper_${listSize}`]]: true
         })}
       >
         <div
@@ -29,7 +22,7 @@ const SafeItem = ({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25,
+              height: 25
             });
             setSelectedSafe(safe);
           }}
@@ -63,7 +56,7 @@ const SafeItem = ({
           <div
             className={classNames({
               [styles.tagBlock]: true,
-              [styles.ftag]: !!safe?.tags,
+              [styles.ftag]: !!safe?.tags
             })}
           >
             {safe?.tags && `#${safe.tags}`}

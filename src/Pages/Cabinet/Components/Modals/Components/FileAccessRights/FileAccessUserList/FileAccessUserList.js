@@ -9,17 +9,13 @@ import {
   ACCESS_RIGHTS_GRANTED,
   imageSrc,
   NO_ELEMENT,
-  SHARED_ACCESS_RIGHTS,
+  SHARED_ACCESS_RIGHTS
 } from "../../../../../../../generalComponents/globalVariables";
 import { useAccessRightsConst } from "../../../../../../../generalComponents/collections";
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 
-function FileAccessUserList({
-  users,
-  deleteUser,
-  changeUserAccessRightsInUsers,
-}) {
+function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
@@ -72,15 +68,9 @@ function FileAccessUserList({
           }}
         >
           <span>{__(`Срок хранения ${showEndDate(user.date_last)}`)}</span>
-          <img
-            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-            alt="copy"
-            className={styles.imageReverse}
-          />
+          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
         </div>
-        {changePeriodModal === i ? (
-          <FilePeriodEdit closeChangePeriodModal={closeChangePeriodModal} />
-        ) : null}
+        {changePeriodModal === i ? <FilePeriodEdit closeChangePeriodModal={closeChangePeriodModal} /> : null}
         <div
           className={styles.copy}
           onClick={() => {
@@ -89,11 +79,7 @@ function FileAccessUserList({
           }}
         >
           <span>{showUserAccessStatus(user)}</span>
-          <img
-            src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
-            alt="copy"
-            className={styles.imageReverse}
-          />
+          <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
         </div>
         {accessRightsModal === i ? (
           <FileAccessEdit
@@ -114,5 +100,5 @@ export default FileAccessUserList;
 FileAccessUserList.propTypes = {
   users: PropTypes.arrayOf(userFileAccess),
   deleteUser: PropTypes.func,
-  changeUserAccessRightsInUsers: PropTypes.func,
+  changeUserAccessRightsInUsers: PropTypes.func
 };

@@ -11,20 +11,13 @@ import { compareProps } from "../../../../types/BuisnessRegistration";
 
 const requiredInputs = ["company_name"];
 
-const MainForm = ({
-  mainFields,
-  setMainFields,
-  setStep,
-  compare,
-  setCompare,
-  setLoadingType,
-}) => {
+const MainForm = ({ mainFields, setMainFields, setStep, compare, setCompare, setLoadingType }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const { __ } = useLocales();
   const { fields, setFields, errors, onChange, checkErrors } = useValidateForm(
     {
       emp_num: mainFields?.main?.emp_num || __("более 50"),
-      activity_field: "",
+      activity_field: ""
     },
     requiredInputs
   );
@@ -35,8 +28,7 @@ const MainForm = ({
     }
   }, []); // eslint-disable-line
   useEffect(() => {
-    if (userInfo && !mainFields.main?.company_name)
-      onChange(userInfo.id_company, "company_name");
+    if (userInfo && !mainFields.main?.company_name) onChange(userInfo.id_company, "company_name");
   }, [userInfo]); // eslint-disable-line
 
   const onSubmit = (event) => {
@@ -47,9 +39,7 @@ const MainForm = ({
       api
         .get(
           `/ajax/org_edit.php?id_company=${userInfo.id_company}
-                &company=${getValue("company_name")}&col=${getValue(
-            "emp_num"
-          )}&type=${getValue("activity_field")}`
+                &company=${getValue("company_name")}&col=${getValue("emp_num")}&type=${getValue("activity_field")}`
         )
         .catch((err) => {
           console.log(err);
@@ -83,9 +73,7 @@ const MainForm = ({
         </div>
 
         <div className={styles.formItem}>
-          <label className={styles.label}>
-            {__("Количество сотрудников в компании")}
-          </label>
+          <label className={styles.label}>{__("Количество сотрудников в компании")}</label>
           <div className={styles.selectWrap}>
             <Select
               data={[__("более 10"), __("более 50"), __("более 100")]}
@@ -109,14 +97,8 @@ const MainForm = ({
 
         <div className={styles.agreementWrap}>
           <div className={styles.agreement}>
-            <div
-              onClick={() =>
-                setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }
-            >
-              {compare.isAgreed && (
-                <img src="./assets/StartPage/tick.svg" alt="tick" />
-              )}
+            <div onClick={() => setCompare({ ...compare, isAgreed: !compare.isAgreed })}>
+              {compare.isAgreed && <img src="./assets/StartPage/tick.svg" alt="tick" />}
             </div>
           </div>
           <div className={styles.agreementsText}>
@@ -128,9 +110,7 @@ const MainForm = ({
         </div>
 
         <div className={styles.actionBlock}>
-          <button className={styles.submitBtn}>
-            {__("Сохранить и продолжить")}
-          </button>
+          <button className={styles.submitBtn}>{__("Сохранить и продолжить")}</button>
         </div>
       </form>
     </div>
@@ -145,5 +125,5 @@ MainForm.propTypes = {
   setStep: PropTypes.func,
   compare: compareProps,
   setCompare: PropTypes.func,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

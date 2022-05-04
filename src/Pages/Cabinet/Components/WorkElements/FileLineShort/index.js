@@ -5,10 +5,7 @@ import File from "../../../../../generalComponents/Files";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
-import {
-  onChooseFiles,
-  onSetModals,
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseFiles, onSetModals } from "../../../../../Store/actions/CabinetActions";
 
 const FileLineShort = ({
   file,
@@ -23,7 +20,7 @@ const FileLineShort = ({
   openFolderMenu,
   filesSize,
   style,
-  disablexContexMenu = false,
+  disablexContexMenu = false
 }) => {
   const size = filesSize ?? useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
@@ -38,7 +35,7 @@ const FileLineShort = ({
         isPicked.length > 0
           ? setFilePick({
               ...filePick,
-              files: filePick.files.filter((el) => el !== file.fid),
+              files: filePick.files.filter((el) => el !== file.fid)
             })
           : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
       }
@@ -53,9 +50,7 @@ const FileLineShort = ({
     if (file?.is_dir) {
       // folderSelect(file)
     } else {
-      dispatch(
-        onSetModals("previewFile", { ...previewFile, open: true, file })
-      );
+      dispatch(onSetModals("previewFile", { ...previewFile, open: true, file }));
     }
   };
 
@@ -71,22 +66,10 @@ const FileLineShort = ({
       onDoubleClick={!disablexContexMenu ? handleDoubleClick : null}
       style={style}
     >
-      <div
-        className={`${styles.infoWrap} ${
-          chosen ? styles.fileChosenTriangle : ""
-        }`}
-      >
-        <div
-          className={`${styles.fileWrap} ${
-            file?.is_dir ? styles.fileFolder : ""
-          }`}
-        >
+      <div className={`${styles.infoWrap} ${chosen ? styles.fileChosenTriangle : ""}`}>
+        <div className={`${styles.fileWrap} ${file?.is_dir ? styles.fileFolder : ""}`}>
           {file?.is_dir ? (
-            <FolderIcon
-              className={`${styles.folderIcon} ${
-                colors.filter((el) => el.color === file.color)[0]?.name
-              }`}
-            />
+            <FolderIcon className={`${styles.folderIcon} ${colors.filter((el) => el.color === file.color)[0]?.name}`} />
           ) : (
             <File
               color={file.is_write === "0" ? "#C1C1C1" : file.color}
@@ -107,7 +90,7 @@ const FileLineShort = ({
                   x: e.clientX,
                   y: e.clientY,
                   width: 240,
-                  height: 25,
+                  height: 25
                 });
           }}
         >

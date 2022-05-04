@@ -22,15 +22,10 @@ const AccessRadio = ({ data = [], name, onChange }) => {
             key={item.value}
             className={classNames({
               [styles.radio]: true,
-              [styles.checked]: value === item.value,
+              [styles.checked]: value === item.value
             })}
           >
-            <input
-              id={id}
-              type="radio"
-              name={name}
-              onChange={() => handleCheck(item)}
-            />
+            <input id={id} type="radio" name={name} onChange={() => handleCheck(item)} />
             <label htmlFor={id}>
               <p>{item.label}</p>
               <span>{item.info}</span>
@@ -47,8 +42,8 @@ export default AccessRadio;
 AccessRadio.propTypes = {
   name: PropTypes.string,
   data: PropTypes.array,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
 AccessRadio.defaultProps = {
-  data: [],
+  data: []
 };

@@ -12,13 +12,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../../types/Contacts";
 
-const AddContact = ({
-  nullifyAction,
-  setLoadingType,
-  setShowSuccessMessage,
-  selectedItem,
-  type,
-}) => {
+const AddContact = ({ nullifyAction, setLoadingType, setShowSuccessMessage, selectedItem, type }) => {
   const { __ } = useLocales();
   const [userData, setUserData] = useState({ name: "", sname: "", pname: "" });
   const [image, setImage] = useState(null);
@@ -41,15 +35,9 @@ const AddContact = ({
       const length = number?.length;
       value = `${value && "+"}${number?.substring(0, 2)}${
         length > 2 ? " (" + number?.substring(2, 5) : number.substring(2, 5)
-      }${
-        length > 5 ? ") " + number?.substring(5, 8) : number?.substring(5, 8)
-      }${
+      }${length > 5 ? ") " + number?.substring(5, 8) : number?.substring(5, 8)}${
         length > 8 ? "-" + number?.substring(8, 10) : number?.substring(8, 10)
-      }${
-        length > 10
-          ? "-" + number?.substring(10, number?.length)
-          : number?.substring(10, number?.length)
-      }`;
+      }${length > 10 ? "-" + number?.substring(10, number?.length) : number?.substring(10, number?.length)}`;
     }
 
     setUserData(
@@ -68,9 +56,7 @@ const AddContact = ({
     return array.map((placeholder, index) => {
       return (
         <div className={styles.inputWrap} key={type + index}>
-          <div className={styles.iconWrap}>
-            {type === "tel" ? <PhoneIcon /> : <MailIcon />}
-          </div>
+          <div className={styles.iconWrap}>{type === "tel" ? <PhoneIcon /> : <MailIcon />}</div>
           <input
             className={styles.input}
             placeholder={placeholder}
@@ -91,9 +77,7 @@ const AddContact = ({
             <img
               width={30}
               height={30}
-              src={`${imageSrc}assets/PrivateCabinet/socials/${
-                item === "skype" ? "skype-2" : item
-              }.svg`}
+              src={`${imageSrc}assets/PrivateCabinet/socials/${item === "skype" ? "skype-2" : item}.svg`}
               alt={item}
             />
           </div>
@@ -120,37 +104,29 @@ const AddContact = ({
       setLoadingType("squarify");
       const createSocialPatams = (social) => {
         let socials = [];
-        Object.entries(social).forEach((item) =>
-          socials.push({ type: item[0], link: item[1] })
-        );
+        Object.entries(social).forEach((item) => socials.push({ type: item[0], link: item[1] }));
         return JSON.stringify(socials);
       };
       const formData = new FormData();
       if (image) formData.append("file", image);
-      if (userData.soc)
-        formData.append("soc", createSocialPatams(userData.soc));
-      if (userData.mes)
-        formData.append("mes", createSocialPatams(userData.mes));
+      if (userData.soc) formData.append("soc", createSocialPatams(userData.soc));
+      if (userData.mes) formData.append("mes", createSocialPatams(userData.mes));
       //TODO: refactor when use additional tels/eemails
       if (userData.tel) formData.append("tel", JSON.stringify([userData.tel]));
-      if (userData.email?.length)
-        formData.append("email", JSON.stringify([userData.email]));
+      if (userData.email?.length) formData.append("email", JSON.stringify([userData.email]));
       const addContactId = () => {
         return type === "edit" ? `&id=${selectedItem.id}` : "";
       };
       api
         .post(
-          `/ajax/org_contacts_${type}.php?uid=${uid}&id_company=${id_company}&name=${
-            userData.name
-          }&sname=${userData.sname}&pname=${userData.pname}${addContactId()}`,
+          `/ajax/org_contacts_${type}.php?uid=${uid}&id_company=${id_company}&name=${userData.name}&sname=${
+            userData.sname
+          }&pname=${userData.pname}${addContactId()}`,
           formData
         )
         .then(() => {
           dispatch(
-            onGetCompanyContacts(
-              setShowSuccessMessage,
-              type === "add" ? "Контакт добавлен" : "Контакт обновлен"
-            )
+            onGetCompanyContacts(setShowSuccessMessage, type === "add" ? "Контакт добавлен" : "Контакт обновлен")
           );
           nullifyAction();
         })
@@ -202,24 +178,18 @@ const AddContact = ({
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={styles.avatar}>
-          <ProfileUpload
-            name="profileImg"
-            preview={preview}
-            onChange={uploadImage}
-          />
+          <ProfileUpload name="profileImg" preview={preview} onChange={uploadImage} />
         </div>
       </div>
       <p className={styles.label}>
-        <span className={styles.text}>
-          {!preview ? __("Загрузите фото контакта") : ""}
-        </span>
+        <span className={styles.text}>{!preview ? __("Загрузите фото контакта") : ""}</span>
       </p>
       <div className={styles.scrollArea}>
         <div className={styles.inputWrap}>
           <input
             className={classNames({
               [styles.input]: true,
-              [styles.requiredInpit]: requiredError,
+              [styles.requiredInpit]: requiredError
             })}
             placeholder={__("Имя")}
             value={userData?.name || ""}
@@ -254,7 +224,7 @@ const AddContact = ({
         <div
           className={classNames({
             [styles.action]: true,
-            [styles.disableBtn]: !userData?.name,
+            [styles.disableBtn]: !userData?.name
           })}
           onClick={onSubmit}
         >
@@ -272,5 +242,5 @@ AddContact.propTypes = {
   setLoadingType: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
   selectedItem: selectedItemProps,
-  type: PropTypes.string,
+  type: PropTypes.string
 };

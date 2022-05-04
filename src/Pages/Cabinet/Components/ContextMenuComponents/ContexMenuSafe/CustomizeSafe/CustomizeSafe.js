@@ -5,10 +5,7 @@ import Colors from "../../../../../../generalComponents/Elements/Colors";
 import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
-import {
-  colors,
-  useTags,
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
 import SafeIcon from "../../../Safe/SafeIcon";
@@ -30,9 +27,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
   const [name, setName] = useState(safe.name);
   const [password, setPassword] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: safe.tags, count: 30 });
-  const [color, setColor] = useState(
-    colors?.find((item) => item.name === safe.id_color)
-  );
+  const [color, setColor] = useState(colors?.find((item) => item.name === safe.id_color));
   const defaultColor = "grey";
   const [sign, setSign] = useState(safe.id_fig);
   const [emoji, setEmoji] = useState(safe.id_emo);
@@ -54,7 +49,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
   const addErrors = () => {
     setErrors({
       name: !name,
-      password: !password,
+      password: !password
     });
   };
 
@@ -98,17 +93,9 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
         color: color?.name || defaultColor,
         sign: sign,
         emo: emoji,
-        id_safe: safe.id,
+        id_safe: safe.id
       };
-      onAddSafe(
-        safeObj.name,
-        safeObj.password,
-        safeObj.tag,
-        safeObj.color,
-        safeObj.sign,
-        safeObj.emo,
-        safeObj.id_safe
-      );
+      onAddSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo, safeObj.id_safe);
     }
   };
 
@@ -143,31 +130,18 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
               <div
                 className={classNames({
                   [styles.folder]: true,
-                  [styles.redCross]: color.color !== "grey",
+                  [styles.redCross]: color.color !== "grey"
                 })}
                 onClick={() => setColor(colors[0])}
               >
-                <SafeIcon
-                  type={color?.name || defaultColor}
-                  className={styles.safeIcon}
-                />
+                <SafeIcon type={color?.name || defaultColor} className={styles.safeIcon} />
               </div>
               <div className={styles.picPreview}>
                 <div className={styles.folderName}>{name}</div>
                 <div className={styles.folderOptions}>
                   {tagOption.chosen && (
-                    <div
-                      className={classNames(
-                        styles.minitagWrap,
-                        styles.redCross
-                      )}
-                    >
-                      <div
-                        className={styles.minitag}
-                        onClick={() =>
-                          setTagOption({ ...tagOption, chosen: "" })
-                        }
-                      >
+                    <div className={classNames(styles.minitagWrap, styles.redCross)}>
+                      <div className={styles.minitag} onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
                         # {tagOption.chosen}
                       </div>
                     </div>
@@ -176,7 +150,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   <div
                     className={classNames({
                       [styles.circleWrap]: true,
-                      [styles.redCross]: color.color !== "grey",
+                      [styles.redCross]: color.color !== "grey"
                     })}
                     onClick={() => setColor(colors[0])}
                   >
@@ -184,32 +158,20 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                       className={styles.circle}
                       style={{
                         background: color.light,
-                        border: `1px solid ${color.dark}`,
+                        border: `1px solid ${color.dark}`
                       }}
                     />
                   </div>
 
                   {sign && (
-                    <div
-                      className={classNames(styles.sign, styles.redCross)}
-                      onClick={() => setSign("")}
-                    >
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.sign, styles.redCross)} onClick={() => setSign("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                     </div>
                   )}
 
                   {emoji && (
-                    <div
-                      className={classNames(styles.redCross, styles.emodji)}
-                      onClick={() => setEmoji("")}
-                    >
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.redCross, styles.emodji)} onClick={() => setEmoji("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                     </div>
                   )}
                 </div>
@@ -241,11 +203,7 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
                   }}
                 />
                 <span>{tagOption.count}/30</span>
-                <div
-                  className={styles.tagList}
-                  ref={tagRef}
-                  onClick={handleChoose}
-                >
+                <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                   {renderTags()}
                 </div>
               </div>
@@ -278,12 +236,8 @@ const CustomizeSafe = ({ safe, close, setLoadingType }) => {
             </div>
           </div>
         </div>
-        {error === "password" && (
-          <ErrorPass setError={setError} mistake={error} set={close} />
-        )}
-        {error && error !== "password" && (
-          <Error error={error} set={close} message={error} />
-        )}
+        {error === "password" && <ErrorPass setError={setError} mistake={error} set={close} />}
+        {error && error !== "password" && <Error error={error} set={close} message={error} />}
       </PopUp>
     </>
   );
@@ -293,5 +247,5 @@ export default CustomizeSafe;
 CustomizeSafe.propTypes = {
   safe: safeProps,
   close: PropTypes.func,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

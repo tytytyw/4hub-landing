@@ -12,7 +12,7 @@ const Media = ({ setOption }) => {
   const options = [
     { name: __("Фото"), id: "photo" },
     { name: __("Видео"), id: "video" },
-    { name: __("Gif"), id: "gif" },
+    { name: __("Gif"), id: "gif" }
   ];
 
   //TODO: temp
@@ -30,7 +30,7 @@ const Media = ({ setOption }) => {
     "11.png",
     "a.png",
     "11.png",
-    "8.png",
+    "8.png"
   ];
 
   const renderImages = (images) => {
@@ -67,9 +67,7 @@ const Media = ({ setOption }) => {
           </div>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("04.11.2021")}</h5>
-            <div className={styles.picturesWrap}>
-              {renderImages([images[2], images[4]])}
-            </div>
+            <div className={styles.picturesWrap}>{renderImages([images[2], images[4]])}</div>
           </div>
         </div>
       ) : null}
@@ -80,5 +78,5 @@ const Media = ({ setOption }) => {
 export default Media;
 
 Media.propTypes = {
-  setOption: PropTypes.func.isRequired,
+  setOption: PropTypes.func.isRequired
 };

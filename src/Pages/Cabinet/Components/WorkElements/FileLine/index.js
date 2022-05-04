@@ -24,7 +24,7 @@ const FileLine = ({
   folderSelect,
   openFolderMenu,
   successLoad,
-  sharedFilesInfo,
+  sharedFilesInfo
 }) => {
   const size = useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((state) => state.Cabinet.modals.previewFile);
@@ -38,7 +38,7 @@ const FileLine = ({
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter((el) => el !== file?.fid),
+            files: filePick.files.filter((el) => el !== file?.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file?.fid] });
     }
@@ -49,9 +49,7 @@ const FileLine = ({
     if (file?.is_dir) {
       folderSelect(file);
     } else {
-      dispatch(
-        onSetModals(MODALS.FILE_PREVIEW, { ...previewFile, open: true, file })
-      );
+      dispatch(onSetModals(MODALS.FILE_PREVIEW, { ...previewFile, open: true, file }));
     }
   };
 
@@ -72,7 +70,7 @@ const FileLine = ({
         [styles.wrapper]: true,
         [styles.active]: chosen,
         [styles?.[`wrapper_${size}`]]: size !== "medium",
-        [styles.shortWidth]: pathname === "/downloaded-files",
+        [styles.shortWidth]: pathname === "/downloaded-files"
       })}
     >
       <FileInfo file={file} />
@@ -81,11 +79,7 @@ const FileLine = ({
         {pathname.startsWith("/downloaded-files") && renderAdditionalItems()}
         {pathname.startsWith("/archive") && renderAdditionalItems()}
         {pathname.startsWith("/shared-files") && (
-          <SharedFilesInfo
-            file={file}
-            isChosen={params.isChosen || chosen}
-            sharedFilesInfo={sharedFilesInfo}
-          />
+          <SharedFilesInfo file={file} isChosen={params.isChosen || chosen} sharedFilesInfo={sharedFilesInfo} />
         )}
         <Buttons
           file={file}

@@ -13,7 +13,7 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
       <div
         className={classNames({
           [styles.tariff_line]: true,
-          [styles.tariff_line_promo]: !!promo,
+          [styles.tariff_line_promo]: !!promo
         })}
       >
         {promo}
@@ -24,37 +24,29 @@ function Tariff({ name, cost, currentPlan, promo, discont }) {
           {promo ? (
             <>
               <span className={styles.tariff_cost_old}>${cost}</span>
-              <span className={styles.tariff_cost_new}>
-                ${cost - (cost / 100) * discont}
-              </span>
+              <span className={styles.tariff_cost_new}>${cost - (cost / 100) * discont}</span>
             </>
           ) : (
             `$${cost}`
           )}
         </p>
-        <p className={styles.tariff_cost_clarification}>
-          {__("На пользователя в месяц начиная с 3 польз.")}
-        </p>
+        <p className={styles.tariff_cost_clarification}>{__("На пользователя в месяц начиная с 3 польз.")}</p>
         <ul className={styles.tariff_descrp}>
           <li className={styles.tariff_descrp_item}>
             <PieChartIcon className={styles.tariff_descrp_ico} />
-            <p className={styles.tariff_descrp_text}>
-              {__("2 000 ГБ места для безопасного хранения файлов")}
-            </p>
+            <p className={styles.tariff_descrp_text}>{__("2 000 ГБ места для безопасного хранения файлов")}</p>
           </li>
           <li className={styles.tariff_descrp_item}>
             <FolderIcon className={styles.tariff_descrp_ico} />
             <p className={styles.tariff_descrp_text}>
-              {__(
-                "Простые инструменты для храннения и предоставления доступа и совместной работы"
-              )}
+              {__("Простые инструменты для храннения и предоставления доступа и совместной работы")}
             </p>
           </li>
           <button
             className={classNames({
               [styles.tariff_btn]: true,
               [styles.tariff_current_btn]: currentPlan,
-              [styles.tariff_promo_btn]: promo,
+              [styles.tariff_promo_btn]: promo
             })}
           >
             {currentPlan ? __("Текущий план") : __("Купить")}
@@ -72,5 +64,5 @@ Tariff.propTypes = {
   cost: PropTypes.number,
   currentPlan: PropTypes.bool,
   promo: PropTypes.string,
-  discont: PropTypes.number,
+  discont: PropTypes.number
 };

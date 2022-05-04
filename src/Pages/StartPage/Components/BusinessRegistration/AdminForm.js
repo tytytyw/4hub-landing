@@ -10,24 +10,9 @@ import api from "../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-let requiredInputs = [
-  "surname",
-  "name",
-  "middle_name",
-  "phone",
-  "email",
-  "password",
-  "password_r",
-];
+let requiredInputs = ["surname", "name", "middle_name", "phone", "email", "password", "password_r"];
 
-const AdminForm = ({
-  mainFields,
-  setMainFields,
-  setStep,
-  compare,
-  setCompare,
-  setLoadingType,
-}) => {
+const AdminForm = ({ mainFields, setMainFields, setStep, compare, setCompare, setLoadingType }) => {
   const [checkPhone, setCheckPhone] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [confirmPass, setConfirmPass] = useState(true);
@@ -35,8 +20,7 @@ const AdminForm = ({
   const [disablePass, setDisablePass] = useState(false);
   const id_company = useSelector((state) => state.user.userInfo.id_company);
   const { __ } = useLocales();
-  const { fields, setFields, errors, onChange, checkErrors, blurs } =
-    useValidateForm({ admin: 1 }, requiredInputs);
+  const { fields, setFields, errors, onChange, checkErrors, blurs } = useValidateForm({ admin: 1 }, requiredInputs);
 
   useEffect(() => {
     if (mainFields?.admin) {
@@ -47,24 +31,16 @@ const AdminForm = ({
   useEffect(() => {
     setDisablePass(!fields.admin);
     !fields.admin
-      ? (requiredInputs = requiredInputs.filter(
-          (item) => !item.includes("password")
-        ))
+      ? (requiredInputs = requiredInputs.filter((item) => !item.includes("password")))
       : requiredInputs.push("password", "password_r");
   }, [fields.admin]);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (
-      checkErrors() &&
-      (confirmPass || disablePass) &&
-      checkEmail &&
-      checkPhone
-    ) {
+    if (checkErrors() && (confirmPass || disablePass) && checkEmail && checkPhone) {
       setLoadingType("squarify");
       setMainFields((prev) => ({ ...prev, admin: fields }));
-      const sentPass = () =>
-        disablePass ? "" : `&pass=${getValue("password")}`;
+      const sentPass = () => (disablePass ? "" : `&pass=${getValue("password")}`);
 
       api
         .get(
@@ -92,12 +68,9 @@ const AdminForm = ({
 
   const getValue = (name) => fields?.[name] || "";
 
-  const isPhone = () =>
-    (errors.includes("phone") || !checkPhone) && blurs.includes("phone");
-  const isEmail = () =>
-    (errors.includes("email") || !checkEmail) && blurs.includes("email");
-  const isConfirmPass = () =>
-    (errors.includes("password_r") || !confirmPass) && blurs.includes("email");
+  const isPhone = () => (errors.includes("phone") || !checkPhone) && blurs.includes("phone");
+  const isEmail = () => (errors.includes("email") || !checkEmail) && blurs.includes("email");
+  const isConfirmPass = () => (errors.includes("password_r") || !confirmPass) && blurs.includes("email");
 
   return (
     <div className={styles.formWrap}>
@@ -107,9 +80,7 @@ const AdminForm = ({
         <div className={styles.formItem}>
           <label className={styles.label}>
             {__("Передача прав Администратора")}
-            {requiredInputs.includes("admin") && (
-              <span className={styles.required}>*</span>
-            )}
+            {requiredInputs.includes("admin") && <span className={styles.required}>*</span>}
           </label>
           <AdminSelect
             initValue={getValue("admin")}
@@ -121,7 +92,7 @@ const AdminForm = ({
                 text: __("Назначить меня администратором Компании"),
                 info: __(`Вы сможете самостоятельно верифицировать компанию, добавлять и 
                                 редактировать информацию, открывать и закрывать вакансии и добавлять 
-                                кандидатов.`),
+                                кандидатов.`)
               },
               {
                 id: 0,
@@ -129,8 +100,8 @@ const AdminForm = ({
                 info: __(`Вы будете добавлены в Компанию как обычный сотрудник. Ваши 
                                 полномочия и права доступа сможет определить указанный 
                                 Администратор. Указанный Администратор получит на почту 
-                                уведомление о назначении.`),
-              },
+                                уведомление о назначении.`)
+              }
             ]}
             placeholder={__("Назначить меня администратором Компании")}
           />
@@ -255,19 +226,12 @@ const AdminForm = ({
 
         <div className={styles.agreementWrap}>
           <div className={styles.agreement}>
-            <div
-              onClick={() =>
-                setCompare({ ...compare, isAgreed: !compare.isAgreed })
-              }
-            >
-              {compare.isAgreed && (
-                <img src="./assets/StartPage/tick.svg" alt="tick" />
-              )}
+            <div onClick={() => setCompare({ ...compare, isAgreed: !compare.isAgreed })}>
+              {compare.isAgreed && <img src="./assets/StartPage/tick.svg" alt="tick" />}
             </div>
           </div>
           <div className={styles.agreementsText}>
-            <>{__(`Я принимаю`)}</> <span> {__(`Условия использования`)}</span>{" "}
-            {__(`4Hub`)}
+            <>{__(`Я принимаю`)}</> <span> {__(`Условия использования`)}</span> {__(`4Hub`)}
             <span> {__(`Политику конфиденциальности`)} </span> {__(`и`)}
             <span>{__(`Политику интелектуальной собственности`)}</span>
           </div>
@@ -277,11 +241,7 @@ const AdminForm = ({
           <button type="button" onClick={backStep} className={styles.roundBtn}>
             <img src={arrowImg} alt="Arrow" />
           </button>
-          <button
-            disabled={!compare.isAgreed}
-            type="submit"
-            className={styles.submitBtn}
-          >
+          <button disabled={!compare.isAgreed} type="submit" className={styles.submitBtn}>
             {__(`Сохранить и продолжить`)}
           </button>
         </div>
@@ -297,8 +257,8 @@ AdminForm.propTypes = {
   setMainFields: PropTypes.func,
   setStep: PropTypes.func,
   compare: PropTypes.shape({
-    isAgreed: PropTypes.bool,
+    isAgreed: PropTypes.bool
   }),
   setCompare: PropTypes.func,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

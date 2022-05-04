@@ -58,9 +58,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
       canvas.width,
       canvas.height
     );
-    const newImageUrl = canvas
-      .toDataURL("image/png")
-      .replace("image/png", "image/octet-stream");
+    const newImageUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
     const newImage = new Image();
     newImage.src = newImageUrl;
     setCompanyLogo(newImage);
@@ -104,11 +102,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
               </span>
             </span>
           </div>
-          {error ? (
-            <p className={styles.fileError}>
-              {__("необходимо загрузить изображение менее 5мб")}
-            </p>
-          ) : null}
+          {error ? <p className={styles.fileError}>{__("необходимо загрузить изображение менее 5мб")}</p> : null}
         </form>
 
         {blob && (
@@ -127,7 +121,7 @@ const UploadLogo = ({ nullifyAction, setCompanyLogo, blob, setBlob }) => {
           <div
             className={classNames({
               [styles.action]: true,
-              [styles.disableBtn]: !blob,
+              [styles.disableBtn]: !blob
             })}
             onClick={createNewImage}
           >
@@ -145,5 +139,5 @@ UploadLogo.propTypes = {
   nullifyAction: PropTypes.func,
   setCompanyLogo: PropTypes.func,
   blob: PropTypes.object,
-  setBlob: PropTypes.func,
+  setBlob: PropTypes.func
 };

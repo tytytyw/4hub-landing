@@ -8,7 +8,7 @@ import {
   NO_ELEMENT,
   FILE_ACCESS_RIGHTS,
   MODALS,
-  TOP_MESSAGE_TYPE,
+  TOP_MESSAGE_TYPE
 } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
@@ -22,16 +22,14 @@ function FileAccessRights() {
   const { __ } = useLocales();
 
   const dispatch = useDispatch();
-  const fileAccessRights = useSelector(
-    (s) => s.Cabinet.modals.fileAccessRights
-  );
+  const fileAccessRights = useSelector((s) => s.Cabinet.modals.fileAccessRights);
   const [url, setUrl] = useState(__("Загрузка..."));
   const [users, setUsers] = useState([]);
   const linkRef = useRef(null);
   const uid = useSelector((s) => s.user.uid);
   const [params, setParams] = useState({
     usersToDelete: [],
-    usersToChangeAccessRights: [],
+    usersToChangeAccessRights: []
   });
 
   const closeModal = () =>
@@ -39,21 +37,18 @@ function FileAccessRights() {
       onSetModals(MODALS.FILE_ACCESS_RIGHTS, {
         ...fileAccessRights,
         open: false,
-        file: {},
+        file: {}
       })
     );
 
-  const setTopMessage = (type, message) =>
-    dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type, message }));
+  const setTopMessage = (type, message) => dispatch(onSetModals(MODALS.TOP_MESSAGE, { open: true, type, message }));
 
   const getLink = () => {
     setUrl(__("Загрузка..."));
     fileAccessRights.file?.file_link
       ? setUrl(fileAccessRights.file.file_link)
-      : setTopMessage(
-          TOP_MESSAGE_TYPE.ERROR,
-          __(`Ссылка на файл не найдена. Попробуйте еще раз`)
-        ) && setUrl(__("Ошибка"));
+      : setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Ссылка на файл не найдена. Попробуйте еще раз`)) &&
+        setUrl(__("Ошибка"));
   };
 
   const loadUserList = () => {
@@ -61,17 +56,14 @@ function FileAccessRights() {
       .get(FILE_ACCESS_RIGHTS.API_SHARED_FILES_USER_LIST, {
         params: {
           uid,
-          fid: fileAccessRights.file.fid,
-        },
+          fid: fileAccessRights.file.fid
+        }
       })
       .then((res) => {
         if (checkResponseStatus(res.data.ok)) {
           setUsers(res.data.access);
         } else {
-          setTopMessage(
-            TOP_MESSAGE_TYPE.ERROR,
-            __("Не удалось загузить список пользователей")
-          );
+          setTopMessage(TOP_MESSAGE_TYPE.ERROR, __("Не удалось загузить список пользователей"));
         }
       })
       .catch((err) => setTopMessage(TOP_MESSAGE_TYPE.ERROR, err));
@@ -97,7 +89,7 @@ function FileAccessRights() {
         onSetModals(MODALS.TOP_MESSAGE, {
           open: true,
           type: TOP_MESSAGE_TYPE.MESSAGE,
-          message: __("Ссылка скопирована"),
+          message: __("Ссылка скопирована")
         })
       );
     }
@@ -106,13 +98,8 @@ function FileAccessRights() {
   const deleteUserFromUsers = (user) => {
     setParams((s) => ({
       ...s,
-      usersToDelete: [
-        ...s.usersToDelete,
-        ...users.filter((it) => it.uid === user.uid),
-      ],
-      usersToChangeAccessRights: s.usersToChangeAccessRights.filter(
-        (it) => it.uid !== user.uid
-      ),
+      usersToDelete: [...s.usersToDelete, ...users.filter((it) => it.uid === user.uid)],
+      usersToChangeAccessRights: s.usersToChangeAccessRights.filter((it) => it.uid !== user.uid)
     }));
     setUsers((s) => s.filter((it) => it.uid !== user.uid));
   };
@@ -125,32 +112,25 @@ function FileAccessRights() {
             uid,
             fids: [fileAccessRights.file.fid],
             dir: fileAccessRights.file.gdir,
-            user_to: user.email,
-          },
+            user_to: user.email
+          }
         })
         .catch(() => {
-          setTopMessage(
-            TOP_MESSAGE_TYPE.ERROR,
-            __(`Не удалось удалить права пользователя ${user.name} к файлу`)
-          );
+          setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось удалить права пользователя ${user.name} к файлу`));
         });
     }
   };
 
   const changeUserAccessRightsInUsers = (user) => {
     const idxInUsers = users.findIndex((it) => it.uid === user.uid);
-    const idxInParams = params.usersToChangeAccessRights.findIndex(
-      (it) => it.uid === user.uid
-    );
+    const idxInParams = params.usersToChangeAccessRights.findIndex((it) => it.uid === user.uid);
     setUsers((s) => s.map((it, idx) => (idx === idxInUsers ? user : it)));
     setParams((s) => ({
       ...s,
       usersToChangeAccessRights:
         idxInParams === NO_ELEMENT
           ? [...s.usersToChangeAccessRights, user]
-          : s.usersToChangeAccessRights.map((it, idx) =>
-              idx === idxInUsers ? user : it
-            ),
+          : s.usersToChangeAccessRights.map((it, idx) => (idx === idxInUsers ? user : it))
     }));
   };
 
@@ -167,14 +147,11 @@ function FileAccessRights() {
             is_download: user.is_download,
             deadline: user.deadline, //TODO - wait for BE
             prim: user.prim, //TODO - wait for BE
-            pass: user.pass, //TODO - wait for BE
-          },
+            pass: user.pass //TODO - wait for BE
+          }
         })
         .catch(() => {
-          setTopMessage(
-            TOP_MESSAGE_TYPE.ERROR,
-            __(`Не удалось изменить права пользователя ${user.name}`)
-          );
+          setTopMessage(TOP_MESSAGE_TYPE.ERROR, __(`Не удалось изменить права пользователя ${user.name}`));
         });
     }
   };
@@ -186,9 +163,7 @@ function FileAccessRights() {
     }
   };
 
-  const isChanges = () =>
-    params.usersToDelete.length > 0 ||
-    params.usersToChangeAccessRights.length > 0;
+  const isChanges = () => params.usersToDelete.length > 0 || params.usersToChangeAccessRights.length > 0;
 
   return (
     <PopUp set={closeModal}>
@@ -203,9 +178,7 @@ function FileAccessRights() {
             <div className={styles.details}>
               <div className={styles.title}>Скопируйте ссылку</div>
               <div className={styles.description}>
-                {__(
-                  "для того чтобы отправить ссылку нажмите кнопку копировать ссылку"
-                )}
+                {__("для того чтобы отправить ссылку нажмите кнопку копировать ссылку")}
               </div>
             </div>
           </div>
@@ -224,9 +197,7 @@ function FileAccessRights() {
           </div>
           <div className={styles.details}>
             <div className={styles.title}>{__("Доступ к ссылке")}</div>
-            <div className={styles.description}>
-              {__("Список пользователей, у кого есть доступ к ссылке")}
-            </div>
+            <div className={styles.description}>{__("Список пользователей, у кого есть доступ к ссылке")}</div>
           </div>
         </div>
         <FileAccessUserList
@@ -241,7 +212,7 @@ function FileAccessRights() {
           <div
             className={classNames({
               [styles.buttonDisabled]: !isChanges(),
-              [styles.add]: isChanges(),
+              [styles.add]: isChanges()
             })}
             onClick={approveChanges}
           >

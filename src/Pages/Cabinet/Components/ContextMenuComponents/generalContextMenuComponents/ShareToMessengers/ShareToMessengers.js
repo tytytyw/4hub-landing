@@ -43,9 +43,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         </div>
         <div className={styles.border} />
         <span className={styles.aboutInfo}>
-          {__(
-            "При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве"
-          )}
+          {__("При отправке через мессенджер будет открыто выбранное приложение на Вашем устройстве")}
         </span>
         <div className={styles.socials}>
           {messengersData.map((item, index) => {
@@ -56,15 +54,11 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
                   onClick={() => setSelectedSoc(item?.type)}
                   className={classNames({
                     [styles.socialsItem]: true,
-                    [styles.active]: selectedSoc === item?.type,
+                    [styles.active]: selectedSoc === item?.type
                   })}
                   key={index}
                 >
-                  <img
-                    className={styles.socialIcon}
-                    src={item.icon}
-                    alt={item.label}
-                  />
+                  <img className={styles.socialIcon} src={item.icon} alt={item.label} />
                   <p>{item.label}</p>
                 </li>
               );
@@ -72,10 +66,7 @@ const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
         </div>
 
         <div className={styles.actionBlock}>
-          <Button
-            onClick={() => setDisplayMessengers(false)}
-            className={styles.backBtn}
-          >
+          <Button onClick={() => setDisplayMessengers(false)} className={styles.backBtn}>
             {__("Назад")}
           </Button>
           <a target="_blank" rel="noreferrer" href={hrefSoc}>
@@ -95,5 +86,5 @@ ShareToMessengers.propTypes = {
   setDisplayMessengers: PropTypes.func,
   close: PropTypes.func,
   fid: PropTypes.string,
-  file: fileProps,
+  file: fileProps
 };

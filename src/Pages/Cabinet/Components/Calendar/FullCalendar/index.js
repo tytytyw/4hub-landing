@@ -15,12 +15,7 @@ const FullCalendarTable = ({ events }) => {
   const calendarRef = useRef();
   const calendarDate = useSelector((state) => state.Cabinet.calendarDate);
   const renderEventContent = (eventInfo) => {
-    return (
-      <TableTaskItem
-        date={eventInfo?.event.start}
-        task={eventInfo.event?.extendedProps}
-      />
-    );
+    return <TableTaskItem date={eventInfo?.event.start} task={eventInfo.event?.extendedProps} />;
   };
 
   const renderHeaderCell = (eventInfo) => {
@@ -50,14 +45,14 @@ const FullCalendarTable = ({ events }) => {
         headerToolbar={{
           left: null,
           center: null,
-          right: null,
+          right: null
         }}
         dayHeaderContent={renderHeaderCell}
         slotDuration="01:00"
         slotLabelFormat={{
           hour: "numeric",
           minute: "2-digit",
-          omitZeroMinute: false,
+          omitZeroMinute: false
         }}
         firstDay={1}
         locale="ru" //TODO - according real location
@@ -70,5 +65,5 @@ const FullCalendarTable = ({ events }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  events: PropTypes.array,
+  events: PropTypes.array
 };

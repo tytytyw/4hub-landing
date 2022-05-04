@@ -15,7 +15,7 @@ function TopMessage() {
           ...topMessage,
           open: false,
           type: "message",
-          message: "",
+          message: ""
         })
       );
     }, 3000);

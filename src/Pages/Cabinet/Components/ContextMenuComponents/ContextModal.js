@@ -12,35 +12,19 @@ import { CONTEXT_MENU_FILE } from "../../../../generalComponents/globalVariables
 import PropTypes from "prop-types";
 
 function ContextModal({ saveCustomizeSeveralFiles }) {
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   return (
     <>
-      {contextMenuModals.type === CONTEXT_MENU_FILE.CREATE_ZIP ? (
-        <CreateZip />
-      ) : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.CREATE_ZIP ? <CreateZip /> : null}
       {contextMenuModals.type === CONTEXT_MENU_FILE.CUSTOMIZE_FILE ? (
         <CustomizeFile saveCustomizeSeveralFiles={saveCustomizeSeveralFiles} />
       ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.COPY_LINK_SHARE ? (
-        <CopyLinkShare />
-      ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.FILE_PROPERTY ? (
-        <FileProperty />
-      ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.MOVE_TO_ARCHIVE ? (
-        <MoveToArchive />
-      ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.DOWNLOAD_FILE ? (
-        <DownloadFile />
-      ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.PRINT_FILE ? (
-        <PrintFile />
-      ) : null}
-      {contextMenuModals.type === CONTEXT_MENU_FILE.DELETE_FILE ? (
-        <DeleteFile />
-      ) : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.COPY_LINK_SHARE ? <CopyLinkShare /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.FILE_PROPERTY ? <FileProperty /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.MOVE_TO_ARCHIVE ? <MoveToArchive /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.DOWNLOAD_FILE ? <DownloadFile /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.PRINT_FILE ? <PrintFile /> : null}
+      {contextMenuModals.type === CONTEXT_MENU_FILE.DELETE_FILE ? <DeleteFile /> : null}
     </>
   );
 }
@@ -48,5 +32,5 @@ function ContextModal({ saveCustomizeSeveralFiles }) {
 export default ContextModal;
 
 ContextModal.propTypes = {
-  saveCustomizeSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func
 };

@@ -15,12 +15,10 @@ const InfoPanel = ({ setAction }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
-      {option === "main" ? (
-        <MainPanel setAction={setAction} setOption={setOption} />
-      ) : null}
+      {option === "main" ? <MainPanel setAction={setAction} setOption={setOption} /> : null}
       {option === "media" ? <Media setOption={setOption} /> : null}
     </div>
   );
@@ -29,5 +27,5 @@ const InfoPanel = ({ setAction }) => {
 export default InfoPanel;
 
 InfoPanel.propTypes = {
-  setAction: PropTypes.func.isRequired,
+  setAction: PropTypes.func.isRequired
 };

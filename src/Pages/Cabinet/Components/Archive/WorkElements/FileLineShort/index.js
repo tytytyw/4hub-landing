@@ -6,11 +6,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps,
-  fileProps,
-} from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
 
 const FileLineShort = ({
   file,
@@ -20,7 +16,7 @@ const FileLineShort = ({
   setFilePreview,
   filePreview,
   filePick,
-  setFilePick,
+  setFilePick
 }) => {
   const size = useSelector((state) => state.Cabinet.size);
 
@@ -30,7 +26,7 @@ const FileLineShort = ({
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter((el) => el !== file.fid),
+            files: filePick.files.filter((el) => el !== file.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file.fid] });
     }
@@ -38,8 +34,7 @@ const FileLineShort = ({
   };
 
   const getFileName = (file) => {
-    const slicedName =
-      file.name && file.name.slice(0, file.name.lastIndexOf("."));
+    const slicedName = file.name && file.name.slice(0, file.name.lastIndexOf("."));
     return slicedName || "(empty name)";
   };
 
@@ -50,15 +45,12 @@ const FileLineShort = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosen,
-        [styles?.[`wrapper_${size}`]]: size !== "medium",
+        [styles?.[`wrapper_${size}`]]: size !== "medium"
       })}
     >
       <div className={styles.fileAbout}>
         <div className={styles.file}>
-          <File
-            format={file.ext}
-            color={file.is_write === "0" ? "#C1C1C1" : file.color}
-          />
+          <File format={file.ext} color={file.is_write === "0" ? "#C1C1C1" : file.color} />
         </div>
 
         <div className={styles.infoWrap}>
@@ -73,11 +65,7 @@ const FileLineShort = ({
           {size !== "small" && (
             <div className={styles.symbols}>
               {file.is_pass === 1 && (
-                <img
-                  className={styles.locked}
-                  src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                  alt="lock"
-                />
+                <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
               )}
               {file.fig && (
                 <img
@@ -100,18 +88,10 @@ const FileLineShort = ({
         {size === "small" && (
           <div className={styles.symbols}>
             {file.is_pass === 1 && (
-              <img
-                className={styles.locked}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="lock"
-              />
+              <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
             )}
             {file.fig && (
-              <img
-                className={styles.sign}
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                alt="sign"
-              />
+              <img className={styles.sign} src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="sign" />
             )}
             {file.emo && (
               <img
@@ -132,7 +112,7 @@ const FileLineShort = ({
                 x: e.clientX,
                 y: e.clientY,
                 width: 260,
-                height: 25,
+                height: 25
               });
             }}
           >
@@ -154,5 +134,5 @@ FileLineShort.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   filePick: filePickProps,
-  setFilePick: PropTypes.func,
+  setFilePick: PropTypes.func
 };

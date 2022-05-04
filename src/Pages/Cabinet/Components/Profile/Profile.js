@@ -54,17 +54,13 @@ const Profile = ({ theme }) => {
             x: e.clientX,
             y: e.clientY,
             width: 170,
-            height: 25,
+            height: 25
           });
         }}
       >
         <img
           className={styles.profileImg}
-          src={
-            user?.icon?.[0]
-              ? imageSrc + user?.icon?.[0]
-              : imageSrc + "/assets/PrivateCabinet/profile-noPhoto.svg"
-          }
+          src={user?.icon?.[0] ? imageSrc + user?.icon?.[0] : imageSrc + "/assets/PrivateCabinet/profile-noPhoto.svg"}
           alt="pie-chart"
         />
         <span>{user?.name ? user.name : "User"}</span>
@@ -78,14 +74,9 @@ const Profile = ({ theme }) => {
           movehorizontal={window.innerWidth <= 1406 ? -30 : 0}
           style={theme === "dark" ? { boxShadow: " 0 2px 5px #272727" } : {}}
         >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuProfile.main, mainCallBacks)}
-          </div>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuProfile.main, mainCallBacks)}</div>
           <div className={styles.additionalMenuItems}>
-            {renderMenuItems(
-              contextMenuProfile.additional,
-              additionalCallBacks
-            )}
+            {renderMenuItems(contextMenuProfile.additional, additionalCallBacks)}
           </div>
         </ContextMenu>
       ) : null}
@@ -96,5 +87,5 @@ const Profile = ({ theme }) => {
 export default Profile;
 
 Profile.propTypes = {
-  theme: PropTypes.string,
+  theme: PropTypes.string
 };

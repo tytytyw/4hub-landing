@@ -12,12 +12,8 @@ const SecretChatStartWallpaper = ({ children }) => {
       <ul className={styles.list}>
         <li className={styles.text}>{__("Используют оконечное шифрование")}</li>
         <li className={styles.text}>{__("Не хранятся на серверах")}</li>
-        <li className={styles.text}>
-          {__("Позволяют удалеть переписку по таймеру")}
-        </li>
-        <li className={styles.text}>
-          {__("Не позволяют пересылать сообщения")}
-        </li>
+        <li className={styles.text}>{__("Позволяют удалеть переписку по таймеру")}</li>
+        <li className={styles.text}>{__("Не позволяют пересылать сообщения")}</li>
       </ul>
       {children}
     </div>
@@ -27,5 +23,5 @@ const SecretChatStartWallpaper = ({ children }) => {
 export default SecretChatStartWallpaper;
 
 SecretChatStartWallpaper.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any
 };

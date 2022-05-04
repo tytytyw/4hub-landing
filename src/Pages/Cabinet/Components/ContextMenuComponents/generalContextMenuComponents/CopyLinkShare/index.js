@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as CopyIcon } from "../../../../../../assets/PrivateCabinet/copy.svg";
 import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabinet/userIcon.svg";
 import { ReactComponent as WorldIcon } from "../../../../../../assets/PrivateCabinet/world.svg";
-import {
-  onGetContacts,
-  onSetModals,
-} from "../../../../../../Store/actions/CabinetActions";
+import { onGetContacts, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../api";
@@ -18,15 +15,11 @@ import { useLocales } from "react-localized";
 
 function CopyLinkShare() {
   const { __ } = useLocales();
-  const { items, action_type } = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const { items, action_type } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const item = items[0];
   const uid = useSelector((state) => state.user.uid);
   const contactList = useSelector((state) => state.Cabinet.contactList);
-  const contextMenuModals = useSelector(
-    (state) => state.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
   const [url, setUrl] = useState(__("Загрузка..."));
   const [review, setReview] = useState({ text: __("Просмотр") });
   const [context, setContext] = useState("");
@@ -37,7 +30,7 @@ function CopyLinkShare() {
   const [prim, setPrim] = useState("");
   const [error, setError] = useState({
     error: false,
-    message: "Request Error",
+    message: "Request Error"
   });
   const closeError = () => {
     setError((state) => ({ ...state, error: false, message: "Request Error" }));
@@ -50,7 +43,7 @@ function CopyLinkShare() {
         ...contextMenuModals,
         type: "",
         items: [],
-        action_type: "",
+        action_type: ""
       })
     );
   };
@@ -58,25 +51,13 @@ function CopyLinkShare() {
   const checkContextMenu = (e) => {
     if (!context) {
       e.nativeEvent.path.forEach((el) => {
-        if (
-          typeof el.className === "string" &&
-          el.className.includes(styles.contacts)
-        )
-          onOpenContacts();
-        if (
-          typeof el.className === "string" &&
-          el.className.includes(styles.review)
-        )
-          setContext("review");
+        if (typeof el.className === "string" && el.className.includes(styles.contacts)) onOpenContacts();
+        if (typeof el.className === "string" && el.className.includes(styles.review)) setContext("review");
       });
     } else {
       let block = false;
       e.nativeEvent.path.forEach((el) => {
-        if (
-          typeof el.className === "string" &&
-          el.className.includes(styles.contactsList)
-        )
-          block = true;
+        if (typeof el.className === "string" && el.className.includes(styles.contactsList)) block = true;
       });
       if (!block) setContext("");
     }
@@ -90,7 +71,7 @@ function CopyLinkShare() {
         : setError((state) => ({
             ...state,
             error: true,
-            message: __(`Ссылка на файл не найдена. Попробуйте еще раз`),
+            message: __(`Ссылка на файл не найдена. Попробуйте еще раз`)
           }));
     } else {
       let stat = "$&is_read=1";
@@ -106,13 +87,11 @@ function CopyLinkShare() {
             setError((state) => ({
               ...state,
               error: true,
-              message: `${res?.data?.error ?? error.message}`,
+              message: `${res?.data?.error ?? error.message}`
             }));
           }
         })
-        .catch((err) =>
-          setError((state) => ({ ...state, error: true, message: `${err}` }))
-        );
+        .catch((err) => setError((state) => ({ ...state, error: true, message: `${err}` })));
     }
   };
 
@@ -135,7 +114,7 @@ function CopyLinkShare() {
         onSetModals("topMessage", {
           open: true,
           type: "message",
-          message: __("Ссылка скопирована"),
+          message: __("Ссылка скопирована")
         })
       );
     }
@@ -148,15 +127,7 @@ function CopyLinkShare() {
 
   const renderContacts = () => {
     if (!contactList)
-      return (
-        <Loader
-          type="switch"
-          position="absolute"
-          background="white"
-          width="200px"
-          height="200px"
-        />
-      );
+      return <Loader type="switch" position="absolute" background="white" width="200px" height="200px" />;
     return contactList.map((contact, i) => {
       const index = chosenContacts?.findIndex((c) => c.id === contact.id);
       return (
@@ -166,18 +137,8 @@ function CopyLinkShare() {
           // TODO - Need to optimize code - too long rendering changeContact
           onClick={() => chooseContact(contact, index)}
         >
-          <div
-            className={`${styles.radioContact} ${
-              index > -1 ? styles.radioContactChosen : ""
-            }`}
-          />
-          <img
-            src={
-              imageSrc +
-              (contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")
-            }
-            alt="img"
-          />
+          <div className={`${styles.radioContact} ${index > -1 ? styles.radioContactChosen : ""}`} />
+          <img src={imageSrc + (contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")} alt="img" />
           <div className={styles.contactInfo}>
             <span>{contact.name}</span>
             <span>{contact.email[0]}</span>
@@ -196,22 +157,11 @@ function CopyLinkShare() {
           getLink();
         }}
       >
-        <div
-          className={`${styles.radio} ${
-            review.text === __("Просмотр") ? styles.radioChosen : ""
-          }`}
-        />
+        <div className={`${styles.radio} ${review.text === __("Просмотр") ? styles.radioChosen : ""}`} />
         <div className={styles.description}>{__("Просмотр")}</div>
       </div>
-      <div
-        className={styles.reviewOption}
-        onClick={() => setReview({ ...review, text: __("Скачивание") })}
-      >
-        <div
-          className={`${styles.radio} ${
-            review.text === __("Скачивание") ? styles.radioChosen : ""
-          }`}
-        />
+      <div className={styles.reviewOption} onClick={() => setReview({ ...review, text: __("Скачивание") })}>
+        <div className={`${styles.radio} ${review.text === __("Скачивание") ? styles.radioChosen : ""}`} />
         <div>Скачивание</div>
       </div>
       <div
@@ -221,16 +171,10 @@ function CopyLinkShare() {
           getLink("write");
         }}
       >
-        <div
-          className={`${styles.radio} ${
-            review.text === __("Редактировать") ? styles.radioChosen : ""
-          }`}
-        />
+        <div className={`${styles.radio} ${review.text === __("Редактировать") ? styles.radioChosen : ""}`} />
         <div>{__("Редактировать")}</div>
       </div>
-      <span className={styles.descr}>
-        {__("Может упорядочивать, добавлять и редактировать файл")}
-      </span>
+      <span className={styles.descr}>{__("Может упорядочивать, добавлять и редактировать файл")}</span>
     </div>
   );
 
@@ -252,13 +196,7 @@ function CopyLinkShare() {
   const rendercontactsSend = () => {
     return contactList.map((contact, i) => (
       <div key={i} className={styles.listItem} onClick={() => deleteContact(i)}>
-        <img
-          src={
-            imageSrc +
-            (contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")
-          }
-          alt="img"
-        />
+        <img src={imageSrc + (contact.icon[0] || "assets/PrivateCabinet/profile-noPhoto.svg")} alt="img" />
         <div className={styles.contactInfo}>
           <span>{contact.email[0]}</span>
         </div>
@@ -276,19 +214,11 @@ function CopyLinkShare() {
       {sendAccess && chosenContacts.length > 0 ? (
         <div className={styles.sendLinkWrap} onClick={checkContextMenu}>
           <header>
-            <div
-              className={styles.backbutton}
-              onClick={() => setSendAccess(false)}
-            >
-              <img
-                src={imageSrc + "assets/PrivateCabinet/arrow.svg"}
-                alt="img"
-              />
+            <div className={styles.backbutton} onClick={() => setSendAccess(false)}>
+              <img src={imageSrc + "assets/PrivateCabinet/arrow.svg"} alt="img" />
             </div>
             <div className={styles.details}>
-              <div className={styles.title}>
-                {__("Предоставьте доступ пользователям и группам")}
-              </div>
+              <div className={styles.title}>{__("Предоставьте доступ пользователям и группам")}</div>
             </div>
           </header>
           <main>
@@ -305,15 +235,8 @@ function CopyLinkShare() {
                   {context === "review" ? renderView() : null}
                 </div>
               </div>
-              <div
-                className={styles.notificationUserWrap}
-                onClick={() => setNotify(!notify)}
-              >
-                <div
-                  className={
-                    notify ? styles.notifyEnable : styles.notifyDisable
-                  }
-                />
+              <div className={styles.notificationUserWrap} onClick={() => setNotify(!notify)}>
+                <div className={notify ? styles.notifyEnable : styles.notifyDisable} />
                 <span>Уведомить пользователя</span>
               </div>
               <div className={styles.message}>
@@ -324,10 +247,7 @@ function CopyLinkShare() {
                 />
               </div>
               <div className={styles.buttonsWrap}>
-                <div
-                  className={styles.cancel}
-                  onClick={() => setSendAccess(false)}
-                >
+                <div className={styles.cancel} onClick={() => setSendAccess(false)}>
                   {__("Отмена")}
                 </div>
                 <div className={styles.send} onClick={sendProject}>
@@ -347,9 +267,7 @@ function CopyLinkShare() {
             <div className={styles.details}>
               <div className={styles.title}>Скопируйте ссылку</div>
               <div className={styles.description}>
-                {__(
-                  "для того чтобы отправить ссылку нажмите кнопку копировать ссылку"
-                )}
+                {__("для того чтобы отправить ссылку нажмите кнопку копировать ссылку")}
               </div>
             </div>
           </header>
@@ -366,12 +284,8 @@ function CopyLinkShare() {
                   <UserIcon className={styles.userIcon} />
                 </div>
                 <div className={styles.details}>
-                  <div className={styles.title}>
-                    {__("Предоставьте доступ пользователям и группам")}
-                  </div>
-                  <div className={styles.description}>
-                    {__("совместный доступ не настроен")}
-                  </div>
+                  <div className={styles.title}>{__("Предоставьте доступ пользователям и группам")}</div>
+                  <div className={styles.description}>{__("совместный доступ не настроен")}</div>
                 </div>
               </div>
               <div className={styles.contacts} onClick={onOpenContacts}>
@@ -379,9 +293,7 @@ function CopyLinkShare() {
                 <img
                   src={imageSrc + "assets/PrivateCabinet/play-black.svg"}
                   alt="copy"
-                  className={
-                    context === "addContacts" ? styles.imageReverse : ""
-                  }
+                  className={context === "addContacts" ? styles.imageReverse : ""}
                 />
                 {context === "addContacts" ? (
                   <div className={styles.contactsList}>
@@ -395,26 +307,13 @@ function CopyLinkShare() {
                     </div>
                     <div className={styles.line} />
                     <div className={styles.contactsSearchBar}>
-                      <input
-                        type="text"
-                        placeholder={__("Введите имя или email")}
-                      />
-                      <img
-                        src={
-                          imageSrc +
-                          "assets/PrivateCabinet/magnifying-glass-2.svg"
-                        }
-                        alt="img"
-                      />
+                      <input type="text" placeholder={__("Введите имя или email")} />
+                      <img src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="img" />
                     </div>
                     <div className={styles.contactList}>{renderContacts()}</div>
                     <div className={styles.buttonWrap}>
                       <div
-                        className={`${
-                          chosenContacts.length > 0
-                            ? styles.button
-                            : styles.buttonDisabled
-                        }`}
+                        className={`${chosenContacts.length > 0 ? styles.button : styles.buttonDisabled}`}
                         onClick={() => setSendAccess(true)}
                       >
                         {__("Готово")}
@@ -431,12 +330,8 @@ function CopyLinkShare() {
                   <WorldIcon className={styles.worldIcon} />
                 </div>
                 <div className={styles.details}>
-                  <div className={styles.title}>
-                    {__("Доступные пользователи, у которых есть ссылка")}
-                  </div>
-                  <div className={styles.description}>
-                    {__("просматривать могут все у кого есть ссылка")}
-                  </div>
+                  <div className={styles.title}>{__("Доступные пользователи, у которых есть ссылка")}</div>
+                  <div className={styles.description}>{__("просматривать могут все у кого есть ссылка")}</div>
                 </div>
               </div>
               <div className={styles.review}>
@@ -462,9 +357,7 @@ function CopyLinkShare() {
         </div>
       ) : null}
       <input ref={linkRef} type="text" style={{ display: "none" }} />
-      {error.error && (
-        <Error error={error.error} set={closeError} message={error.message} />
-      )}
+      {error.error && <Error error={error.error} set={closeError} message={error.message} />}
     </PopUp>
   );
 }

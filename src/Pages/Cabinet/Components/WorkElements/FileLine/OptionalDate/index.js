@@ -15,15 +15,13 @@ const OptionalDate = ({ file }) => {
       case "/downloaded-files":
         return {
           title: __("Дата загрузки: "),
-          value: file.ctime?.split(" ")[0] ?? "",
+          value: file.ctime?.split(" ")[0] ?? ""
         };
       // TODO: get date of arhive
       case "/archive":
         return {
           title: __("Дата архивирования: "),
-          value: file?.date_archive
-            ? file.date_archive?.split(" ")[0] ?? ""
-            : "",
+          value: file?.date_archive ? file.date_archive?.split(" ")[0] ?? "" : ""
         };
       default:
         return "";

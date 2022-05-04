@@ -56,12 +56,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 placeholder={__("Введите фамилию")}
                 isName={true}
                 onChange={(e) =>
-                  setSurname(
-                    e.target.value
-                      ? e.target.value[0].toUpperCase() +
-                          e.target.value.slice(1)
-                      : ""
-                  )
+                  setSurname(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : "")
                 }
               />
             </div>
@@ -74,12 +69,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 name="name"
                 placeholder={__("Введите имя")}
                 onChange={(e) =>
-                  setName(
-                    e.target.value
-                      ? e.target.value[0].toUpperCase() +
-                          e.target.value.slice(1)
-                      : ""
-                  )
+                  setName(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : "")
                 }
                 isName={true}
               />
@@ -93,12 +83,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 name="middle_name"
                 placeholder={__("Введите отчество")}
                 onChange={(e) =>
-                  setMiddleName(
-                    e.target.value
-                      ? e.target.value[0].toUpperCase() +
-                          e.target.value.slice(1)
-                      : ""
-                  )
+                  setMiddleName(e.target.value ? e.target.value[0].toUpperCase() + e.target.value.slice(1) : "")
                 }
                 isName={true}
               />
@@ -110,11 +95,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 Должность
               </label>
 
-              <Select
-                selectFor={"position"}
-                value={position}
-                setValue={setPosition}
-              />
+              <Select selectFor={"position"} value={position} setValue={setPosition} />
             </div>
           </div>
           <div className={styles.row}>
@@ -122,12 +103,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
               <label className={styles.label} htmlFor="status">
                 Статус
               </label>
-              <Select
-                selectFor={"status"}
-                value={status.text}
-                setValue={setStatus}
-                options={personStatus}
-              />
+              <Select selectFor={"status"} value={status.text} setValue={setStatus} options={personStatus} />
             </div>
           </div>
           <div className={styles.row}>
@@ -199,7 +175,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
                 phone,
                 phone2,
                 email,
-                email2,
+                email2
               });
             }}
           >
@@ -211,9 +187,7 @@ const AddEmployee = ({ nullifyAction, addPerson }) => {
       {success && (
         <SuccessPopup
           title={__("Сотрудник успешно добавлен")}
-          text={__(
-            "Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании"
-          )}
+          text={__("Вы успешно добавили сотрудника, теперь он отобразиться в обшей структуре компании")}
           set={nullifyAction}
         >
           <SuccessImg width={40} height={40} />
@@ -227,5 +201,5 @@ export default AddEmployee;
 
 AddEmployee.propTypes = {
   nullifyAction: PropTypes.func,
-  addPerson: PropTypes.func,
+  addPerson: PropTypes.func
 };

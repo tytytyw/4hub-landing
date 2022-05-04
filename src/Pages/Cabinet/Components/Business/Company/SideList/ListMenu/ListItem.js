@@ -22,7 +22,7 @@ const ListItem = ({ item, page, setPage, isSub, render }) => {
           [styles.item]: true,
           [styles.active]: collapse,
           [styles.activePage]: page.name === item.name,
-          [styles.itemSub]: isSub,
+          [styles.itemSub]: isSub
         })}
       >
         <div className={styles.info}>
@@ -37,7 +37,7 @@ const ListItem = ({ item, page, setPage, isSub, render }) => {
         <div
           className={classNames({
             [styles.subItems]: true,
-            [styles.active]: collapse,
+            [styles.active]: collapse
           })}
         >
           {render(item.children, true)}
@@ -54,5 +54,5 @@ ListItem.propTypes = {
   page: PropTypes.object,
   setPage: PropTypes.func,
   isSub: PropTypes.bool,
-  render: PropTypes.func,
+  render: PropTypes.func
 };

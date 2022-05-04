@@ -4,23 +4,12 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import styles from "./CustomFolderItem.module.sass";
 import classNames from "classnames";
-import {
-  onChooseProjectFiles,
-  setChosenFolderProject,
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseProjectFiles, setChosenFolderProject } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
 
-const CustomFolderItem = ({
-  folder,
-  chosenFolder,
-  setMouseParams,
-  listSize,
-  setChosenFolder,
-  project,
-  collapsed,
-}) => {
+const CustomFolderItem = ({ folder, chosenFolder, setMouseParams, listSize, setChosenFolder, project, collapsed }) => {
   const dispatch = useDispatch();
 
   const onClickHandler = () => {
@@ -34,29 +23,22 @@ const CustomFolderItem = ({
       className={classNames({
         [styles.innerFolderWrap]: true,
         [styles.active]: folder?.id && chosenFolder === folder?.id,
-        [styles?.[`wrapper_${listSize}`]]: !!listSize,
+        [styles?.[`wrapper_${listSize}`]]: !!listSize
       })}
       onClick={onClickHandler}
     >
       <div
         className={classNames({
           [styles.innerFolder]: true,
-          [styles.collapsed]: collapsed,
+          [styles.collapsed]: collapsed
         })}
       >
         <div className={styles.innerFolderName}>
           <FolderIcon
-            className={classNames(
-              styles.innerFolderIcon,
-              colors.filter((el) => el.name === folder.color)[0]?.name
-            )}
+            className={classNames(styles.innerFolderIcon, colors.filter((el) => el.name === folder.color)[0]?.name)}
           />
           {folder.is_pass === 1 && (
-            <img
-              className={styles.lock}
-              src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-              alt="emoji"
-            />
+            <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="emoji" />
           )}
           {collapsed ? null : (
             <div className={styles.nameWrap}>
@@ -64,7 +46,7 @@ const CustomFolderItem = ({
               <div
                 className={classNames({
                   [styles.tagBlock]: true,
-                  [styles.ftag]: !!folder?.tags,
+                  [styles.ftag]: !!folder?.tags
                 })}
               >
                 {folder?.tags && `#${folder.tags}`}
@@ -99,7 +81,7 @@ const CustomFolderItem = ({
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "menu",
+                type: "menu"
               });
             }}
           >
@@ -120,5 +102,5 @@ CustomFolderItem.propTypes = {
   listSize: PropTypes.string,
   setChosenFolder: PropTypes.func,
   project: PropTypes.object,
-  collapsed: PropTypes.bool,
+  collapsed: PropTypes.bool
 };

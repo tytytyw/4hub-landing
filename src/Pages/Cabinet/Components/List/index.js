@@ -6,22 +6,13 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const List = ({
-  title,
-  src,
-  setListCollapsed,
-  listCollapsed,
-  children,
-  onCreate,
-  icon,
-  leftIconSrc,
-}) => {
+const List = ({ title, src, setListCollapsed, listCollapsed, children, onCreate, icon, leftIconSrc }) => {
   const { __ } = useLocales();
   return (
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.listWrapCollapsed]: !!listCollapsed,
+        [styles.listWrapCollapsed]: !!listCollapsed
       })}
       title={listCollapsed ? title : ""}
     >
@@ -38,9 +29,7 @@ const List = ({
         <span />
         <div className={styles.imgWrap}>
           <img
-            className={`${styles.playButton} ${
-              listCollapsed ? styles.playButtonReverse : undefined
-            }`}
+            className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
             src={`${imageSrc}assets/PrivateCabinet/play-grey.svg`}
             alt="play"
             onClick={() => setListCollapsed(!listCollapsed)}
@@ -71,9 +60,9 @@ List.propTypes = {
   children: PropTypes.node,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
-  leftIconSrc: PropTypes.string,
+  leftIconSrc: PropTypes.string
 };
 
 List.defaultProps = {
-  icon: true,
+  icon: true
 };

@@ -9,17 +9,9 @@ import { getIcon } from "../Project/helpers";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/WorkElements";
 
-const RecentFiles = ({
-  setFilePreview,
-  filePreview,
-  menuItem,
-  onDoubleClickCallback,
-  width,
-}) => {
+const RecentFiles = ({ setFilePreview, filePreview, menuItem, onDoubleClickCallback, width }) => {
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
-  const chosenRecentFile = useSelector(
-    (state) => state.Cabinet.chosenRecentFile
-  );
+  const chosenRecentFile = useSelector((state) => state.Cabinet.chosenRecentFile);
   const dispatch = useDispatch();
   const containerRef = useRef();
 
@@ -57,35 +49,17 @@ const RecentFiles = ({
           <div className={styles.innerFileWrap}>
             {renderIcon(file)}
             {file.is_pass ? (
-              <img
-                className={styles.lock}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="lock"
-              />
+              <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
             ) : null}
           </div>
           <div className={styles.descriptionWrap}>
-            <div className={styles.fileName}>
-              {file.name.slice(0, file.name.lastIndexOf("."))}
-            </div>
+            <div className={styles.fileName}>{file.name.slice(0, file.name.lastIndexOf("."))}</div>
             <div className={styles.innerFileInfo}>
               <div className={styles.fileSize}>{file.size_now}</div>
               <div className={styles.descriptionGroup}>
-                {file.tag ? (
-                  <div className={styles.fileTag}>#{file.tag}</div>
-                ) : null}
-                {file.id_fig && (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${file.id_fig}.svg`}
-                    alt="sign"
-                  />
-                )}
-                {file.id_emo && (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${file.id_emo}.svg`}
-                    alt="emoji"
-                  />
-                )}
+                {file.tag ? <div className={styles.fileTag}>#{file.tag}</div> : null}
+                {file.id_fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.id_fig}.svg`} alt="sign" />}
+                {file.id_emo && <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.id_emo}.svg`} alt="emoji" />}
               </div>
             </div>
           </div>
@@ -95,11 +69,7 @@ const RecentFiles = ({
   };
 
   return (
-    <div
-      className={styles.wrap}
-      ref={containerRef}
-      style={{ width: width - 27 }}
-    >
+    <div className={styles.wrap} ref={containerRef} style={{ width: width - 27 }}>
       <div className={styles.recentFilesWrap}>{renderRecent()}</div>
     </div>
   );
@@ -112,9 +82,9 @@ RecentFiles.propTypes = {
   filePreview: filePreviewProps,
   menuItem: PropTypes.string,
   onDoubleClickCallback: PropTypes.func,
-  width: PropTypes.number,
+  width: PropTypes.number
 };
 
 RecentFiles.defaultProps = {
-  width: "100%",
+  width: "100%"
 };

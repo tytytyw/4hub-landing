@@ -15,10 +15,7 @@ import CreateCameraMedia from "../CreateCameraMedia";
 import SelectFile from "../SelectFile";
 import Settings from "../Settings";
 import PropTypes from "prop-types";
-import {
-  onEditChatMessage,
-  onDeleteChatMessage,
-} from "../../../../../Store/actions/CabinetActions";
+import { onEditChatMessage, onDeleteChatMessage } from "../../../../../Store/actions/CabinetActions";
 import classNames from "classnames";
 
 const WorkSpace = ({
@@ -33,7 +30,7 @@ const WorkSpace = ({
   file,
   setFile,
   showSettings,
-  setShowSettings,
+  setShowSettings
 }) => {
   const [socket, setSocket] = useState(null);
   const [socketReconnect, setSocketReconnect] = useState(true);
@@ -45,12 +42,8 @@ const WorkSpace = ({
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const [attachedFiles, setAttachedFiles] = useState(null);
 
-  const selectedContact = useSelector(
-    (state) => state.Cabinet.chat.selectedContact
-  );
-  const messageLifeTime = useSelector(
-    (state) => state.Cabinet.chat.messageLifeTime
-  );
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
+  const messageLifeTime = useSelector((state) => state.Cabinet.chat.messageLifeTime);
 
   const scrollToBottom = () => {
     endMessagesRef?.current?.scrollIntoView();
@@ -65,17 +58,12 @@ const WorkSpace = ({
     const data = JSON.parse(e.data);
 
     const isForGroups = data.is_group && selectedContact?.isGroup;
-    const isForSecretChat =
-      data.is_secret_chat && selectedContact?.is_secret_chat;
+    const isForSecretChat = data.is_secret_chat && selectedContact?.is_secret_chat;
     const isForChats = !data.is_group && !selectedContact?.isGroup;
-    const isForSelectedGroup =
-      isForGroups && data.id_group === selectedContact?.id;
-    const isForSelectedChat =
-      isForChats &&
-      (data.id_contact === selectedContact?.id || data.id_user_to === userId);
+    const isForSelectedGroup = isForGroups && data.id_group === selectedContact?.id;
+    const isForSelectedChat = isForChats && (data.id_contact === selectedContact?.id || data.id_user_to === userId);
     // && data.api.id_user === selectedContact?.id_real_user
-    const isForSelectedSecretChat =
-      isForSecretChat && data.id_group === selectedContact?.id;
+    const isForSelectedSecretChat = isForSecretChat && data.id_group === selectedContact?.id;
 
     if (data.action === "Ping") socket.send(JSON.stringify({ action: "Pong" }));
     // PrivateMessage - direct message; PublicMessage- message from group
@@ -87,13 +75,13 @@ const WorkSpace = ({
         text: data.text,
         ut: data.api?.ut_message,
         isNewMessage: true,
-        attachment: data.attachment,
+        attachment: data.attachment
       };
 
       if (isForGroups) {
         dispatch({
           type: "NEW_LAST_GROUP_MESSAGE",
-          payload: { id_group: data.id_group, text: data.text },
+          payload: { id_group: data.id_group, text: data.text }
         });
       }
       if (isForSelectedGroup || isForSelectedChat || isForSelectedSecretChat) {
@@ -104,32 +92,27 @@ const WorkSpace = ({
         if (data.id_group && !isForSelectedGroup) {
           dispatch({
             type: "INCREASE_NOTIFICATION_COUNTER",
-            payload: `group_${data.id_group}`,
+            payload: `group_${data.id_group}`
           });
         }
         if (!data.id_group && !isForSelectedChat) {
           dispatch({
             type: "INCREASE_NOTIFICATION_COUNTER",
-            payload: `chat_${data.api.id_user}`,
+            payload: `chat_${data.api.id_user}`
           });
         }
       }
     }
     if (
-      (data.action === "chat_group_message_edit" ||
-        data.action === "chat_message_edit") &&
+      (data.action === "chat_group_message_edit" || data.action === "chat_message_edit") &&
       (isForSelectedGroup || isForSelectedSecretChat || isForSelectedChat)
     ) {
       dispatch(
-        onEditChatMessage(
-          { attachment: data.attachment, text: data.text },
-          { id: data.id_message, day: data.day }
-        )
+        onEditChatMessage({ attachment: data.attachment, text: data.text }, { id: data.id_message, day: data.day })
       );
     }
     if (
-      (data.action === "chat_group_message_del" ||
-        data.action === "chat_message_del") &&
+      (data.action === "chat_group_message_del" || data.action === "chat_message_del") &&
       (isForSelectedChat || isForSelectedGroup || isForSelectedSecretChat)
     ) {
       dispatch(onDeleteChatMessage({ id: data.id_message, day: data.day }));
@@ -144,28 +127,26 @@ const WorkSpace = ({
   const addMessage = (text, attachment) => {
     if ((text || attachment) && socket) {
       const sendMessage = (params) => {
-        socket.send(
-          JSON.stringify({ ...params, uid, id_company, text, attachment })
-        );
+        socket.send(JSON.stringify({ ...params, uid, id_company, text, attachment }));
       };
       sendMessage(
         selectedContact?.isGroup
           ? {
               action: "chat_group_message_add",
               id_group: selectedContact?.id_group,
-              is_group: true,
+              is_group: true
             }
           : selectedContact.is_secret_chat
           ? {
               action: "chat_group_message_add",
               id_group: selectedContact?.id_group,
               is_secret_chat: true,
-              deadline: messageLifeTime,
+              deadline: messageLifeTime
             }
           : {
               action: "chat_message_send",
               id_user_to: selectedContact?.id_real_user,
-              id_contact: selectedContact?.id,
+              id_contact: selectedContact?.id
             }
       );
     }
@@ -182,7 +163,7 @@ const WorkSpace = ({
             uid,
             id_message: message.id,
             text: newText,
-            day: message.day,
+            day: message.day
           })
         );
       };
@@ -193,12 +174,12 @@ const WorkSpace = ({
               action: "chat_group_message_edit",
               id_group: message.id_group,
               is_group: true,
-              is_secret_chat: !!selectedContact.is_secret_chat,
+              is_secret_chat: !!selectedContact.is_secret_chat
             }
           : {
               action: "chat_message_edit",
               id_user_to: selectedContact?.id_real_user,
-              id_contact: selectedContact?.id,
+              id_contact: selectedContact?.id
             }
       );
     }
@@ -211,7 +192,7 @@ const WorkSpace = ({
           ...params,
           uid,
           id_message: message.id,
-          day: message.day,
+          day: message.day
         })
       );
     };
@@ -222,12 +203,12 @@ const WorkSpace = ({
             action: "chat_group_message_del",
             id_group: message.id_group,
             is_group: true,
-            is_secret_chat: !!selectedContact.is_secret_chat,
+            is_secret_chat: !!selectedContact.is_secret_chat
           }
         : {
             action: "chat_message_del",
             id_user_to: selectedContact?.id_real_user,
-            id_contact: selectedContact?.id,
+            id_contact: selectedContact?.id
           }
     );
   };
@@ -262,8 +243,8 @@ const WorkSpace = ({
             selectedContact?.isGroup || selectedContact?.is_secret_chat
               ? `group_${selectedContact?.id_group}`
               : `chat_${selectedContact?.id_real_user}`,
-          value: 0,
-        },
+          value: 0
+        }
       });
 
     if (socket) {
@@ -282,7 +263,7 @@ const WorkSpace = ({
     <div
       className={classNames({
         [styles.chatWorkSpaceWrap]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <div className={styles.header}>
@@ -294,13 +275,8 @@ const WorkSpace = ({
         </div>
       </div>
       {showSettings && <Settings close={() => setShowSettings(false)} />}
-      <div
-        className={styles.main}
-        style={showSettings ? { height: "calc(100% - 179px - 90px)" } : {}}
-      >
-        {selectedContact &&
-        action.type !== "addChat" &&
-        action.type !== "editChatGroup" ? (
+      <div className={styles.main} style={showSettings ? { height: "calc(100% - 179px - 90px)" } : {}}>
+        {selectedContact && action.type !== "addChat" && action.type !== "editChatGroup" ? (
           <ChatBoard
             sideMenuCollapsed={sideMenuCollapsed}
             boardOption={boardOption}
@@ -390,5 +366,5 @@ WorkSpace.propTypes = {
   file: PropTypes.object,
   setFile: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
-  setShowSettings: PropTypes.func.isRequired,
+  setShowSettings: PropTypes.func.isRequired
 };

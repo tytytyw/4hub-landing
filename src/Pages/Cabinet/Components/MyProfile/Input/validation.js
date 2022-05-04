@@ -20,7 +20,7 @@ export const useInput = (initialValue, validations) => {
     reset() {
       setValue(initialValue);
       setDirty(false);
-    },
+    }
   };
 };
 
@@ -34,9 +34,7 @@ const useValidation = (value, validations) => {
     for (const validation in validations) {
       switch (validation) {
         case "email":
-          validateEmail(value) && !isEmptyValue(value)
-            ? setEmail(true)
-            : setEmail(false);
+          validateEmail(value) && !isEmptyValue(value) ? setEmail(true) : setEmail(false);
           break;
         default:
           break;
@@ -50,7 +48,7 @@ const useValidation = (value, validations) => {
 
   return {
     isEmpty,
-    isEmail,
+    isEmail
   };
 };
 

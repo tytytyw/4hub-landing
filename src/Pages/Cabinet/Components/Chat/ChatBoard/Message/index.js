@@ -10,13 +10,7 @@ import FileMessage from "./FileMessage";
 import VideoPlayer from "../../CreateCameraMedia/VideoPlayer";
 import PropTypes from "prop-types";
 
-function Message({
-  message,
-  selectedContact,
-  currentDate,
-  setMouseParams,
-  contextMenuList,
-}) {
+function Message({ message, selectedContact, currentDate, setMouseParams, contextMenuList }) {
   const messageTime = useMessageTime();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
@@ -38,10 +32,7 @@ function Message({
     if (message.attachment?.kind === "video_message") {
       return <VideoMessagePlayer video={message.attachment} />;
     }
-    if (
-      message.attachment?.kind === "file" ||
-      message.attachment?.kind?.includes("image")
-    ) {
+    if (message.attachment?.kind === "file" || message.attachment?.kind?.includes("image")) {
       return <FileMessage file={message.attachment} />;
     }
     if (message.attachment?.kind === "video") {
@@ -61,15 +52,12 @@ function Message({
       className={classNames({
         [styles.wrapper]: true,
         [styles[messageType]]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       {messageType === "inbox" ? (
         <img
-          src={
-            selectedContact?.icon?.[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          src={selectedContact?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           alt="avatar"
           className={styles.avatar}
         />
@@ -84,12 +72,9 @@ function Message({
             <div
               className={classNames({
                 [styles.content]: true,
-                [styles.file_content]:
-                  message.attachment?.kind === "image" ||
-                  message.attachment?.kind === "file",
-                [styles.audio_content]:
-                  message.attachment?.kind === "audio_message",
-                [styles.video_content]: message.attachment?.kind === "video",
+                [styles.file_content]: message.attachment?.kind === "image" || message.attachment?.kind === "file",
+                [styles.audio_content]: message.attachment?.kind === "audio_message",
+                [styles.video_content]: message.attachment?.kind === "video"
               })}
             >
               {renderAttachment()}
@@ -113,7 +98,7 @@ function Message({
                     width: 215,
                     height: 25,
                     contextMenuList,
-                    message: { ...message, messageType },
+                    message: { ...message, messageType }
                   });
                 }}
               >
@@ -124,9 +109,7 @@ function Message({
             ""
           )}
         </div>
-        <div className={styles.time}>
-          {messageTime(currentDate, message.ut, gmt)}
-        </div>
+        <div className={styles.time}>{messageTime(currentDate, message.ut, gmt)}</div>
       </div>
     </div>
   );
@@ -135,7 +118,7 @@ function Message({
 export default Message;
 
 Message.defaultProps = {
-  contextMenuList: "message",
+  contextMenuList: "message"
 };
 
 Message.propTypes = {
@@ -143,5 +126,5 @@ Message.propTypes = {
   selectedContact: PropTypes.object.isRequired,
   currentDate: PropTypes.object.isRequired,
   setMouseParams: PropTypes.func.isRequired,
-  contextMenuList: PropTypes.string,
+  contextMenuList: PropTypes.string
 };

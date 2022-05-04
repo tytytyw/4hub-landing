@@ -10,20 +10,14 @@ const Security = () => {
   const { __ } = useLocales();
   const userInfo = useSelector((state) => state.user.userInfo);
 
-  const userList = [
-    "Коваленко Артем",
-    "Надельская Ангелина",
-    "Филь Сергей",
-    "Филь Сергей",
-    "Надельская Ангелина",
-  ];
+  const userList = ["Коваленко Артем", "Надельская Ангелина", "Филь Сергей", "Филь Сергей", "Надельская Ангелина"];
   const userListRestriction = [
     "Коваленко Артем",
     "Коваленко Артем",
     "Надельская Ангелина",
     "Филь Сергей",
     "Филь Сергей",
-    "Надельская Ангелина",
+    "Надельская Ангелина"
   ];
   const renderUsers = (userList) => {
     return userList.map((user, id) => {
@@ -39,27 +33,16 @@ const Security = () => {
     <div className={styles.securityWrap}>
       <div className={styles.infoWrap}>
         <img
-          src={
-            userInfo.icon[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          src={userInfo.icon[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           alt=""
           className={styles.icon}
         />
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={`${userInfo.name} ${userInfo.sname}`}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} />
         </div>
       </div>
       <div className={styles.accessWrap}>
-        <span>
-          {__(
-            "Список пользователей, которым предоставлен доступ с возможностью изменить разрешение"
-          )}
-        </span>
+        <span>{__("Список пользователей, которым предоставлен доступ с возможностью изменить разрешение")}</span>
         <div className={styles.users}>{renderUsers(userList)}</div>
       </div>
       <div className={styles.limitationWrap}>

@@ -4,11 +4,7 @@ import styles from "./FileBar.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps,
-  fileProps,
-} from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
 
 const FileBar = ({
   file,
@@ -19,7 +15,7 @@ const FileBar = ({
   setFilePreview,
   filePreview,
   filePick,
-  setFilePick,
+  setFilePick
 }) => {
   const [picked, setPicked] = useState(false);
   const onPickFile = (e) => {
@@ -42,9 +38,7 @@ const FileBar = ({
       <div
         className={`${styles.fileBar} ${chosen ? styles.fileBarChosen : null}`}
         onClick={() => (!isLoading ? setChosenFile(file) : undefined)}
-        onDoubleClick={() =>
-          setFilePreview({ ...filePreview, view: true, file })
-        }
+        onDoubleClick={() => setFilePreview({ ...filePreview, view: true, file })}
       >
         <div
           className={styles.menu}
@@ -53,7 +47,7 @@ const FileBar = ({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25,
+              height: 25
             });
           }}
         >
@@ -62,38 +56,22 @@ const FileBar = ({
         <div className={styles.symbols}>
           <div>
             {file?.fig && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                alt="fig"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="fig" />
             ) : null}
           </div>
           <div>
             {file?.emo && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-                alt="emoji"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt="emoji" />
             ) : null}
           </div>
         </div>
         <div className={styles.file}>
-          <File
-            color={file.color}
-            format={file.ext}
-            className={styles.mainFile}
-          />
+          <File color={file.color} format={file.ext} className={styles.mainFile} />
           {file?.is_pass && !isLoading ? (
-            <img
-              className={styles.locked}
-              src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-              alt="lock"
-            />
+            <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
           ) : null}
         </div>
-        <div className={file.tag ? styles.ftag : styles.fEmtyTag}>
-          {file.tag ? `#${file.tag}` : null}
-        </div>
+        <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag ? `#${file.tag}` : null}</div>
         <div className={styles.fname}>{file.name}</div>
         <div className={styles.fileInfo}>
           <div>{file.size_now}</div>
@@ -101,9 +79,7 @@ const FileBar = ({
         </div>
         {filePick?.show ? (
           <div
-            className={`${styles.filePickBox} ${
-              picked ? styles.filePickBoxPicked : ""
-            }`}
+            className={`${styles.filePickBox} ${picked ? styles.filePickBoxPicked : ""}`}
             onClick={onPickFile}
             onDoubleClick={(e) => e.stopPropagation()}
           />
@@ -124,5 +100,5 @@ FileBar.propTypes = {
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps,
+  filePreview: filePreviewProps
 };

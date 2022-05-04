@@ -16,11 +16,7 @@ const PrevVersions = ({ file }) => {
           <File format={file.ext} color={file.color} />
         </div>
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={file.fname.slice(0, file.fname.lastIndexOf("."))}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={file.fname.slice(0, file.fname.lastIndexOf("."))} disabled={true} />
         </div>
       </div>
       <div className={styles.prevChanged}>
@@ -37,17 +33,9 @@ const PrevVersions = ({ file }) => {
             <div className={styles.fileInfo}>
               {file.fig || file.emo ? (
                 <div className={styles.signs}>
-                  {file.fig ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                      alt="emoji"
-                    />
-                  ) : null}
+                  {file.fig ? <img src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="emoji" /> : null}
                   {file.emo ? (
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file.emo}.svg`} alt="emoji" />
                   ) : null}
                 </div>
               ) : null}
@@ -74,5 +62,5 @@ const PrevVersions = ({ file }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  file: fileProps,
+  file: fileProps
 };

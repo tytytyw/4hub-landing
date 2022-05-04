@@ -10,16 +10,14 @@ const List = ({ setListCollapsed, listCollapsed, children }) => {
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.listWrapCollapsed]: !!listCollapsed,
+        [styles.listWrapCollapsed]: !!listCollapsed
       })}
     >
       <div className={styles.header}>
         {!listCollapsed && <span>Журлнал действий</span>}
         <div className={styles.imgWrap}>
           <img
-            className={`${styles.playButton} ${
-              listCollapsed ? styles.playButtonReverse : undefined
-            }`}
+            className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
             src={imageSrc + "assets/PrivateCabinet/play-grey.svg"}
             alt="play"
             onClick={() => setListCollapsed(!listCollapsed)}
@@ -36,9 +34,9 @@ export default List;
 List.propTypes = {
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.node,
+  children: PropTypes.node
 };
 
 List.defaultProps = {
-  setListCollapsed: () => {},
+  setListCollapsed: () => {}
 };

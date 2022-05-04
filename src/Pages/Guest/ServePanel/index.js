@@ -11,7 +11,7 @@ import {
   onChangeFilterFigure,
   onChangeFilterEmoji,
   onChangeFilterColor,
-  onSetReverseCriterion,
+  onSetReverseCriterion
 } from "../../../Store/actions/CabinetActions";
 import { ReactComponent as BarsIcon } from "../../../assets/PrivateCabinet/bars.svg";
 import { ReactComponent as LinesIcon } from "../../../assets/PrivateCabinet/lines.svg";
@@ -29,10 +29,7 @@ import Emoji from "../../../generalComponents/Elements/Emoji";
 import ContextMenuItem from "../../../generalComponents/ContextMenu/ContextMenuItem";
 import { onSetWorkElementsView } from "../../../Store/actions/CabinetActions";
 import ContextMenu from "../../../generalComponents/ContextMenu";
-import {
-  useContextMenuCreateFile,
-  useContextMenuFilters,
-} from "../../../generalComponents/collections";
+import { useContextMenuCreateFile, useContextMenuFilters } from "../../../generalComponents/collections";
 import { imageSrc } from "../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -49,7 +46,7 @@ const ServePanel = ({
   fileAddCustomization,
   disableWorkElementsView,
   addFolder,
-  addFile,
+  addFile
 }) => {
   const { __ } = useLocales();
   const contextMenuCreateFile = useContextMenuCreateFile();
@@ -85,13 +82,13 @@ const ServePanel = ({
   const createFile = (ext) => {
     const file = {
       file: { name: `No Name.${ext}`, size: 0 },
-      options: {},
+      options: {}
     };
     setFileAddCustomization({
       ...fileAddCustomization,
       show: true,
       file,
-      create: true,
+      create: true
     });
     setTypeContext("");
   };
@@ -120,31 +117,16 @@ const ServePanel = ({
   const renderSortingItems = (target, callback) =>
     target.map((item, i) => {
       return (
-        <div
-          onClick={() => callback(item.ext)}
-          className={styles.contextSortingItem}
-          key={i}
-        >
+        <div onClick={() => callback(item.ext)} className={styles.contextSortingItem} key={i}>
           <div className={styles.chosen}>
             {item.ext === fileCriterion.sorting ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/check.svg`}
-                alt="check"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/check.svg`} alt="check" />
             ) : null}
           </div>
-          <div>
-            {fileCriterion.reverse[item.ext] ? item.reverseName : item.name}
-          </div>
+          <div>{fileCriterion.reverse[item.ext] ? item.reverseName : item.name}</div>
           {item.ext === "byName" ? (
-            <div
-              className={styles.switch}
-              onClick={() => dispatch(onSetReverseCriterion(item.ext))}
-            >
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/vectors.svg`}
-                alt="img"
-              />
+            <div className={styles.switch} onClick={() => dispatch(onSetReverseCriterion(item.ext))}>
+              <img src={`${imageSrc}assets/PrivateCabinet/vectors.svg`} alt="img" />
             </div>
           ) : null}
         </div>
@@ -171,37 +153,25 @@ const ServePanel = ({
           <div className={styles.viewPanel}>
             <div
               onClick={() => dispatch(onSetWorkElementsView("bars"))}
-              className={`${
-                view === "bars" ? styles.iconViewChosen : styles.iconView
-              }`}
+              className={`${view === "bars" ? styles.iconViewChosen : styles.iconView}`}
             >
               <BarsIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("lines"))}
-              className={`${
-                view === "lines" ? styles.iconViewChosen : styles.iconView
-              }`}
+              className={`${view === "lines" ? styles.iconViewChosen : styles.iconView}`}
             >
               <LinesIcon />
             </div>
             <div
               onClick={() => dispatch(onSetWorkElementsView("preview"))}
-              className={`${
-                view === "preview" ? styles.iconViewChosen : styles.iconView
-              }`}
+              className={`${view === "preview" ? styles.iconViewChosen : styles.iconView}`}
             >
               <PreviewIcon />
             </div>
             <div
-              onClick={() =>
-                dispatch(onSetWorkElementsView("workLinesPreview"))
-              }
-              className={`${
-                view === "workLinesPreview"
-                  ? styles.iconViewChosen
-                  : styles.iconView
-              }`}
+              onClick={() => dispatch(onSetWorkElementsView("workLinesPreview"))}
+              className={`${view === "workLinesPreview" ? styles.iconViewChosen : styles.iconView}`}
             >
               <VerticalLinesIcon />
             </div>
@@ -220,53 +190,32 @@ const ServePanel = ({
           >
             <FileSize className={styles.iconSVG} />
           </div>
-          <div
-            ref={filterRef}
-            className={styles.iconView}
-            onClick={(e) => openContextMenu(e, "filter")}
-          >
+          <div ref={filterRef} className={styles.iconView} onClick={(e) => openContextMenu(e, "filter")}>
             <MenuIcon className={styles.iconSVG} />
             <div />
           </div>
-          <span
-            className={
-              filePick?.show ? styles.chooseButtonActive : styles.chooseButton
-            }
-            onClick={chooseSeveral}
-          >
+          <span className={filePick?.show ? styles.chooseButtonActive : styles.chooseButton} onClick={chooseSeveral}>
             {__("Выбрать")}
           </span>
 
           {addFile && (
-            <div
-              onClick={() => addFile()}
-              className={classNames(styles.iconView, styles.addIcon)}
-            >
+            <div onClick={() => addFile()} className={classNames(styles.iconView, styles.addIcon)}>
               <AddFileIcon className={styles.iconSVG} />
             </div>
           )}
 
           {addFolder && (
-            <div
-              onClick={() => addFolder(true)}
-              className={classNames(styles.iconView, styles.addIcon)}
-            >
+            <div onClick={() => addFolder(true)} className={classNames(styles.iconView, styles.addIcon)}>
               <AddFolderIcon className={styles.iconSVG} />
             </div>
           )}
 
           <div className={classNames(styles.iconViewAF)}>
-            <img
-              src={imageSrc + "assets/PrivateCabinet/file-plus.svg"}
-              alt="File plus"
-            />
+            <img src={imageSrc + "assets/PrivateCabinet/file-plus.svg"} alt="File plus" />
           </div>
 
           <div className={classNames(styles.iconViewAF)}>
-            <img
-              src={imageSrc + "assets/PrivateCabinet/folder-plus.svg"}
-              alt="File plus"
-            />
+            <img src={imageSrc + "assets/PrivateCabinet/folder-plus.svg"} alt="File plus" />
           </div>
 
           <div className={styles.infoBlock}>
@@ -292,9 +241,7 @@ const ServePanel = ({
                   setAction({
                     type: "delete",
                     name: __("Удаление файла"),
-                    text: __(
-                      `Вы действительно хотите удалить файл ${chosenFile?.name}?`
-                    ),
+                    text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`)
                   });
               }}
             >
@@ -310,9 +257,7 @@ const ServePanel = ({
           itemRef={typeContext === "createFile" ? createRef : filterRef}
           customClose={typeContext !== "createFile"}
         >
-          {typeContext === "filter" ? (
-            <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div>
-          ) : null}
+          {typeContext === "filter" ? <div>{renderSortingItems(contextMenuFilters.main, setFilter)}</div> : null}
           {typeContext === "filter" ? (
             <Colors
               color={fileCriterion.filters.color}
@@ -382,5 +327,5 @@ ServePanel.propTypes = {
   addFolder: PropTypes.func,
   addFile: PropTypes.func,
   share: PropTypes.func,
-  setAction: PropTypes.func,
+  setAction: PropTypes.func
 };

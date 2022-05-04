@@ -7,5 +7,5 @@ export const tariffCardProps = PropTypes.exact({
   price: PropTypes.number,
   desc: PropTypes.string,
   options: PropTypes.array,
-  current: PropTypes.bool,
+  current: PropTypes.bool
 });

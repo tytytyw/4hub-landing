@@ -14,23 +14,14 @@ import api from "../../../../../../api";
 import { onGetSafeFileList } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 
-const CodePopup = ({
-  safe,
-  set,
-  setLoadingType,
-  filesPage,
-  successLoad,
-  setShowSuccessMessage,
-  action,
-  setAction,
-}) => {
+const CodePopup = ({ safe, set, setLoadingType, filesPage, successLoad, setShowSuccessMessage, action, setAction }) => {
   const { __ } = useLocales();
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState(false);
   const [recoverPass, setRecoverPass] = useState({
     show: false,
-    active: false,
+    active: false
   });
   const [refreshPass, setRefreshPass] = useState(false);
   const [errors, setErrors] = useState({});
@@ -45,9 +36,7 @@ const CodePopup = ({
     if (password && !code) {
       setLoadingType("squarify");
       api
-        .get(
-          `/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`
-        )
+        .get(`/ajax/safe_get_access.php?uid=${uid}&pass=${password}&id_safe=${id_safe}`)
         .then((res) => {
           if (res.data.f_pass) setShowSendCode(true);
           else setError("password");
@@ -59,17 +48,7 @@ const CodePopup = ({
     if (code) {
       setLoadingType("squarify");
       dispatch(
-        onGetSafeFileList(
-          code,
-          id_safe,
-          password,
-          successLoad,
-          setError,
-          setLoadingType,
-          search,
-          filesPage,
-          set
-        )
+        onGetSafeFileList(code, id_safe, password, successLoad, setError, setLoadingType, search, filesPage, set)
       );
     }
   };
@@ -77,9 +56,7 @@ const CodePopup = ({
   const recoverStage2 = () => {
     setLoadingType("squarify");
     api
-      .get(
-        `/ajax/safe_pass_restore2.php?uid=${uid}&id_safe=${safe.id}&code=${code}`
-      )
+      .get(`/ajax/safe_pass_restore2.php?uid=${uid}&id_safe=${safe.id}&code=${code}`)
       .then((res) => {
         if (res.data.ok) {
           setShowSendCode(false);
@@ -95,12 +72,9 @@ const CodePopup = ({
   const requestPassword = () => {
     setLoadingType("squarify");
     api
-      .get(
-        `/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}&verify_only=1`
-      )
+      .get(`/ajax/safe_get_access.php?uid=${uid}&id_safe=${safe.id}&pass=${password}&verify_only=1`)
       .then((res) => {
-        if (res.data.f_pass === 1)
-          setAction({ ...action, type: action.targetType });
+        if (res.data.f_pass === 1) setAction({ ...action, type: action.targetType });
         else setError("password");
       })
       .catch((error) => console.log(error))
@@ -139,10 +113,7 @@ const CodePopup = ({
 
               {!showSendCode && (
                 <div className={styles.inputWrap}>
-                  <input
-                    type="text"
-                    style={{ opacity: "0", width: 0, height: 0 }}
-                  />
+                  <input type="text" style={{ opacity: "0", width: 0, height: 0 }} />
                   <Input
                     placeholder={__("Введите пароль")}
                     className={styles.input}
@@ -153,10 +124,7 @@ const CodePopup = ({
                     showPass={showPass}
                     setShowPass={setShowPass}
                   />
-                  <span
-                    className={styles.link}
-                    onClick={() => setRecoverPass({ show: true, active: true })}
-                  >
+                  <span className={styles.link} onClick={() => setRecoverPass({ show: true, active: true })}>
                     {__("Забыли пароль?")}
                   </span>
                 </div>
@@ -167,9 +135,7 @@ const CodePopup = ({
                   <div className={styles.inputWrap}>
                     {!recoverPass.active ? (
                       <p className={styles.orItem}>
-                        {__(
-                          "на номер {codeSentTo} отправлен код-пароль для доступа к сейфу"
-                        )}
+                        {__("на номер {codeSentTo} отправлен код-пароль для доступа к сейфу")}
                       </p>
                     ) : null}
                     <Input
@@ -186,14 +152,8 @@ const CodePopup = ({
               )}
 
               <div className={styles.actionBlock}>
-                <Button
-                  type="submit"
-                  className={styles.actionBtn}
-                  onClick={onSubmit}
-                >
-                  {showSendCode && !recoverPass.active
-                    ? __("Войти")
-                    : __("Далее")}
+                <Button type="submit" className={styles.actionBtn} onClick={onSubmit}>
+                  {showSendCode && !recoverPass.active ? __("Войти") : __("Далее")}
                 </Button>
               </div>
             </div>

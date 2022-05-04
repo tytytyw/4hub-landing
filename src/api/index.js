@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  withCredentials: false,
+  withCredentials: false
 });
 
 api.defaults.withCredentials = false;

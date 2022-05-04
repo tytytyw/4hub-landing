@@ -6,9 +6,7 @@ import PropTypes from "prop-types";
 
 const WorkSpaceTable = ({ taskList }) => {
   const renderTask = (day, hour) => {
-    const task = taskList?.find(
-      (item) => item?.weekDay === day && item?.hour === hour
-    );
+    const task = taskList?.find((item) => item?.weekDay === day && item?.hour === hour);
     if (task) {
       return <TableTaskItem task={task} />;
     }
@@ -72,5 +70,5 @@ const WorkSpaceTable = ({ taskList }) => {
 export default WorkSpaceTable;
 
 WorkSpaceTable.propTypes = {
-  taskList: PropTypes.any,
+  taskList: PropTypes.any
 };

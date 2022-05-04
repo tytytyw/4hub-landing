@@ -7,7 +7,7 @@ import {
   getDate,
   useDaysOfWeeks,
   useGenerateCalendar,
-  useMonths,
+  useMonths
 } from "../../../generalComponents/CalendarHelper";
 import Select from "../../../generalComponents/Select/Select";
 import { imageSrc } from "../../../generalComponents/globalVariables";
@@ -35,32 +35,30 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
         return setDate({
           day: day && day <= 31 ? day : "",
           month: "12",
-          year: date.year - 1,
+          year: date.year - 1
         });
       return setDate({
         ...date,
         day: day && day <= 31 ? day : "",
-        month: String(Number(date.month) - 1),
+        month: String(Number(date.month) - 1)
       });
     } else {
       if (date.month === "12")
         return setDate({
           day: day && day <= 31 ? day : "",
           month: "1",
-          year: date.year + 1,
+          year: date.year + 1
         });
       return setDate({
         ...date,
         day: day && day <= 31 ? day : "",
-        month: String(Number(date.month) + 1),
+        month: String(Number(date.month) + 1)
       });
     }
   };
 
   const switchYear = (status) => {
-    status === "increase"
-      ? setDate({ ...date, year: date.year + 1 })
-      : setDate({ ...date, year: date.year - 1 });
+    status === "increase" ? setDate({ ...date, year: date.year + 1 }) : setDate({ ...date, year: date.year - 1 });
   };
 
   const renderCal = (obj, classCustom, func, canInteract) => {
@@ -72,7 +70,7 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
           className={classnames({
             [styles[classCustom]]: true,
             [styles.today]: canInteract(today, eachDate),
-            [styles.chosen]: canInteract(date, eachDate),
+            [styles.chosen]: canInteract(date, eachDate)
           })}
           onClick={(e) => func(e)}
         >
@@ -87,7 +85,7 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
       let newDate = {
         ...date,
         day: date.day < 10 ? `0${date.day}` : date.day,
-        month: Number(date.month) < 10 ? `0${date.month}` : date.month,
+        month: Number(date.month) < 10 ? `0${date.month}` : date.month
       };
       setDateValue(Object.values(newDate).join("."));
       setShowCalendar(false);
@@ -119,10 +117,7 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
           <div style={{ transform: "translateX(-35px)" }}>
             <span>Календарь</span>
           </div>
-          <span
-            className={styles.cross}
-            onClick={() => setShowCalendar(false)}
-          ></span>
+          <span className={styles.cross} onClick={() => setShowCalendar(false)}></span>
         </div>
       ) : (
         <div className={styles.header}>
@@ -133,28 +128,16 @@ const Calendar = ({ setShowCalendar, setDateValue, ...props }) => {
           <div className={styles.yearPicker}>
             <div className={styles.yearDecrease} onClick={() => switchYear()} />
             <span>{date.year}</span>
-            <div
-              className={styles.yearIncrease}
-              onClick={() => switchYear("increase")}
-            />
+            <div className={styles.yearIncrease} onClick={() => switchYear("increase")} />
           </div>
-          <span
-            className={styles.cross}
-            onClick={() => setShowCalendar(false)}
-          ></span>
+          <span className={styles.cross} onClick={() => setShowCalendar(false)}></span>
         </div>
       )}
 
       <div className={styles.main}>
         <div className={styles.switcher}>
-          <img
-            src={imageSrc + "assets/StartPage/play-3.svg"}
-            alt="Previous"
-            onClick={() => switchMonth(32)}
-          />
-          <div className={styles.month}>
-            {months(date.year)[date.month - 1].name}
-          </div>
+          <img src={imageSrc + "assets/StartPage/play-3.svg"} alt="Previous" onClick={() => switchMonth(32)} />
+          <div className={styles.month}>{months(date.year)[date.month - 1].name}</div>
           <img
             className={styles.switchReverse}
             src={imageSrc + "assets/StartPage/play-3.svg"}
@@ -187,5 +170,5 @@ export default Calendar;
 Calendar.propTypes = {
   setShowCalendar: PropTypes.func,
   setDateValue: PropTypes.func,
-  datePicker: PropTypes.bool,
+  datePicker: PropTypes.bool
 };

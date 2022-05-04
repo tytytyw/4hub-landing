@@ -13,7 +13,7 @@ const BusinessRegistration = ({ setBusinessRegistration }) => {
     isPass: false,
     isCoincidePass: false,
     isAgreed: false,
-    isСompany: false,
+    isСompany: false
   });
   const [mainFields, setMainFields] = useState({});
   const [step, setStep] = useState("main");
@@ -70,5 +70,5 @@ const BusinessRegistration = ({ setBusinessRegistration }) => {
 export default BusinessRegistration;
 
 BusinessRegistration.propTypes = {
-  setBusinessRegistration: PropTypes.func,
+  setBusinessRegistration: PropTypes.func
 };

@@ -19,5 +19,5 @@ export default ProjectContextItem;
 ProjectContextItem.propTypes = {
   text: PropTypes.string,
   imageSrc: PropTypes.string,
-  callback: PropTypes.func,
+  callback: PropTypes.func
 };

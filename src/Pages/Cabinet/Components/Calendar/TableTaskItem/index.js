@@ -27,13 +27,7 @@ const TableTaskItem = ({ task, date }) => {
       className={styles.wrapper}
     >
       <p className={styles.name}>{task?.name}</p>
-      {visible && (
-        <PopoverTaskItem
-          task={task}
-          reverse={checkReverse()}
-          reverseSide={checkReverseSide()}
-        />
-      )}
+      {visible && <PopoverTaskItem task={task} reverse={checkReverse()} reverseSide={checkReverseSide()} />}
     </div>
   );
 };
@@ -42,5 +36,5 @@ export default TableTaskItem;
 
 TableTaskItem.propTypes = {
   task: PropTypes.object,
-  date: PropTypes.string,
+  date: PropTypes.string
 };

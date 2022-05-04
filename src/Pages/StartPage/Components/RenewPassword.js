@@ -15,28 +15,22 @@ const RenewPassword = ({ setPage }) => {
   const [info, setInfo] = useState({ pass: "", repeatPass: "" });
   const [compare, setCompare] = useState({
     isPass: false,
-    isCoincidePass: false,
+    isCoincidePass: false
   });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState(
-    __("Упс.... что-то пошло не так. Попробуй еще раз!")
-  );
+  const [message, setMessage] = useState(__("Упс.... что-то пошло не так. Попробуй еще раз!"));
   const [userInfo, setUserInfo] = useState({ confirm: "", login: "" });
 
   useEffect(() => {
-    const confirm = window.location.search
-      .match(/confirm_pass=\d*/)[0]
-      .split("=")[1];
+    const confirm = window.location.search.match(/confirm_pass=\d*/)[0].split("=")[1];
     const login = window.location.search.match(/name=.*/)[0].split("=")[1];
     setUserInfo({ ...userInfo, confirm, login });
     return () => window.history.pushState("", "", "/");
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkPass = (input) => {
-    input.value === ""
-      ? setCompare({ ...compare, isPass: true })
-      : setCompare({ ...compare, isPass: false });
+    input.value === "" ? setCompare({ ...compare, isPass: true }) : setCompare({ ...compare, isPass: false });
   };
 
   const comparePass = (val) => {
@@ -51,17 +45,10 @@ const RenewPassword = ({ setPage }) => {
 
   const sendRequest = () => {
     const isFilled =
-      !compare.isPass &&
-      !compare.isCoincidePass &&
-      info.pass &&
-      info.repeatPass &&
-      userInfo.confirm &&
-      userInfo.login;
+      !compare.isPass && !compare.isCoincidePass && info.pass && info.repeatPass && userInfo.confirm && userInfo.login;
     if (isFilled) {
       api
-        .post(
-          `/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`
-        )
+        .post(`/ajax/user_pass_renew.php?name=${userInfo.login}&pass=${info.pass}&confirm_pass=${userInfo.confirm}`)
         .then((res) => {
           if (res.data.ok === 1) {
             setMessage(__("Пароль успешно обновлен"));
@@ -103,7 +90,7 @@ const RenewPassword = ({ setPage }) => {
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare.isPass,
+                [styles.redBorder]: compare.isPass
               })}
               type={visibility}
               value={info.pass}
@@ -132,14 +119,12 @@ const RenewPassword = ({ setPage }) => {
           <div className={styles.inputWrap}>
             <label className={styles.inputName}>
               {__("Повторите пароль")}
-              {compare.isCoincidePass && (
-                <span>{__("Некорректный ввод данных")}</span>
-              )}
+              {compare.isCoincidePass && <span>{__("Некорректный ввод данных")}</span>}
             </label>
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare.isCoincidePass,
+                [styles.redBorder]: compare.isCoincidePass
               })}
               type={visibility}
               value={info.repeatPass}
@@ -172,12 +157,7 @@ const RenewPassword = ({ setPage }) => {
       </div>
       {error && <Error error={error} set={setError} message={message} />}
       {success && (
-        <Success
-          success={success}
-          set={backToEnterProfile}
-          message={message}
-          title={__("Ваш пароль обновлён")}
-        />
+        <Success success={success} set={backToEnterProfile} message={message} title={__("Ваш пароль обновлён")} />
       )}
     </>
   );
@@ -186,5 +166,5 @@ const RenewPassword = ({ setPage }) => {
 export default RenewPassword;
 
 RenewPassword.propTypes = {
-  setPage: PropTypes.func,
+  setPage: PropTypes.func
 };

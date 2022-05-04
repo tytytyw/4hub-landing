@@ -19,7 +19,7 @@ const File = ({ format, color, fileSize }) => {
     "avi",
     "xls",
     "xlsx",
-    "pptx",
+    "pptx"
   ];
 
   const size = fileSize ?? useSelector((state) => state.Cabinet.size);
@@ -40,38 +40,22 @@ const File = ({ format, color, fileSize }) => {
   return (
     <div className={styles.file}>
       <div
-        className={`${styles.corner} ${
-          isFormat() > -1 ? styles[format] : styles.others
-        }`}
+        className={`${styles.corner} ${isFormat() > -1 ? styles[format] : styles.others}`}
         style={{
-          background: `${
-            color
-              ? `linear-gradient(45deg, ${color} 0%, ${color} 50%, white 51%)`
-              : ""
-          }`,
+          background: `${color ? `linear-gradient(45deg, ${color} 0%, ${color} 50%, white 51%)` : ""}`
         }}
       />
       <div className={styles.shadow} />
       <div
         ref={formatRef}
-        className={`${styles.label} ${
-          isFormat() > -1 ? styles[`${format}Big`] : styles.othersBig
-        }`}
+        className={`${styles.label} ${isFormat() > -1 ? styles[`${format}Big`] : styles.othersBig}`}
         style={{ background: `${color ? color : ""}`, fontSize }}
       >
         {format?.toUpperCase() === "ZIP" ? (
-          <img
-            className={styles.zip}
-            src="/assets/PrivateCabinet/zipper.svg"
-            alt=""
-          />
+          <img className={styles.zip} src="/assets/PrivateCabinet/zipper.svg" alt="" />
         ) : null}
         {format ? (
-          <span
-            className={format?.toUpperCase() === "ZIP" ? styles.labelZip : null}
-          >
-            {format?.toUpperCase()}
-          </span>
+          <span className={format?.toUpperCase() === "ZIP" ? styles.labelZip : null}>{format?.toUpperCase()}</span>
         ) : (
           <img src="./assets/PrivateCabinet/down-arrow-2.svg" alt="img" />
         )}

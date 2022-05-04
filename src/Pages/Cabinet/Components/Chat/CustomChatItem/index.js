@@ -21,7 +21,7 @@ const CustomChatItem = ({
   setMouseParams,
   contextMenuList,
   paddingRight,
-  notificationsCounter,
+  notificationsCounter
 }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const onChatItemClick = (e, isMenu) => {
@@ -31,7 +31,7 @@ const CustomChatItem = ({
         y: e.clientY,
         width: 210,
         height: 25,
-        contextMenuList,
+        contextMenuList
       });
 
     if (chatItem?.id === selectedContact?.id && setCollapseMembersList) {
@@ -49,7 +49,7 @@ const CustomChatItem = ({
           selectedContact?.id === chatItem.id &&
           !!selectedContact?.is_secret_chat === !!chatItem.is_secret_chat,
         [styles.disableHover]: disableHover,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
       style={{ paddingRight }}
       onClick={onChatItemClick}
@@ -58,25 +58,14 @@ const CustomChatItem = ({
       <div className={styles.groupName}>
         <div className={styles.avatarWrapper}>
           <img src={avatar} alt="avatar" className={styles.avatar} />
-          {chatItem.is_online ? (
-            <div className={styles.onlineIndicator}></div>
-          ) : (
-            ""
-          )}
+          {chatItem.is_online ? <div className={styles.onlineIndicator}></div> : ""}
         </div>
         {sideMenuCollapsed ? (
-          chatItem.is_secret_chat && (
-            <LockIcon className={styles.secretChatIcon} />
-          )
+          chatItem.is_secret_chat && <LockIcon className={styles.secretChatIcon} />
         ) : (
           <div className={styles.info}>
             <div className={styles.title}>
-              {title}{" "}
-              {chatItem.is_secret_chat ? (
-                <LockIcon className={styles.secretChatIcon} />
-              ) : (
-                ""
-              )}
+              {title} {chatItem.is_secret_chat ? <LockIcon className={styles.secretChatIcon} /> : ""}
             </div>
             <div className={styles.subtitle}>{subtitle}</div>
           </div>
@@ -86,16 +75,13 @@ const CustomChatItem = ({
         <div
           className={classNames({
             [styles.notificationsCounter]: true,
-            [styles.hidden]: !notificationsCounter,
+            [styles.hidden]: !notificationsCounter
           })}
         >
           {notificationsCounter}
         </div>
         {contextMenu === "contextMenu" ? (
-          <div
-            className={styles.menuWrap}
-            onClick={(e) => onChatItemClick(e, true)}
-          >
+          <div className={styles.menuWrap} onClick={(e) => onChatItemClick(e, true)}>
             <span className={styles.menu} />
           </div>
         ) : null}
@@ -103,9 +89,7 @@ const CustomChatItem = ({
           <div
             className={classNames({
               [styles.radioContact]: true,
-              [styles.radioContactChosen]: selectedContact?.filter(
-                (c) => c.id === chatItem.id
-              ).length,
+              [styles.radioContactChosen]: selectedContact?.filter((c) => c.id === chatItem.id).length
             })}
           />
         ) : null}
@@ -123,7 +107,7 @@ CustomChatItem.defaultProps = {
   setMouseParams: () => {},
   contextMenuList: "",
   paddingRight: "",
-  notificationsCounter: null,
+  notificationsCounter: null
 };
 
 CustomChatItem.propTypes = {
@@ -142,5 +126,5 @@ CustomChatItem.propTypes = {
   setMouseParams: PropTypes.func,
   contextMenuList: PropTypes.string,
   paddingRight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  notificationsCounter: PropTypes.number,
+  notificationsCounter: PropTypes.number
 };

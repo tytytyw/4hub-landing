@@ -6,10 +6,7 @@ import MiniToolBar from "../../../WorkElements/MiniToolBar/MiniToolBar";
 import ImagePanel from "./ImagePanel/ImagePanel";
 import DrawZone from "./DrawZone/DrawZone";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  onSetModals,
-  onSetPaint,
-} from "../../../../../../Store/actions/CabinetActions";
+import { onSetModals, onSetPaint } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { loadDest } from "../../../../../../generalComponents/collections";
 import { dataURLintoBlobImage } from "../../../../../../generalComponents/generalHelpers";
@@ -38,7 +35,7 @@ function MutualEdit({ menuItem }) {
   const deleteLoaded = (i) => {
     setImages((s) => ({
       ...s,
-      loaded: s.loaded.filter((el, index) => i !== index),
+      loaded: s.loaded.filter((el, index) => i !== index)
     }));
   };
 
@@ -62,15 +59,12 @@ function MutualEdit({ menuItem }) {
     setImages((s) => ({
       ...s,
       saved: s.saved.filter((el, index) => i !== index),
-      chosen: deleteChosen(images.saved[i].fid),
+      chosen: deleteChosen(images.saved[i].fid)
     }));
   };
 
   const saveImage = async (file) => {
-    const image = new File(
-      [dataURLintoBlobImage(file)],
-      __("Совместное редактирование.png")
-    );
+    const image = new File([dataURLintoBlobImage(file)], __("Совместное редактирование.png"));
 
     let data = new FormData();
     data.append("uid", uid);
@@ -99,13 +93,13 @@ function MutualEdit({ menuItem }) {
         if (isOk) {
           setImages((s) => ({
             ...s,
-            saved: [...s.saved, { src: file, fid: res?.data?.fid || "" }],
+            saved: [...s.saved, { src: file, fid: res?.data?.fid || "" }]
           }));
         } else {
           dispatch(
             onSetModals("error", {
               open: true,
-              message: __(`Файл не сохранен, попробуйте еще раз`),
+              message: __(`Файл не сохранен, попробуйте еще раз`)
             })
           );
         }
@@ -129,7 +123,7 @@ function MutualEdit({ menuItem }) {
         ...mutualEdit,
         open: false,
         data: [],
-        destination: "",
+        destination: ""
       })
     );
 
@@ -176,26 +170,20 @@ function MutualEdit({ menuItem }) {
             </div>
             <div className={styles.buttonsWrap}>
               <div
-                className={`${styles.sendSavedButton} ${
-                  params.isChoosing ? styles.choosing : ""
-                }`}
-                onClick={() =>
-                  setParams((s) => ({ ...s, isChoosing: !params.isChoosing }))
-                }
+                className={`${styles.sendSavedButton} ${params.isChoosing ? styles.choosing : ""}`}
+                onClick={() => setParams((s) => ({ ...s, isChoosing: !params.isChoosing }))}
               >
                 {__("Выбрать")}
               </div>
               <div
-                className={`${styles.sendSavedButton} ${
-                  images.chosen.length === 0 ? styles.notActive : ""
-                }`}
+                className={`${styles.sendSavedButton} ${images.chosen.length === 0 ? styles.notActive : ""}`}
                 onClick={() => {
                   if (images.chosen.length > 0) {
                     dispatch(
                       onSetModals("share", {
                         open: true,
                         fids: images.chosen,
-                        action_type: "file_share",
+                        action_type: "file_share"
                       })
                     );
                   }
@@ -214,5 +202,5 @@ function MutualEdit({ menuItem }) {
 export default MutualEdit;
 
 MutualEdit.propTypes = {
-  menuItem: PropTypes.bool,
+  menuItem: PropTypes.bool
 };

@@ -3,10 +3,7 @@ import React from "react";
 import styles from "./ContactItem.module.sass";
 import "../../../../../generalComponents/colors.sass";
 import classNames from "classnames";
-import {
-  setSelectedDevice,
-  setSelectedUser,
-} from "../../../../../Store/actions/CabinetActions";
+import { setSelectedDevice, setSelectedUser } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
 import { emptyProfileImage } from "../../MyProfile/Contacts/consts";
 import PropTypes from "prop-types";
@@ -29,7 +26,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: selectedUser?.id_user === contact.id_user,
-          [styles?.[`wrapper_${listSize}`]]: !!listSize,
+          [styles?.[`wrapper_${listSize}`]]: !!listSize
         })}
         onClick={() => {
           dispatch(setSelectedUser(contact));
@@ -47,9 +44,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
             />
             {/* {contact?.active === 1 && <span className={styles.active} />} */}
           </div>
-          {!listCollapsed && (
-            <span className={styles.title}>{contact?.user_name} </span>
-          )}
+          {!listCollapsed && <span className={styles.title}>{contact?.user_name} </span>}
         </div>
         <div className={styles.functionWrap}>
           <div
@@ -60,7 +55,7 @@ const ContactItem = ({ contact, setMouseParams, listCollapsed, listSize }) => {
                 y: e.clientY,
                 width: 200,
                 height: 25,
-                type: "user",
+                type: "user"
               })
             }
           >
@@ -78,5 +73,5 @@ ContactItem.propTypes = {
   contact: contactProps,
   setMouseParams: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  listSize: PropTypes.string,
+  listSize: PropTypes.string
 };

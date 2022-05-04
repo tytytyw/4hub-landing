@@ -8,20 +8,12 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const ContactList = ({
-  data = [],
-  selectedItem,
-  setSelectedItem,
-  action,
-  setAction,
-  setMouseParams,
-}) => {
+const ContactList = ({ data = [], selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
   const { __ } = useLocales();
   const [search, setSearch] = useState("");
   const [contactList, setContactList] = useState("");
 
-  const getContactName = (contact) =>
-    `${contact?.name?.trim() || ""} ${contact?.sname.trim() || ""}`;
+  const getContactName = (contact) => `${contact?.name?.trim() || ""} ${contact?.sname.trim() || ""}`;
 
   useEffect(() => {
     setContactList(data);
@@ -46,16 +38,13 @@ const ContactList = ({
   return (
     <div className={styles.sideBar}>
       <div className={styles.search}>
-        <ContactSearch
-          value={search}
-          onChangeHandler={(value) => setSearch(value)}
-        />
+        <ContactSearch value={search} onChangeHandler={(value) => setSearch(value)} />
       </div>
 
       <div
         className={classNames({
           [styles.addContact]: true,
-          [styles.active]: action === "addContact",
+          [styles.active]: action === "addContact"
         })}
         onClick={onAddContact}
       >
@@ -102,7 +91,7 @@ const getGrouppedArray = (initialArray) => {
 
       groupedArray.push({
         group: firstLetter,
-        contacts: contactsItem,
+        contacts: contactsItem
       });
     } else {
       contactsItem.push(item);
@@ -120,6 +109,6 @@ ContactList.propTypes = {
   setSelectedItem: PropTypes.func,
   action: PropTypes.string,
   setAction: PropTypes.func,
-  setMouseParams: PropTypes.func,
+  setMouseParams: PropTypes.func
 };
 ContactList.defaultProps = { data: [] };

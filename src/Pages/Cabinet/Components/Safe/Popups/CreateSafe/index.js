@@ -6,10 +6,7 @@ import Signs from "../../../../../../generalComponents/Elements/Signs";
 import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import Error from "../../../../../../generalComponents/Error";
-import {
-  colors,
-  useTags,
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onGetSafes } from "../../../../../../Store/actions/CabinetActions";
 import Input from "../../../MyProfile/Input";
@@ -29,9 +26,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [tagOption, setTagOption] = useState({ chosen: "", count: 30 });
-  const [color, setColor] = useState(
-    colors?.find((item) => item.name === "blue")
-  );
+  const [color, setColor] = useState(colors?.find((item) => item.name === "blue"));
   const [sign, setSign] = useState("");
   const [tel, setTel] = useState("");
   const [emoji, setEmoji] = useState("");
@@ -57,15 +52,13 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
       name: !name,
       password: !password,
       passwordRepeat: password !== passwordRepeat,
-      tel: !tel && !codeToTel,
+      tel: !tel && !codeToTel
     });
   };
 
   const formIsValid = () => {
     addErrors();
-    return (
-      name && password && password === passwordRepeat && (tel || codeToTel)
-    );
+    return name && password && password === passwordRepeat && (tel || codeToTel);
   };
 
   const onCustomizeSafe = (name, pass, tag, color, fig, emo) => {
@@ -100,17 +93,10 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
         tag: tagOption?.chosen,
         color: color?.name,
         sign,
-        emo: emoji,
+        emo: emoji
       };
 
-      onCustomizeSafe(
-        safeObj.name,
-        safeObj.password,
-        safeObj.tag,
-        safeObj.color,
-        safeObj.sign,
-        safeObj.emo
-      );
+      onCustomizeSafe(safeObj.name, safeObj.password, safeObj.tag, safeObj.color, safeObj.sign, safeObj.emo);
     }
   };
 
@@ -145,7 +131,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
               <div
                 className={classNames({
                   [styles.folder]: true,
-                  [styles.redCross]: color.color !== "grey",
+                  [styles.redCross]: color.color !== "grey"
                 })}
                 onClick={() => setColor(colors[0])}
               >
@@ -155,44 +141,22 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                 <div className={styles.folderName}>{name}</div>
                 <div className={styles.folderOptions}>
                   {tagOption.chosen && (
-                    <div
-                      className={classNames(
-                        styles.minitagWrap,
-                        styles.redCross
-                      )}
-                    >
-                      <div
-                        className={styles.minitag}
-                        onClick={() =>
-                          setTagOption({ ...tagOption, chosen: "" })
-                        }
-                      >
+                    <div className={classNames(styles.minitagWrap, styles.redCross)}>
+                      <div className={styles.minitag} onClick={() => setTagOption({ ...tagOption, chosen: "" })}>
                         # {tagOption.chosen}
                       </div>
                     </div>
                   )}
 
                   {sign && (
-                    <div
-                      className={classNames(styles.sign, styles.redCross)}
-                      onClick={() => setSign("")}
-                    >
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.sign, styles.redCross)} onClick={() => setSign("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                     </div>
                   )}
 
                   {emoji && (
-                    <div
-                      className={classNames(styles.redCross, styles.emodji)}
-                      onClick={() => setEmoji("")}
-                    >
-                      <img
-                        src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`}
-                        alt="emoji"
-                      />
+                    <div className={classNames(styles.redCross, styles.emodji)} onClick={() => setEmoji("")}>
+                      <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                     </div>
                   )}
                 </div>
@@ -224,11 +188,7 @@ const CreateSafe = ({ onCreate, setLoadingType }) => {
                   }}
                 />
                 <span>{tagOption.count}/30</span>
-                <div
-                  className={styles.tagList}
-                  ref={tagRef}
-                  onClick={handleChoose}
-                >
+                <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                   {renderTags()}
                 </div>
               </div>

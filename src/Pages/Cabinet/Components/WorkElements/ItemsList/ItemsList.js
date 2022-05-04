@@ -17,7 +17,7 @@ import {
   onChooseFolder,
   onGetArchiveFiles,
   onSetNextFilesToPrevious,
-  onSetPath,
+  onSetPath
 } from "../../../../../Store/actions/CabinetActions";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import FilesGroup from "../FilesGroup/FilesGroup";
@@ -51,7 +51,7 @@ const ItemsList = ({
   menuItem,
   dateFilter,
   successLoad,
-  sharedFilesInfo,
+  sharedFilesInfo
 }) => {
   const { __ } = useLocales();
   const periods = usePeriods();
@@ -77,9 +77,7 @@ const ItemsList = ({
   //To render FilePath properly after fileNext is destroyed
   const chooseItemNext = (item) => {
     const f = { ...item };
-    f.is_dir
-      ? dispatch(onSetNextFilesToPrevious(f.path, true))
-      : dispatch(onSetNextFilesToPrevious(f.gdir, false));
+    f.is_dir ? dispatch(onSetNextFilesToPrevious(f.path, true)) : dispatch(onSetNextFilesToPrevious(f.gdir, false));
   };
 
   // Types of Files view
@@ -92,9 +90,7 @@ const ItemsList = ({
           file={file}
           setChosenFile={setChosenFile}
           chosen={
-            filePick.show
-              ? filePick.files.findIndex((el) => el === file.fid) >= 0
-              : chosenFile?.fid === file?.fid
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
           }
           setMouseParams={setMouseParams}
           setAction={setAction}
@@ -161,16 +157,12 @@ const ItemsList = ({
 
   useEffect(() => {
     if (pathname === "/archive") {
-      dispatch(
-        onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter)
-      );
+      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
 
     if (pathname === "/cart") {
-      dispatch(
-        onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter)
-      );
+      dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
   }, [dateFilter]);
@@ -178,9 +170,7 @@ const ItemsList = ({
   const onSuccessLoading = (result) => {
     if (typeof result === "number") {
       setTimeout(() => {
-        result > 0
-          ? setFilesPage((filesPage) => filesPage + 1)
-          : setFilesPage(0);
+        result > 0 ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
         setLoadingFiles(false);
       }, 50); // 50ms needed to prevent recursion of ls_json requests
     } else if (typeof result === "object") {
@@ -189,9 +179,7 @@ const ItemsList = ({
         if (result[key].length > 0) moreElements = true;
       }
       setTimeout(() => {
-        moreElements
-          ? setFilesPage((filesPage) => filesPage + 1)
-          : setFilesPage(0);
+        moreElements ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
         setLoadingFiles(false);
       }, 500);
     } else {
@@ -205,21 +193,14 @@ const ItemsList = ({
   const options = {
     root: null,
     rootMargin: "0px",
-    threshold: 0,
+    threshold: 0
   };
 
   const load = (entry) => {
     if (!gLoader) {
-      if (
-        entry.isIntersecting &&
-        !loadingFiles &&
-        filesPage !== 0 &&
-        pathname === "/folders"
-      ) {
+      if (entry.isIntersecting && !loadingFiles && filesPage !== 0 && pathname === "/folders") {
         setLoadingFiles(true);
-        dispatch(
-          onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "")
-        );
+        dispatch(onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, ""));
       }
       if (
         entry.isIntersecting &&
@@ -229,42 +210,14 @@ const ItemsList = ({
       ) {
         setLoadingFiles(true);
         pathname === "/archive" &&
-          dispatch(
-            onGetArchiveFiles(
-              search,
-              filesPage,
-              onSuccessLoading,
-              "",
-              "",
-              dateFilter,
-              pathname
-            )
-          );
+          dispatch(onGetArchiveFiles(search, filesPage, onSuccessLoading, "", "", dateFilter, pathname));
         pathname === "/files" &&
           dispatch(
-            onChooseFiles(
-              fileList?.path,
-              search,
-              filesPage,
-              onSuccessLoading,
-              "",
-              "",
-              "file_list_all",
-              pathname
-            )
+            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
         pathname === "/downloaded-files" &&
           dispatch(
-            onChooseFiles(
-              fileList?.path,
-              search,
-              filesPage,
-              onSuccessLoading,
-              "",
-              "",
-              "file_list_all",
-              pathname
-            )
+            onChooseFiles(fileList?.path, search, filesPage, onSuccessLoading, "", "", "file_list_all", pathname)
           );
       }
     }
@@ -291,29 +244,20 @@ const ItemsList = ({
         </WorkBars>
       ) : null}
 
-      {!Array.isArray(fileList?.files) &&
-      workElementsView !== "workLinesPreview" &&
-      workElementsView !== "preview" ? (
+      {!Array.isArray(fileList?.files) && workElementsView !== "workLinesPreview" && workElementsView !== "preview" ? (
         <div
           className={classnames(
-            renderHeight(
-              recentFiles,
-              filePick,
-              styles,
-              pathname === "/archive" || pathname === "/cart"
-            ),
+            renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
             styles.FilesList,
             {
-              [styles.shared_files]: pathname.startsWith("/shared-files"),
+              [styles.shared_files]: pathname.startsWith("/shared-files")
             }
           )}
         >
           {renderGroups(FileBar, fileList?.files)}
           {!gLoader ? (
             <div
-              className={`${styles.bottomLine} ${
-                filesPage === 0 ? styles.bottomLineHidden : ""
-              }`}
+              className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
               style={{ height: "100%" }}
               ref={scrollRef}
             >

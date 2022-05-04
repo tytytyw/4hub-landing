@@ -54,8 +54,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
 
   const onAddProject = () => {
     if (!name) return setNoNameError(true);
-    if (showRepeat && password !== passwordRepeat)
-      return setPasswordCoincide(false);
+    if (showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
     setLoadingType("squarify");
     api
       .get(
@@ -124,12 +123,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
             </div>
 
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={target}
-                set={setTarget}
-                placeholder={__("Цель проекта")}
-              />
+              <InputField model="text" value={target} set={setTarget} placeholder={__("Цель проекта")} />
             </div>
 
             <div className={styles.inputWrap}>
@@ -159,11 +153,7 @@ const CreateProject = ({ onCreate, title, setLoadingType }) => {
                 }}
               />
               <span className={styles.count}>{tagOption.count}/30</span>
-              <div
-                className={styles.tagList}
-                ref={tagRef}
-                onClick={handleChoose}
-              >
+              <div className={styles.tagList} ref={tagRef} onClick={handleChoose}>
                 {renderTags()}
               </div>
             </div>
@@ -222,5 +212,5 @@ export default CreateProject;
 CreateProject.propTypes = {
   onCreate: PropTypes.func,
   title: PropTypes.string,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

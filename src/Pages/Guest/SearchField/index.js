@@ -11,9 +11,7 @@ import PropTypes from "prop-types";
 const SearchField = ({ setChosenFile }) => {
   const { __ } = useLocales();
   const inputRef = useRef(null);
-  const path = useSelector(
-    (state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path
-  );
+  const path = useSelector((state) => state.Cabinet?.fileList?.path || state.Cabinet?.folderList?.path);
   const searchField = useSelector((state) => state.Cabinet?.search);
   const dispatch = useDispatch();
 
@@ -49,5 +47,5 @@ const SearchField = ({ setChosenFile }) => {
 export default SearchField;
 
 SearchField.propTypes = {
-  setChosenFile: PropTypes.func,
+  setChosenFile: PropTypes.func
 };

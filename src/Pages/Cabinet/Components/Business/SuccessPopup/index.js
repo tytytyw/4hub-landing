@@ -35,5 +35,5 @@ SuccessPopup.propTypes = {
   set: PropTypes.func,
   title: PropTypes.string,
   text: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 };

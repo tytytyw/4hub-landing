@@ -8,21 +8,14 @@ import { getDeviceIconName } from "../../../../../generalComponents/collections"
 import PropTypes from "prop-types";
 import { deviceItemDeviceProps } from "../../../../../types/DeviceItemDeviceProps";
 
-const DeviceItem = ({
-  device,
-  chosen,
-  onClick,
-  setMouseParams,
-  listSize,
-  listCollapsed,
-}) => {
+const DeviceItem = ({ device, chosen, onClick, setMouseParams, listSize, listCollapsed }) => {
   return (
     <>
       <div
         className={classNames({
           [styles.wrapper]: true,
           [styles.wrapperChosen]: !!chosen,
-          [styles?.[`wrapper_${listSize}`]]: !!listSize,
+          [styles?.[`wrapper_${listSize}`]]: !!listSize
         })}
         onClick={onClick}
         title={listCollapsed ? device.name : ""}
@@ -30,20 +23,10 @@ const DeviceItem = ({
         <div className={styles.titleWrap}>
           <div className={styles.titleImg}>
             <img
-              src={
-                imageSrc +
-                `assets/PrivateCabinet/devices/${getDeviceIconName(
-                  device.device
-                )}.svg`
-              }
+              src={imageSrc + `assets/PrivateCabinet/devices/${getDeviceIconName(device.device)}.svg`}
               alt="icon"
               className={styles.icon}
-              onError={(e) =>
-                e.target.setAttribute(
-                  "src",
-                  "./assets/PrivateCabinet/devices/unknown.svg"
-                )
-              }
+              onError={(e) => e.target.setAttribute("src", "./assets/PrivateCabinet/devices/unknown.svg")}
             />
             {device.is_online ? <span className={styles.active} /> : null}
           </div>
@@ -61,7 +44,7 @@ const DeviceItem = ({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
-                height: 25,
+                height: 25
               })
             }
           >
@@ -81,5 +64,5 @@ DeviceItem.propTypes = {
   onClick: PropTypes.func,
   setMouseParams: PropTypes.func,
   listSize: PropTypes.string,
-  listCollapsed: PropTypes.bool,
+  listCollapsed: PropTypes.bool
 };

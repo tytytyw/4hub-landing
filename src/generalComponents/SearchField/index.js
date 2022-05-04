@@ -20,12 +20,7 @@ const SearchField = ({ value, setValue, placeholder, style }) => {
         style={style}
       />
       <img
-        src={
-          imageSrc +
-          `assets/PrivateCabinet/${
-            value ? "garbage.svg" : "magnifying-glass-2.svg"
-          }`
-        }
+        src={imageSrc + `assets/PrivateCabinet/${value ? "garbage.svg" : "magnifying-glass-2.svg"}`}
         alt="search"
         className={styles.searchGlass}
         onClick={() => setValue("")}

@@ -22,14 +22,10 @@ const ForgotPassword = ({ setPage }) => {
     if (val[0] === "+") {
       const newVal = val.replace(/(\+)*(\()*(\))*\s*(-)*/g, "");
       const length = newVal.length;
-      number = `+${newVal.substring(0, 2)}${
-        length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)
-      }${length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)}${
-        length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)
-      }${
-        length > 10
-          ? "-" + newVal.substring(10, newVal.length)
-          : newVal.substring(10, newVal.length)
+      number = `+${newVal.substring(0, 2)}${length > 2 ? " (" + newVal.substring(2, 5) : newVal.substring(2, 5)}${
+        length > 5 ? ") " + newVal.substring(5, 8) : newVal.substring(5, 8)
+      }${length > 8 ? "-" + newVal.substring(8, 10) : newVal.substring(8, 10)}${
+        length > 10 ? "-" + newVal.substring(10, newVal.length) : newVal.substring(10, newVal.length)
       }`;
     } else {
       number = val;
@@ -50,9 +46,7 @@ const ForgotPassword = ({ setPage }) => {
   };
 
   const signIn = () => {
-    const mSuccess = __(
-      "В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения"
-    );
+    const mSuccess = __("В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения");
 
     if (login && !compare) {
       api
@@ -98,7 +92,7 @@ const ForgotPassword = ({ setPage }) => {
             <input
               className={classnames({
                 [styles.inputField]: true,
-                [styles.redBorder]: compare,
+                [styles.redBorder]: compare
               })}
               type="text"
               id="login"
@@ -113,14 +107,7 @@ const ForgotPassword = ({ setPage }) => {
         </div>
       </div>
       {error && <Error error={error} set={setError} message={message} />}
-      {success && (
-        <Success
-          success={success}
-          set={setSuccess}
-          message={message}
-          title={__("Ваш пароль обновлён")}
-        />
-      )}
+      {success && <Success success={success} set={setSuccess} message={message} title={__("Ваш пароль обновлён")} />}
     </>
   );
 };
@@ -128,5 +115,5 @@ const ForgotPassword = ({ setPage }) => {
 export default ForgotPassword;
 
 ForgotPassword.propTypes = {
-  setPage: PropTypes.func,
+  setPage: PropTypes.func
 };

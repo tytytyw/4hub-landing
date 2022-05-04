@@ -6,10 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  colors,
-  useTags,
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { onGetProjectFolders } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -20,14 +17,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../../types/Project";
 
-const CustomizeFolder = ({
-  nullifyAction,
-  title,
-  setError,
-  projectId,
-  folder,
-  setGLoader,
-}) => {
+const CustomizeFolder = ({ nullifyAction, title, setError, projectId, folder, setGLoader }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const uid = useSelector((state) => state.user.uid);
@@ -38,11 +28,9 @@ const CustomizeFolder = ({
   const [showRepeat, setShowRepeat] = useState(false);
   const [tagOption, setTagOption] = useState({
     chosen: folder.tags || "",
-    count: 30,
+    count: 30
   });
-  const [color, setColor] = useState(
-    colors?.filter((el) => el.name === folder?.color)[0]
-  );
+  const [color, setColor] = useState(colors?.filter((el) => el.name === folder?.color)[0]);
   const [fig, setFig] = useState(folder.fig || "");
   const [emoji, setEmoji] = useState(folder.emo || "");
   const [visibility, setVisibility] = useState("password");
@@ -63,7 +51,7 @@ const CustomizeFolder = ({
 
   const addErrors = () => {
     setErrors({
-      name: !name,
+      name: !name
     });
   };
 
@@ -80,11 +68,9 @@ const CustomizeFolder = ({
   const customizeFolder = () => {
     setGLoader(true);
     //TODO: parent folder
-    const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&tag=${
-      tagOption.chosen
-    }&pass=${passwordCoincide ? password : ""}&color=${
-      color?.name || "grey"
-    }&symbol=${fig}&emoji=${emoji}`;
+    const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&tag=${tagOption.chosen}&pass=${
+      passwordCoincide ? password : ""
+    }&color=${color?.name || "grey"}&symbol=${fig}&emoji=${emoji}`;
     api
       .post(`/ajax/project_folders_edit.php?${params}`)
       .then((res) => {
@@ -133,9 +119,7 @@ const CustomizeFolder = ({
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter((el) => el.color === color.color)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === color.color)[0]?.name}`}
               />
             </div>
             <div className={styles.picPreview}>
@@ -146,50 +130,36 @@ const CustomizeFolder = ({
                     className={`${styles.minitagWrap} ${styles.redCross}`}
                     onClick={() => setTagOption({ ...tagOption, chosen: "" })}
                   >
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.color !== "grey" ? styles.colorWrapTap : ""
-                  } ${color.color !== "grey" ? styles.redCross : ""}`}
+                  className={`${styles.colorWrap} ${color.color !== "grey" ? styles.colorWrapTap : ""} ${
+                    color.color !== "grey" ? styles.redCross : ""
+                  }`}
                   onClick={() => setColor(colors[0])}
                 >
                   <div
                     className={styles.circle}
                     style={{
                       background: color.light,
-                      border: `1px solid ${color.dark}`,
+                      border: `1px solid ${color.dark}`
                     }}
                   />
                 </div>
                 {fig && (
                   <div className={styles.redCross} onClick={() => setFig("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${fig}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${fig}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
@@ -251,10 +221,7 @@ const CustomizeFolder = ({
           <Signs sign={fig} setSign={setFig} />
           <Emoji emoji={emoji} setEmoji={setEmoji} />
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => closeComponent(false)}
-            >
+            <div className={styles.cancel} onClick={() => closeComponent(false)}>
               {__("Отмена")}
             </div>
             <div className={styles.add} onClick={() => onCustomizeFolder()}>
@@ -275,5 +242,5 @@ CustomizeFolder.propTypes = {
   setError: PropTypes.func,
   projectId: PropTypes.string,
   folder: projectFolderStructure,
-  setGLoader: PropTypes.func,
+  setGLoader: PropTypes.func
 };

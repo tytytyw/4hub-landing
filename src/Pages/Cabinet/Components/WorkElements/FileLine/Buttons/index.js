@@ -12,10 +12,7 @@ import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
-import {
-  CONTEXT_MENU_FILE,
-  MODALS,
-} from "../../../../../../generalComponents/globalVariables";
+import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 
 const Buttons = ({
@@ -23,17 +20,13 @@ const Buttons = ({
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
   setAction,
   openFolderMenu,
-  setMouseParams,
+  setMouseParams
 }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
-  const authorizedSafe = useSelector(
-    (state) => state.Cabinet.safe.authorizedSafe
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
   const downloadFile = () => {
     // TODO - api for downloading folder
@@ -43,7 +36,7 @@ const Buttons = ({
           ...contextMenuModals,
           type: CONTEXT_MENU_FILE.DOWNLOAD_FILE,
           items: [file],
-          authorizedSafe,
+          authorizedSafe
         })
       );
     }
@@ -55,7 +48,7 @@ const Buttons = ({
         ...contextMenuModals,
         type: CONTEXT_MENU_FILE.PRINT_FILE,
         items: [file],
-        authorizedSafe,
+        authorizedSafe
       })
     );
   };
@@ -65,7 +58,7 @@ const Buttons = ({
       onSetModals(MODALS.CONTEXT_MENU_MODAL, {
         ...contextMenuModals,
         type: CONTEXT_MENU_FILE.FILE_PROPERTY,
-        items: [file],
+        items: [file]
       })
     );
   };
@@ -75,11 +68,8 @@ const Buttons = ({
       onSetModals(MODALS.SHARE, {
         open: true,
         fids: file,
-        action_type:
-          file.is_dir === 1
-            ? "dir_access_add"
-            : share_types[pathname.split("/")[1]],
-        file,
+        action_type: file.is_dir === 1 ? "dir_access_add" : share_types[pathname.split("/")[1]],
+        file
       })
     );
   };
@@ -104,12 +94,10 @@ const Buttons = ({
       className={classNames({
         [styles.iconView]: true,
         [styles.iconSettings]: true,
-        [styles.disable]: file?.is_write === "0",
+        [styles.disable]: file?.is_write === "0"
       })}
     >
-      <SettingsIcon
-        onClick={file?.is_write === "0" ? null : onPropertiesFile}
-      />
+      <SettingsIcon onClick={file?.is_write === "0" ? null : onPropertiesFile} />
     </div>
   );
   const renderDeleteBtn = () => (
@@ -119,7 +107,7 @@ const Buttons = ({
         setAction({
           type: "delete",
           name: __("Удаление файла"),
-          text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
+          text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
         })
       }
     >
@@ -141,7 +129,7 @@ const Buttons = ({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.CREATE_ZIP,
             items: [file],
-            title: __("Сжать в ZIP"),
+            title: __("Сжать в ZIP")
           })
         );
       }}
@@ -160,7 +148,7 @@ const Buttons = ({
               x: e.clientX,
               y: e.clientY,
               width: 240,
-              height: 25,
+              height: 25
             });
       }}
     >
@@ -219,8 +207,7 @@ const Buttons = ({
       {pathname.startsWith("/folders") && renderMyFilesButtons()}
       {pathname.startsWith("/files") && renderMyFilesButtons()}
       {pathname.startsWith("/safe") && renderMyFilesButtons()}
-      {pathname.startsWith("/downloaded-files") &&
-        renderMyDownloadedFileButtons()}
+      {pathname.startsWith("/downloaded-files") && renderMyDownloadedFileButtons()}
       {pathname.startsWith("/archive") && renderArchiveButtons()}
       {pathname.startsWith("/shared-files") && renderSharedFilesButtons()}
       {pathname.startsWith("/cart") && renderCartButtons()}

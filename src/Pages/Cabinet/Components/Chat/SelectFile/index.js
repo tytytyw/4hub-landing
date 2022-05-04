@@ -7,20 +7,10 @@ import TextButton from "../../../../../generalComponents/TextButton";
 import CustomFolderItem from "../../MyFolders/CustomFolderItem";
 import FileLineShort from "../../WorkElements/FileLineShort";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {
-  onGetFolders,
-  onChooseFiles,
-  clearFileList,
-  onSortFile,
-} from "../../../../../Store/actions/CabinetActions";
+import { onGetFolders, onChooseFiles, clearFileList, onSortFile } from "../../../../../Store/actions/CabinetActions";
 import { useFolders } from "../../../../../generalComponents/collections";
 
-const SelectFile = ({
-  nullifyAction,
-  title,
-  attachedFiles,
-  setAttachedFiles,
-}) => {
+const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
@@ -32,16 +22,13 @@ const SelectFile = ({
   const [chosenFolder, setChosenFolder] = useState(null);
   const [chosenFiles, setChosenFiles] = useState(attachedFiles ?? []);
 
-  const FileIsChosen = (file) =>
-    chosenFiles.some((chosenFile) => chosenFile.fid === file.fid);
+  const FileIsChosen = (file) => chosenFiles.some((chosenFile) => chosenFile.fid === file.fid);
 
   const addChosenFile = (f) => {
     const file = { ...f, kind: "file" };
 
     setChosenFiles((prevFiles) =>
-      FileIsChosen(f)
-        ? prevFiles.filter((prveFile) => prveFile.fid !== file.fid)
-        : [...prevFiles, file]
+      FileIsChosen(f) ? prevFiles.filter((prveFile) => prveFile.fid !== file.fid) : [...prevFiles, file]
     );
   };
 
@@ -80,7 +67,7 @@ const SelectFile = ({
           filesSize="small"
           style={{
             width: 420,
-            paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0,
+            paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0
           }}
           disablexContexMenu={true}
         />
@@ -109,24 +96,17 @@ const SelectFile = ({
           disableChosenFolderStyles={true}
           renderLoader={renderLoader}
         >
-          {chosenFolder?.info?.path === folder.path &&
-          Array.isArray(fileList) &&
-          fileList.length
+          {chosenFolder?.info?.path === folder.path && Array.isArray(fileList) && fileList.length
             ? renderFiles(fileList, folder)
             : null}
-          {chosenFolder?.info?.path === folder.path && !fileList
-            ? renderLoader()
-            : null}
+          {chosenFolder?.info?.path === folder.path && !fileList ? renderLoader() : null}
         </CustomFolderItem>
       );
     });
   };
 
   const onSubmit = () => {
-    if (
-      chosenFiles &&
-      !(attachedFiles && attachedFiles.some((f) => f.fid === chosenFiles.fid))
-    )
+    if (chosenFiles && !(attachedFiles && attachedFiles.some((f) => f.fid === chosenFiles.fid)))
       setAttachedFiles(chosenFiles);
     nullifyAction();
   };
@@ -148,10 +128,7 @@ const SelectFile = ({
   }, [path]); // eslint-disable-line
 
   return (
-    <PopUp
-      set={nullifyAction}
-      background={chatTheme.name === "dark" ? "#292929" : ""}
-    >
+    <PopUp set={nullifyAction} background={chatTheme.name === "dark" ? "#292929" : ""}>
       <div className={styles.selectFileWrapper}>
         <span className={styles.title}>{title}</span>
         <div className={styles.crossWrapper} onClick={nullifyAction}>
@@ -169,12 +146,7 @@ const SelectFile = ({
           <div className={styles.cancelButtonWrapper}>
             <TextButton text="Отмена" type="cancel" callback={nullifyAction} />
           </div>
-          <TextButton
-            text="Отправить"
-            type="ok"
-            disabled={!chosenFiles}
-            callback={onSubmit}
-          />
+          <TextButton text="Отправить" type="ok" disabled={!chosenFiles} callback={onSubmit} />
         </div>
       </div>
     </PopUp>
@@ -186,5 +158,5 @@ SelectFile.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   title: PropTypes.string,
   attachedFiles: PropTypes.array,
-  setAttachedFiles: PropTypes.func.isRequired,
+  setAttachedFiles: PropTypes.func.isRequired
 };

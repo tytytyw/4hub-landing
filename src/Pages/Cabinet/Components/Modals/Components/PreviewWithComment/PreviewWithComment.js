@@ -22,62 +22,54 @@ function PreviewWithComment() {
     1: [
       {
         img: BlackMan,
-        text: __(
-          "Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы "
-        ),
+        text: __("Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы "),
         replies: [
           {
             img: WhiteMan,
             text: __(
               "Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы"
-            ),
+            )
           },
-          { img: Woman, text: "Text" },
-        ],
+          { img: Woman, text: "Text" }
+        ]
       },
       {
         img: WhiteMan,
         text: __("60-х годах и, в более недавнее время, программы электронной"),
-        replies: [],
-      },
+        replies: []
+      }
     ],
     7: [
       {
         img: BlackMan,
-        text: __(
-          "Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы "
-        ),
+        text: __("Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы "),
         replies: [
           {
             img: WhiteMan,
             text: __(
               "Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы"
-            ),
+            )
           },
-          { img: Woman, text: "Text" },
-        ],
+          { img: Woman, text: "Text" }
+        ]
       },
       {
         img: WhiteMan,
         text: __("60-х годах и, в более недавнее время, программы электронной"),
-        replies: [],
-      },
-    ],
+        replies: []
+      }
+    ]
   };
 
   const periods = usePeriods();
   const canvasRef = useRef(null);
   const canvasWrapRef = useRef(null);
-  const previewImageWithComment = useSelector(
-    (s) => s.Cabinet.modals.previewWithComments
-  );
-  const [chosenFile, setChosenFile] = useState(
-    previewImageWithComment.chosenFile || null
-  );
+  const previewImageWithComment = useSelector((s) => s.Cabinet.modals.previewWithComments);
+  const [chosenFile, setChosenFile] = useState(previewImageWithComment.chosenFile || null);
   const [params, setParams] = useState({
     comments: c,
     renderedFirstImage: false,
-    loading: false,
+    loading: false
   });
   const dispatch = useDispatch();
 
@@ -86,15 +78,13 @@ function PreviewWithComment() {
   const renderImages = () => {
     if (!previewImageWithComment?.files) return null;
     const images = previewImageWithComment?.files?.filter((file) =>
-      typeof file.mime_type === "string"
-        ? file.mime_type.includes("image")
-        : false
+      typeof file.mime_type === "string" ? file.mime_type.includes("image") : false
     );
     return images.map((image, i) => (
       <div
         className={classnames({
           [styles.itemWrap]: true,
-          [styles.itemChosen]: image?.fid === chosenFile?.fid,
+          [styles.itemChosen]: image?.fid === chosenFile?.fid
         })}
         key={i}
         onClick={() => {
@@ -102,16 +92,8 @@ function PreviewWithComment() {
           drawCanvas(canvasRef?.current, image.preview);
         }}
       >
-        <div
-          className={styles.hoverDelete}
-          onClick={() => setChosenFile(image)}
-        />
-        <img
-          className={styles.image}
-          src={image.preview}
-          alt="img"
-          draggable={false}
-        />
+        <div className={styles.hoverDelete} onClick={() => setChosenFile(image)} />
+        <img className={styles.image} src={image.preview} alt="img" draggable={false} />
       </div>
     ));
   };
@@ -140,11 +122,7 @@ function PreviewWithComment() {
           </div>
           <div className={styles.reply}>{__("Ответить")}</div>
         </div>
-        {comment?.replies?.length > 0 ? (
-          <div className={styles.replies}>
-            {renderComments(comment.replies)}
-          </div>
-        ) : null}
+        {comment?.replies?.length > 0 ? <div className={styles.replies}>{renderComments(comment.replies)}</div> : null}
       </div>
     ));
 
@@ -157,10 +135,7 @@ function PreviewWithComment() {
       !params.renderedFirstImage
     ) {
       setParams((s) => ({ ...s, renderedFirstImage: true }));
-      drawCanvas(
-        canvasRef?.current,
-        previewImageWithComment.chosenFile.preview
-      );
+      drawCanvas(canvasRef?.current, previewImageWithComment.chosenFile.preview);
     }
   }, [previewImageWithComment.chosenFile.preview, params.renderedFirstImage]); //eslint-disable-line
 
@@ -170,7 +145,7 @@ function PreviewWithComment() {
         ...previewImageWithComment,
         open: false,
         files: [],
-        chosenFile: null,
+        chosenFile: null
       })
     );
 
@@ -198,11 +173,7 @@ function PreviewWithComment() {
               height={canvasWrapRef?.current?.getBoundingClientRect().height}
               setLoading={setLoading}
             />
-            {params.comments ? (
-              <div className={styles.comments}>
-                {renderGroup(params.comments)}
-              </div>
-            ) : null}
+            {params.comments ? <div className={styles.comments}>{renderGroup(params.comments)}</div> : null}
           </div>
         </div>
       </div>

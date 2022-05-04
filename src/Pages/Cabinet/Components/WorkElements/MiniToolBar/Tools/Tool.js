@@ -17,7 +17,7 @@ class Tool extends Component {
     penThick: 2.5,
     eraser: 10,
     marker: 7,
-    brush: 10,
+    brush: 10
   };
 
   set strokeStyle(color) {

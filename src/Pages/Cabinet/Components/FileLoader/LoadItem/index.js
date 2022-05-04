@@ -29,11 +29,11 @@ const LoadItem = ({
   setAwaitingFiles,
   loadingFile,
   setLoadingFile,
-  collapsed,
+  collapsed
 }) => {
   const [data, setData] = useState({
     strokeDasharray: `150 150`,
-    strokeDashoffset: `288`,
+    strokeDashoffset: `288`
   });
   const circleRef = useRef();
   const onProgress = (processing) => {
@@ -41,7 +41,7 @@ const LoadItem = ({
     const circumference = 2 * Math.PI * radius;
     setData({
       strokeDasharray: `${circumference} ${circumference}`,
-      strokeDashoffset: `${circumference - (processing / 100) * circumference}`,
+      strokeDashoffset: `${circumference - (processing / 100) * circumference}`
     });
   };
 
@@ -79,16 +79,10 @@ const LoadItem = ({
             <CrossIcon className={styles.cross} onClick={deleteItem} />
           </span>
         ) : null}
-        {!loaded && !processing && !error ? (
-          <CrossIcon className={styles.crossIcon} onClick={deleteItem} />
-        ) : null}
+        {!loaded && !processing && !error ? <CrossIcon className={styles.crossIcon} onClick={deleteItem} /> : null}
         {processing && !error ? (
           <div className={styles.progress}>
-            <svg
-              viewBox="0 0 100 100"
-              width="20px"
-              className={styles.progressBar}
-            >
+            <svg viewBox="0 0 100 100" width="20px" className={styles.progressBar}>
               <circle className={styles.load} cx="50" cy="50" r="45" />
               <circle
                 className={styles.loaded}
@@ -100,9 +94,7 @@ const LoadItem = ({
                 strokeDashoffset={data.strokeDashoffset}
               />
             </svg>
-            {collapsed ? (
-              <UploadArrowIcon className={styles.uploadIcon} />
-            ) : null}
+            {collapsed ? <UploadArrowIcon className={styles.uploadIcon} /> : null}
             <span className={styles.crossUpload}>
               <CrossIcon
                 className={styles.cross}
@@ -161,5 +153,5 @@ LoadItem.propTypes = {
   setAwaitingFiles: PropTypes.func,
   loadingFile: PropTypes.array,
   setLoadingFile: PropTypes.func,
-  collapsed: PropTypes.bool,
+  collapsed: PropTypes.bool
 };
