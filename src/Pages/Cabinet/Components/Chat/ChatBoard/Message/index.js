@@ -20,27 +20,30 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
   const videoPlayerRef = useRef();
 
   const renderAttachment = () => {
-    if (message.attachment?.kind === "audio_message") {
+    if (Array.isArray(message.attachment) && message.attachment[0].kind === "audio_message") {
       return (
         <VoiceMessagePlayer
-          src={message.attachment.link}
-          histogramData={message.attachment?.histogramData ?? []}
+          src={message.attachment[0].link}
+          histogramData={message.attachment[0].histogramData ?? []}
           inboxMessage={messageType === "inbox"}
         />
       );
     }
-    if (message.attachment?.kind === "video_message") {
-      return <VideoMessagePlayer video={message.attachment} />;
+    if (Array.isArray(message.attachment) && message.attachment[0].kind === "video_message") {
+      return <VideoMessagePlayer video={message[0].attachment} />;
     }
-    if (message.attachment?.kind === "file" || message.attachment?.kind?.includes("image")) {
-      return <FileMessage file={message.attachment} />;
+    if (
+      (Array.isArray(message.attachment) && message.attachment[0].kind === "file") ||
+      (Array.isArray(message.attachment) && message.attachment[0].kind?.includes("image"))
+    ) {
+      return message.attachment.map((file) => <FileMessage key={file.fid} file={file} />);
     }
-    if (message.attachment?.kind === "video") {
+    if (Array.isArray(message.attachment) && message.attachment[0].kind === "video") {
       return (
         <VideoPlayer
-          source={message.attachment.link}
+          source={message.attachment[0].link}
           videoPlayerRef={videoPlayerRef}
-          visualEffects={message.attachment.visualEffects}
+          visualEffects={message.attachment[0].visualEffects}
         />
       );
     }
@@ -66,15 +69,18 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
       )}
       <div className={styles.contentWrapper}>
         <div className={styles.flexContainer}>
-          {message.attachment?.kind === "video_message" ? (
+          {Array.isArray(message.attachment) && message.attachment[0].kind === "video_message" ? (
             renderAttachment()
           ) : (
             <div
               className={classNames({
                 [styles.content]: true,
-                [styles.file_content]: message.attachment?.kind === "image" || message.attachment?.kind === "file",
-                [styles.audio_content]: message.attachment?.kind === "audio_message",
-                [styles.video_content]: message.attachment?.kind === "video"
+                [styles.file_content]:
+                  (Array.isArray(message.attachment) && message.attachment[0].kind === "image") ||
+                  (Array.isArray(message.attachment) && message.attachment[0].kind === "file"),
+                [styles.audio_content]:
+                  Array.isArray(message.attachment) && message.attachment[0].kind === "audio_message",
+                [styles.video_content]: Array.isArray(message.attachment) && message.attachment[0].kind === "video"
               })}
             >
               {renderAttachment()}
@@ -87,7 +93,7 @@ function Message({ message, selectedContact, currentDate, setMouseParams, contex
               </div>
             </div>
           )}
-          {messageType !== "inbox" || message.attachment?.kind === "file" ? (
+          {messageType !== "inbox" || (Array.isArray(message.attachment) && message.attachment[0].kind === "file") ? (
             <div className={styles.menuWrapper}>
               <div
                 className={styles.menu}
