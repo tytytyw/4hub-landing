@@ -16,6 +16,7 @@ import { useDateToString } from "../../../../../generalComponents/CalendarHelper
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { onGetChatMessages } from "../../../../../Store/actions/CabinetActions";
 import ChatBoardFooter from "./ChatBoardFooter";
+import FileMessage from "./Message/FileMessage";
 import PropTypes from "prop-types";
 import { actionProps } from "../../../../../types/Action";
 
