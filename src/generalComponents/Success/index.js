@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./Success.module.sass";
 import PopUp from "../PopUp";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
 
 const Success = ({ success, set, message, title, icon }) => {
   const { __ } = useLocales();
@@ -31,3 +32,11 @@ const Success = ({ success, set, message, title, icon }) => {
 };
 
 export default Success;
+
+Success.propTypes = {
+  success: PropTypes.bool,
+  set: PropTypes.func,
+  message: PropTypes.string,
+  title: PropTypes.string,
+  icon: PropTypes.string
+};

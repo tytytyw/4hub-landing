@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import PropTypes from "prop-types";
 import styles from "./InputField.module.sass";
 import classnames from "classnames";
 
@@ -92,3 +92,20 @@ const InputField = ({
 };
 
 export default InputField;
+
+InputField.propTypes = {
+  value: PropTypes.string.isRequired,
+  set: PropTypes.func.isRequired,
+  model: PropTypes.oneOf(["password", "text"]),
+  mistake: PropTypes.bool,
+  switcher: PropTypes.bool,
+  isPass: PropTypes.bool,
+  height: PropTypes.string,
+  placeholder: PropTypes.string,
+  onSwitch: PropTypes.func,
+  visibility: PropTypes.oneOf(["password", "text"]),
+  setVisibility: PropTypes.func,
+  comparePass: PropTypes.func,
+  phone: PropTypes.bool,
+  disabled: PropTypes.bool
+};

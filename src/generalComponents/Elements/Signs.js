@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./Signs.module.sass";
 import { signs } from "../collections";
 import classnames from "classnames";
@@ -39,3 +39,10 @@ const Signs = ({ sign, setSign, title, editableClass = "" }) => {
 };
 
 export default Signs;
+
+Signs.propTypes = {
+  sign: PropTypes.string.isRequired,
+  setSign: PropTypes.func,
+  title: PropTypes.string,
+  editableClass: PropTypes.string
+};

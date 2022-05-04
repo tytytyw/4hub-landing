@@ -145,7 +145,7 @@ export const renderHeight = (recentFiles, filePick, styles, dateFilter) => {
     ? filePick.show
       ? styles.showFilePickWithRecentFiles
       : styles.hideFilePickWithRecentFiles
-    : !!dateFilter
+    : dateFilter
     ? styles.dateFilter
     : filePick.show
     ? styles.showFilePick

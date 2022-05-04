@@ -5,6 +5,7 @@ import styles from "./SelectFolder.module.sass";
 import classNames from "classnames";
 import CustomFolderItem from "../../Pages/Cabinet/Components/MyFolders/CustomFolderItem";
 import { useFolders } from "../collections";
+import PropTypes from "prop-types";
 
 const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewFolderInfo = null, ...props }) => {
   const [open, setOpen] = useState(false);
@@ -14,6 +15,7 @@ const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewF
   const [chosenFolder, setChosenFolder] = useState(initFolder);
   const path = useSelector((state) => state.Cabinet.fileList?.path);
   const ref = useRef();
+  const FOLDERS = useFolders();
 
   const renderFolderList = (root) => {
     if (!Array.isArray(root)) return null;
@@ -40,7 +42,7 @@ const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewF
   const renderPath = () => {
     let newPath = initFolder?.path ?? path;
     if (newPath.includes("global") && newPath.indexOf("global") === 0) {
-      useFolders().forEach((el) => {
+      FOLDERS.forEach((el) => {
         newPath = newPath.replace(el.path, "/" + el.nameRu);
       });
     }
@@ -111,3 +113,12 @@ const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewF
 };
 
 export default SelectFolder;
+
+SelectFolder.propTypes = {
+  classNameSelect: PropTypes.string,
+  initValue: PropTypes.string,
+  initFolder: PropTypes.string,
+  onChange: PropTypes.func,
+  setNewFolderInfo: PropTypes.func,
+  className: PropTypes.string
+};

@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import styles from "./Error.module.sass";
 import PopUp from "../PopUp";
 import { useLocales } from "react-localized";
@@ -31,3 +31,9 @@ const Error = ({ error, set, message }) => {
 };
 
 export default Error;
+
+Error.propTypes = {
+  error: PropTypes.bool.isRequired,
+  set: PropTypes.func.isRequired,
+  message: PropTypes.string
+};
