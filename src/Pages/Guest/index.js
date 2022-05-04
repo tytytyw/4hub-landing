@@ -17,7 +17,7 @@ import CopyLinkShare from "../Cabinet/Components/ContextMenuComponents/generalCo
 import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../generalComponents/globalVariables";
 
-import moment from "moment";
+import { getMonth } from "date-fns";
 import Loader from "../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
 
@@ -42,7 +42,7 @@ const Guest = () => {
     const result = [];
     let files = [];
     fileList.forEach((file) => {
-      const month = moment(file.ctime, "DD.MM.YYYY").month();
+      const month = getMonth(new Date(file.ctime));
       const findGroup = result.find((item) => item.group === month);
       if (!findGroup) {
         files = [];
