@@ -87,6 +87,7 @@ const WorkBarsPreview = ({
     }
     renderFilePreview();
     setPreviewReq({ sent: false, data: null });
+    // eslint-disable-next-line
   }, [file]);
 
   const load = (entry) => {
