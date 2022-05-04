@@ -78,6 +78,7 @@ const PassInfo = ({ setVisible, value, inputRef, setEnable }) => {
         info: true
       }
     ]);
+    // eslint-disable-next-line
   }, [value]);
 
   return (

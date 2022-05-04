@@ -8,7 +8,7 @@ import classNames from "classnames";
 const EmojiArea = () => {
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
-  const onEmojiClick = (event, emojiObject) => dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji });
+  const onEmojiClick = (_, emojiObject) => dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji });
 
   return (
     <div

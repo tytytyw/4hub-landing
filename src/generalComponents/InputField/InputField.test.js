@@ -21,7 +21,7 @@ describe("InputField check tests", () => {
     // console.log(wrapper.find('input').debug());
     // jest.spyOn(input, 'focus');
     input.simulate("focus");
-    console.log(wrapper.debug());
+    // console.log(wrapper.debug());
     // expect(wrapper.find('input').prop('readOnly')).toBe(undefined);
   });
 });

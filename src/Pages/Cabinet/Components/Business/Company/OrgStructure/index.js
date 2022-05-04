@@ -25,7 +25,7 @@ function OrgStructure({
 }) {
   const { __ } = useLocales();
   const contextMenuPerson = useContextMenuPerson();
-  const onNodeDragStop = (e, node) => {
+  const onNodeDragStop = (el, node) => {
     changeNodeCoorditates(node);
   };
   const onElementClick = (e, element) => {
