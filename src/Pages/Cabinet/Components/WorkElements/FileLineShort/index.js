@@ -23,7 +23,7 @@ const FileLineShort = ({
   openFolderMenu,
   filesSize,
   style,
-  disablexContexMenu = false,
+  disableContextMenu = false,
 }) => {
   const size = filesSize ?? useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
@@ -97,7 +97,7 @@ const FileLineShort = ({
         </div>
         <div className={styles.fileName}>{file.name}</div>
       </div>
-      {!disablexContexMenu ? (
+      {!disableContextMenu ? (
         <div
           className={styles.menuWrap}
           onClick={(e) => {

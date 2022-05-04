@@ -82,7 +82,7 @@ const SelectFile = ({
             width: 420,
             paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0,
           }}
-          disablexContexMenu={true}
+          disableContextMenu={true}
         />
       );
     });

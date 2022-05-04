@@ -175,10 +175,6 @@ const CustomFolderItem = ({
   };
 
   const clickHandle = async (e) => {
-    // const currentPath = fileList?.path
-    //   ?.split("/")
-    //   .slice(0, f.path?.split("/").length)
-    //   .join("/");
     if (!isRecent && !offDispatch) openFolder(e);
     //for SelectFile in Chat
     if (renderFiles && offDispatch) openFolder(e, true);
