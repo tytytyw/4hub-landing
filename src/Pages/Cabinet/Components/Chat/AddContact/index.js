@@ -6,10 +6,7 @@ import InputField from "../../../../../generalComponents/InputField";
 import api from "../../../../../api";
 import { ReactComponent as ContactsDatabaseIcon } from "../../../../../assets/PrivateCabinet/contactsDatabase.svg";
 import classNames from "classnames";
-import {
-  onGetCompanyContacts,
-  onGetContacts,
-} from "../../../../../Store/actions/CabinetActions";
+import { onGetCompanyContacts, onGetContacts } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
@@ -27,8 +24,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
 
   const onSubmit = () => {
     if (name && (tel?.length > 8 || checkEmail(email))) {
-      const addCompanyParams = () =>
-        id_company ? `&id_company=${id_company}` : "";
+      const addCompanyParams = () => (id_company ? `&id_company=${id_company}` : "");
       setTimeout(() => nullifyAction(), 100);
       const formData = new FormData();
       formData.append("tel", createContactArray(tel));
@@ -44,7 +40,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
           dispatch(id_company ? onGetCompanyContacts() : onGetContacts());
           setShowSuccessPopup({
             title: __("База контактов успешно добавлена"),
-            text: __("База контактов успешно добавлен в Вашу книгу контактов"),
+            text: __("База контактов успешно добавлен в Вашу книгу контактов")
           });
         })
         .catch((err) => {
@@ -85,18 +81,11 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
           />
         </div>
         <div className={styles.inputWrap}>
-          <InputField
-            value={sname}
-            set={setSname}
-            height={40}
-            placeholder={__("Фамилия")}
-          />
+          <InputField value={sname} set={setSname} height={40} placeholder={__("Фамилия")} />
         </div>
         <div className={styles.inputWrap}>
           <InputField
-            mistake={
-              requiredInputError && !(tel?.length > 8) && !checkEmail(email)
-            }
+            mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)}
             value={tel}
             set={setTel}
             phone={true}
@@ -106,9 +95,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
         </div>
         <div className={styles.inputWrap}>
           <InputField
-            mistake={
-              requiredInputError && !(tel?.length > 8) && !checkEmail(email)
-            }
+            mistake={requiredInputError && !(tel?.length > 8) && !checkEmail(email)}
             value={email}
             set={setEmail}
             height={40}
@@ -119,9 +106,7 @@ function AddContact({ action, nullifyAction, setShowSuccessPopup }) {
           <p className={styles.text}>{__("или")}</p>
           <div className={styles.addContactsDatabase}>
             <ContactsDatabaseIcon className={styles.icon} />
-            <span className={classNames(styles.text, styles.button)}>
-              {__("Загрузите")}
-            </span>
+            <span className={classNames(styles.text, styles.button)}>{__("Загрузите")}</span>
             <span className={styles.text}>{__("базу контактов")}</span>
           </div>
         </div>
@@ -135,5 +120,5 @@ export default AddContact;
 AddContact.propTypes = {
   action: PropTypes.object,
   nullifyAction: PropTypes.func,
-  setShowSuccessPopup: PropTypes.func,
+  setShowSuccessPopup: PropTypes.func
 };

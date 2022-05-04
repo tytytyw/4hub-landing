@@ -16,12 +16,10 @@ const ConnectedContacts = ({
   listSize,
   connectedContactsListLoading,
   loadingFailed,
-  getConnectedContacts,
+  getConnectedContacts
 }) => {
   const { __ } = useLocales();
-  const connectedContacts = useSelector(
-    (state) => state.Cabinet.connectedContacts
-  );
+  const connectedContacts = useSelector((state) => state.Cabinet.connectedContacts);
   const [collapse, setCollapse] = useState(true);
 
   const renderContacts = () => {
@@ -44,34 +42,31 @@ const ConnectedContacts = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.hidden]: collapse,
-        [styles.loadingFailed]: loadingFailed,
+        [styles.loadingFailed]: loadingFailed
       })}
     >
       <div
         className={classNames({
           [styles.titleWrap]: true,
           [styles.titleCollapsed]: !!listCollapsed,
-          [styles.titleWrapChosen]: !!collapse,
+          [styles.titleWrapChosen]: !!collapse
         })}
         onClick={() => setCollapse(!collapse)}
       >
-        <span
-          title={listCollapsed ? __("Подключенные пользователи") : ""}
-          className={styles.title}
-        >
+        <span title={listCollapsed ? __("Подключенные пользователи") : ""} className={styles.title}>
           Подключенные пользователи
         </span>
         <PlayIcon
           className={classNames({
             [styles.playButton]: true,
-            [styles.revert]: collapse,
+            [styles.revert]: collapse
           })}
           title={collapse ? __("Свернуть") : __("Развернуть")}
         />
       </div>
       <div
         className={classNames({
-          [styles.innerContacts]: true,
+          [styles.innerContacts]: true
         })}
       >
         {connectedContactsListLoading ? (
@@ -79,7 +74,7 @@ const ConnectedContacts = ({
             style={{
               height: "54px",
               position: "relative",
-              overflow: "hidden",
+              overflow: "hidden"
             }}
           >
             <Loader
@@ -93,9 +88,7 @@ const ConnectedContacts = ({
             />
           </div>
         ) : null}
-        {loadingFailed
-          ? collapse && <LoadingFailed callback={getConnectedContacts} />
-          : null}
+        {loadingFailed ? collapse && <LoadingFailed callback={getConnectedContacts} /> : null}
 
         {collapse && renderContacts()}
 
@@ -120,5 +113,5 @@ ConnectedContacts.propTypes = {
   listSize: PropTypes.string,
   connectedContactsListLoading: PropTypes.bool,
   loadingFailed: PropTypes.bool,
-  getConnectedContacts: PropTypes.func,
+  getConnectedContacts: PropTypes.func
 };

@@ -17,7 +17,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
     name: "No folder",
     size: 0,
     is_pass: 0,
-    deadline: "2022-09-06 19:38:00",
+    deadline: "2022-09-06 19:38:00"
   };
 
   const [error, setError] = useState(false);
@@ -27,24 +27,19 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   const folderId = window.location.search.split("did=")[1];
 
   const countLeftDays = () => {
-    const d1 = new Date(
-      Object.values(getDate(0)).reverse().join("-") + " 00:00:00"
-    );
+    const d1 = new Date(Object.values(getDate(0)).reverse().join("-") + " 00:00:00");
     const d2 = new Date(folder.deadline);
     const days = (d2 - d1) / 86400000;
     const last = days.toFixed().toString()[days.toString().length - 1];
     if (last === "1") return `${days.toFixed()} день`;
-    if (last === "2" || last === "3" || last === "4")
-      return `${days.toFixed()} дня`;
+    if (last === "2" || last === "3" || last === "4") return `${days.toFixed()} дня`;
     return `${days.toFixed()} дней`;
   };
 
   const showTime = () => {
     const date = folder.deadline.split(" ")[0].split("-").reverse().join(".");
     const time = folder.deadline.split(" ")[1];
-    return time === "00:00:00"
-      ? `${date} 23:59`
-      : `${date} ${time.slice(0, 5)}`;
+    return time === "00:00:00" ? `${date} 23:59` : `${date} ${time.slice(0, 5)}`;
   };
 
   const setSize = () => {
@@ -102,10 +97,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
               </div>
               {folder.name !== "No folder" ? (
                 <a href={`${folder.zip}`} download={true}>
-                  <DownloadIcon
-                    className={styles.download}
-                    onClick={() => document.downloadFile.submit()}
-                  />
+                  <DownloadIcon className={styles.download} onClick={() => document.downloadFile.submit()} />
                 </a>
               ) : null}
               {folder.name !== "No folder" && (
@@ -143,15 +135,11 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
               )}
               {folder.name !== "No folder" ? (
                 <span className={styles.term}>
-                  {__("Срок хранения папки")} ( {countLeftDays()} до{" "}
-                  {showTime()})
+                  {__("Срок хранения папки")} ( {countLeftDays()} до {showTime()})
                 </span>
               ) : null}
               {folder.name !== "No folder" ? (
-                <div
-                  className={styles.guestButton}
-                  onClick={switchToGuestCabinet}
-                >
+                <div className={styles.guestButton} onClick={switchToGuestCabinet}>
                   {__("Посмотреть в гостевом режиме")}
                 </div>
               ) : null}
@@ -159,13 +147,7 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
           )}
         </form>
       )}
-      {error && (
-        <Error
-          error={error}
-          set={setError}
-          message={__("Упс... Такая папка не найдена")}
-        />
-      )}
+      {error && <Error error={error} set={setError} message={__("Упс... Такая папка не найдена")} />}
       {loader ? (
         <>
           <span>{__("Идет процесс созадния ZIP архива")}</span>
@@ -188,5 +170,5 @@ DownloadFolder.propTypes = {
   setPage: PropTypes.func,
   setOptions: PropTypes.func,
   loader: PropTypes.bool,
-  setLoader: PropTypes.func,
+  setLoader: PropTypes.func
 };

@@ -7,17 +7,9 @@ import { share_types } from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 
-const OptionButtomLine = ({
-  filePick,
-  nullifyFilePick,
-  chosenFile,
-  filesPage,
-  menuItem,
-}) => {
+const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -30,7 +22,7 @@ const OptionButtomLine = ({
             type: "CreateZip",
             items: filePick.files,
             title: __("Сжать в ZIP"),
-            filesPage,
+            filesPage
           })
         )
       : null;
@@ -43,12 +35,10 @@ const OptionButtomLine = ({
             type: "CustomizeFile",
             items: filePick.files,
             title:
-              contextMenuModals.items.length === 1
-                ? __("Редактирование файла")
-                : __("Редактировать выбранные файлы"),
+              contextMenuModals.items.length === 1 ? __("Редактирование файла") : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
-            menuItem,
+            menuItem
           })
         )
       : null;
@@ -59,7 +49,7 @@ const OptionButtomLine = ({
           onSetModals("share", {
             open: true,
             fids: filePick.files,
-            action_type: share_types[pathname.split("/")[1]],
+            action_type: share_types[pathname.split("/")[1]]
           })
         )
       : null;
@@ -71,7 +61,7 @@ const OptionButtomLine = ({
             ...contextMenuModals,
             type: "MoveToArchive",
             items: filePick.files,
-            filePick,
+            filePick
           })
         )
       : null;
@@ -88,12 +78,7 @@ const OptionButtomLine = ({
 
   const renderZipBtn = () => {
     return (
-      <div
-        className={`${
-          filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
-        }`}
-        onClick={onZip}
-      >
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onZip}>
         {__("Сжать в ZIP")}
       </div>
     );
@@ -101,12 +86,7 @@ const OptionButtomLine = ({
 
   const renderEditBtn = () => {
     return (
-      <div
-        className={`${
-          filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
-        }`}
-        onClick={onEdit}
-      >
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onEdit}>
         {__("Редактировать")}
       </div>
     );
@@ -114,12 +94,7 @@ const OptionButtomLine = ({
 
   const renderShareBtn = () => {
     return (
-      <div
-        className={`${
-          filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
-        }`}
-        onClick={onShare}
-      >
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onShare}>
         {__("Расшарить")}
       </div>
     );
@@ -127,12 +102,7 @@ const OptionButtomLine = ({
 
   const renderMoveToArchiveBtn = () => {
     return (
-      <div
-        className={`${
-          filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
-        }`}
-        onClick={onMoveToArchive}
-      >
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onMoveToArchive}>
         {__("Пер. в архив")}
       </div>
     );
@@ -140,12 +110,7 @@ const OptionButtomLine = ({
 
   const renderReestablishBtn = () => {
     return (
-      <div
-        className={`${
-          filePick.files.length > 0 ? styles.edit : styles.buttonDisabled
-        }`}
-        onClick={onReestablish}
-      >
+      <div className={`${filePick.files.length > 0 ? styles.edit : styles.buttonDisabled}`} onClick={onReestablish}>
         {__("Восстановить")}
       </div>
     );
@@ -175,9 +140,7 @@ const OptionButtomLine = ({
 
   return (
     <div className={styles.optionBottomLine}>
-      {pathname.startsWith("/cart")
-        ? renderCartOption()
-        : renderOtherPageOption()}
+      {pathname.startsWith("/cart") ? renderCartOption() : renderOtherPageOption()}
     </div>
   );
 };

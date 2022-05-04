@@ -12,11 +12,7 @@ const ContactSearch = ({ value, onChangeHandler = () => {}, placeholder }) => {
   }
   return (
     <div className={styles.searchWrap}>
-      <img
-        className={styles.icon}
-        src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"}
-        alt="Search"
-      />
+      <img className={styles.icon} src={imageSrc + "assets/PrivateCabinet/magnifying-glass-2.svg"} alt="Search" />
       <input
         type="search"
         value={value}
@@ -33,9 +29,9 @@ export default ContactSearch;
 ContactSearch.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  onChangeHandler: PropTypes.func,
+  onChangeHandler: PropTypes.func
 };
 
 ContactSearch.defaultProps = {
-  onChangeHandler: () => {},
+  onChangeHandler: () => {}
 };

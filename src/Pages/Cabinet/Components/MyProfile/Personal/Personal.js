@@ -14,7 +14,7 @@ const Personal = () => {
   const langs = [
     { id: "ru", text: __("Русский") },
     { id: "en", text: __("Английский") },
-    { id: "uk", text: __("Украинский") },
+    { id: "uk", text: __("Украинский") }
   ];
 
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Personal = () => {
   const [params, setParams] = useState({
     theme: currentParams?.theme,
     lang: currentParams?.lang,
-    notify: currentParams?.notify,
+    notify: currentParams?.notify
   });
   const [disabledButton, setDisabledButton] = useState(false);
   const enableButton = () => setDisabledButton(false);
@@ -55,16 +55,11 @@ const Personal = () => {
                   <p>{__("Звуковое оповещение")}</p>
                 </div>
 
-                <div
-                  className={styles.switcher}
-                  onClick={() =>
-                    setParams((s) => ({ ...params, notify: !s?.notify }))
-                  }
-                >
+                <div className={styles.switcher} onClick={() => setParams((s) => ({ ...params, notify: !s?.notify }))}>
                   <div
                     className={classNames({
                       [styles.switch]: true,
-                      [styles.active]: !!params?.notify,
+                      [styles.active]: !!params?.notify
                     })}
                   />
                 </div>
@@ -95,16 +90,11 @@ const Personal = () => {
                   </div>
                   <div
                     style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)",
+                      backgroundImage: "linear-gradient(180deg, #4543F7 0%, #0A3AAB 100%)"
                     }}
                     className={styles.colorBlock}
                   />
-                  <button
-                    type="button"
-                    style={{ background: "#4086F1" }}
-                    className={styles.button}
-                  >
+                  <button type="button" style={{ background: "#4086F1" }} className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -130,16 +120,11 @@ const Personal = () => {
                   </div>
                   <div
                     style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)",
+                      backgroundImage: "linear-gradient(180deg, #EA7D30 0%, #EA4631 100%)"
                     }}
                     className={styles.colorBlock}
                   />
-                  <button
-                    type="button"
-                    style={{ background: "#F58338" }}
-                    className={styles.button}
-                  >
+                  <button type="button" style={{ background: "#F58338" }} className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -165,16 +150,11 @@ const Personal = () => {
                   </div>
                   <div
                     style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #10AADD 0%, #18697C 100%)",
+                      backgroundImage: "linear-gradient(180deg, #10AADD 0%, #18697C 100%)"
                     }}
                     className={styles.colorBlock}
                   />
-                  <button
-                    type="button"
-                    style={{ background: "#10AADC" }}
-                    className={styles.button}
-                  >
+                  <button type="button" style={{ background: "#10AADC" }} className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -200,16 +180,11 @@ const Personal = () => {
                   </div>
                   <div
                     style={{
-                      backgroundImage:
-                        "linear-gradient(180deg, #222222 0%, #3F3F3F 100%)",
+                      backgroundImage: "linear-gradient(180deg, #222222 0%, #3F3F3F 100%)"
                     }}
                     className={styles.colorBlock}
                   />
-                  <button
-                    type="button"
-                    style={{ background: "#2C2C2C" }}
-                    className={styles.button}
-                  >
+                  <button type="button" style={{ background: "#2C2C2C" }} className={styles.button}>
                     {__("Кнопка")}
                   </button>
                 </div>
@@ -235,7 +210,7 @@ const Personal = () => {
                   setParams({
                     theme: currentParams?.theme,
                     lang: currentParams?.lang,
-                    notify: currentParams?.notify,
+                    notify: currentParams?.notify
                   });
                 }}
               >
@@ -245,7 +220,7 @@ const Personal = () => {
                 type="submit"
                 className={classNames({
                   [styles.submitBtn]: !disabledButton,
-                  [styles.cancelBtn]: disabledButton,
+                  [styles.cancelBtn]: disabledButton
                 })}
               >
                 {__("Сохранить")}

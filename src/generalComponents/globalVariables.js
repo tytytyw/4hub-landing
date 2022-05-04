@@ -1,7 +1,5 @@
-export const imageSrc =
-  process.env.REACT_APP_IMAGE_URL ?? `${window.location.origin}/`; //'https://fsimg.mh.net.ua/';
-export const projectSrc =
-  process.env.REACT_APP_URL ?? `${window.location.origin}/`; //'https://fs2.mh.net.ua'
+export const imageSrc = process.env.REACT_APP_IMAGE_URL ?? `${window.location.origin}/`; //'https://fsimg.mh.net.ua/';
+export const projectSrc = process.env.REACT_APP_URL ?? `${window.location.origin}/`; //'https://fs2.mh.net.ua'
 
 export const MODALS = {
   ERROR: "error",
@@ -13,7 +11,7 @@ export const MODALS = {
   PRINT_SCREEN: "printScreen",
   TOP_MESSAGE: "topMessage",
   CONTEXT_MENU_MODAL: "contextMenuModals",
-  FILE_ACCESS_RIGHTS: "fileAccessRights",
+  FILE_ACCESS_RIGHTS: "fileAccessRights"
 };
 
 export const CONTEXT_MENU_FILE = {
@@ -24,7 +22,7 @@ export const CONTEXT_MENU_FILE = {
   MOVE_TO_ARCHIVE: "MoveToArchive",
   DOWNLOAD_FILE: "DownloadFile",
   PRINT_FILE: "PrintFile",
-  DELETE_FILE: "DeleteFile",
+  DELETE_FILE: "DeleteFile"
 };
 
 export const SHARED_FILES = {
@@ -32,24 +30,24 @@ export const SHARED_FILES = {
   FILES_SHARED_TO_USER: "file_share_get", // used for fileList endPoint
   API_FILES_USER_SHARED_AMOUNT: "/ajax/file_share_mylist_col.php",
   API_FILES_SHARED_TO_USER_AMOUNT: "/ajax/file_share_list_col.php",
-  API_USERLIST_FILES_USER_SHARED: "/ajax/file_share_list.php",
+  API_USERLIST_FILES_USER_SHARED: "/ajax/file_share_list.php"
 };
 
 export const TOP_MESSAGE_TYPE = {
   ERROR: "error",
-  MESSAGE: "message",
+  MESSAGE: "message"
 };
 
 export const FILE_ACCESS_RIGHTS = {
   API_SHARED_FILES_USER_LIST: "/ajax/file_share_list.php",
   API_DELETE_USER_ACCESS_RIGHTS: "/ajax/file_share_del.php",
-  API_ADD_USER_ACCESS_RIGHTS: "/ajax/file_share.php",
+  API_ADD_USER_ACCESS_RIGHTS: "/ajax/file_share.php"
 };
 
 export const SHARED_ACCESS_RIGHTS = {
   WATCH: "WATCH",
   EDIT: "EDIT",
-  DOWNLOAD: "DOWNLOAD",
+  DOWNLOAD: "DOWNLOAD"
 };
 
 export const ACCESS_RIGHTS_GRANTED = "1";

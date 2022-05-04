@@ -19,15 +19,13 @@ const WorkBarsPreview = ({
   filesPage,
   onSuccessLoading,
   loadingFiles,
-  setLoadingFiles,
+  setLoadingFiles
 }) => {
   const { __ } = useLocales();
   const search = useSelector((state) => state.Cabinet?.search);
   const size = useSelector((state) => state.Cabinet.size);
   const uid = useSelector((state) => state.user.uid);
-  const authorizedSafe = useSelector(
-    (state) => state.Cabinet.safe.authorizedSafe
-  );
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
   const [previewReq, setPreviewReq] = useState({ sent: false, data: null });
   const dispatch = useDispatch();
 
@@ -51,7 +49,7 @@ const WorkBarsPreview = ({
         .get(
           `/ajax/safe_file_preview.php?uid=${uid}&fid=${file.fid}&id_safe=${authorizedSafe.id_safe}&pass=${authorizedSafe.password}&code=${authorizedSafe.code}`,
           {
-            responseType: "blob",
+            responseType: "blob"
           }
         )
         .then((res) => {
@@ -114,7 +112,7 @@ const WorkBarsPreview = ({
   const options = {
     root: null,
     rootMargin: "0px",
-    threshold: 0,
+    threshold: 0
   };
 
   const [containerRef] = useScrollElementOnScreen(options, load);
@@ -134,18 +132,12 @@ const WorkBarsPreview = ({
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
       }}
     >
-      <div
-        className={styles.preview}
-        style={{ height: `calc(100% - ${innerFilesHeight()} - 40px)` }}
-      >
+      <div className={styles.preview} style={{ height: `calc(100% - ${innerFilesHeight()} - 40px)` }}>
         {children?.length === 0 && search.length !== 0 ? (
-          <div className={styles.noSearchResults}>
-            {__("Нет элементов удовлетворяющих условиям поиска")}
-          </div>
+          <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
         ) : null}
         {file ? (
           file.is_preview === 1 ? (
@@ -165,9 +157,7 @@ const WorkBarsPreview = ({
             {!gLoader && children}
             {!gLoader ? (
               <div
-                className={`${styles.rightLine} ${
-                  filesPage === 0 ? styles.rightLineHidden : ""
-                }`}
+                className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ""}`}
                 style={{ height: "100%" }}
                 ref={containerRef}
               >

@@ -42,7 +42,7 @@ const DateBlock = ({ month, setMonth }) => {
             onClick={() => setMonth(item.id)}
             className={classNames({
               [styles.button]: true,
-              [styles.active]: item.id === month,
+              [styles.active]: item.id === month
             })}
           >
             {item.text}
@@ -57,5 +57,5 @@ export default DateBlock;
 
 DateBlock.propTypes = {
   month: PropTypes.number,
-  setMonth: PropTypes.func,
+  setMonth: PropTypes.func
 };

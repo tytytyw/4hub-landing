@@ -13,15 +13,7 @@ import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../../types/Project";
 
 //TODO - CHECK - needs to be deprecated (look in generalContextMenuComponents)
-function StoragePeriod({
-  folder,
-  setDisplayStotagePeriod,
-  dateValue,
-  setDateValue,
-  timeValue,
-  setTimeValue,
-  size,
-}) {
+function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue, size }) {
   const { __ } = useLocales();
   const curretDate = new Date().toLocaleDateString("ru-RU");
   const [showCalendar, setShowCalendar] = useState(false);
@@ -35,8 +27,7 @@ function StoragePeriod({
   useEffect(() => {
     return () => {
       setTimeValue({ hours, minutes });
-      if (hours && !dateValue)
-        setDateValue(new Date().toLocaleDateString("ru"));
+      if (hours && !dateValue) setDateValue(new Date().toLocaleDateString("ru"));
     };
   }, [hours, minutes]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -68,48 +59,32 @@ function StoragePeriod({
             <FolderIcon
               className={`${styles.folderIcon} ${
                 folder?.info?.color
-                  ? colors.filter((el) => el.color === folder.info.color)[0]
-                      ?.name
+                  ? colors.filter((el) => el.color === folder.info.color)[0]?.name
                   : folder.info?.nameRu
                   ? styles.generalFolder
                   : ""
               }`}
             />
             {folder?.info?.is_pass ? (
-              <img
-                className={styles.lock}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="lock"
-              />
+              <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
             ) : null}
           </div>
           <div className={styles.descriptionWrap}>
-            <div className={styles.fileName}>
-              {folder.info?.nameRu ?? folder.info?.name}
-            </div>
+            <div className={styles.fileName}>{folder.info?.nameRu ?? folder.info?.name}</div>
             <div className={styles.innerFileInfo}>
               <div className={styles.fileSize}>{size}</div>
               <div className={styles.descriptionGroup}>
                 {folder?.info?.fig && (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${folder?.info?.fig}.svg`}
-                    alt="sign"
-                  />
+                  <img src={`${imageSrc}assets/PrivateCabinet/signs/${folder?.info?.fig}.svg`} alt="sign" />
                 )}
                 {folder?.info?.emo && (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${folder?.info?.emo}.svg`}
-                    alt="emoji"
-                  />
+                  <img src={`${imageSrc}assets/PrivateCabinet/smiles/${folder?.info?.emo}.svg`} alt="emoji" />
                 )}
               </div>
             </div>
           </div>
           <div className={styles.buttons_wrap}>
-            <div
-              className={styles.close_wrap}
-              onClick={() => setDisplayStotagePeriod(false)}
-            >
+            <div className={styles.close_wrap} onClick={() => setDisplayStotagePeriod(false)}>
               <span className={styles.close} />
             </div>
           </div>
@@ -122,12 +97,7 @@ function StoragePeriod({
         </div>
         <div className={styles.inputs_wrap}>
           <span className={styles.from}>{__("C")}</span>
-          <input
-            className={styles.date}
-            value={curretDate}
-            type="text"
-            disabled
-          ></input>
+          <input className={styles.date} value={curretDate} type="text" disabled></input>
           <span className={styles.to}>До</span>
           <input
             className={styles.date}
@@ -136,10 +106,7 @@ function StoragePeriod({
             placeholder={__("_ _._ _._ _ _ _")}
             onChange={(e) => onDateChange(e)}
           />
-          <span
-            className={styles.open_calendar}
-            onClick={() => setShowCalendar(true)}
-          >
+          <span className={styles.open_calendar} onClick={() => setShowCalendar(true)}>
             {__("Открыть календарь")}
           </span>
         </div>
@@ -149,9 +116,7 @@ function StoragePeriod({
           <EyeIco />
           <h5 className={styles.title}>{__("Укажите время хранения")}</h5>
         </div>
-        <div
-          className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}
-        >
+        <div className={classNames(styles.inputs_wrap, styles.inputs_wrap_time)}>
           <input
             className={styles.time_count}
             type="text"
@@ -170,24 +135,16 @@ function StoragePeriod({
         </div>
       </div>
       <p className={classNames(styles.hint, styles.border_bottom)}>
-        {__(
-          "После завершения срока хранения в 23:59 ссылка автоматитески будет недоступна"
-        )}
+        {__("После завершения срока хранения в 23:59 ссылка автоматитески будет недоступна")}
       </p>
       <div className={styles.buttonsWrap}>
-        <div
-          onClick={() => setDisplayStotagePeriod(false)}
-          className={styles.add}
-        >
+        <div onClick={() => setDisplayStotagePeriod(false)} className={styles.add}>
           {__("Готово")}
         </div>
       </div>
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar
-            setShowCalendar={setShowCalendar}
-            setDateValue={setDateValue}
-          />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
     </div>
@@ -203,8 +160,8 @@ StoragePeriod.propTypes = {
   setDateValue: PropTypes.func,
   timeValue: PropTypes.shape({
     hours: PropTypes.string,
-    minutes: PropTypes.string,
+    minutes: PropTypes.string
   }),
   setTimeValue: PropTypes.func,
-  size: PropTypes.string,
+  size: PropTypes.string
 };

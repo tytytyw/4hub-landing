@@ -29,9 +29,7 @@ const EnterProfile = ({ setPage }) => {
   };
 
   const checkPass = (input) => {
-    input.value === ""
-      ? setCompare({ ...compare, isPass: true })
-      : setCompare({ ...compare, isPass: false });
+    input.value === "" ? setCompare({ ...compare, isPass: true }) : setCompare({ ...compare, isPass: false });
   };
 
   const signIn = () => {
@@ -68,7 +66,7 @@ const EnterProfile = ({ setPage }) => {
             className={classnames({
               [styles.inputField]: true,
               [styles.redBorder]: compare.isLogin,
-              [styles.login]: true,
+              [styles.login]: true
             })}
             type="text"
             id="login"
@@ -87,7 +85,7 @@ const EnterProfile = ({ setPage }) => {
           <input
             className={classnames({
               [styles.inputField]: true,
-              [styles.redBorder]: compare.isPass,
+              [styles.redBorder]: compare.isPass
             })}
             type={visibility}
             id="pass"
@@ -114,10 +112,7 @@ const EnterProfile = ({ setPage }) => {
             />
           )}
         </div>
-        <div
-          className={styles.remindPassword}
-          onClick={() => setPage("forgotPassword")}
-        >
+        <div className={styles.remindPassword} onClick={() => setPage("forgotPassword")}>
           {__("Забыли пароль?")}
         </div>
         <div className={styles.button} onClick={signIn}>
@@ -156,5 +151,5 @@ const EnterProfile = ({ setPage }) => {
 export default EnterProfile;
 
 EnterProfile.propTypes = {
-  setPage: PropTypes.func,
+  setPage: PropTypes.func
 };

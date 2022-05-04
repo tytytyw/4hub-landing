@@ -13,7 +13,7 @@ const ActionApproval = ({
   approve,
   childrenWidth = "",
   disableActionBtn = false,
-  style = {},
+  style = {}
 }) => {
   return (
     <PopUp set={set}>
@@ -31,7 +31,7 @@ const ActionApproval = ({
           <div
             className={classNames({
               [styles.action]: true,
-              [styles.disableBtn]: disableActionBtn,
+              [styles.disableBtn]: disableActionBtn
             })}
             onClick={callback}
           >

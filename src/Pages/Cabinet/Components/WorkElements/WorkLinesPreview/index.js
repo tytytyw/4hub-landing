@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import {
-  imageSrc,
-  projectSrc,
-} from "../../../../../generalComponents/globalVariables";
+import { imageSrc, projectSrc } from "../../../../../generalComponents/globalVariables";
 import styles from "./WorkLinesPreview.module.sass";
 import { colors } from "../../../../../generalComponents/collections";
 import File from "../../../../../generalComponents/Files";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
-import {
-  getMedia,
-  renderHeight,
-} from "../../../../../generalComponents/generalHelpers";
+import { getMedia, renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
@@ -30,7 +24,7 @@ const WorkLinesPreview = ({
   options,
   renderFiles,
   renderGroups,
-  menuItem,
+  menuItem
 }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
@@ -49,31 +43,13 @@ const WorkLinesPreview = ({
     const newColor = colors.filter((c) => c.color === file?.color);
     setColor(newColor[0]);
     if (file) {
-      if (
-        file?.mime_type &&
-        file.mime_type.includes("audio") &&
-        file.is_preview
-      ) {
+      if (file?.mime_type && file.mime_type.includes("audio") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${projectSrc}${file.preview}`,
-          file.mime_type,
-          setAudio,
-          setLoading
-        );
+        getMedia(`${projectSrc}${file.preview}`, file.mime_type, setAudio, setLoading);
       }
-      if (
-        file?.mime_type &&
-        file.mime_type.includes("video") &&
-        file.is_preview
-      ) {
+      if (file?.mime_type && file.mime_type.includes("video") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${projectSrc}${file.preview}`,
-          file.mime_type,
-          setVideo,
-          setLoading
-        );
+        getMedia(`${projectSrc}${file.preview}`, file.mime_type, setVideo, setLoading);
       }
     }
   }, [file]);
@@ -85,21 +61,12 @@ const WorkLinesPreview = ({
     switch (f.mime_type.split("/")[0]) {
       case "image": {
         return (
-          <img
-            src={`${f.preview}?${new Date()}`}
-            alt="filePrieview"
-            className={hideFileList ? styles.big_pic : ""}
-          />
+          <img src={`${f.preview}?${new Date()}`} alt="filePrieview" className={hideFileList ? styles.big_pic : ""} />
         );
       }
       case "video": {
         return (
-          <video
-            controls
-            src={video ? video : ""}
-            type={f.mime_type}
-            onError={(e) => console.log(e)}
-          >
+          <video controls src={video ? video : ""} type={f.mime_type} onError={(e) => console.log(e)}>
             <source src={video ? video : ""} type={f.mime_type} />
           </video>
         );
@@ -107,13 +74,7 @@ const WorkLinesPreview = ({
       case "audio": {
         return (
           <>
-            <audio
-              ref={audioRef}
-              src={audio ? audio : ""}
-              type={f.mime_type}
-              controls
-              onError={(e) => console.log(e)}
-            >
+            <audio ref={audioRef} src={audio ? audio : ""} type={f.mime_type} controls onError={(e) => console.log(e)}>
               <source src={audio ? audio : ""} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
@@ -153,9 +114,7 @@ const WorkLinesPreview = ({
           <div className={styles.filePreviewWrap}>
             {f?.is_dir ? (
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter((el) => el.color === file.color)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === file.color)[0]?.name}`}
               />
             ) : (
               <File format={f?.ext} color={f?.color} />
@@ -190,9 +149,7 @@ const WorkLinesPreview = ({
           {!gLoader && children}
           {!gLoader ? (
             <div
-              className={`${styles.bottomLine} ${
-                filesPage === 0 ? styles.bottomLineHidden : ""
-              }`}
+              className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
               ref={containerRef}
             >
               <Loader
@@ -216,7 +173,7 @@ const WorkLinesPreview = ({
             ) : (
               renderGroups(FileLineShort, fileList?.filesNext?.files, {
                 next: true,
-                scrollTop: 0,
+                scrollTop: 0
               })
             )
           ) : loading ? null : (
@@ -224,9 +181,7 @@ const WorkLinesPreview = ({
           )}
           {!gLoader ? (
             <div
-              className={`${styles.bottomLine} ${
-                filesPage === 0 ? styles.bottomLineHidden : ""
-              }`}
+              className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}
               ref={containerNextRef}
             >
               <Loader
@@ -271,10 +226,7 @@ const WorkLinesPreview = ({
                     <div className={styles.filePreviewWrap}>
                       {f?.is_dir ? (
                         <FolderIcon
-                          className={`${styles.folderIcon} ${
-                            colors.filter((el) => el.color === file.color)[0]
-                              ?.name
-                          }`}
+                          className={`${styles.folderIcon} ${colors.filter((el) => el.color === file.color)[0]?.name}`}
                         />
                       ) : (
                         <File format={f?.ext} color={f?.color} />
@@ -300,7 +252,7 @@ const WorkLinesPreview = ({
                   className={styles.colorCircle}
                   style={{
                     background: color?.light,
-                    border: `1px solid ${color?.dark}`,
+                    border: `1px solid ${color?.dark}`
                   }}
                 />
               ) : (
@@ -310,63 +262,35 @@ const WorkLinesPreview = ({
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Знаки")}</span>
               {f?.fig ? (
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`}
-                  alt="sign"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt="sign" />
               ) : (
-                <span className={styles.optionItem}>
-                  {__("Добавить знаки")}
-                </span>
+                <span className={styles.optionItem}>{__("Добавить знаки")}</span>
               )}
             </div>
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Эмоджи")}</span>
               {f?.emo ? (
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`}
-                  alt="sign"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt="sign" />
               ) : (
-                <span className={styles.optionItem}>
-                  {__("Добавить эмоджи")}
-                </span>
+                <span className={styles.optionItem}>{__("Добавить эмоджи")}</span>
               )}
             </div>
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Создан")}</span>
-              {f?.ctime ? (
-                <span className={styles.description}>
-                  {f.mtime.split(" ")[0]}
-                </span>
-              ) : (
-                ""
-              )}
+              {f?.ctime ? <span className={styles.description}>{f.mtime.split(" ")[0]}</span> : ""}
             </div>
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Изменен")}</span>
-              {f?.mtime ? (
-                <span className={styles.description}>
-                  {f.ctime.split(" ")[0]}
-                </span>
-              ) : (
-                ""
-              )}
+              {f?.mtime ? <span className={styles.description}>{f.ctime.split(" ")[0]}</span> : ""}
             </div>
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Размеры")}</span>
-              {f?.size_now ? (
-                <span className={styles.description}>{f.size_now}</span>
-              ) : (
-                ""
-              )}
+              {f?.size_now ? <span className={styles.description}>{f.size_now}</span> : ""}
             </div>
           </>
         ) : null}
         {children?.length === 0 && search.length !== 0 ? (
-          <div className={styles.noSearchResults}>
-            {__("Нет элементов удовлетворяющих условиям поиска")}
-          </div>
+          <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
         ) : null}
       </div>
     </div>

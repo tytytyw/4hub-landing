@@ -37,10 +37,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
     <div style={{ display: `block` }}>
       <PopUp set={setDisplaySetPassword}>
         <div className={styles.wrap}>
-          <span
-            className={styles.cross}
-            onClick={() => setDisplaySetPassword(false)}
-          />
+          <span className={styles.cross} onClick={() => setDisplaySetPassword(false)} />
           <span className={styles.title}>Установить пароль</span>
           <div className={styles.inputFieldsWrap}>
             <InputField
@@ -72,10 +69,7 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
             )}
           </div>
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => setDisplaySetPassword(false)}
-            >
+            <div className={styles.cancel} onClick={() => setDisplaySetPassword(false)}>
               {__("Отмена")}
             </div>
             <div
@@ -96,5 +90,5 @@ function SetPassword({ setDisplaySetPassword, onAddPass }) {
 export default SetPassword;
 SetPassword.propTypes = {
   setDisplaySetPassword: PropTypes.func,
-  onAddPass: PropTypes.func,
+  onAddPass: PropTypes.func
 };

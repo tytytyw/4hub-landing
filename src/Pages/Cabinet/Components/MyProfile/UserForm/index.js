@@ -116,26 +116,15 @@ const UserForm = () => {
     }
   };
 
-  const isMistake = (name) =>
-    (errors?.[name] && blur?.[name]) || submitErrors?.[name];
+  const isMistake = (name) => (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
   return (
     <div className={styles.formWrap}>
       <div className={styles.uploadBlock}>
-        <ProfileUpload
-          inputRef={fileInputRef}
-          preview={preview}
-          onChange={uploadImage}
-          disabled={!editForm}
-        />
+        <ProfileUpload inputRef={fileInputRef} preview={preview} onChange={uploadImage} disabled={!editForm} />
       </div>
 
-      <form
-        ref={formRef}
-        noValidate
-        onSubmit={onSubmit}
-        onChange={() => setFormChanged(true)}
-      >
+      <form ref={formRef} noValidate onSubmit={onSubmit} onChange={() => setFormChanged(true)}>
         <div className={styles.fields}>
           <div className={styles.row}>
             <div className={`${styles.field} ${styles.flex50}`}>
@@ -230,10 +219,7 @@ const UserForm = () => {
           <div className={styles.submitBlock}>
             {editForm && (
               <>
-                <Button
-                  className={styles.cancelBtn}
-                  onClick={() => resetForm()}
-                >
+                <Button className={styles.cancelBtn} onClick={() => resetForm()}>
                   {__("Отмена")}
                 </Button>
                 <Button type="submit" className={styles.submitBtn}>
@@ -242,10 +228,7 @@ const UserForm = () => {
               </>
             )}
             {!editForm && (
-              <Button
-                className={styles.editBtn}
-                onClick={() => setEditForm(true)}
-              >
+              <Button className={styles.editBtn} onClick={() => setEditForm(true)}>
                 {__("Редактировать")}
               </Button>
             )}
@@ -257,9 +240,7 @@ const UserForm = () => {
         <AlertPopup
           set={setSuccess}
           title={__("Данные успешно обновлены")}
-          text={__(
-            "В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения"
-          )}
+          text={__("В целях безопасности, на Email Вашей учетной записи отправлено подтверждение этого изменения")}
           setShowCodePopup={setShowCodePopup}
           onGetUserInfo={onGetUserInfo}
         />

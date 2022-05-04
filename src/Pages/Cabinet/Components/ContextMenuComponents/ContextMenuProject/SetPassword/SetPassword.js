@@ -36,7 +36,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
     const data = {
       uid,
       fids: [folder?.info?.fid],
-      pass: password === passwordRepeat ? `${password}` : "",
+      pass: password === passwordRepeat ? `${password}` : ""
     };
 
     if (password) {
@@ -60,10 +60,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
     <div style={{ display: `block` }}>
       <PopUp set={setDisplaySetPassword}>
         <div className={styles.wrap}>
-          <span
-            className={styles.cross}
-            onClick={() => setDisplaySetPassword(false)}
-          />
+          <span className={styles.cross} onClick={() => setDisplaySetPassword(false)} />
           <span className={styles.title}>Установить пароль</span>
           <div className={styles.inputFieldsWrap}>
             <InputField
@@ -94,10 +91,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
             )}
           </div>
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => setDisplaySetPassword(false)}
-            >
+            <div className={styles.cancel} onClick={() => setDisplaySetPassword(false)}>
               {__("Отмена")}
             </div>
             <div
@@ -111,13 +105,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Пароль не добавлен")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Пароль не добавлен")} />}
     </div>
   );
 }
@@ -127,5 +115,5 @@ export default SetPassword;
 SetPassword.propTypes = {
   folder: chosenFolderProps,
   setDisplaySetPassword: PropTypes.func,
-  setShowSuccessMessage: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func
 };

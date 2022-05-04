@@ -8,14 +8,13 @@ import classNames from "classnames";
 const EmojiArea = () => {
   const dispatch = useDispatch();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
-  const onEmojiClick = (event, emojiObject) =>
-    dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji });
+  const onEmojiClick = (event, emojiObject) => dispatch({ type: "INSERT_EMODJI", payload: emojiObject.emoji });
 
   return (
     <div
       className={classNames({
         [styles.emojiAreaWrap]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <span className={styles.titleName}>Эмодзи</span>
@@ -26,7 +25,7 @@ const EmojiArea = () => {
           height: "95%",
           background: chatTheme.name === "dark" ? "#323232" : "",
           boxShadow: "none",
-          border: "none",
+          border: "none"
         }}
         onEmojiClick={onEmojiClick}
       />

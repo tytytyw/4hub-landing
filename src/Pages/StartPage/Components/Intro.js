@@ -10,16 +10,10 @@ const Intro = ({ setPage }) => {
   const { __ } = useLocales();
   return (
     <div className={styles.main}>
-      <img
-        className={styles.hubIcon}
-        src={imageSrc + "assets/StartPage/4HUB.svg"}
-        alt="4HUB"
-      />
+      <img className={styles.hubIcon} src={imageSrc + "assets/StartPage/4HUB.svg"} alt="4HUB" />
       <div className={styles.title}>{__("Remote WorkSpace")}</div>
       <div className={styles.description}>
-        {__(
-          "Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 строкиможно больше можно меньше"
-        )}
+        {__("Рыбный текст о сервисе и его преймуществах, сейчас делаю его на 3 строкиможно больше можно меньше")}
       </div>
       <div className={styles.siteOptionWrapper}>
         <div className={styles.siteOption}>
@@ -52,5 +46,5 @@ const Intro = ({ setPage }) => {
 export default Intro;
 
 Intro.propTypes = {
-  setPage: PropTypes.func,
+  setPage: PropTypes.func
 };

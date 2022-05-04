@@ -51,11 +51,7 @@ function CategoryList({ listCollapsed, setListCollapsed }) {
     >
       {listCollapsed ? null : (
         <div className={styles.borderBottom}>
-          <SearchField
-            value={search}
-            setValue={setSearch}
-            placeholder={searchPlaceholder}
-          />
+          <SearchField value={search} setValue={setSearch} placeholder={searchPlaceholder} />
         </div>
       )}
       <div></div>
@@ -67,5 +63,5 @@ export default CategoryList;
 
 CategoryList.propTypes = {
   listCollapsed: PropTypes.bool,
-  setListCollapsed: PropTypes.func,
+  setListCollapsed: PropTypes.func
 };

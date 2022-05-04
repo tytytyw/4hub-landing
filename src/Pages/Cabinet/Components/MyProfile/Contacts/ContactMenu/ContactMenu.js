@@ -12,7 +12,7 @@ const ContactMenu = ({ data, pageOption }) => {
           onClick={() => item.onClick && item.onClick(item)}
           className={classNames({
             [styles.menuItem]: true,
-            [styles.menuItemActive]: pageOption === item.id,
+            [styles.menuItemActive]: pageOption === item.id
           })}
           key={index}
         >
@@ -30,5 +30,5 @@ export default ContactMenu;
 
 ContactMenu.propTypes = {
   data: PropTypes.array,
-  pageOption: PropTypes.string,
+  pageOption: PropTypes.string
 };

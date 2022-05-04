@@ -7,9 +7,7 @@ import { useLocation } from "react-router";
 
 function PrintFile() {
   const uid = useSelector((s) => s.user.uid);
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
@@ -20,16 +18,14 @@ function PrintFile() {
         ...contextMenuModals,
         type: "",
         items: [],
-        authorizedSafe: null,
+        authorizedSafe: null
       })
     );
 
   const checkMimeTypes = (file) => {
     const mType = file?.mime_type ?? contextMenuModals.items[0]?.mime_type;
     const isFormat =
-      previewFormats.filter((format) =>
-        contextMenuModals.items[0].ext.toLowerCase().includes(format)
-      ).length > 0;
+      previewFormats.filter((format) => contextMenuModals.items[0].ext.toLowerCase().includes(format)).length > 0;
     const fid = contextMenuModals.items[0]?.fid ?? "";
     const preview = file?.preview ?? contextMenuModals.items[0]?.preview;
     if (mType === "application/pdf" || (mType && mType?.includes("image"))) {
@@ -40,16 +36,14 @@ function PrintFile() {
           api
             .post(`/ajax/file_preview.php?uid=${uid}&fid=${fid}`)
             .then((res) => printFile(res.data.file_pdf))
-            .catch((err) =>
-              dispatch(onSetModals("error", { open: true, message: err }))
-            )
+            .catch((err) => dispatch(onSetModals("error", { open: true, message: err })))
             .finally(() => closeModal());
         } else {
           api
             .get(
               `/ajax/safe_file_download.php?uid=${uid}&fid=${fid}&id_safe=${contextMenuModals.authorizedSafe.id_safe}&pass=${contextMenuModals.authorizedSafe.password}&code=${contextMenuModals.authorizedSafe.code}`,
               {
-                responseType: "blob",
+                responseType: "blob"
               }
             )
 
@@ -57,10 +51,7 @@ function PrintFile() {
               const blob = new Blob([res.data], { type: mType });
               const objectURL = URL.createObjectURL(blob);
 
-              if (
-                mType === "application/pdf" ||
-                (mType && mType?.includes("image"))
-              ) {
+              if (mType === "application/pdf" || (mType && mType?.includes("image"))) {
                 printFile(objectURL);
               } else if (isFormat) printFile(objectURL);
             })
@@ -82,7 +73,7 @@ function PrintFile() {
           onSetModals("contextMenuModals", {
             ...contextMenuModals,
             type: "",
-            items: [],
+            items: []
           })
         );
       }, 1000);
@@ -95,15 +86,7 @@ function PrintFile() {
     checkMimeTypes(contextMenuModals.items[0]);
   }, []); //eslint-disable-line
 
-  return (
-    <iframe
-      style={{ display: "none" }}
-      title={"print"}
-      frameBorder="0"
-      scrolling="no"
-      id="frame"
-    />
-  );
+  return <iframe style={{ display: "none" }} title={"print"} frameBorder="0" scrolling="no" id="frame" />;
 }
 
 export default PrintFile;

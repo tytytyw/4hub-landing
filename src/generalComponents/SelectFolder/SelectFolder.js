@@ -6,13 +6,7 @@ import classNames from "classnames";
 import CustomFolderItem from "../../Pages/Cabinet/Components/MyFolders/CustomFolderItem";
 import { useFolders } from "../collections";
 
-const SelectFolder = ({
-  initValue,
-  initFolder = "",
-  onChange = () => {},
-  setNewFolderInfo = null,
-  ...props
-}) => {
+const SelectFolder = ({ initValue, initFolder = "", onChange = () => {}, setNewFolderInfo = null, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value] = useState(initValue);
   const global = useSelector((state) => state.Cabinet.global);
@@ -73,21 +67,21 @@ const SelectFolder = ({
       className={classNames({
         [styles.selectWrap]: true,
         [props.className]: true,
-        [styles.active]: !!open,
+        [styles.active]: !!open
       })}
     >
       <div
         onClick={() => setOpen(!open)}
         className={classNames({
           [styles.select]: true,
-          [styles.selected]: !!value,
+          [styles.selected]: !!value
         })}
       >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
               [styles.selectInput]: !props.classNameSelect,
-              [props.classNameSelect]: !!props.classNameSelect,
+              [props.classNameSelect]: !!props.classNameSelect
             })}
           >
             {renderPath()}
@@ -96,7 +90,7 @@ const SelectFolder = ({
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open,
+            [styles.active]: !!open
           })}
         />
       </div>
@@ -104,7 +98,7 @@ const SelectFolder = ({
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open,
+          [styles.active]: !!open
         })}
       >
         <div className={styles.folderListWrap}>

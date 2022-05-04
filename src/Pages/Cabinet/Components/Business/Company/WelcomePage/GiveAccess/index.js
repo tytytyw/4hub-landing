@@ -11,7 +11,7 @@ const GiveAccess = ({ setPageOption }) => {
   const { __ } = useLocales();
   const [fields, setFields] = useState({
     email: "",
-    access: null,
+    access: null
   });
 
   return (
@@ -23,11 +23,7 @@ const GiveAccess = ({ setPageOption }) => {
         </div>
 
         <div className={styles.infoBlock}>
-          <p>
-            {__(
-              "Предоставления доступа дает возможность третим лицам заполнять данные о компании"
-            )}
-          </p>
+          <p>{__("Предоставления доступа дает возможность третим лицам заполнять данные о компании")}</p>
         </div>
 
         <div className={styles.formWrap}>
@@ -56,20 +52,18 @@ const GiveAccess = ({ setPageOption }) => {
                   label: __("Предоставить все прова"),
                   info: __(
                     "предоставление всех прав дает возможность редактировать, изменять удалять всю информацию в системе"
-                  ),
+                  )
                 },
                 {
                   value: 2,
                   label: __("Доступ на добовления сотрудников"),
-                  info: __("предоставить доступ для работы с кадрами"),
+                  info: __("предоставить доступ для работы с кадрами")
                 },
                 {
                   value: 3,
                   label: __("Доступ на редактирование системных параметров"),
-                  info: __(
-                    "предостовление доступа для администрирования ресурса"
-                  ),
-                },
+                  info: __("предостовление доступа для администрирования ресурса")
+                }
               ]}
               name="access_check"
               onChange={(access) => setFields({ ...fields, access })}
@@ -78,15 +72,10 @@ const GiveAccess = ({ setPageOption }) => {
         </div>
 
         <div className={styles.actionBlock}>
-          <button
-            onClick={() => setPageOption("welcome")}
-            className={styles.cancelBtn}
-          >
+          <button onClick={() => setPageOption("welcome")} className={styles.cancelBtn}>
             {__("Отмена")}
           </button>
-          <button onClick={() => setPageOption("success-mail")}>
-            {__("Отправить")}
-          </button>
+          <button onClick={() => setPageOption("success-mail")}>{__("Отправить")}</button>
         </div>
       </div>
     </div>
@@ -96,5 +85,5 @@ const GiveAccess = ({ setPageOption }) => {
 export default GiveAccess;
 
 GiveAccess.propTypes = {
-  setPageOption: PropTypes.func,
+  setPageOption: PropTypes.func
 };

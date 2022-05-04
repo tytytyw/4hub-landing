@@ -16,15 +16,9 @@ const FileInfo = ({ file }) => {
 
   return (
     <div className={styles.fileAbout} style={shortWidth}>
-      <div
-        className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}
-      >
+      <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}>
         {file?.is_dir ? (
-          <FolderIcon
-            className={`${styles.folderIcon} ${
-              colors.filter((el) => el.color === file?.color)[0]?.name
-            }`}
-          />
+          <FolderIcon className={`${styles.folderIcon} ${colors.filter((el) => el.color === file?.color)[0]?.name}`} />
         ) : (
           <File
             color={file?.is_write === "0" ? "#C1C1C1" : file?.color}
@@ -35,33 +29,17 @@ const FileInfo = ({ file }) => {
       </div>
 
       <div className={styles.infoWrap}>
-        <div className={styles.fileName}>
-          {file?.name && file?.name.slice(0, file?.name.lastIndexOf("."))}
-        </div>
+        <div className={styles.fileName}>{file?.name && file?.name.slice(0, file?.name.lastIndexOf("."))}</div>
 
         <div className={styles.fileInfo}>
-          {pathname.startsWith("/files") ? (
-            <span className={styles.fileDate}>
-              {file?.ctime?.split(" ")[0]}
-            </span>
-          ) : (
-            ""
-          )}
+          {pathname.startsWith("/files") ? <span className={styles.fileDate}>{file?.ctime?.split(" ")[0]}</span> : ""}
           <span className={styles.fileSize}>{file?.size_now}</span>
           <div className={styles.symbols}>
             {file?.is_pass === 1 && (
-              <img
-                className={styles.locked}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="lock"
-              />
+              <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
             )}
             {file?.fig && (
-              <img
-                className={styles.sign}
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`}
-                alt="sign"
-              />
+              <img className={styles.sign} src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`} alt="sign" />
             )}
             {file?.emo && (
               <img

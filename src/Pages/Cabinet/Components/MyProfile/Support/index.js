@@ -58,8 +58,8 @@ const Support = () => {
         .get(`/ajax/admin_send.php`, {
           params: {
             uid,
-            ...fields,
-          },
+            ...fields
+          }
         })
         .then(() => {
           setSuccess(true);
@@ -71,8 +71,7 @@ const Support = () => {
     }
   };
 
-  const isMistake = (name) =>
-    (errors?.[name] && blur?.[name]) || submitErrors?.[name];
+  const isMistake = (name) => (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
   return (
     <div className={styles.support}>

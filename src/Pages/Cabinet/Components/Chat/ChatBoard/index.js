@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import styles from "./ChatBoard.module.sass";
 
 import EmojiArea from "../EmojiArea";
@@ -43,7 +37,7 @@ const ChatBoard = ({
   editMessage,
   showSettings,
   attachedFiles,
-  setAttachedFiles,
+  setAttachedFiles
 }) => {
   const dateToString = useDateToString();
   const [rightPanelContentType, setRightPanelContentType] = useState("");
@@ -51,9 +45,7 @@ const ChatBoard = ({
   const contactList = useSelector((state) =>
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
-  const selectedContact = useSelector(
-    (state) => state.Cabinet.chat.selectedContact
-  );
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [ducationTimer, setDucationTimer] = useState(0);
@@ -87,10 +79,7 @@ const ChatBoard = ({
   };
 
   const renderGroups = useCallback(() => {
-    if (
-      selectedContact?.is_secret_chat &&
-      (messages === null || (messages && Object.keys(messages)?.length === 0))
-    )
+    if (selectedContact?.is_secret_chat && (messages === null || (messages && Object.keys(messages)?.length === 0)))
       return (
         <SecretChatStartWallpaper>
           {messages === null ? (
@@ -142,9 +131,7 @@ const ChatBoard = ({
         if (result[key].length > 0) moreElements = true;
       }
       setTimeout(() => {
-        moreElements
-          ? setMessagesPage((filesPage) => filesPage + 1)
-          : setMessagesPage(0);
+        moreElements ? setMessagesPage((filesPage) => filesPage + 1) : setMessagesPage(0);
         setLoadingMessages(false);
       }, 500);
     } else {
@@ -159,14 +146,7 @@ const ChatBoard = ({
       setChatBoardOldHeight(chatArea.current.scrollHeight);
 
       setLoadingMessages(true);
-      dispatch(
-        onGetChatMessages(
-          selectedContact,
-          search,
-          messagesPage,
-          onSuccessLoading
-        )
-      );
+      dispatch(onGetChatMessages(selectedContact, search, messagesPage, onSuccessLoading));
     }
   };
   const options = { root: null, rootMargin: "0px", threshold: 0 };
@@ -174,8 +154,7 @@ const ChatBoard = ({
 
   const recordCancel = () => {
     if (mediaRecorder) {
-      const cleareTracks = () =>
-        mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+      const cleareTracks = () => mediaRecorder.stream.getTracks().forEach((track) => track.stop());
       mediaRecorder?.state === "active" && recordEnd();
       mediaRecorder && cleareTracks();
       setMediaRecorder(null);
@@ -192,19 +171,13 @@ const ChatBoard = ({
     mediaRecorder?.stop();
   };
 
-  const removeAttachedFile = (fid) =>
-    setAttachedFiles((prevFiles) =>
-      prevFiles.filter((file) => file.fid !== fid)
-    );
+  const removeAttachedFile = (fid) => setAttachedFiles((prevFiles) => prevFiles.filter((file) => file.fid !== fid));
 
   const renderAttachedFiles = () => {
     return attachedFiles.map((file) => (
       <div className={styles.attachedFileWrap} key={file.fid}>
         <FileMessage file={file} size={"small"} style={{ margin: 0 }} />
-        <div
-          className={styles.remove}
-          onClick={() => removeAttachedFile(file.fid)}
-        ></div>
+        <div className={styles.remove} onClick={() => removeAttachedFile(file.fid)}></div>
       </div>
     ));
   };
@@ -222,16 +195,8 @@ const ChatBoard = ({
   }, [isRecording]);
 
   useLayoutEffect(() => {
-    if (
-      chatBoardOldHeight &&
-      messagesPage &&
-      chatArea.current.scrollHeight - chatBoardOldHeight &&
-      isVisible
-    ) {
-      chatArea?.current?.scrollTo(
-        0,
-        chatArea.current.scrollHeight - chatBoardOldHeight
-      );
+    if (chatBoardOldHeight && messagesPage && chatArea.current.scrollHeight - chatBoardOldHeight && isVisible) {
+      chatArea?.current?.scrollTo(0, chatArea.current.scrollHeight - chatBoardOldHeight);
     }
     if (scrollPosition < 10) scrollToBottom();
 
@@ -243,9 +208,7 @@ const ChatBoard = ({
   }, [selectedContact]);
 
   const onChatBoardScroll = (e) => {
-    setScrollPosition(
-      e.target.scrollHeight - e.target.clientHeight - e.target.scrollTop
-    );
+    setScrollPosition(e.target.scrollHeight - e.target.clientHeight - e.target.scrollTop);
   };
 
   return (
@@ -253,7 +216,7 @@ const ChatBoard = ({
       className={classNames({
         [styles.chatBoardWrap]: true,
         [styles.recoring]: isRecording,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
       onMouseLeave={recordCancel}
       onMouseUp={mouseUpHandler}
@@ -272,22 +235,17 @@ const ChatBoard = ({
           className={classNames({
             [styles.chatAreaWrapper]: true,
             [styles.center]:
-              selectedContact?.is_secret_chat &&
-              (!messages || (messages && Object.keys(messages).length === 0)),
+              selectedContact?.is_secret_chat && (!messages || (messages && Object.keys(messages).length === 0))
           })}
           style={{
-            width: rightPanelContentType ? "calc(100% - 200px)" : "100%",
+            width: rightPanelContentType ? "calc(100% - 200px)" : "100%"
           }}
         >
-          <div
-            className={styles.chatArea}
-            ref={chatArea}
-            onScroll={onChatBoardScroll}
-          >
+          <div className={styles.chatArea} ref={chatArea} onScroll={onChatBoardScroll}>
             <div
               className={classNames({
                 [styles.bottomLine]: true,
-                [styles.bottomLineHidden]: messagesPage === 0,
+                [styles.bottomLineHidden]: messagesPage === 0
               })}
               ref={startMessagesRef}
             >
@@ -309,17 +267,14 @@ const ChatBoard = ({
               <AddFirstContactIcon
                 className={classNames({
                   [styles.addFirstContactIcon]: true,
-                  [styles.collapsedMenu]: sideMenuCollapsed,
+                  [styles.collapsedMenu]: sideMenuCollapsed
                 })}
               />
             ) : (
               ""
             )}
             {selectedContact?.is_user === 0 ? (
-              <InviteUser
-                contact={selectedContact}
-                setShowSuccessPopup={setShowSuccessPopup}
-              />
+              <InviteUser contact={selectedContact} setShowSuccessPopup={setShowSuccessPopup} />
             ) : (
               renderGroups()
             )}
@@ -329,9 +284,7 @@ const ChatBoard = ({
             <div
               className={styles.editingMessage}
               style={{
-                width: rightPanelContentType
-                  ? "calc(100% - 65px)"
-                  : "calc(100% - 200px - 65px)",
+                width: rightPanelContentType ? "calc(100% - 65px)" : "calc(100% - 200px - 65px)"
               }}
             >
               <div className={styles.line}></div>
@@ -341,22 +294,15 @@ const ChatBoard = ({
           ) : (
             ""
           )}
-          {Array.isArray(attachedFiles) &&
-          attachedFiles.length &&
-          !action?.type ? (
+          {Array.isArray(attachedFiles) && attachedFiles.length && !action?.type ? (
             <div
               className={styles.attachedFiles}
               style={{
-                width: rightPanelContentType
-                  ? "calc(100% - 65px)"
-                  : "calc(100% - 200px - 65px)",
+                width: rightPanelContentType ? "calc(100% - 65px)" : "calc(100% - 200px - 65px)"
               }}
             >
               {renderAttachedFiles()}
-              <div
-                className={styles.close}
-                onClick={() => setAttachedFiles(null)}
-              />
+              <div className={styles.close} onClick={() => setAttachedFiles(null)} />
             </div>
           ) : (
             ""
@@ -364,9 +310,7 @@ const ChatBoard = ({
         </div>
         <div className={styles.rightPanelContentType}>
           {rightPanelContentType === "emo" ? <EmojiArea /> : null}
-          {rightPanelContentType === "info" ? (
-            <InfoPanel setAction={setAction} />
-          ) : null}
+          {rightPanelContentType === "info" ? <InfoPanel setAction={setAction} /> : null}
         </div>
       </main>
       {!showSettings && (
@@ -427,5 +371,5 @@ ChatBoard.propTypes = {
   editMessage: PropTypes.func.isRequired,
   showSettings: PropTypes.bool,
   attachedFiles: PropTypes.array,
-  setAttachedFiles: PropTypes.func,
+  setAttachedFiles: PropTypes.func
 };

@@ -11,7 +11,7 @@ import { ReactComponent as SecretChatIcon } from "../../../../../assets/PrivateC
 import {
   onGetChatGroups,
   onGetReсentChatsList,
-  onGetSecretChatsList,
+  onGetSecretChatsList
 } from "../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
@@ -24,7 +24,7 @@ const ChatList = ({
   setAction,
   mouseParams,
   setMouseParams,
-  currentDate,
+  currentDate
 }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -33,25 +33,15 @@ const ChatList = ({
   const [chatsType, setChatsType] = useState("chats");
   const [collapseMembersList, setCollapseMembersList] = useState(true);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
-  const selectedContact = useSelector(
-    (state) => state.Cabinet.chat.selectedContact
-  );
+  const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
 
-  const recentChatsList = useSelector(
-    (state) => state.Cabinet.chat.recentChatsList
-  );
-  const secretChatsList = useSelector(
-    (state) => state.Cabinet.chat.secretChatsList
-  );
+  const recentChatsList = useSelector((state) => state.Cabinet.chat.recentChatsList);
+  const secretChatsList = useSelector((state) => state.Cabinet.chat.secretChatsList);
   const [chatsList, setChatList] = useState([]);
   const groupsList = useSelector((state) => state.Cabinet.chat.groupsList);
   const gmt = useSelector((state) => state?.user?.userInfo?.gmt); // server time zone
-  const recentGroupsMessages = useSelector(
-    (state) => state.Cabinet.chat.recentGroupsMessages
-  );
-  const notificationsCounter = useSelector(
-    (state) => state.Cabinet.chat.notificationsCounter
-  );
+  const recentGroupsMessages = useSelector((state) => state.Cabinet.chat.recentGroupsMessages);
+  const notificationsCounter = useSelector((state) => state.Cabinet.chat.notificationsCounter);
 
   useEffect(() => {
     dispatch(onGetChatGroups());
@@ -82,32 +72,13 @@ const ChatList = ({
           chatItem={chat}
           key={chat.id + (chat.is_secret_chat ? "_secretChat" : "")}
           title={`${chat?.sname || ""} ${chat?.name}`}
-          subtitle={createContactStatus(
-            chat.is_user,
-            currentDate,
-            chat.real_user_date_last,
-            chat.is_online,
-            gmt
-          )}
-          status={createContactStatus(
-            chat.is_user,
-            currentDate,
-            chat.real_user_date_last,
-            chat.is_online,
-            gmt
-          )}
-          avatar={
-            chat?.icon?.[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          subtitle={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+          status={createContactStatus(chat.is_user, currentDate, chat.real_user_date_last, chat.is_online, gmt)}
+          avatar={chat?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           setMouseParams={setMouseParams}
           contextMenuList={chat.is_secret_chat ? "secretChat" : "recentChat"}
           notificationsCounter={
-            notificationsCounter[
-              chat.is_secret_chat
-                ? `group_${chat.id_group}`
-                : `chat_${chat.id_real_user}`
-            ]
+            notificationsCounter[chat.is_secret_chat ? `group_${chat.id_group}` : `chat_${chat.id_real_user}`]
           }
         />
       );
@@ -122,7 +93,7 @@ const ChatList = ({
     currentDate,
     gmt,
     setMouseParams,
-    notificationsCounter,
+    notificationsCounter
   ]);
 
   const renderGroupsList = useCallback(() => {
@@ -138,17 +109,8 @@ const ChatList = ({
             chatItem={member}
             key={chatId + "_user_" + member.id}
             title={member?.name}
-            subtitle={createContactStatus(
-              1,
-              currentDate,
-              member.date_last,
-              member.is_online,
-              gmt
-            )}
-            avatar={
-              member?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            subtitle={createContactStatus(1, currentDate, member.date_last, member.is_online, gmt)}
+            avatar={member?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             isSubList={true}
             setMouseParams={setMouseParams}
             contextMenuList={"userInGroup"}
@@ -176,10 +138,7 @@ const ChatList = ({
             key={group.id}
             title={group?.name}
             subtitle={recentGroupsMessages[group.id_group] || ""}
-            avatar={
-              group?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/chatGroup.svg`
-            }
+            avatar={group?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/chatGroup.svg`}
             setCollapseMembersList={setCollapseMembersList}
             status={__(
               `${group?.users?.length || 0} участников группы ( ${
@@ -188,9 +147,7 @@ const ChatList = ({
             )}
             setMouseParams={setMouseParams}
             contextMenuList={"group"}
-            notificationsCounter={
-              notificationsCounter[`group_${group.id_group}`]
-            }
+            notificationsCounter={notificationsCounter[`group_${group.id_group}`]}
           />
           {selectedContact?.id === group.id && !collapseMembersList ? (
             <div key={"member_wrap" + group.id} className={styles.membersList}>
@@ -213,7 +170,7 @@ const ChatList = ({
     setSelectedContact,
     recentGroupsMessages,
     notificationsCounter,
-    collapseMembersList,
+    collapseMembersList
   ]);
 
   useEffect(() => {
@@ -227,7 +184,7 @@ const ChatList = ({
     <div
       className={classNames({
         [styles.listWrap]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <div
@@ -235,49 +192,27 @@ const ChatList = ({
           [styles.item]: true,
           [styles.active]: false,
           [styles.addChat]: true,
-          [styles.collapsed]: sideMenuCollapsed,
+          [styles.collapsed]: sideMenuCollapsed
         })}
         onClick={() => {
           setAction({
             type: "addChat",
-            name: `${
-              chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")
-            } `,
+            name: `${chatsType === "chats" ? __("Cекретный чат") : __("Новая группа")} `,
             text: "",
-            chatsType,
+            chatsType
           });
         }}
-        title={
-          sideMenuCollapsed
-            ? __(
-                `Создать ${
-                  chatsType === "chats" ? __("секретный") : __("групповой")
-                } чат`
-              )
-            : ""
-        }
+        title={sideMenuCollapsed ? __(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`) : ""}
       >
         <div className={styles.iconWrap}>
-          {sideMenuCollapsed ? (
-            <span className={styles.text}>Создать</span>
-          ) : (
-            ""
-          )}
-          {chatsType === "groups" ? (
-            <GroupsIcon width={19} height={22} />
-          ) : null}
-          {chatsType === "chats" ? (
-            <SecretChatIcon width={19} height={22} />
-          ) : null}
+          {sideMenuCollapsed ? <span className={styles.text}>Создать</span> : ""}
+          {chatsType === "groups" ? <GroupsIcon width={19} height={22} /> : null}
+          {chatsType === "chats" ? <SecretChatIcon width={19} height={22} /> : null}
         </div>
 
         {!sideMenuCollapsed ? (
           <span className={styles.text}>
-            {__(
-              `Создать ${
-                chatsType === "chats" ? __("секретный") : __("групповой")
-              } чат`
-            )}
+            {__(`Создать ${chatsType === "chats" ? __("секретный") : __("групповой")} чат`)}
           </span>
         ) : (
           ""
@@ -287,14 +222,14 @@ const ChatList = ({
       <div
         className={classNames({
           [styles.chatsSwitcher]: true,
-          [styles.collapsed]: sideMenuCollapsed,
+          [styles.collapsed]: sideMenuCollapsed
         })}
       >
         <div
           className={classNames({
             [styles.item]: true,
             [styles.active]: chatsType === "chats",
-            [styles.addChat]: true,
+            [styles.addChat]: true
           })}
           onClick={() => setChatsType("chats")}
           title={sideMenuCollapsed ? __("Чаты") : ""}
@@ -305,7 +240,7 @@ const ChatList = ({
           className={classNames({
             [styles.item]: true,
             [styles.active]: chatsType === "groups",
-            [styles.addChat]: true,
+            [styles.addChat]: true
           })}
           onClick={() => setChatsType("groups")}
           title={sideMenuCollapsed ? __("Группы") : ""}
@@ -330,5 +265,5 @@ ChatList.propTypes = {
   setAction: PropTypes.func.isRequired,
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func.isRequired,
-  currentDate: PropTypes.object.isRequired,
+  currentDate: PropTypes.object.isRequired
 };

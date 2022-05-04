@@ -20,5 +20,5 @@ export default SuccessMessage;
 
 SuccessMessage.propTypes = {
   showSuccessMessage: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  setShowSuccessMessage: PropTypes.func,
+  setShowSuccessMessage: PropTypes.func
 };

@@ -3,26 +3,19 @@ import ActionApproval from "../../../../../../generalComponents/ActionApproval";
 import styles from "../../../MyFolders/WorkSpace/WorkSpace.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  onDeleteFile,
-  onSetModals,
-} from "../../../../../../Store/actions/CabinetActions";
+import { onDeleteFile, onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
 
 const endpoints = {
-  project: "project_",
+  project: "project_"
 };
 
 function MoveToArchive() {
   const { __ } = useLocales();
-  const { filePick, items } = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const { filePick, items } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const uid = useSelector((s) => s.user.uid);
   const file = items[0];
   const dispatch = useDispatch();
@@ -33,7 +26,7 @@ function MoveToArchive() {
         ...contextMenuModals,
         type: "",
         items: [],
-        filePick: null,
+        filePick: null
       })
     );
 
@@ -41,9 +34,7 @@ function MoveToArchive() {
 
   const addToArchive = (uid, fid, file, options) => {
     api
-      .post(
-        `/ajax/${endpoints[path] ?? ""}file_archive.php?uid=${uid}&fid=${fid}`
-      )
+      .post(`/ajax/${endpoints[path] ?? ""}file_archive.php?uid=${uid}&fid=${fid}`)
       .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onDeleteFile(file));
@@ -52,7 +43,7 @@ function MoveToArchive() {
               onSetModals("topMessage", {
                 open: true,
                 type: "message",
-                message: __("Файл добавлен в архив"),
+                message: __("Файл добавлен в архив")
               })
             );
           if (options.several)
@@ -60,7 +51,7 @@ function MoveToArchive() {
               onSetModals("topMessage", {
                 open: true,
                 type: "message",
-                message: __("Выбранные файлы добавлено в архив"),
+                message: __("Выбранные файлы добавлено в архив")
               })
             );
         } else console.log(res?.error);
@@ -70,7 +61,7 @@ function MoveToArchive() {
           onSetModals("topMessage", {
             open: true,
             type: "error",
-            message: __("Файл не добавлен в архив"),
+            message: __("Файл не добавлен в архив")
           })
         )
       )
@@ -80,7 +71,7 @@ function MoveToArchive() {
             ...contextMenuModals,
             type: "",
             items: [],
-            filePick: null,
+            filePick: null
           })
         )
       );
@@ -91,7 +82,7 @@ function MoveToArchive() {
       filePick.files.forEach((fid, i) => {
         const options = {
           single: false,
-          several: i === filePick.files.length - 1,
+          several: i === filePick.files.length - 1
         };
         addToArchive(uid, fid, { fid }, options);
       });
@@ -104,18 +95,13 @@ function MoveToArchive() {
     <>
       <ActionApproval
         name={__("Архивировать выбранные файлы")}
-        text={__(
-          " Вы действительно хотите переместить в архив выбранные файлы?"
-        )}
+        text={__(" Вы действительно хотите переместить в архив выбранные файлы?")}
         set={cancelArchive}
         callback={archiveFile}
         approve={__("Архивировать")}
       >
         <div className={styles.fileActionWrap}>
-          <File
-            format={filePick.show ? "FILES" : file?.ext}
-            color={file?.color}
-          />
+          <File format={filePick.show ? "FILES" : file?.ext} color={file?.color} />
         </div>
       </ActionApproval>
     </>

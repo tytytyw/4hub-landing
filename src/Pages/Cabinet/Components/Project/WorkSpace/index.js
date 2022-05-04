@@ -31,7 +31,7 @@ const WorkSpace = ({
   setParams,
   setSelectedProject,
   mouseParams,
-  listCollapsed,
+  listCollapsed
 }) => {
   const { __ } = useLocales();
   const files = useSelector((state) => state.Cabinet.project.files);
@@ -74,7 +74,7 @@ const WorkSpace = ({
       className={classnames({
         [styles.wrapper]: true,
         [styles.collapsed]: listCollapsed,
-        [styles.notCollapsed]: !listCollapsed,
+        [styles.notCollapsed]: !listCollapsed
       })}
       ref={containerRef}
     >
@@ -100,26 +100,18 @@ const WorkSpace = ({
       <ServePanel
         disableWorkElementsView={!!chosenFolder?.name}
         addFile={fileSelect}
-        chooseSeveral={() =>
-          setFilePick({ ...filePick, files: [], show: !filePick.show })
-        }
+        chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
         chosenFile={chosenFile}
         filePick={filePick}
       />
 
       {chosenFolder?.name ? (
-        <WorkLinesPreview
-          recentFiles={recentFiles}
-          chosenFile={chosenFile}
-          fileCollapsed={fileCollapsed}
-        >
+        <WorkLinesPreview recentFiles={recentFiles} chosenFile={chosenFile} fileCollapsed={fileCollapsed}>
           <div className={styles.fileListHeader}>
             <span>{fileCollapsed ? __("Файлы") : __("Файлы проекта")}</span>
             <img
               className={styles.icon}
-              src={`${imageSrc}assets/PrivateCabinet/${
-                fileCollapsed ? "play-blue.svg" : "play-grey.svg"
-              }`}
+              src={`${imageSrc}assets/PrivateCabinet/${fileCollapsed ? "play-blue.svg" : "play-grey.svg"}`}
               alt="icon"
               onClick={() => setFileCollapsed(!fileCollapsed)}
             />
@@ -131,11 +123,7 @@ const WorkSpace = ({
       {addMember && <AddMember set={setAddMember} />}
       <BottomPanel />
       {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -161,5 +149,5 @@ WorkSpace.propTypes = {
   setParams: PropTypes.func,
   setSelectedProject: PropTypes.func,
   mouseParams: mouseParamsProps,
-  listCollapsed: PropTypes.bool,
+  listCollapsed: PropTypes.bool
 };

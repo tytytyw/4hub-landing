@@ -3,10 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import styles from "./FileBar.module.sass";
 import File from "../../../../../generalComponents/Files";
-import {
-  onSetModals,
-  setDragged,
-} from "../../../../../Store/actions/CabinetActions";
+import { onSetModals, setDragged } from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
 
@@ -19,7 +16,7 @@ const FileBar = ({
   filePick,
   setFilePick,
   folderSelect,
-  openFolderMenu,
+  openFolderMenu
 }) => {
   const size = useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
@@ -31,7 +28,7 @@ const FileBar = ({
       isPicked.length > 0
         ? setFilePick({
             ...filePick,
-            files: filePick.files.filter((el) => el !== file?.fid),
+            files: filePick.files.filter((el) => el !== file?.fid)
           })
         : setFilePick({ ...filePick, files: [...filePick.files, file?.fid] });
     }
@@ -43,9 +40,7 @@ const FileBar = ({
       folderSelect(file);
       setChosenFile(null);
     } else {
-      dispatch(
-        onSetModals("previewFile", { ...previewFile, open: true, file })
-      );
+      dispatch(onSetModals("previewFile", { ...previewFile, open: true, file }));
     }
   };
 
@@ -58,21 +53,13 @@ const FileBar = ({
       <div
         className={`
                     ${styles.fileBar} 
-                    ${
-                      chosen
-                        ? size === "small"
-                          ? styles.fileBarSmallChosen
-                          : styles.fileBarChosen
-                        : null
-                    } 
+                    ${chosen ? (size === "small" ? styles.fileBarSmallChosen : styles.fileBarChosen) : null} 
                     ${size === "medium" ? styles.mediumSize : null}
                     ${size === "small" ? styles.smallSize : null}
                 `}
         onClick={onPickFile}
         onDoubleClick={handleDoubleClick}
-        draggable={
-          window.location.pathname === "/folders" && file?.is_dir === 0
-        }
+        draggable={window.location.pathname === "/folders" && file?.is_dir === 0}
         onDragStart={handleDragStart}
       >
         <div
@@ -84,7 +71,7 @@ const FileBar = ({
                   x: e.clientX,
                   y: e.clientY,
                   width: 240,
-                  height: 25,
+                  height: 25
                 });
           }}
         >
@@ -93,29 +80,19 @@ const FileBar = ({
         <div className={styles.symbols}>
           <div>
             {file?.fig && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`}
-                alt="fig"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/signs/${file?.fig}.svg`} alt="fig" />
             ) : null}
           </div>
           <div>
             {file?.emo && !isLoading ? (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`}
-                alt="emoji"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/smiles/${file?.emo}.svg`} alt="emoji" />
             ) : null}
           </div>
         </div>
-        <div
-          className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}
-        >
+        <div className={`${styles.file} ${file?.is_dir ? styles.fileFolder : ""}`}>
           {file?.is_dir ? (
             <FolderIcon
-              className={`${styles.folderIcon} ${
-                colors.filter((el) => el.color === file?.color)[0]?.name
-              }`}
+              className={`${styles.folderIcon} ${colors.filter((el) => el.color === file?.color)[0]?.name}`}
             />
           ) : (
             <File
@@ -125,16 +102,10 @@ const FileBar = ({
             />
           )}
           {file?.is_pass && !isLoading ? (
-            <img
-              className={styles.locked}
-              src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-              alt="lock"
-            />
+            <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
           ) : null}
         </div>
-        <div className={file?.tag ? styles.ftag : styles.fEmtyTag}>
-          {file?.tag ? `#${file?.tag}` : null}
-        </div>
+        <div className={file?.tag ? styles.ftag : styles.fEmtyTag}>{file?.tag ? `#${file?.tag}` : null}</div>
         <div className={styles.fname}>{file?.name}</div>
         <div className={styles.fileInfo}>
           <div>{file?.size_now}</div>

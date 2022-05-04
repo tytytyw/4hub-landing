@@ -18,9 +18,7 @@ function UserInfo({ selectedItem, setAction }) {
     return array.map((value, index) => {
       return (
         <div className={styles.inputWrap} key={type + index}>
-          <div className={styles.iconWrap}>
-            {type === "phone" ? <PhoneIcon /> : <MailIcon />}
-          </div>
+          <div className={styles.iconWrap}>{type === "phone" ? <PhoneIcon /> : <MailIcon />}</div>
           <input readOnly className={styles.input} value={value} />
         </div>
       );
@@ -53,10 +51,7 @@ function UserInfo({ selectedItem, setAction }) {
         <div className={styles.avatar}>
           <img
             className={styles.picture}
-            src={
-              selectedItem?.icon?.[0] ||
-              `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-            }
+            src={selectedItem?.icon?.[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
             alt="avatar"
           />
         </div>
@@ -65,12 +60,7 @@ function UserInfo({ selectedItem, setAction }) {
             <ShareIcon className={styles.iconShare} />
           </div>
 
-          <div
-            className={styles.iconView}
-            onClick={() =>
-              setAction({ type: "editContact", name: "", text: "" })
-            }
-          >
+          <div className={styles.iconView} onClick={() => setAction({ type: "editContact", name: "", text: "" })}>
             <EditIcon className={styles.iconShare} />
           </div>
 
@@ -80,9 +70,7 @@ function UserInfo({ selectedItem, setAction }) {
               setAction({
                 type: "deleteContact",
                 name: __("Удаление контакта"),
-                text: __(
-                  `Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`
-                ),
+                text: __(`Вы действительно хотите удалить контакт ${selectedItem?.name} ${selectedItem?.sname}?`)
               })
             }
           >
@@ -109,5 +97,5 @@ export default UserInfo;
 
 UserInfo.propTypes = {
   selectedItem: selectedItemProps,
-  setAction: PropTypes.func,
+  setAction: PropTypes.func
 };

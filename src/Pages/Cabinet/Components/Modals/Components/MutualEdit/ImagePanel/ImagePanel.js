@@ -14,7 +14,7 @@ function ImagePanel({
   inputRef = null,
   isChoosing = false,
   addToChosen = () => {},
-  chosen = [],
+  chosen = []
 }) {
   const addImages = (e) => {
     let files = [];
@@ -31,8 +31,7 @@ function ImagePanel({
       <div
         className={classnames({
           [styles.itemWrap]: true,
-          [styles.itemChosen]:
-            typeof image === "object" && chosen.indexOf(image.fid) !== -1,
+          [styles.itemChosen]: typeof image === "object" && chosen.indexOf(image.fid) !== -1
         })}
         key={i}
         draggable
@@ -44,25 +43,12 @@ function ImagePanel({
             </div>
           </div>
         ) : (
-          <div
-            className={styles.hoverDelete}
-            onClick={() => addToChosen(image.fid)}
-          />
+          <div className={styles.hoverDelete} onClick={() => addToChosen(image.fid)} />
         )}
         {typeof image === "string" ? (
-          <img
-            className={styles.image}
-            src={image}
-            alt="img"
-            draggable={false}
-          />
+          <img className={styles.image} src={image} alt="img" draggable={false} />
         ) : (
-          <img
-            className={styles.image}
-            src={image.src}
-            alt="img"
-            draggable={false}
-          />
+          <img className={styles.image} src={image.src} alt="img" draggable={false} />
         )}
       </div>
     ));
@@ -74,13 +60,7 @@ function ImagePanel({
         <div className={styles.itemWrap}>
           <AddIcon className={styles.addIcon} />
           <div>Загрузить</div>
-          <input
-            onChange={addImages}
-            type="file"
-            className={styles.inputImage}
-            multiple
-            ref={inputRef}
-          />
+          <input onChange={addImages} type="file" className={styles.inputImage} multiple ref={inputRef} />
         </div>
       ) : null}
     </aside>
@@ -97,7 +77,7 @@ ImagePanel.propTypes = {
   inputRef: PropTypes.any,
   isChoosing: PropTypes.bool,
   addToChosen: PropTypes.func,
-  chosen: PropTypes.array,
+  chosen: PropTypes.array
 };
 
 ImagePanel.defaultProps = {
@@ -108,5 +88,5 @@ ImagePanel.defaultProps = {
   inputRef: null,
   isChoosing: false,
   addToChosen: () => {},
-  chosen: [],
+  chosen: []
 };

@@ -29,7 +29,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
     if (!socItem) {
       socialValues.push({
         type: item.type,
-        link,
+        link
       });
     } else {
       socItem.link = link;
@@ -52,9 +52,7 @@ const AddSocials = ({ values, setValues, set, ...props }) => {
   };
 
   const getValue = (item) => {
-    const valueItem = socialValues.find(
-      (socItem) => socItem.type === item.type
-    );
+    const valueItem = socialValues.find((socItem) => socItem.type === item.type);
     return valueItem?.link ? valueItem.link : "";
   };
 
@@ -132,5 +130,5 @@ AddSocials.propTypes = {
   values: PropTypes.array,
   setValues: PropTypes.func,
   set: PropTypes.func,
-  type: PropTypes.string,
+  type: PropTypes.string
 };

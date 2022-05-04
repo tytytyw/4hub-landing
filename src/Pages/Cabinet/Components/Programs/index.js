@@ -10,15 +10,8 @@ const Programs = () => {
 
   return (
     <div className={styles.workAreaWrap}>
-      <CategoryList
-        listCollapsed={listCollapsed}
-        setListCollapsed={setListCollapsed}
-      />
-      <WorkSpace
-        chosenProgram={chosenProgram}
-        setChosenProgram={setChosenProgram}
-        listCollapsed={listCollapsed}
-      />
+      <CategoryList listCollapsed={listCollapsed} setListCollapsed={setListCollapsed} />
+      <WorkSpace chosenProgram={chosenProgram} setChosenProgram={setChosenProgram} listCollapsed={listCollapsed} />
     </div>
   );
 };

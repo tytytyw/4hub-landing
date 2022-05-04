@@ -15,11 +15,7 @@ const Error = ({ error, set, message }) => {
             <span className={styles.title}>Ошибка</span>
             <div>
               <img src="./assets/StartPage/tv.svg" alt="img" />
-              <img
-                src="./assets/StartPage/warning.svg"
-                alt="img"
-                className={styles.warning}
-              />
+              <img src="./assets/StartPage/warning.svg" alt="img" className={styles.warning} />
             </div>
             <div className={styles.infoError}>
               <span>{message}</span>

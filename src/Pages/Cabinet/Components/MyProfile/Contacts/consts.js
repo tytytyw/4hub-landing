@@ -6,7 +6,7 @@ export const socialsIcons = {
   linkedin: `${imageSrc}assets/PrivateCabinet/socials/linkedin.svg`,
   skype: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`,
   instagram: `${imageSrc}assets/PrivateCabinet/socials/instagram.svg`,
-  vk: `${imageSrc}assets/PrivateCabinet/socials/vk.svg`,
+  vk: `${imageSrc}assets/PrivateCabinet/socials/vk.svg`
 };
 
 export const messengersIcons = {
@@ -15,40 +15,40 @@ export const messengersIcons = {
   whatsapp: `${imageSrc}assets/PrivateCabinet/socials/whatsapp.svg`,
   telegram: `${imageSrc}assets/PrivateCabinet/socials/telegram.svg`,
   skype: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`,
-  slack: `${imageSrc}assets/PrivateCabinet/socials/slack.svg`,
+  slack: `${imageSrc}assets/PrivateCabinet/socials/slack.svg`
 };
 
 export const socialsData = [
   {
     label: "Twitter",
     type: "twitter",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/twitter.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/twitter.svg`
   },
   {
     label: "Linkedin",
     type: "linkedin",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/linkedin.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/linkedin.svg`
   },
   {
     label: "Facebook",
     type: "facebook",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/facebook.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/facebook.svg`
   },
   {
     label: "Skype",
     type: "skype",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`
   },
   {
     label: "Instagram",
     type: "instagram",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/instagram.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/instagram.svg`
   },
   {
     label: "VK",
     type: "vk",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/vk.svg`,
-  },
+    icon: `${imageSrc}assets/PrivateCabinet/socials/vk.svg`
+  }
 ];
 
 export const titlesSoc = {
@@ -56,35 +56,35 @@ export const titlesSoc = {
   viber: "Viber",
   whatsapp: "WhatsApp",
   skype: "Skype",
-  slack: "Slack",
+  slack: "Slack"
 };
 
 export const messengersData = [
   {
     label: "Viber",
     type: "viber",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/viber.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/viber.svg`
   },
   {
     label: "WhatsApp",
     type: "whatsapp",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/whatsapp.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/whatsapp.svg`
   },
   {
     label: "Telegram",
     type: "telegram",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/telegram.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/telegram.svg`
   },
   {
     label: "Skype",
     type: "skype",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`,
+    icon: `${imageSrc}assets/PrivateCabinet/socials/skype-2.svg`
   },
   {
     label: "Slack",
     type: "slack",
-    icon: `${imageSrc}assets/PrivateCabinet/socials/slack.svg`,
-  },
+    icon: `${imageSrc}assets/PrivateCabinet/socials/slack.svg`
+  }
 ];
 
 export const emptyProfileImage = `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`;

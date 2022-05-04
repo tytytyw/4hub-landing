@@ -24,12 +24,7 @@ const SuccessCreated = ({ set }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.contentWrapper}>
-        <img
-          onClick={toBusiness}
-          className={styles.close}
-          src={timesImg}
-          alt="Close"
-        />
+        <img onClick={toBusiness} className={styles.close} src={timesImg} alt="Close" />
 
         <div className={styles.header}>
           <h4 className={styles.title}>{__("Регистрация прошла успешно")}</h4>
@@ -42,14 +37,11 @@ const SuccessCreated = ({ set }) => {
 
           <p className={styles.text}>
             {__(`Письмо подтверждения регистрации отправлено на Ваш email. 
-                        Будьте добры перейти по ссылке для завершения${(
-                          <br />
-                        )} процесса регистрации`)}
+                        Будьте добры перейти по ссылке для завершения${(<br />)} процесса регистрации`)}
           </p>
 
           <p className={styles.info}>
-            Не пришло письмо ?
-            <span className={styles.resend}>{__("Отправить заново")}</span>
+            Не пришло письмо ?<span className={styles.resend}>{__("Отправить заново")}</span>
           </p>
 
           <div className={styles.actionBlock}>
@@ -66,5 +58,5 @@ const SuccessCreated = ({ set }) => {
 export default SuccessCreated;
 
 SuccessCreated.propTypes = {
-  set: PropTypes.func,
+  set: PropTypes.func
 };

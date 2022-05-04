@@ -15,35 +15,24 @@ const CategoryItem = ({ category, listCollapsed, listSize, chosen }) => {
     <div
       className={classNames({
         [styles.innerFolderWrap]: true,
-        [styles.active]: chosen,
+        [styles.active]: chosen
       })}
       onClick={onClickHandler}
     >
       <div
         className={classNames({
           [styles.innerFolder]: true,
-          [styles?.[`innerFolder_${listSize}`]]: !!listSize,
+          [styles?.[`innerFolder_${listSize}`]]: !!listSize
         })}
       >
         <div className={styles.innerFolderName}>
           {category?.image ? (
-            <img
-              src={category.image}
-              alt="icon"
-              className={styles.innerFolderIcon}
-            />
+            <img src={category.image} alt="icon" className={styles.innerFolderIcon} />
           ) : (
-            <FolderIcon
-              fill={category?.color}
-              className={styles.innerFolderIcon}
-            />
+            <FolderIcon fill={category?.color} className={styles.innerFolderIcon} />
           )}
           <div className={styles.nameWrap}>
-            <div className={styles.Name}>
-              {!listCollapsed && (
-                <div className={styles.name}>{category.name}</div>
-              )}
-            </div>
+            <div className={styles.Name}>{!listCollapsed && <div className={styles.name}>{category.name}</div>}</div>
           </div>
         </div>
         <div className={styles.innerFolderMedia}>({category.list.length})</div>
@@ -58,5 +47,5 @@ CategoryItem.propTypes = {
   category: PropTypes.object,
   listCollapsed: PropTypes.bool,
   listSize: PropTypes.string,
-  chosen: PropTypes.bool,
+  chosen: PropTypes.bool
 };

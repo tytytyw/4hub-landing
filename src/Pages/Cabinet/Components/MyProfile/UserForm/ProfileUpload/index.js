@@ -5,14 +5,7 @@ import avatarImg from "../../../../../../assets/PrivateCabinet/avatar2.svg";
 import classnames from "classnames";
 import { PropTypes } from "prop-types";
 
-const Index = ({
-  name,
-  disabled,
-  onChange = () => {},
-  preview,
-  background = { avatarImg },
-  ...props
-}) => {
+const Index = ({ name, disabled, onChange = () => {}, preview, background = { avatarImg }, ...props }) => {
   const inputId = `userPhoto-${Math.random()}`;
   const getImage = () => preview ?? background;
 
@@ -34,7 +27,7 @@ const Index = ({
           <img
             className={classnames({
               [styles.avatar]: true,
-              [styles.profileImg]: !!preview,
+              [styles.profileImg]: !!preview
             })}
             src={getImage()}
             alt="Avatar"
@@ -42,7 +35,7 @@ const Index = ({
           <img
             className={classnames({
               [styles.photo]: true,
-              [styles.uploaded]: !!preview,
+              [styles.uploaded]: !!preview
             })}
             src={cameraImg}
             alt="Camera"
@@ -61,13 +54,13 @@ Index.propTypes = {
   onChange: PropTypes.func,
   preview: PropTypes.string,
   background: PropTypes.shape({
-    avatarImg: PropTypes.string,
+    avatarImg: PropTypes.string
   }),
-  inputRef: PropTypes.object,
+  inputRef: PropTypes.object
 };
 
 Index.defaultProps = {
   name: "file",
   onChange: () => {},
-  background: { avatarImg },
+  background: { avatarImg }
 };

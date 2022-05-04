@@ -1,31 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import styles from "./Previews.module.sass";
-import {
-  imageSrc,
-  projectSrc,
-} from "../../../../../generalComponents/globalVariables";
+import { imageSrc, projectSrc } from "../../../../../generalComponents/globalVariables";
 import File from "../../../../../generalComponents/Files";
 import { previewFormats } from "../../../../../generalComponents/collections";
-import {
-  getMedia,
-  imageToRatio,
-} from "../../../../../generalComponents/generalHelpers";
+import { getMedia, imageToRatio } from "../../../../../generalComponents/generalHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
 
 const Previews = React.forwardRef(
-  (
-    {
-      file = null,
-      width = undefined,
-      height = undefined,
-      errorHandler = () => {},
-    },
-    canvasRef
-  ) => {
+  ({ file = null, width = undefined, height = undefined, errorHandler = () => {} }, canvasRef) => {
     const { __ } = useLocales();
     const audioRef = useRef(null);
     const [audio, setAudio] = useState("");
@@ -47,18 +33,9 @@ const Previews = React.forwardRef(
     };
 
     const renderOfficePreview = () => {
-      const isFormat =
-        previewFormats.filter((type) => file?.ext.toLowerCase().includes(type))
-          .length > 0;
+      const isFormat = previewFormats.filter((type) => file?.ext.toLowerCase().includes(type)).length > 0;
       if (isFormat && file?.edit_url) {
-        return (
-          <iframe
-            src={file.edit_url}
-            title={file?.name}
-            frameBorder="0"
-            scrolling="no"
-          />
-        );
+        return <iframe src={file.edit_url} title={file?.name} frameBorder="0" scrolling="no" />;
       } else {
         return standardPrev;
       }
@@ -105,14 +82,7 @@ const Previews = React.forwardRef(
             );
           }
           case "application": {
-            return (
-              <iframe
-                src={`${projectSrc}${file?.preview}`}
-                title={file?.name}
-                frameBorder="0"
-                scrolling="no"
-              />
-            );
+            return <iframe src={`${projectSrc}${file?.preview}`} title={file?.name} frameBorder="0" scrolling="no" />;
           }
           default: {
             return (
@@ -130,9 +100,7 @@ const Previews = React.forwardRef(
     useEffect(() => {
       if (file.mime_type && file.mime_type.includes("image")) {
         const img = new Image();
-        img.src = `${file.preview}${
-          file.fid === "printScreen" ? "" : `?${new Date()}`
-        }`;
+        img.src = `${file.preview}${file.fid === "printScreen" ? "" : `?${new Date()}`}`;
         img.onload = (e) => {
           console.log(canvasRef?.current);
           if (canvasRef?.current) {
@@ -145,49 +113,22 @@ const Previews = React.forwardRef(
             );
             canvasRef.current.width = sizes.width;
             canvasRef.current.height = sizes.height;
-            canvas.clearRect(
-              0,
-              0,
-              e.target.naturalWidth,
-              e.target.naturalHeight
-            );
+            canvas.clearRect(0, 0, e.target.naturalWidth, e.target.naturalHeight);
             canvas.drawImage(img, 0, 0, sizes.width, sizes.height);
           }
         };
         img.onerror = () => {
           setLoading(false);
-          renderError(
-            __("Не удалось загрузить изображение, попробуйте еще раз")
-          );
+          renderError(__("Не удалось загрузить изображение, попробуйте еще раз"));
         };
       }
-      if (
-        file.mime_type &&
-        file.mime_type.includes("audio") &&
-        file.is_preview
-      ) {
+      if (file.mime_type && file.mime_type.includes("audio") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${imageSrc}${file.preview}`,
-          file.mime_type,
-          setAudio,
-          setLoading,
-          renderError
-        );
+        getMedia(`${imageSrc}${file.preview}`, file.mime_type, setAudio, setLoading, renderError);
       }
-      if (
-        file.mime_type &&
-        file.mime_type.includes("video") &&
-        file.is_preview
-      ) {
+      if (file.mime_type && file.mime_type.includes("video") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${imageSrc}${file.preview}`,
-          file.mime_type,
-          setVideo,
-          setLoading,
-          renderError
-        );
+        getMedia(`${imageSrc}${file.preview}`, file.mime_type, setVideo, setLoading, renderError);
       }
       return () => {
         if (window.cancelLoadMedia) window.cancelLoadMedia.cancel();

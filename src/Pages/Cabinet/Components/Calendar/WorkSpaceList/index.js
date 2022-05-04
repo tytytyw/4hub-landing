@@ -41,9 +41,7 @@ const WorkSpaceList = ({ events }) => {
 
   const getStrDate = () => {
     return __(
-      `${calendarDate?.getDate()} ${
-        monthNameType?.[calendarDate.getMonth()]
-      }  ${calendarDate.getFullYear()} г`
+      `${calendarDate?.getDate()} ${monthNameType?.[calendarDate.getMonth()]}  ${calendarDate.getFullYear()} г`
     );
   };
 
@@ -83,7 +81,7 @@ const WorkSpaceList = ({ events }) => {
               key={index}
               className={styles.listItemActive}
               style={{
-                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`,
+                background: `rgba(${rgba?.r}, ${rgba?.g}, ${rgba?.b}, 0.1)`
               }}
             >
               <div className={styles.hour}>{hour.text}</div>
@@ -104,5 +102,5 @@ const WorkSpaceList = ({ events }) => {
 export default WorkSpaceList;
 
 WorkSpaceList.propTypes = {
-  events: PropTypes.array,
+  events: PropTypes.array
 };

@@ -46,10 +46,10 @@ export default FolderIcon;
 FolderIcon.propTypes = {
   type: PropTypes.string,
   fill: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 FolderIcon.defaultProps = {
   type: "grey",
-  fill: null,
+  fill: null
 };

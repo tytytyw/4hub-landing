@@ -5,8 +5,5 @@ export const hasUpperLowerCase = (value) => {
 };
 
 export const hasNumOrChar = (value) => {
-  return (
-    value?.match(/[0-9]/) ||
-    value?.match(/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/g)
-  );
+  return value?.match(/[0-9]/) || value?.match(/[!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?]/g);
 };

@@ -131,8 +131,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
     }
   };
 
-  const isMistake = (name) =>
-    (errors?.[name] && blur?.[name]) || submitErrors?.[name];
+  const isMistake = (name) => (errors?.[name] && blur?.[name]) || submitErrors?.[name];
 
   const setDateValue = (dateValue) => {
     setFields({ ...fields, bdate: dateValue });
@@ -157,17 +156,9 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
         <div className={styles.content}>
           <div className={styles.header}>
-            <p className={styles.title}>
-              {type === "edit"
-                ? __("Редактировать контакт")
-                : __("Добавить контакт")}
-            </p>
+            <p className={styles.title}>{type === "edit" ? __("Редактировать контакт") : __("Добавить контакт")}</p>
             <div className={styles.uploadBlock}>
-              <ProfileUpload
-                name="profileImg"
-                preview={preview}
-                onChange={uploadImage}
-              />
+              <ProfileUpload name="profileImg" preview={preview} onChange={uploadImage} />
             </div>
           </div>
 
@@ -177,7 +168,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                 <span
                   className={classnames({
                     [styles.info]: true,
-                    [styles.errorInfo]: isMistake("name"),
+                    [styles.errorInfo]: isMistake("name")
                   })}
                 >
                   {__("Имя:")}
@@ -198,7 +189,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                 <span
                   className={classnames({
                     [styles.info]: true,
-                    [styles.errorInfo]: isMistake("sname"),
+                    [styles.errorInfo]: isMistake("sname")
                   })}
                 >
                   {__("Фамилия:")}
@@ -238,9 +229,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                       }}
                       className={styles.minusBtn}
                     />
-                    <span className={styles.info}>
-                      {__("Введите номер телефона:")}
-                    </span>
+                    <span className={styles.info}>{__("Введите номер телефона:")}</span>
                   </div>
                   <Input
                     phone={true}
@@ -257,18 +246,12 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
               <div
                 className={classnames({
                   [styles.formBlock]: true,
-                  [styles.clickable]: true,
+                  [styles.clickable]: true
                 })}
                 onClick={() => setNumbers([...numbers, ""])}
               >
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
-                <span className={styles.info}>
-                  {__("Добавить номер телефона:")}
-                </span>
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
+                <span className={styles.info}>{__("Добавить номер телефона:")}</span>
               </div>
             </div>
 
@@ -297,34 +280,20 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
               <div
                 className={classnames({
                   [styles.formBlock]: true,
-                  [styles.clickable]: true,
+                  [styles.clickable]: true
                 })}
                 onClick={() => setMails([...mails, ""])}
               >
-                <img
-                  className={styles.infoImg}
-                  src={imageSrc + "assets/PrivateCabinet/plus-3.svg"}
-                  alt="new_contact"
-                />
+                <img className={styles.infoImg} src={imageSrc + "assets/PrivateCabinet/plus-3.svg"} alt="new_contact" />
                 <span className={styles.info}>{__("Добавить @mail:")}</span>
               </div>
             </div>
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить день рождения:")}
-                </span>
-                <Input
-                  name="bdate"
-                  onChange={onChangeHandler}
-                  value={fields?.bdate || ""}
-                  className={styles.input}
-                />
-                <div
-                  onClick={() => setShowCalendar(true)}
-                  className={styles.icon}
-                >
+                <span className={styles.info}>{__("Добавить день рождения:")}</span>
+                <Input name="bdate" onChange={onChangeHandler} value={fields?.bdate || ""} className={styles.input} />
+                <div onClick={() => setShowCalendar(true)} className={styles.icon}>
                   <img src={calendarImage} alt="Calendar" />
                 </div>
               </div>
@@ -338,11 +307,7 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
                     (item, index) =>
                       !!item.link && (
                         <li key={index}>
-                          <img
-                            src={socialsIcons[item.type]}
-                            alt={item.type}
-                            className={styles.socialsImg}
-                          />
+                          <img src={socialsIcons[item.type]} alt={item.type} className={styles.socialsImg} />
                         </li>
                       )
                   )}
@@ -355,19 +320,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
 
             <div className={styles.formItem}>
               <div className={styles.formBlock}>
-                <span className={styles.info}>
-                  {__("Добавить мессенджеры:")}
-                </span>
+                <span className={styles.info}>{__("Добавить мессенджеры:")}</span>
                 <ul className={styles.socialsList}>
                   {messengers.map(
                     (item, index) =>
                       !!item.link && (
                         <li key={index}>
-                          <img
-                            src={messengersIcons[item.type]}
-                            alt={item.type}
-                            className={styles.socialsImg}
-                          />
+                          <img src={messengersIcons[item.type]} alt={item.type} className={styles.socialsImg} />
                         </li>
                       )
                   )}
@@ -399,30 +358,13 @@ const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
         </div>
       </form>
 
-      {socPopup && (
-        <AddSocials
-          type="soc"
-          values={socials}
-          setValues={setSocials}
-          set={setSocPopup}
-        />
-      )}
+      {socPopup && <AddSocials type="soc" values={socials} setValues={setSocials} set={setSocPopup} />}
 
-      {messPopup && (
-        <AddSocials
-          values={messengers}
-          setValues={setMessengers}
-          set={setMessPopup}
-        />
-      )}
+      {messPopup && <AddSocials values={messengers} setValues={setMessengers} set={setMessPopup} />}
 
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar
-            datePicker={true}
-            setShowCalendar={setShowCalendar}
-            setDateValue={setDateValue}
-          />
+          <Calendar datePicker={true} setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
         </PopUp>
       )}
     </PopUp>
@@ -435,8 +377,8 @@ FormContact.propTypes = {
   set: PropTypes.func,
   type: PropTypes.string,
   selectedItem: PropTypes.object,
-  setPageOption: PropTypes.func,
+  setPageOption: PropTypes.func
 };
 FormContact.defaultProps = {
-  setPageOption: () => {},
+  setPageOption: () => {}
 };

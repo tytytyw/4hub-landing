@@ -12,7 +12,7 @@ const buttonStyles = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  padding: 0,
+  padding: 0
 };
 
 function SizePicker({ isEdit }) {
@@ -39,7 +39,7 @@ function SizePicker({ isEdit }) {
             right: 0,
             top: 0,
             height: dotsPaint.length * 24,
-            width: "max-content",
+            width: "max-content"
           }}
         >
           {params.open &&
@@ -58,7 +58,7 @@ function SizePicker({ isEdit }) {
                     width: `${item?.width}px`,
                     height: `${item?.width}px`,
                     background: isEdit ? paint.color : "grey",
-                    borderRadius: "50%",
+                    borderRadius: "50%"
                   }}
                 />
               </button>
@@ -80,7 +80,7 @@ function SizePicker({ isEdit }) {
             background: isEdit ? paint.color : "grey",
             borderRadius: "50%",
             width: `${paint.size}px`,
-            height: `${paint.size}px`,
+            height: `${paint.size}px`
           }}
         />
       </button>

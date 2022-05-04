@@ -10,14 +10,11 @@ import {
   onGetContacts,
   onGetProjects,
   onGetProjectFolders,
-  onAddRecentFiles,
+  onAddRecentFiles
 } from "../../../../Store/actions/CabinetActions";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
 import ContextMenu from "../../../../generalComponents/ContextMenu";
-import {
-  useContextMenuProjects,
-  useContextMenuSubFolder,
-} from "../../../../generalComponents/collections";
+import { useContextMenuProjects, useContextMenuSubFolder } from "../../../../generalComponents/collections";
 import CreateProject from "./CreateProject";
 import ProjectContextItem from "./ProjectContextItem";
 import CreateFolder from "../ContextMenuComponents/ContextMenuProject/CreateFolder";
@@ -54,7 +51,7 @@ const Project = ({
   setLoadingFile,
   menuItem,
   fileSelect,
-  saveCustomizeSeveralFiles,
+  saveCustomizeSeveralFiles
 }) => {
   const { __ } = useLocales();
   const contextMenuSubFolder = useContextMenuSubFolder();
@@ -92,57 +89,53 @@ const Project = ({
       type: "addMember",
       name: __("Добавить участника"),
       text: ``,
-      callback: () => setAddMember(true),
+      callback: () => setAddMember(true)
     },
     {
       type: "addFolder",
       name: __("Добавить папку"),
       text: ``,
-      callback: () => setNewFolder(true),
+      callback: () => setNewFolder(true)
     },
     {
       type: "copyLink",
       name: __("Скопировать ссылку и поделиться"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "customize",
       name: __("Редактирование проекта"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "archive",
       name: __("Добавить файл в архив"),
-      text: __(
-        `Вы действительно хотите архивировать проект ${selectedProject?.name}?`
-      ),
-      callback: (list, index) => setAction(list[index]),
+      text: __(`Вы действительно хотите архивировать проект ${selectedProject?.name}?`),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "propertiesProject",
       name: __("Свойства"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const additionalMenuItems = [
     {
       type: "delete",
       name: __("Удаление проекта"),
-      text: __(
-        `Вы действительно хотите удалить проект ${selectedProject?.name}?`
-      ),
-      callback: (list, index) => setAction(list[index]),
+      text: __(`Вы действительно хотите удалить проект ${selectedProject?.name}?`),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "leave",
       name: __("Покинуть проект"),
       text: __(`Вы действительно покинуть проект ${selectedProject?.name}?`),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const callbackArrSub = [
@@ -150,26 +143,26 @@ const Project = ({
       type: "customizeFolder",
       name: __("Редактирование папки"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "setAccessFolder",
       name: __("Доступ и экспорт"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "propertiesFolder",
       name: __("Свойства"),
       text: ``,
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "deleteFolder",
       name: __("Удаление папки"),
       text: __(`Вы действительно хотите удалить выбранную папку?`),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const renderMenuItems = (target, type) => {
@@ -250,9 +243,7 @@ const Project = ({
   const deleteFolder = () => {
     nullifyAction();
     api
-      .post(
-        `/ajax/project_folders_del.php?uid=${uid}&id_project=${selectedProject.id}&dir_name=${chosenFolder.name}`
-      )
+      .post(`/ajax/project_folders_del.php?uid=${uid}&id_project=${selectedProject.id}&dir_name=${chosenFolder.name}`)
       .then((res) => {
         if (res.data.ok === 1) {
           dispatch(onGetProjectFolders(selectedProject.id));
@@ -264,8 +255,7 @@ const Project = ({
       .catch(() => setError(__("Папка не удалена. Попробуйте еще раз!")));
   };
 
-  const onSafePassword = (boolean) =>
-    setSafePassword((state) => ({ ...state, open: boolean }));
+  const onSafePassword = (boolean) => setSafePassword((state) => ({ ...state, open: boolean }));
 
   return (
     <div className={styles.workAreaWrap}>
@@ -285,9 +275,7 @@ const Project = ({
               src={`${imageSrc}/assets/PrivateCabinet/create_arrow.svg`}
               alt="Create Arrow"
             />
-            <h4 className={styles.emptyTitle}>
-              {__("СОЗДАЙТЕ Ваш первый проект")}
-            </h4>
+            <h4 className={styles.emptyTitle}>{__("СОЗДАЙТЕ Ваш первый проект")}</h4>
           </div>
         ) : (
           <div className={styles.folderWrap}>{renderProjects()}</div>
@@ -308,48 +296,28 @@ const Project = ({
       />
 
       {mouseParams?.type === "menu" && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuSubFolder.main, callbackArrSub)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuSubFolder.main, callbackArrSub)}</div>
         </ContextMenu>
       )}
 
       {mouseParams?.type === "project" && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <div className={styles.mainMenuItems}>
             {renderProjectMenuItems(contextMenuProjects.main, callbackArrMain)}
           </div>
           <div className={styles.additionalMenuItems}>
-            {renderProjectMenuItems(
-              contextMenuProjects.additional,
-              additionalMenuItems
-            )}
+            {renderProjectMenuItems(contextMenuProjects.additional, additionalMenuItems)}
           </div>
         </ContextMenu>
       )}
 
       {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
+        <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
       )}
 
       {createProject && (
-        <CreateProject
-          title={__("Создание проекта")}
-          onCreate={setCreateProject}
-          setLoadingType={setLoadingType}
-        />
+        <CreateProject title={__("Создание проекта")} onCreate={setCreateProject} setLoadingType={setLoadingType} />
       )}
       {newFolder && (
         <CreateFolder
@@ -387,9 +355,7 @@ const Project = ({
           approve={__("Удалить")}
           callback={deleteProject}
         >
-          <div className={styles.fileActionWrap}>
-            {getIcon(selectedProject)}
-          </div>
+          <div className={styles.fileActionWrap}>{getIcon(selectedProject)}</div>
         </ActionApproval>
       ) : null}
       {action.type === "leave" ? (
@@ -400,9 +366,7 @@ const Project = ({
           callback={nullifyAction}
           approve={__("Покинуть")}
         >
-          <div className={styles.fileActionWrap}>
-            {getIcon(selectedProject)}
-          </div>
+          <div className={styles.fileActionWrap}>{getIcon(selectedProject)}</div>
         </ActionApproval>
       ) : null}
       {action.type === "archive" ? (
@@ -413,9 +377,7 @@ const Project = ({
           callback={nullifyAction}
           approve={__("Архивировать")}
         >
-          <div className={styles.fileActionWrap}>
-            {getIcon(selectedProject)}
-          </div>
+          <div className={styles.fileActionWrap}>{getIcon(selectedProject)}</div>
         </ActionApproval>
       ) : null}
       {action.type === "customize" ? (
@@ -438,11 +400,7 @@ const Project = ({
       ) : null}
 
       {action.type === "propertiesProject" ? (
-        <ProjectProperty
-          close={nullifyAction}
-          project={selectedProject}
-          getIcon={getIcon}
-        />
+        <ProjectProperty close={nullifyAction} project={selectedProject} getIcon={getIcon} />
       ) : null}
 
       {action.type === "deleteFolder" ? (
@@ -459,17 +417,11 @@ const Project = ({
         </ActionApproval>
       ) : null}
 
-      {action.type === "propertiesFolder" ? (
-        <FolderProperty close={nullifyAction} folder={chosenFolder} />
-      ) : null}
+      {action.type === "propertiesFolder" ? <FolderProperty close={nullifyAction} folder={chosenFolder} /> : null}
 
       {fileAddCustomization.show && (
         <CreateFile
-          title={
-            fileAddCustomization.create
-              ? __("Создать файл")
-              : __("Добавить файл")
-          }
+          title={fileAddCustomization.create ? __("Создать файл") : __("Добавить файл")}
           info={{ ...selectedProject, dir: chosenFolder.name }}
           blob={fileAddCustomization.file}
           setBlob={setFileAddCustomization}
@@ -497,12 +449,7 @@ const Project = ({
         />
       ) : null}
 
-      {safePassword.open && (
-        <CreateSafePassword
-          onToggle={onSafePassword}
-          title={__("Создайте пароль для сейфа")}
-        />
-      )}
+      {safePassword.open && <CreateSafePassword onToggle={onSafePassword} title={__("Создайте пароль для сейфа")} />}
 
       {error && <Error error={error} set={setError} message={error} />}
       {gLoader && (
@@ -534,5 +481,5 @@ Project.propTypes = {
   setLoadingFile: PropTypes.func,
   menuItem: PropTypes.string,
   fileSelect: PropTypes.func,
-  saveCustomizeSeveralFiles: PropTypes.func,
+  saveCustomizeSeveralFiles: PropTypes.func
 };

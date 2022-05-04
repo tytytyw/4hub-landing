@@ -5,12 +5,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
 
-const FolderItem = ({
-  folder,
-  chosenFolder,
-  setChosenFolder,
-  setMouseParams,
-}) => {
+const FolderItem = ({ folder, chosenFolder, setChosenFolder, setMouseParams }) => {
   const onClickHandler = () => {
     setChosenFolder(folder?.id);
   };
@@ -19,7 +14,7 @@ const FolderItem = ({
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.active]: chosenFolder === folder?.id,
+        [styles.active]: chosenFolder === folder?.id
       })}
       onClick={onClickHandler}
     >
@@ -43,7 +38,7 @@ const FolderItem = ({
                 x: e.clientX,
                 y: e.clientY,
                 width: 200,
-                height: 25,
+                height: 25
               });
             }}
           >
@@ -61,5 +56,5 @@ FolderItem.propTypes = {
   folder: projectFolderStructure,
   chosenFolder: PropTypes.func,
   setChosenFolder: PropTypes.func,
-  setMouseParams: PropTypes.func,
+  setMouseParams: PropTypes.func
 };

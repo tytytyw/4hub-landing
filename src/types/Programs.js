@@ -5,5 +5,5 @@ export const programItemProps = PropTypes.exact({
   name: PropTypes.string,
   link: PropTypes.string,
   comments: PropTypes.array,
-  isFavourite: PropTypes.bool,
+  isFavourite: PropTypes.bool
 });

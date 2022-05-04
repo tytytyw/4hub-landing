@@ -3,12 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "react-app",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "react-app", "prettier"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -18,9 +13,21 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
-    "prettier/prettier": ["error", {
-      "endOfLine": "auto"
-    }]
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": false,
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "arrowParens": "always",
+        "htmlWhitespaceSensitivity": "strict",
+        "endOfLine": "auto"
+      }
+    ]
   },
   "settings": {
     "react": {

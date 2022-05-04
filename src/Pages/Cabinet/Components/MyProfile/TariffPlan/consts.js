@@ -12,15 +12,13 @@ export function useData() {
       options: [
         {
           img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
-          text: __("2 000 ГБ места для безопасного хранения файлов"),
+          text: __("2 000 ГБ места для безопасного хранения файлов")
         },
         {
           img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
-          text: __(
-            "Простые инструменты для храннения и предоставления доступа и совместной работы"
-          ),
-        },
-      ],
+          text: __("Простые инструменты для храннения и предоставления доступа и совместной работы")
+        }
+      ]
     },
     {
       tariff: "Standart",
@@ -31,15 +29,13 @@ export function useData() {
       options: [
         {
           img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
-          text: __("2 000 ГБ места для безопасного хранения файлов"),
+          text: __("2 000 ГБ места для безопасного хранения файлов")
         },
         {
           img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
-          text: __(
-            "Простые инструменты для храннения и предоставления доступа и совместной работы"
-          ),
-        },
-      ],
+          text: __("Простые инструменты для храннения и предоставления доступа и совместной работы")
+        }
+      ]
     },
     {
       tariff: "Premium",
@@ -51,15 +47,13 @@ export function useData() {
       options: [
         {
           img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
-          text: __("2 000 ГБ места для безопасного хранения файлов"),
+          text: __("2 000 ГБ места для безопасного хранения файлов")
         },
         {
           img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
-          text: __(
-            "Простые инструменты для храннения и предоставления доступа и совместной работы"
-          ),
-        },
-      ],
+          text: __("Простые инструменты для храннения и предоставления доступа и совместной работы")
+        }
+      ]
     },
     {
       tariff: "Premium plus",
@@ -70,15 +64,13 @@ export function useData() {
       options: [
         {
           img: `${imageSrc}assets/PrivateCabinet/pie-chart-5.svg`,
-          text: __("2 000 ГБ места для безопасного хранения файлов"),
+          text: __("2 000 ГБ места для безопасного хранения файлов")
         },
         {
           img: `${imageSrc}assets/PrivateCabinet/folder-3.svg`,
-          text: __(
-            "Простые инструменты для храннения и предоставления доступа и совместной работы"
-          ),
-        },
-      ],
-    },
+          text: __("Простые инструменты для храннения и предоставления доступа и совместной работы")
+        }
+      ]
+    }
   ];
 }

@@ -16,12 +16,7 @@ const SuccessPopup = ({ title, text, buttonText, set, style = {} }) => {
     <Popup set={set}>
       <div className={styles.wrapper} style={style}>
         <div className={styles.contentWrapper}>
-          <img
-            onClick={set}
-            className={styles.close}
-            src={timesImg}
-            alt="Close"
-          />
+          <img onClick={set} className={styles.close} src={timesImg} alt="Close" />
           <div className={styles.header}>
             <h4 className={styles.title}>{title}</h4>
           </div>
@@ -46,7 +41,7 @@ export default SuccessPopup;
 
 SuccessPopup.defaultProps = {
   title: "",
-  text: "",
+  text: ""
 };
 
 SuccessPopup.propTypes = {
@@ -54,5 +49,5 @@ SuccessPopup.propTypes = {
   text: PropTypes.string,
   buttonText: PropTypes.string,
   set: PropTypes.func.isRequired,
-  style: PropTypes.object,
+  style: PropTypes.object
 };

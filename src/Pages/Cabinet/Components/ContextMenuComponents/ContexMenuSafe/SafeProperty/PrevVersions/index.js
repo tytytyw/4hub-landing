@@ -34,16 +34,10 @@ const PrevVersions = ({ safe }) => {
               {safe.fig || safe.emo ? (
                 <div className={styles.signs}>
                   {safe.fig ? (
-                    <img
-                      src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.fig}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}/assets/PrivateCabinet/signs/${safe.fig}.svg`} alt="emoji" />
                   ) : null}
                   {safe.emo ? (
-                    <img
-                      src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.emo}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}/assets/PrivateCabinet/smiles/${safe.emo}.svg`} alt="emoji" />
                   ) : null}
                 </div>
               ) : null}
@@ -70,5 +64,5 @@ const PrevVersions = ({ safe }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  safe: safeProps,
+  safe: safeProps
 };

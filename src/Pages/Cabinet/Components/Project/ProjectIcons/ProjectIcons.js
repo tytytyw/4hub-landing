@@ -47,7 +47,7 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
           key={i}
           className={classnames({
             [styles.icon]: true,
-            [styles.iconChosen]: icon === el,
+            [styles.iconChosen]: icon === el
           })}
           onClick={() => set(el)}
         >
@@ -58,11 +58,7 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
   };
 
   return (
-    <div
-      className={`${styles.iconsWrap} ${
-        editableClass ? styles[editableClass] : ""
-      }`}
-    >
+    <div className={`${styles.iconsWrap} ${editableClass ? styles[editableClass] : ""}`}>
       <span className={styles.title}>{title}</span>
       <div>{renderIcons()}</div>
     </div>
@@ -76,5 +72,5 @@ ProjectIcons.propTypes = {
   icon: PropTypes.string,
   setIcon: PropTypes.func,
   title: PropTypes.string,
-  editableClass: PropTypes.string,
+  editableClass: PropTypes.string
 };

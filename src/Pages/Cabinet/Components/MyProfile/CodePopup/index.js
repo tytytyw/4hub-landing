@@ -34,10 +34,7 @@ const CodePopup = ({ setShowCodePopup }) => {
       <div className={styles.wrapper}>
         <div className={styles.top}>
           <div className={styles.closeWrap}>
-            <div
-              className={styles.close}
-              onClick={() => setShowCodePopup(false)}
-            >
+            <div className={styles.close} onClick={() => setShowCodePopup(false)}>
               <span className={styles.times} />
             </div>
           </div>
@@ -45,9 +42,7 @@ const CodePopup = ({ setShowCodePopup }) => {
 
         <div className={styles.content}>
           <div className={styles.inputWrap}>
-            <p className={styles.orItem}>
-              {__("на ваш контактный email отправлен код-пароль")}
-            </p>
+            <p className={styles.orItem}>{__("на ваш контактный email отправлен код-пароль")}</p>
             <Input
               placeholder={__("Введите код")}
               label={false}
@@ -72,5 +67,5 @@ const CodePopup = ({ setShowCodePopup }) => {
 export default CodePopup;
 
 CodePopup.propTypes = {
-  setShowCodePopup: PropTypes.func,
+  setShowCodePopup: PropTypes.func
 };

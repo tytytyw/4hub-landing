@@ -12,7 +12,7 @@ const TextArea = ({
   nullifyAction,
   initialTextValue = "",
   saveTextButtonRef = null,
-  editMessage,
+  editMessage
 }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -52,21 +52,14 @@ const TextArea = ({
 
   const sendHandler = () => {
     // TODO: add edit message socket action
-    editingMessage
-      ? editMessage(action.message, textAreaValue)
-      : onAddMessage(textAreaValue);
+    editingMessage ? editMessage(action.message, textAreaValue) : onAddMessage(textAreaValue);
     cleareTextArea();
     nullifyAction();
   };
 
   useEffect(() => {
     if (insertEmodji) {
-      setTextAreaValue(
-        (text) =>
-          text.slice(0, cursorPosition) +
-          insertEmodji +
-          text.slice(cursorPosition)
-      );
+      setTextAreaValue((text) => text.slice(0, cursorPosition) + insertEmodji + text.slice(cursorPosition));
       dispatch({ type: "INSERT_EMODJI", payload: "" });
 
       textAreaRef.current.focus();
@@ -96,16 +89,14 @@ const TextArea = ({
   useEffect(() => {
     const textarea = textAreaRef.current;
     textarea.style.height = "auto";
-    textarea.style.height = textAreaValue
-      ? textarea.scrollHeight + "px"
-      : "24px";
+    textarea.style.height = textAreaValue ? textarea.scrollHeight + "px" : "24px";
   }, [textAreaValue]);
 
   return (
     <div
       className={classNames({
         [styles.textMessage]: true,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
       <textarea
@@ -124,7 +115,7 @@ const TextArea = ({
         <SendIcon
           className={classNames({
             [styles.messageImg]: true,
-            [styles.active]: textAreaValue.length,
+            [styles.active]: textAreaValue.length
           })}
         />
       </span>
@@ -136,7 +127,7 @@ export default TextArea;
 
 TextArea.defaultProps = {
   initialTextValue: "",
-  saveTextButtonRef: null,
+  saveTextButtonRef: null
 };
 
 TextArea.propTypes = {
@@ -145,5 +136,5 @@ TextArea.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   initialTextValue: PropTypes.string,
   saveTextButtonRef: PropTypes.object,
-  editMessage: PropTypes.func,
+  editMessage: PropTypes.func
 };

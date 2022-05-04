@@ -8,7 +8,7 @@ import { setStorageItem } from "../../generalComponents/StorageHelper";
 export const onLog = (data) => {
   return {
     type: LOG_DATA,
-    payload: data,
+    payload: data
   };
 };
 
@@ -21,12 +21,10 @@ export const onGetUserInfo = () => (dispatch, getState) => {
       }
       dispatch({
         type: USER_INFO,
-        payload: res.data,
+        payload: res.data
       });
       if (res.data?.chat_theme) {
-        const chatTheme = themes.find(
-          (theme) => theme.name === res.data?.chat_theme
-        );
+        const chatTheme = themes.find((theme) => theme.name === res.data?.chat_theme);
         dispatch(changeChatTheme(chatTheme));
       }
     })
@@ -49,12 +47,12 @@ export const onChangeSettings = (data, cb) => async (dispatch, getState) => {
           onSetModals(MODALS.SUCCESS, {
             open: true,
             title: "Success",
-            message: "Settings successfully changed",
+            message: "Settings successfully changed"
           })
         );
         dispatch({
           type: UPDATE_SETTINGS,
-          payload: data,
+          payload: data
         });
         if (typeof cb === "function") cb();
       }
@@ -63,7 +61,7 @@ export const onChangeSettings = (data, cb) => async (dispatch, getState) => {
       dispatch(
         onSetModals(MODALS.ERROR, {
           open: true,
-          message: "Failed to update settings",
+          message: "Failed to update settings"
         })
       )
     );
@@ -71,5 +69,5 @@ export const onChangeSettings = (data, cb) => async (dispatch, getState) => {
 
 export const updateSettings = (settings) => ({
   type: UPDATE_SETTINGS,
-  payload: settings,
+  payload: settings
 });

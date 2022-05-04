@@ -6,7 +6,7 @@ describe("InputField check tests", () => {
   const props = {
     value: "",
     set: jest.fn(),
-    placeholder: "renderer",
+    placeholder: "renderer"
   };
   const wrapper = mount(<InputField {...props} />);
   const input = wrapper.find("input");

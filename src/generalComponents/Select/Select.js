@@ -3,14 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Select.module.sass";
 import classNames from "classnames";
 
-const Select = ({
-  data = [],
-  initValue = "",
-  onChange = () => {},
-  cleareFilter = () => {},
-  theme,
-  ...props
-}) => {
+const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter = () => {}, theme, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initValue);
 
@@ -51,7 +44,7 @@ const Select = ({
         [styles.selectWrap]: true,
         [props.className]: true,
         [styles.active]: !!open,
-        [styles.darkTheme]: theme === "dark",
+        [styles.darkTheme]: theme === "dark"
       })}
     >
       <div
@@ -61,14 +54,14 @@ const Select = ({
         }}
         className={classNames({
           [styles.select]: true,
-          [styles.selected]: !!value,
+          [styles.selected]: !!value
         })}
       >
         <div className={styles.valueWrap}>
           <span
             className={classNames({
               [styles.selectInput]: !props.classNameSelect,
-              [props.classNameSelect]: !!props.classNameSelect,
+              [props.classNameSelect]: !!props.classNameSelect
             })}
           >
             {getValue()}
@@ -77,7 +70,7 @@ const Select = ({
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open,
+            [styles.active]: !!open
           })}
         />
       </div>
@@ -85,7 +78,7 @@ const Select = ({
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open,
+          [styles.active]: !!open
         })}
       >
         <ul className={styles.content}>
@@ -100,7 +93,7 @@ const Select = ({
                   }}
                   className={classNames({
                     [styles.option]: true,
-                    [styles.active]: value === item.id,
+                    [styles.active]: value === item.id
                   })}
                 >
                   {item.text}

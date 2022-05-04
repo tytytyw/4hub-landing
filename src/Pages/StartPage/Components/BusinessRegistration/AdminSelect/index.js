@@ -42,7 +42,7 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: !!open,
-        [styles.error]: !!error,
+        [styles.error]: !!error
       })}
     >
       <div onClick={() => setOpen(!open)} className={styles.select}>
@@ -57,15 +57,11 @@ const AdminSelect = ({ data, initValue, error, onSelect, ...props }) => {
             onClick={() => onSelectOption(item)}
             className={classNames({
               [styles.option]: true,
-              [styles.active]: value === item.id,
+              [styles.active]: value === item.id
             })}
           >
             <div className={styles.radioCheck}>
-              {value === item.id ? (
-                <img src={checkedImg} alt="checked" />
-              ) : (
-                <span className={styles.circle} />
-              )}
+              {value === item.id ? <img src={checkedImg} alt="checked" /> : <span className={styles.circle} />}
             </div>
             <div className={styles.content}>
               <h4 className={styles.optionTitle}>{item.text}</h4>
@@ -85,11 +81,11 @@ AdminSelect.propTypes = {
   initValue: PropTypes.string,
   error: PropTypes.bool,
   onSelect: PropTypes.func,
-  placeholder: PropTypes.string,
+  placeholder: PropTypes.string
 };
 
 AdminSelect.defaultProps = {
   data: [],
   error: false,
-  onSelect: () => {},
+  onSelect: () => {}
 };

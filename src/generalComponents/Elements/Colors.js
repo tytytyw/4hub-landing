@@ -26,7 +26,7 @@ const Colors = ({ color, setColor, title, editableClass }) => {
             style={{
               background: el.light,
               border: `1px solid ${el.dark}`,
-              color: "black",
+              color: "black"
             }}
             onClick={() => set(el)}
           >
@@ -38,11 +38,7 @@ const Colors = ({ color, setColor, title, editableClass }) => {
   };
 
   return (
-    <div
-      className={`${styles.colorWrap} ${
-        editableClass ? styles[editableClass] : ""
-      }`}
-    >
+    <div className={`${styles.colorWrap} ${editableClass ? styles[editableClass] : ""}`}>
       <span className={styles.title}>{title}</span>
       <div>{renderColors()}</div>
     </div>

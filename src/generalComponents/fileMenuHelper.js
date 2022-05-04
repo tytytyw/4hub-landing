@@ -1,8 +1,5 @@
 import api from "../api";
-import {
-  onDeleteFile,
-  onDeleteSafeFile,
-} from "../Store/actions/CabinetActions";
+import { onDeleteFile, onDeleteSafeFile } from "../Store/actions/CabinetActions";
 
 export const fileDelete = (file, dispatch, uid, set, msg) => {
   api

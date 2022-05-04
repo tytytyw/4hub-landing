@@ -50,34 +50,32 @@ const Archive = () => {
       type: "resend",
       name: __(""),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "share",
       name: __(""),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     { type: "copyLink", name: __(""), text: __(``), callback: () => {} },
     {
       type: "customize",
       name: __("Редактирование файла"),
       text: __(``),
-      callback: (list, index) => setAction(list[index]),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "customizeSeveral",
       name: __(`Редактирование файлов`),
       text: __(``),
-      callback: () => {},
+      callback: () => {}
     },
     {
       type: "archive",
       name: __("Добавить файл в архив"),
-      text: __(
-        `Вы действительно хотите архивировать файл ${chosenFile?.name}?`
-      ),
-      callback: (list, index) => setAction(list[index]),
+      text: __(`Вы действительно хотите архивировать файл ${chosenFile?.name}?`),
+      callback: (list, index) => setAction(list[index])
     },
     {
       type: "intoZip",
@@ -87,28 +85,27 @@ const Archive = () => {
         setAction({
           ...action,
           type: list[index].type,
-          name: list[index].name,
-        }),
+          name: list[index].name
+        })
     },
     {
       type: "properties",
       name: __("Свойства"),
       text: __(``),
-      callback: () =>
-        setAction({ ...action, type: "properties", name: __("Свойства") }),
+      callback: () => setAction({ ...action, type: "properties", name: __("Свойства") })
     },
     {
       type: "download",
       name: __("Загрузка файла"),
       text: __(``),
-      callback: () => {},
+      callback: () => {}
     },
     {
       type: "print",
       name: __("Распечатать файл"),
       text: __(``),
-      callback: () => {},
-    },
+      callback: () => {}
+    }
   ];
 
   const additionalMenuItems = [
@@ -116,8 +113,8 @@ const Archive = () => {
       type: "delete",
       name: __("Удаление файла"),
       text: __(`Вы действительно хотите удалить файл ${chosenFile?.name}?`),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const renderMenuItems = (target, type) => {
@@ -188,14 +185,8 @@ const Archive = () => {
       </div>
 
       {mouseParams !== null && (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuFile.main, callbackArrMain)}
-          </div>
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuFile.main, callbackArrMain)}</div>
           <div className={styles.additionalMenuItems}>
             {renderMenuItems(contextMenuFile.additional, additionalMenuItems)}
           </div>

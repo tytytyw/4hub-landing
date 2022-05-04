@@ -11,7 +11,7 @@ import {
   onGetSafeFileList,
   nullifyFilters,
   onChooseProjectFiles,
-  onSetModals,
+  onSetModals
 } from "../../../../Store/actions/CabinetActions";
 import { ReactComponent as ErrorIcon } from "../../../../assets/PrivateCabinet/exclamation.svg";
 import { ReactComponent as CheckIcon } from "../../../../assets/PrivateCabinet/check.svg";
@@ -32,7 +32,7 @@ const FileLoader = ({
   fileAddCustomization,
   fileErrors,
   setFileErrors,
-  menuItem,
+  menuItem
 }) => {
   const { __ } = useLocales();
   const [collapsed, setCollapsed] = useState(false);
@@ -45,7 +45,7 @@ const FileLoader = ({
     offsetX: 0,
     offsetY: 0,
     width: 0,
-    height: 0,
+    height: 0
   });
   const [display, setDisplay] = useState("block");
   const uid = useSelector((state) => state.user?.uid);
@@ -56,14 +56,8 @@ const FileLoader = ({
   const fileLoaderRef = useRef(null);
   const fileList = useSelector((state) => state.Cabinet.fileList);
   const authorizedSafe = useSelector((state) => state.Cabinet.authorizedSafe);
-  const contextMenuModals = useSelector(
-    (state) => state.Cabinet.modals.contextMenuModals
-  );
-  const sumFiles =
-    awaitingFiles.length +
-    loadingFile.length +
-    loaded.length +
-    fileErrors.length;
+  const contextMenuModals = useSelector((state) => state.Cabinet.modals.contextMenuModals);
+  const sumFiles = awaitingFiles.length + loadingFile.length + loaded.length + fileErrors.length;
 
   //Cancel Loading variables
   const CancelToken = axios.CancelToken;
@@ -103,13 +97,13 @@ const FileLoader = ({
           items: [...awaitingFiles],
           title: __("Редактировать выбранные файлы"),
           filePick: { several: true },
-          menuItem,
+          menuItem
         })
       );
       setFileAddCustomization({
         ...fileAddCustomization,
         several: true,
-        files: [...awaitingFiles],
+        files: [...awaitingFiles]
       });
       setAwaitingFiles([]);
     } else if (awaitingFiles.length > 1 && fileAddCustomization.several) {
@@ -117,7 +111,7 @@ const FileLoader = ({
       setFileAddCustomization({
         ...fileAddCustomization,
         several: false,
-        files: [],
+        files: []
       });
       dispatch(
         onSetModals("contextMenuModals", {
@@ -126,14 +120,14 @@ const FileLoader = ({
           items: [],
           title: "",
           filePick: null,
-          menuItem: "",
+          menuItem: ""
         })
       );
     } else if (!fileAddCustomization.show) {
       setFileAddCustomization({
         ...fileAddCustomization,
         show: true,
-        file: awaitingFiles[0],
+        file: awaitingFiles[0]
       });
       setAwaitingFiles([]);
     } else {
@@ -144,7 +138,7 @@ const FileLoader = ({
           items: [],
           title: "",
           filePick: null,
-          menuItem: "",
+          menuItem: ""
         })
       );
       setFileAddCustomization({ show: false, file: null });
@@ -182,22 +176,16 @@ const FileLoader = ({
 
       // TODO need to delete this line after check - old version - await api.post(`/ajax/${menuItem === 'safe' ? 'safe_': ""}file_add.php`,
       await api
-        .post(
-          `/ajax/${loadDest[file.options.destination] ?? ""}file_add.php`,
-          data,
-          {
-            onUploadProgress: (e) => {
-              setTimeLeft(
-                (e.total / (e.loaded / e.timeStamp) / 60000).toFixed() - 5
-              );
-              setProcessing((e.loaded * 100) / e.total);
-            },
-            cancelToken: new CancelToken(function executor(e) {
-              const cancelLoading = e;
-              setOptions({ cancelLoading });
-            }),
-          }
-        )
+        .post(`/ajax/${loadDest[file.options.destination] ?? ""}file_add.php`, data, {
+          onUploadProgress: (e) => {
+            setTimeLeft((e.total / (e.loaded / e.timeStamp) / 60000).toFixed() - 5);
+            setProcessing((e.loaded * 100) / e.total);
+          },
+          cancelToken: new CancelToken(function executor(e) {
+            const cancelLoading = e;
+            setOptions({ cancelLoading });
+          })
+        })
         .then((res) => {
           setResponse({ res, file });
           setTimeLeft(undefined);
@@ -224,9 +212,9 @@ const FileLoader = ({
           size: file.file.size,
           mtime: `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`,
           gdir: path ? path : "global/all",
-          loaded: true,
+          loaded: true
         },
-        options: { ...file.options },
+        options: { ...file.options }
       };
       const loadedFiles = [...loaded];
       loadedFiles.push(f);
@@ -252,37 +240,17 @@ const FileLoader = ({
       dispatch(onChooseFiles(fileList?.path, search, 1, "", ""));
     if (menuItem === "safe" && file.options.destination === "safe")
       dispatch(
-        onGetSafeFileList(
-          authorizedSafe.code,
-          authorizedSafe.id_safe,
-          authorizedSafe.pass,
-          "",
-          "",
-          "",
-          search,
-          "",
-          ""
-        )
+        onGetSafeFileList(authorizedSafe.code, authorizedSafe.id_safe, authorizedSafe.pass, "", "", "", search, "", "")
       );
     if (menuItem === "project" && file.options.destination === "project")
-      dispatch(
-        onChooseProjectFiles(
-          { name: file.options.dir },
-          { id: file.options.id_project },
-          1
-        )
-      ); //TODO - Need to finish after added pagination && filters
+      dispatch(onChooseProjectFiles({ name: file.options.dir }, { id: file.options.id_project }, 1)); //TODO - Need to finish after added pagination && filters
   };
   let firstRenderFixer = useRef(0);
   useEffect(() => {
     if (loadingFile.length > 0) sendFile(loadingFile[0]);
   }, [loadingFile]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (
-      loadingFile.length === 0 &&
-      !fileAddCustomization.show &&
-      firstRenderFixer.current !== 0
-    ) {
+    if (loadingFile.length === 0 && !fileAddCustomization.show && firstRenderFixer.current !== 0) {
       startLoading();
     } else firstRenderFixer.current = 1;
   }, [awaitingFiles]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -338,7 +306,7 @@ const FileLoader = ({
       offsetX: e.clientX - e.target.offsetLeft,
       offsetY: e.clientY - e.target.offsetTop,
       width: e.target.clientWidth,
-      height: e.target.clientHeight,
+      height: e.target.clientHeight
     });
     setTimeout(() => setDisplay("none"), 0);
   };
@@ -353,22 +321,15 @@ const FileLoader = ({
 
   const renderPosition = () => {
     const position = { top: "", left: "", right: "", bottom: "" };
-    if (params.x === -1 && params.y === -1)
-      return { ...position, right: "30px", bottom: "70px" };
+    if (params.x === -1 && params.y === -1) return { ...position, right: "30px", bottom: "70px" };
     window.innerWidth / 2 >= params.x
-      ? (position.left =
-          params.x - params.offsetX > 50
-            ? `${params.x - params.offsetX}px`
-            : `${50}px`)
+      ? (position.left = params.x - params.offsetX > 50 ? `${params.x - params.offsetX}px` : `${50}px`)
       : (position.left =
           params.x + (params.width - params.offsetX) < window.innerWidth - 50
             ? `${params.x - params.offsetX}px`
             : `${window.innerWidth - 50 - params.width}px`);
     window.innerHeight / 2 >= params.y
-      ? (position.top =
-          params.y - params.offsetY > 50
-            ? `${params.y - params.offsetY}px`
-            : `${50}px`)
+      ? (position.top = params.y - params.offsetY > 50 ? `${params.y - params.offsetY}px` : `${50}px`)
       : (position.top =
           params.y + (params.height - params.offsetY) < window.innerHeight - 50
             ? `${params.y - params.offsetY}px`
@@ -379,7 +340,7 @@ const FileLoader = ({
   // Spin Status Loader
   const [data, setData] = useState({
     strokeDasharray: `150 150`,
-    strokeDashoffset: `288`,
+    strokeDashoffset: `288`
   });
   const circleRef = useRef();
   const onProgress = (processing) => {
@@ -387,7 +348,7 @@ const FileLoader = ({
     const circumference = 2 * Math.PI * radius;
     setData({
       strokeDasharray: `${circumference} ${circumference}`,
-      strokeDashoffset: `${circumference - (processing / 100) * circumference}`,
+      strokeDashoffset: `${circumference - (processing / 100) * circumference}`
     });
   };
 
@@ -398,9 +359,7 @@ const FileLoader = ({
     <>
       <div
         className={`${styles.loaderWrap} ${
-          collapsed
-            ? `${styles.loaderCollapsed} ${styles.wrapperCollapsed}`
-            : styles.wrapperNotCollapsed
+          collapsed ? `${styles.loaderCollapsed} ${styles.wrapperCollapsed}` : styles.wrapperNotCollapsed
         }`}
         draggable={true}
         onDragStart={handleDragStart}
@@ -418,42 +377,24 @@ const FileLoader = ({
             : sumFiles === 2
             ? "183px"
             : "134px",
-          ...renderPosition(),
+          ...renderPosition()
         }}
       >
         <div className={styles.header}>
           {!collapsed ? (
-            <span
-              className={`${collapsed ? "" : styles.loadBar}`}
-              style={{ width: `${processing}%` }}
-            />
+            <span className={`${collapsed ? "" : styles.loadBar}`} style={{ width: `${processing}%` }} />
           ) : null}
-          {(loadingFile.length > 0 || awaitingFiles.length > 0) &&
-          !collapsed ? (
-            <span>
-              {__(
-                `Загрузка ${loadingFile.length + awaitingFiles.length} файлов`
-              )}
-            </span>
+          {(loadingFile.length > 0 || awaitingFiles.length > 0) && !collapsed ? (
+            <span>{__(`Загрузка ${loadingFile.length + awaitingFiles.length} файлов`)}</span>
           ) : null}
-          {loadingFile.length === 0 &&
-          awaitingFiles.length === 0 &&
-          !collapsed ? (
+          {loadingFile.length === 0 && awaitingFiles.length === 0 && !collapsed ? (
             <span>{__("Загрузка завершена")}</span>
           ) : null}
-          <div
-            className={`${styles.optionsWrap} ${
-              collapsed ? styles.optionFull : styles.optionSmall
-            }`}
-          >
+          <div className={`${styles.optionsWrap} ${collapsed ? styles.optionFull : styles.optionSmall}`}>
             <div className={styles.progressBarWrap}>
               {collapsed && processing ? (
                 <>
-                  <svg
-                    viewBox="0 0 100 100"
-                    width="30px"
-                    className={styles.progressBar}
-                  >
+                  <svg viewBox="0 0 100 100" width="30px" className={styles.progressBar}>
                     <circle className={styles.load} cx="50" cy="50" r="45" />
                     <circle
                       className={styles.loaded}
@@ -472,12 +413,8 @@ const FileLoader = ({
                   />
                 </>
               ) : null}
-              {collapsed && !processing && fileErrors.length === 0 ? (
-                <CheckIcon className={styles.checkIcon} />
-              ) : null}
-              {collapsed && fileErrors.length > 0 && !processing ? (
-                <ErrorIcon className={styles.mark} />
-              ) : null}
+              {collapsed && !processing && fileErrors.length === 0 ? <CheckIcon className={styles.checkIcon} /> : null}
+              {collapsed && fileErrors.length > 0 && !processing ? <ErrorIcon className={styles.mark} /> : null}
             </div>
             <div
               className={`${collapsed ? styles.arrowUp : styles.arrowDown}`}
@@ -487,9 +424,7 @@ const FileLoader = ({
           </div>
         </div>
         <div className={`${collapsed ? styles.mainHidden : styles.main}`}>
-          {awaitingFiles.length > 0 ||
-          loadingFile.length > 0 ||
-          fileErrors.length > 0 ? (
+          {awaitingFiles.length > 0 || loadingFile.length > 0 || fileErrors.length > 0 ? (
             <div className={styles.timeLeft}>
               <div>
                 {timeLeft !== undefined ? (
@@ -506,11 +441,7 @@ const FileLoader = ({
                 className={styles.cancel}
                 onClick={() => {
                   if (awaitingFiles.length > 0 || loadingFile.length > 0) {
-                    setFileErrors([
-                      ...fileErrors,
-                      ...loadingFile,
-                      ...awaitingFiles,
-                    ]);
+                    setFileErrors([...fileErrors, ...loadingFile, ...awaitingFiles]);
                     setLoadingFile([]);
                     setAwaitingFiles([]);
                     setProcessing(0);
@@ -521,42 +452,24 @@ const FileLoader = ({
                   }
                 }}
               >
-                {awaitingFiles.length > 0 || loadingFile.length > 0
-                  ? __("Отмена")
-                  : __("Повторить")}
+                {awaitingFiles.length > 0 || loadingFile.length > 0 ? __("Отмена") : __("Повторить")}
               </span>
             </div>
           ) : (
             <div className={styles.timeLeft} />
           )}
           <div className={styles.scrollFileLoaderWrap}>
-            {loaded.length > 0
-              ? renderList(loaded, true, 0, setLoaded, false)
-              : null}
-            {loadingFile.length > 0
-              ? renderList(
-                  loadingFile,
-                  false,
-                  processing,
-                  setLoadingFile,
-                  false
-                )
-              : null}
-            {awaitingFiles.length > 0
-              ? renderList(awaitingFiles, false, 0, setAwaitingFiles, false)
-              : null}
-            {fileErrors.length > 0
-              ? renderList(fileErrors, false, 0, setFileErrors, true)
-              : null}
+            {loaded.length > 0 ? renderList(loaded, true, 0, setLoaded, false) : null}
+            {loadingFile.length > 0 ? renderList(loadingFile, false, processing, setLoadingFile, false) : null}
+            {awaitingFiles.length > 0 ? renderList(awaitingFiles, false, 0, setAwaitingFiles, false) : null}
+            {fileErrors.length > 0 ? renderList(fileErrors, false, 0, setFileErrors, true) : null}
           </div>
         </div>
       </div>
       {!closeApprove ? (
         <ActionApproval
           name={__("Закрыть загрузки")}
-          text={__(
-            "Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены"
-          )}
+          text={__("Вы действительно хотите закрыть окно с загрузкой? Все незавершенные загрузки будут отменены")}
           set={offCloseApprove}
           callback={clearLoadFiles}
           approve={__("Закрыть")}
@@ -581,5 +494,5 @@ FileLoader.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   fileErrors: PropTypes.array,
   setFileErrors: PropTypes.func,
-  menuItem: PropTypes.string,
+  menuItem: PropTypes.string
 };

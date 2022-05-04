@@ -9,13 +9,7 @@ import Button from "../../../MyProfile/Button";
 import ErrorPass from "../ErrorPass";
 import { useLocales } from "react-localized";
 
-const RefreshPass = ({
-  safe,
-  set,
-  setShowSuccessMessage,
-  setLoadingType,
-  recoverPass = false,
-}) => {
+const RefreshPass = ({ safe, set, setShowSuccessMessage, setLoadingType, recoverPass = false }) => {
   const { __ } = useLocales();
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -49,9 +43,7 @@ const RefreshPass = ({
           .finally(() => setLoadingType(""));
       } else {
         api
-          .get(
-            `/ajax/safe_pass_restore2.php?uid=${uid}&pass=${passwordRepeat}&id_safe=${safe.id}&code=${recoverPass}`
-          )
+          .get(`/ajax/safe_pass_restore2.php?uid=${uid}&pass=${passwordRepeat}&id_safe=${safe.id}&code=${recoverPass}`)
           .then((res) => {
             if (res.data.ok) {
               setShowSuccessMessage(__(`Пароль для сейфа обновлен`));
@@ -75,7 +67,7 @@ const RefreshPass = ({
     setErrors({
       password: !password,
       oldPassword: !oldPassword && !recoverPass,
-      passwordRepeat: password !== passwordRepeat,
+      passwordRepeat: password !== passwordRepeat
     });
   };
 
@@ -155,20 +147,14 @@ const RefreshPass = ({
           </div>
 
           <div className={styles.actionBlock}>
-            <Button
-              type="submit"
-              className={styles.actionBtn}
-              onClick={onSubmit}
-            >
+            <Button type="submit" className={styles.actionBtn} onClick={onSubmit}>
               {__("Готово")}
             </Button>
           </div>
         </div>
       </div>
 
-      {displayErrorPass && (
-        <ErrorPass setError={setDisplayErrorPass} set={set} />
-      )}
+      {displayErrorPass && <ErrorPass setError={setDisplayErrorPass} set={set} />}
     </PopUp>
   );
 };

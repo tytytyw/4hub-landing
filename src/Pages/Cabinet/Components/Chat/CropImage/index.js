@@ -26,17 +26,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
     ctx.translate(-cropX, -cropY);
     ctx.translate(centerX, centerY);
     ctx.translate(-centerX, -centerY);
-    ctx.drawImage(
-      image,
-      0,
-      0,
-      image.naturalWidth,
-      image.naturalHeight,
-      0,
-      0,
-      image.naturalWidth,
-      image.naturalHeight
-    );
+    ctx.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight, 0, 0, image.naturalWidth, image.naturalHeight);
     ctx.restore();
   };
 
@@ -57,7 +47,7 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
       makeAspectCrop(
         {
           unit: "%",
-          width: 50,
+          width: 50
         },
         aspect,
         mediaWidth,
@@ -101,11 +91,11 @@ const CropImage = ({ aspect, canvasRef, imageSrc }) => {
 export default CropImage;
 
 CropImage.defaultProps = {
-  aspect: 1,
+  aspect: 1
 };
 
 CropImage.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   aspect: PropTypes.number,
-  canvasRef: PropTypes.object.isRequired,
+  canvasRef: PropTypes.object.isRequired
 };

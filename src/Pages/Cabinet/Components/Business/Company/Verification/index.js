@@ -23,10 +23,7 @@ const Verification = ({ setPageOption }) => {
         <div className={styles.infoBlock}>
           <p className={styles.labelText}>{__("Фото выписки с ЕДР")}</p>
           <div onClick={upload} className={styles.uploadBlock}>
-            <p
-              onClick={(e) => e.stopPropagation()}
-              className={styles.uploadText}
-            >
+            <p onClick={(e) => e.stopPropagation()} className={styles.uploadText}>
               {__("Перетащите сюда фото или")}
               <label ref={labelRef} htmlFor="Verification-upload">
                 {__("Загрузите")}
@@ -38,9 +35,7 @@ const Verification = ({ setPageOption }) => {
 
         <div className={styles.actionBlock}>
           <button className={styles.cancelBtn}>{__("Отмена")}</button>
-          <button onClick={() => setPageOption("welcome")}>
-            {__("Подтвердить")}
-          </button>
+          <button onClick={() => setPageOption("welcome")}>{__("Подтвердить")}</button>
         </div>
       </div>
     </div>
@@ -49,5 +44,5 @@ const Verification = ({ setPageOption }) => {
 
 export default Verification;
 Verification.propTypes = {
-  setPageOption: PropTypes.func,
+  setPageOption: PropTypes.func
 };

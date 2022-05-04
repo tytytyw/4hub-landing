@@ -15,14 +15,9 @@ const WorkSpace = ({ listCollapsed }) => {
   const { __ } = useLocales();
   const category = useSelector((s) => s.Cabinet.programs.category);
 
-  const renderPrograms = () =>
-    category.list.map((program, i) => (
-      <ProgramItem key={i} program={program} />
-    ));
+  const renderPrograms = () => category.list.map((program, i) => <ProgramItem key={i} program={program} />);
 
-  const emptyList = () => (
-    <div className={styles.emptyList}>{__("Список программ пуст")}</div>
-  );
+  const emptyList = () => <div className={styles.emptyList}>{__("Список программ пуст")}</div>;
 
   return (
     <>
@@ -30,7 +25,7 @@ const WorkSpace = ({ listCollapsed }) => {
         className={classnames({
           [styles.workSpaceWrap]: true,
           [styles.collapsed]: listCollapsed,
-          [styles.notCollapsed]: !listCollapsed,
+          [styles.notCollapsed]: !listCollapsed
         })}
       >
         <div className={styles.header}>
@@ -42,11 +37,7 @@ const WorkSpace = ({ listCollapsed }) => {
           </div>
         </div>
         <div className={styles.fileList}>
-          {category?.list
-            ? category.list.length > 0
-              ? renderPrograms()
-              : emptyList()
-            : null}
+          {category?.list ? (category.list.length > 0 ? renderPrograms() : emptyList()) : null}
         </div>
       </div>
     </>
@@ -56,5 +47,5 @@ const WorkSpace = ({ listCollapsed }) => {
 export default WorkSpace;
 
 WorkSpace.propTypes = {
-  listCollapsed: PropTypes.bool,
+  listCollapsed: PropTypes.bool
 };

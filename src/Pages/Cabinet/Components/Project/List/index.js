@@ -7,25 +7,13 @@ import PropTypes from "prop-types";
 
 // eslint-disable-next-line react/display-name
 const List = React.forwardRef(
-  (
-    {
-      title,
-      src,
-      setListCollapsed,
-      listCollapsed,
-      children,
-      onCreate,
-      icon,
-      className,
-    },
-    ref
-  ) => {
+  ({ title, src, setListCollapsed, listCollapsed, children, onCreate, icon, className }, ref) => {
     return (
       <div
         className={classNames({
           [styles.listWrap]: true,
           [className]: true,
-          [styles.listWrapCollapsed]: !!listCollapsed,
+          [styles.listWrapCollapsed]: !!listCollapsed
         })}
         ref={ref ?? null}
       >
@@ -33,9 +21,7 @@ const List = React.forwardRef(
           {!listCollapsed && <span className={styles.title}>{title}</span>}
           <div className={styles.imgWrap}>
             <img
-              className={`${styles.playButton} ${
-                listCollapsed ? styles.playButtonReverse : undefined
-              }`}
+              className={`${styles.playButton} ${listCollapsed ? styles.playButtonReverse : undefined}`}
               src={`${imageSrc}/assets/PrivateCabinet/play-grey.svg`}
               alt="play"
               onClick={() => setListCollapsed(!listCollapsed)}
@@ -59,7 +45,7 @@ const List = React.forwardRef(
 export default List;
 
 List.defaultProps = {
-  icon: true,
+  icon: true
 };
 
 List.propTypes = {
@@ -70,5 +56,5 @@ List.propTypes = {
   children: PropTypes.any,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
-  className: PropTypes.string,
+  className: PropTypes.string
 };

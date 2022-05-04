@@ -29,9 +29,7 @@ const Security = ({ folder }) => {
 
   useEffect(() => {
     async function fetchUsers() {
-      return await api.get(
-        `/ajax/dir_access_info.php?uid=${uid}&dir=${folder.info.path}`
-      );
+      return await api.get(`/ajax/dir_access_info.php?uid=${uid}&dir=${folder.info.path}`);
     }
     fetchUsers()
       .then((res) => {
@@ -46,30 +44,17 @@ const Security = ({ folder }) => {
     <div className={styles.securityWrap}>
       <div className={styles.infoWrap}>
         <img
-          src={
-            userInfo.icon[0] ||
-            `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`
-          }
+          src={userInfo.icon[0] || `${imageSrc}assets/PrivateCabinet/profile-noPhoto.svg`}
           alt=""
           className={styles.icon}
         />
         <div className={styles.inputWrap}>
-          <InputField
-            height="90%"
-            placeholder={`${userInfo.name} ${userInfo.sname}`}
-            disabled={true}
-          />
+          <InputField height="90%" placeholder={`${userInfo.name} ${userInfo.sname}`} disabled={true} />
         </div>
       </div>
       <div className={styles.accessWrap}>
-        <span>
-          {__(
-            "Список пользователей, которым предоставлен доступ с возможностью изменить разрешение"
-          )}
-        </span>
-        <div className={styles.users}>
-          {userList.length > 0 ? renderUsers(userList) : noUsers}
-        </div>
+        <span>{__("Список пользователей, которым предоставлен доступ с возможностью изменить разрешение")}</span>
+        <div className={styles.users}>{userList.length > 0 ? renderUsers(userList) : noUsers}</div>
       </div>
     </div>
   );

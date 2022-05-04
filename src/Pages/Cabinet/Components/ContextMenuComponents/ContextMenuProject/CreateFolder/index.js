@@ -6,10 +6,7 @@ import api from "../../../../../../api";
 import PopUp from "../../../../../../generalComponents/PopUp";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import InputField from "../../../../../../generalComponents/InputField";
-import {
-  colors,
-  useTags,
-} from "../../../../../../generalComponents/collections";
+import { colors, useTags } from "../../../../../../generalComponents/collections";
 import { onGetProjectFolders } from "../../../../../../Store/actions/CabinetActions";
 import Colors from "../../../../../../generalComponents/Elements/Colors";
 import "../../../../../../generalComponents/colors.sass";
@@ -20,14 +17,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../../types/Project";
 
-const CreateFolder = ({
-  onCreate,
-  title,
-  setError,
-  projectId,
-  parentFolder,
-  setGLoader,
-}) => {
+const CreateFolder = ({ onCreate, title, setError, projectId, parentFolder, setGLoader }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const uid = useSelector((state) => state.user.uid);
@@ -65,11 +55,9 @@ const CreateFolder = ({
       setGLoader(true);
       console.log(parentFolder);
       //TODO: parent folder
-      const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${
-        tagOption.chosen
-      }&pass=${passwordCoincide ? password : ""}&color=${
-        color?.name || "grey"
-      }&symbol=${sign}&emoji=${emoji}`;
+      const params = `uid=${uid}&id_project=${projectId}&dir_name=${name}&parent=''&tag=${tagOption.chosen}&pass=${
+        passwordCoincide ? password : ""
+      }&color=${color?.name || "grey"}&symbol=${sign}&emoji=${emoji}`;
       api
         .post(`/ajax/project_folders_add.php?${params}`)
         .then((res) => {
@@ -119,9 +107,7 @@ const CreateFolder = ({
           <div className={styles.folderIconWrap}>
             <div className={`${styles.folder}`}>
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter((el) => el.color === color.name)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === color.name)[0]?.name}`}
               />
             </div>
             <div className={styles.picPreview}>
@@ -132,50 +118,36 @@ const CreateFolder = ({
                     className={`${styles.minitagWrap} ${styles.redCross}`}
                     onClick={() => setTagOption({ ...tagOption, chosen: "" })}
                   >
-                    <div className={`${styles.minitag}`}>
-                      #{tagOption.chosen}
-                    </div>
+                    <div className={`${styles.minitag}`}>#{tagOption.chosen}</div>
                   </div>
                 )}
                 <div
-                  className={`${styles.colorWrap} ${
-                    color.name !== "grey" ? styles.colorWrapTap : ""
-                  } ${color.name !== "grey" ? styles.redCross : ""}`}
+                  className={`${styles.colorWrap} ${color.name !== "grey" ? styles.colorWrapTap : ""} ${
+                    color.name !== "grey" ? styles.redCross : ""
+                  }`}
                   onClick={() => setColor(colors[0])}
                 >
                   <div
                     className={styles.circle}
                     style={{
                       background: color.light,
-                      border: `1px solid ${color.dark}`,
+                      border: `1px solid ${color.dark}`
                     }}
                   />
                 </div>
                 {sign && (
                   <div className={styles.redCross} onClick={() => setSign("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/signs/${sign}.svg`} alt="emoji" />
                   </div>
                 )}
                 {emoji && (
                   <div className={styles.redCross} onClick={() => setEmoji("")}>
-                    <img
-                      src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`}
-                      alt="emoji"
-                    />
+                    <img src={`${imageSrc}assets/PrivateCabinet/smiles/${emoji}.svg`} alt="emoji" />
                   </div>
                 )}
-                {passwordCoincide &&
-                  password.length === passwordRepeat.length &&
-                  showRepeat && (
-                    <img
-                      className={styles.lock}
-                      src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                      alt="lock"
-                    />
-                  )}
+                {passwordCoincide && password.length === passwordRepeat.length && showRepeat && (
+                  <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
+                )}
               </div>
             </div>
           </div>
@@ -236,10 +208,7 @@ const CreateFolder = ({
           <Signs sign={sign} setSign={setSign} />
           <Emoji emoji={emoji} setEmoji={setEmoji} />
           <div className={styles.buttonsWrap}>
-            <div
-              className={styles.cancel}
-              onClick={() => closeComponent(false)}
-            >
+            <div className={styles.cancel} onClick={() => closeComponent(false)}>
               Отмена
             </div>
             <div className={styles.add} onClick={() => onAddFolder()}>
@@ -260,5 +229,5 @@ CreateFolder.propTypes = {
   setError: PropTypes.func,
   projectId: PropTypes.string,
   parentFolder: projectFolderStructure,
-  setGLoader: PropTypes.func,
+  setGLoader: PropTypes.func
 };

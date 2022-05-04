@@ -10,10 +10,8 @@ function ColorPicker({ colorPickerRef }) {
 
   const setStrokeColorOpacity = (value) => {
     dispatch(onSetPaint("color", `rgba(${hexToRgbA(value)},1)`));
-    if (tool.name === "pencil")
-      return (tool.strokeStyle = `rgba(${hexToRgbA(value)},1)`);
-    if (tool.name === "marker")
-      return (tool.strokeStyle = `rgba(${hexToRgbA(value)},0.2)`);
+    if (tool.name === "pencil") return (tool.strokeStyle = `rgba(${hexToRgbA(value)},1)`);
+    if (tool.name === "marker") return (tool.strokeStyle = `rgba(${hexToRgbA(value)},0.2)`);
     return (tool.strokeStyle = value);
   };
   const setColor = (value) => {
@@ -28,7 +26,7 @@ function ColorPicker({ colorPickerRef }) {
         position: "absolute",
         visibility: "hidden",
         left: -12,
-        bottom: 0,
+        bottom: 0
       }}
       ref={colorPickerRef}
       type="color"

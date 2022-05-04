@@ -12,18 +12,18 @@ const Programs = () => {
     {
       id: "all_contact",
       icon: `${imageSrc}assets/PrivateCabinet/idea-2.svg`,
-      label: __("Все контакты"),
+      label: __("Все контакты")
     },
     {
       id: "art",
       icon: `${imageSrc}assets/PrivateCabinet/brush.svg`,
-      label: __("Творчество"),
+      label: __("Творчество")
     },
     {
       id: "office",
       icon: `${imageSrc}assets/PrivateCabinet/folder-2.svg`,
-      label: __("Офис"),
-    },
+      label: __("Офис")
+    }
   ];
 
   return (
@@ -37,10 +37,7 @@ const Programs = () => {
           <ul className={styles.programList}>
             <li className={styles.programItem}>
               <div className={styles.programImage}>
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/sketch.svg`}
-                  alt="Sketch"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/sketch.svg`} alt="Sketch" />
                 <p>Sketch</p>
               </div>
               <div className={styles.programText}>
@@ -58,10 +55,7 @@ const Programs = () => {
             </li>
             <li className={styles.programItem}>
               <div className={styles.programImage}>
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/icZeplin.svg`}
-                  alt="Sketch"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/icZeplin.svg`} alt="Sketch" />
                 <p>Zeplin</p>
               </div>
               <div className={styles.programText}>
@@ -79,10 +73,7 @@ const Programs = () => {
             </li>
             <li className={styles.programItem}>
               <div className={styles.programImage}>
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/adobe-2.svg`}
-                  alt="Sketch"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/adobe-2.svg`} alt="Sketch" />
                 <p>Sketch</p>
               </div>
               <div className={styles.programText}>
@@ -100,10 +91,7 @@ const Programs = () => {
             </li>
             <li className={styles.programItem}>
               <div className={styles.programImage}>
-                <img
-                  src={`${imageSrc}assets/PrivateCabinet/adobe.svg`}
-                  alt="Sketch"
-                />
+                <img src={`${imageSrc}assets/PrivateCabinet/adobe.svg`} alt="Sketch" />
                 <p>Photoshop</p>
               </div>
               <div className={styles.programText}>

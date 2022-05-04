@@ -31,7 +31,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
   const [noNameError, setNoNameError] = useState(false);
   const [tagOption, setTagOption] = useState({
     chosen: project.tags,
-    count: 30,
+    count: 30
   });
   const [color, setColor] = useState({ name: project.id_color });
   const [sign, setSign] = useState(project.id_fig);
@@ -54,14 +54,11 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
 
   const onCustomize = () => {
     if (!name) return setNoNameError(true);
-    if (showRepeat && password !== passwordRepeat)
-      return setPasswordCoincide(false);
+    if (showRepeat && password !== passwordRepeat) return setPasswordCoincide(false);
     setLoadingType("squarify");
     api
       .get(
-        `/ajax/project_edit.php/?uid=${uid}&id_project=${
-          project.id
-        }&name=${name}&icon=${icon || "clipboard"}&tag=${
+        `/ajax/project_edit.php/?uid=${uid}&id_project=${project.id}&name=${name}&icon=${icon || "clipboard"}&tag=${
           tagOption.chosen
         }&color=${color.name || "grey"}&symbol=${sign}&emoji=${emoji}`
       )
@@ -109,22 +106,11 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
 
           <div className={styles.inputFieldsWrap}>
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={name}
-                set={setName}
-                placeholder="Имя проекта"
-                mistake={noNameError}
-              />
+              <InputField model="text" value={name} set={setName} placeholder="Имя проекта" mistake={noNameError} />
             </div>
 
             <div className={styles.inputWrap}>
-              <InputField
-                model="text"
-                value={target}
-                set={setTarget}
-                placeholder={__("Цель проекта")}
-              />
+              <InputField model="text" value={target} set={setTarget} placeholder={__("Цель проекта")} />
             </div>
 
             <div className={styles.inputWrap}>
@@ -200,13 +186,7 @@ const CustomizeProject = ({ onCreate, title, project, setLoadingType }) => {
           </div>
         </div>
       </PopUp>
-      {error && (
-        <Error
-          error={error}
-          set={closeComponent}
-          message={__("Папка не добавлена")}
-        />
-      )}
+      {error && <Error error={error} set={closeComponent} message={__("Папка не добавлена")} />}
     </>
   );
 };
@@ -217,5 +197,5 @@ CustomizeProject.propTypes = {
   onCreate: PropTypes.func,
   title: PropTypes.string,
   project: projectFolderStructure,
-  setLoadingType: PropTypes.func,
+  setLoadingType: PropTypes.func
 };

@@ -12,7 +12,7 @@ const SubOptionButton = ({ name, id, subOption, setSubOption }) => {
       className={classNames({
         [styles.button]: true,
         [styles.active]: subOption === id,
-        [styles.darkTheme]: chatTheme.name === "dark",
+        [styles.darkTheme]: chatTheme.name === "dark"
       })}
       onClick={() => setSubOption(id)}
     >
@@ -27,5 +27,5 @@ SubOptionButton.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   subOption: PropTypes.string.isRequired,
-  setSubOption: PropTypes.func.isRequired,
+  setSubOption: PropTypes.func.isRequired
 };

@@ -11,25 +11,22 @@ function Comments({ hideComments, comments, program }) {
   const { __ } = useLocales();
   const [params, setParams] = useState({
     newCommentModal: false,
-    commentList: comments,
+    commentList: comments
   });
   const dispatch = useDispatch();
 
-  const toggleNewCommentModal = () =>
-    setParams((s) => ({ ...s, newCommentModal: !s.newCommentModal }));
+  const toggleNewCommentModal = () => setParams((s) => ({ ...s, newCommentModal: !s.newCommentModal }));
   const onAddComment = (newComment) => {
     setParams((s) => ({
       ...s,
       commentList: [...s.commentList, newComment],
-      newCommentModal: false,
+      newCommentModal: false
     }));
     dispatch(
       onSetModals("success", {
         open: true,
-        message: __(
-          `Ваш отзыв о программе ${program?.name ?? ""} успешно добавлен`
-        ),
-        title: __("Отзыв успешно добавлен"),
+        message: __(`Ваш отзыв о программе ${program?.name ?? ""} успешно добавлен`),
+        title: __("Отзыв успешно добавлен")
       })
     );
   };
@@ -47,16 +44,12 @@ function Comments({ hideComments, comments, program }) {
       </div>
     ));
 
-  const emptyComments = () => (
-    <div className={styles.emptyComments}>{__("Комментарии отсутствуют")}</div>
-  );
+  const emptyComments = () => <div className={styles.emptyComments}>{__("Комментарии отсутствуют")}</div>;
 
   return (
     <>
       <div className={styles.commentsWrap}>
-        <div className={styles.commentList}>
-          {comments.length > 0 ? renderComments() : emptyComments()}
-        </div>
+        <div className={styles.commentList}>{comments.length > 0 ? renderComments() : emptyComments()}</div>
         <div className={styles.manageButtons}>
           <div onClick={hideComments} className={styles.hideButton}>
             {__("Скрыть комментарии")}
@@ -67,11 +60,7 @@ function Comments({ hideComments, comments, program }) {
         </div>
       </div>
       {params.newCommentModal ? (
-        <AddComment
-          close={toggleNewCommentModal}
-          onAddComment={onAddComment}
-          program={program}
-        />
+        <AddComment close={toggleNewCommentModal} onAddComment={onAddComment} program={program} />
       ) : null}
     </>
   );
@@ -82,11 +71,11 @@ export default Comments;
 Comments.propTypes = {
   hideComments: PropTypes.func,
   comments: PropTypes.array,
-  program: PropTypes.object,
+  program: PropTypes.object
 };
 
 Comments.defaultProps = {
   hideComments: () => {},
   comments: [],
-  program: {},
+  program: {}
 };

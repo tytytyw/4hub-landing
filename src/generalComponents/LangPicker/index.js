@@ -14,14 +14,11 @@ const LangPicker = () => {
   const langs = [
     { lang: "ru", title: "ru", name: __("Русский") },
     { lang: "uk", title: "ua", name: __("Украинский") },
-    { lang: "en", title: "eng", name: __("Английский") },
+    { lang: "en", title: "eng", name: __("Английский") }
   ];
 
-  const language =
-    useSelector((s) => s.user?.userInfo?.lang) || getStorageItem("lang");
-  const [lang, setLang] = useState(
-    langs.filter((el) => el.lang === language)[0] ?? langs[0]
-  );
+  const language = useSelector((s) => s.user?.userInfo?.lang) || getStorageItem("lang");
+  const [lang, setLang] = useState(langs.filter((el) => el.lang === language)[0] ?? langs[0]);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -43,7 +40,7 @@ const LangPicker = () => {
         ref={ref}
         className={classNames({
           [styles.content]: true,
-          [styles.active]: open,
+          [styles.active]: open
         })}
       >
         <div onClick={() => setOpen(!open)} className={styles.info}>

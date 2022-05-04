@@ -1,10 +1,6 @@
 import React from "react";
 import ContextMenuItem from "../../../../generalComponents/ContextMenu/ContextMenuItem";
-import {
-  CONTEXT_MENU_FILE,
-  imageSrc,
-  MODALS,
-} from "../../../../generalComponents/globalVariables";
+import { CONTEXT_MENU_FILE, imageSrc, MODALS } from "../../../../generalComponents/globalVariables";
 import { previewFormats } from "../../../../generalComponents/collections";
 import { onSetModals } from "../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,33 +14,22 @@ export const share_types = {
   myFolders: "file_share",
   folders: "file_share",
   files: "file_share",
-  "shared-files": "file_share",
+  "shared-files": "file_share"
 };
 
-function ContextMenuFileList({
-  file,
-  filePick,
-  mouseParams,
-  filesPage,
-  menuItem,
-  authorizedSafe,
-}) {
+function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem, authorizedSafe }) {
   const { __ } = useLocales();
   const copy_link_types = {
-    myFolders: file?.is_dir === 1 ? "dir_access_add" : "",
+    myFolders: file?.is_dir === 1 ? "dir_access_add" : ""
   };
 
-  const contextMenuModals = useSelector(
-    (s) => s.Cabinet.modals.contextMenuModals
-  );
+  const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
   const filterContextMenu = (location, array) => {
     if (location === "archive") {
-      return array.filter((item) =>
-        ["share", "download", "print"].includes(item.type)
-      );
+      return array.filter((item) => ["share", "download", "print"].includes(item.type));
     }
     if (location === "safe") {
       return array.filter((item) => !["share", "copyLink"].includes(item.type));
@@ -63,12 +48,11 @@ function ContextMenuFileList({
           onSetModals(MODALS.SHARE, {
             open: true,
             fids: filePick.show ? filePick.files : file,
-            action_type:
-              file.is_dir === 1 ? "dir_access_add" : share_types[menuItem],
-            file,
+            action_type: file.is_dir === 1 ? "dir_access_add" : share_types[menuItem],
+            file
           })
         );
-      },
+      }
     },
     {
       type: "copyLink",
@@ -81,10 +65,10 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.COPY_LINK_SHARE,
             items: [file],
-            action_type: copy_link_types[menuItem],
+            action_type: copy_link_types[menuItem]
           })
         );
-      },
+      }
     },
     {
       type: "customize",
@@ -98,15 +82,13 @@ function ContextMenuFileList({
             type: CONTEXT_MENU_FILE.CUSTOMIZE_FILE,
             items: filePick.show ? filePick.files : [file],
             title:
-              contextMenuModals.items.length === 1
-                ? __("Редактирование файла")
-                : __("Редактировать выбранные файлы"),
+              contextMenuModals.items.length === 1 ? __("Редактирование файла") : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
-            menuItem,
+            menuItem
           })
         );
-      },
+      }
     },
     {
       type: "customizeSeveral",
@@ -119,16 +101,13 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.CUSTOMIZE_FILE,
             items: filePick.show ? filePick.files : [file],
-            title:
-              contextMenuModals.items.length === 1
-                ? "Редактирование файла"
-                : __("Редактировать выбранные файлы"),
+            title: contextMenuModals.items.length === 1 ? "Редактирование файла" : __("Редактировать выбранные файлы"),
             filesPage,
             filePick,
-            menuItem,
+            menuItem
           })
         );
-      },
+      }
     },
     {
       type: "archive",
@@ -141,10 +120,10 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.MOVE_TO_ARCHIVE,
             items: [file],
-            filePick,
+            filePick
           })
         );
-      },
+      }
     },
     {
       type: "intoZip",
@@ -158,10 +137,10 @@ function ContextMenuFileList({
             type: CONTEXT_MENU_FILE.CREATE_ZIP,
             items: filePick.show ? filePick.files : [file],
             title: __("Сжать в ZIP"),
-            filesPage,
+            filesPage
           })
         );
-      },
+      }
     },
     {
       type: "intoZipSeveral",
@@ -175,10 +154,10 @@ function ContextMenuFileList({
             type: CONTEXT_MENU_FILE.CREATE_ZIP,
             items: filePick.show ? filePick.files : [file],
             title: __("Сжать в ZIP"),
-            filesPage,
+            filesPage
           })
         );
-      },
+      }
     },
     {
       type: "properties",
@@ -190,10 +169,10 @@ function ContextMenuFileList({
           onSetModals(MODALS.CONTEXT_MENU_MODAL, {
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.FILE_PROPERTY,
-            items: [file],
+            items: [file]
           })
         );
-      },
+      }
     },
     {
       type: "download",
@@ -206,10 +185,10 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.DOWNLOAD_FILE,
             items: [file],
-            authorizedSafe,
+            authorizedSafe
           })
         );
-      },
+      }
     },
     {
       type: "print",
@@ -222,11 +201,11 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: CONTEXT_MENU_FILE.PRINT_FILE,
             items: [file],
-            authorizedSafe,
+            authorizedSafe
           })
         );
-      },
-    },
+      }
+    }
   ]);
   const additionalMenuItems = [
     {
@@ -240,11 +219,11 @@ function ContextMenuFileList({
             ...contextMenuModals,
             type: "DeleteFile",
             items: filePick.show ? filePick.files : [file],
-            filePick,
+            filePick
           })
         );
-      },
-    },
+      }
+    }
   ];
 
   const excessItems = () => {
@@ -260,18 +239,13 @@ function ContextMenuFileList({
           case "audio":
             return ["print"];
           case "application": {
-            return file.mime_type === "application/x-compressed"
-              ? ["print", "intoZip", "intoZipSeveral"]
-              : [];
+            return file.mime_type === "application/x-compressed" ? ["print", "intoZip", "intoZipSeveral"] : [];
           }
           default:
             return ["print"];
         }
       }
-      if (
-        previewFormats.filter((ext) => file?.ext.toLowerCase().includes(ext))[0]
-      )
-        return [];
+      if (previewFormats.filter((ext) => file?.ext.toLowerCase().includes(ext))[0]) return [];
       return ["print"];
     }
   };
@@ -307,9 +281,7 @@ function ContextMenuFileList({
   return (
     <>
       <div>{renderMenuItems(callbackArrMain, callbackArrMain)}</div>
-      <div style={{ margin: "10px 0 10px 0" }}>
-        {renderMenuItems(additionalMenuItems, additionalMenuItems)}
-      </div>
+      <div style={{ margin: "10px 0 10px 0" }}>{renderMenuItems(additionalMenuItems, additionalMenuItems)}</div>
     </>
   );
 }
@@ -322,10 +294,10 @@ ContextMenuFileList.propTypes = {
   mouseParams: mouseParamsProps,
   filesPage: PropTypes.number,
   menuItem: PropTypes.string,
-  authorizedSafe: PropTypes.any,
+  authorizedSafe: PropTypes.any
 };
 
 ContextMenuFileList.defaultProps = {
   file: {},
-  authorizedSafe: null,
+  authorizedSafe: null
 };

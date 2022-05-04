@@ -19,37 +19,27 @@ const ProjectProperty = ({ close, project, getIcon }) => {
         <span className={styles.title}>Свойства: {project?.name}</span>
         <div className={styles.insetWrap}>
           <div
-            className={`${styles.inset} ${
-              inset === "general" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "general" ? styles.chosen : null}`}
             onClick={() => setInset("general")}
           >
             {__("Общие")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "security" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "security" ? styles.chosen : null}`}
             onClick={() => setInset("security")}
           >
             {__("Доступы")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "prev" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "prev" ? styles.chosen : null}`}
             onClick={() => setInset("prev")}
           >
             {__("Предыдущие версии")}
           </div>
         </div>
-        {inset === "general" ? (
-          <General project={project} getIcon={getIcon} />
-        ) : null}
+        {inset === "general" ? <General project={project} getIcon={getIcon} /> : null}
         {inset === "security" ? <Security project={project} /> : null}
-        {inset === "prev" ? (
-          <PrevVersions project={project} getIcon={getIcon} />
-        ) : null}
+        {inset === "prev" ? <PrevVersions project={project} getIcon={getIcon} /> : null}
         <div className={styles.buttonsWrap}>
           <div className={styles.cancel} onClick={close}>
             {__("Отмена")}
@@ -68,5 +58,5 @@ export default ProjectProperty;
 ProjectProperty.propTypes = {
   close: PropTypes.func,
   project: projectProps,
-  getIcon: PropTypes.func,
+  getIcon: PropTypes.func
 };

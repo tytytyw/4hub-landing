@@ -12,15 +12,10 @@ const FileMessage = ({ file, size, style }) => {
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const ext = file.name.slice(file.name.lastIndexOf(".") + 1);
   const mime_type = file.type ?? file.mime_type;
-  const preview = (file.link || file.preview).replace(
-    "https://fs2.mh.net.ua",
-    ""
-  );
+  const preview = (file.link || file.preview).replace("https://fs2.mh.net.ua", "");
 
   const checkPreviewFormat = () => {
-    return previewFormats.some(
-      (item) => item.toLocaleLowerCase() === ext.toLocaleLowerCase()
-    ) ||
+    return previewFormats.some((item) => item.toLocaleLowerCase() === ext.toLocaleLowerCase()) ||
       mime_type?.includes("audio") ||
       mime_type?.includes("video") ||
       mime_type?.includes("image")
@@ -34,29 +29,18 @@ const FileMessage = ({ file, size, style }) => {
       ext,
       mime_type,
       preview,
-      is_preview: checkPreviewFormat(),
+      is_preview: checkPreviewFormat()
     };
-    dispatch(
-      onSetModals("previewFile", { ...previewFile, open: true, file: fileInfo })
-    );
+    dispatch(onSetModals("previewFile", { ...previewFile, open: true, file: fileInfo }));
   };
 
   return (
     <div className={styles.wrapper} onClick={onFileClick} style={style}>
       <div className={classNames(styles.fileBar, styles[size])}>
         <div className={styles.file}>
-          <File
-            color="grey"
-            format={file.kind === "file" ? ext : "png"}
-            className={styles.mainFile}
-            fileSize={size}
-          />
+          <File color="grey" format={file.kind === "file" ? ext : "png"} className={styles.mainFile} fileSize={size} />
         </div>
-        {file.kind === "file" ? (
-          <div className={styles.fname}>{file.name}</div>
-        ) : (
-          ""
-        )}
+        {file.kind === "file" ? <div className={styles.fname}>{file.name}</div> : ""}
       </div>
     </div>
   );
@@ -67,5 +51,5 @@ export default FileMessage;
 FileMessage.propTypes = {
   file: PropTypes.object.isRequired,
   size: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.object
 };

@@ -13,10 +13,7 @@ import WorkLinesPreview from "../WorkLinesPreview";
 import SideList from "../../../SharedFiles/SideList/SideList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import {
-  filePickProps,
-  filePreviewProps,
-} from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps } from "../../../../../../types/WorkElements";
 
 function FilesGroup({
   fileList,
@@ -30,7 +27,7 @@ function FilesGroup({
   setAction,
   setMouseParams,
   mounthName,
-  index,
+  index
 }) {
   const { __ } = useLocales();
   const [collapse, setCollapse] = useState(index === 0);
@@ -50,11 +47,7 @@ function FilesGroup({
         setFilePreview={setFilePreview}
         setFilePick={setFilePick}
         filePick={filePick}
-        chosen={
-          filePick.show
-            ? filePick.files.findIndex((el) => el === file.fid) >= 0
-            : chosenFile?.fid === file?.fid
-        }
+        chosen={filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid}
         callbackArrMain={callbackArrMain}
         shareLink={shareLink}
       />
@@ -78,13 +71,13 @@ function FilesGroup({
             <div
               className={classNames({
                 [styles.arrowFile]: true,
-                [styles.active]: !!collapse,
+                [styles.active]: !!collapse
               })}
             >
               <PlayIcon
                 className={classNames({
                   [styles.playButton]: true,
-                  [styles.revert]: !!collapse,
+                  [styles.revert]: !!collapse
                 })}
               />
             </div>
@@ -92,14 +85,12 @@ function FilesGroup({
         </div>
       )}
 
-      {collapse &&
-        workElementsView !== "preview" &&
-        workElementsView !== "workLinesPreview" && (
-          <div className={styles.fileDate}>
-            {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
-            {fileList?.files.length > 0 && <p>10.08.2020</p>}
-          </div>
-        )}
+      {collapse && workElementsView !== "preview" && workElementsView !== "workLinesPreview" && (
+        <div className={styles.fileDate}>
+          {/* TODO: заменить дату при получении сгруппированного на даты списка файлов  */}
+          {fileList?.files.length > 0 && <p>10.08.2020</p>}
+        </div>
+      )}
 
       {collapse && (
         <>
@@ -109,11 +100,7 @@ function FilesGroup({
             </WorkBars>
           )}
 
-          {workElementsView === "lines" && (
-            <div className={styles.collapseContent}>
-              {renderFiles(FileLine, true)}
-            </div>
-          )}
+          {workElementsView === "lines" && <div className={styles.collapseContent}>{renderFiles(FileLine, true)}</div>}
 
           {workElementsView === "preview" && (
             <div className={styles.workSpace}>
@@ -123,16 +110,10 @@ function FilesGroup({
             </div>
           )}
           {workElementsView === "workLinesPreview" && (
-            <div
-              className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}
-            >
+            <div className={`${styles.workSpace} ${styles.workSpacePreviewLine}`}>
               <SideList>{renderFiles(FileLineShort, true)}</SideList>
               <div className={styles.filePreviewWrap}>
-                <WorkLinesPreview
-                  file={chosenFile}
-                  hideFileList={true}
-                  filePick={filePick}
-                />
+                <WorkLinesPreview file={chosenFile} hideFileList={true} filePick={filePick} />
               </div>
             </div>
           )}
@@ -156,5 +137,5 @@ FilesGroup.propTypes = {
   setAction: PropTypes.func,
   setMouseParams: PropTypes.func,
   mounthName: PropTypes.string,
-  index: PropTypes.number,
+  index: PropTypes.number
 };

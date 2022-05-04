@@ -2,10 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./CustomFolderItem.module.sass";
-import {
-  onChooseFiles,
-  onChooseFolder,
-} from "../../../../../Store/actions/CabinetActions";
+import { onChooseFiles, onChooseFolder } from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/plus-3.svg";
@@ -25,7 +22,7 @@ const CustomFolderItem = ({
   setNewFolderInfo,
   setNewFolder,
   newFolderInfo,
-  setMouseParams,
+  setMouseParams
 }) => {
   const folderList = useSelector((state) => state.Cabinet.folderList);
   const dispatch = useDispatch();
@@ -40,27 +37,26 @@ const CustomFolderItem = ({
             ...chosenFolder,
             path: f.path,
             open: !chosenFolder.open,
-            subPath: "",
+            subPath: ""
           })
         : setChosenFolder({
             ...chosenFolder,
             path: f.path,
             open: true,
-            subPath: "",
+            subPath: ""
           });
     } else {
       setChosenFolder({
         ...chosenFolder,
         path: f.path,
         open: false,
-        subPath: "",
+        subPath: ""
       });
     }
     dispatch(onChooseFolder(f.folders, f.path));
   };
   const renderInnerFolders = () => {
-    if ((!folderList || chosenFolder.path !== f.path) && !chosenFolder.open)
-      return null;
+    if ((!folderList || chosenFolder.path !== f.path) && !chosenFolder.open) return null;
     return folderList.folders.map((f, i) => {
       return (
         <CustomFolderItem
@@ -81,13 +77,9 @@ const CustomFolderItem = ({
   return (
     <>
       <div
-        className={`${styles.innerFolderWrap} ${
-          chosen ? styles.chosenSubFolderWrap : undefined
-        }`}
+        className={`${styles.innerFolderWrap} ${chosen ? styles.chosenSubFolderWrap : undefined}`}
         onClick={(e) => {
-          subFolder
-            ? setChosenFolder({ ...chosenFolder, subPath: f.path })
-            : openFolder(e);
+          subFolder ? setChosenFolder({ ...chosenFolder, subPath: f.path }) : openFolder(e);
           dispatch(onChooseFiles(f.path));
         }}
       >
@@ -95,11 +87,7 @@ const CustomFolderItem = ({
           <div className={styles.innerFolderName}>
             <FolderIcon className={`${styles.innerFolderIcon} ${f.color}`} />
             {f.is_pass === 1 && (
-              <img
-                className={styles.lock}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="emoji"
-              />
+              <img className={styles.lock} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="emoji" />
             )}
             {!listCollapsed && (
               <div className={styles.nameWrap}>
@@ -113,23 +101,11 @@ const CustomFolderItem = ({
           </div>
           <div className={styles.innerFolderMedia}>
             {!listCollapsed && f.emo && (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`}
-                alt="emoji"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt="emoji" />
             )}
-            {!listCollapsed && f.fig && (
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`}
-                alt="emoji"
-              />
-            )}
+            {!listCollapsed && f.fig && <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt="emoji" />}
             {!subFolder ? (
-              <PlayIcon
-                className={`${styles.playButton} ${
-                  chosen && chosenFolder.open ? styles.revert : undefined
-                }`}
-              />
+              <PlayIcon className={`${styles.playButton} ${chosen && chosenFolder.open ? styles.revert : undefined}`} />
             ) : null}
             <div
               className={styles.menuWrap}
@@ -138,7 +114,7 @@ const CustomFolderItem = ({
                   x: e.clientX,
                   y: e.clientY,
                   width: 200,
-                  height: 25,
+                  height: 25
                 });
               }}
             >
@@ -150,16 +126,10 @@ const CustomFolderItem = ({
       {!subFolder && (
         <div
           style={{
-            height: `${
-              chosen && chosenFolder.open ? f.folders.length * 50 + 50 : 0
-            }px`,
-            minHeight: `${
-              chosen && chosenFolder.open ? f.folders.length * 50 + 50 : 0
-            }px`,
+            height: `${chosen && chosenFolder.open ? f.folders.length * 50 + 50 : 0}px`,
+            minHeight: `${chosen && chosenFolder.open ? f.folders.length * 50 + 50 : 0}px`
           }}
-          className={`${styles.innerFolders} ${
-            chosen && chosenFolder.open ? undefined : styles.hidden
-          }`}
+          className={`${styles.innerFolders} ${chosen && chosenFolder.open ? undefined : styles.hidden}`}
         >
           <div
             className={styles.addFolderToFolder}
@@ -194,5 +164,5 @@ CustomFolderItem.propTypes = {
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
   newFolderInfo: PropTypes.object,
-  setMouseParams: PropTypes.func,
+  setMouseParams: PropTypes.func
 };

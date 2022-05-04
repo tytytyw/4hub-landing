@@ -8,12 +8,7 @@ import { imageToRatio } from "../../../../../../generalComponents/generalHelpers
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 
-const WorkLinesPreview = ({
-  recentFiles,
-  children,
-  chosenFile,
-  fileCollapsed,
-}) => {
+const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) => {
   const [toolBar] = useState(false);
   const canvasRef = useRef();
   const previewRef = useRef();
@@ -22,17 +17,14 @@ const WorkLinesPreview = ({
     color: "black",
     width: 2,
     imgWidth: 0,
-    imgHeight: 0,
+    imgHeight: 0
   });
   const ctx = canvasRef.current ? canvasRef.current.getContext("2d") : null;
   const uid = useSelector((state) => state.user.uid);
   const [, setUndoList] = useState([]);
 
   useEffect(() => {
-    if (
-      chosenFile?.mime_type &&
-      chosenFile?.mime_type?.split("/")[0] === "image"
-    ) {
+    if (chosenFile?.mime_type && chosenFile?.mime_type?.split("/")[0] === "image") {
       const canvas = canvasRef.current.getContext("2d");
       canvas.clearRect(0, 0, 0, 0);
       const img = new Image();
@@ -47,15 +39,9 @@ const WorkLinesPreview = ({
         await setDrawParams((state) => ({
           ...state,
           imgWidth: sizes.width.toFixed(),
-          imgHeight: sizes.height.toFixed(),
+          imgHeight: sizes.height.toFixed()
         }));
-        canvas.drawImage(
-          img,
-          0,
-          0,
-          sizes.width.toFixed(),
-          sizes.height.toFixed()
-        );
+        canvas.drawImage(img, 0, 0, sizes.width.toFixed(), sizes.height.toFixed());
       };
       img.onerror = (e) => console.log(e);
     }
@@ -93,9 +79,9 @@ const WorkLinesPreview = ({
   const sendDraw = () => {
     api
       .post(
-        `/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${
-          drawParams.color
-        }&width=${drawParams.imgWidth}&height=${drawParams.imgHeight}`
+        `/ajax/paint_add?uid=${uid}&fid=${chosenFile.fid}&line=${123}&color=${drawParams.color}&width=${
+          drawParams.imgWidth
+        }&height=${drawParams.imgHeight}`
       )
       .then((res) => console.log(res));
   };
@@ -117,15 +103,8 @@ const WorkLinesPreview = ({
       }
       case "video": {
         return (
-          <video
-            controls
-            src={`${projectSrc}${chosenFile.preview}`}
-            type={chosenFile.mime_type}
-          >
-            <source
-              src={`${projectSrc}${chosenFile.preview}`}
-              type={chosenFile.mime_type}
-            />
+          <video controls src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type}>
+            <source src={`${projectSrc}${chosenFile.preview}`} type={chosenFile.mime_type} />
           </video>
         );
       }
@@ -155,17 +134,13 @@ const WorkLinesPreview = ({
     <div
       className={styles.workLinesPreviewWrap}
       style={{
-        height: `${
-          recentFiles?.length > 0
-            ? "calc(100% - 90px - 55px - 78px)"
-            : "calc(100% - 90px - 55px)"
-        }`,
+        height: `${recentFiles?.length > 0 ? "calc(100% - 90px - 55px - 78px)" : "calc(100% - 90px - 55px)"}`
       }}
     >
       <div
         className={styles.fileListWrap}
         style={{
-          minWidth: fileCollapsed ? 110 : "",
+          minWidth: fileCollapsed ? 110 : ""
         }}
       >
         {children}
@@ -173,8 +148,7 @@ const WorkLinesPreview = ({
 
       <div className={styles.previewFileWrap}>
         <div className={styles.previewContent}>
-          {chosenFile?.mime_type &&
-          chosenFile?.mime_type?.split("/")[0] === "image" ? (
+          {chosenFile?.mime_type && chosenFile?.mime_type?.split("/")[0] === "image" ? (
             <MiniToolBar
               direction="row"
               drawParams={drawParams}
@@ -209,5 +183,5 @@ WorkLinesPreview.propTypes = {
   recentFiles: PropTypes.array,
   children: PropTypes.any,
   chosenFile: PropTypes.object,
-  fileCollapsed: PropTypes.bool,
+  fileCollapsed: PropTypes.bool
 };

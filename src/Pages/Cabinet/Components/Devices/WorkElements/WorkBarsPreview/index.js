@@ -7,10 +7,7 @@ import { useLocales } from "react-localized";
 const WorkBarsPreview = () => {
   const { __ } = useLocales();
   return (
-    <div
-      className={styles.wrapper}
-      style={{ height: "calc(100% - 90px - 55px)" }}
-    >
+    <div className={styles.wrapper} style={{ height: "calc(100% - 90px - 55px)" }}>
       <div className={styles.content}>
         <div className={styles.workBarsPreview}>
           <div className={styles.previewImg}>
@@ -25,73 +22,40 @@ const WorkBarsPreview = () => {
             <div className={styles.scrollBar}>
               <ul className={styles.scrollList}>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
                 <li className={styles.scrollItem}>
-                  <img
-                    src={imageSrc + "assets/PrivateCabinet/screen.png"}
-                    alt="Screen"
-                  />
+                  <img src={imageSrc + "assets/PrivateCabinet/screen.png"} alt="Screen" />
                 </li>
               </ul>
             </div>
 
             <div className={styles.prevImg}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/current.png"}
-                alt="Prev"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/current.png"} alt="Prev" />
             </div>
           </div>
         </div>
@@ -99,10 +63,7 @@ const WorkBarsPreview = () => {
         <div className={styles.workPreviewData}>
           <div className={styles.previewHeader}>
             <div className={styles.previewImgSm}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/Bitmap.png"}
-                alt="Bitmap"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/Bitmap.png"} alt="Bitmap" />
             </div>
             <div className={styles.previewInfo}>
               <h4>{__("Дизайн Moto")}</h4>
@@ -125,10 +86,7 @@ const WorkBarsPreview = () => {
 
             <div className={styles.infoFileItem}>
               <span className={styles.itemName}>{__("Эмоджи")}</span>
-              <img
-                src={`${imageSrc}assets/PrivateCabinet/smiles/cool.svg`}
-                alt="sign"
-              />
+              <img src={`${imageSrc}assets/PrivateCabinet/smiles/cool.svg`} alt="sign" />
             </div>
 
             <div className={styles.infoFileItem}>

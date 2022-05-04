@@ -10,14 +10,14 @@ export function useMonths() {
       name: __("Январь"),
       declensionName: __("Января"),
       code: 1,
-      days: 31,
+      days: 31
     },
     {
       id: 1,
       name: __("Февраль"),
       declensionName: __("Февраля"),
       code: 4,
-      days: year % 4 === 0 ? 29 : 28,
+      days: year % 4 === 0 ? 29 : 28
     },
     { id: 2, name: __("Март"), declensionName: __("Марта"), code: 4, days: 31 },
     {
@@ -25,7 +25,7 @@ export function useMonths() {
       name: __("Апрель"),
       declensionName: __("Апреля"),
       code: 0,
-      days: 30,
+      days: 30
     },
     { id: 4, name: __("Май"), declensionName: __("Мая"), code: 2, days: 31 },
     { id: 5, name: __("Июнь"), declensionName: __("Июня"), code: 5, days: 30 },
@@ -35,36 +35,36 @@ export function useMonths() {
       name: __("Август"),
       declensionName: __("Августа"),
       code: 3,
-      days: 31,
+      days: 31
     },
     {
       id: 8,
       name: __("Сентябрь"),
       declensionName: __("Сентября"),
       code: 6,
-      days: 30,
+      days: 30
     },
     {
       id: 9,
       name: __("Октябрь"),
       declensionName: __("Октября"),
       code: 1,
-      days: 31,
+      days: 31
     },
     {
       id: 10,
       name: __("Ноябрь"),
       declensionName: __("Ноября"),
       code: 4,
-      days: 30,
+      days: 30
     },
     {
       id: 11,
       name: __("Декабрь"),
       declensionName: __("Декабря"),
       code: 6,
-      days: 31,
-    },
+      days: 31
+    }
   ];
 }
 
@@ -79,16 +79,8 @@ export const useGetMonthByIndex = () => {
 export function useDaysOfWeeks() {
   const { __ } = useLocales();
   return {
-    short: [
-      __("Пн"),
-      __("Вт"),
-      __("Ср"),
-      __("Чт"),
-      __("Пн"),
-      __("Сб"),
-      __("Вс"),
-    ],
-    code: [2, 3, 4, 5, 6, 0, 1],
+    short: [__("Пн"), __("Вт"), __("Ср"), __("Чт"), __("Пн"), __("Сб"), __("Вс")],
+    code: [2, 3, 4, 5, 6, 0, 1]
   };
 }
 
@@ -102,28 +94,21 @@ const centuryCode = (year) => {
 
 const yearCode = (year) => {
   const short = Number(String(year).slice(2));
-  if (year >= 2000)
-    return (centuryCode(year) + short + Math.floor(short / 4)) % 7;
+  if (year >= 2000) return (centuryCode(year) + short + Math.floor(short / 4)) % 7;
 };
 
 export const getDate = (n) => {
   return {
     day: d.getDate() < 9 ? `${n === 0 ? n : ""}${d.getDate()}` : d.getDate(),
-    month:
-      d.getMonth() < 9
-        ? `${n === 0 ? n : ""}${d.getMonth() + 1}`
-        : d.getMonth(),
-    year: d.getFullYear(),
+    month: d.getMonth() < 9 ? `${n === 0 ? n : ""}${d.getMonth() + 1}` : d.getMonth(),
+    year: d.getFullYear()
   };
 };
 
 const useRenderDaysInMonth = () => {
   const months = useMonths();
   return (month, obj) => {
-    let days =
-      month === 1
-        ? months(obj?.year)[month].days
-        : months(obj?.year)[month].days;
+    let days = month === 1 ? months(obj?.year)[month].days : months(obj?.year)[month].days;
     let arr = [];
     for (let i = 1; i <= days; i++) {
       arr.push(i);
@@ -137,37 +122,16 @@ const useDayInWeek = () => {
   return (obj) => {
     if (obj.year % 4 === 0 && Number(obj.month) <= 2) {
       return {
-        firstDay:
-          ((1 + months()[Number(obj.month) - 1].code + yearCode(obj.year)) %
-            7) -
-          1,
-        today:
-          ((obj.day +
-            months()[Number(obj.month) - 1].code +
-            yearCode(obj.year)) %
-            7) -
-          1,
+        firstDay: ((1 + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7) - 1,
+        today: ((obj.day + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7) - 1,
         lastDay:
-          ((months()[Number(obj.month) - 1].days +
-            months()[Number(obj.month) - 1].code +
-            yearCode(obj.year)) %
-            7) -
-          1,
+          ((months()[Number(obj.month) - 1].days + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7) - 1
       };
     } else {
       return {
-        firstDay:
-          (1 + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7,
-        today:
-          (obj.day +
-            months()[Number(obj.month) - 1].code +
-            yearCode(obj.year)) %
-          7,
-        lastDay:
-          (months()[Number(obj.month) - 1].days +
-            months()[Number(obj.month) - 1].code +
-            yearCode(obj.year)) %
-          7,
+        firstDay: (1 + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7,
+        today: (obj.day + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7,
+        lastDay: (months()[Number(obj.month) - 1].days + months()[Number(obj.month) - 1].code + yearCode(obj.year)) % 7
       };
     }
   };
@@ -200,30 +164,13 @@ export const useGenerateCalendar = () => {
   return (strings, obj) => {
     const arr = [];
     obj.month === "1"
-      ? arr.push(
-          renderBeforeDays(
-            11,
-            daysOfWeeks.code.indexOf(dayInWeek(obj).firstDay),
-            obj
-          )
-        )
-      : arr.push(
-          renderBeforeDays(
-            Number(obj.month) - 2,
-            daysOfWeeks.code.indexOf(dayInWeek(obj).firstDay)
-          )
-        );
+      ? arr.push(renderBeforeDays(11, daysOfWeeks.code.indexOf(dayInWeek(obj).firstDay), obj))
+      : arr.push(renderBeforeDays(Number(obj.month) - 2, daysOfWeeks.code.indexOf(dayInWeek(obj).firstDay)));
     arr.push(renderDaysInMonth(Number(obj.month) - 1, obj));
     arr.push(renderAfterDays(daysOfWeeks.code.indexOf(dayInWeek(obj).lastDay)));
     if (strings * 7 > arr.flat().length) {
       if (arr[0].length === 0) {
-        arr.splice(
-          0,
-          1,
-          obj.month === "1"
-            ? renderBeforeDays(11, 7)
-            : renderBeforeDays(Number(obj.month) - 2, 7)
-        );
+        arr.splice(0, 1, obj.month === "1" ? renderBeforeDays(11, 7) : renderBeforeDays(Number(obj.month) - 2, 7));
       }
       if (strings * 7 > arr.flat().length) {
         let number = arr[2][arr[2].length - 1] + 1 || 1;

@@ -12,7 +12,7 @@ const ContextMenu = ({
   movehorizontal = 0,
   disableAutohide = false,
   withoutOffset = false,
-  style = {},
+  style = {}
 }) => {
   const closeContext = (e) => {
     if (!customClose) {
@@ -22,10 +22,7 @@ const ContextMenu = ({
       if (navigator.userAgent.includes("Chrome")) {
         const isBackground =
           e.path.filter((el) => {
-            if (
-              typeof el?.classList === "object" &&
-              typeof el?.classList[0] === "string"
-            )
+            if (typeof el?.classList === "object" && typeof el?.classList[0] === "string")
               return el.classList[0].includes(styles.background);
           }).length > 0; //eslint-disable-line
         if (isBackground) setParams(null);
@@ -61,7 +58,7 @@ const ContextMenu = ({
       setTop({
         ...top,
         menu: `${params.y - contextMenuRef.current.offsetHeight - 20}px`,
-        tooltip: `${contextMenuRef.current.offsetHeight}px`,
+        tooltip: `${contextMenuRef.current.offsetHeight}px`
       });
     } else {
       setTop({ ...top, menu: `${params.y + 10}px`, tooltip: "-20px" });
@@ -81,14 +78,9 @@ const ContextMenu = ({
         style={{
           top: element ? `${element.bottom}px` : top.menu,
           left: element
-            ? `${
-                element.left +
-                element.width / 2 -
-                params.width / 2 +
-                movehorizontal
-              }px`
+            ? `${element.left + element.width / 2 - params.width / 2 + movehorizontal}px`
             : setMenuHorizontal(),
-          ...style,
+          ...style
         }}
       >
         <div className={styles.wrap}>
@@ -97,12 +89,9 @@ const ContextMenu = ({
               className={styles.span}
               style={{
                 top: top.tooltip,
-                right:
-                  params.width + params.x >= screenWidth
-                    ? "0px"
-                    : `${params.width - 20}px`,
+                right: params.width + params.x >= screenWidth ? "0px" : `${params.width - 20}px`,
                 borderTop: top.tooltip === "-20px" ? "" : "10px solid white",
-                borderBottom: top.tooltip !== "-20px" ? "" : "10px solid white",
+                borderBottom: top.tooltip !== "-20px" ? "" : "10px solid white"
               }}
             />
           ) : null}

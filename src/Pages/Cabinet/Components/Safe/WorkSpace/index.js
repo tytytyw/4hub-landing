@@ -46,14 +46,12 @@ const WorkSpace = ({
   loadingFiles,
   setLoadingFiles,
   onSuccessLoading,
-  gLoader,
+  gLoader
 }) => {
   const { __ } = useLocales();
   const workElementsView = useSelector((state) => state.Cabinet.view);
   const size = useSelector((state) => state.Cabinet.size);
-  const authorizedSafe = useSelector(
-    (state) => state.Cabinet.safe.authorizedSafe
-  );
+  const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
 
   const [mouseParams, setMouseParams] = useState(null);
 
@@ -71,9 +69,7 @@ const WorkSpace = ({
           file={file}
           setChosenFile={setChosenFile}
           chosen={
-            filePick.show
-              ? filePick.files.findIndex((el) => el === file.fid) >= 0
-              : chosenFile?.fid === file?.fid
+            filePick.show ? filePick.files.findIndex((el) => el === file.fid) >= 0 : chosenFile?.fid === file?.fid
           }
           chosenFile={chosenFile}
           setMouseParams={setMouseParams}
@@ -103,7 +99,7 @@ const WorkSpace = ({
         className={classNames({
           [styles.workSpaceWrap]: true,
           [styles.workSpaceWrapCollapsed]: !!listCollapsed,
-          [styles.workSpaceWrapUncollapsed]: !listCollapsed,
+          [styles.workSpaceWrapUncollapsed]: !listCollapsed
         })}
       >
         <div className={styles.header}>
@@ -118,9 +114,7 @@ const WorkSpace = ({
         <ServePanel
           chosenFile={chosenFile}
           setAction={setAction}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -196,9 +190,7 @@ const WorkSpace = ({
           <OptionButtomLine
             filePick={filePick}
             setFilePick={setFilePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}
@@ -209,11 +201,7 @@ const WorkSpace = ({
       </div>
 
       {mouseParams !== null ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -225,14 +213,10 @@ const WorkSpace = ({
         </ContextMenu>
       ) : null}
 
-      {action.type === "customize" ||
-      filePick.customize ||
-      fileAddCustomization.several ? (
+      {action.type === "customize" || filePick.customize || fileAddCustomization.several ? (
         <CustomizeFile
           title={
-            filePick.customize || fileAddCustomization?.several
-              ? __(`Редактировать выбранные файлы`)
-              : action.name
+            filePick.customize || fileAddCustomization?.several ? __(`Редактировать выбранные файлы`) : action.name
           }
           file={chosenFile}
           close={

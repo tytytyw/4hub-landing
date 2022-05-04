@@ -5,25 +5,13 @@ export const fileProps = PropTypes.exact({
   path: PropTypes.string,
   ut: PropTypes.string,
   is_del: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  tags: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  tags: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.object]),
   is_pass: PropTypes.number,
   is_lock: PropTypes.number,
   deadline: PropTypes.number,
   color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  fig: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  emo: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  fig: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.object]),
+  emo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string, PropTypes.object]),
   folders: PropTypes.array,
-  nameRu: PropTypes.string,
+  nameRu: PropTypes.string
 });

@@ -4,5 +4,5 @@ import Cabinet from "./Cabinet";
 
 export default combineReducers({
   user: startPage,
-  Cabinet: Cabinet,
+  Cabinet: Cabinet
 });

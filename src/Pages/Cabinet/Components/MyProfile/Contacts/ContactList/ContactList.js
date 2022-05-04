@@ -29,10 +29,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   return (
     <div className={styles.content}>
       <div className={styles.search}>
-        <ContactSearch
-          value={search}
-          onChangeHandler={(value) => setSearch(value)}
-        />
+        <ContactSearch value={search} onChangeHandler={(value) => setSearch(value)} />
       </div>
 
       <div className={styles.contactListWrap}>
@@ -40,11 +37,7 @@ const ContactList = ({ data, selectedItem, setSelectedItem }) => {
           {getGrouppedArray(contactList).map((contact, index) => (
             <li key={index}>
               <p className={styles.group}>{contact.group}</p>
-              <SearchList
-                data={contact.contacts}
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-              />
+              <SearchList data={contact.contacts} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
             </li>
           ))}
         </ul>
@@ -70,7 +63,7 @@ const getGrouppedArray = (initialArray) => {
 
       groupedArray.push({
         group: firstLetter,
-        contacts: contactsItem,
+        contacts: contactsItem
       });
     } else {
       contactsItem.push(item);
@@ -85,8 +78,8 @@ export default ContactList;
 ContactList.propTypes = {
   data: PropTypes.array,
   selectedItem: PropTypes.object,
-  setSelectedItem: PropTypes.func,
+  setSelectedItem: PropTypes.func
 };
 ContactList.defaultProps = {
-  data: [],
+  data: []
 };

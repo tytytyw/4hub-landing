@@ -7,7 +7,7 @@ import {
   onChooseFiles,
   onsetInitialChosenFile,
   onSetModals,
-  onGetArchiveFiles,
+  onGetArchiveFiles
 } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import classNames from "classnames";
@@ -41,7 +41,7 @@ const OptionalButton = ({ file, successLoad }) => {
             onSetModals("topMessage", {
               open: true,
               type: "message",
-              message: __("Файл успешно разархивирован"),
+              message: __("Файл успешно разархивирован")
             })
           );
         } else throw new Error();
@@ -51,7 +51,7 @@ const OptionalButton = ({ file, successLoad }) => {
           onSetModals("error", {
             open: true,
             message: __("что-то пошло не так"),
-            title: __("ошибка"),
+            title: __("ошибка")
           })
         )
       );

@@ -5,14 +5,7 @@ import classNames from "classnames";
 import { ducationTimerToString } from "../../../../../../generalComponents/chatHelper";
 import PropTypes from "prop-types";
 
-const VideoPlayer = ({
-  source,
-  videoPlayerRef,
-  visualEffects,
-  videoCutParams,
-  setVideoCutParams,
-  canvasRef,
-}) => {
+const VideoPlayer = ({ source, videoPlayerRef, visualEffects, videoCutParams, setVideoCutParams, canvasRef }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const seekPanelRef = useRef();
@@ -23,16 +16,12 @@ const VideoPlayer = ({
   const [videoFrames, setVideoFrames] = useState([]);
 
   const onSeek = (e) => {
-    videoPlayerRef.current.currentTime =
-      (videoPlayerRef.current.duration * +e.target.value) / 100;
+    videoPlayerRef.current.currentTime = (videoPlayerRef.current.duration * +e.target.value) / 100;
     setPlaying(true);
   };
 
   const onTimeUpdate = () => {
-    setProgress(
-      (videoPlayerRef.current.currentTime / videoPlayerRef.current.duration) *
-        100
-    );
+    setProgress((videoPlayerRef.current.currentTime / videoPlayerRef.current.duration) * 100);
   };
   const videoEnded = () => {
     setPlaying(false);
@@ -83,21 +72,18 @@ const VideoPlayer = ({
   };
 
   const onBorderDrag = (e) => {
-    const percent = Math.round(
-      (e.offsetX / inputRange.current.clientWidth) * 100
-    );
+    const percent = Math.round((e.offsetX / inputRange.current.clientWidth) * 100);
     const time = (videoPlayerRef.current.duration * percent) / 100;
     if (
-      (dragbbleCutBorder === "from" &&
-        videoCutParams.to.percent - percent > 1) ||
+      (dragbbleCutBorder === "from" && videoCutParams.to.percent - percent > 1) ||
       (dragbbleCutBorder === "to" && percent - videoCutParams.from.percent > 1)
     )
       setVideoCutParams((prev) => ({
         ...prev,
         [dragbbleCutBorder]: {
           percent,
-          time,
-        },
+          time
+        }
       }));
   };
   const onBorderDragEnd = () => setDragbbleCutBorder(null);
@@ -142,33 +128,23 @@ const VideoPlayer = ({
         ...prev,
         to: {
           percent: 100,
-          time: videoDuration,
-        },
+          time: videoDuration
+        }
       }));
     }
   }, [videoDuration]); // eslint-disable-line
 
   useEffect(() => {
-    if (videoFrameRef?.current)
-      videoFrameRef.current.addEventListener("canplay", createFrames);
+    if (videoFrameRef?.current) videoFrameRef.current.addEventListener("canplay", createFrames);
   }, [videoFrameRef?.current]); // eslint-disable-line
 
   return (
-    <div
-      className={styles.wrapper}
-      onMouseUp={onBorderDragEnd}
-      onMouseLeave={onBorderDragEnd}
-    >
-      <video
-        ref={videoPlayerRef}
-        src={source}
-        className={styles.video}
-        style={visualEffects}
-      />
+    <div className={styles.wrapper} onMouseUp={onBorderDragEnd} onMouseLeave={onBorderDragEnd}>
+      <video ref={videoPlayerRef} src={source} className={styles.video} style={visualEffects} />
       <div
         className={classNames({
           [styles.playButton]: true,
-          [styles.paused]: playing === false,
+          [styles.paused]: playing === false
         })}
         onClick={() => setPlaying((prevValue) => !prevValue)}
       >
@@ -179,13 +155,12 @@ const VideoPlayer = ({
           className={classNames(styles.time, styles.currentTime)}
           style={{
             left: `${videoCutParams?.from?.percent ?? 0}%`,
-            transform: `translateX(${videoCutParams ? "-50%" : "0"})`,
+            transform: `translateX(${videoCutParams ? "-50%" : "0"})`
           }}
         >
           {videoPlayerRef.current?.duration >= 0
             ? ducationTimerToString(
-                videoCutParams?.from?.time ??
-                  (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
+                videoCutParams?.from?.time ?? (progress === 0 ? 0 : videoPlayerRef.current?.currentTime)
               )
             : ""}
         </span>
@@ -204,9 +179,7 @@ const VideoPlayer = ({
           <div
             className={styles.seekHolder}
             style={{
-              transform: `translateX(${
-                (inputRange.current?.offsetWidth * progress) / 100 - 2
-              }px)`,
+              transform: `translateX(${(inputRange.current?.offsetWidth * progress) / 100 - 2}px)`
             }}
           />
         )}
@@ -216,7 +189,7 @@ const VideoPlayer = ({
             className={styles.borderHolder}
             id="from"
             style={{
-              left: `${videoCutParams.from?.percent}%`,
+              left: `${videoCutParams.from?.percent}%`
             }}
             onMouseDown={onBorderDragStart}
           />
@@ -228,7 +201,7 @@ const VideoPlayer = ({
             id="to"
             style={{
               left: `${videoCutParams.to?.percent}%`,
-              transform: "translateX(-100%)",
+              transform: "translateX(-100%)"
             }}
             onMouseDown={onBorderDragStart}
           />
@@ -237,7 +210,7 @@ const VideoPlayer = ({
           className={classNames(styles.time, styles.durationTime)}
           style={{
             left: `${videoCutParams?.to?.percent ?? 100}%`,
-            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`,
+            transform: `translateX(${videoCutParams ? "-50%" : "-100%"})`
           }}
         >
           {videoDuration !== Infinity && videoDuration > 0
@@ -246,12 +219,7 @@ const VideoPlayer = ({
         </span>
         {videoCutParams && videoDuration && (
           <div className={styles.framesWrapper}>
-            <video
-              ref={videoFrameRef}
-              style={{ display: "none" }}
-              src={source}
-              muted
-            />
+            <video ref={videoFrameRef} style={{ display: "none" }} src={source} muted />
             {videoFrames.map((frame, i) => (
               <img src={frame} alt="img" key={i} />
             ))}
@@ -265,7 +233,7 @@ const VideoPlayer = ({
 export default VideoPlayer;
 
 VideoPlayer.defaultProps = {
-  visualEffects: {},
+  visualEffects: {}
 };
 
 VideoPlayer.propTypes = {
@@ -274,5 +242,5 @@ VideoPlayer.propTypes = {
   visualEffects: PropTypes.object,
   videoCutParams: PropTypes.object,
   setVideoCutParams: PropTypes.func,
-  canvasRef: PropTypes.object,
+  canvasRef: PropTypes.object
 };

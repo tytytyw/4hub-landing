@@ -12,20 +12,9 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import {
-  filePreviewProps,
-  fileProps,
-} from "../../../../../../types/WorkElements";
+import { filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
 
-const FileLine = ({
-  file,
-  setChosenFile,
-  chosenFile,
-  setMouseParams,
-  setAction,
-  setFilePreview,
-  filePreview,
-}) => {
+const FileLine = ({ file, setChosenFile, chosenFile, setMouseParams, setAction, setFilePreview, filePreview }) => {
   const { __ } = useLocales();
   const size = useSelector((state) => state.Cabinet.size);
 
@@ -36,7 +25,7 @@ const FileLine = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles.active]: chosenFile?.fid === file?.fid,
-        [styles?.[`wrapper_${size}`]]: size !== "medium",
+        [styles?.[`wrapper_${size}`]]: size !== "medium"
       })}
     >
       <div className={styles.fileAbout}>
@@ -45,9 +34,7 @@ const FileLine = ({
         </div>
 
         <div className={styles.infoWrap}>
-          <div className={styles.fileName}>
-            {file.name && file.name.slice(0, file.name.lastIndexOf("."))}
-          </div>
+          <div className={styles.fileName}>{file.name && file.name.slice(0, file.name.lastIndexOf("."))}</div>
 
           <div className={styles.fileInfo}>
             <span className={styles.fileDate}>{file.mtime.split(" ")[0]}</span>
@@ -55,11 +42,7 @@ const FileLine = ({
             {size !== "small" && (
               <div className={styles.symbols}>
                 {file.is_pass === 1 && (
-                  <img
-                    className={styles.locked}
-                    src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                    alt="lock"
-                  />
+                  <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
                 )}
                 {file.fig && (
                   <img
@@ -75,9 +58,7 @@ const FileLine = ({
                     alt="emoji"
                   />
                 )}
-                <div className={file.tag ? styles.ftag : styles.fEmtyTag}>
-                  {file.tag && `#${file.tag}`}
-                </div>
+                <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>
               </div>
             )}
           </div>
@@ -86,18 +67,10 @@ const FileLine = ({
         {size === "small" && (
           <div className={styles.symbols}>
             {file.is_pass === 1 && (
-              <img
-                className={styles.locked}
-                src={`${imageSrc}assets/PrivateCabinet/locked.svg`}
-                alt="lock"
-              />
+              <img className={styles.locked} src={`${imageSrc}assets/PrivateCabinet/locked.svg`} alt="lock" />
             )}
             {file.fig && (
-              <img
-                className={styles.sign}
-                src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`}
-                alt="sign"
-              />
+              <img className={styles.sign} src={`${imageSrc}assets/PrivateCabinet/signs/${file.fig}.svg`} alt="sign" />
             )}
             {file.emo && (
               <img
@@ -106,9 +79,7 @@ const FileLine = ({
                 alt="emoji"
               />
             )}
-            <div className={file.tag ? styles.ftag : styles.fEmtyTag}>
-              {file.tag && `#${file.tag}`}
-            </div>
+            <div className={file.tag ? styles.ftag : styles.fEmtyTag}>{file.tag && `#${file.tag}`}</div>
           </div>
         )}
       </div>
@@ -134,7 +105,7 @@ const FileLine = ({
             setAction({
               type: "delete",
               name: __("Удаление файла"),
-              text: __(`Вы действительно хотите удалить файл ${file?.name}?`),
+              text: __(`Вы действительно хотите удалить файл ${file?.name}?`)
             })
           }
         >
@@ -152,7 +123,7 @@ const FileLine = ({
               x: e.clientX,
               y: e.clientY,
               width: 200,
-              height: 25,
+              height: 25
             });
           }}
         >
@@ -169,10 +140,10 @@ FileLine.propTypes = {
   file: fileProps,
   setChosenFile: PropTypes.func,
   chosenFile: PropTypes.shape({
-    fid: PropTypes.string,
+    fid: PropTypes.string
   }),
   setMouseParams: PropTypes.func,
   setAction: PropTypes.func,
   setFilePreview: PropTypes.func,
-  filePreview: filePreviewProps,
+  filePreview: filePreviewProps
 };

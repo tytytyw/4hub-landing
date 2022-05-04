@@ -31,7 +31,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
     { id: 3, name: __("Встреча online"), icon: "online-meeting" },
     { id: 4, name: __("Встреча offline"), icon: "offline-meeting" },
     { id: 5, name: __("Напоминание"), icon: "reminder" },
-    { id: 6, name: __("Другое"), icon: "other" },
+    { id: 6, name: __("Другое"), icon: "other" }
   ];
 
   const renderTags = () => {
@@ -66,7 +66,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
         5: [/(\d{2})(\d{2})/g, "$1.$2."],
         6: [/(\d{2})(\d{2})(\d{0,4})/g, "$1.$2.$3"],
         7: [/(\d{2})(\d{2})(\d{1,4})/g, "$1.$2.$3"],
-        8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"],
+        8: [/(\d{2})(\d{2})(\d{4})/g, "$1.$2.$3"]
       }[tempValue.length] || [])
     );
   };
@@ -94,18 +94,10 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
 
             <div className={styles.inputFieldsWrap}>
               <div className={styles.selectWrap}>
-                <Select
-                  placeholder={__("Выбрать")}
-                  data={events}
-                  value={getEventName(eventType)}
-                >
+                <Select placeholder={__("Выбрать")} data={events} value={getEventName(eventType)}>
                   <ul className={styles.eventsList}>
                     {events.map((event, index) => (
-                      <li
-                        key={index}
-                        onClick={() => setEventType(event?.id)}
-                        className={styles.eventItem}
-                      >
+                      <li key={index} onClick={() => setEventType(event?.id)} className={styles.eventItem}>
                         <div className={styles.eventIconWrap}>
                           <img
                             className={styles.eventIcon}
@@ -152,9 +144,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   height={width >= 1440 ? "40px" : "30px"}
                   value={members}
                   set={setMembers}
-                  placeholder={__(
-                    "Участники (введите email или выбирите из списка)"
-                  )}
+                  placeholder={__("Участники (введите email или выбирите из списка)")}
                 />
                 <img
                   src={`${imageSrc}assets/PrivateCabinet/input-arrow.svg`}
@@ -211,7 +201,7 @@ const CreateTask = ({ onCreate, setSuccess, setEvent }) => {
                   dateFrom,
                   dateTo,
                   tagOption,
-                  desc,
+                  desc
                 });
                 onCreate(false);
                 setSuccess(true);
@@ -231,5 +221,5 @@ export default CreateTask;
 CreateTask.propTypes = {
   onCreate: PropTypes.func,
   setSuccess: PropTypes.func,
-  setEvent: PropTypes.func,
+  setEvent: PropTypes.func
 };

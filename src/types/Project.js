@@ -12,5 +12,5 @@ export const projectFolderStructure = PropTypes.exact({
   is_lock: PropTypes.number,
   is_pass: PropTypes.number,
   deadline: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  project_folders: PropTypes.array,
+  project_folders: PropTypes.array
 });

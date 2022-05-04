@@ -3,12 +3,7 @@ import styles from "./VideoRecordPreview.module.sass";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const VideoRecordPreview = ({
-  isVideoMessage,
-  ducationTimer,
-  timeLimit,
-  recordEnd,
-}) => {
+const VideoRecordPreview = ({ isVideoMessage, ducationTimer, timeLimit, recordEnd }) => {
   const circleRadius = 150;
   const circumference = 2 * Math.PI * (circleRadius - 8);
 
@@ -34,17 +29,12 @@ const VideoRecordPreview = ({
       <div
         className={classNames({
           [styles.videoWrapper]: true,
-          [styles.circle]: isVideoMessage,
+          [styles.circle]: isVideoMessage
         })}
       >
         {isVideoMessage ? (
           <svg width={circleRadius * 2} height={circleRadius * 2}>
-            <circle
-              cx={circleRadius}
-              cy={circleRadius}
-              r={circleRadius}
-              fill="#F5F9FE"
-            />
+            <circle cx={circleRadius} cy={circleRadius} r={circleRadius} fill="#F5F9FE" />
             <circle
               className={styles.progressCircle}
               cx={circleRadius}
@@ -59,11 +49,7 @@ const VideoRecordPreview = ({
         ) : (
           ""
         )}
-        <video
-          ref={isVideoMessage}
-          className={classNames({ [styles.video]: isVideoMessage })}
-          muted={true}
-        />
+        <video ref={isVideoMessage} className={classNames({ [styles.video]: isVideoMessage })} muted={true} />
       </div>
     </div>
   );
@@ -72,12 +58,12 @@ const VideoRecordPreview = ({
 export default VideoRecordPreview;
 
 VideoRecordPreview.defaultProps = {
-  timeLimit: 0,
+  timeLimit: 0
 };
 
 VideoRecordPreview.propTypes = {
   isVideoMessage: PropTypes.object,
   ducationTimer: PropTypes.number,
   timeLimit: PropTypes.number,
-  recordEnd: PropTypes.func.isRequired,
+  recordEnd: PropTypes.func.isRequired
 };

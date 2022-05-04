@@ -17,17 +17,13 @@ const StorageSize = () => {
 
   return (
     <div className={styles.storageWrap}>
-      <img
-        src={imageSrc + "assets/PrivateCabinet/pie-chart-5.svg"}
-        alt="pie-chart"
-      />
+      <img src={imageSrc + "assets/PrivateCabinet/pie-chart-5.svg"} alt="pie-chart" />
       <div className={styles.storageInfo}>
         <div className={styles.fullSize}>
           <span className={styles.realSize} style={{ width }} />
         </div>
         <span className={styles.info}>
-          {user ? setSize(user.used) : "0 GB"} из{" "}
-          {user ? setSize(user.total) : "0 GB"}
+          {user ? setSize(user.used) : "0 GB"} из {user ? setSize(user.total) : "0 GB"}
         </span>
       </div>
     </div>

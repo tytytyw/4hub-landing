@@ -16,7 +16,7 @@ const SideList = ({
   setAction,
   companyName,
   setCompanyName,
-  companyLogo,
+  companyLogo
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -32,12 +32,7 @@ const SideList = ({
         />
       </div>
 
-      <ListMenu
-        page={pageOption}
-        setPage={setPageOption}
-        menuData={data}
-        setPageOption={setPageOption}
-      />
+      <ListMenu page={pageOption} setPage={setPageOption} menuData={data} setPageOption={setPageOption} />
     </div>
   );
 };
@@ -54,9 +49,9 @@ SideList.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any,
+  companyLogo: PropTypes.any
 };
 
 SideList.defaultProps = {
-  data: [],
+  data: []
 };

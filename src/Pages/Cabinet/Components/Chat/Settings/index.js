@@ -5,10 +5,7 @@ import { useLocales } from "react-localized";
 import { ReactComponent as Arrow } from "../../../../../assets/PrivateCabinet/icons/arrow-2.svg";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeChatTheme,
-  saveChatTheme,
-} from "../../../../../Store/actions/CabinetActions";
+import { changeChatTheme, saveChatTheme } from "../../../../../Store/actions/CabinetActions";
 import { themes } from "../../../../../generalComponents/chatHelper";
 
 const Settings = ({ close }) => {
@@ -41,8 +38,7 @@ const Settings = ({ close }) => {
   useEffect(() => {
     if (activeTheme) initialTheme.current.theme = activeTheme;
     return () => {
-      if (!initialTheme.current.saved && initialTheme.current.theme)
-        themeHandler(initialTheme.current.theme); // eslint-disable-line
+      if (!initialTheme.current.saved && initialTheme.current.theme) themeHandler(initialTheme.current.theme); // eslint-disable-line
     };
   }, []); // eslint-disable-line
 
@@ -50,7 +46,7 @@ const Settings = ({ close }) => {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles.darkTheme]: activeTheme.name === "dark",
+        [styles.darkTheme]: activeTheme.name === "dark"
       })}
     >
       <div className={styles.topPanel}>
@@ -67,24 +63,17 @@ const Settings = ({ close }) => {
       </div>
       <div className={styles.colorPicker}>
         {themes.map((theme) => (
-          <div
-            className={styles.colorWrapper}
-            key={theme.name}
-            onClick={() => themeHandler(theme)}
-          >
+          <div className={styles.colorWrapper} key={theme.name} onClick={() => themeHandler(theme)}>
             <div className={styles.flexWrapper}>
               <div
                 className={classNames({
                   [styles.radio]: true,
-                  [styles.chosen]: activeTheme.name === theme.name,
+                  [styles.chosen]: activeTheme.name === theme.name
                 })}
               ></div>
               <p className={styles.colorName}>{renderColorName(theme.name)}</p>
             </div>
-            <div
-              style={{ background: theme.background }}
-              className={styles.colorPreview}
-            ></div>
+            <div style={{ background: theme.background }} className={styles.colorPreview}></div>
           </div>
         ))}
       </div>
@@ -95,5 +84,5 @@ const Settings = ({ close }) => {
 export default Settings;
 
 Settings.propTypes = {
-  close: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired
 };

@@ -4,15 +4,9 @@ import { useLocation } from "react-router";
 import styles from "./WorkBarsPreview.module.sass";
 import File from "../../../../../generalComponents/Files";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
-import {
-  imageSrc,
-  projectSrc,
-} from "../../../../../generalComponents/globalVariables";
+import { imageSrc, projectSrc } from "../../../../../generalComponents/globalVariables";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
-import {
-  getMedia,
-  renderHeight,
-} from "../../../../../generalComponents/generalHelpers";
+import { getMedia, renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
@@ -31,7 +25,7 @@ const WorkBarsPreview = ({
   filesPage,
   chosenFolder = {},
   width = "100%",
-  groupInfo,
+  groupInfo
 }) => {
   const { __ } = useLocales();
   const recentFiles = useSelector((state) => state.Cabinet.recentFiles);
@@ -58,31 +52,13 @@ const WorkBarsPreview = ({
     setF(file);
     setPlay(false);
     if (file) {
-      if (
-        file?.mime_type &&
-        file.mime_type.includes("audio") &&
-        file.is_preview
-      ) {
+      if (file?.mime_type && file.mime_type.includes("audio") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${projectSrc}${file.preview}`,
-          file.mime_type,
-          setAudio,
-          setLoading
-        );
+        getMedia(`${projectSrc}${file.preview}`, file.mime_type, setAudio, setLoading);
       }
-      if (
-        file?.mime_type &&
-        file.mime_type.includes("video") &&
-        file.is_preview
-      ) {
+      if (file?.mime_type && file.mime_type.includes("video") && file.is_preview) {
         setLoading(true);
-        getMedia(
-          `${projectSrc}${file.preview}`,
-          file.mime_type,
-          setVideo,
-          setLoading
-        );
+        getMedia(`${projectSrc}${file.preview}`, file.mime_type, setVideo, setLoading);
       }
     }
   }, [file]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -99,12 +75,7 @@ const WorkBarsPreview = ({
       }
       case "video": {
         return (
-          <video
-            controls
-            src={video ? video : ""}
-            type={f.mime_type}
-            onError={(e) => console.log(e)}
-          >
+          <video controls src={video ? video : ""} type={f.mime_type} onError={(e) => console.log(e)}>
             <source src={video ? video : ""} type={f.mime_type} />
           </video>
         );
@@ -112,13 +83,7 @@ const WorkBarsPreview = ({
       case "audio": {
         return (
           <>
-            <audio
-              ref={audioRef}
-              src={audio ? audio : ""}
-              type={f.mime_type}
-              controls
-              onError={(e) => console.log(e)}
-            >
+            <audio ref={audioRef} src={audio ? audio : ""} type={f.mime_type} controls onError={(e) => console.log(e)}>
               <source src={audio ? audio : ""} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
@@ -158,9 +123,7 @@ const WorkBarsPreview = ({
           <div className={styles.filePreviewWrap}>
             {f?.is_dir ? (
               <FolderIcon
-                className={`${styles.folderIcon} ${
-                  colors.filter((el) => el.color === file.color)[0]?.name
-                }`}
+                className={`${styles.folderIcon} ${colors.filter((el) => el.color === file.color)[0]?.name}`}
               />
             ) : (
               <File format={f?.ext} color={f?.color} />
@@ -192,41 +155,33 @@ const WorkBarsPreview = ({
             : size === "medium"
             ? "repeat(auto-fill, 160px)"
             : "repeat(auto-fill, 205px)",
-        gridAutoRows:
-          size === "small" ? "118px" : size === "medium" ? "160px" : "205px",
+        gridAutoRows: size === "small" ? "118px" : size === "medium" ? "160px" : "205px"
       }}
     >
       <div
-        className={`${styles.preview} ${grouped ? styles.groupedPreview : ""} ${
-          chosenFile?.name ? "" : styles.noFile
-        }`}
+        className={`${styles.preview} ${grouped ? styles.groupedPreview : ""} ${chosenFile?.name ? "" : styles.noFile}`}
         style={{ height: `calc(100% - ${innerFilesHeight()} - 40px - 10px)` }}
         ref={previewRef}
       >
         {grouped ? (
           <div className={styles.collapseHeader}>
             <p className={`${styles.dateName}`}>
-              {chosenFolder?.group?.title ??
-                groupInfo.title ??
-                __("Выберите группу")}
+              {chosenFolder?.group?.title ?? groupInfo.title ?? __("Выберите группу")}
             </p>
             <div className={styles.buttonsWrap}>
               <button className={`${styles.collapseBtn}`}>
-                {chosenFolder?.group?.amount ?? groupInfo.amount ?? 0}{" "}
-                {__("объектов")}
+                {chosenFolder?.group?.amount ?? groupInfo.amount ?? 0} {__("объектов")}
               </button>
               <div
                 className={classNames({
-                  [styles.arrowFile]: true,
+                  [styles.arrowFile]: true
                 })}
               ></div>
             </div>
           </div>
         ) : null}
         {children?.length === 0 && search.length !== 0 ? (
-          <div className={styles.noSearchResults}>
-            {__("Нет элементов удовлетворяющих условиям поиска")}
-          </div>
+          <div className={styles.noSearchResults}>{__("Нет элементов удовлетворяющих условиям поиска")}</div>
         ) : null}
         {loading ? (
           <Loader
@@ -244,9 +199,7 @@ const WorkBarsPreview = ({
               <div className={styles.filePreviewWrap}>
                 {f?.is_dir ? (
                   <FolderIcon
-                    className={`${styles.folderIcon} ${
-                      colors.filter((el) => el?.color === file?.color)[0]?.name
-                    }`}
+                    className={`${styles.folderIcon} ${colors.filter((el) => el?.color === file?.color)[0]?.name}`}
                   />
                 ) : (
                   <File format={f?.ext} color={f?.color} />
@@ -262,9 +215,7 @@ const WorkBarsPreview = ({
           {!gLoader && children}
           {!gLoader ? (
             <div
-              className={`${styles.rightLine} ${
-                filesPage === 0 ? styles.rightLineHidden : ""
-              }`}
+              className={`${styles.rightLine} ${filesPage === 0 ? styles.rightLineHidden : ""}`}
               style={{ height: "100%" }}
               ref={containerRef}
             >

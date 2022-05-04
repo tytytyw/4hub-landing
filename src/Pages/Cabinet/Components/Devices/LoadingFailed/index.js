@@ -18,5 +18,5 @@ const LoadingFailed = ({ callback }) => {
 export default LoadingFailed;
 
 LoadingFailed.propTypes = {
-  callback: PropTypes.func,
+  callback: PropTypes.func
 };

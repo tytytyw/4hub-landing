@@ -19,25 +19,19 @@ const FolderProperty = ({ close, folder }) => {
         <span className={styles.title}>Свойства: {folder?.name}</span>
         <div className={styles.insetWrap}>
           <div
-            className={`${styles.inset} ${
-              inset === "general" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "general" ? styles.chosen : null}`}
             onClick={() => setInset("general")}
           >
             {__("Общие")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "security" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "security" ? styles.chosen : null}`}
             onClick={() => setInset("security")}
           >
             {__("Доступы")}
           </div>
           <div
-            className={`${styles.inset} ${
-              inset === "prev" ? styles.chosen : null
-            }`}
+            className={`${styles.inset} ${inset === "prev" ? styles.chosen : null}`}
             onClick={() => setInset("prev")}
           >
             {__("Предыдущие версии")}
@@ -63,5 +57,5 @@ export default FolderProperty;
 
 FolderProperty.propTypes = {
   close: PropTypes.func,
-  folder: projectFolderStructure,
+  folder: projectFolderStructure
 };

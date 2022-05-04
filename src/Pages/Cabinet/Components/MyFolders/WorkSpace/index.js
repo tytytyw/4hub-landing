@@ -46,7 +46,7 @@ const WorkSpace = ({
   setFilesPage,
   menuItem,
   setChosenFolder,
-  openFolderMenu,
+  openFolderMenu
 }) => {
   const { __ } = useLocales();
   const workElementsView = useSelector((state) => state.Cabinet.view);
@@ -56,11 +56,10 @@ const WorkSpace = ({
     show: false,
     files: [],
     customize: false,
-    intoZip: false,
+    intoZip: false
   });
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
-  const nullifyFilePick = () =>
-    setFilePick({ show: false, files: [], customize: false, intoZip: false });
+  const nullifyFilePick = () => setFilePick({ show: false, files: [], customize: false, intoZip: false });
   const fileRef = useRef(null);
   const [containerRef, width] = useElementResize();
 
@@ -91,11 +90,7 @@ const WorkSpace = ({
           </div>
         </div>
         {recentFiles?.length > 0 && (
-          <RecentFiles
-            setFilePreview={setFilePreview}
-            filePreview={filePreview}
-            width={width}
-          />
+          <RecentFiles setFilePreview={setFilePreview} filePreview={filePreview} width={width} />
         )}
         <ServePanel
           view={workElementsView}
@@ -107,9 +102,7 @@ const WorkSpace = ({
             setNewFolderInfo({ ...newFolderInfo, path: "" });
           }}
           addFile={fileSelect}
-          chooseSeveral={() =>
-            setFilePick({ ...filePick, files: [], show: !filePick.show })
-          }
+          chooseSeveral={() => setFilePick({ ...filePick, files: [], show: !filePick.show })}
           filePick={filePick}
           fileAddCustomization={fileAddCustomization}
           setFileAddCustomization={setFileAddCustomization}
@@ -147,9 +140,7 @@ const WorkSpace = ({
         {filePick.show ? (
           <OptionButtomLine
             filePick={filePick}
-            actionName={
-              filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")
-            }
+            actionName={filePick.intoZip ? __("Сжать в Zip") : __("Редактировать")}
             setAction={setAction}
             action={action}
             nullifyFilePick={nullifyFilePick}
@@ -161,11 +152,7 @@ const WorkSpace = ({
         <BottomPanel />
       </div>
       {mouseParams !== null && mouseParams?.width && mouseParams?.height ? (
-        <ContextMenu
-          params={mouseParams}
-          setParams={setMouseParams}
-          tooltip={true}
-        >
+        <ContextMenu params={mouseParams} setParams={setMouseParams} tooltip={true}>
           <ContextMenuFileList
             filePick={filePick}
             file={chosenFile}
@@ -180,9 +167,7 @@ const WorkSpace = ({
           file={action.type === "resendFolder" ? chosenFolder.info : chosenFile}
           files={action.type === "resendFolder" ? [] : filePick.files}
           close={nullifyAction}
-          action_type={
-            action.type === "resendFolder" ? "dir_access_add" : "file_share"
-          }
+          action_type={action.type === "resendFolder" ? "dir_access_add" : "file_share"}
           showSuccessMessage={showSuccessMessage}
           setShowSuccessMessage={setShowSuccessMessage}
           setLoadingType={setLoadingType}
@@ -193,9 +178,7 @@ const WorkSpace = ({
           nullifyAction={nullifyAction}
           setShowSuccessMessage={setShowSuccessMessage}
           item={action.type === "copyLink" ? chosenFile : chosenFolder.info}
-          action_type={
-            action.type === "copyLink" ? "file_share" : "dir_access_add"
-          }
+          action_type={action.type === "copyLink" ? "file_share" : "dir_access_add"}
         />
       ) : null}
     </>
@@ -215,7 +198,7 @@ WorkSpace.propTypes = {
   action: PropTypes.shape({
     type: PropTypes.string,
     name: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.string
   }),
   setAction: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
@@ -228,11 +211,11 @@ WorkSpace.propTypes = {
   setNewFolder: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
   newFolderInfo: PropTypes.shape({
-    path: PropTypes.string,
+    path: PropTypes.string
   }),
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
   menuItem: PropTypes.string,
   setChosenFolder: PropTypes.func,
-  openFolderMenu: PropTypes.func,
+  openFolderMenu: PropTypes.func
 };

@@ -15,5 +15,5 @@ export const safeProps = PropTypes.exact({
   shares: PropTypes.array,
   tags: PropTypes.string,
   token: PropTypes.string,
-  ut: PropTypes.string,
+  ut: PropTypes.string
 });

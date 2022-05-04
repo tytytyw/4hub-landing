@@ -8,12 +8,7 @@ import ContactSearch from "../Contacts/ContactList/ContactSearch/ContactSearch";
 import RadioCheck from "./RadioCheck/RadioCheck";
 import Button from "../Button";
 import { useSelector } from "react-redux";
-import {
-  emptyProfileImage,
-  getContactName,
-  messengersIcons,
-  titlesSoc,
-} from "../Contacts/consts";
+import { emptyProfileImage, getContactName, messengersIcons, titlesSoc } from "../Contacts/consts";
 import api from "../../../../../api";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
@@ -51,8 +46,8 @@ const SendFriend = ({ set, selectedItem }) => {
             uid,
             id: selectedItem?.id,
             to,
-            type: selectedSoc === "email" ? "email" : "sms",
-          },
+            type: selectedSoc === "email" ? "email" : "sms"
+          }
         })
         .then(() => {
           set(false);
@@ -68,11 +63,7 @@ const SendFriend = ({ set, selectedItem }) => {
       <form noValidate onSubmit={onSubmit} className={styles.wrapper2}>
         <div className={styles.header}>
           <div className={styles.profileWrap}>
-            <img
-              className={styles.profileImg}
-              src={selectedItem?.icon?.[0] || emptyProfileImage}
-              alt="pie-chart"
-            />
+            <img className={styles.profileImg} src={selectedItem?.icon?.[0] || emptyProfileImage} alt="pie-chart" />
             <span>
               Поделиться контактом &nbsp;<b>{getContactName(selectedItem)}</b>
             </span>
@@ -97,45 +88,31 @@ const SendFriend = ({ set, selectedItem }) => {
               }}
               className={classNames({
                 [styles.socialsItem]: true,
-                [styles.active]: selectedSoc === "email",
+                [styles.active]: selectedSoc === "email"
               })}
             >
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/email.svg"}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/email.svg"} alt="Email" />
               <p>Email</p>
             </li>
             {selectedContact?.mes.map((item, index) => (
               <li
                 onClick={() => {
                   setSelectedSoc(item?.type);
-                  const messItem = selectedContact?.mes?.find(
-                    (mess) => mess?.type === item?.type
-                  );
+                  const messItem = selectedContact?.mes?.find((mess) => mess?.type === item?.type);
                   setTo(messItem?.link);
                 }}
                 className={classNames({
                   [styles.socialsItem]: true,
-                  [styles.active]: selectedSoc === item?.type,
+                  [styles.active]: selectedSoc === item?.type
                 })}
                 key={index}
               >
-                <img
-                  className={styles.socialIcon}
-                  src={messengersIcons[item?.type]}
-                  alt={titlesSoc[item?.type]}
-                />
+                <img className={styles.socialIcon} src={messengersIcons[item?.type]} alt={titlesSoc[item?.type]} />
                 <p>{titlesSoc[item?.type]}</p>
               </li>
             ))}
             <li className={styles.socialsItem}>
-              <img
-                className={styles.socialIcon}
-                src={imageSrc + "assets/PrivateCabinet/more.svg"}
-                alt="Email"
-              />
+              <img className={styles.socialIcon} src={imageSrc + "assets/PrivateCabinet/more.svg"} alt="Email" />
               <p>{__("Ещё")}</p>
             </li>
           </div>
@@ -185,6 +162,6 @@ SendFriend.propTypes = {
   set: PropTypes.func,
   selectedItem: PropTypes.shape({
     id: PropTypes.string,
-    icon: PropTypes.array,
-  }),
+    icon: PropTypes.array
+  })
 };

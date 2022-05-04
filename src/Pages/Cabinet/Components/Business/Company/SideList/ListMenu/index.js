@@ -28,9 +28,9 @@ ListMenu.propTypes = {
   menuData: PropTypes.array,
   page: PropTypes.object,
   setPage: PropTypes.func,
-  setPageOption: PropTypes.func,
+  setPageOption: PropTypes.func
 };
 
 ListMenu.defaultProps = {
-  menuData: [],
+  menuData: []
 };

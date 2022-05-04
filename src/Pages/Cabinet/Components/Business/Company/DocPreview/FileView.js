@@ -7,10 +7,7 @@ import ContextMenu from "../../../../../../generalComponents/ContextMenu";
 import { useContextMenuDocFile } from "../../../../../../generalComponents/collections";
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import ActionApproval from "../../../../../../generalComponents/ActionApproval";
-import {
-  onDeleteCompanyDocument,
-  onGetCompanyDocument,
-} from "../../../../../../Store/actions/CabinetActions";
+import { onDeleteCompanyDocument, onGetCompanyDocument } from "../../../../../../Store/actions/CabinetActions";
 import { ReactComponent as CaseIcon } from "../../../../../../assets/BusinessCabinet/case.svg";
 import { ReactComponent as MissionIco } from "../../../../../../assets/BusinessCabinet/mission.svg";
 import { ReactComponent as VisionIco } from "../../../../../../assets/BusinessCabinet/vision.svg";
@@ -31,7 +28,7 @@ const FileView = ({
   setAction,
   nullifyAction,
   setShowSuccessMessage,
-  downloadFileSrc,
+  downloadFileSrc
 }) => {
   const { __ } = useLocales();
   const contextMenuDocFile = useContextMenuDocFile();
@@ -44,7 +41,7 @@ const FileView = ({
       x: e.clientX,
       y: e.clientY,
       width: 163,
-      height: 45,
+      height: 45
     });
   };
   const callbackArr = [
@@ -52,25 +49,19 @@ const FileView = ({
       type: "editFile",
       name: __("Редактировать файл"),
       text: ``,
-      callback: () => openFileEditor(),
+      callback: () => openFileEditor()
     },
     {
       type: "deleteFile",
       name: __("Удаление файла"),
       text: __(`Вы действительно хотите удалить файл?`),
-      callback: (list, index) => setAction(list[index]),
-    },
+      callback: (list, index) => setAction(list[index])
+    }
   ];
 
   const deleteFile = () => {
     nullifyAction();
-    dispatch(
-      onDeleteCompanyDocument(
-        pageOption.name,
-        setShowSuccessMessage,
-        __("документ удален")
-      )
-    );
+    dispatch(onDeleteCompanyDocument(pageOption.name, setShowSuccessMessage, __("документ удален")));
   };
   const openFileEditor = () => {
     nullifyAction();
@@ -107,21 +98,13 @@ const FileView = ({
         </button>
       </div>
       <div className={classNames(styles.btnWrapper, styles.downloadBtn)}>
-        <button
-          title="Download"
-          onClick={() => downloadFile()}
-          className={styles.contextBtn}
-        >
+        <button title="Download" onClick={() => downloadFile()} className={styles.contextBtn}>
           <DownloadIco title="Download" />
         </button>
       </div>
 
       <div className={styles.content}>
-        <embed
-          style={{ height: "100%", width: "100%" }}
-          type="application/pdf"
-          src={projectSrc + previewSrc}
-        ></embed>
+        <embed style={{ height: "100%", width: "100%" }} type="application/pdf" src={projectSrc + previewSrc}></embed>
       </div>
       {mouseParams !== null && mouseParams?.type === "contextMenuFile" ? (
         <ContextMenu
@@ -131,9 +114,7 @@ const FileView = ({
           customClose={true}
           disableAutohide={true}
         >
-          <div className={styles.mainMenuItems}>
-            {renderMenuItems(contextMenuDocFile, callbackArr)}
-          </div>
+          <div className={styles.mainMenuItems}>{renderMenuItems(contextMenuDocFile, callbackArr)}</div>
         </ContextMenu>
       ) : null}
       {action?.type === "deleteFile" ? (
@@ -150,11 +131,7 @@ const FileView = ({
       {editFile ? (
         <PopUp set={onCloseFileEditor}>
           <div className={styles.editFile}>
-            <iframe
-              title={pageOption.name}
-              frameBorder="0"
-              src={editSrc}
-            ></iframe>
+            <iframe title={pageOption.name} frameBorder="0" src={editSrc}></iframe>
           </div>
         </PopUp>
       ) : null}
@@ -165,7 +142,7 @@ const FileView = ({
 export default FileView;
 FileView.propTypes = {
   pageOption: PropTypes.shape({
-    name: PropTypes.string,
+    name: PropTypes.string
   }),
   mouseParams: mouseParamsProps,
   setMouseParams: PropTypes.func,
@@ -176,5 +153,5 @@ FileView.propTypes = {
   setAction: PropTypes.func,
   nullifyAction: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
-  downloadFileSrc: PropTypes.string,
+  downloadFileSrc: PropTypes.string
 };

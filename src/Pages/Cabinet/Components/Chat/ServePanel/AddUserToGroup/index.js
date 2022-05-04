@@ -23,20 +23,14 @@ const AddUserToGroup = ({ group, nullifyAction }) => {
     id_company ? state.Cabinet.companyContactList : state.Cabinet.contactList
   );
   const usersList = contactList.filter(
-    (contact) =>
-      contact.is_user &&
-      !group?.users?.some((oldUser) => oldUser.id === contact.id_real_user)
+    (contact) => contact.is_user && !group?.users?.some((oldUser) => oldUser.id === contact.id_real_user)
   );
   const uid = useSelector((state) => state.user.uid);
   const dispatch = useDispatch();
 
   const changeSelectedContacts = (contact) => {
     const isSelected = selectedUsers.filter((c) => c.id === contact.id).length;
-    setSelectedUsers((state) =>
-      isSelected
-        ? state.filter((item) => item.id !== contact.id)
-        : [contact, ...state]
-    );
+    setSelectedUsers((state) => (isSelected ? state.filter((item) => item.id !== contact.id) : [contact, ...state]));
   };
 
   const onSubmit = () => {
@@ -66,20 +60,12 @@ const AddUserToGroup = ({ group, nullifyAction }) => {
       approve={__("Добавить")}
       childrenWidth={457}
       disableActionBtn={!selectedUsers?.length}
-      style={
-        chatTheme.name === "dark"
-          ? { background: "#272727", color: "#fff" }
-          : {}
-      }
+      style={chatTheme.name === "dark" ? { background: "#272727", color: "#fff" } : {}}
     >
       <SearchField
         value={search}
         setValue={setSearch}
-        style={
-          chatTheme.name === "dark"
-            ? { background: "#292929", color: "#fff" }
-            : {}
-        }
+        style={chatTheme.name === "dark" ? { background: "#292929", color: "#fff" } : {}}
       />
       <div className={styles.usersList}>
         {usersList.length ? (
@@ -91,9 +77,7 @@ const AddUserToGroup = ({ group, nullifyAction }) => {
             userContextMenu={"checkBox"}
           />
         ) : (
-          <div className={styles.noUsersMsg}>
-            {__("все контакты уже добавлены в группу")}
-          </div>
+          <div className={styles.noUsersMsg}>{__("все контакты уже добавлены в группу")}</div>
         )}
       </div>
       {loadingType ? (
@@ -116,5 +100,5 @@ export default AddUserToGroup;
 
 AddUserToGroup.propTypes = {
   group: PropTypes.object.isRequired,
-  nullifyAction: PropTypes.func.isRequired,
+  nullifyAction: PropTypes.func.isRequired
 };

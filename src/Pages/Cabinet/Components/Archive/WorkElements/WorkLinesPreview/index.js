@@ -21,7 +21,7 @@ const WorkLinesPreview = ({
   setPage,
   fileRef,
   chosenFolder,
-  gLoader,
+  gLoader
 }) => {
   const { __ } = useLocales();
   const size = useSelector((state) => state.Cabinet.size);
@@ -47,40 +47,20 @@ const WorkLinesPreview = ({
   const renderFilePreview = () => {
     switch (f.mime_type.split("/")[0]) {
       case "image": {
-        return (
-          <img
-            src={f.preview}
-            alt="filePrieview"
-            className={hideFileList ? styles.big_pic : ""}
-          />
-        );
+        return <img src={f.preview} alt="filePrieview" className={hideFileList ? styles.big_pic : ""} />;
       }
       case "video": {
         return (
-          <video
-            controls
-            src={`https://fs2.mh.net.ua${f.preview}`}
-            type={f.mime_type}
-          >
-            <source
-              src={`https://fs2.mh.net.ua${f.preview}`}
-              type={f.mime_type}
-            />
+          <video controls src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type}>
+            <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type} />
           </video>
         );
       }
       case "audio": {
         return (
           <>
-            <audio
-              controls
-              ref={audioRef}
-              src={`https://fs2.mh.net.ua${f.preview}`}
-            >
-              <source
-                src={`https://fs2.mh.net.ua${f.preview}`}
-                type={f.mime_type}
-              />
+            <audio controls ref={audioRef} src={`https://fs2.mh.net.ua${f.preview}`}>
+              <source src={`https://fs2.mh.net.ua${f.preview}`} type={f.mime_type} />
             </audio>
             <div className={styles.audioPicWrap}>
               <img
@@ -137,16 +117,12 @@ const WorkLinesPreview = ({
   const loadFiles = (e, access) => {
     if (
       !loadingFiles &&
-      (e?.target?.scrollHeight - e?.target?.offsetHeight - 200 <
-        e?.target?.scrollTop ||
-        access) &&
+      (e?.target?.scrollHeight - e?.target?.offsetHeight - 200 < e?.target?.scrollTop || access) &&
       page > 0
     ) {
       if (chosenFolder?.files_amount > fileList?.files.length) {
         setLoadingFiles(true);
-        dispatch(
-          onChooseFiles(fileList?.path, search, page, onSuccessLoading, "")
-        );
+        dispatch(onChooseFiles(fileList?.path, search, page, onSuccessLoading, ""));
       }
     }
   };
@@ -166,10 +142,7 @@ const WorkLinesPreview = ({
       {!hideFileList && (
         <div className={styles.fileListWrap} ref={fileRef} onScroll={loadFiles}>
           {!gLoader && children}
-          <div
-            className={styles.bottomLine}
-            style={{ height: loadingFiles ? "100px" : "40px" }}
-          >
+          <div className={styles.bottomLine} style={{ height: loadingFiles ? "100px" : "40px" }}>
             {loadingFiles && !gLoader ? (
               <Loader
                 type="bounceDots"
@@ -219,41 +192,29 @@ const WorkLinesPreview = ({
                     className={styles.colorCircle}
                     style={{
                       background: color?.light,
-                      border: `1px solid ${color?.dark}`,
+                      border: `1px solid ${color?.dark}`
                     }}
                   />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить цвет")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить цвет")}</span>
                 )}
               </div>
 
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Эмоджи")}</span>
                 {f?.emo ? (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`}
-                    alt="sign"
-                  />
+                  <img src={`${imageSrc}assets/PrivateCabinet/smiles/${f.emo}.svg`} alt="sign" />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить эмоджи")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить эмоджи")}</span>
                 )}
               </div>
 
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Знаки")}</span>
                 {f?.fig ? (
-                  <img
-                    src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`}
-                    alt="sign"
-                  />
+                  <img src={`${imageSrc}assets/PrivateCabinet/signs/${f.fig}.svg`} alt="sign" />
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить знаки")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить знаки")}</span>
                 )}
               </div>
 
@@ -262,41 +223,23 @@ const WorkLinesPreview = ({
                 {f?.tag ? (
                   <span className={styles.tagName}>#{f.tag}</span>
                 ) : (
-                  <span className={styles.optionItem}>
-                    {__("Добавить тег")}
-                  </span>
+                  <span className={styles.optionItem}>{__("Добавить тег")}</span>
                 )}
               </div>
 
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Создан")}</span>
-                {f?.ctime ? (
-                  <span className={styles.description}>
-                    {f.mtime.split(" ")[0]}
-                  </span>
-                ) : (
-                  ""
-                )}
+                {f?.ctime ? <span className={styles.description}>{f.mtime.split(" ")[0]}</span> : ""}
               </div>
 
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Изменен")}</span>
-                {f?.mtime ? (
-                  <span className={styles.description}>
-                    {f.ctime.split(" ")[0]}
-                  </span>
-                ) : (
-                  ""
-                )}
+                {f?.mtime ? <span className={styles.description}>{f.ctime.split(" ")[0]}</span> : ""}
               </div>
 
               <div className={styles.infoFileItem}>
                 <span className={styles.itemName}>{__("Размеры")}</span>
-                {f?.size_now ? (
-                  <span className={styles.description}>{f.size_now}</span>
-                ) : (
-                  ""
-                )}
+                {f?.size_now ? <span className={styles.description}>{f.size_now}</span> : ""}
               </div>
 
               <div className={styles.infoFileItem}>
@@ -318,16 +261,16 @@ WorkLinesPreview.propTypes = {
   fileList: PropTypes.shape({
     files: PropTypes.array,
     path: PropTypes.string,
-    find: PropTypes.func,
+    find: PropTypes.func
   }),
   children: PropTypes.node,
   fileRef: PropTypes.shape({
-    current: PropTypes.string,
+    current: PropTypes.string
   }),
   filePick: filePickProps,
   setPage: PropTypes.func,
   gLoader: PropTypes.bool,
   chosenFolder: chosenFolderProps,
   hideFileList: PropTypes.bool,
-  page: PropTypes.string,
+  page: PropTypes.string
 };

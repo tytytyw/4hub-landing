@@ -33,7 +33,7 @@ const Select = ({ value, ...props }) => {
       ref={ref}
       className={classNames({
         [styles.selectWrap]: true,
-        [styles.active]: !!open,
+        [styles.active]: !!open
       })}
     >
       <div onClick={() => setOpen(!open)} className={styles.select}>
@@ -41,7 +41,7 @@ const Select = ({ value, ...props }) => {
         <span
           className={classNames({
             [styles.arrow]: true,
-            [styles.active]: !!open,
+            [styles.active]: !!open
           })}
         />
       </div>
@@ -49,7 +49,7 @@ const Select = ({ value, ...props }) => {
       <div
         className={classNames({
           [styles.contentWrap]: true,
-          [styles.active]: !!open,
+          [styles.active]: !!open
         })}
       >
         {props.children}
@@ -63,5 +63,5 @@ export default Select;
 Select.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 };

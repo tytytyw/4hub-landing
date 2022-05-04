@@ -2,13 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import styles from "./TextButton.module.sass";
 
-const TextButton = ({
-  text = "",
-  type = "ok" || "cancel",
-  callback = () => {},
-  disabled = false,
-  style = {},
-}) => {
+const TextButton = ({ text = "", type = "ok" || "cancel", callback = () => {}, disabled = false, style = {} }) => {
   return (
     <div
       onClick={callback}
@@ -16,7 +10,7 @@ const TextButton = ({
       className={classNames({
         [styles.wrapper]: true,
         [styles[type]]: true,
-        [styles.disabled]: disabled,
+        [styles.disabled]: disabled
       })}
     >
       {text}

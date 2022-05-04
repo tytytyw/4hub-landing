@@ -21,14 +21,10 @@ const DataMemory = ({ setPageOption }) => {
               {
                 label: "My First Dataset",
                 data: [300, 50, 100],
-                backgroundColor: [
-                  "rgb(0, 123, 255)",
-                  "rgb(54, 184, 23)",
-                  "rgb(219, 187, 149)",
-                ],
-                hoverOffset: 4,
-              },
-            ],
+                backgroundColor: ["rgb(0, 123, 255)", "rgb(54, 184, 23)", "rgb(219, 187, 149)"],
+                hoverOffset: 4
+              }
+            ]
           }}
         />
       </div>
@@ -62,10 +58,7 @@ const DataMemory = ({ setPageOption }) => {
         <div className={styles.memorySource}>
           <div className={styles.sourceItem}>
             <div className={styles.sourceImg}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/video-player.svg"}
-                alt="VideoPlay"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/video-player.svg"} alt="VideoPlay" />
             </div>
             <p className={styles.sourceName}>{__("Фильмы")}</p>
             <p className={styles.sourceSize}>12 {__("ГБ")}</p>
@@ -73,10 +66,7 @@ const DataMemory = ({ setPageOption }) => {
 
           <div className={styles.sourceItem}>
             <div className={styles.sourceImg}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/picture.svg"}
-                alt="PictureCart"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/picture.svg"} alt="PictureCart" />
             </div>
             <p className={styles.sourceName}>{__("Изображения")}</p>
             <p className={styles.sourceSize}>8 {__("ГБ")}</p>
@@ -84,10 +74,7 @@ const DataMemory = ({ setPageOption }) => {
 
           <div className={styles.sourceItem}>
             <div className={styles.sourceImg}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/music-player.svg"}
-                alt="MusicPlay"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/music-player.svg"} alt="MusicPlay" />
             </div>
             <p className={styles.sourceName}>{__("Музыка")}</p>
             <p className={styles.sourceSize}>500 {__("МБ")}</p>
@@ -95,10 +82,7 @@ const DataMemory = ({ setPageOption }) => {
 
           <div className={styles.sourceItem}>
             <div className={styles.sourceImg}>
-              <img
-                src={imageSrc + "assets/PrivateCabinet/document.svg"}
-                alt="DocumentRead"
-              />
+              <img src={imageSrc + "assets/PrivateCabinet/document.svg"} alt="DocumentRead" />
             </div>
             <p className={styles.sourceName}>{__("Документы")}</p>
             <p className={styles.sourceSize}>2 {__("ГБ")}</p>
@@ -106,19 +90,13 @@ const DataMemory = ({ setPageOption }) => {
         </div>
 
         <div className={styles.renew}>
-          <p>
-            {__(
-              "Пакет на использование 100 ГБ хранилища действителед до 26.12.2020"
-            )}
-          </p>
+          <p>{__("Пакет на использование 100 ГБ хранилища действителед до 26.12.2020")}</p>
           <button className={styles.renewBtn}>{__("Продлить")}</button>
         </div>
       </div>
 
       <div className={styles.actionBlock}>
-        <Button onClick={() => setPageOption("tariff_plan")}>
-          {__("Сменить пакет")}
-        </Button>
+        <Button onClick={() => setPageOption("tariff_plan")}>{__("Сменить пакет")}</Button>
       </div>
     </div>
   );
@@ -127,5 +105,5 @@ const DataMemory = ({ setPageOption }) => {
 export default DataMemory;
 
 DataMemory.propTypes = {
-  setPageOption: PropTypes.func,
+  setPageOption: PropTypes.func
 };

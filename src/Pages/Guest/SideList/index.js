@@ -11,7 +11,7 @@ function SideList({ children }) {
     <div
       className={classNames({
         [styles.wrapper]: true,
-        [styles?.[`wrapper_${size}`]]: size !== "medium",
+        [styles?.[`wrapper_${size}`]]: size !== "medium"
       })}
     >
       {children}
@@ -22,5 +22,5 @@ function SideList({ children }) {
 export default SideList;
 
 SideList.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };

@@ -50,8 +50,8 @@ const Company = () => {
         { name: "standards", label: __("Стандарты компании") },
         { name: "mission", label: __("Миссия компании") },
         { name: "viziya", label: __("Визия") },
-        { name: "contacts", label: __("Контакты") },
-      ],
+        { name: "contacts", label: __("Контакты") }
+      ]
     },
     {
       name: "team",
@@ -59,8 +59,8 @@ const Company = () => {
       icon: <TeamIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") },
-      ],
+        { name: "settings_access", label: __("Настройки доступа") }
+      ]
     },
     {
       name: "org_structure",
@@ -68,8 +68,8 @@ const Company = () => {
       icon: <OrgIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") },
-      ],
+        { name: "settings_access", label: __("Настройки доступа") }
+      ]
     },
     {
       name: "settings",
@@ -77,9 +77,9 @@ const Company = () => {
       icon: <SettingsIcon />,
       children: [
         { name: "add-employee", label: __("Добавить сотрудников") },
-        { name: "settings_access", label: __("Настройки доступа") },
-      ],
-    },
+        { name: "settings_access", label: __("Настройки доступа") }
+      ]
+    }
   ];
 
   const renderMenuItems = (target, type) => {
@@ -117,9 +117,7 @@ const Company = () => {
   return (
     <div className={styles.wrapper}>
       {id_company && businessRegistration ? (
-        <BusinessRegistration
-          setBusinessRegistration={setBusinessRegistration}
-        />
+        <BusinessRegistration setBusinessRegistration={setBusinessRegistration} />
       ) : null}
 
       <SideList
@@ -146,22 +144,11 @@ const Company = () => {
           </div>
         </div>
 
-        <div
-          style={{ position: loadingType ? "relative" : "" }}
-          className={styles.content}
-        >
-          {pageOption.name === "welcome" && (
-            <WelcomeCard setPageOption={setPageOption} />
-          )}
-          {pageOption.name === "give-access" && (
-            <GiveAccess setPageOption={setPageOption} />
-          )}
-          {pageOption.name === "success-mail" && (
-            <SuccessSend setPageOption={setPageOption} />
-          )}
-          {(pageOption.name === "standards" ||
-            pageOption.name === "mission" ||
-            pageOption.name === "viziya") && (
+        <div style={{ position: loadingType ? "relative" : "" }} className={styles.content}>
+          {pageOption.name === "welcome" && <WelcomeCard setPageOption={setPageOption} />}
+          {pageOption.name === "give-access" && <GiveAccess setPageOption={setPageOption} />}
+          {pageOption.name === "success-mail" && <SuccessSend setPageOption={setPageOption} />}
+          {(pageOption.name === "standards" || pageOption.name === "mission" || pageOption.name === "viziya") && (
             <DocPreview
               setPageOption={setPageOption}
               pageOption={pageOption}
@@ -197,12 +184,7 @@ const Company = () => {
           )}
 
           {action.type === "uploadLogo" || action.type === "editLogo" ? (
-            <UploadLogo
-              nullifyAction={nullifyAction}
-              setCompanyLogo={setCompanyLogo}
-              blob={blob}
-              setBlob={setBlob}
-            />
+            <UploadLogo nullifyAction={nullifyAction} setCompanyLogo={setCompanyLogo} blob={blob} setBlob={setBlob} />
           ) : null}
           {loadingType ? (
             <Loader
@@ -219,10 +201,7 @@ const Company = () => {
         </div>
       </div>
       {showSuccessMessage && (
-        <SuccessMessage
-          showSuccessMessage={showSuccessMessage}
-          setShowSuccessMessage={setShowSuccessMessage}
-        />
+        <SuccessMessage showSuccessMessage={showSuccessMessage} setShowSuccessMessage={setShowSuccessMessage} />
       )}
     </div>
   );
