@@ -26,6 +26,7 @@ function FileAccessUserList({
   const [accessRightsModal, setAccessRightsModal] = useState(NO_ELEMENT);
   const closeAccessRightsModal = () => setAccessRightsModal(NO_ELEMENT);
   const [changePeriodModal, setChangePeriodModal] = useState(NO_ELEMENT);
+  const closeChangePeriodModal = () => setChangePeriodModal(NO_ELEMENT);
 
   const renderUserIcon = user => {
     return user?.user_icon?.[0] ? (
@@ -77,7 +78,9 @@ function FileAccessUserList({
             className={styles.imageReverse}
           />
         </div>
-        {changePeriodModal === i ? <FilePeriodEdit /> : <FilePeriodEdit />}
+        {changePeriodModal === i ? (
+          <FilePeriodEdit closeChangePeriodModal={closeChangePeriodModal} />
+        ) : null}
         <div
           className={styles.copy}
           onClick={() => {

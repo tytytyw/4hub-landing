@@ -107,7 +107,10 @@ function FileAccessRights() {
       usersToDelete: [
         ...s.usersToDelete,
         ...users.filter(it => it.uid === user.uid)
-      ]
+      ],
+      usersToChangeAccessRights: s.usersToChangeAccessRights.filter(
+        it => it.uid !== user.uid
+      )
     }));
     setUsers(s => s.filter(it => it.uid !== user.uid));
   };

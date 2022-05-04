@@ -687,3 +687,12 @@ export function useAccessRightsConst() {
     EDIT: __("Редактировать")
   };
 }
+
+export function useFileSharedPeriods() {
+  const { __ } = useLocales();
+  return {
+    DAY: __("1 день"),
+    WEEK: __("1 неделя"),
+    MONTH: __("1 месяц")
+  };
+}
