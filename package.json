@@ -66,6 +66,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "del": "^6.0.0",
     "enzyme": "^3.11.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "ftp-deploy": "^2.4.1",
@@ -74,6 +75,7 @@
     "gulp-git": "^2.10.1",
     "jest-css-modules": "^2.1.0",
     "prettier": "^2.6.2",
+    "prettier-eslint": "^10.1.0",
     "react-localized": "^3.2.0",
     "react-localized-extractor": "^2.1.0"
   },
