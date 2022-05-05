@@ -93,7 +93,7 @@ const MyFiles = ({
     });
   };
 
-  const renderGroups = (Type, list, params) => {
+  const renderGroups = (list, params) => {
     if (!list) return null;
     const keys = Object.keys(list);
     return keys.map((k, i) =>
@@ -197,7 +197,7 @@ const MyFiles = ({
             <div className={styles.folderListWrap}>
               {Array.isArray(fileList?.files)
                 ? renderFileItem(FileItem, fileList?.files)
-                : renderGroups(FileItem, fileList?.files)}
+                : renderGroups(fileList?.files)}
               {!gLoader ? (
                 <div
                   className={`${styles.bottomLine} ${filesPage === 0 ? styles.bottomLineHidden : ""}`}

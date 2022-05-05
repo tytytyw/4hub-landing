@@ -35,7 +35,7 @@ function MutualEdit({ menuItem }) {
   const deleteLoaded = (i) => {
     setImages((s) => ({
       ...s,
-      loaded: s.loaded.filter((el, index) => i !== index)
+      loaded: s.loaded.filter((_, index) => i !== index)
     }));
   };
 
@@ -58,7 +58,7 @@ function MutualEdit({ menuItem }) {
   const deleteSaved = (i) => {
     setImages((s) => ({
       ...s,
-      saved: s.saved.filter((el, index) => i !== index),
+      saved: s.saved.filter((_, index) => i !== index),
       chosen: deleteChosen(images.saved[i].fid)
     }));
   };

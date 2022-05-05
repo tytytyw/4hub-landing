@@ -17,6 +17,7 @@ import { ReactComponent as UserIcon } from "../../../../../../assets/PrivateCabi
 import api from "../../../../../../api";
 import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
 import classNames from "classnames";
+import Calendar from "../../../../../StartPage/Components/Calendar";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -31,6 +32,8 @@ function FileAccessRights() {
     usersToDelete: [],
     usersToChangeAccessRights: []
   });
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [el, setDateValue] = useState("");
 
   const closeModal = () =>
     dispatch(
@@ -166,62 +169,69 @@ function FileAccessRights() {
   const isChanges = () => params.usersToDelete.length > 0 || params.usersToChangeAccessRights.length > 0;
 
   return (
-    <PopUp set={closeModal}>
-      <div className={styles.fileAccessRightsWrap}>
-        <span className={styles.cross} onClick={closeModal} />
-        <h3>{__("Настройка доступа")}</h3>
-        <header>
-          <div className={styles.header}>
-            <div className={styles.circle}>
-              <CopyIcon className={styles.copyIcon} />
-            </div>
-            <div className={styles.details}>
-              <div className={styles.title}>Скопируйте ссылку</div>
-              <div className={styles.description}>
-                {__("для того чтобы отправить ссылку нажмите кнопку копировать ссылку")}
+    <>
+      <PopUp set={closeModal}>
+        <div className={styles.fileAccessRightsWrap}>
+          <span className={styles.cross} onClick={closeModal} />
+          <h3>{__("Настройка доступа")}</h3>
+          <header>
+            <div className={styles.header}>
+              <div className={styles.circle}>
+                <CopyIcon className={styles.copyIcon} />
+              </div>
+              <div className={styles.details}>
+                <div className={styles.title}>Скопируйте ссылку</div>
+                <div className={styles.description}>
+                  {__("для того чтобы отправить ссылку нажмите кнопку копировать ссылку")}
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.copyLink}>
-            <div className={styles.link} onClick={copyLink}>
-              {url}
+            <div className={styles.copyLink}>
+              <div className={styles.link} onClick={copyLink}>
+                {url}
+              </div>
+              <div className={styles.copy} onClick={copyLink}>
+                {__("Копировать ссылку")}
+              </div>
             </div>
-            <div className={styles.copy} onClick={copyLink}>
-              {__("Копировать ссылку")}
+          </header>
+          <div className={styles.infoWrap}>
+            <div className={styles.circle}>
+              <UserIcon className={styles.userIcon} />
+            </div>
+            <div className={styles.details}>
+              <div className={styles.title}>{__("Доступ к ссылке")}</div>
+              <div className={styles.description}>{__("Список пользователей, у кого есть доступ к ссылке")}</div>
             </div>
           </div>
-        </header>
-        <div className={styles.infoWrap}>
-          <div className={styles.circle}>
-            <UserIcon className={styles.userIcon} />
-          </div>
-          <div className={styles.details}>
-            <div className={styles.title}>{__("Доступ к ссылке")}</div>
-            <div className={styles.description}>{__("Список пользователей, у кого есть доступ к ссылке")}</div>
+          <FileAccessUserList
+            users={users}
+            deleteUser={deleteUserFromUsers}
+            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+          />
+          <div className={styles.buttons}>
+            <div className={`${styles.cancel}`} onClick={closeModal}>
+              {__("Отмена")}
+            </div>
+            <div
+              className={classNames({
+                [styles.buttonDisabled]: !isChanges(),
+                [styles.add]: isChanges()
+              })}
+              onClick={approveChanges}
+            >
+              {__("Сохранить")}
+            </div>
           </div>
         </div>
-        <FileAccessUserList
-          users={users}
-          deleteUser={deleteUserFromUsers}
-          changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
-        />
-        <div className={styles.buttons}>
-          <div className={`${styles.cancel}`} onClick={closeModal}>
-            {__("Отмена")}
-          </div>
-          <div
-            className={classNames({
-              [styles.buttonDisabled]: !isChanges(),
-              [styles.add]: isChanges()
-            })}
-            onClick={approveChanges}
-          >
-            {__("Сохранить")}
-          </div>
-        </div>
-      </div>
-      <input ref={linkRef} type="text" style={{ display: "none" }} />
-    </PopUp>
+        <input ref={linkRef} type="text" style={{ display: "none" }} />
+      </PopUp>
+      {showCalendar && (
+        <PopUp set={setShowCalendar} zIndex={102}>
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+        </PopUp>
+      )}
+    </>
   );
 }
 

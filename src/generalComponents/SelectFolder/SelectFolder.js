@@ -117,7 +117,7 @@ export default SelectFolder;
 SelectFolder.propTypes = {
   classNameSelect: PropTypes.string,
   initValue: PropTypes.string,
-  initFolder: PropTypes.object,
+  initFolder: PropTypes.string,
   onChange: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
   className: PropTypes.string
