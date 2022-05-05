@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 const Buttons = ({
   file,
@@ -216,3 +218,9 @@ const Buttons = ({
 };
 
 export default Buttons;
+Buttons.propTypes = {
+  file: fileProps,
+  setAction: PropTypes.func,
+  openFolderMenu: PropTypes.func,
+  setMouseParams: PropTypes.func
+};

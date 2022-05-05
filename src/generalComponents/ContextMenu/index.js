@@ -109,11 +109,11 @@ const ContextMenu = ({
 export default ContextMenu;
 
 ContextMenu.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   params: mouseParamsProps,
   setParams: PropTypes.func,
   tooltip: PropTypes.bool,
-  itemRef: PropTypes.element,
+  itemRef: PropTypes.object,
   customClose: PropTypes.bool,
   movehorizontal: PropTypes.number,
   disableAutohide: PropTypes.bool,

@@ -9,20 +9,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
-
-const CONTEXT = {
-  EMPTY: "",
-  CHANGE_FILE_ACCESS_RIGHTS: "CHANGE_FILE_ACCESS_RIGHTS"
-};
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
   const uid = useSelector((s) => s.user.uid);
-  const [accessRights, setAccessRights] = useState({
-    text: ACCESS_RIGHTS.WATCH
-  });
+
   const [sharedUsers, setSharedUsers] = useState([]);
   const dispatch = useDispatch();
 
@@ -39,7 +34,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
     for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
       if (value === access) {
         return ACCESS_RIGHTS[key];
-        break;
       }
     }
   };
@@ -72,7 +66,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 
   const renderUser = (file) => {
     return file?.user_icon?.[0] ? (
-      <img src={file?.user_icon?.[0]} className={styles.userIcon} />
+      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
     ) : (
       <UserIcon title={file.user_name} />
     );
@@ -125,3 +119,8 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 }
 
 export default SharedFilesInfo;
+SharedFilesInfo.propTypes = {
+  file: fileProps,
+  isChosen: PropTypes.bool,
+  sharedFilesInfo: PropTypes.string
+};

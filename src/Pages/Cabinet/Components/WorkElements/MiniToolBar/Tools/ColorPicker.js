@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "../../../../../../generalComponents/Hooks";
 import { hexToRgbA } from "../../../../../../generalComponents/generalHelpers";
 import { onSetPaint } from "../../../../../../Store/actions/CabinetActions";
+import PropTypes from "prop-types";
 
 function ColorPicker({ colorPickerRef }) {
   const dispatch = useDispatch();
@@ -36,3 +37,4 @@ function ColorPicker({ colorPickerRef }) {
 }
 
 export default ColorPicker;
+ColorPicker.propTypes = { colorPickerRef: PropTypes.object };

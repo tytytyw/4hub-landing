@@ -6,6 +6,8 @@ import File from "../../../../../generalComponents/Files";
 import { onSetModals, setDragged } from "../../../../../Store/actions/CabinetActions";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
 const FileBar = ({
   file,
@@ -117,3 +119,15 @@ const FileBar = ({
 };
 
 export default FileBar;
+
+FileBar.propTypes = {
+  file: fileProps,
+  isLoading: PropTypes.bool,
+  chosen: PropTypes.bool,
+  setChosenFile: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  folderSelect: PropTypes.func,
+  openFolderMenu: PropTypes.func
+};

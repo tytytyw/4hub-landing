@@ -39,6 +39,8 @@ import BlackMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/pho
 import WhiteMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png";
 import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../types/WorkElements";
 
 const MiniToolBar = ({
   file,
@@ -183,9 +185,8 @@ const MiniToolBar = ({
   const addButton = (icon, name = "", options = null, callback = null, itemClass) => (
     <div
       style={buttonsStyle}
-      className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${
-        name === paint.tool?.name && styles.chosen
-      } ${styles[itemClass]}`}
+      className={`${styles.buttonWrap} ${!params.edit && styles.buttonWrapInactive} ${name === paint.tool?.name &&
+        styles.chosen} ${styles[itemClass]}`}
       onClick={
         options && callback && params.edit
           ? () => {
@@ -528,7 +529,7 @@ const MiniToolBar = ({
     return () => {
       chooseAdditionalTool({});
     };
-  }, []); //eslint-disable-line
+  }, [chooseAdditionalTool]);
 
   useEffect(() => {
     setParams((s) => ({
@@ -541,7 +542,7 @@ const MiniToolBar = ({
       setParams((s) => ({ ...s, edit: false }));
       chooseAdditionalTool("none");
     }
-  }, [images]); //eslint-disable-line
+  }, [chooseAdditionalTool]);
 
   return (
     <>
@@ -568,3 +569,33 @@ const MiniToolBar = ({
 };
 
 export default MiniToolBar;
+
+MiniToolBar.propTypes = {
+  file: fileProps,
+  toolBarType: PropTypes.string,
+  width: PropTypes.string,
+  canvasRef: PropTypes.bool,
+  share: PropTypes.bool,
+  canvasWrapRef: PropTypes.object,
+  title: PropTypes.string,
+  images: PropTypes.string,
+  saveImageToPanel: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isPreview: PropTypes.bool,
+  isComment: PropTypes.bool,
+  toggleComment: PropTypes.func,
+  buttonsStyle: PropTypes.object
+};
+
+MiniToolBar.defaultProps = {
+  toolBarType: "general",
+  width: "100%",
+  canvasRef: null,
+  share: null,
+  title: "",
+  isLoading: false,
+  isPreview: true,
+  isComment: false,
+  toggleComment: () => {},
+  buttonsStyle: {}
+};

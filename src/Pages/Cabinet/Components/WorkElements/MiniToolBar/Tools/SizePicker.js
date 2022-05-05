@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { dotsPaint } from "../../../../../../generalComponents/collections";
 import { useDispatch, useSelector } from "react-redux";
 import { onSetPaint } from "../../../../../../Store/actions/CabinetActions";
+import PropTypes from "prop-types";
 
 const buttonStyles = {
   background: "white",
@@ -89,3 +90,7 @@ function SizePicker({ isEdit }) {
 }
 
 export default SizePicker;
+
+SizePicker.propTypes = {
+  isEdit: PropTypes.bool
+};

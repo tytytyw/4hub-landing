@@ -248,9 +248,8 @@ const CreateChat = ({
         <ActionApproval
           name={__("Начать секретный чат")}
           text={__(
-            `Вы действительно хотите создать секртеный чат с ${selectedContacts[0].name || ""} ${
-              selectedContacts[0].sname || ""
-            }?`
+            `Вы действительно хотите создать секртеный чат с ${selectedContacts[0].name || ""} ${selectedContacts[0]
+              .sname || ""}?`
           )}
           set={() => {
             setShowActionApproval(false);

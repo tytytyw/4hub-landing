@@ -13,7 +13,6 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const WorkBarsPreview = ({
   children,
@@ -249,21 +248,28 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+
 WorkBarsPreview.propTypes = {
   children: PropTypes.node,
   file: fileProps,
   filePick: filePickProps,
   fileRef: PropTypes.object,
-  grouped: PropTypes.array,
+  grouped: PropTypes.bool,
   chosenFile: PropTypes.object,
   load: PropTypes.func,
   options: PropTypes.object,
   gLoader: PropTypes.bool,
   filesPage: PropTypes.number,
-  chosenFolder: chosenFolderProps,
-  width: PropTypes.string,
+  chosenFolder: PropTypes.shape({
+    open: PropTypes.bool,
+    path: PropTypes.string,
+    subPath: PropTypes.string,
+    group: PropTypes.object
+  }),
+  width: PropTypes.number,
   groupInfo: PropTypes.object
 };
+
 WorkBarsPreview.defaultProps = {
   chosenFolder: {},
   width: "100%"

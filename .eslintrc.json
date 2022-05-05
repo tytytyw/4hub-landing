@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "react-app", "prettier", "react-app/jest"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -13,6 +13,8 @@
   },
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
+    "react/display-name": "off",
+    "react-hooks/exhaustive-deps": "off",
     "prettier/prettier": [
       "error",
       {

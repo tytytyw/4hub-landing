@@ -113,7 +113,10 @@ const CustomFolderItem = ({
   };
 
   const renderInnerFolders = () => {
-    const currentPath = fileList?.path?.split("/").slice(0, f.path?.split("/").length).join("/");
+    const currentPath = fileList?.path
+      ?.split("/")
+      .slice(0, f.path?.split("/").length)
+      .join("/");
     if (currentPath !== f.path || !folderParams.open || !f?.folders) return null;
     return f?.folders.map((f, i) => {
       return (
@@ -337,7 +340,7 @@ CustomFolderItem.propTypes = {
   isRecent: PropTypes.any,
   offDispatch: PropTypes.any,
   foldersWidth: PropTypes.number,
-  children: PropTypes.array,
+  children: PropTypes.node,
   renderFiles: PropTypes.func,
   disableChosenFolderStyles: PropTypes.bool,
   renderLoader: PropTypes.func

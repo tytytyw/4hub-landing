@@ -12,6 +12,8 @@ import {
 import api from "../../../../../../api";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 const OptionalButton = ({ file, successLoad }) => {
   const { __ } = useLocales();
@@ -78,3 +80,7 @@ const OptionalButton = ({ file, successLoad }) => {
 };
 
 export default OptionalButton;
+OptionalButton.propTypes = {
+  file: fileProps,
+  successLoad: PropTypes.func
+};

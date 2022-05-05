@@ -126,7 +126,7 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.object,
+  fileList: PropTypes.array,
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   callbackArrMain: PropTypes.array,
