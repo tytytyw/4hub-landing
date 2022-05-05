@@ -14,7 +14,7 @@ class Pencil extends Tool {
     this.canvas.onmouseup = this.mouseUpHandler.bind(this);
   }
 
-  mouseUpHandler(e) {
+  mouseUpHandler() {
     this.mouseDown = false;
   }
 

@@ -110,7 +110,7 @@ const ItemsList = ({
     });
   };
 
-  const renderGroups = (Type, list, params) => {
+  const renderGroups = (list, params) => {
     if (!list) return null;
     const keys = Object.keys(list);
     return keys.map((k, i) =>

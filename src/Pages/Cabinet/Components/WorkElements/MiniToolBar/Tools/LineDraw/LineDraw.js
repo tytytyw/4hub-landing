@@ -118,7 +118,7 @@ function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow }) {
   useEffect(() => {
     canvas.onmousedown = async () => {
       await onFinishDraw(canvas.toDataURL());
-      await drawDiv(canvas, lineRef).then((res) => {
+      await drawDiv(canvas, lineRef).then(() => {
         setTimeout(() => {
           addTool(Pencil);
         }, 0);
