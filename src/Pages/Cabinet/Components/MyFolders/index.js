@@ -37,6 +37,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const MyFolders = ({
   setItem,
@@ -444,7 +445,7 @@ MyFolders.propTypes = {
   awaitingFiles: PropTypes.array,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,

@@ -25,5 +25,5 @@ ContextMenuItem.propTypes = {
   color: PropTypes.string.isRequired,
   text: PropTypes.string,
   imageSrc: PropTypes.string,
-  callback: PropTypes.func
+  callback: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
 };

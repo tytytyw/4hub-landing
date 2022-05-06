@@ -57,7 +57,7 @@ List.propTypes = {
   src: PropTypes.string,
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
   leftIconSrc: PropTypes.string

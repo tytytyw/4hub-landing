@@ -19,6 +19,7 @@ import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps } from "../../../../../types/WorkElements";
 import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { createFilesProps } from "../../../../../types/CreateFile";
 
 const WorkSpace = ({
   chosenFile,
@@ -190,7 +191,7 @@ WorkSpace.propTypes = {
   fileSelect: PropTypes.func,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: createFilesProps,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   filesPage: PropTypes.number,

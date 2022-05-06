@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const FolderItem = ({ folder, chosenFolder, setChosenFolder, setMouseParams }) => {
   const onClickHandler = () => {
@@ -54,7 +55,7 @@ export default FolderItem;
 
 FolderItem.propTypes = {
   folder: projectFolderStructure,
-  chosenFolder: PropTypes.func,
+  chosenFolder: chosenFolderProps,
   setChosenFolder: PropTypes.func,
   setMouseParams: PropTypes.func
 };

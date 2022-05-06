@@ -22,6 +22,8 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 import { actionProps } from "../../../../../types/Action";
+// import { createFilesProps } from "../../../../../types/CreateFile";
+// import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const WorkSpace = ({
   chosenFile,
@@ -191,7 +193,7 @@ export default WorkSpace;
 WorkSpace.propTypes = {
   chosenFile: PropTypes.object,
   setChosenFile: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: PropTypes.any,
   listCollapsed: PropTypes.bool,
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,

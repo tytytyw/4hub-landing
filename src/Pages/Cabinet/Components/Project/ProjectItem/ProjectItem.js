@@ -11,6 +11,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getIcon } from "../helpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const ProjectItem = ({
   project,
@@ -197,7 +198,7 @@ ProjectItem.propTypes = {
   listCollapsed: PropTypes.bool,
   setMouseParams: PropTypes.func,
   size: PropTypes.string,
-  chosenFolder: PropTypes.object,
+  chosenFolder: chosenFolderProps,
   setChosenFolder: PropTypes.func,
   setSelectedProject: PropTypes.func,
   chosen: PropTypes.bool,

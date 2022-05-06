@@ -304,10 +304,10 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   file: fileProps,
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   hideFileList: PropTypes.bool,
   filesPage: PropTypes.number,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.objectOf(PropTypes.object),
   filePick: filePickProps,
   gLoader: PropTypes.bool,
   load: PropTypes.func,

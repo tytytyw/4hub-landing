@@ -12,6 +12,8 @@ import FileItem from "../../MyFiles/FileItem";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 function FilesGroup({
   fileList,
@@ -29,7 +31,6 @@ function FilesGroup({
   renderFileItem,
   setGroupInfo
 }) {
-  console.log(fileList);
   const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
   const workElementsView = useSelector((state) => state.Cabinet.view);
   const workBarsPreviewGroupRef = useRef(null);
@@ -132,11 +133,7 @@ FilesGroup.propTypes = {
   title: PropTypes.string,
   setChosenFolder: PropTypes.func,
   fileRef: PropTypes.objectOf(PropTypes.object),
-  chosenFolder: PropTypes.shape({
-    open: PropTypes.bool,
-    path: PropTypes.string,
-    subPath: PropTypes.string
-  }),
+  chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
   gLoader: PropTypes.bool,
   renderFiles: PropTypes.func,
   params: PropTypes.any,

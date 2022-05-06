@@ -103,12 +103,12 @@ const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, f
 export default WorkBars;
 
 WorkBars.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   fileSelect: PropTypes.func,
   filePick: filePickProps,
   hideUploadFile: PropTypes.bool,
   filesPage: PropTypes.number,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.objectOf(PropTypes.object),
   gLoader: PropTypes.bool,
   load: PropTypes.func,
   options: PropTypes.exact({

@@ -19,6 +19,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { blobProps, createFilesProps } from "../../../../types/CreateFile";
 import { chosenFolderProps } from "../../../../types/CreateFolder";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const CreateFile = ({
   title,
@@ -377,7 +378,7 @@ CreateFile.propTypes = {
   onToggleSafePassword: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
   awaitingFiles: PropTypes.array,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,
   create: PropTypes.bool,

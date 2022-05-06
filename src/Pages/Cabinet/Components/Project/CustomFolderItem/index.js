@@ -8,6 +8,7 @@ import { onChooseProjectFiles, setChosenFolderProject } from "../../../../../Sto
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { projectFolderStructure } from "../../../../../types/Project";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const CustomFolderItem = ({ folder, chosenFolder, setMouseParams, listSize, setChosenFolder, project, collapsed }) => {
   const dispatch = useDispatch();
@@ -97,7 +98,7 @@ export default CustomFolderItem;
 
 CustomFolderItem.propTypes = {
   folder: projectFolderStructure,
-  chosenFolder: PropTypes.object,
+  chosenFolder: chosenFolderProps,
   setMouseParams: PropTypes.func,
   listSize: PropTypes.string,
   setChosenFolder: PropTypes.func,

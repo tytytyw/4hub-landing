@@ -263,7 +263,7 @@ WorkLinesPreview.propTypes = {
     path: PropTypes.string,
     find: PropTypes.func
   }),
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   fileRef: PropTypes.exact({
     current: PropTypes.string
   }),

@@ -14,6 +14,8 @@ import { useLocales } from "react-localized";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const WorkBarsPreview = ({
   children,
@@ -251,24 +253,26 @@ const WorkBarsPreview = ({
 export default WorkBarsPreview;
 
 WorkBarsPreview.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.arrayOf(PropTypes.element),
   file: fileProps,
   filePick: filePickProps,
-  fileRef: PropTypes.object,
+  fileRef: PropTypes.objectOf(PropTypes.object),
   grouped: PropTypes.bool,
   chosenFile: fileProps,
   load: PropTypes.func,
-  options: PropTypes.object,
+  options: PropTypes.exact({
+    root: PropTypes.number,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.number
+  }),
   gLoader: PropTypes.bool,
   filesPage: PropTypes.number,
-  chosenFolder: PropTypes.exact({
-    open: PropTypes.bool,
-    path: PropTypes.string,
-    subPath: PropTypes.string,
-    group: PropTypes.object
-  }),
+  chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
   width: PropTypes.number,
-  groupInfo: PropTypes.object
+  groupInfo: PropTypes.exact({
+    amount: PropTypes.number,
+    title: PropTypes.string
+  })
 };
 
 WorkBarsPreview.defaultProps = {

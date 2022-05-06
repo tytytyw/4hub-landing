@@ -20,6 +20,7 @@ import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const FileLoader = ({
   awaitingFiles,
@@ -486,7 +487,7 @@ export default FileLoader;
 FileLoader.propTypes = {
   awaitingFiles: PropTypes.array,
   setAwaitingFiles: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
