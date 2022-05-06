@@ -12,6 +12,9 @@ import { colors } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+
 const WorkBarsPreview = ({
   children,
   file,
@@ -23,8 +26,8 @@ const WorkBarsPreview = ({
   options,
   gLoader,
   filesPage,
-  chosenFolder = {},
-  width = "100%",
+  chosenFolder,
+  width,
   groupInfo
 }) => {
   const { __ } = useLocales();
@@ -246,3 +249,29 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+
+WorkBarsPreview.propTypes = {
+  children: PropTypes.node,
+  file: fileProps,
+  filePick: filePickProps,
+  fileRef: PropTypes.object,
+  grouped: PropTypes.bool,
+  chosenFile: fileProps,
+  load: PropTypes.func,
+  options: PropTypes.object,
+  gLoader: PropTypes.bool,
+  filesPage: PropTypes.number,
+  chosenFolder: PropTypes.exact({
+    open: PropTypes.bool,
+    path: PropTypes.string,
+    subPath: PropTypes.string,
+    group: PropTypes.object
+  }),
+  width: PropTypes.number,
+  groupInfo: PropTypes.object
+};
+
+WorkBarsPreview.defaultProps = {
+  chosenFolder: {},
+  width: "100%"
+};

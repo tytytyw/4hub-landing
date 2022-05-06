@@ -22,5 +22,5 @@ function SideList({ children }) {
 export default SideList;
 
 SideList.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.element
 };

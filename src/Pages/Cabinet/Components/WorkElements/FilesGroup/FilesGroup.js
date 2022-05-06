@@ -10,10 +10,12 @@ import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
 
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+
 function FilesGroup({
   fileList,
   filePick,
-  fileLoading,
   fileSelect,
   filesPage,
   setFilesPage,
@@ -23,11 +25,11 @@ function FilesGroup({
   chosenFolder,
   gLoader,
   renderFiles,
-  params = null,
-  menuItem = "",
-  renderFileItem = () => {},
-  setGroupInfo = () => {}
+  params,
+  renderFileItem,
+  setGroupInfo
 }) {
+  console.log(fileList);
   const [collapse, setCollapse] = useState(true); //first one to collapse - index === 0
   const workElementsView = useSelector((state) => state.Cabinet.view);
   const workBarsPreviewGroupRef = useRef(null);
@@ -90,7 +92,6 @@ function FilesGroup({
               {workElementsView === "bars" && (
                 <WorkBars
                   filePick={filePick}
-                  fileLoading={fileLoading}
                   fileSelect={fileSelect}
                   filesPage={filesPage}
                   setFilesPage={setFilesPage}
@@ -121,3 +122,30 @@ function FilesGroup({
 }
 
 export default FilesGroup;
+
+FilesGroup.propTypes = {
+  fileList: PropTypes.arrayOf(fileProps),
+  filePick: filePickProps,
+  fileSelect: PropTypes.func,
+  filesPage: PropTypes.number,
+  setFilesPage: PropTypes.func,
+  title: PropTypes.string,
+  setChosenFolder: PropTypes.func,
+  fileRef: PropTypes.objectOf(PropTypes.object),
+  chosenFolder: PropTypes.shape({
+    open: PropTypes.bool,
+    path: PropTypes.string,
+    subPath: PropTypes.string
+  }),
+  gLoader: PropTypes.bool,
+  renderFiles: PropTypes.func,
+  params: PropTypes.any,
+  renderFileItem: PropTypes.func,
+  setGroupInfo: PropTypes.func
+};
+
+FilesGroup.defaultProps = {
+  params: null,
+  renderFileItem: () => {},
+  setGroupInfo: () => {}
+};

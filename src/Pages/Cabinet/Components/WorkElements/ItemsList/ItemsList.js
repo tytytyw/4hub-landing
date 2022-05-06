@@ -25,29 +25,29 @@ import { usePeriods } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
 
-const mock = () => {};
+import PropTypes from "prop-types";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
 
 const ItemsList = ({
-  setGLoader = mock,
+  setGLoader,
   setFilesPage,
-  setChosenFolder = mock,
+  setChosenFolder,
   setChosenFile,
   filePick,
-  setMouseParams = mock,
-  setAction = mock,
+  setMouseParams,
+  setAction,
   setFilePreview,
   filePreview,
   setFilePick,
   callbackArrMain,
   chosenFile,
-  fileLoading,
-  fileSelect = mock,
+  fileSelect,
   filesPage,
   chosenFolder,
   gLoader,
   fileRef,
   width,
-  openFolderMenu = mock,
+  openFolderMenu,
   menuItem,
   dateFilter,
   successLoad,
@@ -110,7 +110,7 @@ const ItemsList = ({
       );
     });
   };
-
+  //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
     if (!list) return null;
     const keys = Object.keys(list);
@@ -131,7 +131,6 @@ const ItemsList = ({
           setAction={setAction}
           setMouseParams={setMouseParams}
           //WorkBars
-          fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           setFilesPage={setFilesPage}
@@ -165,7 +164,7 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-  }, [dateFilter]);
+  }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {
     if (typeof result === "number") {
@@ -228,7 +227,6 @@ const ItemsList = ({
     <>
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
-          fileLoading={fileLoading}
           fileSelect={fileSelect}
           filePick={filePick}
           filesPage={filesPage}
@@ -277,7 +275,6 @@ const ItemsList = ({
 
       {workElementsView === "lines" && Array.isArray(fileList?.files) ? (
         <WorkLines
-          fileLoading={fileLoading}
           filePick={filePick}
           filesPage={filesPage}
           setFilesPage={setFilesPage}
@@ -338,3 +335,42 @@ const ItemsList = ({
 };
 
 export default ItemsList;
+
+ItemsList.propTypes = {
+  setFilesPage: PropTypes.func,
+  setChosenFolder: PropTypes.func,
+  setChosenFile: PropTypes.func,
+  filePick: filePickProps,
+  setMouseParams: PropTypes.func,
+  setAction: PropTypes.func,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps,
+  setFilePick: PropTypes.func,
+  callbackArrMain: PropTypes.array,
+  chosenFile: fileProps,
+  fileSelect: PropTypes.func,
+  filesPage: PropTypes.number,
+  chosenFolder: PropTypes.shape({
+    open: PropTypes.bool,
+    path: PropTypes.string,
+    subPath: PropTypes.string
+  }),
+  gLoader: PropTypes.bool,
+  fileRef: PropTypes.object,
+  width: PropTypes.number,
+  openFolderMenu: PropTypes.func,
+  menuItem: PropTypes.string,
+  dateFilter: PropTypes.object,
+  successLoad: PropTypes.func,
+  sharedFilesInfo: PropTypes.string,
+  setGLoader: PropTypes.func
+};
+
+ItemsList.defaultProps = {
+  setChosenFolder: () => {},
+  setMouseParams: () => {},
+  setAction: () => {},
+  fileSelect: () => {},
+  openFolderMenu: () => {},
+  setGLoader: () => {}
+};

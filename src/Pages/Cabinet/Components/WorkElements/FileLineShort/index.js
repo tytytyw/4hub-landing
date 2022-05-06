@@ -7,6 +7,9 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import { onChooseFiles, onSetModals } from "../../../../../Store/actions/CabinetActions";
 
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+// TODO - add 'params'
 const FileLineShort = ({
   file,
   setChosenFile,
@@ -15,14 +18,15 @@ const FileLineShort = ({
   filePick,
   setFilePick,
   setGLoader,
-  params = null,
+  params,
   chooseItemNext,
   openFolderMenu,
   filesSize,
   style,
-  disableContextMenu = false
+  disableContextMenu
 }) => {
-  const size = filesSize ?? useSelector((state) => state.Cabinet.size);
+  const sizeSelector = useSelector((state) => state.Cabinet.size);
+  const size = filesSize ?? sizeSelector;
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
 
@@ -104,3 +108,27 @@ const FileLineShort = ({
 };
 
 export default FileLineShort;
+
+FileLineShort.propTypes = {
+  file: fileProps,
+  setChosenFile: PropTypes.func,
+  chosen: PropTypes.bool,
+  setMouseParams: PropTypes.func,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  setGLoader: PropTypes.func,
+  params: PropTypes.any,
+  chooseItemNext: PropTypes.func,
+  openFolderMenu: PropTypes.func,
+  style: PropTypes.exact({
+    width: PropTypes.number,
+    paddingLeft: PropTypes.number
+  }),
+  disableContextMenu: PropTypes.bool,
+  filesSize: PropTypes.string
+};
+
+FileLineShort.defaultProps = {
+  params: null,
+  disableContextMenu: false
+};

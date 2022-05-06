@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import canvasTxt from "canvas-txt";
 import Pencil from "./Pencil";
 
+import PropTypes from "prop-types";
+
 function TextDraw({ canvas, onFinishDraw, addTool }) {
   const textBlockRef = useRef();
   const [params, setParams] = useState({
@@ -99,3 +101,9 @@ function TextDraw({ canvas, onFinishDraw, addTool }) {
 }
 
 export default TextDraw;
+
+TextDraw.propTypes = {
+  canvas: PropTypes.object,
+  onFinishDraw: PropTypes.func,
+  addTool: PropTypes.func
+};

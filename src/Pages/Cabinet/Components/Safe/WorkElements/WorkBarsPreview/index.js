@@ -182,8 +182,9 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+
 WorkBarsPreview.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.element,
   file: fileProps,
   setLoadingType: PropTypes.func,
   fileRef: PropTypes.object,

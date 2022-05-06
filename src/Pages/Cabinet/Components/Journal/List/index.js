@@ -34,7 +34,7 @@ export default List;
 List.propTypes = {
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.element
 };
 
 List.defaultProps = {

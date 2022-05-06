@@ -23,7 +23,7 @@ const Button = ({ children, type = "button", disabled = false, className, onClic
 export default Button;
 
 Button.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.element,
   type: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,

@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 
 const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   const { __ } = useLocales();
-  console.log("sss");
   const emptyFolder = {
     name: "No folder",
     size: 0,

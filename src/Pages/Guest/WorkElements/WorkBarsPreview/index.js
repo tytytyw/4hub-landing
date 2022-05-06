@@ -170,11 +170,11 @@ const WorkBarsPreview = ({ children, file, page, setPage, fileRef, chosenFolder,
 
 export default WorkBarsPreview;
 WorkBarsPreview.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.element,
   file: PropTypes.object,
   page: PropTypes.string,
   setPage: PropTypes.func,
-  fileRef: PropTypes.shape({
+  fileRef: PropTypes.exact({
     current: PropTypes.string
   }),
   chosenFolder: PropTypes.object,

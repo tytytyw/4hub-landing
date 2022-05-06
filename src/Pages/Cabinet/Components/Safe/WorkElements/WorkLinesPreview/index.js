@@ -240,7 +240,7 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   file: fileProps,
-  children: PropTypes.node,
+  children: PropTypes.element,
   hideFileList: PropTypes.bool,
   setLoadingType: PropTypes.func,
   fileRef: PropTypes.object,

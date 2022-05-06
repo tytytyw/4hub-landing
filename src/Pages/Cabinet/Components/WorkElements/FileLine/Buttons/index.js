@@ -15,6 +15,9 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
+
 const Buttons = ({
   file,
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive
@@ -216,3 +219,10 @@ const Buttons = ({
 };
 
 export default Buttons;
+
+Buttons.propTypes = {
+  file: fileProps,
+  setAction: PropTypes.func,
+  openFolderMenu: PropTypes.func,
+  setMouseParams: PropTypes.func
+};

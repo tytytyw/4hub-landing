@@ -258,13 +258,13 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   file: fileProps,
-  fileList: PropTypes.shape({
+  fileList: PropTypes.exact({
     files: PropTypes.array,
     path: PropTypes.string,
     find: PropTypes.func
   }),
-  children: PropTypes.node,
-  fileRef: PropTypes.shape({
+  children: PropTypes.element,
+  fileRef: PropTypes.exact({
     current: PropTypes.string
   }),
   filePick: filePickProps,

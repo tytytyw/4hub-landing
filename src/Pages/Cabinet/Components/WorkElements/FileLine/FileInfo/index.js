@@ -7,6 +7,8 @@ import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCa
 import { colors } from "../../../../../../generalComponents/collections";
 import { useLocation } from "react-router";
 
+import { fileProps } from "../../../../../../types/WorkElements";
+
 const FileInfo = ({ file }) => {
   const { pathname } = useLocation();
   const shortWidth =
@@ -57,3 +59,7 @@ const FileInfo = ({ file }) => {
 };
 
 export default FileInfo;
+
+FileInfo.propTypes = {
+  file: fileProps
+};

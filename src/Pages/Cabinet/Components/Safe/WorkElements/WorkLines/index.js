@@ -109,7 +109,7 @@ const WorkLines = ({
 export default WorkLines;
 
 WorkLines.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.element,
   fileRef: PropTypes.object,
   gLoader: PropTypes.bool,
   filePick: filePickProps,

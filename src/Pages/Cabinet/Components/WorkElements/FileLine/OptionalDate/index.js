@@ -5,6 +5,8 @@ import { useLocation } from "react-router";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 
+import { fileProps } from "../../../../../../types/WorkElements";
+
 const OptionalDate = ({ file }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
@@ -36,3 +38,7 @@ const OptionalDate = ({ file }) => {
 };
 
 export default OptionalDate;
+
+OptionalDate.propTypes = {
+  file: fileProps
+};

@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "../../../../../../generalComponents/Hooks";
 import { hexToRgbA } from "../../../../../../generalComponents/generalHelpers";
 import { onSetPaint } from "../../../../../../Store/actions/CabinetActions";
+import PropTypes from "prop-types";
 
 function ColorPicker({ colorPickerRef }) {
+  console.log(colorPickerRef);
+
   const dispatch = useDispatch();
   const tool = useSelector((state) => state.Cabinet.paint.tool);
 
@@ -36,3 +39,7 @@ function ColorPicker({ colorPickerRef }) {
 }
 
 export default ColorPicker;
+
+ColorPicker.propTypes = {
+  colorPickerRef: PropTypes.objectOf(PropTypes.object)
+};

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
 export const itemProps = PropTypes.exact({
-  children: PropTypes.array,
+  children: PropTypes.element,
   name: PropTypes.string,
-  icon: PropTypes.object,
+  icon: PropTypes.element,
   label: PropTypes.string
 });
 

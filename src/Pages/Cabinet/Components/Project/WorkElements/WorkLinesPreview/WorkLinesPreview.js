@@ -181,7 +181,7 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   recentFiles: PropTypes.array,
-  children: PropTypes.any,
+  children: PropTypes.element,
   chosenFile: PropTypes.object,
   fileCollapsed: PropTypes.bool
 };

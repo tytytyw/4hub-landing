@@ -12,6 +12,9 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
 
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+
 const WorkLinesPreview = ({
   file,
   children,
@@ -298,3 +301,22 @@ const WorkLinesPreview = ({
 };
 
 export default WorkLinesPreview;
+
+WorkLinesPreview.propTypes = {
+  file: fileProps,
+  children: PropTypes.element,
+  hideFileList: PropTypes.bool,
+  filesPage: PropTypes.number,
+  fileRef: PropTypes.object,
+  filePick: filePickProps,
+  gLoader: PropTypes.bool,
+  load: PropTypes.func,
+  options: PropTypes.exact({
+    root: PropTypes.number,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.number
+  }),
+  renderFiles: PropTypes.func,
+  renderGroups: PropTypes.func,
+  menuItem: PropTypes.string
+};

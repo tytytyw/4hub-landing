@@ -244,7 +244,7 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   file: fileProps,
-  children: PropTypes.node,
+  children: PropTypes.element,
   fileRef: PropTypes.shape({
     current: PropTypes.string
   }),

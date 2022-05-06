@@ -33,7 +33,6 @@ const WorkSpace = ({
   setFilePreview,
   filePreview,
   fileSelect,
-  // fileLoading,
   filePick,
   setFilePick,
   chosenFolder,
@@ -146,7 +145,6 @@ const WorkSpace = ({
           setFilePick={setFilePick}
           callbackArrMain={callbackArrMain}
           chosenFile={chosenFile}
-          // fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           chosenFolder={chosenFolder}
@@ -190,7 +188,6 @@ WorkSpace.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
-  // fileLoading: Profile.any,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
   chosenFolder: PropTypes.object,

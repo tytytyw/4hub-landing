@@ -53,7 +53,7 @@ List.propTypes = {
   src: PropTypes.string,
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.any,
+  children: PropTypes.element,
   onCreate: PropTypes.func,
   icon: PropTypes.bool,
   className: PropTypes.string

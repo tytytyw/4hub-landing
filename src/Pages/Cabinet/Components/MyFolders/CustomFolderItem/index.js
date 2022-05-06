@@ -337,7 +337,7 @@ CustomFolderItem.propTypes = {
   isRecent: PropTypes.any,
   offDispatch: PropTypes.any,
   foldersWidth: PropTypes.number,
-  children: PropTypes.array,
+  children: PropTypes.element,
   renderFiles: PropTypes.func,
   disableChosenFolderStyles: PropTypes.bool,
   renderLoader: PropTypes.func

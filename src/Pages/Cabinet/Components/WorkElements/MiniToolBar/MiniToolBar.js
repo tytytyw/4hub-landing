@@ -39,22 +39,24 @@ import BlackMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/pho
 import WhiteMan from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo1.png";
 import Woman from "../../../../../assets/PrivateCabinet/minitoolbar/users/photo2.png";
 import classNames from "classnames";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../types/WorkElements";
 
 const MiniToolBar = ({
   file,
-  toolBarType = "general",
-  width = "100%",
-  canvasRef = null,
-  share = null,
+  toolBarType,
+  width,
+  canvasRef,
+  share,
   canvasWrapRef,
-  title = "",
+  title,
   images,
   saveImageToPanel,
-  isLoading = false,
-  isPreview = true,
-  isComment = false,
-  toggleComment = () => {},
-  buttonsStyle = {}
+  isLoading,
+  isPreview,
+  isComment,
+  toggleComment,
+  buttonsStyle
 }) => {
   const sendFile = useSendFile();
   const [params, setParams] = useState({
@@ -568,3 +570,35 @@ const MiniToolBar = ({
 };
 
 export default MiniToolBar;
+
+MiniToolBar.propTypes = {
+  file: fileProps,
+  toolBarType: PropTypes.string,
+  width: PropTypes.string,
+  canvasRef: PropTypes.bool,
+  share: PropTypes.bool,
+  canvasWrapRef: PropTypes.objectOf(PropTypes.object),
+  title: PropTypes.string,
+  images: PropTypes.string,
+  saveImageToPanel: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isPreview: PropTypes.bool,
+  isComment: PropTypes.bool,
+  toggleComment: PropTypes.func,
+  buttonsStyle: PropTypes.exact({
+    boxShadow: PropTypes.string
+  })
+};
+
+MiniToolBar.defaultProps = {
+  toolBarType: "general",
+  width: "100%",
+  canvasRef: null,
+  share: null,
+  title: "",
+  isLoading: false,
+  isPreview: true,
+  isComment: false,
+  toggleComment: () => {},
+  buttonsStyle: {}
+};
