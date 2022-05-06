@@ -7,7 +7,13 @@ import { userFileAccess } from "../../../../../../../../types/FileAccessRights";
 import { addDays, addMonths, addWeeks } from "date-fns";
 import { formatDateStandard } from "../../../../../../../../generalComponents/CalendarHelper";
 
-function FilePeriodEdit({ closeChangePeriodModal, user, setShowCalendar, changeUserAccessRightsInUsers }) {
+function FilePeriodEdit({
+  closeChangePeriodModal,
+  user,
+  setShowCalendar,
+  changeUserAccessRightsInUsers,
+  setChosenUser
+}) {
   const { __ } = useLocales();
   const PERIODS = useFileSharedPeriods();
 
@@ -50,6 +56,7 @@ function FilePeriodEdit({ closeChangePeriodModal, user, setShowCalendar, changeU
         onClick={() => {
           setShowCalendar(true);
           closeChangePeriodModal();
+          setChosenUser(user);
         }}
       >
         <div>{__("Открыть календарь")}</div>
@@ -64,5 +71,6 @@ FilePeriodEdit.propTypes = {
   closeChangePeriodModal: PropTypes.func,
   user: userFileAccess,
   setShowCalendar: PropTypes.func,
-  changeUserAccessRightsInUsers: PropTypes.func
+  changeUserAccessRightsInUsers: PropTypes.func,
+  setChosenUser: PropTypes.func
 };

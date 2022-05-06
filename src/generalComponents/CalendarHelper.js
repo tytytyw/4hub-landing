@@ -219,3 +219,12 @@ export function formatDateStandard(date) {
     throw new Error("Type of the incoming parameter must be date");
   }
 }
+
+export function parseCalendarDateToDate(date) {
+  if (/^\d{2}\.\d{2}\.\d{4}$/.test(date)) {
+    const d = date.split(".");
+    return new Date(`${d[2]}-${d[1]}-${d[0]}`);
+  } else {
+    throw new Error("Date does not correspond to format - dd.MM.yyyy");
+  }
+}

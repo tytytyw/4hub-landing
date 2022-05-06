@@ -15,7 +15,7 @@ import { useAccessRightsConst } from "../../../../../../../generalComponents/col
 import FileAccessEdit from "./FileAccessEdit/FileAccessEdit";
 import FilePeriodEdit from "./FilePeriodEdit/FilePeriodEdit";
 
-function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar }) {
+function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, setShowCalendar, setChosenUser }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
@@ -76,6 +76,7 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
             user={user}
             setShowCalendar={setShowCalendar}
             changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+            setChosenUser={setChosenUser}
           />
         ) : null}
         <div
@@ -108,5 +109,6 @@ FileAccessUserList.propTypes = {
   users: PropTypes.arrayOf(userFileAccess),
   deleteUser: PropTypes.func,
   changeUserAccessRightsInUsers: PropTypes.func,
-  setShowCalendar: PropTypes.func
+  setShowCalendar: PropTypes.func,
+  setChosenUser: PropTypes.func
 };

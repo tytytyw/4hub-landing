@@ -62,3 +62,5 @@ export const TYPES = {
   BOOLEAN: "boolean",
   NULL: "null"
 };
+
+export const MIDNIGHT = "00:00:00";
