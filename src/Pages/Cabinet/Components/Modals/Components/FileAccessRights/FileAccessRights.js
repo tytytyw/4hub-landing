@@ -208,6 +208,7 @@ function FileAccessRights() {
             users={users}
             deleteUser={deleteUserFromUsers}
             changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
+            setShowCalendar={setShowCalendar}
           />
           <div className={styles.buttons}>
             <div className={`${styles.cancel}`} onClick={closeModal}>

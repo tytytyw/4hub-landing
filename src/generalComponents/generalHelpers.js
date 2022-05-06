@@ -224,3 +224,10 @@ export const checkResponseStatus = (status) => {
   }
   throw Error(`status ${status} with type ${typeof status} is not ok`);
 };
+
+// Checks types of incoming value
+export function typeCheck(value) {
+  const return_value = Object.prototype.toString.call(value);
+  const type = return_value.substring(return_value.indexOf(" ") + 1, return_value.indexOf("]"));
+  return type.toLowerCase();
+}

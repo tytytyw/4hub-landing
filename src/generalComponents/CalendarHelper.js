@@ -1,4 +1,7 @@
 import { useLocales } from "react-localized";
+import { typeCheck } from "./generalHelpers";
+import { TYPES } from "./globalVariables";
+import { format } from "date-fns";
 
 const d = new Date();
 
@@ -208,3 +211,11 @@ export const useDateToString = () => {
     return `${+day} ${month} ${year}`;
   };
 };
+
+export function formatDateStandard(date) {
+  if (typeCheck(date) === TYPES.DATE) {
+    return format(date, "yyyy-MM-dd HH:mm:ss");
+  } else {
+    throw new Error("Type of the incoming parameter must be date");
+  }
+}

@@ -54,3 +54,11 @@ export const ACCESS_RIGHTS_GRANTED = "1";
 export const ACCESS_RIGHTS_FORBIDDEN = "0";
 
 export const NO_ELEMENT = -1;
+
+export const TYPES = {
+  DATE: "date",
+  ARRAY: "array",
+  STRING: "string",
+  BOOLEAN: "boolean",
+  NULL: "null"
+};
