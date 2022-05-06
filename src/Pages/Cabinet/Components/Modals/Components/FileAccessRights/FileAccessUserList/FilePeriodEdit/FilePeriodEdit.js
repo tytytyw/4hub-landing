@@ -7,7 +7,7 @@ import { userFileAccess } from "../../../../../../../../types/FileAccessRights";
 import { addDays, addMonths, addWeeks } from "date-fns";
 import { formatDateStandard } from "../../../../../../../../generalComponents/CalendarHelper";
 
-function FilePeriodEdit({ closeChangePeriodModal, user, setShowCalendar }) {
+function FilePeriodEdit({ closeChangePeriodModal, user, setShowCalendar, changeUserAccessRightsInUsers }) {
   const { __ } = useLocales();
   const PERIODS = useFileSharedPeriods();
 
@@ -22,10 +22,10 @@ function FilePeriodEdit({ closeChangePeriodModal, user, setShowCalendar }) {
     if (period === PERIODS.MONTH) {
       deadline = formatDateStandard(addMonths(new Date(), 1));
     }
-    return {
+    return changeUserAccessRightsInUsers({
       ...user,
       deadline
-    };
+    });
   };
 
   const renderPeriods = () =>
@@ -63,5 +63,6 @@ export default FilePeriodEdit;
 FilePeriodEdit.propTypes = {
   closeChangePeriodModal: PropTypes.func,
   user: userFileAccess,
-  setShowCalendar: PropTypes.func
+  setShowCalendar: PropTypes.func,
+  changeUserAccessRightsInUsers: PropTypes.func
 };

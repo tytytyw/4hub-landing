@@ -67,7 +67,7 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
             setChangePeriodModal(i);
           }}
         >
-          <span>{__(`Срок хранения ${showEndDate(user.date_last)}`)}</span>
+          <span>{__(`Срок хранения ${showEndDate(user.deadline)}`)}</span>
           <img src={imageSrc + "assets/PrivateCabinet/play-black.svg"} alt="copy" className={styles.imageReverse} />
         </div>
         {changePeriodModal === i ? (
@@ -75,6 +75,7 @@ function FileAccessUserList({ users, deleteUser, changeUserAccessRightsInUsers, 
             closeChangePeriodModal={closeChangePeriodModal}
             user={user}
             setShowCalendar={setShowCalendar}
+            changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
           />
         ) : null}
         <div
