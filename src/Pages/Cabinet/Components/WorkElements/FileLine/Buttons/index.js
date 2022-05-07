@@ -17,9 +17,6 @@ import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList"
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/WorkElements";
 
-import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
-
 const Buttons = ({
   file,
   // callbackArrMain, TODO - Need to delete after testing in folders, files, safe, download-files, archive

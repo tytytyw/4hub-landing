@@ -9,9 +9,6 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../../../types/WorkElements";
 
-import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../types/WorkElements";
-
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);

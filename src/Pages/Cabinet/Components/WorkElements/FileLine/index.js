@@ -14,9 +14,6 @@ import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
-import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
-
 const FileLine = ({
   file,
   setChosenFile,

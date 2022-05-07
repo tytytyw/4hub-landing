@@ -9,8 +9,6 @@ import { onChooseFiles, onSetModals } from "../../../../../Store/actions/Cabinet
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
-import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 // TODO - add 'params'
 const FileLineShort = ({
   file,
@@ -24,7 +22,8 @@ const FileLineShort = ({
   chooseItemNext,
   openFolderMenu,
   style,
-  disableContextMenu
+  disableContextMenu,
+  filesSize
 }) => {
   const sizeSelector = useSelector((state) => state.Cabinet.size);
   const size = filesSize ?? sizeSelector;

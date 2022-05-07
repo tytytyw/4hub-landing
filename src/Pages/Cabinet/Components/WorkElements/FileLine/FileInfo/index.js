@@ -8,8 +8,6 @@ import { colors } from "../../../../../../generalComponents/collections";
 import { useLocation } from "react-router";
 import { fileProps } from "../../../../../../types/WorkElements";
 
-import { fileProps } from "../../../../../../types/WorkElements";
-
 const FileInfo = ({ file }) => {
   const { pathname } = useLocation();
   const shortWidth =

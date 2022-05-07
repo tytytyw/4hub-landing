@@ -13,9 +13,6 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
-
-import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { chosenFolderProps } from "../../../../../types/CreateFolder";
 

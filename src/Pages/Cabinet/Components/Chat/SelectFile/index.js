@@ -64,6 +64,7 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
           callbackArrMain={null}
           folderSelect={null}
           setGLoader={null}
+          filesSize="small"
           style={{
             width: 420,
             paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0

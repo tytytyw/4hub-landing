@@ -9,9 +9,6 @@ import { colors } from "../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
-import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
-
 const FileBar = ({
   file,
   isLoading,

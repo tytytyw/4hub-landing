@@ -112,8 +112,7 @@ export const categories = {
             from: "Alexey",
             date: "03.01.2022",
             icon: `${imageSrc}assets/PrivateCabinet/avatars/a2.svg`,
-            text:
-              "большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
+            text: "большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков"
           },
           {
             from: "Dmitriy Kolesnikov",

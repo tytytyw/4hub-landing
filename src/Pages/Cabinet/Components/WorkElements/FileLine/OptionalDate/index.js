@@ -6,8 +6,6 @@ import classNames from "classnames";
 import { useLocales } from "react-localized";
 import { fileProps } from "../../../../../../types/WorkElements";
 
-import { fileProps } from "../../../../../../types/WorkElements";
-
 const OptionalDate = ({ file }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
