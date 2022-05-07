@@ -128,7 +128,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 }
 
 export default SharedFilesInfo;
-
 SharedFilesInfo.propTypes = {
   file: fileProps,
   isChosen: PropTypes.bool,

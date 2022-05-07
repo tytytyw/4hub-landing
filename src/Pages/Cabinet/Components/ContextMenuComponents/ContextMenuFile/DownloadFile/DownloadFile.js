@@ -59,11 +59,9 @@ function DownloadFile() {
         <form
           style={{ display: "none" }}
           name="downloadFile"
-          action={`/ajax/safe_file_download.php?${uid}&id_safe=${
-            contextMenuModals.authorizedSafe?.id_safe || ""
-          }&pass=${contextMenuModals.authorizedSafe?.password || ""}&code=${
-            contextMenuModals.authorizedSafe?.code || ""
-          }`}
+          action={`/ajax/safe_file_download.php?${uid}&id_safe=${contextMenuModals.authorizedSafe?.id_safe ||
+            ""}&pass=${contextMenuModals.authorizedSafe?.password || ""}&code=${contextMenuModals.authorizedSafe
+            ?.code || ""}`}
           method="post"
           ref={formRef}
           onError={() =>

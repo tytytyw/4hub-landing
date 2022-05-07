@@ -39,7 +39,11 @@ const DownloadFile = ({ setPage }) => {
   };
 
   const countLeftDays = () => {
-    const d1 = new Date(Object.values(getDate(0)).reverse().join("-") + " 00:00:00");
+    const d1 = new Date(
+      Object.values(getDate(0))
+        .reverse()
+        .join("-") + " 00:00:00"
+    );
     const d2 = new Date(file.deadline);
     const days = (d2 - d1) / 86400000;
     const last = days.toFixed().toString()[days.toString().length - 1];
@@ -49,7 +53,11 @@ const DownloadFile = ({ setPage }) => {
   };
 
   const showTime = () => {
-    const date = file.deadline.split(" ")[0].split("-").reverse().join(".");
+    const date = file.deadline
+      .split(" ")[0]
+      .split("-")
+      .reverse()
+      .join(".");
     const time = file.deadline.split(" ")[1];
     return time === "00:00:00" ? `${date} 23:59` : `${date} ${time.slice(0, 5)}`;
   };

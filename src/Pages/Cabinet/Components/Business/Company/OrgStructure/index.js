@@ -79,13 +79,11 @@ function OrgStructure({
       type: "delete",
       name: __("Удаление сотрудника"),
       text: __(
-        `Вы действительно хотите удалить пользователя ${
-          chosenPerson?.data.info.surname +
+        `Вы действительно хотите удалить пользователя ${chosenPerson?.data.info.surname +
           " " +
           chosenPerson?.data.info.name +
           " " +
-          chosenPerson?.data.info.middleName
-        } из орг структуры компании?`
+          chosenPerson?.data.info.middleName} из орг структуры компании?`
       ),
       callback: (list, index) => setAction(list[index])
     },

@@ -4,6 +4,7 @@ import styles from "./OptionalDate.module.sass";
 import { useLocation } from "react-router";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 import { fileProps } from "../../../../../../types/WorkElements";
 

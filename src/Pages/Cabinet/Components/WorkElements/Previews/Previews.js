@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
-
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/WorkElements";
 
@@ -163,7 +162,6 @@ Previews.propTypes = {
   errorHandler: PropTypes.func,
   canvasRef: PropTypes.object
 };
-
 Previews.defaultProps = {
   file: null,
   width: undefined,

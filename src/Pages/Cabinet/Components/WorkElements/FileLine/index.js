@@ -11,6 +11,8 @@ import OptionalButton from "./OptionalButton";
 import OptionalDate from "./OptionalDate";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
 import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
@@ -98,7 +100,6 @@ const FileLine = ({
 };
 
 export default FileLine;
-
 FileLine.propTypes = {
   file: fileProps,
   setChosenFile: PropTypes.func,

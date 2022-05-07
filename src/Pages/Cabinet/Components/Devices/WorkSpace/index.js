@@ -93,7 +93,10 @@ const WorkSpace = ({ listCollapsed, setMultiple }) => {
                   <div className={styles.infoFileItem}>
                     <span className={styles.itemName}>{__("Активность")}</span>
                     <span className={styles.description}>
-                      {selectedDevice?.last_visit?.split("-").reverse().join(".")}
+                      {selectedDevice?.last_visit
+                        ?.split("-")
+                        .reverse()
+                        .join(".")}
                     </span>
                   </div>
                   <div className={styles.disableBtn}>{__("Отключить")}</div>

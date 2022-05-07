@@ -11,6 +11,8 @@ import { getMedia, renderHeight } from "../../../../../generalComponents/general
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import FileLineShort from "../FileLineShort";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";

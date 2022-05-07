@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { share_types } from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../../../types/WorkElements";

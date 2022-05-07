@@ -11,6 +11,8 @@ import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabine
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../generalComponents/collections";
 import { onChooseFiles, onSetModals } from "../../../../../Store/actions/CabinetActions";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
@@ -21,7 +23,6 @@ const FileLineShort = ({
   params,
   chooseItemNext,
   openFolderMenu,
-  filesSize,
   style,
   disableContextMenu
 }) => {
@@ -29,7 +30,6 @@ const FileLineShort = ({
   const size = filesSize ?? sizeSelector;
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
-
   const onPickFile = () => {
     if (params?.next) {
       chooseItemNext(file);

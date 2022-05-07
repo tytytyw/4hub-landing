@@ -530,7 +530,7 @@ const MiniToolBar = ({
     return () => {
       chooseAdditionalTool({});
     };
-  }, []); //eslint-disable-line
+  }, [chooseAdditionalTool]);
 
   useEffect(() => {
     setParams((s) => ({
@@ -543,7 +543,7 @@ const MiniToolBar = ({
       setParams((s) => ({ ...s, edit: false }));
       chooseAdditionalTool("none");
     }
-  }, [images]); //eslint-disable-line
+  }, [chooseAdditionalTool]);
 
   return (
     <>

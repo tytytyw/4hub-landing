@@ -14,7 +14,6 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
 const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
-  console.log(color);
   const { __ } = useLocales();
 
   if (!title) {
@@ -74,4 +73,8 @@ ProjectIcons.propTypes = {
   setIcon: PropTypes.func,
   title: PropTypes.string,
   editableClass: PropTypes.string
+};
+
+ProjectIcons.defaultProps = {
+  editableClass: ""
 };

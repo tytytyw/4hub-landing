@@ -6,8 +6,6 @@ import { onSetPaint } from "../../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
 
 function ColorPicker({ colorPickerRef }) {
-  console.log(colorPickerRef);
-
   const dispatch = useDispatch();
   const tool = useSelector((state) => state.Cabinet.paint.tool);
 

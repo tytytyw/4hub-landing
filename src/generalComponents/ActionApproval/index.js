@@ -49,7 +49,7 @@ ActionApproval.propTypes = {
   set: PropTypes.func,
   text: PropTypes.string,
   name: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.node,
   callback: PropTypes.func,
   approve: PropTypes.string,
   childrenWidth: PropTypes.string,

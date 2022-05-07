@@ -6,6 +6,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../../generalComponents/collections";
 import { useLocation } from "react-router";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 import { fileProps } from "../../../../../../types/WorkElements";
 

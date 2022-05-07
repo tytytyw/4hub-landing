@@ -9,6 +9,8 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../types/WorkElements";
 
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
