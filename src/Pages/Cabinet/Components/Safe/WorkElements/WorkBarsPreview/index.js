@@ -184,7 +184,7 @@ const WorkBarsPreview = ({
 export default WorkBarsPreview;
 
 WorkBarsPreview.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   file: fileProps,
   setLoadingType: PropTypes.func,
   fileRef: PropTypes.object,

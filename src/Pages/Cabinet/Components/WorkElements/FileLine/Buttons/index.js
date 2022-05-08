@@ -16,6 +16,7 @@ import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/g
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../../types/WorkElements";
+// import { fileProps, fileSharedProps } from "../../../../../../types/WorkElements";
 
 const Buttons = ({
   file,
@@ -29,7 +30,6 @@ const Buttons = ({
   const dispatch = useDispatch();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
-
   const downloadFile = () => {
     // TODO - api for downloading folder
     if (file?.is_dir === 0) {

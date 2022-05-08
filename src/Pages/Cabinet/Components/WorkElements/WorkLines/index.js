@@ -67,9 +67,9 @@ const WorkLines = ({ children, filePick, fileRef, gLoader, load, options, filesP
 export default WorkLines;
 
 WorkLines.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   filePick: filePickProps,
-  fileRef: PropTypes.objectOf(PropTypes.element),
+  fileRef: PropTypes.objectOf(PropTypes.object),
   gLoader: PropTypes.bool,
   load: PropTypes.func,
   options: PropTypes.exact({

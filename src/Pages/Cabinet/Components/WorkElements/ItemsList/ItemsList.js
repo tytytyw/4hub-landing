@@ -26,7 +26,7 @@ import { useLocales } from "react-localized";
 import classnames from "classnames";
 
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
 import { chosenFolderProps } from "../../../../../types/CreateFolder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 
@@ -349,7 +349,7 @@ ItemsList.propTypes = {
   filePreview: filePreviewProps,
   setFilePick: PropTypes.func,
   callbackArrMain: PropTypes.array,
-  chosenFile: fileProps,
+  chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,
   chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
@@ -358,7 +358,11 @@ ItemsList.propTypes = {
   width: PropTypes.number,
   openFolderMenu: PropTypes.func,
   menuItem: PropTypes.string,
-  dateFilter: PropTypes.object,
+  dateFilter: PropTypes.exact({
+    y: PropTypes.string,
+    d: PropTypes.string,
+    m: PropTypes.string
+  }),
   successLoad: PropTypes.func,
   sharedFilesInfo: PropTypes.string,
   setGLoader: PropTypes.func

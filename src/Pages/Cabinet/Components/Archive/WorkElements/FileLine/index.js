@@ -141,9 +141,7 @@ export default FileLine;
 FileLine.propTypes = {
   file: fileProps,
   setChosenFile: PropTypes.func,
-  chosenFile: PropTypes.shape({
-    fid: PropTypes.string
-  }),
+  chosenFile: fileProps,
   setMouseParams: PropTypes.func,
   setAction: PropTypes.func,
   setFilePreview: PropTypes.func,

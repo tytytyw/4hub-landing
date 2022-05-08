@@ -12,6 +12,7 @@ import { getIcon } from "../helpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { projectProps } from "../../../../../types/Project";
 
 const ProjectItem = ({
   project,
@@ -194,7 +195,7 @@ const ProjectItem = ({
 export default ProjectItem;
 
 ProjectItem.propTypes = {
-  project: PropTypes.object,
+  project: projectProps,
   listCollapsed: PropTypes.bool,
   setMouseParams: PropTypes.func,
   size: PropTypes.string,
@@ -203,7 +204,9 @@ ProjectItem.propTypes = {
   setSelectedProject: PropTypes.func,
   chosen: PropTypes.bool,
   setNewFolder: PropTypes.func,
-  params: PropTypes.object,
+  params: PropTypes.exact({
+    fromRecent: PropTypes.bool
+  }),
   setParams: PropTypes.func,
-  listRef: PropTypes.any
+  listRef: PropTypes.object
 };

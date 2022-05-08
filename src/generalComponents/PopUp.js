@@ -61,5 +61,8 @@ PopUp.propTypes = {
   padding: PropTypes.string,
   zIndex: PropTypes.number,
   background: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.bool]))
+  ]).isRequired
 };

@@ -81,5 +81,7 @@ AddLogo.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any
+  companyLogo: PropTypes.exact({
+    src: PropTypes.string
+  })
 };

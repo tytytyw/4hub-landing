@@ -146,7 +146,7 @@ const WorkBars = ({
 
 export default WorkBars;
 WorkBars.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   fileSelect: PropTypes.func,
   hideUploadFile: PropTypes.bool,
   fileRef: PropTypes.object,

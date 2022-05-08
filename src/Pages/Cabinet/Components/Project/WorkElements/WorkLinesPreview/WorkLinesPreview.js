@@ -7,6 +7,7 @@ import File from "../../../../../../generalComponents/Files";
 import { imageToRatio } from "../../../../../../generalComponents/generalHelpers";
 import { projectSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/WorkElements";
 
 const WorkLinesPreview = ({ recentFiles, children, chosenFile, fileCollapsed }) => {
   const [toolBar] = useState(false);
@@ -182,6 +183,6 @@ export default WorkLinesPreview;
 WorkLinesPreview.propTypes = {
   recentFiles: PropTypes.array,
   children: PropTypes.element,
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   fileCollapsed: PropTypes.bool
 };

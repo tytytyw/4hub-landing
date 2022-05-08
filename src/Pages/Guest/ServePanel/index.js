@@ -35,6 +35,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps } from "../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../types/FileAddCustomization";
+import { contactProps, deviceProps } from "../../../types/Device";
 
 const ServePanel = ({
   chosenFile,
@@ -48,6 +49,7 @@ const ServePanel = ({
   addFolder,
   addFile
 }) => {
+  console.log(chosenFile);
   const { __ } = useLocales();
   const contextMenuCreateFile = useContextMenuCreateFile();
   const contextMenuFilters = useContextMenuFilters();
@@ -318,7 +320,7 @@ const ServePanel = ({
 export default ServePanel;
 
 ServePanel.propTypes = {
-  chosenFile: PropTypes.object,
+  chosenFile: PropTypes.oneOfType([deviceProps, contactProps]),
   chooseSeveral: PropTypes.func,
   filePick: filePickProps,
   setFileAddCustomization: PropTypes.func,

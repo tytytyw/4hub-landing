@@ -41,5 +41,5 @@ List.propTypes = {
   title: PropTypes.string,
   setListCollapsed: PropTypes.func,
   listCollapsed: PropTypes.bool,
-  children: PropTypes.element
+  children: PropTypes.arrayOf(PropTypes.element)
 };

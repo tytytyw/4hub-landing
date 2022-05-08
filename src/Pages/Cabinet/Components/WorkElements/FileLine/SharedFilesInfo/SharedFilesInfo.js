@@ -10,7 +10,7 @@ import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileSharedProps } from "../../../../../../types/WorkElements";
 
 //eslint-disable-next-line
 const CONTEXT = {
@@ -129,7 +129,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 
 export default SharedFilesInfo;
 SharedFilesInfo.propTypes = {
-  file: fileProps,
+  file: fileSharedProps,
   isChosen: PropTypes.bool,
   sharedFilesInfo: PropTypes.string
 };

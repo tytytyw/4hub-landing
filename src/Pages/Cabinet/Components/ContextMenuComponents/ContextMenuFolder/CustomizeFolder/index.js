@@ -26,7 +26,6 @@ const CustomizeFolder = ({
   setGLoader,
   successLoad
 }) => {
-  console.log(chosenSubFolder);
   const { __ } = useLocales();
   const tags = useTags();
   const uid = useSelector((state) => state.user.uid);

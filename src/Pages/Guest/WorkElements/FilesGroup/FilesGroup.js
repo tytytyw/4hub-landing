@@ -12,7 +12,7 @@ import SideList from "../../../Cabinet/Components/SharedFiles/SideList/SideList"
 import WorkLinesPreview from "../../../Cabinet/Components/Archive/WorkElements/WorkLinesPreview";
 import FileLine from "../../../Cabinet/Components/Archive/WorkElements/FileLine";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps } from "../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../types/WorkElements";
 
 function FilesGroup({
   fileList,
@@ -125,7 +125,7 @@ FilesGroup.propTypes = {
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   callbackArrMain: PropTypes.array,
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   filePick: filePickProps,
   setFilePick: PropTypes.func,

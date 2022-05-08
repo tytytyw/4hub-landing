@@ -12,7 +12,7 @@ import OptionalDate from "./OptionalDate";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
 import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
 
 const FileLine = ({
   file,
@@ -98,7 +98,7 @@ const FileLine = ({
 
 export default FileLine;
 FileLine.propTypes = {
-  file: fileProps,
+  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
   setChosenFile: PropTypes.func,
   chosen: PropTypes.bool,
   setMouseParams: PropTypes.func,

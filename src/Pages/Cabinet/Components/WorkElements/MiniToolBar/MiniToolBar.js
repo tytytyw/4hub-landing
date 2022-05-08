@@ -530,7 +530,7 @@ const MiniToolBar = ({
     return () => {
       chooseAdditionalTool({});
     };
-  }, [chooseAdditionalTool]);
+  }, []); //eslint-disable-line
 
   useEffect(() => {
     setParams((s) => ({
@@ -543,7 +543,7 @@ const MiniToolBar = ({
       setParams((s) => ({ ...s, edit: false }));
       chooseAdditionalTool("none");
     }
-  }, [chooseAdditionalTool]);
+  }, [images]); //eslint-disable-line
 
   return (
     <>
@@ -575,11 +575,11 @@ MiniToolBar.propTypes = {
   file: fileProps,
   toolBarType: PropTypes.string,
   width: PropTypes.string,
-  canvasRef: PropTypes.bool,
+  canvasRef: PropTypes.objectOf(PropTypes.object),
   share: PropTypes.bool,
   canvasWrapRef: PropTypes.objectOf(PropTypes.object),
   title: PropTypes.string,
-  images: PropTypes.string,
+  images: PropTypes.arrayOf(PropTypes.string),
   saveImageToPanel: PropTypes.func,
   isLoading: PropTypes.bool,
   isPreview: PropTypes.bool,

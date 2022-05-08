@@ -267,7 +267,9 @@ CreateFolder.propTypes = {
   title: PropTypes.string,
   showChoiceFolders: PropTypes.bool,
   chosenFolder: chosenFolderProps,
-  newFolderInfo: PropTypes.object,
+  newFolderInfo: PropTypes.exact({
+    path: PropTypes.string
+  }),
   setGLoader: PropTypes.func,
   setNewFolderInfo: PropTypes.func
 };

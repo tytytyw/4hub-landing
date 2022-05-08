@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { onChooseProjectFiles, setChosenFolderProject } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../types/Project";
+import { projectFolderStructure, projectProps } from "../../../../../types/Project";
 import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
 const CustomFolderItem = ({ folder, chosenFolder, setMouseParams, listSize, setChosenFolder, project, collapsed }) => {
@@ -102,6 +102,6 @@ CustomFolderItem.propTypes = {
   setMouseParams: PropTypes.func,
   listSize: PropTypes.string,
   setChosenFolder: PropTypes.func,
-  project: PropTypes.object,
+  project: projectProps,
   collapsed: PropTypes.bool
 };

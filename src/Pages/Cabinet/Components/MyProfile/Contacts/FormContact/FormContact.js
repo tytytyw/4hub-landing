@@ -19,6 +19,7 @@ import { formIsValid, isCorrectData } from "../../Input/validation";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../../types/Contacts";
 
 const FormContact = ({ set, type, selectedItem, setPageOption = () => {} }) => {
   const { __ } = useLocales();
@@ -376,7 +377,7 @@ export default FormContact;
 FormContact.propTypes = {
   set: PropTypes.func,
   type: PropTypes.string,
-  selectedItem: PropTypes.object,
+  selectedItem: selectedItemProps,
   setPageOption: PropTypes.func
 };
 FormContact.defaultProps = {

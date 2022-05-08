@@ -22,7 +22,6 @@ function ContextMenuFileList({ file, filePick, mouseParams, filesPage, menuItem,
   const copy_link_types = {
     myFolders: file?.is_dir === 1 ? "dir_access_add" : ""
   };
-
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -294,7 +293,11 @@ ContextMenuFileList.propTypes = {
   mouseParams: mouseParamsProps,
   filesPage: PropTypes.number,
   menuItem: PropTypes.string,
-  authorizedSafe: PropTypes.any
+  authorizedSafe: PropTypes.exact({
+    code: PropTypes.string,
+    id_safe: PropTypes.string,
+    password: PropTypes.string
+  })
 };
 
 ContextMenuFileList.defaultProps = {

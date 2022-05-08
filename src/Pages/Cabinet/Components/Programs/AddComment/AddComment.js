@@ -6,6 +6,7 @@ import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { getDate } from "../../../../../generalComponents/CalendarHelper";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { programItemProps } from "../../../../../types/Programs";
 
 function AddComment({ close, program, onAddComment }) {
   const [params, setParams] = useState({ comment: "" });
@@ -55,7 +56,7 @@ export default AddComment;
 
 AddComment.propTypes = {
   close: PropTypes.func,
-  program: PropTypes.object,
+  program: programItemProps,
   onAddComment: PropTypes.func
 };
 

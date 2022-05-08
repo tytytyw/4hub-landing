@@ -19,6 +19,7 @@ import Button from "../../MyProfile/Button";
 import { isCorrectData } from "../../MyProfile/Input/validation";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../types/Contacts";
 
 const AddMember = ({ set, selectedItem }) => {
   const { __ } = useLocales();
@@ -217,5 +218,5 @@ export default AddMember;
 
 AddMember.propTypes = {
   set: PropTypes.func,
-  selectedItem: PropTypes.object
+  selectedItem: selectedItemProps
 };

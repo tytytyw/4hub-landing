@@ -22,7 +22,7 @@ import classNames from "classnames";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps, filePickProps } from "../../../../../types/WorkElements";
+import { filePreviewProps, filePickProps, fileProps } from "../../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 import { actionProps } from "../../../../../types/Action";
 
@@ -56,7 +56,6 @@ const WorkSpace = ({
   const workElementsView = useSelector((state) => state.Cabinet.view);
   const size = useSelector((state) => state.Cabinet.size);
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
-
   const [mouseParams, setMouseParams] = useState(null);
 
   const nullifyAction = () => setAction({ type: "", name: "", text: "" });
@@ -247,7 +246,7 @@ export default WorkSpace;
 
 WorkSpace.propTypes = {
   menuItem: PropTypes.string,
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   listCollapsed: PropTypes.bool,
   setFilePreview: PropTypes.func,

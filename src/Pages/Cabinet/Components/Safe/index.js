@@ -29,6 +29,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { filePreviewProps } from "../../../../types/WorkElements";
 
 const Safe = ({
   menuItem,
@@ -472,11 +473,7 @@ export default Safe;
 
 Safe.propTypes = {
   menuItem: PropTypes.string,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   fileSelect: PropTypes.func,
   setMenuItem: PropTypes.func,

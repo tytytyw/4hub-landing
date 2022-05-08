@@ -7,13 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import PropTypes from "prop-types";
-import { filePickProps } from "../../../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../../../types/WorkElements";
 
 const FileLineShort = ({ file, setChosenFile, chosen, setMouseParams, filePick, setFilePick, fileCollapsed }) => {
   const size = useSelector((state) => state.Cabinet.size);
   const previewFile = useSelector((s) => s.Cabinet.modals.previewFile);
   const dispatch = useDispatch();
-
   const onPickFile = () => {
     if (filePick.show) {
       const isPicked = filePick.files.filter((el) => el === file.fid);
@@ -134,7 +133,7 @@ const FileLineShort = ({ file, setChosenFile, chosen, setMouseParams, filePick, 
 export default FileLineShort;
 
 FileLineShort.propTypes = {
-  file: PropTypes.object,
+  file: fileProps,
   setChosenFile: PropTypes.func,
   chosen: PropTypes.bool,
   setMouseParams: PropTypes.func,

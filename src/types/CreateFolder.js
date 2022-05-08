@@ -4,7 +4,7 @@ const folderInfoProps = PropTypes.exact({
   color: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   ctime: PropTypes.string,
   date: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  deadline: PropTypes.any,
+  deadline: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   deny_edit: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   emo: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   ext: PropTypes.string,
@@ -25,7 +25,7 @@ const folderInfoProps = PropTypes.exact({
   opath: PropTypes.string,
   otime: PropTypes.string,
   path: PropTypes.string,
-  sdir: PropTypes.any,
+  sdir: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   size: PropTypes.number,
   size_now: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -35,7 +35,7 @@ const folderInfoProps = PropTypes.exact({
 });
 
 export const chosenFolderProps = PropTypes.exact({
-  contextMenuFolder: PropTypes.any,
+  contextMenuFolder: PropTypes.string,
   files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   folderWidth: PropTypes.number,
   group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),

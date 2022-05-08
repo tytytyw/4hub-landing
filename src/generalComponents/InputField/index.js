@@ -7,17 +7,17 @@ const InputField = ({
   value,
   set,
   model,
-  mistake = false,
-  switcher = false,
-  isPass = false,
-  height = "",
-  placeholder = "",
+  mistake,
+  switcher,
+  isPass,
+  height,
+  placeholder,
   onSwitch,
   visibility,
   setVisibility,
   comparePass,
   phone,
-  disabled = false
+  disabled
 }) => {
   const [isPassword, setIsPassword] = useState(isPass);
 
@@ -94,13 +94,13 @@ const InputField = ({
 export default InputField;
 
 InputField.propTypes = {
-  value: PropTypes.string.isRequired,
-  set: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  set: PropTypes.func,
   model: PropTypes.oneOf(["password", "text"]),
   mistake: PropTypes.bool,
   switcher: PropTypes.bool,
   isPass: PropTypes.bool,
-  height: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   placeholder: PropTypes.string,
   onSwitch: PropTypes.func,
   visibility: PropTypes.oneOf(["password", "text"]),
@@ -108,4 +108,13 @@ InputField.propTypes = {
   comparePass: PropTypes.func,
   phone: PropTypes.bool,
   disabled: PropTypes.bool
+};
+
+InputField.defaultProps = {
+  mistake: false,
+  switcher: false,
+  isPass: false,
+  height: "",
+  placeholder: "",
+  disabled: false
 };

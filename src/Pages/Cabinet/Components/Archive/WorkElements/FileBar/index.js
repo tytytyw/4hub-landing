@@ -105,9 +105,7 @@ FileBar.propTypes = {
   file: fileProps,
   isLoading: PropTypes.bool,
   setMouseParams: PropTypes.func,
-  chosenFile: PropTypes.shape({
-    fid: PropTypes.string
-  }),
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   setFilePreview: PropTypes.func,
   setFilePick: PropTypes.func,

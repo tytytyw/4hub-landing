@@ -7,7 +7,6 @@ const getColorObj = (type) => colors?.find((item) => item.name === type);
 const FolderIcon = ({ type, fill, ...props }) => {
   const lightColor = getColorObj(type)?.light;
   const darkColor = getColorObj(type)?.dark;
-
   const getFill = (type = "dark") => {
     const color = type === "dark" ? darkColor : lightColor;
     return fill || color;
@@ -45,7 +44,7 @@ export default FolderIcon;
 
 FolderIcon.propTypes = {
   type: PropTypes.string,
-  fill: PropTypes.object,
+  fill: PropTypes.string,
   className: PropTypes.string
 };
 

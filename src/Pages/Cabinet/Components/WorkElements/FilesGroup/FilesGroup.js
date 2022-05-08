@@ -10,7 +10,7 @@ import FileLine from "../FileLine";
 import FileLineShort from "../FileLineShort";
 import FileItem from "../../MyFiles/FileItem";
 import PropTypes from "prop-types";
-import { filePickProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
 import { createFilesProps } from "../../../../../types/CreateFile";
 import { chosenFolderProps } from "../../../../../types/CreateFolder";
 
@@ -124,7 +124,7 @@ function FilesGroup({
 export default FilesGroup;
 
 FilesGroup.propTypes = {
-  fileList: PropTypes.arrayOf(fileProps),
+  fileList: PropTypes.arrayOf(PropTypes.oneOfType([fileProps, fileSharedProps])),
   filePick: filePickProps,
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,

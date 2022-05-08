@@ -4,17 +4,7 @@ import styles from "./ActionApproval.module.sass";
 import PopUp from "../PopUp";
 import classNames from "classnames";
 
-const ActionApproval = ({
-  set,
-  text,
-  name,
-  children,
-  callback,
-  approve,
-  childrenWidth = "",
-  disableActionBtn = false,
-  style = {}
-}) => {
+const ActionApproval = ({ set, text, name, children, callback, approve, childrenWidth, disableActionBtn, style }) => {
   return (
     <PopUp set={set}>
       <div className={styles.wrap} style={style}>
@@ -49,10 +39,19 @@ ActionApproval.propTypes = {
   set: PropTypes.func,
   text: PropTypes.string,
   name: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.arrayOf(PropTypes.element),
   callback: PropTypes.func,
   approve: PropTypes.string,
   childrenWidth: PropTypes.string,
   disableActionBtn: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.exact({
+    background: PropTypes.string,
+    color: PropTypes.string
+  })
+};
+
+ActionApproval.defaultProps = {
+  childrenWidth: "",
+  disableActionBtn: false,
+  style: {}
 };

@@ -16,7 +16,7 @@ import { onAddRecentFiles, onChooseFiles, onGetArchiveFiles } from "../../../../
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
 import { actionProps } from "../../../../../types/Action";
 import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
 import { createFilesProps } from "../../../../../types/CreateFile";
@@ -177,7 +177,7 @@ const WorkSpace = ({
 export default WorkSpace;
 
 WorkSpace.propTypes = {
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   listCollapsed: PropTypes.bool,
   setItem: PropTypes.func,

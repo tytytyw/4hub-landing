@@ -36,5 +36,8 @@ SearchField.propTypes = {
   value: PropTypes.string,
   setValue: PropTypes.func,
   placeholder: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.exact({
+    background: PropTypes.string,
+    color: PropTypes.string
+  })
 };
