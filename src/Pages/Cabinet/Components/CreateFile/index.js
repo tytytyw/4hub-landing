@@ -377,7 +377,7 @@ CreateFile.propTypes = {
   setBlob: PropTypes.func,
   onToggleSafePassword: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,

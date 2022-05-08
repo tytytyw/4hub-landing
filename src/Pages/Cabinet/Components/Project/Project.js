@@ -473,7 +473,7 @@ Project.propTypes = {
   setMenuItem: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,

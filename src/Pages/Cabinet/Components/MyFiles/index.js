@@ -305,7 +305,7 @@ MyFiles.propTypes = {
   setLoadingType: PropTypes.func,
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,

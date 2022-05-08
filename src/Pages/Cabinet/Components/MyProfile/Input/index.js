@@ -105,7 +105,7 @@ export default Input;
 Input.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  className: PropTypes.object,
+  className: PropTypes.string,
   showEye: PropTypes.bool,
   isMistake: PropTypes.bool,
   showPass: PropTypes.bool,

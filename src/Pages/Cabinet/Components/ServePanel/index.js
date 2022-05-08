@@ -40,7 +40,7 @@ import { useLocation } from "react-router";
 import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePickProps } from "../../../../types/WorkElements";
+import { filePickProps, fileProps } from "../../../../types/WorkElements";
 import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
 import { deviceProps, contactProps } from "../../../../types/Device";
 
@@ -614,7 +614,7 @@ const ServePanel = ({
 export default ServePanel;
 
 ServePanel.propTypes = {
-  chosenFile: PropTypes.oneOfType([deviceProps, contactProps]),
+  chosenFile: PropTypes.oneOfType([deviceProps, contactProps, fileProps]),
   chooseSeveral: PropTypes.func,
   filePick: filePickProps,
   setFileAddCustomization: PropTypes.func,

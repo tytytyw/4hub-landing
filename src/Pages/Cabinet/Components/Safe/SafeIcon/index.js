@@ -213,7 +213,7 @@ const SafeIcon = ({ type = "blue", ...props }) => {
 
 export default SafeIcon;
 SafeIcon.propTypes = {
-  className: PropTypes.object,
+  className: PropTypes.string,
   type: PropTypes.string
 };
 
