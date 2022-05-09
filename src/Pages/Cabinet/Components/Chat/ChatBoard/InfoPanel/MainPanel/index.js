@@ -14,6 +14,7 @@ const MainPanel = ({ setAction, setOption }) => {
   const [notificationsMute, setNotificationsMute] = useState(false);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
+  const files = useSelector((state) => state.Cabinet.chat.files);
 
   const deleteBtnType = () => {
     if (selectedContact?.isGroup) {
@@ -73,7 +74,9 @@ const MainPanel = ({ setAction, setOption }) => {
               <span className={styles.menuItemName}>{__("Мультимедиа")}</span>
             </div>
             <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
+              <span className={styles.menuItemText}>
+                ({files?.image?.col ?? 0 + files?.video?.col ?? 0 + files?.video?.gif ?? 0})
+              </span>
               <TriangleIcon className={styles.triangleIcon} />
             </div>
           </div>
@@ -93,7 +96,7 @@ const MainPanel = ({ setAction, setOption }) => {
               <span className={styles.menuItemName}>Аудио</span>
             </div>
             <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
+              <span className={styles.menuItemText}>({files?.audio?.col ?? 0})</span>
               <TriangleIcon className={styles.triangleIcon} />
             </div>
           </div>
