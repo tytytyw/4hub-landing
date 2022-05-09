@@ -29,6 +29,7 @@ import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/File";
 import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const ItemsList = ({
   setGLoader,
@@ -351,16 +352,7 @@ ItemsList.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   setFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.exact({
-        type: PropTypes.string,
-        name: PropTypes.string,
-        text: PropTypes.string,
-        callback: PropTypes.func
-      })
-    )
-  ),
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,
