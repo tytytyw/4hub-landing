@@ -27,7 +27,7 @@ import classnames from "classnames";
 
 import PropTypes from "prop-types";
 import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 import { createFilesProps } from "../../../../../types/CreateFile";
 
 const ItemsList = ({
@@ -361,7 +361,7 @@ ItemsList.propTypes = {
   chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,
-  chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
+  chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   gLoader: PropTypes.bool,
   fileRef: PropTypes.object,
   width: PropTypes.number,

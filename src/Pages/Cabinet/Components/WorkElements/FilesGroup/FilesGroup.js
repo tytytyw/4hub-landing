@@ -12,7 +12,7 @@ import FileItem from "../../MyFiles/FileItem";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/WorkElements";
 import { createFilesProps } from "../../../../../types/CreateFile";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 
 function FilesGroup({
   fileList,
@@ -132,7 +132,7 @@ FilesGroup.propTypes = {
   title: PropTypes.string,
   setChosenFolder: PropTypes.func,
   fileRef: PropTypes.objectOf(PropTypes.object),
-  chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
+  chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   gLoader: PropTypes.bool,
   renderFiles: PropTypes.func,
   params: PropTypes.any,

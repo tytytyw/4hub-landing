@@ -7,7 +7,7 @@ import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet
 import CustomFolderItem from "../CustomFolderItem";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 const RecentFolders = ({ listCollapsed, chosenFolder, setChosenFolder, chosen, setMouseParams }) => {
   const { __ } = useLocales();
   const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
@@ -67,7 +67,7 @@ export default RecentFolders;
 
 RecentFolders.propTypes = {
   listCollapsed: PropTypes.bool,
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   setChosenFolder: PropTypes.func,
   chosen: PropTypes.bool,
   setMouseParams: PropTypes.func

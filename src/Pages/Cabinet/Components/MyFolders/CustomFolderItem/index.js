@@ -14,7 +14,7 @@ import { moveFile, moveFolder } from "../../../../../generalComponents/generalHe
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/CustomFolderItem";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 
 const CustomFolderItem = ({
   f,
@@ -40,6 +40,8 @@ const CustomFolderItem = ({
   disableChosenFolderStyles,
   renderLoader
 }) => {
+  console.log(chosenFolder);
+
   const { __ } = useLocales();
   const [filesQuantity, setFilesQuantity] = useState(0);
   const uid = useSelector((state) => state.user.uid);
@@ -321,7 +323,7 @@ export default CustomFolderItem;
 CustomFolderItem.propTypes = {
   f: fileProps,
   setChosenFolder: PropTypes.func,
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   listCollapsed: PropTypes.bool,
   p: PropTypes.number,
   chosen: PropTypes.bool,

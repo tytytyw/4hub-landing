@@ -14,7 +14,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { filePickProps, fileProps } from "../../../../../types/WorkElements";
 import { createFilesProps } from "../../../../../types/CreateFile";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 
 const WorkBarsPreview = ({
   children,
@@ -266,7 +266,7 @@ WorkBarsPreview.propTypes = {
   }),
   gLoader: PropTypes.bool,
   filesPage: PropTypes.number,
-  chosenFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
+  chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
   width: PropTypes.number,
   groupInfo: PropTypes.exact({
     amount: PropTypes.number,

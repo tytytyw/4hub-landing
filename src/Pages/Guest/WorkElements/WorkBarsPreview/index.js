@@ -8,7 +8,7 @@ import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../types/CreateFolder";
+import { folderProps } from "../../../../types/Folder";
 
 // TODO - small loader doesn't represent itself correctly
 // TODO - set vertical loading instead horizontal
@@ -178,6 +178,6 @@ WorkBarsPreview.propTypes = {
   fileRef: PropTypes.exact({
     current: PropTypes.string
   }),
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   gLoader: PropTypes.bool
 };

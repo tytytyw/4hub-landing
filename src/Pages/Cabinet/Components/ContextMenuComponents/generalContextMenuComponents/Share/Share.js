@@ -236,7 +236,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
 export default Share;
 
 Share.propTypes = {
-  files: fileProps,
+  files: PropTypes.arrayOf(fileProps),
   action_type: PropTypes.string,
   setShowSuccessMessage: PropTypes.func,
   setLoadingType: PropTypes.func

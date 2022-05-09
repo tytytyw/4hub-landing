@@ -6,7 +6,7 @@ import { colors } from "../../../../../../../generalComponents/collections";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
-import { projectFolderStructure } from "../../../../../../../types/Project";
+import { folderProps } from "../../../../../../../types/Folder";
 
 const PrevVersions = ({ folder }) => {
   const { __ } = useLocales();
@@ -69,5 +69,5 @@ const PrevVersions = ({ folder }) => {
 export default PrevVersions;
 
 PrevVersions.propTypes = {
-  folder: projectFolderStructure
+  folder: folderProps
 };

@@ -11,7 +11,7 @@ import { ReactComponent as Pensil } from "../../../../../../assets/PrivateCabine
 import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/eye.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../../types/Folder";
 
 function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
   const { __ } = useLocales();
@@ -124,7 +124,7 @@ function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {
 export default ConfigAccessFolder;
 
 ConfigAccessFolder.propTypes = {
-  folder: chosenFolderProps,
+  folder: folderProps,
   close: PropTypes.func,
   setShowSuccessMessage: PropTypes.func
 };

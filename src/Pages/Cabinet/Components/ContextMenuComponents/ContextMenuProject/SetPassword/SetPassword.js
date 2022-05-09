@@ -7,7 +7,7 @@ import Error from "../../../../../../generalComponents/Error";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../../types/Folder";
 
 function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
   const { __ } = useLocales();
@@ -113,7 +113,7 @@ function SetPassword({ folder, setDisplaySetPassword, setShowSuccessMessage }) {
 export default SetPassword;
 
 SetPassword.propTypes = {
-  folder: chosenFolderProps,
+  folder: folderProps,
   setDisplaySetPassword: PropTypes.func,
   setShowSuccessMessage: PropTypes.func
 };

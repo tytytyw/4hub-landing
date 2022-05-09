@@ -15,7 +15,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../../types/Folder";
 
 const CustomizeFolder = ({
   nullifyAction,
@@ -257,7 +257,7 @@ CustomizeFolder.propTypes = {
   title: PropTypes.string,
   setError: PropTypes.func,
   setGLoader: PropTypes.func,
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   chosenSubFolder: PropTypes.any,
   successLoad: PropTypes.func
 };

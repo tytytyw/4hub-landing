@@ -6,7 +6,7 @@ import styles from "./RecentFolders.module.sass";
 import { ReactComponent as PlayIcon } from "../../../../../assets/PrivateCabinet/play-grey.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 
 const RecentFolders = ({ listCollapsed, chosenFolder, setChosenFolder, chosen, renderFolderList }) => {
   const { __ } = useLocales();
@@ -48,7 +48,7 @@ export default RecentFolders;
 
 RecentFolders.propTypes = {
   listCollapsed: PropTypes.bool,
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   setChosenFolder: PropTypes.func,
   chosen: PropTypes.bool,
   renderFolderList: PropTypes.func
