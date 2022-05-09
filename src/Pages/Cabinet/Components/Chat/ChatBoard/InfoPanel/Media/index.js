@@ -5,6 +5,7 @@ import Header from "../styledComponents/Header";
 import SubOptionButton from "../styledComponents/SubOptionButton";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import FileMessage from "../../Message/FileMessage";
 
 const Media = ({ setActiveOption, activeOption }) => {
   const { __ } = useLocales();
@@ -22,9 +23,21 @@ const Media = ({ setActiveOption, activeOption }) => {
     });
   };
 
-  const renderSubOptions = () => {
-    if (!activeOption) return null;
-    return activeOption?.subOptions?.map((subOption) => (
+  const renderFiles = () => {
+    const filesList = files
+      ? Object.values(files).reduce(
+          (prev, current) =>
+            Array.isArray(current.files)
+              ? [...prev, ...current.files.filter((f) => f.kind !== "audio_message" && f.kind !== "video_message")]
+              : prev,
+          []
+        )
+      : [];
+    return filesList.map((file, i) => <FileMessage key={i} file={file} size="small" />);
+  };
+
+  const renderSubOptions = () =>
+    activeOption.subOptions.map((subOption) => (
       <SubOptionButton
         key={subOption.id}
         subOption={subOption}
@@ -32,17 +45,29 @@ const Media = ({ setActiveOption, activeOption }) => {
         setActiveSubOption={setActiveSubOption}
       />
     ));
-  };
 
   return (
     <div className={styles.wrapper}>
       <Header setActiveOption={setActiveOption} title={activeOption?.title} />
-      <div className={styles.subOptions}>{renderSubOptions()}</div>
+      {activeOption?.subOptions && Array.isArray(activeOption.subOptions) && activeOption?.subOptions.length ? (
+        <div className={styles.subOptions}>{renderSubOptions()}</div>
+      ) : (
+        ""
+      )}
       {activeSubOption?.id === "photo" ? (
         <div className={styles.content}>
           <div className={styles.groupByDate}>
             <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
             <div className={styles.picturesWrap}>{renderImages()}</div>
+          </div>
+        </div>
+      ) : null}
+
+      {activeOption?.name === "files" ? (
+        <div className={styles.content}>
+          <div className={styles.groupByDate}>
+            <h5 className={styles.dateTitle}>{__("Сегодня")}</h5>
+            <div className={styles.picturesWrap}>{renderFiles()}</div>
           </div>
         </div>
       ) : null}

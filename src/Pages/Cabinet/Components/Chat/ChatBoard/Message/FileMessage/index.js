@@ -38,7 +38,12 @@ const FileMessage = ({ file, size, style }) => {
     <div className={styles.wrapper} onClick={onFileClick} style={style}>
       <div className={classNames(styles.fileBar, styles[size])}>
         <div className={styles.file}>
-          <File color="grey" format={file.kind === "file" ? ext : "png"} className={styles.mainFile} fileSize={size} />
+          <File
+            color="grey"
+            format={file.kind === "file" ? ext : file.type.slice(file.type.lastIndexOf("/") + 1)}
+            className={styles.mainFile}
+            fileSize={size}
+          />
         </div>
         {file.kind === "file" ? <div className={styles.fname}>{file.name}</div> : ""}
       </div>
