@@ -9,6 +9,7 @@ import FileLineShort from "../../WorkElements/FileLineShort";
 import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
+import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import {
   onGetFolders,
   onChooseFiles,
@@ -17,6 +18,7 @@ import {
   onSetModals
 } from "../../../../../Store/actions/CabinetActions";
 import { useFolders } from "../../../../../generalComponents/collections";
+import classNames from "classnames";
 
 const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
@@ -30,6 +32,8 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
 
   const [chosenFolder, setChosenFolder] = useState(null);
   const [chosenFiles, setChosenFiles] = useState(attachedFiles ?? []);
+  const [loadingFiles, setLoadingFiles] = useState(false);
+  const [filesPage, setFilesPage] = useState(1);
 
   const FileIsChosen = (file) => chosenFiles.some((chosenFile) => chosenFile.fid === file.fid);
 
@@ -44,11 +48,11 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
       );
   };
 
-  const renderLoader = () => (
+  const renderLoader = (position = "relative") => (
     <div style={{ width: "420px" }}>
       <Loader
         type="bounceDots"
-        position="relative"
+        position={position}
         background="transparent"
         zIndex={5}
         width="100px"
@@ -58,37 +62,85 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
     </div>
   );
 
+  const onSuccessLoading = (result) => {
+    if (typeof result === "number") {
+      setTimeout(() => {
+        result > 0 ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
+        setLoadingFiles(false);
+      }, 50); // 50ms needed to prevent recursion of ls_json requests
+    } else if (typeof result === "object") {
+      let moreElements = false;
+      for (let key in result) {
+        if (result[key].length > 0) moreElements = true;
+      }
+      setTimeout(() => {
+        moreElements ? setFilesPage((filesPage) => filesPage + 1) : setFilesPage(0);
+        setLoadingFiles(false);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setFilesPage(0);
+        setLoadingFiles(false);
+      }, 500);
+    }
+  };
+  const load = (entry) => {
+    if (entry.isIntersecting && !loadingFiles && filesPage !== 0) {
+      setLoadingFiles(true);
+      dispatch(onChooseFiles(path, "", filesPage, onSuccessLoading));
+    }
+  };
+  const [scrollRef] = useScrollElementOnScreen(
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0
+    },
+    load
+  );
+
   const renderFiles = (files, folder) => {
     if (!files) return null;
-    return files.map((file, i) => {
-      return (
-        <FileLineShort
-          key={i}
-          file={file}
-          setChosenFile={addChosenFile}
-          chosen={FileIsChosen(file)}
-          setMouseParams={null}
-          setAction={null}
-          setFilePreview={null}
-          filePreview={null}
-          filePick={null}
-          setFilePick={null}
-          callbackArrMain={null}
-          folderSelect={null}
-          setGLoader={null}
-          filesSize="small"
-          style={{
-            width: 420,
-            paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0
-          }}
-          disableContextMenu={true}
-        />
-      );
-    });
+    return (
+      <div className={styles.fileListWrap}>
+        {files.map((file, i) => {
+          return !file.is_dir ? (
+            <FileLineShort
+              key={i}
+              file={file}
+              setChosenFile={addChosenFile}
+              chosen={FileIsChosen(file)}
+              setMouseParams={null}
+              setAction={null}
+              setFilePreview={null}
+              filePreview={null}
+              filePick={null}
+              setFilePick={null}
+              callbackArrMain={null}
+              folderSelect={null}
+              setGLoader={null}
+              filesSize="small"
+              style={{
+                width: 420,
+                paddingLeft: 25 * (folder?.path?.split("/").length - 1) ?? 0
+              }}
+              disableContextMenu={true}
+            />
+          ) : null;
+        })}
+        <div
+          className={classNames({ [styles.bottomLine]: true, [styles.bottomLineHidden]: filesPage === 0 })}
+          style={{ height: filesPage ? "100px" : 0 }}
+          ref={scrollRef}
+        >
+          {renderLoader("absolute")}
+        </div>
+      </div>
+    );
   };
 
   const renderFolderList = (root) => {
-    if (!Array.isArray(root)) return null;
+    if (!Array.isArray(root)) return renderLoader("absolute");
     return root.map((folder, i) => {
       return (
         <CustomFolderItem
@@ -136,8 +188,8 @@ const SelectFile = ({ nullifyAction, title, attachedFiles, setAttachedFiles }) =
   }, []); //eslint-disable-line
 
   useEffect(() => {
-    if (path) dispatch(onChooseFiles(path, "", 1, "", ""));
-  }, [path]); // eslint-disable-line
+    if (!fileList) setFilesPage(1);
+  }, [fileList]);
 
   return (
     <PopUp set={nullifyAction} background={chatTheme.name === "dark" ? "#292929" : ""}>
