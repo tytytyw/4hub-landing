@@ -8,13 +8,12 @@ import { ReactComponent as TriangleIcon } from "../../../../../../../assets/Priv
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const MainPanel = ({ setAction, setOption }) => {
+const MainPanel = ({ setAction, setActiveOption, options }) => {
   const { __ } = useLocales();
   const selectedContact = useSelector((state) => state.Cabinet.chat.selectedContact);
   const [notificationsMute, setNotificationsMute] = useState(false);
   const userId = useSelector((state) => state.Cabinet.chat.userId);
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
-  const files = useSelector((state) => state.Cabinet.chat.files);
 
   const deleteBtnType = () => {
     if (selectedContact?.isGroup) {
@@ -69,47 +68,21 @@ const MainPanel = ({ setAction, setOption }) => {
       </div>
       <div className={styles.menu}>
         <div>
-          <div className={classNames(styles.menuItem, styles.borderBottom)} onClick={() => setOption("media")}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Мультимедиа")}</span>
+          {options.map((option) => (
+            <div
+              key={option.name}
+              className={classNames(styles.menuItem, styles.borderBottom)}
+              onClick={() => setActiveOption(option)}
+            >
+              <div className={styles.leftSide}>
+                <span className={styles.menuItemName}>{option.title}</span>
+              </div>
+              <div className={styles.leftSide}>
+                <span className={styles.menuItemText}>{option.count}</span>
+                <TriangleIcon className={styles.triangleIcon} />
+              </div>
             </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>
-                ({files?.image?.col ?? 0 + files?.video?.col ?? 0 + files?.video?.gif ?? 0})
-              </span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Документы")}</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>Аудио</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({files?.audio?.col ?? 0})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
-
-          <div className={classNames(styles.menuItem, styles.borderBottom)}>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemName}>{__("Ссылки")}</span>
-            </div>
-            <div className={styles.leftSide}>
-              <span className={styles.menuItemText}>({810})</span>
-              <TriangleIcon className={styles.triangleIcon} />
-            </div>
-          </div>
+          ))}
 
           {!selectedContact.is_secret_chat ? (
             <div className={classNames(styles.menuItem, styles.borderBottom, styles.hoverDisable)}>
@@ -169,5 +142,6 @@ export default MainPanel;
 
 MainPanel.propTypes = {
   setAction: PropTypes.func.isRequired,
-  setOption: PropTypes.func.isRequired
+  setActiveOption: PropTypes.func.isRequired,
+  options: PropTypes.array
 };

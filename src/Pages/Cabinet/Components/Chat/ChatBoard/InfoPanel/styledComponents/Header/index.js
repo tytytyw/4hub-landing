@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 
-const Header = ({ setOption, title }) => {
+const Header = ({ setActiveOption, title }) => {
   const { __ } = useLocales();
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
@@ -18,7 +18,7 @@ const Header = ({ setOption, title }) => {
         [styles.darkTheme]: chatTheme.name === "dark"
       })}
     >
-      <div className={styles.backButton} onClick={() => setOption("main")}>
+      <div className={styles.backButton} onClick={() => setActiveOption({ name: "main" })}>
         <TriangleIcon title="" className={styles.triangleIcon} />
       </div>
       <div className={styles.title}>{title}</div>
@@ -32,6 +32,6 @@ const Header = ({ setOption, title }) => {
 export default Header;
 
 Header.propTypes = {
-  setOption: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  setActiveOption: PropTypes.func,
+  title: PropTypes.string
 };

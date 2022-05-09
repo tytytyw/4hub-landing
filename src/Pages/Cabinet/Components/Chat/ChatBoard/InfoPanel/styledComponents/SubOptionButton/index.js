@@ -4,19 +4,19 @@ import styles from "./SubOptionButton.module.sass";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-const SubOptionButton = ({ name, id, subOption, setSubOption }) => {
+const SubOptionButton = ({ subOption, activeSubOption, setActiveSubOption }) => {
   const chatTheme = useSelector((state) => state.Cabinet.chat.theme);
 
   return (
     <div
       className={classNames({
         [styles.button]: true,
-        [styles.active]: subOption === id,
+        [styles.active]: subOption.id === activeSubOption.id,
         [styles.darkTheme]: chatTheme.name === "dark"
       })}
-      onClick={() => setSubOption(id)}
+      onClick={() => setActiveSubOption(subOption)}
     >
-      {name}
+      {subOption.name}
     </div>
   );
 };
@@ -24,8 +24,7 @@ const SubOptionButton = ({ name, id, subOption, setSubOption }) => {
 export default SubOptionButton;
 
 SubOptionButton.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  subOption: PropTypes.string.isRequired,
-  setSubOption: PropTypes.func.isRequired
+  subOption: PropTypes.object.isRequired,
+  activeSubOption: PropTypes.object,
+  setActiveSubOption: PropTypes.func.isRequired
 };
