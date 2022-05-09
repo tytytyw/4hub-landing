@@ -368,9 +368,9 @@ ItemsList.propTypes = {
   openFolderMenu: PropTypes.func,
   menuItem: PropTypes.string,
   dateFilter: PropTypes.exact({
-    y: PropTypes.string,
-    d: PropTypes.string,
-    m: PropTypes.string
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }),
   successLoad: PropTypes.func,
   sharedFilesInfo: PropTypes.string,

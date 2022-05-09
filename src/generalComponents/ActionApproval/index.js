@@ -39,7 +39,7 @@ ActionApproval.propTypes = {
   set: PropTypes.func,
   text: PropTypes.string,
   name: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
   callback: PropTypes.func,
   approve: PropTypes.string,
   childrenWidth: PropTypes.string,

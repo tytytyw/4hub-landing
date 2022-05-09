@@ -3,7 +3,7 @@ import styles from "./CustomFolderItem.module.sass";
 import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../types/Project";
+import { projectFolderStructure } from "../../../../../types/Folder";
 
 const FolderItem = ({ folder, chosenFolder, setChosenFolder, setMouseParams }) => {
   const onClickHandler = () => {

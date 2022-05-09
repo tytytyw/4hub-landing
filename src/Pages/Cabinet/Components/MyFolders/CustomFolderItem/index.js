@@ -40,8 +40,6 @@ const CustomFolderItem = ({
   disableChosenFolderStyles,
   renderLoader
 }) => {
-  console.log(chosenFolder);
-
   const { __ } = useLocales();
   const [filesQuantity, setFilesQuantity] = useState(0);
   const uid = useSelector((state) => state.user.uid);

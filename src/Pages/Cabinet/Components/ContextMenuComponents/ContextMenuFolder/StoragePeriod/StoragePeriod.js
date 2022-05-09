@@ -10,7 +10,7 @@ import { colors } from "../../../../../../generalComponents/collections";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../../types/Project";
+import { folderProps } from "../../../../../../types/Folder";
 
 //TODO - CHECK - needs to be deprecated (look in generalContextMenuComponents)
 function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue, size }) {
@@ -154,7 +154,7 @@ function StoragePeriod({ folder, setDisplayStotagePeriod, dateValue, setDateValu
 export default StoragePeriod;
 
 StoragePeriod.propTypes = {
-  folder: projectFolderStructure,
+  folder: folderProps,
   setDisplayStotagePeriod: PropTypes.func,
   dateValue: PropTypes.string,
   setDateValue: PropTypes.func,

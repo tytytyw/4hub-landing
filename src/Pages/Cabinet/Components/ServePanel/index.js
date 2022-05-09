@@ -626,8 +626,8 @@ ServePanel.propTypes = {
   setNewFolderInfo: PropTypes.func,
   setFilesPage: PropTypes.func,
   dateFilter: PropTypes.exact({
-    y: PropTypes.string,
-    d: PropTypes.string,
-    m: PropTypes.string
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })
 };

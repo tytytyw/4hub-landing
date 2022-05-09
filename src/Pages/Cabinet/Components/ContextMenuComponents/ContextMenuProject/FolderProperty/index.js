@@ -7,7 +7,7 @@ import Security from "./Security";
 import PrevVersions from "./PrevVersions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../../types/Project";
+import { projectFolderStructure } from "../../../../../../types/Folder";
 
 const FolderProperty = ({ close, folder }) => {
   const { __ } = useLocales();

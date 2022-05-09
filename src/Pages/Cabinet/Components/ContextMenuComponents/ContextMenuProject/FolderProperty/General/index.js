@@ -5,7 +5,7 @@ import { ReactComponent as FolderIcon } from "../../../../../../../assets/Privat
 import { colors } from "../../../../../../../generalComponents/collections";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { useLocales } from "react-localized";
-import { folderProps } from "../../../../../../../types/Folder";
+import { projectFolderStructure } from "../../../../../../../types/Folder";
 
 const General = ({ folder }) => {
   const { __ } = useLocales();
@@ -50,5 +50,5 @@ const General = ({ folder }) => {
 export default General;
 
 General.propTypes = {
-  folder: folderProps
+  folder: projectFolderStructure
 };

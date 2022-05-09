@@ -60,9 +60,9 @@ export default DateFilter;
 
 DateFilter.propTypes = {
   dateFilter: PropTypes.exact({
-    y: PropTypes.string,
-    d: PropTypes.string,
-    m: PropTypes.string
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }),
   setDateFilter: PropTypes.func
 };
