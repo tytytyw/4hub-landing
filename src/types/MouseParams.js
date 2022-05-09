@@ -5,5 +5,7 @@ export const mouseParamsProps = PropTypes.exact({
   y: PropTypes.number,
   width: PropTypes.number,
   height: PropTypes.number,
-  type: PropTypes.string
+  type: PropTypes.string,
+  contextMenuList: PropTypes.string,
+  message: PropTypes.object
 });
