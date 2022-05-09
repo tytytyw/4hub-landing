@@ -6,7 +6,6 @@ import StorageSize from "../StorageSize";
 import Notifications from "../Notifications";
 import Profile from "../Profile/Profile";
 import DateBlock from "./DateBlock";
-import List from "./List";
 import WorkSpaceList from "./WorkSpaceList";
 import ListCalendar from "./ListCalendar";
 import CreateTask from "./CreateTask";
@@ -27,7 +26,6 @@ const CalendarPage = () => {
 
   const [event, setEvent] = useState({});
   const [success, setSuccess] = useState(false);
-  const [listCollapsed, setListCollapsed] = useState(false);
 
   useEffect(() => {
     dispatch(setCalendarEvents());
@@ -46,12 +44,7 @@ const CalendarPage = () => {
       </div>
 
       <div className={styles.contentRight}>
-        <List
-          title="Мой календарь"
-          src="add-folder.svg"
-          listCollapsed={listCollapsed}
-          setListCollapsed={setListCollapsed}
-        >
+        <div className={styles.sideMenu}>
           <div className={styles.addTaskBlock}>
             <p>Создать задачу</p>
             <img
@@ -61,10 +54,9 @@ const CalendarPage = () => {
               alt="Add Task Icon"
             />
           </div>
-          <ListCalendar setViewType={setViewType} collapsed={listCollapsed} />
-          <SidebarTasks data={events} listCollapsed={listCollapsed} />
-        </List>
-
+          <ListCalendar setViewType={setViewType} />
+          <SidebarTasks data={events} />
+        </div>
         <div className={styles.wrapper}>
           <DateBlock setViewType={setViewType} />
           {viewType === "full" && <FullCalendarTable events={events} />}
