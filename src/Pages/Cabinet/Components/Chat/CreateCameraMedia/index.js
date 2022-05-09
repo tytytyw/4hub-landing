@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import CropImage from "../CropImage";
 import DrawZone from "../../Modals/Components/MutualEdit/DrawZone/DrawZone";
 import classNames from "classnames";
+import { socketProps } from "../../../../../types/Socket";
 
 const CreateCameraMedia = ({ nullifyAction, addMessage, socket, scrollToBottom }) => {
   const [state, setState] = useState("init");
@@ -445,6 +446,6 @@ export default CreateCameraMedia;
 CreateCameraMedia.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   addMessage: PropTypes.func.isRequired,
-  socket: PropTypes.object,
+  socket: socketProps,
   scrollToBottom: PropTypes.func.isRequired
 };

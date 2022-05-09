@@ -29,6 +29,13 @@ const ContactMenu = ({ data, pageOption }) => {
 export default ContactMenu;
 
 ContactMenu.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.exact({
+      icon: PropTypes.string,
+      id: PropTypes.string,
+      label: PropTypes.string,
+      onClick: PropTypes.func
+    })
+  ),
   pageOption: PropTypes.string
 };

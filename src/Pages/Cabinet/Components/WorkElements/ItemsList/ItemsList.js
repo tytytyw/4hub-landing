@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-
+import "theme/theme.sass";
 import styles from "./ItemsList.module.sass";
 import WorkBars from "../WorkBars";
 import FileBar from "../FileBar";
@@ -25,29 +25,32 @@ import { usePeriods } from "../../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import classnames from "classnames";
 
-const mock = () => {};
+import PropTypes from "prop-types";
+import { filePickProps, filePreviewProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { folderProps } from "../../../../../types/Folder";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const ItemsList = ({
-  setGLoader = mock,
+  setGLoader,
   setFilesPage,
-  setChosenFolder = mock,
+  setChosenFolder,
   setChosenFile,
   filePick,
-  setMouseParams = mock,
-  setAction = mock,
+  setMouseParams,
+  setAction,
   setFilePreview,
   filePreview,
   setFilePick,
   callbackArrMain,
   chosenFile,
-  fileLoading,
-  fileSelect = mock,
+  fileSelect,
   filesPage,
   chosenFolder,
   gLoader,
   fileRef,
   width,
-  openFolderMenu = mock,
+  openFolderMenu,
   menuItem,
   dateFilter,
   successLoad,
@@ -62,6 +65,7 @@ const ItemsList = ({
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
+  const { theme } = useSelector((s) => s.user.userInfo);
   const folderSelect = (folder) => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
@@ -110,7 +114,8 @@ const ItemsList = ({
       );
     });
   };
-
+  // TODO - fix unused variable - Type
+  //eslint-disable-next-line
   const renderGroups = (Type, list, params) => {
     if (!list) return null;
     const keys = Object.keys(list);
@@ -131,7 +136,6 @@ const ItemsList = ({
           setAction={setAction}
           setMouseParams={setMouseParams}
           //WorkBars
-          fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           setFilesPage={setFilesPage}
@@ -165,7 +169,7 @@ const ItemsList = ({
       dispatch(onGetArchiveFiles(search, 1, onSuccessLoading, "", "", dateFilter));
       setFilesPage(1);
     }
-  }, [dateFilter]);
+  }, [dateFilter]); //eslint-disable-line
 
   const onSuccessLoading = (result) => {
     if (typeof result === "number") {
@@ -228,7 +232,6 @@ const ItemsList = ({
     <>
       {workElementsView === "bars" && Array.isArray(fileList?.files) ? (
         <WorkBars
-          fileLoading={fileLoading}
           fileSelect={fileSelect}
           filePick={filePick}
           filesPage={filesPage}
@@ -249,6 +252,7 @@ const ItemsList = ({
           className={classnames(
             renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
             styles.FilesList,
+            `scrollbar-vertical-${theme}`,
             {
               [styles.shared_files]: pathname.startsWith("/shared-files")
             }
@@ -277,7 +281,6 @@ const ItemsList = ({
 
       {workElementsView === "lines" && Array.isArray(fileList?.files) ? (
         <WorkLines
-          fileLoading={fileLoading}
           filePick={filePick}
           filesPage={filesPage}
           setFilesPage={setFilesPage}
@@ -338,3 +341,42 @@ const ItemsList = ({
 };
 
 export default ItemsList;
+
+ItemsList.propTypes = {
+  setFilesPage: PropTypes.func,
+  setChosenFolder: PropTypes.func,
+  setChosenFile: PropTypes.func,
+  filePick: filePickProps,
+  setMouseParams: PropTypes.func,
+  setAction: PropTypes.func,
+  setFilePreview: PropTypes.func,
+  filePreview: filePreviewProps,
+  setFilePick: PropTypes.func,
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
+  chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
+  fileSelect: PropTypes.func,
+  filesPage: PropTypes.number,
+  chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
+  gLoader: PropTypes.bool,
+  fileRef: PropTypes.object,
+  width: PropTypes.number,
+  openFolderMenu: PropTypes.func,
+  menuItem: PropTypes.string,
+  dateFilter: PropTypes.exact({
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  }),
+  successLoad: PropTypes.func,
+  sharedFilesInfo: PropTypes.string,
+  setGLoader: PropTypes.func
+};
+
+ItemsList.defaultProps = {
+  setChosenFolder: () => {},
+  setMouseParams: () => {},
+  setAction: () => {},
+  fileSelect: () => {},
+  openFolderMenu: () => {},
+  setGLoader: () => {}
+};

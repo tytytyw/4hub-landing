@@ -4,8 +4,9 @@ import styles from "./Contacts.module.sass";
 import ContactList from "./ContactList/ContactList";
 import ContactsData from "./ContactsData/ContactsData";
 import PropTypes from "prop-types";
+import { userInfoProps } from "../../../../../types/UserInfo";
 
-const ContactsFav = ({ data = [] }) => {
+const ContactsFav = ({ data }) => {
   const [contacts, setContacts] = useState(getFavourites(data));
   const [selectedContact, setSelectedContact] = useState(contacts?.[0]);
 
@@ -43,7 +44,7 @@ const getFavourites = (data = []) => {
 export default ContactsFav;
 
 ContactsFav.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.arrayOf(userInfoProps)
 };
 ContactsFav.defaultProps = {
   data: []

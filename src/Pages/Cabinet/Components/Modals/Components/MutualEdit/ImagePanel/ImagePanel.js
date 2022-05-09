@@ -74,7 +74,7 @@ ImagePanel.propTypes = {
   addImage: PropTypes.bool,
   pushImages: PropTypes.func,
   deleteImage: PropTypes.func,
-  inputRef: PropTypes.any,
+  inputRef: PropTypes.object,
   isChoosing: PropTypes.bool,
   addToChosen: PropTypes.func,
   chosen: PropTypes.array

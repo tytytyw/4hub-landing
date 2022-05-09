@@ -17,7 +17,7 @@ class Square extends Tool {
     this.canvas.onmouseup = this.mouseUpHandler.bind(this);
   }
 
-  mouseUpHandler(e) {
+  mouseUpHandler() {
     this.mouseDown = false;
     this.startX = undefined;
     this.startY = undefined;

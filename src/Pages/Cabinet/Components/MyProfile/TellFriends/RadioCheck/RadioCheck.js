@@ -4,8 +4,10 @@ import styles from "./RadioCheck.module.sass";
 import classnames from "classnames";
 import { emptyProfileImage, getContactName } from "../../Contacts/consts";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../../types/Contacts";
+import { userInfoProps } from "../../../../../../types/UserInfo";
 
-const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
+const RadioCheck = ({ item, name, selected, onChange }) => {
   const htmlFor = `radioCheck-${Math.random()}`;
   return (
     <div
@@ -35,9 +37,9 @@ const RadioCheck = ({ item, name, selected, onChange = () => {} }) => {
 export default RadioCheck;
 
 RadioCheck.propTypes = {
-  item: PropTypes.object,
+  item: selectedItemProps,
   name: PropTypes.string,
-  selected: PropTypes.any,
+  selected: userInfoProps,
   onChange: PropTypes.func
 };
 

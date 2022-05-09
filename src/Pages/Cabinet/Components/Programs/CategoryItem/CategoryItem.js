@@ -44,7 +44,21 @@ const CategoryItem = ({ category, listCollapsed, listSize, chosen }) => {
 export default CategoryItem;
 
 CategoryItem.propTypes = {
-  category: PropTypes.object,
+  category: PropTypes.exact({
+    id: PropTypes.number,
+    image: PropTypes.string,
+    list: PropTypes.arrayOf(
+      PropTypes.exact({
+        comments: PropTypes.array,
+        icon: PropTypes.string,
+        isFavourite: PropTypes.bool,
+        link: PropTypes.string,
+        name: PropTypes.string
+      })
+    ),
+    name: PropTypes.string,
+    color: PropTypes.string
+  }),
   listCollapsed: PropTypes.bool,
   listSize: PropTypes.string,
   chosen: PropTypes.bool

@@ -7,7 +7,7 @@ import styles from "./PreviewSafeFile.module.sass";
 import PopUp from "../../../../../generalComponents/PopUp";
 import File from "../../../../../generalComponents/Files";
 import PropTypes from "prop-types";
-import { filePreviewProps, fileProps } from "../../../../../types/WorkElements";
+import { filePreviewProps, fileProps } from "../../../../../types/File";
 
 const PreviewSafeFile = ({ setFilePreview, file, filePreview, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);

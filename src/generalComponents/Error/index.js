@@ -33,7 +33,7 @@ const Error = ({ error, set, message }) => {
 export default Error;
 
 Error.propTypes = {
-  error: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
   set: PropTypes.func.isRequired,
   message: PropTypes.string
 };

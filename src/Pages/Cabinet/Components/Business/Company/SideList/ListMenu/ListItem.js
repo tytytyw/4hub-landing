@@ -9,7 +9,6 @@ import { itemProps } from "../../../../../../../types/Company";
 const ListItem = ({ item, page, setPage, isSub, render }) => {
   const [collapse, setCollapse] = useState(false);
   const hasChild = item.children?.length;
-
   const onClickHandler = () => {
     setPage(item.name === "get_info" && !collapse ? item.children[0] : item);
     if (hasChild) setCollapse(!collapse);

@@ -27,7 +27,9 @@ import SafeProperty from "../ContextMenuComponents/ContexMenuSafe/SafeProperty";
 import { onGetUserInfo } from "../../../../Store/actions/startPageAction";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
+import { filePreviewProps } from "../../../../types/File";
 
 const Safe = ({
   menuItem,
@@ -471,21 +473,17 @@ export default Safe;
 
 Safe.propTypes = {
   menuItem: PropTypes.string,
-  filePreview: PropTypes.shape({
-    view: PropTypes.bool,
-    file: PropTypes.any,
-    create: PropTypes.bool
-  }),
+  filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
   fileSelect: PropTypes.func,
   setMenuItem: PropTypes.func,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,

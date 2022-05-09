@@ -11,6 +11,10 @@ import { ReactComponent as FolderIcon } from "../../../../../assets/PrivateCabin
 import { colors } from "../../../../../generalComponents/collections";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/File";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { folderProps } from "../../../../../types/Folder";
 
 const WorkBarsPreview = ({
   children,
@@ -23,8 +27,8 @@ const WorkBarsPreview = ({
   options,
   gLoader,
   filesPage,
-  chosenFolder = {},
-  width = "100%",
+  chosenFolder,
+  width,
   groupInfo
 }) => {
   const { __ } = useLocales();
@@ -246,3 +250,31 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+
+WorkBarsPreview.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element),
+  file: fileProps,
+  filePick: filePickProps,
+  fileRef: PropTypes.objectOf(PropTypes.object),
+  grouped: PropTypes.bool,
+  chosenFile: fileProps,
+  load: PropTypes.func,
+  options: PropTypes.exact({
+    root: PropTypes.number,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.number
+  }),
+  gLoader: PropTypes.bool,
+  filesPage: PropTypes.number,
+  chosenFolder: PropTypes.oneOfType([folderProps, createFilesProps]),
+  width: PropTypes.number,
+  groupInfo: PropTypes.exact({
+    amount: PropTypes.number,
+    title: PropTypes.string
+  })
+};
+
+WorkBarsPreview.defaultProps = {
+  chosenFolder: {},
+  width: "100%"
+};

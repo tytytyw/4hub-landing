@@ -8,6 +8,8 @@ import Loader from "../../../../../generalComponents/Loaders/4HUB";
 import { useScrollElementOnScreen } from "../../../../../generalComponents/Hooks";
 import { renderHeight } from "../../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps } from "../../../../../types/File";
 
 const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, fileRef, gLoader, load, options }) => {
   const { __ } = useLocales();
@@ -98,3 +100,19 @@ const WorkBars = ({ children, fileSelect, filePick, hideUploadFile, filesPage, f
 };
 
 export default WorkBars;
+
+WorkBars.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element),
+  fileSelect: PropTypes.func,
+  filePick: filePickProps,
+  hideUploadFile: PropTypes.bool,
+  filesPage: PropTypes.number,
+  fileRef: PropTypes.objectOf(PropTypes.object),
+  gLoader: PropTypes.bool,
+  load: PropTypes.func,
+  options: PropTypes.exact({
+    root: PropTypes.number,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.number
+  })
+};

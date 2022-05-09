@@ -19,7 +19,8 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { loadDest } from "../../../../generalComponents/collections";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const FileLoader = ({
   awaitingFiles,
@@ -484,9 +485,9 @@ const FileLoader = ({
 export default FileLoader;
 
 FileLoader.propTypes = {
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,

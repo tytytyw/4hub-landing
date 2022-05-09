@@ -7,6 +7,7 @@ import { ReactComponent as AddContactIcon } from "../../../../../../../assets/Pr
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../../../types/Contacts";
 
 const ContactList = ({ data, selectedItem, setSelectedItem, action, setAction, setMouseParams }) => {
   const { __ } = useLocales();
@@ -105,7 +106,7 @@ export default ContactList;
 
 ContactList.propTypes = {
   data: PropTypes.array,
-  selectedItem: PropTypes.object,
+  selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func,
   action: PropTypes.string,
   setAction: PropTypes.func,

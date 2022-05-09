@@ -14,6 +14,7 @@ import { moveFile, moveFolder } from "../../../../../generalComponents/generalHe
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/CustomFolderItem";
+import { folderProps } from "../../../../../types/Folder";
 
 const CustomFolderItem = ({
   f,
@@ -321,24 +322,26 @@ export default CustomFolderItem;
 CustomFolderItem.propTypes = {
   f: fileProps,
   setChosenFolder: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: folderProps,
   listCollapsed: PropTypes.bool,
   p: PropTypes.number,
   chosen: PropTypes.bool,
   subFolder: PropTypes.bool,
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
-  newFolderInfo: PropTypes.object,
+  newFolderInfo: PropTypes.exact({
+    path: PropTypes.string
+  }),
   setMouseParams: PropTypes.func,
   setError: PropTypes.func,
   setGLoader: PropTypes.func,
   setFilesPage: PropTypes.func,
   setShowSuccessMessage: PropTypes.func,
   openMenu: PropTypes.func,
-  isRecent: PropTypes.any,
-  offDispatch: PropTypes.any,
+  isRecent: PropTypes.bool,
+  offDispatch: PropTypes.bool,
   foldersWidth: PropTypes.number,
-  children: PropTypes.array,
+  children: PropTypes.arrayOf(PropTypes.element),
   renderFiles: PropTypes.func,
   disableChosenFolderStyles: PropTypes.bool,
   renderLoader: PropTypes.func

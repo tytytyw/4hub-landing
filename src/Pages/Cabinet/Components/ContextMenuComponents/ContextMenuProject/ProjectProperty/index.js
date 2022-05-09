@@ -7,7 +7,7 @@ import Security from "./Security";
 import PrevVersions from "./PrevVersions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectProps } from "../../../../../../types/ContextMenuFile";
+import { projectProps } from "../../../../../../types/Project";
 
 const ProjectProperty = ({ close, project, getIcon }) => {
   const { __ } = useLocales();

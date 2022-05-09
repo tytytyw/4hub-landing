@@ -24,7 +24,7 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType = () => {}, info }) => {
+const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType, info }) => {
   const { __ } = useLocales();
   const tags = useTags();
   const { title, items, filePick, menuItem } = useSelector((s) => s.Cabinet.modals.contextMenuModals);
@@ -347,11 +347,12 @@ const CustomizeFile = ({ saveCustomizeSeveralFiles, setLoadingType = () => {}, i
 
 export default CustomizeFile;
 
+CustomizeFile.defaultProps = {
+  setLoadingType: () => {}
+};
+
 CustomizeFile.propTypes = {
   setLoadingType: PropTypes.func,
   saveCustomizeSeveralFiles: PropTypes.func,
   info: PropTypes.object
-};
-CustomizeFile.defaultProps = {
-  setLoadingType: () => {}
 };

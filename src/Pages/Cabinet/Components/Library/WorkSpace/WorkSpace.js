@@ -14,8 +14,8 @@ import OptionButtomLine from "../../WorkElements/OptionButtomLine";
 import ContextMenu from "../../../../../generalComponents/ContextMenu";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePreviewProps } from "../../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../../types/File";
 
 function WorkSpace({
   listCollapsed,

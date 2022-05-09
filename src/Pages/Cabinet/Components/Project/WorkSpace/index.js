@@ -20,6 +20,8 @@ import classnames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../types/MouseParams";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { projectFolderStructure } from "../../../../../types/Folder";
 
 const WorkSpace = ({
   setMouseParams,
@@ -144,7 +146,7 @@ WorkSpace.propTypes = {
   addMember: PropTypes.bool,
   setAddMember: PropTypes.func,
   fileSelect: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: PropTypes.oneOfType([createFilesProps, projectFolderStructure]),
   menuItem: PropTypes.string,
   setParams: PropTypes.func,
   setSelectedProject: PropTypes.func,

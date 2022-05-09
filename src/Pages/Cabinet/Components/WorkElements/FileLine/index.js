@@ -11,6 +11,9 @@ import OptionalButton from "./OptionalButton";
 import OptionalDate from "./OptionalDate";
 import { MODALS } from "../../../../../generalComponents/globalVariables";
 import SharedFilesInfo from "./SharedFilesInfo/SharedFilesInfo";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps, fileSharedProps } from "../../../../../types/File";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const FileLine = ({
   file,
@@ -95,3 +98,17 @@ const FileLine = ({
 };
 
 export default FileLine;
+FileLine.propTypes = {
+  file: PropTypes.oneOfType([fileSharedProps, fileProps]),
+  setChosenFile: PropTypes.func,
+  chosen: PropTypes.bool,
+  setMouseParams: PropTypes.func,
+  setAction: PropTypes.func,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
+  folderSelect: PropTypes.func,
+  openFolderMenu: PropTypes.func,
+  successLoad: PropTypes.func,
+  sharedFilesInfo: PropTypes.string
+};

@@ -35,8 +35,10 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
+import classnames from "classnames";
 
 const MyFolders = ({
   setItem,
@@ -64,6 +66,7 @@ const MyFolders = ({
   const contextMenuFolder = useContextMenuFolder();
   const contextMenuFolderGeneral = useContextMenuFolderGeneral();
   const uid = useSelector((state) => state.user.uid);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
   const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
@@ -294,7 +297,7 @@ const MyFolders = ({
           />
         </div>
         <div
-          className={styles.folderListWrap}
+          className={classnames(styles.folderListWrap, `scrollbar-vertical-thin-${theme}`)}
           ref={folderListWrapRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)
@@ -441,10 +444,10 @@ MyFolders.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,

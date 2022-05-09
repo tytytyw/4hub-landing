@@ -7,7 +7,7 @@ import PopUp from "../../../../../../generalComponents/PopUp";
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 function StoragePeriod({ file, setDisplayStotagePeriod, dateValue, setDateValue, timeValue, setTimeValue }) {
   const { __ } = useLocales();

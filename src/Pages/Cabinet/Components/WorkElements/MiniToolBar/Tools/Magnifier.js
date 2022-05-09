@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { imageToRatio } from "../../../../../../generalComponents/generalHelpers";
+import PropTypes from "prop-types";
 
 function Magnifier({ canvas }) {
   const squareRef = useRef();
@@ -124,3 +125,4 @@ function Magnifier({ canvas }) {
 }
 
 export default Magnifier;
+Magnifier.propTypes = { canvas: PropTypes.object };

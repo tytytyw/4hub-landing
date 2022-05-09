@@ -16,9 +16,11 @@ import { onAddRecentFiles, onChooseFiles, onGetArchiveFiles } from "../../../../
 import DateFilter from "../DateFilter";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/File";
 import { actionProps } from "../../../../../types/Action";
-import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../../types/File";
+import { createFilesProps } from "../../../../../types/CreateFile";
+import { callbackArrMain } from "types/CallbackArrMain";
 
 const WorkSpace = ({
   chosenFile,
@@ -33,7 +35,6 @@ const WorkSpace = ({
   setFilePreview,
   filePreview,
   fileSelect,
-  // fileLoading,
   filePick,
   setFilePick,
   chosenFolder,
@@ -146,7 +147,6 @@ const WorkSpace = ({
           setFilePick={setFilePick}
           callbackArrMain={callbackArrMain}
           chosenFile={chosenFile}
-          // fileLoading={fileLoading}
           fileSelect={fileSelect}
           filesPage={filesPage}
           chosenFolder={chosenFolder}
@@ -178,7 +178,7 @@ const WorkSpace = ({
 export default WorkSpace;
 
 WorkSpace.propTypes = {
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   listCollapsed: PropTypes.bool,
   setItem: PropTypes.func,
@@ -186,14 +186,13 @@ WorkSpace.propTypes = {
   action: actionProps,
   setAction: PropTypes.func,
   nullifyFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.array,
+  callbackArrMain: PropTypes.arrayOf(PropTypes.objectOf(callbackArrMain)),
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   fileSelect: PropTypes.func,
-  // fileLoading: Profile.any,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: createFilesProps,
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   filesPage: PropTypes.number,

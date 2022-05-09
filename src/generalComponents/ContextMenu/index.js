@@ -10,10 +10,10 @@ const ContextMenu = ({
   tooltip,
   itemRef,
   customClose,
-  movehorizontal = 0,
-  disableAutohide = false,
-  withoutOffset = false,
-  style = {}
+  movehorizontal,
+  disableAutohide,
+  withoutOffset,
+  style
 }) => {
   const closeContext = (e) => {
     if (!customClose) {
@@ -109,14 +109,23 @@ const ContextMenu = ({
 export default ContextMenu;
 
 ContextMenu.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
   params: mouseParamsProps,
   setParams: PropTypes.func,
   tooltip: PropTypes.bool,
-  itemRef: PropTypes.element,
+  itemRef: PropTypes.objectOf(PropTypes.object),
   customClose: PropTypes.bool,
   movehorizontal: PropTypes.number,
   disableAutohide: PropTypes.bool,
   withoutOffset: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.exact({
+    boxShadow: PropTypes.string
+  })
+};
+
+ContextMenu.defaultProps = {
+  movehorizontal: 0,
+  disableAutohide: false,
+  withoutOffset: false,
+  style: {}
 };

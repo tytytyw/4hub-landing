@@ -4,7 +4,7 @@ import styles from "./General.module.sass";
 import File from "../../../../../../../generalComponents/Files";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { useLocales } from "react-localized";
-import { fileProps } from "../../../../../../../types/CustomFolderItem";
+import { fileProps } from "../../../../../../../types/File";
 
 const General = ({ file }) => {
   const { __ } = useLocales();

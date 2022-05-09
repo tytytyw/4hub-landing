@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import Pencil from "../Pencil";
 import styles from "./LineDraw.module.sass";
 import html2canvas from "html2canvas";
+import PropTypes from "prop-types";
 
-function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true }) {
+function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow }) {
   const dotRightRef = useRef(null);
   const dotLeftRef = useRef(null);
   const lineRef = useRef(null);
@@ -117,7 +118,7 @@ function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true
   useEffect(() => {
     canvas.onmousedown = async () => {
       await onFinishDraw(canvas.toDataURL());
-      await drawDiv(canvas, lineRef).then((res) => {
+      await drawDiv(canvas, lineRef).then(() => {
         setTimeout(() => {
           addTool(Pencil);
         }, 0);
@@ -181,3 +182,15 @@ function LineDraw({ canvas, canvasWrapRef, onFinishDraw, addTool, isArrow = true
 }
 
 export default LineDraw;
+
+LineDraw.propTypes = {
+  canvas: PropTypes.objectOf(PropTypes.object),
+  canvasWrapRef: PropTypes.object,
+  onFinishDraw: PropTypes.func,
+  addTool: PropTypes.func,
+  isArrow: PropTypes.bool
+};
+
+LineDraw.defaultProps = {
+  isArrow: true
+};

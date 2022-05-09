@@ -14,7 +14,7 @@ import { colors } from "../../../../../../generalComponents/collections";
 import Loader from "../../../../../../generalComponents/Loaders/4HUB";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../../types/Project";
+import { folderProps } from "../../../../../../types/Folder";
 
 function CopyLinkFolder({ nullifyAction, folder, setShowSuccessMessage, setLoadingType }) {
   const { __ } = useLocales();
@@ -363,7 +363,7 @@ export default CopyLinkFolder;
 
 CopyLinkFolder.propTypes = {
   nullifyAction: PropTypes.func,
-  folder: projectFolderStructure,
+  folder: folderProps,
   setShowSuccessMessage: PropTypes.func,
   setLoadingType: PropTypes.func
 };

@@ -19,6 +19,7 @@ import ChatBoardFooter from "./ChatBoardFooter";
 import FileMessage from "./Message/FileMessage";
 import PropTypes from "prop-types";
 import { actionProps } from "../../../../../types/Action";
+import { socketProps } from "../../../../../types/Socket";
 
 const ChatBoard = ({
   sideMenuCollapsed,
@@ -367,7 +368,7 @@ ChatBoard.propTypes = {
   nullifyAction: PropTypes.func.isRequired,
   file: PropTypes.object,
   setFile: PropTypes.func.isRequired,
-  socket: PropTypes.object,
+  socket: socketProps,
   endMessagesRef: PropTypes.object.isRequired,
   scrollToBottom: PropTypes.func.isRequired,
   editMessage: PropTypes.func.isRequired,

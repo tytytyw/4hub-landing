@@ -10,6 +10,7 @@ import { days } from "../helper";
 import TableTaskItem from "../TableTaskItem";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { eventShowProps } from "../../../../../types/CalendarPage";
 
 const FullCalendarTable = ({ events }) => {
   const calendarRef = useRef();
@@ -65,5 +66,5 @@ const FullCalendarTable = ({ events }) => {
 export default FullCalendarTable;
 
 FullCalendarTable.propTypes = {
-  events: PropTypes.array
+  events: PropTypes.arrayOf(eventShowProps)
 };

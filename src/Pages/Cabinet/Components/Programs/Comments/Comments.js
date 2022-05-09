@@ -6,6 +6,7 @@ import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { programItemProps } from "../../../../../types/Programs";
 
 function Comments({ hideComments, comments, program }) {
   const { __ } = useLocales();
@@ -71,7 +72,7 @@ export default Comments;
 Comments.propTypes = {
   hideComments: PropTypes.func,
   comments: PropTypes.array,
-  program: PropTypes.object
+  program: programItemProps
 };
 
 Comments.defaultProps = {

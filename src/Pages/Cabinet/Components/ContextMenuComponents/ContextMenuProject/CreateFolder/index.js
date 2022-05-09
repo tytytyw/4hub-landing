@@ -15,7 +15,7 @@ import Emoji from "../../../../../../generalComponents/Elements/Emoji";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../../types/Project";
+import { projectFolderStructure } from "../../../../../../types/Folder";
 
 const CreateFolder = ({ onCreate, title, setError, projectId, parentFolder, setGLoader }) => {
   const { __ } = useLocales();

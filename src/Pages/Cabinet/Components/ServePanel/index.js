@@ -40,8 +40,8 @@ import { useLocation } from "react-router";
 import { useWindowSize } from "../../../../generalComponents/Hooks";
 import { share_types } from "../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
-import { filePickProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePickProps, fileProps, fileAddCustomizationProps } from "../../../../types/File";
+import { deviceProps, contactProps } from "../../../../types/Device";
 
 const ServePanel = ({
   chosenFile,
@@ -613,7 +613,7 @@ const ServePanel = ({
 export default ServePanel;
 
 ServePanel.propTypes = {
-  chosenFile: PropTypes.object,
+  chosenFile: PropTypes.oneOfType([deviceProps, contactProps, fileProps]),
   chooseSeveral: PropTypes.func,
   filePick: filePickProps,
   setFileAddCustomization: PropTypes.func,
@@ -624,5 +624,9 @@ ServePanel.propTypes = {
   setGLoader: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
   setFilesPage: PropTypes.func,
-  dateFilter: PropTypes.object
+  dateFilter: PropTypes.exact({
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  })
 };
