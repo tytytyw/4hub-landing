@@ -24,6 +24,7 @@ import { exit } from "../../generalComponents/generalHelpers";
 import Modals from "./Components/Modals/Modals";
 import PropTypes from "prop-types";
 import Library from "./Components/Library/Library";
+import classNames from "classnames";
 
 const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   const uid = useSelector((state) => state.user.uid);
@@ -109,7 +110,7 @@ const PrivateCabinet = ({ loadingType, setLoadingType }) => {
   };
 
   return (
-    <div className={styles.mainWrap} onDragOver={handleDragOver}>
+    <div className={classNames(styles.mainWrap)} onDragOver={handleDragOver}>
       <SideMenu data={id_company ? businessMenu : menu} collapsed={collapsed} setCollapsed={setCollapsed} />
       <div className={styles.workArea}>
         <Switch>

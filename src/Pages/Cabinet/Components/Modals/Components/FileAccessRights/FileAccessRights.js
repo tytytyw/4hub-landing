@@ -18,6 +18,8 @@ import api from "../../../../../../api";
 import { checkResponseStatus } from "../../../../../../generalComponents/generalHelpers";
 import classNames from "classnames";
 import Calendar from "../../../../../StartPage/Components/Calendar";
+import { parseCalendarDateToDate } from "../../../../../../generalComponents/CalendarHelper";
+import { formatDateStandard } from "../../../../../../generalComponents/CalendarHelper";
 
 function FileAccessRights() {
   const { __ } = useLocales();
@@ -33,7 +35,12 @@ function FileAccessRights() {
     usersToChangeAccessRights: []
   });
   const [showCalendar, setShowCalendar] = useState(false);
-  const [el, setDateValue] = useState("");
+  const [chosenUser, setChosenUser] = useState(null);
+
+  const changeCalendarDate = (date) => {
+    changeUserAccessRightsInUsers({ ...chosenUser, deadline: formatDateStandard(parseCalendarDateToDate(date)) });
+    setChosenUser(null);
+  };
 
   const closeModal = () =>
     dispatch(
@@ -209,6 +216,7 @@ function FileAccessRights() {
             deleteUser={deleteUserFromUsers}
             changeUserAccessRightsInUsers={changeUserAccessRightsInUsers}
             setShowCalendar={setShowCalendar}
+            setChosenUser={setChosenUser}
           />
           <div className={styles.buttons}>
             <div className={`${styles.cancel}`} onClick={closeModal}>
@@ -229,7 +237,7 @@ function FileAccessRights() {
       </PopUp>
       {showCalendar && (
         <PopUp set={setShowCalendar} zIndex={102}>
-          <Calendar setShowCalendar={setShowCalendar} setDateValue={setDateValue} />
+          <Calendar setShowCalendar={setShowCalendar} setDateValue={changeCalendarDate} />
         </PopUp>
       )}
     </>

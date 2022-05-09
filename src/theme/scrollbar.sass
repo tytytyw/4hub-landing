@@ -1,0 +1,31 @@
+@import "colors"
+
+@mixin scrollbar-vertical($width, $color1, $color2)
+  scrollbar-width: auto
+  scrollbar-color: $color1 $color-white
+  &::-webkit-scrollbar-track
+    background: $color2
+  &::-webkit-scrollbar-track
+    -webkit-box-shadow: none
+    background-color: $color-white
+  &::-webkit-scrollbar
+    height: 0
+    width: #{$width}px
+    background-color: $color-white
+  &::-webkit-scrollbar-thumb
+    background-color: $color1
+
+//Blue theme
+.scrollbar-vertical-blue
+  @include scrollbar-vertical(12, $color-scrollbar, $color-scrollbar-dark)
+
+.scrollbar-vertical-thin-blue
+  @include scrollbar-vertical(3, $color-scrollbar, $color-scrollbar-dark)
+
+//Orange theme
+//TODO - Colors needs to be changed
+.scrollbar-vertical-orange
+  @include scrollbar-vertical(12, $color-scrollbar-orange, $color-scrollbar-dark-orange)
+
+.scrollbar-vertical-thin-orange
+  @include scrollbar-vertical(3, $color-scrollbar-orange, $color-scrollbar-dark-orange)

@@ -38,6 +38,7 @@ import PropTypes from "prop-types";
 import { filePreviewProps } from "../../../../types/File";
 import { fileAddCustomizationProps } from "../../../../types/File";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import classnames from "classnames";
 
 const MyFolders = ({
   setItem,
@@ -65,6 +66,7 @@ const MyFolders = ({
   const contextMenuFolder = useContextMenuFolder();
   const contextMenuFolderGeneral = useContextMenuFolderGeneral();
   const uid = useSelector((state) => state.user.uid);
+  const { theme } = useSelector((state) => state.user.userInfo);
   const global = useSelector((state) => state.Cabinet.global);
   const other = useSelector((state) => state.Cabinet.other);
   const recentFolders = useSelector((state) => state.Cabinet.recentFolders);
@@ -295,7 +297,7 @@ const MyFolders = ({
           />
         </div>
         <div
-          className={styles.folderListWrap}
+          className={classnames(styles.folderListWrap, `scrollbar-vertical-thin-${theme}`)}
           ref={folderListWrapRef}
           onScroll={() => {
             if (folderListWrapRef.current && fakeScrollRef.current)

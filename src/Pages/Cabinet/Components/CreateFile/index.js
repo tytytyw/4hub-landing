@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styles from "./CreateFile.module.sass";
+import "theme/theme.sass";
 import api from "../../../../api";
 import PopUp from "../../../../generalComponents/PopUp";
 import InputField from "../../../../generalComponents/InputField";
@@ -20,6 +21,7 @@ import PropTypes from "prop-types";
 import { blobProps, createFilesProps } from "../../../../types/CreateFile";
 import { folderProps } from "../../../../types/Folder";
 import { loadingFileProps } from "../../../../types/LoadingFiles";
+import classnames from "classnames";
 
 const CreateFile = ({
   title,
@@ -68,6 +70,7 @@ const CreateFile = ({
   const dispatch = useDispatch();
   const [isSafe, setIsSafe] = useState(false);
   const [path, setPath] = useState(fileList?.path);
+  const theme = useSelector((s) => s.user.userInfo.theme);
 
   const onSwitch = (boolean) => setShowRepeat(boolean);
 
@@ -351,11 +354,11 @@ const CreateFile = ({
             >
               {__("Отмена")}
             </div>
-            <div className={`${styles.add} ${create ? styles.onCreate : ""}`} onClick={onAddFile}>
+            <div className={classnames(`button-${theme}`, { [styles.onCreate]: create })} onClick={onAddFile}>
               {create ? __("Создать") : __("Добавить")}
             </div>
             {create ? (
-              <div className={`${styles.addOpen}`} onClick={() => onAddFile(true)}>
+              <div className={classnames(`button-${theme}`)} onClick={() => onAddFile(true)}>
                 {__("Создать и открыть в редакторе")}
               </div>
             ) : null}

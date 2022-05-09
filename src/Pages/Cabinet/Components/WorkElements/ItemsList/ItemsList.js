@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-
+import "theme/theme.sass";
 import styles from "./ItemsList.module.sass";
 import WorkBars from "../WorkBars";
 import FileBar from "../FileBar";
@@ -64,6 +64,7 @@ const ItemsList = ({
   const dispatch = useDispatch();
   const [groupInfo, setGroupInfo] = useState({ amount: 0, title: "" });
   const { pathname } = useLocation();
+  const { theme } = useSelector((s) => s.user.userInfo);
   const folderSelect = (folder) => {
     const path = fileList.path + `/${folder.name}`; //TODO - need to be folder.path
     setGLoader(true);
@@ -249,6 +250,7 @@ const ItemsList = ({
           className={classnames(
             renderHeight(recentFiles, filePick, styles, pathname === "/archive" || pathname === "/cart"),
             styles.FilesList,
+            `scrollbar-vertical-${theme}`,
             {
               [styles.shared_files]: pathname.startsWith("/shared-files")
             }
