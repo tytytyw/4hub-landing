@@ -105,7 +105,16 @@ FileLine.propTypes = {
   setAction: PropTypes.func,
   filePick: filePickProps,
   setFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.array,
+  callbackArrMain: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.exact({
+        type: PropTypes.string,
+        name: PropTypes.string,
+        text: PropTypes.string,
+        callback: PropTypes.func
+      })
+    )
+  ),
   folderSelect: PropTypes.func,
   openFolderMenu: PropTypes.func,
   successLoad: PropTypes.func,

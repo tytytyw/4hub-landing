@@ -22,7 +22,7 @@ export default ContextMenuItem;
 ContextMenuItem.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  color: PropTypes.string,
+  color: PropTypes.any,
   text: PropTypes.string,
   imageSrc: PropTypes.string,
   callback: PropTypes.oneOfType([PropTypes.func, PropTypes.string])

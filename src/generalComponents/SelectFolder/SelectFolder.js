@@ -119,7 +119,7 @@ export default SelectFolder;
 SelectFolder.propTypes = {
   classNameSelect: PropTypes.string,
   initValue: PropTypes.string,
-  initFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps]),
+  initFolder: PropTypes.oneOfType([chosenFolderProps, createFilesProps, PropTypes.string]),
   setNewFolderInfo: PropTypes.func,
   className: PropTypes.string
 };

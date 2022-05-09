@@ -124,7 +124,16 @@ FilesGroup.propTypes = {
   fileList: PropTypes.object,
   filePreview: filePreviewProps,
   setFilePreview: PropTypes.func,
-  callbackArrMain: PropTypes.array,
+  callbackArrMain: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.exact({
+        type: PropTypes.string,
+        name: PropTypes.string,
+        text: PropTypes.string,
+        callback: PropTypes.func
+      })
+    )
+  ),
   chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   filePick: filePickProps,

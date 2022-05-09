@@ -348,7 +348,16 @@ ItemsList.propTypes = {
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
   setFilePick: PropTypes.func,
-  callbackArrMain: PropTypes.array,
+  callbackArrMain: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.exact({
+        type: PropTypes.string,
+        name: PropTypes.string,
+        text: PropTypes.string,
+        callback: PropTypes.func
+      })
+    )
+  ),
   chosenFile: PropTypes.oneOfType([fileProps, fileSharedProps]),
   fileSelect: PropTypes.func,
   filesPage: PropTypes.number,

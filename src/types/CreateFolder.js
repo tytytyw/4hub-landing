@@ -14,7 +14,7 @@ const folderInfoProps = PropTypes.exact({
   fname: PropTypes.string,
   folders: PropTypes.array,
   gdir: PropTypes.string,
-  is_del: PropTypes.string,
+  is_del: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   is_dir: PropTypes.number,
   is_pass: PropTypes.number,
   is_lock: PropTypes.number,
@@ -35,7 +35,7 @@ const folderInfoProps = PropTypes.exact({
 });
 
 export const chosenFolderProps = PropTypes.exact({
-  contextMenuFolder: PropTypes.string,
+  contextMenuFolder: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   files_amount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   folderWidth: PropTypes.number,
   group: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
