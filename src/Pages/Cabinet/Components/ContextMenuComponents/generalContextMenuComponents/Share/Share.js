@@ -15,7 +15,7 @@ import { arrayForPhpRequest } from "../../../../../../generalComponents/generalH
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
   const { __ } = useLocales();
@@ -236,7 +236,7 @@ function Share({ files, action_type, setShowSuccessMessage, setLoadingType }) {
 export default Share;
 
 Share.propTypes = {
-  files: fileProps,
+  files: PropTypes.arrayOf(fileProps),
   action_type: PropTypes.string,
   setShowSuccessMessage: PropTypes.func,
   setLoadingType: PropTypes.func

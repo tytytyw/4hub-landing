@@ -105,19 +105,19 @@ export default Input;
 Input.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
-  className: PropTypes.any,
+  className: PropTypes.string,
   showEye: PropTypes.bool,
   isMistake: PropTypes.bool,
   showPass: PropTypes.bool,
   phone: PropTypes.bool,
-  isName: PropTypes.any,
+  isName: PropTypes.bool,
   setShowPass: PropTypes.func,
   onChange: PropTypes.func,
   onKeyPress: PropTypes.func,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.string,
   name: PropTypes.string,
-  required: PropTypes.any,
+  required: PropTypes.string,
   maxLength: PropTypes.number,
   placeholder: PropTypes.string
 };

@@ -14,6 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import { CONTEXT_MENU_FILE, MODALS } from "../../../../../../generalComponents/globalVariables";
 import { share_types } from "../../../ContextMenuComponents/ContextMenuFileList";
+import PropTypes from "prop-types";
+import { fileProps } from "../../../../../../types/File";
+// import { fileProps, fileSharedProps } from "../../../../../../types/File";
 
 const Buttons = ({
   file,
@@ -27,7 +30,6 @@ const Buttons = ({
   const dispatch = useDispatch();
   const contextMenuModals = useSelector((s) => s.Cabinet.modals.contextMenuModals);
   const authorizedSafe = useSelector((state) => state.Cabinet.safe.authorizedSafe);
-
   const downloadFile = () => {
     // TODO - api for downloading folder
     if (file?.is_dir === 0) {
@@ -216,3 +218,10 @@ const Buttons = ({
 };
 
 export default Buttons;
+
+Buttons.propTypes = {
+  file: fileProps,
+  setAction: PropTypes.func,
+  openFolderMenu: PropTypes.func,
+  setMouseParams: PropTypes.func
+};

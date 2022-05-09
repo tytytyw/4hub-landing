@@ -5,6 +5,7 @@ import TableListTaskItem from "../TableListTaskItem";
 import { useSelector } from "react-redux";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { eventShowProps } from "../../../../../types/CalendarPage";
 
 const WorkSpaceList = ({ events }) => {
   const { __ } = useLocales();
@@ -102,5 +103,5 @@ const WorkSpaceList = ({ events }) => {
 export default WorkSpaceList;
 
 WorkSpaceList.propTypes = {
-  events: PropTypes.array
+  events: PropTypes.arrayOf(eventShowProps)
 };

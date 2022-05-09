@@ -9,7 +9,8 @@ import { onChooseFiles } from "../../../../../../Store/actions/CabinetActions";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
+import { createFilesProps } from "../../../../../../types/CreateFile";
 
 const WorkLinesPreview = ({ file, children, hideFileList, page, setPage, fileRef, chosenFolder, gLoader }) => {
   const { __ } = useLocales();
@@ -244,14 +245,11 @@ export default WorkLinesPreview;
 
 WorkLinesPreview.propTypes = {
   file: fileProps,
-  children: PropTypes.node,
+  children: PropTypes.element,
   fileRef: PropTypes.shape({
     current: PropTypes.string
   }),
-  chosenFolder: PropTypes.shape({
-    path: PropTypes.string,
-    files_amount: PropTypes.number
-  }),
+  chosenFolder: createFilesProps,
   gLoader: PropTypes.bool,
   setPage: PropTypes.func,
   hideFileList: PropTypes.bool,

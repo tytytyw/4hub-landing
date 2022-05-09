@@ -5,7 +5,7 @@ import styles from "./FileBar.module.sass";
 import File from "../../../../../../generalComponents/Files";
 import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../../types/File";
 
 const FileBar = ({
   file,
@@ -105,9 +105,7 @@ FileBar.propTypes = {
   file: fileProps,
   isLoading: PropTypes.bool,
   setMouseParams: PropTypes.func,
-  chosenFile: PropTypes.shape({
-    fid: PropTypes.string
-  }),
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
   setFilePreview: PropTypes.func,
   setFilePick: PropTypes.func,

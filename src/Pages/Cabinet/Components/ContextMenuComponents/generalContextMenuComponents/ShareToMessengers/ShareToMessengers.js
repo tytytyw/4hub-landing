@@ -7,7 +7,7 @@ import classNames from "classnames";
 import FileInfo from "../../../../../../generalComponents/FileInfo/FileInfo";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 const ShareToMessengers = ({ setDisplayMessengers, close, fid, file }) => {
   const { __ } = useLocales();

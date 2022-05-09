@@ -59,7 +59,7 @@ Button.defautProps = {
 };
 
 Button.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.element,
   clickCallback: PropTypes.func,
   mouseDownCallback: PropTypes.func,
   isRecording: PropTypes.bool,

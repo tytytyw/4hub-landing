@@ -63,5 +63,5 @@ export default Select;
 Select.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.element
 };

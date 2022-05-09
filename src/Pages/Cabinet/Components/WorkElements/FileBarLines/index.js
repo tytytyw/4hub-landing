@@ -11,6 +11,8 @@ import { ReactComponent as ShareIcon } from "../../../../../assets/PrivateCabine
 import { ReactComponent as DeleteIcon } from "../../../../../assets/PrivateCabinet/delete.svg";
 import { onSetModals } from "../../../../../Store/actions/CabinetActions";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import { fileProps, filePickProps } from "../../../../../types/File";
 
 const FileBar = ({ file, chosen, setChosenFile }) => {
   const dispatch = useDispatch();
@@ -80,3 +82,15 @@ const FileBar = ({ file, chosen, setChosenFile }) => {
 };
 
 export default FileBar;
+
+FileBar.propTypes = {
+  file: fileProps,
+  isLoading: PropTypes.bool,
+  chosen: PropTypes.bool,
+  setChosenFile: PropTypes.func,
+  setMouseParams: PropTypes.func,
+  filePick: filePickProps,
+  setFilePick: PropTypes.func,
+  folderSelect: PropTypes.func,
+  openFolderMenu: PropTypes.func
+};

@@ -9,7 +9,7 @@ import { ReactComponent as AddIcon } from "../../../../../assets/PrivateCabinet/
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import PropTypes from "prop-types";
 import { fileProps } from "../../../../../types/CustomFolderItem";
-import { chosenFolderProps } from "../../../../../types/CreateFolder";
+import { folderProps } from "../../../../../types/Folder";
 
 const CustomFolderItem = ({
   f,
@@ -156,13 +156,15 @@ export default CustomFolderItem;
 CustomFolderItem.propTypes = {
   f: fileProps,
   setChosenFolder: PropTypes.func,
-  chosenFolder: chosenFolderProps,
+  chosenFolder: folderProps,
   listCollapsed: PropTypes.bool,
   padding: PropTypes.string,
   chosen: PropTypes.bool,
   subFolder: PropTypes.bool,
   setNewFolderInfo: PropTypes.func,
   setNewFolder: PropTypes.func,
-  newFolderInfo: PropTypes.object,
+  newFolderInfo: PropTypes.exact({
+    path: PropTypes.string
+  }),
   setMouseParams: PropTypes.func
 };

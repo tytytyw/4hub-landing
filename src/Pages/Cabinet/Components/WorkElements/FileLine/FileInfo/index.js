@@ -6,6 +6,8 @@ import { imageSrc } from "../../../../../../generalComponents/globalVariables";
 import { ReactComponent as FolderIcon } from "../../../../../../assets/PrivateCabinet/folder-2.svg";
 import { colors } from "../../../../../../generalComponents/collections";
 import { useLocation } from "react-router";
+import { fileProps, fileSharedProps } from "../../../../../../types/File";
+import PropTypes from "prop-types";
 
 const FileInfo = ({ file }) => {
   const { pathname } = useLocation();
@@ -57,3 +59,7 @@ const FileInfo = ({ file }) => {
 };
 
 export default FileInfo;
+
+FileInfo.propTypes = {
+  file: PropTypes.oneOfType([fileProps, fileSharedProps])
+};

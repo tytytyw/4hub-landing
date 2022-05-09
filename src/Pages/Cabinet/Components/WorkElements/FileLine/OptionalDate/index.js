@@ -4,6 +4,7 @@ import styles from "./OptionalDate.module.sass";
 import { useLocation } from "react-router";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
+import { fileProps } from "../../../../../../types/File";
 
 const OptionalDate = ({ file }) => {
   const { __ } = useLocales();
@@ -36,3 +37,7 @@ const OptionalDate = ({ file }) => {
 };
 
 export default OptionalDate;
+
+OptionalDate.propTypes = {
+  file: fileProps
+};

@@ -6,7 +6,7 @@ import successImg from "../../../../../assets/BusinessCabinet/WelcomePage/succes
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 
-const SuccessPopup = ({ title, text, buttonText, set, style = {} }) => {
+const SuccessPopup = ({ title, text, buttonText, set, style }) => {
   const { __ } = useLocales();
   if (!buttonText) {
     buttonText = __("Готово");
@@ -41,7 +41,8 @@ export default SuccessPopup;
 
 SuccessPopup.defaultProps = {
   title: "",
-  text: ""
+  text: "",
+  style: {}
 };
 
 SuccessPopup.propTypes = {

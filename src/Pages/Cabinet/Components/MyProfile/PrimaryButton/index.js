@@ -23,7 +23,7 @@ PrimaryButton.propTypes = {
   onClick: PropTypes.func,
   active: PropTypes.bool,
   text: PropTypes.string,
-  icon: PropTypes.object
+  icon: PropTypes.element
 };
 
 PrimaryButton.defaultProps = {

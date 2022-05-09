@@ -4,10 +4,9 @@ import styles from "./Select.module.sass";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter = () => {}, theme, ...props }) => {
+const Select = ({ data, initValue, onChange, cleareFilter, theme, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(initValue);
-
   const ref = useRef();
 
   useEffect(() => {
@@ -109,8 +108,22 @@ const Select = ({ data = [], initValue = "", onChange = () => {}, cleareFilter =
 
 export default Select;
 
+Select.defaultProps = {
+  data: [],
+  initValue: "",
+  onChange: () => {},
+  cleareFilter: () => {}
+};
+
 Select.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.exact({
+      active: PropTypes.bool,
+      id: PropTypes.string,
+      text: PropTypes.string
+    }),
+    PropTypes.array
+  ]),
   initValue: PropTypes.string,
   onChange: PropTypes.func,
   cleareFilter: PropTypes.func,

@@ -5,6 +5,8 @@ import ContactSearch from "./ContactSearch/ContactSearch";
 import SearchList from "./SearchList/SearchList";
 import { getContactName } from "../consts";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../../types/Contacts";
+import { userInfoProps } from "../../../../../../types/UserInfo";
 
 const ContactList = ({ data, selectedItem, setSelectedItem }) => {
   const [search, setSearch] = useState("");
@@ -76,8 +78,8 @@ const getGrouppedArray = (initialArray) => {
 export default ContactList;
 
 ContactList.propTypes = {
-  data: PropTypes.array,
-  selectedItem: PropTypes.object,
+  data: PropTypes.arrayOf(userInfoProps),
+  selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func
 };
 ContactList.defaultProps = {

@@ -10,7 +10,7 @@ import File from "../../../../../../generalComponents/Files";
 import api from "../../../../../../api";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 const WorkBarsPreview = ({
   children,
@@ -182,8 +182,9 @@ const WorkBarsPreview = ({
 };
 
 export default WorkBarsPreview;
+
 WorkBarsPreview.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.arrayOf(PropTypes.element),
   file: fileProps,
   setLoadingType: PropTypes.func,
   fileRef: PropTypes.object,

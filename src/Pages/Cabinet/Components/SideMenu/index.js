@@ -9,7 +9,7 @@ import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
+const SideMenu = ({ data, collapsed, setCollapsed }) => {
   const { __ } = useLocales();
   const { pathname } = useLocation();
   const history = useHistory();
@@ -72,7 +72,13 @@ const SideMenu = ({ data = [], collapsed, setCollapsed }) => {
 export default SideMenu;
 
 SideMenu.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.exact({
+      name: PropTypes.string,
+      path: PropTypes.string,
+      src: PropTypes.string
+    })
+  ),
   collapsed: PropTypes.bool,
   setCollapsed: PropTypes.func
 };

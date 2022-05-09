@@ -9,7 +9,7 @@ import { ReactComponent as Password } from "../../../../../../assets/PrivateCabi
 import Success from "../../../../../../generalComponents/Success";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { fileProps } from "../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../types/File";
 
 function SetPassword({ file, setDisplaySetPassword, password, setPassword }) {
   const { __ } = useLocales();

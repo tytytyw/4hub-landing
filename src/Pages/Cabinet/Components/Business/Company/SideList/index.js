@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { mouseParamsProps } from "../../../../../../types/MouseParams";
 
 const SideList = ({
-  data = [],
+  data,
   pageOption,
   setPageOption,
   mouseParams,
@@ -49,7 +49,9 @@ SideList.propTypes = {
   setAction: PropTypes.func,
   companyName: PropTypes.string,
   setCompanyName: PropTypes.func,
-  companyLogo: PropTypes.any
+  companyLogo: PropTypes.exact({
+    src: PropTypes.string
+  })
 };
 
 SideList.defaultProps = {

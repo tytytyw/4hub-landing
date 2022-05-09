@@ -5,7 +5,7 @@ import InputField from "../../../../../../../generalComponents/InputField";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectProps } from "../../../../../../../types/ContextMenuFile";
+import { projectProps } from "../../../../../../../types/Project";
 
 const PrevVersions = ({ project, getIcon }) => {
   const { __ } = useLocales();

@@ -24,6 +24,7 @@ import SendFriend from "../../TellFriends/SendFriend";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
 import { selectedItemProps } from "../../../../../../types/Contacts";
+import { userInfoProps } from "../../../../../../types/UserInfo";
 
 const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
   const { __ } = useLocales();
@@ -287,7 +288,7 @@ const ContactsData = ({ data, selectedItem, setSelectedItem }) => {
 export default ContactsData;
 
 ContactsData.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(userInfoProps),
   selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func
 };

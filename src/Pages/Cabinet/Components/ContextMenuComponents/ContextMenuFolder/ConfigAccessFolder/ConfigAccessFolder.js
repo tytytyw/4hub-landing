@@ -11,7 +11,7 @@ import { ReactComponent as Pensil } from "../../../../../../assets/PrivateCabine
 import { ReactComponent as Eye } from "../../../../../../assets/PrivateCabinet/eye.svg";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectFolderStructure } from "../../../../../../types/Project";
+import { projectFolderStructure } from "../../../../../../types/Folder";
 
 //TODO - CHECK - needs to be deprecated
 function ConfigAccessFolder({ folder, close, setShowSuccessMessage }) {

@@ -4,6 +4,8 @@ import styles from "./SearchList.module.sass";
 import classnames from "classnames";
 import { emptyProfileImage, getContactName } from "../../consts";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../../../types/Contacts";
+import { userInfoProps } from "../../../../../../../types/UserInfo";
 
 const SearchList = ({ data, selectedItem, setSelectedItem }) => {
   return (
@@ -30,7 +32,7 @@ const SearchList = ({ data, selectedItem, setSelectedItem }) => {
 export default SearchList;
 
 SearchList.propTypes = {
-  data: PropTypes.array,
-  selectedItem: PropTypes.object,
+  data: PropTypes.arrayOf(userInfoProps),
+  selectedItem: selectedItemProps,
   setSelectedItem: PropTypes.func
 };

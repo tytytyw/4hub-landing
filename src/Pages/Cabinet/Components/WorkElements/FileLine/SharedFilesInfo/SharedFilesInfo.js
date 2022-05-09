@@ -9,17 +9,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { onSetModals } from "../../../../../../Store/actions/CabinetActions";
 import api from "../../../../../../api";
 import { useAccessRightsConst } from "../../../../../../generalComponents/collections";
+import PropTypes from "prop-types";
+import { fileSharedProps } from "../../../../../../types/File";
 
+//eslint-disable-next-line
 const CONTEXT = {
   EMPTY: "",
   CHANGE_FILE_ACCESS_RIGHTS: "CHANGE_FILE_ACCESS_RIGHTS"
 };
-
+//eslint-disable-next-line
 function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
   const { __ } = useLocales();
   const ACCESS_RIGHTS = useAccessRightsConst();
 
   const uid = useSelector((s) => s.user.uid);
+  //eslint-disable-next-line
   const [accessRights, setAccessRights] = useState({
     text: ACCESS_RIGHTS.WATCH
   });
@@ -39,7 +43,6 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
     for (const [key, value] of Object.entries(SHARED_ACCESS_RIGHTS)) {
       if (value === access) {
         return ACCESS_RIGHTS[key];
-        break;
       }
     }
   };
@@ -60,7 +63,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
           showError(__(`Не удалось загрузить список пользователей, которым расшарен файл ${file.fname}`));
         });
     }
-  }, []);
+  }, []); //eslint-disable-line
 
   const compareDates = (endDate) => {
     const today = new Date();
@@ -72,7 +75,7 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 
   const renderUser = (file) => {
     return file?.user_icon?.[0] ? (
-      <img src={file?.user_icon?.[0]} className={styles.userIcon} />
+      <img src={file?.user_icon?.[0]} className={styles.userIcon} alt="" />
     ) : (
       <UserIcon title={file.user_name} />
     );
@@ -125,3 +128,8 @@ function SharedFilesInfo({ file, isChosen, sharedFilesInfo }) {
 }
 
 export default SharedFilesInfo;
+SharedFilesInfo.propTypes = {
+  file: fileSharedProps,
+  isChosen: PropTypes.bool,
+  sharedFilesInfo: PropTypes.string
+};

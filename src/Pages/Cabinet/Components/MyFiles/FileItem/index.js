@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { imageSrc } from "../../../../../generalComponents/globalVariables";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/WorkElements";
+import { filePickProps, filePreviewProps, fileProps } from "../../../../../types/File";
 
 const FileItem = ({
   file,

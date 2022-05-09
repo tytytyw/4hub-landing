@@ -144,5 +144,5 @@ DrawZone.propTypes = {
   images: PropTypes.object,
   setParams: PropTypes.func,
   inputRef: PropTypes.object,
-  mainWidth: PropTypes.any
+  mainWidth: PropTypes.string
 };

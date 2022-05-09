@@ -13,6 +13,7 @@ import api from "../../../../../api";
 import classNames from "classnames";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
+import { selectedItemProps } from "../../../../../types/Contacts";
 
 const SendFriend = ({ set, selectedItem }) => {
   const { __ } = useLocales();
@@ -160,8 +161,5 @@ export default SendFriend;
 
 SendFriend.propTypes = {
   set: PropTypes.func,
-  selectedItem: PropTypes.shape({
-    id: PropTypes.string,
-    icon: PropTypes.array
-  })
+  selectedItem: selectedItemProps
 };

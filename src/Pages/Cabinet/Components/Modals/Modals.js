@@ -14,7 +14,8 @@ import TopMessage from "./Components/TopMessage/TopMessage";
 import ContextModal from "../ContextMenuComponents/ContextModal";
 import FileAccessRights from "./Components/FileAccessRights/FileAccessRights";
 import PropTypes from "prop-types";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 function Modals({
   awaitingFiles,
@@ -95,9 +96,9 @@ function Modals({
 export default Modals;
 
 Modals.propTypes = {
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setLoadingFile: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,

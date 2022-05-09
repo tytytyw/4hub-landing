@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { share_types } from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocation } from "react-router";
 import { useLocales } from "react-localized";
+import PropTypes from "prop-types";
+import { filePickProps, fileProps } from "../../../../../types/File";
 
 const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, menuItem }) => {
   const { __ } = useLocales();
@@ -146,3 +148,11 @@ const OptionButtomLine = ({ filePick, nullifyFilePick, chosenFile, filesPage, me
 };
 
 export default OptionButtomLine;
+
+OptionButtomLine.propTypes = {
+  filePick: filePickProps,
+  nullifyFilePick: PropTypes.func,
+  chosenFile: fileProps,
+  filesPage: PropTypes.number,
+  menuItem: PropTypes.string
+};

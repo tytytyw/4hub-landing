@@ -59,6 +59,10 @@ const DateFilter = ({ dateFilter, setDateFilter }) => {
 export default DateFilter;
 
 DateFilter.propTypes = {
-  dateFilter: PropTypes.object,
+  dateFilter: PropTypes.exact({
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    d: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    m: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  }),
   setDateFilter: PropTypes.func
 };

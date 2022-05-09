@@ -19,9 +19,9 @@ import ItemsList from "../../WorkElements/ItemsList/ItemsList";
 import ContextMenuFileList from "../../ContextMenuComponents/ContextMenuFileList";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../../types/FileAddCustomization";
+import { filePreviewProps, fileProps, fileAddCustomizationProps } from "../../../../../types/File";
 import { actionProps } from "../../../../../types/Action";
+import { folderProps } from "../../../../../types/Folder";
 
 const WorkSpace = ({
   chosenFile,
@@ -189,9 +189,9 @@ const WorkSpace = ({
 export default WorkSpace;
 
 WorkSpace.propTypes = {
-  chosenFile: PropTypes.object,
+  chosenFile: fileProps,
   setChosenFile: PropTypes.func,
-  chosenFolder: PropTypes.object,
+  chosenFolder: folderProps,
   listCollapsed: PropTypes.bool,
   setFilePreview: PropTypes.func,
   filePreview: filePreviewProps,
@@ -207,7 +207,7 @@ WorkSpace.propTypes = {
   setGLoader: PropTypes.func,
   setNewFolder: PropTypes.func,
   setNewFolderInfo: PropTypes.func,
-  newFolderInfo: PropTypes.shape({
+  newFolderInfo: PropTypes.exact({
     path: PropTypes.string
   }),
   filesPage: PropTypes.number,

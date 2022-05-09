@@ -18,8 +18,9 @@ import ContextMenuFileList from "../ContextMenuComponents/ContextMenuFileList";
 import CreateFile from "../CreateFile";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 
 const MyFiles = ({
   filePreview,
@@ -304,11 +305,11 @@ MyFiles.propTypes = {
   setLoadingType: PropTypes.func,
   filesPage: PropTypes.number,
   setFilesPage: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   setAwaitingFiles: PropTypes.func,
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func
 };

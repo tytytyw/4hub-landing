@@ -4,6 +4,7 @@ import styles from "./Contacts.module.sass";
 import ContactList from "./ContactList/ContactList";
 import ContactsData from "./ContactsData/ContactsData";
 import PropTypes from "prop-types";
+import { userInfoProps } from "../../../../../types/UserInfo";
 
 const ContactsAll = ({ data }) => {
   const [selectedContact, setSelectedContact] = useState(data?.[0]);
@@ -29,7 +30,7 @@ const ContactsAll = ({ data }) => {
 export default ContactsAll;
 
 ContactsAll.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.arrayOf(userInfoProps)
 };
 
 ContactsAll.defaultProps = {

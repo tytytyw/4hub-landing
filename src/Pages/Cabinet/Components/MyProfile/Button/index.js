@@ -4,7 +4,7 @@ import styles from "./Button.module.sass";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const Button = ({ children, type = "button", disabled = false, className, onClick = () => {} }) => {
+const Button = ({ children, type, disabled, className, onClick }) => {
   return (
     <button
       type={type}
@@ -23,12 +23,16 @@ const Button = ({ children, type = "button", disabled = false, className, onClic
 export default Button;
 
 Button.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.element])),
+    PropTypes.string
+  ]),
   type: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func
 };
+
 Button.defaultProps = {
   type: "button",
   disabled: false,

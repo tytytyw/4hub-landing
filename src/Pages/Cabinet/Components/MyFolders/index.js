@@ -35,8 +35,9 @@ import { imageSrc } from "../../../../generalComponents/globalVariables";
 import { checkBrowser } from "../../../../generalComponents/generalHelpers";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { filePreviewProps } from "../../../../types/WorkElements";
-import { fileAddCustomizationProps } from "../../../../types/FileAddCustomization";
+import { filePreviewProps } from "../../../../types/File";
+import { fileAddCustomizationProps } from "../../../../types/File";
+import { loadingFileProps } from "../../../../types/LoadingFiles";
 import classnames from "classnames";
 
 const MyFolders = ({
@@ -443,10 +444,10 @@ MyFolders.propTypes = {
   fileAddCustomization: fileAddCustomizationProps,
   setFileAddCustomization: PropTypes.func,
   setAwaitingFiles: PropTypes.func,
-  awaitingFiles: PropTypes.array,
+  awaitingFiles: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   loaded: PropTypes.array,
   setLoaded: PropTypes.func,
-  loadingFile: PropTypes.array,
+  loadingFile: PropTypes.oneOfType([PropTypes.arrayOf(loadingFileProps), PropTypes.array]),
   fileErrors: PropTypes.array,
   setLoadingFile: PropTypes.func,
   nullifyAddingSeveralFiles: PropTypes.func,

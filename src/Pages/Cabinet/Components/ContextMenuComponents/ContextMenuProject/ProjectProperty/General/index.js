@@ -4,7 +4,7 @@ import styles from "./General.module.sass";
 import InputField from "../../../../../../../generalComponents/InputField";
 import { useLocales } from "react-localized";
 import PropTypes from "prop-types";
-import { projectProps } from "../../../../../../../types/ContextMenuFile";
+import { projectProps } from "../../../../../../../types/Project";
 
 const General = ({ project, getIcon }) => {
   const { __ } = useLocales();

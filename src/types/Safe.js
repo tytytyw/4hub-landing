@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 export const safeProps = PropTypes.exact({
-  code_tmp: PropTypes.any,
+  code_tmp: PropTypes.string,
   id: PropTypes.string,
   id_color: PropTypes.string,
   id_emo: PropTypes.string,

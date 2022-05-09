@@ -6,7 +6,7 @@ import InputField from "../../../../../../../generalComponents/InputField";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../../api";
 import { useLocales } from "react-localized";
-import { fileProps } from "../../../../../../../types/WorkElements";
+import { fileProps } from "../../../../../../../types/File";
 
 const Security = ({ file }) => {
   const { __ } = useLocales();

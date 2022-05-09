@@ -68,9 +68,13 @@ const ProjectIcons = ({ color, icon, setIcon, title, editableClass = "" }) => {
 export default ProjectIcons;
 
 ProjectIcons.propTypes = {
-  color: PropTypes.object,
+  color: PropTypes.string,
   icon: PropTypes.string,
   setIcon: PropTypes.func,
   title: PropTypes.string,
   editableClass: PropTypes.string
+};
+
+ProjectIcons.defaultProps = {
+  editableClass: ""
 };

@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 
 const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   const { __ } = useLocales();
-  console.log("sss");
   const emptyFolder = {
     name: "No folder",
     size: 0,
@@ -27,7 +26,11 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   const folderId = window.location.search.split("did=")[1];
 
   const countLeftDays = () => {
-    const d1 = new Date(Object.values(getDate(0)).reverse().join("-") + " 00:00:00");
+    const d1 = new Date(
+      Object.values(getDate(0))
+        .reverse()
+        .join("-") + " 00:00:00"
+    );
     const d2 = new Date(folder.deadline);
     const days = (d2 - d1) / 86400000;
     const last = days.toFixed().toString()[days.toString().length - 1];
@@ -37,7 +40,11 @@ const DownloadFolder = ({ setPage, setOptions, loader, setLoader }) => {
   };
 
   const showTime = () => {
-    const date = folder.deadline.split(" ")[0].split("-").reverse().join(".");
+    const date = folder.deadline
+      .split(" ")[0]
+      .split("-")
+      .reverse()
+      .join(".");
     const time = folder.deadline.split(" ")[1];
     return time === "00:00:00" ? `${date} 23:59` : `${date} ${time.slice(0, 5)}`;
   };

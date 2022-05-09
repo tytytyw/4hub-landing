@@ -6,7 +6,7 @@ import InputField from "../../../../../../../generalComponents/InputField";
 import { imageSrc } from "../../../../../../../generalComponents/globalVariables";
 import api from "../../../../../../../api";
 import { useLocales } from "react-localized";
-import { projectFolderStructure } from "../../../../../../../types/Project";
+import { folderProps } from "../../../../../../../types/Folder";
 
 const Security = ({ folder }) => {
   const { __ } = useLocales();
@@ -62,4 +62,6 @@ const Security = ({ folder }) => {
 
 export default Security;
 
-Security.propTypes = { folder: projectFolderStructure };
+Security.propTypes = {
+  folder: folderProps
+};

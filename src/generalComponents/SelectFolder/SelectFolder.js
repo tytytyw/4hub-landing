@@ -6,8 +6,10 @@ import classNames from "classnames";
 import CustomFolderItem from "../../Pages/Cabinet/Components/MyFolders/CustomFolderItem";
 import { useFolders } from "../collections";
 import PropTypes from "prop-types";
+import { folderProps } from "../../types/Folder";
+import { createFilesProps } from "../../types/CreateFile";
 
-const SelectFolder = ({ initValue, initFolder = "", setNewFolderInfo = null, ...props }) => {
+const SelectFolder = ({ initValue, initFolder, setNewFolderInfo, ...props }) => {
   const [open, setOpen] = useState(false);
   const [value] = useState(initValue);
   const global = useSelector((state) => state.Cabinet.global);
@@ -117,7 +119,12 @@ export default SelectFolder;
 SelectFolder.propTypes = {
   classNameSelect: PropTypes.string,
   initValue: PropTypes.string,
-  initFolder: PropTypes.string,
+  initFolder: PropTypes.oneOfType([folderProps, createFilesProps, PropTypes.string]),
   setNewFolderInfo: PropTypes.func,
   className: PropTypes.string
+};
+
+SelectFolder.defaultProps = {
+  initFolder: "",
+  setNewFolderInfo: null
 };
